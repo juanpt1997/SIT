@@ -1,0 +1,6 @@
+# Ocultamos las carpeta del proyecto para que los usuarios no puedan ver el contenido
+#Options All -Indexes
+
+# Habilitamos las urls amigables
+RewriteEngine On
+RewriteRule ^([-a-zA-Z0-9/]+)$ index.php?pagina=$1

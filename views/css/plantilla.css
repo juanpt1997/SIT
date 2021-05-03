@@ -1,0 +1,15 @@
+/* Drop down selection not available with readonly attribute */
+select[readonly]{
+  pointer-events: none;
+  /* color: #828282; */ /* If you also want the disabled input color. */
+}
+
+/* .sidebar-collapse .main-sidebar:hover .nav-sidebar.nav-child-indent .nav-treeview {
+    padding-left: 1rem;
+} */
+
+/* nav ul li:hover div { margin-left: 20px; } */
+
+  /* .sidebar-mini-md.sidebar-collapse .main-sidebar:hover .nav-sidebar.nav-child-indent .nav-treeview, .sidebar-mini-md.sidebar-collapse .main-sidebar.sidebar-focused .nav-sidebar.nav-child-indent .nav-treeview {
+    padding-left: 1rem;
+  } */
