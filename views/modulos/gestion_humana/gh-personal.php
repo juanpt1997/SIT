@@ -143,6 +143,13 @@ $Sucursales = ControladorGH::ctrSucursales();
                     <li class="nav-item">
                         <a class="nav-link font-weight-bold" id="contratos-tab" data-toggle="tab" href="#contratos" role="tab" aria-controls="contratos" aria-selected="false">Contratos y prórrogas</a>
                     </li>
+
+                    <!-- ===================================================
+                        TERCER TAB
+                    =================================================== -->
+                    <li class="nav-item">
+                        <a class="nav-link font-weight-bold" id="hijos-tab" data-toggle="tab" href="#hijos" role="tab" aria-controls="contratos" aria-selected="false">Hijos</a>
+                    </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
                     <!-- ===================================================
@@ -903,6 +910,13 @@ $Sucursales = ControladorGH::ctrSucursales();
                         CONTENIDO SEGUNDO TAB CON CONTRATOS Y PRÓRROGAS
                     =================================================== -->
                     <div class="tab-pane fade" id="contratos" role="tabpanel" aria-labelledby="contratos-tab">
+                    </div>
+
+                    <!-- ===================================================
+                        CONTENIDO TERCER TAB HIJOS
+                    =================================================== -->
+                    <div class="tab-pane fade" id="hijos" role="tabpanel" aria-labelledby="hijos-tab">
+                        
                     </div>
                 </div>
             </div>

@@ -118,6 +118,7 @@ if (
             $("#frmPersonal").trigger("reset"); //reset formulario
             $("#idPersonal").val(""); //reset id personal
             $('.select2-single').trigger('change'); //reset select2
+            $('.previsualizar').attr('src', 'views/img/fotosUsuarios/default/anonymous.png'); //reset foto
         });
 
         /* ===================================================
@@ -128,6 +129,7 @@ if (
             $("#idPersonal").val(idPersonal); //asignar id personal
             $("#frmPersonal").trigger("reset"); //reset formulario
             $('.select2-single').trigger('change'); //reset select2
+            $('.previsualizar').attr('src', 'views/img/fotosUsuarios/default/anonymous.png'); //reset foto
 
             var datos = new FormData();
             datos.append('DatosEmpleado', "ok");
@@ -185,7 +187,7 @@ if (
                         $("#fecha_ingreso").val(response.fecha_ingreso);
                         $("#empresa").val(response.empresa);
 
-                        if (response.foto != "") {
+                        if (response.foto != "" && response.foto != null) {
                             $(".previsualizar").attr("src", response.foto);
                         }
                         else {
