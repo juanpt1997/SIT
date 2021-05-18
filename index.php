@@ -17,12 +17,14 @@
 ===================================================*/
 require_once 'controllers/plantilla.controlador.php';
 require_once 'controllers/usuarios.controlador.php';
+require_once 'controllers/gh.controlador.php';
 require_once 'controllers/files.controlador.php';
 
 /* ===================================================
    MODELOS DEL PROYECTO QUE REQUERIMOS
 ===================================================*/
 require_once 'models/usuarios.modelo.php';
+require_once 'models/gh.modelo.php';
 
 $plantilla = new ControladorPlantilla();
 $plantilla->ctrTraerPlantilla();

@@ -47,23 +47,26 @@
                 <!-- ===================================================
                     * Gestión Humana
                 =================================================== -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="dropdown" style="cursor: pointer;">
-                        <div class="info-box border border-secondary" id="dropdownMenuGH" data-toggle="dropdown">
-                            <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-user-friends"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text font-weight-bold text-dark">Gestión Humana</span>
+                <?php if (validarModulo('M_GESTION_HUMANA')) : ?>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="dropdown" style="cursor: pointer;">
+                            <div class="info-box border border-secondary" id="dropdownMenuGH" data-toggle="dropdown">
+                                <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-user-friends"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Gestión Humana</span>
+                                </div>
+                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuGH">
-                            <a class="dropdown-item font-weight-bold" href="gh-personal">Personal</a>
-                            <a class="dropdown-item font-weight-bold" href="gh-alertas">Alertas de contrato</a>
+                            <!-- /.info-box -->
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuGH">
+                                <a class="dropdown-item font-weight-bold" href="gh-personal">Personal</a>
+                                <a class="dropdown-item font-weight-bold" href="gh-perfil-sd">Perfil sociodemográfico</a>
+                                <a class="dropdown-item font-weight-bold d-none" href="gh-alertas">Alertas de contrato</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- /.col -->
+                    <!-- /.col -->
+                <?php endif ?>
 
                 <!-- ===================================================
                     * Vehicular
@@ -238,19 +241,21 @@
                 <!-- ===================================================
                     * Control Usuarios
                 =================================================== -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <a href="usuarios">
-                        <div class="info-box border border-success">
-                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text font-weight-bold text-dark">Control Usuarios</span>
+                <?php if (validarModulo('M_USUARIOS')) : ?>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <a href="usuarios">
+                            <div class="info-box border border-success">
+                                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Control Usuarios</span>
+                                </div>
+                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </a>
-                </div>
-                <!-- /.col -->
+                            <!-- /.info-box -->
+                        </a>
+                    </div>
+                    <!-- /.col -->
+                <?php endif ?>
 
                 <!-- ===================================================
                     * Rastreo Satelital

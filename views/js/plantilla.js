@@ -1,3 +1,23 @@
+/* ===================== 
+    FUNCION MENU DINAMICO 
+    https://stackoverflow.com/questions/61025311/adminlte-sidebar-active-menu-doesnt-change-dynamically
+========================= */
+$(function () {
+    var url = window.location;
+    // for single sidebar menu
+    $('ul.nav-sidebar a').filter(function () {
+        return this.href == url;
+    }).addClass('active');
+
+    // for sidebar menu and treeview
+    $('ul.nav-treeview a').filter(function () {
+        return this.href == url;
+    }).parentsUntil(".nav-sidebar > .nav-treeview")
+        .css({ 'display': 'block' })
+        .addClass('menu-open').prev('a')
+        .addClass('active');
+});
+
 /* ===================================================
   DOMINIO DE LA PAGINA
 ===================================================*/
@@ -8,7 +28,7 @@ var arrayUrlApp = urlActual.split('/');
 var protocoloArray = urlActual.split(':');
 var protocolo = protocoloArray[0];
 var dominioApp = protocolo + "://" + window.document.domain;
-var urlPagina = `${dominioApp}/${proyecto}/`;
+var urlPagina = `${dominioApp}/sit/${proyecto}/`;
 
 /* ===================================================
   PERMITIR ESCRIBIR EN EL SWEET ALERT
@@ -200,4 +220,11 @@ $(document).ready(function () {
         });
 
     }
+
+    /* ===================================================
+          INICIALIZAR SELECT 2 DE LOS FORMULARIOS ACTIVOS
+        ===================================================*/
+    $('.select2-single').select2({
+        theme: "classic"
+    });
 });

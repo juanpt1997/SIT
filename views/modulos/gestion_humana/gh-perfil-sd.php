@@ -1,7 +1,7 @@
 <?php
 
-if (!array_search('M_GESTION_HUMANA', $_SESSION['opciones'])) {
-    echo "<script> window.location = 'inicio'; </script>";
+if (!validarModulo('M_GESTION_HUMANA')) {
+    echo "<script> window.location = '" . URL_APP . "'; </script>";
 }
 
 
@@ -18,7 +18,7 @@ if (!array_search('M_GESTION_HUMANA', $_SESSION['opciones'])) {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark ">Alertas de contratos</h1>
+                    <h1 class="m-0 text-dark ">Perfil sociodemográfico</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -40,8 +40,8 @@ if (!array_search('M_GESTION_HUMANA', $_SESSION['opciones'])) {
               AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
             ========================= -->
             <div class="row">
-                <div class="col-md-12  card ">
-                    ALERTAS DE CONTRATOS
+                <div class="col-md-12 text-center">
+                    ...
                 </div><!-- col -->
 
 

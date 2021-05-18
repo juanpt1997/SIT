@@ -13,7 +13,7 @@ if (window.location.href == `${urlPagina}usuarios/` ||
 
             // Reset valores del formulario
             $(".input-usuario").val("");
-            $(".previsualizar").attr("src", `${urlPagina}views/img/usuarios/default/anonymous.png`);
+            $(".previsualizar").attr("src", `${urlPagina}views/img/fotosUsuarios/default/anonymous.png`);
 
             // Capturar la cédula
             var cedula = $(this).attr("cedula");
@@ -45,7 +45,7 @@ if (window.location.href == `${urlPagina}usuarios/` ||
 
                     }
                     else {
-                        $(".previsualizar").attr("src", `${urlPagina}views/img/usuarios/default/anonymous.png`);
+                        $(".previsualizar").attr("src", `${urlPagina}views/img/fotosUsuarios/default/anonymous.png`);
                     }
 
                 }
@@ -58,7 +58,7 @@ if (window.location.href == `${urlPagina}usuarios/` ||
         $(document).on("click", ".btn-agregarUsuario", function () {
             // Reset valores del formulario
             $(".input-usuario").val("");
-            $(".previsualizar").attr("src", `${urlPagina}views/img/usuarios/default/anonymous.png`);
+            $(".previsualizar").attr("src", `${urlPagina}views/img/fotosUsuarios/default/anonymous.png`);
             // Remover atributo readonly del formulario puesto que va a agregar uno nuevo
             $("#Identificacion").removeAttr("readonly");
             // Ocultar boton para restablece password

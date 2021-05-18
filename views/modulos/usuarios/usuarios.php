@@ -1,12 +1,12 @@
 <?php
-validarModulo('M_USUARIOS');
+
 if (!validarModulo('M_USUARIOS')) {
-    echo "<script> window.location = '" . URL . "'; </script>";
+    echo "<script> window.location = '" . URL_APP . "'; </script>";
 }
 
 $Usuarios = ControladorUsuarios::ctrMostrarUsuarios();
 $Perfiles = ControladorUsuarios::ctrListadoPerfiles();
-$Sucursales = ControladorUsuarios::ctrSucursales();
+$Sucursales = ControladorGH::ctrSucursales();
 ?>
 
 <!-- =================================================== CONTENT =================================================== -->
@@ -73,7 +73,7 @@ $Sucursales = ControladorUsuarios::ctrSucursales();
                                 if ($value['foto'] != '') {
                                     $foto = '<img src="' . $value['foto'] . '" class="img-fluid" width="35"></td>';
                                 } else {
-                                    $foto = '<img src="views/img/usuarios/default/anonymous.png" class="img-fluid" width="35">';
+                                    $foto = '<img src="views/img/fotosUsuarios/default/anonymous.png" class="img-fluid" width="35">';
                                 }
                                 ?>
                                 <tr>
@@ -193,7 +193,7 @@ $Sucursales = ControladorUsuarios::ctrSucursales();
                             <select class="form-control input-lg input-usuario" id="Sucursal" name="Sucursal" required>
                                 <option value="" disabled selected>Seleccione una sucursal</option>
                                 <?php foreach ($Sucursales as $key => $value) : ?>
-                                    <option value="<?= $value['ids'] ?>"><?= $value['ciudad'] ?></option>
+                                    <option value="<?= $value['ids'] ?>"><?= $value['sucursal'] ?></option>
                                 <?php endforeach ?>
                             </select>
                         </div>
@@ -210,7 +210,7 @@ $Sucursales = ControladorUsuarios::ctrSucursales();
                             <input type="file" class="form-control input-usuario" name="nuevaFoto" id="nuevaFoto">
                         </div>
                         <p>Peso máximo de la foto 2 MB</p>
-                        <img src="views/img/usuarios/default/anonymous.png" class="img-fluid previsualizar" width="100">
+                        <img src="views/img/fotosUsuarios/default/anonymous.png" class="img-fluid previsualizar" width="100">
                     </div>
                 </div>
 

@@ -168,74 +168,76 @@
                 <!-- ===================================================
                     * Gestión Humana
                 =================================================== -->
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-user-friends"></i>
-                        <p>
-                            Gestión Humana
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <!-- ===================================================
-                                Alertas de contratos
-                            =================================================== -->
-                        <li class="nav-item">
-                            <a href="gh-alertas" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Alertas de contratos</p>
-                            </a>
-                        </li>
-                        <!-- ===================================================
-                                Control Ausentismo
-                            =================================================== -->
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Control Ausentismo</p>
-                            </a>
-                        </li>
-                        <!-- ===================================================
-                                Pago seguridad social
-                            =================================================== -->
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Pago seguridad social</p>
-                            </a>
-                        </li>
+                <?php if (validarModulo('M_GESTION_HUMANA')) : ?>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-user-friends"></i>
+                            <p>
+                                Gestión Humana
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <!-- ===================================================
+                                    Alertas de contratos
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Alertas de contratos</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
+                                    Control Ausentismo
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Control Ausentismo</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
+                                    Pago seguridad social
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Pago seguridad social</p>
+                                </a>
+                            </li>
 
-                        <!-- ===================================================
-                                Pago sociodemográfico
-                            =================================================== -->
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Pago sociodemográfico</p>
-                            </a>
-                        </li>
+                            <!-- ===================================================
+                                    Perfil sociodemográfico
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="gh-perfil-sd" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Perfil sociodemográfico</p>
+                                </a>
+                            </li>
 
-                        <!-- ===================================================
-                                Personal
-                            =================================================== -->
-                        <li class="nav-item">
-                            <a href="gh-personal" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Personal</p>
-                            </a>
-                        </li>
+                            <!-- ===================================================
+                                    Personal
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="gh-personal" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Personal</p>
+                                </a>
+                            </li>
 
-                        <!-- ===================================================
-                                Gráficos perfil sociodemográfico
-                            =================================================== -->
-                        <li class="nav-item d-none">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gráficos perfil sociodemográfico</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                            <!-- ===================================================
+                                    Gráficos perfil sociodemográfico
+                                =================================================== -->
+                            <li class="nav-item d-none">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Gráficos perfil sociodemográfico</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif ?>
 
                 <!-- ===================================================
                     ** Vehicular
@@ -657,12 +659,14 @@
                 <!-- ===================================================
                     * Control Usuarios
                 =================================================== -->
-                <li class="nav-item">
-                    <a href="usuarios" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>Control Usuarios</p>
-                    </a>
-                </li>
+                <?php if (validarModulo('M_USUARIOS')) : ?>
+                    <li class="nav-item">
+                        <a href="usuarios" class="nav-link">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>Control Usuarios</p>
+                        </a>
+                    </li>
+                <?php endif ?>
 
                 <!-- ===================================================
                     * Rastreo Satelital

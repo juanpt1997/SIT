@@ -1,13 +1,3 @@
-<?php
-
-// if (isset($_SERVER['HTTPS'])) {
-//     $dominioApp = 'https://' . $_SERVER['SERVER_NAME'];
-// } else {
-//     $dominioApp = 'http://' . $_SERVER['SERVER_NAME'];
-// }
-
-
-?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -38,7 +28,7 @@
     <link href="<?= URL_APP ?>views/plugins/select2-bootstrap4-theme/select2-bootstrap4.css" rel="stylesheet">
     <!-- iCheck for checkboxes and radio inputs -->
     <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/bootstrap-switch/css/bootstrap3/bootstrap-switch.min.css">
-
+    <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- cross-page-tab-navigation -->
     <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/cross-page-tab-navigation/jquery.simpletabs.css">
 
@@ -72,7 +62,8 @@
     <script src="<?= URL_APP ?>views/plugins/select2/js/select2.min.js"></script>
     <!-- Bootstrap Switch -->
     <script src="<?= URL_APP ?>views/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-
+    <!-- iCheck for checkboxes and radio inputs -->
+    <script src="<?= URL_APP ?>views/plugins/icheck-bootstrap/icheck.min.js"></script>
     <!-- cross-page-tab-navigation -->
     <script src="<?= URL_APP ?>views/plugins/cross-page-tab-navigation/jquery.simpletabs.js"></script>
 
@@ -108,6 +99,7 @@
                     include "modulos/usuarios/{$ruta}.php";
                 } else if (
                     $ruta == "gh-personal" ||
+                    $ruta == "gh-perfil-sd" ||
                     $ruta == "gh-alertas"
                 ) {
                     include "modulos/gestion_humana/{$ruta}.php";

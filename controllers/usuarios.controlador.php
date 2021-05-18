@@ -46,7 +46,7 @@ class ControladorUsuarios
 						/* 
 						$_SESSION['urlApp'] = $_SESSION['dominio'] . '/elsaman'; */
 
-						$_SESSION['foto'] = $respuesta['foto'] != "" ? URL_APP . $respuesta['foto'] : URL_APP . "views/img/usuarios/default/anonymous.png";
+						$_SESSION['foto'] = $respuesta['foto'] != "" ? URL_APP . $respuesta['foto'] : URL_APP . "views/img/fotosUsuarios/default/anonymous.png";
 
 						/* ===================== 
 							CARGAMOS OPCIONES DISPONBLES PARA EL USUARIO 
@@ -118,15 +118,6 @@ class ControladorUsuarios
 	}
 
 	/* ===================================================
-	   SUCURSALES
-	===================================================*/
-	static public function ctrSucursales()
-	{
-		$respuesta = ModeloUsuarios::mdlSucursales();
-		return $respuesta;
-	}
-
-	/* ===================================================
 	   AGREGAR/EDITAR USUARIO
 	===================================================*/
 	static public function ctrAgregarEditar()
@@ -151,7 +142,7 @@ class ControladorUsuarios
 			/* ===================== 
 				CREAMOS DIRECTORIO DONDE VAMOS A GUARDAR LA FOTO DEL USUARIO 
 			========================= */
-			$directorio = "views/img/usuarios/" . $_POST['Identificacion'];
+			$directorio = "views/img/fotosUsuarios/" . $_POST['Identificacion'];
 			mkdir($directorio, 0755);
 
 			/* ===================================================
@@ -160,7 +151,7 @@ class ControladorUsuarios
 			$GuardarImagen = new FilesController();
 			$GuardarImagen->file = $_FILES['nuevaFoto'];
 			$aleatorio = mt_rand(100, 999);
-			$GuardarImagen->ruta = "views/img/usuarios/" . $_POST['Identificacion'] . "/" . $aleatorio;
+			$GuardarImagen->ruta = "views/img/fotosUsuarios/" . $_POST['Identificacion'] . "/" . $aleatorio;
 			$ruta = $GuardarImagen->ctrImages(500, 500);
 
 			if (is_array($usuarioExistente)) {

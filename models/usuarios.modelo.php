@@ -13,9 +13,9 @@ class ModeloUsuarios
         if ($value != null) {
 
             // $stmt = Conexion::conectar_sit()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
-            $stmt = Conexion::conectar()->prepare("SELECT u.*, s.ciudad AS Sucursal
+            $stmt = Conexion::conectar()->prepare("SELECT u.*, s.sucursal AS Sucursal
                                                     FROM l_usuarios u
-                                                    INNER JOIN sucursales s ON u.idSucursal = s.ids
+                                                    INNER JOIN gh_sucursales s ON u.idSucursal = s.ids
                                                     WHERE u.Cedula = :cedula");
 
             $stmt->bindParam(":cedula",  $value, PDO::PARAM_INT);
@@ -65,20 +65,6 @@ class ModeloUsuarios
     {
         $stmt = Conexion::conectar()->prepare("SELECT *
                                                 FROM l_perfiles");
-
-        $stmt->execute();
-        $retorno =  $stmt->fetchAll();
-        $stmt->closeCursor();
-        return $retorno;
-    }
-
-    /* ===================================================
-       SUCURSALES
-    ===================================================*/
-    static public function mdlSucursales()
-    {
-        $stmt = Conexion::conectar()->prepare("SELECT *
-                                                FROM sucursales");
 
         $stmt->execute();
         $retorno =  $stmt->fetchAll();
