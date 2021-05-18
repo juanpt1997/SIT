@@ -862,6 +862,26 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     </div>
                                 </div>
 
+                                <!-- ===================================================
+                                    FOTO
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1">Foto</label>
+                                        <br>
+                                        <img src="views/img/fotosUsuarios/default/anonymous.png" class="img-fluid previsualizar" width="100">
+                                        <div class="input-group mt-1">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-image"></i>
+                                                </span>
+                                            </div>
+                                            <input type="file" class="form-control" name="nuevaFoto" id="nuevaFoto">
+                                        </div>
+                                        <p>Peso máximo de la foto 2 MB</p>
+                                    </div>
+                                </div>
+
                             </div>
 
                             <!-- ===================================================
@@ -873,7 +893,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                         <i class="fas fa-save"></i>
                                         Guardar
                                     </button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                 </div>
                             </div>
                         </form>
@@ -883,167 +903,6 @@ $Sucursales = ControladorGH::ctrSucursales();
                         CONTENIDO SEGUNDO TAB CON CONTRATOS Y PRÓRROGAS
                     =================================================== -->
                     <div class="tab-pane fade" id="contratos" role="tabpanel" aria-labelledby="contratos-tab">
-                        <form id="frmPrueba" method="post" enctype="multipart/form-data">
-                            <div class="row mt-4">
-                                <!-- ===================================================
-                                    ID Empleado
-                                =================================================== -->
-                                <input type="hidden" name="idPersonal" id="idPersonal" value="">
-
-                                <!-- ===================================================
-                                    Nombre Completo
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Nombre Completo *</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control" name="Nombre" id="" maxlength="100" value="Juan Pablo Tabares Rico">
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                </div>
-
-                                <!-- ===================================================
-                                Tipo Documento
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Tipo Documento *</label>
-                                        <div class="form-group clearfix">
-                                            <div class="icheck-primary d-inline">
-                                                <input type="radio" id="tipoDocPrueba1" name="tipoDocPrueba" value="CC">
-                                                <label class="font-weight-normal" for="tipoDocPrueba1">CC
-                                                </label>
-                                            </div>
-                                            <div class="icheck-primary d-inline">
-                                                <input type="radio" id="tipoDocPrueba2" name="tipoDocPrueba" value="CE" checked>
-                                                <label class="font-weight-normal" for="tipoDocPrueba2">CE
-                                                </label>
-                                            </div>
-                                            <div class="icheck-primary d-inline">
-                                                <input type="radio" id="tipoDocPrueba3" name="tipoDocPrueba" value="NIT">
-                                                <label class="font-weight-normal" for="tipoDocPrueba3">NIT
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- ===================================================
-                                    Documento
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Documento *</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-id-card"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control" name="Documento" id="" maxlength="20" required>
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                </div>
-
-                                <!-- ===================================================
-                                    Lugar de Expedición
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Lugar de Expedición *</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
-                                                <span class="input-group-text" style="height: 93%;"><i class="fas fa-map-marker-alt"></i></span>
-                                            </div>
-                                            <select id="my-select" class="form-control select2-single" style="width: 90%" name="lugar_expedicion" required>
-                                                <option value="" selected>DEPARTAMENTO - MUNICIPIO</option>
-                                                <?php foreach ($DeparMunicipios as $key => $value) : ?>
-                                                    <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
-                                                <?php endforeach ?>
-                                            </select>
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                </div>
-
-                                <!-- ===================================================
-                                    Fecha de Nacimiento
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Fecha de Nacimiento *</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                            </div>
-                                            <input type="date" class="form-control" name="fecha_nacimiento" id="" value="<?php echo date('Y-m-d'); ?>" required>
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                </div>
-
-
-                                <!-- ===================================================
-                                    Cargo
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Cargo *</label>
-                                        <select id="" class="form-control" name="cargo" required>
-                                            <option value="" selected>Seleccione una opción</option>
-                                            <?php foreach ($Cargos as $key => $value) : ?>
-                                                <option value="<?= $value['idCargo'] ?>"><?= $value['cargo'] ?></option>
-                                            <?php endforeach ?>
-                                        </select>
-                                    </div>
-                                </div>
-
-
-                                <!-- ===================================================
-                                    Salario Básico
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Salario Básico *</label>
-                                        <input type="number" class="form-control" name="salario_basico" id="" min="0" required value="2000000">
-                                    </div>
-                                </div>
-
-                                <!-- ===================================================
-                                    Activo
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Activo *</label>
-                                        <div class="form-group clearfix">
-                                            <div class="icheck-primary d-inline">
-                                                <input type="radio" id="activoPrueba1" value="S" name="activoPrueba" checked>
-                                                <label class="font-weight-normal" for="activoPrueba1">Activo
-                                                </label>
-                                            </div>
-                                            <div class="icheck-primary d-inline">
-                                                <input type="radio" id="activoPrueba2" value="N" name="activoPrueba">
-                                                <label class="font-weight-normal" for="activoPrueba2">Inactivo
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-12 text-right">
-                                    <button type="submit" class="btn btn-success">
-                                        <i class="fas fa-save"></i>
-                                        Guardar
-                                    </button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                                </div>
-                            </div>
-                        </form>
                     </div>
                 </div>
             </div>

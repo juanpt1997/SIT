@@ -44,10 +44,15 @@ if (
             var datosAjax = new FormData();
             datosAjax.append('GuardarPersonal', "ok");
 
+            // DATOS FORMULARIO
             var datosFrm = $(this).serializeArray();
             datosFrm.forEach(element => {
                 datosAjax.append(element.name, element.value);
             });
+
+            // FOTO
+            var files = $('#nuevaFoto')[0].files;
+            datosAjax.append("foto", files[0]);
 
             $.ajax({
                 type: 'post',
@@ -57,6 +62,7 @@ if (
                 contentType: false,
                 processData: false,
                 success: function (response) {
+                    console.log(response);
                     switch (response) {
                         case "existe":
                             Swal.fire({
@@ -135,7 +141,7 @@ if (
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    if (response != ""){
+                    if (response != "") {
                         $("#Documento").val(response.Documento);
                         $(`.tipo_doc[value='${response.tipo_doc}']`).iCheck('check');
                         $("#lugar_expedicion").val(response.lugar_expedicion);
@@ -179,6 +185,13 @@ if (
                         $("#fecha_ingreso").val(response.fecha_ingreso);
                         $("#empresa").val(response.empresa);
 
+                        if (response.foto != "") {
+                            $(".previsualizar").attr("src", response.foto);
+                        }
+                        else {
+                            $(".previsualizar").attr("src", `${urlPagina}views/img/fotosUsuarios/default/anonymous.png`);
+                        }
+
                         $('.select2-single').trigger('change'); //change values select2
                     }
                 }
@@ -213,7 +226,7 @@ if (
                             title: "Actualización exitosa",
                             confirmButtonText: "¡Cerrar!"
                         });
-                        
+
                         if (estado == 'S') {
                             $boton.removeClass("btn-success");
                             $boton.addClass("btn-danger");

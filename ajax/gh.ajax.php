@@ -4,17 +4,20 @@
 include '../config.php';
 
 # REQUERIMOS EL CONTROLADOR Y EL MODELO PARA QUE REALICE LA PETICION
+require_once '../controllers/files.controlador.php';
 require_once '../controllers/gh.controlador.php';
 require_once '../models/gh.modelo.php';
+
+
 
 class AjaxPersonal
 {
     /* ===================================================
        GUARDAR DATOS DEL PERSONAL
     ===================================================*/
-    static public function ajaxGuardarPersonal($formData)
+    static public function ajaxGuardarPersonal($formData, $foto)
     {
-        $respuesta = ControladorGH::ctrGuardarPersonal($formData);
+        $respuesta = ControladorGH::ctrGuardarPersonal($formData, $foto);
         echo $respuesta;
     }
 
@@ -41,7 +44,8 @@ class AjaxPersonal
    LLAMADOS
 ===================================================*/
 if (isset($_POST['GuardarPersonal']) && $_POST['GuardarPersonal'] == "ok"){
-    AjaxPersonal::ajaxGuardarPersonal($_POST);
+    $foto = isset($_FILES['foto']) ? $_FILES['foto'] : "";
+    AjaxPersonal::ajaxGuardarPersonal($_POST, $foto);
 }
 
 if (isset($_POST['DatosEmpleado']) && $_POST['DatosEmpleado'] == "ok"){
