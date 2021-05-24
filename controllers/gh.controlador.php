@@ -161,4 +161,98 @@ class ControladorGH
         $respuesta = ModeloGH::mdlActualizarEmpleado($datos);
         return $respuesta;
     }
+
+    /* ===================================================
+       ? HIJOS
+    ===================================================*/
+    /* ===================================================
+       FORMULARIO PARA GUARDAR HIJOS
+    ===================================================*/
+    static public function ctrGuardarHijos($datos)
+    {
+        $guardarDatos = ModeloGH::mdlGuardarHijos($datos);
+        return $guardarDatos;
+    }
+
+    /* ===================================================
+       MOSTRAR HIJOS DEL EMPLEADO
+    ===================================================*/
+    static public function ctrMostrarHijos($idPersonal)
+    {
+        $respuesta = ModeloGH::mdlMostrarHijos($idPersonal);
+        return $respuesta;
+    }
+
+    /* ===================================================
+       ? CONTRATOS Y PRORROGAS
+    ===================================================*/
+    /* ===================================================
+       FORMULARIO PARA GUARDAR CONTRATOS Y PRORROGAS
+    ===================================================*/
+    static public function ctrGuardarProrrogas($datos)
+    {
+        $guardarDatos = ModeloGH::mdlGuardarProrrogas($datos);
+        return $guardarDatos;
+    }
+
+    /* ===================================================
+       MOSTRAR PRORROGAS
+    ===================================================*/
+    static public function ctrMostrarProrrogas($idPersonal)
+    {
+        $respuesta = ModeloGH::mdlMostrarProrrogas($idPersonal);
+        return $respuesta;
+    }
+
+    /* ===================================================
+       ? LICENCIAS DE CONDUCCIÓN
+    ===================================================*/
+    /* ===================================================
+       FORMULARIO PARA GUARDAR LICENCIAS DE CONDUCCIÓN
+    ===================================================*/
+    static public function ctrGuardarLicencias($datos)
+    {
+        $guardarDatos = ModeloGH::mdlGuardarLicencias($datos);
+        return $guardarDatos;
+    }
+
+    /* ===================================================
+       MOSTRAR LICENCIAS
+    ===================================================*/
+    static public function ctrMostrarLicencias($idPersonal)
+    {
+        $respuesta = ModeloGH::mdlMostrarLicencias($idPersonal);
+        return $respuesta;
+    }
+
+    /* ===================================================
+       ? EXÁMENES MÉDICOS
+    ===================================================*/
+    /* ===================================================
+       FORMULARIO PARA GUARDAR EXÁMENES MÉDICOS
+    ===================================================*/
+    static public function ctrGuardarExamenes($datos)
+    {
+        $guardarDatos = ModeloGH::mdlGuardarExamenes($datos);
+        return $guardarDatos;
+    }
+
+    /* ===================================================
+       MOSTRAR EXAMENES
+    ===================================================*/
+    static public function ctrMostrarExamenes($idPersonal)
+    {
+        $respuesta = ModeloGH::mdlMostrarExamenes($idPersonal);
+        return $respuesta;
+    }
+
+    /* ===================================================
+       ! ELIMINAR REGISTRO
+    ===================================================*/
+    static public function ctrEliminarRegistro($datos)
+    {
+        $respuesta = ModeloGH::mdlEliminarRegistro($datos);
+        return $respuesta;
+    }
+
 }

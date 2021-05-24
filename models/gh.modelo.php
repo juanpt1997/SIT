@@ -316,4 +316,195 @@ class ModeloGH
         
         return $retorno;
     }
+
+    /* ===================================================
+       ? HIJOS
+    ===================================================*/
+    /* ===================================================
+       GUARDAR HIJOS
+    ===================================================*/
+    static public function mdlGuardarHijos($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO gh_re_personalhijos (idPersonal, Nombre, fecha_nacimiento, edad) 
+                                    VALUES (:idPersonal, :Nombre, :fecha_nacimiento, :edad)");
+        
+        $stmt->bindParam(":idPersonal", $datos['idPersonal'], PDO::PARAM_INT);
+        $stmt->bindParam(":Nombre", $datos['Nombre'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_nacimiento", $datos['fecha_nacimiento'], PDO::PARAM_STR);
+        $stmt->bindParam(":edad", $datos['edad'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $respuesta = "ok";
+        } else {
+            $respuesta = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $respuesta;
+    }
+
+    /* ===================================================
+       MOSTRAR HIJOS
+    ===================================================*/
+    static public function mdlMostrarHijos($idPersonal)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM gh_re_personalhijos WHERE idPersonal = :idPersonal");
+
+        $stmt->bindParam(":idPersonal", $idPersonal, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /* ===================================================
+       ? CONTRATOS Y PRORROGAS
+    ===================================================*/
+    /* ===================================================
+       GUARDAR PRORROGAS
+    ===================================================*/
+    static public function mdlGuardarProrrogas($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO gh_re_personalprorrogas (idPersonal, contrato, fecha_inicial, fecha_fin, meses_prorroga) 
+                                    VALUES (:idPersonal, :contrato, :fecha_inicial, :fecha_fin, :meses_prorroga)");
+        
+        $stmt->bindParam(":idPersonal", $datos['idPersonal'], PDO::PARAM_INT);
+        $stmt->bindParam(":contrato", $datos['contrato'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_inicial", $datos['fecha_inicial'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_fin", $datos['fecha_fin'], PDO::PARAM_STR);
+        $stmt->bindParam(":meses_prorroga", $datos['meses_prorroga'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $id = $conexion->lastInsertId();
+        } else {
+            $id = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $id;
+    }
+
+    /* ===================================================
+       MOSTRAR PRORROGAS
+    ===================================================*/
+    static public function mdlMostrarProrrogas($idPersonal)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM gh_re_personalprorrogas WHERE idPersonal = :idPersonal");
+
+        $stmt->bindParam(":idPersonal", $idPersonal, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /* ===================================================
+       ? LICENCIAS DE CONDUCCION
+    ===================================================*/
+    /* ===================================================
+       GUARDAR LICENCIAS
+    ===================================================*/
+    static public function mdlGuardarLicencias($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO gh_re_personallicencias (idPersonal, nro_licencia, fecha_expedicion, fecha_vencimiento, categoria) 
+                                    VALUES (:idPersonal, :nro_licencia, :fecha_expedicion, :fecha_vencimiento, :categoria)");
+        
+        $stmt->bindParam(":idPersonal", $datos['idPersonal'], PDO::PARAM_INT);
+        $stmt->bindParam(":nro_licencia", $datos['nro_licencia'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_expedicion", $datos['fecha_expedicion'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_vencimiento", $datos['fecha_vencimiento'], PDO::PARAM_STR);
+        $stmt->bindParam(":categoria", $datos['categoria'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $id = $conexion->lastInsertId();
+        } else {
+            $id = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $id;
+    }
+
+    /* ===================================================
+       MOSTRAR LICENCIAS
+    ===================================================*/
+    static public function mdlMostrarLicencias($idPersonal)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM gh_re_personallicencias WHERE idPersonal = :idPersonal");
+
+        $stmt->bindParam(":idPersonal", $idPersonal, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /* ===================================================
+       ? EXÁMENES MÉDICOS
+    ===================================================*/
+    /* ===================================================
+       GUARDAR EXAMENES
+    ===================================================*/
+    static public function mdlGuardarExamenes($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO gh_re_personalexamenes (idPersonal, tipo_examen, fecha_inicial, fecha_final) 
+                                    VALUES (:idPersonal, :tipo_examen, :fecha_inicial, :fecha_final)");
+        
+        $stmt->bindParam(":idPersonal", $datos['idPersonal'], PDO::PARAM_INT);
+        $stmt->bindParam(":tipo_examen", $datos['tipo_examen'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_inicial", $datos['fecha_inicial'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_final", $datos['fecha_final'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $id = $conexion->lastInsertId();
+        } else {
+            $id = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $id;
+    }
+
+    /* ===================================================
+       MOSTRAR EXAMENES
+    ===================================================*/
+    static public function mdlMostrarExamenes($idPersonal)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM gh_re_personalexamenes WHERE idPersonal = :idPersonal");
+
+        $stmt->bindParam(":idPersonal", $idPersonal, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /* ===================================================
+       ! ELIMINAR REGISTRO
+    ===================================================*/
+    static public function mdlEliminarRegistro($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("DELETE
+                                    FROM {$datos['tabla']}
+                                    WHERE {$datos['item']} = :{$datos['item']}");
+        $stmt->bindParam(":" . $datos['item'], $datos['valor'], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $retorno;
+    }
 }

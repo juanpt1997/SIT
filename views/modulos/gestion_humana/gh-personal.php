@@ -124,6 +124,7 @@ $Sucursales = ControladorGH::ctrSucursales();
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
+                <h5 class="modal-title font-weight-bold" id="titulo-modal-personal"></h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -148,7 +149,21 @@ $Sucursales = ControladorGH::ctrSucursales();
                         TERCER TAB
                     =================================================== -->
                     <li class="nav-item">
-                        <a class="nav-link font-weight-bold" id="hijos-tab" data-toggle="tab" href="#hijos" role="tab" aria-controls="contratos" aria-selected="false">Hijos</a>
+                        <a class="nav-link font-weight-bold" id="hijos-tab" data-toggle="tab" href="#hijos" role="tab" aria-controls="hijos" aria-selected="false">Hijos</a>
+                    </li>
+
+                    <!-- ===================================================
+                        CUARTO TAB
+                    =================================================== -->
+                    <li class="nav-item">
+                        <a class="nav-link font-weight-bold" id="licencias-tab" data-toggle="tab" href="#licencias" role="tab" aria-controls="licencias" aria-selected="false">Licencias de conducción</a>
+                    </li>
+
+                    <!-- ===================================================
+                        QUINTO TAB
+                    =================================================== -->
+                    <li class="nav-item">
+                        <a class="nav-link font-weight-bold" id="examenes-tab" data-toggle="tab" href="#examenes" role="tab" aria-controls="examenes" aria-selected="false">Exámenes médicos</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
@@ -156,7 +171,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                         CONTENIDO PRIMER TAB CON LOS DATOS GENERALES DEL EMPLEADO
                     =================================================== -->
                     <div class="tab-pane fade show active" id="personal" role="tabpanel" aria-labelledby="personal-tab">
-                        <form id="frmPersonal" method="post" enctype="multipart/form-data">
+                        <form class="formulario" id="frmPersonal" method="post" enctype="multipart/form-data">
                             <div class="row mt-4">
                                 <!-- ===================================================
                                     ID Empleado
@@ -910,13 +925,413 @@ $Sucursales = ControladorGH::ctrSucursales();
                         CONTENIDO SEGUNDO TAB CON CONTRATOS Y PRÓRROGAS
                     =================================================== -->
                     <div class="tab-pane fade" id="contratos" role="tabpanel" aria-labelledby="contratos-tab">
+                        <form class="formulario" id="frmProrrogas" method="post" enctype="multipart/form-data">
+                            <div class="row mt-2">
+                                <!-- ===================================================
+                                    Contrato
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1">Contrato *</label>
+                                        <select id="my-select" class="form-control" name="contrato">
+                                            <option>Contrato inicial</option>
+                                            <option>Prorroga 1</option>
+                                            <option>Prorroga 2</option>
+                                            <option>Prorroga 3</option>
+                                            <option>Prorroga 4</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Fecha Inicial
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1">Fecha inicial *</label>
+                                        <input type="date" class="form-control" name="fecha_inicial" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" required>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Fecha Fin
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1">Fecha fin *</label>
+                                        <input type="date" class="form-control" name="fecha_fin" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" required>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Meses Prorroga
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1">Meses prorroga *</label>
+                                        <select id="my-select" class="form-control" name="meses_prorroga" required>
+                                            <option value="" selected></option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>12</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Cargar contrato
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1">Cargar contrato</label>
+                                        <div class="input-group mt-1">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-file-alt"></i>
+                                                </span>
+                                            </div>
+                                            <input type="file" class="form-control" name="" id="inputfile-prorrogas" accept="image/png, image/jpeg, application/pdf">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                BOTON GUARDAR FORMULARIO
+                            =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4 text-left align-self-center">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-check-circle"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- ===================================================
+                            TABLA CONTRATOS Y PRORROGAS
+                        =================================================== -->
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <table id="tblProrrogas" class="table table-sm table-light table-bordered table-hover w-100 tablas-dinamicas">
+                                    <thead class="thead-light text-center">
+                                        <tr>
+                                            <th>Contrato</th>
+                                            <th>Documento</th>
+                                            <th>Fecha inicial</th>
+                                            <th>Fecha fin</th>
+                                            <th>Meses prorroga</th>
+                                            <th>Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyProrrogas" class="tbody-tablas-dinamicas text-center">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- ===================================================
+                            CERRAR MODAL
+                        =================================================== -->
+                        <div class="row mt-2">
+                            <div class="col-12 text-right">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- ===================================================
                         CONTENIDO TERCER TAB HIJOS
                     =================================================== -->
                     <div class="tab-pane fade" id="hijos" role="tabpanel" aria-labelledby="hijos-tab">
-                        
+                        <form class="formulario" id="frmHijos" method="post" enctype="multipart/form-data">
+                            <div class="row mt-2">
+                                <!-- ===================================================
+                                    Nombre
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1">Nombre *</label>
+                                        <input type="text" class="form-control" name="Nombre" id="Nombre_hijo" maxlength="100" required>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Fecha nacimiento
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1">Fecha nacimiento *</label>
+                                        <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento_hijo" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" max="<?php echo date('Y-m-d', strtotime(date("Y-m-d"))); ?>" required>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                Edad
+                            =================================================== -->
+                                <div class="col-10 col-md-6 col-lg-3">
+                                    <div>
+                                        <div class="form-group">
+                                            <label for="exampleInput1">Edad</label>
+                                            <input type="text" class="form-control" name="edad" id="edad_hijo" maxlength="10">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-2 col-md-6 col-lg-1 align-self-center">
+                                    <button class="btn btn-success" type="submit"><i class="fas fa-check-circle"></i></button>
+                                </div>
+
+                            </div>
+                        </form>
+
+                        <!-- ===================================================
+                            TABLA HIJOS
+                        =================================================== -->
+                        <div class="row mt-2">
+                            <div class="col-12">
+                                <table id="tblHijos" class="table table-sm table-light table-bordered table-hover w-100 tablas-dinamicas">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Nombre</th>
+                                            <th>Fecha nacimiento</th>
+                                            <th>Edad</th>
+                                            <th>Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyHijos" class="tbody-tablas-dinamicas">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- ===================================================
+                            CERRAR MODAL
+                        =================================================== -->
+                        <div class="row mt-2">
+                            <div class="col-12 text-right">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===================================================
+                        CONTENIDO CUARTO TAB CON LICENCIA DE CONDUCCIÓN
+                    =================================================== -->
+                    <div class="tab-pane fade" id="licencias" role="tabpanel" aria-labelledby="licencias-tab">
+                        <form class="formulario" id="frmLicencias" method="post" enctype="multipart/form-data">
+                            <div class="row mt-2">
+                                <!-- ===================================================
+                                    Nro licencia
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1">Nro licencia *</label>
+                                        <input type="text" class="form-control" name="nro_licencia" maxlength="50" required>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Licencia escaneada
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1">Licencia escaneada</label>
+                                        <div class="input-group mt-1">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-file-alt"></i>
+                                                </span>
+                                            </div>
+                                            <input type="file" class="form-control" name="" id="inputfile-licencias" accept="image/png, image/jpeg, application/pdf">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Fecha expedición
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1">Fecha expedición *</label>
+                                        <input type="date" class="form-control" name="fecha_expedicion" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" required>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Fecha vencimiento
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1">Fecha vencimiento *</label>
+                                        <input type="date" class="form-control" name="fecha_vencimiento" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" required>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Categoría
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1">Categoría *</label>
+                                        <select id="my-select" class="form-control" name="categoria" required>
+                                            <option value="" selected>Seleccione una opción</option>
+                                            <option>A1</option>
+                                            <option>A2</option>
+                                            <option>B1</option>
+                                            <option>B2</option>
+                                            <option>B3</option>
+                                            <option>C1</option>
+                                            <option>C2</option>
+                                            <option>C3</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                BOTON GUARDAR FORMULARIO
+                            =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4 text-left align-self-center">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-check-circle"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- ===================================================
+                            TABLA LICENCIAS DE CONDUCCION
+                        =================================================== -->
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <table id="tblLicencias" class="table table-sm table-light table-bordered table-hover w-100 tablas-dinamicas">
+                                    <thead class="thead-light text-center">
+                                        <tr>
+                                            <th>Nro Licencia</th>
+                                            <th>Documento</th>
+                                            <th>Fecha exped.</th>
+                                            <th>Fecha venc.</th>
+                                            <th>Categoría</th>
+                                            <th>Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyLicencias" class="tbody-tablas-dinamicas text-center">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- ===================================================
+                            CERRAR MODAL
+                        =================================================== -->
+                        <div class="row mt-2">
+                            <div class="col-12 text-right">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===================================================
+                        CONTENIDO QUINTO TAB CON EXAMENES MEDICOS
+                    =================================================== -->
+                    <div class="tab-pane fade" id="examenes" role="tabpanel" aria-labelledby="examenes-tab">
+                        <form class="formulario" id="frmExamenes" method="post" enctype="multipart/form-data">
+                            <div class="row mt-2">
+                                <!-- ===================================================
+                                    Tipo examen
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1">Tipo examen *</label>
+                                        <select id="my-select" class="form-control" name="tipo_examen" required>
+                                            <option value="" selected>Seleccione una opción</option>
+                                            <option>Examenes ocupacionales</option>
+                                            <option>Examenes psicotecnicos</option>
+                                            <option>Certificado de seguridad vial</option>
+                                            <option>Examenes psicosensometrico</option>
+                                            <option>Panel de drogas</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Fecha inicial
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1">Fecha inicial *</label>
+                                        <input type="date" class="form-control" name="fecha_inicial" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" required>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Fecha final
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1">Fecha final *</label>
+                                        <input type="date" class="form-control" name="fecha_final" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" required>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Cargar documento
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1">Cargar documento</label>
+                                        <div class="input-group mt-1">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-file-alt"></i>
+                                                </span>
+                                            </div>
+                                            <input type="file" class="form-control" name="" id="inputfile-examenes" accept="image/png, image/jpeg, application/pdf">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                BOTON GUARDAR FORMULARIO
+                            =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4 text-left align-self-center">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-check-circle"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+
+                        <!-- ===================================================
+                            TABLA EXAMENES MEDICOS
+                        =================================================== -->
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                <table id="tblExamenes" class="table table-sm table-light table-bordered table-hover w-100 tablas-dinamicas">
+                                    <thead class="thead-light text-center">
+                                        <tr>
+                                            <th>Documento</th>
+                                            <th>Tipo exámen</th>
+                                            <th>Fecha inicial</th>
+                                            <th>Fecha final</th>
+                                            <th>Eliminar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyExamenes" class="tbody-tablas-dinamicas text-center">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- ===================================================
+                            CERRAR MODAL
+                        =================================================== -->
+                        <div class="row mt-2">
+                            <div class="col-12 text-right">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

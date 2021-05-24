@@ -66,4 +66,26 @@ class FilesController
 
         return $response;
     }
+
+    /* ===================================================
+       CONTROLADOR PARA ARCHIVOS PDF
+    ===================================================*/
+    public function ctrPDFFiles()
+    {
+        $response = "";
+        $pdf = $this->file;
+        $ruta = $this->ruta . ".pdf";
+        $source_file = $pdf['tmp_name'];
+
+        if (file_exists($ruta)) {
+            print "The file name already exists!!";
+        } else {
+            move_uploaded_file($source_file, $ruta)
+                or die("Error!!");
+            if ($pdf['error'] == 0) {
+                $response = $ruta;
+            }
+        }
+        return $response;
+    }
 }
