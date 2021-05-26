@@ -2,6 +2,9 @@
 class ControladorGH
 {
     /* ===================================================
+       * PERSONAL
+    ===================================================*/
+    /* ===================================================
             LISTADO PERSONAL
         ===================================================*/
     static public function ctrListaPersonal()
@@ -254,5 +257,7 @@ class ControladorGH
         $respuesta = ModeloGH::mdlEliminarRegistro($datos);
         return $respuesta;
     }
+
+    
 
 }

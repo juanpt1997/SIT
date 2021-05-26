@@ -178,31 +178,13 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <!-- ===================================================
-                                    Alertas de contratos
+                        <!-- ===================================================
+                                    Personal
                                 =================================================== -->
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="gh-personal" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Alertas de contratos</p>
-                                </a>
-                            </li>
-                            <!-- ===================================================
-                                    Control Ausentismo
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Control Ausentismo</p>
-                                </a>
-                            </li>
-                            <!-- ===================================================
-                                    Pago seguridad social
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Pago seguridad social</p>
+                                    <p>Personal</p>
                                 </a>
                             </li>
 
@@ -217,15 +199,35 @@
                             </li>
 
                             <!-- ===================================================
-                                    Personal
+                                    Pago seguridad social
                                 =================================================== -->
                             <li class="nav-item">
-                                <a href="gh-personal" class="nav-link">
+                                <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Personal</p>
+                                    <p>Pago seguridad social</p>
                                 </a>
                             </li>
 
+                            <!-- ===================================================
+                                    Alertas de contratos
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Alertas de contratos</p>
+                                </a>
+                            </li>
+
+                            <!-- ===================================================
+                                    Control Ausentismo
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Control Ausentismo</p>
+                                </a>
+                            </li>
+                            
                             <!-- ===================================================
                                     Gráficos perfil sociodemográfico
                                 =================================================== -->

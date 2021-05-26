@@ -60,8 +60,8 @@ $Sucursales = ControladorGH::ctrSucursales();
               TABLA EMPLEADOS
             ========================= -->
             <div class="row mt-2">
-                <div class="col-md-12">
-                    <table class="table table-light table-striped table-bordered tablas dt-responsive w-100">
+                <div class="col-12">
+                    <table class="table table-sm table-light table-striped table-bordered tablas dt-responsive w-100">
                         <thead class="thead-light text-capitalize">
                             <tr>
                                 <th style="width:10px;">Id</th>
@@ -120,6 +120,9 @@ $Sucursales = ControladorGH::ctrSucursales();
 </div>
 <!-- /.content-wrapper -->
 
+<!-- ===================================================
+    MODALS
+=================================================== -->
 <div id="PersonalModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
@@ -223,7 +226,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                         <label for="exampleInput1">Tipo Documento *</label>
                                         <div class="form-group clearfix">
                                             <div class="icheck-primary d-inline">
-                                                <input type="radio" class="tipo_doc" id="tipoDoc1" name="tipo_doc" value="CC">
+                                                <input type="radio" class="tipo_doc" id="tipoDoc1" name="tipo_doc" value="CC" required>
                                                 <label class="font-weight-normal" for="tipoDoc1">CC
                                                 </label>
                                             </div>
@@ -392,7 +395,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                         <label for="exampleInput1">Tipo de Vivienda *</label>
                                         <div class="form-group clearfix">
                                             <div class="icheck-primary d-inline">
-                                                <input class="tipo_vivienda" type="radio" id="radioPrimary1" name="tipo_vivienda" value="Propia">
+                                                <input class="tipo_vivienda" type="radio" id="radioPrimary1" name="tipo_vivienda" value="Propia" required>
                                                 <label class="font-weight-normal" for="radioPrimary1">Propia
                                                 </label>
                                             </div>
@@ -466,7 +469,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                         <label for="exampleInput1">Género *</label>
                                         <div class="form-group clearfix">
                                             <div class="icheck-primary d-inline">
-                                                <input class="genero" type="radio" id="genero1" name="genero" value="Masculino">
+                                                <input class="genero" type="radio" id="genero1" name="genero" value="Masculino" required>
                                                 <label class="font-weight-normal" for="genero1">Masculino
                                                 </label>
                                             </div>
@@ -580,7 +583,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                         <label for="exampleInput1">Área *</label>
                                         <div class="form-group clearfix">
                                             <div class="icheck-primary d-inline">
-                                                <input class="area" type="radio" id="area1" name="area" value="Operativo">
+                                                <input class="area" type="radio" id="area1" name="area" value="Operativo" required>
                                                 <label class="font-weight-normal" for="area1">Operativo
                                                 </label>
                                             </div>
@@ -626,7 +629,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                         <label for="exampleInput1">Turno de Trabajo *</label>
                                         <div class="form-group clearfix">
                                             <div class="icheck-primary d-inline">
-                                                <input class="turno_trabajo" type="radio" id="turnoTrabajo1" name="turno_trabajo" value="Diurno">
+                                                <input class="turno_trabajo" type="radio" id="turnoTrabajo1" name="turno_trabajo" value="Diurno" required>
                                                 <label class="font-weight-normal" for="turnoTrabajo1">Diurno
                                                 </label>
                                             </div>
@@ -667,7 +670,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                         <label for="exampleInput1">Tipo de vinculación *</label>
                                         <div class="form-group clearfix">
                                             <div class="icheck-primary d-inline">
-                                                <input class="tipo_vinculacion" type="radio" id="tipo_vinculacion1" name="tipo_vinculacion" value="Propio">
+                                                <input class="tipo_vinculacion" type="radio" id="tipo_vinculacion1" name="tipo_vinculacion" value="Propio" required>
                                                 <label class="font-weight-normal" for="tipo_vinculacion1">Propio
                                                 </label>
                                             </div>
@@ -1002,7 +1005,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <!-- ===================================================
                                 BOTON GUARDAR FORMULARIO
                             =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4 text-left align-self-center">
+                                <div class="col-12 col-md-6 col-lg-4 text-right text-md-left align-self-center">
                                     <button type="submit" class="btn btn-success">
                                         <i class="fas fa-check-circle"></i>
                                     </button>
@@ -1014,7 +1017,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                             TABLA CONTRATOS Y PRORROGAS
                         =================================================== -->
                         <div class="row mt-3">
-                            <div class="col-12">
+                            <div class="col-12 table-responsive">
                                 <table id="tblProrrogas" class="table table-sm table-light table-bordered table-hover w-100 tablas-dinamicas">
                                     <thead class="thead-light text-center">
                                         <tr>
@@ -1051,7 +1054,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <!-- ===================================================
                                     Nombre
                                 =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
                                     <div class="form-group">
                                         <label for="exampleInput1">Nombre *</label>
                                         <input type="text" class="form-control" name="Nombre" id="Nombre_hijo" maxlength="100" required>
@@ -1061,7 +1064,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <!-- ===================================================
                                     Fecha nacimiento
                                 =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-3">
                                     <div class="form-group">
                                         <label for="exampleInput1">Fecha nacimiento *</label>
                                         <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento_hijo" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" max="<?php echo date('Y-m-d', strtotime(date("Y-m-d"))); ?>" required>
@@ -1071,7 +1074,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <!-- ===================================================
                                 Edad
                             =================================================== -->
-                                <div class="col-10 col-md-6 col-lg-3">
+                                <div class="col-12 col-md-6 col-lg-4 col-xl-2">
                                     <div>
                                         <div class="form-group">
                                             <label for="exampleInput1">Edad</label>
@@ -1079,7 +1082,32 @@ $Sucursales = ControladorGH::ctrSucursales();
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-2 col-md-6 col-lg-1 align-self-center">
+
+                                <!-- ===================================================
+                                    Genero
+                                =================================================== -->
+                                <div class="col-6 col-lg-4 col-xl-3">
+                                    <div class="form-group d-inline">
+                                        <label for="exampleInput1">Género *</label>
+                                        <div class="form-group clearfix">
+                                            <div class="icheck-primary d-inline">
+                                                <input type="radio" id="generohijo1" name="genero" value="Masculino" required>
+                                                <label class="font-weight-normal" for="generohijo1">Masculino
+                                                </label>
+                                            </div>
+                                            <div class="icheck-primary d-inline">
+                                                <input type="radio" id="generohijo2" name="genero" value="Femenino">
+                                                <label class="font-weight-normal" for="generohijo2">Femenino
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Boton submit                                    
+                                =================================================== -->
+                                <div class="col-6 col-md-12 col-lg-4 col-xl-1 text-center text-md-right text-lg-left align-self-center">
                                     <button class="btn btn-success" type="submit"><i class="fas fa-check-circle"></i></button>
                                 </div>
 
@@ -1090,13 +1118,14 @@ $Sucursales = ControladorGH::ctrSucursales();
                             TABLA HIJOS
                         =================================================== -->
                         <div class="row mt-2">
-                            <div class="col-12">
+                            <div class="col-12 table-responsive">
                                 <table id="tblHijos" class="table table-sm table-light table-bordered table-hover w-100 tablas-dinamicas">
                                     <thead class="thead-light">
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Fecha nacimiento</th>
                                             <th>Edad</th>
+                                            <th>Género</th>
                                             <th>Eliminar</th>
                                         </tr>
                                     </thead>
@@ -1192,7 +1221,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <!-- ===================================================
                                 BOTON GUARDAR FORMULARIO
                             =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4 text-left align-self-center">
+                                <div class="col-12 col-md-6 col-lg-4 text-right text-md-left align-self-center">
                                     <button type="submit" class="btn btn-success">
                                         <i class="fas fa-check-circle"></i>
                                     </button>
@@ -1204,7 +1233,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                             TABLA LICENCIAS DE CONDUCCION
                         =================================================== -->
                         <div class="row mt-3">
-                            <div class="col-12">
+                            <div class="col-12 table-responsive">
                                 <table id="tblLicencias" class="table table-sm table-light table-bordered table-hover w-100 tablas-dinamicas">
                                     <thead class="thead-light text-center">
                                         <tr>
@@ -1295,7 +1324,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <!-- ===================================================
                                 BOTON GUARDAR FORMULARIO
                             =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4 text-left align-self-center">
+                                <div class="col-12 col-lg-4 text-right text-lg-left align-self-center">
                                     <button type="submit" class="btn btn-success">
                                         <i class="fas fa-check-circle"></i>
                                     </button>
@@ -1307,7 +1336,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                             TABLA EXAMENES MEDICOS
                         =================================================== -->
                         <div class="row mt-3">
-                            <div class="col-12">
+                            <div class="col-12 table-responsive">
                                 <table id="tblExamenes" class="table table-sm table-light table-bordered table-hover w-100 tablas-dinamicas">
                                     <thead class="thead-light text-center">
                                         <tr>

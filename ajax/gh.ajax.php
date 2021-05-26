@@ -68,6 +68,7 @@ class AjaxPersonal
                         <td>" . $value['Nombre'] . "</td>
                         <td>" . $value['fecha_nacimiento'] . "</td>
                         <td>" . $value['edad'] . "</td>
+                        <td>" . $value['genero'] . "</td>
                         <td>$btnEliminar</td>
                 </tr>
             ";
@@ -113,7 +114,7 @@ class AjaxPersonal
             $btnEliminar = "<button type='button' class='btn btn-danger eliminarProrroga' idprorroga='{$value['idprorroga']}' idPersonal='{$value['idPersonal']}'><i class='fas fa-trash-alt'></i></button>";
 
             # Documento
-            if ($value['ruta_documento'] != "") {
+            if ($value['ruta_documento'] != null) {
                 $btnVerDoc = "<a href='" . URL_APP . $value['ruta_documento'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a>";
                 $btnEliminarDoc = "<button class='btn btn-sm btn-danger m-1 btnEliminarDoc' idPersonal='{$idPersonal}' idregistro='{$value['idprorroga']}' tipoDoc='contratos' type='button'><i class='fas fa-ban'></i></button>";
                 $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnVerDoc . $btnEliminarDoc . "</div>";
@@ -174,7 +175,7 @@ class AjaxPersonal
             $btnEliminar = "<button type='button' class='btn btn-danger eliminarLicencia' idlicencia='{$value['idlicencia']}' idPersonal='{$value['idPersonal']}'><i class='fas fa-trash-alt'></i></button>";
 
             # Documento
-            if ($value['ruta_documento'] != "") {
+            if ($value['ruta_documento'] != null) {
                 $btnVerDoc = "<a href='" . URL_APP . $value['ruta_documento'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a>";
                 $btnEliminarDoc = "<button class='btn btn-sm btn-danger m-1 btnEliminarDoc' idPersonal='{$idPersonal}' idregistro='{$value['idlicencia']}' tipoDoc='licencias' type='button'><i class='fas fa-ban'></i></button>";
                 $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnVerDoc . $btnEliminarDoc . "</div>";
@@ -235,7 +236,7 @@ class AjaxPersonal
             $btnEliminar = "<button type='button' class='btn btn-danger eliminarExamen' idexamen='{$value['idexamen']}' idPersonal='{$value['idPersonal']}'><i class='fas fa-trash-alt'></i></button>";
 
             # Documento
-            if ($value['ruta_documento'] != "") {
+            if ($value['ruta_documento'] != null) {
                 $btnVerDoc = "<a href='" . URL_APP . $value['ruta_documento'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a>";
                 $btnEliminarDoc = "<button class='btn btn-sm btn-danger m-1 btnEliminarDoc' idPersonal='{$idPersonal}' idregistro='{$value['idexamen']}' tipoDoc='examenes' type='button'><i class='fas fa-ban'></i></button>";
                 $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnVerDoc . $btnEliminarDoc . "</div>";

@@ -103,7 +103,14 @@
                     $ruta == "gh-alertas"
                 ) {
                     include "modulos/gestion_humana/{$ruta}.php";
-                } else { # Página no válida
+                } else if (
+                    $ruta == "v-vehiculos" ||
+                    $ruta == "v-convenios" ||
+                    $ruta == "v-propietarios"
+                ) {
+                    include "modulos/vehicular/{$ruta}.php";
+                }
+                 else { # Página no válida
                     include "includes/error404.php";
                 }
             } else {

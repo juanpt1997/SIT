@@ -204,7 +204,8 @@ class ModeloGH
         $stmt->bindParam(":ciudad", $datos['ciudad'], PDO::PARAM_INT);
         $stmt->bindParam(":sucursal", $datos['sucursal'], PDO::PARAM_INT);
         $stmt->bindParam(":activo", $datos['activo'], PDO::PARAM_STR);
-        $stmt->bindParam(":fecha_ingreso", $datos['fecha_ingreso'], PDO::PARAM_STR);
+        $fecha_ingreso = $datos['fecha_ingreso'] == null ? null : $datos['fecha_ingreso'];
+        $stmt->bindParam(":fecha_ingreso", $fecha_ingreso, PDO::PARAM_STR);
         $stmt->bindParam(":empresa", $datos['empresa'], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
@@ -267,7 +268,8 @@ class ModeloGH
         $stmt->bindParam(":ciudad", $datos['ciudad'], PDO::PARAM_INT);
         $stmt->bindParam(":sucursal", $datos['sucursal'], PDO::PARAM_INT);
         $stmt->bindParam(":activo", $datos['activo'], PDO::PARAM_STR);
-        $stmt->bindParam(":fecha_ingreso", $datos['fecha_ingreso'], PDO::PARAM_STR);
+        $fecha_ingreso = $datos['fecha_ingreso'] == null ? null : $datos['fecha_ingreso'];
+        $stmt->bindParam(":fecha_ingreso", $fecha_ingreso, PDO::PARAM_STR);
         $stmt->bindParam(":empresa", $datos['empresa'], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
@@ -326,13 +328,14 @@ class ModeloGH
     static public function mdlGuardarHijos($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("INSERT INTO gh_re_personalhijos (idPersonal, Nombre, fecha_nacimiento, edad) 
-                                    VALUES (:idPersonal, :Nombre, :fecha_nacimiento, :edad)");
+        $stmt = $conexion->prepare("INSERT INTO gh_re_personalhijos (idPersonal, Nombre, fecha_nacimiento, edad, genero) 
+                                    VALUES (:idPersonal, :Nombre, :fecha_nacimiento, :edad, :genero)");
         
         $stmt->bindParam(":idPersonal", $datos['idPersonal'], PDO::PARAM_INT);
         $stmt->bindParam(":Nombre", $datos['Nombre'], PDO::PARAM_STR);
         $stmt->bindParam(":fecha_nacimiento", $datos['fecha_nacimiento'], PDO::PARAM_STR);
         $stmt->bindParam(":edad", $datos['edad'], PDO::PARAM_STR);
+        $stmt->bindParam(":genero", $datos['genero'], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             $respuesta = "ok";

@@ -71,7 +71,6 @@ $('.tablas').DataTable({
     },
     "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todo"]]
 
-
 });
 const dataTable = (tabla) => {
     $(`${tabla}`).DataTable({

@@ -18,6 +18,30 @@ let tabsConfigGH = {
             tooltip: 'Perfil sociodemográfico',
             tabClass: 'customTabClass',
             spacerClass: 'customSpacerClass',
+        },
+        {
+            id: 'gh-tab3',
+            label: 'Pago seguridad social',
+            url: '#',
+            tooltip: 'Pago seguridad social',
+            tabClass: 'customTabClass',
+            spacerClass: 'customSpacerClass',
+        },
+        {
+            id: 'gh-tab4',
+            label: 'Alertas de contratos',
+            url: '#',
+            tooltip: 'Alertas de contratos',
+            tabClass: 'customTabClass',
+            spacerClass: 'customSpacerClass',
+        },
+        {
+            id: 'gh-tab5',
+            label: 'Control ausentismo',
+            url: '#',
+            tooltip: 'Control ausentismo',
+            tabClass: 'customTabClass',
+            spacerClass: 'customSpacerClass',
         }
 
         // ...
