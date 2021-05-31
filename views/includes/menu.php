@@ -244,22 +244,71 @@
                 <!-- ===================================================
                     ** Vehicular
                 =================================================== -->
-                <li class="nav-item">
+                <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-truck"></i>
-                        <p>Vehicular</p>
+                        <p>
+                            Vehicular
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <!-- ===================================================
+                                Bloqueo de personal
+                            =================================================== -->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Bloqueo de personal</p>
+                            </a>
+                        </li>
+                        <!-- ===================================================
+                                Bloqueo de vehículo
+                            =================================================== -->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Bloqueo de vehículo</p>
+                            </a>
+                        </li>
+                        <!-- ===================================================
+                                Propietarios
+                            =================================================== -->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Propietarios</p>
+                            </a>
+                        </li>
+
+                        <!-- ===================================================
+                                Convenios a hora primero yo miro aca como es y ya luego  le hago en git
+                            =================================================== -->
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Convenios</p>
+                            </a>
+                        </li>
+
+                        <!-- ===================================================
+                                Vehículos
+                            =================================================== -->
+                        <li class="nav-item">
+                            <a href="mv-vehiculos" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Vehículos...........</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
 
                 <!-- ===================================================
                     ** Extractos de contrato
                 =================================================== -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-folder-open"></i>
-                        <p>Extractos de contrato</p>
-                    </a>
-                </li>
+                <li class="nav-item"> <a href="#" class="nav-link"> <i
+                class="nav-icon fas fa-folder-open"></i> <p>Extractos de
+                contrato</p> </a> </li>
                 
 
                 <!-- ===================================================
@@ -303,7 +352,7 @@
                         </li>
 
                         <!-- ===================================================
-                                Convenios
+                                Convenios a hora primero yo miro aca como es y ya luego  le hago en git
                             =================================================== -->
                         <li class="nav-item">
                             <a href="#" class="nav-link">
@@ -316,9 +365,9 @@
                                 Vehículos
                             =================================================== -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="mv-vehiculos" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Vehículos</p>
+                                <p>Vehículos...........</p>
                             </a>
                         </li>
                     </ul>
