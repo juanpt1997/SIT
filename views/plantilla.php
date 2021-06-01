@@ -23,6 +23,8 @@
     <!-- Datatables -->
     <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+    <!-- Datatables - BUTTONS -->
+    <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Select2 -->
     <link href="<?= URL_APP ?>views/plugins/select2/css/select2.min.css" rel="stylesheet">
     <link href="<?= URL_APP ?>views/plugins/select2-bootstrap4-theme/select2-bootstrap4.css" rel="stylesheet">
@@ -49,6 +51,14 @@
     <script src="<?= URL_APP ?>views/plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+    <!-- Datatables - BUTTONS -->
+    <script src="<?= URL_APP ?>views/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+    <script src="<?= URL_APP ?>views/plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+    <script src="<?= URL_APP ?>views/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+    <script src="<?= URL_APP ?>views/plugins/datatables-buttons/js/buttons.print.min.js"></script>
+    <script src="<?= URL_APP ?>views/plugins/jszip/jszip.min.js"></script>
+    <script src="<?= URL_APP ?>views/plugins/pdfmake/pdfmake.min.js"></script>
+    <script src="<?= URL_APP ?>views/plugins/pdfmake/vfs_fonts.js"></script>
     <!-- ChartJS -->
     <script src="<?= URL_APP ?>views/plugins/chart.js/Chart.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/chart.js/Charjs-plugin-datalabels.min.js"></script>
@@ -100,6 +110,7 @@
                 } else if (
                     $ruta == "gh-personal" ||
                     $ruta == "gh-perfil-sd" ||
+                    $ruta == "gh-pago-ss" ||
                     $ruta == "gh-alertas"
                 ) {
                     include "modulos/gestion_humana/{$ruta}.php";

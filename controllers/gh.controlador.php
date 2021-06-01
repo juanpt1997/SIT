@@ -2,7 +2,7 @@
 class ControladorGH
 {
     /* ===================================================
-       * PERSONAL
+       * PERSONAL - gh_personal
     ===================================================*/
     /* ===================================================
             LISTADO PERSONAL
@@ -215,7 +215,13 @@ class ControladorGH
     ===================================================*/
     static public function ctrGuardarLicencias($datos)
     {
-        $guardarDatos = ModeloGH::mdlGuardarLicencias($datos);
+        $licencias = ModeloGH::mdlMostrarLicencias($datos['idPersonal']);
+        if (count($licencias) == 0){
+            $guardarDatos = ModeloGH::mdlGuardarLicencias($datos);
+        }
+        else{
+            $guardarDatos = "existe";
+        }
         return $guardarDatos;
     }
 
@@ -258,6 +264,38 @@ class ControladorGH
         return $respuesta;
     }
 
-    
+    /* ===================================================
+       * Perfil sociodemografico - gh-perfil-sd
+    ===================================================*/
+    /* ===================================================
+       MOSTRAR PERFIL SOCIODEMOGRÁFICO
+    ===================================================*/
+    static public function ctrMostrarPerfilSD()
+    {
+        $Personal = ModeloGH::mdlPersonal(null);
+
+        $respuestaArray = array();
+
+        foreach ($Personal as $key => $empleado) {
+            $hijos = ModeloGH::mdlMostrarHijos($empleado['idPersonal']);
+            $arrayHijos = array('hijos' => $hijos);
+            $mergeArray = array_merge($empleado, $arrayHijos);
+            $respuestaArray[] = $mergeArray;
+        }
+
+        return $respuestaArray;
+    }
+
+    /* ===================================================
+        CAPTURA DEL EMPLEADO CON MAYOR CANTIDAD DE HIJOS, usado para saber la cantidad de columnas en el thead de perfil sociodemografico
+    ===================================================*/
+    static public function ctrMayorCantidadHijos()
+    {
+        $mayorCantidadHijos = ModeloGH::mdlMayorCantidadHijos();
+        if (!is_array($mayorCantidadHijos)){
+            $mayorCantidadHijos = array('cantidad' => 0);
+        }
+        return $mayorCantidadHijos;
+    }
 
 }

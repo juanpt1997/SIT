@@ -202,7 +202,7 @@
                                     Pago seguridad social
                                 =================================================== -->
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="gh-pago-ss" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Pago seguridad social</p>
                                 </a>

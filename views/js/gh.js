@@ -22,7 +22,7 @@ let tabsConfigGH = {
         {
             id: 'gh-tab3',
             label: 'Pago seguridad social',
-            url: '#',
+            url: 'gh-pago-ss',
             tooltip: 'Pago seguridad social',
             tabClass: 'customTabClass',
             spacerClass: 'customSpacerClass',
@@ -654,21 +654,30 @@ if (
                     processData: false,
                     success: function (response) {
                         if (response != "error") {
-                            // DOCUMENTO
-                            var documento = $('#inputfile-licencias')[0].files;
-                            CargarDocumento(idPersonal, documento, "licencias", response, "no");
-                            // Cargar de nuevo la tabla licencias - esto se va a hacer despues de obtener respuesta de la funcion anterior de cargar documeno
-                            //AjaxTablaLicencias(idPersonal);
+                            if (response != "existe"){
+                                // DOCUMENTO
+                                var documento = $('#inputfile-licencias')[0].files;
+                                CargarDocumento(idPersonal, documento, "licencias", response, "no");
+                                // Cargar de nuevo la tabla licencias - esto se va a hacer despues de obtener respuesta de la funcion anterior de cargar documeno
+                                //AjaxTablaLicencias(idPersonal);
 
-                            // Reset del formulario
-                            $("#frmLicencias").trigger("reset");
-                            // Mensaje de éxito al usuario
-                            Swal.fire({
-                                icon: 'success',
-                                title: '¡Datos guardados correctamente!',
-                                showConfirmButton: true,
-                                confirmButtonText: 'Cerrar',
-                            })
+                                // Reset del formulario
+                                $("#frmLicencias").trigger("reset");
+                                // Mensaje de éxito al usuario
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '¡Datos guardados correctamente!',
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                })
+                            }else{
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: '¡Primero debe eliminar la licencia existente para agregar una nueva!',
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                })
+                            }
                         } else {
                             Swal.fire({
                                 icon: 'error',
@@ -720,7 +729,7 @@ if (
                     /* ===================================================
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
-                    dataTable("#tblLicencias");
+                    //dataTable("#tblLicencias");
                 }
             });
         }
@@ -1160,3 +1169,15 @@ if (
     });
 }
 
+/* ===================================================
+  * PAGO SEGURIDAD SOCIAL
+===================================================*/
+if (
+    window.location.href == `${urlPagina}gh-pago-ss/` ||
+    window.location.href == `${urlPagina}gh-pago-ss`
+){
+    $(document).ready(function () {
+        // Pago seguridad social tab
+        $('#ghTabs').simpleTabs(tabsConfigGH, 'gh-tab3');
+    });
+}

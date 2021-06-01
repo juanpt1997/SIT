@@ -6,13 +6,16 @@ include_once DIR_APP . 'config/conexion.php';
 class ModeloGH
 {
     /* ===================================================
+       * PERSONAL - gh_personal
+    ===================================================*/
+    /* ===================================================
         PERSONAL
     ===================================================*/
     static public function mdlPersonal($value)
     {   
         # todo el personal
         if ($value == null){
-            $sql = "SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, s.sucursal AS Sucursal
+            $sql = "SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, d.nombre AS Departamento, s.sucursal AS Sucursal, l.nro_licencia, l.categoria, l.fecha_vencimiento
                         FROM gh_personal p
                         INNER JOIN gh_municipios e ON e.idmunicipio = p.lugar_expedicion
                         INNER JOIN gh_municipios n ON n.idmunicipio = p.lugar_nacimiento
@@ -23,7 +26,9 @@ class ModeloGH
                         INNER JOIN gh_fondospension fp ON fp.idfondo = p.afp
                         INNER JOIN gh_arl ar ON ar.idarl = p.arl
                         INNER JOIN gh_municipios m ON m.idmunicipio = p.ciudad
+                        INNER JOIN gh_departamentos d ON d.iddepartamento = m.iddepartamento
                         INNER JOIN gh_sucursales s ON s.ids = p.sucursal
+                        LEFT JOIN gh_re_personallicencias l ON l.idPersonal = p.idPersonal
                         ORDER BY idPersonal";
             $stmt = Conexion::conectar()->prepare($sql);
             $stmt->execute();
@@ -508,6 +513,27 @@ class ModeloGH
         }
         $stmt->closeCursor();
         $conexion = null;
+        return $retorno;
+    }
+
+    /* ===================================================
+       * Perfil sociodemografico - gh-perfil-sd
+    ===================================================*/
+    /* ===================================================
+        CAPTURA DEL EMPLEADO CON MAYOR CANTIDAD DE HIJOS, usado para saber la cantidad de columnas en el thead de perfil sociodemografico
+    ===================================================*/
+    static public function mdlMayorCantidadHijos()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT COUNT(p.idPersonal) AS cantidad, p.Nombre
+                                                FROM gh_personal p
+                                                INNER JOIN gh_re_personalhijos h ON h.idPersonal = p.idPersonal
+                                                GROUP BY p.idPersonal
+                                                ORDER BY cantidad DESC
+                                                LIMIT 1");
+
+        $stmt->execute();
+        $retorno = $stmt->fetch();
+        $stmt->closeCursor();
         return $retorno;
     }
 }
