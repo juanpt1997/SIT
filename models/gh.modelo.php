@@ -539,6 +539,25 @@ class ModeloGH
         $stmt->closeCursor();
         return $retorno;
     }
+
+    /* ===================================================
+       * Alertas de contratos - gh-alertas-contratos
+    ===================================================*/
+    /* ===================================================
+       MOSTRAR CONTRATOS PROXIMOS A VENCER
+    ===================================================*/
+    static public function mdlContratosVencer()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT p.Documento, p.Nombre, pr.contrato, pr.fecha_fin, DATEDIFF(pr.fecha_fin, CURRENT_DATE) AS diferencia
+                                                FROM gh_re_personalprorrogas pr
+                                                INNER JOIN gh_personal p ON p.idPersonal = pr.idPersonal
+                                                WHERE fecha_fin BETWEEN DATE_SUB(CURRENT_DATE, INTERVAL -21 DAY) AND DATE_SUB(CURRENT_DATE, INTERVAL -44 DAY)");
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
 }
 
 /* ===================================================
@@ -651,4 +670,3 @@ class ModeloPagoSS
         return $retorno;
     }
 }
-

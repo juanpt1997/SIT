@@ -62,7 +62,7 @@
                                 <a class="dropdown-item font-weight-bold" href="gh-personal">Personal</a>
                                 <a class="dropdown-item font-weight-bold" href="gh-perfil-sd">Perfil sociodemográfico</a>
                                 <a class="dropdown-item font-weight-bold" href="gh-pago-ss">Pago seguridad social</a>
-                                <a class="dropdown-item font-weight-bold d-none" href="gh-alertas">Alertas de contrato</a>
+                                <a class="dropdown-item font-weight-bold" href="gh-alertas-contratos">Alertas de contrato</a>
                             </div>
                         </div>
                     </div>

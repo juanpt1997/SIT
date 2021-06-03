@@ -30,7 +30,7 @@ let tabsConfigGH = {
         {
             id: 'gh-tab4',
             label: 'Alertas de contratos',
-            url: '#',
+            url: 'gh-alertas-contratos',
             tooltip: 'Alertas de contratos',
             tabClass: 'customTabClass',
             spacerClass: 'customSpacerClass',
@@ -1385,5 +1385,16 @@ if (
 
         });
 
+    });
+}
+
+/* ===================================================
+  * ALERTAS DE CONTRATOS
+===================================================*/
+if (window.location.href == `${urlPagina}gh-alertas-contratos/` ||
+    window.location.href == `${urlPagina}gh-alertas-contratos`) {
+    $(document).ready(function () {
+        // Alertas de contratos tab
+        $('#ghTabs').simpleTabs(tabsConfigGH, 'gh-tab4');
     });
 }

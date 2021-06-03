@@ -302,6 +302,17 @@ class ControladorGH
         return $mayorCantidadHijos;
     }
 
+    /* ===================================================
+       * Alertas de contratos - gh-alertas-contratos
+    ===================================================*/
+    /* ===================================================
+       MOSTRAR CONTRATOS PROXIMOS A VENCER
+    ===================================================*/
+    static public function ctrContratosVencer()
+    {
+        return ModeloGH::mdlContratosVencer();
+    }
+
 }
 
 /* ===================================================

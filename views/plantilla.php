@@ -118,7 +118,7 @@
                     $ruta == "gh-personal" ||
                     $ruta == "gh-perfil-sd" ||
                     $ruta == "gh-pago-ss" ||
-                    $ruta == "gh-alertas"
+                    $ruta == "gh-alertas-contratos"
                 ) {
                     include "modulos/gestion_humana/{$ruta}.php";
                 } else if (

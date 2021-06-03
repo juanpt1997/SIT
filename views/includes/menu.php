@@ -212,7 +212,7 @@
                                     Alertas de contratos
                                 =================================================== -->
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="gh-alertas-contratos" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Alertas de contratos</p>
                                 </a>
