@@ -42,12 +42,8 @@ $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
             ========================= -->
             <div class="row mt-5">
                 <div class="col-12 table-responsive">
-                    <!-- <pre><?php var_dump($PerfilSD)?></pre> -->
-                    <!-- <pre><?php var_dump($PerfilSD[0])?></pre> -->
-                    <!-- <pre><?php var_dump($PerfilSD[0]['hijos'])?></pre> -->
-                    
                     <table class="table table-sm table-light table-striped table-bordered tablasButtons dt-responsive w-100">
-                        <thead class="thead-light text-capitalize text-sm text-nowrap">
+                        <thead class="text-capitalize text-sm text-nowrap">
                             <tr>
                                 <th style="width:10px;">Id</th>
                                 <th>Consentimiento</th>

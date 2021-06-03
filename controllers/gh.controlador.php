@@ -1,4 +1,8 @@
 <?php
+
+/* ===================================================
+   * PERSONAL Y PERFIL SOCIODEMOGRAFICO
+===================================================*/
 class ControladorGH
 {
     /* ===================================================
@@ -298,4 +302,74 @@ class ControladorGH
         return $mayorCantidadHijos;
     }
 
+}
+
+/* ===================================================
+    * PAGO SEGURIDAD SOCIAL
+===================================================*/
+class ControladorPagoSS
+{
+    /* ===================================================
+       MOSTRAR TODAS LAS FECHAS DE LOS PAGOS SEGURIDAD SOCIAL
+    ===================================================*/
+    static public function ctrMostrarFechas()
+    {
+        return ModeloPagoSS::mdlMostrarFechas();
+    }
+
+    /* ===================================================
+       GUARDAR FECHAS PARA PAGO SEGURIDAD SOCIAL
+    ===================================================*/
+    static public function ctrGuardarFechas($datos)
+    {
+        if ($datos['idFechas'] == ""){
+            # INSERT
+            $idFechas = ModeloPagoSS::mdlAgregarFechas($datos);
+
+            #INSERT DE TODO EL PERSONAL A LA TABLA RELACIONAL
+            if ($idFechas != "error"){
+                ModeloPagoSS::mdlLlenarPagosxEmpleados($idFechas);
+                $retorno = $idFechas;
+            }else{
+                $retorno = "error";
+            }
+        }else{
+            #UPDATE
+            $update = ModeloPagoSS::mdlEditFechas($datos);
+            if ($update == "ok"){
+                $retorno = "update";
+            }else{
+                $retorno = "error";
+            }
+        }
+
+        # Mensaje que retorna
+        return $retorno;
+    }
+
+    /* ===================================================
+       TABLA PAGO SEGURIDAD SOCIAL
+    ===================================================*/
+    static public function ctrMostrarPagoSS($idFechas)
+    {
+        return ModeloPagoSS::mdlMostrarPagoSS($idFechas);
+    }
+
+    /* ===================================================
+       CAMBIAR PAGO DEL EMPLEADO
+    ===================================================*/
+    static public function ctrActualizarPago($idsegursoc, $estadoActual)
+    {
+        $nuevoEstado = $estadoActual == "S" ? "N" : "S";
+
+        $datos = array(
+            'tabla' => 'gh_re_personalsegursoc',
+            'item1' => 'pago',
+            'valor1' => $nuevoEstado,
+            'item2' => 'idsegursoc',
+            'valor2' => $idsegursoc
+        );
+        $respuesta = ModeloGH::mdlActualizarEmpleado($datos);
+        return $respuesta;
+    }
 }

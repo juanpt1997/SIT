@@ -654,7 +654,7 @@ if (
                     processData: false,
                     success: function (response) {
                         if (response != "error") {
-                            if (response != "existe"){
+                            if (response != "existe") {
                                 // DOCUMENTO
                                 var documento = $('#inputfile-licencias')[0].files;
                                 CargarDocumento(idPersonal, documento, "licencias", response, "no");
@@ -670,7 +670,7 @@ if (
                                     showConfirmButton: true,
                                     confirmButtonText: 'Cerrar',
                                 })
-                            }else{
+                            } else {
                                 Swal.fire({
                                     icon: 'warning',
                                     title: '¡Primero debe eliminar la licencia existente para agregar una nueva!',
@@ -1001,14 +1001,14 @@ if (
                         }
 
                         // Mensaje al usuario de que se subió correctamente el documento
-                        if (msjExito == "si"){
-                            if (response == "ok"){
+                        if (msjExito == "si") {
+                            if (response == "ok") {
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Documento subido correctamente!',
                                     showConfirmButton: false,
                                 })
-                            }else{
+                            } else {
                                 Swal.fire({
                                     icon: 'warning',
                                     title: 'Primero seleccione un archivo',
@@ -1175,9 +1175,215 @@ if (
 if (
     window.location.href == `${urlPagina}gh-pago-ss/` ||
     window.location.href == `${urlPagina}gh-pago-ss`
-){
+) {
     $(document).ready(function () {
         // Pago seguridad social tab
         $('#ghTabs').simpleTabs(tabsConfigGH, 'gh-tab3');
+
+        // DATE RANGE PICKER
+        dateRangePicker("#rangoFechas");
+
+        /* ===================================================
+            GUARDAR RANGO DE FECHAS PARA EL PAGO DE SEGURIDAD SOCIAL
+        ===================================================*/
+        $("#frmRangoFechas").submit(function (e) {
+            e.preventDefault();
+
+            var fechaini = moment($("#rangoFechas").val().split(" - ")[0], "DD-MM-YYYY").format("YYYY-MM-DD");
+            var fechafin = moment($("#rangoFechas").val().split(" - ")[1], "DD-MM-YYYY").format("YYYY-MM-DD");
+
+            var datos = new FormData();
+            datos.append('GuardarFechasPagoSS', "ok");
+            datos.append('idFechas', $("#idFechas").val());
+            datos.append('fechaini', fechaini);
+            datos.append('fechafin', fechafin);
+            datos.append('observaciones', $("#observaciones").val());
+            $.ajax({
+                type: 'post',
+                url: `${urlPagina}ajax/gh.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response != "error") {
+                        // Mensaje de exito con temporizador
+                        Swal.fire({
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        // Evento para refrescar la pagina cuando sale de la modal
+                        $('#PagoSSModal').on('hidden.bs.modal', function () {
+                            window.location = 'gh-pago-ss';
+                        })
+                        // Refrescar tabla en caso de ser un insert
+                        if (response != "update") {
+                            $("#idFechas").val(response);
+                            AjaxTablaPagoSS(response);
+                        }
+                    } else {
+                        // Mensaje de error
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Ha ocurrido un error, por favor intente de nuevo',
+                            showConfirmButton: true,
+                            confirmButtonText: 'Cerrar',
+                            closeOnConfirm: false
+                        }).then((result) => {
+
+                            if (result.value) {
+                                window.location = 'gh-pago-ss';
+                            }
+
+                        })
+                    }
+                }
+            });
+        });
+
+        /* ===================================================
+          FUNCION CARGAR DATATABLE EMPLEADOS Y SUS PAGOS
+        ===================================================*/
+        const AjaxTablaPagoSS = (idFechas) => {
+            // Quitar datatable
+            $("#tblPagoSS").dataTable().fnDestroy();
+            // Borrar datos
+            $("#tbodyPagoSS").html("");
+
+            let datos = new FormData();
+            datos.append('TablaPagoSS', 'ok');
+            datos.append('idFechas', idFechas);
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/gh.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != '' || response != null) {
+                        $("#tbodyPagoSS").html(response);
+                    } else {
+                        $("#tbodyPagoSS").html('');
+                    }
+
+                    /* ===================================================
+                    INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                    ===================================================*/
+                    dataTable("#tblPagoSS");
+                }
+            });
+        }
+
+        /* ===================================================
+            ABRE LA MODAL CON EL BOTON NUEVO
+        ===================================================*/
+        $(document).on("click", ".btn-nuevoPagoSS", function () {
+            // Reset input id
+            $("#idFechas").val("");
+            // Reset observaciones
+            $("#observaciones").val("");
+            // Reset date range picker
+            $('#rangoFechas').data('daterangepicker').setStartDate(moment().startOf("month"));
+            $('#rangoFechas').data('daterangepicker').setEndDate(moment().endOf("month"));
+
+            // Quitar datatable
+            $("#tblPagoSS").dataTable().fnDestroy();
+            // Borrar datos
+            $("#tbodyPagoSS").html("");
+        });
+
+        /* ===================================================
+          ABRE LA MODAL CON EL BOTON EDITAR EN UN REGISTRO
+        ===================================================*/
+        $(document).on("click", ".btn-editarPagoSS", function () {
+            var idFechas = $(this).attr("idFechas");
+            var observaciones = $(this).attr("observaciones");
+
+            // Datos formulario
+            $("#idFechas").val(idFechas);
+            $("#observaciones").val(observaciones);
+            var fechaini = moment($(this).attr("fechaini"), "YYYY-MM-DD").format("DD-MM-YYYY");
+            var fechafin = moment($(this).attr("fechafin"), "YYYY-MM-DD").format("DD-MM-YYYY");
+            $('#rangoFechas').data('daterangepicker').setStartDate(fechaini);
+            $('#rangoFechas').data('daterangepicker').setEndDate(fechafin);
+
+            // var datos = new FormData();
+            // datos.append('CabeceraPagoSS', "ok");
+            // $.ajax({
+            //     type: 'post',
+            //     url: `${urlPagina}ajax/gh.ajax.php`,
+            //     data: datos,
+            //     dataType: 'json',
+            //     cache: false,
+            //     contentType: false,
+            //     processData: false,
+            //     success: function (response) {
+
+            //     }
+            // });
+
+            // Cargar datatable
+            AjaxTablaPagoSS(idFechas);
+
+        });
+
+        /* ===================================================
+          BOTON PAGO SI/NO
+        ===================================================*/
+        $(document).on("click", ".btnPago", function () {
+            var $boton = $(this);
+            var idsegursoc = $(this).attr("idsegursoc");
+            var pago = $(this).attr("pago");
+
+            var datos = new FormData();
+            datos.append("CambiarPagoSS", "ok");
+            datos.append("idsegursoc", idsegursoc);
+            datos.append("estadoActual", pago);
+            $.ajax({
+                url: `${urlPagina}ajax/gh.ajax.php`,
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+
+                    if (response == "ok") {
+                        if (pago == 'S') {
+                            $boton.removeClass("btn-success");
+                            $boton.addClass("btn-danger");
+                            $boton.html("NO");
+                            $boton.attr("pago", "N");
+                        } else {
+                            $boton.addClass("btn-success");
+                            $boton.removeClass("btn-danger");
+                            $boton.html("SI");
+                            $boton.attr("pago", "S");
+                        }
+                    }
+                    else
+                        // Mensaje de error
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Ha ocurrido un error, por favor intente de nuevo',
+                            showConfirmButton: true,
+                            confirmButtonText: 'Cerrar',
+                            closeOnConfirm: false
+                        }).then((result) => {
+
+                            if (result.value) {
+                                window.location = 'gh-pago-ss';
+                            }
+
+                        })
+
+                }
+            });
+
+        });
+
     });
 }

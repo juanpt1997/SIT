@@ -38,12 +38,107 @@ var urlPagina = `${dominioApp}/sit/${proyecto}/`;
 // WorkAround: It's as simple as removing the focus event.
 $.fn.modal.Constructor.prototype._enforceFocus = function () { };
 
+/* ===================== 
+  FUNCIÓN DEL DATEPICKER  
+========================= */
+const dateRangePicker = (id) => {
+
+    moment.locale("es"); //ESTABLESCO LA ZONA HORARIA DADA POR MOMENT.JS
+    $("#mesAnio").text(moment().format("MMMM  YYYY")); // MUESTRO EL MES ACTUAL
+
+    let fechaInicio = moment().format("YYYY-MM") + "-01";
+    let fechaHoy = moment().format("YYYY-MM-DD");
+    let fecha1 = fechaInicio,
+        fecha2 = fechaHoy;
+
+    $(`${id}`).daterangepicker(
+        {
+            showWeekNumbers: true,
+            showDropdowns: true,
+            autoApply: true,
+            ranges: {
+                Hoy: [moment(), moment()],
+                Ayer: [moment().subtract(1, "days"), moment().subtract(1, "days")],
+                "Últimos 7 Días": [moment().subtract(6, "days"), moment()],
+                "Últimos 30 Días": [moment().subtract(29, "days"), moment()],
+                "Este Mes": [moment().startOf("month"), moment().endOf("month")],
+                "Ultimo Mes": [
+                    moment().subtract(1, "month").startOf("month"),
+                    moment().subtract(1, "month").endOf("month")
+                ],
+                Todo: [moment().subtract(20, "years"), moment()]
+            },
+            locale: {
+                format: "DD-MM-YYYY",
+                separator: " - ",
+                applyLabel: "Aplicar",
+                cancelLabel: "Cancelar",
+                fromLabel: "Desde",
+                toLabel: "Hasta",
+                customRangeLabel: "Personalizado",
+                weekLabel: "W",
+                daysOfWeek: ["Do", "Lu", "Mar", "Mie", "Jue", "Vie", "Sab"],
+                monthNames: [
+                    "Enero",
+                    "Febrero",
+                    "Marzo",
+                    "Abril",
+                    "Mayo",
+                    "Junio",
+                    "Julio",
+                    "Agosto",
+                    "Septiembre",
+                    "Octubre",
+                    "Noviembre",
+                    "Diciembre"
+                ],
+                firstDay: 1
+            },
+            alwaysShowCalendars: true,
+            startDate: moment().startOf("month"),
+            endDate: moment().endOf("month"),
+            opens: "center",
+            cancelClass: "btn-danger"
+        },
+        function (start, end, label) {
+            console.info(
+                "Rango desde: " +
+                start.format("YYYY-MM-DD") +
+                " hasta " +
+                end.format("YYYY-MM-DD") +
+                " (predefined range: " +
+                label +
+                ")"
+            );
+
+            // fecha1 = start.format("YYYY-MM-DD");
+            // fecha2 = end.format("YYYY-MM-DD");
+
+            //Recorro las funciones del objeto
+            // for (const f of funciones) {
+            //     f.funcion();
+            // }
+
+            // funciones.forEach(f => {
+            //     f();
+            // });
+
+
+
+
+        }
+    ); //Datepicker
+}//end funcion dateRangePicker
+
 /* ===================================================
       DATATABLE
     ===================================================*/
 $('.tablas').DataTable({
+    stateSave: true,
 
     "language": {
+        "decimal": ",",
+        "thousands": ".",
 
         "sProcessing": "Procesando...",
         "sLengthMenu": "Mostrar _MENU_ registros",

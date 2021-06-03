@@ -485,3 +485,78 @@ if (isset($_POST['CargarDocumento']) && $_POST['CargarDocumento'] == "ok") {
 if (isset($_POST['EliminarDocumento']) && $_POST['EliminarDocumento'] == "ok") {
     AjaxPersonal::ajaxEliminarDocumento($_POST['idregistro'], $_POST['tipoDoc']);
 }
+
+/* ===================================================
+   * AJAX PAGO SEGURIDAD SOCIAL
+===================================================*/
+class AjaxPagoSS
+{
+    /* ===================================================
+       GUARDAR FECHAS PARA PAGO SEGURIDAD SOCIAL
+    ===================================================*/
+    static public function ajaxGuardarFechas($datos)
+    {
+        echo ControladorPagoSS::ctrGuardarFechas($datos);
+    }
+
+    /* ===================================================
+        TABLA PAGO SEGURIDAD SOCIAL
+    ===================================================*/
+    static public function ajaxTablaPagoSS($idFecha)
+    {
+        $PagoSS = ControladorPagoSS::ctrMostrarPagoSS($idFecha);
+        $tr = "";
+        foreach ($PagoSS as $key => $value) {
+            # PAGO
+            if ($value['pago'] == 'N') {
+                $pago = '<button class="btn btn-sm btn-danger btnPago" idsegursoc="' . $value["idsegursoc"] . '" pago="N">NO</button>';
+            } else {
+                $pago = '<button class="btn btn-sm btn-success btnPago" idsegursoc="' . $value["idsegursoc"] . '" pago="S">SI</button>';
+            }
+            $tr .= "
+                <tr>
+                        <td>" . $value['Nombre'] . "</td>
+                        <td>" . $value['pago_seguridadsocial'] . "</td>
+                        <td>" . $pago . "</td>
+                        <td>" . $value['eps'] . "</td>
+                        <td>" . $value['arl'] . "</td>
+                        <td>" . $value['afp'] . "</td>
+                        <td>" . $value['cargo'] . "</td>
+                        <td>" . $value['sucursal'] . "</td>
+                </tr>
+            ";
+        }
+
+        echo $tr;
+    }
+
+    /* ===================================================
+       CAMBIAR PAGO DEL EMPLEADO
+    ===================================================*/
+    static public function ajaxActualizarPago($idsegursoc, $estadoActual)
+    {
+        $respuesta = ControladorPagoSS::ctrActualizarPago($idsegursoc, $estadoActual);
+        echo $respuesta;
+    }
+}
+
+/* ===================================================
+   ! LLAMADOS PAGO SEGURIDAD SOCIAL
+===================================================*/
+if (isset($_POST['GuardarFechasPagoSS']) && $_POST['GuardarFechasPagoSS'] == "ok") {
+    $datos = array(
+        'idFechas' => $_POST['idFechas'],
+        'fechaini' => $_POST['fechaini'],
+        'fechafin' => $_POST['fechafin'],
+        'observaciones' => $_POST['observaciones']
+    );
+    AjaxPagoSS::ajaxGuardarFechas($datos);
+}
+
+if (isset($_POST['TablaPagoSS']) && $_POST['TablaPagoSS'] == "ok") {
+    AjaxPagoSS::ajaxTablaPagoSS($_POST['idFechas']);
+}
+
+if (isset($_POST['CambiarPagoSS']) && $_POST['CambiarPagoSS'] == "ok") {
+    AjaxPagoSS::ajaxActualizarPago($_POST['idsegursoc'], $_POST['estadoActual']);
+}

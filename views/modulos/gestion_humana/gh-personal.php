@@ -62,7 +62,7 @@ $Sucursales = ControladorGH::ctrSucursales();
             <div class="row mt-2">
                 <div class="col-12">
                     <table class="table table-sm table-light table-striped table-bordered tablas dt-responsive w-100">
-                        <thead class="thead-light text-capitalize">
+                        <thead class="text-capitalize">
                             <tr>
                                 <th style="width:10px;">Id</th>
                                 <th>Foto</th>

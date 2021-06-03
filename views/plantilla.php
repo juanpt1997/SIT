@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <!-- Datatables - BUTTONS -->
     <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+    <!-- daterange picker -->
+    <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/daterangepicker/daterangepicker.css">
     <!-- Select2 -->
     <link href="<?= URL_APP ?>views/plugins/select2/css/select2.min.css" rel="stylesheet">
     <link href="<?= URL_APP ?>views/plugins/select2-bootstrap4-theme/select2-bootstrap4.css" rel="stylesheet">
@@ -59,6 +61,11 @@
     <script src="<?= URL_APP ?>views/plugins/jszip/jszip.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/pdfmake/pdfmake.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/pdfmake/vfs_fonts.js"></script>
+    <!-- Momentjs -->
+    <script src="<?= URL_APP ?>views/plugins/moment/moment-with-locales.min.js"></script>
+    <script src="<?= URL_APP ?>views/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
+    <!-- date-range-picker -->
+    <script src="<?= URL_APP ?>views/plugins/daterangepicker/daterangepicker.js"></script>
     <!-- ChartJS -->
     <script src="<?= URL_APP ?>views/plugins/chart.js/Chart.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/chart.js/Charjs-plugin-datalabels.min.js"></script>

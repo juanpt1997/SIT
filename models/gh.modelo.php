@@ -3,6 +3,9 @@
 // INCLUIMOS LA CONFIGURACIÓN Y LA CONEXION PARA EL FUNCIONAMIENTO DEL PROYECTO
 include_once DIR_APP . 'config/conexion.php';
 
+/* ===================================================
+    * PERSONAL Y PERFIL SOCIODEMOGRAFICO
+===================================================*/
 class ModeloGH
 {
     /* ===================================================
@@ -537,3 +540,115 @@ class ModeloGH
         return $retorno;
     }
 }
+
+/* ===================================================
+   * PAGO SEGURIDAD SOCIAL
+===================================================*/
+class ModeloPagoSS
+{
+    /* ===================================================
+       MOSTRAR TODAS LAS FECHAS DE LOS PAGOS SEGURIDAD SOCIAL
+    ===================================================*/
+    static public function mdlMostrarFechas()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM gh_fechas_segursoc");
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /* ===================================================
+       AGREGAR FECHAS PARA PAGO SEGURIDAD SOCIAL
+    ===================================================*/
+    static public function mdlAgregarFechas($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO gh_fechas_segursoc (fechaini, fechafin, observaciones) 
+                                    VALUES (:fechaini, :fechafin, :observaciones)");
+
+        $stmt->bindParam(":fechaini", $datos['fechaini'], PDO::PARAM_STR);
+        $stmt->bindParam(":fechafin", $datos['fechafin'], PDO::PARAM_STR);
+        $stmt->bindParam(":observaciones", $datos['observaciones'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $id = $conexion->lastInsertId();
+        } else {
+            $id = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $id;
+    }
+
+    /* ===================================================
+       EDITAR FECHAS PARA PAGO SEGURIDAD SOCIAL
+    ===================================================*/
+    static public function mdlEditFechas($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("UPDATE gh_fechas_segursoc SET fechaini = :fechaini, fechafin = :fechafin, observaciones = :observaciones
+                                    WHERE idFechas = :idFechas");
+        
+        $stmt->bindParam(":idFechas", $datos['idFechas'], PDO::PARAM_INT);
+        $stmt->bindParam(":fechaini", $datos['fechaini'], PDO::PARAM_STR);
+        $stmt->bindParam(":fechafin", $datos['fechafin'], PDO::PARAM_STR);
+        $stmt->bindParam(":observaciones", $datos['observaciones'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $respuesta = "ok";
+        } else {
+            $respuesta = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $respuesta;
+    }
+
+    /* ===================================================
+        INSERT DEL PERSONAL EN LA TABLA PAGO SEGURIDAD SOCIAL CON EL VALOR DE NO
+    ===================================================*/
+    static public function mdlLlenarPagosxEmpleados($idFechas)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO gh_re_personalsegursoc (idPersonal, idFechas)
+                                    SELECT idPersonal, :idFechas
+                                    FROM gh_personal WHERE activo = 'S';");
+
+        $stmt->bindParam(":idFechas", $idFechas, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $retorno;
+    }
+
+    /* ===================================================
+       TABLA PAGO SEGURIDAD SOCIAL
+    ===================================================*/
+    static public function mdlMostrarPagoSS($idFechas)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT s.idsegursoc, p.Nombre, p.pago_seguridadsocial, s.pago, e.eps, ar.arl, fp.fondo AS afp, c.cargo, sc.sucursal
+                                                FROM gh_re_personalsegursoc s
+                                                INNER JOIN gh_personal p ON p.idPersonal = s.idPersonal
+                                                INNER JOIN gh_eps e ON e.ideps = p.eps
+                                                INNER JOIN gh_arl ar ON ar.idarl = p.arl
+                                                INNER JOIN gh_fondospension fp ON fp.idfondo = p.afp
+                                                INNER JOIN gh_cargos c ON c.idCargo = p.cargo
+                                                INNER JOIN gh_sucursales sc ON sc.ids = p.sucursal
+                                                WHERE idFechas = :idFechas AND p.activo = 'S'");
+
+        $stmt->bindParam(":idFechas", $idFechas, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+}
+
