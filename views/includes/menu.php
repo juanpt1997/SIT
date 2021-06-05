@@ -244,8 +244,8 @@
                 <!-- ===================================================
                     ** Vehicular
                 =================================================== -->
-                <li class="nav-item">
-                    <a href="v-propietarios" class="nav-link">
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-truck"></i>
                         <p>
                             Vehicular
@@ -275,7 +275,7 @@
                                 Propietarios
                             =================================================== -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="v-propietarios" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Propietarios</p>
                             </a>
@@ -285,7 +285,7 @@
                                 Convenios a hora primero yo miro aca como es y ya luego  le hago en git
                             =================================================== -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="v-convenios" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Convenios</p>
                             </a>
@@ -295,19 +295,12 @@
                                 Vehículos
                             =================================================== -->
                         <li class="nav-item">
-                            <a href="mv-vehiculos" class="nav-link">
+                            <a href="v-vehiculos" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Vehículos...........</p>
+                                <p>Vehículos<p>
                             </a>
                         </li>
                     </ul>
-                </li>
-
-                <li class="nav-item">
-                    <a href="v-convenios" class="nav-link">
-                        <i class="nav-icon fas fa-truck"></i>
-                        <p>Convenios</p>
-                    </a>
                 </li>
 
                 <!-- ===================================================

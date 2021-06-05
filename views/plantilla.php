@@ -125,9 +125,9 @@
                 ) {
                     include "modulos/gestion_humana/{$ruta}.php";
                 } else if (
-                    $ruta == "mv-vehiculos" ||
-                    $ruta == "mv-convenios" ||
-                    $ruta == "mv-propietarios"
+                    $ruta == "v-vehiculos" ||
+                    $ruta == "v-convenios" ||
+                    $ruta == "v-propietarios"
                 ) {
                     include "modulos/vehicular/{$ruta}.php";
                 }
