@@ -56,7 +56,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         <div class="card-header bg-dark"></div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
+                                <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
                                     <thead class="thead-light text-uppercase text-sm text-center">
                                         <tr>
                                             <th style="width:10px;">#</th>
