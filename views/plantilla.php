@@ -28,6 +28,7 @@
     <!-- daterange picker -->
     <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/daterangepicker/daterangepicker.css">
     <!-- Select2 -->
+    <link rel="<?= URL_APP ?>views/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
     <link href="<?= URL_APP ?>views/plugins/select2/css/select2.min.css" rel="stylesheet">
     <link href="<?= URL_APP ?>views/plugins/select2-bootstrap4-theme/select2-bootstrap4.css" rel="stylesheet">
     <!-- iCheck for checkboxes and radio inputs -->
@@ -76,6 +77,7 @@
     <script src="<?= URL_APP ?>views/plugins/moment/moment-with-locales.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
     <!-- Select2 -->
+    <script src="<?= URL_APP ?>views/select2/js/select2.full.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/select2/js/select2.min.js"></script>
     <!-- Bootstrap Switch -->
     <script src="<?= URL_APP ?>views/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
@@ -123,9 +125,9 @@
                 ) {
                     include "modulos/gestion_humana/{$ruta}.php";
                 } else if (
-                    $ruta == "v-vehiculos" ||
-                    $ruta == "v-convenios" ||
-                    $ruta == "v-propietarios"
+                    $ruta == "mv-vehiculos" ||
+                    $ruta == "mv-convenios" ||
+                    $ruta == "mv-propietarios"
                 ) {
                     include "modulos/vehicular/{$ruta}.php";
                 }
@@ -159,6 +161,7 @@
     <script src="<?= URL_APP ?>views/js/plantilla.js?v=<?= time() ?>"></script>
     <script src="<?= URL_APP ?>views/js/usuarios.js?v=<?= time() ?>"></script>
     <script src="<?= URL_APP ?>views/js/gh.js?v=<?= time() ?>"></script>
+    <script src="<?= URL_APP ?>views/js/mvehiculo.js?v=<?= time() ?>"></script>
 
 </body>
 
