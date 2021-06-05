@@ -245,9 +245,16 @@
                     ** Vehicular
                 =================================================== -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="v-propietarios" class="nav-link">
                         <i class="nav-icon fas fa-truck"></i>
                         <p>Vehicular</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="v-convenios" class="nav-link">
+                        <i class="nav-icon fas fa-truck"></i>
+                        <p>Convenios</p>
                     </a>
                 </li>
 

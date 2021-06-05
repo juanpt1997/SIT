@@ -106,7 +106,7 @@ class ModeloUsuarios
     static public function mdlEditarUsuario($datos)
     {
         $stmt = Conexion::conectar()->prepare("UPDATE l_usuarios set Nombre = :Nombre, Email = :Email, idPerfil = :idPerfil, idSucursal = :idSucursal
-                                            WHERE Cedula = :Cedula");
+                                              WHERE Cedula = :Cedula");
 
         $stmt->bindParam(":Cedula", $datos["Identificacion"], PDO::PARAM_INT);
         $stmt->bindParam(":Nombre", $datos["Nombre"], PDO::PARAM_STR);

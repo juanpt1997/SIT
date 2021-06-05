@@ -140,6 +140,7 @@
     <script src="<?= URL_APP ?>views/js/plantilla.js?v=<?= time() ?>"></script>
     <script src="<?= URL_APP ?>views/js/usuarios.js?v=<?= time() ?>"></script>
     <script src="<?= URL_APP ?>views/js/gh.js?v=<?= time() ?>"></script>
+    <script src="<?= URL_APP ?>views/js/vehicular.js?v=<?= time() ?>"></script>
 
 </body>
 
