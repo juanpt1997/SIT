@@ -118,7 +118,8 @@
                     $ruta == "gh-personal" ||
                     $ruta == "gh-perfil-sd" ||
                     $ruta == "gh-pago-ss" ||
-                    $ruta == "gh-alertas-contratos"
+                    $ruta == "gh-alertas-contratos" ||
+                    $ruta == "gh-ausentismo"
                 ) {
                     include "modulos/gestion_humana/{$ruta}.php";
                 } else if (

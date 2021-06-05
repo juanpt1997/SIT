@@ -26,9 +26,9 @@ class AjaxPersonal
     /* ===================================================
        CARGAR DATOS DEL EMPLEADO
     ===================================================*/
-    static public function ajaxDatosEmpleado($idPersonal)
+    static public function ajaxDatosEmpleado($item, $valor)
     {
-        $respuesta = ControladorGH::ctrDatosEmpleado($idPersonal);
+        $respuesta = ControladorGH::ctrDatosEmpleado($item, $valor);
         echo json_encode($respuesta);
     }
 
@@ -404,7 +404,7 @@ if (isset($_POST['GuardarPersonal']) && $_POST['GuardarPersonal'] == "ok") {
 }
 
 if (isset($_POST['DatosEmpleado']) && $_POST['DatosEmpleado'] == "ok") {
-    AjaxPersonal::ajaxDatosEmpleado($_POST['idPersonal']);
+    AjaxPersonal::ajaxDatosEmpleado($_POST['item'], $_POST['valor']);
 }
 
 if (isset($_POST['CambiarActivo']) && $_POST['CambiarActivo'] == "ok") {
@@ -559,4 +559,24 @@ if (isset($_POST['TablaPagoSS']) && $_POST['TablaPagoSS'] == "ok") {
 
 if (isset($_POST['CambiarPagoSS']) && $_POST['CambiarPagoSS'] == "ok") {
     AjaxPagoSS::ajaxActualizarPago($_POST['idsegursoc'], $_POST['estadoActual']);
+}
+
+/* ===================================================
+   * AJAX CONTROL AUSENTISMO
+===================================================*/
+class AjaxAusentismo
+{
+    static public function ajaxDatosAusentismo($idAusentismo)
+    {
+        $respuesta = ControladorAusentismo::ctrDatosAusentismo($idAusentismo);
+        echo json_encode($respuesta);
+    }
+}
+
+
+/* ===================================================
+   ! LLAMADOS PAGO SEGURIDAD SOCIAL
+===================================================*/
+if (isset($_POST['DatosAusentismo']) && $_POST['DatosAusentismo'] == "ok"){
+    AjaxAusentismo::ajaxDatosAusentismo($_POST['idAusentismo']);
 }

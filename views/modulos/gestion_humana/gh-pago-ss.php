@@ -45,7 +45,7 @@ $FechasPagoSS = ControladorPagoSS::ctrMostrarFechas();
                     <div class="row">
                         <div class="col-12">
                             <button type="button" class="btn btn-primary btn-nuevoPagoSS" data-toggle="modal" data-target="#PagoSSModal">
-                                <i class="fas fa-user-plus"></i> Nuevo
+                                <i class="fas fa-plus-circle"></i> Nuevo
                             </button>
                         </div>
                     </div>
@@ -102,7 +102,7 @@ $FechasPagoSS = ControladorPagoSS::ctrMostrarFechas();
                 <div class="row">
                     <div class="col-12">
                         <form id="frmRangoFechas" method="post" enctype="multipart/form-data">
-                            <div class="card">
+                            <div class="card border border-info">
                                 <div class="card-body">
                                     <div class="row d-flex justify-content-center">
                                         <div class="col-12 col-md-6 col-lg-4">
@@ -111,7 +111,7 @@ $FechasPagoSS = ControladorPagoSS::ctrMostrarFechas();
                                                 <input class="form-control" type="number" name="idFechas" id="idFechas" readonly value="">
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-12 col-md-6 col-lg-4">
                                             <div class="form-group">
                                                 <label for="exampleInput1">Fechas</label>
@@ -143,7 +143,7 @@ $FechasPagoSS = ControladorPagoSS::ctrMostrarFechas();
                         <table id="tblPagoSS" class="table table-sm table-hover row-border w-100">
                             <thead class="thead-light">
                                 <tr>
-                                    <th>Conductor</th>
+                                    <th>Empleado</th>
                                     <th>Seguridad soc.</th>
                                     <th>Pago</th>
                                     <th>Eps</th>

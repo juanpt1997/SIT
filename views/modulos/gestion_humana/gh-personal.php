@@ -914,11 +914,11 @@ $Sucursales = ControladorGH::ctrSucursales();
                             =================================================== -->
                             <div class="row">
                                 <div class="col-12 text-right">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                     <button type="submit" class="btn btn-success">
                                         <i class="fas fa-save"></i>
                                         Guardar
                                     </button>
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                 </div>
                             </div>
                         </form>
@@ -929,7 +929,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                     =================================================== -->
                     <div class="tab-pane fade" id="contratos" role="tabpanel" aria-labelledby="contratos-tab">
                         <form class="formulario" id="frmProrrogas" method="post" enctype="multipart/form-data">
-                            <div class="row mt-2">
+                            <div class="row mt-2 border border-info rounded">
                                 <!-- ===================================================
                                     Contrato
                                 =================================================== -->
@@ -1050,7 +1050,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                     =================================================== -->
                     <div class="tab-pane fade" id="hijos" role="tabpanel" aria-labelledby="hijos-tab">
                         <form class="formulario" id="frmHijos" method="post" enctype="multipart/form-data">
-                            <div class="row mt-2">
+                            <div class="row mt-2 border border-info rounded">
                                 <!-- ===================================================
                                     Nombre
                                 =================================================== -->
@@ -1150,7 +1150,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                     =================================================== -->
                     <div class="tab-pane fade" id="licencias" role="tabpanel" aria-labelledby="licencias-tab">
                         <form class="formulario" id="frmLicencias" method="post" enctype="multipart/form-data">
-                            <div class="row mt-2">
+                            <div class="row mt-2 border border-info rounded">
                                 <!-- ===================================================
                                     Nro licencia
                                 =================================================== -->
@@ -1266,7 +1266,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                     =================================================== -->
                     <div class="tab-pane fade" id="examenes" role="tabpanel" aria-labelledby="examenes-tab">
                         <form class="formulario" id="frmExamenes" method="post" enctype="multipart/form-data">
-                            <div class="row mt-2">
+                            <div class="row mt-2 border border-info rounded">
                                 <!-- ===================================================
                                     Tipo examen
                                 =================================================== -->

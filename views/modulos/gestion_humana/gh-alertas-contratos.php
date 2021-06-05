@@ -42,9 +42,9 @@ $ContratosVencer = ControladorGH::ctrContratosVencer();
                     <!-- ===================== 
                         TABLA ALERTAS DE CONTRATOS
                     ========================= -->
-                    <div class="row mt-2">
+                    <div class="row">
                         <div class="col-12">
-                            <table class="table table-sm table-striped table-bordered tablasButtons dt-responsive w-100">
+                            <table class="table table-sm table-striped table-bordered tablasBtnExport dt-responsive w-100">
                                 <thead class="thead-light">
                                     <tr>
                                         <th>Documento</th>

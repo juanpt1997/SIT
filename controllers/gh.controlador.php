@@ -13,7 +13,7 @@ class ControladorGH
         ===================================================*/
     static public function ctrListaPersonal()
     {
-        $respuesta = ModeloGH::mdlPersonal(null);
+        $respuesta = ModeloGH::mdlPersonal("todo");
         return $respuesta;
     }
 
@@ -85,7 +85,12 @@ class ControladorGH
     ===================================================*/
     static public function ctrGuardarPersonal($datos, $foto)
     {
-        $empleado = ModeloGH::mdlPersonal($datos['Documento']);
+        $datosBusqueda = array(
+            'item' => 'Documento',
+            'valor' => $datos['Documento']
+        );
+        //$empleado = ModeloGH::mdlPersonal($datos['Documento']);
+        $empleado = ModeloGH::mdlDatosEmpleado($datosBusqueda);
 
         # INSERT
         if ($datos['idPersonal'] == "") {
@@ -99,7 +104,13 @@ class ControladorGH
         }
         # UPDATE
         else {
-            $retorno = ModeloGH::mdlEditarPersonal($datos);
+            if (is_array($empleado) && $empleado['idPersonal'] != $datos['idPersonal']) {
+                # mensaje al usuario
+                $retorno = "existe";
+            } else {
+                # UPDATE
+                $retorno = ModeloGH::mdlEditarPersonal($datos);
+            }
         }
 
         # FOTO
@@ -109,7 +120,7 @@ class ControladorGH
 				CREAMOS DIRECTORIO DONDE VAMOS A GUARDAR LA FOTO DEL EMPLEADO 
 			========================= */
             $directorio = DIR_APP . "views/img/fotosPersonal/" . strval($idPersonal);
-            if (!is_dir($directorio)){
+            if (!is_dir($directorio)) {
                 mkdir($directorio, 0755);
             }
 
@@ -145,9 +156,13 @@ class ControladorGH
     /* ===================================================
        DATOS DEL EMPLEADO
     ===================================================*/
-    static public function ctrDatosEmpleado($idPersonal)
+    static public function ctrDatosEmpleado($item, $valor)
     {
-        $empleado = ModeloGH::mdlDatosEmpleado($idPersonal);
+        $datos = array(
+            'item' => $item,
+            'valor' => $valor
+        );
+        $empleado = ModeloGH::mdlDatosEmpleado($datos);
         return $empleado;
     }
 
@@ -220,10 +235,9 @@ class ControladorGH
     static public function ctrGuardarLicencias($datos)
     {
         $licencias = ModeloGH::mdlMostrarLicencias($datos['idPersonal']);
-        if (count($licencias) == 0){
+        if (count($licencias) == 0) {
             $guardarDatos = ModeloGH::mdlGuardarLicencias($datos);
-        }
-        else{
+        } else {
             $guardarDatos = "existe";
         }
         return $guardarDatos;
@@ -276,7 +290,7 @@ class ControladorGH
     ===================================================*/
     static public function ctrMostrarPerfilSD()
     {
-        $Personal = ModeloGH::mdlPersonal(null);
+        $Personal = ModeloGH::mdlPersonal("todo");
 
         $respuestaArray = array();
 
@@ -296,7 +310,7 @@ class ControladorGH
     static public function ctrMayorCantidadHijos()
     {
         $mayorCantidadHijos = ModeloGH::mdlMayorCantidadHijos();
-        if (!is_array($mayorCantidadHijos)){
+        if (!is_array($mayorCantidadHijos)) {
             $mayorCantidadHijos = array('cantidad' => 0);
         }
         return $mayorCantidadHijos;
@@ -312,7 +326,6 @@ class ControladorGH
     {
         return ModeloGH::mdlContratosVencer();
     }
-
 }
 
 /* ===================================================
@@ -333,23 +346,23 @@ class ControladorPagoSS
     ===================================================*/
     static public function ctrGuardarFechas($datos)
     {
-        if ($datos['idFechas'] == ""){
+        if ($datos['idFechas'] == "") {
             # INSERT
             $idFechas = ModeloPagoSS::mdlAgregarFechas($datos);
 
             #INSERT DE TODO EL PERSONAL A LA TABLA RELACIONAL
-            if ($idFechas != "error"){
+            if ($idFechas != "error") {
                 ModeloPagoSS::mdlLlenarPagosxEmpleados($idFechas);
                 $retorno = $idFechas;
-            }else{
+            } else {
                 $retorno = "error";
             }
-        }else{
+        } else {
             #UPDATE
             $update = ModeloPagoSS::mdlEditFechas($datos);
-            if ($update == "ok"){
+            if ($update == "ok") {
                 $retorno = "update";
-            }else{
+            } else {
                 $retorno = "error";
             }
         }
@@ -382,5 +395,95 @@ class ControladorPagoSS
         );
         $respuesta = ModeloGH::mdlActualizarEmpleado($datos);
         return $respuesta;
+    }
+}
+
+/* ===================================================
+   * CONTROL AUSENTISMO
+===================================================*/
+class ControladorAusentismo
+{
+    /* ===================================================
+       LISTA AUSENTISMO
+    ===================================================*/
+    static public function ctrListaAusentismo()
+    {
+        return ModeloAusentismo::mdlListaAusentismo();
+    }
+
+    /* ===================================================
+       LISTA PERSONAL ACTIVO, ESTO SE USA EN EL FORMULARIO PARA AGREGAR UN NUEVO AUSENTISMO
+    ===================================================*/
+    static public function ctrListaPersonal()
+    {
+        return ModeloGH::mdlPersonal("activos");
+    }
+
+    /* ===================================================
+       TIPOS DE AUSENTISMO
+    ===================================================*/
+    static public function ctrTiposAusentismo()
+    {
+        return ModeloAusentismo::mdlTiposAusentismo();
+    }
+
+    /* ===================================================
+       GUARDAR AUSENTISMO
+    ===================================================*/
+    static public function ctrGuardarAusentismo()
+    {
+        if (isset($_POST['idAusentismo'])) {
+            echo "<pre>";
+            var_dump($_POST);
+            echo "</pre>";
+            if ($_POST['idAusentismo'] == ""){
+                //INSERT TABLA
+                $AddEditAusentismo = ModeloAusentismo::mdlAgregarAusentismo($_POST);
+            }else{
+                //UPDATE TABLA
+                $AddEditAusentismo = ModeloAusentismo::mdlEditarAusentismo($_POST);
+            }
+
+            if ($AddEditAusentismo == "ok") {
+                /* Mensaje éxito */
+                echo "
+						<script>
+							Swal.fire({
+								icon: 'success',
+								title: '¡Ausentismo guardado correctamente!',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								
+							}).then((result)=>{
+
+								if(result.value){
+									window.location = 'gh-ausentismo';
+								}
+
+							})
+						</script>
+					";
+            } else {
+                echo "
+						<script>
+							Swal.fire({
+								icon: 'error',
+								title: 'Problemas al guardar los datos',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								closeOnConfirm: false								
+							})
+						</script>
+					";
+            }
+        }
+    }
+
+    /* ===================================================
+       DATOS DE UN SOLO AUSENTISMO
+    ===================================================*/
+    static public function ctrDatosAusentismo($idAusentismo)
+    {
+        return ModeloAusentismo::mdlDatosAusentismo($idAusentismo);
     }
 }

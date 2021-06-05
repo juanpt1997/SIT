@@ -40,9 +40,9 @@ $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
             <!-- ===================== 
                 TABLA PERFIL SOCIODEMOGRAFICO
             ========================= -->
-            <div class="row mt-5">
+            <div class="row mt-2">
                 <div class="col-12 table-responsive">
-                    <table class="table table-sm table-light table-striped table-bordered tablasButtons dt-responsive w-100">
+                    <table class="table table-sm table-light table-striped table-bordered tablasBtnExport dt-responsive w-100">
                         <thead class="text-capitalize text-sm text-nowrap">
                             <tr>
                                 <th style="width:10px;">Id</th>

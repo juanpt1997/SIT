@@ -38,7 +38,7 @@ let tabsConfigGH = {
         {
             id: 'gh-tab5',
             label: 'Control ausentismo',
-            url: '#',
+            url: 'gh-ausentismo',
             tooltip: 'Control ausentismo',
             tabClass: 'customTabClass',
             spacerClass: 'customSpacerClass',
@@ -178,7 +178,8 @@ if (
             /* AJAX PARA CARGAR DATOS */
             var datos = new FormData();
             datos.append('DatosEmpleado', "ok");
-            datos.append('idPersonal', idPersonal);
+            datos.append('item', 'idPersonal');
+            datos.append('valor', idPersonal);
             $.ajax({
                 type: 'post',
                 url: `${urlPagina}ajax/gh.ajax.php`,
@@ -1396,5 +1397,119 @@ if (window.location.href == `${urlPagina}gh-alertas-contratos/` ||
     $(document).ready(function () {
         // Alertas de contratos tab
         $('#ghTabs').simpleTabs(tabsConfigGH, 'gh-tab4');
+    });
+}
+
+/* ===================================================
+  * CONTROL DE AUSENTISMO
+===================================================*/
+if (window.location.href == `${urlPagina}gh-ausentismo/` ||
+    window.location.href == `${urlPagina}gh-ausentismo`) {
+    $(document).ready(function () {
+        // Control de ausentismo tab
+        $('#ghTabs').simpleTabs(tabsConfigGH, 'gh-tab5');
+
+        /* ===================================================
+          DATATABLE
+        ===================================================*/
+        var buttons = [
+            { className: 'btn-secondary mr-1 btn-nuevoAusentismo', text: '<i class="fas fa-plus-circle"></i> Nuevo' },
+            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+            /* 'copy', 'csv', 'excel', 'pdf', 'print' */
+        ];
+        dataTableCustom("#tblAusentismo", buttons);
+
+        /* ===================================================
+          CLICK EN BOTON NUEVO AUSENTISMO
+        ===================================================*/
+        $(document).on("click", ".btn-nuevoAusentismo", function () {
+            $('#AusentismoModal').modal('show');
+            $("#titulo-modal-ausentismo").html("Nuevo");
+            $("#frmAusentismo").trigger("reset"); //reset formulario
+            $("#idAusentismo").val(""); //reset id
+            $('.select2-single').trigger('change'); //reset select2
+        });
+
+        /* ===================================================
+          SELECCION DE UN EMPLEADO
+        ===================================================*/
+        $(document).on("change", "#idPersonal", function () {
+            var idPersonal = $(this).val();
+
+            var datos = new FormData();
+            datos.append('DatosEmpleado', "ok");
+            datos.append('item', 'idPersonal');
+            datos.append('valor', idPersonal);
+            $.ajax({
+                type: 'post',
+                url: `${urlPagina}ajax/gh.ajax.php`,
+                data: datos,
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response != ""){
+                        $("#cedula").val(response.Documento);
+                        $("#cargo").val(response.Cargo);
+                        $("#area").val(response.Proceso);
+                        $("#eps").val(response.Eps);
+                        $("#salario").val(response.salario_basico);
+                    }else{
+                        $(".datosEmpleado").val("");
+                    }
+                }
+            });
+        });
+
+        /* ===================================================
+            CLICK EN EDITAR AUSENTISMO
+        ===================================================*/
+        $(document).on("click", ".btn-editAusentismo", function () {
+            var idAusentismo = $(this).attr("idAusentismo");
+            $("#titulo-modal-ausentismo").html("");
+            $("#frmAusentismo").trigger("reset"); //reset formulario
+            $("#idAusentismo").val(idAusentismo); //reset id
+            $('.select2-single').trigger('change'); //reset select2
+
+            var datos = new FormData();
+            datos.append('DatosAusentismo', "ok");
+            datos.append('idAusentismo', idAusentismo);
+            $.ajax({
+                type: 'post',
+                url: `${urlPagina}ajax/gh.ajax.php`,
+                data: datos,
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response != ""){
+                        $("#fecha").val(response.fecha);
+                        $("#idPersonal").val(response.idPersonal);
+                        $("#cedula").val(response.Documento);
+                        $("#cargo").val(response.Cargo);
+                        $("#area").val(response.Proceso);
+                        $("#eps").val(response.Eps);
+                        $("#salario").val(response.salario_basico);
+                        $("#idtipo").val(response.idtipo);
+                        $("#fechaini").val(response.fechaini);
+                        $("#fechafin").val(response.fechafin);
+                        $("#ndias_laborales").val(response.ndias_laborales);
+                        $("#hora_inicio").val(response.hora_inicio);
+                        //console.log(moment(response.hora_inicio).format("HH:mm"));
+                        $("#hora_fin").val(response.hora_fin);
+                        $("#total_horas").val(response.total_horas);
+                        $("#total_hora").val(response.total_hora);
+                        $("#total_dias_laborales").val(response.total_dias_laborales);
+                        $("#dx_incapacidad").val(response.dx_incapacidad);
+                        $("#descripcion").val(response.descripcion);
+
+                        $('.select2-single').trigger('change'); //reset select2
+                    }
+                }
+            });
+        });
+
     });
 }

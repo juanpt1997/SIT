@@ -222,7 +222,7 @@
                                     Control Ausentismo
                                 =================================================== -->
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="gh-ausentismo" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Control Ausentismo</p>
                                 </a>

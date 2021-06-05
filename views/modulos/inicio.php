@@ -63,6 +63,7 @@
                                 <a class="dropdown-item font-weight-bold" href="gh-perfil-sd">Perfil sociodemográfico</a>
                                 <a class="dropdown-item font-weight-bold" href="gh-pago-ss">Pago seguridad social</a>
                                 <a class="dropdown-item font-weight-bold" href="gh-alertas-contratos">Alertas de contrato</a>
+                                <a class="dropdown-item font-weight-bold" href="gh-ausentismo">Control de ausentismo</a>
                             </div>
                         </div>
                     </div>

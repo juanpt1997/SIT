@@ -15,48 +15,77 @@ class ModeloGH
         PERSONAL
     ===================================================*/
     static public function mdlPersonal($value)
-    {   
-        # todo el personal
-        if ($value == null){
-            $sql = "SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, d.nombre AS Departamento, s.sucursal AS Sucursal, l.nro_licencia, l.categoria, l.fecha_vencimiento
-                        FROM gh_personal p
-                        INNER JOIN gh_municipios e ON e.idmunicipio = p.lugar_expedicion
-                        INNER JOIN gh_municipios n ON n.idmunicipio = p.lugar_nacimiento
-                        INNER JOIN gh_municipios r ON r.idmunicipio = p.lugar_residencia
-                        INNER JOIN gh_cargos c ON c.idCargo = p.cargo
-                        INNER JOIN gh_procesos pr ON pr.idProceso = p.proceso
-                        INNER JOIN gh_eps eps ON eps.ideps = p.eps
-                        INNER JOIN gh_fondospension fp ON fp.idfondo = p.afp
-                        INNER JOIN gh_arl ar ON ar.idarl = p.arl
-                        INNER JOIN gh_municipios m ON m.idmunicipio = p.ciudad
-                        INNER JOIN gh_departamentos d ON d.iddepartamento = m.iddepartamento
-                        INNER JOIN gh_sucursales s ON s.ids = p.sucursal
-                        LEFT JOIN gh_re_personallicencias l ON l.idPersonal = p.idPersonal
-                        ORDER BY idPersonal";
-            $stmt = Conexion::conectar()->prepare($sql);
-            $stmt->execute();
-            $retorno =  $stmt->fetchAll();
+    {
+        switch ($value) {
+            # todo el personal
+            case "todo":
+                $sql = "SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, d.nombre AS Departamento, s.sucursal AS Sucursal, l.nro_licencia, l.categoria, l.fecha_vencimiento
+                            FROM gh_personal p
+                            INNER JOIN gh_municipios e ON e.idmunicipio = p.lugar_expedicion
+                            INNER JOIN gh_municipios n ON n.idmunicipio = p.lugar_nacimiento
+                            INNER JOIN gh_municipios r ON r.idmunicipio = p.lugar_residencia
+                            INNER JOIN gh_cargos c ON c.idCargo = p.cargo
+                            INNER JOIN gh_procesos pr ON pr.idProceso = p.proceso
+                            INNER JOIN gh_eps eps ON eps.ideps = p.eps
+                            INNER JOIN gh_fondospension fp ON fp.idfondo = p.afp
+                            INNER JOIN gh_arl ar ON ar.idarl = p.arl
+                            INNER JOIN gh_municipios m ON m.idmunicipio = p.ciudad
+                            INNER JOIN gh_departamentos d ON d.iddepartamento = m.iddepartamento
+                            INNER JOIN gh_sucursales s ON s.ids = p.sucursal
+                            LEFT JOIN gh_re_personallicencias l ON l.idPersonal = p.idPersonal
+                            ORDER BY idPersonal";
+                $stmt = Conexion::conectar()->prepare($sql);
+                $stmt->execute();
+                $retorno =  $stmt->fetchAll();
+                break;
+
+            # Personal activo
+            case "activos":
+                $sql = "SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, d.nombre AS Departamento, s.sucursal AS Sucursal, l.nro_licencia, l.categoria, l.fecha_vencimiento
+                            FROM gh_personal p
+                            INNER JOIN gh_municipios e ON e.idmunicipio = p.lugar_expedicion
+                            INNER JOIN gh_municipios n ON n.idmunicipio = p.lugar_nacimiento
+                            INNER JOIN gh_municipios r ON r.idmunicipio = p.lugar_residencia
+                            INNER JOIN gh_cargos c ON c.idCargo = p.cargo
+                            INNER JOIN gh_procesos pr ON pr.idProceso = p.proceso
+                            INNER JOIN gh_eps eps ON eps.ideps = p.eps
+                            INNER JOIN gh_fondospension fp ON fp.idfondo = p.afp
+                            INNER JOIN gh_arl ar ON ar.idarl = p.arl
+                            INNER JOIN gh_municipios m ON m.idmunicipio = p.ciudad
+                            INNER JOIN gh_departamentos d ON d.iddepartamento = m.iddepartamento
+                            INNER JOIN gh_sucursales s ON s.ids = p.sucursal
+                            LEFT JOIN gh_re_personallicencias l ON l.idPersonal = p.idPersonal
+                            WHERE p.activo = 'S'
+                            ORDER BY idPersonal";
+                $stmt = Conexion::conectar()->prepare($sql);
+                $stmt->execute();
+                $retorno =  $stmt->fetchAll();
+                break;
+
+            # unicamente los datos de UN empleado en especifico
+            default:
+                // $sql = "SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, s.sucursal AS Sucursal
+                //             FROM gh_personal p
+                //             INNER JOIN gh_municipios e ON e.idmunicipio = p.lugar_expedicion
+                //             INNER JOIN gh_municipios n ON n.idmunicipio = p.lugar_nacimiento
+                //             INNER JOIN gh_municipios r ON r.idmunicipio = p.lugar_residencia
+                //             INNER JOIN gh_cargos c ON c.idCargo = p.cargo
+                //             INNER JOIN gh_procesos pr ON pr.idProceso = p.proceso
+                //             INNER JOIN gh_eps eps ON eps.ideps = p.eps
+                //             INNER JOIN gh_fondospension fp ON fp.idfondo = p.afp
+                //             INNER JOIN gh_arl ar ON ar.idarl = p.arl
+                //             INNER JOIN gh_municipios m ON m.idmunicipio = p.ciudad
+                //             INNER JOIN gh_sucursales s ON s.ids = p.sucursal
+                //             WHERE p.{$value['item']} = :{$value['item']};
+                
+                $stmt = Conexion::conectar()->prepare("");
+                $stmt->bindParam(":{$value['item']}", $value['valor']);
+                $stmt->execute();
+                $retorno =  $stmt->fetch();
+
+                break;
         }
-        # unicamente los datos de un empleado
-        else{
-            $sql = "SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, s.sucursal AS Sucursal
-                        FROM gh_personal p
-                        INNER JOIN gh_municipios e ON e.idmunicipio = p.lugar_expedicion
-                        INNER JOIN gh_municipios n ON n.idmunicipio = p.lugar_nacimiento
-                        INNER JOIN gh_municipios r ON r.idmunicipio = p.lugar_residencia
-                        INNER JOIN gh_cargos c ON c.idCargo = p.cargo
-                        INNER JOIN gh_procesos pr ON pr.idProceso = p.proceso
-                        INNER JOIN gh_eps eps ON eps.ideps = p.eps
-                        INNER JOIN gh_fondospension fp ON fp.idfondo = p.afp
-                        INNER JOIN gh_arl ar ON ar.idarl = p.arl
-                        INNER JOIN gh_municipios m ON m.idmunicipio = p.ciudad
-                        INNER JOIN gh_sucursales s ON s.ids = p.sucursal
-                        WHERE p.Documento = $value";
-            $stmt = Conexion::conectar()->prepare($sql);
-            $stmt->execute();
-            $retorno =  $stmt->fetch();
-        }
-        
+
 
 
         $stmt->closeCursor();
@@ -171,7 +200,7 @@ class ModeloGH
         $conexion = Conexion::conectar();
         $stmt = $conexion->prepare("INSERT INTO gh_personal (Documento, tipo_doc, lugar_expedicion, Nombre, consentimiento_informado, fecha_nacimiento, lugar_nacimiento, edad, lugar_residencia, direccion, barrio, estrato_social, tipo_vivienda, telefono1, telefono2, estado_civil, genero, tipo_sangre, raza, correo, nivel_escolaridad, cargo, area, proceso, antiguedad, turno_trabajo, tipo_contrato, tipo_vinculacion, pago_seguridadsocial, anios_experiencia, dependientes, eps, afp, arl, salario_basico, beneficio_fijo, bonificacion_variable, ciudad, sucursal, activo, fecha_ingreso, empresa) 
                                     VALUES (:Documento, :tipo_doc, :lugar_expedicion, :Nombre, :consentimiento_informado, :fecha_nacimiento, :lugar_nacimiento, :edad, :lugar_residencia, :direccion, :barrio, :estrato_social, :tipo_vivienda, :telefono1, :telefono2, :estado_civil, :genero, :tipo_sangre, :raza, :correo, :nivel_escolaridad, :cargo, :area, :proceso, :antiguedad, :turno_trabajo, :tipo_contrato, :tipo_vinculacion, :pago_seguridadsocial, :anios_experiencia, :dependientes, :eps, :afp, :arl, :salario_basico, :beneficio_fijo, :bonificacion_variable, :ciudad, :sucursal, :activo, :fecha_ingreso, :empresa)");
-        
+
         $stmt->bindParam(":Documento", $datos['Documento'], PDO::PARAM_INT);
         $stmt->bindParam(":tipo_doc", $datos['tipo_doc'], PDO::PARAM_STR);
         $stmt->bindParam(":lugar_expedicion", $datos['lugar_expedicion'], PDO::PARAM_INT);
@@ -234,7 +263,7 @@ class ModeloGH
         $conexion = Conexion::conectar();
         $stmt = $conexion->prepare("UPDATE gh_personal SET Documento = :Documento, tipo_doc = :tipo_doc, lugar_expedicion = :lugar_expedicion, Nombre = :Nombre, consentimiento_informado = :consentimiento_informado, fecha_nacimiento = :fecha_nacimiento, lugar_nacimiento = :lugar_nacimiento, edad = :edad, lugar_residencia = :lugar_residencia, direccion = :direccion, barrio = :barrio, estrato_social = :estrato_social, tipo_vivienda = :tipo_vivienda, telefono1 = :telefono1, telefono2 = :telefono2, estado_civil = :estado_civil, genero = :genero, tipo_sangre = :tipo_sangre, raza = :raza, correo = :correo, nivel_escolaridad = :nivel_escolaridad, cargo = :cargo, area = :area, proceso = :proceso, antiguedad = :antiguedad, turno_trabajo = :turno_trabajo, tipo_contrato = :tipo_contrato, tipo_vinculacion = :tipo_vinculacion, pago_seguridadsocial = :pago_seguridadsocial, anios_experiencia = :anios_experiencia, dependientes = :dependientes, eps = :eps, afp = :afp, arl = :arl, salario_basico = :salario_basico, beneficio_fijo = :beneficio_fijo, bonificacion_variable = :bonificacion_variable, ciudad = :ciudad, sucursal = :sucursal, activo = :activo, fecha_ingreso = :fecha_ingreso, empresa = :empresa
                                     WHERE idPersonal = :idPersonal");
-        
+
         $stmt->bindParam(":idPersonal", $datos['idPersonal'], PDO::PARAM_INT);
         $stmt->bindParam(":Documento", $datos['Documento'], PDO::PARAM_INT);
         $stmt->bindParam(":tipo_doc", $datos['tipo_doc'], PDO::PARAM_STR);
@@ -293,11 +322,25 @@ class ModeloGH
     /* ===================================================
        DATOS EMPLEADO
     ===================================================*/
-    static public function mdlDatosEmpleado($idPersonal)
+    static public function mdlDatosEmpleado($datos)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM gh_personal WHERE idPersonal = :idPersonal");
+        //$stmt = Conexion::conectar()->prepare("SELECT * FROM gh_personal WHERE idPersonal = :idPersonal");
+        $stmt = Conexion::conectar()->prepare("SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, s.sucursal AS Sucursal
+                            FROM gh_personal p
+                            INNER JOIN gh_municipios e ON e.idmunicipio = p.lugar_expedicion
+                            INNER JOIN gh_municipios n ON n.idmunicipio = p.lugar_nacimiento
+                            INNER JOIN gh_municipios r ON r.idmunicipio = p.lugar_residencia
+                            INNER JOIN gh_cargos c ON c.idCargo = p.cargo
+                            INNER JOIN gh_procesos pr ON pr.idProceso = p.proceso
+                            INNER JOIN gh_eps eps ON eps.ideps = p.eps
+                            INNER JOIN gh_fondospension fp ON fp.idfondo = p.afp
+                            INNER JOIN gh_arl ar ON ar.idarl = p.arl
+                            INNER JOIN gh_municipios m ON m.idmunicipio = p.ciudad
+                            INNER JOIN gh_sucursales s ON s.ids = p.sucursal
+                            WHERE p.{$datos['item']} = :{$datos['item']};");
+        $stmt->bindParam(":{$datos['item']}", $datos['valor']);
 
-        $stmt->bindParam(":idPersonal", $idPersonal, PDO::PARAM_INT);
+        //$stmt->bindParam(":idPersonal", $idPersonal, PDO::PARAM_INT);
         $stmt->execute();
         $retorno = $stmt->fetch();
         $stmt->closeCursor();
@@ -323,7 +366,7 @@ class ModeloGH
 
         $stmt->closeCursor();
         $stmt = null;
-        
+
         return $retorno;
     }
 
@@ -338,7 +381,7 @@ class ModeloGH
         $conexion = Conexion::conectar();
         $stmt = $conexion->prepare("INSERT INTO gh_re_personalhijos (idPersonal, Nombre, fecha_nacimiento, edad, genero) 
                                     VALUES (:idPersonal, :Nombre, :fecha_nacimiento, :edad, :genero)");
-        
+
         $stmt->bindParam(":idPersonal", $datos['idPersonal'], PDO::PARAM_INT);
         $stmt->bindParam(":Nombre", $datos['Nombre'], PDO::PARAM_STR);
         $stmt->bindParam(":fecha_nacimiento", $datos['fecha_nacimiento'], PDO::PARAM_STR);
@@ -381,7 +424,7 @@ class ModeloGH
         $conexion = Conexion::conectar();
         $stmt = $conexion->prepare("INSERT INTO gh_re_personalprorrogas (idPersonal, contrato, fecha_inicial, fecha_fin, meses_prorroga) 
                                     VALUES (:idPersonal, :contrato, :fecha_inicial, :fecha_fin, :meses_prorroga)");
-        
+
         $stmt->bindParam(":idPersonal", $datos['idPersonal'], PDO::PARAM_INT);
         $stmt->bindParam(":contrato", $datos['contrato'], PDO::PARAM_STR);
         $stmt->bindParam(":fecha_inicial", $datos['fecha_inicial'], PDO::PARAM_STR);
@@ -424,7 +467,7 @@ class ModeloGH
         $conexion = Conexion::conectar();
         $stmt = $conexion->prepare("INSERT INTO gh_re_personallicencias (idPersonal, nro_licencia, fecha_expedicion, fecha_vencimiento, categoria) 
                                     VALUES (:idPersonal, :nro_licencia, :fecha_expedicion, :fecha_vencimiento, :categoria)");
-        
+
         $stmt->bindParam(":idPersonal", $datos['idPersonal'], PDO::PARAM_INT);
         $stmt->bindParam(":nro_licencia", $datos['nro_licencia'], PDO::PARAM_STR);
         $stmt->bindParam(":fecha_expedicion", $datos['fecha_expedicion'], PDO::PARAM_STR);
@@ -467,7 +510,7 @@ class ModeloGH
         $conexion = Conexion::conectar();
         $stmt = $conexion->prepare("INSERT INTO gh_re_personalexamenes (idPersonal, tipo_examen, fecha_inicial, fecha_final) 
                                     VALUES (:idPersonal, :tipo_examen, :fecha_inicial, :fecha_final)");
-        
+
         $stmt->bindParam(":idPersonal", $datos['idPersonal'], PDO::PARAM_INT);
         $stmt->bindParam(":tipo_examen", $datos['tipo_examen'], PDO::PARAM_STR);
         $stmt->bindParam(":fecha_inicial", $datos['fecha_inicial'], PDO::PARAM_STR);
@@ -609,7 +652,7 @@ class ModeloPagoSS
         $conexion = Conexion::conectar();
         $stmt = $conexion->prepare("UPDATE gh_fechas_segursoc SET fechaini = :fechaini, fechafin = :fechafin, observaciones = :observaciones
                                     WHERE idFechas = :idFechas");
-        
+
         $stmt->bindParam(":idFechas", $datos['idFechas'], PDO::PARAM_INT);
         $stmt->bindParam(":fechaini", $datos['fechaini'], PDO::PARAM_STR);
         $stmt->bindParam(":fechafin", $datos['fechafin'], PDO::PARAM_STR);
@@ -668,5 +711,133 @@ class ModeloPagoSS
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();
         return $retorno;
+    }
+}
+
+/* ===================================================
+   * CONTROL AUSENTISMO
+===================================================*/
+class ModeloAusentismo{
+    /* ===================================================
+       LISTA AUSENTISMO
+    ===================================================*/
+    static public function mdlListaAusentismo()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT a.*, p.Documento, p.Nombre, c.cargo AS Cargo, pr.proceso AS Proceso, t.descripcion AS tipoAusentismo, eps.eps AS Eps, p.salario_basico
+                                                FROM gh_re_personalausentismo a
+                                                INNER JOIN gh_personal p ON a.idPersonal = p.idPersonal
+                                                INNER JOIN gh_cargos c ON c.idCargo = p.cargo
+                                                INNER JOIN gh_procesos pr ON pr.idProceso = p.proceso
+                                                INNER JOIN gh_eps eps ON eps.ideps = p.eps
+                                                INNER JOIN gh_tipoausentismo t ON t.idtipo = a.idtipo;");
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /* ===================================================
+       TIPOS DE AUSENTISMO
+    ===================================================*/
+    static public function mdlTiposAusentismo()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM gh_tipoausentismo");
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /* ===================================================
+       AGREGAR AUSENTISMO
+    ===================================================*/
+    static public function mdlAgregarAusentismo($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO gh_re_personalausentismo (idPersonal, idtipo, fechaini, fechafin, ndias_laborales, hora_inicio, hora_fin, total_horas, total_hora, total_dias_laborales, dx_incapacidad, descripcion, fecha) 
+                                    VALUES (:idPersonal, :idtipo, :fechaini, :fechafin, :ndias_laborales, :hora_inicio, :hora_fin, :total_horas, :total_hora, :total_dias_laborales, :dx_incapacidad, :descripcion, :fecha)");
+
+        $stmt->bindParam(":idPersonal", $datos['idPersonal'], PDO::PARAM_INT);
+        $stmt->bindParam(":idtipo", $datos['idtipo'], PDO::PARAM_INT);
+        $stmt->bindParam(":fechaini", $datos['fechaini'], PDO::PARAM_STR);
+        $stmt->bindParam(":fechafin", $datos['fechafin'], PDO::PARAM_STR);
+        $stmt->bindParam(":ndias_laborales", $datos['ndias_laborales'], PDO::PARAM_STR);
+        $hora_inicio = $datos['hora_inicio'] == "" ? null : $datos['hora_inicio'];
+        $stmt->bindParam(":hora_inicio", $hora_inicio, PDO::PARAM_STR);
+        $hora_fin = $datos['hora_fin'] == "" ? null : $datos['hora_fin'];
+        $stmt->bindParam(":hora_fin", $hora_fin, PDO::PARAM_STR);
+        $stmt->bindParam(":total_horas", $datos['total_horas'], PDO::PARAM_STR);
+        $stmt->bindParam(":total_hora", $datos['total_hora'], PDO::PARAM_INT);
+        $stmt->bindParam(":total_dias_laborales", $datos['total_dias_laborales'], PDO::PARAM_INT);
+        $stmt->bindParam(":dx_incapacidad", $datos['dx_incapacidad'], PDO::PARAM_STR);
+        $stmt->bindParam(":descripcion", $datos['descripcion'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha", $datos['fecha'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $respuesta = "ok";
+        } else {
+            $respuesta = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $respuesta;
+    }
+
+    /* ===================================================
+       EDITAR AUSENTISMO
+    ===================================================*/
+    static public function mdlEditarAusentismo($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("UPDATE gh_re_personalausentismo SET idPersonal = :idPersonal, idtipo = :idtipo, fechaini = :fechaini, fechafin = :fechafin, ndias_laborales = :ndias_laborales, hora_inicio = :hora_inicio, hora_fin = :hora_fin, total_horas = :total_horas, total_hora = :total_hora, total_dias_laborales = :total_dias_laborales, dx_incapacidad = :dx_incapacidad, descripcion = :descripcion, fecha = :fecha
+                                    WHERE idAusentismo = :idAusentismo");
+
+        $stmt->bindParam(":idAusentismo", $datos['idAusentismo'], PDO::PARAM_INT);
+        $stmt->bindParam(":idPersonal", $datos['idPersonal'], PDO::PARAM_INT);
+        $stmt->bindParam(":idtipo", $datos['idtipo'], PDO::PARAM_INT);
+        $stmt->bindParam(":fechaini", $datos['fechaini'], PDO::PARAM_STR);
+        $stmt->bindParam(":fechafin", $datos['fechafin'], PDO::PARAM_STR);
+        $stmt->bindParam(":ndias_laborales", $datos['ndias_laborales'], PDO::PARAM_STR);
+        $hora_inicio = $datos['hora_inicio'] == "" ? null : $datos['hora_inicio'];
+        $stmt->bindParam(":hora_inicio", $hora_inicio, PDO::PARAM_STR);
+        $hora_fin = $datos['hora_fin'] == "" ? null : $datos['hora_fin'];
+        $stmt->bindParam(":hora_fin", $hora_fin, PDO::PARAM_STR);
+        $stmt->bindParam(":total_horas", $datos['total_horas'], PDO::PARAM_STR);
+        $stmt->bindParam(":total_hora", $datos['total_hora'], PDO::PARAM_INT);
+        $stmt->bindParam(":total_dias_laborales", $datos['total_dias_laborales'], PDO::PARAM_INT);
+        $stmt->bindParam(":dx_incapacidad", $datos['dx_incapacidad'], PDO::PARAM_STR);
+        $stmt->bindParam(":descripcion", $datos['descripcion'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha", $datos['fecha'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $respuesta = "ok";
+        } else {
+            $respuesta = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $respuesta;
+    }
+
+    /* ===================================================
+       DATOS DE UN SOLO AUSENTISMO
+    ===================================================*/
+    static public function mdlDatosAusentismo($idAusentismo)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT a.*, p.Documento, p.Nombre, c.cargo AS Cargo, pr.proceso AS Proceso, t.descripcion AS tipoAusentismo, eps.eps AS Eps, p.salario_basico
+                                                FROM gh_re_personalausentismo a
+                                                INNER JOIN gh_personal p ON a.idPersonal = p.idPersonal
+                                                INNER JOIN gh_cargos c ON c.idCargo = p.cargo
+                                                INNER JOIN gh_procesos pr ON pr.idProceso = p.proceso
+                                                INNER JOIN gh_eps eps ON eps.ideps = p.eps
+                                                INNER JOIN gh_tipoausentismo t ON t.idtipo = a.idtipo
+                                                WHERE idAusentismo = :idAusentismo");
+        $stmt->bindParam(":idAusentismo", $idAusentismo, PDO::PARAM_INT);
+        $stmt->execute();
+        $retorno = $stmt->fetch();
+        $stmt->closeCursor();
+        return $retorno;   
     }
 }

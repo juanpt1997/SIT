@@ -201,12 +201,60 @@ const dataTable = (tabla) => {
     });
 
 }
-$('.tablasButtons').DataTable({
-    "dom": 'Bfrtip',
+// l - Length changing
+// f - Filtering input
+// t - The Table!
+// i - Information
+// p - Pagination
+// r - pRocessing
+const dataTableCustom = (tabla, buttons) => {
+    $(`${tabla}`).DataTable({
+        "dom": "<'row'<'col-12 text-right'B>>" + 
+        "<'row mt-1'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+        "buttons": buttons,
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+            "sInfoFiltered": "<div class='small'>(filtrado de un total de _MAX_ registros)</div>",
+            "sInfoPostFix": "",
+            "sSearch": "Buscar:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+
+        },
+        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todo"]]
+
+
+    });
+}
+$('.tablasBtnExport').DataTable({
+    //dom: 'Bfrt<"col-md-6 inline"i> <"col-md-12 inline"p>',
+    dom: "<'row'<'col-12 text-right'B>>" + 
+        "<'row mt-1'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
     "buttons": [
-        /* 'copy', */ 'csv', 'excel', /* 'pdf', */ /* 'print' */
+        {extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar'}
+        /* 'copy', 'csv', 'excel', 'pdf', 'print' */
     ],
-    
+
     stateSave: true,
 
     "language": {
