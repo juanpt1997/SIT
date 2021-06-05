@@ -39,8 +39,7 @@
             ========================= -->            
             <div class="row">
                 <div class="col-md-12  card ">
-                   <p>Esto es un test con git</p>
-                   <p>segundo commit</p>
+                   <p>Cambio</p>
                 </div><!-- col -->
                 
                
