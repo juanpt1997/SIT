@@ -433,9 +433,6 @@ class ControladorAusentismo
     static public function ctrGuardarAusentismo()
     {
         if (isset($_POST['idAusentismo'])) {
-            echo "<pre>";
-            var_dump($_POST);
-            echo "</pre>";
             if ($_POST['idAusentismo'] == ""){
                 //INSERT TABLA
                 $AddEditAusentismo = ModeloAusentismo::mdlAgregarAusentismo($_POST);

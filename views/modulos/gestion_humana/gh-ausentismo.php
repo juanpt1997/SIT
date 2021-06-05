@@ -183,7 +183,7 @@ $TiposAusentismo = ControladorAusentismo::ctrTiposAusentismo();
                                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                     </div>
                                                     <select class="form-control select2-single" style="width: 90%" name="idPersonal" id="idPersonal" required>
-                                                        <option value="" selected></option>
+                                                        <option value="" selected>Seleccione un empleado</option>
                                                         <?php foreach ($ListaEmpleados as $key => $value) : ?>
                                                             <option value="<?= $value['idPersonal'] ?>"><?= $value['Nombre'] ?></option>
                                                         <?php endforeach ?>
