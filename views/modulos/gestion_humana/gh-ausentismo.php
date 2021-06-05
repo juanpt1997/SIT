@@ -87,7 +87,7 @@ $TiposAusentismo = ControladorAusentismo::ctrTiposAusentismo();
                                         $BotonEditar = "<div class='btn-group'>
                                                             {$value['idAusentismo']}
                                                             <button type='button' class='btn btn-editAusentismo' data-toggle='modal' data-target='#AusentismoModal' idAusentismo='{$value['idAusentismo']}'>
-                                                                <i class='fas fa-edit text-warning'></i>
+                                                                <i class='fas fa-edit text-info'></i>
                                                             </button>
                                                         </div>";   
                                         

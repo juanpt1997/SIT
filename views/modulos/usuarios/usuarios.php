@@ -85,7 +85,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     <td><?= $estado ?></td>
                                     <td>
                                         <div class="btn-group" role="group" aria-label="Button group">
-                                            <button class="btn btn-sm btn-warning btnEditarUsuario" cedula="<?= $value['Cedula'] ?>" data-toggle="modal" data-target="#UsuarioModal"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-info btnEditarUsuario" cedula="<?= $value['Cedula'] ?>" data-toggle="modal" data-target="#UsuarioModal"><i class="fas fa-edit"></i></button>
                                         </div>
                                     </td>
                                 </tr>

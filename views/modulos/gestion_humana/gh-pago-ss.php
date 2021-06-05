@@ -72,7 +72,7 @@ $FechasPagoSS = ControladorPagoSS::ctrMostrarFechas();
                                             <td><?= $value['fechaini'] ?></td>
                                             <td><?= $value['fechafin'] ?></td>
                                             <td><?= $value['observaciones'] ?></td>
-                                            <td><button type="button" class="btn btn-warning btn-editarPagoSS" idFechas="<?= $value['idFechas'] ?>" data-toggle="modal" data-target="#PagoSSModal" fechaini="<?= $value['fechaini'] ?>" fechafin="<?= $value['fechafin'] ?>" observaciones="<?= $value['observaciones'] ?>"><i class="fas fa-edit"></i></button></td>
+                                            <td><button type="button" class="btn btn-info btn-editarPagoSS" idFechas="<?= $value['idFechas'] ?>" data-toggle="modal" data-target="#PagoSSModal" fechaini="<?= $value['fechaini'] ?>" fechafin="<?= $value['fechafin'] ?>" observaciones="<?= $value['observaciones'] ?>"><i class="fas fa-edit"></i></button></td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>

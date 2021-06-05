@@ -105,7 +105,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     <td><?= $value['correo'] ?></td>
                                     <td><?= $value['tipo_sangre'] ?></td>
                                     <td><?= $activo ?></td>
-                                    <td><button type="button" class="btn btn-warning btn-editarPersonal" idPersonal="<?= $value['idPersonal'] ?>" data-toggle="modal" data-target="#PersonalModal"><i class="fas fa-edit"></i></button></td>
+                                    <td><button type="button" class="btn btn-info btn-editarPersonal" idPersonal="<?= $value['idPersonal'] ?>" data-toggle="modal" data-target="#PersonalModal"><i class="fas fa-edit"></i></button></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
