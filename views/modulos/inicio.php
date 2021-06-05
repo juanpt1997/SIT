@@ -74,8 +74,8 @@
                     * Vehicular
                 =================================================== -->
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <a href="#">
-                        <div class="info-box border border-success">
+                    <div class="dropdown" style="cursor: pointer;">
+                        <div class="info-box border border-success" id="dropdownMenuVehicular" data-toggle="dropdown">
                             <span class="info-box-icon bg-success elevation-1"><i class="fas fa-truck"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text font-weight-bold text-dark">Vehicular</span>
@@ -83,7 +83,12 @@
                             <!-- /.info-box-content -->
                         </div>
                         <!-- /.info-box -->
-                    </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuVehicular">
+                            <a class="dropdown-item font-weight-bold" href="v-vehiculos">Vehículos</a>
+                            <a class="dropdown-item font-weight-bold" href="v-propietarios">Propietarios</a>
+                            <a class="dropdown-item font-weight-bold" href="v-convenios">Convenios</a>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.col -->
 

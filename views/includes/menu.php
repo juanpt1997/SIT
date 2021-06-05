@@ -18,7 +18,7 @@
                 <img src="<?= URL_APP ?>views/img/plantilla/elsaman-logo2.png" class="img-fluid img-circle elevation-2 w-50" alt="User Image">
             </div>
         </a>
-        
+
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel d-flex">
             <!-- <div class="image">
@@ -178,7 +178,7 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                        <!-- ===================================================
+                            <!-- ===================================================
                                     Personal
                                 =================================================== -->
                             <li class="nav-item">
@@ -227,7 +227,7 @@
                                     <p>Control Ausentismo</p>
                                 </a>
                             </li>
-                            
+
                             <!-- ===================================================
                                     Gráficos perfil sociodemográfico
                                 =================================================== -->
@@ -297,7 +297,7 @@
                         <li class="nav-item">
                             <a href="v-vehiculos" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Vehículos<p>
+                                <p>Vehículos</p>
                             </a>
                         </li>
                     </ul>
@@ -306,10 +306,14 @@
                 <!-- ===================================================
                     ** Extractos de contrato
                 =================================================== -->
-                <li class="nav-item"> <a href="#" class="nav-link"> <i
-                class="nav-icon fas fa-folder-open"></i> <p>Extractos de
-                contrato</p> </a> </li>
-                
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-folder-open"></i>
+                        <p>Extractos de
+                            contrato</p>
+                    </a>
+                </li>
+
 
                 <!-- ===================================================
                     * Gestión Operaciones (OCULTO TEMPORALMENTE)
