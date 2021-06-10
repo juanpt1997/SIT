@@ -123,10 +123,9 @@ class ModeloConvenios
 
     static public function mdlAgregar($datos){
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO convenios(idconvenio,nit,nombre,direccion,telefono1,telefono2)
-                                               VALUES(:idconvenio,:nit,:nombre,:direccion,:telefono1,:telefono2)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO convenios(nit,nombre,direccion,telefono1,telefono2)
+                                               VALUES(:nit,:nombre,:direccion,:telefono1,:telefono2)");
 
-        $stmt->bindParam(":idconvenio", $datos["idcon"], PDO::PARAM_INT);
         $stmt->bindParam(":nit", $datos["nit"], PDO::PARAM_STR);
         $stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
         $stmt->bindParam(":direccion", $datos["dirco"], PDO::PARAM_STR);
@@ -147,11 +146,10 @@ class ModeloConvenios
 
     static public function mdlEditar($datos){
 
-        $stmt = Conexion::conectar()->prepare("UPDATE convenios set idconvenio=:idconvenio,nit=:nit,nombre=:nombre,direccion=:direccion,
+        $stmt = Conexion::conectar()->prepare("UPDATE convenios set nit=:nit,nombre=:nombre,direccion=:direccion,
                                                       telefono1=:telefono1,telefono2=:telefono2
                                                WHERE nit = :nit");
 
-        $stmt->bindParam(":idconvenio", $datos["idcon"], PDO::PARAM_INT);
         $stmt->bindParam(":nit", $datos["nit"], PDO::PARAM_STR);
         $stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
         $stmt->bindParam(":direccion", $datos["dirco"], PDO::PARAM_STR);
@@ -169,13 +167,6 @@ class ModeloConvenios
         
         return $retorno;
     }
-
-
-
-
-
-
-
 }
 
 

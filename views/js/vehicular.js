@@ -78,7 +78,6 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
                     $("#nit").val(response.nit);
                     $("#nit").attr("readonly", "readonly");
 
-                    $("#idcon").val(response.idconvenio);
                     $("#nombre").val(response.nombre);
                     $("#dirco").val(response.direccion);
                     $("#telco").val(response.telefono1);

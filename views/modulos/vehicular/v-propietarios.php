@@ -7,10 +7,6 @@ $Propietarios = ControladorPropietarios::ctrMostrar();
 $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
 ?>
-<!-- ===================== 
-  MODELO PARA LA IMPLEMENTARCION EN EL DISEÑO DE LOS MODULOS
-  ESTRUCTURA 
-========================= --> 
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -35,26 +31,24 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-        <!-- ===================== 
-         FILAS Y COLUMNAS PARA EL DESARROLLO 
-        ========================-->            
-            <div class="row">
-                <div class="col">
-                    <!-- BOTON NUEVO PROVEEDOR-->
-                    <button type="button" class="btn btn-success btn-agregarPropietario" data-toggle="modal" data-target="#PropietarioModal">
-                        <i class="fas fa-user-plus"></i> Agregar propietario
-                    
-                    </button>
-                </div>               
-            </div> <!-- /.row -->
 
-            <!--TABLA PROPIETARIOS-->
+            <!--|||TABLA PROPIETARIOS|||-->
 
             <div class="row mt-2">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header bg-dark"></div>
+                        <div class="card-header bg-info"></div>
                         <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <!-- BOTON NUEVO PROVEEDOR-->
+                                    <button type="button" class="btn btn-success btn-lg btn-agregarPropietario" data-toggle="modal" data-target="#PropietarioModal">
+                                        <i class="fas fa-user-plus"></i> Agregar propietario
+
+                                    </button>
+                                </div>               
+                            </div>
+
                             <div class="table-responsive">
                                 <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
                                     <thead class="thead-light text-uppercase text-sm text-center">
@@ -93,14 +87,14 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             </div>
                             
                         </div>
+                        <div class="card-footer bg-dark"></div>
                     </div>
                 </div>      
             </div>
         </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
+    </div><!-- /.content -->
+</div><!-- /.content-wrapper -->
+
 
 <!--MODALS-->
 
@@ -133,6 +127,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                   <option>-Seleccione un documento-</option>
                                   <option>NIT</option>
                                   <option>CC</option>
+                                  <option>CE</option>
                                 </select>
                         </div>
                     </div>

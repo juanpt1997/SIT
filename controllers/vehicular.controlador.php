@@ -100,7 +100,6 @@ class ControladorConvenios{
 
 			$datos = array(
 				'nit' => $_POST['nit'],
-				'idcon' => $_POST['idcon'],
 				'nombre' => $_POST['nombre'],
 				'dirco' => $_POST['dirco'],
 				'telco' => $_POST['telco'],
