@@ -159,6 +159,19 @@ class ControladorConvenios{
 #Vehiculos
 class ControladorVehiculos{
 
+	static public function ctrMostrarTipoVehiculo(){
+
+		$respuesta = ModeloVehiculos::mdlMostrarTipoVehiculo();
+		return $respuesta;
+	}
+
+	static public function ctrMostrarMarca(){
+
+		$respuesta = ModeloVehiculos::mdlMostrarMarca();
+		return $respuesta;
+
+	}
+
 }
 
 

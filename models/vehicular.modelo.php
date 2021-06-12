@@ -170,6 +170,35 @@ class ModeloConvenios
 }
 
 
+class ModeloVehiculos
+{
+    static public function mdlMostrarTipoVehiculo(){
+
+        $stmt = Conexion::conectar()->prepare("SELECT *
+                                                FROM v_tipovehiculos");
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    static public function mdlMostrarMarca(){
+
+        $stmt = Conexion::conectar()->prepare("SELECT *
+                                                FROM v_marcas");
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+
+
+    }
+    
+}
+
+
 
 
 
