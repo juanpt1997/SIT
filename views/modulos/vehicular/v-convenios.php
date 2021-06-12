@@ -39,22 +39,23 @@ $Convenios = ControladorConvenios::ctrMostrar();
             <!-- ===================== 
               AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
             ========================= -->            
-            <div class="row">
-                <div class="col">
-                    <!--BOTON NUEVO CONVENIO-->
-                    <button type="button" class="btn btn-info btn-agregarConvenio" data-toggle="modal" data-target="#ConveniosModal">
-                        <i class="fas fa-user-plus"></i>Añadir Convenio
-                    </button>
-                </div><!-- col -->
-            </div> <!-- /.row -->
-
             <div class="row mt-2">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header bg-primary"></div>
+                        <div class="card-header bg-info"></div>
                         <div class="card-body">
+
+                            <div class="row">
+                                <div class="col">
+                                    <!--BOTON NUEVO CONVENIO-->
+                                    <button type="button" class="btn btn-success btn-lg btn-agregarConvenio" data-toggle="modal" data-target="#ConveniosModal">
+                                        <i class="fas fa-user-plus"></i> Añadir Convenio
+                                    </button>
+                                </div><!-- col -->
+                            </div> <!-- /.row -->
+
                             <div class="table-responsive">
-                                <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
+                                <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
                                     <thead class="thead-light text-uppercase text-sm text-center">
                                         <tr>
                                             <th style="width:10px;">#</th>
@@ -86,6 +87,7 @@ $Convenios = ControladorConvenios::ctrMostrar();
                                 </table>
                             </div>
                         </div>
+                        <div class="card-footer bg-dark"></div>
                     </div>
                 </div>
             </div>
@@ -104,7 +106,7 @@ $Convenios = ControladorConvenios::ctrMostrar();
             <form method="post" enctype="multipart/form-data">
                 <!-- INICIO DEL FORMULARIO -->
 
-                <div class="modal-header bg-info">
+                <div class="modal-header bg-secondary">
                     <h3 class="modal-title d-none" id="exampleModalLabel">Añadir Convenio</h3>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -112,18 +114,6 @@ $Convenios = ControladorConvenios::ctrMostrar();
                 </div>
 
                 <div class="modal-body">
-
-                    <!--IDCONVENIO-->
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="fas fa-address-card"></i>
-                                </span>
-                            </div>
-                            <input class="form-control input-convenio" type="number" min="0" id="idcon" name="idcon" placeholder="Ingresar Identificador" required>
-                        </div>
-                    </div>
 
                     <!--nit-->
                     <div class="form-group">

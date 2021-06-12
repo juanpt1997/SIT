@@ -10,18 +10,7 @@ class ModeloMV
     ===================================================*/
     static public function mdlVehiculo($value)
     {   
-        # todo el personal
-         
-            $sql = "SELECT * FROM modulovehiculos";
-   
-            $stmt = Conexion::conectar()->prepare($sql);
-            $stmt->execute();
-            $retorno =  $stmt->fetch();
-         
         
-
-        $stmt->closeCursor();
-        return $retorno;
     }
 
      /* ===================================================

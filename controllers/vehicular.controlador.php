@@ -100,7 +100,6 @@ class ControladorConvenios{
 
 			$datos = array(
 				'nit' => $_POST['nit'],
-				'idcon' => $_POST['idcon'],
 				'nombre' => $_POST['nombre'],
 				'dirco' => $_POST['dirco'],
 				'telco' => $_POST['telco'],
@@ -159,6 +158,19 @@ class ControladorConvenios{
 
 #Vehiculos
 class ControladorVehiculos{
+
+	static public function ctrMostrarTipoVehiculo(){
+
+		$respuesta = ModeloVehiculos::mdlMostrarTipoVehiculo();
+		return $respuesta;
+	}
+
+	static public function ctrMostrarMarca(){
+
+		$respuesta = ModeloVehiculos::mdlMostrarMarca();
+		return $respuesta;
+
+	}
 
 }
 
