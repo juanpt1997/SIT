@@ -59,11 +59,11 @@
                             </div>
                             <!-- /.info-box -->
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuGH">
-                                <a class="dropdown-item font-weight-bold" href="gh-personal">Personal</a>
-                                <a class="dropdown-item font-weight-bold" href="gh-perfil-sd">Perfil sociodemográfico</a>
-                                <a class="dropdown-item font-weight-bold" href="gh-pago-ss">Pago seguridad social</a>
-                                <a class="dropdown-item font-weight-bold" href="gh-alertas-contratos">Alertas de contrato</a>
-                                <a class="dropdown-item font-weight-bold" href="gh-ausentismo">Control de ausentismo</a>
+                                <a class="dropdown-item font-weight-bold" href="gh-personal"><u>Personal</u></a>
+                                <a class="dropdown-item font-weight-bold" href="gh-perfil-sd"><u>Perfil sociodemográfico</u></a>
+                                <a class="dropdown-item font-weight-bold" href="gh-pago-ss"><u>Pago seguridad social</u></a>
+                                <a class="dropdown-item font-weight-bold" href="gh-alertas-contratos"><u>Alertas de contrato</u></a>
+                                <a class="dropdown-item font-weight-bold" href="gh-ausentismo"><u>Control de ausentismo</u></a>
                             </div>
                         </div>
                     </div>
@@ -84,9 +84,9 @@
                         </div>
                         <!-- /.info-box -->
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuVehicular">
-                            <a class="dropdown-item font-weight-bold" href="v-vehiculos">Vehículos</a>
-                            <a class="dropdown-item font-weight-bold" href="v-propietarios">Propietarios</a>
-                            <a class="dropdown-item font-weight-bold" href="v-convenios">Convenios</a>
+                            <a class="dropdown-item font-weight-bold" href="v-vehiculos"><u>Vehículos</u></a>
+                            <a class="dropdown-item font-weight-bold" href="v-propietarios"><u>Propietarios</u></a>
+                            <a class="dropdown-item font-weight-bold" href="v-convenios"><u>Convenios</u></a>
                         </div>
                     </div>
                 </div>
