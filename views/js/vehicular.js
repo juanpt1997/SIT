@@ -82,6 +82,9 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
                     $("#dirco").val(response.direccion);
                     $("#telco").val(response.telefono1);
                     $("#telco2").val(response.telefono2);
+                    $("#ciudadcon").val(response.idciudad);
+
+                    $('.select2-single').trigger('change');
                 }
             });
         });

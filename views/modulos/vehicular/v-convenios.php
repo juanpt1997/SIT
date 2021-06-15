@@ -5,6 +5,7 @@
 }*/
 
 $Convenios = ControladorConvenios::ctrMostrar();
+$DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
 
 ?>
@@ -36,6 +37,16 @@ $Convenios = ControladorConvenios::ctrMostrar();
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
+
+                            <div class="row">
+                                <div class="col">
+                                    <!--BOTON NUEVO CONVENIO-->
+                                    <button type="button" class="btn btn-success btn-md btn-agregarConvenio" data-toggle="modal" data-target="#ConveniosModal">
+                                        <i class="fas fa-user-plus"></i> Añadir Convenio
+                                    </button>
+                                </div><!-- col -->
+                            </div> <!-- /.row -->
+
             <!-- ===================== 
               AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
             ========================= -->            
@@ -45,18 +56,9 @@ $Convenios = ControladorConvenios::ctrMostrar();
                         <div class="card-header bg-info"></div>
                         <div class="card-body">
 
-                            <div class="row">
-                                <div class="col">
-                                    <!--BOTON NUEVO CONVENIO-->
-                                    <button type="button" class="btn btn-success btn-lg btn-agregarConvenio" data-toggle="modal" data-target="#ConveniosModal">
-                                        <i class="fas fa-user-plus"></i> Añadir Convenio
-                                    </button>
-                                </div><!-- col -->
-                            </div> <!-- /.row -->
-
                             <div class="table-responsive">
                                 <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
-                                    <thead class="thead-light text-uppercase text-sm text-center">
+                                    <thead class="thead-light text-sm text-center">
                                         <tr>
                                             <th style="width:10px;">#</th>
                                             <th>NIT</th>
@@ -64,6 +66,7 @@ $Convenios = ControladorConvenios::ctrMostrar();
                                             <th>Direccion</th>
                                             <th>Telefono 1</th>
                                             <th>Telefono 2</th>
+                                            <th>Ciudad</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead> 
@@ -76,6 +79,7 @@ $Convenios = ControladorConvenios::ctrMostrar();
                                                 <td><?= $value['direccion'] ?></td>
                                                 <td><?= $value['telefono1'] ?></td>
                                                 <td><?= $value['telefono2'] ?></td>
+                                                <td><?= $value['ciudad'] ?></td>
                                                 <td> 
                                                     <div class="btn-group" role="group" aria-label="Button group">
                                                         <button class="btn btn-sm btn-warning btnEditarConv" nit="<?= $value['nit'] ?>" data-toggle="modal" data-target="#ConveniosModal"><i class="fas fa-edit"></i></button>
@@ -171,7 +175,24 @@ $Convenios = ControladorConvenios::ctrMostrar();
                                     <i class="fas fa-phone-square-alt"></i>
                                 </span>
                             </div>
-                            <input class="form-control input-convenio" type="text" id="telco2" name="telco2" placeholder="Ingresar telefono" required>
+                            <input class="form-control input-convenio" type="text" id="telco2" name="telco2" placeholder="telefono 2 / Opcional">
+                        </div>
+                    </div>
+
+                 <!-- CIUDAD -->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </span>
+                            </div>
+                            <select class="form-control input-convenio select2-single" style="width: 92%" type="text" id="ciudadcon" name="ciudadcon" required>
+                              <option selected value="">-Seleccione una ciudad-</option>
+                                <?php foreach ($DeparMunicipios as $key => $value) : ?>
+                                    <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
+                                <?php endforeach ?>
+                            </select>
                         </div>
                     </div>
                 </div>

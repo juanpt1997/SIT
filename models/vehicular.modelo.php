@@ -43,8 +43,8 @@ class ModeloPropietarios
     ============================*/
 	static public function mdlAgregar($datos){
 
-		$stmt = Conexion::conectar()->prepare("INSERT INTO propietario(tipodoc,documento,nombre,telef,direccion,email,idciudad)
-												VALUES(:tipodoc,:documento,:nombre,:telef,:direccion,:email,:idciudad)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO propietario(tipodoc,documento,nombre,telef,direccion,email,idciudad)
+                                                VALUES(:tipodoc,:documento,:nombre,:telef,:direccion,:email,:idciudad)");
 
         $stmt->bindParam(":documento", $datos["documento"], PDO::PARAM_STR);
         $stmt->bindParam(":tipodoc", $datos["tdocumento"], PDO::PARAM_STR);
@@ -54,7 +54,7 @@ class ModeloPropietarios
         $stmt->bindParam(":email", $datos["emailp"], PDO::PARAM_STR);
         $stmt->bindParam(":idciudad", $datos["ciudadpro"], PDO::PARAM_INT);
 
-		if ($stmt->execute()) {
+        if ($stmt->execute()) {
             $retorno = "ok";
         } else {
             $retorno = "error";
@@ -64,7 +64,7 @@ class ModeloPropietarios
         $stmt = null;
         
         return $retorno;
-	}
+        }
 
 	/*===========================
         EDITAR PROPIETARIO
@@ -102,7 +102,8 @@ class ModeloConvenios
 
         if($value != null){
 
-            $stmt = Conexion::conectar()->prepare("SELECT C.* FROM convenios C
+            $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad FROM convenios C
+                                                   LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio
                                                    WHERE C.nit = :nit");
 
             $stmt->bindParam(":nit",  $value, PDO::PARAM_STR);
@@ -111,7 +112,8 @@ class ModeloConvenios
 
         }else{
 
-            $stmt = Conexion::conectar()->prepare("SELECT C.* FROM convenios C");
+            $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad FROM convenios C
+                                                   LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio");
 
             $stmt->execute();
             $retorno =  $stmt->fetchAll();
@@ -123,14 +125,15 @@ class ModeloConvenios
 
     static public function mdlAgregar($datos){
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO convenios(nit,nombre,direccion,telefono1,telefono2)
-                                               VALUES(:nit,:nombre,:direccion,:telefono1,:telefono2)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO convenios(nit,nombre,direccion,telefono1,telefono2,idciudad)
+                                               VALUES(:nit,:nombre,:direccion,:telefono1,:telefono2,:idciudad)");
 
         $stmt->bindParam(":nit", $datos["nit"], PDO::PARAM_STR);
         $stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
         $stmt->bindParam(":direccion", $datos["dirco"], PDO::PARAM_STR);
         $stmt->bindParam(":telefono1", $datos["telco"], PDO::PARAM_STR);
         $stmt->bindParam(":telefono2", $datos["telco2"], PDO::PARAM_STR);
+        $stmt->bindParam(":idciudad", $datos["ciudadcon"], PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $retorno = "ok";
@@ -147,7 +150,7 @@ class ModeloConvenios
     static public function mdlEditar($datos){
 
         $stmt = Conexion::conectar()->prepare("UPDATE convenios set nit=:nit,nombre=:nombre,direccion=:direccion,
-                                                      telefono1=:telefono1,telefono2=:telefono2
+                                                      telefono1=:telefono1,telefono2=:telefono2,idciudad=:idciudad
                                                WHERE nit = :nit");
 
         $stmt->bindParam(":nit", $datos["nit"], PDO::PARAM_STR);
@@ -155,6 +158,7 @@ class ModeloConvenios
         $stmt->bindParam(":direccion", $datos["dirco"], PDO::PARAM_STR);
         $stmt->bindParam(":telefono1", $datos["telco"], PDO::PARAM_STR);
         $stmt->bindParam(":telefono2", $datos["telco2"], PDO::PARAM_STR);
+        $stmt->bindParam(":idciudad", $datos["ciudadcon"], PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $retorno = "ok";
