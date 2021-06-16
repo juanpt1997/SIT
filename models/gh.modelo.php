@@ -43,16 +43,16 @@ class ModeloGH
             case "activos":
                 $sql = "SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, d.nombre AS Departamento, s.sucursal AS Sucursal, l.nro_licencia, l.categoria, l.fecha_vencimiento
                             FROM gh_personal p
-                            INNER JOIN gh_municipios e ON e.idmunicipio = p.lugar_expedicion
-                            INNER JOIN gh_municipios n ON n.idmunicipio = p.lugar_nacimiento
-                            INNER JOIN gh_municipios r ON r.idmunicipio = p.lugar_residencia
-                            INNER JOIN gh_cargos c ON c.idCargo = p.cargo
-                            INNER JOIN gh_procesos pr ON pr.idProceso = p.proceso
-                            INNER JOIN gh_eps eps ON eps.ideps = p.eps
-                            INNER JOIN gh_fondospension fp ON fp.idfondo = p.afp
-                            INNER JOIN gh_arl ar ON ar.idarl = p.arl
-                            INNER JOIN gh_municipios m ON m.idmunicipio = p.ciudad
-                            INNER JOIN gh_departamentos d ON d.iddepartamento = m.iddepartamento
+                            LEFT JOIN gh_municipios e ON e.idmunicipio = p.lugar_expedicion
+                            LEFT JOIN gh_municipios n ON n.idmunicipio = p.lugar_nacimiento
+                            LEFT JOIN gh_municipios r ON r.idmunicipio = p.lugar_residencia
+                            LEFT JOIN gh_cargos c ON c.idCargo = p.cargo
+                            LEFT JOIN gh_procesos pr ON pr.idProceso = p.proceso
+                            LEFT JOIN gh_eps eps ON eps.ideps = p.eps
+                            LEFT JOIN gh_fondospension fp ON fp.idfondo = p.afp
+                            LEFT JOIN gh_arl ar ON ar.idarl = p.arl
+                            LEFT JOIN gh_municipios m ON m.idmunicipio = p.ciudad
+                            LEFT JOIN gh_departamentos d ON d.iddepartamento = m.iddepartamento
                             INNER JOIN gh_sucursales s ON s.ids = p.sucursal
                             LEFT JOIN gh_re_personallicencias l ON l.idPersonal = p.idPersonal
                             WHERE p.activo = 'S'
@@ -327,15 +327,15 @@ class ModeloGH
         //$stmt = Conexion::conectar()->prepare("SELECT * FROM gh_personal WHERE idPersonal = :idPersonal");
         $stmt = Conexion::conectar()->prepare("SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, s.sucursal AS Sucursal
                             FROM gh_personal p
-                            INNER JOIN gh_municipios e ON e.idmunicipio = p.lugar_expedicion
-                            INNER JOIN gh_municipios n ON n.idmunicipio = p.lugar_nacimiento
-                            INNER JOIN gh_municipios r ON r.idmunicipio = p.lugar_residencia
-                            INNER JOIN gh_cargos c ON c.idCargo = p.cargo
-                            INNER JOIN gh_procesos pr ON pr.idProceso = p.proceso
-                            INNER JOIN gh_eps eps ON eps.ideps = p.eps
-                            INNER JOIN gh_fondospension fp ON fp.idfondo = p.afp
-                            INNER JOIN gh_arl ar ON ar.idarl = p.arl
-                            INNER JOIN gh_municipios m ON m.idmunicipio = p.ciudad
+                            LEFT JOIN gh_municipios e ON e.idmunicipio = p.lugar_expedicion
+                            LEFT JOIN gh_municipios n ON n.idmunicipio = p.lugar_nacimiento
+                            LEFT JOIN gh_municipios r ON r.idmunicipio = p.lugar_residencia
+                            LEFT JOIN gh_cargos c ON c.idCargo = p.cargo
+                            LEFT JOIN gh_procesos pr ON pr.idProceso = p.proceso
+                            LEFT JOIN gh_eps eps ON eps.ideps = p.eps
+                            LEFT JOIN gh_fondospension fp ON fp.idfondo = p.afp
+                            LEFT JOIN gh_arl ar ON ar.idarl = p.arl
+                            LEFT JOIN gh_municipios m ON m.idmunicipio = p.ciudad
                             INNER JOIN gh_sucursales s ON s.ids = p.sucursal
                             WHERE p.{$datos['item']} = :{$datos['item']};");
         $stmt->bindParam(":{$datos['item']}", $datos['valor']);
@@ -698,10 +698,10 @@ class ModeloPagoSS
         $stmt = Conexion::conectar()->prepare("SELECT s.idsegursoc, p.Nombre, p.pago_seguridadsocial, s.pago, e.eps, ar.arl, fp.fondo AS afp, c.cargo, sc.sucursal
                                                 FROM gh_re_personalsegursoc s
                                                 INNER JOIN gh_personal p ON p.idPersonal = s.idPersonal
-                                                INNER JOIN gh_eps e ON e.ideps = p.eps
-                                                INNER JOIN gh_arl ar ON ar.idarl = p.arl
-                                                INNER JOIN gh_fondospension fp ON fp.idfondo = p.afp
-                                                INNER JOIN gh_cargos c ON c.idCargo = p.cargo
+                                                LEFT JOIN gh_eps e ON e.ideps = p.eps
+                                                LEFT JOIN gh_arl ar ON ar.idarl = p.arl
+                                                LEFT JOIN gh_fondospension fp ON fp.idfondo = p.afp
+                                                LEFT JOIN gh_cargos c ON c.idCargo = p.cargo
                                                 INNER JOIN gh_sucursales sc ON sc.ids = p.sucursal
                                                 WHERE idFechas = :idFechas AND p.activo = 'S'");
 
@@ -726,9 +726,9 @@ class ModeloAusentismo{
         $stmt = Conexion::conectar()->prepare("SELECT a.*, p.Documento, p.Nombre, c.cargo AS Cargo, pr.proceso AS Proceso, t.descripcion AS tipoAusentismo, eps.eps AS Eps, p.salario_basico
                                                 FROM gh_re_personalausentismo a
                                                 INNER JOIN gh_personal p ON a.idPersonal = p.idPersonal
-                                                INNER JOIN gh_cargos c ON c.idCargo = p.cargo
-                                                INNER JOIN gh_procesos pr ON pr.idProceso = p.proceso
-                                                INNER JOIN gh_eps eps ON eps.ideps = p.eps
+                                                LEFT JOIN gh_cargos c ON c.idCargo = p.cargo
+                                                LEFT JOIN gh_procesos pr ON pr.idProceso = p.proceso
+                                                LEFT JOIN gh_eps eps ON eps.ideps = p.eps
                                                 INNER JOIN gh_tipoausentismo t ON t.idtipo = a.idtipo;");
 
         $stmt->execute();
@@ -829,9 +829,9 @@ class ModeloAusentismo{
         $stmt = Conexion::conectar()->prepare("SELECT a.*, p.Documento, p.Nombre, c.cargo AS Cargo, pr.proceso AS Proceso, t.descripcion AS tipoAusentismo, eps.eps AS Eps, p.salario_basico
                                                 FROM gh_re_personalausentismo a
                                                 INNER JOIN gh_personal p ON a.idPersonal = p.idPersonal
-                                                INNER JOIN gh_cargos c ON c.idCargo = p.cargo
-                                                INNER JOIN gh_procesos pr ON pr.idProceso = p.proceso
-                                                INNER JOIN gh_eps eps ON eps.ideps = p.eps
+                                                LEFT JOIN gh_cargos c ON c.idCargo = p.cargo
+                                                LEFT JOIN gh_procesos pr ON pr.idProceso = p.proceso
+                                                LEFT JOIN gh_eps eps ON eps.ideps = p.eps
                                                 INNER JOIN gh_tipoausentismo t ON t.idtipo = a.idtipo
                                                 WHERE idAusentismo = :idAusentismo");
         $stmt->bindParam(":idAusentismo", $idAusentismo, PDO::PARAM_INT);
