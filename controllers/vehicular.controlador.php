@@ -103,7 +103,8 @@ class ControladorConvenios{
 				'nombre' => $_POST['nombre'],
 				'dirco' => $_POST['dirco'],
 				'telco' => $_POST['telco'],
-				'telco2' => $_POST['telco2']
+				'telco2' => $_POST['telco2'],
+				'ciudadcon' => $_POST['ciudadcon']
 			);
 
 			if(is_array($convenioExistente)){
