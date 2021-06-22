@@ -127,7 +127,8 @@
                 } else if (
                     $ruta == "v-vehiculos" ||
                     $ruta == "v-convenios" ||
-                    $ruta == "v-propietarios"
+                    $ruta == "v-propietarios"||
+                    $ruta == "v-bloqueo-personal"
                 ) {
                     include "modulos/vehicular/{$ruta}.php";
                 }

@@ -5,6 +5,8 @@ if (window.location.href == `${urlPagina}v-propietarios/` ||
 
 		//CARGAR DATOS DEL PROPIETARIOS PARA EDITARLOS
 		$(document).on("click", ".btnEditarProp", function () {
+            var idxp = $(this).attr("idxp");
+            $("#idxp").val(idxp);
 
 
 			var cedula = $(this).attr("cedula");
@@ -24,7 +26,7 @@ if (window.location.href == `${urlPagina}v-propietarios/` ||
                 success: function (response) {
 
                     $("#documento").val(response.documento);
-                    $("#documento").attr("readonly", "readonly");
+                    //$("#documento").attr("readonly", "readonly");
 
                     $("#tdocumento").val(response.tipodoc);
                     $("#nombre").val(response.nombre);
@@ -41,8 +43,9 @@ if (window.location.href == `${urlPagina}v-propietarios/` ||
         $(document).on("click", ".btn-agregarPropietario", function () {
             // Reset valores del formulario
             $(".input-propietario").val("");
+            $("#idxp").val("");
             // Remover atributo readonly del formulario puesto que va a agregar uno nuevo
-            $("#documento").removeAttr("readonly");
+            //$("#documento").removeAttr("readonly");
         });
 
 

@@ -77,7 +77,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                 <td><?= $value['ciudad'] ?></td>
                                                 <td> 
                                                     <div class="btn-group" role="group" aria-label="Button group">
-                                                        <button class="btn btn-sm btn-warning btnEditarProp" cedula="<?= $value['documento'] ?>" data-toggle="modal" data-target="#PropietarioModal"><i class="fas fa-edit"></i></button>
+                                                        <button class="btn btn-sm btn-warning btnEditarProp" idxp="<?= $value['idxp'] ?>" cedula="<?= $value['documento'] ?>" data-toggle="modal" data-target="#PropietarioModal"><i class="fas fa-edit"></i></button>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -113,7 +113,8 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                 </div>
 
                 <div class="modal-body">
-
+                    <!--ID REGISTRO-->  
+                    <input type="hidden" id="idxp" name="idxp" value="">                  
 
                     <!--TIPO DE DOCUMENTO-->
                     <div class="form-group">

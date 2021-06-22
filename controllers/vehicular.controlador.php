@@ -18,10 +18,11 @@ class ControladorPropietarios
 	public function ctrAgregarEditar(){
 
 		if (isset($_POST['documento'])) {
-			// Ver si ya existe un propietario con ese documento
+			
 			$propietarioExistente = ModeloPropietarios::mdlMostrar($_POST['documento']);
 
 			$datos = array(
+				'idxp' => $_POST['idxp'],
 				'documento' => $_POST['documento'],
 				'tdocumento' => $_POST['tdocumento'],
 				'nombre' => $_POST['nombre'],
@@ -31,20 +32,49 @@ class ControladorPropietarios
 				'ciudadpro' => $_POST['ciudadpro']
 			);
 
-			if(is_array($propietarioExistente)){
+			if (is_array($propietarioExistente) && $propietarioExistente['idxp'] != $_POST['idxp']) {		
+				echo "
+							<script>
+								Swal.fire({
+									icon: 'warning',
+									title: '¡Propietario ya existe!',						
+									showConfirmButton: true,
+									confirmButtonText: 'Cerrar',
+									
+								}).then((result)=>{
 
-				 $responseModel = ModeloPropietarios::mdlEditar($datos);
-			} else {
+									if(result.value){
+										window.location = 'v-propietarios';
+									}
 
-				 $responseModel = ModeloPropietarios::mdlAgregar($datos);
-			}
+								})
+							</script>
+						";
+						return;
+				
+			}	else {
+				if ($_POST['idxp'] == '') {
+					
+
+					$responseModel = ModeloPropietarios::mdlAgregar($datos);
+			
+
+				}	else {
+					
+					
+					$responseModel = ModeloPropietarios::mdlEditar($datos);
+					
+
+					}
+				}
 
 			if ($responseModel == "ok"){
+
 				echo "
 						<script>
 							Swal.fire({
 								icon: 'success',
-								title: '¡El propietario ha sido guardado correctamente!',						
+								title: '¡Propietario añadido correctamente!',						
 								showConfirmButton: true,
 								confirmButtonText: 'Cerrar',
 								
@@ -57,12 +87,13 @@ class ControladorPropietarios
 							})
 						</script>
 					";
+				
 			}else{
 				echo "
 						<script>
 							Swal.fire({
-								icon: 'success',
-								title: '¡Problema al agregar el propietario!',						
+								icon: 'warning',
+								title: '¡Problema al añadir el propietario!',						
 								showConfirmButton: true,
 								confirmButtonText: 'Cerrar',
 								
@@ -78,7 +109,6 @@ class ControladorPropietarios
 			}
 		}
 	}
-
 
 }
 
@@ -173,6 +203,15 @@ class ControladorVehiculos{
 
 	}
 
+}
+
+
+class ControladorBloqueos{
+	
+	static public function ctrListaPersonal(){
+		
+		return ModeloGH::mdlPersonal("activos");
+	}
 }
 
 

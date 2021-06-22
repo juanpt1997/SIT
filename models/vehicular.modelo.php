@@ -14,7 +14,6 @@ class ModeloPropietarios
     ============================*/
 	static public function mdlMostrar($value){
 
-		// Traer todos los propietarios
 		if ($value != null){
 
 			$stmt = Conexion::conectar()->prepare("SELECT P.*, M.municipio AS ciudad FROM propietario P
@@ -42,6 +41,9 @@ class ModeloPropietarios
         AGREGAR PROPIETARIO
     ============================*/
 	static public function mdlAgregar($datos){
+
+
+        $docum = $datos["documento"];
 
         $stmt = Conexion::conectar()->prepare("INSERT INTO propietario(tipodoc,documento,nombre,telef,direccion,email,idciudad)
                                                 VALUES(:tipodoc,:documento,:nombre,:telef,:direccion,:email,:idciudad)");
@@ -71,10 +73,12 @@ class ModeloPropietarios
     ============================*/
 	static public function mdlEditar($datos){
 
-		$stmt = Conexion::conectar()->prepare("UPDATE propietario set tipodoc=:tipodoc,nombre=:nombre,telef=:telef,direccion=:direccion,
+		$stmt = Conexion::conectar()->prepare("UPDATE propietario set documento = :documento, tipodoc=:tipodoc,nombre=:nombre,telef=:telef,direccion=:direccion,
                                                       email=:email,idciudad=:idciudad
-											   WHERE documento = :documento");
+											   -- WHERE documento = :documento
+                                               where idxp = :idxp");
 
+        $stmt->bindParam(":idxp", $datos["idxp"], PDO::PARAM_INT);
         $stmt->bindParam(":documento", $datos["documento"], PDO::PARAM_STR);
         $stmt->bindParam(":tipodoc", $datos["tdocumento"], PDO::PARAM_STR);
         $stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
