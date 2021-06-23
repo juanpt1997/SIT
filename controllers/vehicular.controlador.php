@@ -157,15 +157,44 @@ class ControladorConvenios{
 
 }
 
-#Vehiculos
+/* ===================================================
+   * VEHICULOS
+===================================================*/
 class ControladorVehiculos{
+	/* ===================================================
+	   MOSTRAR VEHICULOS
+	===================================================*/
+	static public function ctrListaVehiculos()
+    {
+        $respuesta = ModeloVehiculos::mdlVehiculos();
+        return $respuesta;
+    }
 
+	/* ===================================================
+       DATOS DEL VEHICULO
+    ===================================================*/
+    static public function ctrDatosVehiculo($item, $valor)
+    {
+        $datos = array(
+            'item' => $item,
+            'valor' => $valor
+        );
+        $Vehiculo = ModeloVehiculos::mdlDatosVehiculo($datos);
+        return $Vehiculo;
+    }
+
+	/* ===================================================
+	   MOSTRAR TIPO DE VEHICULOS
+	===================================================*/
 	static public function ctrMostrarTipoVehiculo(){
 
 		$respuesta = ModeloVehiculos::mdlMostrarTipoVehiculo();
 		return $respuesta;
 	}
 
+	/* ===================================================
+	   MOSTRAR MARCAS
+	===================================================*/
 	static public function ctrMostrarMarca(){
 
 		$respuesta = ModeloVehiculos::mdlMostrarMarca();
@@ -173,7 +202,39 @@ class ControladorVehiculos{
 
 	}
 
+	/* ===================================================
+	   GUARDAR DATOS DEL VEHICULO
+	===================================================*/
+	static public function ctrGuardarVehiculo($datos)
+    {
+        $datosBusqueda = array(
+            'item' => 'placa',
+            'valor' => $datos['placa']
+        );
+        $vehiculo = ModeloVehiculos::mdlDatosVehiculo($datosBusqueda);
+
+        # INSERT
+        if ($datos['idvehiculo'] == "") {
+            if (is_array($vehiculo)) {
+                # mensaje al usuario
+                $retorno = "existe";
+            } else {
+                # INSERT
+                $retorno = ModeloVehiculos::mdlAgregarVehiculo($datos);
+            }
+        }
+        # UPDATE
+        else {
+            if (is_array($vehiculo) && $vehiculo['idvehiculo'] != $datos['idvehiculo']) {
+                # mensaje al usuario
+                $retorno = "existe";
+            } else {
+                # UPDATE
+				$retorno = ModeloVehiculos::mdlEditarVehiculo($datos);
+            }
+        }
+
+        return $retorno;
+    }
+
 }
-
-
- ?>

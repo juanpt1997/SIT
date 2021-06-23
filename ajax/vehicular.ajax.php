@@ -28,6 +28,30 @@ class AjaxConvenios
 	}
 }
 
+/* ===================================================
+   * VEHICULOS
+===================================================*/
+class AjaxVehiculos
+{
+	/* ===================================================
+       CARGAR DATOS DEL VEHICULO
+    ===================================================*/
+    static public function ajaxDatosVehiculo($item, $valor)
+    {
+        $respuesta = ControladorVehiculos::ctrDatosVehiculo($item, $valor);
+        echo json_encode($respuesta);
+    }
+
+	/* ===================================================
+       GUARDAR DATOS DEL VEHICULO
+    ===================================================*/
+    static public function ajaxGuardarVehiculo($formData)
+    {
+        $respuesta = ControladorVehiculos::ctrGuardarVehiculo($formData);
+        echo $respuesta;
+    }
+}
+
 
 # LLAMADOS A AJAX PROPIETARIOS
 if (isset($_POST['DatosPropietarios']) && $_POST['DatosPropietarios'] == "ok"){
@@ -36,4 +60,13 @@ if (isset($_POST['DatosPropietarios']) && $_POST['DatosPropietarios'] == "ok"){
 # LLAMADOS A AJAX CONVENIOS
 if (isset($_POST['DatosConvenios']) && $_POST['DatosConvenios'] == "ok"){
 	AjaxConvenios::ajaxDatosConvenios($_POST['value']);
+}
+
+# LLAMADOS A AJAX VEHICULOS
+if (isset($_POST['GuardarVehiculo']) && $_POST['GuardarVehiculo'] == "ok") {
+    AjaxVehiculos::ajaxGuardarVehiculo($_POST);
+}
+
+if (isset($_POST['DatosVehiculo']) && $_POST['DatosVehiculo'] == "ok") {
+    AjaxVehiculos::ajaxDatosVehiculo($_POST['item'], $_POST['valor']);
 }

@@ -1,9 +1,10 @@
 <?php
- 
+
 /* if(!array_search('CARGAR_OPCION',$_SESSION['opciones'])) {
     echo "<script> window.location = 'inicio'; </script>";
 } */
 
+$Vehiculos = ControladorVehiculos::ctrListaVehiculos();
 $Propietarios = ControladorPropietarios::ctrMostrar();
 $Sucursales = ControladorGH::ctrSucursales();
 $tvehiculos = ControladorVehiculos::ctrMostrarTipoVehiculo();
@@ -36,94 +37,99 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
     <div class="content">
         <div class="container-fluid">
 
-                            <div class="row">
-                                <div class="col">
-                                    <!--BOTON NUEVO VEHICULO-->
-                                    <button type="button" class="btn btn-success btn-md btn-agregarVehiculo" data-toggle="modal" data-target="#VehiculosModal">
-                                        <i class="fas fa-car-side"></i> Añadir Vehículo
-                                    </button>
-                                </div><!-- col -->
-                            </div> <!-- /.row -->
-            
-            <!--|||TABLA VEHICULOS|||-->
+            <div class="row">
+                <div class="col">
+                    <!--BOTON NUEVO VEHICULO-->
+                    <button type="button" class="btn btn-success btn-md btn-agregarVehiculo" data-toggle="modal" data-target="#VehiculosModal">
+                        <i class="fas fa-car-side"></i> Añadir Vehículo
+                    </button>
+                </div><!-- col -->
+            </div> <!-- /.row -->
 
+            <!--|||TABLA VEHICULOS|||-->
             <div class="row mt-2">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header bg-info"></div>
                         <div class="card-body">
 
-                                <div class="table-responsive">
-                                    <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
-                                        <thead class="thead-light text-sm text-center text-nowrap">
+                            <div class="table-responsive">
+                                <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
+                                    <thead class="thead-light text-sm text-center text-nowrap">
+                                        <tr>
+                                            <th style="width:10px;">#</th>
+                                            <th>Placa</th>
+                                            <th>Nro. Interno</th>
+                                            <th>Sucursal</th>
+                                            <th>Fecha vinculacion</th>
+                                            <th>Chasis</th>
+                                            <th>Nro. Motor</th>
+                                            <th>Modelo</th>
+                                            <th>Color</th>
+                                            <th>Capacidad</th>
+                                            <th>Cilindraje</th>
+                                            <th>Tipo vinculacion</th>
+                                            <th>Fecha importación</th>
+                                            <th>Potencia</th>
+                                            <th>Limitacion propiedad</th>
+                                            <th>Tipo de vehiculo</th>
+                                            <th>Marca</th>
+                                            <th>Fecha matricula</th>
+                                            <th>Activo</th>
+                                            <th>Empresa Convenio</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($Vehiculos as $key => $value) : ?>
+                                            <?php
+                                            $BotonEditar = "<div class='btn-group'>
+                                                            {$value['idvehiculo']}
+                                                            <button type='button' class='btn btnEditarVehiculo' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#VehiculosModal'>
+                                                                <i class='fas fa-edit text-info'></i>
+                                                            </button>
+                                                        </div>";
+                                            ?>
                                             <tr>
-                                                <th style="width:10px;">#</th>
-                                                <th>Placa</th>
-                                                <th>Nro. Interno</th>
-                                                <th>Nombre</th>
-                                                <th>Documento</th>
-                                                <th>Sucursal</th>
-                                                <th>Fecha vinculacion</th>
-                                                <th>Chasis</th>
-                                                <th>Nro. Motor</th>
-                                                <th>Modelo</th>
-                                                <th>Color</th>
-                                                <th>Capacidad</th>
-                                                <th>Cilindraje</th>
-                                                <th>Tipo vinculacion</th>
-                                                <th>Fecha importación</th>
-                                                <th>Potencia</th>
-                                                <th>Limitacion propiedad</th>
-                                                <th>Tipo de vehiculo</th>
-                                                <th>Marca</th>
-                                                <th>Fecha matricula</th>
-                                                <th>Activo</th>
-                                                <th>Empresa Convenio</th>
-                                                <th>Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td>
+                                                <!-- <td><?= $value['idvehiculo'] ?></td> -->
+                                                <td><?= $BotonEditar ?></td>
+                                                <td><?= $value['placa'] ?></td>
+                                                <td><?= $value['numinterno'] ?></td>
+                                                <td><?= $value['sucursal'] ?></td>
+                                                <td><?= $value['fechavinculacion'] ?></td>
+                                                <td><?= $value['chasis'] ?></td>
+                                                <td><?= $value['numeromotor'] ?></td>
+                                                <td><?= $value['modelo'] ?></td>
+                                                <td><?= $value['color'] ?></td>
+                                                <td><?= $value['capacidad'] ?></td>
+                                                <td><?= $value['cilindraje'] ?></td>
+                                                <td><?= $value['tipovinculacion'] ?></td>
+                                                <td><?= $value['fechaimportacion'] ?></td>
+                                                <td><?= $value['potenciahp'] ?></td>
+                                                <td><?= $value['limitacion'] ?></td>
+                                                <td><?= $value['tipovehiculo'] ?></td>
+                                                <td><?= $value['marca'] ?></td>
+                                                <td><?= $value['fechamatricula'] ?></td>
+                                                <td><?= $value['activo'] ?></td>
+                                                <td><?= $value['convenio'] ?></td>
+                                                <!-- <td>
                                                     <div class="btn-group" role="group" aria-label="Button group">
                                                         <button class="btn btn-sm btn-warning btnEditarVehiculo" data-toggle="modal" data-target="#VehiculosModal"><i class="fas fa-edit"></i></button>
                                                     </div>
-                                                </td>
+                                                </td> -->
                                             </tr>
-                                        </tbody>
+                                        <?php endforeach ?>
+                                    </tbody>
 
-                                    </table>
+                                </table>
 
-                                </div>
+                            </div>
                         </div>
                         <div class="card-footer bg-dark"></div>
                     </div>
                 </div><!-- col -->
             </div> <!-- /.row -->
         </div><!-- /.container-fluid -->
-    </div><!-- /.content -->  
+    </div><!-- /.content -->
 </div><!-- /.content-wrapper -->
 
 <!--MODALS-->
@@ -132,66 +138,66 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
 
-            <form id="vehiculos_form" method="post" enctype="multipart/form-data">
-                
-                <div class="modal-header bg-info">
-                    <!--<h5 class="modal-title d-none" id="exampleModalLabel">Agregar vehiculo</h5>-->
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
+            <div class="modal-header bg-info">
+                <h5 class="modal-title font-weight-bold" id="titulo-modal-vehiculo">Agregar vehículo</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
-                <div class="modal-body">
+            <div class="modal-body">
 
+                <!-- ===================================================
+                        INFORMACION GENERAL
+                    =================================================== -->
+                <form id="vehiculos_form" method="post" enctype="multipart/form-data">
                     <div class="card card-secondary card-tabs">
                         <div class="card-header p-0 pt-1">
                             <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
 
-                                <li class="pt-2 px-3"><h3 class="card-title">Información general</h3></li>
-                                
+                                <li class="pt-2 px-3">
+                                    <h3 class="card-title">Información general</h3>
+                                </li>
+
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="datos_vehiculos" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">Datos vehículos</a>
+                                    <a class="nav-link active" id="datos_vehiculos" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true"><u>Datos vehículos</u></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">Información técnica</a>
+                                    <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false"><u>Información técnica</u></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">Características</a>
+                                    <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false"><u>Características</u></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-two-settings-tab" data-toggle="pill" href="#custom-tabs-two-settings" role="tab" aria-controls="custom-tabs-two-settings" aria-selected="false">Imágenes</a>
+                                    <a class="nav-link" id="custom-tabs-two-settings-tab" data-toggle="pill" href="#custom-tabs-two-settings" role="tab" aria-controls="custom-tabs-two-settings" aria-selected="false"><u>Imágenes</u></a>
                                 </li>
+                                <li class="d-flex align-items-center ml-2"><button type="submit" class="btn btn-sm btn-success align-bottom">
+                                        <i class="fas fa-save"></i>
+                                        Guardar
+                                    </button></li>
                             </ul>
                         </div>
 
                         <div class="card-body">
                             <div class="tab-content" id="custom-tabs-two-tabContent">
+                                <!-- ===================================================
+                                    DATOS VEHÍCULOS
+                                =================================================== -->
                                 <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                        
+                                            <input type="hidden" id="idvehiculo" name="idvehiculo" value="">
+
                                             <div class="form-group">
-                                                <label>Placa</label>
+                                                <label>Placa *</label>
                                                 <div class="input-group">
                                                     <div class="input-group-append">
                                                         <span class="input-group-text">
                                                             <i class="fas fa-ad"></i>
                                                         </span>
                                                     </div>
-                                                        <input class="form-control input-propietario" type="text" id="placa" name="placa" placeholder="Ingresar placa" required>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Nro. Interno afiliado</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text">
-                                                            <i class="fas fa-hashtag"></i>
-                                                        </span>
-                                                    </div>
-                                                        <input class="form-control input-propietario" type="text" id="num_afiliado" name="num_afiliado" placeholder="Ingresar número interno afiliado" required>
+                                                    <input class="form-control input-datosvehiculo" type="text" id="placa" name="placa" placeholder="Ingresar placa" autofocus required>
                                                 </div>
                                             </div>
 
@@ -203,56 +209,16 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-clipboard-list"></i>
                                                         </span>
                                                     </div>
-                                                        <select class="form-control input-lg input-propietario" type="text" id="t_vinculacion" name="t_vinculacion" required>
-                                                            <option>-Seleccione una vinculación-</option>
-                                                            <option>Propio</option>
-                                                            <option>Propio afiliado</option>
-                                                            <option>Convenio</option>
-                                                            <option>Propio tercero</option>
-                                                            <option>Administrado</option>
-                                                            <option>Afiliado</option>
-                                                            <option>Propio vendido</option>
-                                                        </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Fecha de vinculación</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text">
-                                                            <i class="far fa-calendar-alt"></i>
-                                                        </span>
-                                                    </div>
-                                                        <input class="form-control input-propietario" type="date" id="fecha_vin" name="fecha_vin" placeholder="Seleccione una fecha" required>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="col-md-6">
-
-                                            <div class="form-group">
-                                                <label>Nombre</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text">
-                                                            <i class="fas fa-address-card"></i>
-                                                        </span>
-                                                    </div>
-                                                        <input class="form-control input-propietario" type="text" id="v_nombre" name="v_nombre" placeholder="Ingresar nombre" required>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="form-group">
-                                                <label>Documento</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text">
-                                                            <i class="fas fa-address-card"></i>
-                                                        </span>
-                                                    </div>
-                                                        <input class="form-control input-propietario" type="text" id="v_documento" name="v_documento" placeholder="Ingresar documento" required>
+                                                    <select class="form-control input-lg input-datosvehiculo" type="text" id="tipovinculacion" name="tipovinculacion">
+                                                        <option value="" selected>-Seleccione una vinculación-</option>
+                                                        <option>Propio</option>
+                                                        <option>Propio afiliado</option>
+                                                        <option>Convenio</option>
+                                                        <option>Propio tercero</option>
+                                                        <option>Administrado</option>
+                                                        <option>Afiliado</option>
+                                                        <option>Propio vendido</option>
+                                                    </select>
                                                 </div>
                                             </div>
 
@@ -264,36 +230,53 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-map-marker-alt"></i>
                                                         </span>
                                                     </div>
-                                                        <select class="form-control input-lg input-propietario" type="text" id="v_sucursal" name="v_sucursal" required>
-                                                                <option>-Seleccione una sucursal-</option>
-                                                            <?php foreach ($Sucursales as $key => $value) : ?>
-                                                                <option value="<?= $value['sucursal'] ?>"><?= $value['sucursal'] ?></option>
-                                                            <?php endforeach ?>
-                                                        </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Conductor</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text">
-                                                            <i class="fas fa-user"></i>
-                                                        </span>
-                                                    </div>
-                                                        <input class="form-control input-propietario" type="text" id="v_conductor" name="v_conductor" required>
+                                                    <select class="form-control input-lg input-datosvehiculo" type="text" id="idsucursal" name="idsucursal">
+                                                        <option value="" selected>-Seleccione una sucursal-</option>
+                                                        <?php foreach ($Sucursales as $key => $value) : ?>
+                                                            <option value="<?= $value['ids'] ?>"><?= $value['sucursal'] ?></option>
+                                                        <?php endforeach ?>
+                                                    </select>
                                                 </div>
                                             </div>
 
                                         </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Nro. Interno afiliado</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-hashtag"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input class="form-control input-datosvehiculo" type="text" id="numinterno" name="numinterno" placeholder="Ingresar número interno afiliado">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Fecha de vinculación *</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="far fa-calendar-alt"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input class="form-control input-datosvehiculo" type="date" id="fechavinculacion" name="fechavinculacion" placeholder="Seleccione una fecha" required>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
+                                <!-- ===================================================
+                                    INFORMACIÓN TÉCNICA
+                                =================================================== -->
                                 <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                        
+
                                             <div class="form-group">
                                                 <label>Número del motor</label>
                                                 <div class="input-group">
@@ -302,7 +285,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-hashtag"></i>
                                                         </span>
                                                     </div>
-                                                        <input class="form-control input-propietario" type="text" id="num_motor" name="num_motor" placeholder="Ingresar número del motor" required>
+                                                    <input class="form-control input-propietario" type="text" id="numeromotor" name="numeromotor" placeholder="Ingresar número del motor">
                                                 </div>
                                             </div>
 
@@ -314,7 +297,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-car-alt"></i>
                                                         </span>
                                                     </div>
-                                                        <input class="form-control input-propietario" type="text" id="v_chasis" name="v_chasis" placeholder="Ingresar chasis" required>
+                                                    <input class="form-control input-propietario" type="text" id="chasis" name="chasis" placeholder="Ingresar chasis">
                                                 </div>
                                             </div>
 
@@ -323,10 +306,10 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                 <div class="input-group">
                                                     <div class="input-group-append">
                                                         <span class="input-group-text">
-                                                           <i class="fas fa-car-alt"></i>
+                                                            <i class="fas fa-car-alt"></i>
                                                         </span>
                                                     </div>
-                                                        <input class="form-control input-propietario" type="text" id="v_modelo" name="v_modelo" placeholder="Ingresar modelo del vehículo" required>
+                                                    <input class="form-control input-propietario" type="text" id="modelo" name="modelo" placeholder="Ingresar modelo del vehículo">
                                                 </div>
                                             </div>
 
@@ -338,7 +321,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-palette"></i>
                                                         </span>
                                                     </div>
-                                                        <input class="form-control input-propietario" type="text" id="v_color" name="v_color" placeholder="Ingresar color del vehículo" required>
+                                                    <input class="form-control input-propietario" type="text" id="color" name="color" placeholder="Ingresar color del vehículo">
                                                 </div>
                                             </div>
 
@@ -347,10 +330,10 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                 <div class="input-group">
                                                     <div class="input-group-append">
                                                         <span class="input-group-text">
-                                                            <i class="fas fa-weight"></i>  
+                                                            <i class="fas fa-weight"></i>
                                                         </span>
                                                     </div>
-                                                        <input class="form-control input-propietario" type="text" id="v_capacidad" name="v_capacidad" placeholder="Ingresar capacidad del vehículo" required>
+                                                    <input class="form-control input-propietario" type="text" id="capacidad" name="capacidad" placeholder="Ingresar capacidad del vehículo">
                                                 </div>
                                             </div>
 
@@ -366,7 +349,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-tachometer-alt"></i>
                                                         </span>
                                                     </div>
-                                                        <input class="form-control input-propietario" type="text" id="v_cilindraje" name="v_cilindraje" placeholder="Ingresar cilindraje del vehículo" required>
+                                                    <input class="form-control input-propietario" type="text" id="cilindraje" name="cilindraje" placeholder="Ingresar cilindraje del vehículo">
                                                 </div>
                                             </div>
 
@@ -378,12 +361,12 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-car-alt"></i>
                                                         </span>
                                                     </div>
-                                                        <select class="form-control input-lg input-propietario" type="text" id="v_tipov" name="v_tipov" required>
-                                                            <option>-Seleccione un tipo-</option>
-                                                            <?php foreach ($tvehiculos as $key => $value) : ?>
-                                                                <option><?= $value['vehiculo'] ?></option>
-                                                            <?php endforeach ?>
-                                                        </select>
+                                                    <select class="form-control input-lg input-propietario" type="text" id="idtipovehiculo" name="idtipovehiculo">
+                                                        <option value="" selected>-Seleccione un tipo-</option>
+                                                        <?php foreach ($tvehiculos as $key => $value) : ?>
+                                                            <option value="<?= $value['idtipovehiculo'] ?>"><?= $value['tipovehiculo'] ?></option>
+                                                        <?php endforeach ?>
+                                                    </select>
                                                 </div>
                                             </div>
 
@@ -395,12 +378,12 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-car-alt"></i>
                                                         </span>
                                                     </div>
-                                                        <select class="form-control input-lg input-propietario" type="text" id="v_marca" name="v_marca" required>
-                                                            <option>-Seleccione una marca-</option>
-                                                            <?php foreach ($marca as $key => $value) : ?>
-                                                                <option><?= $value['marca'] ?></option>
-                                                            <?php endforeach ?>
-                                                        </select>
+                                                    <select class="form-control input-lg input-propietario" type="text" id="idmarca" name="idmarca">
+                                                        <option value="" selected>-Seleccione una marca-</option>
+                                                        <?php foreach ($marca as $key => $value) : ?>
+                                                            <option value="<?= $value['idmarca'] ?>"><?= $value['marca'] ?></option>
+                                                        <?php endforeach ?>
+                                                    </select>
                                                 </div>
                                             </div>
 
@@ -412,7 +395,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-car-alt"></i>
                                                         </span>
                                                     </div>
-                                                        <input class="form-control input-propietario" type="text" id="v_carroceria" name="v_carroceria" placeholder="Ingresar el tipo de carrecoria" required>
+                                                    <input class="form-control input-propietario" type="text" id="tipocarroceria" name="tipocarroceria" placeholder="Ingresar el tipo de carrecoria">
                                                 </div>
                                             </div>
 
@@ -424,7 +407,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-tachometer-alt"></i>
                                                         </span>
                                                     </div>
-                                                        <input class="form-control input-propietario" type="text" id="v_potencia" name="v_potencia" placeholder="Ingresar potencia  " required>
+                                                    <input class="form-control input-propietario" type="text" id="potenciahp" name="potenciahp" placeholder="Ingresar potencia  ">
                                                 </div>
                                             </div>
 
@@ -432,182 +415,187 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                     </div>
                                 </div>
 
+                                <!-- ===================================================
+                                    CARACTERÍSTICAS
+                                =================================================== -->
                                 <div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
 
 
                                     <div class="row">
-                                       <div class="col-md-6">
-
-                                                <div class="form-group">
-                                                    <label>Fecha de importanción</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">
-                                                                <i class="far fa-calendar-alt"></i>
-                                                            </span>
-                                                        </div>
-                                                            <input class="form-control input-propietario" type="date" id="v_fecha_imp" name="v_fecha_imp" placeholder="Ingresar fecha de importación" required>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Limitación</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">
-                                                               <i class="fas fa-file-alt"></i>
-                                                            </span>
-                                                        </div>
-                                                            <input class="form-control input-propietario" type="text" id="v_limitacion" name="v_limitacion" placeholder="Ingresar limitación" required>
-                                                            
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Estado</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">
-                                                                <i class="fas fa-check-circle"></i>
-                                                            </span>
-                                                        </div>
-                                                            <select class="form-control input-lg input-propietario" type="text" id="v_estado" name="v_estado" required>
-                                                                <option>-Seleccione un estado-</option>
-                                                                <option>Activo</option>
-                                                                <option>Inactivo</option>
-                                                                <option>Desvinculado</option>
-                                                            </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Empresa convenio</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">
-                                                                <i class="fas fa-building"></i>
-                                                            </span>
-                                                        </div>
-                                                            <select class="form-control input-lg input-propietario" type="text" id="v_em_convenio" name="v_em_convenio" required>
-                                                                    <option>-Seleccione una empresa-</option>
-                                                                <?php foreach ($empresaconvenio as $key => $value) : ?>
-                                                                    <option><?= $value['nombre'] ?></option>
-                                                                <?php endforeach ?>
-                                                            </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Declaración imp.</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">
-                                                                <i class="fas fa-file-alt"></i>
-                                                            </span>
-                                                        </div>
-                                                            <input class="form-control input-propietario" type="text" id="v_declaracion" name="v_declaracion" placeholder="Ingresar declaracion" required>
-                                                            
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group">
-                                                    <label>Fecha matrícula</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">
-                                                                <i class="far fa-calendar-alt"></i>
-                                                            </span>
-                                                        </div>
-                                                            <input class="form-control input-propietario" type="date" id="v_fmatricula" name="v_fmatricula" placeholder="Ingresar fecha de matrícula" required>
-                                                            
-                                                    </div>
-                                                </div>
-                                        </div>
-
-                                       <div class="col-md-6">
+                                        <div class="col-md-6">
 
                                             <div class="form-group">
-                                                <label>Fecha de expedición</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">
-                                                                <i class="far fa-calendar-alt"></i>
-                                                            </span>
-                                                        </div>
-                                                            <input class="form-control input-propietario" type="date" id="v_fexpedicion" name="v_fexpedicion" placeholder="Ingresar fecha de expedición" required>
-                                                            
+                                                <label>Fecha de importación</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="far fa-calendar-alt"></i>
+                                                        </span>
                                                     </div>
+                                                    <input class="form-control input-propietario" type="date" id="fechaimportacion" name="fechaimportacion" placeholder="Ingresar fecha de importación">
+                                                </div>
                                             </div>
 
                                             <div class="form-group">
-                                                    <label>Transito</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">
-                                                                <i class="fas fa-file-alt"></i>
-                                                            </span>
-                                                        </div>
-                                                            <input class="form-control input-propietario" type="text" id="v_transito" name="v_transito" placeholder="Ingresar transito" required>
-                                                            
+                                                <label>Limitación</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-file-alt"></i>
+                                                        </span>
                                                     </div>
+                                                    <input class="form-control input-propietario" type="text" id="limitacion" name="limitacion" placeholder="Ingresar limitación">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Estado</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-check-circle"></i>
+                                                        </span>
+                                                    </div>
+                                                    <select class="form-control input-lg input-propietario" type="text" id="activo" name="activo">
+                                                        <option value="" selected>-Seleccione un estado-</option>
+                                                        <option>Activo</option>
+                                                        <option>Inactivo</option>
+                                                        <option>Desvinculado</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Empresa convenio</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-building"></i>
+                                                        </span>
+                                                    </div>
+                                                    <select class="form-control input-lg input-propietario" type="text" id="idconvenio" name="idconvenio">
+                                                        <option value="" selected>-Seleccione una empresa-</option>
+                                                        <?php foreach ($empresaconvenio as $key => $value) : ?>
+                                                            <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
+                                                        <?php endforeach ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Declaración imp.</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-file-alt"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input class="form-control input-propietario" type="text" id="declaracionimpor" name="declaracionimpor" placeholder="Ingresar declaracion">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Fecha matrícula</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="far fa-calendar-alt"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input class="form-control input-propietario" type="date" id="fechamatricula" name="fechamatricula" placeholder="Ingresar fecha de matrícula">
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                            <div class="form-group">
+                                                <label>Fecha de expedición</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="far fa-calendar-alt"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input class="form-control input-propietario" type="date" id="fechaexpedicion" name="fechaexpedicion" placeholder="Ingresar fecha de expedición">
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Transito</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-file-alt"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input class="form-control input-propietario" type="text" id="transito" name="transito" placeholder="Ingresar transito">
+
+                                                </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Fecha convenio</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">
-                                                                <i class="far fa-calendar-alt"></i>
-                                                            </span>
-                                                        </div>
-                                                            <input class="form-control input-propietario" type="date" id="v_fconvenio" name="v_fconvenio" placeholder="Ingresar fecha de convenio" required>
-                                                            
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="far fa-calendar-alt"></i>
+                                                        </span>
                                                     </div>
+                                                    <input class="form-control input-propietario" type="date" id="fechafinconvenio" name="fechafinconvenio" placeholder="Ingresar fecha de convenio">
+
+                                                </div>
                                             </div>
 
                                             <div class="form-group">
-                                                    <label>Clave APP</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">
-                                                                <i class="fas fa-key"></i>
-                                                            </span>
-                                                        </div>
-                                                            <input class="form-control input-propietario" type="text" id="v_claveapp" name="v_claveapp" placeholder="Ingresar clave" required>
-                                                            
+                                                <label>Clave APP</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-key"></i>
+                                                        </span>
                                                     </div>
+                                                    <input class="form-control input-propietario" type="text" id="claveapp" name="claveapp" placeholder="Ingresar clave">
+
+                                                </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Fecha de desvinculación</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">
-                                                                <i class="far fa-calendar-alt"></i>
-                                                            </span>
-                                                        </div>
-                                                            <input class="form-control input-propietario" type="date" id="v_fdesvinculacion" name="v_fdesvinculacion" placeholder="Ingresar fecha de desvinculación" required>
-                                                            
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="far fa-calendar-alt"></i>
+                                                        </span>
                                                     </div>
+                                                    <input class="form-control input-propietario" type="date" id="fechadesvinculacion" name="fechadesvinculacion" placeholder="Ingresar fecha de desvinculación">
+
+                                                </div>
                                             </div>
 
                                             <div class="form-group">
-                                                    <label>Observaciones</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">
-                                                                <i class="fas fa-comment"></i>
-                                                            </span>
-                                                        </div>
-                                                            <input class="form-control input-propietario" type="text" id="v_observaciones" name="v_observaciones" placeholder="Escriba una observación">
-                                                            
+                                                <label>Observaciones</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-comment"></i>
+                                                        </span>
                                                     </div>
+                                                    <textarea class="form-control input-propietario" type="text" id="observaciones" name="observaciones" placeholder="Escriba una observación" style="min-height:70px"></textarea>
+                                                </div>
                                             </div>
 
-                                       </div>
+                                        </div>
                                     </div>
                                 </div>
-                                
+
+                                <!-- ===================================================
+                                    IMÁGENES
+                                =================================================== -->
                                 <div class="tab-pane fade" id="custom-tabs-two-settings" role="tabpanel" aria-labelledby="custom-tabs-two-settings-tab">
 
                                     <div class="row">
@@ -615,185 +603,200 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
 
                                             <div class="form-group">
                                                 <label>Fotos del vehículo</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">
-                                                                <i class="fas fa-camera-retro"></i>
-                                                            </span>
-                                                        </div>
-                                                            <input class="form-control input-propietario" type="file" id="v_foto" name="v_foto" required multiple accept="image/*">
-                                               
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-camera-retro"></i>
+                                                        </span>
                                                     </div>
+                                                    <input class="form-control input-propietario" type="file" id="v_foto" name="v_foto" multiple accept="image/*">
+
+                                                </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Tarjeta de propiedad</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">
-                                                                <i class="fas fa-camera-retro"></i>
-                                                            </span>
-                                                        </div>
-                                                            <input class="form-control input-propietario" type="file" id="v_fotopro" name="v_fotopro" required multiple accept="image/*">
-                                               
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-camera-retro"></i>
+                                                        </span>
                                                     </div>
+                                                    <input class="form-control input-propietario" type="file" id="v_fotopro" name="v_fotopro" multiple accept="image/*">
+
+                                                </div>
                                             </div>
 
-                                        <div class="col-md-7">
-                                            <p>
-                                                <img id="imagenPrevisualizacion_fotos">
-                                            </p>
+                                            <div class="col-md-7">
+                                                <p>
+                                                    <img id="imagenPrevisualizacion_fotos">
+                                                </p>
 
-                                            <p>
-                                                <img id="imagenPrevisualizacion_TarjetaPro">
-                                            </p> 
-                                        </div>
+                                                <p>
+                                                    <img id="imagenPrevisualizacion_TarjetaPro">
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </form>
 
-                    <div class="card card-secondary card-tabs">
-                        <div class="card-header p-0 pt-1">
-                            <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                <!-- ===================================================
+                            DETALLES
+                        =================================================== -->
+                <div class="card card-secondary card-tabs">
+                    <div class="card-header p-0 pt-1">
+                        <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
 
-                                <li class="pt-2 px-3"><h3 class="card-title">Detalles</h3></li>
+                            <li class="pt-2 px-3">
+                                <h3 class="card-title">Detalles</h3>
+                            </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link active" id="datos_vehiculos" data-toggle="pill" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">Visualización</a>
-                                </li>
-                            </ul>
-                        </div>
+                            <li class="nav-item">
+                                <a class="nav-link active" id="pills-Propietarios-tab" data-toggle="pill" href="#pills-Propietarios" role="tab" aria-controls="pills-Propietarios" aria-selected="true"><u>Propietarios</u></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-Conductores-tab" data-toggle="pill" href="#pills-Conductores" role="tab" aria-controls="pills-Conductores" aria-selected="false"><u>Conductores</u></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="pills-Documentos-tab" data-toggle="pill" href="#pills-Documentos" role="tab" aria-controls="pills-Documentos" aria-selected="false"><u>Documentos</u></a>
+                            </li>
 
-                        <div class="card-body">
-                            <div class="tab-content" id="custom-tabs-two-tabContent">
-                                <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
+                        </ul>
+                    </div>
 
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <label>PROPIETARIOS</label>
+                    <div class="card-body">
+                        <div class="tab-content" id="custom-tabs-two-tabContent">
+
+                            <!-- TAB PROPIETARIOS -->
+                            <div class="tab-pane fade show active" id="pills-Propietarios" role="tabpanel" aria-labelledby="pills-Propietarios-tab">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label>PROPIETARIOS</label>
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
+                                                <thead class="thead-light text-sm text-center">
+                                                    <tr>
+                                                        <th style="width:10px;">#</th>
+                                                        <th>Nombre</th>
+                                                        <th>Tipo</th>
+                                                        <th>Documento</th>
+                                                        <th>EMAIL</th>
+                                                        <th>Telefono</th>
+                                                        <th>Direccion</th>
+                                                        <th>Ciudad</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>
+                                                            <div class="btn-group" role="group" aria-label="Button group">
+                                                                <button class="btn btn-sm btn-warning btnEditarVehiculo" data-toggle="modal" data-target="#VehiculosModal"><i class="fas fa-edit"></i></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TAB CONDUCTORES -->
+                            <div class="tab-pane fade" id="pills-Conductores" role="tabpanel" aria-labelledby="pills-Conductores-tab">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label>CONDUCTORES</label>
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
+                                                <thead class="thead-light text-sm text-center">
+                                                    <tr>
+                                                        <th style="width:10px;">#</th>
+                                                        <th>Nombre</th>
+                                                        <th>Tipo</th>
+                                                        <th>Documento</th>
+                                                        <th>EMAIL</th>
+                                                        <th>Telefono</th>
+                                                        <th>Direccion</th>
+                                                        <th>Ciudad</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>
+                                                            <div class="btn-group" role="group" aria-label="Button group">
+                                                                <button class="btn btn-sm btn-warning btnEditarVehiculo" data-toggle="modal" data-target="#VehiculosModal"><i class="fas fa-edit"></i></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- TAB DOCUMENTOS -->
+                            <div class="tab-pane fade" id="pills-Documentos" role="tabpanel" aria-labelledby="pills-Documentos-tab">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <label>DOCUMENTOS</label>
 
 
-                                                <div class="table-responsive">
-                                                    <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
-                                                        <thead class="thead-light text-sm text-center">
-                                                            <tr>
-                                                                <th style="width:10px;">#</th>
-                                                                <th>Nombre</th>
-                                                                <th>Tipo</th>
-                                                                <th>Documento</th>
-                                                                <th>EMAIL</th>
-                                                                <th>Telefono</th>
-                                                                <th>Direccion</th>
-                                                                <th>Ciudad</th>
-                                                                <th>Acciones</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <?php foreach ($Propietarios as $key => $value) : ?>
-                                                            <tr>
-                                                                <td><?= $value['idxp'] ?></td>
-                                                                <td><?= $value['nombre'] ?></td>
-                                                                <td><?= $value['tipodoc'] ?></td>
-                                                                <td><?= $value['documento'] ?></td>
-                                                                <td><?= $value['email'] ?></td>
-                                                                <td><?= $value['telef'] ?></td>
-                                                                <td><?= $value['direccion'] ?></td>
-                                                                <td><?= $value['ciudad'] ?></td>
-                                                                <td> 
-                                                                    <div class="btn-group" role="group" aria-label="Button group">
-                                                                        <button class="btn btn-sm btn-warning btnEditarVehiculo" data-toggle="modal" data-target="#VehiculosModal"><i class="fas fa-edit"></i></button>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        <?php endforeach ?>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-
-                                                <br>
-                                                <br>
-
-                                                <label>CONDUCTORES</label>
-
-
-                                                <div class="table-responsive">
-                                                    <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
-                                                        <thead class="thead-light text-sm text-center">
-                                                            <tr>
-                                                                <th style="width:10px;">#</th>
-                                                                <th>Nombre</th>
-                                                                <th>Tipo</th>
-                                                                <th>Documento</th>
-                                                                <th>EMAIL</th>
-                                                                <th>Telefono</th>
-                                                                <th>Direccion</th>
-                                                                <th>Ciudad</th>
-                                                                <th>Acciones</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td>
-                                                                    <div class="btn-group" role="group" aria-label="Button group">
-                                                                        <button class="btn btn-sm btn-warning btnEditarVehiculo" data-toggle="modal" data-target="#VehiculosModal"><i class="fas fa-edit"></i></button>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-
-                                                <br>
-                                                <br>
-
-                                                <label>DOCUMENTOS</label>
-
-
-                                                <div class="table-responsive">
-                                                    <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
-                                                        <thead class="thead-light text-sm text-center">
-                                                            <tr>
-                                                                <th style="width:10px;">#</th>
-                                                                <th>Nombre</th>
-                                                                <th>Tipo</th>
-                                                                <th>Documento</th>
-                                                                <th>EMAIL</th>
-                                                                <th>Telefono</th>
-                                                                <th>Direccion</th>
-                                                                <th>Ciudad</th>
-                                                                <th>Acciones</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td></td>
-                                                                <td>
-                                                                    <div class="btn-group" role="group" aria-label="Button group">
-                                                                        <button class="btn btn-sm btn-warning btnEditarVehiculo" data-toggle="modal" data-target="#VehiculosModal"><i class="fas fa-edit"></i></button>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
+                                                <thead class="thead-light text-sm text-center">
+                                                    <tr>
+                                                        <th style="width:10px;">#</th>
+                                                        <th>Nombre</th>
+                                                        <th>Tipo</th>
+                                                        <th>Documento</th>
+                                                        <th>EMAIL</th>
+                                                        <th>Telefono</th>
+                                                        <th>Direccion</th>
+                                                        <th>Ciudad</th>
+                                                        <th>Acciones</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>
+                                                            <div class="btn-group" role="group" aria-label="Button group">
+                                                                <button class="btn btn-sm btn-warning btnEditarVehiculo" data-toggle="modal" data-target="#VehiculosModal"><i class="fas fa-edit"></i></button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -801,16 +804,17 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="modal-footer bg-dark">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success">
-                        <i class="fas fa-save"></i>
-                        Guardar
-                    </button>
-                </div>
+            <div class="modal-footer bg-dark">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                <button type="submit" class="btn btn-success" form="vehiculos_form">
+                    <i class="fas fa-save"></i>
+                    Guardar
+                </button>
+            </div>
 
-            </form>
+
         </div>
     </div>
 </div>
