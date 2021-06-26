@@ -599,35 +599,29 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                 <div class="tab-pane fade" id="custom-tabs-two-settings" role="tabpanel" aria-labelledby="custom-tabs-two-settings-tab">
 
                                     <div class="row">
-                                        <div class="col-md-5">
 
-                                            <div class="form-group">
-                                                <label>Fotos del vehículo</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text">
-                                                            <i class="fas fa-camera-retro"></i>
-                                                        </span>
+                                        <!-- FOTOS DEL VEHICULO -->
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label>Fotos del vehículo</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text">
+                                                                    <i class="fas fa-camera-retro"></i>
+                                                                </span>
+                                                            </div>
+                                                            <input type="file" class="form-control" name="foto_vehiculo" id="foto_vehiculo" accept="image/png, image/jpeg">
+
+                                                        </div>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="file" id="v_foto" name="v_foto" multiple accept="image/*">
-
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
-                                                <label>Tarjeta de propiedad</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text">
-                                                            <i class="fas fa-camera-retro"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input class="form-control input-propietario" type="file" id="v_fotopro" name="v_fotopro" multiple accept="image/*">
 
-                                                </div>
-                                            </div>
 
-                                            <div class="col-md-7">
+                                            <!-- <div class="col-md-7">
                                                 <p>
                                                     <img id="imagenPrevisualizacion_fotos">
                                                 </p>
@@ -635,6 +629,29 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                 <p>
                                                     <img id="imagenPrevisualizacion_TarjetaPro">
                                                 </p>
+                                            </div> -->
+                                        </div>
+
+                                        <!-- TARJETA DE PROPIEDAD -->
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="form-group">
+                                                        <label>Tarjeta de propiedad (1 foto a la vez)</label>
+                                                        <div class="input-group">
+                                                            <div class="input-group-append">
+                                                                <span class="input-group-text">
+                                                                    <i class="fas fa-camera-retro"></i>
+                                                                </span>
+                                                            </div>
+                                                            <input type="file" class="form-control" name="foto_tarjetapropiedad" id="foto_tarjetapropiedad" accept="image/png, image/jpeg">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12 text-center">
+                                                    <img class="img-fluid" id="imagenPrevisualizacion_TarjetaPro" src="">
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -676,7 +693,40 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                 <div class="card">
                                     <div class="card-body">
                                         <label>PROPIETARIOS</label>
-                                        <div class="table-responsive">
+
+                                        <!-- FORMULARIO DE PROPIETARIOS -->
+                                        <form class="formulario" id="frmPropietarios" method="post" enctype="multipart/form-data">
+                                            <div class="row mt-2 border border-info rounded">
+                                                <!-- ===================================================
+                                                    **********
+                                                =================================================== -->
+                                                <div class="col-12 col-md-6 col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="exampleInput1"> *</label>
+                                                        <input class="form-control" type="text">
+                                                        <!-- <select id="my-select" class="form-control" name="contrato">
+                                                            <option>Contrato inicial</option>
+                                                            <option>Prorroga 1</option>
+                                                            <option>Prorroga 2</option>
+                                                            <option>Prorroga 3</option>
+                                                            <option>Prorroga 4</option>
+                                                        </select> -->
+                                                    </div>
+                                                </div>
+
+                                                <!-- ===================================================
+                                                    BOTON GUARDAR FORMULARIO
+                                                =================================================== -->
+                                                <div class="col-12 col-md-6 col-lg-4 text-right text-md-left align-self-center">
+                                                    <button type="submit" class="btn btn-success">
+                                                        <i class="fas fa-check-circle"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                        <!-- TABLA PROPIETARIOS -->
+                                        <div class="table-responsive mt-2">
                                             <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
                                                 <thead class="thead-light text-sm text-center">
                                                     <tr>

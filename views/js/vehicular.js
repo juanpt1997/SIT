@@ -112,12 +112,23 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
             var datosAjax = new FormData();
             datosAjax.append('GuardarVehiculo', "ok");
 
-            // DATOS FORMULARIO
+            // ? DATOS FORMULARIO
             var datosFrm = $(this).serializeArray();
             datosFrm.forEach(element => {
                 datosAjax.append(element.name, element.value);
             });
 
+            // ? FOTOS
+            // TARJETA DE PROPIEDAD
+            var tarjetapropiedad = $('#foto_tarjetapropiedad')[0].files;
+            datosAjax.append("tarjetapropiedad", tarjetapropiedad[0]);
+
+            // FOTOS DEL VEHICULO
+            var foto_vehiculo = $('#foto_vehiculo')[0].files;
+            datosAjax.append("foto_vehiculo", foto_vehiculo[0]);
+            
+
+            // ? AJAX PARA GUARDAR LOS DATOS
             $.ajax({
                 type: 'post',
                 url: `${urlPagina}ajax/vehicular.ajax.php`,
@@ -172,6 +183,15 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                             $('#VehiculosModal').on('hidden.bs.modal', function () {
                                 window.location = 'v-vehiculos';
                             })
+
+                            /* ===================================================
+                              ? PREVISUALIZAR FOTOS VEHICULO Y TARJETA DE PROPIEDAD
+                            ===================================================*/
+                            // Tarjeta de propiedad
+                            if ($("#foto_tarjetapropiedad").val() != ""){
+                                
+                            }
+
                             break;
                     }
                 }

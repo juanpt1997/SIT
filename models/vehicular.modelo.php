@@ -357,4 +357,49 @@ class ModeloVehiculos
         $conexion = null;
         return $respuesta;
     }
+
+    /* ===================== 
+        ACTUALIZAR UN UNICO CAMPO DEL VEHICULO
+	========================= */
+    static public function mdlActualizarVehiculo($datos)
+    {
+
+        $stmt = Conexion::conectar()->prepare("UPDATE {$datos['tabla']} SET {$datos['item1']} = :{$datos['item1']} WHERE {$datos['item2']} = :{$datos['item2']}");
+
+        $stmt->bindParam(":" . $datos['item1'], $datos['valor1'], PDO::PARAM_STR);
+        $stmt->bindParam(":" . $datos['item2'], $datos['valor2'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+       AGREGAR FOTO DEL VEHICULO
+    ===================================================*/
+    static public function mdlAgregarFotoVehiculo($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO v_fotosvehiculos (idvehiculo, ruta_foto) VALUES 
+                                    (:idvehiculo, :ruta_foto)");
+
+        $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
+        $stmt->bindParam(":ruta_foto", $datos['ruta_foto'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $id = $conexion->lastInsertId();
+        } else {
+            $id = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $id;
+    }
 }

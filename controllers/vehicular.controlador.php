@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * Esto es un controlador para el modulo vehicular
@@ -8,14 +8,16 @@
 class ControladorPropietarios
 {
 	//===============MOSTRAR PROPIETARIOS =============//
-	static public function ctrMostrar(){
+	static public function ctrMostrar()
+	{
 
 		$respuesta = ModeloPropietarios::mdlMostrar(null);
 		return $respuesta;
 	}
 
 	//==============AGREGAR/EDITAR PROPIETARIO=========//
-	public function ctrAgregarEditar(){
+	public function ctrAgregarEditar()
+	{
 
 		if (isset($_POST['documento'])) {
 			// Ver si ya existe un propietario con ese documento
@@ -31,15 +33,15 @@ class ControladorPropietarios
 				'ciudadpro' => $_POST['ciudadpro']
 			);
 
-			if(is_array($propietarioExistente)){
+			if (is_array($propietarioExistente)) {
 
-				 $responseModel = ModeloPropietarios::mdlEditar($datos);
+				$responseModel = ModeloPropietarios::mdlEditar($datos);
 			} else {
 
-				 $responseModel = ModeloPropietarios::mdlAgregar($datos);
+				$responseModel = ModeloPropietarios::mdlAgregar($datos);
 			}
 
-			if ($responseModel == "ok"){
+			if ($responseModel == "ok") {
 				echo "
 						<script>
 							Swal.fire({
@@ -57,7 +59,7 @@ class ControladorPropietarios
 							})
 						</script>
 					";
-			}else{
+			} else {
 				echo "
 						<script>
 							Swal.fire({
@@ -78,21 +80,21 @@ class ControladorPropietarios
 			}
 		}
 	}
-
-
 }
 
 # Convenios
-class ControladorConvenios{
+class ControladorConvenios
+{
 
-	static public function ctrMostrar(){
+	static public function ctrMostrar()
+	{
 
 		$respuesta = ModeloConvenios::mdlMostrar(null);
 		return $respuesta;
-
 	}
 
-	public function ctrAgregarEditar(){
+	public function ctrAgregarEditar()
+	{
 
 		if (isset($_POST['nit'])) {
 			// Ver si ya existe un convenio con ese nit
@@ -107,15 +109,15 @@ class ControladorConvenios{
 				'ciudadcon' => $_POST['ciudadcon']
 			);
 
-			if(is_array($convenioExistente)){
+			if (is_array($convenioExistente)) {
 
-				 $responseModel = ModeloConvenios::mdlEditar($datos);
+				$responseModel = ModeloConvenios::mdlEditar($datos);
 			} else {
 
-				 $responseModel = ModeloConvenios::mdlAgregar($datos);
+				$responseModel = ModeloConvenios::mdlAgregar($datos);
 			}
 
-			if ($responseModel == "ok"){
+			if ($responseModel == "ok") {
 				echo "
 						<script>
 							Swal.fire({
@@ -133,7 +135,7 @@ class ControladorConvenios{
 							})
 						</script>
 					";
-			}else{
+			} else {
 				echo "
 						<script>
 							Swal.fire({
@@ -154,39 +156,40 @@ class ControladorConvenios{
 			}
 		}
 	}
-
 }
 
 /* ===================================================
    * VEHICULOS
 ===================================================*/
-class ControladorVehiculos{
+class ControladorVehiculos
+{
 	/* ===================================================
 	   MOSTRAR VEHICULOS
 	===================================================*/
 	static public function ctrListaVehiculos()
-    {
-        $respuesta = ModeloVehiculos::mdlVehiculos();
-        return $respuesta;
-    }
+	{
+		$respuesta = ModeloVehiculos::mdlVehiculos();
+		return $respuesta;
+	}
 
 	/* ===================================================
        DATOS DEL VEHICULO
     ===================================================*/
-    static public function ctrDatosVehiculo($item, $valor)
-    {
-        $datos = array(
-            'item' => $item,
-            'valor' => $valor
-        );
-        $Vehiculo = ModeloVehiculos::mdlDatosVehiculo($datos);
-        return $Vehiculo;
-    }
+	static public function ctrDatosVehiculo($item, $valor)
+	{
+		$datos = array(
+			'item' => $item,
+			'valor' => $valor
+		);
+		$Vehiculo = ModeloVehiculos::mdlDatosVehiculo($datos);
+		return $Vehiculo;
+	}
 
 	/* ===================================================
 	   MOSTRAR TIPO DE VEHICULOS
 	===================================================*/
-	static public function ctrMostrarTipoVehiculo(){
+	static public function ctrMostrarTipoVehiculo()
+	{
 
 		$respuesta = ModeloVehiculos::mdlMostrarTipoVehiculo();
 		return $respuesta;
@@ -195,46 +198,128 @@ class ControladorVehiculos{
 	/* ===================================================
 	   MOSTRAR MARCAS
 	===================================================*/
-	static public function ctrMostrarMarca(){
+	static public function ctrMostrarMarca()
+	{
 
 		$respuesta = ModeloVehiculos::mdlMostrarMarca();
 		return $respuesta;
-
 	}
 
 	/* ===================================================
 	   GUARDAR DATOS DEL VEHICULO
 	===================================================*/
-	static public function ctrGuardarVehiculo($datos)
-    {
-        $datosBusqueda = array(
-            'item' => 'placa',
-            'valor' => $datos['placa']
-        );
-        $vehiculo = ModeloVehiculos::mdlDatosVehiculo($datosBusqueda);
+	static public function ctrGuardarVehiculo($datos, $tarjetapropiedad, $foto_vehiculo)
+	{
+		$datosBusqueda = array(
+			'item' => 'placa',
+			'valor' => $datos['placa']
+		);
+		$vehiculo = ModeloVehiculos::mdlDatosVehiculo($datosBusqueda);
 
-        # INSERT
-        if ($datos['idvehiculo'] == "") {
-            if (is_array($vehiculo)) {
-                # mensaje al usuario
-                $retorno = "existe";
-            } else {
-                # INSERT
-                $retorno = ModeloVehiculos::mdlAgregarVehiculo($datos);
-            }
-        }
-        # UPDATE
-        else {
-            if (is_array($vehiculo) && $vehiculo['idvehiculo'] != $datos['idvehiculo']) {
-                # mensaje al usuario
-                $retorno = "existe";
-            } else {
-                # UPDATE
+		# INSERT
+		if ($datos['idvehiculo'] == "") {
+			if (is_array($vehiculo)) {
+				# mensaje al usuario
+				$retorno = "existe";
+			} else {
+				# INSERT
+				$retorno = ModeloVehiculos::mdlAgregarVehiculo($datos);
+			}
+		}
+		# UPDATE
+		else {
+			if (is_array($vehiculo) && $vehiculo['idvehiculo'] != $datos['idvehiculo']) {
+				# mensaje al usuario
+				$retorno = "existe";
+			} else {
+				# UPDATE
 				$retorno = ModeloVehiculos::mdlEditarVehiculo($datos);
-            }
-        }
+			}
+		}
 
-        return $retorno;
-    }
+		// ? FOTOS DEL VEHICULO Y TARJETA DE PROPIEDAD
+		if ($retorno != "existe" && $retorno != "error"){
+			// TARJETA DE PROPIEDAD
+			self::ctrGuardarTarjetaPropiedad($tarjetapropiedad, $datos['placa']);
 
+			// FOTO DEL VEHICULO
+			self::ctrGuardarFotoVehiculo($foto_vehiculo, $datos['placa'], $retorno);
+		}
+
+		return $retorno;
+	}
+
+	/* ===================================================
+	   GUARDAR FOTO TARJETA DE PROPIEDAD
+	===================================================*/
+	static public function ctrGuardarTarjetaPropiedad($foto, $placa)
+	{
+		/* ===================== 
+				CREAMOS DIRECTORIO DONDE VAMOS A GUARDAR LA FOTO DE LA TARJETA DE PROPIEDAD
+			========================= */
+		$directorio = DIR_APP . "views/img/vehiculos/" . strval($placa);
+		if (!is_dir($directorio)) {
+			mkdir($directorio, 0755);
+		}
+
+		/* ===================================================
+			GUARDAR LA IMAGEN EN EL SERVIDOR
+		===================================================*/
+		$GuardarImagen = new FilesController();
+		$GuardarImagen->file = $foto;
+		$aleatorio = mt_rand(100, 999);
+		$GuardarImagen->ruta = $directorio . "/tarjeta_propiedad" . $aleatorio;
+		$ruta = $GuardarImagen->ctrImages(500, 500);
+
+		/* ===================================================
+			ACTUALIZAR RUTA IMAGEN EN LA BD
+		===================================================*/
+		if ($ruta != "") {
+			$rutaImg = str_replace(DIR_APP, "", $ruta);
+
+			$datosRutaImg = array(
+				'tabla' => 'v_vehiculos',
+				'item1' => 'ruta_tarjetapropiedad',
+				'valor1' => $rutaImg,
+				'item2' => 'placa',
+				'valor2' => $placa
+			);
+			$actualizarRutaImg = ModeloVehiculos::mdlActualizarVehiculo($datosRutaImg);
+		}
+	}
+	/* ===================================================
+	   GUARDAR FOTO DEL VEHICULO
+	===================================================*/
+	static public function ctrGuardarFotoVehiculo($foto, $placa, $idvehiculo)
+	{
+		/* ===================== 
+			CREAMOS DIRECTORIO DONDE VAMOS A GUARDAR LA FOTO DE LA TARJETA DE PROPIEDAD
+		========================= */
+		$directorio = DIR_APP . "views/img/vehiculos/" . strval($placa);
+		if (!is_dir($directorio)) {
+			mkdir($directorio, 0755);
+		}
+
+		/* ===================================================
+			GUARDAR LA IMAGEN EN EL SERVIDOR
+		===================================================*/
+		$GuardarImagen = new FilesController();
+		$GuardarImagen->file = $foto;
+		$aleatorio = mt_rand(100, 999);
+		$GuardarImagen->ruta = $directorio . "/" . $aleatorio;
+		$ruta = $GuardarImagen->ctrImages(500, 500);
+
+		/* ===================================================
+			ACTUALIZAR RUTA IMAGEN EN LA BD
+		===================================================*/
+		if ($ruta != "") {
+			$rutaImg = str_replace(DIR_APP, "", $ruta);
+
+			$datosRutaImg = array(
+				'ruta_foto' => $rutaImg,
+				'idvehiculo' => $idvehiculo
+			);
+			$actualizarRutaImg = ModeloVehiculos::mdlAgregarFotoVehiculo($datosRutaImg);
+		}
+	}
 }
