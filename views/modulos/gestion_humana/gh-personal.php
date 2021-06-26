@@ -126,14 +126,14 @@ $Sucursales = ControladorGH::ctrSucursales();
 <div id="PersonalModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-info">
                 <h5 class="modal-title font-weight-bold" id="titulo-modal-personal"></h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <ul class="nav nav-tabs navbar-light" id="myTab" role="tablist">
                     <!-- ===================================================
                         PRIMER TAB
                     =================================================== -->

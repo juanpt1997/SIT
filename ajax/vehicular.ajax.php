@@ -3,6 +3,7 @@
 include '../config.php';
 
 # REQUERIMOS EL CONTROLADOR Y EL MODELO PARA QUE REALICE LA PETICION
+require_once '../controllers/files.controlador.php';
 require_once '../controllers/vehicular.controlador.php';
 require_once '../models/vehicular.modelo.php';
 
@@ -28,6 +29,30 @@ class AjaxConvenios
 	}
 }
 
+/* ===================================================
+   * VEHICULOS
+===================================================*/
+class AjaxVehiculos
+{
+	/* ===================================================
+       CARGAR DATOS DEL VEHICULO
+    ===================================================*/
+    static public function ajaxDatosVehiculo($item, $valor)
+    {
+        $respuesta = ControladorVehiculos::ctrDatosVehiculo($item, $valor);
+        echo json_encode($respuesta);
+    }
+
+	/* ===================================================
+       GUARDAR DATOS DEL VEHICULO
+    ===================================================*/
+    static public function ajaxGuardarVehiculo($formData, $tarjetapropiedad, $foto_vehiculo)
+    {
+        $respuesta = ControladorVehiculos::ctrGuardarVehiculo($formData, $tarjetapropiedad, $foto_vehiculo);
+        echo $respuesta;
+    }
+}
+
 
 
 # LLAMADOS A AJAX PROPIETARIOS
@@ -37,4 +62,15 @@ if (isset($_POST['DatosPropietarios']) && $_POST['DatosPropietarios'] == "ok"){
 # LLAMADOS A AJAX CONVENIOS
 if (isset($_POST['DatosConvenios']) && $_POST['DatosConvenios'] == "ok"){
 	AjaxConvenios::ajaxDatosConvenios($_POST['value']);
+}
+
+# LLAMADOS A AJAX VEHICULOS
+if (isset($_POST['GuardarVehiculo']) && $_POST['GuardarVehiculo'] == "ok") {
+    $tarjetapropiedad = isset($_FILES['tarjetapropiedad']) ? $_FILES['tarjetapropiedad'] : "";
+    $foto_vehiculo = isset($_FILES['foto_vehiculo']) ? $_FILES['foto_vehiculo'] : "";
+    AjaxVehiculos::ajaxGuardarVehiculo($_POST, $tarjetapropiedad, $foto_vehiculo);
+}
+
+if (isset($_POST['DatosVehiculo']) && $_POST['DatosVehiculo'] == "ok") {
+    AjaxVehiculos::ajaxDatosVehiculo($_POST['item'], $_POST['valor']);
 }
