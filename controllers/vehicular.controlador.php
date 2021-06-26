@@ -113,7 +113,8 @@ class ControladorPropietarios
 }
 
 # Convenios
-class ControladorConvenios{
+class ControladorConvenios
+{
 
 	static public function ctrMostrar(){
 
@@ -188,7 +189,8 @@ class ControladorConvenios{
 }
 
 #Vehiculos
-class ControladorVehiculos{
+class ControladorVehiculos
+{
 
 	static public function ctrMostrarTipoVehiculo(){
 
@@ -206,12 +208,37 @@ class ControladorVehiculos{
 }
 
 
-class ControladorBloqueos{
+class ControladorBloqueos
+{
 	
 	static public function ctrListaPersonal(){
 		
 		return ModeloGH::mdlPersonal("activos");
 	}
+
+	static public function ctrUltimobloqueo(){
+
+		return ModeloBloqueoP::mdlUltimoBloqueo();	 
+	}
+
+	static public function ctrHIstorial(){
+
+		if (isset($_POST['idbloqueo'])) {
+
+
+			$i = $_POST['idbloqueo'];
+			echo "$i";
+			return ModeloBloqueoP::mdlHistorial($_POST['idbloqueo']);
+
+		} else {
+
+			echo "no funciona";
+		}
+
+		
+
+	}
+
 }
 
 

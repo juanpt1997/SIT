@@ -29,6 +29,7 @@ class AjaxConvenios
 }
 
 
+
 # LLAMADOS A AJAX PROPIETARIOS
 if (isset($_POST['DatosPropietarios']) && $_POST['DatosPropietarios'] == "ok"){
 	AjaxPropietarios::ajaxDatosPropietarios($_POST['value']);

@@ -8,9 +8,7 @@ if (window.location.href == `${urlPagina}v-propietarios/` ||
             var idxp = $(this).attr("idxp");
             $("#idxp").val(idxp);
 
-
 			var cedula = $(this).attr("cedula");
-            console.log(cedula);
 
 			var datos = new FormData();
             datos.append("DatosPropietarios", "ok");
@@ -58,12 +56,11 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
 
     $(document).ready(function () {
 
-        //CARGAR DATOS DEL PROPIETARIOS PARA EDITARLOS
+        //CARGAR DATOS DEL CONVENIO PARA EDITARLOS
         $(document).on("click", ".btnEditarConv", function () {
 
 
             var nit = $(this).attr("nit");
-            console.log(nit);
 
             var datos = new FormData();
             datos.append("DatosConvenios", "ok");
@@ -99,4 +96,18 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
         });
     });
 }
+
+if (window.location.href == `${urlPagina}v-bloqueo-personal/` ||
+    window.location.href == `${urlPagina}v-bloqueo-personal`
+){
+
+          
+
+
+
+            
+}
+
+
+
 

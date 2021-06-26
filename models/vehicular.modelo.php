@@ -206,6 +206,43 @@ class ModeloVehiculos
     
 }
 
+class ModeloBloqueoP
+{
+
+    static public function mdlUltimoBloqueo(){
+
+        $stmt = Conexion::conectar()->prepare(" SELECT p.nombre AS conductor, b.motivo,b.estado, b.fecha,b.idbloqueo,
+                                                       u.nombre AS nomUsuario
+                                                FROM v_bloqueopersonal b  
+                                                        INNER JOIN gh_personal p ON p.idPersonal = b.idPersonal
+                                                        INNER JOIN l_usuarios u ON u.Cedula = b.usuario         
+                                                GROUP BY b.idPersonal");
+
+       
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    static public function mdlHistorial($value){
+
+        $stmt = Conexion::conectar()->prepare("SELECT p.Nombre AS conductor, b.motivo, b.estado, b.fecha, 
+                                                      u.Nombre AS nomUsuario 
+                                                FROM v_bloqueopersonal b
+                                                    INNER JOIN gh_personal p ON p.idPersonal = b.idPersonal
+                                                    INNER JOIN l_usuarios u ON u.Cedula = b.usuario
+                                                ORDER BY b.idbloqueo DESC
+                                                WHERE b.idPersonal = :idper");
+
+        $stmt->bindParam(":idper",  $value, PDO::PARAM_INT);
+        $stmt->execute();
+        $retorno =  $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+}
+
 
 
 
