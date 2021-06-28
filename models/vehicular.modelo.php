@@ -15,7 +15,7 @@ class ModeloPropietarios
     static public function mdlMostrar($value)
     {
 
-		if ($value != null){
+        if ($value != null) {
 
             $stmt = Conexion::conectar()->prepare("SELECT P.*, M.municipio AS ciudad FROM propietario P
 												   LEFT JOIN gh_municipios M ON P.idciudad = M.idmunicipio
@@ -75,7 +75,7 @@ class ModeloPropietarios
     static public function mdlEditar($datos)
     {
 
-		$stmt = Conexion::conectar()->prepare("UPDATE propietario set documento = :documento, tipodoc=:tipodoc,nombre=:nombre,telef=:telef,direccion=:direccion,
+        $stmt = Conexion::conectar()->prepare("UPDATE propietario set documento = :documento, tipodoc=:tipodoc,nombre=:nombre,telef=:telef,direccion=:direccion,
                                                       email=:email,idciudad=:idciudad
 											   -- WHERE documento = :documento
                                                where idxp = :idxp");
@@ -224,7 +224,7 @@ class ModeloVehiculos
         $stmt = Conexion::conectar()->prepare($sql);
         $stmt->execute();
         $retorno =  $stmt->fetchAll();
-        
+
 
         $stmt->closeCursor();
         return $retorno;
@@ -245,6 +245,28 @@ class ModeloVehiculos
         $stmt->bindParam(":{$datos['item']}", $datos['valor']);
         $stmt->execute();
         $retorno = $stmt->fetch();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /* ===================================================
+       CARGAR FOTOS DEL VEHICULO
+    ===================================================*/
+    static public function mdlFotosVehiculo($datos)
+    {
+        if ($datos['item'] == "placa") {
+            $sql = "SELECT f.* FROM v_fotosvehiculos f
+                    INNER JOIN v_vehiculos v ON v.idvehiculo = f.idvehiculo
+                    WHERE v.{$datos['item']} = :{$datos['item']}";
+        } else {
+            $sql = "SELECT f.* FROM v_fotosvehiculos f
+                    WHERE f.{$datos['item']} = :{$datos['item']};";
+        }
+
+        $stmt = Conexion::conectar()->prepare($sql);
+        $stmt->bindParam(":{$datos['item']}", $datos['valor']);
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
         $stmt->closeCursor();
         return $retorno;
     }
@@ -406,13 +428,34 @@ class ModeloVehiculos
         $conexion = null;
         return $id;
     }
-    
+
+    /* ===================================================
+       ! ELIMINAR REGISTRO
+    ===================================================*/
+    static public function mdlEliminarRegistro($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("DELETE
+                                    FROM {$datos['tabla']}
+                                    WHERE {$datos['item']} = :{$datos['item']}");
+        $stmt->bindParam(":" . $datos['item'], $datos['valor'], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $retorno;
+    }
 }
 
 class ModeloBloqueoP
 {
 
-    static public function mdlUltimoBloqueo(){
+    static public function mdlUltimoBloqueo()
+    {
 
         $stmt = Conexion::conectar()->prepare(" SELECT p.nombre AS conductor, b.motivo,b.estado, b.fecha,b.idbloqueo,
                                                        u.nombre AS nomUsuario
@@ -421,14 +464,15 @@ class ModeloBloqueoP
                                                         INNER JOIN l_usuarios u ON u.Cedula = b.usuario         
                                                 GROUP BY b.idPersonal");
 
-       
+
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();
         return $retorno;
     }
 
-    static public function mdlHistorial($value){
+    static public function mdlHistorial($value)
+    {
 
         $stmt = Conexion::conectar()->prepare("SELECT p.Nombre AS conductor, b.motivo, b.estado, b.fecha, 
                                                       u.Nombre AS nomUsuario 

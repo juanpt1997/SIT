@@ -197,7 +197,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-ad"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-datosvehiculo" type="text" id="placa" name="placa" placeholder="Ingresar placa" autofocus required>
+                                                    <input class="form-control input-datosvehiculo" type="text" id="placa" name="placa" placeholder="Ingresar placa" autofocus required maxlength="7">
                                                 </div>
                                             </div>
 
@@ -250,7 +250,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-hashtag"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-datosvehiculo" type="text" id="numinterno" name="numinterno" placeholder="Ingresar número interno afiliado">
+                                                    <input class="form-control input-datosvehiculo" type="text" id="numinterno" name="numinterno" placeholder="Ingresar número interno afiliado" maxlength="6">
                                                 </div>
                                             </div>
 
@@ -285,7 +285,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-hashtag"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="numeromotor" name="numeromotor" placeholder="Ingresar número del motor">
+                                                    <input class="form-control input-propietario" type="text" id="numeromotor" name="numeromotor" placeholder="Ingresar número del motor" maxlength="21">
                                                 </div>
                                             </div>
 
@@ -297,7 +297,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-car-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="chasis" name="chasis" placeholder="Ingresar chasis">
+                                                    <input class="form-control input-propietario" type="text" id="chasis" name="chasis" placeholder="Ingresar chasis" maxlength="19">
                                                 </div>
                                             </div>
 
@@ -321,7 +321,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-palette"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="color" name="color" placeholder="Ingresar color del vehículo">
+                                                    <input class="form-control input-propietario" type="text" id="color" name="color" placeholder="Ingresar color del vehículo" maxlength="28">
                                                 </div>
                                             </div>
 
@@ -333,7 +333,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-weight"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="capacidad" name="capacidad" placeholder="Ingresar capacidad del vehículo">
+                                                    <input class="form-control input-propietario" type="text" id="capacidad" name="capacidad" placeholder="Ingresar capacidad del vehículo" maxlength="6">
                                                 </div>
                                             </div>
 
@@ -349,7 +349,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-tachometer-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="cilindraje" name="cilindraje" placeholder="Ingresar cilindraje del vehículo">
+                                                    <input class="form-control input-propietario" type="text" id="cilindraje" name="cilindraje" placeholder="Ingresar cilindraje del vehículo" maxlength="9">
                                                 </div>
                                             </div>
 
@@ -559,7 +559,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-key"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="claveapp" name="claveapp" placeholder="Ingresar clave">
+                                                    <input class="form-control input-propietario" type="text" id="claveapp" name="claveapp" placeholder="Ingresar clave" maxlength="20">
 
                                                 </div>
                                             </div>
@@ -602,8 +602,8 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
 
                                         <!-- FOTOS DEL VEHICULO -->
                                         <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="col-12">
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="col-12 col-md-8">
                                                     <div class="form-group">
                                                         <label>Fotos del vehículo</label>
                                                         <div class="input-group">
@@ -617,25 +617,31 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <!-- <div class="" id="colPrevisualizacion_fotos"> -->
+                                                <div id="colPrevisualizacion_fotos" class="col-12 col-md-10 col-lg-8 carousel slide" data-ride="carousel">
+                                                    <ol class="carousel-indicators">
+                                                        <!-- SE LLENA DESDE JAVASCRIPT -->
+                                                    </ol>
+                                                    <div class="carousel-inner text-center">
+                                                        <!-- SE LLENA DESDE JAVASCRIPT -->
+                                                    </div>
+                                                    <a class="carousel-control-prev" href="#colPrevisualizacion_fotos" role="button" data-slide="prev">
+                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                        <span class="sr-only">Previous</span>
+                                                    </a>
+                                                    <a class="carousel-control-next" href="#colPrevisualizacion_fotos" role="button" data-slide="next">
+                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                        <span class="sr-only">Next</span>
+                                                    </a>
+                                                </div>
                                             </div>
-
-
-
-                                            <!-- <div class="col-md-7">
-                                                <p>
-                                                    <img id="imagenPrevisualizacion_fotos">
-                                                </p>
-
-                                                <p>
-                                                    <img id="imagenPrevisualizacion_TarjetaPro">
-                                                </p>
-                                            </div> -->
                                         </div>
 
                                         <!-- TARJETA DE PROPIEDAD -->
                                         <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="col-12">
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="col-12 col-md-8">
                                                     <div class="form-group">
                                                         <label>Tarjeta de propiedad (1 foto a la vez)</label>
                                                         <div class="input-group">
@@ -650,7 +656,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                 </div>
 
                                                 <div class="col-12 text-center">
-                                                    <img class="img-fluid" id="imagenPrevisualizacion_TarjetaPro" src="">
+                                                    <a id="imagenPrevisualizacion_TarjetaPro" href="" target="_blank"><img class="img-fluid" src=""></a>
                                                 </div>
                                             </div>
                                         </div>

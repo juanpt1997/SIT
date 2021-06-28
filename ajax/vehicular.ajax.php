@@ -39,8 +39,13 @@ class AjaxVehiculos
     ===================================================*/
     static public function ajaxDatosVehiculo($item, $valor)
     {
-        $respuesta = ControladorVehiculos::ctrDatosVehiculo($item, $valor);
-        echo json_encode($respuesta);
+        $datosVehiculo = ControladorVehiculos::ctrDatosVehiculo($item, $valor);
+        $fotosVehiculo = ControladorVehiculos::ctrFotosVehiculo($item, $valor);
+        $datos = [
+            'datosVehiculo' => $datosVehiculo,
+            'fotosVehiculo' => $fotosVehiculo
+        ];
+        echo json_encode($datos);
     }
 
 	/* ===================================================
@@ -49,6 +54,20 @@ class AjaxVehiculos
     static public function ajaxGuardarVehiculo($formData, $tarjetapropiedad, $foto_vehiculo)
     {
         $respuesta = ControladorVehiculos::ctrGuardarVehiculo($formData, $tarjetapropiedad, $foto_vehiculo);
+        echo $respuesta;
+    }
+
+	/* ===================================================
+       ELIMINAR UNA FOTO DEL VEHICULO
+    ===================================================*/
+    static public function ajaxEliminarFotoVehiculo($idfoto)
+    {
+        $datos = array(
+            'tabla' => "v_fotosvehiculos",
+            'item' => "idfoto",
+            'valor' => $idfoto
+        );
+        $respuesta = ControladorVehiculos::ctrEliminarRegistro($datos);
         echo $respuesta;
     }
 }
@@ -73,4 +92,8 @@ if (isset($_POST['GuardarVehiculo']) && $_POST['GuardarVehiculo'] == "ok") {
 
 if (isset($_POST['DatosVehiculo']) && $_POST['DatosVehiculo'] == "ok") {
     AjaxVehiculos::ajaxDatosVehiculo($_POST['item'], $_POST['valor']);
+}
+
+if (isset($_POST['EliminarFotoVehiculo']) && $_POST['EliminarFotoVehiculo'] == "ok") {
+    AjaxVehiculos::ajaxEliminarFotoVehiculo($_POST['idfoto']);
 }

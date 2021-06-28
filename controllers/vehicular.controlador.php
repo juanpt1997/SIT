@@ -217,6 +217,18 @@ class ControladorVehiculos
 	}
 
 	/* ===================================================
+	   CARGAR FOTOS DEL VEHICULO
+	===================================================*/
+	static public function ctrFotosVehiculo($item, $valor)
+	{
+		$datos = array(
+			'item' => $item,
+			'valor' => $valor
+		);
+		return ModeloVehiculos::mdlFotosVehiculo($datos);
+	}
+
+	/* ===================================================
 	   MOSTRAR TIPO DE VEHICULOS
 	===================================================*/
 	static public function ctrMostrarTipoVehiculo()
@@ -300,7 +312,7 @@ class ControladorVehiculos
 		$GuardarImagen->file = $foto;
 		$aleatorio = mt_rand(100, 999);
 		$GuardarImagen->ruta = $directorio . "/tarjeta_propiedad" . $aleatorio;
-		$ruta = $GuardarImagen->ctrImages(500, 500);
+		$ruta = $GuardarImagen->ctrImages(null, null);
 
 		/* ===================================================
 			ACTUALIZAR RUTA IMAGEN EN LA BD
@@ -318,6 +330,7 @@ class ControladorVehiculos
 			$actualizarRutaImg = ModeloVehiculos::mdlActualizarVehiculo($datosRutaImg);
 		}
 	}
+
 	/* ===================================================
 	   GUARDAR FOTO DEL VEHICULO
 	===================================================*/
@@ -352,6 +365,14 @@ class ControladorVehiculos
 			$actualizarRutaImg = ModeloVehiculos::mdlAgregarFotoVehiculo($datosRutaImg);
 		}
 	}
+	/* ===================================================
+       ! ELIMINAR REGISTRO
+    ===================================================*/
+    static public function ctrEliminarRegistro($datos)
+    {
+        $respuesta = ModeloVehiculos::mdlEliminarRegistro($datos);
+        return $respuesta;
+    }
 }
 
 class ControladorBloqueos
