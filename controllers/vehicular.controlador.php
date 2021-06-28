@@ -367,22 +367,9 @@ class ControladorBloqueos
 		return ModeloBloqueoP::mdlUltimoBloqueo();	 
 	}
 
-	static public function ctrHIstorial(){
+	static public function ctrHIstorial($id){
 
-		if (isset($_POST['idbloqueo'])) {
-
-
-			$i = $_POST['idbloqueo'];
-			echo "$i";
-			return ModeloBloqueoP::mdlHistorial($_POST['idbloqueo']);
-
-		} else {
-
-			echo "no funciona";
-		}
-
-		
-
+		return ModeloBloqueoP::mdlHistorial($id);
 	}
 
 }

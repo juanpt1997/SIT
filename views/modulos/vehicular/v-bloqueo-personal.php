@@ -6,7 +6,7 @@
 
 $listaPersonal = ControladorBloqueos::ctrListaPersonal();
 $listaUltimo = ControladorBloqueos::ctrUltimoBloqueo();
-$historial = ControladorBloqueos::ctrHIstorial();
+//$historial = ControladorBloqueos::ctrHIstorial();
 
 
 
@@ -75,7 +75,7 @@ $historial = ControladorBloqueos::ctrHIstorial();
                                             <td><?= $value['nomUsuario'] ?></td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button class="btn btn-sm btn-info btnHistorial" id_bloq="<?= $value['idbloqueo'] ?>" data-toggle="modal" data-target="#BloqueoHistorial"><i class="fas fa-user-clock"></i></button>
+                                                    <button class="btn btn-sm btn-info btnHistorial" id_bloq="<?= $value['idPersonal'] ?>" data-toggle="modal" data-target="#BloqueoHistorial"><i class="fas fa-user-clock"></i></button>
                                                 </div>
 
                                                 <div class="btn-group" role="group" aria-label="Button group">
@@ -202,7 +202,7 @@ $historial = ControladorBloqueos::ctrHIstorial();
                     <input type="hidden" id="idbloqueo" name="idbloqueo" value=""> 
 
                 <div class="table-responsive">
-                    <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
+                    <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100" id="tabla-historial">
                         <thead class="thead-light text-sm text-center">
                             <tr>
                                 <th style="width:10px;">#</th>
@@ -213,17 +213,8 @@ $historial = ControladorBloqueos::ctrHIstorial();
                                 <th>Usuario</th>
                             </tr>                 
                         </thead>
-                        <tbody>
-                            <?php foreach ($historial as $key => $value) : ?>
-                                <tr>
-                                    <td><?= $value['idbloqueo'] ?></td>
-                                    <td><?= $value['conductor'] ?></td>
-                                    <td><?= $value['motivo'] ?></td>
-                                    <td><?= $value['estado'] ?></td>
-                                    <td><?= $value['fecha'] ?></td>
-                                    <td><?= $value['nomUsuario'] ?></td>
-                                </tr>
-                            <?php endforeach ?>
+                        <tbody id="tbodyhistorial">
+                        
                         </tbody>
                     </table>
                 </div>

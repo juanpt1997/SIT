@@ -435,8 +435,9 @@ class ModeloBloqueoP
                                                 FROM v_bloqueopersonal b
                                                     INNER JOIN gh_personal p ON p.idPersonal = b.idPersonal
                                                     INNER JOIN l_usuarios u ON u.Cedula = b.usuario
+                                                WHERE b.idPersonal = :idper
                                                 ORDER BY b.idbloqueo DESC
-                                                WHERE b.idPersonal = :idper");
+                                                ");
 
         $stmt->bindParam(":idper",  $value, PDO::PARAM_INT);
         $stmt->execute();

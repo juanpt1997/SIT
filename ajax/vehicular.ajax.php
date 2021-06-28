@@ -29,6 +29,21 @@ class AjaxConvenios
 	}
 }
 
+/**
+ * 
+ */
+class AjaxBloqueoPersonal 
+{
+	static public function ajaxHistorial($id)
+	{
+		$respuesta = ControladorBloqueos::ctrHIstorial($id);
+        echo json_encode($respuesta);
+
+	}
+	
+	
+}
+
 /* ===================================================
    * VEHICULOS
 ===================================================*/
@@ -63,6 +78,12 @@ if (isset($_POST['DatosPropietarios']) && $_POST['DatosPropietarios'] == "ok"){
 if (isset($_POST['DatosConvenios']) && $_POST['DatosConvenios'] == "ok"){
 	AjaxConvenios::ajaxDatosConvenios($_POST['value']);
 }
+
+# LLAMADOS A AJAX BLOQUEO PERSONAL
+if (isset($_POST['historialbloqueop']) && $_POST['historialbloqueop'] == "ok") {
+    AjaxBloqueoPersonal::ajaxHistorial($_POST['value']);
+}
+
 
 # LLAMADOS A AJAX VEHICULOS
 if (isset($_POST['GuardarVehiculo']) && $_POST['GuardarVehiculo'] == "ok") {

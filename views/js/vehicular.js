@@ -101,6 +101,39 @@ if (window.location.href == `${urlPagina}v-bloqueo-personal/` ||
     window.location.href == `${urlPagina}v-bloqueo-personal`
 ){
 
+    $(document).on("click", ".btnHistorial", function () {
+
+
+            $(#tabla-historial)
+
+
+            //var id = $(this).attr("id_bloq");
+            var id = 667;
+
+            var datos = new FormData();
+            datos.append("historialbloqueop", "ok");
+            datos.append("value", id);
+            $.ajax({
+                type: "POST",
+                url: "ajax/vehicular.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+
+                    
+                    if (response != ""){
+                        response.forEach(element => {
+                            console.log(element.fecha);
+                        });
+                    }
+                   console.log(response);
+                }
+            });
+        });
+
           
 
 
