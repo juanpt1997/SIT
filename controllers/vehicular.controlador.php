@@ -373,6 +373,26 @@ class ControladorVehiculos
         $respuesta = ModeloVehiculos::mdlEliminarRegistro($datos);
         return $respuesta;
     }
+
+	/* ===================================================
+	   ? PROPIETARIOS, CONDUCTORES Y DOCUMENTOS
+	===================================================*/
+	/* ===================================================
+	   CONDUCTORES
+	===================================================*/
+	static public function ctrListaConductores()
+    {
+        return ModeloGH::mdlPersonal("activos");
+    }
+
+	/* ===================================================
+       TIPOS DE DOCUMENTACIÓN VEHICULAR
+    ===================================================*/
+	static public function ctrTiposDocumentacion()
+    {
+        return ModeloVehiculos::mdlTiposDocumentacion();
+    }
+
 }
 
 class ControladorBloqueos

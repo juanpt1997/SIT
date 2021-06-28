@@ -110,7 +110,9 @@ if (window.location.href == `${urlPagina}v-bloqueo-personal/` ||
 
 
 
-
+/* ===================================================
+  * VEHICULOS
+===================================================*/
 if (window.location.href == `${urlPagina}v-vehiculos/` ||
     window.location.href == `${urlPagina}v-vehiculos`
 ) {
@@ -504,5 +506,27 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
             $("#colPrevisualizacion_fotos").find(".carousel-indicators").html(htmlcarouselindicators);
             $("#colPrevisualizacion_fotos").find(".carousel-inner").html(htmlcarouselinner);
         }
+
+        /* ===================================================
+          ? PROPIETARIOS, CONDUCTORES Y DOCUMENTOS
+        ===================================================*/
+        /* ===================================================
+            GUARDAR FORMULARIO
+        ===================================================*/
+
+        /* ===================================================
+            CARGAR LA TABLA CORRESPONDIENTE
+        ===================================================*/
+
+        /* ===================================================
+            ELIMINAR REGISTRO
+        ===================================================*/
+
+        /* ===================================================
+            SUBIR DOCUMENTO
+        ===================================================*/
+
+
+
     });
 }

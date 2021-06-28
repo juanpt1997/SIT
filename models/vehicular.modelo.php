@@ -449,6 +449,21 @@ class ModeloVehiculos
         $conexion = null;
         return $retorno;
     }
+
+    /* ===================================================
+	   ? PROPIETARIOS, CONDUCTORES Y DOCUMENTOS
+	===================================================*/
+    /* ===================================================
+       TIPOS DE DOCUMENTACIÓN VEHICULAR
+    ===================================================*/
+    static public function mdlTiposDocumentacion()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM v_tipodocumento");
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
 }
 
 class ModeloBloqueoP
