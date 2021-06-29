@@ -378,6 +378,33 @@ class ControladorVehiculos
 	   ? PROPIETARIOS, CONDUCTORES Y DOCUMENTOS
 	===================================================*/
 	/* ===================================================
+	   MOSTRAR PROPIETARIOSxVEHICULO
+	===================================================*/
+	static public function ctrPropietariosxVehiculo($idvehiculo)
+    {
+        $respuesta = ModeloVehiculos::mdlPropietariosxVehiculo($idvehiculo);
+        return $respuesta;
+    }
+
+	/* ===================================================
+	   MOSTRAR CONDUCTORESxVEHICULO
+	===================================================*/
+	static public function ctrConductoresxVehiculo($idvehiculo)
+    {
+        $respuesta = ModeloVehiculos::mdlConductoresxVehiculo($idvehiculo);
+        return $respuesta;
+    }
+	
+	/* ===================================================
+       MOSTRAR DOCUMENTOSxVEHICULO
+    ===================================================*/
+	static public function ctrDocumentosxVehiculo($idvehiculo)
+    {
+        $respuesta = ModeloVehiculos::mdlDocumentosxVehiculo($idvehiculo);
+        return $respuesta;
+    }
+
+	/* ===================================================
 	   CONDUCTORES
 	===================================================*/
 	static public function ctrListaConductores()
@@ -391,6 +418,15 @@ class ControladorVehiculos
 	static public function ctrTiposDocumentacion()
     {
         return ModeloVehiculos::mdlTiposDocumentacion();
+    }
+
+	/* ===================================================
+       GUARDAR OTROS DETALLES DE UN VEHICULO COMO EL PROPIETARIO, CONDUCTOR O DOCUMENTOS
+    ===================================================*/
+	static public function ctrGuardarDetallesVehiculo($datos)
+    {
+        $guardarDatos = ModeloVehiculos::mdlGuardarDetallesVehiculo($datos);
+        return $guardarDatos;
     }
 
 }

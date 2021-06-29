@@ -736,7 +736,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <div class="col-12 col-md-8 col-lg-4">
                                                     <div class="form-group">
                                                         <label for="exampleInput1">Observaciones</label>
-                                                        <textarea class="form-control" name="observaciones" rows="1" style="min-height:70px" required></textarea>
+                                                        <textarea class="form-control" name="observacion" rows="1" style="min-height:70px" required></textarea>
                                                     </div>
                                                 </div>
 
@@ -753,7 +753,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                         <!-- TABLA PROPIETARIOS -->
                                         <div class="table-responsive mt-2">
-                                            <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
+                                            <table id="tblPropietarios" class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
                                                 <thead class="thead-light text-sm text-center">
                                                     <tr>
                                                         <th>Propietario</th>
@@ -762,7 +762,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         <th>Eliminar</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="text-center">
+                                                <tbody id="tbodyPropietarios" class="text-center">
                                                     <tr>
                                                         <td></td>
                                                         <td></td>
@@ -808,7 +808,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <div class="col-12 col-md-8 col-lg-6">
                                                     <div class="form-group">
                                                         <label for="exampleInput1">Observaciones</label>
-                                                        <textarea class="form-control" name="observaciones" rows="1" style="min-height:70px" required></textarea>
+                                                        <textarea class="form-control" name="observacion" rows="1" style="min-height:70px" required></textarea>
                                                     </div>
                                                 </div>
 
@@ -824,7 +824,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         </form>
 
                                         <div class="table-responsive mt-2">
-                                            <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
+                                            <table id="tblConductores" class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
                                                 <thead class="thead-light text-sm text-center">
                                                     <tr>
                                                         <th>Conductor</th>
@@ -832,7 +832,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         <th>Eliminar</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="text-center">
+                                                <tbody id="tbodyConductores" class="text-center">
                                                     <tr>
                                                         <td></td>
                                                         <td></td>
@@ -877,7 +877,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <div class="col-12 col-md-6 col-lg-4">
                                                     <div class="form-group">
                                                         <label for="exampleInput1">Nro Documento *</label>
-                                                        <input type="text" class="form-control" name="nro_documento" required>
+                                                        <input type="text" class="form-control" name="nrodocumento" required>
                                                     </div>
                                                 </div>
 
@@ -897,7 +897,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <div class="col-12 col-md-6 col-lg-4">
                                                     <div class="form-group">
                                                         <label for="exampleInput1">Fecha hasta *</label>
-                                                        <input type="date" class="form-control" name="fechahasta" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" required>
+                                                        <input type="date" class="form-control" name="fechafin" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" required>
                                                     </div>
                                                 </div>
 
@@ -921,7 +921,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <div class="col-12 col-md-6 col-lg-4">
                                                     <div class="form-group">
                                                         <label for="exampleInput1">Cargar documento *</label>
-                                                        <input type="file" class="form-control" name="documento" id="inputfile-documentos" accept="image/png, image/jpeg, application/pdf">
+                                                        <input type="file" class="form-control" id="inputfile-documentos" accept="image/png, image/jpeg, application/pdf">
                                                     </div>
                                                 </div>
 
@@ -937,7 +937,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         </form>
 
                                         <div class="table-responsive mt-2">
-                                            <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
+                                            <table id="tblDocumentos" class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
                                                 <thead class="thead-light text-sm text-center">
                                                     <tr>
                                                         <th>Tipo documento</th>
@@ -949,7 +949,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         <th>Eliminar</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody class="text-center">
+                                                <tbody id="tbodyDocumentos" class="text-center">
                                                     <tr>
                                                         <td></td>
                                                         <td></td>
