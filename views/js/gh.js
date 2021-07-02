@@ -143,7 +143,7 @@ if (
         ===================================================*/
         $(document).on("click", ".btn-agregarPersonal", function () {
             $("#titulo-modal-personal").html("Nuevo");
-            $(".formulario").trigger("reset"); //reset formulario
+            
             $("#idPersonal").val(""); //reset id personal
             $('.select2-single').trigger('change'); //reset select2
             $('.previsualizar').attr('src', 'views/img/fotosUsuarios/default/anonymous.png'); //reset foto

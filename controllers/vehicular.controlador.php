@@ -4,7 +4,9 @@
  * Esto es un controlador para el modulo vehicular
  */
 
-# Propietarios
+/* ===================================================
+   * PROPIETARIOS
+===================================================*/
 class ControladorPropietarios
 {
 	//===============MOSTRAR PROPIETARIOS =============//
@@ -113,7 +115,9 @@ class ControladorPropietarios
 	}
 }
 
-# Convenios
+/* ===================================================
+   * CONVENIOS
+===================================================*/
 class ControladorConvenios
 {
 
@@ -354,6 +358,9 @@ class ControladorVehiculos
 	}
 }
 
+/* ===================================================
+   * BLOQUEO DE PERSONAL 
+===================================================*/
 class ControladorBloqueos
 {
 	
@@ -364,7 +371,7 @@ class ControladorBloqueos
 
 	static public function ctrUltimobloqueo(){
 
-		return ModeloBloqueoP::mdlUltimoBloqueo();	 
+		return ModeloBloqueoP::mdlUltimoBloqueo(null);	 
 	}
 
 	static public function ctrHIstorial($id){
@@ -372,4 +379,65 @@ class ControladorBloqueos
 		return ModeloBloqueoP::mdlHistorial($id);
 	}
 
+	static public function ctrMostrarConductor($id){
+
+		return ModeloBloqueoP::mdlMostrarConductor($id);
+	}
+
+	static public function ctrNuevoBloqueo(){
+		if (isset($_POST['conductorB'])){
+			
+			$datos = array(
+							'conductorB' => $_POST['conductorB'],
+							'motivob' => $_POST['motivob'],
+							'estadobloqueo' => $_POST['estadobloqueo'],
+							'fecha_vin' => $_POST['fecha_vin'],
+							'cedula' => $_SESSION['cedula']);
+
+
+		$respuesta = ModeloBloqueoP::mdlNuevoBloqueo($datos);
+
+
+
+		if ($respuesta == "ok"){
+
+				echo "
+						<script>
+							Swal.fire({
+								icon: 'success',
+								title: '¡Se ha bloqueado al conductor!',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								
+							}).then((result)=>{
+
+								if(result.value){
+									window.location = 'v-bloqueo-personal';
+								}
+
+							})
+						</script>
+					";
+				
+			}else{
+				echo "
+						<script>
+							Swal.fire({
+								icon: 'warning',
+								title: '¡Problema al bloquear al conductor!',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								
+							}).then((result)=>{
+
+								if(result.value){
+									window.location = 'v-bloqueo-personal';
+								}
+
+							})
+						</script>
+					";
+			}
+		}
+	}
 }
