@@ -7,9 +7,9 @@ require_once '../controllers/files.controlador.php';
 require_once '../controllers/vehicular.controlador.php';
 require_once '../models/vehicular.modelo.php';
 
-/**
- * 
- */
+/* ===================================================
+   * PROPIETARIOS
+===================================================*/
 class AjaxPropietarios
 {
 	
@@ -20,6 +20,9 @@ class AjaxPropietarios
 	}
 }
 
+/* ===================================================
+   * CONVENIOS
+===================================================*/
 class AjaxConvenios
 {	
 	static public function ajaxDatosConvenios($nit)
@@ -27,6 +30,57 @@ class AjaxConvenios
 		$respuesta = ModeloConvenios::mdlMostrar($nit);
 		echo json_encode($respuesta);
 	}
+}
+
+/* ===================================================
+   * BLOQUEO DE PERSONAL 
+===================================================*/
+class AjaxBloqueoPersonal 
+{
+	static public function ajaxHistorial($id)
+	{
+		$respuesta = ControladorBloqueos::ctrHIstorial($id);
+        $tr = "";
+        foreach ($respuesta as $key => $value) {
+
+            
+            if( $value['estado'] == 1){
+
+                $estado = "Desbloqueado";
+
+            } else {
+
+                $estado = "Bloqueado";
+            }
+
+                                             
+
+        	$tr .= "
+                <tr>
+                    <td>" . $value['idbloqueo'] . "</td>
+                    <td>" . $value['conductor'] . "</td>
+                    <td>" . $value['motivo'] . "</td>
+                    <td><b>" . $estado . "</b></td>
+                    <td>" . $value['fecha'] . "</td>
+                    <td>" . $value['nomUsuario'] . "</td>
+                </tr>
+            ";
+        }
+
+        echo $tr;
+	}
+
+    static public function ajaxMostrarConductor($id)
+    {
+        $respuesta = ControladorBloqueos::ctrMostrarConductor($id);
+        echo json_encode($respuesta);
+    }
+
+    static public function ajaxDatosBloqueo($idpersonal)
+    {
+        $respuesta = ModeloBloqueoP::mdlUltimoBloqueo($idpersonal);
+        echo json_encode($respuesta);
+    }	
 }
 
 /* ===================================================
@@ -63,6 +117,20 @@ if (isset($_POST['DatosPropietarios']) && $_POST['DatosPropietarios'] == "ok"){
 if (isset($_POST['DatosConvenios']) && $_POST['DatosConvenios'] == "ok"){
 	AjaxConvenios::ajaxDatosConvenios($_POST['value']);
 }
+
+# LLAMADOS A AJAX BLOQUEO PERSONAL
+if (isset($_POST['ajaxHistorial']) && $_POST['ajaxHistorial'] == "ok") {
+    AjaxBloqueoPersonal::ajaxHistorial($_POST['idPersonal']);
+}
+
+if (isset($_POST['ajaxMostrarConductor']) && $_POST['ajaxMostrarConductor'] == "ok") {
+    AjaxBloqueoPersonal::ajaxMostrarConductor($_POST['idPersonal']);
+}
+
+if (isset($_POST['DatosBloqueo']) && $_POST['DatosBloqueo'] == "ok") {
+    AjaxBloqueoPersonal::ajaxDatosBloqueo($_POST['idPersonal']);
+}
+
 
 # LLAMADOS A AJAX VEHICULOS
 if (isset($_POST['GuardarVehiculo']) && $_POST['GuardarVehiculo'] == "ok") {

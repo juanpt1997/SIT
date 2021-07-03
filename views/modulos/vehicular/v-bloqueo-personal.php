@@ -5,8 +5,7 @@
 //}
 
 $listaPersonal = ControladorBloqueos::ctrListaPersonal();
-$listaUltimo = ControladorBloqueos::ctrUltimoBloqueo();
-$historial = ControladorBloqueos::ctrHIstorial();
+$listaUltimo = ControladorBloqueos::ctrUltimoBloqueo(null);
 
 
 
@@ -58,28 +57,37 @@ $historial = ControladorBloqueos::ctrHIstorial();
                                             <th style="width:10px;">#</th>
                                             <th>Conductor</th>
                                             <th>Motivo</th>
-                                            <th>Estado</th>
+                                            <th>Estado actual</th>
                                             <th>Fecha desbloqueo</th>
                                             <th>Usuario</th>
-                                            <th>Acciones</th>
+                                            <th>Historial</th>
                                         </tr>                 
                                     </thead>
                                     <tbody>
                                         <?php foreach ($listaUltimo as $key => $value) : ?>
+
+                                            <?php
+                                            if( $value['estado'] == 1){
+
+                                                $estado = '<button class="btn btn-sm btn-success btndesbloqueado" data-toggle="modal" data-target="#AgregarBloqueo" idperson="' . $value["idPersonal"] . '">Desloqueado <i class="fas fa-lock-open"></i></button>';
+
+                                            } else {
+
+                                                $estado = '<button class="btn btn-sm btn-danger btnbloqueado" data-toggle="modal" data-target="#AgregarBloqueo" idperson="' . $value["idPersonal"] . '">Bloqueado <i class="fas fa-lock"></i></button>';
+                                            }
+
+                                             ?>
+
                                         <tr>
                                             <td><?= $value['idbloqueo'] ?></td>
                                             <td><?= $value['conductor'] ?></td>
                                             <td><?= $value['motivo'] ?></td>
-                                            <td><?= $value['estado'] ?></td>
+                                            <td class="text-center"><b><?= $estado ?></b></td>
                                             <td><?= $value['fecha'] ?></td>
                                             <td><?= $value['nomUsuario'] ?></td>
-                                            <td>
+                                            <td class="text-center">
                                                 <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button class="btn btn-sm btn-info btnHistorial" id_bloq="<?= $value['idbloqueo'] ?>" data-toggle="modal" data-target="#BloqueoHistorial"><i class="fas fa-user-clock"></i></button>
-                                                </div>
-
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button class="btn btn-sm btn-warning btnEditarBloqueo" data-toggle="modal" data-target="#AgregarBloqueo"><i class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-sm btn-info btnHistorial" id_perso="<?= $value['idPersonal'] ?>" data-toggle="modal" data-target="#BloqueoHistorial"><i class="fas fa-user-clock"></i></button>
                                                 </div>
                                             </td>
                                         </tr>
@@ -112,75 +120,90 @@ $historial = ControladorBloqueos::ctrHIstorial();
         <div class="modal-content">
 
             <div class="modal-header bg-info">
+                <h5 class="modal-title" id = "titulo_modal_1"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
-            <div class="modal-body">
-                <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" id="formulario-bloqueo">
 
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="fas fa-map-marker-alt"></i>
-                                </span>
-                            </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Conductor</label>
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </span>
+                                </div>
                                 <select class="form-control input-convenio select2-single" style="width: 92%" type="text" id="conductorB" name="conductorB" required>
                                     <option selected value="">-Seleccione un conductor-</option>
-                                        <?php foreach ($listaPersonal as $key => $value) : ?>
-                                            <option value="<?= $value['idPersonal'] ?>"><?= $value['Nombre'] ?></option>
-                                        <?php endforeach ?>
+                                    <?php foreach ($listaPersonal as $key => $value) : ?>
+                                        <option value="<?= $value['idPersonal'] ?>"><?= $value['Nombre'] ?></option>
+                                    <?php endforeach ?>
                                 </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="fas fa-user"></i>
-                                </span>
                             </div>
-                                <input class="form-control input-convenio" type="text" id="motivob" name="motivob" placeholder="Escriba los motivos." required>
                         </div>
-                    </div>
 
-                    <div class="form-group clearfix">
-                        <label>Estado</label>  
-                                <div class="icheck-danger d-inline">
-                                    <input class="form-control input-convenio" type="checkbox" id="cb1" name="cb1" checked value="0">
-                                    <label class="font-weight-normal" for="cb1">Bloquear</label>
-                                </div>
-                                <div class="icheck-success d-inline">
-                                    <input class="form-control input-convenio" type="checkbox" id="cb2" name="cb2" checked value="1">
-                                    <label class="font-weight-normal" for="cb2">Desbloquear</label>
-                                </div>
-                    </div>
 
-                    <div class="form-group">
-                        <label>Fecha de desbloqueo</label>
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    <i class="far fa-calendar-alt"></i>
-                                </span>
+                        <div class="form-group">
+                            <div class="form-group clearfix">
+                                <label id="titulo-estado">ESTADO</label>  
+                                <div class="form-check-inline">
+                                    <input class="form-check-input" type="radio" id="opcion1" name="estadobloqueo" value="0">
+                                    <label class="form-check-label" for="opcion1"> Bloquear</label>
+                                </div>
+                                <div class="form-check-inline">
+                                    <input class="form-check-input" type="radio" id="opcion2" name="estadobloqueo"  value="1">
+                                    <label class="form-check-label" for="opcion2"> Desbloquear</label>
+                                </div>
                             </div>
-                            <input class="form-control input-propietario" type="date" id="fecha_vin" name="fecha_vin" placeholder="Seleccione una fecha" required>
+                        </div>
+
+
+
+                        <div class="form-group">
+                            <label>Motivo</label>
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-align-left"></i>
+                                    </span>
+                                </div>
+                                <textarea class="form-control input-convenio" type="text" id="motivob" name="motivob" placeholder="Escriba los motivos del bloqueo/desbloqueo." required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Fecha de desbloqueo</label>
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="far fa-calendar-alt"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control input-propietario" type="date" id="fecha_vin" name="fecha_vin" placeholder="Seleccione una fecha" required>
+                            </div>
                         </div>
                     </div>
 
-                </form>
-            </div>
+                    <div class="modal-footer bg-dark">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i>
+                            Guardar
+                        </button>
+                    </div>  
 
-            <div class="modal-footer bg-dark">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success">
-                        <i class="fas fa-save"></i>
-                        Guardar
-                    </button>
-            </div>
+                    <?php
+                    $nuevobloqueo = new ControladorBloqueos();
+                    $nuevobloqueo->ctrNuevoBloqueo();
+                    ?>
+
+            </form>
+
+                    
         </div>
     </div>
 </div>
@@ -188,10 +211,11 @@ $historial = ControladorBloqueos::ctrHIstorial();
 <!--MODAL VER HISTORIAL DE UNA PERSONA -->
 
 <div class="modal fade" id="BloqueoHistorial" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
             <div class="modal-header bg-info">
+                <h5 class="modal-title" id = "titulo_modal">Historial de bloqueos</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                 </button>
@@ -202,7 +226,7 @@ $historial = ControladorBloqueos::ctrHIstorial();
                     <input type="hidden" id="idbloqueo" name="idbloqueo" value=""> 
 
                 <div class="table-responsive">
-                    <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
+                    <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100" id="tabla-historial">
                         <thead class="thead-light text-sm text-center">
                             <tr>
                                 <th style="width:10px;">#</th>
@@ -213,17 +237,8 @@ $historial = ControladorBloqueos::ctrHIstorial();
                                 <th>Usuario</th>
                             </tr>                 
                         </thead>
-                        <tbody>
-                            <?php foreach ($historial as $key => $value) : ?>
-                                <tr>
-                                    <td><?= $value['idbloqueo'] ?></td>
-                                    <td><?= $value['conductor'] ?></td>
-                                    <td><?= $value['motivo'] ?></td>
-                                    <td><?= $value['estado'] ?></td>
-                                    <td><?= $value['fecha'] ?></td>
-                                    <td><?= $value['nomUsuario'] ?></td>
-                                </tr>
-                            <?php endforeach ?>
+                        <tbody id="tbodyhistorial">
+                        
                         </tbody>
                     </table>
                 </div>

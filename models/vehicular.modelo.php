@@ -4,9 +4,9 @@
 include_once DIR_APP . 'config/conexion.php';
 
 
-/**
- * 
- */
+/* ===================================================
+   * PROPIETARIOS
+===================================================*/
 class ModeloPropietarios
 {
     /*===========================
@@ -102,6 +102,9 @@ class ModeloPropietarios
     }
 }
 
+/* ===================================================
+   * CONVENIOS
+===================================================*/
 class ModeloConvenios
 {
     static public function mdlMostrar($value)
@@ -409,39 +412,104 @@ class ModeloVehiculos
     
 }
 
+/* ===================================================
+   * BLOQUEO DE PERSONAL
+===================================================*/
 class ModeloBloqueoP
 {
 
-    static public function mdlUltimoBloqueo(){
+    static public function mdlUltimoBloqueo($value){
 
-        $stmt = Conexion::conectar()->prepare(" SELECT p.nombre AS conductor, b.motivo,b.estado, b.fecha,b.idbloqueo,
-                                                       u.nombre AS nomUsuario
-                                                FROM v_bloqueopersonal b  
+        if($value != null){
+
+            $stmt = Conexion::conectar()->prepare(" SELECT p.Nombre AS conductor, b.motivo, b.estado, b.fecha, b.idbloqueo, p.idPersonal ,u.Nombre AS nomUsuario 
+                                                    FROM v_bloqueopersonal b
                                                         INNER JOIN gh_personal p ON p.idPersonal = b.idPersonal
-                                                        INNER JOIN l_usuarios u ON u.Cedula = b.usuario         
-                                                GROUP BY b.idPersonal");
+                                                        INNER JOIN l_usuarios u ON u.Cedula = b.usuario
+                                                        INNER JOIN 
+                                                            (SELECT MAX(idbloqueo) AS idbloqueo FROM v_bloqueopersonal GROUP BY idPersonal) 
+                                                                T ON b.idbloqueo = T.idbloqueo 
+                                                                WHERE p.idPersonal = :personal");
 
-       
-        $stmt->execute();
-        $retorno = $stmt->fetchAll();
+            $stmt->bindParam(":personal",  $value, PDO::PARAM_INT);
+            $stmt->execute();
+            $retorno =  $stmt->fetch();
+
+        }else {
+
+            $stmt = Conexion::conectar()->prepare(" SELECT p.Nombre AS conductor, b.motivo, b.estado, b.fecha, b.idbloqueo, p.idPersonal ,u.Nombre AS nomUsuario 
+                                                    FROM v_bloqueopersonal b
+                                                        INNER JOIN gh_personal p ON p.idPersonal = b.idPersonal
+                                                        INNER JOIN l_usuarios u ON u.Cedula = b.usuario
+                                                        INNER JOIN 
+                                                            (SELECT MAX(idbloqueo) AS idbloqueo FROM v_bloqueopersonal GROUP BY idPersonal) 
+                                                                T ON b.idbloqueo = T.idbloqueo");
+
+            $stmt->execute();
+            $retorno = $stmt->fetchAll();            
+        }
+
         $stmt->closeCursor();
-        return $retorno;
+            return $retorno;      
     }
+
 
     static public function mdlHistorial($value){
 
-        $stmt = Conexion::conectar()->prepare("SELECT p.Nombre AS conductor, b.motivo, b.estado, b.fecha, 
+        $stmt = Conexion::conectar()->prepare("SELECT p.Nombre AS conductor, b.motivo, b.estado, b.fecha, b.idbloqueo, 
                                                       u.Nombre AS nomUsuario 
                                                 FROM v_bloqueopersonal b
                                                     INNER JOIN gh_personal p ON p.idPersonal = b.idPersonal
                                                     INNER JOIN l_usuarios u ON u.Cedula = b.usuario
+                                                WHERE b.idPersonal = :idper
                                                 ORDER BY b.idbloqueo DESC
-                                                WHERE b.idPersonal = :idper");
+                                                ");
 
         $stmt->bindParam(":idper",  $value, PDO::PARAM_INT);
         $stmt->execute();
         $retorno =  $stmt->fetchAll();
         $stmt->closeCursor();
+        return $retorno;
+    }
+
+    static public function mdlMostrarConductor($value){
+
+        $stmt = Conexion::conectar()->prepare("SELECT p.nombre AS conductor 
+                                               FROM v_bloqueopersonal b
+                                                    INNER JOIN gh_personal p ON p.idPersonal = b.idPersonal
+                                               WHERE b.idPersonal = :idper
+                                               GROUP BY b.idPersonal");
+        
+        $stmt->bindParam(":idper",  $value, PDO::PARAM_INT);
+        $stmt->execute();
+        $retorno =  $stmt->fetch();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    static public function mdlNuevoBloqueo($datos){
+
+        $stmt = Conexion::conectar()->prepare("INSERT INTO v_bloqueopersonal(idPersonal,motivo,estado,fecha,usuario)
+                                                VALUES(:idPersonal,:motivo,:estado,:fecha,:usuario)");
+
+        $stmt->bindParam(":idPersonal", $datos["conductorB"], PDO::PARAM_INT);
+        $stmt->bindParam(":motivo", $datos["motivob"], PDO::PARAM_STR);
+        $stmt->bindParam(":estado", $datos["estadobloqueo"], PDO::PARAM_INT);
+        $stmt->bindParam(":fecha", $datos["fecha_vin"], PDO::PARAM_STR);
+        $stmt->bindParam(":usuario", $datos["cedula"], PDO::PARAM_INT);
+        
+        if ($stmt->execute()) {
+           
+            $retorno = "ok";
+        
+        } else {
+            
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
         return $retorno;
     }
 }

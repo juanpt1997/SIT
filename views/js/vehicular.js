@@ -99,17 +99,137 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
 
 if (window.location.href == `${urlPagina}v-bloqueo-personal/` ||
     window.location.href == `${urlPagina}v-bloqueo-personal`
-){
+) {
 
-          
+    $(document).on("click", ".btnHistorial", function () {
+        
+            var id = $(this).attr("id_perso");
 
-
-
+            // Quitar datatable
+            $("#tabla-historial").dataTable().fnDestroy();
+            // Borrar datos
+            $("#tbodyhistorial").html("");
             
+            var datos = new FormData();
+            datos.append("ajaxHistorial", "ok");
+            datos.append("idPersonal", id);
+            $.ajax({
+                type: "POST",
+                url: "ajax/vehicular.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                //dataType: "json",
+                success: function (response) {
+
+                    if(response != '' || response != null){
+
+                         $("#tbodyhistorial").html(response);
+
+                    }else{
+
+                         $("#tbodyhistorial").html('');
+                    }
+
+                    dataTable("#tabla-historial");
+                   
+                }
+            });
+        });
+
+    $(document).on("click", ".btnHistorial", function () {
+
+        $("#titulo_modal").html("");
+
+        var id = $(this).attr("id_perso");
+
+        var datos = new FormData();
+        datos.append("ajaxMostrarConductor", "ok");
+        datos.append("idPersonal", id);
+
+        $.ajax({
+                type: "POST",
+                url: "ajax/vehicular.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+
+                    $("#titulo_modal").html(" HISTORIAL BLOQUEOS / " + response.conductor);   
+                }
+            });
+    });
+
+    $(document).on("click", ".btndesbloqueado", function () {
+
+        $("#titulo_modal_1").html("CONDUCTOR DESBLOQUEADO");
+        $("#opcion2").prop('checked',true);
+
+        var id = $(this).attr("idperson");
+
+        var datos = new FormData();
+        datos.append("DatosBloqueo", "ok");
+        datos.append("idPersonal", id);
+       
+        $.ajax({
+                type: "POST",
+                url: "ajax/vehicular.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+
+
+                    $("#conductorB").val(response.idPersonal);
+                    $("#motivob").val(response.motivo);
+                    $("#fecha_vin").val(response.fecha);
+                    $('.select2-single').trigger('change');
+                }
+            });
+    });
+
+    $(document).on("click", ".btnbloqueado", function () {
+
+        $("#titulo_modal_1").html("CONDUCTOR BlOQUEADO");
+        $("#opcion1").prop('checked',true);
+
+        var id = $(this).attr("idperson");
+
+        var datos = new FormData();
+        datos.append("DatosBloqueo", "ok");
+        datos.append("idPersonal", id);
+       
+        $.ajax({
+                type: "POST",
+                url: "ajax/vehicular.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+
+
+                    $("#conductorB").val(response.idPersonal);
+                    $("#motivob").val(response.motivo);
+                    $("#fecha_vin").val(response.fecha);
+                    $('.select2-single').trigger('change');
+                }
+            });
+    });
+
+    $(document).on("click", ".btn-agregarBloqueo", function () {
+
+        $("#titulo_modal_1").html("NUEVO BLOQUEO");// reset titulo del modal
+        $("#formulario-bloqueo").trigger("reset"); //reset formulario
+        $('.select2-single').trigger('change'); //reset conductor
+    });           
 }
-
-
-
 
 if (window.location.href == `${urlPagina}v-vehiculos/` ||
     window.location.href == `${urlPagina}v-vehiculos`
