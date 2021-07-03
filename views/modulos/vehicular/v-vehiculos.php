@@ -6,10 +6,12 @@
 
 $Vehiculos = ControladorVehiculos::ctrListaVehiculos();
 $Propietarios = ControladorPropietarios::ctrMostrar();
+$Conductores = ControladorVehiculos::ctrListaConductores();
 $Sucursales = ControladorGH::ctrSucursales();
 $tvehiculos = ControladorVehiculos::ctrMostrarTipoVehiculo();
 $marca = ControladorVehiculos::ctrMostrarMarca();
 $empresaconvenio = ControladorConvenios::ctrMostrar();
+$tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
 ?>
 
@@ -197,7 +199,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-ad"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-datosvehiculo" type="text" id="placa" name="placa" placeholder="Ingresar placa" autofocus required>
+                                                    <input class="form-control input-datosvehiculo" type="text" id="placa" name="placa" placeholder="Ingresar placa" autofocus required maxlength="7">
                                                 </div>
                                             </div>
 
@@ -250,7 +252,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-hashtag"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-datosvehiculo" type="text" id="numinterno" name="numinterno" placeholder="Ingresar número interno afiliado">
+                                                    <input class="form-control input-datosvehiculo" type="text" id="numinterno" name="numinterno" placeholder="Ingresar número interno afiliado" maxlength="6">
                                                 </div>
                                             </div>
 
@@ -285,7 +287,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-hashtag"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="numeromotor" name="numeromotor" placeholder="Ingresar número del motor">
+                                                    <input class="form-control input-propietario" type="text" id="numeromotor" name="numeromotor" placeholder="Ingresar número del motor" maxlength="21">
                                                 </div>
                                             </div>
 
@@ -297,7 +299,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-car-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="chasis" name="chasis" placeholder="Ingresar chasis">
+                                                    <input class="form-control input-propietario" type="text" id="chasis" name="chasis" placeholder="Ingresar chasis" maxlength="19">
                                                 </div>
                                             </div>
 
@@ -321,7 +323,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-palette"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="color" name="color" placeholder="Ingresar color del vehículo">
+                                                    <input class="form-control input-propietario" type="text" id="color" name="color" placeholder="Ingresar color del vehículo" maxlength="28">
                                                 </div>
                                             </div>
 
@@ -333,7 +335,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-weight"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="capacidad" name="capacidad" placeholder="Ingresar capacidad del vehículo">
+                                                    <input class="form-control input-propietario" type="text" id="capacidad" name="capacidad" placeholder="Ingresar capacidad del vehículo" maxlength="6">
                                                 </div>
                                             </div>
 
@@ -349,7 +351,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-tachometer-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="cilindraje" name="cilindraje" placeholder="Ingresar cilindraje del vehículo">
+                                                    <input class="form-control input-propietario" type="text" id="cilindraje" name="cilindraje" placeholder="Ingresar cilindraje del vehículo" maxlength="9">
                                                 </div>
                                             </div>
 
@@ -559,7 +561,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                             <i class="fas fa-key"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="claveapp" name="claveapp" placeholder="Ingresar clave">
+                                                    <input class="form-control input-propietario" type="text" id="claveapp" name="claveapp" placeholder="Ingresar clave" maxlength="20">
 
                                                 </div>
                                             </div>
@@ -602,8 +604,8 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
 
                                         <!-- FOTOS DEL VEHICULO -->
                                         <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="col-12">
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="col-12 col-md-8">
                                                     <div class="form-group">
                                                         <label>Fotos del vehículo</label>
                                                         <div class="input-group">
@@ -617,25 +619,31 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <!-- <div class="" id="colPrevisualizacion_fotos"> -->
+                                                <div id="colPrevisualizacion_fotos" class="col-12 col-md-10 col-lg-8 carousel slide" data-ride="carousel">
+                                                    <ol class="carousel-indicators">
+                                                        <!-- SE LLENA DESDE JAVASCRIPT -->
+                                                    </ol>
+                                                    <div class="carousel-inner text-center">
+                                                        <!-- SE LLENA DESDE JAVASCRIPT -->
+                                                    </div>
+                                                    <a class="carousel-control-prev" href="#colPrevisualizacion_fotos" role="button" data-slide="prev">
+                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                        <span class="sr-only">Previous</span>
+                                                    </a>
+                                                    <a class="carousel-control-next" href="#colPrevisualizacion_fotos" role="button" data-slide="next">
+                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                        <span class="sr-only">Next</span>
+                                                    </a>
+                                                </div>
                                             </div>
-
-
-
-                                            <!-- <div class="col-md-7">
-                                                <p>
-                                                    <img id="imagenPrevisualizacion_fotos">
-                                                </p>
-
-                                                <p>
-                                                    <img id="imagenPrevisualizacion_TarjetaPro">
-                                                </p>
-                                            </div> -->
                                         </div>
 
                                         <!-- TARJETA DE PROPIEDAD -->
                                         <div class="col-md-6">
-                                            <div class="row">
-                                                <div class="col-12">
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="col-12 col-md-8">
                                                     <div class="form-group">
                                                         <label>Tarjeta de propiedad (1 foto a la vez)</label>
                                                         <div class="input-group">
@@ -650,7 +658,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                 </div>
 
                                                 <div class="col-12 text-center">
-                                                    <img class="img-fluid" id="imagenPrevisualizacion_TarjetaPro" src="">
+                                                    <a id="imagenPrevisualizacion_TarjetaPro" href="" target="_blank"><img class="img-fluid" src=""></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -698,26 +706,44 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                         <form class="formulario" id="frmPropietarios" method="post" enctype="multipart/form-data">
                                             <div class="row mt-2 border border-info rounded">
                                                 <!-- ===================================================
-                                                    **********
+                                                    PROPIETARIO
                                                 =================================================== -->
                                                 <div class="col-12 col-md-6 col-lg-4">
                                                     <div class="form-group">
-                                                        <label for="exampleInput1"> *</label>
-                                                        <input class="form-control" type="text">
-                                                        <!-- <select id="my-select" class="form-control" name="contrato">
-                                                            <option>Contrato inicial</option>
-                                                            <option>Prorroga 1</option>
-                                                            <option>Prorroga 2</option>
-                                                            <option>Prorroga 3</option>
-                                                            <option>Prorroga 4</option>
-                                                        </select> -->
+                                                        <label for="exampleInput1">Propietario *</label>
+                                                        <select class="form-control select2-single " name="idpropietario" required>
+                                                            <option value="" selected>-Seleccione un propietario-</option>
+                                                            <?php foreach ($Propietarios as $key => $value) : ?>
+                                                                <option value="<?= $value['idxp'] ?>"><?= $value['nombre'] ?></option>
+                                                            <?php endforeach ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ===================================================
+                                                    Porcentaje de participación
+                                                =================================================== -->
+                                                <div class="col-12 col-md-6 col-lg-3">
+                                                    <div class="form-group">
+                                                        <label for="exampleInput1">Porcentaje de participación</label>
+                                                        <input class="form-control" type="number" name="participacion" min=0 max=100 value="0" required>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ===================================================
+                                                    Observaciones
+                                                =================================================== -->
+                                                <div class="col-12 col-md-8 col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="exampleInput1">Observaciones</label>
+                                                        <textarea class="form-control" name="observacion" rows="1" style="min-height:70px" required></textarea>
                                                     </div>
                                                 </div>
 
                                                 <!-- ===================================================
                                                     BOTON GUARDAR FORMULARIO
                                                 =================================================== -->
-                                                <div class="col-12 col-md-6 col-lg-4 text-right text-md-left align-self-center">
+                                                <div class="col-12 col-md-4 col-lg-1 text-right text-md-left align-self-center">
                                                     <button type="submit" class="btn btn-success">
                                                         <i class="fas fa-check-circle"></i>
                                                     </button>
@@ -727,34 +753,22 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
 
                                         <!-- TABLA PROPIETARIOS -->
                                         <div class="table-responsive mt-2">
-                                            <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
+                                            <table id="tblPropietarios" class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
                                                 <thead class="thead-light text-sm text-center">
                                                     <tr>
-                                                        <th style="width:10px;">#</th>
-                                                        <th>Nombre</th>
-                                                        <th>Tipo</th>
-                                                        <th>Documento</th>
-                                                        <th>EMAIL</th>
-                                                        <th>Telefono</th>
-                                                        <th>Direccion</th>
-                                                        <th>Ciudad</th>
-                                                        <th>Acciones</th>
+                                                        <th>Propietario</th>
+                                                        <th>Porcentaje participación</th>
+                                                        <th>Observaciones</th>
+                                                        <th>Eliminar</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody id="tbodyPropietarios" class="text-center">
                                                     <tr>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
                                                         <td>
-                                                            <div class="btn-group" role="group" aria-label="Button group">
-                                                                <button class="btn btn-sm btn-warning btnEditarVehiculo" data-toggle="modal" data-target="#VehiculosModal"><i class="fas fa-edit"></i></button>
-                                                            </div>
+                                                            <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -769,35 +783,61 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                 <div class="card">
                                     <div class="card-body">
                                         <label>CONDUCTORES</label>
-                                        <div class="table-responsive">
-                                            <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
+
+                                        <!-- FORMULARIO DE CONDUCTORES -->
+                                        <form class="formulario" id="frmConductores" method="post" enctype="multipart/form-data">
+                                            <div class="row mt-2 border border-info rounded">
+                                                <!-- ===================================================
+                                                    Conductor
+                                                =================================================== -->
+                                                <div class="col-12 col-md-6 col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="exampleInput1">Conductor *</label>
+                                                        <select class="form-control select2-single " name="idconductor" required>
+                                                            <option value="" selected>-Seleccione un conductor-</option>
+                                                            <?php foreach ($Conductores as $key => $value) : ?>
+                                                                <option value="<?= $value['idPersonal'] ?>"><?= $value['Nombre'] ?></option>
+                                                            <?php endforeach ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ===================================================
+                                                    Observaciones
+                                                =================================================== -->
+                                                <div class="col-12 col-md-8 col-lg-6">
+                                                    <div class="form-group">
+                                                        <label for="exampleInput1">Observaciones</label>
+                                                        <textarea class="form-control" name="observacion" rows="1" style="min-height:70px" required></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ===================================================
+                                                    BOTON GUARDAR FORMULARIO
+                                                =================================================== -->
+                                                <div class="col-12 col-md-4 col-lg-2 text-right text-md-left align-self-center">
+                                                    <button type="submit" class="btn btn-success">
+                                                        <i class="fas fa-check-circle"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                        <div class="table-responsive mt-2">
+                                            <table id="tblConductores" class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
                                                 <thead class="thead-light text-sm text-center">
                                                     <tr>
-                                                        <th style="width:10px;">#</th>
-                                                        <th>Nombre</th>
-                                                        <th>Tipo</th>
-                                                        <th>Documento</th>
-                                                        <th>EMAIL</th>
-                                                        <th>Telefono</th>
-                                                        <th>Direccion</th>
-                                                        <th>Ciudad</th>
-                                                        <th>Acciones</th>
+                                                        <th>Conductor</th>
+                                                        <th>Observaciones</th>
+                                                        <th>Eliminar</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody id="tbodyConductores" class="text-center">
                                                     <tr>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
                                                         <td></td>
                                                         <td></td>
                                                         <td>
-                                                            <div class="btn-group" role="group" aria-label="Button group">
-                                                                <button class="btn btn-sm btn-warning btnEditarVehiculo" data-toggle="modal" data-target="#VehiculosModal"><i class="fas fa-edit"></i></button>
-                                                            </div>
+                                                            <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -813,26 +853,104 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                     <div class="card-body">
                                         <label>DOCUMENTOS</label>
 
+                                        <form class="formulario" id="frmDocumentos" method="post" enctype="multipart/form-data">
+                                            <div class="row mt-2 border border-info rounded">
+                                                <!-- ===================================================
+                                                    Tipo documento *
+                                                =================================================== -->
+                                                <div class="col-12 col-md-6 col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="exampleInput1">Tipo documento *</label>
 
-                                        <div class="table-responsive">
-                                            <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
+                                                        <select id="my-select" class="form-control" name="idtipodocumento" required>
+                                                            <option value="" selected>Seleccione una opción</option>
+                                                            <?php foreach ($tiposDocumentacion as $key => $value) : ?>
+                                                                <option value="<?= $value['idtipo'] ?>"><?= $value['tipodocumento'] ?></option>
+                                                            <?php endforeach ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ===================================================
+                                                    Nro Documento *
+                                                =================================================== -->
+                                                <div class="col-12 col-md-6 col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="exampleInput1">Nro Documento *</label>
+                                                        <input type="text" class="form-control" name="nrodocumento" required>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ===================================================
+                                                    Fecha desde
+                                                =================================================== -->
+                                                <div class="col-12 col-md-6 col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="exampleInput1">Fecha desde *</label>
+                                                        <input type="date" class="form-control" name="fechainicio" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" required>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ===================================================
+                                                    Fecha hasta
+                                                =================================================== -->
+                                                <div class="col-12 col-md-6 col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="exampleInput1">Fecha hasta *</label>
+                                                        <input type="date" class="form-control" name="fechafin" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" required>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ===================================================
+                                                    Tarifa
+                                                =================================================== -->
+                                                <div class="col-12 col-md-6 col-lg-2 col-xl-3">
+                                                    <div class="form-group">
+                                                        <label for="exampleInput1">Tarifa *</label>
+                                                        <select id="my-select" class="form-control" name="tarifa">
+                                                            <option>91</option>
+                                                            <option>92</option>
+                                                            <option>71</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ===================================================
+                                                    Cargar documento
+                                                =================================================== -->
+                                                <div class="col-12 col-md-6 col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="exampleInput1">Cargar documento *</label>
+                                                        <input type="file" class="form-control" id="inputfile-documentos" accept="image/png, image/jpeg, application/pdf">
+                                                    </div>
+                                                </div>
+
+                                                <!-- ===================================================
+                                                    BOTON GUARDAR FORMULARIO
+                                                =================================================== -->
+                                                <div class="col-12 col-md-6 col-lg-2 col-xl-1 text-right text-md-left align-self-center">
+                                                    <button type="submit" class="btn btn-success">
+                                                        <i class="fas fa-check-circle"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                        <div class="table-responsive mt-2">
+                                            <table id="tblDocumentos" class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
                                                 <thead class="thead-light text-sm text-center">
                                                     <tr>
-                                                        <th style="width:10px;">#</th>
-                                                        <th>Nombre</th>
-                                                        <th>Tipo</th>
+                                                        <th>Tipo documento</th>
+                                                        <th>Nro Documento</th>
+                                                        <th>Fecha desde</th>
+                                                        <th>Fecha hasta</th>
+                                                        <th>Tarifa</th>
                                                         <th>Documento</th>
-                                                        <th>EMAIL</th>
-                                                        <th>Telefono</th>
-                                                        <th>Direccion</th>
-                                                        <th>Ciudad</th>
-                                                        <th>Acciones</th>
+                                                        <th>Eliminar</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody id="tbodyDocumentos" class="text-center">
                                                     <tr>
-                                                        <td></td>
-                                                        <td></td>
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
@@ -840,9 +958,7 @@ $empresaconvenio = ControladorConvenios::ctrMostrar();
                                                         <td></td>
                                                         <td></td>
                                                         <td>
-                                                            <div class="btn-group" role="group" aria-label="Button group">
-                                                                <button class="btn btn-sm btn-warning btnEditarVehiculo" data-toggle="modal" data-target="#VehiculosModal"><i class="fas fa-edit"></i></button>
-                                                            </div>
+                                                            <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                                                         </td>
                                                     </tr>
                                                 </tbody>

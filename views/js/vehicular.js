@@ -3,12 +3,12 @@ if (window.location.href == `${urlPagina}v-propietarios/` ||
 ) {
     $(document).ready(function () {
 
-		//CARGAR DATOS DEL PROPIETARIOS PARA EDITARLOS
-		$(document).on("click", ".btnEditarProp", function () {
+        //CARGAR DATOS DEL PROPIETARIOS PARA EDITARLOS
+        $(document).on("click", ".btnEditarProp", function () {
             var idxp = $(this).attr("idxp");
             $("#idxp").val(idxp);
 
-			var cedula = $(this).attr("cedula");
+            var cedula = $(this).attr("cedula");
 
             var datos = new FormData();
             datos.append("DatosPropietarios", "ok");
@@ -231,6 +231,10 @@ if (window.location.href == `${urlPagina}v-bloqueo-personal/` ||
     });           
 }
 
+
+/* ===================================================
+  * VEHICULOS
+===================================================*/
 if (window.location.href == `${urlPagina}v-vehiculos/` ||
     window.location.href == `${urlPagina}v-vehiculos`
 ) {
@@ -260,7 +264,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
             // FOTOS DEL VEHICULO
             var foto_vehiculo = $('#foto_vehiculo')[0].files;
             datosAjax.append("foto_vehiculo", foto_vehiculo[0]);
-            
+
 
             // ? AJAX PARA GUARDAR LOS DATOS
             $.ajax({
@@ -322,8 +326,62 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                               ? PREVISUALIZAR FOTOS VEHICULO Y TARJETA DE PROPIEDAD
                             ===================================================*/
                             // Tarjeta de propiedad
-                            if ($("#foto_tarjetapropiedad").val() != ""){
-                                
+                            if ($("#foto_tarjetapropiedad").val() != "") {
+                                var datosImagen = new FileReader();
+                                datosImagen.readAsDataURL(tarjetapropiedad[0]);
+
+                                $(datosImagen).on("load", function (event) {
+                                    var rutaImagen = event.target.result;
+                                    $("#imagenPrevisualizacion_TarjetaPro").attr("href", rutaImagen).find("img").attr("src", rutaImagen);
+                                });
+
+                                $("#foto_tarjetapropiedad").val("");
+                            }
+
+                            // Fotos del vehiculo
+                            if ($("#foto_vehiculo").val() != "") {
+
+                                // ESTO FUNCIONA, EL PROBLEMA ES PARA CARGAR EL ID DE LA FOTO EN CASO DE QUERER BORRARLA, POR ESTO OPTAMOS POR LA OPCION 2 DE SOLICITAR TODOS LOS DATOS DEL VEHICULO A LA BD
+                                // var datosImagen2 = new FileReader();
+                                // datosImagen2.readAsDataURL(foto_vehiculo[0]);
+
+                                // $(datosImagen2).on("load", function (event) {
+                                //     var rutaImagen2 = event.target.result;
+
+                                //     let activo = numFotosVehiculo == 0 ? `active` : ``;
+
+                                //     $("#colPrevisualizacion_fotos").find(".carousel-indicators").append(`<li data-target="#colPrevisualizacion_fotos" data-slide-to="${numFotosVehiculo}" class="${activo}"></li>`);
+                                //     $("#colPrevisualizacion_fotos").find(".carousel-inner").append(`<div class="carousel-item ${activo}">
+                                //                                                                         <div class="btn-group my-1" role="group" aria-label="Basic example">
+                                //                                                                             <a class="btn btn-info" href="${rutaImagen2}" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                                //                                                                             <button type="button" class="btn btn-danger btn-eliminarFotoVehiculo"><i class="fas fa-trash-alt"></i></button>
+                                //                                                                         </div>
+                                //                                                                         <img src="${rutaImagen2}" class="d-block w-100" alt="...">
+                                //                                                                     </div>`);
+                                //     numFotosVehiculo++;
+                                // });
+
+                                $("#foto_vehiculo").val("");
+
+                                $("#colPrevisualizacion_fotos").find(".carousel-indicators").html(""); // RESET DE LAS FOTOS DEL VEHICULO
+                                $("#colPrevisualizacion_fotos").find(".carousel-inner").html(""); // RESET DE LAS FOTOS DEL VEHICULO
+
+                                var datos = new FormData();
+                                datos.append('DatosVehiculo', "ok");
+                                datos.append('item', 'idvehiculo');
+                                datos.append('valor', $("#idvehiculo").val());
+                                $.ajax({
+                                    type: 'post',
+                                    url: `${urlPagina}ajax/vehicular.ajax.php`,
+                                    data: datos,
+                                    dataType: 'JSON',
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+                                    success: function (Vehiculo) {
+                                        FuncionCargarFotosVehiculo(Vehiculo.fotosVehiculo);
+                                    }
+                                });
                             }
 
                             break;
@@ -338,14 +396,17 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
         $(document).on("click", ".btn-agregarVehiculo", function () {
             $("#titulo-modal-vehiculo").html("Nuevo");
             $("#vehiculos_form").trigger("reset"); //reset formulario
-            $("#idvehiculo").val(""); //reset id personal
-            //$('.select2-single').trigger('change'); //reset select2
+            $("#idvehiculo").val(""); //reset id vehiculo
+            $("#imagenPrevisualizacion_TarjetaPro").attr("href", "").find("img").attr("src", "");
+            //numFotosVehiculo = 0; // Contador de imagenes del vehiculo se resetea
+            $("#colPrevisualizacion_fotos").find(".carousel-indicators").html(""); // RESET DE LAS FOTOS DEL VEHICULO
+            $("#colPrevisualizacion_fotos").find(".carousel-inner").html(""); // RESET DE LAS FOTOS DEL VEHICULO
 
             /* RESET DE LAS TABLAS QUE INCLUYEN EL RESTO DEL FORMULARIO */
             // Quitar datatable
-            // /* $(".tablas-dinamicas").dataTable().fnDestroy(); */
+            $("#tblPropietarios, #tblConductores, #tblDocumentos").dataTable().fnDestroy();
             // Borrar datos
-            // /* $(".tbody-tablas-dinamicas").html(""); */
+            $("#tbodyPropietarios, #tbodyConductores, #tbodyDocumentos").html("");
         });
 
         /* ===================================================
@@ -355,7 +416,10 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
             var idvehiculo = $(this).attr("idvehiculo");
             $("#titulo-modal-vehiculo").html("");
             $("#vehiculos_form").trigger("reset"); //reset formulario
-            //$('.select2-single').trigger('change'); //reset select2
+            $("#imagenPrevisualizacion_TarjetaPro").attr("href", "").find("img").attr("src", "");
+            //numFotosVehiculo = 0; // Contador de imagenes del vehiculo se resetea
+            $("#colPrevisualizacion_fotos").find(".carousel-indicators").html(""); // RESET DE LAS FOTOS DEL VEHICULO
+            $("#colPrevisualizacion_fotos").find(".carousel-inner").html(""); // RESET DE LAS FOTOS DEL VEHICULO
 
             /* AJAX PARA CARGAR DATOS */
             var datos = new FormData();
@@ -371,8 +435,9 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    if (response != "") {
-                        FuncionCargarDatosVehiculo(response);
+                    if (response.datosVehiculo != "") {
+                        FuncionCargarDatosVehiculo(response.datosVehiculo);
+                        FuncionCargarFotosVehiculo(response.fotosVehiculo);
                     }
                 }
             });
@@ -390,7 +455,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
         ===================================================*/
         $(document).on("blur", "#placa", function () {
             // Cuando se encuentra agregando uno nuevo
-            if ($("#idvehiculo").val() == ""){
+            if ($("#idvehiculo").val() == "") {
                 /* AJAX PARA CARGAR DATOS */
                 var datos = new FormData();
                 datos.append('DatosVehiculo', "ok");
@@ -405,14 +470,95 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                     contentType: false,
                     processData: false,
                     success: function (response) {
-                        if (response != "") {
+                        if (response.datosVehiculo != "") {
                             $("#vehiculos_form").trigger("reset"); //reset formulario
 
-                            FuncionCargarDatosVehiculo(response);
+                            FuncionCargarDatosVehiculo(response.datosVehiculo);
+                            FuncionCargarFotosVehiculo(response.fotosVehiculo);
                         }
                     }
                 });
             }
+        });
+
+        /* ===================================================
+          ELIMINAR FOTO DEL VEHICULO
+        ===================================================*/
+        $(document).on("click", ".btn-eliminarFotoVehiculo", function () {
+            var idfoto = $(this).attr("idvehiculo");
+
+            Swal.fire({
+                icon: 'warning',
+                title: '¿Desea eliminar esta foto?',
+                showConfirmButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#d9534f',
+                cancelButtonColor: '#0275d8',
+                closeOnConfirm: false
+            }).then((result) => {
+                if (result.value) {
+                    var datos = new FormData();
+                    datos.append('EliminarFotoVehiculo', "ok");
+                    datos.append('idfoto', idfoto);
+                    $.ajax({
+                        type: 'post',
+                        url: `${urlPagina}ajax/vehicular.ajax.php`,
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            // Mensaje de éxito
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: 'success',
+                                    timer: 2000,
+                                    showConfirmButton: false
+                                })
+
+                                $("#colPrevisualizacion_fotos").find(".carousel-indicators").html(""); // RESET DE LAS FOTOS DEL VEHICULO
+                                $("#colPrevisualizacion_fotos").find(".carousel-inner").html(""); // RESET DE LAS FOTOS DEL VEHICULO
+
+                                // Ajax para cargar todas las fotos del vehiculo
+                                var datos = new FormData();
+                                datos.append('DatosVehiculo', "ok");
+                                datos.append('item', 'idvehiculo');
+                                datos.append('valor', $("#idvehiculo").val());
+                                $.ajax({
+                                    type: 'post',
+                                    url: `${urlPagina}ajax/vehicular.ajax.php`,
+                                    data: datos,
+                                    dataType: 'JSON',
+                                    cache: false,
+                                    contentType: false,
+                                    processData: false,
+                                    success: function (Vehiculo) {
+                                        FuncionCargarFotosVehiculo(Vehiculo.fotosVehiculo);
+                                    }
+                                });
+                            }
+                            // Mensaje de error
+                            else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '¡Ha ocurrido un error, por favor intente de nuevo más tarde!',
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                }).then((result) => {
+
+                                    if (result.value) {
+                                        window.location = 'v-vehiculos';
+                                    }
+
+                                })
+                            }
+                        }
+                    });
+                }
+
+            })
         });
 
         /* ===================================================
@@ -449,6 +595,376 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
             $("#idmarca").val(response.idmarca);
             $("#idconvenio").val(response.idconvenio);
             $("#idtipovehiculo").val(response.idtipovehiculo);
+
+            if (response.ruta_tarjetapropiedad != null) {
+                $("#imagenPrevisualizacion_TarjetaPro").attr("href", response.ruta_tarjetapropiedad).find("img").attr("src", response.ruta_tarjetapropiedad);
+            }
+
+            // TABLAS DE PROPIETARIOS CONDUCTORES Y DOCUMENTOS
+            AjaxTablaDinamica(response.idvehiculo, "Propietarios");
+            AjaxTablaDinamica(response.idvehiculo, "Conductores");
+            AjaxTablaDinamica(response.idvehiculo, "Documentos");
         }
+
+        //var numFotosVehiculo = 0; // Usado para saber cuantas fotos tiene el vehiculo seleccionado, esto era para previsualizar la foto del input apenas guardara
+        /* ===================================================
+          CARGAR FOTOS DEL VEHICULO EN EL FORMULARIO
+        ===================================================*/
+        const FuncionCargarFotosVehiculo = (response) => {
+            //numFotosVehiculo = response.length;
+
+            let htmlcarouselindicators = ``;
+            let htmlcarouselinner = ``;
+            for (let index = 0; index < response.length; index++) {
+                let activo = index == 0 ? `active` : ``;
+
+                htmlcarouselindicators += `<li data-target="#colPrevisualizacion_fotos" data-slide-to="${index}" class="${activo}"></li>`;
+                htmlcarouselinner += `<div class="carousel-item ${activo}">
+                                            <div class="btn-group my-1" role="group" aria-label="Basic example">
+                                                <a class="btn btn-info" href="${response[index].ruta_foto}" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                                                <button type="button" class="btn btn-danger btn-eliminarFotoVehiculo" idvehiculo=${response[index].idfoto}><i class="fas fa-trash-alt"></i></button>
+                                            </div>
+                                            <img src="${response[index].ruta_foto}" class="d-block w-100" alt="...">
+                                        </div>`;
+
+            }
+
+            // Asignar html de las fotos
+            $("#colPrevisualizacion_fotos").find(".carousel-indicators").html(htmlcarouselindicators);
+            $("#colPrevisualizacion_fotos").find(".carousel-inner").html(htmlcarouselinner);
+        }
+
+        /* ===================================================
+          ? PROPIETARIOS, CONDUCTORES Y DOCUMENTOS
+        ===================================================*/
+        /* ===================================================
+            GUARDAR FORMULARIO
+        ===================================================*/
+        $("#frmPropietarios, #frmConductores, #frmDocumentos").submit(function (e) {
+            e.preventDefault();
+
+            var $formulario = $(this);
+            var nombreFormulario = $formulario.attr("id").replace('frm', '');
+
+            var idvehiculo = $("#idvehiculo").val();
+
+            if (idvehiculo != "") {
+                var datosAjax = new FormData();
+                datosAjax.append('GuardarDetallesVehiculo', "ok");
+
+                // DATOS FORMULARIO
+                var datosFrm = $formulario.serializeArray();
+                datosFrm.forEach(element => {
+                    datosAjax.append(element.name, element.value);
+                });
+
+                datosAjax.append("idvehiculo", idvehiculo);
+
+                $.ajax({
+                    type: 'post',
+                    url: `${urlPagina}ajax/vehicular.ajax.php`,
+                    data: datosAjax,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response != "error") {
+                            if (nombreFormulario != "Documentos") {
+                                // Cargar de nuevo la tabla correspondiente
+                                AjaxTablaDinamica(idvehiculo, nombreFormulario);
+                            } else {
+                                // Cargar documento del vehiculo
+                                var documento = $('#inputfile-documentos')[0].files;
+                                CargarDocumentoVehiculo(idvehiculo, documento, response, "no");
+                            }
+                            // Reset del formulario
+                            $formulario.trigger("reset");
+                            $('.select2-single').trigger('change'); //reset select2
+                            // Mensaje de éxito al usuario
+                            Swal.fire({
+                                icon: 'success',
+                                title: '¡Datos guardados correctamente!',
+                                showConfirmButton: true,
+                                confirmButtonText: 'Cerrar',
+                            })
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Ha ocurrido un error, por favor intente de nuevo',
+                                showConfirmButton: true,
+                                confirmButtonText: 'Cerrar',
+                                closeOnConfirm: false
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    window.location = 'v-vehiculos';
+                                }
+
+                            })
+                        }
+                    }
+                });
+            }
+        });
+
+        /* ===================================================
+            CARGAR LA TABLA CORRESPONDIENTE
+        ===================================================*/
+        const AjaxTablaDinamica = (idvehiculo, nombreTabla) => {
+            // Quitar datatable
+            $(`#tbl${nombreTabla}`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbody${nombreTabla}`).html("");
+
+            let datos = new FormData();
+            datos.append(`Tabla${nombreTabla}`, 'ok');
+            datos.append('idvehiculo', idvehiculo);
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/vehicular.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != '' || response != null) {
+                        $(`#tbody${nombreTabla}`).html(response);
+                    } else {
+                        $(`#tbody${nombreTabla}`).html('');
+                    }
+
+                    /* ===================================================
+                    INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                    ===================================================*/
+                    dataTable(`#tbl${nombreTabla}`);
+                }
+            });
+        }
+
+        /* ===================================================
+            ELIMINAR REGISTRO
+        ===================================================*/
+        $(document).on("click", ".eliminarRegistro", function () {
+            var idregistro = $(this).attr("idregistro");
+            var idvehiculo = $(this).attr("idvehiculo");
+            var tabla = $(this).attr("tabla");
+
+            Swal.fire({
+                icon: 'warning',
+                title: '¿Desea eliminar este registro?',
+                showConfirmButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#d9534f',
+                cancelButtonColor: '#0275d8',
+                closeOnConfirm: false
+            }).then((result) => {
+                if (result.value) {
+                    var datos = new FormData();
+                    datos.append('EliminarRegistro', "ok");
+                    datos.append('idregistro', idregistro);
+                    datos.append('tabla', tabla);
+                    $.ajax({
+                        type: 'post',
+                        url: `${urlPagina}ajax/vehicular.ajax.php`,
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            // Mensaje de éxito
+                            if (response == "ok") {
+                                AjaxTablaDinamica(idvehiculo, "Propietarios");
+                                AjaxTablaDinamica(idvehiculo, "Conductores");
+                                AjaxTablaDinamica(idvehiculo, "Documentos");
+
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '¡Registro eliminado correctamente!',
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                })
+                            }
+                            // Mensaje de error
+                            else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '¡Ha ocurrido un error, por favor intente de nuevo más tarde!',
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                }).then((result) => {
+
+                                    if (result.value) {
+                                        window.location = 'v-vehiculos';
+                                    }
+
+                                })
+                            }
+                        }
+                    });
+                }
+
+            })
+
+        });
+
+        /* ===================================================
+            SUBIR DOCUMENTO VEHICULO
+        ===================================================*/
+        const CargarDocumentoVehiculo = (idvehiculo, documento, idregistro, msjExito) => {
+            var datos = new FormData();
+            datos.append('CargarDocumentoVehiculo', "ok");
+            datos.append('idvehiculo', idvehiculo);
+            datos.append('documento', documento[0]);
+            datos.append('idregistro', idregistro);
+            $.ajax({
+                type: 'post',
+                url: `${urlPagina}ajax/vehicular.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == "ok" || response == "vacio") {
+                        /* CARGAR DE NUEVO LA TABLA CORRESPONDIENTE */
+                        AjaxTablaDinamica(idvehiculo, "Documentos");
+
+                        // Mensaje al usuario de que se subió correctamente el documento
+                        if (msjExito == "si") {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Documento subido correctamente!',
+                                    showConfirmButton: false,
+                                })
+                            } else {
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: 'Primero seleccione un archivo',
+                                    showConfirmButton: false,
+                                })
+                            }
+                        }
+                    } else {
+                        // Mensaje al usuario de que NO se subió el documento
+                        if (msjExito == "si") {
+                            Swal.fire({
+                                icon: 'error',
+                                title: '¡Ha ocurrido un error, por favor intente de nuevo más tarde!',
+                                showConfirmButton: true,
+                                confirmButtonText: 'Cerrar',
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    window.location = 'v-vehiculos';
+                                }
+
+                            })
+                        }
+                    }
+                }
+            });
+        }
+
+        /* ===================================================
+          ELIMINAR DOCUMENTO VEHICULO
+        ===================================================*/
+        $(document).on("click", ".btnEliminarDocVehiculo", function () {
+            var idvehiculo = $(this).attr("idvehiculo");
+            var idregistro = $(this).attr("idregistro");
+
+            Swal.fire({
+                icon: 'warning',
+                title: '¿Desea eliminar este documento?',
+                showConfirmButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#d9534f',
+                cancelButtonColor: '#0275d8',
+                closeOnConfirm: false
+            }).then((result) => {
+                if (result.value) {
+                    var datos = new FormData();
+                    datos.append('EliminarDocumentoVehiculo', "ok");
+                    datos.append('idregistro', idregistro);
+                    $.ajax({
+                        type: 'post',
+                        url: `${urlPagina}ajax/vehicular.ajax.php`,
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            // Mensaje de éxito
+                            if (response == "ok") {
+                                /* CARGAR DE NUEVO LA TABLA CORRESPONDIENTE */
+                                AjaxTablaDinamica(idvehiculo, "Documentos")
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Documento eliminado correctamente!',
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                })
+                            }
+                            // Mensaje de error
+                            else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '¡Ha ocurrido un error, por favor intente de nuevo más tarde!',
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                }).then((result) => {
+
+                                    if (result.value) {
+                                        window.location = 'v-vehiculos';
+                                    }
+
+                                })
+                            }
+                        }
+                    });
+                }
+            })
+        });
+
+        /* ===================================================
+          CLICK EN CARGAR DOCUMENTO DESPUES DE TENER CREADO EL REGISTRO
+        ===================================================*/
+        $(document).on("click", ".btnSubirDocVehiculo", function () {
+            var idvehiculo = $(this).attr("idvehiculo");
+            var idregistro = $(this).attr("idregistro");
+
+            Swal.fire({
+                html: `<div class="form-group">
+                        <label for="exampleInput1">CARGAR DOCUMENTO</label>
+                        <div class="input-group mt-1">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fas fa-file-alt"></i>
+                                </span>
+                            </div>
+                            <input type="file" class="form-control" name="" id="swal-inputfile" accept="image/png, image/jpeg, application/pdf">
+                        </div>
+                    </div>`,
+                showConfirmButton: true,
+                showCancelButton: true,
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar',
+                confirmButtonColor: '#5cb85c',
+                cancelButtonColor: '#d9534f',
+                closeOnConfirm: false
+            }).then((result) => {
+                if (result.value) {
+                    var documento = $('#swal-inputfile')[0].files;
+                    CargarDocumentoVehiculo(idvehiculo, documento, idregistro, "si");
+
+                }
+            })
+        });
+
+
     });
 }

@@ -15,7 +15,7 @@ class ModeloPropietarios
     static public function mdlMostrar($value)
     {
 
-		if ($value != null){
+        if ($value != null) {
 
             $stmt = Conexion::conectar()->prepare("SELECT P.*, M.municipio AS ciudad FROM propietario P
 												   LEFT JOIN gh_municipios M ON P.idciudad = M.idmunicipio
@@ -75,7 +75,7 @@ class ModeloPropietarios
     static public function mdlEditar($datos)
     {
 
-		$stmt = Conexion::conectar()->prepare("UPDATE propietario set documento = :documento, tipodoc=:tipodoc,nombre=:nombre,telef=:telef,direccion=:direccion,
+        $stmt = Conexion::conectar()->prepare("UPDATE propietario set documento = :documento, tipodoc=:tipodoc,nombre=:nombre,telef=:telef,direccion=:direccion,
                                                       email=:email,idciudad=:idciudad
 											   -- WHERE documento = :documento
                                                where idxp = :idxp");
@@ -227,7 +227,7 @@ class ModeloVehiculos
         $stmt = Conexion::conectar()->prepare($sql);
         $stmt->execute();
         $retorno =  $stmt->fetchAll();
-        
+
 
         $stmt->closeCursor();
         return $retorno;
@@ -248,6 +248,28 @@ class ModeloVehiculos
         $stmt->bindParam(":{$datos['item']}", $datos['valor']);
         $stmt->execute();
         $retorno = $stmt->fetch();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /* ===================================================
+       CARGAR FOTOS DEL VEHICULO
+    ===================================================*/
+    static public function mdlFotosVehiculo($datos)
+    {
+        if ($datos['item'] == "placa") {
+            $sql = "SELECT f.* FROM v_fotosvehiculos f
+                    INNER JOIN v_vehiculos v ON v.idvehiculo = f.idvehiculo
+                    WHERE v.{$datos['item']} = :{$datos['item']}";
+        } else {
+            $sql = "SELECT f.* FROM v_fotosvehiculos f
+                    WHERE f.{$datos['item']} = :{$datos['item']};";
+        }
+
+        $stmt = Conexion::conectar()->prepare($sql);
+        $stmt->bindParam(":{$datos['item']}", $datos['valor']);
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
         $stmt->closeCursor();
         return $retorno;
     }
@@ -409,7 +431,143 @@ class ModeloVehiculos
         $conexion = null;
         return $id;
     }
-    
+
+    /* ===================================================
+       ! ELIMINAR REGISTRO
+    ===================================================*/
+    static public function mdlEliminarRegistro($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("DELETE
+                                    FROM {$datos['tabla']}
+                                    WHERE {$datos['item']} = :{$datos['item']}");
+        $stmt->bindParam(":" . $datos['item'], $datos['valor'], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $retorno;
+    }
+
+    /* ===================================================
+	   ? PROPIETARIOS, CONDUCTORES Y DOCUMENTOS
+	===================================================*/
+    /* ===================================================
+       MOSTRAR PROPIETARIOSxVEHICULO
+    ===================================================*/
+    static public function mdlPropietariosxVehiculo($idvehiculo)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT pv.*, p.nombre AS propietario FROM v_re_propietariosvehiculos pv
+                                                INNER JOIN propietario p ON p.idxp = pv.idpropietario
+                                                WHERE pv.idvehiculo = :idvehiculo");
+
+        $stmt->bindParam(":idvehiculo", $idvehiculo, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /* ===================================================
+       MOSTRAR CONDUCTORESxVEHICULO
+    ===================================================*/
+    static public function mdlConductoresxVehiculo($idvehiculo)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT cv.*, c.nombre AS conductor
+                                                FROM v_re_conductoresvehiculos cv
+                                                INNER JOIN gh_personal c ON c.idPersonal = cv.idconductor
+                                                WHERE cv.idvehiculo = :idvehiculo");
+
+        $stmt->bindParam(":idvehiculo", $idvehiculo, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /* ===================================================
+       MOSTRAR DOCUMENTOSxVEHICULO
+    ===================================================*/
+    static public function mdlDocumentosxVehiculo($idvehiculo)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT d.*, t.tipodocumento
+                                                FROM v_re_documentosvehiculos d
+                                                INNER JOIN v_tipodocumento t ON t.idtipo = d.idtipodocumento
+                                                WHERE d.idvehiculo = :idvehiculo");
+
+        $stmt->bindParam(":idvehiculo", $idvehiculo, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /* ===================================================
+       TIPOS DE DOCUMENTACIÓN VEHICULAR
+    ===================================================*/
+    static public function mdlTiposDocumentacion()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM v_tipodocumento");
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /* ===================================================
+       GUARDAR OTROS DETALLES DE UN VEHICULO COMO EL PROPIETARIO, CONDUCTOR O DOCUMENTOS
+    ===================================================*/
+    static public function mdlGuardarDetallesVehiculo($datos)
+    {
+        $conexion = Conexion::conectar();
+
+        if (isset($datos['idpropietario'])) {
+            $stmt = $conexion->prepare("INSERT INTO v_re_propietariosvehiculos (idvehiculo, idpropietario, participacion, observacion) 
+                                        VALUES (:idvehiculo, :idpropietario, :participacion, :observacion)");
+
+            $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
+            $stmt->bindParam(":idpropietario", $datos['idpropietario'], PDO::PARAM_INT);
+            $stmt->bindParam(":participacion", $datos['participacion'], PDO::PARAM_STR);
+            $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
+        } else {
+            if (isset($datos['idconductor'])) {
+                $stmt = $conexion->prepare("INSERT INTO v_re_conductoresvehiculos (idvehiculo, idconductor, observacion) 
+                                        VALUES (:idvehiculo, :idconductor, :observacion)");
+
+                $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
+                $stmt->bindParam(":idconductor", $datos['idconductor'], PDO::PARAM_INT);
+                $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
+            } else {
+                if (isset($datos['idtipodocumento'])) {
+                    $stmt = $conexion->prepare("INSERT INTO v_re_documentosvehiculos (idvehiculo, idtipodocumento, nrodocumento, fechainicio, fechafin, tarifa) 
+                                        VALUES (:idvehiculo, :idtipodocumento, :nrodocumento, :fechainicio, :fechafin, :tarifa)");
+
+                    $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
+                    $stmt->bindParam(":idtipodocumento", $datos['idtipodocumento'], PDO::PARAM_INT);
+                    $stmt->bindParam(":nrodocumento", $datos['nrodocumento'], PDO::PARAM_STR);
+                    $stmt->bindParam(":fechainicio", $datos['fechainicio'], PDO::PARAM_STR);
+                    $stmt->bindParam(":fechafin", $datos['fechafin'], PDO::PARAM_STR);
+                    $stmt->bindParam(":tarifa", $datos['tarifa'], PDO::PARAM_STR);
+                }
+            }
+        }
+
+        if (isset($stmt) && $stmt->execute()) {
+            $id = $conexion->lastInsertId();
+        } else {
+            $id = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $id;
+    }
 }
 
 /* ===================================================

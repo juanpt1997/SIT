@@ -221,6 +221,18 @@ class ControladorVehiculos
 	}
 
 	/* ===================================================
+	   CARGAR FOTOS DEL VEHICULO
+	===================================================*/
+	static public function ctrFotosVehiculo($item, $valor)
+	{
+		$datos = array(
+			'item' => $item,
+			'valor' => $valor
+		);
+		return ModeloVehiculos::mdlFotosVehiculo($datos);
+	}
+
+	/* ===================================================
 	   MOSTRAR TIPO DE VEHICULOS
 	===================================================*/
 	static public function ctrMostrarTipoVehiculo()
@@ -304,7 +316,7 @@ class ControladorVehiculos
 		$GuardarImagen->file = $foto;
 		$aleatorio = mt_rand(100, 999);
 		$GuardarImagen->ruta = $directorio . "/tarjeta_propiedad" . $aleatorio;
-		$ruta = $GuardarImagen->ctrImages(500, 500);
+		$ruta = $GuardarImagen->ctrImages(null, null);
 
 		/* ===================================================
 			ACTUALIZAR RUTA IMAGEN EN LA BD
@@ -322,6 +334,7 @@ class ControladorVehiculos
 			$actualizarRutaImg = ModeloVehiculos::mdlActualizarVehiculo($datosRutaImg);
 		}
 	}
+
 	/* ===================================================
 	   GUARDAR FOTO DEL VEHICULO
 	===================================================*/
@@ -356,6 +369,70 @@ class ControladorVehiculos
 			$actualizarRutaImg = ModeloVehiculos::mdlAgregarFotoVehiculo($datosRutaImg);
 		}
 	}
+	/* ===================================================
+       ! ELIMINAR REGISTRO
+    ===================================================*/
+    static public function ctrEliminarRegistro($datos)
+    {
+        $respuesta = ModeloVehiculos::mdlEliminarRegistro($datos);
+        return $respuesta;
+    }
+
+	/* ===================================================
+	   ? PROPIETARIOS, CONDUCTORES Y DOCUMENTOS
+	===================================================*/
+	/* ===================================================
+	   MOSTRAR PROPIETARIOSxVEHICULO
+	===================================================*/
+	static public function ctrPropietariosxVehiculo($idvehiculo)
+    {
+        $respuesta = ModeloVehiculos::mdlPropietariosxVehiculo($idvehiculo);
+        return $respuesta;
+    }
+
+	/* ===================================================
+	   MOSTRAR CONDUCTORESxVEHICULO
+	===================================================*/
+	static public function ctrConductoresxVehiculo($idvehiculo)
+    {
+        $respuesta = ModeloVehiculos::mdlConductoresxVehiculo($idvehiculo);
+        return $respuesta;
+    }
+	
+	/* ===================================================
+       MOSTRAR DOCUMENTOSxVEHICULO
+    ===================================================*/
+	static public function ctrDocumentosxVehiculo($idvehiculo)
+    {
+        $respuesta = ModeloVehiculos::mdlDocumentosxVehiculo($idvehiculo);
+        return $respuesta;
+    }
+
+	/* ===================================================
+	   CONDUCTORES
+	===================================================*/
+	static public function ctrListaConductores()
+    {
+        return ModeloGH::mdlPersonal("activos");
+    }
+
+	/* ===================================================
+       TIPOS DE DOCUMENTACIÓN VEHICULAR
+    ===================================================*/
+	static public function ctrTiposDocumentacion()
+    {
+        return ModeloVehiculos::mdlTiposDocumentacion();
+    }
+
+	/* ===================================================
+       GUARDAR OTROS DETALLES DE UN VEHICULO COMO EL PROPIETARIO, CONDUCTOR O DOCUMENTOS
+    ===================================================*/
+	static public function ctrGuardarDetallesVehiculo($datos)
+    {
+        $guardarDatos = ModeloVehiculos::mdlGuardarDetallesVehiculo($datos);
+        return $guardarDatos;
+    }
+
 }
 
 /* ===================================================
