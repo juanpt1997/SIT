@@ -518,3 +518,79 @@ class ControladorBloqueos
 		}
 	}
 }
+
+class ControladorBloqueosV
+{
+	static public function ctrMostrarPlaca($id){
+
+		return ModeloBloqueoV::mdlMostrarPlaca($id);
+	}
+
+	static public function ctrNuevoBloqueoV(){
+		if (isset($_POST['vehiculo'])){
+			
+			$datos = array(
+							'vehiculo' => $_POST['vehiculo'],
+							'motivobv' => $_POST['motivobv'],
+							'estadobloqueov' => $_POST['estadobloqueov'],
+							'fecha_des' => $_POST['fecha_des'],
+							'cedula' => $_SESSION['cedula']);
+
+
+		$respuesta = ModeloBloqueoV::mdlNuevoBloqueoV($datos);
+
+
+
+		if ($respuesta == "ok"){
+
+				echo "
+						<script>
+							Swal.fire({
+								icon: 'success',
+								title: '¡Se ha bloqueado el vehículo!',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								
+							}).then((result)=>{
+
+								if(result.value){
+									window.location = 'v-bloqueo-vehiculo';
+								}
+
+							})
+						</script>
+					";
+				
+			}else{
+				echo "
+						<script>
+							Swal.fire({
+								icon: 'warning',
+								title: '¡Problema al bloquear el vehículo!',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								
+							}).then((result)=>{
+
+								if(result.value){
+									window.location = 'v-bloqueo-vehiculo';
+								}
+
+							})
+						</script>
+					";
+			}
+		}
+	}
+
+	static public function ctrUltimobloqueoV(){
+
+		return ModeloBloqueoV::mdlUltimoBloqueoV(null);
+
+	}
+
+	static public function ctrHistorialV($id){
+
+		return ModeloBloqueoV::mdlHistorialV($id);
+	}
+}

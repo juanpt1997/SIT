@@ -105,8 +105,8 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
             <form method="post" enctype="multipart/form-data">
                 <!-- INICIO DEL FORMULARIO -->
 
-                <div class="modal-header bg-secondary">
-                    <h5 class="modal-title d-none" id="exampleModalLabel">Agregar propietario</h5>
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title" id="titulo-modal-propietario"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>

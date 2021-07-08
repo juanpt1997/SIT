@@ -110,8 +110,8 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
             <form method="post" enctype="multipart/form-data">
                 <!-- INICIO DEL FORMULARIO -->
 
-                <div class="modal-header bg-secondary">
-                    <h3 class="modal-title d-none" id="exampleModalLabel">Añadir Convenio</h3>
+                <div class="modal-header bg-info">
+                    <h5 class="modal-title" id="titulo-modal-convenios"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -197,7 +197,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                     </div>
                 </div>
 
-                <div class="modal-footer bg-info">
+                <div class="modal-footer bg-dark">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-success">
                         <i class="fas fa-save"></i>Guardar</button>

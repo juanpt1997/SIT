@@ -266,7 +266,7 @@
                                 Bloqueo de vehículo
                             =================================================== -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="v-bloqueo-vehiculo" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Bloqueo de vehículo</p>
                             </a>
@@ -300,6 +300,19 @@
                                 <p>Vehículos</p>
                             </a>
                         </li>
+
+                        <!-- ===================================================
+                                FUEC
+                            =================================================== -->
+                        <li class="nav-item">
+                           <a href="v-fuec" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>FUEC</p>
+                            </a>
+                        </li>
+
+
+
                     </ul>
                 </li>
 
