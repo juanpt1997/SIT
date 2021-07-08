@@ -671,3 +671,108 @@ class ModeloBloqueoP
         return $retorno;
     }
 }
+
+/* ===================================================
+   * BLOQUEO DE VEHICULOS
+===================================================*/
+class ModeloBloqueoV
+{
+    static public function mdlUltimoBloqueoV($value){
+
+        if($value != null){
+
+            $stmt = Conexion::conectar()->prepare(" SELECT b.*, v.placa
+                                                    FROM v_bloqueovehiculo b
+                                                    INNER JOIN v_vehiculos v ON v.idvehiculo = b.idvehiculo
+                                                    INNER JOIN 
+                                                     (
+                                                    SELECT MAX(idbloqueov) AS idbloqueov
+                                                    FROM v_bloqueovehiculo
+                                                    GROUP BY idvehiculo) 
+                                                     T ON b.idbloqueov = T.idbloqueov
+                                                     WHERE v.idvehiculo = :vehiculo");
+
+            $stmt->bindParam(":vehiculo",  $value, PDO::PARAM_INT);
+            $stmt->execute();
+            $retorno =  $stmt->fetch();
+
+        }else {
+
+            $stmt = Conexion::conectar()->prepare(" SELECT b.*, v.placa
+                                                    FROM v_bloqueovehiculo b
+                                                    INNER JOIN v_vehiculos v ON v.idvehiculo = b.idvehiculo
+                                                    INNER JOIN 
+                                                     (
+                                                    SELECT MAX(idbloqueov) AS idbloqueov
+                                                    FROM v_bloqueovehiculo
+                                                    GROUP BY idvehiculo) 
+                                                     T ON b.idbloqueov = T.idbloqueov");
+
+            $stmt->execute();
+            $retorno = $stmt->fetchAll();            
+        }
+
+        $stmt->closeCursor();
+            return $retorno; 
+    }
+
+    static public function mdlMostrarPlaca($value){
+
+        $stmt = Conexion::conectar()->prepare("SELECT v.placa AS placa 
+                                                FROM v_bloqueovehiculo b
+                                                INNER JOIN v_vehiculos v ON v.idvehiculo = b.idvehiculo
+                                                WHERE b.idvehiculo = :idve
+                                                GROUP BY b.idvehiculo");
+        
+        $stmt->bindParam(":idve",  $value, PDO::PARAM_INT);
+        $stmt->execute();
+        $retorno =  $stmt->fetch();
+        $stmt->closeCursor();
+        return $retorno;
+
+    }
+
+    static public function mdlNuevoBloqueoV($datos){
+
+        $stmt = Conexion::conectar()->prepare("INSERT INTO v_bloqueovehiculo(idvehiculo,motivo,estado,fecha,usuario)
+                                                VALUES(:idvehiculo,:motivo,:estado,:fecha,:usuario)");
+
+        $stmt->bindParam(":idvehiculo", $datos["vehiculo"], PDO::PARAM_INT);
+        $stmt->bindParam(":motivo", $datos["motivobv"], PDO::PARAM_STR);
+        $stmt->bindParam(":estado", $datos["estadobloqueov"], PDO::PARAM_INT);
+        $stmt->bindParam(":fecha", $datos["fecha_des"], PDO::PARAM_STR);
+        $stmt->bindParam(":usuario", $datos["cedula"], PDO::PARAM_INT);
+        
+        if ($stmt->execute()) {
+           
+            $retorno = "ok";
+        
+        } else {
+            
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    static public function mdlHistorialV($value){
+
+        $stmt = Conexion::conectar()->prepare("     SELECT b.*, v.placa AS placa
+                                                    FROM v_bloqueovehiculo b
+                                                    INNER JOIN v_vehiculos v ON v.idvehiculo = b.idvehiculo
+                                                    WHERE b.idvehiculo = :vehiculo
+                                                    ORDER BY b.idvehiculo DESC
+                                                ");
+
+        $stmt->bindParam(":vehiculo",  $value, PDO::PARAM_INT);
+        $stmt->execute();
+        $retorno =  $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }    
+
+
+}

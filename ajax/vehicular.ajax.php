@@ -46,11 +46,11 @@ class AjaxBloqueoPersonal
             
             if( $value['estado'] == 1){
 
-                $estado = "Desbloqueado";
+                $estado = "<span class='badge badge-success'>Desbloqueado</span>";
 
             } else {
 
-                $estado = "Bloqueado";
+                $estado = "<span class='badge badge-danger'>Bloqueado</span>";
             }
 
                                              
@@ -82,6 +82,59 @@ class AjaxBloqueoPersonal
         echo json_encode($respuesta);
     }	
 }
+
+/* ===================================================
+   * BLOQUEO DE VEHICULO
+===================================================*/
+class AjaxBloqueoVehiculo
+{
+    static public function ajaxMostrarPLaca($id)
+    {
+        $respuesta = ControladorBloqueosV::ctrMostrarPlaca($id);
+        echo json_encode($respuesta);
+    }
+
+    static public function ajaxDatosBloqueoV($idpersonal)
+    {
+        $respuesta = ModeloBloqueoV::mdlUltimoBloqueoV($idpersonal);
+        echo json_encode($respuesta);
+    }
+
+    static public function ajaxHistorialV($id)
+    {
+        $respuesta = ControladorBloqueosV::ctrHistorialV($id);
+        $tr = "";
+        foreach ($respuesta as $key => $value) {
+
+            
+            if( $value['estado'] == 1){
+
+                $estado = "<span class='badge badge-success'>Desbloqueado</span>";
+
+            } else {
+
+                $estado = "<span class='badge badge-danger'>Bloqueado</span>";
+            }
+
+                                             
+
+            $tr .= "
+                <tr>
+                    <td>" . $value['idbloqueov'] . "</td>
+                    <td>" . $value['placa'] . "</td>
+                    <td>" . $value['motivo'] . "</td>
+                    <td><b>" . $estado . "</b></td>
+                    <td>" . $value['fecha'] . "</td>
+                    <td>" . $value['usuario'] . "</td>
+                </tr>
+            ";
+        }
+
+        echo $tr;
+    }   
+
+}
+
 
 /* ===================================================
    * VEHICULOS
@@ -351,6 +404,21 @@ if (isset($_POST['ajaxMostrarConductor']) && $_POST['ajaxMostrarConductor'] == "
 if (isset($_POST['DatosBloqueo']) && $_POST['DatosBloqueo'] == "ok") {
     AjaxBloqueoPersonal::ajaxDatosBloqueo($_POST['idPersonal']);
 }
+
+#LLAMADOS AJAX BLOQUEO DE VEHICULOS
+if (isset($_POST['ajaxMostrarPlaca']) && $_POST['ajaxMostrarPlaca'] == "ok") {
+    AjaxBloqueoVehiculo::ajaxMostrarPLaca($_POST['idvehiculo']);
+}
+
+if (isset($_POST['DatosBloqueoV']) && $_POST['DatosBloqueoV'] == "ok") {
+    AjaxBloqueoVehiculo::ajaxDatosBloqueoV($_POST['idvehiculo']);
+}
+
+if (isset($_POST['ajaxHistorialV']) && $_POST['ajaxHistorialV'] == "ok") {
+    AjaxBloqueoVehiculo::ajaxHistorialV($_POST['idvehiculo']);
+}
+
+    
 
 
 # LLAMADOS A AJAX VEHICULOS

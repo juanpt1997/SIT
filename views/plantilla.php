@@ -128,7 +128,9 @@
                     $ruta == "v-vehiculos" ||
                     $ruta == "v-convenios" ||
                     $ruta == "v-propietarios"||
-                    $ruta == "v-bloqueo-personal"
+                    $ruta == "v-bloqueo-personal"||
+                    $ruta == "v-bloqueo-vehiculo"||
+                    $ruta == "v-fuec"
                 ) {
                     include "modulos/vehicular/{$ruta}.php";
                 }
