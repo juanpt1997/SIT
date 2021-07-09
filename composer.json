@@ -1,5 +1,8 @@
 {
     "require": {
-        "fpdf/fpdf": "^1.83"
+        "phpmailer/phpmailer": "^6.0",
+        "fpdf/fpdf": "^1.82",
+        "tecnickcom/tcpdf": "^6.3",
+        "phpoffice/phpspreadsheet": "^1.15"
     }
 }
