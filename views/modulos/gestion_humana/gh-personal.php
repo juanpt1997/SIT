@@ -93,6 +93,11 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 } else {
                                     $foto = '<img src="views/img/fotosUsuarios/default/anonymous.png" class="img-fluid" width="35">';
                                 }
+
+                                # Botón Acciones
+                                $btnEditar = "<button type='button' class='btn btn-info btn-sm m-1 btn-editarPersonal' idPersonal='{$value['idPersonal']}' data-toggle='modal' data-target='#PersonalModal'><i class='fas fa-edit'></i></button>";
+                                $btnFichaTecnica = "<button type='button' class='btn btn-secondary btn-sm m-1 btn-FTConductor' idPersonal='{$value['idPersonal']}'><i class='fas fa-book'></i></button>";
+                                $botonAcciones = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnEditar . $btnFichaTecnica . "</div>";
                                 ?>
                                 <tr>
                                     <td><?= $value['idPersonal'] ?></td>
@@ -105,7 +110,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     <td><?= $value['correo'] ?></td>
                                     <td><?= $value['tipo_sangre'] ?></td>
                                     <td><?= $activo ?></td>
-                                    <td><button type="button" class="btn btn-info btn-editarPersonal" idPersonal="<?= $value['idPersonal'] ?>" data-toggle="modal" data-target="#PersonalModal"><i class="fas fa-edit"></i></button></td>
+                                    <td><?= $botonAcciones ?></td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
