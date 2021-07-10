@@ -67,7 +67,7 @@ class AjaxPersonal
                 <tr>
                         <td>" . $value['Nombre'] . "</td>
                         <td>" . $value['fecha_nacimiento'] . "</td>
-                        <td>" . $value['edad'] . "</td>
+                        <td>" . $value['edadCalculada'] . "</td>
                         <td>" . $value['genero'] . "</td>
                         <td>$btnEliminar</td>
                 </tr>

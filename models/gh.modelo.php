@@ -19,7 +19,12 @@ class ModeloGH
         switch ($value) {
             # todo el personal
             case "todo":
-                $sql = "SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, d.nombre AS Departamento, s.sucursal AS Sucursal, l.nro_licencia, l.categoria, l.fecha_vencimiento
+                $sql = "SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, d.nombre AS Departamento, s.sucursal AS Sucursal, l.nro_licencia, l.categoria, l.fecha_vencimiento, 
+                                (case (YEAR(NOW()) - YEAR(p.fecha_nacimiento))
+                                when 0
+                                then 1
+                                ELSE (YEAR(NOW()) - YEAR(p.fecha_nacimiento))
+                                END) AS edadCalculada
                             FROM gh_personal p
                             LEFT JOIN gh_municipios e ON e.idmunicipio = p.lugar_expedicion
                             LEFT JOIN gh_municipios n ON n.idmunicipio = p.lugar_nacimiento
@@ -41,7 +46,12 @@ class ModeloGH
 
             # Personal activo
             case "activos":
-                $sql = "SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, d.nombre AS Departamento, s.sucursal AS Sucursal, l.nro_licencia, l.categoria, l.fecha_vencimiento
+                $sql = "SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, d.nombre AS Departamento, s.sucursal AS Sucursal, l.nro_licencia, l.categoria, l.fecha_vencimiento, 
+                                (case (YEAR(NOW()) - YEAR(p.fecha_nacimiento))
+                                when 0
+                                then 1
+                                ELSE (YEAR(NOW()) - YEAR(p.fecha_nacimiento))
+                                END) AS edadCalculada
                             FROM gh_personal p
                             LEFT JOIN gh_municipios e ON e.idmunicipio = p.lugar_expedicion
                             LEFT JOIN gh_municipios n ON n.idmunicipio = p.lugar_nacimiento
@@ -325,7 +335,12 @@ class ModeloGH
     static public function mdlDatosEmpleado($datos)
     {
         //$stmt = Conexion::conectar()->prepare("SELECT * FROM gh_personal WHERE idPersonal = :idPersonal");
-        $stmt = Conexion::conectar()->prepare("SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, s.sucursal AS Sucursal, l.nro_licencia, l.categoria, l.fecha_vencimiento, l.ruta_documento
+        $stmt = Conexion::conectar()->prepare("SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, s.sucursal AS Sucursal, l.nro_licencia, l.categoria, l.fecha_vencimiento, l.ruta_documento, 
+                                                    (case (YEAR(NOW()) - YEAR(p.fecha_nacimiento))
+                                                    when 0
+                                                    then 1
+                                                    ELSE (YEAR(NOW()) - YEAR(p.fecha_nacimiento))
+                                                    END) AS edadCalculada
                                                 FROM gh_personal p
                                                 LEFT JOIN gh_municipios e ON e.idmunicipio = p.lugar_expedicion
                                                 LEFT JOIN gh_municipios n ON n.idmunicipio = p.lugar_nacimiento
@@ -405,7 +420,13 @@ class ModeloGH
     ===================================================*/
     static public function mdlMostrarHijos($idPersonal)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM gh_re_personalhijos WHERE idPersonal = :idPersonal");
+        $stmt = Conexion::conectar()->prepare("SELECT *, 
+                                                    (case (YEAR(NOW()) - YEAR(fecha_nacimiento))
+                                                    when 0
+                                                    then 1
+                                                    ELSE (YEAR(NOW()) - YEAR(fecha_nacimiento))
+                                                    END) AS edadCalculada 
+                                                FROM gh_re_personalhijos WHERE idPersonal = :idPersonal");
 
         $stmt->bindParam(":idPersonal", $idPersonal, PDO::PARAM_INT);
 

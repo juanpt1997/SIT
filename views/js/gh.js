@@ -143,7 +143,7 @@ if (
         ===================================================*/
         $(document).on("click", ".btn-agregarPersonal", function () {
             $("#titulo-modal-personal").html("Nuevo");
-            
+            $(".formulario").trigger("reset"); //reset formulario
             $("#idPersonal").val(""); //reset id personal
             $('.select2-single').trigger('change'); //reset select2
             $('.previsualizar').attr('src', 'views/img/fotosUsuarios/default/anonymous.png'); //reset foto
@@ -199,7 +199,7 @@ if (
                         $(`.consentimiento_informado[value='${response.consentimiento_informado}']`).iCheck('check');
                         $("#fecha_nacimiento").val(response.fecha_nacimiento);
                         $("#lugar_nacimiento").val(response.lugar_nacimiento);
-                        $("#edad").val(response.edad);
+                        $("#edad").val(response.edadCalculada);
                         $("#lugar_residencia").val(response.lugar_residencia);
                         $("#direccion").val(response.direccion);
                         $("#barrio").val(response.barrio);
