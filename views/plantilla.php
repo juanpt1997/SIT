@@ -134,11 +134,13 @@
                 ) {
                     include "modulos/vehicular/{$ruta}.php";
                 }
-                # TEMPORAL PARA REVISAR MODULO DE CARLOS
                 else if (
-                    $ruta == "mv-vehiculos"
+                    $ruta == "cg-gestion-humana"||
+                    $ruta == "cg-vehicular"||
+                    $ruta == "cg-mantenimiento"
+
                 ) {
-                    include "modulos/modulo_vehiculos/{$ruta}.php";
+                    include "modulos/conceptos_generales/{$ruta}.php";
                 }
                  else { # Página no válida
                     include "includes/error404.php";
