@@ -119,7 +119,7 @@ $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
                                         foreach ($empleado['hijos'] as $key2 => $hijo) {
                                             $tdHijos .= "<td>{$hijo['Nombre']}</td>";
                                             $tdHijos .= "<td>{$hijo['fecha_nacimiento']}</td>";
-                                            $tdHijos .= "<td>{$hijo['edad']}</td>";
+                                            $tdHijos .= "<td>{$hijo['edadCalculada']}</td>";
                                             $tdHijos .= "<td>{$hijo['genero']}</td>";
                                             $contadorHijos++;
                                         }
@@ -143,7 +143,7 @@ $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
                                     <td><?= $empleado['lugarExpedicion'] ?></td>
                                     <td><?= $empleado['fecha_nacimiento'] ?></td>
                                     <td><?= $empleado['lugarNacimiento'] ?></td>
-                                    <td><?= $empleado['edad'] ?></td>
+                                    <td><?= $empleado['edadCalculada'] ?></td>
                                     <td><?= $empleado['lugarResidencia'] ?></td>
                                     <td><?= $empleado['direccion'] ?></td>
                                     <td><?= $empleado['barrio'] ?></td>
