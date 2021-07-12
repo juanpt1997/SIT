@@ -23,7 +23,7 @@ class ModeloGH
                                 (case (YEAR(NOW()) - YEAR(p.fecha_nacimiento))
                                 when 0
                                 then 1
-                                ELSE (YEAR(NOW()) - YEAR(p.fecha_nacimiento))
+                                ELSE (YEAR(NOW()) - YEAR(p.fecha_nacimiento) + IF(DATE_FORMAT(CURDATE(), '%m-%d') > DATE_FORMAT(p.fecha_nacimiento,'%m-%d'), 0 , -1))
                                 END) AS edadCalculada
                             FROM gh_personal p
                             LEFT JOIN gh_municipios e ON e.idmunicipio = p.lugar_expedicion
@@ -50,7 +50,7 @@ class ModeloGH
                                 (case (YEAR(NOW()) - YEAR(p.fecha_nacimiento))
                                 when 0
                                 then 1
-                                ELSE (YEAR(NOW()) - YEAR(p.fecha_nacimiento))
+                                ELSE (YEAR(NOW()) - YEAR(p.fecha_nacimiento) + IF(DATE_FORMAT(CURDATE(), '%m-%d') > DATE_FORMAT(p.fecha_nacimiento,'%m-%d'), 0 , -1))
                                 END) AS edadCalculada
                             FROM gh_personal p
                             LEFT JOIN gh_municipios e ON e.idmunicipio = p.lugar_expedicion
@@ -339,7 +339,7 @@ class ModeloGH
                                                     (case (YEAR(NOW()) - YEAR(p.fecha_nacimiento))
                                                     when 0
                                                     then 1
-                                                    ELSE (YEAR(NOW()) - YEAR(p.fecha_nacimiento))
+                                                    ELSE (YEAR(NOW()) - YEAR(p.fecha_nacimiento) + IF(DATE_FORMAT(CURDATE(), '%m-%d') > DATE_FORMAT(p.fecha_nacimiento,'%m-%d'), 0 , -1))
                                                     END) AS edadCalculada
                                                 FROM gh_personal p
                                                 LEFT JOIN gh_municipios e ON e.idmunicipio = p.lugar_expedicion
@@ -424,7 +424,7 @@ class ModeloGH
                                                     (case (YEAR(NOW()) - YEAR(fecha_nacimiento))
                                                     when 0
                                                     then 1
-                                                    ELSE (YEAR(NOW()) - YEAR(fecha_nacimiento))
+                                                    ELSE (YEAR(NOW()) - YEAR(fecha_nacimiento) + IF(DATE_FORMAT(CURDATE(), '%m-%d') > DATE_FORMAT(fecha_nacimiento,'%m-%d'), 0 , -1))
                                                     END) AS edadCalculada 
                                                 FROM gh_re_personalhijos WHERE idPersonal = :idPersonal");
 
