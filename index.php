@@ -21,6 +21,8 @@ require_once 'controllers/gh.controlador.php';
 require_once 'controllers/files.controlador.php';
 require_once 'controllers/vehicular.controlador.php';
 require_once 'controllers/mv.controlador.php'; # TEMPORAL PARA REVISAR MODULO DE CARLOS
+require_once 'controllers/conceptos.controlador.php';
+
 
 /* ===================================================
    MODELOS DEL PROYECTO QUE REQUERIMOS
@@ -29,6 +31,8 @@ require_once 'models/usuarios.modelo.php';
 require_once 'models/gh.modelo.php';
 require_once 'models/vehicular.modelo.php';
 require_once 'models/mv.modelo.php'; # TEMPORAL PARA REVISAR MODULO DE CARLOS
+require_once 'models/conceptos.modelo.php';
+
 
 $plantilla = new ControladorPlantilla();
 $plantilla->ctrTraerPlantilla();

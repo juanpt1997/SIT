@@ -95,7 +95,7 @@
                                 Seguridad
                             =================================================== -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="cg-seguridad" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Seguridad</p>
                             </a>

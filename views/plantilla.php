@@ -137,7 +137,8 @@
                 else if (
                     $ruta == "cg-gestion-humana"||
                     $ruta == "cg-vehicular"||
-                    $ruta == "cg-mantenimiento"
+                    $ruta == "cg-mantenimiento"||
+                    $ruta == "cg-seguridad"
 
                 ) {
                     include "modulos/conceptos_generales/{$ruta}.php";
@@ -173,6 +174,7 @@
     <script src="<?= URL_APP ?>views/js/usuarios.js?v=<?= time() ?>"></script>
     <script src="<?= URL_APP ?>views/js/gh.js?v=<?= time() ?>"></script>
     <script src="<?= URL_APP ?>views/js/vehicular.js?v=<?= time() ?>"></script>
+    <script src="<?= URL_APP ?>views/js/conceptos.js?v=<?= time() ?>"></script>
 
 </body>
 
