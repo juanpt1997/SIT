@@ -58,36 +58,36 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-building"></i>
                         <p>
-                            Información empresa
+                            Conceptos generales
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <!-- ===================================================
-                                Definiciones generales
+                                Gestión humana
                             =================================================== -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="cg-gestion-humana" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Definiciones generales</p>
+                                <p>Gestión humana</p>
                             </a>
                         </li>
                         <!-- ===================================================
-                                Definiciones de vehículos
+                                Vehicular
                             =================================================== -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="cg-vehicular" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Definiciones de vehículos</p>
+                                <p>Vehicular</p>
                             </a>
                         </li>
                         <!-- ===================================================
-                                Parámetros de mantenimiento
+                                Mantenimiento
                             =================================================== -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="cg-mantenimiento" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Parámetros de mantenimiento</p>
+                                <p>Mantenimiento</p>
                             </a>
                         </li>
 
@@ -95,7 +95,7 @@
                                 Seguridad
                             =================================================== -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="cg-seguridad" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Seguridad</p>
                             </a>

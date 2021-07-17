@@ -35,7 +35,7 @@
                         <div class="info-box border border-primary">
                             <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-building"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text font-weight-bold text-dark">Información empresa</span>
+                                <span class="info-box-text font-weight-bold text-dark">Conceptos generales</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>

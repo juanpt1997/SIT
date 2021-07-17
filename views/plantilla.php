@@ -134,11 +134,14 @@
                 ) {
                     include "modulos/vehicular/{$ruta}.php";
                 }
-                # TEMPORAL PARA REVISAR MODULO DE CARLOS
                 else if (
-                    $ruta == "mv-vehiculos"
+                    $ruta == "cg-gestion-humana"||
+                    $ruta == "cg-vehicular"||
+                    $ruta == "cg-mantenimiento"||
+                    $ruta == "cg-seguridad"
+
                 ) {
-                    include "modulos/modulo_vehiculos/{$ruta}.php";
+                    include "modulos/conceptos_generales/{$ruta}.php";
                 }
                  else { # Página no válida
                     include "includes/error404.php";
@@ -171,6 +174,7 @@
     <script src="<?= URL_APP ?>views/js/usuarios.js?v=<?= time() ?>"></script>
     <script src="<?= URL_APP ?>views/js/gh.js?v=<?= time() ?>"></script>
     <script src="<?= URL_APP ?>views/js/vehicular.js?v=<?= time() ?>"></script>
+    <script src="<?= URL_APP ?>views/js/conceptos.js?v=<?= time() ?>"></script>
 
 </body>
 
