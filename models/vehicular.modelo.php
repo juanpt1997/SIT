@@ -496,7 +496,7 @@ class ModeloVehiculos
     ===================================================*/
     static public function mdlDocumentosxVehiculo($idvehiculo)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT d.*, t.tipodocumento
+        $stmt = Conexion::conectar()->prepare("SELECT d.*, t.tipodocumento, DATE_FORMAT(fechafin, '%d/%m/%Y') AS Ffechafin
                                                 FROM v_re_documentosvehiculos d
                                                 INNER JOIN v_tipodocumento t ON t.idtipo = d.idtipodocumento
                                                 WHERE d.idvehiculo = :idvehiculo");

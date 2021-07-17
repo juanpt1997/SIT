@@ -5,7 +5,7 @@ if (!validarModulo('M_GESTION_HUMANA')) {
 }
 
 
-$Personal = ControladorGH::ctrListaPersonal();
+//$Personal = ControladorGH::ctrListaPersonal();
 $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 $Cargos = ControladorGH::ctrCargos();
 $Procesos = ControladorGH::ctrProcesos();
@@ -48,7 +48,7 @@ $Sucursales = ControladorGH::ctrSucursales();
             <!-- ===================================================
                 BOTON PARA AGREGAR NUEVO EMPLEADO
             =================================================== -->
-            <div class="row">
+            <div class="row d-none">
                 <div class="col">
                     <button type="button" class="btn btn-primary btn-agregarPersonal" data-toggle="modal" data-target="#PersonalModal">
                         <i class="fas fa-user-plus"></i> Nuevo
@@ -61,10 +61,13 @@ $Sucursales = ControladorGH::ctrSucursales();
             ========================= -->
             <div class="row mt-2">
                 <div class="col-12">
-                    <table class="table table-sm table-light table-striped table-bordered tablas dt-responsive w-100">
+                    <div id="spinnerTablaPersonal" class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>                                                                                                                                     
+                    <table id="tblPersonal" class="table table-sm text-sm table-light table-striped table-bordered tablas dt-responsive w-100">
                         <thead class="text-capitalize">
                             <tr>
-                                <th style="width:10px;">Id</th>
+                                <th style="min-width:40px;">Id</th>
                                 <th>Foto</th>
                                 <th>Nombre</th>
                                 <th>Documento</th>
@@ -77,42 +80,8 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <?php foreach ($Personal as $key => $value) : ?>
-                                <?php
-                                # Activo
-                                if ($value['activo'] == 'S') {
-                                    $activo = "<button class='btn btn-sm btn-success btnActivarPersonal' idPersonal='{$value['idPersonal']}' estado='S'>Activo</button>";
-                                } else {
-                                    $activo = "<button class='btn btn-sm btn-danger btnActivarPersonal' idPersonal='{$value['idPersonal']}' estado='N'>Inactivo</button>";
-                                }
-
-                                # Foto
-                                if ($value['foto'] != '') {
-                                    $foto = '<img src="' . $value['foto'] . '" class="img-fluid" width="35"></td>';
-                                } else {
-                                    $foto = '<img src="views/img/fotosUsuarios/default/anonymous.png" class="img-fluid" width="35">';
-                                }
-
-                                # Botón Acciones
-                                $btnEditar = "<button type='button' class='btn btn-info btn-sm m-1 btn-editarPersonal' idPersonal='{$value['idPersonal']}' data-toggle='modal' data-target='#PersonalModal'><i class='fas fa-edit'></i></button>";
-                                $btnFichaTecnica = "<button type='button' class='btn btn-secondary btn-sm m-1 btn-FTConductor' idPersonal='{$value['idPersonal']}'><i class='fas fa-book'></i></button>";
-                                $botonAcciones = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnEditar . $btnFichaTecnica . "</div>";
-                                ?>
-                                <tr>
-                                    <td><?= $value['idPersonal'] ?></td>
-                                    <td><?= $foto ?></td>
-                                    <td><?= $value['Nombre'] ?></td>
-                                    <td><?= $value['Documento'] ?></td>
-                                    <td><?= $value['direccion'] ?></td>
-                                    <td><?= $value['telefono1'] ?></td>
-                                    <td><?= $value['telefono2'] ?></td>
-                                    <td><?= $value['correo'] ?></td>
-                                    <td><?= $value['tipo_sangre'] ?></td>
-                                    <td><?= $activo ?></td>
-                                    <td><?= $botonAcciones ?></td>
-                                </tr>
-                            <?php endforeach ?>
+                        <tbody id="tbodyPersonal">
+                            
                         </tbody>
                     </table>
                 </div><!-- col -->

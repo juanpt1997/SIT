@@ -4,7 +4,7 @@ if (!validarModulo('M_GESTION_HUMANA')) {
     echo "<script> window.location = '" . URL_APP . "'; </script>";
 }
 
-$PerfilSD = ControladorGH::ctrMostrarPerfilSD();
+//$PerfilSD = ControladorGH::ctrMostrarPerfilSD();
 $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
 
 ?>
@@ -41,147 +41,69 @@ $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
                 TABLA PERFIL SOCIODEMOGRAFICO
             ========================= -->
             <div class="row mt-2">
+                <div id="spinnerTablaPerfilSD" class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>       
                 <div class="col-12 table-responsive">
-                    <table class="table table-sm table-light table-striped table-bordered tablasBtnExport dt-responsive w-100">
-                        <thead class="text-capitalize text-sm text-nowrap">
+                    <table id="tblPerfilSD" class="table table-sm text-sm table-light table-striped table-bordered tablasBtnExport w-100">
+                        <thead class="text-capitalize text-nowrap" style="font-size: 13px;">
                             <tr>
-                                <th style="width:10px;">Id</th>
-                                <th>Consentimiento</th>
-                                <th>Nombre</th>
-                                <th>Fecha ingreso</th>
-                                <th>Tipo documento</th>
-                                <th>Documento</th>
-                                <th>Lugar exped.</th>
-                                <th>Fec. nacimiento</th>
-                                <th>Lugar nacim.</th>
-                                <th>Edad</th>
-                                <th>Lugar resid.</th>
-                                <th>Direccion</th>
-                                <th>Barrio</th>
-                                <th>Estrato social</th>
-                                <th>Telefono 1</th>
-                                <th>Telefono 2</th>
-                                <th>Correo</th>
-                                <th>Eps</th>
-                                <th>Afp</th>
-                                <th>Arl</th>
-                                <th>Escolaridad</th>
-                                <th>Raza</th>
-                                <th>Pago segur. social</th>
-                                <th>Cargo</th>
-                                <th>Turno trabajo</th>
-                                <th>Área</th>
-                                <th>Género</th>
-                                <th>Tipo sangre</th>
-                                <th>Salario básico</th>
-                                <th>Beneficio fijo</th>
-                                <th>Bonif. variable</th>
-                                <th>Tipo contrato</th>
-                                <th>Tipo vinculac.</th>
-                                <th>Antigüedad</th>
-                                <th>Años experiencia</th>
-                                <th>Tipo vivienda</th>
-                                <th>Estado civil</th>
-                                <th>Personas a cargo</th>
-                                <th>Ciudad</th>
-                                <th>Departamento</th>
-                                <th>Sucursal</th>
-                                <th>Número licencia</th>
-                                <th>Categoría</th>
-                                <th>Fecha vencim.</th>
+                                <th style="min-width:60px;">Id</th>
+                                <th style="min-width:60px;">Consentimiento</th>
+                                <th style="min-width:60px;">Nombre</th>
+                                <th style="min-width:60px;">Fecha ingreso</th>
+                                <th style="min-width:60px;">Tipo documento</th>
+                                <th style="min-width:60px;">Documento</th>
+                                <th style="min-width:60px;">Lugar exped.</th>
+                                <th style="min-width:60px;">Fec. nacimiento</th>
+                                <th style="min-width:60px;">Lugar nacim.</th>
+                                <th style="min-width:60px;">Edad</th>
+                                <th style="min-width:60px;">Lugar resid.</th>
+                                <th style="min-width:60px;">Direccion</th>
+                                <th style="min-width:60px;">Barrio</th>
+                                <th style="min-width:60px;">Estrato social</th>
+                                <th style="min-width:60px;">Telefono 1</th>
+                                <th style="min-width:60px;">Telefono 2</th>
+                                <th style="min-width:60px;">Correo</th>
+                                <th style="min-width:60px;">Eps</th>
+                                <th style="min-width:60px;">Afp</th>
+                                <th style="min-width:60px;">Arl</th>
+                                <th style="min-width:60px;">Escolaridad</th>
+                                <th style="min-width:60px;">Raza</th>
+                                <th style="min-width:60px;">Pago segur. social</th>
+                                <th style="min-width:60px;">Cargo</th>
+                                <th style="min-width:60px;">Turno trabajo</th>
+                                <th style="min-width:60px;">Área</th>
+                                <th style="min-width:60px;">Género</th>
+                                <th style="min-width:60px;">Tipo sangre</th>
+                                <th style="min-width:60px;">Salario básico</th>
+                                <th style="min-width:60px;">Beneficio fijo</th>
+                                <th style="min-width:60px;">Bonif. variable</th>
+                                <th style="min-width:60px;">Tipo contrato</th>
+                                <th style="min-width:60px;">Tipo vinculac.</th>
+                                <th style="min-width:60px;">Antigüedad</th>
+                                <th style="min-width:60px;">Años experiencia</th>
+                                <th style="min-width:60px;">Tipo vivienda</th>
+                                <th style="min-width:60px;">Estado civil</th>
+                                <th style="min-width:60px;">Personas a cargo</th>
+                                <th style="min-width:60px;">Ciudad</th>
+                                <th style="min-width:60px;">Departamento</th>
+                                <th style="min-width:60px;">Sucursal</th>
+                                <th style="min-width:60px;">Número licencia</th>
+                                <th style="min-width:60px;">Categoría</th>
+                                <th style="min-width:60px;">Fecha vencim.</th>
                                 <?php for ($i=0; $i < $CantidadColumnasHijos; $i++) : ?>
-                                    <th>Nombre hijo <?= $i + 1 ?></th>
-                                    <th>Fec. nacimiento</th>
-                                    <th>Edad</th>
-                                    <th>Género</th>
+                                    <th style="min-width:60px;">Nombre hijo <?= $i + 1 ?></th>
+                                    <th style="min-width:60px;">Fec. nacimiento</th>
+                                    <th style="min-width:60px;">Edad</th>
+                                    <th style="min-width:60px;">Género</th>
                                 <?php endfor ?>
-                                <th>Activo</th>
+                                <th style="min-width:60px;">Activo</th>
                             </tr>
                         </thead>
                         <span></span>
-                        <tbody class="text-sm">
-                            <?php foreach ($PerfilSD as $key => $empleado) : ?>
-                                <?php 
-                                    /* ===================================================
-                                       ACTIVO
-                                    ===================================================*/
-                                    $activo = $empleado['activo'] == "S" ? "<span class='badge badge-success'>Activo</span>" : "<span class='badge badge-danger'>Inactivo</span>";
-                                    /* ===================================================
-                                       CONSENTIMIENTO
-                                    ===================================================*/
-                                    $consentimiento = $empleado['consentimiento_informado'] == "S" ? "<span class='badge badge-success'>Si</span>" : "<span class='badge badge-secondary'>No</span>";
-                                    /* ===================================================
-                                       HIJOS
-                                    ===================================================*/
-                                    $tdHijos = "";
-                                    $contadorHijos = 0;
-                                    if (!empty($empleado['hijos'])){
-                                        foreach ($empleado['hijos'] as $key2 => $hijo) {
-                                            $tdHijos .= "<td>{$hijo['Nombre']}</td>";
-                                            $tdHijos .= "<td>{$hijo['fecha_nacimiento']}</td>";
-                                            $tdHijos .= "<td>{$hijo['edadCalculada']}</td>";
-                                            $tdHijos .= "<td>{$hijo['genero']}</td>";
-                                            $contadorHijos++;
-                                        }
-                                    }
-
-                                    // Completar los demas campos vacios
-                                    for ($i=$contadorHijos; $i < $CantidadColumnasHijos; $i++) { 
-                                        $tdHijos .= "<td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>";
-                                    }
-                                ?>
-                                <tr>
-                                    <td><?= $empleado['idPersonal'] ?></td>
-                                    <td class="text-lg"><?= $consentimiento ?></td>
-                                    <td><?= $empleado['Nombre'] ?></td>
-                                    <td><?= $empleado['fecha_ingreso'] ?></td>
-                                    <td><?= $empleado['tipo_doc'] ?></td>
-                                    <td><?= $empleado['Documento'] ?></td>
-                                    <td><?= $empleado['lugarExpedicion'] ?></td>
-                                    <td><?= $empleado['fecha_nacimiento'] ?></td>
-                                    <td><?= $empleado['lugarNacimiento'] ?></td>
-                                    <td><?= $empleado['edadCalculada'] ?></td>
-                                    <td><?= $empleado['lugarResidencia'] ?></td>
-                                    <td><?= $empleado['direccion'] ?></td>
-                                    <td><?= $empleado['barrio'] ?></td>
-                                    <td><?= $empleado['estrato_social'] ?></td>
-                                    <td><?= $empleado['telefono1'] ?></td>
-                                    <td><?= $empleado['telefono2'] ?></td>
-                                    <td><?= $empleado['correo'] ?></td>
-                                    <td><?= $empleado['Eps'] ?></td>
-                                    <td><?= $empleado['Afp'] ?></td>
-                                    <td><?= $empleado['Arl'] ?></td>
-                                    <td><?= $empleado['nivel_escolaridad'] ?></td>
-                                    <td><?= $empleado['raza'] ?></td>
-                                    <td><?= $empleado['pago_seguridadsocial'] ?></td>
-                                    <td><?= $empleado['Cargo'] ?></td>
-                                    <td><?= $empleado['turno_trabajo'] ?></td>
-                                    <td><?= $empleado['Proceso'] ?></td>
-                                    <td><?= $empleado['genero'] ?></td>
-                                    <td><?= $empleado['tipo_sangre'] ?></td>
-                                    <td><?= $empleado['salario_basico'] ?></td>
-                                    <td><?= $empleado['beneficio_fijo'] ?></td>
-                                    <td><?= $empleado['bonificacion_variable'] ?></td>
-                                    <td><?= $empleado['tipo_contrato'] ?></td>
-                                    <td><?= $empleado['tipo_vinculacion'] ?></td>
-                                    <td><?= $empleado['antiguedad'] ?></td>
-                                    <td><?= $empleado['anios_experiencia'] ?></td>
-                                    <td><?= $empleado['tipo_vivienda'] ?></td>
-                                    <td><?= $empleado['estado_civil'] ?></td>
-                                    <td><?= $empleado['dependientes'] ?></td>
-                                    <td><?= $empleado['Ciudad'] ?></td>
-                                    <td><?= $empleado['Departamento'] ?></td>
-                                    <td><?= $empleado['Sucursal'] ?></td>
-                                    <td><?= $empleado['nro_licencia'] ?></td>
-                                    <td><?= $empleado['categoria'] ?></td>
-                                    <td><?= $empleado['fecha_vencimiento'] ?></td>
-                                    <?= $tdHijos ?>
-                                    <td class="text-lg"><?= $activo ?></td>
-                                </tr>
-                            <?php endforeach ?>
+                        <tbody id="tbodyPerfilSD" style="font-size: 13px;">
+                            
                         </tbody>
                     </table>
                 </div><!-- col -->

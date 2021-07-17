@@ -358,7 +358,7 @@ class ControladorPagoSS
                 $retorno = "error";
             }
         } else {
-            #UPDATE
+            # UPDATE
             $update = ModeloPagoSS::mdlEditFechas($datos);
             if ($update == "ok") {
                 $retorno = "update";

@@ -15,6 +15,67 @@ require_once '../models/gh.modelo.php';
 class AjaxPersonal
 {
     /* ===================================================
+       TABLA PERSONAL
+    ===================================================*/
+    static public function ajaxTablaPersonal()
+    {
+        $respuestaBD = ControladorGH::ctrListaPersonal();
+        $tr = "";
+        foreach ($respuestaBD as $key => $value) {
+            # Activo
+            if ($value['activo'] == 'S') {
+                $activo = "<button class='btn btn-sm btn-success btnActivarPersonal' idPersonal='{$value['idPersonal']}' estado='S'>Activo</button>";
+            } else {
+                $activo = "<button class='btn btn-sm btn-danger btnActivarPersonal' idPersonal='{$value['idPersonal']}' estado='N'>Inactivo</button>";
+            }
+
+            # Foto
+            if ($value['foto'] != '') {
+                $foto = '<img src="' . $value['foto'] . '" class="img-fluid" width="35"></td>';
+            } else {
+                $foto = '<img src="views/img/fotosUsuarios/default/anonymous.png" class="img-fluid" width="35">';
+            }
+
+            # Botón Acciones
+            $btnEditar = "<button type='button' class='btn btn-info btn-sm m-1 btn-editarPersonal' idPersonal='{$value['idPersonal']}' data-toggle='modal' data-target='#PersonalModal'><i class='fas fa-edit'></i></button>";
+            $btnFichaTecnica = "<button type='button' class='btn btn-secondary btn-sm m-1 btn-FTConductor' idPersonal='{$value['idPersonal']}'><i class='fas fa-book'></i></button>";
+            $botonAcciones = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnEditar . $btnFichaTecnica . "</div>";
+
+            /* <tr>
+                                    <td><?= $value['idPersonal'] ?></td>
+                                    <td><?= $foto ?></td>
+                                    <td><?= $value['Nombre'] ?></td>
+                                    <td><?= $value['Documento'] ?></td>
+                                    <td><?= $value['direccion'] ?></td>
+                                    <td><?= $value['telefono1'] ?></td>
+                                    <td><?= $value['telefono2'] ?></td>
+                                    <td><?= $value['correo'] ?></td>
+                                    <td><?= $value['tipo_sangre'] ?></td>
+                                    <td><?= $activo ?></td>
+                                    <td><?= $botonAcciones ?></td>
+                                </tr> */
+
+            $tr .= "
+                <tr>
+                    <td>" . $value['idPersonal'] . "</td>
+                    <td>$foto</td>
+                    <td>" . $value['Nombre'] . "</td>
+                    <td>" . $value['Documento'] . "</td>
+                    <td>" . $value['direccion'] . "</td>
+                    <td>" . $value['telefono1'] . "</td>
+                    <td>" . $value['telefono2'] . "</td>
+                    <td>" . $value['correo'] . "</td>
+                    <td>" . $value['tipo_sangre'] . "</td>
+                    <td>$activo</td>
+                    <td>$botonAcciones</td>
+                </tr>
+            ";
+        }
+
+        echo $tr;
+    }
+
+    /* ===================================================
        GUARDAR DATOS DEL PERSONAL
     ===================================================*/
     static public function ajaxGuardarPersonal($formData, $foto)
@@ -398,6 +459,10 @@ class AjaxPersonal
 /* ===================================================
    LLAMADOS
 ===================================================*/
+if (isset($_POST['TablaPersonal']) && $_POST['TablaPersonal'] == "ok") {
+    AjaxPersonal::ajaxTablaPersonal();
+}
+
 if (isset($_POST['GuardarPersonal']) && $_POST['GuardarPersonal'] == "ok") {
     $foto = isset($_FILES['foto']) ? $_FILES['foto'] : "";
     AjaxPersonal::ajaxGuardarPersonal($_POST, $foto);
@@ -484,6 +549,159 @@ if (isset($_POST['CargarDocumento']) && $_POST['CargarDocumento'] == "ok") {
 
 if (isset($_POST['EliminarDocumento']) && $_POST['EliminarDocumento'] == "ok") {
     AjaxPersonal::ajaxEliminarDocumento($_POST['idregistro'], $_POST['tipoDoc']);
+}
+
+/* ===================================================
+   * PERFIL SOCIODEMOGRAFICO
+===================================================*/
+class AjaxPerfilSD
+{
+    /* ===================================================
+       TABLA PERFIL SOCIODEMOGRAFICO
+    ===================================================*/
+    static public function ajaxTablaPerfilSD()
+    {
+        $respuestaBD = ControladorGH::ctrMostrarPerfilSD();
+        $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
+        $tr = "";
+        foreach ($respuestaBD as $key => $value) {
+            /* ===================================================
+                ACTIVO
+            ===================================================*/
+            $activo = $value['activo'] == "S" ? "<span class='badge badge-success'>Activo</span>" : "<span class='badge badge-danger'>Inactivo</span>";
+            /* ===================================================
+                CONSENTIMIENTO
+            ===================================================*/
+            $consentimiento = $value['consentimiento_informado'] == "S" ? "<span class='badge badge-success'>Si</span>" : "<span class='badge badge-secondary'>No</span>";
+            /* ===================================================
+                HIJOS
+            ===================================================*/
+            $tdHijos = "";
+            $contadorHijos = 0;
+            if (!empty($value['hijos'])) {
+                foreach ($value['hijos'] as $key2 => $hijo) {
+                    $tdHijos .= "<td>{$hijo['Nombre']}</td>";
+                    $tdHijos .= "<td>{$hijo['fecha_nacimiento']}</td>";
+                    $tdHijos .= "<td>{$hijo['edadCalculada']}</td>";
+                    $tdHijos .= "<td>{$hijo['genero']}</td>";
+                    $contadorHijos++;
+                }
+            }
+            // Completar los demas campos vacios
+            for ($i = $contadorHijos; $i < $CantidadColumnasHijos; $i++) {
+                $tdHijos .= "<td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>";
+            }
+            /* <tr>
+                                    <td><?= $empleado['idPersonal'] ?></td>
+                                    <td class="text-lg"><?= $consentimiento ?></td>
+                                    <td><?= $empleado['Nombre'] ?></td>
+                                    <td><?= $empleado['fecha_ingreso'] ?></td>
+                                    <td><?= $empleado['tipo_doc'] ?></td>
+                                    <td><?= $empleado['Documento'] ?></td>
+                                    <td><?= $empleado['lugarExpedicion'] ?></td>
+                                    <td><?= $empleado['fecha_nacimiento'] ?></td>
+                                    <td><?= $empleado['lugarNacimiento'] ?></td>
+                                    <td><?= $empleado['edadCalculada'] ?></td>
+                                    <td><?= $empleado['lugarResidencia'] ?></td>
+                                    <td><?= $empleado['direccion'] ?></td>
+                                    <td><?= $empleado['barrio'] ?></td>
+                                    <td><?= $empleado['estrato_social'] ?></td>
+                                    <td><?= $empleado['telefono1'] ?></td>
+                                    <td><?= $empleado['telefono2'] ?></td>
+                                    <td><?= $empleado['correo'] ?></td>
+                                    <td><?= $empleado['Eps'] ?></td>
+                                    <td><?= $empleado['Afp'] ?></td>
+                                    <td><?= $empleado['Arl'] ?></td>
+                                    <td><?= $empleado['nivel_escolaridad'] ?></td>
+                                    <td><?= $empleado['raza'] ?></td>
+                                    <td><?= $empleado['pago_seguridadsocial'] ?></td>
+                                    <td><?= $empleado['Cargo'] ?></td>
+                                    <td><?= $empleado['turno_trabajo'] ?></td>
+                                    <td><?= $empleado['Proceso'] ?></td>
+                                    <td><?= $empleado['genero'] ?></td>
+                                    <td><?= $empleado['tipo_sangre'] ?></td>
+                                    <td><?= $empleado['salario_basico'] ?></td>
+                                    <td><?= $empleado['beneficio_fijo'] ?></td>
+                                    <td><?= $empleado['bonificacion_variable'] ?></td>
+                                    <td><?= $empleado['tipo_contrato'] ?></td>
+                                    <td><?= $empleado['tipo_vinculacion'] ?></td>
+                                    <td><?= $empleado['antiguedad'] ?></td>
+                                    <td><?= $empleado['anios_experiencia'] ?></td>
+                                    <td><?= $empleado['tipo_vivienda'] ?></td>
+                                    <td><?= $empleado['estado_civil'] ?></td>
+                                    <td><?= $empleado['dependientes'] ?></td>
+                                    <td><?= $empleado['Ciudad'] ?></td>
+                                    <td><?= $empleado['Departamento'] ?></td>
+                                    <td><?= $empleado['Sucursal'] ?></td>
+                                    <td><?= $empleado['nro_licencia'] ?></td>
+                                    <td><?= $empleado['categoria'] ?></td>
+                                    <td><?= $empleado['fecha_vencimiento'] ?></td>
+                                    <?= $tdHijos ?>
+                                    <td class="text-lg"><?= $activo ?></td>
+                                </tr> */
+
+            // Llenado de la tabla
+            $tr .= "
+                <tr>
+                    <td>" . $value['idPersonal'] . "</td>
+                    <td class='text-lg'>$consentimiento</td>
+                    <td>" . $value['Nombre'] . "</td>
+                    <td>" . $value['fecha_ingreso'] . "</td>
+                    <td>" . $value['tipo_doc'] . "</td>
+                    <td>" . $value['Documento'] . "</td>
+                    <td>" . $value['lugarExpedicion'] . "</td>
+                    <td>" . $value['fecha_nacimiento'] . "</td>
+                    <td>" . $value['lugarNacimiento'] . "</td>
+                    <td>" . $value['edadCalculada'] . "</td>
+                    <td>" . $value['lugarResidencia'] . "</td>
+                    <td>" . $value['direccion'] . "</td>
+                    <td>" . $value['barrio'] . "</td>
+                    <td>" . $value['estrato_social'] . "</td>
+                    <td>" . $value['telefono1'] . "</td>
+                    <td>" . $value['telefono2'] . "</td>
+                    <td>" . $value['correo'] . "</td>
+                    <td>" . $value['Eps'] . "</td>
+                    <td>" . $value['Afp'] . "</td>
+                    <td>" . $value['Arl'] . "</td>
+                    <td>" . $value['nivel_escolaridad'] . "</td>
+                    <td>" . $value['raza'] . "</td>
+                    <td>" . $value['pago_seguridadsocial'] . "</td>
+                    <td>" . $value['Cargo'] . "</td>
+                    <td>" . $value['turno_trabajo'] . "</td>
+                    <td>" . $value['Proceso'] . "</td>
+                    <td>" . $value['genero'] . "</td>
+                    <td>" . $value['tipo_sangre'] . "</td>
+                    <td>" . $value['salario_basico'] . "</td>
+                    <td>" . $value['beneficio_fijo'] . "</td>
+                    <td>" . $value['bonificacion_variable'] . "</td>
+                    <td>" . $value['tipo_contrato'] . "</td>
+                    <td>" . $value['tipo_vinculacion'] . "</td>
+                    <td>" . $value['antiguedad'] . "</td>
+                    <td>" . $value['anios_experiencia'] . "</td>
+                    <td>" . $value['tipo_vivienda'] . "</td>
+                    <td>" . $value['estado_civil'] . "</td>
+                    <td>" . $value['dependientes'] . "</td>
+                    <td>" . $value['Ciudad'] . "</td>
+                    <td>" . $value['Departamento'] . "</td>
+                    <td>" . $value['Sucursal'] . "</td>
+                    <td>" . $value['nro_licencia'] . "</td>
+                    <td>" . $value['categoria'] . "</td>
+                    <td>" . $value['fecha_vencimiento'] . "</td>
+                    $tdHijos
+                    <td class='text-lg'>$activo</td>
+                </tr>
+            ";
+        }
+
+        echo $tr;
+    }
+}
+
+if (isset($_POST['TablaPerfilSD']) && $_POST['TablaPerfilSD'] == "ok") {
+    AjaxPerfilSD::ajaxTablaPerfilSD();
 }
 
 /* ===================================================
@@ -577,6 +795,6 @@ class AjaxAusentismo
 /* ===================================================
    ! LLAMADOS PAGO SEGURIDAD SOCIAL
 ===================================================*/
-if (isset($_POST['DatosAusentismo']) && $_POST['DatosAusentismo'] == "ok"){
+if (isset($_POST['DatosAusentismo']) && $_POST['DatosAusentismo'] == "ok") {
     AjaxAusentismo::ajaxDatosAusentismo($_POST['idAusentismo']);
 }
