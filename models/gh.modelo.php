@@ -697,8 +697,8 @@ class ModeloPagoSS
     static public function mdlLlenarPagosxEmpleados($idFechas)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("INSERT INTO gh_re_personalsegursoc (idPersonal, idFechas)
-                                    SELECT idPersonal, :idFechas
+        $stmt = $conexion->prepare("INSERT INTO gh_re_personalsegursoc (idPersonal, idFechas, pago)
+                                    SELECT idPersonal, :idFechas, IF(pago_seguridadsocial = 'Por la empresa', 'S', 'N')
                                     FROM gh_personal WHERE activo = 'S';");
 
         $stmt->bindParam(":idFechas", $idFechas, PDO::PARAM_INT);

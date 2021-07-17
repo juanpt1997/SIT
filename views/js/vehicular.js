@@ -1107,6 +1107,12 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
             })
         });
 
-
+        /* ===================================================
+            FICHA TÉCNICA VEHICULO - BOTON PARA GENERAR PDF
+        ===================================================*/
+        $(document).on("click", ".btn-FTVehiculo", function () {
+            var idvehiculo = $(this).attr("idvehiculo");
+            window.open(`./pdf/pdfvehiculo.php?idvehiculo=${idvehiculo}`, '', 'width=1280,height=720,left=50,top=50,toolbar=yes');
+        });
     });
 }

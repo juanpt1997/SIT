@@ -49,6 +49,70 @@ let tabsConfigGH = {
 };
 
 /* ===================================================
+    TABLA DINAMICA (PARA EL PERSONAL Y PARA EL PERFIL SD)
+===================================================*/
+let mostrarDatatableGH = (nombreTabla, buttons) => {
+    // Agregar spinner
+    $(`#spinnerTabla${nombreTabla}`).removeClass("d-none");
+    // Quitar datatable
+    $(`#tbl${nombreTabla}`).dataTable().fnDestroy();
+    // Borrar datos
+    $(`#tbody${nombreTabla}`).html("");
+
+    var datos = new FormData();
+    datos.append(`Tabla${nombreTabla}`, "ok");
+    $.ajax({
+        type: 'post',
+        url: `${urlPagina}ajax/gh.ajax.php`,
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            // Quitar spinner
+            $(`#spinnerTabla${nombreTabla}`).addClass("d-none");
+
+            /* ===================================================
+                LLENAR EL TBODY
+            ===================================================*/
+            if (response != '' || response != null) {
+                $(`#tbody${nombreTabla}`).html(response);
+            } else {
+                $(`#tbody${nombreTabla}`).html('');
+            }
+
+            /* ===================================================
+              FILTRAR POR COLUMNA
+            ===================================================*/
+            /* Filtrar por columna */
+            //Clonar el tr del thead
+            $(`#tbl${nombreTabla} thead tr`).clone(true).appendTo(`#tbl${nombreTabla} thead`);
+            //Por cada th creado hacer lo siguiente
+            $(`#tbl${nombreTabla} thead tr:eq(1) th`).each(function (i) {
+                //Remover clase sorting y el evento que tiene cuando se hace click
+                $(this).removeClass("sorting").unbind();
+                //Agregar input de busqueda
+                $(this).html('<input class="form-control" type="text" placeholder="Buscar"/>');
+                //Evento para detectar cambio en el input y buscar
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                            .column(i)
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+
+            /* ===================================================
+            INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+            ===================================================*/
+            var table = dataTableCustom(`#tbl${nombreTabla}`, buttons);
+        }
+    });
+}
+
+/* ===================================================
   * PERSONAL
 ===================================================*/
 if (
@@ -58,6 +122,14 @@ if (
     $(document).ready(function () {
         // PERSONAL tab
         $('#ghTabs').simpleTabs(tabsConfigGH, 'gh-tab1');
+
+        // Apenas carga la página mostrar el Datatable
+        var buttons = [
+            { className: 'btn-secondary mr-1 btn-agregarPersonal', text: '<i class="fas fa-plus-circle"></i> Nuevo' },
+            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+            /* 'copy', 'csv', 'excel', 'pdf', 'print' */
+        ];
+        mostrarDatatableGH("Personal", buttons);
 
         /* ===================================================
             FORMULARIO GENERAL
@@ -142,6 +214,7 @@ if (
           CLICK EN NUEVO EMPLEADO
         ===================================================*/
         $(document).on("click", ".btn-agregarPersonal", function () {
+            $('#PersonalModal').modal('show');
             $("#titulo-modal-personal").html("Nuevo");
             $(".formulario").trigger("reset"); //reset formulario
             $("#idPersonal").val(""); //reset id personal
@@ -1175,6 +1248,13 @@ if (
     $(document).ready(function () {
         // Perfil sociodemográfico tab
         $('#ghTabs').simpleTabs(tabsConfigGH, 'gh-tab2');
+
+        // Apenas carga la página mostrar el Datatable
+        var buttons = [
+            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+            /* 'copy', 'csv', 'excel', 'pdf', 'print' */
+        ];
+        mostrarDatatableGH("PerfilSD", buttons);
     });
 }
 
@@ -1457,13 +1537,13 @@ if (window.location.href == `${urlPagina}gh-ausentismo/` ||
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    if (response != ""){
+                    if (response != "") {
                         $("#cedula").val(response.Documento);
                         $("#cargo").val(response.Cargo);
                         $("#area").val(response.Proceso);
                         $("#eps").val(response.Eps);
                         $("#salario").val(response.salario_basico);
-                    }else{
+                    } else {
                         $(".datosEmpleado").val("");
                     }
                 }
@@ -1492,7 +1572,7 @@ if (window.location.href == `${urlPagina}gh-ausentismo/` ||
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    if (response != ""){
+                    if (response != "") {
                         $("#fecha").val(response.fecha);
                         $("#idPersonal").val(response.idPersonal);
                         $("#cedula").val(response.Documento);

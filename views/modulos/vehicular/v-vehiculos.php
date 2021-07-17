@@ -87,8 +87,9 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                             $BotonEditar = "<div class='btn-group'>
                                                             {$value['idvehiculo']}
                                                             <button type='button' class='btn btnEditarVehiculo' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#VehiculosModal'>
-                                                                <i class='fas fa-edit text-info'></i>
+                                                                <i class='fas fa-lg fa-edit text-info'></i>
                                                             </button>
+                                                            <button type='button' class='btn btn-FTVehiculo' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-lg fa-book text-secondary'></i></button>
                                                         </div>";
                                             ?>
                                             <tr>
