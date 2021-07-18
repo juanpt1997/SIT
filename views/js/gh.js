@@ -811,7 +811,7 @@ if (
                     /* ===================================================
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
-                    //dataTable("#tblLicencias");
+                    dataTable("#tblLicencias");
                 }
             });
         }

@@ -38,6 +38,7 @@ class ModeloGH
                             LEFT JOIN gh_departamentos d ON d.iddepartamento = m.iddepartamento
                             INNER JOIN gh_sucursales s ON s.ids = p.sucursal
                             LEFT JOIN gh_re_personallicencias l ON l.idPersonal = p.idPersonal
+                            GROUP BY p.idPersonal
                             ORDER BY idPersonal";
                 $stmt = Conexion::conectar()->prepare($sql);
                 $stmt->execute();
@@ -66,6 +67,7 @@ class ModeloGH
                             INNER JOIN gh_sucursales s ON s.ids = p.sucursal
                             LEFT JOIN gh_re_personallicencias l ON l.idPersonal = p.idPersonal
                             WHERE p.activo = 'S'
+                            GROUP BY p.idPersonal
                             ORDER BY idPersonal";
                 $stmt = Conexion::conectar()->prepare($sql);
                 $stmt->execute();

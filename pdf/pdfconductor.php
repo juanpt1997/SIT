@@ -181,7 +181,7 @@ class PdfConductor
         $image_conductor =  '../' . $info['foto'];
         $marco =  '../views/img/plantilla/marco.png';
         $pdf->Image($marco, 149, 29, 42, 47,  '', '', 'T', false, 300, '', false, false, 0, false, false, false);
-        if ($info['foto'] != null && $info['foto'] != ""){
+        if ($info['foto'] != null && $info['foto'] != "") {
             $pdf->Image($image_conductor, 150, 30, 40, 45,  '', '', 'T', false, 300, '', false, false, 0, false, false, false);
         }
 
@@ -290,40 +290,43 @@ class PdfConductor
         /* ===================================================
             PAGINA DOCUMENTACION
         ===================================================*/
-        if ($info['ruta_documento'] != null) {
+        $anchoPaginaMM = $pdf->getPageWidth();
+        $altoPaginaMM = $pdf->getPageHeight();
+        $conversorPixToMM = 0.264;
+        // Si es pdf, no se muestra la imagen del documento
+        if (strpos($info['ruta_documento'], '.pdf') === false && $info['ruta_documento'] != "" && $info['ruta_documento'] != null) {
             $pdf->AddPage();
             $pdf->Ln();
 
-            $x = $pdf->GetX();
-            $y = $pdf->GetY();
-            $licencia =  '../' . $info['ruta_documento'];
-            //$pdf->Image($licencia, $x, $y, 0, 0, '', '', 'T', true, 300, '', false, false, 0, false, false, false);
-            $horizontal_alignments = array('L', 'C', 'R');
-            $vertical_alignments = array('T', 'M', 'B');
-            $fitbox = $horizontal_alignments[1].' ';
-            $fitbox[1] = $vertical_alignments[0];
-            $pdf->Image($licencia, $x, $y, 0, 0, '', '', '', true, 300, '', false, false, 0, 'C', false, false);
-            //$pdf->Rect($x, $y, 200, 200, 'F', array(), array(128,255,128));
-            //$pdf->Image($licencia, $x, $y, 0, 0, '', '', '', true, 300, '', false, false, 0, $fitbox, false, false);
+            $posy = $pdf->GetY();
+            $ruta = '../' . $info['ruta_documento']; // Ruta imagen
+            list($widthPix, $heightPix) = getimagesize($ruta); // Dimensiones de la imagen
+            $widthMM = $widthPix * $conversorPixToMM; // Ancho en milimetros
+            $heightMM = $heightPix * $conversorPixToMM; // Altura en milimetros
 
+            // En caso de que la altura sobre salga de la página
+            $posy = $pdf->GetY();
+            $margin = $pdf->getMargins();
+            $altoPaginaMM = $altoPaginaMM - $posy - $margin['bottom'];
+            if ($heightMM > $altoPaginaMM) {
+                $widthMM = $altoPaginaMM * $widthMM / $heightMM; // Calculamos la proporción del ancho de la imagen segun la altura
+                $heightMM = $altoPaginaMM; // Igualamos la altura de la imagen al alto de la página
+            }
 
+            // En caso de que el ancho sobre salga de la página
+            if ($widthMM > $anchoPaginaMM) {
+                $heightMM = $anchoPaginaMM * $heightMM / $widthMM; // Calculamos la proporción de la altura de la imagen segun el ancho
+                $widthMM = $anchoPaginaMM; // Igualamos el ancho de la imagen al ancho de la página
+                $posx = 0; // Se dibuja desde el inicio en x
+            }
+            // Ancho de la imagen menor al ancho de la pagina
+            else {
+                $posx = ($anchoPaginaMM / 2) - ($widthMM / 2); // Dejar centrada la imagen
+            }
 
-
-
-
-
-
-
-
-
-
-
-            //$pdf->Image();
+            // Dibujar la imagen en el PDF
+            $pdf->Image($ruta, $posx, '', $widthMM, $heightMM, '', '', '', false, 300, '', false, false, 0, false, false, false);
         }
-
-
-
-
 
         // ---------------------------------------------------------
 

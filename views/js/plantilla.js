@@ -214,7 +214,7 @@ const dataTableCustom = (tabla, buttons) => {
         "buttons": buttons,
         "orderCellsTop": true,
         "fixedHeader": true,
-        "order":[],
+        "order": [],
         "language": {
             "sProcessing": "Procesando...",
             "sLengthMenu": "Mostrar _MENU_ registros",
@@ -490,6 +490,29 @@ $(document).ready(function () {
                 var rutaImagen = event.target.result;
                 $(".previsualizar").attr("src", rutaImagen);
             });
+        }
+    });
+
+    /* ===================================================
+      EVENTO PARA EVITAR EL CARGUE DE ARCHIVOS CON MAS DE 2 MB
+    ===================================================*/
+    const MAXIMO_TAMANIO_BYTES = 2000000; // 1MB = 1 millón de bytes
+    $(document).on("change", "input[type='file']", function () {
+        if ($(this).attr("id") != "nuevaFoto") {
+            var archivo = this.files[0];
+
+            if (archivo.size > MAXIMO_TAMANIO_BYTES) {
+                const tamanioEnMb = MAXIMO_TAMANIO_BYTES / 1000000;
+                Swal.fire({
+                    icon: "warning",
+                    title: `¡El documento no debe pesar más de ${tamanioEnMb} MB `,
+                    showConfirmButton: true,
+                    confirmButtonText: "Cerrar",
+                    closeOnConfirm: false
+                });
+                // Limpiar
+                $(this).val("");
+            }
         }
     });
 });
