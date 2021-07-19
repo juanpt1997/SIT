@@ -28,11 +28,11 @@
             <!-- =================================================== CONTENIDO =================================================== -->
             <div class="row">
                 <!-- ===================================================
-                    * Información de la empresa
+                    * Conceptos generales
                 =================================================== -->
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <a href="#">
-                        <div class="info-box border border-primary">
+                    <div class="dropdown" style="cursor: pointer;">
+                        <div class="info-box border border-primary" id="dropdownMenuCG" data-toggle="dropdown">
                             <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-building"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text font-weight-bold text-dark">Conceptos generales</span>
@@ -40,7 +40,13 @@
                             <!-- /.info-box-content -->
                         </div>
                         <!-- /.info-box -->
-                    </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuCG">
+                            <a class="dropdown-item font-weight-bold" href="cg-gestion-humana"><u>Gestión humana</u></a>
+                            <a class="dropdown-item font-weight-bold" href="cg-vehicular"><u>Vehicular</u></a>
+                            <a class="dropdown-item font-weight-bold" href="cg-mantenimiento"><u>Matenimiento</u></a>
+                            <a class="dropdown-item font-weight-bold" href="cg-seguridad"><u>Seguridad</u></a>
+                        </div>
+                    </div>
                 </div>
                 <!-- /.col -->
 
@@ -73,180 +79,200 @@
                 <!-- ===================================================
                     * Vehicular
                 =================================================== -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <div class="dropdown" style="cursor: pointer;">
-                        <div class="info-box border border-success" id="dropdownMenuVehicular" data-toggle="dropdown">
-                            <span class="info-box-icon bg-success elevation-1"><i class="fas fa-truck"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text font-weight-bold text-dark">Vehicular</span>
+                <?php if (validarModulo('M_VEHICULAR')) : ?>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="dropdown" style="cursor: pointer;">
+                            <div class="info-box border border-success" id="dropdownMenuVehicular" data-toggle="dropdown">
+                                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-truck"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Vehicular</span>
+                                </div>
+                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuVehicular">
-                            <a class="dropdown-item font-weight-bold" href="v-vehiculos"><u>Vehículos</u></a>
-                            <a class="dropdown-item font-weight-bold" href="v-propietarios"><u>Propietarios</u></a>
-                            <a class="dropdown-item font-weight-bold" href="v-convenios"><u>Convenios</u></a>
-                            <a class="dropdown-item font-weight-bold" href="v-bloqueo-personal"><u>Bloqueo de personal</u></a>
-                            <a class="dropdown-item font-weight-bold" href="v-bloqueo-vehiculo"><u>Bloqueo de vehículos</u></a>
-                            <a class="dropdown-item font-weight-bold" href="v-fuec"><u>FUEC</u></a>
+                            <!-- /.info-box -->
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuVehicular">
+                                <a class="dropdown-item font-weight-bold" href="v-vehiculos"><u>Vehículos</u></a>
+                                <a class="dropdown-item font-weight-bold" href="v-propietarios"><u>Propietarios</u></a>
+                                <a class="dropdown-item font-weight-bold" href="v-convenios"><u>Convenios</u></a>
+                                <a class="dropdown-item font-weight-bold" href="v-bloqueo-personal"><u>Bloqueo de personal</u></a>
+                                <a class="dropdown-item font-weight-bold" href="v-bloqueo-vehiculo"><u>Bloqueo de vehículos</u></a>
+                                <a class="dropdown-item font-weight-bold" href="v-fuec"><u>FUEC</u></a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- /.col -->
+                    <!-- /.col -->
+                <?php endif ?>
 
                 <!-- ===================================================
-                    * Extractos de contrato
+                    ** Extractos de contrato
                 =================================================== -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <a href="#">
-                        <div class="info-box border border-warning">
-                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-folder-open"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text font-weight-bold text-dark">Extractos de contrato</span>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <a href="#">
+                            <div class="info-box border border-warning">
+                                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-folder-open"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Extractos de contrato</span>
+                                </div>
+                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </a>
-                </div>
-                <!-- /.col -->
+                            <!-- /.info-box -->
+                        </a>
+                    </div>
+                    <!-- /.col -->
+                <?php endif ?>
 
                 <!-- ===================================================
-                    * Mantenimiento
+                    ** Mantenimiento
                 =================================================== -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <a href="#">
-                        <div class="info-box border border-danger">
-                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-cogs"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text font-weight-bold text-dark">Mantenimiento</span>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <a href="#">
+                            <div class="info-box border border-danger">
+                                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-cogs"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Mantenimiento</span>
+                                </div>
+                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </a>
-                </div>
-                <!-- /.col -->
+                            <!-- /.info-box -->
+                        </a>
+                    </div>
+                    <!-- /.col -->
+                <?php endif ?>
 
                 <!-- ===================================================
-                    * Documentos Contable
+                    ** Documentos Contable
                 =================================================== -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <a href="#">
-                        <div class="info-box border border-info">
-                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-book"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text font-weight-bold text-dark">Documentos Contable</span>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <a href="#">
+                            <div class="info-box border border-info">
+                                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-book"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Documentos Contable</span>
+                                </div>
+                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </a>
-                </div>
-                <!-- /.col -->
+                            <!-- /.info-box -->
+                        </a>
+                    </div>
+                    <!-- /.col -->
+                <?php endif ?>
 
                 <!-- ===================================================
-                    * Comercial
+                    ** Comercial
                 =================================================== -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <a href="#">
-                        <div class="info-box border border-dark">
-                            <span class="info-box-icon bg-dark elevation-1"><i class="fas fa-chart-line"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text font-weight-bold text-dark">Comercial</span>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <a href="#">
+                            <div class="info-box border border-dark">
+                                <span class="info-box-icon bg-dark elevation-1"><i class="fas fa-chart-line"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Comercial</span>
+                                </div>
+                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </a>
-                </div>
-                <!-- /.col -->
+                            <!-- /.info-box -->
+                        </a>
+                    </div>
+                    <!-- /.col -->
+                <?php endif ?>
 
                 <!-- ===================================================
-                    * Escolar
+                    ** Escolar
                 =================================================== -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <a href="#">
-                        <div class="info-box border border-light">
-                            <span class="info-box-icon bg-light elevation-1"><i class="fas fa-school"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text font-weight-bold text-dark">Escolar</span>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <a href="#">
+                            <div class="info-box border border-light">
+                                <span class="info-box-icon bg-light elevation-1"><i class="fas fa-school"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Escolar</span>
+                                </div>
+                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </a>
-                </div>
-                <!-- /.col -->
+                            <!-- /.info-box -->
+                        </a>
+                    </div>
+                    <!-- /.col -->
+                <?php endif ?>
 
                 <!-- ===================================================
-                    * Contratos Fijos
+                    ** Contratos Fijos
                 =================================================== -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <a href="#">
-                        <div class="info-box border border-secondary">
-                            <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-file-contract"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text font-weight-bold text-dark">Contratos Fijos</span>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <a href="#">
+                            <div class="info-box border border-secondary">
+                                <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-file-contract"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Contratos Fijos</span>
+                                </div>
+                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </a>
-                </div>
-                <!-- /.col -->
+                            <!-- /.info-box -->
+                        </a>
+                    </div>
+                    <!-- /.col -->
+                <?php endif ?>
 
                 <!-- ===================================================
-                    * Compras
+                    ** Compras
                 =================================================== -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <a href="#">
-                        <div class="info-box border border-danger">
-                            <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-shopping-cart"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text font-weight-bold text-dark">Compras</span>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <a href="#">
+                            <div class="info-box border border-danger">
+                                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Compras</span>
+                                </div>
+                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </a>
-                </div>
-                <!-- /.col -->
+                            <!-- /.info-box -->
+                        </a>
+                    </div>
+                    <!-- /.col -->
+                <?php endif ?>
 
                 <!-- ===================================================
-                    * Estandar. procesos calidad
+                    ** Estandar. procesos calidad
                 =================================================== -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <a href="#">
-                        <div class="info-box border border-warning">
-                            <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-tasks"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text font-weight-bold text-dark">Estandar. procesos calidad</span>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <a href="#">
+                            <div class="info-box border border-warning">
+                                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-tasks"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Estandar. procesos calidad</span>
+                                </div>
+                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </a>
-                </div>
-                <!-- /.col -->
+                            <!-- /.info-box -->
+                        </a>
+                    </div>
+                    <!-- /.col -->
+                <?php endif ?>
 
                 <!-- ===================================================
-                    * Formatos de calidad
+                    ** Formatos de calidad
                 =================================================== -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <a href="#">
-                        <div class="info-box border border-primary">
-                            <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-clipboard-check"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text font-weight-bold text-dark">Formatos de calidad</span>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <a href="#">
+                            <div class="info-box border border-primary">
+                                <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-clipboard-check"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Formatos de calidad</span>
+                                </div>
+                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </a>
-                </div>
-                <!-- /.col -->
+                            <!-- /.info-box -->
+                        </a>
+                    </div>
+                    <!-- /.col -->
+                <?php endif ?>
 
                 <!-- ===================================================
                     * Control Usuarios
@@ -268,21 +294,23 @@
                 <?php endif ?>
 
                 <!-- ===================================================
-                    * Rastreo Satelital
+                    ** Rastreo Satelital
                 =================================================== -->
-                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                    <a href="#">
-                        <div class="info-box border border-info">
-                            <span class="info-box-icon bg-info elevation-1"><i class="fas fa-map-marked-alt"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text font-weight-bold text-dark">Rastreo Satelital</span>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <a href="#">
+                            <div class="info-box border border-info">
+                                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-map-marked-alt"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Rastreo Satelital</span>
+                                </div>
+                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </a>
-                </div>
-                <!-- /.col -->
+                            <!-- /.info-box -->
+                        </a>
+                    </div>
+                    <!-- /.col -->
+                <?php endif ?>
 
 
             </div>

@@ -52,7 +52,7 @@
                 =================================================== -->
 
                 <!-- ===================================================
-                    * Información de la empresa
+                    * Conceptos generales
                 =================================================== -->
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
@@ -104,7 +104,7 @@
                 </li>
 
                 <!-- ===================================================
-                    * Contratos (OCULTO TEMPORALMENTE)
+                    | Contratos (OCULTO TEMPORALMENTE)
                 =================================================== -->
                 <li class="nav-item has-treeview d-none">
                     <a href="#" class="nav-link">
@@ -242,94 +242,98 @@
                 <?php endif ?>
 
                 <!-- ===================================================
-                    ** Vehicular
+                    * Vehicular
                 =================================================== -->
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-truck"></i>
-                        <p>
-                            Vehicular
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <!-- ===================================================
-                                Bloqueo de personal
-                            =================================================== -->
-                        <li class="nav-item">
-                            <a href="v-bloqueo-personal" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Bloqueo de personal</p>
-                            </a>
-                        </li>
-                        <!-- ===================================================
-                                Bloqueo de vehículo
-                            =================================================== -->
-                        <li class="nav-item">
-                            <a href="v-bloqueo-vehiculo" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Bloqueo de vehículo</p>
-                            </a>
-                        </li>
-                        <!-- ===================================================
-                                Propietarios
-                            =================================================== -->
-                        <li class="nav-item">
-                            <a href="v-propietarios" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Propietarios</p>
-                            </a>
-                        </li>
+                <?php if (validarModulo('M_VEHICULAR')) : ?>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-truck"></i>
+                            <p>
+                                Vehicular
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <!-- ===================================================
+                                    Bloqueo de personal
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="v-bloqueo-personal" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Bloqueo de personal</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
+                                    Bloqueo de vehículo
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="v-bloqueo-vehiculo" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Bloqueo de vehículo</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
+                                    Propietarios
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="v-propietarios" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Propietarios</p>
+                                </a>
+                            </li>
 
-                        <!-- ===================================================
-                                Convenios a hora primero yo miro aca como es y ya luego  le hago en git
-                            =================================================== -->
-                        <li class="nav-item">
-                            <a href="v-convenios" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Convenios</p>
-                            </a>
-                        </li>
+                            <!-- ===================================================
+                                    Convenios a hora primero yo miro aca como es y ya luego  le hago en git
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="v-convenios" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Convenios</p>
+                                </a>
+                            </li>
 
-                        <!-- ===================================================
-                                Vehículos
-                            =================================================== -->
-                        <li class="nav-item">
-                            <a href="v-vehiculos" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Vehículos</p>
-                            </a>
-                        </li>
+                            <!-- ===================================================
+                                    Vehículos
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="v-vehiculos" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Vehículos</p>
+                                </a>
+                            </li>
 
-                        <!-- ===================================================
-                                FUEC
-                            =================================================== -->
-                        <li class="nav-item">
-                           <a href="v-fuec" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>FUEC</p>
-                            </a>
-                        </li>
+                            <!-- ===================================================
+                                    FUEC
+                                =================================================== -->
+                            <li class="nav-item">
+                            <a href="v-fuec" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>FUEC</p>
+                                </a>
+                            </li>
 
 
 
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
+                <?php endif ?>
 
                 <!-- ===================================================
                     ** Extractos de contrato
                 =================================================== -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-folder-open"></i>
-                        <p>Extractos de
-                            contrato</p>
-                    </a>
-                </li>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-folder-open"></i>
+                            <p>Extractos de
+                                contrato</p>
+                        </a>
+                    </li>
+                <?php endif ?>
 
 
                 <!-- ===================================================
-                    * Gestión Operaciones (OCULTO TEMPORALMENTE)
+                    | Gestión Operaciones (OCULTO TEMPORALMENTE)
                 =================================================== -->
                 <li class="nav-item has-treeview d-none">
                     <a href="#" class="nav-link">
@@ -391,7 +395,7 @@
                 </li>
 
                 <!-- ===================================================
-                    * Operaciones (OCULTO TEMPORALMENTE)
+                    | Operaciones (OCULTO TEMPORALMENTE)
                 =================================================== -->
                 <li class="nav-item has-treeview d-none">
                     <a href="#" class="nav-link">
@@ -433,58 +437,60 @@
                 </li>
 
                 <!-- ===================================================
-                    * Mantenimiento
+                    ** Mantenimiento
                 =================================================== -->
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-cogs"></i>
-                        <p>
-                            Mantenimiento
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <!-- ===================================================
-                                Protocolo de alistamiento
-                            =================================================== -->
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Protocolo de alistamiento</p>
-                            </a>
-                        </li>
-                        <!-- ===================================================
-                                Plan de rodamiento
-                            =================================================== -->
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Plan de rodamiento</p>
-                            </a>
-                        </li>
-                        <!-- ===================================================
-                                Mantenimientos
-                            =================================================== -->
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Mantenimientos</p>
-                            </a>
-                        </li>
-                        <!-- ===================================================
-                                Proveedores
-                            =================================================== -->
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Proveedores</p>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-cogs"></i>
+                            <p>
+                                Mantenimiento
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <!-- ===================================================
+                                    Protocolo de alistamiento
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Protocolo de alistamiento</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
+                                    Plan de rodamiento
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Plan de rodamiento</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
+                                    Mantenimientos
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Mantenimientos</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
+                                    Proveedores
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Proveedores</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif ?>
 
                 <!-- ===================================================
-                    * Sistema de Gestión (OCULTO TEMPORALMENTE)
+                    | Sistema de Gestión (OCULTO TEMPORALMENTE)
                 =================================================== -->
                 <li class="nav-item has-treeview d-none">
                     <a href="#" class="nav-link">
@@ -571,7 +577,7 @@
                 </li>
 
                 <!-- ===================================================
-                    * Control Valeras (OCULTO TEMPORALMENTE)
+                    | Control Valeras (OCULTO TEMPORALMENTE)
                 =================================================== -->
                 <li class="nav-item has-treeview d-none">
                     <a href="#" class="nav-link">
@@ -613,7 +619,7 @@
                 </li>
 
                 <!-- ===================================================
-                    * Informes (OCULTO TEMPORALMENTE)
+                    | Informes (OCULTO TEMPORALMENTE)
                 =================================================== -->
                 <li class="nav-item has-treeview d-none">
                     <a href="#" class="nav-link">
@@ -657,72 +663,86 @@
                 <!-- ===================================================
                     ** DOCUMENTOS CONTABLE
                 =================================================== -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-book"></i>
-                        <p>Documentos Contable</p>
-                    </a>
-                </li>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p>Documentos Contable</p>
+                        </a>
+                    </li>
+                <?php endif ?>
 
                 <!-- ===================================================
                     ** COMERCIAL
                 =================================================== -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-chart-line"></i>
-                        <p>Comercial</p>
-                    </a>
-                </li>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-chart-line"></i>
+                            <p>Comercial</p>
+                        </a>
+                    </li>
+                <?php endif ?>
 
                 <!-- ===================================================
                     ** ESCOLAR
                 =================================================== -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-school"></i>
-                        <p>Escolar</p>
-                    </a>
-                </li>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-school"></i>
+                            <p>Escolar</p>
+                        </a>
+                    </li>
+                <?php endif ?>
 
                 <!-- ===================================================
                     ** CONTRATOS FIJOS
                 =================================================== -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-file-contract"></i>
-                        <p>Contratos Fijos</p>
-                    </a>
-                </li>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-file-contract"></i>
+                            <p>Contratos Fijos</p>
+                        </a>
+                    </li>
+                <?php endif ?>
 
                 <!-- ===================================================
                     ** COMPRAS
                 =================================================== -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-shopping-cart"></i>
-                        <p>Compras</p>
-                    </a>
-                </li>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-shopping-cart"></i>
+                            <p>Compras</p>
+                        </a>
+                    </li>
+                <?php endif ?>
 
                 <!-- ===================================================
                     ** ESTANDAR PROCESOS DE CALIDAD
                 =================================================== -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tasks"></i>
-                        <p>Estandar. procesos calidad</p>
-                    </a>
-                </li>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-tasks"></i>
+                            <p>Estandar. procesos calidad</p>
+                        </a>
+                    </li>
+                <?php endif ?>
 
                 <!-- ===================================================
                     ** FORMATOS DE CALIDAD
                 =================================================== -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-clipboard-check"></i>
-                        <p>Formatos de calidad</p>
-                    </a>
-                </li>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-clipboard-check"></i>
+                            <p>Formatos de calidad</p>
+                        </a>
+                    </li>
+                <?php endif ?>
 
                 <!-- ===================================================
                     * Control Usuarios
@@ -737,14 +757,16 @@
                 <?php endif ?>
 
                 <!-- ===================================================
-                    * Rastreo Satelital
+                    ** Rastreo Satelital
                 =================================================== -->
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-map-marked-alt"></i>
-                        <p>Rastreo Satelital</p>
-                    </a>
-                </li>
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-map-marked-alt"></i>
+                            <p>Rastreo Satelital</p>
+                        </a>
+                    </li>
+                <?php endif ?>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

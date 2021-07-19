@@ -1,8 +1,8 @@
 <?php
  
-/*if(!array_search('CARGAR_OPCION',$_SESSION['opciones'])) {
-    echo "<script> window.location = 'inicio'; </script>";
-}*/
+if(!validarModulo('M_VEHICULAR')) {
+   echo "<script> window.location = 'inicio'; </script>";
+}
 
 $Convenios = ControladorConvenios::ctrMostrar();
 $DeparMunicipios = ControladorGH::ctrDeparMunicipios();

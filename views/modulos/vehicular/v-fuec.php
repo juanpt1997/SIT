@@ -1,3 +1,11 @@
+<?php
+
+if (!validarModulo('M_VEHICULAR')) {
+    echo "<script> window.location = 'inicio'; </script>";
+}
+?>
+
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -24,7 +32,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col">
-                <!--BOTON NUEVO FUEC-->
+                    <!--BOTON NUEVO FUEC-->
                     <button type="button" class="btn btn-success btn-md btn-nuevofuec" data-toggle="modal" data-target="#NuevoFuec">
                         <i class="fab fa-wpforms"></i> Nuevo FUEC
                     </button>
@@ -32,7 +40,7 @@
             </div> <!-- /.row -->
             <!-- ===================== 
               AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
-            ========================= -->            
+            ========================= -->
             <div class="row mt-2">
                 <div class="col-12">
                     <div class="card">
@@ -64,7 +72,7 @@
                                             <th>Fecha de creación</th>
                                             <th>Sucursal</th>
                                             <th>USUARIO</th>
-                                        </tr>                 
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
@@ -115,7 +123,7 @@
      ==================================-->
 
 
-     <!--MODAL AGREGAR FUEC-->
+<!--MODAL AGREGAR FUEC-->
 
 <div class="modal fade" id="NuevoFuec" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
@@ -123,7 +131,7 @@
 
             <div class="modal-header bg-info">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
@@ -143,9 +151,9 @@
                                         </span>
                                     </div>
                                     <select class="form-control input-fuec select2-single" style="width: 92%" type="text" id="TipoContrato" name="TipoContrato" required>
-                                        <option selected value="">-Seleccione un tipo-</option> 
-                                        <option selected value="fijo">Fijo</option> 
-                                        <option selected value="ocasional">Ocasional</option>         
+                                        <option selected value="">-Seleccione un tipo-</option>
+                                        <option selected value="fijo">Fijo</option>
+                                        <option selected value="ocasional">Ocasional</option>
                                     </select>
                                 </div>
                             </div>
@@ -158,7 +166,7 @@
                                             <i class="fas fa-car-side"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="vehiculofuec" name="vehiculofuec"  required>
+                                    <input class="form-control input-fuec" type="text" id="vehiculofuec" name="vehiculofuec" required>
                                 </div>
                             </div>
 
@@ -167,10 +175,10 @@
                                 <div class="input-group">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
-                                           <i class="fas fa-user-check"></i>
+                                            <i class="fas fa-user-check"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="conductor1" name="conductor1"  required>
+                                    <input class="form-control input-fuec" type="text" id="conductor1" name="conductor1" required>
                                 </div>
                             </div>
 
@@ -182,7 +190,7 @@
                                             <i class="fas fa-user-check"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="conductor2" name="conductor2"  required>
+                                    <input class="form-control input-fuec" type="text" id="conductor2" name="conductor2" required>
                                 </div>
                             </div>
 
@@ -194,7 +202,7 @@
                                             <i class="fas fa-user-check"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="conductor3" name="conductor3"  required>
+                                    <input class="form-control input-fuec" type="text" id="conductor3" name="conductor3" required>
                                 </div>
                             </div>
 
@@ -230,7 +238,7 @@
                                             <i class="fas fa-envelope-open-text"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="objetocontrato" name="objetocontrato"  required>
+                                    <input class="form-control input-fuec" type="text" id="objetocontrato" name="objetocontrato" required>
                                 </div>
                             </div>
 
@@ -246,7 +254,7 @@
                                             <i class="fas fa-route"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="origen" name="origen"  required>
+                                    <input class="form-control input-fuec" type="text" id="origen" name="origen" required>
                                 </div>
                             </div>
 
@@ -258,7 +266,7 @@
                                             <i class="fas fa-route"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="destino" name="destino"  required>
+                                    <input class="form-control input-fuec" type="text" id="destino" name="destino" required>
                                 </div>
                             </div>
 
@@ -270,7 +278,7 @@
                                             <i class="fas fa-comment-dots"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="observacionescontr" name="observacionescontr"  required>
+                                    <input class="form-control input-fuec" type="text" id="observacionescontr" name="observacionescontr" required>
                                 </div>
                             </div>
 
@@ -282,12 +290,12 @@
                                             <i class="fas fa-user"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="precio" name="precio"  required>
+                                    <input class="form-control input-fuec" type="text" id="precio" name="precio" required>
                                 </div>
                             </div>
 
                             <div class="form-group clearfix">
-                                <label>Listado pasajeros</label>  
+                                <label>Listado pasajeros</label>
                                 <div class="icheck-primary d-inline">
                                     <input class="form-control input-fuec" type="radio" id="pasajeros1" name="pasajeros1" checked value="si">
                                     <label class="font-weight-normal" for="cb1">Si</label>
@@ -303,7 +311,7 @@
                             </div>
 
                             <div class="form-group clearfix">
-                                <label>Estado</label>  
+                                <label>Estado</label>
                                 <div class="icheck-primary d-inline">
                                     <input class="form-control input-fuec" type="radio" id="estado1" name="estado1" checked value="si">
                                     <label class="font-weight-normal" for="cb1">Pago</label>
@@ -326,7 +334,7 @@
                                             <i class="fas fa-money-check-alt"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="valorneto" name="valorneto"  required>
+                                    <input class="form-control input-fuec" type="text" id="valorneto" name="valorneto" required>
                                 </div>
                             </div>
 
@@ -338,7 +346,7 @@
                                             <i class="fas fa-file-alt"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="documcontrat" name="documcontrat"  required>
+                                    <input class="form-control input-fuec" type="text" id="documcontrat" name="documcontrat" required>
                                 </div>
                             </div>
 
@@ -350,7 +358,7 @@
                                             <i class="fas fa-file-alt"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="contratoadjunto" name="contratoadjunto"  required>
+                                    <input class="form-control input-fuec" type="text" id="contratoadjunto" name="contratoadjunto" required>
                                 </div>
                             </div>
 
@@ -363,12 +371,11 @@
 
             <div class="modal-footer bg-dark">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success">
-                        <i class="fas fa-save"></i>
-                        Guardar
-                    </button>
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-save"></i>
+                    Guardar
+                </button>
             </div>
         </div>
     </div>
 </div>
-

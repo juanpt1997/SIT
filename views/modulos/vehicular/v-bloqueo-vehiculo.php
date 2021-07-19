@@ -1,8 +1,8 @@
 <?php
  
-//if(!validarModulo('CARGAR_OPCION')) {
-//    echo "<script> window.location = 'inicio'; </script>";
-//}
+if(!validarModulo('M_VEHICULAR')) {
+   echo "<script> window.location = 'inicio'; </script>";
+}
 
 $listavehiculos = ControladorVehiculos::ctrListaVehiculos();
 $listaUltimo = ControladorBloqueosV::ctrUltimoBloqueoV();
