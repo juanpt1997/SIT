@@ -57,7 +57,7 @@ class AjaxConceptosGH
 			$item = "eps";
 			break;
 			//VEHICULAR
-			case 'Tipos de vehículos':
+			case 'Tipos de vehiculos':
 			$tabla = "v_tipovehiculos";
 			$item = "tipovehiculo";
 			break;	
@@ -122,7 +122,14 @@ class AjaxConceptosGH
 			$tabla = "gh_eps";
 			$item = "eps";
 			$id = "ideps";
-			break;							
+			break;
+			
+			//VEHICULAR
+			case 'Tipos de vehiculos':
+			$tabla = "v_tipovehiculos";
+			$item = "tipovehiculo";
+			$id = "idtipovehiculo";
+			break;
 			
 			default:
 				// code...
@@ -201,7 +208,14 @@ class AjaxConceptosGH
 			$tabla = "gh_eps";
 			$item = "eps";
 			$idtabla = "ideps";
-			break;							
+			break;	
+			
+			//VEHICULAR
+			case 'Tipos de vehiculos':
+			$tabla = "v_tipovehiculos";
+			$item = "tipovehiculo";
+			$idtabla = "idtipovehiculo";
+			break;
 			
 			default:
 				// code...
@@ -254,7 +268,13 @@ class AjaxConceptosGH
 			case 'EPS':
 			$tabla = "gh_eps";
 			$item = "eps";
-			break;							
+			break;
+			
+			//VEHICULAR
+			case 'Tipos de vehículos':
+			$tabla = "v_tipovehiculos";
+			$item = "tipovehiculo";
+			break;
 			
 			default:
 				// code...
@@ -305,7 +325,7 @@ class AjaxConceptosGH
 			$item = "eps";
 			break;
 			//VEHICULAR
-			case 'Tipos de vehículos':
+			case 'Tipos de vehiculos':
 			$tabla = "v_tipovehiculos";
 			$item = "tipovehiculo";
 			break;	

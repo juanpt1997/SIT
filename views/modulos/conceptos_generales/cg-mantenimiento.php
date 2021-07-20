@@ -46,8 +46,8 @@
                                         </div>
                                         <!-- /.info-box-content -->
                                             <div>
-                                                <button concepto="Sistema" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarM"><i class="far fa-eye"></i></button>
-                                                <button concepto="Sistema" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarM"><i class="fas fa-plus-circle"></i></button>  
+                                                <button concepto="Sistema" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarM" disabled="true"><i class="far fa-eye"></i></button>
+                                                <button concepto="Sistema" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarM" disabled="true"><i class="fas fa-plus-circle"></i></button>  
                                             </div>
 
                                             <div class="overlay d-none" concepto="Sistema">
@@ -173,7 +173,7 @@
                     </div>
 
                     <div class="modal-footer bg-dark">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger btn-cancelar" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-success">
                             <i class="fas fa-save"></i>
                             Guardar

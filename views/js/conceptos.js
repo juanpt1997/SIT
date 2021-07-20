@@ -14,8 +14,7 @@ $(document).on("click", ".btn-nuevo", function () {
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
             //Envio de concepto al titulo del modal
-            $("#titulo_modalGH").html(concepto);
-            $("#label_concepto").html(concepto);     
+            $("#titulo_modalGH").html(concepto);    
         }); 
 
         // $(document).on("click", ":submit", function (e) {
@@ -54,11 +53,6 @@ $(document).on("click", ".btn-nuevo", function () {
                 }
             });  
         });    
-
-        // Cuando se da click a cancelar se refresca la pagina
-        $(document).on("click", ".btn-cancelar", function () {
-            window.location = 'cg-gestion-humana';
-        });
 
 //===================BOTON VER CONCEPTO EN GESTION HUMANA
 $(document).on("click", ".btn-ver", function () {
@@ -104,10 +98,10 @@ $(document).on("click", ".btn-ver", function () {
 
 //=================BOTON CANCELAR AL AGREGAR==================
         $(document).on("click", ".btn-cancelar", function () {
-            window.location = 'cg-gestion-humana';
+                $(".overlay").each(function() { //Al cancelar se agrega la clase d-none para que no se vea el reload
+                    $(this).addClass("d-none");
+                });
         });
-
-
 //===================BOTON EDITAR CONCEPTO EN GESTION HUMANA
         $(document).on("click", ".btnEditar", function () {
 
@@ -180,7 +174,7 @@ $(document).on("click", ".btn-ver", function () {
                 contentType: false,
                 dataType: "json", //
                 processData: false,
-                success: function (response) {                    
+                success: function (response) {                   
                     $infobox.text(response.contador + " registros");
                 }
             });
@@ -236,12 +230,6 @@ $(document).on("click", ".btn-nuevo", function () {
                 });  
             }); 
         });
-
-        // Cuando se da click a cancelar se refresca la pagina
-        $(document).on("click", ".btn-cancelar", function () {
-            window.location = 'cg-matenimiento';
-        });
-
 //====================BOTON VER CONCEPTO EN MANTENIMIENTO
 $(document).on("click", ".btn-ver", function () {
 
@@ -283,9 +271,88 @@ $(document).on("click", ".btn-ver", function () {
                }
            });
         });
-        // Cuando se da click a cancelar se refresca la pagina
+ //=================BOTON CANCELAR AL AGREGAR==================
         $(document).on("click", ".btn-cancelar", function () {
-            window.location = 'cg-matenimiento';
+            $(".overlay").each(function() { //Al cancelar se agrega la clase d-none para que no se vea el reload
+                $(this).addClass("d-none");
+            });
+        });
+//===================BOTON EDITAR CONCEPTO EN MANTENIMIENTO
+        $(document).on("click", ".btnEditar", function () {
+
+            //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
+            var concepto = $(this).attr("concepto");
+            var id = $(this).attr("idregistro");
+            var dato = $(this).attr("dato");
+            
+            Swal.fire({
+                title: `Editar (${concepto})`,
+                html:
+                `
+                <hr>
+                <label for="">${concepto}</label>
+                <input class="form-control" id="input-edit" type="text" value="${dato}">`
+                ,
+                showCancelButton: true,
+                confirmButtonColor: '#5cb85c',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Continuar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+
+                if (result.value) {
+                    var dato_edit = $("#input-edit").val();
+                    var datos = new FormData();
+                    datos.append("ajaxEditarConcepto", "ok");
+                    datos.append("concepto", concepto);
+                    datos.append("id", id);
+                    datos.append("dato", dato_edit);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/conceptos.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                //dataType: "json",
+                success: function (response) {
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: 'success',
+                            showConfirmButton: true,
+                            title: "¡El dato ha sido actualizado!",            
+                            confirmButtonText: "¡Cerrar!",
+                            allowOutsideClick: false
+                        }).then((result) => { window.location = 'cg-matenimiento'; })
+                    } 
+                }
+
+            });
+                }
+            })
+        });
+        
+        // funcion para el contador de los info box
+        $(".info-box-number").each(function() {
+            var $infobox = $(this);
+            var concepto = $infobox.attr("concepto");
+            var datos = new FormData();
+
+            datos.append("ajaxContarRegistro", "ok");
+            datos.append("concepto", concepto);
+            $.ajax({
+                url: "ajax/conceptos.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                dataType: "json", //
+                processData: false,
+                success: function (response) {                    
+                    $infobox.text(response.contador + " registros");
+                }
+            });
         });
     });
 }
@@ -336,11 +403,6 @@ $(document).on("click", ".btn-nuevo", function () {
                 });  
             }); 
         });
-        // Cuando se da click a cancelar se refresca la pagina
-        $(document).on("click", ".btn-cancelar", function () {
-            window.location = 'cg-seguridad';
-        });
-
 //========================BOTON VER CONCEPTO EN SEGURIDAD        
 $(document).on("click", ".btn-ver", function () {
 
@@ -382,9 +444,88 @@ $(document).on("click", ".btn-ver", function () {
                }
            });
         });
-        // Cuando se da click a cancelar se refresca la pagina
+//=================BOTON CANCELAR AL AGREGAR==================
         $(document).on("click", ".btn-cancelar", function () {
-            window.location = 'cg-seguridad';
+            $(".overlay").each(function() { //Al cancelar se agrega la clase d-none para que no se vea el reload
+                $(this).addClass("d-none");
+            });
+        });        
+        //===================BOTON EDITAR CONCEPTO EN SEGURIDAD
+        $(document).on("click", ".btnEditar", function () {
+
+            //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
+            var concepto = $(this).attr("concepto");
+            var id = $(this).attr("idregistro");
+            var dato = $(this).attr("dato");
+            
+            Swal.fire({
+                title: `Editar (${concepto})`,
+                html:
+                `
+                <hr>
+                <label for="">${concepto}</label>
+                <input class="form-control" id="input-edit" type="text" value="${dato}">`
+                ,
+                showCancelButton: true,
+                confirmButtonColor: '#5cb85c',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Continuar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+
+                if (result.value) {
+                    var dato_edit = $("#input-edit").val();
+                    var datos = new FormData();
+                    datos.append("ajaxEditarConcepto", "ok");
+                    datos.append("concepto", concepto);
+                    datos.append("id", id);
+                    datos.append("dato", dato_edit);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/conceptos.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                //dataType: "json",
+                success: function (response) {
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: 'success',
+                            showConfirmButton: true,
+                            title: "¡El dato ha sido actualizado!",            
+                            confirmButtonText: "¡Cerrar!",
+                            allowOutsideClick: false
+                        }).then((result) => { window.location = 'cg-matenimiento'; })
+                    } 
+                }
+
+            });
+                }
+            })
+        });
+        
+        // funcion para el contador de los info box
+        $(".info-box-number").each(function() {
+            var $infobox = $(this);
+            var concepto = $infobox.attr("concepto");
+            var datos = new FormData();
+
+            datos.append("ajaxContarRegistro", "ok");
+            datos.append("concepto", concepto);
+            $.ajax({
+                url: "ajax/conceptos.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                dataType: "json", //
+                processData: false,
+                success: function (response) {                    
+                    $infobox.text(response.contador + " registros");
+                }
+            });
         });
     });
 }
@@ -405,7 +546,7 @@ $(document).on("click", ".btn-nuevo", function () {
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
             //Envio de concepto al titulo del modal
-            $("#titulo_modalGH").html(concepto);
+            $("#titulo_modalV").html(concepto);
 
             $(document).on("click", ":submit", function () {
 
@@ -435,11 +576,6 @@ $(document).on("click", ".btn-nuevo", function () {
                 });  
             }); 
         });
-        // Cuando se da click a cancelar se refresca la pagina
-        $(document).on("click", ".btn-cancelar", function () {
-            window.location = 'cg-vehicular';
-        });
-
 //========================BOTON VER CONCEPTO EN VEHICULAR 
 $(document).on("click", ".btn-ver", function () {
 
@@ -447,13 +583,13 @@ $(document).on("click", ".btn-ver", function () {
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
             //Agregamos el titulo a cada modal de cada concepto
-            $("#titulo_modalVer").html(concepto);
+            $("#titulo_modalVerV").html(concepto);
             // Quitar datatable
-            $("#ver_concepto").dataTable().fnDestroy();
+            $("#ver_conceptoV").dataTable().fnDestroy();
             // Borrar datos
-            $("#tbody_ver_concepto").html("");
+            $("#tbody_ver_conceptoV").html("");
             //Nombre de la cabecera de la tabla segun el concepto 
-            $("#tipo").html(concepto);
+            $("#tipoV").html(concepto);
 
             var datos = new FormData();
             datos.append("ajaxVerConcepto", "ok");
@@ -470,20 +606,99 @@ $(document).on("click", ".btn-ver", function () {
 
                     if(response != '' || response != null){
 
-                       $("#tbody_ver_concepto").html(response);
+                       $("#tbody_ver_conceptoV").html(response);
 
                    }else{
 
-                       $("#tbody_ver_concepto").html('');
+                       $("#tbody_ver_conceptoV").html('');
                    }
 
-                   dataTable("#ver_concepto");     
+                   dataTable("#ver_conceptoV");     
                }
            });
         });
-        // Cuando se da click a cancelar se refresca la pagina
+//=================BOTON CANCELAR AL AGREGAR==================
         $(document).on("click", ".btn-cancelar", function () {
-            window.location = 'cg-vehicular';
+            $(".overlay").each(function() { //Al cancelar se agrega la clase d-none para que no se vea el reload
+                $(this).addClass("d-none");
+            });
+        });        
+        //===================BOTON EDITAR CONCEPTO EN VEHICULAR
+        $(document).on("click", ".btnEditar", function () {
+
+            //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
+            var concepto = $(this).attr("concepto");
+            var id = $(this).attr("idregistro");
+            var dato = $(this).attr("dato");
+            
+            Swal.fire({
+                title: `Editar (${concepto})`,
+                html:
+                `
+                <hr>
+                <label for="">${concepto}</label>
+                <input class="form-control" id="input-edit" type="text" value="${dato}">`
+                ,
+                showCancelButton: true,
+                confirmButtonColor: '#5cb85c',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Continuar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+
+                if (result.value) {
+                    var dato_edit = $("#input-edit").val();
+                    var datos = new FormData();
+                    datos.append("ajaxEditarConcepto", "ok");
+                    datos.append("concepto", concepto);
+                    datos.append("id", id);
+                    datos.append("dato", dato_edit);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/conceptos.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                //dataType: "json",
+                success: function (response) {
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: 'success',
+                            showConfirmButton: true,
+                            title: "¡El dato ha sido actualizado!",            
+                            confirmButtonText: "¡Cerrar!",
+                            allowOutsideClick: false
+                        }).then((result) => { window.location = 'cg-vehicular'; })
+                    } 
+                }
+
+            });
+                }
+            })
+        });
+        
+        // funcion para el contador de los info box
+        $(".info-box-number").each(function() {
+            var $infobox = $(this);
+            var concepto = $infobox.attr("concepto");
+            var datos = new FormData();
+
+            datos.append("ajaxContarRegistro", "ok");
+            datos.append("concepto", concepto);
+            $.ajax({
+                url: "ajax/conceptos.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                dataType: "json", //
+                processData: false,
+                success: function (response) {                    
+                    $infobox.text(response.contador + " registros");
+                }
+            });
         });
     });
 }

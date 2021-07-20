@@ -222,7 +222,7 @@
                     </div>
 
                     <div class="modal-footer bg-dark">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger btn-cancelar" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-success">
                             <i class="fas fa-save"></i>
                             Guardar

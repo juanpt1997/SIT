@@ -256,7 +256,7 @@
                         <input type="hidden" id="idGH" name="idGH" value="">
 
                         <div class="form-group">
-                            <label id="label_concepto"></label>
+                            <label>Nuevo registro</label>
                             <div class="input-group">
                                 <div class="input-group-append">
                                     <span class="input-group-text">

@@ -183,11 +183,11 @@
                                         </div>
                                         <!-- /.info-box-content -->
                                             <div>
-                                                <button concepto="Tipos de vehículos" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarV"><i class="far fa-eye"></i></button>
-                                                <button concepto="Tipos de vehículos" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarV" id="btn-tausentismo"><i class="fas fa-plus-circle"></i></button>  
+                                                <button concepto="Tipos de vehiculos" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarV"><i class="far fa-eye"></i></button>
+                                                <button concepto="Tipos de vehiculos" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarV" id="btn-tausentismo"><i class="fas fa-plus-circle"></i></button>  
                                             </div>
 
-                                            <div class="overlay d-none" concepto="Tipos de vehículos">
+                                            <div class="overlay d-none" concepto="Tipos de vehiculos">
                                                 <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                                             </div>
                                     </div>
@@ -250,7 +250,7 @@
                         <input type="hidden" id="idGH" name="idGH" value="">
 
                         <div class="form-group">
-                            <label>HOLA</label>
+                            <label>Nuevo registro</label>
                             <div class="input-group">
                                 <div class="input-group-append">
                                     <span class="input-group-text">
@@ -264,7 +264,7 @@
                     </div>
 
                     <div class="modal-footer bg-dark">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                        <button type="button" class="btn btn-danger btn-cancelar" data-dismiss="modal">Cancelar</button>
                         <button type="submit" class="btn btn-success">
                             <i class="fas fa-save"></i>
                             Guardar
@@ -294,15 +294,15 @@
 
                 <div class="modal-body">
                     <div class="table-responsive">
-                        <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100" id="ver_concepto">
+                        <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100" id="ver_conceptoV">
                             <thead class="thead-light text-uppercase text-sm text-center">
                                 <tr>
                                     <!--<th style="width:10px;">#</th>-->
-                                    <th id="tipo"></th>
+                                    <th id="tipoV"></th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead> 
-                            <tbody class="text-sm text-center">
+                            <tbody class="text-sm text-center" id="tbody_ver_conceptoV">
                             </tbody>                            
                         </table>
                     </div>
