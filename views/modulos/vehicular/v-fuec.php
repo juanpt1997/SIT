@@ -3,6 +3,9 @@
 if (!validarModulo('M_VEHICULAR')) {
     echo "<script> window.location = 'inicio'; </script>";
 }
+
+$Vehiculos = ControladorVehiculos::ctrListaVehiculos();
+$Conductores = ControladorVehiculos::ctrListaConductores();
 ?>
 
 
@@ -141,7 +144,6 @@ if (!validarModulo('M_VEHICULAR')) {
                     <div class="row">
                         <div class="col-md-6">
 
-
                             <div class="form-group">
                                 <label>Tipo de contrato</label>
                                 <div class="input-group">
@@ -150,7 +152,7 @@ if (!validarModulo('M_VEHICULAR')) {
                                             <i class="far fa-file-alt"></i>
                                         </span>
                                     </div>
-                                    <select class="form-control input-fuec select2-single" style="width: 92%" type="text" id="TipoContrato" name="TipoContrato" required>
+                                    <select class="form-control input-fuec" type="text" id="TipoContrato" name="TipoContrato" required>
                                         <option selected value="">-Seleccione un tipo-</option>
                                         <option selected value="fijo">Fijo</option>
                                         <option selected value="ocasional">Ocasional</option>
@@ -161,48 +163,60 @@ if (!validarModulo('M_VEHICULAR')) {
                             <div class="form-group">
                                 <label>Vehículo</label>
                                 <div class="input-group">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-car-side"></i>
-                                        </span>
+                                    <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
+                                        <span class="input-group-text" style="height: 93%;"><i class="fas fa-car-side"></i></span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="vehiculofuec" name="vehiculofuec" required>
+                                    <select id="vehiculofuec" class="form-control select2-single input-fuec" style="width: 90%" name="vehiculofuec" required>
+                                        <option value="" selected>-Seleccione un vehículo</option>
+                                        <?php foreach ($Vehiculos as $key => $value) : ?>
+                                            <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label>Conductor 1</label>
                                 <div class="input-group">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-user-check"></i>
-                                        </span>
+                                    <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
+                                        <span class="input-group-text" style="height: 93%;"><i class="fas fa-user-check"></i></span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="conductor1" name="conductor1" required>
+                                    <select id="conductor1" class="form-control select2-single input-fuec" style="width: 90%" name="conductor1" required>
+                                        <option value="" selected>-Seleccione un conductor</option>
+                                        <?php foreach ($Conductores as $key => $value) : ?>
+                                            <option value="<?= $value['idPersonal'] ?>"><?= $value['Documento'] ?> - <?= $value['Nombre'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label>Conductor 2</label>
                                 <div class="input-group">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-user-check"></i>
-                                        </span>
+                                    <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
+                                        <span class="input-group-text" style="height: 93%;"><i class="fas fa-user-check"></i></span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="conductor2" name="conductor2" required>
+                                    <select id="conductor2" class="form-control select2-single input-fuec" style="width: 90%" name="conductor2" required>
+                                        <option value="" selected>-Seleccione un conductor</option>
+                                        <?php foreach ($Conductores as $key => $value) : ?>
+                                            <option value="<?= $value['idPersonal'] ?>"><?= $value['Documento'] ?> - <?= $value['Nombre'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label>Conductor 3</label>
                                 <div class="input-group">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-user-check"></i>
-                                        </span>
+                                    <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
+                                        <span class="input-group-text" style="height: 93%;"><i class="fas fa-user-check"></i></span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="conductor3" name="conductor3" required>
+                                    <select id="conductor3" class="form-control select2-single input-fuec" style="width: 90%" name="conductor3" required>
+                                        <option value="" selected>-Seleccione un conductor</option>
+                                        <?php foreach ($Conductores as $key => $value) : ?>
+                                            <option value="<?= $value['idPersonal'] ?>"><?= $value['Documento'] ?> - <?= $value['Nombre'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
                                 </div>
                             </div>
 
@@ -297,15 +311,15 @@ if (!validarModulo('M_VEHICULAR')) {
                             <div class="form-group clearfix">
                                 <label>Listado pasajeros</label>
                                 <div class="icheck-primary d-inline">
-                                    <input class="form-control input-fuec" type="radio" id="pasajeros1" name="pasajeros1" checked value="si">
+                                    <input class="form-control input-fuec" type="radio" id="pasajeros1" name="pasajeros" checked value="Si">
                                     <label class="font-weight-normal" for="cb1">Si</label>
                                 </div>
                                 <div class="icheck-primary d-inline">
-                                    <input class="form-control input-fuec" type="radio" id="pasajeros2" name="pasajeros2" checked value="no">
+                                    <input class="form-control input-fuec" type="radio" id="pasajeros2" name="pasajeros" value="No">
                                     <label class="font-weight-normal" for="cb2">No</label>
                                 </div>
                                 <div class="icheck-primary d-inline">
-                                    <input class="form-control input-fuec" type="radio" id="pasajeros3" name="pasajeros3" checked value="n/a">
+                                    <input class="form-control input-fuec" type="radio" id="pasajeros3" name="pasajeros" value="N/A">
                                     <label class="font-weight-normal" for="cb2">N/A</label>
                                 </div>
                             </div>
@@ -313,15 +327,15 @@ if (!validarModulo('M_VEHICULAR')) {
                             <div class="form-group clearfix">
                                 <label>Estado</label>
                                 <div class="icheck-primary d-inline">
-                                    <input class="form-control input-fuec" type="radio" id="estado1" name="estado1" checked value="si">
+                                    <input class="form-control input-fuec" type="radio" id="estado1" name="estado" checked value="Pago">
                                     <label class="font-weight-normal" for="cb1">Pago</label>
                                 </div>
                                 <div class="icheck-primary d-inline">
-                                    <input class="form-control input-fuec" type="radio" id="estado2" name="estado2" checked value="no">
+                                    <input class="form-control input-fuec" type="radio" id="estado2" name="estado" value="Pendiente">
                                     <label class="font-weight-normal" for="cb2">Pendiente</label>
                                 </div>
                                 <div class="icheck-primary d-inline">
-                                    <input class="form-control input-fuec" type="radio" id="estado3" name="estado3" checked value="n/a">
+                                    <input class="form-control input-fuec" type="radio" id="estado3" name="estado" value="N/A">
                                     <label class="font-weight-normal" for="cb2">N/A</label>
                                 </div>
                             </div>

@@ -133,7 +133,7 @@ $TiposAusentismo = ControladorAusentismo::ctrTiposAusentismo();
 <div id="AusentismoModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header bg-info">
                 <h5 class="modal-title font-weight-bold" id="titulo-modal-ausentismo">NUEVO</h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
