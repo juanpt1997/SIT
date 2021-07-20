@@ -104,20 +104,27 @@
                 <?php endif ?>
 
                 <!-- ===================================================
-                    ** Extractos de contrato
+                    * Contratos
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarModulo('M_CONTRATOS')) : ?>
                     <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                        <a href="#">
-                            <div class="info-box border border-warning">
+                        <div class="dropdown" style="cursor: pointer;">
+                            <div class="info-box border border-warning" id="dropdownMenuContratos" data-toggle="dropdown">
                                 <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-folder-open"></i></span>
                                 <div class="info-box-content">
-                                    <span class="info-box-text font-weight-bold text-dark">Extractos de contrato</span>
+                                    <span class="info-box-text font-weight-bold text-dark">Contratos</span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
                             <!-- /.info-box -->
-                        </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuContratos">
+                                <a class="dropdown-item font-weight-bold" href="contratos-clientes"><u>Clientes</u></a>
+                                <a class="dropdown-item font-weight-bold" href="contratos-fijos"><u>Fijos</u></a>
+                                <a class="dropdown-item font-weight-bold" href="contratos-cotizaciones"><u>Cotizaciones</u></a>
+                                <a class="dropdown-item font-weight-bold" href="contratos-ordenservicio"><u>Orden de servicio</u></a>
+                                <a class="dropdown-item font-weight-bold" href="contratos-fuec"><u>FUEC</u></a>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.col -->
                 <?php endif ?>

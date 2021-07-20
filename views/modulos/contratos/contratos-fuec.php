@@ -1,6 +1,6 @@
 <?php
 
-if (!validarModulo('M_VEHICULAR')) {
+if (!validarModulo('M_CONTRATOS')) {
     echo "<script> window.location = 'inicio'; </script>";
 }
 

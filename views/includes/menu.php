@@ -306,7 +306,7 @@
                                     FUEC
                                 =================================================== -->
                             <li class="nav-item">
-                            <a href="v-fuec" class="nav-link">
+                                <a href="v-fuec" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>FUEC</p>
                                 </a>
@@ -319,15 +319,70 @@
                 <?php endif ?>
 
                 <!-- ===================================================
-                    ** Extractos de contrato
+                    * Contratos
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
-                    <li class="nav-item">
+                <?php if (validarModulo('M_CONTRATOS')) : ?>
+                    <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-folder-open"></i>
-                            <p>Extractos de
-                                contrato</p>
+                            <p>
+                                Contratos
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
                         </a>
+                        <ul class="nav nav-treeview">
+
+                            <!-- ===================================================
+                                    Clientes
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="contratos-clientes" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Clientes</p>
+                                </a>
+                            </li>
+
+                            <!-- ===================================================
+                                    Fijos
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="contratos-fijos" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Fijos</p>
+                                </a>
+                            </li>
+
+                            <!-- ===================================================
+                                    Cotizaciones
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="contratos-cotizaciones" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Cotizaciones</p>
+                                </a>
+                            </li>
+
+                            <!-- ===================================================
+                                    Orden de servicio
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="contratos-ordenservicio" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Orden de servicio</p>
+                                </a>
+                            </li>
+
+                            <!-- ===================================================
+                                    FUEC
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="contratos-fuec" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>FUEC</p>
+                                </a>
+                            </li>
+
+                        </ul>
                     </li>
                 <?php endif ?>
 

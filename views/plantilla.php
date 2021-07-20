@@ -139,9 +139,17 @@
                     $ruta == "cg-vehicular"||
                     $ruta == "cg-mantenimiento"||
                     $ruta == "cg-seguridad"
-
                 ) {
                     include "modulos/conceptos_generales/{$ruta}.php";
+                }
+                else if (
+                    $ruta == "contratos-clientes"||
+                    $ruta == "contratos-fijos"||
+                    $ruta == "contratos-cotizaciones"||
+                    $ruta == "contratos-ordenservicio" ||
+                    $ruta == "contratos-fuec"
+                ) {
+                    include "modulos/contratos/{$ruta}.php";
                 }
                  else { # Página no válida
                     include "includes/error404.php";
@@ -175,6 +183,7 @@
     <script src="<?= URL_APP ?>views/js/gh.js?v=<?= time() ?>"></script>
     <script src="<?= URL_APP ?>views/js/vehicular.js?v=<?= time() ?>"></script>
     <script src="<?= URL_APP ?>views/js/conceptos.js?v=<?= time() ?>"></script>
+    <script src="<?= URL_APP ?>views/js/contratos.js?v=<?= time() ?>"></script>
 
 </body>
 
