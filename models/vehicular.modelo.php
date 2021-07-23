@@ -280,8 +280,8 @@ class ModeloVehiculos
     static public function mdlAgregarVehiculo($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("INSERT INTO v_vehiculos (placa, numinterno, fechavinculacion, chasis, numeromotor, modelo, color, capacidad, cilindraje, tipovinculacion, fechaimportacion, potenciahp, limitacion, activo, declaracionimpor, fechamatricula, fechaexpedicion, transito, tipocarroceria, fechafinconvenio, claveapp, fechadesvinculacion, observaciones, idsucursal, idmarca, idconvenio, idtipovehiculo) VALUES 
-                                    (:placa, :numinterno, :fechavinculacion, :chasis, :numeromotor, :modelo, :color, :capacidad, :cilindraje, :tipovinculacion, :fechaimportacion, :potenciahp, :limitacion, :activo, :declaracionimpor, :fechamatricula, :fechaexpedicion, :transito, :tipocarroceria, :fechafinconvenio, :claveapp, :fechadesvinculacion, :observaciones, :idsucursal, :idmarca, :idconvenio, :idtipovehiculo)");
+        $stmt = $conexion->prepare("INSERT INTO v_vehiculos (placa, numinterno, fechavinculacion, chasis, numeromotor, modelo, color, capacidad, cilindraje, tipovinculacion, fechaimportacion, potenciahp, limitacion, activo, declaracionimpor, fechamatricula, fechaexpedicion, transito, tipocarroceria, fechafinconvenio, claveapp, fechadesvinculacion, observaciones, idsucursal, idmarca, idconvenio, idtipovehiculo, tipocombustible) VALUES 
+                                    (:placa, :numinterno, :fechavinculacion, :chasis, :numeromotor, :modelo, :color, :capacidad, :cilindraje, :tipovinculacion, :fechaimportacion, :potenciahp, :limitacion, :activo, :declaracionimpor, :fechamatricula, :fechaexpedicion, :transito, :tipocarroceria, :fechafinconvenio, :claveapp, :fechadesvinculacion, :observaciones, :idsucursal, :idmarca, :idconvenio, :idtipovehiculo, :tipocombustible)");
 
         $stmt->bindParam(":placa", $datos['placa'], PDO::PARAM_STR);
         $stmt->bindParam(":numinterno", $datos['numinterno'], PDO::PARAM_STR);
@@ -319,6 +319,7 @@ class ModeloVehiculos
         $stmt->bindParam(":idconvenio", $idconvenio, PDO::PARAM_INT);
         $idtipovehiculo = $datos['idtipovehiculo'] == "" ? null : $datos['idtipovehiculo'];
         $stmt->bindParam(":idtipovehiculo", $idtipovehiculo, PDO::PARAM_INT);
+        $stmt->bindParam(":tipocombustible", $datos['tipocombustible'], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             $id = $conexion->lastInsertId();
@@ -336,7 +337,7 @@ class ModeloVehiculos
     static public function mdlEditarVehiculo($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("UPDATE v_vehiculos SET placa = :placa, numinterno = :numinterno, fechavinculacion = :fechavinculacion, chasis = :chasis, numeromotor = :numeromotor, modelo = :modelo, color = :color, capacidad = :capacidad, cilindraje = :cilindraje, tipovinculacion = :tipovinculacion, fechaimportacion = :fechaimportacion, potenciahp = :potenciahp, limitacion = :limitacion, activo = :activo, declaracionimpor = :declaracionimpor, fechamatricula = :fechamatricula, fechaexpedicion = :fechaexpedicion, transito = :transito, tipocarroceria = :tipocarroceria, fechafinconvenio = :fechafinconvenio, claveapp = :claveapp, fechadesvinculacion = :fechadesvinculacion, observaciones = :observaciones, idsucursal = :idsucursal, idmarca = :idmarca, idconvenio = :idconvenio, idtipovehiculo = :idtipovehiculo
+        $stmt = $conexion->prepare("UPDATE v_vehiculos SET placa = :placa, numinterno = :numinterno, fechavinculacion = :fechavinculacion, chasis = :chasis, numeromotor = :numeromotor, modelo = :modelo, color = :color, capacidad = :capacidad, cilindraje = :cilindraje, tipovinculacion = :tipovinculacion, fechaimportacion = :fechaimportacion, potenciahp = :potenciahp, limitacion = :limitacion, activo = :activo, declaracionimpor = :declaracionimpor, fechamatricula = :fechamatricula, fechaexpedicion = :fechaexpedicion, transito = :transito, tipocarroceria = :tipocarroceria, fechafinconvenio = :fechafinconvenio, claveapp = :claveapp, fechadesvinculacion = :fechadesvinculacion, observaciones = :observaciones, idsucursal = :idsucursal, idmarca = :idmarca, idconvenio = :idconvenio, idtipovehiculo = :idtipovehiculo, tipocombustible = :tipocombustible
                                     WHERE idvehiculo = :idvehiculo");
 
         $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
@@ -376,6 +377,7 @@ class ModeloVehiculos
         $stmt->bindParam(":idconvenio", $idconvenio, PDO::PARAM_INT);
         $idtipovehiculo = $datos['idtipovehiculo'] == "" ? null : $datos['idtipovehiculo'];
         $stmt->bindParam(":idtipovehiculo", $idtipovehiculo, PDO::PARAM_INT);
+        $stmt->bindParam(":tipocombustible", $datos['tipocombustible'], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             $respuesta = $datos['idvehiculo'];
@@ -463,7 +465,8 @@ class ModeloVehiculos
     {
         $stmt = Conexion::conectar()->prepare("SELECT pv.*, p.nombre AS propietario FROM v_re_propietariosvehiculos pv
                                                 INNER JOIN propietario p ON p.idxp = pv.idpropietario
-                                                WHERE pv.idvehiculo = :idvehiculo");
+                                                WHERE pv.idvehiculo = :idvehiculo
+                                                ORDER BY pv.fechacreacion DESC");
 
         $stmt->bindParam(":idvehiculo", $idvehiculo, PDO::PARAM_INT);
 
@@ -481,7 +484,8 @@ class ModeloVehiculos
         $stmt = Conexion::conectar()->prepare("SELECT cv.*, c.nombre AS conductor
                                                 FROM v_re_conductoresvehiculos cv
                                                 INNER JOIN gh_personal c ON c.idPersonal = cv.idconductor
-                                                WHERE cv.idvehiculo = :idvehiculo");
+                                                WHERE cv.idvehiculo = :idvehiculo
+                                                ORDER BY cv.fechacreacion DESC");
 
         $stmt->bindParam(":idvehiculo", $idvehiculo, PDO::PARAM_INT);
 
@@ -499,7 +503,8 @@ class ModeloVehiculos
         $stmt = Conexion::conectar()->prepare("SELECT d.*, t.tipodocumento, DATE_FORMAT(fechafin, '%d/%m/%Y') AS Ffechafin
                                                 FROM v_re_documentosvehiculos d
                                                 INNER JOIN v_tipodocumento t ON t.idtipo = d.idtipodocumento
-                                                WHERE d.idvehiculo = :idvehiculo");
+                                                WHERE d.idvehiculo = :idvehiculo
+                                                ORDER BY d.fechacreacion DESC");
 
         $stmt->bindParam(":idvehiculo", $idvehiculo, PDO::PARAM_INT);
 

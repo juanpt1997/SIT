@@ -184,6 +184,7 @@
     <script src="<?= URL_APP ?>views/js/vehicular.js?v=<?= time() ?>"></script>
     <script src="<?= URL_APP ?>views/js/conceptos.js?v=<?= time() ?>"></script>
     <script src="<?= URL_APP ?>views/js/contratos.js?v=<?= time() ?>"></script>
+    <script src="<?= URL_APP ?>views/js/fuec.js?v=<?= time() ?>"></script>
 
 </body>
 

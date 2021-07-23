@@ -1215,7 +1215,7 @@ if (
                                     <i class="fas fa-file-alt"></i>
                                 </span>
                             </div>
-                            <input type="file" class="form-control" name="" id="swal-inputfile" accept="image/png, image/jpeg, application/pdf">
+                            <input type="file" class="form-control" name="" id="swal-inputfile" accept="image/png, image/jpeg">
                         </div>
                     </div>`,
                 showConfirmButton: true,

@@ -56,7 +56,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                         <div class="card-body">
 
                             <div class="table-responsive">
-                                <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
+                                <table id="tblVehiculos" class="table table-sm table-striped table-bordered table-hover w-100">
                                     <thead class="thead-light text-sm text-center text-nowrap">
                                         <tr>
                                             <th style="width:10px;">#</th>
@@ -76,6 +76,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                             <th>Limitacion propiedad</th>
                                             <th>Tipo de vehiculo</th>
                                             <th>Marca</th>
+                                            <th>Tipo de combustible</th>
                                             <th>Fecha matricula</th>
                                             <th>Activo</th>
                                             <th>Empresa Convenio</th>
@@ -111,6 +112,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <td><?= $value['limitacion'] ?></td>
                                                 <td><?= $value['tipovehiculo'] ?></td>
                                                 <td><?= $value['marca'] ?></td>
+                                                <td><?= $value['tipocombustible'] ?></td>
                                                 <td><?= $value['fechamatricula'] ?></td>
                                                 <td><?= $value['activo'] ?></td>
                                                 <td><?= $value['convenio'] ?></td>
@@ -288,7 +290,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="fas fa-hashtag"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="numeromotor" name="numeromotor" placeholder="Ingresar número del motor" maxlength="21">
+                                                    <input class="form-control" type="text" id="numeromotor" name="numeromotor" placeholder="Ingresar número del motor" maxlength="21">
                                                 </div>
                                             </div>
 
@@ -300,7 +302,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="fas fa-car-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="chasis" name="chasis" placeholder="Ingresar chasis" maxlength="19">
+                                                    <input class="form-control" type="text" id="chasis" name="chasis" placeholder="Ingresar chasis" maxlength="19">
                                                 </div>
                                             </div>
 
@@ -312,7 +314,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="fas fa-car-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="modelo" name="modelo" placeholder="Ingresar modelo del vehículo">
+                                                    <input class="form-control" type="text" id="modelo" name="modelo" placeholder="Ingresar modelo del vehículo">
                                                 </div>
                                             </div>
 
@@ -324,7 +326,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="fas fa-palette"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="color" name="color" placeholder="Ingresar color del vehículo" maxlength="28">
+                                                    <input class="form-control" type="text" id="color" name="color" placeholder="Ingresar color del vehículo" maxlength="28">
                                                 </div>
                                             </div>
 
@@ -336,7 +338,19 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="fas fa-weight"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="capacidad" name="capacidad" placeholder="Ingresar capacidad del vehículo" maxlength="6">
+                                                    <input class="form-control" type="text" id="capacidad" name="capacidad" placeholder="Ingresar capacidad del vehículo" maxlength="6">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label>Tipo de combustible</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-gas-pump"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input class="form-control" type="text" id="tipocombustible" name="tipocombustible" placeholder="Ingresar tipo de combustible">
                                                 </div>
                                             </div>
 
@@ -352,7 +366,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="fas fa-tachometer-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="cilindraje" name="cilindraje" placeholder="Ingresar cilindraje del vehículo" maxlength="9">
+                                                    <input class="form-control" type="text" id="cilindraje" name="cilindraje" placeholder="Ingresar cilindraje del vehículo" maxlength="9">
                                                 </div>
                                             </div>
 
@@ -364,7 +378,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="fas fa-car-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <select class="form-control input-lg input-propietario" type="text" id="idtipovehiculo" name="idtipovehiculo">
+                                                    <select class="form-control input-lg" type="text" id="idtipovehiculo" name="idtipovehiculo">
                                                         <option value="" selected>-Seleccione un tipo-</option>
                                                         <?php foreach ($tvehiculos as $key => $value) : ?>
                                                             <option value="<?= $value['idtipovehiculo'] ?>"><?= $value['tipovehiculo'] ?></option>
@@ -381,7 +395,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="fas fa-car-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <select class="form-control input-lg input-propietario" type="text" id="idmarca" name="idmarca">
+                                                    <select class="form-control input-lg" type="text" id="idmarca" name="idmarca">
                                                         <option value="" selected>-Seleccione una marca-</option>
                                                         <?php foreach ($marca as $key => $value) : ?>
                                                             <option value="<?= $value['idmarca'] ?>"><?= $value['marca'] ?></option>
@@ -398,7 +412,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="fas fa-car-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="tipocarroceria" name="tipocarroceria" placeholder="Ingresar el tipo de carrecoria">
+                                                    <input class="form-control" type="text" id="tipocarroceria" name="tipocarroceria" placeholder="Ingresar el tipo de carrecoria">
                                                 </div>
                                             </div>
 
@@ -410,7 +424,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="fas fa-tachometer-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="potenciahp" name="potenciahp" placeholder="Ingresar potencia  ">
+                                                    <input class="form-control" type="text" id="potenciahp" name="potenciahp" placeholder="Ingresar potencia  ">
                                                 </div>
                                             </div>
 
@@ -435,7 +449,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="far fa-calendar-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="date" id="fechaimportacion" name="fechaimportacion" placeholder="Ingresar fecha de importación">
+                                                    <input class="form-control" type="date" id="fechaimportacion" name="fechaimportacion" placeholder="Ingresar fecha de importación">
                                                 </div>
                                             </div>
 
@@ -447,7 +461,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="fas fa-file-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="limitacion" name="limitacion" placeholder="Ingresar limitación">
+                                                    <input class="form-control" type="text" id="limitacion" name="limitacion" placeholder="Ingresar limitación">
 
                                                 </div>
                                             </div>
@@ -460,7 +474,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="fas fa-check-circle"></i>
                                                         </span>
                                                     </div>
-                                                    <select class="form-control input-lg input-propietario" type="text" id="activo" name="activo">
+                                                    <select class="form-control input-lg" type="text" id="activo" name="activo">
                                                         <option value="" selected>-Seleccione un estado-</option>
                                                         <option>Activo</option>
                                                         <option>Inactivo</option>
@@ -477,7 +491,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="fas fa-building"></i>
                                                         </span>
                                                     </div>
-                                                    <select class="form-control input-lg input-propietario" type="text" id="idconvenio" name="idconvenio">
+                                                    <select class="form-control input-lg" type="text" id="idconvenio" name="idconvenio">
                                                         <option value="" selected>-Seleccione una empresa-</option>
                                                         <?php foreach ($empresaconvenio as $key => $value) : ?>
                                                             <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
@@ -494,7 +508,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="fas fa-file-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="declaracionimpor" name="declaracionimpor" placeholder="Ingresar declaracion">
+                                                    <input class="form-control" type="text" id="declaracionimpor" name="declaracionimpor" placeholder="Ingresar declaracion">
 
                                                 </div>
                                             </div>
@@ -507,7 +521,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="far fa-calendar-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="date" id="fechamatricula" name="fechamatricula" placeholder="Ingresar fecha de matrícula">
+                                                    <input class="form-control" type="date" id="fechamatricula" name="fechamatricula" placeholder="Ingresar fecha de matrícula">
 
                                                 </div>
                                             </div>
@@ -523,7 +537,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="far fa-calendar-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="date" id="fechaexpedicion" name="fechaexpedicion" placeholder="Ingresar fecha de expedición">
+                                                    <input class="form-control" type="date" id="fechaexpedicion" name="fechaexpedicion" placeholder="Ingresar fecha de expedición">
 
                                                 </div>
                                             </div>
@@ -536,7 +550,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="fas fa-file-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="transito" name="transito" placeholder="Ingresar transito">
+                                                    <input class="form-control" type="text" id="transito" name="transito" placeholder="Ingresar transito">
 
                                                 </div>
                                             </div>
@@ -549,7 +563,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="far fa-calendar-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="date" id="fechafinconvenio" name="fechafinconvenio" placeholder="Ingresar fecha de convenio">
+                                                    <input class="form-control" type="date" id="fechafinconvenio" name="fechafinconvenio" placeholder="Ingresar fecha de convenio">
 
                                                 </div>
                                             </div>
@@ -562,7 +576,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="fas fa-key"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="text" id="claveapp" name="claveapp" placeholder="Ingresar clave" maxlength="20">
+                                                    <input class="form-control" type="text" id="claveapp" name="claveapp" placeholder="Ingresar clave" maxlength="20">
 
                                                 </div>
                                             </div>
@@ -575,7 +589,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="far fa-calendar-alt"></i>
                                                         </span>
                                                     </div>
-                                                    <input class="form-control input-propietario" type="date" id="fechadesvinculacion" name="fechadesvinculacion" placeholder="Ingresar fecha de desvinculación">
+                                                    <input class="form-control" type="date" id="fechadesvinculacion" name="fechadesvinculacion" placeholder="Ingresar fecha de desvinculación">
 
                                                 </div>
                                             </div>
@@ -588,7 +602,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <i class="fas fa-comment"></i>
                                                         </span>
                                                     </div>
-                                                    <textarea class="form-control input-propietario" type="text" id="observaciones" name="observaciones" placeholder="Escriba una observación" style="min-height:70px"></textarea>
+                                                    <textarea class="form-control" type="text" id="observaciones" name="observaciones" placeholder="Escriba una observación" style="min-height:70px"></textarea>
                                                 </div>
                                             </div>
 
@@ -757,6 +771,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                             <table id="tblPropietarios" class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
                                                 <thead class="thead-light text-sm text-center">
                                                     <tr>
+                                                        <th>#</th>
                                                         <th>Propietario</th>
                                                         <th>Porcentaje participación</th>
                                                         <th>Observaciones</th>
@@ -765,6 +780,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 </thead>
                                                 <tbody id="tbodyPropietarios" class="text-center">
                                                     <tr>
+                                                        <td></td>
                                                         <td></td>
                                                         <td></td>
                                                         <td></td>
@@ -922,7 +938,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <div class="col-12 col-md-6 col-lg-4">
                                                     <div class="form-group">
                                                         <label for="exampleInput1">Cargar documento *</label>
-                                                        <input type="file" class="form-control" id="inputfile-documentos" accept="image/png, image/jpeg, application/pdf">
+                                                        <input type="file" class="form-control" id="inputfile-documentos" accept="image/png, image/jpeg" required>
                                                     </div>
                                                 </div>
 

@@ -169,7 +169,7 @@ $('.tablas').DataTable({
 });
 const dataTable = (tabla) => {
     $(`${tabla}`).DataTable({
-
+        "order": [],
         "language": {
             "sProcessing": "Procesando...",
             "sLengthMenu": "Mostrar _MENU_ registros",
@@ -512,6 +512,18 @@ $(document).ready(function () {
                 });
                 // Limpiar
                 $(this).val("");
+            }else{
+                if (archivo["type"] != "image/jpeg" && archivo["type"] != "image/png"){
+                    Swal.fire({
+                        icon: "error",
+                        title: "¡La imagen debe estar en formato JPG o PNG!",
+                        showConfirmButton: true,
+                        confirmButtonText: "Cerrar",
+                        closeOnConfirm: false
+                    });
+                    // Limpiar
+                    $(this).val("");
+                }
             }
         }
     });

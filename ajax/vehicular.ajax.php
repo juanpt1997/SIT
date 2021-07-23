@@ -188,17 +188,20 @@ class AjaxVehiculos
     {
         $Respuesta = ControladorVehiculos::ctrPropietariosxVehiculo($idvehiculo);
         $tr = "";
+        $cont = 1;
         foreach ($Respuesta as $key => $value) {
             $btnEliminar = "<button type='button' class='btn btn-danger eliminarRegistro' tabla='v_re_propietariosvehiculos' idregistro='{$value['idpropietariovehiculo']}' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-trash-alt'></i></button>";
 
             $tr .= "
                 <tr>
+                        <td>" . $cont . "</td>
                         <td>" . $value['propietario'] . "</td>
                         <td>" . $value['participacion'] . "</td>
                         <td>" . $value['observacion'] . "</td>
                         <td>$btnEliminar</td>
                 </tr>
             ";
+            $cont++;
         }
 
         echo $tr;
@@ -239,18 +242,33 @@ class AjaxVehiculos
             # Documento
             if ($value['ruta_documento'] != null) {
                 $btnVerDoc = "<a href='" . URL_APP . $value['ruta_documento'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a>";
-                $btnEliminarDoc = "<button class='btn btn-sm btn-danger m-1 btnEliminarDocVehiculo' idvehiculo='{$idvehiculo}' idregistro='{$value['iddocumento']}' type='button'><i class='fas fa-ban'></i></button>";
-                $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnVerDoc . $btnEliminarDoc . "</div>";
+                $btnSubirDoc = "<button class='btn btn-sm btn-secondary m-1 btnSubirDocVehiculo' idvehiculo='{$idvehiculo}' idregistro='{$value['iddocumento']}' type='button'><i class='fas fa-file-upload'></i></button>";
+                $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnVerDoc . $btnSubirDoc . "</div>";
+                //$btnEliminarDoc = "<button class='btn btn-sm btn-danger m-1 btnEliminarDocVehiculo' idvehiculo='{$idvehiculo}' idregistro='{$value['iddocumento']}' type='button'><i class='fas fa-ban'></i></button>";
+                //$btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnVerDoc . $btnEliminarDoc . "</div>";
             } else {
                 $btnSubirDoc = "<button class='btn btn-sm btn-secondary m-1 btnSubirDocVehiculo' idvehiculo='{$idvehiculo}' idregistro='{$value['iddocumento']}' type='button'><i class='fas fa-file-upload'></i></button>";
                 $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnSubirDoc . "</div>";
             }
+            # Badge que indica si el documento está vencido o activo
+            if ($value['fechafin'] > date("Y-m-d")){
+                $badgecolor = "success";
+            }else{
+                if($value['fechafin'] == date("Y-m-d")){
+                    $badgecolor = "warning";
+                }
+                else{
+                    $badgecolor = "danger";
+                }
+            }
+            $tipodocumento = "<span class='badge badge-{$badgecolor}'>{$value['tipodocumento']}</span>";
+            $fechafin = "<span class='badge badge-{$badgecolor}'>{$value['fechafin']}</span>";
             $tr .= "
                 <tr>
-                        <td>" . $value['tipodocumento'] . "</td>
+                        <td>" . $tipodocumento . "</td>
                         <td>" . $value['nrodocumento'] . "</td>
                         <td>" . $value['fechainicio'] . "</td>
-                        <td>" . $value['fechafin'] . "</td>
+                        <td>" . $fechafin . "</td>
                         <td>" . $value['tarifa'] . "</td>
                         <td>$btnAccionesDoc</td>
                         <td>$btnEliminar</td>
