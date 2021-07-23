@@ -1,0 +1,18 @@
+{
+    "recommendations": [
+        "esbenp.prettier-vscode",
+        "moyu.snapcode",
+        "tabnine.tabnine-vscode",
+        "ms-ceintl.vscode-language-pack-es",
+        "abusaidm.html-snippets",
+        "zignd.html-css-class-completion",
+        "xabikos.javascriptsnippets",
+        "pkief.material-icon-theme",
+        "coenraads.bracket-pair-colorizer",
+        "zaczero.bootstrap-v4-snippets",
+        "aaron-bond.better-comments",
+        "formulahendry.auto-rename-tag",
+        "formulahendry.auto-close-tag",
+        "akamud.vscode-theme-onedark"
+    ]
+}

@@ -119,7 +119,7 @@
                                 Cotizaciones
                             =================================================== -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="contratos-cotizaciones" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Cotizaciones</p>
                             </a>
@@ -147,7 +147,7 @@
                                 Clientes
                             =================================================== -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="contratos-clientes" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Clientes</p>
                             </a>
