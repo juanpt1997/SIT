@@ -154,33 +154,12 @@ class ControladorCotizaciones
             'porque' => $_POST['porque'],
          );
 
-         if (is_array($CotizacionExistente) && $CotizacionExistente['idcotizacion'] != $_POST['id_cot']) {
-            echo "
-							<script>
-								Swal.fire({
-									icon: 'warning',
-									title: '¡Cotización ya existe!',						
-									showConfirmButton: true,
-									confirmButtonText: 'Cerrar',
-									
-								}).then((result)=>{
-
-									if(result.value){
-										window.location = 'contratos-cotizaciones';
-									}
-
-								})
-							</script>
-						";
-            return;
-         } else {
-            if ($_POST['id_cot'] == '') {
-               $responseModel = ModeloCotizaciones::mdlAgregarCotizacion($datos);
-            } else {
-               $responseModel = ModeloCotizaciones::mdlEditarCotizacion($datos);
-            }
-         }
-
+         if (is_array($CotizacionExistente)) {
+            
+            $responseModel = ModeloCotizaciones::mdlEditarCotizacion($datos);
+         } else { 
+            $responseModel = ModeloCotizaciones::mdlAgregarCotizacion($datos);
+         } 
          if ($responseModel == "ok") {
 
             echo "
