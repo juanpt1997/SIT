@@ -302,16 +302,6 @@
                                 </a>
                             </li>
 
-                            <!-- ===================================================
-                                    FUEC
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="v-fuec" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>FUEC</p>
-                                </a>
-                            </li>
-
 
 
                         </ul>

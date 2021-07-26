@@ -4,6 +4,7 @@
   VARIABLES GLOBALES 
 ========================= */
 $proyecto = "elsaman";
+define('PROYECTO', $proyecto);
 //define('URL', "{$_SERVER['REQUEST_SCHEME']}://{$_SERVER['SERVER_NAME']}/sit/{$proyecto}/");
 if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != "off") {
     $dominioApp = 'https://' . $_SERVER['SERVER_NAME'];

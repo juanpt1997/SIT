@@ -96,7 +96,6 @@
                                 <a class="dropdown-item font-weight-bold" href="v-convenios"><u>Convenios</u></a>
                                 <a class="dropdown-item font-weight-bold" href="v-bloqueo-personal"><u>Bloqueo de personal</u></a>
                                 <a class="dropdown-item font-weight-bold" href="v-bloqueo-vehiculo"><u>Bloqueo de vehículos</u></a>
-                                <a class="dropdown-item font-weight-bold" href="v-fuec"><u>FUEC</u></a>
                             </div>
                         </div>
                     </div>
