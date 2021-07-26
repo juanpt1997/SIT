@@ -85,7 +85,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                     <tbody>
                                         <?php foreach ($Vehiculos as $key => $value) : ?>
                                             <?php
-                                            $BotonEditar = "<div class='btn-group'>
+                                            $BtnAcciones = "<div class='btn-group'>
                                                             {$value['idvehiculo']}
                                                             <button type='button' class='btn btnEditarVehiculo' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#VehiculosModal'>
                                                                 <i class='fas fa-lg fa-edit text-info'></i>
@@ -95,7 +95,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                             ?>
                                             <tr>
                                                 <!-- <td><?= $value['idvehiculo'] ?></td> -->
-                                                <td><?= $BotonEditar ?></td>
+                                                <td><?= $BtnAcciones ?></td>
                                                 <td><?= $value['placa'] ?></td>
                                                 <td><?= $value['numinterno'] ?></td>
                                                 <td><?= $value['sucursal'] ?></td>

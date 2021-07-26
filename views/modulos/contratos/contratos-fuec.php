@@ -54,7 +54,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                     <thead class="thead-light text-sm text-nowrap">
                                         <tr>
                                             <th style="width:10px;">#</th>
-                                            <th>Editar</th>
+                                            <th>Acciones</th>
                                             <th>FUEC</th>
                                             <th>Placa</th>
                                             <th>Nro. Interno afiliado</th>
@@ -81,8 +81,9 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button class="btn btn-sm btn-info btnEditarFuec" data-toggle="modal" data-target="#NuevoFuec"><i class="fas fa-pencil-alt"></i></button>
+                                                <div class='btn-group'>
+                                                    <button class="btn btnEditarFuec" data-toggle="modal" data-target="#NuevoFuec"><i class="fas fa-lg fa-pencil-alt text-info"></i></button>
+                                                    <button type='button' class='btn btn-FTFuec' idfuec='1'><i class='fas fa-lg fa-book text-secondary'></i></button>
                                                 </div>
                                             </td>
                                             <td></td>
@@ -141,9 +142,9 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data">
 
-                    <div class="row">
-                        <div class="col-md-6">
-
+                    <!-- Tipo de contrato y contrato/contratante -->
+                    <div class="row d-flex justify-content-md-center">
+                        <div class="col-12 col-md-8 col-lg-6">
                             <div class="form-group">
                                 <label>Tipo de contrato</label>
                                 <div class="input-group">
@@ -152,13 +153,153 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                             <i class="far fa-file-alt"></i>
                                         </span>
                                     </div>
-                                    <select class="form-control input-fuec" type="text" id="TipoContrato" name="TipoContrato" required>
+                                    <select class="form-control" type="text" id="tipocontrato" name="tipocontrato" required>
                                         <option selected value="">-Seleccione un tipo-</option>
-                                        <option selected value="fijo">Fijo</option>
-                                        <option selected value="ocasional">Ocasional</option>
+                                        <option selected value="FIJO">Fijo</option>
+                                        <option selected value="OCASIONAL">Ocasional</option>
                                     </select>
                                 </div>
                             </div>
+                        </div><!-- /.col -->
+
+                        <div class="col-12 col-md-10 col-lg-6">
+                            <div class="form-group">
+                                <label>Contrato fijo</label>
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-file-alt"></i>
+                                        </span>
+                                    </div>
+                                    <select id="contratofijo" class="form-control select2-single" style="width: 90%" name="contratofijo" required>
+                                        <option value="" selected>-Seleccione una opción-</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div><!-- /.col -->
+
+                        <div class="col-12 col-md-10 col-lg-6">
+                            <div class="form-group">
+                                <label>Contratante</label>
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-file-alt"></i>
+                                        </span>
+                                    </div>
+                                    <select id="contratante" class="form-control select2-single input-fuec" style="width: 90%" name="contratante" required>
+                                        <option value="" selected>-Seleccione una opción-</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div><!-- /.col -->
+
+
+                    </div><!-- /.row -->
+
+                    <!-- Datos del cliente -->
+                    <div class="row row-cliente">
+
+                        <!-- Documento contratante -->
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label class="text-sm">Documento contratante</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control input-clientes" type="text" id="docum_empre" placeholder="Documento" readonly>
+                                </div>
+                            </div>
+                        </div><!-- /.col -->
+
+                        <!-- Dirección contratante -->
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label class="text-sm">Dirección contratante</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control input-clientes" type="text" id="dir_empre" placeholder="Dirección" readonly>
+                                </div>
+                            </div>
+                        </div><!-- /.col -->
+
+                        <!-- Teléfono contratante -->
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label class="text-sm">Teléfono contratante</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control input-clientes" type="text" min="0" id="telefono_empre" placeholder="Teléfono" readonly>
+                                </div>
+                            </div>
+                        </div><!-- /.col -->
+
+                        <!-- Responsable del contrato -->
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label class="text-sm">Responsable del contrato</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control input-clientes" type="text" id="nom_respo" placeholder="Nombre del responsable" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Documento cliente -->
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label class="text-sm">Documento cliente</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control input-clientes" type="text" id="docum_respo" placeholder="Documento del cliente" readonly>
+                                </div>
+                            </div>
+                        </div><!-- /.col -->
+
+                        <!-- Direccion cliente -->
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label class="text-sm">Dirección cliente</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control input-clientes" type="text" id="dir_respo" placeholder="Dirección cliente" readonly>
+                                </div>
+                            </div>
+                        </div><!-- /.col -->
+
+                        <!-- Teléfono cliente -->
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label class="text-sm">Teléfono cliente</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control input-clientes" type="text" id="telefono_cliente" placeholder="Teléfono" readonly>
+                                </div>
+                            </div>
+                        </div><!-- /.col -->
+
+                        <!-- Ciudad cliente -->
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label class="text-sm">Ciudad cliente</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control input-clientes" type="text" id="ciudad_cliente" placeholder="Ciudad" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label class="text-sm">Cédula cliente expedida en</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control input-clientes" type="text" id="expedicion_doccliente" placeholder="" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div><!-- /.row -->
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-6">
+
 
                             <div class="form-group">
                                 <label>Vehículo</label>
