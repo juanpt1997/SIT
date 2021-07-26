@@ -30,6 +30,7 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
 
             <hr class="my-4">
 
+            <!--BUTON AGREGAR CLIENTE-->
             <button type="button" class="btn btn-success btn-md btn-agregarcliente" data-toggle="modal" data-target="#clientesmodal">
                 <i class="fas fa-user-plus"></i> Agregar nuevo cliente
             </button>
@@ -38,6 +39,7 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                 <div class="col-12">
                     <div class="card card-outline card-success">
                         <div class="card-body">
+                            <!--TABLA PARA VISUALIZAR CLIENTES-->
                             <div class="table-responsive">
                                 <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
                                     <thead class="text-sm text-center text-nowrap">
@@ -89,7 +91,9 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
     </div><!-- /.content -->
 </div><!-- /.content-wrapper -->
 
-
+<!--_-----------------------------------
+----------MODAL CLIENTES AGREGAR/EDITAR-
+---------------------------------------->
 <div class="modal fade" id="clientesmodal" tabindex="-1" data-backdrop="true" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -127,7 +131,7 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                         <div class="col-md-6">
 
                             <div class="form-group">
-                                <label>Tipo de documento</label>
+                                <label class="text-sm">Tipo de documento</label>
                                 <div class="input-group input-group-sm">
                                     <select class="form-control input-clientes" type="text" id="t_document_empre" name="t_document_empre" required>
                                         <option selected value="">-Seleccione una opción-</option>
@@ -173,6 +177,13 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                                     <input class="form-control input-clientes" type="text" min="0" id="dir_empre" name="dir_empre" placeholder="Dirección de la empresa" required>
                                 </div>
                             </div>
+
+                            <div class="form-group">
+                                <label class="text-sm">Teléfono 2</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control input-clientes" type="text" min="0" id="telclient2" name="telclient2" placeholder="Ingrese un segundo teléfono" required>
+                                </div>
+                            </div>
                         </div><!-- col-2-->
                     </div><!-- row-->
 
@@ -189,7 +200,7 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                         <div class="col-md-6">
 
                             <div class="form-group">
-                                <label>Tipo de documento del responsable</label>
+                                <label class="text-sm">Tipo de documento del responsable</label>
                                 <div class="input-group input-group-sm">
                                     <select class="form-control input-clientes" type="text" id="t_document_respo" name="t_document_respo" required>
                                         <option selected value="">-Seleccione una opción-</option>
@@ -234,8 +245,6 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                                     <input class="form-control input-clientes" type="text" min="0" id="docum_respo" name="docum_respo" placeholder="Documento del responsable" required>
                                 </div>
                             </div>
-
-
                         </div><!-- col-2-->
                     </div><!-- row-2-->
                 </div><!-- fin modal-body-->

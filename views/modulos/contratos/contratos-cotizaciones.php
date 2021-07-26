@@ -2,6 +2,8 @@
 $tvehiculos = ControladorVehiculos::ctrMostrarTipoVehiculo();
 $Sucursales = ControladorGH::ctrSucursales();
 $Cotizaciones = ControladorCotizaciones::ctrVerCotizacion();
+$clientes = ControladorClientes::ctrVerCliente();
+$DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 ?>
 
 
@@ -73,12 +75,12 @@ $Cotizaciones = ControladorCotizaciones::ctrVerCotizacion();
                                                     </div>
                                                 </td>
                                                 <td><?= $value['idcotizacion'] ?></td>
-                                                <td><?= $value['nomcontratante'] ?></td>
+                                                <td><?= $value['nombre'] ?></td>
                                                 <td><?= $value['Documento'] ?></td>
                                                 <td><?= $value['direccion'] ?></td>
-                                                <td><?= $value['telefono1'] ?></td>
+                                                <td><?= $value['telefono'] ?></td>
                                                 <td><?= $value['telefono2'] ?></td>
-                                                <td><?= $value['nomcontacto'] ?></td>
+                                                <td><?= $value['nombrerespons'] ?></td>
                                                 <td><?= $value['empresa'] ?></td>
                                                 <td><?= $value['origen'] ?></td>
                                                 <td><?= $value['destino'] ?></td>
@@ -126,45 +128,168 @@ $Cotizaciones = ControladorCotizaciones::ctrVerCotizacion();
 
                     <hr class="my-4">
 
-                    <div class="form-group">
-                        <label class="text-sm">Nombre del contratante</label>
-                        <div class="input-group input-group-sm">
-                            <input class="form-control" type="text" min="0" id="nom_contrata" name="nom_contrata" placeholder="Nombre del contratante" required>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="pcliente" class="text-sm"><i>Tipo de cliente</i></label>
+                                <div class="input-group input-group-sm">
+                                    <select id="pcliente" class="form-control" required>
+                                        <option value="" selected>-Seleccione una opción-</option>
+                                        <option value="cliente">Cliente existente</option>
+                                        <option value="posible">Posible cliente</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="text-sm"><i>Lista de clientes</i></label>
+                                <div class="input-group input-group-sm">
+                                    <select class="form-control" id="listaclientes" style="width: 99%" name="listaclientes" readonly>
+                                        <option value="" selected><b>-Seleccione un cliente existente-</b></option>
+                                        <?php foreach ($clientes as $key => $value) : ?>
+                                            <option value="<?= $value['idcliente'] ?>"><?= $value['clientexist'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="text-sm">Nombre de la empresa</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control input-clientes" type="text" min="0" id="nom_contrata" name="nom_contrata" placeholder="Ingrese el nombre de la empresa" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="text-sm">NIT/CC</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control input-clientes" type="text" min="0" id="document" name="document" placeholder="Ingrese el documento" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label class="text-sm">Tipo de documento</label>
+                                <div class="input-group input-group-sm">
+                                    <select class="form-control input-clientes" type="text" id="t_document_empre" name="t_document_empre" required>
+                                        <option selected value="">-Seleccione una opción-</option>
+                                        <option>NIT</option>
+                                        <option>CC</option>
+                                        <option>CE</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="text-sm">Ciudad</label>
+                                <div class="input-group input-group-sm">
+                                    <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="ciudadcliente" name="ciudadcliente" required>
+                                        <option selected value="">-Seleccione una ciudad-</option>
+                                        <?php foreach ($DeparMunicipios as $key => $value) : ?>
+                                            <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="text-sm">NIT/CC</label>
+                        <label class="text-sm">Dirección</label>
                         <div class="input-group input-group-sm">
-                            <input class="form-control" type="text" min="0" id="document" name="document" placeholder="Ingrese el documento" required>
+                            <input class="form-control input-clientes" type="text" min="0" id="direcci" name="direcci" placeholder="Ingrese la dirección" required>
                         </div>
                     </div>
 
                     <div class="row">
-
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label class="text-sm">Dirección</label>
+                                <label class="text-sm">Teléfono 1</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="text" min="0" id="direcci" name="direcci" placeholder="Ingrese la dirección" required>
+                                    <input class="form-control input-clientes" type="text" min="0" id="tel1" name="tel1" placeholder="Ingrese un teléfono" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="text-sm">Nombre del responsable</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control input-clientes" type="text" min="0" id="nom_respo" name="nom_respo" placeholder="Nombre del responsable" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="text-sm">Documento</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control input-clientes" type="text" min="0" id="docum_respo" name="docum_respo" placeholder="Documento del responsable" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="text-sm">Ciudad responsable</label>
+                                <div class="input-group input-group-sm">
+                                    <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="ciudadresponsable" name="ciudadresponsable" required>
+                                        <option selected value="">-Seleccione una ciudad-</option>
+                                        <?php foreach ($DeparMunicipios as $key => $value) : ?>
+                                            <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="text-sm">Teléfono 2</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control input-clientes" type="text" min="0" id="tel2" name="tel2" placeholder="Ingrese un segundo teléfono" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="text-sm">Tipo de documento del responsable</label>
+                                <div class="input-group input-group-sm">
+                                    <select class="form-control input-clientes" type="text" id="t_document_respo" name="t_document_respo" required>
+                                        <option selected value="">-Seleccione una opción-</option>
+                                        <option>NIT</option>
+                                        <option>CC</option>
+                                        <option>CE</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="text-sm">Cédula expedida en</label>
+                                <div class="input-group input-group-sm">
+                                    <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="expedicion" name="expedicion" required>
+                                        <option selected value="">-Seleccione una ciudad-</option>
+                                        <?php foreach ($DeparMunicipios as $key => $value) : ?>
+                                            <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
+                    </div>
 
+                    <hr class="my-4">
+
+                    <div class="row">
+              
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="text-sm">Nombre de contacto</label>
+                                <label class="text-sm">Empresa</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="text" min="0" id="nom_contact" name="nom_contact" placeholder="Nombre del contacto" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="text-sm">Origen</label>
-                                <div class="input-group input-group-sm">
-                                    <input class="form-control" type="text" min="0" id="origin" name="origin" placeholder="Ingrese el origen" required>
+                                    <input class="form-control" type="text" min="0" id="empres" name="empres" placeholder="Escriba el nombre de la empresa" required>
                                 </div>
                             </div>
                         </div>
@@ -221,18 +346,9 @@ $Cotizaciones = ControladorCotizaciones::ctrVerCotizacion();
 
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="text-sm">Teléfono 1</label>
+                                <label class="text-sm">Origen</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="text" min="0" id="tel1" name="tel1" placeholder="Ingrese un teléfono" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="text-sm">Empresa</label>
-                                <div class="input-group input-group-sm">
-                                    <input class="form-control" type="text" min="0" id="empres" name="empres" placeholder="Escriba la empresa" required>
+                                    <input class="form-control" type="text" min="0" id="origin" name="origin" placeholder="Ingrese el origen" required>
                                 </div>
                             </div>
                         </div>
@@ -268,7 +384,7 @@ $Cotizaciones = ControladorCotizaciones::ctrVerCotizacion();
                             <div class="form-group">
                                 <label class="text-sm">Tipo de vehículo</label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control" type="number" id="tipovehiculocot" name="tipovehiculocot">
+                                    <select class="form-control" id="tipovehiculocot" name="tipovehiculocot">
                                         <option value="" selected>-Seleccione un tipo-</option>
                                         <?php foreach ($tvehiculos as $key => $value) : ?>
                                             <option value="<?= $value['idtipovehiculo'] ?>"><?= $value['tipovehiculo'] ?></option>
@@ -296,15 +412,6 @@ $Cotizaciones = ControladorCotizaciones::ctrVerCotizacion();
                                         <option>Contrato ocasional</option>
                                         <option>Contrato fijo</option>
                                     </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="text-sm">Teléfono 2</label>
-                                <div class="input-group input-group-sm">
-                                    <input class="form-control" type="text" min="0" id="tel2" name="tel2" placeholder="Ingrese un segundo teléfono" required>
                                 </div>
                             </div>
                         </div>
@@ -490,7 +597,7 @@ $Cotizaciones = ControladorCotizaciones::ctrVerCotizacion();
                 </div>
                 <?php
                 $CrearCotizacion = new ControladorCotizaciones();
-                $CrearCotizacion->ctrAgregarEditarCot();
+                $CrearCotizacion->ctrAgregarCotizacionCliente();
                 ?>
             </form>
         </div>

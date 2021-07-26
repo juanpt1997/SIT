@@ -18,9 +18,13 @@ if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok") {
 ===================================================*/
 class AjaxClientes
 {
-   static public function ajaxDatosClientes($documento)
+   static public function ajaxDatosClientes($item,$valor)
    {
-      $respuesta = ModeloClientes::mdlVerCliente($documento);
+      $datos = array(
+			'item' => $item,
+			'valor' => $valor
+		);
+      $respuesta = ModeloClientes::mdlVerCliente($datos);
       echo json_encode($respuesta);
    }
 }
@@ -28,7 +32,7 @@ class AjaxClientes
    # LLAMADOS A AJAX CLIENTES
 ===================================================*/
 if (isset($_POST['DatosClientes']) && $_POST['DatosClientes'] == "ok") {
-   AjaxClientes::ajaxDatosClientes($_POST['value']);
+   AjaxClientes::ajaxDatosClientes($_POST['item'],$_POST['valor']);
 }
 /* ===================================================
    * COTIZACIONES
