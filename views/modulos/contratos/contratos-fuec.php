@@ -140,7 +140,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
             </div>
 
             <div class="modal-body">
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data" id="frmFUEC">
 
                     <!-- Tipo de contrato y contrato/contratante -->
                     <div class="row d-flex justify-content-md-center">
@@ -162,7 +162,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                             </div>
                         </div><!-- /.col -->
 
-                        <div class="col-12 col-md-10 col-lg-6">
+                        <div class="col-12 col-md-10 col-lg-6 d-none" id="colContratoFijo">
                             <div class="form-group">
                                 <label>Contrato fijo</label>
                                 <div class="input-group">
@@ -171,7 +171,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                             <i class="fas fa-file-alt"></i>
                                         </span>
                                     </div>
-                                    <select id="contratofijo" class="form-control select2-single" style="width: 90%" name="contratofijo" required>
+                                    <select id="contratofijo" class="form-control select2-single" style="width: 90%" name="contratofijo">
                                         <option value="" selected>-Seleccione una opción-</option>
 
                                     </select>
@@ -179,7 +179,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                             </div>
                         </div><!-- /.col -->
 
-                        <div class="col-12 col-md-10 col-lg-6">
+                        <div class="col-12 col-md-10 col-lg-6" id="colContratante">
                             <div class="form-group">
                                 <label>Contratante</label>
                                 <div class="input-group">
@@ -526,7 +526,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
 
             <div class="modal-footer bg-dark">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-success">
+                <button type="submit" form="frmFUEC" class="btn btn-success">
                     <i class="fas fa-save"></i>
                     Guardar
                 </button>
