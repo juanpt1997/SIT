@@ -191,3 +191,50 @@ if (window.location.href == `${urlPagina}contratos-cotizaciones/` ||
         });
     });
 }
+
+/* ===================================================
+    * COTIZACIONES
+===================================================*/
+if (window.location.href == `${urlPagina}contratos-fijos/` ||
+    window.location.href == `${urlPagina}contratos-fijos`
+) {
+    $(document).ready(function () {
+
+        $(document).on("click", ".btn-editarfijo", function () {
+
+            var idfijos = $(this).attr("idfijos");
+            var idcliente = $(this).attr("idcliente");
+            $("#idconfijo").val(idfijos);
+
+            var datos = new FormData();
+            datos.append("DatosFijos", "ok");
+            datos.append("value", idcliente);
+            $.ajax({
+                type: "POST",
+                url: "ajax/contratos.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+
+                    $("#titulo_fijos").html("Editar contrato # "+response.numcontrato);
+                    $("#nom_clien").val(response.idcliente);
+                    $("#num_contrato").val(response.numcontrato);
+                    $("#f_inicial_fijos").val(response.fecha_incial);
+                    $("#f_final_fijos").val(response.fecha_final);
+                    $("#documento_es").val(response.documento_escaneado);
+                    $("#observaciones_fijos").val(response.observaciones);
+                    $('.select2-single').trigger('change'); //MUESTRA EL VALOR DEL SELECT 
+                }
+            });
+        });
+
+        $(document).on("click", ".btn-agregarfijo", function () {
+
+            $("#titulo_fijos").html("NUEVO contrato fijo");
+            $(".input-fijos").val("");
+        });
+    });
+}

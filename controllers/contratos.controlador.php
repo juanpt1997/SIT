@@ -4,7 +4,6 @@
 /* ===================================================
    * CLIENTES
 ===================================================*/
-
 class ControladorClientes
 {
    static public function ctrVerCliente()
@@ -103,7 +102,9 @@ class ControladorClientes
       }
    }
 }
-
+/* ===================================================
+   * COTIZACIONES
+===================================================*/
 class ControladorCotizaciones
 {
    static public function ctrVerCotizacion()
@@ -204,7 +205,7 @@ class ControladorCotizaciones
       }
    }
 
-/*------------------------------------------------------
+   /*------------------------------------------------------
 ----------CONTROLADOR AGREGAR/EDITAR Y AGREGAR CLIENTE--
 ------------------------------------------------------ */
    static public function ctrAgregarCotizacionCliente()
@@ -377,6 +378,77 @@ class ControladorCotizaciones
                      ";
                }
             }
+         }
+      }
+   }
+}
+/* ===================================================
+   * FIJOS
+===================================================*/
+class ControladorFijos
+{
+   static public function ctrVerFijos()
+   {
+      $respuesta = ModeloFijos::mdlVerFijos(null);
+      return $respuesta;
+   }
+
+   static public function ctrAgregarEditarFijos()
+   {
+      if (isset($_POST['idconfijo'])) {
+         $FijosExistente = ModeloFijos::mdlVerFijos($_POST['idconfijo']);
+
+         $datos = array(
+            'idcliente' => $_POST['nom_clien'],
+            'numcontrato' => $_POST['num_contrato'],
+            'fecha_incial' => $_POST['f_inicial_fijos'],
+            'fecha_final' => $_POST['f_final_fijos'],
+            'documento_escaneado' => $_POST['documento_es'],
+            'observaciones' => $_POST['observaciones_fijos']
+         );
+
+         if (is_array($FijosExistente)) {
+            $respuestamodelo = ModeloFijos::mdlEditarFijos($datos);
+         } else {
+            $respuestamodelo = ModeloFijos::mdlAgregarFijo($datos);
+         }
+
+         if ($respuestamodelo == "ok") {
+            echo "
+						<script>
+							Swal.fire({
+								icon: 'success',
+								title: 'Contrato fijo añadido correctamente!',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								
+							}).then((result)=>{
+
+								if(result.value){
+									window.location = 'contratos-fijos';
+								}
+
+							})
+						</script>
+					";
+         } else {
+            echo "
+						<script>
+							Swal.fire({
+								icon: 'warning',
+								title: '¡Problema al añadir el contrato fijo!',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								
+							}).then((result)=>{
+
+								if(result.value){
+									window.location = 'contratos-fijos';
+								}
+
+							})
+						</script>
+					";
          }
       }
    }

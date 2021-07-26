@@ -176,8 +176,7 @@ class ModeloCotizaciones
       $stmt = Conexion::conectar()->prepare("INSERT INTO cont_cotizaciones(idcliente,empresa,idsucursal,
       origen,destino,descripcion,fecha_solicitud,fecha_solucion,fecha_inicio,fecha_fin,duracion,hora_salida,hora_recogida,idtipovehiculo,nro_vehiculos,
       capacidad,valorxvehiculo,valortotal,cotizacion,clasificacion,musica,aire,wifi,silleriareclinable,bano,bodega,otro,realiza_viaje,porque)
-      VALUES(:idcliente,:empresa,:idsucursal,:origen,:destino,:descripcion,:fecha_solicitud,:fecha_solucion,:fecha_inicio,:fecha_fin,:duracion,:hora_salida,:hora_recogida,:idtipovehiculo,:nro_vehiculos,
-      :capacidad,:valorxvehiculo,:valortotal,:cotizacion,:clasificacion,:musica,:aire,:wifi,:silleriareclinable,:bano,:bodega,:otro,:realiza_viaje,:porque)");
+      VALUES(:idcliente,:empresa,:idsucursal,:origen,:destino,:descripcion,:fecha_solicitud,:fecha_solucion,:fecha_inicio,:fecha_fin,:duracion,:hora_salida,:hora_recogida,:idtipovehiculo,:nro_vehiculos,:capacidad,:valorxvehiculo,:valortotal,:cotizacion,:clasificacion,:musica,:aire,:wifi,:silleriareclinable,:bano,:bodega,:otro,:realiza_viaje,:porque)");
 
       // $stmt->bindParam(":nomcontratante", $datos["nom_contrata"], PDO::PARAM_STR);
       // $stmt->bindParam(":Documento", $datos["document"], PDO::PARAM_STR);
@@ -312,6 +311,79 @@ class ModeloCotizaciones
       $stmt->closeCursor();
       $stmt = null;
 
+      return $retorno;
+   }
+}
+
+/* ===================================================
+   * FIJOS
+===================================================*/
+class ModeloFijos
+{
+   static public function mdlAgregarFijo($datos)
+   {
+      $stmt = Conexion::conectar()->prepare("INSERT INTO cont_fijos(idcliente,numcontrato,fecha_incial,fecha_final,documento_escaneado,observaciones)
+                                             VALUES(:idcliente,:numcontrato,:fecha_incial,:fecha_final,:documento_escaneado,:observaciones)");
+
+      $stmt->bindParam(":idcliente", $datos["idcliente"], PDO::PARAM_INT);
+      $stmt->bindParam(":numcontrato", $datos["numcontrato"], PDO::PARAM_INT);
+      $stmt->bindParam(":fecha_incial", $datos["fecha_incial"], PDO::PARAM_STR);
+      $stmt->bindParam(":fecha_final", $datos["fecha_final"], PDO::PARAM_STR);
+      $stmt->bindParam(":documento_escaneado", $datos["documento_escaneado"], PDO::PARAM_STR);
+      $stmt->bindParam(":observaciones", $datos["observaciones"], PDO::PARAM_STR);
+
+      if ($stmt->execute()) {
+         $retorno = "ok";
+      } else {
+         $retorno = "error";
+      }
+      $stmt->closeCursor();
+      $stmt = null;
+      return $retorno;
+   }
+
+   static public function mdlVerFijos($valor)
+   {
+      if ($valor != null) {
+         $stmt = Conexion::conectar()->prepare("SELECT F.*, C.nombre as nombre_cliente  FROM cont_fijos F
+         INNER JOIN cont_clientes C ON F.idcliente = C.idcliente
+         WHERE  C.idfijos = :idcliente");
+
+
+         $stmt->bindParam(":idcliente",  $valor, PDO::PARAM_INT);
+         $stmt->execute();
+         $retorno =  $stmt->fetch();
+      } else {
+
+         $stmt = Conexion::conectar()->prepare("SELECT F.*, C.nombre as nombre_cliente  FROM cont_fijos F
+         INNER JOIN cont_clientes C ON F.idcliente = C.idcliente");
+
+         $stmt->execute();
+         $retorno =  $stmt->fetchAll();
+      }
+      $stmt->closeCursor();
+      return $retorno;
+   }
+
+   static public function mdlEditarFijos($datos)
+   {
+      $stmt = Conexion::conectar()->prepare("UPDATE cont_fijos set idcliente = :idcliente, numcontrato=:numcontrato,fecha_inical=:fecha_inical,fecha_final=:fecha_final,                            documento_escaneado=:documento_escaneado,observaciones=:observaciones
+											            WHERE idfijos = :idfijos");
+
+      $stmt->bindParam(":idcliente", $datos["idcliente"], PDO::PARAM_INT);
+      $stmt->bindParam(":numcontrato", $datos["numcontrato"], PDO::PARAM_INT);
+      $stmt->bindParam(":fecha_inical", $datos["fecha_inical"], PDO::PARAM_STR);
+      $stmt->bindParam(":fecha_final", $datos["fecha_final"], PDO::PARAM_STR);
+      $stmt->bindParam(":documento_escaneado", $datos["documento_escaneado"], PDO::PARAM_STR);
+      $stmt->bindParam(":observaciones", $datos["observaciones"], PDO::PARAM_STR);
+
+      if ($stmt->execute()) {
+         $retorno = "ok";
+      } else {
+         $retorno = "error";
+      }
+      $stmt->closeCursor();
+      $stmt = null;
       return $retorno;
    }
 }

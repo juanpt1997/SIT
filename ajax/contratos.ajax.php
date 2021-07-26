@@ -51,3 +51,21 @@ class AjaxCotizaciones
 if (isset($_POST['DatosCotizaciones']) && $_POST['DatosCotizaciones'] == "ok") {
    AjaxCotizaciones::ajaxDatosCotizaciones($_POST['value']);
 }
+
+/* ===================================================
+   * FIJOS
+===================================================*/
+class AjaxFijos
+{
+   static public function ajaxDatosFijos($idfijos)
+   {
+      $respuesta = ModeloFijos::mdlVerFijos($idfijos);
+      echo json_encode($respuesta);
+   }
+}
+/* ===================================================
+   # LLAMADOS A AJAX FIJOS
+===================================================*/
+if (isset($_POST['DatosFijos']) && $_POST['DatosFijos'] == "ok") {
+   AjaxFijos::ajaxDatosFijos($_POST['value']);
+}

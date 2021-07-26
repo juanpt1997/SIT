@@ -1,6 +1,6 @@
 <?php
-$DeparMunicipios = ControladorGH::ctrDeparMunicipios();
-$ListarClientes = ControladorClientes::ctrVerCliente();
+$ListarFijos = ControladorFijos::ctrVerFijos();
+$clientes = ControladorClientes::ctrVerCliente();
 ?>
 
 
@@ -52,22 +52,22 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                                         </tr>
                                     </thead>
                                     <tbody class="text-sm">
-                                        <?php foreach ($ListarClientes as $key => $value) : ?>
+                                        <?php foreach ($ListarFijos as $key => $value) : ?>
                                             <tr>
                                                 <td>
                                                     <div class="btn-group" role="group" aria-label="Button group">
-                                                        <button class="btn btn-toolbar btn-sm btn-info btn-editarfijo" data-toggle="modal" data-target="#fijosmodal"><i class="fas fa-edit"></i></button>
+                                                        <button class="btn btn-toolbar btn-sm btn-info btn-editarfijo" idcliente="<?= $value['idcliente'] ?>" idfijos="<?= $value['idfijos'] ?>" data-toggle="modal" data-target="#fijosmodal"><i class="fas fa-edit"></i></button>
                                                     </div>
                                                     <div class="btn-group" role="group" aria-label="Button group">
                                                         <button class="btn btn-toolbar btn-sm btn-primary btn-verfijo" data-toggle="modal" data-target="#fijosmodal"><i class="fas fa-eye"></i></button>
                                                     </div>
                                                 </td>
-                                                <td><?= $value[''] ?></td>
-                                                <td><?= $value[''] ?></td>
-                                                <td><?= $value[''] ?></td>
-                                                <td><?= $value[''] ?></td>
-                                                <td><?= $value[''] ?></td>
-                                                <td><?= $value[''] ?></td>
+                                                <td><?= $value['idfijos'] ?></td>
+                                                <td><?= $value['nombre_cliente'] ?></td>
+                                                <td><?= $value['numcontrato'] ?></td>
+                                                <td><?= $value['observaciones'] ?></td>
+                                                <td><?= $value['fecha_inical'] ?></td>
+                                                <td><?= $value['fecha_inical'] ?></td>
                                             </tr>
                                         <?php endforeach ?>
                                     </tbody>
@@ -101,7 +101,7 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                         <div class="form-group">
                             <label class="text-sm">ID</label>
                             <div class="input-group input-group-sm">
-                                <input class="form-control" type="number" id="idconfijo" name="idconfijo" value="" readonly>
+                                <input class="form-control input-fijos" type="number" id="idconfijo" name="idconfijo" value="" readonly>
                             </div>
                         </div>
                     </div>
@@ -109,16 +109,21 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                     <hr class="my-4">
 
                     <div class="form-group">
-                        <label class="text-sm">Nombre del cliente</label>
+                        <label class="text-sm"><i>Nombre del cliente</i></label>
                         <div class="input-group input-group-sm">
-                            <input class="form-control input-fijos" type="text" id="nom_clien" name="nom_clien" placeholder="Nombre del cliente" required>
+                            <select class="form-control input-fijos" id="nom_clien" style="width: 99%" name="nom_clien">
+                                <option value="" selected><b>-Seleccione un cliente-</b></option>
+                                <?php foreach ($clientes as $key => $value) : ?>
+                                    <option value="<?= $value['idcliente'] ?>"><?= $value['nombre'] ?></option>
+                                <?php endforeach ?>
+                            </select>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>Número de contrato</label>
+                                <label class="text-sm">Número de contrato</label>
                                 <div class="input-group input-group-sm">
                                     <input class="form-control input-fijos" type="number" id="num_contrato" name="num_contrato" placeholder="Digite el número del contrato" required>
                                 </div>
@@ -144,24 +149,25 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                         </div>
                     </div><!-- row-->
 
-                    <div class="col-md-4">
+                    <hr class="my-4">
+
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label class="text-sm">Documento escaneado</label>
                             <div class="input-group input-group-sm">
-                                <input class="form-control-file input-fijos" type="file" id="documento_es" name="documento_es" required>
+                                <input class="form-control-file input-fijos" type="file" id="documento_es" name="documento_es">
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label class="text-sm">Observaciones</label>
-                            <div class="input-group input-group-sm">
-                                <textarea name="observaciones_fijos" id="observaciones_fijos" cols="30" rows="10" class="form-control"></textarea>
-                            </div>
+                    <hr class="my-4">
+
+                    <div class="form-group">
+                        <label class="text-sm">Observaciones</label>
+                        <div class="input-group input-group-sm">
+                            <textarea name="observaciones_fijos" id="observaciones_fijos" cols="30" rows="5" class="form-control input-fijos"></textarea>
                         </div>
                     </div>
-
                 </div><!-- fin modal-body-->
 
                 <div class="modal-footer bg-dark">
@@ -172,8 +178,8 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                     </button>
                 </div>
                 <?php
-                $CrearCliente = new ControladorClientes();
-                $CrearCliente->ctrAgregarEditar();
+                $CrearCliente = new ControladorFijos();
+                $CrearCliente->ctrAgregarEditarFijos();
                 ?>
             </form>
         </div>
