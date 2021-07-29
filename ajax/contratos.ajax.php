@@ -27,12 +27,22 @@ class AjaxClientes
       $respuesta = ModeloClientes::mdlVerCliente($datos);
       echo json_encode($respuesta);
    }
+
+   static public function ajaxConvertirCliente($id)
+   {
+      $respuesta = ControladorClientes::ctrActualizarCampo($id);
+      echo $respuesta;
+   }
+
 }
 /* ===================================================
    # LLAMADOS A AJAX CLIENTES
 ===================================================*/
 if (isset($_POST['DatosClientes']) && $_POST['DatosClientes'] == "ok") {
    AjaxClientes::ajaxDatosClientes($_POST['item'],$_POST['valor']);
+}
+if (isset($_POST['ConvertirCliente']) && $_POST['ConvertirCliente'] == "ok") {
+   AjaxClientes::ajaxConvertirCliente($_POST['value']);
 }
 /* ===================================================
    * COTIZACIONES
@@ -51,3 +61,39 @@ class AjaxCotizaciones
 if (isset($_POST['DatosCotizaciones']) && $_POST['DatosCotizaciones'] == "ok") {
    AjaxCotizaciones::ajaxDatosCotizaciones($_POST['value']);
 }
+
+/* ===================================================
+   * FIJOS
+===================================================*/
+class AjaxFijos
+{
+   static public function ajaxDatosFijos($idfijos)
+   {
+      $respuesta = ModeloFijos::mdlVerFijos($idfijos);
+      echo json_encode($respuesta);
+   }
+}
+/* ===================================================
+   # LLAMADOS A AJAX FIJOS
+===================================================*/
+if (isset($_POST['DatosFijos']) && $_POST['DatosFijos'] == "ok") {
+   AjaxFijos::ajaxDatosFijos($_POST['value']);
+}
+/* ===================================================
+   * ORDEN DE SERVICIO
+===================================================*/
+class AjaxOrdenServico
+{
+   static public function ajaxDatosOrden($idorden)
+   {
+      $respuesta = ModeloOrdenServicio::mdlVerOrden($idorden);
+      echo json_encode($respuesta);
+   }  
+}
+/* ===================================================
+   # LLAMADOS A AJAX ORDENES DE SERVICIO
+===================================================*/
+if (isset($_POST['DatosOrden']) && $_POST['DatosOrden'] == "ok") {
+   AjaxOrdenServico::ajaxDatosOrden($_POST['value']);
+}
+

@@ -4,12 +4,11 @@
 /* ===================================================
    * CLIENTES
 ===================================================*/
-
 class ControladorClientes
 {
-   static public function ctrVerCliente()
+   static public function ctrVerCliente($tipo = "todos")
    {
-      $respuesta = ModeloClientes::mdlVerCliente(null);
+      $respuesta = ModeloClientes::mdlVerCliente(null, $tipo);
       return $respuesta;
    }
 
@@ -17,7 +16,11 @@ class ControladorClientes
    {
       if (isset($_POST['docum_empre'])) {
 
-         $ClienteExistente = ModeloClientes::mdlVerCliente($_POST['docum_empre']);
+         $datosBusqueda = array(
+            'item' => 'Documento',
+            'valor' => $_POST['docum_empre']
+         );
+         $ClienteExistente = ModeloClientes::mdlVerCliente($datosBusqueda);
 
          $datos = array(
             'idcliente' => $_POST['idcliente'],
@@ -102,8 +105,19 @@ class ControladorClientes
          }
       }
    }
-}
 
+   static public function ctrActualizarCampo($id)
+   {
+      $datos = array('id' => $id, 'tabla' =>  "cont_clientes", 'campo1' => "tipo", 'campo2' => "idcliente", 'valor' => "CLIENTE");
+
+      $respuesta = ModeloClientes::mdlActualizarCampo($datos);
+
+      return $respuesta;
+   }
+}
+/* ===================================================
+   * COTIZACIONES
+===================================================*/
 class ControladorCotizaciones
 {
    static public function ctrVerCotizacion()
@@ -204,7 +218,7 @@ class ControladorCotizaciones
       }
    }
 
-/*------------------------------------------------------
+   /*------------------------------------------------------
 ----------CONTROLADOR AGREGAR/EDITAR Y AGREGAR CLIENTE--
 ------------------------------------------------------ */
    static public function ctrAgregarCotizacionCliente()
@@ -377,6 +391,147 @@ class ControladorCotizaciones
                      ";
                }
             }
+         }
+      }
+   }
+}
+/* ===================================================
+   * FIJOS
+===================================================*/
+class ControladorFijos
+{
+   static public function ctrVerFijos()
+   {
+      $respuesta = ModeloFijos::mdlVerFijos(null);
+      return $respuesta;
+   }
+
+   static public function ctrAgregarEditarFijos()
+   {
+      if (isset($_POST['idconfijo'])) {
+         $FijosExistente = ModeloFijos::mdlVerFijos($_POST['idconfijo']);
+
+         $datos = array(
+            'idfijos' => $_POST['idconfijo'],
+            'idcliente' => $_POST['nom_clien'],
+            'numcontrato' => $_POST['num_contrato'],
+            'fecha_inicial' => $_POST['f_inicial_fijos'],
+            'fecha_final' => $_POST['f_final_fijos'],
+            //'documento_escaneado' => $_POST['documento_es'],
+            'observaciones' => $_POST['observaciones_fijos']
+         );
+
+
+         if ($_POST['idconfijo'] != "" /* is_array($FijosExistente) */) {
+            echo "entra a editar";
+            $respuestamodelo = ModeloFijos::mdlEditarFijos($datos);
+         } else {
+            echo "entra a agregar";
+            $respuestamodelo = ModeloFijos::mdlAgregarFijo($datos);
+         }
+
+         if ($respuestamodelo == "ok") {
+            echo "
+						<script>
+							Swal.fire({
+								icon: 'success',
+								title: 'Contrato fijo añadido correctamente!',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								
+							}).then((result)=>{
+
+								if(result.value){
+									window.location = 'contratos-fijos';
+								}
+
+							})
+						</script>
+					";
+         } else {
+            echo "
+						<script>
+							Swal.fire({
+								icon: 'warning',
+								title: '¡Problema al añadir el contrato fijo!',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								
+							}).then((result)=>{
+
+								if(result.value){
+									window.location = 'contratos-fijos';
+								}
+
+							})
+						</script>
+					";
+         }
+      }
+   }
+}
+/* ===================================================
+   * ORDEN DE SERVICIO
+===================================================*/
+class ControladorOrdenServicio
+{
+   static public function ctrVerListaOrden()
+   {
+      $respuesta = ModeloOrdenServicio::mdlVerListaOrden();
+      return $respuesta;
+   }
+
+   static public function ctrAgregarEditarOrden()
+   {
+      if (isset($_POST['idorden'])) {
+
+         $datos = array(
+            'idorden' => $_POST['idorden'],
+            'idcotizacion' => $_POST['listacotizaciones'],
+            'nro_contrato' => $_POST['numcontrato'],
+            'nro_factura' => $_POST['numfacturaorden'],
+            'fecha_facturacion' => $_POST['f_facturacion'],
+            'cancelada' => $_POST['cancelacion'],
+            'cod_autoriz' => $_POST['cod_autorizacion']
+         );
+
+         if ($_POST['idorden'] == '') {
+
+            $respuesta = ModeloOrdenServicio::mdlAgregarOrden($datos);
+         } else {
+
+            $respuesta = ModeloOrdenServicio::mdlEditarOrden($datos);
+         }
+         if ($respuesta == 'ok') {
+            echo "
+						<script>
+							Swal.fire({
+								icon: 'success',
+								title: '¡Orden de servicio añadida!',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+							}).then((result)=>{
+								if(result.value){
+									window.location = 'contratos-ordenservicio';
+								}
+							})
+						</script>
+					";
+         } else {
+            echo "
+            <script>
+               Swal.fire({
+                  icon: 'error',
+                  title: '¡Ocurrió un problema!',						
+                  showConfirmButton: true,
+                  confirmButtonText: 'Cerrar',
+               }).then((result)=>{
+                  if(result.value){
+                     window.location = 'contratos-ordenservicio';
+                  }
+               })
+            </script>
+         ";
          }
       }
    }

@@ -141,7 +141,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <i class="fas fa-address-card"></i>
                                 </span>
                             </div>
-                            <input class="form-control input-propietario" type="number" min="0" id="documento" name="documento" placeholder="Ingresar documento" required>
+                            <input class="form-control input-propietario" type="number" id="documento" name="documento" placeholder="Ingresar documento" maxlength="11" required>
                         </div>
                     </div>
 
@@ -153,7 +153,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <i class="fas fa-user"></i>
                                 </span>
                             </div>
-                            <input class="form-control input-propietario" type="text" id="nombre" name="nombre" placeholder="Ingresar nombre completo" required>
+                            <input class="form-control input-propietario" type="text" id="nombre" name="nombre" placeholder="Ingresar nombre completo" maxlength="52" required>
                         </div>
                     </div>
 
@@ -177,7 +177,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <i class="fas fa-map-marker-alt"></i>
                                 </span>
                             </div>
-                            <input class="form-control input-propietario" type="text" id="dirpro" name="dirpro" placeholder="Ingresar direccion" required>
+                            <input class="form-control input-propietario" type="text" id="dirpro" name="dirpro" placeholder="Ingresar direccion" maxlength="74" required>
                         </div>
                     </div>
 
