@@ -139,7 +139,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <i class="fas fa-user"></i>
                                 </span>
                             </div>
-                            <input class="form-control input-convenio" type="text" id="nombre" name="nombre" placeholder="Ingresar nombre de convenio" required>
+                            <input class="form-control input-convenio" type="text" id="nombre" name="nombre" placeholder="Ingresar nombre de convenio" maxlength="70" required>
                         </div>
                     </div>
 
@@ -151,7 +151,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <i class="fas fa-map-marker-alt"></i>
                                 </span>
                             </div>
-                            <input class="form-control input-convenio" type="text" id="dirco" name="dirco" placeholder="Ingresar direccion" required>
+                            <input class="form-control input-convenio" type="text" id="dirco" name="dirco" placeholder="Ingresar direccion" maxlength="80" required>
                         </div>
                     </div>
 
@@ -163,7 +163,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <i class="fas fa-phone-square-alt"></i>
                                 </span>
                             </div>
-                            <input class="form-control input-convenio" type="text" id="telco" name="telco" placeholder="Ingresar telefono" required>
+                            <input class="form-control input-convenio" type="text" id="telco" name="telco" placeholder="Ingresar telefono" maxlength="16" required>
                         </div>
                     </div>
 
@@ -175,7 +175,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <i class="fas fa-phone-square-alt"></i>
                                 </span>
                             </div>
-                            <input class="form-control input-convenio" type="text" id="telco2" name="telco2" placeholder="telefono 2 / Opcional">
+                            <input class="form-control input-convenio" type="text" id="telco2" name="telco2" placeholder="telefono 2 / Opcional" maxlength="16">
                         </div>
                     </div>
 

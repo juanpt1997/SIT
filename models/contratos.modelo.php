@@ -40,8 +40,15 @@ class ModeloClientes
       return $id;
    }
 
-   static public function mdlVerCliente($datos)
+   static public function mdlVerCliente($datos, $tipo = "todos")
    {
+      if ($tipo == "clientes") {
+         $sqlExtra = "WHERE C.tipo = 'CLIENTE'";
+      } else {
+         $sqlExtra = "";
+      }
+
+      # VER DATOS DE UN SOLO CLIENTE
       if ($datos != null) {
          $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad, Mr.municipio AS ciudadres, Mc.municipio AS expedida
                                                 FROM cont_clientes C
@@ -54,13 +61,16 @@ class ModeloClientes
          $stmt->bindParam(":{$datos['item']}",  $datos['valor']);
          $stmt->execute();
          $retorno =  $stmt->fetch();
-      } else {
+      }
+      # VER LISTA DE CLIENTES
+      else {
 
          $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad, Mr.municipio AS ciudadres, Mc.municipio AS expedida, CONCAT(C.nombre, ' - ', C.Documento) AS clientexist
                                                 FROM cont_clientes C
                                                 LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio
                                                 LEFT JOIN gh_municipios Mr ON C.idciudadrespons = Mr.idmunicipio
-                                                LEFT JOIN gh_municipios Mc ON C.cedula_expedidaen = Mc.idmunicipio");
+                                                LEFT JOIN gh_municipios Mc ON C.cedula_expedidaen = Mc.idmunicipio
+                                                $sqlExtra");
 
          $stmt->execute();
          $retorno =  $stmt->fetchAll();
@@ -163,6 +173,28 @@ class ModeloClientes
       $stmt->closeCursor();
       return $retorno;
    }
+
+
+   static public function mdlActualizarCampo($datos)
+   {
+      $conexion = Conexion::conectar();
+      $stmt = $conexion->prepare("UPDATE {$datos['tabla']} SET {$datos['campo1']} = :{$datos['campo1']}
+                                  WHERE {$datos['campo2']} = :{$datos['campo2']}");
+
+      $stmt->bindParam(":" . $datos['campo1'], $datos['valor'], PDO::PARAM_STR);
+      $stmt->bindParam(":" . $datos['campo2'], $datos["id"], PDO::PARAM_INT);
+
+      if ($stmt->execute()) {
+         $retorno = "ok";
+      } else {
+         $retorno = "error";
+      }
+
+      $stmt->closeCursor();
+      $stmt = null;
+
+      return $retorno;
+   }
 }
 
 /* ===================================================
@@ -242,7 +274,7 @@ class ModeloCotizaciones
          $retorno =  $stmt->fetch();
       } else {
 
-         $stmt = Conexion::conectar()->prepare("SELECT C.*, S.sucursal AS sucursal, V.tipovehiculo AS tipo, Cl.*  FROM cont_cotizaciones C
+         $stmt = Conexion::conectar()->prepare("SELECT C.*, S.sucursal AS sucursal, V.tipovehiculo AS tipo, Cl.*, CONCAT('ID: ',C.idcotizacion, ' - ',Cl.nombre) AS clientexist  FROM cont_cotizaciones C
          LEFT JOIN gh_sucursales S ON C.idsucursal = S.ids
          LEFT JOIN v_tipovehiculos V ON C.idtipovehiculo = V.idtipovehiculo
          INNER JOIN cont_clientes Cl ON C.idcliente = CL.idcliente");
@@ -322,14 +354,15 @@ class ModeloFijos
 {
    static public function mdlAgregarFijo($datos)
    {
-      $stmt = Conexion::conectar()->prepare("INSERT INTO cont_fijos(idcliente,numcontrato,fecha_incial,fecha_final,documento_escaneado,observaciones)
-                                             VALUES(:idcliente,:numcontrato,:fecha_incial,:fecha_final,:documento_escaneado,:observaciones)");
+      //,documento_escaneado//,:documento_escaneado
+      $stmt = Conexion::conectar()->prepare("INSERT INTO cont_fijos(idcliente,numcontrato,fecha_inicial,fecha_final,observaciones)
+                                             VALUES(:idcliente,:numcontrato,:fecha_inicial,:fecha_final,:observaciones)");
 
       $stmt->bindParam(":idcliente", $datos["idcliente"], PDO::PARAM_INT);
       $stmt->bindParam(":numcontrato", $datos["numcontrato"], PDO::PARAM_INT);
-      $stmt->bindParam(":fecha_incial", $datos["fecha_incial"], PDO::PARAM_STR);
+      $stmt->bindParam(":fecha_inicial", $datos["fecha_inicial"], PDO::PARAM_STR);
       $stmt->bindParam(":fecha_final", $datos["fecha_final"], PDO::PARAM_STR);
-      $stmt->bindParam(":documento_escaneado", $datos["documento_escaneado"], PDO::PARAM_STR);
+      //$stmt->bindParam(":documento_escaneado", $datos["documento_escaneado"], PDO::PARAM_STR);
       $stmt->bindParam(":observaciones", $datos["observaciones"], PDO::PARAM_STR);
 
       if ($stmt->execute()) {
@@ -347,10 +380,10 @@ class ModeloFijos
       if ($valor != null) {
          $stmt = Conexion::conectar()->prepare("SELECT F.*, C.nombre as nombre_cliente  FROM cont_fijos F
          INNER JOIN cont_clientes C ON F.idcliente = C.idcliente
-         WHERE  C.idfijos = :idcliente");
+         WHERE  F.idfijos = :idfjos");
 
 
-         $stmt->bindParam(":idcliente",  $valor, PDO::PARAM_INT);
+         $stmt->bindParam(":idfjos",  $valor, PDO::PARAM_INT);
          $stmt->execute();
          $retorno =  $stmt->fetch();
       } else {
@@ -367,15 +400,93 @@ class ModeloFijos
 
    static public function mdlEditarFijos($datos)
    {
-      $stmt = Conexion::conectar()->prepare("UPDATE cont_fijos set idcliente = :idcliente, numcontrato=:numcontrato,fecha_inical=:fecha_inical,fecha_final=:fecha_final,                            documento_escaneado=:documento_escaneado,observaciones=:observaciones
+      //documento_escaneado=:documento_escaneado
+      $stmt = Conexion::conectar()->prepare("UPDATE cont_fijos set idcliente = :idcliente, numcontrato=:numcontrato,fecha_inicial=:fecha_inicial,fecha_final=:fecha_final,observaciones=:observaciones
 											            WHERE idfijos = :idfijos");
 
+      $stmt->bindParam(":idfijos", $datos["idfijos"], PDO::PARAM_INT);
       $stmt->bindParam(":idcliente", $datos["idcliente"], PDO::PARAM_INT);
       $stmt->bindParam(":numcontrato", $datos["numcontrato"], PDO::PARAM_INT);
-      $stmt->bindParam(":fecha_inical", $datos["fecha_inical"], PDO::PARAM_STR);
+      $stmt->bindParam(":fecha_inicial", $datos["fecha_inicial"], PDO::PARAM_STR);
       $stmt->bindParam(":fecha_final", $datos["fecha_final"], PDO::PARAM_STR);
-      $stmt->bindParam(":documento_escaneado", $datos["documento_escaneado"], PDO::PARAM_STR);
+      //$stmt->bindParam(":documento_escaneado", $datos["documento_escaneado"], PDO::PARAM_STR);
       $stmt->bindParam(":observaciones", $datos["observaciones"], PDO::PARAM_STR);
+
+      if ($stmt->execute()) {
+         $retorno = "ok";
+      } else {
+         $retorno = "error";
+      }
+      $stmt->closeCursor();
+      $stmt = null;
+      return $retorno;
+   }
+}
+/* ===================================================
+   * ORDEN DE SERVICIO
+===================================================*/
+class ModeloOrdenServicio
+{
+   static public function mdlAgregarOrden($datos)
+   {
+      $stmt = Conexion::conectar()->prepare("INSERT INTO cont_ordenservicio(idcotizacion,nro_contrato,nro_factura,fecha_facturacion,cancelada,cod_autoriz)
+      VALUES(:idcotizacion,:nro_contrato,:nro_factura,:fecha_facturacion,:cancelada,:cod_autoriz)");
+
+      $stmt->bindParam(":idcotizacion", $datos["idcotizacion"], PDO::PARAM_INT);
+      $stmt->bindParam(":nro_contrato", $datos["nro_contrato"], PDO::PARAM_INT);
+      $stmt->bindParam(":nro_factura", $datos["nro_factura"], PDO::PARAM_STR);
+      $stmt->bindParam(":fecha_facturacion", $datos["fecha_facturacion"], PDO::PARAM_STR);
+      $stmt->bindParam(":cancelada", $datos["cancelada"], PDO::PARAM_STR);
+      $stmt->bindParam(":cod_autoriz", $datos["cod_autoriz"], PDO::PARAM_STR);
+
+      if ($stmt->execute()) {
+         $retorno = "ok";
+      } else {
+         $retorno = "error";
+      }
+      $stmt->closeCursor();
+      $stmt = null;
+      return $retorno;
+   }
+
+   static public function mdlVerOrden($valor)
+   {
+
+      $stmt = Conexion::conectar()->prepare("SELECT C.*, O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, CL.nombre, CL.Documento, CL.direccion, CL.telefono, CL.telefono2, CL.nombrerespons  FROM cont_ordenservicio O
+                                             INNER JOIN cont_cotizaciones C ON O.idcotizacion = C.idcotizacion
+                                             INNER JOIN cont_clientes CL ON CL.idcliente = C.idcliente
+                                             WHERE O.idorden = :idorden");
+
+      $stmt->bindParam(":idorden",  $valor, PDO::PARAM_INT);
+      $stmt->execute();
+      $retorno =  $stmt->fetch();
+      $stmt->closeCursor();
+      return $retorno;
+   }
+
+   static public function mdlVerListaOrden()
+   {
+      $stmt = Conexion::conectar()->prepare("SELECT C.*, O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, CL.nombre AS nomContrata, CL.Documento AS doContrata, CL.direccion, CL.telefono, CL.telefono2, CL.nombrerespons  FROM cont_ordenservicio O
+                                             INNER JOIN cont_cotizaciones C ON O.idcotizacion = C.idcotizacion
+                                             INNER JOIN cont_clientes CL ON CL.idcliente = C.idcliente");
+
+      $stmt->execute();
+      $retorno =  $stmt->fetchAll();
+      $stmt->closeCursor();
+      return $retorno;
+   }
+
+   static public function mdlEditarOrden($datos)
+   {
+      $stmt = Conexion::conectar()->prepare("UPDATE cont_ordenservicio set nro_contrato=:nro_contrato, nro_factura=:nro_factura, fecha_facturacion=:fecha_facturacion, cancelada=:cancelada, cod_autoriz=:cod_autoriz
+											            WHERE idorden = :idorden");
+
+      $stmt->bindParam(":idorden", $datos["idorden"], PDO::PARAM_INT);
+      $stmt->bindParam(":nro_contrato", $datos["nro_contrato"], PDO::PARAM_INT);
+      $stmt->bindParam(":nro_factura", $datos["nro_factura"], PDO::PARAM_STR);
+      $stmt->bindParam(":fecha_facturacion", $datos["fecha_facturacion"], PDO::PARAM_STR);
+      $stmt->bindParam(":cancelada", $datos["cancelada"], PDO::PARAM_STR);
+      $stmt->bindParam(":cod_autoriz", $datos["cod_autoriz"], PDO::PARAM_STR);
 
       if ($stmt->execute()) {
          $retorno = "ok";

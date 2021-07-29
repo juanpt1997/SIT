@@ -52,20 +52,32 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                                             <th>Telefono</th>
                                             <th>Dirección</th>
                                             <th>Ciudad</th>
+                                            <th>Estado</th>
                                             <th>Documento del responsable</th>
+                                            <th>Teléfono</th>
                                             <th>Tipo</th>
                                             <th>Nombre del responsable</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-sm">
                                         <?php foreach ($ListarClientes as $key => $value) : ?>
-                                            <tr>
-                                                <td>
+
+                                            <?php
+                                            if ($value['tipo'] == "LEAD") {
+
+                                                $estado = '<button class="btn btn-sm btn-warning btn-estado" idcliente="' . $value["idcliente"] . '">Volver cliente <i class="fas fa-user-check"></i></button>';
+                                            } else {
+
+                                                $estado = "<span class='badge badge-success'>Cliente</span>";
+                                            }
+
+                                            ?>
+
+
+                                            <tr> 
+                                                <td class="text-center">
                                                     <div class="btn-group" role="group" aria-label="Button group">
                                                         <button class="btn btn-toolbar btn-sm btn-info btn-editarcliente" idcliente="<?= $value['idcliente'] ?>" docum="<?= $value['Documento'] ?>" data-toggle="modal" data-target="#clientesmodal"><i class="fas fa-edit"></i></button>
-                                                    </div>
-                                                    <div class="btn-group" role="group" aria-label="Button group">
-                                                        <button class="btn btn-toolbar btn-sm btn-primary btn-vercliente" data-toggle="modal" data-target="#clientesmodal"><i class="fas fa-eye"></i></button>
                                                     </div>
                                                 </td>
                                                 <td><?= $value['idcliente'] ?></td>
@@ -75,7 +87,9 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                                                 <td><?= $value['telefono'] ?></td>
                                                 <td><?= $value['direccion'] ?></td>
                                                 <td><?= $value['ciudad'] ?></td>
+                                                <td><?= $estado ?></td>
                                                 <td><?= $value['Documentorespons'] ?></td>
+                                                <td><?= $value['telefono2'] ?></td>
                                                 <td><?= $value['tipo_docrespons'] ?></td>
                                                 <td><?= $value['nombrerespons'] ?></td>
                                             </tr>
@@ -98,7 +112,7 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
-            <div class="modal-header bg-success">
+            <div class="modal-header bg-info">
                 <h3 class="modal-title" id="titulo_clientes"></h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -118,12 +132,12 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                         </div>
                     </div>
 
-                    <hr class="my-4">
+                    <hr class="my-4 bg-dark">
 
                     <div class="form-group">
                         <label class="text-sm">Nombre de la empresa</label>
                         <div class="input-group input-group-sm">
-                            <input class="form-control input-clientes" type="text" id="nom_empre" name="nom_empre" placeholder="Nombre de la empresa" required>
+                            <input class="form-control input-clientes" type="text" id="nom_empre" name="nom_empre" placeholder="Nombre de la empresa" maxlength="100" required>
                         </div>
                     </div>
 
@@ -157,7 +171,7 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                             <div class="form-group">
                                 <label class="text-sm">Teléfono</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" min="0" id="telclient" name="telclient" placeholder="Ingrese un teléfono" required>
+                                    <input class="form-control input-clientes" type="text" id="telclient" name="telclient" placeholder="Ingrese un teléfono" maxlength="10" required>
                                 </div>
                             </div>
                         </div><!-- col-1-->
@@ -167,32 +181,32 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                             <div class="form-group">
                                 <label class="text-sm">Documento</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" min="0" id="docum_empre" name="docum_empre" placeholder="Ingrese el documento de la empresa" required>
+                                    <input class="form-control input-clientes" type="text" id="docum_empre" name="docum_empre" placeholder="Ingrese el documento de la empresa" maxlength="15" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="text-sm">Dirección</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" min="0" id="dir_empre" name="dir_empre" placeholder="Dirección de la empresa" required>
+                                    <input class="form-control input-clientes" type="text" id="dir_empre" name="dir_empre" placeholder="Dirección de la empresa" maxlength="100" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="text-sm">Teléfono 2</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" min="0" id="telclient2" name="telclient2" placeholder="Ingrese un segundo teléfono" required>
+                                    <input class="form-control input-clientes" type="text" id="telclient2" name="telclient2" placeholder="Ingrese un segundo teléfono" maxlength="10" required>
                                 </div>
                             </div>
                         </div><!-- col-2-->
                     </div><!-- row-->
 
-                    <hr class="my-4">
+                    <hr class="my-4 bg-dark">
 
                     <div class="form-group">
                         <label class="text-sm">Nombre del responsable</label>
                         <div class="input-group input-group-sm">
-                            <input class="form-control input-clientes" type="text" min="0" id="nom_respo" name="nom_respo" placeholder="Nombre del responsable" required>
+                            <input class="form-control input-clientes" type="text" id="nom_respo" name="nom_respo" placeholder="Nombre del responsable" maxlength="100" required>
                         </div>
                     </div>
 
@@ -242,7 +256,7 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                             <div class="form-group">
                                 <label class="text-sm">Documento</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" min="0" id="docum_respo" name="docum_respo" placeholder="Documento del responsable" required>
+                                    <input class="form-control input-clientes" type="text" id="docum_respo" name="docum_respo" placeholder="Documento del responsable" maxlength="15" required>
                                 </div>
                             </div>
                         </div><!-- col-2-->

@@ -34,7 +34,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
             <hr class="my-4">
 
             <button type="button" class="btn btn-success btn-md btn-agregarcotizacion" data-toggle="modal" data-target="#cotizacionmodal">
-                <i class="fas fa-user-plus"></i> Agregar nueva cotización
+                <i class="fas fa-file-invoice-dollar"></i> Agregar nueva cotización
             </button>
 
             <div class="row mt-2">
@@ -66,12 +66,9 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <tbody class="text-sm">
                                         <?php foreach ($Cotizaciones as $key => $value) : ?>
                                             <tr>
-                                                <td>
+                                                <td class="text-center">
                                                     <div class="btn-group" role="group" aria-label="Button group">
                                                         <button class="btn btn-toolbar btn-sm btn-info btn-editarcotizacion" id_cot="<?= $value['idcotizacion'] ?>" document="<?= $value['Documento'] ?>" data-toggle="modal" data-target="#cotizacionmodal"><i class="fas fa-edit"></i></button>
-                                                    </div>
-                                                    <div class="btn-group" role="group" aria-label="Button group">
-                                                        <button class="btn btn-toolbar btn-sm btn-primary btn-vercotizacion float-right" data-toggle="modal" data-target="#cotizacionmodal"><i class="fas fa-eye"></i></button>
                                                     </div>
                                                 </td>
                                                 <td><?= $value['idcotizacion'] ?></td>
@@ -107,7 +104,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
-            <div class="modal-header bg-success">
+            <div class="modal-header bg-info">
                 <h3 class="modal-title" id="titulo_cotizacion"></h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -126,7 +123,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         </div>
                     </div>
 
-                    <hr class="my-4">
+                    <hr class="my-4 bg-dark">
 
                     <div class="row">
                         <div class="col-md-6">
@@ -156,21 +153,21 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         </div>
                     </div>
 
-                    <hr class="my-4">
+                    <hr class="my-4 bg-dark">
 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="text-sm">Nombre de la empresa</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" min="0" id="nom_contrata" name="nom_contrata" placeholder="Ingrese el nombre de la empresa" required>
+                                    <input class="form-control input-clientes" type="text" id="nom_contrata" name="nom_contrata" placeholder="Ingrese el nombre de la empresa" maxlength="45" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="text-sm">NIT/CC</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" min="0" id="document" name="document" placeholder="Ingrese el documento" required>
+                                    <input class="form-control input-clientes" type="text" id="document" name="document" placeholder="Ingrese el documento" maxlength="15" required>
                                 </div>
                             </div>
                         </div>
@@ -206,7 +203,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                     <div class="form-group">
                         <label class="text-sm">Dirección</label>
                         <div class="input-group input-group-sm">
-                            <input class="form-control input-clientes" type="text" min="0" id="direcci" name="direcci" placeholder="Ingrese la dirección" required>
+                            <input class="form-control input-clientes" type="text" id="direcci" name="direcci" placeholder="Ingrese la dirección" maxlength="100" required>
                         </div>
                     </div>
 
@@ -215,21 +212,21 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm">Teléfono 1</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" min="0" id="tel1" name="tel1" placeholder="Ingrese un teléfono" required>
+                                    <input class="form-control input-clientes" type="text" id="tel1" name="tel1" placeholder="Ingrese un teléfono" maxlength="10" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="text-sm">Nombre del responsable</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" min="0" id="nom_respo" name="nom_respo" placeholder="Nombre del responsable" required>
+                                    <input class="form-control input-clientes" type="text" id="nom_respo" name="nom_respo" placeholder="Nombre del responsable" maxlength="100" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="text-sm">Documento</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" min="0" id="docum_respo" name="docum_respo" placeholder="Documento del responsable" required>
+                                    <input class="form-control input-clientes" type="text" id="docum_respo" name="docum_respo" placeholder="Documento del responsable" maxlength="15" required>
                                 </div>
                             </div>
 
@@ -251,7 +248,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm">Teléfono 2</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" min="0" id="tel2" name="tel2" placeholder="Ingrese un segundo teléfono" required>
+                                    <input class="form-control input-clientes" type="text" id="tel2" name="tel2" placeholder="Ingrese un segundo teléfono" maxlength="10" required>
                                 </div>
                             </div>
 
@@ -281,15 +278,20 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         </div>
                     </div>
 
-                    <hr class="my-4">
+                    <hr class="my-4 bg-dark">
 
                     <div class="row">
-              
+
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="text-sm">Empresa</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="text" min="0" id="empres" name="empres" placeholder="Escriba el nombre de la empresa" required>
+                                    <select class="form-control" type="text" id="empres" name="empres" required>
+                                        <option selected value="">-Seleccione una opción-</option>
+                                        <option>El SAMAN</option>
+                                        <option>JOMAR</option>
+                                        <option>AGRECON</option>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -298,7 +300,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm">Fecha de solicitud</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="date" min="0" id="f_sol" name="f_sol" required>
+                                    <input class="form-control" type="date" id="f_sol" name="f_sol" required>
                                 </div>
                             </div>
                         </div>
@@ -325,7 +327,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm">Capacidad</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="number" min="0" id="capaci" name="capaci" placeholder="Digite la capacidad" required>
+                                    <input class="form-control" type="number" id="capaci" name="capaci" placeholder="Digite la capacidad" required>
                                 </div>
                             </div>
                         </div>
@@ -348,7 +350,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm">Origen</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="text" min="0" id="origin" name="origin" placeholder="Ingrese el origen" required>
+                                    <input class="form-control" type="text" id="origin" name="origin" placeholder="Ingrese el origen" maxlength="100" required>
                                 </div>
                             </div>
                         </div>
@@ -357,7 +359,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm">Destino</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="text" min="0" id="destin" name="destin" placeholder="Escriba el destino" required>
+                                    <input class="form-control" type="text" id="destin" name="destin" placeholder="Escriba el destino" maxlength="100" required>
                                 </div>
                             </div>
                         </div>
@@ -366,7 +368,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm">Fecha en que resuelve</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="date" min="0" id="f_resuelve" name="f_resuelve" required>
+                                    <input class="form-control" type="date" id="f_resuelve" name="f_resuelve" required>
                                 </div>
                             </div>
                         </div>
@@ -375,7 +377,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm">Duración</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="text" min="0" id="durac" name="durac" placeholder="Escriba la duración del viaje" required>
+                                    <input class="form-control" type="text" id="durac" name="durac" placeholder="Escriba la duración del viaje" maxlength="45" required>
                                 </div>
                             </div>
                         </div>
@@ -398,7 +400,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm">Valor por vehículo</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="number" min="0" id="valor_vel" name="valor_vel" placeholder="Digite un valor por vehículo" required>
+                                    <input class="form-control" type="number" id="valor_vel" name="valor_vel" placeholder="Digite un valor por vehículo" required>
                                 </div>
                             </div>
                         </div>
@@ -444,7 +446,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm">Fecha de inicio</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="date" min="0" id="f_inicio" name="f_inicio" required>
+                                    <input class="form-control" type="date" id="f_inicio" name="f_inicio" required>
                                 </div>
                             </div>
                         </div>
@@ -453,7 +455,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm">Fecha de final</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="date" min="0" id="f_fin" name="f_fin" required>
+                                    <input class="form-control" type="date" id="f_fin" name="f_fin" required>
                                 </div>
                             </div>
                         </div>
@@ -462,7 +464,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm">Nro. de vehículos</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="number" min="0" id="n_vehiculos" name="n_vehiculos" placeholder="Escriba el número de vehículos" required>
+                                    <input class="form-control" type="number" id="n_vehiculos" name="n_vehiculos" placeholder="Escriba el número de vehículos" required>
                                 </div>
                             </div>
                         </div>
@@ -471,14 +473,14 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm">Valor total</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="number" min="0" id="vtotal" name="vtotal" placeholder="Escriba el valor total" required>
+                                    <input class="form-control" type="number" id="vtotal" name="vtotal" placeholder="Escriba el valor total" required>
                                 </div>
                             </div>
                         </div>
                         
                     </div>
 
-                    <hr class="my-4">
+                    <hr class="my-4 bg-dark">
 
                     <div class="row">
                         <div class="col-md-4">
