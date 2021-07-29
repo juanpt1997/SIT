@@ -638,7 +638,7 @@ class ModeloPagoSS
     ===================================================*/
     static public function mdlMostrarFechas()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM gh_fechas_segursoc");
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM gh_fechas_segursoc ORDER BY idFechas DESC");
 
         $stmt->execute();
         $retorno = $stmt->fetchAll();

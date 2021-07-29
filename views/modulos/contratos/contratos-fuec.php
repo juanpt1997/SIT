@@ -174,6 +174,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                     <select id="contratofijo" class="form-control select2-single" style="width: 90%" name="contratofijo">
                                         <option value="" selected>-Seleccione una opción-</option>
 
+                                        <option value="1">FIJO 1</option>
                                     </select>
                                 </div>
                             </div>
@@ -190,7 +191,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                     </div>
                                     <select id="contratante" class="form-control select2-single input-fuec" style="width: 90%" name="contratante" required>
                                         <option value="" selected>-Seleccione una opción-</option>
-
+                                        <option value="2">CONTRATANTE 2</option>
                                     </select>
                                 </div>
                             </div>
@@ -297,10 +298,11 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
 
                     <hr>
 
+                    <!-- Datos del FUEC -->
                     <div class="row">
-                        <div class="col-md-6">
 
-
+                        <!-- Vehículo -->
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Vehículo</label>
                                 <div class="input-group">
@@ -315,52 +317,55 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                     </select>
                                 </div>
                             </div>
+                        </div><!-- /.col -->
 
+                        <!-- Conductor 1 -->
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Conductor 1</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
                                         <span class="input-group-text" style="height: 93%;"><i class="fas fa-user-check"></i></span>
                                     </div>
-                                    <select id="conductor1" class="form-control select2-single input-fuec" style="width: 90%" name="conductor1" required>
+                                    <select id="conductor1" class="form-control select2-single input-fuec conductores" style="width: 90%" name="conductor1" required>
                                         <option value="" selected>-Seleccione un conductor</option>
-                                        <?php foreach ($Conductores as $key => $value) : ?>
-                                            <option value="<?= $value['idPersonal'] ?>"><?= $value['Documento'] ?> - <?= $value['Nombre'] ?></option>
-                                        <?php endforeach ?>
                                     </select>
                                 </div>
                             </div>
+                        </div><!-- /.col -->
 
+                        <!-- Conductor 2 -->
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Conductor 2</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
                                         <span class="input-group-text" style="height: 93%;"><i class="fas fa-user-check"></i></span>
                                     </div>
-                                    <select id="conductor2" class="form-control select2-single input-fuec" style="width: 90%" name="conductor2" required>
+                                    <select id="conductor2" class="form-control select2-single input-fuec conductores" style="width: 90%" name="conductor2">
                                         <option value="" selected>-Seleccione un conductor</option>
-                                        <?php foreach ($Conductores as $key => $value) : ?>
-                                            <option value="<?= $value['idPersonal'] ?>"><?= $value['Documento'] ?> - <?= $value['Nombre'] ?></option>
-                                        <?php endforeach ?>
                                     </select>
                                 </div>
                             </div>
+                        </div><!-- /.col -->
 
+                        <!-- Conductor 3 -->
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Conductor 3</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
                                         <span class="input-group-text" style="height: 93%;"><i class="fas fa-user-check"></i></span>
                                     </div>
-                                    <select id="conductor3" class="form-control select2-single input-fuec" style="width: 90%" name="conductor3" required>
+                                    <select id="conductor3" class="form-control select2-single input-fuec conductores" style="width: 90%" name="conductor3">
                                         <option value="" selected>-Seleccione un conductor</option>
-                                        <?php foreach ($Conductores as $key => $value) : ?>
-                                            <option value="<?= $value['idPersonal'] ?>"><?= $value['Documento'] ?> - <?= $value['Nombre'] ?></option>
-                                        <?php endforeach ?>
                                     </select>
                                 </div>
                             </div>
+                        </div><!-- /.col -->
 
+                        <!-- Fecha inicial -->
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Fecha inicial</label>
                                 <div class="input-group">
@@ -372,7 +377,10 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                     <input class="form-control input-fuec" type="date" id="fechaini" name="fechaini" placeholder="Seleccione una fecha" required>
                                 </div>
                             </div>
+                        </div><!-- /.col -->
 
+                        <!-- Fecha de vencimiento -->
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Fecha de vencimiento</label>
                                 <div class="input-group">
@@ -384,7 +392,10 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                     <input class="form-control input-fuec" type="date" id="fechafin" name="fechafin" placeholder="Seleccione una fecha" required>
                                 </div>
                             </div>
+                        </div><!-- /.col -->
 
+                        <!-- Objeto de contrato -->
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Objeto de contrato</label>
                                 <div class="input-group">
@@ -393,14 +404,13 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                             <i class="fas fa-envelope-open-text"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="objetocontrato" name="objetocontrato" required>
+                                    <input class="form-control input-fuec" type="text" id="objetocontrato" name="objetocontrato" required maxlength="10">
                                 </div>
                             </div>
+                        </div><!-- /.col -->
 
-                        </div>
-
-                        <div class="col-md-6">
-
+                        <!-- Origen -->
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Origen</label>
                                 <div class="input-group">
@@ -412,7 +422,10 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                     <input class="form-control input-fuec" type="text" id="origen" name="origen" required>
                                 </div>
                             </div>
+                        </div><!-- /.col -->
 
+                        <!-- Destino -->
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Destino</label>
                                 <div class="input-group">
@@ -424,7 +437,10 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                     <input class="form-control input-fuec" type="text" id="destino" name="destino" required>
                                 </div>
                             </div>
+                        </div><!-- /.col -->
 
+                        <!-- Observaciones del contrato -->
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Observaciones del contrato</label>
                                 <div class="input-group">
@@ -436,7 +452,10 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                     <input class="form-control input-fuec" type="text" id="observacionescontr" name="observacionescontr" required>
                                 </div>
                             </div>
+                        </div><!-- /.col -->
 
+                        <!-- Precio -->
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Precio</label>
                                 <div class="input-group">
@@ -448,39 +467,54 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                     <input class="form-control input-fuec" type="text" id="precio" name="precio" required>
                                 </div>
                             </div>
+                        </div><!-- /.col -->
 
-                            <div class="form-group clearfix">
+                        <!-- Listado pasajeros -->
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
                                 <label>Listado pasajeros</label>
-                                <div class="icheck-primary d-inline">
-                                    <input class="form-control input-fuec" type="radio" id="pasajeros1" name="pasajeros" checked value="Si">
-                                    <label class="font-weight-normal" for="cb1">Si</label>
+                                <div class="form-group clearfix">
+                                    <div class="icheck-primary d-inline">
+                                        <input class="form-control input-fuec" type="radio" id="pasajeros1" name="pasajeros" checked value="Si">
+                                        <label class="font-weight-normal" for="pasajeros1">Si</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline">
+                                        <input class="form-control input-fuec" type="radio" id="pasajeros2" name="pasajeros" value="No">
+                                        <label class="font-weight-normal" for="pasajeros2">No</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline">
+                                        <input class="form-control input-fuec" type="radio" id="pasajeros3" name="pasajeros" value="N/A">
+                                        <label class="font-weight-normal" for="pasajeros3">N/A</label>
+                                    </div>
                                 </div>
-                                <div class="icheck-primary d-inline">
-                                    <input class="form-control input-fuec" type="radio" id="pasajeros2" name="pasajeros" value="No">
-                                    <label class="font-weight-normal" for="cb2">No</label>
-                                </div>
-                                <div class="icheck-primary d-inline">
-                                    <input class="form-control input-fuec" type="radio" id="pasajeros3" name="pasajeros" value="N/A">
-                                    <label class="font-weight-normal" for="cb2">N/A</label>
-                                </div>
-                            </div>
 
-                            <div class="form-group clearfix">
+                            </div>
+                        </div><!-- /.col -->
+
+                        <!-- Estado -->
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
                                 <label>Estado</label>
-                                <div class="icheck-primary d-inline">
-                                    <input class="form-control input-fuec" type="radio" id="estado1" name="estado" checked value="Pago">
-                                    <label class="font-weight-normal" for="cb1">Pago</label>
+                                <div class="form-group clearfix">
+                                    <div class="icheck-primary d-inline">
+                                        <input class="form-control input-fuec" type="radio" id="estado1" name="estado" checked value="Pago">
+                                        <label class="font-weight-normal" for="estado1">Pago</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline">
+                                        <input class="form-control input-fuec" type="radio" id="estado2" name="estado" value="Pendiente">
+                                        <label class="font-weight-normal" for="estado2">Pendiente</label>
+                                    </div>
+                                    <div class="icheck-primary d-inline">
+                                        <input class="form-control input-fuec" type="radio" id="estado3" name="estado" value="N/A">
+                                        <label class="font-weight-normal" for="estado3">N/A</label>
+                                    </div>
                                 </div>
-                                <div class="icheck-primary d-inline">
-                                    <input class="form-control input-fuec" type="radio" id="estado2" name="estado" value="Pendiente">
-                                    <label class="font-weight-normal" for="cb2">Pendiente</label>
-                                </div>
-                                <div class="icheck-primary d-inline">
-                                    <input class="form-control input-fuec" type="radio" id="estado3" name="estado" value="N/A">
-                                    <label class="font-weight-normal" for="cb2">N/A</label>
-                                </div>
-                            </div>
 
+                            </div>
+                        </div><!-- /.col -->
+
+                        <!-- Valor neto -->
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Valor neto</label>
                                 <div class="input-group">
@@ -492,9 +526,12 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                     <input class="form-control input-fuec" type="text" id="valorneto" name="valorneto" required>
                                 </div>
                             </div>
+                        </div><!-- /.col -->
 
+                        <!-- Estado FUEC -->
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
-                                <label>Documento contratante</label>
+                                <label>Estado FUEC</label>
                                 <div class="input-group">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
@@ -504,7 +541,10 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                     <input class="form-control input-fuec" type="text" id="documcontrat" name="documcontrat" required>
                                 </div>
                             </div>
+                        </div><!-- /.col -->
 
+                        <!-- Adjuntar contrato -->
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Adjuntar contrato</label>
                                 <div class="input-group">
@@ -516,10 +556,11 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                     <input class="form-control input-fuec" type="text" id="contratoadjunto" name="contratoadjunto" required>
                                 </div>
                             </div>
+                        </div><!-- /.col -->
 
-                        </div>
 
-                    </div>
+
+                    </div><!-- /.row -->
 
                 </form>
             </div>

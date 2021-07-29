@@ -136,6 +136,8 @@ const dateRangePicker = (id) => {
 $('.tablas').DataTable({
     stateSave: true,
 
+    "order": [],
+
     "language": {
         "decimal": ",",
         "thousands": ".",
@@ -256,7 +258,7 @@ $('.tablasBtnExport').DataTable({
         { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
         /* 'copy', 'csv', 'excel', 'pdf', 'print' */
     ],
-
+    "order": [],
     stateSave: true,
 
     "language": {
@@ -288,41 +290,6 @@ $('.tablasBtnExport').DataTable({
     "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todo"]]
 
 });
-/* ===================================================
-  DATATABLE CON FILTRO
-===================================================*/
-const dataTableFiltro = (tabla) => {
-    $(`${tabla}`).DataTable({
-
-        "language": {
-            "sProcessing": "Procesando...",
-            "sLengthMenu": "Mostrar _MENU_ registros",
-            "sZeroRecords": "No se encontraron resultados",
-            "sEmptyTable": "Ningún dato disponible en esta tabla",
-            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
-            "sInfoFiltered": "<div class='small'>(filtrado de un total de _MAX_ registros)</div>",
-            "sInfoPostFix": "",
-            "sSearch": "Buscar:",
-            "sUrl": "",
-            "sInfoThousands": ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst": "Primero",
-                "sLast": "Último",
-                "sNext": "Siguiente",
-                "sPrevious": "Anterior"
-            },
-            "oAria": {
-                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
-
-        },
-        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todo"]]
-
-    });
-}
 
 $(document).ready(function () {
     /* ===================================================
