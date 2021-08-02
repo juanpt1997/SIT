@@ -4,8 +4,11 @@ if (!validarModulo('M_CONTRATOS')) {
     echo "<script> window.location = 'inicio'; </script>";
 }
 
+$OrdenesServicio = ControladorOrdenServicio::ctrVerListaOrden();
+$Fijos = ControladorFijos::ctrVerFijos();
 $Vehiculos = ControladorVehiculos::ctrListaVehiculos();
-$Conductores = ControladorVehiculos::ctrListaConductores();
+$ObjetosContrato = ControladorFuec::ctrObjetosContrato();
+//$Conductores = ControladorVehiculos::ctrListaConductores();
 ?>
 
 
@@ -36,7 +39,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
             <div class="row">
                 <div class="col">
                     <!--BOTON NUEVO FUEC-->
-                    <button type="button" class="btn btn-success btn-md btn-nuevofuec" data-toggle="modal" data-target="#NuevoFuec">
+                    <button type="button" class="btn btn-success btn-md btn-nuevofuec" data-toggle="modal" data-target="#NuevoFuecModal">
                         <i class="fab fa-wpforms"></i> Nuevo FUEC
                     </button>
                 </div><!-- col -->
@@ -82,8 +85,8 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                             <td></td>
                                             <td>
                                                 <div class='btn-group'>
-                                                    <button class="btn btnEditarFuec" data-toggle="modal" data-target="#NuevoFuec"><i class="fas fa-lg fa-pencil-alt text-info"></i></button>
-                                                    <button type='button' class='btn btn-FTFuec' idfuec='1'><i class='fas fa-lg fa-book text-secondary'></i></button>
+                                                    <button class="btn btn-editarfuec" data-toggle="modal" data-target="#NuevoFuecModal" idfuec='5'><i class="fas fa-lg fa-pencil-alt text-info"></i></button>
+                                                    <button type='button' class='btn btn-FTFuec' idfuec='5'><i class='fas fa-lg fa-book text-secondary'></i></button>
                                                 </div>
                                             </td>
                                             <td></td>
@@ -129,11 +132,12 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
 
 <!--MODAL AGREGAR FUEC-->
 
-<div class="modal fade" id="NuevoFuec" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="NuevoFuecModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
 
             <div class="modal-header bg-info">
+                <h5 class="modal-title font-weight-bold" id="titulo-modal-fuec"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -141,6 +145,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
 
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="frmFUEC">
+                    <input type="hidden" name="idfuec" id="idfuec" value="">
 
                     <!-- Tipo de contrato y contrato/contratante -->
                     <div class="row d-flex justify-content-md-center">
@@ -173,8 +178,9 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                     </div>
                                     <select id="contratofijo" class="form-control select2-single" style="width: 90%" name="contratofijo">
                                         <option value="" selected>-Seleccione una opción-</option>
-
-                                        <option value="1">FIJO 1</option>
+                                        <?php foreach ($Fijos as $key => $value) : ?>
+                                            <option value="<?= $value['idfijos'] ?>"><?= $value['idfijos'] . " - " . $value['nombre_cliente'] ?></option>
+                                        <?php endforeach ?>
                                     </select>
                                 </div>
                             </div>
@@ -191,7 +197,9 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                     </div>
                                     <select id="contratante" class="form-control select2-single input-fuec" style="width: 90%" name="contratante" required>
                                         <option value="" selected>-Seleccione una opción-</option>
-                                        <option value="2">CONTRATANTE 2</option>
+                                        <?php foreach ($OrdenesServicio as $key => $value) : ?>
+                                            <option value="<?= $value['idorden'] ?>"><?= $value['idorden'] . " - " . $value['empresa']?></option>
+                                        <?php endforeach ?>
                                     </select>
                                 </div>
                             </div>
@@ -374,7 +382,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                             <i class="far fa-calendar-plus"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="date" id="fechaini" name="fechaini" placeholder="Seleccione una fecha" required>
+                                    <input class="form-control input-fuec input-ordenservicio" type="date" id="fechaini" name="fechaini" placeholder="Seleccione una fecha" required readonly>
                                 </div>
                             </div>
                         </div><!-- /.col -->
@@ -389,7 +397,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                             <i class="far fa-calendar-minus"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="date" id="fechafin" name="fechafin" placeholder="Seleccione una fecha" required>
+                                    <input class="form-control input-fuec input-ordenservicio" type="date" id="fechafin" name="fechafin" placeholder="Seleccione una fecha" required readonly>
                                 </div>
                             </div>
                         </div><!-- /.col -->
@@ -404,7 +412,13 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                             <i class="fas fa-envelope-open-text"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="objetocontrato" name="objetocontrato" required maxlength="10">
+                                    <select id="objetocontrato" class="form-control input-fuec" name="objetocontrato" readonly required>
+                                        <option value="">-Seleccione una opción-</option>
+                                        <?php foreach ($ObjetosContrato as $key => $value) : ?>
+                                            <?php $selected = $value['idobjeto'] == 4 ? "selected" : ""?>
+                                            <option <?= $selected ?> value="<?= $value['idobjeto'] ?>"><?= $value['objetocontrato'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
                                 </div>
                             </div>
                         </div><!-- /.col -->
@@ -419,7 +433,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                             <i class="fas fa-route"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="origen" name="origen" required>
+                                    <input class="form-control input-fuec input-ordenservicio" type="text" id="origen" name="origen" required readonly>
                                 </div>
                             </div>
                         </div><!-- /.col -->
@@ -434,7 +448,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                             <i class="fas fa-route"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="destino" name="destino" required>
+                                    <input class="form-control input-fuec input-ordenservicio" type="text" id="destino" name="destino" required readonly>
                                 </div>
                             </div>
                         </div><!-- /.col -->
@@ -449,7 +463,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                             <i class="fas fa-comment-dots"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="observacionescontr" name="observacionescontr" required>
+                                    <input class="form-control input-fuec input-ordenservicio" type="text" id="observacionescontr" name="observacionescontr" required readonly>
                                 </div>
                             </div>
                         </div><!-- /.col -->
@@ -464,7 +478,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                             <i class="fas fa-user"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="precio" name="precio" required>
+                                    <input class="form-control input-fuec" type="text" id="precio" name="precio">
                                 </div>
                             </div>
                         </div><!-- /.col -->
@@ -523,7 +537,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                             <i class="fas fa-money-check-alt"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="valorneto" name="valorneto" required>
+                                    <input class="form-control input-fuec input-ordenservicio" type="text" id="valorneto" name="valorneto" required readonly>
                                 </div>
                             </div>
                         </div><!-- /.col -->
@@ -535,10 +549,13 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                 <div class="input-group">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
-                                            <i class="fas fa-file-alt"></i>
+                                            <i class="fas fa-clipboard-check"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="documcontrat" name="documcontrat" required>
+                                    <select id="estado_fuec" class="form-control" name="estado_fuec" required>
+                                        <option>Pendiente aprobar</option>
+                                        <option>Aprobado</option>
+                                    </select>
                                 </div>
                             </div>
                         </div><!-- /.col -->
@@ -553,13 +570,10 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                             <i class="fas fa-file-alt"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="contratoadjunto" name="contratoadjunto" required>
+                                    <input class="form-control input-fuec" type="text" id="contratoadjunto" name="contratoadjunto">
                                 </div>
                             </div>
                         </div><!-- /.col -->
-
-
-
                     </div><!-- /.row -->
 
                 </form>
