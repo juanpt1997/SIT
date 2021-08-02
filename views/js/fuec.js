@@ -229,40 +229,45 @@ $(document).ready(function () {
           DETECTA CAMBIO EN UN CONTRATANTE PARA CARGAR LOS DATOS DE LA ORDEN DE SERVICIO
         ===================================================*/
         $(document).on("change", "#contratante", function () {
-            var idorden = $(this).val();
-            if (idorden != "") {
-                var datos = new FormData();
-                datos.append("DatosOrden", "ok");
-                datos.append("value", idorden);
-                $.ajax({
-                    type: "POST",
-                    url: `${urlPagina}ajax/contratos.ajax.php`,
-                    data: datos,
-                    dataType: "json",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        // Datos cliente
-                        $("#docum_empre").val(response.Documento);
-                        $("#dir_empre").val(response.direccion);
-                        $("#telefono_empre").val(response.telefono);
-                        $("#nom_respo").val(response.nombrerespons);
-                        $("#docum_respo").val(response.Documentorespons);
-                        $("#dir_respo").val(response.direccion);
-                        $("#telefono_cliente").val(response.telefono2);
-                        $("#ciudad_cliente").val(response.ciudadrespons);
-                        $("#expedicion_doccliente").val(response.ciudad_cedula_expedidaen);
+            var actualizoDatoscliente = $(this).attr("actualizo");
+            if (actualizoDatoscliente == "SI"){
+                var idorden = $(this).val();
+                if (idorden != "") {
+                    var datos = new FormData();
+                    datos.append("DatosOrden", "ok");
+                    datos.append("value", idorden);
+                    $.ajax({
+                        type: "POST",
+                        url: `${urlPagina}ajax/contratos.ajax.php`,
+                        data: datos,
+                        dataType: "json",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            // Datos cliente
+                            $("#docum_empre").val(response.Documento);
+                            $("#dir_empre").val(response.direccion);
+                            $("#telefono_empre").val(response.telefono);
+                            $("#nom_respo").val(response.nombrerespons);
+                            $("#docum_respo").val(response.Documentorespons);
+                            $("#dir_respo").val(response.direccion);
+                            $("#telefono_cliente").val(response.telefono2);
+                            $("#ciudad_cliente").val(response.ciudadrespons);
+                            $("#expedicion_doccliente").val(response.ciudad_cedula_expedidaen);
 
-                        // Datos cotizacion
-                        $("#fechaini").val(response.fecha_inicio);
-                        $("#fechafin").val(response.fecha_fin);
-                        $("#origen").val(response.origen);
-                        $("#destino").val(response.destino);
-                        $("#observacionescontr").val(response.descripcion);
-                        $("#valorneto").val(response.valortotal);
-                    }
-                });
+                            // Datos cotizacion
+                            $("#fechaini").val(response.fecha_inicio);
+                            $("#fechafin").val(response.fecha_fin);
+                            $("#origen").val(response.origen);
+                            $("#destino").val(response.destino);
+                            $("#observacionescontr").val(response.descripcion);
+                            $("#valorneto").val(response.valortotal);
+                        }
+                    });
+                }
+            }else{
+                $(this).attr("actualizo", "SI");
             }
         });
 
@@ -368,9 +373,12 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    console.log(response);
                     if (response != "") {
                         $("#titulo-modal-fuec").html(response.idfuec);
+                        $("#contratofijo").val(response.contratofijo).trigger("change");
+                        $("#contratante").val(response.contratante).attr("actualizo", "NO").trigger("change");
+                        $("#tipocontrato").val(response.tipocontrato).trigger("change");
+
 
                         // Datos cliente
                         $("#docum_empre").val(response.docContratante);
@@ -389,7 +397,7 @@ $(document).ready(function () {
                             $("#conductor1").val(response.idconductor1).trigger("change");
                             $("#conductor2").val(response.idconductor2).trigger("change");
                             $("#conductor3").val(response.idconductor3).trigger("change");
-                        }, 3000);
+                        }, 2500);
                         $("#fechaini").val(response.fecha_inicial);
                         $("#fechafin").val(response.fecha_vencimiento);
                         $("#objetocontrato").val(response.idobjeto_contrato);

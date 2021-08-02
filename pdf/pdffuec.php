@@ -26,8 +26,7 @@ require '../controllers/fuec.controlador.php';
 require '../models/fuec.modelo.php';
 
 
-//$resultado = ControladorVehiculos::ctrDatosVehiculo("idvehiculo", $idvehiculo);
-$resultado = true;
+$resultado = ControladorFuec::ctrDatosPDFFUEC($idfuec);
 
 /* ===================== 
   SI LA INFORMACIÓN VIENE FALSA SE REDIRECCIONA A LAS ORDERS
@@ -221,14 +220,15 @@ class PdfFuec
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(28, 5, "CONTRATO NRO.:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(20, 5, '0002', 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(20, 5, $info['idfuec'], 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
 
         # CONTRATANTE
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(25, 5, "CONTRATANTE:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(120, 5, 'FERNANDO MARIN LEON', 0, 'L', 0, 0, '', '', true);
+        //$contratante = $info['tipocontrato'] == "OCASIONAL" ? $info['nomContratante'] : $info['']
+        $pdf->MultiCell(120, 5, $info['nomContratante'], 0, 'L', 0, 0, '', '', true);
         # NIT/CC
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(13, 5, "NIT/CC:", 0, 'L', 0, 0, '', '', true);
@@ -240,21 +240,21 @@ class PdfFuec
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(32, 5, "OBJETO CONTRATO:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(160, 5, 'CONTRATO PARA UN GRUPO ESPECIFICO DE USUARIOS (TRANSPORTE DE PARTICULARES)', 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(160, 5, $info['objetocontrato'], 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
 
         # ORIGEN - DESTINO
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(30, 5, "ORIGEN - DESTINO:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(160, 5, 'ARMENIA - QUIMBAYA', 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(160, 5, $info['origen'] . ' - ' . $info['destino'], 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
 
         # OBSERVACIONES DEL CONTRATO
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(52, 5, "OBSERVACIONES DEL CONTRATO:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(140, 5, 'ARMENIA, MONTENENGRO, QUIMBAYA Y VICEVERSA', 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(140, 5, $info['observaciones'], 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
 
         # CONVENIO DE COLABORACIÓN EMPRESARIAL CON
@@ -262,7 +262,6 @@ class PdfFuec
         $pdf->MultiCell(77, 5, "CONVENIO DE COLABORACIÓN EMPRESARIAL CON:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
         $pdf->MultiCell(110, 5, '', 0, 'L', 0, 0, '', '', true);
-        $pdf->Ln();
         $pdf->Ln();
 
         /* ===================================================
@@ -276,15 +275,15 @@ class PdfFuec
                     <tbody>
                         <tr>
                             <th style="color:#000 ;font-weight:bold;">FECHA INICIAL:</th>
-                            <td style="text-align: center"><span style="font-weight:bold;">DÍA:</span><br>11</td>
-                            <td style="text-align: center"><span style="font-weight:bold;">MES:</span><br>10</td>
-                            <td style="text-align: center"><span style="font-weight:bold;">AÑO:</span><br>2019</td>
+                            <td style="text-align: center"><span style="font-weight:bold;">DÍA:</span><br>' . date('d', strtotime($info['fecha_inicial']))  . '</td>
+                            <td style="text-align: center"><span style="font-weight:bold;">MES:</span><br>' . date('m', strtotime($info['fecha_inicial']))  . '</td>
+                            <td style="text-align: center"><span style="font-weight:bold;">AÑO:</span><br>' . date('Y', strtotime($info['fecha_inicial']))  . '</td>
                         </tr>
                         <tr>
                             <th style="color:#000 ;font-weight:bold;">FECHA VENCIMIENTO:</th>
-                            <td style="text-align: center">12</td>
-                            <td style="text-align: center">10</td>
-                            <td style="text-align: center">2019</td>
+                            <td style="text-align: center">' . date('d', strtotime($info['fecha_vencimiento']))  . '</td>
+                            <td style="text-align: center">' . date('m', strtotime($info['fecha_vencimiento']))  . '</td>
+                            <td style="text-align: center">' . date('Y', strtotime($info['fecha_vencimiento']))  . '</td>
                         </tr>
                     </tbody>
                 </table>
@@ -308,46 +307,46 @@ class PdfFuec
                         <td colspan="2" border="1">CLASE</td>
                     </tr>
                     <tr style="text-align: center">
-                        <td colspan="2" border="1">VKH997</td>
-                        <td border="1">2006</td>
-                        <td colspan="2" border="1">Chevrolet</td>
-                        <td colspan="2" border="1">Bus</td>
+                        <td colspan="2" border="1">' . $info['placa'] . '</td>
+                        <td border="1">' . $info['modelo'] . '</td>
+                        <td colspan="2" border="1">' . $info['marca'] . '</td>
+                        <td colspan="2" border="1">' . $info['tipovehiculo'] . '</td>
                     </tr>
                     <tr style="text-align: center; font-weight:bold;">
                         <td colspan="3" border="1">NÚMERO INTERNO</td>
                         <td colspan="4" border="1">NÚMERO TARJETA DE OPERACIÓN</td>
                     </tr>
                     <tr style="text-align: center;">
-                        <td colspan="3" border="1">4599</td>
+                        <td colspan="3" border="1">' . $info['numinterno'] . '</td>
                         <td colspan="4" border="1">182056</td>
                     </tr>
                     <tr>
                         <td style="font-weight:bold; font-size:9px" border="1">DATOS DEL CONDUCTOR 1</td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br>CUBILLOS LESMES EDILBER</td>
-                        <td border="1"><span style="font-weight:bold;">NRO. CÉDULA</span><br>9733073</td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">NRO. LICENCIA CONDUCCIÓN</span><br>9733073</td>
+                        <td colspan="2" border="1"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br>' . $info['conductor1'] . '</td>
+                        <td border="1"><span style="font-weight:bold;">NRO. CÉDULA</span><br>' . $info['docConductor1'] . '</td>
+                        <td colspan="2" border="1"><span style="font-weight:bold;">NRO. LICENCIA CONDUCCIÓN</span><br>' . $info['docConductor1'] . '</td>
                         <td border="1"><span style="font-weight:bold;">VIGENCIA</span><br>19/09/2021</td>
                     </tr>
                     <tr>
                         <td style="font-weight:bold; font-size:9px" border="1">DATOS DEL CONDUCTOR 2</td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br></td>
-                        <td border="1"><span style="font-weight:bold;">NRO. CÉDULA</span><br></td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">NRO. LICENCIA CONDUCCIÓN</span><br></td>
+                        <td colspan="2" border="1"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br>' . $info['conductor2'] . '</td>
+                        <td border="1"><span style="font-weight:bold;">NRO. CÉDULA</span><br>' . $info['docConductor2'] . '</td>
+                        <td colspan="2" border="1"><span style="font-weight:bold;">NRO. LICENCIA CONDUCCIÓN</span><br>' . $info['docConductor2'] . '</td>
                         <td border="1"><span style="font-weight:bold;">VIGENCIA</span><br></td>
                     </tr>
                     <tr>
                         <td style="font-weight:bold; font-size:9px;" border="1">DATOS DEL CONDUCTOR 3</td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br></td>
-                        <td border="1"><span style="font-weight:bold;">NRO. CÉDULA</span><br></td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">NRO. LICENCIA CONDUCCIÓN</span><br></td>
+                        <td colspan="2" border="1"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br>' . $info['conductor3'] . '</td>
+                        <td border="1"><span style="font-weight:bold;">NRO. CÉDULA</span><br>' . $info['docConductor3'] . '</td>
+                        <td colspan="2" border="1"><span style="font-weight:bold;">NRO. LICENCIA CONDUCCIÓN</span><br>' . $info['docConductor3'] . '</td>
                         <td border="1"><span style="font-weight:bold;">VIGENCIA</span><br></td>
                     </tr>
                     <tr>
                         <td style="font-weight:bold; font-size:9px" border="1">RESPONSABLE DEL CONTRATANTE</td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br></td>
-                        <td border="1"><span style="font-weight:bold;">NRO. CÉDULA</span><br></td>
-                        <td border="1"><span style="font-weight:bold;">TELÉFONO</span><br>0</td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">DIRECCIÓN</span><br></td>
+                        <td colspan="2" border="1"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br>' . $info['nombrerespons'] . '</td>
+                        <td border="1"><span style="font-weight:bold;">NRO. CÉDULA</span><br>' . $info['Documentorespons'] . '</td>
+                        <td border="1"><span style="font-weight:bold;">TELÉFONO</span><br>' . $info['telrespons'] . '</td>
+                        <td colspan="2" border="1"><span style="font-weight:bold;">DIRECCIÓN</span><br>' . $info['direccion'] . '</td>
                     </tr>
                     <tr>
                         <td rowspan="2" colspan="3" style="font-weight:bold; border-bottom: 1px solid #000000; border-left: 1px solid  #000000;"><br><br><br>PBX: 872 21 80 - 313 6305866<br>AV CENTENARIO 24   47   LC 102 Manizales - Caldas<br>comercial@elsaman.com.co<br>www.elsaman.com.co</td>

@@ -6,6 +6,15 @@
 class ControladorFuec
 {
 	/* ===================================================
+       LISTA DE FUEC
+    ===================================================*/
+	static public function ctrListaFUEC()
+	{
+		$respuesta = ModeloFuec::mdlListaFUEC();
+		return $respuesta;
+	}
+
+	/* ===================================================
        DATOS DEL FUEC
     ===================================================*/
 	static public function ctrDatosFUEC($item, $valor)
@@ -16,6 +25,15 @@ class ControladorFuec
 		);
 		$FUEC = ModeloFuec::mdlDatosFUEC($datos);
 		return $FUEC;
+	}
+
+	/* ===================================================
+       DATOS PDF FUEC
+    ===================================================*/
+	static public function ctrDatosPDFFUEC($idfuec)
+	{
+		$respuesta = ModeloFuec::mdlDatosPDFFUEC($idfuec);
+		return $respuesta;
 	}
 
     /* ===================================================

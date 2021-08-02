@@ -8,7 +8,7 @@ $OrdenesServicio = ControladorOrdenServicio::ctrVerListaOrden();
 $Fijos = ControladorFijos::ctrVerFijos();
 $Vehiculos = ControladorVehiculos::ctrListaVehiculos();
 $ObjetosContrato = ControladorFuec::ctrObjetosContrato();
-//$Conductores = ControladorVehiculos::ctrListaConductores();
+$FUEC = ControladorFuec::ctrListaFUEC();
 ?>
 
 
@@ -58,7 +58,7 @@ $ObjetosContrato = ControladorFuec::ctrObjetosContrato();
                                         <tr>
                                             <th style="width:10px;">#</th>
                                             <th>Acciones</th>
-                                            <th>FUEC</th>
+                                            <!-- <th>FUEC</th> -->
                                             <th>Placa</th>
                                             <th>Nro. Interno afiliado</th>
                                             <th>Vinculación</th>
@@ -76,40 +76,39 @@ $ObjetosContrato = ControladorFuec::ctrObjetosContrato();
                                             <th>Cliente ocasional</th>
                                             <th>Cliente fijo</th>
                                             <th>Fecha de creación</th>
-                                            <th>Sucursal</th>
                                             <th>USUARIO</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td></td>
-                                            <td>
-                                                <div class='btn-group'>
-                                                    <button class="btn btn-editarfuec" data-toggle="modal" data-target="#NuevoFuecModal" idfuec='5'><i class="fas fa-lg fa-pencil-alt text-info"></i></button>
-                                                    <button type='button' class='btn btn-FTFuec' idfuec='5'><i class='fas fa-lg fa-book text-secondary'></i></button>
-                                                </div>
-                                            </td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                        </tr>
+                                        <?php foreach ($FUEC as $key => $value) : ?>
+                                            <tr>
+                                                <td><?= $value['idfuec'] ?></td>
+                                                <td>
+                                                    <div class='btn-group'>
+                                                        <button class="btn btn-editarfuec" data-toggle="modal" data-target="#NuevoFuecModal" idfuec='<?= $value['idfuec'] ?>'><i class="fas fa-lg fa-pencil-alt text-info"></i></button>
+                                                        <button type='button' class='btn btn-FTFuec' idfuec='<?= $value['idfuec'] ?>'><i class='fas fa-lg fa-book text-secondary'></i></button>
+                                                    </div>
+                                                </td>
+                                                <td><?= $value['placa'] ?></td>
+                                                <td><?= $value['numinterno'] ?></td>
+                                                <td><?= $value['tipovinculacion'] ?></td>
+                                                <td><?= $value['objetocontrato'] ?></td>
+                                                <td><?= $value['origen'] ?></td>
+                                                <td><?= $value['destino'] ?></td>
+                                                <td><?= $value['fecha_inicial'] ?></td>
+                                                <td><?= $value['fecha_vencimiento'] ?></td>
+                                                <td><?= $value['conductor1'] ?></td>
+                                                <td><?= $value['docConductor1'] ?></td>
+                                                <td><?= $value['conductor2'] ?></td>
+                                                <td><?= $value['docConductor2'] ?></td>
+                                                <td><?= $value['conductor3'] ?></td>
+                                                <td><?= $value['docConductor3'] ?></td>
+                                                <td><?= $value['nomContratante'] ?></td>
+                                                <td><?= $value['ClienteFijo'] ?></td>
+                                                <td><?= $value['fecha_creacion'] ?></td>
+                                                <td><?= $value['usuarioCreacion'] ?></td>
+                                            </tr>
+                                        <?php endforeach ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -195,10 +194,10 @@ $ObjetosContrato = ControladorFuec::ctrObjetosContrato();
                                             <i class="fas fa-file-alt"></i>
                                         </span>
                                     </div>
-                                    <select id="contratante" class="form-control select2-single input-fuec" style="width: 90%" name="contratante" required>
+                                    <select id="contratante" class="form-control select2-single input-fuec" style="width: 90%" name="contratante" required actualizo="SI">
                                         <option value="" selected>-Seleccione una opción-</option>
                                         <?php foreach ($OrdenesServicio as $key => $value) : ?>
-                                            <option value="<?= $value['idorden'] ?>"><?= $value['idorden'] . " - " . $value['empresa']?></option>
+                                            <option value="<?= $value['idorden'] ?>"><?= $value['idorden'] . " - " . $value['nomContrata']?></option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>
@@ -561,7 +560,7 @@ $ObjetosContrato = ControladorFuec::ctrObjetosContrato();
                         </div><!-- /.col -->
 
                         <!-- Adjuntar contrato -->
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-6 d-none">
                             <div class="form-group">
                                 <label>Adjuntar contrato</label>
                                 <div class="input-group">
