@@ -125,7 +125,7 @@ class AjaxBloqueoVehiculo
                     <td>" . $value['motivo'] . "</td>
                     <td><b>" . $estado . "</b></td>
                     <td>" . $value['fecha'] . "</td>
-                    <td>" . $value['usuario'] . "</td>
+                    <td>" . $value['nomUsuario'] . "</td>
                 </tr>
             ";
         }

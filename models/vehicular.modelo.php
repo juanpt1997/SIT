@@ -686,9 +686,10 @@ class ModeloBloqueoV
 
         if($value != null){
 
-            $stmt = Conexion::conectar()->prepare(" SELECT b.*, v.placa
+            $stmt = Conexion::conectar()->prepare(" SELECT b.*, v.placa, u.nombre AS nomUsuario
                                                     FROM v_bloqueovehiculo b
                                                     INNER JOIN v_vehiculos v ON v.idvehiculo = b.idvehiculo
+                                                    INNER JOIN l_usuarios u ON u.Cedula = b.usuario
                                                     INNER JOIN 
                                                      (
                                                     SELECT MAX(idbloqueov) AS idbloqueov
@@ -703,15 +704,16 @@ class ModeloBloqueoV
 
         }else {
 
-            $stmt = Conexion::conectar()->prepare(" SELECT b.*, v.placa
+            $stmt = Conexion::conectar()->prepare("SELECT b.*, v.placa, u.nombre AS nomUsuario
                                                     FROM v_bloqueovehiculo b
                                                     INNER JOIN v_vehiculos v ON v.idvehiculo = b.idvehiculo
+                                                    INNER JOIN l_usuarios u ON u.Cedula = b.usuario
                                                     INNER JOIN 
-                                                     (
+                                                    (
                                                     SELECT MAX(idbloqueov) AS idbloqueov
                                                     FROM v_bloqueovehiculo
                                                     GROUP BY idvehiculo) 
-                                                     T ON b.idbloqueov = T.idbloqueov");
+                                                    T ON b.idbloqueov = T.idbloqueov");
 
             $stmt->execute();
             $retorno = $stmt->fetchAll();            
@@ -765,9 +767,10 @@ class ModeloBloqueoV
 
     static public function mdlHistorialV($value){
 
-        $stmt = Conexion::conectar()->prepare("     SELECT b.*, v.placa AS placa
+        $stmt = Conexion::conectar()->prepare("     SELECT b.*, v.placa AS placa, u.nombre AS nomUsuario
                                                     FROM v_bloqueovehiculo b
                                                     INNER JOIN v_vehiculos v ON v.idvehiculo = b.idvehiculo
+                                                    INNER JOIN l_usuarios u ON u.Cedula = b.usuario
                                                     WHERE b.idvehiculo = :vehiculo
                                                     ORDER BY b.idvehiculo DESC
                                                 ");

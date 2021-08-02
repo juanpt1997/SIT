@@ -503,6 +503,14 @@ class ControladorOrdenServicio
             $respuesta = ModeloOrdenServicio::mdlEditarOrden($datos);
          }
          if ($respuesta == 'ok') {
+
+            //Si el modelo responde ok se actualiza el campo del tipo de la tabla cliente
+            // se pone tipo 'Cliente' desde la orden de servicio
+
+            $cotizacion = ModeloCotizaciones::mdlVerCotizacion($_POST['listacotizaciones']);
+            if ($cotizacion !== false) {
+               ControladorClientes::ctrActualizarCampo($cotizacion['idcliente']);
+            }
             echo "
 						<script>
 							Swal.fire({

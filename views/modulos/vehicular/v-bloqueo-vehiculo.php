@@ -84,7 +84,7 @@ $listaUltimo = ControladorBloqueosV::ctrUltimoBloqueoV();
                                             <td><?= $value['motivo'] ?></td>
                                             <td class="text-center"><b><?= $estado ?></b></td>
                                             <td><?= $value['fecha'] ?></td>
-                                            <td><?= $value['usuario'] ?></td>
+                                            <td><?= $value['nomUsuario'] ?></td>
                                             <td class="text-center">
                                                 <div class="btn-group" role="group" aria-label="Button group">
                                                     <button class="btn btn-md btn-info btnHistorialv" id_v="<?= $value['idvehiculo'] ?>" data-toggle="modal" data-target="#BloqueoHistorialv"><i class="fas fa-bus-alt"></i></i></button>
@@ -174,7 +174,7 @@ $listaUltimo = ControladorBloqueosV::ctrUltimoBloqueoV();
                         </div>
 
                         <div class="form-group">
-                            <label>Fecha de desbloqueo</label>
+                            <label>Fecha de bloque/desbloqueo</label>
                             <div class="input-group">
                                 <div class="input-group-append">
                                     <span class="input-group-text">

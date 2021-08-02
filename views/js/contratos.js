@@ -322,7 +322,7 @@ if (
         $("#baño").val(response.bano);
         $("#wi_fi").val(response.wifi);
         $("#silleteria_orden").val(response.silleriareclinable);
-        $(".select2-single").trigger("change"); //MUESTRA EL VALOR DEL SELECT
+        //$(".select2-single").trigger("change"); //MUESTRA EL VALOR DEL SELECT ***Por favor no
       },
     });
   });
