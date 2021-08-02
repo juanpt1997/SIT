@@ -22,7 +22,7 @@ class ControladorPropietarios
 	{
 
 		if (isset($_POST['documento'])) {
-			
+
 			$propietarioExistente = ModeloPropietarios::mdlMostrar($_POST['documento']);
 
 			$datos = array(
@@ -36,7 +36,7 @@ class ControladorPropietarios
 				'ciudadpro' => $_POST['ciudadpro']
 			);
 
-			if (is_array($propietarioExistente) && $propietarioExistente['idxp'] != $_POST['idxp']) {		
+			if (is_array($propietarioExistente) && $propietarioExistente['idxp'] != $_POST['idxp']) {
 				echo "
 							<script>
 								Swal.fire({
@@ -54,25 +54,20 @@ class ControladorPropietarios
 								})
 							</script>
 						";
-						return;
-				
-			}	else {
+				return;
+			} else {
 				if ($_POST['idxp'] == '') {
-					
+
 
 					$responseModel = ModeloPropietarios::mdlAgregar($datos);
-			
+				} else {
 
-				}	else {
-					
-					
+
 					$responseModel = ModeloPropietarios::mdlEditar($datos);
-					
-
-					}
 				}
+			}
 
-			if ($responseModel == "ok"){
+			if ($responseModel == "ok") {
 
 				echo "
 						<script>
@@ -91,8 +86,7 @@ class ControladorPropietarios
 							})
 						</script>
 					";
-				
-			}else{
+			} else {
 				echo "
 						<script>
 							Swal.fire({
@@ -285,7 +279,7 @@ class ControladorVehiculos
 		}
 
 		// ? FOTOS DEL VEHICULO Y TARJETA DE PROPIEDAD
-		if ($retorno != "existe" && $retorno != "error"){
+		if ($retorno != "existe" && $retorno != "error") {
 			// TARJETA DE PROPIEDAD
 			self::ctrGuardarTarjetaPropiedad($tarjetapropiedad, $datos['placa']);
 
@@ -372,11 +366,11 @@ class ControladorVehiculos
 	/* ===================================================
        ! ELIMINAR REGISTRO
     ===================================================*/
-    static public function ctrEliminarRegistro($datos)
-    {
-        $respuesta = ModeloVehiculos::mdlEliminarRegistro($datos);
-        return $respuesta;
-    }
+	static public function ctrEliminarRegistro($datos)
+	{
+		$respuesta = ModeloVehiculos::mdlEliminarRegistro($datos);
+		return $respuesta;
+	}
 
 	/* ===================================================
 	   ? PROPIETARIOS, CONDUCTORES Y DOCUMENTOS
@@ -385,54 +379,53 @@ class ControladorVehiculos
 	   MOSTRAR PROPIETARIOSxVEHICULO
 	===================================================*/
 	static public function ctrPropietariosxVehiculo($idvehiculo)
-    {
-        $respuesta = ModeloVehiculos::mdlPropietariosxVehiculo($idvehiculo);
-        return $respuesta;
-    }
+	{
+		$respuesta = ModeloVehiculos::mdlPropietariosxVehiculo($idvehiculo);
+		return $respuesta;
+	}
 
 	/* ===================================================
 	   MOSTRAR CONDUCTORESxVEHICULO
 	===================================================*/
 	static public function ctrConductoresxVehiculo($idvehiculo)
-    {
-        $respuesta = ModeloVehiculos::mdlConductoresxVehiculo($idvehiculo);
-        return $respuesta;
-    }
-	
+	{
+		$respuesta = ModeloVehiculos::mdlConductoresxVehiculo($idvehiculo);
+		return $respuesta;
+	}
+
 	/* ===================================================
        MOSTRAR DOCUMENTOSxVEHICULO
     ===================================================*/
 	static public function ctrDocumentosxVehiculo($idvehiculo)
-    {
-        $respuesta = ModeloVehiculos::mdlDocumentosxVehiculo($idvehiculo);
-        return $respuesta;
-    }
+	{
+		$respuesta = ModeloVehiculos::mdlDocumentosxVehiculo($idvehiculo);
+		return $respuesta;
+	}
 
 	/* ===================================================
 	   CONDUCTORES
 	===================================================*/
 	static public function ctrListaConductores()
-    {
-        return ModeloGH::mdlPersonal("activos");
-    }
+	{
+		return ModeloGH::mdlPersonal("activos");
+	}
 
 	/* ===================================================
        TIPOS DE DOCUMENTACIÓN VEHICULAR
     ===================================================*/
 	static public function ctrTiposDocumentacion()
-    {
-        return ModeloVehiculos::mdlTiposDocumentacion();
-    }
+	{
+		return ModeloVehiculos::mdlTiposDocumentacion();
+	}
 
 	/* ===================================================
        GUARDAR OTROS DETALLES DE UN VEHICULO COMO EL PROPIETARIO, CONDUCTOR O DOCUMENTOS
     ===================================================*/
 	static public function ctrGuardarDetallesVehiculo($datos)
-    {
-        $guardarDatos = ModeloVehiculos::mdlGuardarDetallesVehiculo($datos);
-        return $guardarDatos;
-    }
-
+	{
+		$guardarDatos = ModeloVehiculos::mdlGuardarDetallesVehiculo($datos);
+		return $guardarDatos;
+	}
 }
 
 /* ===================================================
@@ -440,80 +433,104 @@ class ControladorVehiculos
 ===================================================*/
 class ControladorBloqueos
 {
-	
-	static public function ctrListaPersonal(){
-		
+
+	static public function ctrListaPersonal()
+	{
+
 		return ModeloGH::mdlPersonal("activos");
 	}
 
-	static public function ctrUltimobloqueo(){
+	static public function ctrUltimobloqueo()
+	{
 
-		return ModeloBloqueoP::mdlUltimoBloqueo(null);	 
+		return ModeloBloqueoP::mdlUltimoBloqueo(null);
 	}
 
-	static public function ctrHIstorial($id){
+	static public function ctrHIstorial($id)
+	{
 
 		return ModeloBloqueoP::mdlHistorial($id);
 	}
 
-	static public function ctrMostrarConductor($id){
+	static public function ctrMostrarConductor($id)
+	{
 
 		return ModeloBloqueoP::mdlMostrarConductor($id);
 	}
 
-	static public function ctrNuevoBloqueo(){
-		if (isset($_POST['conductorB'])){
-			
+	static public function ctrNuevoBloqueo()
+	{
+		if (isset($_POST['conductorB'])) {
+
 			$datos = array(
-							'conductorB' => $_POST['conductorB'],
-							'motivob' => $_POST['motivob'],
-							'estadobloqueo' => $_POST['estadobloqueo'],
-							'fecha_vin' => $_POST['fecha_vin'],
-							'cedula' => $_SESSION['cedula']);
+				'conductorB' => $_POST['conductorB'],
+				'motivob' => $_POST['motivob'],
+				'estadobloqueo' => $_POST['estadobloqueo'],
+				'fecha_vin' => $_POST['fecha_vin'],
+				'cedula' => $_SESSION['cedula']
+			);
 
 
-		$respuesta = ModeloBloqueoP::mdlNuevoBloqueo($datos);
+			$respuesta = ModeloBloqueoP::mdlNuevoBloqueo($datos);
 
-
-
-		if ($respuesta == "ok"){
+			if ($respuesta != 'ok') {
 
 				echo "
-						<script>
-							Swal.fire({
-								icon: 'success',
-								title: '¡Se ha bloqueado al conductor!',						
-								showConfirmButton: true,
-								confirmButtonText: 'Cerrar',
-								
-							}).then((result)=>{
+				<script>
+					Swal.fire({
+						icon: 'warning',
+						title: '¡Problema al bloquear al conductor!',						
+						showConfirmButton: true,
+						confirmButtonText: 'Cerrar',
 
-								if(result.value){
-									window.location = 'v-bloqueo-personal';
-								}
+					}).then((result)=>{
 
-							})
-						</script>
-					";
-				
-			}else{
-				echo "
-						<script>
-							Swal.fire({
-								icon: 'warning',
-								title: '¡Problema al bloquear al conductor!',						
-								showConfirmButton: true,
-								confirmButtonText: 'Cerrar',
-								
-							}).then((result)=>{
+						if(result.value){
+							window.location = 'v-bloqueo-personal';
+						}
 
-								if(result.value){
-									window.location = 'v-bloqueo-personal';
-								}
+					})
+				</script>
+			";
+			} else {
+				if ($datos['estadobloqueo'] == 1) {
 
-							})
-						</script>
-					";
+					echo "
+					<script>
+						Swal.fire({
+							icon: 'success',
+							title: '¡Se ha desbloqueado al conductor!',						
+							showConfirmButton: true,
+							confirmButtonText: 'Cerrar',
+
+						}).then((result)=>{
+
+							if(result.value){
+								window.location = 'v-bloqueo-personal';
+							}
+
+						})
+					</script>
+				";
+				} else {
+					echo "
+					<script>
+						Swal.fire({
+							icon: 'success',
+							title: '¡Se ha bloqueado al conductor!',						
+							showConfirmButton: true,
+							confirmButtonText: 'Cerrar',
+
+						}).then((result)=>{
+
+							if(result.value){
+								window.location = 'v-bloqueo-personal';
+							}
+
+						})
+					</script>
+				";
+				}
 			}
 		}
 	}
@@ -521,47 +538,29 @@ class ControladorBloqueos
 
 class ControladorBloqueosV
 {
-	static public function ctrMostrarPlaca($id){
+	static public function ctrMostrarPlaca($id)
+	{
 
 		return ModeloBloqueoV::mdlMostrarPlaca($id);
 	}
 
-	static public function ctrNuevoBloqueoV(){
-		if (isset($_POST['vehiculo'])){
-			
+	static public function ctrNuevoBloqueoV()
+	{
+		if (isset($_POST['vehiculo'])) {
+
 			$datos = array(
-							'vehiculo' => $_POST['vehiculo'],
-							'motivobv' => $_POST['motivobv'],
-							'estadobloqueov' => $_POST['estadobloqueov'],
-							'fecha_des' => $_POST['fecha_des'],
-							'cedula' => $_SESSION['cedula']);
+				'vehiculo' => $_POST['vehiculo'],
+				'motivobv' => $_POST['motivobv'],
+				'estadobloqueov' => $_POST['estadobloqueov'],
+				'fecha_des' => $_POST['fecha_des'],
+				'cedula' => $_SESSION['cedula']
+			);
 
 
-		$respuesta = ModeloBloqueoV::mdlNuevoBloqueoV($datos);
+			$respuesta = ModeloBloqueoV::mdlNuevoBloqueoV($datos);
 
+			if ($respuesta != 'ok') {
 
-
-		if ($respuesta == "ok"){
-
-				echo "
-						<script>
-							Swal.fire({
-								icon: 'success',
-								title: '¡Se ha bloqueado el vehículo!',						
-								showConfirmButton: true,
-								confirmButtonText: 'Cerrar',
-								
-							}).then((result)=>{
-
-								if(result.value){
-									window.location = 'v-bloqueo-vehiculo';
-								}
-
-							})
-						</script>
-					";
-				
-			}else{
 				echo "
 						<script>
 							Swal.fire({
@@ -579,17 +578,57 @@ class ControladorBloqueosV
 							})
 						</script>
 					";
+			} else {
+				if ($datos['estadobloqueov'] == 1) {
+
+					echo "
+					<script>
+						Swal.fire({
+							icon: 'success',
+							title: '¡Se ha desbloqueado el vehículo!',						
+							showConfirmButton: true,
+							confirmButtonText: 'Cerrar',
+
+						}).then((result)=>{
+
+							if(result.value){
+								window.location = 'v-bloqueo-vehiculo';
+							}
+
+						})
+					</script>
+				";
+				} else {
+					echo "
+					<script>
+						Swal.fire({
+							icon: 'success',
+							title: '¡Se ha bloqueado el vehículo!',						
+							showConfirmButton: true,
+							confirmButtonText: 'Cerrar',
+
+						}).then((result)=>{
+
+							if(result.value){
+								window.location = 'v-bloqueo-vehiculo';
+							}
+
+						})
+					</script>
+				";
+				}
 			}
 		}
 	}
 
-	static public function ctrUltimobloqueoV(){
+	static public function ctrUltimobloqueoV()
+	{
 
 		return ModeloBloqueoV::mdlUltimoBloqueoV(null);
-
 	}
 
-	static public function ctrHistorialV($id){
+	static public function ctrHistorialV($id)
+	{
 
 		return ModeloBloqueoV::mdlHistorialV($id);
 	}
