@@ -10,6 +10,71 @@ include_once DIR_APP . 'config/conexion.php';
 class ModeloFuec
 {
     /* ===================================================
+       LISTA DE FUEC
+    ===================================================*/
+
+    /* ===================================================
+       DATOS DEL FUEC
+    ===================================================*/
+    static public function mdlDatosFUEC($datos)
+    {
+
+        $stmt = Conexion::conectar()->prepare("SELECT f.*, cl.Documento AS docContratante, cl.direccion AS direccion, cl.telefono AS telContratante, cl.nombrerespons, cl.Documentorespons, cl.telefono2 AS telrespons, cr.municipio AS ciudadrespons, exped.municipio AS ciudad_cedula_expedidaen
+                                                FROM fuec f
+                                                LEFT JOIN cont_ordenservicio o ON o.idorden = f.contratante
+                                                LEFT JOIN cont_cotizaciones c ON c.idcotizacion = o.idcotizacion
+                                                LEFT JOIN cont_clientes cl ON cl.idcliente = c.idcliente
+                                                LEFT  JOIN gh_municipios cr ON cr.idmunicipio = CL.idciudadrespons
+                                                LEFT JOIN gh_municipios exped ON exped.idmunicipio = CL.cedula_expedidaen
+                                                WHERE f.{$datos['item']} = :{$datos['item']};");
+        $stmt->bindParam(":{$datos['item']}", $datos['valor']);
+        $stmt->execute();
+        $retorno = $stmt->fetch();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /* ===================================================
+       INSERTAR FUEC
+    ===================================================*/
+    static public function mdlAgregarFUEC($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO fuec (tipocontrato, contratofijo, contratante, idvehiculo, idconductor1, idconductor2, idconductor3, fecha_inicial, fecha_vencimiento, idobjeto_contrato, origen, destino, observaciones, precio, listado_pasajeros, estado_pago, valor_neto, estado_fuec, ruta_contrato, usuario_creacion) VALUES 
+        (:tipocontrato, :contratofijo, :contratante, :idvehiculo, :idconductor1, :idconductor2, :idconductor3, :fecha_inicial, :fecha_vencimiento, :idobjeto_contrato, :origen, :destino, :observaciones, :precio, :listado_pasajeros, :estado_pago, :valor_neto, :estado_fuec, :ruta_contrato, :usuario_creacion)");
+
+        $stmt->bindParam(":tipocontrato", $datos['tipocontrato'], PDO::PARAM_STR);
+        $stmt->bindParam(":contratofijo", $datos['contratofijo'], PDO::PARAM_INT);
+        $stmt->bindParam(":contratante", $datos['contratante'], PDO::PARAM_INT);
+        $stmt->bindParam(":idvehiculo", $datos['vehiculofuec'], PDO::PARAM_INT);
+        $stmt->bindParam(":idconductor1", $datos['conductor1'], PDO::PARAM_INT);
+        $stmt->bindParam(":idconductor2", $datos['conductor2'], PDO::PARAM_INT);
+        $stmt->bindParam(":idconductor3", $datos['conductor3'], PDO::PARAM_INT);
+        $stmt->bindParam(":fecha_inicial", $datos['fechaini'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_vencimiento", $datos['fechafin'], PDO::PARAM_STR);
+        $stmt->bindParam(":idobjeto_contrato", $datos['objetocontrato'], PDO::PARAM_INT);
+        $stmt->bindParam(":origen", $datos['origen'], PDO::PARAM_STR);
+        $stmt->bindParam(":destino", $datos['destino'], PDO::PARAM_STR);
+        $stmt->bindParam(":observaciones", $datos['observacionescontr'], PDO::PARAM_STR);
+        $stmt->bindParam(":precio", $datos['precio'], PDO::PARAM_INT);
+        $stmt->bindParam(":listado_pasajeros", $datos['pasajeros'], PDO::PARAM_STR);
+        $stmt->bindParam(":estado_pago", $datos['estado'], PDO::PARAM_STR);
+        $stmt->bindParam(":valor_neto", $datos['valorneto'], PDO::PARAM_INT);
+        $stmt->bindParam(":estado_fuec", $datos['estado_fuec'], PDO::PARAM_STR);
+        $stmt->bindParam(":ruta_contrato", $datos['contratoadjunto'], PDO::PARAM_STR);
+        $stmt->bindParam(":usuario_creacion", $datos['usuario_creacion'], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $id = $conexion->lastInsertId();
+        } else {
+            $id = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $id;
+    }
+
+    /* ===================================================
        DOCUMENTOS VENCIDOS DEL VEHICULO, esta consulta en realidad trae todos los documentos que puede tener un vehiculo (sin repetir) sin importar si está vencido o no
     ===================================================*/
     static public function mdlDocumentosVencidos($idvehiculo)
@@ -59,4 +124,19 @@ class ModeloFuec
         $stmt->closeCursor();
         return $retorno;
     }
+
+    /* ===================================================
+       OBJETO DE CONTRATO
+    ===================================================*/
+    static public function mdlObjetosContrato()
+    {
+        $sql = "SELECT * FROM v_objetocontrato";
+        $stmt = Conexion::conectar()->prepare($sql);
+
+        $stmt->execute();
+        $retorno =  $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
 }

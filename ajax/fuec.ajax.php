@@ -22,6 +22,15 @@ if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok"){
 class AjaxFuec
 {
     /* ===================================================
+       DATOS DEL FUEC
+    ===================================================*/
+    static public function ajaxDatosFUEC($item, $valor)
+    {
+        $FUEC = ControladorFuec::ctrDatosFUEC($item, $valor);
+        echo json_encode($FUEC);
+    }
+
+    /* ===================================================
        VERIFICAR SI EL VEHICULO NO TIENE BLOQUEOS NI DOCUMENTOS VENCIDOS
     ===================================================*/
     static public function ajaxVehiculoDisponible($idvehiculo)
@@ -38,7 +47,7 @@ class AjaxFuec
         # Bloqueo vehículo
         $bloqueoVehiculo = ModeloBloqueoV::mdlUltimoBloqueoV($idvehiculo);
         if ($bloqueoVehiculo !== false){
-            $bloqueado = $bloqueoVehiculo['estado'] == 0 ? "SI" : "NO";
+            $bloqueado = $bloqueoVehiculo['estado'] == 0 ? $bloqueoVehiculo : "NO";
         }else{
             $bloqueado = "NO";
         }
@@ -67,7 +76,7 @@ class AjaxFuec
         # Bloqueo conductor
         $bloqueoConductor = ModeloBloqueoP::mdlUltimoBloqueo($idconductor);
         if ($bloqueoConductor !== false){
-            $bloqueado = $bloqueoConductor['estado'] == 0 ? "SI" : "NO";
+            $bloqueado = $bloqueoConductor['estado'] == 0 ? $bloqueoConductor : "NO";
         }else{
             $bloqueado = "NO";
         }
@@ -85,10 +94,23 @@ class AjaxFuec
         echo json_encode($respuestaArray);
 
     }
+
+    /* ===================================================
+       GUARDAR DATOS DEL FUEC
+    ===================================================*/
+    static public function ajaxGuardarFUEC($formData)
+    {
+        $respuesta = ControladorFuec::ctrGuardarFUEC($formData);
+        echo $respuesta;
+    }
 }
 /* ===================================================
    # LLAMADOS A AJAX FUEC
 ===================================================*/
+if (isset($_POST['DatosFUEC']) && $_POST['DatosFUEC'] == "ok") {
+    AjaxFuec::ajaxDatosFUEC($_POST['item'], $_POST['valor']);
+}
+
 if (isset($_POST['VehiculoDisponible']) && $_POST['VehiculoDisponible'] == "ok") {
    AjaxFuec::ajaxVehiculoDisponible($_POST['idvehiculo']);
 }
@@ -99,4 +121,10 @@ if (isset($_POST['ListaConductores']) && $_POST['ListaConductores'] == "ok") {
 
 if (isset($_POST['ConductorDisponible']) && $_POST['ConductorDisponible'] == "ok") {
    AjaxFuec::ajaxConductorDisponible($_POST['idconductor']);
+}
+
+if (isset($_POST['GuardarFUEC']) && $_POST['GuardarFUEC'] == "ok") {
+    // $tarjetapropiedad = isset($_FILES['tarjetapropiedad']) ? $_FILES['tarjetapropiedad'] : "";
+    // $foto_vehiculo = isset($_FILES['foto_vehiculo']) ? $_FILES['foto_vehiculo'] : "";
+    AjaxFuec::ajaxGuardarFUEC($_POST);
 }
