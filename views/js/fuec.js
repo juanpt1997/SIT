@@ -384,10 +384,12 @@ $(document).ready(function () {
                         $("#expedicion_doccliente").val(response.ciudad_cedula_expedidaen);
 
                         // Datos FUEC
-                        $("#vehiculofuec").val(response.idvehiculo);
-                        $("#conductor1").val(response.idconductor1);
-                        $("#conductor2").val(response.idconductor2);
-                        $("#conductor3").val(response.idconductor3);
+                        $("#vehiculofuec").val(response.idvehiculo).trigger("change");
+                        setTimeout(() => {
+                            $("#conductor1").val(response.idconductor1).trigger("change");
+                            $("#conductor2").val(response.idconductor2).trigger("change");
+                            $("#conductor3").val(response.idconductor3).trigger("change");
+                        }, 3000);
                         $("#fechaini").val(response.fecha_inicial);
                         $("#fechafin").val(response.fecha_vencimiento);
                         $("#objetocontrato").val(response.idobjeto_contrato);
