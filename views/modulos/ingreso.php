@@ -1,6 +1,16 @@
-<div id="div_video">
+<!-- <div id="div_video">
     <video id="videoFondo" src="views/video/trans-especiales-el-saman.mp4" autoplay loop muted poster=""></video>
-</div>
+</div> -->
+<style>
+    body {
+        background: url("<?= URL_APP ?>views/img/plantilla/Login-Demo.jpg") no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+
+    }
+</style>
 <div class="login-box">
     <div class="login-logo">
         <img src="<?= URL_APP ?>views/img/plantilla/elsaman-logo2.png" alt="">
@@ -36,9 +46,9 @@
                 <button type="submit" class="btn btn-success btn-block">Ingresar</button>
             </form>
 
-                <small class="">
-                    <a href="#" data-toggle="modal" data-target="#modalRecuperarPassword">He olvidado mi contraseña</a>
-                </small>
+            <small class="">
+                <a href="#" data-toggle="modal" data-target="#modalRecuperarPassword">He olvidado mi contraseña</a>
+            </small>
         </div>
         <!-- /.login-card-body -->
     </div>
