@@ -11,7 +11,7 @@ $(document).ready(function () {
         ===================================================*/
         $(document).on("click", ".btn-FTFuec", function () {
             var idfuec = $(this).attr("idfuec");
-            window.open(`./pdf/pdffuec.php?idfuec=${idfuec}`, '', 'width=1280,height=720,left=50,top=50,toolbar=yes');
+            window.open(`./pdf/pdffuec.php?cod=${idfuec}`, '', 'width=1280,height=720,left=50,top=50,toolbar=yes');
         });
 
         /* ===================================================
@@ -188,7 +188,7 @@ $(document).ready(function () {
                         contentType: false,
                         processData: false,
                         success: function (response) {
-                            if (response.Bloqueo == "NO" && response.PagoSS == "SI") {
+                            if (response.Bloqueo == "NO" && response.PagoSS == "SI" && response.LicenciaActiva == "SI") {
                                 $select.val(idconductor);
                             }
                             else {
@@ -202,19 +202,32 @@ $(document).ready(function () {
                                     });
                                     actualizoSelectConductor = false;
                                     $select.trigger('change'); //MUESTRA EL VALOR DEL SELECT
-                                } else {
-                                    Swal.fire({
-                                        icon: 'warning',
-                                        html: `<div class="text-left">
-                                                <p class="font-weight-bold">El conductor se encuentra bloqueado por el siguiente motivo: </p>
-                                                <li>${response.Bloqueo.motivo}</li>
-                                            </div>`,
-                                        showConfirmButton: true,
-                                        confirmButtonText: 'Cerrar',
-                                        closeOnConfirm: false
-                                    });
-                                    actualizoSelectConductor = false;
-                                    $select.trigger('change'); //MUESTRA EL VALOR DEL SELECT
+                                } else{
+                                    if(response.LicenciaActiva == "NO"){
+                                        Swal.fire({
+                                            icon: 'warning',
+                                            text: 'No es posible seleccionar un conductor que no tenga la licencia de conducción al día',
+                                            showConfirmButton: true,
+                                            confirmButtonText: 'Cerrar',
+                                            closeOnConfirm: false
+                                        });
+                                        actualizoSelectConductor = false;
+                                        $select.trigger('change'); //MUESTRA EL VALOR DEL SELECT
+                                    }
+                                    else {
+                                        Swal.fire({
+                                            icon: 'warning',
+                                            html: `<div class="text-left">
+                                                    <p class="font-weight-bold">El conductor se encuentra bloqueado por el siguiente motivo: </p>
+                                                    <li>${response.Bloqueo.motivo}</li>
+                                                </div>`,
+                                            showConfirmButton: true,
+                                            confirmButtonText: 'Cerrar',
+                                            closeOnConfirm: false
+                                        });
+                                        actualizoSelectConductor = false;
+                                        $select.trigger('change'); //MUESTRA EL VALOR DEL SELECT
+                                    }
                                 }
                             }
                         }
@@ -406,6 +419,8 @@ $(document).ready(function () {
                         $("#observacionescontr").val(response.observaciones);
                         $("#precio").val(response.precio);
                         $("#valorneto").val(response.valor_neto);
+                        $(`.input-pasajeros[value='${response.listado_pasajeros}']`).iCheck('check');
+                        $(`.input-estado[value='${response.estado_pago}']`).iCheck('check');
                         $("#estado_fuec").val(response.estado_fuec);
                     }
                 }

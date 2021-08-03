@@ -69,7 +69,7 @@ class AjaxFuec
     }
 
     /* ===================================================
-       VERIFICAR SI EL CONDUCTOR NO TIENE BLOQUEOS
+       VERIFICAR SI EL CONDUCTOR NO TIENE BLOQUEOS, SI HA PAGADO SEGURIDAD SOCIAL Y SI TIENE LA LICENCIA ACTIVA
     ===================================================*/
     static public function ajaxConductorDisponible($idconductor)
     {
@@ -82,14 +82,19 @@ class AjaxFuec
         }
 
         # Pago Seguridad social
-        $ConductorPagoSS = ModeloFuec::mdlConductorPagoSS($idconductor);
+        $ConductorPagoSS = ControladorFuec::ctrConductorPagoSS($idconductor);
         if ($ConductorPagoSS !== false){
             $pagoSS = $ConductorPagoSS['pago'] == "S" ? "SI" : "NO";
         }else{
             $pagoSS = "NO";
         }
+
+        # Licencia activa
+        $FechaLicencia = ControladorFuec::ctrConductorLicencia($idconductor);
+        $licenciaActiva = $FechaLicencia['fecha_vencimiento'] != null ? "SI" : "NO";
         $respuestaArray = array('Bloqueo' => $bloqueado,
-                                'PagoSS' => $pagoSS);
+                                'PagoSS' => $pagoSS,
+                                'LicenciaActiva' => $licenciaActiva);
         
         echo json_encode($respuestaArray);
 

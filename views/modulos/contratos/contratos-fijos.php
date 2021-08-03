@@ -108,7 +108,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                     <div class="form-group">
                         <label class="text-sm"><i>Nombre del cliente</i></label>
                         <div class="input-group input-group-sm">
-                            <select class="form-control input-fijos select2-single" id="nom_clien" style="width: 99%" name="nom_clien">
+                            <select class="form-control input-fijos select2-single" id="nom_clien" style="width: 99%" name="nom_clien" required>
                                 <option value="" selected><b>-Seleccione un cliente-</b></option>
                                 <?php foreach ($clientes as $key => $value) : ?>
                                     <option value="<?= $value['idcliente'] ?>"><?= $value['nombre'] ?></option>
@@ -122,7 +122,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                             <div class="form-group">
                                 <label class="text-sm">Número de contrato</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-fijos" type="number" id="num_contrato" name="num_contrato" placeholder="Digite el número del contrato" maxlength="10" required>
+                                    <input class="form-control input-fijos" type="number" id="num_contrato" name="num_contrato" placeholder="Número del contrato" maxlength="10" readonly>
                                 </div>
                             </div>
                         </div><!-- col-1-->

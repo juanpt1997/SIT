@@ -9,8 +9,8 @@ include '../config.php';
 // }
 
 # SE VALIDA DE QUE EL ID SEA DE TIPO INT 
-if (isset($_REQUEST['idfuec']) && preg_match('/^[0-9]+$/', $_REQUEST['idfuec'])) {
-    $idfuec = $_REQUEST['idfuec'];
+if (isset($_REQUEST['cod']) && preg_match('/^[0-9]+$/', $_REQUEST['cod'])) {
+    $idfuec = $_REQUEST['cod'];
 } else {
     header("Location: " . URL_APP);
 }
@@ -24,9 +24,11 @@ require '../vendor/autoload.php';
 # REQUERIMOS EL CONTROLADOR Y EL MODELO PARA HACER USO DE LA INFORMACIÓN
 require '../controllers/fuec.controlador.php';
 require '../models/fuec.modelo.php';
+require '../models/conceptos.modelo.php';
 
 
-$resultado = ControladorFuec::ctrDatosPDFFUEC($idfuec);
+$resultado = ControladorFuec::ctrDatosFUEC("idfuec", $idfuec);
+$empresa = ModeloConceptosGH::mdlVerEmpresa();
 
 /* ===================== 
   SI LA INFORMACIÓN VIENE FALSA SE REDIRECCIONA A LAS ORDERS
@@ -80,7 +82,7 @@ class PdfFuec
     /* ===================== 
       GENERACION DE ARCHIVOS PDF DE LA PETICION DE OFERTA 
     ========================= */
-    static public function makePDF($info)
+    static public function makePDF($info, $empresa)
     {
 
         /* ===================== 
@@ -177,12 +179,38 @@ class PdfFuec
         $image_codigos = '../views/img/plantilla/fuec/img_codigos.png';
         $image_5estrellas = '../views/img/plantilla/fuec/img_5estrellas.jpg';
         $image_qr = '../views/img/plantilla/fuec/img_qr.png';
-        $image_firma = '../views/img/plantilla/fuec/img_firma.jpg';
+        //$image_firma = '../views/img/plantilla/fuec/img_firma.jpg';
+        $image_firma = '../' . $empresa['ruta_firma'];
 
         $pdf->Image($image_vigilado, 10, 20, 65, 12,  'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         $pdf->Image($image_iso, 85, 20, 28, 12,  'JPEG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         $pdf->Image($image_elsaman, 118, 10, 45, 34,  'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         $pdf->Image($image_qr, 165, 15, 20, 20,  'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+
+        /* ===================================================
+           CONSECUTIVO FUEC
+        ===================================================*/
+        // Id fuec convertido en 4 digitos, ejemplo: 0001
+        $idfuecString = strval($info['idfuec']);
+        $faltanteDigitos = 4 - strlen($idfuecString);
+        $idfuec4digitos = "";
+        for ($i=0; $i < $faltanteDigitos; $i++) { 
+            $idfuec4digitos.="0";
+        }
+        $idfuec4digitos.=$info['idfuec'];
+
+        // numero contrato convertido en 4 digitos, ejemplo: 0023
+        $nro_contratoString = strval($info['nro_contrato']);
+        $faltanteDigitos = 4 - strlen($nro_contratoString);
+        $nro_contrato4digitos = "";
+        for ($i=0; $i < $faltanteDigitos; $i++) { 
+            $nro_contrato4digitos.="0";
+        }
+        $nro_contrato4digitos.=$info['nro_contrato'];
+
+        // Consecutivo completo
+        $Consecutivo = $empresa['dir_territorial'] . $empresa['nro_resolucion'] . substr($empresa['anio_resolucion'], 2, 4) . date('Y', strtotime($info['fecha_creacion'])) . $nro_contrato4digitos . $idfuec4digitos;
+
 
         /* ===================================================
            TITULO FUEC
@@ -198,7 +226,7 @@ class PdfFuec
         $pdf->SetFont('helvetica', '', '8');
         $pdf->Ln(4);
         //$pdf->Cell($anchoPaginaMM, 0.5, '317005917201900020002', 0, 1, 'C');
-        $pdf->MultiCell(130, 5, '317005917201900020002', 0, 'C', 0, 1, $x, '', true);
+        $pdf->MultiCell(130, 5, $Consecutivo, 0, 'C', 0, 1, $x, '', true);
         $pdf->Ln(4);
 
         /* ===================================================
@@ -208,19 +236,19 @@ class PdfFuec
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(25, 5, "RAZÓN SOCIAL:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(120, 5, 'TRANS. ESPECIALES EL SAMAN SERVIENCARGA S.A.S', 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(120, 5, $empresa['razon_social'], 0, 'L', 0, 0, '', '', true);
         # NIT
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(8, 5, "NIT:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(25, 5, '800.240.911-6', 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(25, 5, $empresa['nit'], 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
 
         # CONTRATO NRO.
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(28, 5, "CONTRATO NRO.:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(20, 5, $info['idfuec'], 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(20, 5, $idfuec4digitos, 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
 
         # CONTRATANTE
@@ -233,7 +261,7 @@ class PdfFuec
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(13, 5, "NIT/CC:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(25, 5, '800.240.911-6', 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(25, 5, $info['docContratante'], 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
 
         # OBJETO CONTRATO
@@ -318,28 +346,28 @@ class PdfFuec
                     </tr>
                     <tr style="text-align: center;">
                         <td colspan="3" border="1">' . $info['numinterno'] . '</td>
-                        <td colspan="4" border="1">182056</td>
+                        <td colspan="4" border="1">' . $info['tarjetaOperacion'] . '</td>
                     </tr>
                     <tr>
                         <td style="font-weight:bold; font-size:9px" border="1">DATOS DEL CONDUCTOR 1</td>
                         <td colspan="2" border="1"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br>' . $info['conductor1'] . '</td>
                         <td border="1"><span style="font-weight:bold;">NRO. CÉDULA</span><br>' . $info['docConductor1'] . '</td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">NRO. LICENCIA CONDUCCIÓN</span><br>' . $info['docConductor1'] . '</td>
-                        <td border="1"><span style="font-weight:bold;">VIGENCIA</span><br>19/09/2021</td>
+                        <td colspan="2" border="1"><span style="font-weight:bold;">NRO. LICENCIA CONDUCCIÓN</span><br>' . $info['licencia1'] . '</td>
+                        <td border="1"><span style="font-weight:bold;">VIGENCIA</span><br>' . date("d/m/Y", strtotime($info['vigenciaLic1'])) . '</td>
                     </tr>
                     <tr>
                         <td style="font-weight:bold; font-size:9px" border="1">DATOS DEL CONDUCTOR 2</td>
                         <td colspan="2" border="1"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br>' . $info['conductor2'] . '</td>
                         <td border="1"><span style="font-weight:bold;">NRO. CÉDULA</span><br>' . $info['docConductor2'] . '</td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">NRO. LICENCIA CONDUCCIÓN</span><br>' . $info['docConductor2'] . '</td>
-                        <td border="1"><span style="font-weight:bold;">VIGENCIA</span><br></td>
+                        <td colspan="2" border="1"><span style="font-weight:bold;">NRO. LICENCIA CONDUCCIÓN</span><br>' . $info['licencia2'] . '</td>
+                        <td border="1"><span style="font-weight:bold;">VIGENCIA</span><br>' . date("d/m/Y", strtotime($info['vigenciaLic2'])) . '</td>
                     </tr>
                     <tr>
                         <td style="font-weight:bold; font-size:9px;" border="1">DATOS DEL CONDUCTOR 3</td>
                         <td colspan="2" border="1"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br>' . $info['conductor3'] . '</td>
                         <td border="1"><span style="font-weight:bold;">NRO. CÉDULA</span><br>' . $info['docConductor3'] . '</td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">NRO. LICENCIA CONDUCCIÓN</span><br>' . $info['docConductor3'] . '</td>
-                        <td border="1"><span style="font-weight:bold;">VIGENCIA</span><br></td>
+                        <td colspan="2" border="1"><span style="font-weight:bold;">NRO. LICENCIA CONDUCCIÓN</span><br>' . $info['licencia3'] . '</td>
+                        <td border="1"><span style="font-weight:bold;">VIGENCIA</span><br>' . date("d/m/Y", strtotime($info['vigenciaLic3'])) . '</td>
                     </tr>
                     <tr>
                         <td style="font-weight:bold; font-size:9px" border="1">RESPONSABLE DEL CONTRATANTE</td>
@@ -433,4 +461,4 @@ class PdfFuec
 }
 
 # SE INSTANCIA LA CLASE PARA LA GENERACION DEL ARCHIVO PDF
-PdfFuec::makePDF($resultado);
+PdfFuec::makePDF($resultado, $empresa);

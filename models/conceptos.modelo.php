@@ -8,7 +8,7 @@ include_once DIR_APP . 'config/conexion.php';
  */
 class ModeloConceptosGH
 {
-	
+	# DATOS GENERALIZADOS
 	static public function mdlActualizarGH($tabla, $input1)
     {
 
@@ -99,7 +99,17 @@ class ModeloConceptosGH
     }
 
 
-
+    # EMPRESA
+    static public function mdlVerEmpresa()
+    {
+        $sql = "SELECT * FROM empresa LIMIT 1";
+        $stmt = Conexion::conectar()->prepare($sql);
+        
+        $stmt->execute();
+        $retorno =  $stmt->fetch();
+        $stmt->closeCursor();
+        return $retorno;
+    }
 
 
 

@@ -409,12 +409,13 @@ class ControladorFijos
    static public function ctrAgregarEditarFijos()
    {
       if (isset($_POST['idconfijo'])) {
-         $FijosExistente = ModeloFijos::mdlVerFijos($_POST['idconfijo']);
+         //$FijosExistente = ModeloFijos::mdlVerFijos($_POST['idconfijo']);
 
+         $num_contrato = $_POST['num_contrato'] == "" ? null : $_POST['num_contrato'];
          $datos = array(
             'idfijos' => $_POST['idconfijo'],
             'idcliente' => $_POST['nom_clien'],
-            'numcontrato' => $_POST['num_contrato'],
+            'numcontrato' => $num_contrato,
             'fecha_inicial' => $_POST['f_inicial_fijos'],
             'fecha_final' => $_POST['f_final_fijos'],
             //'documento_escaneado' => $_POST['documento_es'],
@@ -423,10 +424,8 @@ class ControladorFijos
 
 
          if ($_POST['idconfijo'] != "" /* is_array($FijosExistente) */) {
-            echo "entra a editar";
             $respuestamodelo = ModeloFijos::mdlEditarFijos($datos);
          } else {
-            echo "entra a agregar";
             $respuestamodelo = ModeloFijos::mdlAgregarFijo($datos);
          }
 

@@ -237,6 +237,7 @@ if (
       var idfijos = $(this).attr("idfijos");
       var idcliente = $(this).attr("idcliente");
       $("#idconfijo").val(idfijos);
+      $("#num_contrato").val(idfijos);
 
       var datos = new FormData();
       datos.append("DatosFijos", "ok");
@@ -261,7 +262,7 @@ if (
               ")"
           );
           $("#nom_clien").val(response.idcliente);
-          $("#num_contrato").val(response.numcontrato);
+          //$("#num_contrato").val(response.numcontrato);
           $("#f_inicial_fijos").val(response.fecha_inicial);
           $("#f_final_fijos").val(response.fecha_final);
           $("#observaciones_fijos").val(response.observaciones);

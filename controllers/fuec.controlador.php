@@ -23,17 +23,8 @@ class ControladorFuec
 			'item' => $item,
 			'valor' => $valor
 		);
-		$FUEC = ModeloFuec::mdlDatosFUEC($datos);
+		$FUEC = ModeloFuec::mdlDatosFUEC2($datos);
 		return $FUEC;
-	}
-
-	/* ===================================================
-       DATOS PDF FUEC
-    ===================================================*/
-	static public function ctrDatosPDFFUEC($idfuec)
-	{
-		$respuesta = ModeloFuec::mdlDatosPDFFUEC($idfuec);
-		return $respuesta;
 	}
 
     /* ===================================================
@@ -51,6 +42,15 @@ class ControladorFuec
     static public function ctrConductorPagoSS($idpersonal)
     {
         $respuesta = ModeloFuec::mdlConductorPagoSS($idpersonal);
+        return $respuesta;
+    }
+
+	/* ===================================================
+       VERIFICAR LICENCIA DEL CONDUCTOR
+    ===================================================*/
+    static public function ctrConductorLicencia($idpersonal)
+    {
+        $respuesta = ModeloFuec::mdlConductorLicencia($idpersonal);
         return $respuesta;
     }
 
@@ -72,8 +72,6 @@ class ControladorFuec
 			'item' => 'idfuec',
 			'valor' => $datos['idfuec']
 		);
-		//$FUEC = ModeloVehiculos::mdlDatosVehiculo($datosBusqueda);
-		$FUEC = true;
 
 		# Datos que pueden venir vacios del formulario
 		$datos["precio"] = $datos["precio"] == "" ? null : $datos["precio"];
@@ -83,16 +81,34 @@ class ControladorFuec
 		$datos["conductor3"] = $datos["conductor3"] == "" ? null : $datos["conductor3"];
 		$datos["usuario_creacion"] = $_SESSION['cedula'];
 		$datos["contratoadjunto"] = $datos["contratoadjunto"] == "" ? null : $datos["contratoadjunto"];
+		// Número del contrato
+		if ($datos['tipocontrato'] == "OCASIONAL"){
+			$nro_contrato_maximo = ModeloFuec::mdlNumeroContrato($datos['tipocontrato'])['nro_contrato'];
+			$nro_contrato = $nro_contrato_maximo == null ? 1 : $nro_contrato_maximo++;
+		}else{
+			$nro_contrato = $datos["contratofijo"];
+		}
 
 		# INSERT
 		if ($datos['idfuec'] == "") {
+			$datos["nro_contrato"] = $nro_contrato;
 			$retorno = ModeloFuec::mdlAgregarFUEC($datos);
 		}
 		# UPDATE
 		else {
+			$FUEC = self::ctrDatosFUEC("idfuec", $datos['idfuec']);
 			if ($FUEC !== false) {
+				// Es diferente el tipo que entra al tipo existente
+				if ($datos["tipocontrato"] != $FUEC['tipocontrato'] && $datos["contratofijo"] != $FUEC['contratofijo']){
+					// Actualizo numero consecutivo
+					// es decir no hago nada
+				}else{
+					// Dejo el consecutivo guardado anteriormente
+					$nro_contrato = $FUEC['nro_contrato'];
+				}
 				# UPDATE
-				//$retorno = ModeloFuec::mdlEditarFUEC($datos);
+				$datos["nro_contrato"] = $nro_contrato;
+				$retorno = ModeloFuec::mdlEditarFUEC($datos);
 			}else{
 				$retorno = "error";
 			}
