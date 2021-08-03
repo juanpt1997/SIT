@@ -68,7 +68,7 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                                 <td><?= $value['telefono2'] ?></td>
                                                 <td class="text-center">
                                                     <div class="btn-group" role="group" aria-label="Button group">
-                                                        <button class="btn btn-toolbar btn-sm btn-secondary btn-verorden float-right"><i class="fas fa-book"></i></button>
+                                                        <button class="btn btn-toolbar btn-sm btn-secondary btn-verorden float-right" idorden="<?= $value['idorden'] ?>"><i class="fas fa-book"></i></button>
                                                     </div>
                                                 </td>
                                             </tr>

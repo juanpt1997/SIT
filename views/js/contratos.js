@@ -364,4 +364,17 @@ if (
     $("#titulo_orden").html("Nueva órden de servicio");
     $(".select2-single").trigger("change");
   });
+
+   /* ===================================================
+          VISUALIZAR PDF DE LA ORDEN DE SERVICIO
+        ===================================================*/
+        $(document).on("click", ".btn-verorden", function () {
+          var idorden = $(this).attr("idorden");
+          window.open(`./pdf/pdfordenservicio.php?idorden=${idorden}`, '', 'width=1280,height=720,left=50,top=50,toolbar=yes');
+      });
+
+
+
+
+
 }
