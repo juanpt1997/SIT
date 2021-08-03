@@ -13,12 +13,12 @@
 </style>
 <div class="login-box">
     <div class="login-logo">
-        <img src="<?= URL_APP ?>views/img/plantilla/elsaman-logo2.png" alt="">
+        <img src="<?= URL_APP ?>views/img/plantilla/logo.png" alt="">
     </div>
     <!-- /.login-logo -->
 
     <!-- login card -->
-    <div class="card">
+    <div class="card ml-4">
         <div class="card-body login-card-body">
             <h5 class="login-box-msg font-weight-bold">Inicio de sesión</h5>
 
