@@ -480,10 +480,15 @@ $(document).ready(function () {
                 // Limpiar
                 $(this).val("");
             }else{
-                if (archivo["type"] != "image/jpeg" && archivo["type"] != "image/png"){
+                var admitidos = $(this).attr("accept");
+                /* let admitejpg = admitidos.includes("image/jpeg");
+                let admitepng = admitidos.includes("image/png");
+                let admitepdf = admitidos.includes("application/pdf"); */
+                admitefile = admitidos.includes(archivo["type"]);
+                if (!admitefile){
                     Swal.fire({
                         icon: "error",
-                        title: "¡La imagen debe estar en formato JPG o PNG!",
+                        title: "¡Este tipo de archivo no es permitido!",
                         showConfirmButton: true,
                         confirmButtonText: "Cerrar",
                         closeOnConfirm: false

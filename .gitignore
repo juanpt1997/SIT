@@ -21,3 +21,7 @@ vehiculos/
 
 # IGNORAMOS LA CARPETA DE DOCUMENTOS DE LOS VEHICULOS
 docsVehiculos/
+
+# IGNORAMOS LA CARPETA DE CONTRATOS FUEC Y FIJOS
+contratosFuec/
+contratosFijos/

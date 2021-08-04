@@ -4,6 +4,8 @@
 include '../config.php';
 
 # REQUERIMOS EL CONTROLADOR Y EL MODELO PARA QUE REALICE LA PETICION
+require_once '../controllers/files.controlador.php';
+
 require_once '../controllers/fuec.controlador.php';
 require_once '../models/fuec.modelo.php';
 
@@ -103,9 +105,9 @@ class AjaxFuec
     /* ===================================================
        GUARDAR DATOS DEL FUEC
     ===================================================*/
-    static public function ajaxGuardarFUEC($formData)
+    static public function ajaxGuardarFUEC($formData, $documento)
     {
-        $respuesta = ControladorFuec::ctrGuardarFUEC($formData);
+        $respuesta = ControladorFuec::ctrGuardarFUEC($formData, $documento);
         echo $respuesta;
     }
 }
@@ -130,6 +132,6 @@ if (isset($_POST['ConductorDisponible']) && $_POST['ConductorDisponible'] == "ok
 
 if (isset($_POST['GuardarFUEC']) && $_POST['GuardarFUEC'] == "ok") {
     // $tarjetapropiedad = isset($_FILES['tarjetapropiedad']) ? $_FILES['tarjetapropiedad'] : "";
-    // $foto_vehiculo = isset($_FILES['foto_vehiculo']) ? $_FILES['foto_vehiculo'] : "";
-    AjaxFuec::ajaxGuardarFUEC($_POST);
+    $documento = isset($_FILES['documento']) ? $_FILES['documento'] : "";
+    AjaxFuec::ajaxGuardarFUEC($_POST, $documento);
 }

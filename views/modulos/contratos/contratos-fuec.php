@@ -197,7 +197,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                     <select id="contratante" class="form-control select2-single input-fuec" style="width: 90%" name="contratante" required actualizo="SI">
                                         <option value="" selected>-Seleccione una opción-</option>
                                         <?php foreach ($OrdenesServicio as $key => $value) : ?>
-                                            <option value="<?= $value['idorden'] ?>"><?= $value['idorden'] . " - " . $value['nomContrata']?></option>
+                                            <option value="<?= $value['idorden'] ?>"><?= $value['idorden'] . " - " . $value['nomContrata'] ?></option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>
@@ -414,7 +414,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                     <select id="objetocontrato" class="form-control input-fuec" name="objetocontrato" readonly required>
                                         <option value="">-Seleccione una opción-</option>
                                         <?php foreach ($ObjetosContrato as $key => $value) : ?>
-                                            <?php $selected = $value['idobjeto'] == 4 ? "selected" : ""?>
+                                            <?php $selected = $value['idobjeto'] == 4 ? "selected" : "" ?>
                                             <option <?= $selected ?> value="<?= $value['idobjeto'] ?>"><?= $value['objetocontrato'] ?></option>
                                         <?php endforeach ?>
                                     </select>
@@ -560,7 +560,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                         </div><!-- /.col -->
 
                         <!-- Adjuntar contrato -->
-                        <div class="col-12 col-md-6 d-none">
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Adjuntar contrato</label>
                                 <div class="input-group">
@@ -569,8 +569,9 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                             <i class="fas fa-file-alt"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="contratoadjunto" name="contratoadjunto">
+                                    <input type="file" class="form-control input-fuec" id="contratoadjunto" accept="image/png, image/jpeg, application/pdf">
                                 </div>
+                                <a id="visualizContrato" href="" target="_blank"></a>
                             </div>
                         </div><!-- /.col -->
                     </div><!-- /.row -->

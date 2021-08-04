@@ -299,9 +299,9 @@ $(document).ready(function () {
                 datosAjax.append(element.name, element.value);
             });
 
-            // FOTO
-            // var files = $('#nuevaFoto')[0].files;
-            // datosAjax.append("foto", files[0]);
+            // CONTRATO ADJUNTO
+            var files = $('#contratoadjunto')[0].files;
+            datosAjax.append("documento", files[0]);
 
             $.ajax({
                 type: 'post',
@@ -361,6 +361,7 @@ $(document).ready(function () {
             $("#frmFUEC").trigger("reset"); //reset formulario
             $("#idfuec").val(""); //reset id fuec
             $('#tipocontrato').trigger('change'); //Inicializar opciones con el tipo de contrato
+            $("#visualizContrato").text("");
         });
 
         /* ===================================================
@@ -371,6 +372,7 @@ $(document).ready(function () {
             $("#idfuec").val(idfuec); //asignar id personal
             $("#titulo-modal-fuec").html("");
             $("#frmFUEC").trigger("reset"); //reset formulario
+            $("#visualizContrato").text("");
 
             /* AJAX PARA CARGAR DATOS */
             var datos = new FormData();
@@ -422,6 +424,13 @@ $(document).ready(function () {
                         $(`.input-pasajeros[value='${response.listado_pasajeros}']`).iCheck('check');
                         $(`.input-estado[value='${response.estado_pago}']`).iCheck('check');
                         $("#estado_fuec").val(response.estado_fuec);
+
+                        // Visualizacion contrato adjunto
+                        if (response.ruta_contrato != null){
+                            let nombre = response.ruta_contrato.split("/");
+                            nombre = nombre[nombre.length - 1];
+                            $("#visualizContrato").attr("href", urlPagina + response.ruta_contrato).text(nombre);
+                        }
                     }
                 }
             });

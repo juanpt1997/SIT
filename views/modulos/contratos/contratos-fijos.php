@@ -146,9 +146,9 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                         </div>
                     </div><!-- row-->
 
-                    <hr class="my-4 bg-dark">
+                    <hr class="my-4 bg-dark d-none">
 
-                    <div class="col-md-6">
+                    <div class="col-md-6 d-none">
                         <div class="form-group">
                             <label class="text-sm">Documento escaneado</label>
                             <div class="input-group input-group-sm">
