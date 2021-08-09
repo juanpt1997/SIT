@@ -297,7 +297,7 @@
                         <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100" id="ver_conceptoV">
                             <thead class="thead-light text-uppercase text-sm text-center">
                                 <tr>
-                                    <!--<th style="width:10px;">#</th>-->
+                                    <th style="width:10px;">#</th>
                                     <th id="tipoV"></th>
                                     <th>Acciones</th>
                                 </tr>
