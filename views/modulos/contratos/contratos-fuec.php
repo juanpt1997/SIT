@@ -53,10 +53,10 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                         <div class="card-header bg-info"></div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
+                                <table id="tblFUEC" class="table table-sm table-striped table-bordered table-hover w-100">
                                     <thead class="thead-light text-sm text-nowrap">
                                         <tr>
-                                            <th style="width:10px;">#</th>
+                                            <th style="min-width:40px;">#</th>
                                             <th>Acciones</th>
                                             <!-- <th>FUEC</th> -->
                                             <th>Placa</th>

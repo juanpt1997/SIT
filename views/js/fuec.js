@@ -5,6 +5,33 @@ $(document).ready(function () {
     if (window.location.href == `${urlPagina}contratos-fuec/` ||
         window.location.href == `${urlPagina}contratos-fuec`
     ) {
+        /* ===================================================
+          INICIALIZAR DATATABLE
+        ===================================================*/
+        /* Filtrar por columna */
+        //Clonar el tr del thead
+        $(`#tblFUEC thead tr`).clone(true).appendTo(`#tblFUEC thead`);
+        //Por cada th creado hacer lo siguiente
+        $(`#tblFUEC thead tr:eq(1) th`).each(function (i) {
+            //Remover clase sorting y el evento que tiene cuando se hace click
+            $(this).removeClass("sorting").unbind();
+            //Agregar input de busqueda
+            $(this).html('<input class="form-control" type="text" placeholder="Buscar"/>');
+            //Evento para detectar cambio en el input y buscar
+            $('input', this).on('keyup change', function () {
+                if (table.column(i).search() !== this.value) {
+                    table
+                        .column(i)
+                        .search(this.value)
+                        .draw();
+                }
+            });
+        });
+        var buttons = [
+            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar'}
+            /* 'copy', 'csv', 'excel', 'pdf', 'print' */
+        ];
+        var table = dataTableCustom(`#tblFUEC`, buttons);
 
         /* ===================================================
           VISUALIZAR PDF DEL FUEC
