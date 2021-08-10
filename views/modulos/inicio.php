@@ -42,9 +42,11 @@
                         <!-- /.info-box -->
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuCG">
                             <a class="dropdown-item font-weight-bold" href="cg-gestion-humana"><u>Gestión humana</u></a>
-                            <a class="dropdown-item font-weight-bold" href="cg-vehicular"><u>Vehicular</u></a>
-                            <a class="dropdown-item font-weight-bold" href="cg-mantenimiento"><u>Matenimiento</u></a>
-                            <a class="dropdown-item font-weight-bold" href="cg-seguridad"><u>Seguridad</u></a>
+                            <?php if (validarModulo('M_OPCIONES')) : ?>
+                                <a class="dropdown-item font-weight-bold" href="cg-vehicular"><u>Vehicular</u></a>
+                                <a class="dropdown-item font-weight-bold" href="cg-mantenimiento"><u>Matenimiento</u></a>
+                                <a class="dropdown-item font-weight-bold" href="cg-seguridad"><u>Seguridad</u></a>
+                            <?php endif ?>
                         </div>
                     </div>
                 </div>
@@ -124,6 +126,25 @@
                                 <a class="dropdown-item font-weight-bold" href="contratos-fuec"><u>FUEC</u></a>
                             </div>
                         </div>
+                    </div>
+                    <!-- /.col -->
+                <?php endif ?>
+
+                <!-- ===================================================
+                    * Control Usuarios
+                =================================================== -->
+                <?php if (validarModulo('M_USUARIOS')) : ?>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <a href="usuarios">
+                            <div class="info-box border border-success">
+                                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Control Usuarios</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </a>
                     </div>
                     <!-- /.col -->
                 <?php endif ?>
@@ -271,25 +292,6 @@
                                 <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-clipboard-check"></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text font-weight-bold text-dark">Formatos de calidad</span>
-                                </div>
-                                <!-- /.info-box-content -->
-                            </div>
-                            <!-- /.info-box -->
-                        </a>
-                    </div>
-                    <!-- /.col -->
-                <?php endif ?>
-
-                <!-- ===================================================
-                    * Control Usuarios
-                =================================================== -->
-                <?php if (validarModulo('M_USUARIOS')) : ?>
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                        <a href="usuarios">
-                            <div class="info-box border border-success">
-                                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
-                                <div class="info-box-content">
-                                    <span class="info-box-text font-weight-bold text-dark">Control Usuarios</span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>

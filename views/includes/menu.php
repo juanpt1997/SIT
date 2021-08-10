@@ -67,16 +67,18 @@
                                 Gestión humana
                             =================================================== -->
                         <li class="nav-item">
-                            <a href="cg-gestion-humana" class="nav-link">
+                            <a href="cg-gestion-humana" class="nav-link" target="_blank">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Gestión humana</p>
                             </a>
                         </li>
+
+                        <?php if (validarModulo('M_OPCIONES')) : ?>
                         <!-- ===================================================
                                 Vehicular
                             =================================================== -->
                         <li class="nav-item">
-                            <a href="cg-vehicular" class="nav-link">
+                            <a href="cg-vehicular" class="nav-link" target="_blank">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Vehicular</p>
                             </a>
@@ -85,7 +87,7 @@
                                 Mantenimiento
                             =================================================== -->
                         <li class="nav-item">
-                            <a href="cg-mantenimiento" class="nav-link">
+                            <a href="cg-mantenimiento" class="nav-link" target="_blank">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Mantenimiento</p>
                             </a>
@@ -95,13 +97,386 @@
                                 Seguridad
                             =================================================== -->
                         <li class="nav-item">
-                            <a href="cg-seguridad" class="nav-link">
+                            <a href="cg-seguridad" class="nav-link" target="_blank">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Seguridad</p>
                             </a>
                         </li>
+                        <?php endif ?>
                     </ul>
                 </li>
+
+                <!-- ===================================================
+                    * Gestión Humana
+                =================================================== -->
+                <?php if (validarModulo('M_GESTION_HUMANA')) : ?>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-user-friends"></i>
+                            <p>
+                                Gestión Humana
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <!-- ===================================================
+                                    Personal
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="gh-personal" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Personal</p>
+                                </a>
+                            </li>
+
+                            <!-- ===================================================
+                                    Perfil sociodemográfico
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="gh-perfil-sd" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Perfil sociodemográfico</p>
+                                </a>
+                            </li>
+
+                            <!-- ===================================================
+                                    Pago seguridad social
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="gh-pago-ss" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Pago seguridad social</p>
+                                </a>
+                            </li>
+
+                            <!-- ===================================================
+                                    Alertas de contratos
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="gh-alertas-contratos" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Alertas de contratos</p>
+                                </a>
+                            </li>
+
+                            <!-- ===================================================
+                                    Control Ausentismo
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="gh-ausentismo" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Control Ausentismo</p>
+                                </a>
+                            </li>
+
+                            <!-- ===================================================
+                                    Gráficos perfil sociodemográfico
+                                =================================================== -->
+                            <li class="nav-item d-none">
+                                <a href="#" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Gráficos perfil sociodemográfico</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif ?>
+
+                <!-- ===================================================
+                    * Vehicular
+                =================================================== -->
+                <?php if (validarModulo('M_VEHICULAR')) : ?>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link" >
+                            <i class="nav-icon fas fa-truck"></i>
+                            <p>
+                                Vehicular
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <!-- ===================================================
+                                    Bloqueo de personal
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="v-bloqueo-personal" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Bloqueo de personal</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
+                                    Bloqueo de vehículo
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="v-bloqueo-vehiculo" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Bloqueo de vehículo</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
+                                    Propietarios
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="v-propietarios" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Propietarios</p>
+                                </a>
+                            </li>
+
+                            <!-- ===================================================
+                                    Convenios a hora primero yo miro aca como es y ya luego  le hago en git
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="v-convenios" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Convenios</p>
+                                </a>
+                            </li>
+
+                            <!-- ===================================================
+                                    Vehículos
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="v-vehiculos" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Vehículos</p>
+                                </a>
+                            </li>
+
+
+
+                        </ul>
+                    </li>
+                <?php endif ?>
+
+                <!-- ===================================================
+                    * Contratos
+                =================================================== -->
+                <?php if (validarModulo('M_CONTRATOS')) : ?>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-folder-open"></i>
+                            <p>
+                                Contratos
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+
+                            <!-- ===================================================
+                                    Clientes
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="contratos-clientes" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Clientes</p>
+                                </a>
+                            </li>
+
+                            <!-- ===================================================
+                                    Fijos
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="contratos-fijos" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Fijos</p>
+                                </a>
+                            </li>
+
+                            <!-- ===================================================
+                                    Cotizaciones
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="contratos-cotizaciones" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Cotizaciones</p>
+                                </a>
+                            </li>
+
+                            <!-- ===================================================
+                                    Orden de servicio
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="contratos-ordenservicio" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Orden de servicio</p>
+                                </a>
+                            </li>
+
+                            <!-- ===================================================
+                                    FUEC
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="contratos-fuec" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>FUEC</p>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+                <?php endif ?>
+
+                <!-- ===================================================
+                    * Control Usuarios
+                =================================================== -->
+                <?php if (validarModulo('M_USUARIOS')) : ?>
+                    <li class="nav-item">
+                        <a href="usuarios" class="nav-link" target="_blank">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>Control Usuarios</p>
+                        </a>
+                    </li>
+                <?php endif ?>
+
+                <!-- ===================================================
+                    ** Mantenimiento
+                =================================================== -->
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-cogs"></i>
+                            <p>
+                                Mantenimiento
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <!-- ===================================================
+                                    Protocolo de alistamiento
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Protocolo de alistamiento</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
+                                    Plan de rodamiento
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Plan de rodamiento</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
+                                    Mantenimientos
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Mantenimientos</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
+                                    Proveedores
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Proveedores</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif ?>
+
+                <!-- ===================================================
+                    ** DOCUMENTOS CONTABLE
+                =================================================== -->
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p>Documentos Contable</p>
+                        </a>
+                    </li>
+                <?php endif ?>
+
+                <!-- ===================================================
+                    ** COMERCIAL
+                =================================================== -->
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-chart-line"></i>
+                            <p>Comercial</p>
+                        </a>
+                    </li>
+                <?php endif ?>
+
+                <!-- ===================================================
+                    ** ESCOLAR
+                =================================================== -->
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-school"></i>
+                            <p>Escolar</p>
+                        </a>
+                    </li>
+                <?php endif ?>
+
+                <!-- ===================================================
+                    ** CONTRATOS FIJOS
+                =================================================== -->
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-file-contract"></i>
+                            <p>Contratos Fijos</p>
+                        </a>
+                    </li>
+                <?php endif ?>
+
+                <!-- ===================================================
+                    ** COMPRAS
+                =================================================== -->
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-shopping-cart"></i>
+                            <p>Compras</p>
+                        </a>
+                    </li>
+                <?php endif ?>
+
+                <!-- ===================================================
+                    ** ESTANDAR PROCESOS DE CALIDAD
+                =================================================== -->
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-tasks"></i>
+                            <p>Estandar. procesos calidad</p>
+                        </a>
+                    </li>
+                <?php endif ?>
+
+                <!-- ===================================================
+                    ** FORMATOS DE CALIDAD
+                =================================================== -->
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-clipboard-check"></i>
+                            <p>Formatos de calidad</p>
+                        </a>
+                    </li>
+                <?php endif ?>
+
+                <!-- ===================================================
+                    ** Rastreo Satelital
+                =================================================== -->
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-map-marked-alt"></i>
+                            <p>Rastreo Satelital</p>
+                        </a>
+                    </li>
+                <?php endif ?>
 
                 <!-- ===================================================
                     | Contratos (OCULTO TEMPORALMENTE)
@@ -164,218 +539,6 @@
                         </li>
                     </ul>
                 </li>
-
-                <!-- ===================================================
-                    * Gestión Humana
-                =================================================== -->
-                <?php if (validarModulo('M_GESTION_HUMANA')) : ?>
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-user-friends"></i>
-                            <p>
-                                Gestión Humana
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <!-- ===================================================
-                                    Personal
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="gh-personal" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Personal</p>
-                                </a>
-                            </li>
-
-                            <!-- ===================================================
-                                    Perfil sociodemográfico
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="gh-perfil-sd" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Perfil sociodemográfico</p>
-                                </a>
-                            </li>
-
-                            <!-- ===================================================
-                                    Pago seguridad social
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="gh-pago-ss" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Pago seguridad social</p>
-                                </a>
-                            </li>
-
-                            <!-- ===================================================
-                                    Alertas de contratos
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="gh-alertas-contratos" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Alertas de contratos</p>
-                                </a>
-                            </li>
-
-                            <!-- ===================================================
-                                    Control Ausentismo
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="gh-ausentismo" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Control Ausentismo</p>
-                                </a>
-                            </li>
-
-                            <!-- ===================================================
-                                    Gráficos perfil sociodemográfico
-                                =================================================== -->
-                            <li class="nav-item d-none">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Gráficos perfil sociodemográfico</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                <?php endif ?>
-
-                <!-- ===================================================
-                    * Vehicular
-                =================================================== -->
-                <?php if (validarModulo('M_VEHICULAR')) : ?>
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-truck"></i>
-                            <p>
-                                Vehicular
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <!-- ===================================================
-                                    Bloqueo de personal
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="v-bloqueo-personal" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Bloqueo de personal</p>
-                                </a>
-                            </li>
-                            <!-- ===================================================
-                                    Bloqueo de vehículo
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="v-bloqueo-vehiculo" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Bloqueo de vehículo</p>
-                                </a>
-                            </li>
-                            <!-- ===================================================
-                                    Propietarios
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="v-propietarios" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Propietarios</p>
-                                </a>
-                            </li>
-
-                            <!-- ===================================================
-                                    Convenios a hora primero yo miro aca como es y ya luego  le hago en git
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="v-convenios" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Convenios</p>
-                                </a>
-                            </li>
-
-                            <!-- ===================================================
-                                    Vehículos
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="v-vehiculos" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Vehículos</p>
-                                </a>
-                            </li>
-
-
-
-                        </ul>
-                    </li>
-                <?php endif ?>
-
-                <!-- ===================================================
-                    * Contratos
-                =================================================== -->
-                <?php if (validarModulo('M_CONTRATOS')) : ?>
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-folder-open"></i>
-                            <p>
-                                Contratos
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-
-                            <!-- ===================================================
-                                    Clientes
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="contratos-clientes" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Clientes</p>
-                                </a>
-                            </li>
-
-                            <!-- ===================================================
-                                    Fijos
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="contratos-fijos" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Fijos</p>
-                                </a>
-                            </li>
-
-                            <!-- ===================================================
-                                    Cotizaciones
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="contratos-cotizaciones" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Cotizaciones</p>
-                                </a>
-                            </li>
-
-                            <!-- ===================================================
-                                    Orden de servicio
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="contratos-ordenservicio" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Orden de servicio</p>
-                                </a>
-                            </li>
-
-                            <!-- ===================================================
-                                    FUEC
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="contratos-fuec" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>FUEC</p>
-                                </a>
-                            </li>
-
-                        </ul>
-                    </li>
-                <?php endif ?>
-
 
                 <!-- ===================================================
                     | Gestión Operaciones (OCULTO TEMPORALMENTE)
@@ -480,59 +643,6 @@
                         </li>
                     </ul>
                 </li>
-
-                <!-- ===================================================
-                    ** Mantenimiento
-                =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-cogs"></i>
-                            <p>
-                                Mantenimiento
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <!-- ===================================================
-                                    Protocolo de alistamiento
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Protocolo de alistamiento</p>
-                                </a>
-                            </li>
-                            <!-- ===================================================
-                                    Plan de rodamiento
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Plan de rodamiento</p>
-                                </a>
-                            </li>
-                            <!-- ===================================================
-                                    Mantenimientos
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Mantenimientos</p>
-                                </a>
-                            </li>
-                            <!-- ===================================================
-                                    Proveedores
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Proveedores</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                <?php endif ?>
 
                 <!-- ===================================================
                     | Sistema de Gestión (OCULTO TEMPORALMENTE)
@@ -704,114 +814,6 @@
                         </li>
                     </ul>
                 </li>
-
-                <!-- ===================================================
-                    ** DOCUMENTOS CONTABLE
-                =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-book"></i>
-                            <p>Documentos Contable</p>
-                        </a>
-                    </li>
-                <?php endif ?>
-
-                <!-- ===================================================
-                    ** COMERCIAL
-                =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-chart-line"></i>
-                            <p>Comercial</p>
-                        </a>
-                    </li>
-                <?php endif ?>
-
-                <!-- ===================================================
-                    ** ESCOLAR
-                =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-school"></i>
-                            <p>Escolar</p>
-                        </a>
-                    </li>
-                <?php endif ?>
-
-                <!-- ===================================================
-                    ** CONTRATOS FIJOS
-                =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-file-contract"></i>
-                            <p>Contratos Fijos</p>
-                        </a>
-                    </li>
-                <?php endif ?>
-
-                <!-- ===================================================
-                    ** COMPRAS
-                =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-shopping-cart"></i>
-                            <p>Compras</p>
-                        </a>
-                    </li>
-                <?php endif ?>
-
-                <!-- ===================================================
-                    ** ESTANDAR PROCESOS DE CALIDAD
-                =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-tasks"></i>
-                            <p>Estandar. procesos calidad</p>
-                        </a>
-                    </li>
-                <?php endif ?>
-
-                <!-- ===================================================
-                    ** FORMATOS DE CALIDAD
-                =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-clipboard-check"></i>
-                            <p>Formatos de calidad</p>
-                        </a>
-                    </li>
-                <?php endif ?>
-
-                <!-- ===================================================
-                    * Control Usuarios
-                =================================================== -->
-                <?php if (validarModulo('M_USUARIOS')) : ?>
-                    <li class="nav-item">
-                        <a href="usuarios" class="nav-link">
-                            <i class="nav-icon fas fa-users"></i>
-                            <p>Control Usuarios</p>
-                        </a>
-                    </li>
-                <?php endif ?>
-
-                <!-- ===================================================
-                    ** Rastreo Satelital
-                =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-map-marked-alt"></i>
-                            <p>Rastreo Satelital</p>
-                        </a>
-                    </li>
-                <?php endif ?>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
