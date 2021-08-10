@@ -136,6 +136,7 @@ if (
         ===================================================*/
         $("#frmPersonal").submit(function (e) {
             e.preventDefault();
+            AbiertoxEditar = true; //BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
 
             var datosAjax = new FormData();
             datosAjax.append('GuardarPersonal', "ok");
@@ -213,13 +214,21 @@ if (
         /* ===================================================
           CLICK EN NUEVO EMPLEADO
         ===================================================*/
+        var AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         $(document).on("click", ".btn-agregarPersonal", function () {
             $('#PersonalModal').modal('show');
             $("#titulo-modal-personal").html("Nuevo");
-            $(".formulario").trigger("reset"); //reset formulario
+
             $("#idPersonal").val(""); //reset id personal
-            $('.select2-single').trigger('change'); //reset select2
-            $('.previsualizar').attr('src', 'views/img/fotosUsuarios/default/anonymous.png'); //reset foto
+
+            // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
+            if (AbiertoxEditar) {
+                $(".formulario").trigger("reset"); //reset formulario
+                $('.previsualizar').attr('src', 'views/img/fotosUsuarios/default/anonymous.png'); //reset foto
+                $('.select2-single').trigger('change'); //reset select2
+            }
+            AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
+
 
             /* RESET DE LAS TABLAS QUE INCLUYEN EL RESTO DEL FORMULARIO */
             // Quitar datatable
@@ -232,6 +241,8 @@ if (
           CLICK EN EDITAR PERSONAL
         ===================================================*/
         $(document).on("click", ".btn-editarPersonal", function () {
+            AbiertoxEditar = true; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
+
             var idPersonal = $(this).attr("idPersonal");
             $("#idPersonal").val(idPersonal); //asignar id personal
             $("#titulo-modal-personal").html("");
@@ -1617,12 +1628,18 @@ if (window.location.href == `${urlPagina}gh-ausentismo/` ||
         /* ===================================================
           CLICK EN BOTON NUEVO AUSENTISMO
         ===================================================*/
+        var AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         $(document).on("click", ".btn-nuevoAusentismo", function () {
             $('#AusentismoModal').modal('show');
             $("#titulo-modal-ausentismo").html("Nuevo");
-            $("#frmAusentismo").trigger("reset"); //reset formulario
             $("#idAusentismo").val(""); //reset id
-            $('.select2-single').trigger('change'); //reset select2
+
+            // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
+            if (AbiertoxEditar) {
+                $("#frmAusentismo").trigger("reset"); //reset formulario
+                $('.select2-single').trigger('change'); //reset select2
+            }
+            AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         });
 
         /* ===================================================
@@ -1661,6 +1678,8 @@ if (window.location.href == `${urlPagina}gh-ausentismo/` ||
             CLICK EN EDITAR AUSENTISMO
         ===================================================*/
         $(document).on("click", ".btn-editAusentismo", function () {
+            AbiertoxEditar = true; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
+
             var idAusentismo = $(this).attr("idAusentismo");
             $("#titulo-modal-ausentismo").html("");
             $("#frmAusentismo").trigger("reset"); //reset formulario

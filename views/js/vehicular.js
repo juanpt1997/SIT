@@ -5,6 +5,7 @@ if (window.location.href == `${urlPagina}v-propietarios/` ||
 
         //CARGAR DATOS DEL PROPIETARIOS PARA EDITARLOS
         $(document).on("click", ".btnEditarProp", function () {
+            AbiertoxEditar = true; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
             var idxp = $(this).attr("idxp");
             $("#idxp").val(idxp);
 
@@ -40,11 +41,21 @@ if (window.location.href == `${urlPagina}v-propietarios/` ||
                 }
             });
         });
+
+        var AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         $(document).on("click", ".btn-agregarPropietario", function () {
-            // Reset valores del formulario
-            $(".input-propietario").val("");
+            // Reset ID
             $("#idxp").val("");
+            // Reset titulo modal
             $("#titulo-modal-propietario").html("Nuevo propietario");
+
+            // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
+            if (AbiertoxEditar){
+                // Reset valores del formulario
+                $(".input-propietario").val("");
+                $('.select2-single').trigger('change');
+            }
+            AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
             // Remover atributo readonly del formulario puesto que va a agregar uno nuevo
             //$("#documento").removeAttr("readonly");
         });
@@ -61,7 +72,7 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
 
         //CARGAR DATOS DEL CONVENIO PARA EDITARLOS
         $(document).on("click", ".btnEditarConv", function () {
-
+            AbiertoxEditar = true; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
 
             var nit = $(this).attr("nit");
 
@@ -92,12 +103,20 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
                 }
             });
         });
+
+        var AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         $(document).on("click", ".btn-agregarConvenio", function () {
-            // Reset valores del formulario
-            $(".input-convenio").val("");
             // Remover atributo readonly del formulario puesto que va a agregar uno nuevo
             $("#nit").removeAttr("readonly");
             $("#titulo-modal-convenios").html("Nuevo convenio");
+
+            // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
+            if (AbiertoxEditar){
+                // Reset valores del formulario
+                $(".input-convenio").val("");
+                $('.select2-single').trigger('change');
+            }
+            AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         });
     });
 }
@@ -415,6 +434,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
         ===================================================*/
         $("#vehiculos_form").submit(function (e) {
             e.preventDefault();
+            AbiertoxEditar = true; //BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
 
             var datosAjax = new FormData();
             datosAjax.append('GuardarVehiculo', "ok");
@@ -562,14 +582,20 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
         /* ===================================================
           CLICK EN NUEVO VEHICULO
         ===================================================*/
+        var AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         $(document).on("click", ".btn-agregarVehiculo", function () {
             $("#titulo-modal-vehiculo").html("Nuevo");
-            $("#vehiculos_form").trigger("reset"); //reset formulario
             $("#idvehiculo").val(""); //reset id vehiculo
-            $("#imagenPrevisualizacion_TarjetaPro").attr("href", "").find("img").attr("src", "");
-            //numFotosVehiculo = 0; // Contador de imagenes del vehiculo se resetea
-            $("#colPrevisualizacion_fotos").find(".carousel-indicators").html(""); // RESET DE LAS FOTOS DEL VEHICULO
-            $("#colPrevisualizacion_fotos").find(".carousel-inner").html(""); // RESET DE LAS FOTOS DEL VEHICULO
+            
+            // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
+            if (AbiertoxEditar){
+                $("#vehiculos_form").trigger("reset"); //reset formulario
+                $("#imagenPrevisualizacion_TarjetaPro").attr("href", "").find("img").attr("src", "");
+                //numFotosVehiculo = 0; // Contador de imagenes del vehiculo se resetea
+                $("#colPrevisualizacion_fotos").find(".carousel-indicators").html(""); // RESET DE LAS FOTOS DEL VEHICULO
+                $("#colPrevisualizacion_fotos").find(".carousel-inner").html(""); // RESET DE LAS FOTOS DEL VEHICULO
+            }
+            AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
 
             /* RESET DE LAS TABLAS QUE INCLUYEN EL RESTO DEL FORMULARIO */
             // Quitar datatable
@@ -582,6 +608,8 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
           CLICK EN EDITAR VEHICULO
         ===================================================*/
         $(document).on("click", ".btnEditarVehiculo", function () {
+            AbiertoxEditar = true; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
+
             var idvehiculo = $(this).attr("idvehiculo");
             $("#titulo-modal-vehiculo").html("");
             $("#vehiculos_form").trigger("reset"); //reset formulario

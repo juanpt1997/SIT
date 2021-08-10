@@ -202,8 +202,8 @@ $(document).ready(function () {
                                     });
                                     actualizoSelectConductor = false;
                                     $select.trigger('change'); //MUESTRA EL VALOR DEL SELECT
-                                } else{
-                                    if(response.LicenciaActiva == "NO"){
+                                } else {
+                                    if (response.LicenciaActiva == "NO") {
                                         Swal.fire({
                                             icon: 'warning',
                                             text: 'No es posible seleccionar un conductor que no tenga la licencia de conducción al día',
@@ -243,7 +243,7 @@ $(document).ready(function () {
         ===================================================*/
         $(document).on("change", "#contratante", function () {
             var actualizoDatoscliente = $(this).attr("actualizo");
-            if (actualizoDatoscliente == "SI"){
+            if (actualizoDatoscliente == "SI") {
                 var idorden = $(this).val();
                 if (idorden != "") {
                     var datos = new FormData();
@@ -279,7 +279,7 @@ $(document).ready(function () {
                         }
                     });
                 }
-            }else{
+            } else {
                 $(this).attr("actualizo", "SI");
             }
         });
@@ -289,6 +289,7 @@ $(document).ready(function () {
         ===================================================*/
         $("#frmFUEC").submit(function (e) {
             e.preventDefault();
+            AbiertoxEditar = true; //BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
 
             var datosAjax = new FormData();
             datosAjax.append('GuardarFUEC', "ok");
@@ -356,18 +357,25 @@ $(document).ready(function () {
         /* ===================================================
           CLICK EN NUEVO FUEC
         ===================================================*/
+        var AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         $(document).on("click", ".btn-nuevofuec", function () {
-            $("#titulo-modal-fuec").html("Nuevo");
-            $("#frmFUEC").trigger("reset"); //reset formulario
             $("#idfuec").val(""); //reset id fuec
-            $('#tipocontrato').trigger('change'); //Inicializar opciones con el tipo de contrato
+            $("#titulo-modal-fuec").html("Nuevo");
             $("#visualizContrato").text("");
+            // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
+            if (AbiertoxEditar) {
+                $("#frmFUEC").trigger("reset"); //reset formulario
+                $('#tipocontrato').trigger('change'); //Inicializar opciones con el tipo de contrato
+            }
+            AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         });
 
         /* ===================================================
           CLICK EN EDITAR FUEC
         ===================================================*/
         $(document).on("click", ".btn-editarfuec", function () {
+            AbiertoxEditar = true; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
+
             var idfuec = $(this).attr("idfuec");
             $("#idfuec").val(idfuec); //asignar id personal
             $("#titulo-modal-fuec").html("");
@@ -426,7 +434,7 @@ $(document).ready(function () {
                         $("#estado_fuec").val(response.estado_fuec);
 
                         // Visualizacion contrato adjunto
-                        if (response.ruta_contrato != null){
+                        if (response.ruta_contrato != null) {
                             let nombre = response.ruta_contrato.split("/");
                             nombre = nombre[nombre.length - 1];
                             $("#visualizContrato").attr("href", urlPagina + response.ruta_contrato).text(nombre);
