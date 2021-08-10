@@ -1361,7 +1361,12 @@ if (
                     /* ===================================================
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
-                    dataTable("#tblPagoSS");
+                    var buttons = [
+                        { className: 'btn-secondary mr-1 btn-agregarPersonal', text: '<i class="fas fa-plus-circle"></i> Nuevo' },
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        /* 'copy', 'csv', 'excel', 'pdf', 'print' */
+                    ];
+                    dataTableCustom(`#tblPagoSS`, buttons);
                 }
             });
         }
@@ -1472,6 +1477,108 @@ if (
                 }
             });
 
+        });
+
+        /* ===================================================
+          AGREGAR CONDUCTOR AL PAGO DE LA SEGURIDAD SOCIAL
+        ===================================================*/
+        $(document).on("click", ".btn-agregarPersonal", function () {
+            var idFechas = $("#idFechas").val();
+
+            if (idFechas != "") {
+
+                // Ajax para cargar los empleados que aun no se encuentran incluidos
+                var datos = new FormData();
+                datos.append('PersonalFaltanteSS', "ok");
+                datos.append('idFechas', idFechas);
+                $.ajax({
+                    type: 'post',
+                    url: `${urlPagina}ajax/gh.ajax.php`,
+                    data: datos,
+                    dataType: 'json',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        var options = ``;
+                        if (response != "") {
+                            response.forEach(element => {
+                                options += `<option value="${element.idPersonal}">${element.Nombre}</option>`;
+                            });
+                        }
+
+                        // Sweet alert para pedir confirmación del empleado que desea agregar
+                        Swal.fire({
+                            title: 'Agregar empleado al pago de la seguridad social',
+                            html: `<div class="form-group">
+                                        <select id="swal-agregarEmpleado" class="form-control" name="">
+                                            ${options}
+                                        </select>
+                                    </div>`,
+                            showConfirmButton: true,
+                            confirmButtonText: 'Aceptar',
+                            showCancelButton: true,
+                            cancelButtonText: 'Cerrar',
+                            confirmButtonColor: '#5cb85c',
+                            cancelButtonColor: '#d9534f',
+                            closeOnConfirm: false
+                        }).then((result) => {
+
+                            if (result.value) {
+                                var idPersonal = $("#swal-agregarEmpleado").val();
+                                if (idPersonal != null && idPersonal != "") {
+                                    // Guardar el nuevo empleado en el pago de seguridad social
+                                    var datos = new FormData();
+                                    datos.append('ajaxAgregarEmpleadoPagoSS', "ok");
+                                    datos.append('idPersonal', idPersonal);
+                                    datos.append('idFechas', idFechas);
+                                    $.ajax({
+                                        type: 'post',
+                                        url: `${urlPagina}ajax/gh.ajax.php`,
+                                        data: datos,
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
+                                        success: function (response) {
+                                            console.log("entra aca");
+                                            if (response == "ok") {
+                                                Swal.fire({
+                                                    icon: "success",
+                                                    timer: 2000,
+                                                    showConfirmButton: false,
+                                                }).then((result) => {
+                                                    /* Read more about handling dismissals below */
+                                                    if (result.dismiss) {
+                                                        // Cargar datatable
+                                                        AjaxTablaPagoSS(idFechas);
+                                                    }
+                                                })
+                                            }
+                                            else {
+                                                // Mensaje de error
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Ha ocurrido un error, por favor intente de nuevo',
+                                                    showConfirmButton: true,
+                                                    confirmButtonText: 'Cerrar',
+                                                    closeOnConfirm: false
+                                                }).then((result) => {
+
+                                                    if (result.value) {
+                                                        window.location = 'gh-pago-ss';
+                                                    }
+
+                                                })
+                                            }
+                                        }
+                                    });
+                                }
+                            }
+
+                        })
+                    }
+                });
+            }
         });
 
     });

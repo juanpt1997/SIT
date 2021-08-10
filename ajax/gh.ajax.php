@@ -756,6 +756,25 @@ class AjaxPagoSS
         $respuesta = ControladorPagoSS::ctrActualizarPago($idsegursoc, $estadoActual);
         echo $respuesta;
     }
+
+    /* ===================================================
+       LISTA PERSONAL QUE NO ESTÁ INCLUIDO EN LA FECHA DE PAGO SEGURIDAD SOCIAL
+    ===================================================*/
+    static public function ajaxPersonalFaltante($idFechas)
+    {
+        $respuesta = ModeloPagoSS::mdlPersonalFaltante($idFechas);
+        echo json_encode($respuesta);
+    }
+
+    /* ===================================================
+       AGREGAR UN SOLO EMPLEADO AL PAGO DE SEGURIDAD SOCIAL
+    ===================================================*/
+    static public function ajaxAgregarEmpleado($idPersonal, $idFechas)
+    {
+        $respuesta = ControladorPagoSS::ctrAgregarEmpleado($idPersonal, $idFechas);
+        echo $respuesta;
+    }
+
 }
 
 /* ===================================================
@@ -777,6 +796,14 @@ if (isset($_POST['TablaPagoSS']) && $_POST['TablaPagoSS'] == "ok") {
 
 if (isset($_POST['CambiarPagoSS']) && $_POST['CambiarPagoSS'] == "ok") {
     AjaxPagoSS::ajaxActualizarPago($_POST['idsegursoc'], $_POST['estadoActual']);
+}
+
+if (isset($_POST['PersonalFaltanteSS']) && $_POST['PersonalFaltanteSS'] == "ok") {
+    AjaxPagoSS::ajaxPersonalFaltante($_POST['idFechas']);
+}
+
+if (isset($_POST['ajaxAgregarEmpleadoPagoSS']) && $_POST['ajaxAgregarEmpleadoPagoSS'] == "ok") {
+    AjaxPagoSS::ajaxAgregarEmpleado($_POST['idPersonal'], $_POST['idFechas']);
 }
 
 /* ===================================================

@@ -396,6 +396,14 @@ class ControladorPagoSS
         $respuesta = ModeloGH::mdlActualizarEmpleado($datos);
         return $respuesta;
     }
+
+    /* ===================================================
+       AGREGAR UN SOLO EMPLEADO AL PAGO DE SEGURIDAD SOCIAL
+    ===================================================*/
+    static public function ctrAgregarEmpleado($idPersonal, $idFechas)
+    {
+        return ModeloPagoSS::mdlAgregarEmpleado($idPersonal, $idFechas);
+    }
 }
 
 /* ===================================================

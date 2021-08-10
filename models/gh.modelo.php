@@ -737,6 +737,47 @@ class ModeloPagoSS
         $stmt->closeCursor();
         return $retorno;
     }
+
+    /* ===================================================
+       LISTA PERSONAL QUE NO ESTÁ INCLUIDO EN LA FECHA DE PAGO SEGURIDAD SOCIAL
+    ===================================================*/
+    static public function mdlPersonalFaltante($idFechas)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM gh_personal p 
+                                                WHERE p.activo = 'S' AND 
+                                                    p.idPersonal NOT IN (
+                                                                        SELECT ps.idPersonal FROM gh_re_personalsegursoc ps
+                                                                        WHERE ps.idFechas = :idFechas
+                                                                        );");
+
+        $stmt->bindParam(":idFechas", $idFechas, PDO::PARAM_INT);
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /* ===================================================
+       AGREGAR UN SOLO EMPLEADO AL PAGO DE SEGURIDAD SOCIAL
+    ===================================================*/
+    static public function mdlAgregarEmpleado($idPersonal, $idFechas)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO gh_re_personalsegursoc (idPersonal, idFechas, pago)
+                                    values(:idPersonal, :idFechas, 'S')");
+
+        $stmt->bindParam(":idPersonal", $idPersonal, PDO::PARAM_INT);
+        $stmt->bindParam(":idFechas", $idFechas, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $retorno;
+    }
 }
 
 /* ===================================================
