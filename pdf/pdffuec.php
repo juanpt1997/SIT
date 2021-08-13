@@ -303,15 +303,15 @@ class PdfFuec
                     <tbody>
                         <tr>
                             <th style="color:#000 ;font-weight:bold;">FECHA INICIAL:</th>
-                            <td style="text-align: center"><span style="font-weight:bold;">DÍA:</span><br>' . date('d', strtotime($info['fecha_inicial']))  . '</td>
-                            <td style="text-align: center"><span style="font-weight:bold;">MES:</span><br>' . date('m', strtotime($info['fecha_inicial']))  . '</td>
-                            <td style="text-align: center"><span style="font-weight:bold;">AÑO:</span><br>' . date('Y', strtotime($info['fecha_inicial']))  . '</td>
+                            <td style="text-align: center"><span style="font-weight:bold; font-size:9px">DÍA:</span><br>' . date('d', strtotime($info['fecha_inicial']))  . '</td>
+                            <td style="text-align: center"><span style="font-weight:bold; font-size:9px">MES:</span><br>' . date('m', strtotime($info['fecha_inicial']))  . '</td>
+                            <td style="text-align: center"><span style="font-weight:bold; font-size:9px">AÑO:</span><br>' . date('Y', strtotime($info['fecha_inicial']))  . '</td>
                         </tr>
                         <tr>
                             <th style="color:#000 ;font-weight:bold;">FECHA VENCIMIENTO:</th>
-                            <td style="text-align: center">' . date('d', strtotime($info['fecha_vencimiento']))  . '</td>
-                            <td style="text-align: center">' . date('m', strtotime($info['fecha_vencimiento']))  . '</td>
-                            <td style="text-align: center">' . date('Y', strtotime($info['fecha_vencimiento']))  . '</td>
+                            <td style="text-align: center; font-size:9px">' . date('d', strtotime($info['fecha_vencimiento']))  . '</td>
+                            <td style="text-align: center; font-size:9px">' . date('m', strtotime($info['fecha_vencimiento']))  . '</td>
+                            <td style="text-align: center; font-size:9px">' . date('Y', strtotime($info['fecha_vencimiento']))  . '</td>
                         </tr>
                     </tbody>
                 </table>
@@ -326,13 +326,13 @@ class PdfFuec
         $pdf->MultiCell(130, 5, 'CARACTERÍSTICAS DEL VEHÍCULO:', 0, 'C', 0, 1, $x, '', true);
         # TABLA
         $tabla = '
-            <table cellspacing="0" cellpadding="10">
+            <table cellspacing="0" cellpadding="7">
                 <tbody>
                     <tr style="text-align: center; font-weight:bold;">
-                        <td colspan="2" border="1">PLACA</td>
-                        <td border="1">MODELO</td>
-                        <td colspan="2" border="1">MARCA</td>
-                        <td colspan="2" border="1">CLASE</td>
+                        <td colspan="2" border="1" style="font-size:9px">PLACA</td>
+                        <td border="1" style="font-size:9px">MODELO</td>
+                        <td colspan="2" border="1" style="font-size:9px">MARCA</td>
+                        <td colspan="2" border="1" style="font-size:9px">CLASE</td>
                     </tr>
                     <tr style="text-align: center">
                         <td colspan="2" border="1">' . $info['placa'] . '</td>
@@ -350,39 +350,39 @@ class PdfFuec
                     </tr>
                     <tr>
                         <td style="font-weight:bold; font-size:9px" border="1">DATOS DEL CONDUCTOR 1</td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br>' . $info['conductor1'] . '</td>
-                        <td border="1"><span style="font-weight:bold;">NRO. CÉDULA</span><br>' . $info['docConductor1'] . '</td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">NRO. LICENCIA CONDUCCIÓN</span><br>' . $info['licencia1'] . '</td>
-                        <td border="1"><span style="font-weight:bold;">VIGENCIA</span><br>' . date("d/m/Y", strtotime($info['vigenciaLic1'])) . '</td>
+                        <td colspan="2" border="1" style="font-size:9px"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br>' . $info['conductor1'] . '</td>
+                        <td border="1"><span style="font-weight:bold; font-size:9px">NRO. CÉDULA</span><br>' . $info['docConductor1'] . '</td>
+                        <td colspan="2" border="1" style="font-size:9px"><span style="font-weight:bold;">NRO. LICENCIA CONDUCCIÓN</span><br>' . $info['licencia1'] . '</td>
+                        <td border="1"><span style="font-weight:bold; font-size:9px">VIGENCIA</span><br>' . date("d/m/Y", strtotime($info['vigenciaLic1'])) . '</td>
                     </tr>
                     <tr>
                         <td style="font-weight:bold; font-size:9px" border="1">DATOS DEL CONDUCTOR 2</td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br>' . $info['conductor2'] . '</td>
-                        <td border="1"><span style="font-weight:bold;">NRO. CÉDULA</span><br>' . $info['docConductor2'] . '</td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">NRO. LICENCIA CONDUCCIÓN</span><br>' . $info['licencia2'] . '</td>
-                        <td border="1"><span style="font-weight:bold;">VIGENCIA</span><br>' . date("d/m/Y", strtotime($info['vigenciaLic2'])) . '</td>
+                        <td colspan="2" border="1" style="font-size:9px"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br>' . $info['conductor2'] . '</td>
+                        <td border="1"><span style="font-weight:bold; font-size:9px">NRO. CÉDULA</span><br>' . $info['docConductor2'] . '</td>
+                        <td colspan="2" border="1" style="font-size:9px"><span style="font-weight:bold;">NRO. LICENCIA CONDUCCIÓN</span><br>' . $info['licencia2'] . '</td>
+                        <td border="1"><span style="font-weight:bold; font-size:9px">VIGENCIA</span><br>' . date("d/m/Y", strtotime($info['vigenciaLic2'])) . '</td>
                     </tr>
                     <tr>
                         <td style="font-weight:bold; font-size:9px;" border="1">DATOS DEL CONDUCTOR 3</td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br>' . $info['conductor3'] . '</td>
-                        <td border="1"><span style="font-weight:bold;">NRO. CÉDULA</span><br>' . $info['docConductor3'] . '</td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">NRO. LICENCIA CONDUCCIÓN</span><br>' . $info['licencia3'] . '</td>
-                        <td border="1"><span style="font-weight:bold;">VIGENCIA</span><br>' . date("d/m/Y", strtotime($info['vigenciaLic3'])) . '</td>
+                        <td colspan="2" border="1" style="font-size:9px"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br>' . $info['conductor3'] . '</td>
+                        <td border="1"><span style="font-weight:bold; font-size:9px">NRO. CÉDULA</span><br>' . $info['docConductor3'] . '</td>
+                        <td colspan="2" border="1" style="font-size:9px"><span style="font-weight:bold;">NRO. LICENCIA CONDUCCIÓN</span><br>' . $info['licencia3'] . '</td>
+                        <td border="1"><span style="font-weight:bold; font-size:9px">VIGENCIA</span><br>' . date("d/m/Y", strtotime($info['vigenciaLic3'])) . '</td>
                     </tr>
                     <tr>
                         <td style="font-weight:bold; font-size:9px" border="1">RESPONSABLE DEL CONTRATANTE</td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br>' . $info['nombrerespons'] . '</td>
-                        <td border="1"><span style="font-weight:bold;">NRO. CÉDULA</span><br>' . $info['Documentorespons'] . '</td>
-                        <td border="1"><span style="font-weight:bold;">TELÉFONO</span><br>' . $info['telrespons'] . '</td>
-                        <td colspan="2" border="1"><span style="font-weight:bold;">DIRECCIÓN</span><br>' . $info['direccion'] . '</td>
+                        <td colspan="2" border="1" style="font-size:9px"><span style="font-weight:bold;">NOMBRES Y APELLIDOS:</span><br>' . $info['nombrerespons'] . '</td>
+                        <td border="1"><span style="font-weight:bold; font-size:9px">NRO. CÉDULA</span><br>' . $info['Documentorespons'] . '</td>
+                        <td border="1"><span style="font-weight:bold; font-size:9px">TELÉFONO</span><br>' . $info['telrespons'] . '</td>
+                        <td colspan="2" border="1" style="font-size:9px"><span style="font-weight:bold;">DIRECCIÓN</span><br>' . $info['direccion'] . '</td>
                     </tr>
                     <tr>
-                        <td rowspan="2" colspan="3" style="font-weight:bold; border-bottom: 1px solid #000000; border-left: 1px solid  #000000;"><br><br><br>PBX: 872 21 80 - 313 6305866<br>AV CENTENARIO 24   47   LC 102 Manizales - Caldas<br>comercial@elsaman.com.co<br>www.elsaman.com.co</td>
-                        <td rowspan="2" style="border-bottom: 1px solid #000000; border-right: 1px solid  #000000"><br><br><br><img src="' . $image_mintransporte . '"  width="81" height="55"></td>
-                        <td colspan="3" style="text-align: center; border-right: 1px solid #000000;"><img src="' . $image_firma . '"  width="84" height="55"></td>
+                        <td rowspan="2" colspan="3" style="font-weight:bold; border-bottom: 1px solid #000000; border-left: 1px solid  #000000;">PBX: 872 21 80 - 313 6305866<br>AV CENTENARIO 24   47   LC 102 Manizales - Caldas<br>comercial@elsaman.com.co<br>www.elsaman.com.co</td>
+                        <td rowspan="2" style="border-bottom: 1px solid #000000; border-right: 1px solid  #000000"><img src="' . $image_mintransporte . '"  width="81" height="55"></td>
+                        <td colspan="3" style="text-align: center; border-right: 1px solid #000000;"><img src="' . $image_firma . '"  width="84" height="45"></td>
                     </tr>
                     <tr>
-                        <td colspan="3" style="text-align: center; font-weight:bold; border-right: 1px solid #000000; border-bottom: 1px solid #000000;">Representante legal<br>Firma digital amparada por ley 527 de 1999 y<br>Decreto 2364 de 2012</td>
+                        <td colspan="3" style="text-align: center; font-weight:bold; border-right: 1px solid #000000; border-bottom: 1px solid #000000;">Representante legal. Firma digital amparada por ley 527 de 1999 y Decreto 2364 de 2012</td>
                     </tr>
                     
                 </tbody>
@@ -437,7 +437,7 @@ class PdfFuec
 
         $pdf->Image($image_ponal, '', '', 26, 20,  'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         $x = $pdf->GetX() + 5;
-        $pdf->MultiCell(129, 5, 'Para su autenticidad de esta planilla consultar la página web ..................... ingresando el siguiente código ....', 0, 'L', 0, 0, $x, '', true);
+        //$pdf->MultiCell(129, 5, 'Para su autenticidad de esta planilla consultar la página web ..................... ingresando el siguiente código ....', 0, 'L', 0, 0, $x, '', true);
         $pdf->Ln();
 
 
