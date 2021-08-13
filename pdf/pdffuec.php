@@ -326,7 +326,7 @@ class PdfFuec
         $pdf->MultiCell(130, 5, 'CARACTERÍSTICAS DEL VEHÍCULO:', 0, 'C', 0, 1, $x, '', true);
         # TABLA
         $tabla = '
-            <table cellspacing="0" cellpadding="7">
+            <table cellspacing="0" cellpadding="6">
                 <tbody>
                     <tr style="text-align: center; font-weight:bold;">
                         <td colspan="2" border="1" style="font-size:9px">PLACA</td>
@@ -377,12 +377,12 @@ class PdfFuec
                         <td colspan="2" border="1" style="font-size:9px"><span style="font-weight:bold;">DIRECCIÓN</span><br>' . $info['direccion'] . '</td>
                     </tr>
                     <tr>
-                        <td rowspan="2" colspan="3" style="font-weight:bold; border-bottom: 1px solid #000000; border-left: 1px solid  #000000;">PBX: 872 21 80 - 313 6305866<br>AV CENTENARIO 24   47   LC 102 Manizales - Caldas<br>comercial@elsaman.com.co<br>www.elsaman.com.co</td>
-                        <td rowspan="2" style="border-bottom: 1px solid #000000; border-right: 1px solid  #000000"><img src="' . $image_mintransporte . '"  width="81" height="55"></td>
+                        <td rowspan="2" colspan="3" style="font-weight:bold; border-bottom: 1px solid #000000; border-left: 1px solid  #000000;"><br><br>PBX: 872 21 80 - 313 6305866<br>AV CENTENARIO 24   47   LC 102 Manizales - Caldas<br>comercial@elsaman.com.co<br>www.elsaman.com.co</td>
+                        <td rowspan="2" style="border-bottom: 1px solid #000000; border-right: 1px solid  #000000"><br><br><img src="' . $image_mintransporte . '"  width="81" height="55"></td>
                         <td colspan="3" style="text-align: center; border-right: 1px solid #000000;"><img src="' . $image_firma . '"  width="84" height="45"></td>
                     </tr>
                     <tr>
-                        <td colspan="3" style="text-align: center; font-weight:bold; border-right: 1px solid #000000; border-bottom: 1px solid #000000;">Representante legal. Firma digital amparada por ley 527 de 1999 y Decreto 2364 de 2012</td>
+                        <td colspan="3" style="text-align: center; font-weight:bold; border-right: 1px solid #000000; border-bottom: 1px solid #000000;">Representante legal<br>Firma digital amparada por ley 527 de 1999 y<br>Decreto 2364 de 2012</td>
                     </tr>
                     
                 </tbody>
