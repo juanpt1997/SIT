@@ -119,7 +119,7 @@ class ControladorFuec
 		}
 
 		// ? ADJUNTAR CONTRATO
-		if ($retorno != "error") {
+		if ($retorno != "error" && is_array($documento)) {
 			// CONTRATO ADJUNTO
 			self::ctrGuardarContratoAdjunto($documento, $retorno);
 		}
@@ -152,7 +152,7 @@ class ControladorFuec
 			$ruta = $GuardarImagen->ctrPDFFiles();
 		} else {
 			# Si es una imagen
-			if ($documento['type'] == "image/jpeg" || $documento['type'] == "image/png") {
+			if (($documento['type'] == "image/jpeg" || $documento['type'] == "image/png")) {
 				$ruta = $GuardarImagen->ctrImages(null, null);
 			}
 		}

@@ -143,7 +143,10 @@ class ControladorUsuarios
 				CREAMOS DIRECTORIO DONDE VAMOS A GUARDAR LA FOTO DEL USUARIO 
 			========================= */
 			$directorio = "views/img/fotosUsuarios/" . $_POST['Identificacion'];
-			mkdir($directorio, 0755);
+			//mkdir($directorio, 0755);
+			if (!is_dir($directorio)) {
+				mkdir($directorio, 0755);
+			}
 
 			/* ===================================================
                        GUARDAR LA IMAGEN EN EL SERVIDOR

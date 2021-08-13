@@ -572,12 +572,12 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 </div>
 
                                 <!-- ===================================================
-                                    Proceso
+                                    Proceso *
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Proceso</label>
-                                        <select id="proceso" class="form-control" name="proceso">
+                                        <label for="exampleInput1">Proceso *</label>
+                                        <select id="proceso" class="form-control" name="proceso" required>
                                             <option value="" selected>Seleccione una opción</option>
                                             <?php foreach ($Procesos as $key => $value) : ?>
                                                 <option value="<?= $value['idProceso'] ?>"><?= $value['proceso'] ?></option>
