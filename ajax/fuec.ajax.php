@@ -110,6 +110,24 @@ class AjaxFuec
         $respuesta = ControladorFuec::ctrGuardarFUEC($formData, $documento);
         echo $respuesta;
     }
+
+    /* ===================================================
+       VALIDAR QUE FECHA VENCIMIENTO FUEC NO PUEDE SUPERAR EL VENCIMIENTO DE LA DE ALGUNO DE LOS DOCUMENTOS DEL VEHICULO
+    ===================================================*/
+    static public function ajaxValidarFechaVencimientoFuec($fecha, $idvehiculo)
+    {
+        // Documentos vencidos, esta consulta en realidad trae todos los documentos que puede tener un vehiculo (sin repetir) sin importar si está vencido o no
+        $documentosVencidos = ControladorFuec::ctrDocumentosVencidos($idvehiculo);
+        $arrayxVencer = array();
+        foreach ($documentosVencidos as $key => $documento) {
+            if ($documento['fechafin'] == null || $documento['fechafin'] < $fecha){
+                $arrayxVencer[] = $documento;
+            }
+        }
+        $respuestaArray = array('DocumentosxVencer' => $arrayxVencer);
+        
+        echo json_encode($respuestaArray);
+    }
 }
 /* ===================================================
    # LLAMADOS A AJAX FUEC
@@ -128,6 +146,10 @@ if (isset($_POST['ListaConductores']) && $_POST['ListaConductores'] == "ok") {
 
 if (isset($_POST['ConductorDisponible']) && $_POST['ConductorDisponible'] == "ok") {
    AjaxFuec::ajaxConductorDisponible($_POST['idconductor']);
+}
+
+if (isset($_POST['ValidarFechaVencimientoFuec']) && $_POST['ValidarFechaVencimientoFuec'] == "ok") {
+   AjaxFuec::ajaxValidarFechaVencimientoFuec($_POST['fecha'], $_POST['idvehiculo']);
 }
 
 if (isset($_POST['GuardarFUEC']) && $_POST['GuardarFUEC'] == "ok") {

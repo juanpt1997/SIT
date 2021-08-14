@@ -109,6 +109,9 @@ $(document).ready(function () {
 
                                 // Actualice la lista de conductores
                                 FuncionCargarConductores(idvehiculo);
+
+                                // Validar fecha de vencimiento contrato fuec con el vencimiento de los documentos del vehiculo
+                                FuncionValidarFechaVencimiento();
                             }
                             else {
                                 if (response.DocumentosVencidos != "") {
@@ -319,6 +322,54 @@ $(document).ready(function () {
                 $(this).attr("actualizo", "SI");
             }
         });
+
+        /* ===================================================
+          CUANDO ESCRIBE FECHA DE VENCIMIENTO ESTA NO PUEDE SUPERAR EL VENCIMIENTO DE LA DE ALGUNO DE LOS DOCUMENTOS DEL VEHICULO
+        ===================================================*/
+        $(document).on("blur", "#fechafin", function () {
+            FuncionValidarFechaVencimiento();
+        });
+        let FuncionValidarFechaVencimiento = () => {
+            var fecha = $("#fechafin").val();
+            var idvehiculo = $("#vehiculofuec").val();
+
+            if (fecha != "" && idvehiculo != "") {
+                var datos = new FormData();
+                datos.append('ValidarFechaVencimientoFuec', "ok");
+                datos.append('fecha', fecha);
+                datos.append('idvehiculo', idvehiculo);
+                $.ajax({
+                    type: 'post',
+                    url: `${urlPagina}ajax/fuec.ajax.php`,
+                    data: datos,
+                    dataType: 'json',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response.DocumentosxVencer != ""){
+                            let listaVencidosHtml = `<ul>`;
+                            response.DocumentosxVencer.forEach(element => {
+                                listaVencidosHtml += `<li>${element.tipodocumento}</li>`;
+                            });
+                            listaVencidosHtml += `</ul>`;
+
+                            Swal.fire({
+                                icon: 'warning',
+                                html: `<div class="text-left">
+                                                    <p class="font-weight-bold">Debe modificar la fecha de vencimiento porque los siguientes documentos estarán vencidos:</p>
+                                                        ${listaVencidosHtml}
+                                                </div>`,
+                                showConfirmButton: true,
+                                confirmButtonText: 'Cerrar',
+                                closeOnConfirm: false
+                            });
+                        }
+                    }
+                });
+            }
+
+        }
 
         /* ===================================================
           GUARDAR FORMULARIO FUEC
