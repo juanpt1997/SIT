@@ -387,6 +387,10 @@ class PdfVehiculo
         $altoPaginaMM = $pdf->getPageHeight();
         $conversorPixToMM = 0.264;
 
+        /* AÑADIMOS LA TARJETA DE PROPIEDAD A LA LISTA DE DOCUMENTOS */
+        $tarjetaPropiedad = array('ruta_documento' => $info['ruta_tarjetapropiedad']);
+        //$Documentos[] = $tarjetaPropiedad;
+        array_unshift($Documentos, $tarjetaPropiedad);
         foreach ($Documentos as $key => $documento) {
             // Si es pdf, no se muestra la imagen del documento
             if (strpos($documento['ruta_documento'], '.pdf') === false && $documento['ruta_documento'] != "" && $documento['ruta_documento'] != null) {
