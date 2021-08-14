@@ -337,6 +337,9 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                     <select id="conductor1" class="form-control select2-single input-fuec conductores" style="width: 90%" name="conductor1" required>
                                         <option value="" selected>-Seleccione un conductor</option>
                                     </select>
+                                    <div class="overlay overlay-conductores d-none">
+                                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div><!-- /.col -->
@@ -352,6 +355,9 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                     <select id="conductor2" class="form-control select2-single input-fuec conductores" style="width: 90%" name="conductor2">
                                         <option value="" selected>-Seleccione un conductor</option>
                                     </select>
+                                    <div class="overlay overlay-conductores d-none">
+                                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div><!-- /.col -->
@@ -367,6 +373,9 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                     <select id="conductor3" class="form-control select2-single input-fuec conductores" style="width: 90%" name="conductor3">
                                         <option value="" selected>-Seleccione un conductor</option>
                                     </select>
+                                    <div class="overlay overlay-conductores d-none">
+                                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                    </div>
                                 </div>
                             </div>
                         </div><!-- /.col -->
@@ -435,6 +444,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                     <input class="form-control input-fuec input-ordenservicio" type="text" id="origen" name="origen" required readonly>
                                 </div>
                             </div>
+
                         </div><!-- /.col -->
 
                         <!-- Destino -->
@@ -488,7 +498,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                 <label>Listado pasajeros</label>
                                 <div class="form-group clearfix">
                                     <div class="icheck-primary d-inline">
-                                        <input class="form-control input-fuec input-pasajeros" type="radio" id="pasajeros1" name="pasajeros" checked value="Si">
+                                        <input class="form-control input-fuec input-pasajeros" type="radio" id="pasajeros1" name="pasajeros" value="Si">
                                         <label class="font-weight-normal" for="pasajeros1">Si</label>
                                     </div>
                                     <div class="icheck-primary d-inline">
@@ -496,7 +506,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                         <label class="font-weight-normal" for="pasajeros2">No</label>
                                     </div>
                                     <div class="icheck-primary d-inline">
-                                        <input class="form-control input-fuec input-pasajeros" type="radio" id="pasajeros3" name="pasajeros" value="N/A">
+                                        <input class="form-control input-fuec input-pasajeros" type="radio" id="pasajeros3" name="pasajeros" checked value="N/A">
                                         <label class="font-weight-normal" for="pasajeros3">N/A</label>
                                     </div>
                                 </div>
@@ -510,7 +520,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                 <label>Estado</label>
                                 <div class="form-group clearfix">
                                     <div class="icheck-primary d-inline">
-                                        <input class="form-control input-fuec input-estado" type="radio" id="estado1" name="estado" checked value="Pago">
+                                        <input class="form-control input-fuec input-estado" type="radio" id="estado1" name="estado" value="Pago">
                                         <label class="font-weight-normal" for="estado1">Pago</label>
                                     </div>
                                     <div class="icheck-primary d-inline">
@@ -518,7 +528,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                         <label class="font-weight-normal" for="estado2">Pendiente</label>
                                     </div>
                                     <div class="icheck-primary d-inline">
-                                        <input class="form-control input-fuec input-estado" type="radio" id="estado3" name="estado" value="N/A">
+                                        <input class="form-control input-fuec input-estado" type="radio" id="estado3" name="estado" checked value="N/A">
                                         <label class="font-weight-normal" for="estado3">N/A</label>
                                     </div>
                                 </div>

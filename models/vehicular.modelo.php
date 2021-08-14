@@ -481,7 +481,7 @@ class ModeloVehiculos
     ===================================================*/
     static public function mdlConductoresxVehiculo($idvehiculo)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT cv.*, c.nombre AS conductor
+        $stmt = Conexion::conectar()->prepare("SELECT cv.*, c.nombre AS conductor, c.Documento
                                                 FROM v_re_conductoresvehiculos cv
                                                 INNER JOIN gh_personal c ON c.idPersonal = cv.idconductor
                                                 WHERE cv.idvehiculo = :idvehiculo

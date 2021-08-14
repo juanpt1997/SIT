@@ -28,7 +28,7 @@ $(document).ready(function () {
             });
         });
         var buttons = [
-            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar'}
+            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
             /* 'copy', 'csv', 'excel', 'pdf', 'print' */
         ];
         var table = dataTableCustom(`#tblFUEC`, buttons);
@@ -179,7 +179,7 @@ $(document).ready(function () {
                         let htmlSelect = `<option value="" selected>-Seleccione un conductor</option>`;
                         if (response != "") {
                             response.forEach(element => {
-                                htmlSelect += `<option value="${element.idconductor}">${element.conductor}</option>`;
+                                htmlSelect += `<option class="op-conductor" value="${element.idconductor}">${element.Documento} - ${element.conductor}</option>`;
                             });
                         }
                         $(".conductores").html(htmlSelect);
@@ -217,6 +217,15 @@ $(document).ready(function () {
                         success: function (response) {
                             if (response.Bloqueo == "NO" && response.PagoSS == "SI" && response.LicenciaActiva == "SI") {
                                 $select.val(idconductor);
+
+                                // MOSTRAR ALERTA CON LAS OBSERVACIONES QUE SE TIENEN ALMACENADAS DEL CONDUCTOR
+                                // Swal.fire({
+                                //         title: 'Observaciones conductor',
+                                //         text: `${$('option:selected', $select).attr('observaciones')}`,
+                                //         showConfirmButton: true,
+                                //         confirmButtonText: 'Cerrar',
+                                //         closeOnConfirm: false
+                                //     });
                             }
                             else {
                                 if (response.PagoSS == "NO") {
@@ -409,6 +418,8 @@ $(document).ready(function () {
             $("#frmFUEC").trigger("reset"); //reset formulario
             $("#visualizContrato").text("");
 
+            $(".overlay-conductores").removeClass("d-none");
+
             /* AJAX PARA CARGAR DATOS */
             var datos = new FormData();
             datos.append('DatosFUEC', "ok");
@@ -447,6 +458,7 @@ $(document).ready(function () {
                             $("#conductor1").val(response.idconductor1).trigger("change");
                             $("#conductor2").val(response.idconductor2).trigger("change");
                             $("#conductor3").val(response.idconductor3).trigger("change");
+                            $(".overlay-conductores").addClass("d-none");
                         }, 2500);
                         $("#fechaini").val(response.fecha_inicial);
                         $("#fechafin").val(response.fecha_vencimiento);
