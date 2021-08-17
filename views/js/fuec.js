@@ -186,6 +186,7 @@ $(document).ready(function () {
                             });
                         }
                         $(".conductores").html(htmlSelect);
+                        $("#Observador-conductoresxvehiculo").trigger("change");
                     }
                 });
             } else {
@@ -347,7 +348,7 @@ $(document).ready(function () {
                     contentType: false,
                     processData: false,
                     success: function (response) {
-                        if (response.DocumentosxVencer != ""){
+                        if (response.DocumentosxVencer != "") {
                             let listaVencidosHtml = `<ul>`;
                             response.DocumentosxVencer.forEach(element => {
                                 listaVencidosHtml += `<li>${element.tipodocumento}</li>`;
@@ -430,6 +431,7 @@ $(document).ready(function () {
 
                             // Titulo modal
                             $("#titulo-modal-fuec").html(idfuec);
+                            $(".btn-copy-fuec").removeClass("d-none");
 
                             // Evento para refrescar la pagina cuando sale de la modal
                             $('#NuevoFuecModal').on('hidden.bs.modal', function () {
@@ -449,6 +451,7 @@ $(document).ready(function () {
             $("#idfuec").val(""); //reset id fuec
             $("#titulo-modal-fuec").html("Nuevo");
             $("#visualizContrato").text("");
+            $(".btn-copy-fuec").addClass("d-none");
             // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
             if (AbiertoxEditar) {
                 $("#frmFUEC").trigger("reset"); //reset formulario
@@ -468,6 +471,7 @@ $(document).ready(function () {
             $("#titulo-modal-fuec").html("");
             $("#frmFUEC").trigger("reset"); //reset formulario
             $("#visualizContrato").text("");
+            $(".btn-copy-fuec").removeClass("d-none");
 
             $(".overlay-conductores").removeClass("d-none");
 
@@ -505,12 +509,15 @@ $(document).ready(function () {
 
                         // Datos FUEC
                         $("#vehiculofuec").val(response.idvehiculo).trigger("change");
-                        setTimeout(() => {
-                            $("#conductor1").val(response.idconductor1).trigger("change");
-                            $("#conductor2").val(response.idconductor2).trigger("change");
-                            $("#conductor3").val(response.idconductor3).trigger("change");
-                            $(".overlay-conductores").addClass("d-none");
-                        }, 2500);
+                        $("#Observador-conductoresxvehiculo").attr("conductor1", response.idconductor1);
+                        $("#Observador-conductoresxvehiculo").attr("conductor2", response.idconductor2);
+                        $("#Observador-conductoresxvehiculo").attr("conductor3", response.idconductor3);
+                        // setTimeout(() => {
+                        //     $("#conductor1").val(response.idconductor1).trigger("change");
+                        //     $("#conductor2").val(response.idconductor2).trigger("change");
+                        //     $("#conductor3").val(response.idconductor3).trigger("change");
+                        //     $(".overlay-conductores").addClass("d-none");
+                        // }, 2500);
                         $("#fechaini").val(response.fecha_inicial);
                         $("#fechafin").val(response.fecha_vencimiento);
                         $("#objetocontrato").val(response.idobjeto_contrato);
@@ -532,6 +539,33 @@ $(document).ready(function () {
                     }
                 }
             });
+        });
+
+        /* ===================================================
+          ELEMENT OBSERVADOR QUE PONE LOS CONDUCTORES APENAS CAPTA QUE SE ACTUALIZAN EN EL SELECT
+        ===================================================*/
+        $(document).on("change", "#Observador-conductoresxvehiculo", function () {
+            let idconductor1 = $(this).attr("conductor1");
+            let idconductor2 = $(this).attr("conductor2");
+            let idconductor3 = $(this).attr("conductor3");
+            if (AbiertoxEditar) {
+                setTimeout(() => {
+                    $("#conductor1").val(idconductor1).trigger("change");
+                    $("#conductor2").val(idconductor2).trigger("change");
+                    $("#conductor3").val(idconductor3).trigger("change");
+                    $(".overlay-conductores").addClass("d-none");
+                }, 1000);
+            }
+            //$(".overlay-conductores").addClass("d-none");
+        });
+
+        /* ===================================================
+          COPIA DEL FUEC
+        ===================================================*/
+        $(document).on("click", ".btn-copy-fuec", function () {
+            $("#idfuec").val(""); //reset id fuec
+            $("#titulo-modal-fuec").html("Nuevo");
+            $(".btn-copy-fuec").addClass("d-none");
         });
 
     }

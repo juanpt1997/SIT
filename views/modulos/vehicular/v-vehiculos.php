@@ -1,7 +1,7 @@
 <?php
 
-if(!validarModulo('M_VEHICULAR')) {
-   echo "<script> window.location = 'inicio'; </script>";
+if (!validarModulo('M_VEHICULAR')) {
+    echo "<script> window.location = 'inicio'; </script>";
 }
 
 $Vehiculos = ControladorVehiculos::ctrListaVehiculos();
@@ -22,7 +22,15 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark ">Vehículos</h1>
+                    <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item border border-info rounded ml-2 mb-1 mb-md-0">
+                            <a class="nav-link active h4" id="pills-vehiculos-tab" data-toggle="tab" href="#pills-vehiculos" role="tab" aria-controls="pills-vehiculos" aria-selected="true">Vehículos</a>
+                        </li>
+                        <li class="nav-item border border-info rounded ml-2 mb-1 mb-md-0">
+                            <a class="nav-link h4" id="pills-documentos-tab" data-toggle="tab" href="#pills-documentos" role="tab" aria-controls="pills-documentos" aria-selected="false">Documentos</a>
+                        </li>
+                    </ul>
+                    <h1 class="m-0 text-dark d-none">Vehículos</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -39,100 +47,143 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
     <div class="content">
         <div class="container-fluid">
 
-            <div class="row">
-                <div class="col">
-                    <!--BOTON NUEVO VEHICULO-->
-                    <button type="button" class="btn btn-success btn-md btn-agregarVehiculo" data-toggle="modal" data-target="#VehiculosModal">
-                        <i class="fas fa-car-side"></i> Añadir Vehículo
-                    </button>
-                </div><!-- col -->
-            </div> <!-- /.row -->
+            <div class="tab-content" id="pills-tabContent">
+                <!-- ===================================================
+                    CONTENIDO VEHICULOS
+                =================================================== -->
+                <div class="tab-pane fade show active" id="pills-vehiculos" role="tabpanel" aria-labelledby="pills-vehiculos-tab">
+                    <div class="row">
+                        <div class="col">
+                            <!--BOTON NUEVO VEHICULO-->
+                            <button type="button" class="btn btn-success btn-md btn-agregarVehiculo" data-toggle="modal" data-target="#VehiculosModal">
+                                <i class="fas fa-car-side"></i> Añadir Vehículo
+                            </button>
+                        </div><!-- col -->
+                    </div> <!-- /.row -->
 
-            <!--|||TABLA VEHICULOS|||-->
-            <div class="row mt-2">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header bg-info"></div>
-                        <div class="card-body">
+                    <!--|||TABLA VEHICULOS|||-->
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header bg-info"></div>
+                                <div class="card-body">
 
-                            <div class="table-responsive">
-                                <table id="tblVehiculos" class="table table-sm table-striped table-bordered table-hover w-100">
-                                    <thead class="thead-light text-sm text-center text-nowrap">
-                                        <tr>
-                                            <th style="width:10px;">#</th>
-                                            <th>Placa</th>
-                                            <th>Nro. Interno</th>
-                                            <th>Sucursal</th>
-                                            <th>Fecha vinculacion</th>
-                                            <th>Chasis</th>
-                                            <th>Nro. Motor</th>
-                                            <th>Modelo</th>
-                                            <th>Color</th>
-                                            <th>Capacidad</th>
-                                            <th>Cilindraje</th>
-                                            <th>Tipo vinculacion</th>
-                                            <th>Fecha importación</th>
-                                            <th>Potencia</th>
-                                            <th>Limitacion propiedad</th>
-                                            <th>Tipo de vehiculo</th>
-                                            <th>Marca</th>
-                                            <th>Tipo de combustible</th>
-                                            <th>Fecha matricula</th>
-                                            <th>Activo</th>
-                                            <th>Empresa Convenio</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($Vehiculos as $key => $value) : ?>
-                                            <?php
-                                            $BtnAcciones = "<div class='btn-group'>
+                                    <div class="table-responsive">
+                                        <table id="tblVehiculos" class="table table-sm table-striped table-bordered table-hover w-100">
+                                            <thead class="thead-light text-sm text-center text-nowrap">
+                                                <tr>
+                                                    <th style="width:10px;">#</th>
+                                                    <th>Placa</th>
+                                                    <th>Nro. Interno</th>
+                                                    <th>Sucursal</th>
+                                                    <th>Fecha vinculacion</th>
+                                                    <th>Chasis</th>
+                                                    <th>Nro. Motor</th>
+                                                    <th>Modelo</th>
+                                                    <th>Color</th>
+                                                    <th>Capacidad</th>
+                                                    <th>Cilindraje</th>
+                                                    <th>Tipo vinculacion</th>
+                                                    <th>Fecha importación</th>
+                                                    <th>Potencia</th>
+                                                    <th>Limitacion propiedad</th>
+                                                    <th>Tipo de vehiculo</th>
+                                                    <th>Marca</th>
+                                                    <th>Tipo de combustible</th>
+                                                    <th>Fecha matricula</th>
+                                                    <th>Activo</th>
+                                                    <th>Empresa Convenio</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php foreach ($Vehiculos as $key => $value) : ?>
+                                                    <?php
+                                                    $BtnAcciones = "<div class='btn-group'>
                                                             {$value['idvehiculo']}
                                                             <button type='button' class='btn btnEditarVehiculo' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#VehiculosModal'>
                                                                 <i class='fas fa-lg fa-edit text-info'></i>
                                                             </button>
                                                             <button type='button' class='btn btn-FTVehiculo' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-lg fa-book text-secondary'></i></button>
                                                         </div>";
-                                            ?>
-                                            <tr>
-                                                <!-- <td><?= $value['idvehiculo'] ?></td> -->
-                                                <td><?= $BtnAcciones ?></td>
-                                                <td><?= $value['placa'] ?></td>
-                                                <td><?= $value['numinterno'] ?></td>
-                                                <td><?= $value['sucursal'] ?></td>
-                                                <td><?= $value['fechavinculacion'] ?></td>
-                                                <td><?= $value['chasis'] ?></td>
-                                                <td><?= $value['numeromotor'] ?></td>
-                                                <td><?= $value['modelo'] ?></td>
-                                                <td><?= $value['color'] ?></td>
-                                                <td><?= $value['capacidad'] ?></td>
-                                                <td><?= $value['cilindraje'] ?></td>
-                                                <td><?= $value['tipovinculacion'] ?></td>
-                                                <td><?= $value['fechaimportacion'] ?></td>
-                                                <td><?= $value['potenciahp'] ?></td>
-                                                <td><?= $value['limitacion'] ?></td>
-                                                <td><?= $value['tipovehiculo'] ?></td>
-                                                <td><?= $value['marca'] ?></td>
-                                                <td><?= $value['tipocombustible'] ?></td>
-                                                <td><?= $value['fechamatricula'] ?></td>
-                                                <td><?= $value['activo'] ?></td>
-                                                <td><?= $value['convenio'] ?></td>
-                                                <!-- <td>
+                                                    ?>
+                                                    <tr>
+                                                        <!-- <td><?= $value['idvehiculo'] ?></td> -->
+                                                        <td><?= $BtnAcciones ?></td>
+                                                        <td><?= $value['placa'] ?></td>
+                                                        <td><?= $value['numinterno'] ?></td>
+                                                        <td><?= $value['sucursal'] ?></td>
+                                                        <td><?= $value['fechavinculacion'] ?></td>
+                                                        <td><?= $value['chasis'] ?></td>
+                                                        <td><?= $value['numeromotor'] ?></td>
+                                                        <td><?= $value['modelo'] ?></td>
+                                                        <td><?= $value['color'] ?></td>
+                                                        <td><?= $value['capacidad'] ?></td>
+                                                        <td><?= $value['cilindraje'] ?></td>
+                                                        <td><?= $value['tipovinculacion'] ?></td>
+                                                        <td><?= $value['fechaimportacion'] ?></td>
+                                                        <td><?= $value['potenciahp'] ?></td>
+                                                        <td><?= $value['limitacion'] ?></td>
+                                                        <td><?= $value['tipovehiculo'] ?></td>
+                                                        <td><?= $value['marca'] ?></td>
+                                                        <td><?= $value['tipocombustible'] ?></td>
+                                                        <td><?= $value['fechamatricula'] ?></td>
+                                                        <td><?= $value['activo'] ?></td>
+                                                        <td><?= $value['convenio'] ?></td>
+                                                        <!-- <td>
                                                     <div class="btn-group" role="group" aria-label="Button group">
                                                         <button class="btn btn-sm btn-warning btnEditarVehiculo" data-toggle="modal" data-target="#VehiculosModal"><i class="fas fa-edit"></i></button>
                                                     </div>
                                                 </td> -->
-                                            </tr>
-                                        <?php endforeach ?>
-                                    </tbody>
+                                                    </tr>
+                                                <?php endforeach ?>
+                                            </tbody>
 
-                                </table>
+                                        </table>
 
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-dark"></div>
                             </div>
+                        </div><!-- col -->
+                    </div> <!-- /.row -->
+                </div>
+
+                <!-- ===================================================
+                    CONTENIDO DOCUMENTOS
+                =================================================== -->
+                <div class="tab-pane fade" id="pills-documentos" role="tabpanel" aria-labelledby="pills-documentos-tab">
+                    <div class="row">
+                        <div id="spinnerTablaReporteDocumentos" class="spinner-border" role="status">
+                            <span class="sr-only">Loading...</span>
                         </div>
-                        <div class="card-footer bg-dark"></div>
+                        <div class="col-12 table-responsive">
+                            <table id="tblReporteDocumentos" class="table table-sm text-sm table-light table-striped table-bordered w-100">
+                                <thead class="text-capitalize text-nowrap" style="font-size: 13px;">
+                                    <tr>
+                                        <td>Placa</td>
+                                        <td>Nro Interno afiliado</td>
+                                        <td>sucursal</td>
+                                        <td>tipo vinculación</td>
+                                        <td>activo</td>
+                                        <td>tipo documento</td>
+                                        <td>fecha desde</td>
+                                        <td>fecha hasta</td>
+                                        <td>nombre</td>
+                                        <td>documento</td>
+                                        <td>teléfono</td>
+                                        <td>correo</td>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyReporteDocumentos" style="font-size: 13px;">
+
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div><!-- col -->
-            </div> <!-- /.row -->
+                </div>
+            </div>
+
+
         </div><!-- /.container-fluid -->
     </div><!-- /.content -->
 </div><!-- /.content-wrapper -->

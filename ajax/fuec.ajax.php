@@ -99,6 +99,14 @@ class AjaxFuec
                                 'LicenciaActiva' => $licenciaActiva);
         
         echo json_encode($respuestaArray);
+        // var_dump($respuestaArray);
+        // echo "<br>";
+
+        // var_dump($ConductorPagoSS);
+        // echo "<br>";
+
+        // var_dump($FechaLicencia);
+        // echo "<br>";
 
     }
 

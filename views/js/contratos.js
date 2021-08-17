@@ -113,6 +113,7 @@ if (
             $("#pcliente").val("cliente");
             $("#listaclientes").attr("readonly", false);
             $(".input-clientes").attr("readonly", "readonly");
+            $('.select-ciudad').prop('disabled', true);
             $("#listaclientes").attr("required", "required");
 
             var datos = new FormData();
@@ -171,7 +172,8 @@ if (
                     $("#wi_fi").val(response.wifi);
                     $("#silleteriar").val(response.silleriareclinable);
                     $("#porque").val(response.porque);
-                    $(".select2-single").trigger("change");
+                    $(".select-ciudad").trigger("change");
+                    $("#listaclientes").trigger("change");
                 },
             });
         });
@@ -183,7 +185,7 @@ if (
             $("#titulo_cotizacion").html("Nueva cotización");
             if (AbiertoxEditar) { // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
                 $("#formulariocotizacion").trigger("reset");
-                $(".select2-single").trigger("change");
+                $(".select-ciudad").trigger("change");
             }
             AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         });
@@ -192,52 +194,59 @@ if (
             var cambio = $(this).val();
             // Si selecciona cliente
             if (cambio == "cliente") {
-                $("#listaclientes").attr("readonly", false);
+                $('#listaclientes').prop('disabled', false);
+                //$("#listaclientes").attr("readonly", false);
                 $(".input-clientes").attr("readonly", "readonly");
                 $("#listaclientes").attr("required", "required");
-                $("#ciudadcliente").select2("readonly");
+                //$("#ciudadcliente").select2("readonly");
+                $('.select-ciudad').prop('disabled', true);
             }
             // Si selecciona posible cliente
             else {
                 $(".input-clientes").val("");
                 $("#listaclientes").val("");
-                $("#listaclientes").attr("readonly", true);
+                $('#listaclientes').prop('disabled', true);
+                //$("#listaclientes").attr("readonly", true);
+                $("#listaclientes").trigger("change");
                 $(".input-clientes").removeAttr("readonly");
                 $("#listaclientes").removeAttr("required");
-                $(".select2-single").trigger("change");
+                $('.select-ciudad').prop('disabled', false);
+                $(".select-ciudad").trigger("change");
             }
         });
 
         $(document).on("change", "#listaclientes", function () {
             var id = $(this).val();
 
-            var datos = new FormData();
-            datos.append("DatosClientes", "ok");
-            datos.append("item", "idcliente");
-            datos.append("valor", id);
-            $.ajax({
-                type: "POST",
-                url: "ajax/contratos.ajax.php",
-                data: datos,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                success: function (response) {
-                    $("#nom_contrata").val(response.nombre);
-                    $("#t_document_empre").val(response.tipo_doc);
-                    $("#document").val(response.Documento);
-                    $("#tel1").val(response.telefono);
-                    $("#direcci").val(response.direccion);
-                    $("#nom_respo").val(response.nombrerespons);
-                    $("#t_document_respo").val(response.tipo_docrespons);
-                    $("#ciudadresponsable").val(response.idciudadrespons);
-                    $("#ciudadcliente").val(response.idciudad);
-                    $("#expedicion").val(response.cedula_expedidaen);
-                    $("#docum_respo").val(response.Documentorespons);
-                    $(".select2-single").trigger("change"); //MUESTRA EL VALOR DEL SELECT
-                },
-            });
+            if (id != ""){
+                var datos = new FormData();
+                datos.append("DatosClientes", "ok");
+                datos.append("item", "idcliente");
+                datos.append("valor", id);
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/contratos.ajax.php",
+                    data: datos,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (response) {
+                        $("#nom_contrata").val(response.nombre);
+                        $("#t_document_empre").val(response.tipo_doc);
+                        $("#document").val(response.Documento);
+                        $("#tel1").val(response.telefono);
+                        $("#direcci").val(response.direccion);
+                        $("#nom_respo").val(response.nombrerespons);
+                        $("#t_document_respo").val(response.tipo_docrespons);
+                        $("#ciudadresponsable").val(response.idciudadrespons);
+                        $("#ciudadcliente").val(response.idciudad);
+                        $("#expedicion").val(response.cedula_expedidaen);
+                        $("#docum_respo").val(response.Documentorespons);
+                        $(".select-ciudad").trigger("change"); //MUESTRA EL VALOR DEL SELECT
+                    },
+                });
+            }
         });
     });
 }

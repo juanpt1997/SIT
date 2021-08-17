@@ -137,6 +137,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
 
             <div class="modal-header bg-info">
                 <h5 class="modal-title font-weight-bold" id="titulo-modal-fuec"></h5>
+                <button class="btn btn-secondary ml-2 d-none btn-copy-fuec" type="button"><i class="far fa-copy"></i> Copia</button>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -145,6 +146,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
             <div class="modal-body">
                 <form method="post" enctype="multipart/form-data" id="frmFUEC">
                     <input type="hidden" name="idfuec" id="idfuec" value="">
+                    <input type="hidden" id="Observador-conductoresxvehiculo">
 
                     <!-- Tipo de contrato y contrato/contratante -->
                     <div class="row d-flex justify-content-md-center">
@@ -319,7 +321,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                     <select id="vehiculofuec" class="form-control select2-single input-fuec" style="width: 90%" name="vehiculofuec" required>
                                         <option value="" selected>-Seleccione un vehículo</option>
                                         <?php foreach ($Vehiculos as $key => $value) : ?>
-                                            <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?></option>
+                                            <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?></option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>

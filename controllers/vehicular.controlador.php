@@ -426,6 +426,14 @@ class ControladorVehiculos
 		$guardarDatos = ModeloVehiculos::mdlGuardarDetallesVehiculo($datos);
 		return $guardarDatos;
 	}
+
+	/* ===================================================
+		REPORTE COMPLETO DOCUMENTOS VEHICULOS
+	===================================================*/
+	static public function ctrReporteDocumentos()
+	{
+		return ModeloVehiculos::mdlReporteDocumentos();
+	}
 }
 
 /* ===================================================

@@ -73,6 +73,7 @@ class ModeloFuec
                         tv.tipovehiculo,
                         (SELECT dv.nrodocumento FROM v_re_documentosvehiculos dv WHERE dv.idvehiculo = v.idvehiculo AND dv.idtipodocumento = 3) AS tarjetaOperacion,
                         oc.objetocontrato, 
+                        IF(cnv.idxc = 0, '', cnv.nombre) AS nomconvenio,
                         c1.Nombre AS conductor1, c1.Documento AS docConductor1, 
                         lic1.nro_licencia AS licencia1, MAX(lic1.fecha_vencimiento) AS vigenciaLic1,
                         c2.Nombre AS conductor2, c2.Documento AS docConductor2, 
@@ -85,6 +86,7 @@ class ModeloFuec
                     LEFT JOIN v_tipovehiculos tv ON tv.idtipovehiculo = v.idtipovehiculo
                     LEFT JOIN v_marcas vm ON vm.idmarca = v.idmarca
                     INNER JOIN v_objetocontrato oc ON oc.idobjeto = f.idobjeto_contrato
+                    INNER JOIN convenios cnv ON cnv.idxc = v.idconvenio
                     LEFT JOIN gh_personal c1 ON c1.idPersonal = f.idconductor1
                     LEFT JOIN gh_re_personallicencias lic1 ON lic1.idPersonal = c1.idPersonal
                     LEFT JOIN gh_personal c2 ON c2.idPersonal = f.idconductor2
@@ -105,6 +107,7 @@ class ModeloFuec
                         tv.tipovehiculo,
                         (SELECT dv.nrodocumento FROM v_re_documentosvehiculos dv WHERE dv.idvehiculo = v.idvehiculo AND dv.idtipodocumento = 3) AS tarjetaOperacion,
                         oc.objetocontrato, 
+                        IF(cnv.idxc = 0, '', cnv.nombre) AS nomconvenio,                       
                         c1.Nombre AS conductor1, c1.Documento AS docConductor1, 
                         lic1.nro_licencia AS licencia1, MAX(lic1.fecha_vencimiento) AS vigenciaLic1,
                         c2.Nombre AS conductor2, c2.Documento AS docConductor2, 
@@ -117,6 +120,7 @@ class ModeloFuec
                     LEFT JOIN v_tipovehiculos tv ON tv.idtipovehiculo = v.idtipovehiculo
                     LEFT JOIN v_marcas vm ON vm.idmarca = v.idmarca
                     INNER JOIN v_objetocontrato oc ON oc.idobjeto = f.idobjeto_contrato
+                    INNER JOIN convenios cnv ON cnv.idxc = v.idconvenio
                     LEFT JOIN gh_personal c1 ON c1.idPersonal = f.idconductor1
                     LEFT JOIN gh_re_personallicencias lic1 ON lic1.idPersonal = c1.idPersonal
                     LEFT JOIN gh_personal c2 ON c2.idPersonal = f.idconductor2

@@ -397,6 +397,36 @@ class AjaxVehiculos
         $respuesta = ModeloVehiculos::mdlActualizarVehiculo($datosRutaDoc);
         echo $respuesta;
     }
+
+    /* ===================================================
+       REPORTE COMPLETO DOCUMENTOS VEHICULOS
+    ===================================================*/
+    static public function ajaxReporteDocumentos()
+    {
+        $Respuesta = ControladorVehiculos::ctrReporteDocumentos();
+        $tr = "";
+        foreach ($Respuesta as $key => $value) {
+            
+            $tr .= "
+                <tr>
+                        <td>" . $value['placa'] . "</td>
+                        <td>" . $value['numinterno'] . "</td>
+                        <td>" . $value['sucursal'] . "</td>
+                        <td>" . $value['tipovinculacion'] . "</td>
+                        <td>" . $value['activo'] . "</td>
+                        <td>" . $value['tipodocumento'] . "</td>
+                        <td>" . $value['fechainicio'] . "</td>
+                        <td>" . $value['fechafin'] . "</td>
+                        <td>" . $value['nombre'] . "</td>
+                        <td>" . $value['documento'] . "</td>
+                        <td>" . $value['telef'] . "</td>
+                        <td>" . $value['email'] . "</td>
+                </tr>
+            ";
+        }
+
+        echo $tr;
+    }
 }
 
 
@@ -485,4 +515,10 @@ if (isset($_POST['CargarDocumentoVehiculo']) && $_POST['CargarDocumentoVehiculo'
 
 if (isset($_POST['EliminarDocumentoVehiculo']) && $_POST['EliminarDocumentoVehiculo'] == "ok") {
     AjaxVehiculos::ajaxEliminarDocumento($_POST['idregistro']);
+}
+
+
+# LLAMADO AL REPORTE COMPLETO DOCUMENTOS VEHICULOS
+if (isset($_POST['ReporteDocumentos']) && $_POST['ReporteDocumentos'] == "ok") {
+    AjaxVehiculos::ajaxReporteDocumentos();
 }

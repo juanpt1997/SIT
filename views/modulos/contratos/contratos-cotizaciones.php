@@ -142,7 +142,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm"><i>Lista de clientes</i></label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control" id="listaclientes" style="width: 99%" name="listaclientes" readonly>
+                                    <select class="form-control select2-single input-sm" id="listaclientes" style="width: 99%" name="listaclientes" readonly>
                                         <option value="" selected><b>-Seleccione un cliente existente-</b></option>
                                         <?php foreach ($clientes as $key => $value) : ?>
                                             <option value="<?= $value['idcliente'] ?>"><?= $value['clientexist'] ?></option>
@@ -188,7 +188,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm">Ciudad</label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="ciudadcliente" name="ciudadcliente" required>
+                                    <select class="form-control input-sm select2-single select-ciudad input-clientes" style="width: 99%" type="number" id="ciudadcliente" name="ciudadcliente" required>
                                         <option selected value="">-Seleccione una ciudad-</option>
                                         <?php foreach ($DeparMunicipios as $key => $value) : ?>
                                             <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
@@ -233,7 +233,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm">Ciudad responsable</label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="ciudadresponsable" name="ciudadresponsable" required>
+                                    <select class="form-control input-sm select2-single select-ciudad input-clientes" style="width: 99%" type="number" id="ciudadresponsable" name="ciudadresponsable" required>
                                         <option selected value="">-Seleccione una ciudad-</option>
                                         <?php foreach ($DeparMunicipios as $key => $value) : ?>
                                             <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
@@ -267,7 +267,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm">Cédula expedida en</label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="expedicion" name="expedicion" required>
+                                    <select class="form-control input-sm select2-single select-ciudad input-clientes" style="width: 99%" type="number" id="expedicion" name="expedicion" required>
                                         <option selected value="">-Seleccione una ciudad-</option>
                                         <?php foreach ($DeparMunicipios as $key => $value) : ?>
                                             <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>

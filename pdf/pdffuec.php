@@ -289,7 +289,7 @@ class PdfFuec
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(77, 5, "CONVENIO DE COLABORACIÓN EMPRESARIAL CON:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(110, 5, '', 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(110, 5, $info['nomconvenio'], 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
 
         /* ===================================================

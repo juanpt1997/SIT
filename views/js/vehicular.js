@@ -50,7 +50,7 @@ if (window.location.href == `${urlPagina}v-propietarios/` ||
             $("#titulo-modal-propietario").html("Nuevo propietario");
 
             // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
-            if (AbiertoxEditar){
+            if (AbiertoxEditar) {
                 // Reset valores del formulario
                 $(".input-propietario").val("");
                 $('.select2-single').trigger('change');
@@ -111,7 +111,7 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
             $("#titulo-modal-convenios").html("Nuevo convenio");
 
             // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
-            if (AbiertoxEditar){
+            if (AbiertoxEditar) {
                 // Reset valores del formulario
                 $(".input-convenio").val("");
                 $('.select2-single').trigger('change');
@@ -424,7 +424,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
             });
         });
         var buttons = [
-            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar'}
+            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
             /* 'copy', 'csv', 'excel', 'pdf', 'print' */
         ];
         var table = dataTableCustom(`#tblVehiculos`, buttons);
@@ -586,9 +586,9 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
         $(document).on("click", ".btn-agregarVehiculo", function () {
             $("#titulo-modal-vehiculo").html("Nuevo");
             $("#idvehiculo").val(""); //reset id vehiculo
-            
+
             // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
-            if (AbiertoxEditar){
+            if (AbiertoxEditar) {
                 $("#vehiculos_form").trigger("reset"); //reset formulario
                 $("#imagenPrevisualizacion_TarjetaPro").attr("href", "").find("img").attr("src", "");
                 //numFotosVehiculo = 0; // Contador de imagenes del vehiculo se resetea
@@ -1170,5 +1170,73 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
             var idvehiculo = $(this).attr("idvehiculo");
             window.open(`./pdf/pdfvehiculo.php?idvehiculo=${idvehiculo}`, '', 'width=1280,height=720,left=50,top=50,toolbar=yes');
         });
+
+        /* ===================================================
+            TABLA REPORTE COMPLETO DE DOCUMENTOS
+        ===================================================*/
+        let TablaReporteDocumentos = (nombreTabla) => {
+            // Agregar spinner
+            $(`#spinnerTabla${nombreTabla}`).removeClass("d-none");
+            // Quitar datatable
+            $(`#tbl${nombreTabla}`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbody${nombreTabla}`).html("");
+
+            var datos = new FormData();
+            datos.append(`ReporteDocumentos`, "ok");
+            $.ajax({
+                type: 'post',
+                url: `${urlPagina}ajax/vehicular.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    // Quitar spinner
+                    $(`#spinnerTabla${nombreTabla}`).addClass("d-none");
+
+                    /* ===================================================
+                        LLENAR EL TBODY
+                    ===================================================*/
+                    if (response != '' || response != null) {
+                        $(`#tbody${nombreTabla}`).html(response);
+                    } else {
+                        $(`#tbody${nombreTabla}`).html('');
+                    }
+
+                    /* ===================================================
+                      FILTRAR POR COLUMNA
+                    ===================================================*/
+                    // /* Filtrar por columna */
+                    // //Clonar el tr del thead
+                    // $(`#tbl${nombreTabla} thead tr`).clone(true).appendTo(`#tbl${nombreTabla} thead`);
+                    // //Por cada th creado hacer lo siguiente
+                    // $(`#tbl${nombreTabla} thead tr:eq(1) th`).each(function (i) {
+                    //     //Remover clase sorting y el evento que tiene cuando se hace click
+                    //     $(this).removeClass("sorting").unbind();
+                    //     //Agregar input de busqueda
+                    //     $(this).html('<input class="form-control" type="text" placeholder="Buscar"/>');
+                    //     //Evento para detectar cambio en el input y buscar
+                    //     $('input', this).on('keyup change', function () {
+                    //         if (table.column(i).search() !== this.value) {
+                    //             table
+                    //                 .column(i)
+                    //                 .search(this.value)
+                    //                 .draw();
+                    //         }
+                    //     });
+                    // });
+
+                    /* ===================================================
+                    INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                    ===================================================*/
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#tbl${nombreTabla}`, buttons);
+                }
+            });
+        }
+        TablaReporteDocumentos("ReporteDocumentos");
     });
 }

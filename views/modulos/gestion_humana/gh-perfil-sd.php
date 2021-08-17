@@ -101,7 +101,6 @@ $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
                                 <th style="min-width:60px;">Activo</th>
                             </tr>
                         </thead>
-                        <span></span>
                         <tbody id="tbodyPerfilSD" style="font-size: 13px;">
                             
                         </tbody>

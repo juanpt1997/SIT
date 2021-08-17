@@ -573,6 +573,32 @@ class ModeloVehiculos
         $conexion = null;
         return $id;
     }
+
+    /* ===================================================
+		REPORTE COMPLETO DOCUMENTOS VEHICULOS
+	===================================================*/
+	static public function mdlReporteDocumentos()
+	{
+		$stmt = Conexion::conectar()->prepare("SELECT 
+                                                v.placa, v.numinterno, v.tipovinculacion, v.activo, 
+                                                d.fechainicio, MAX(d.fechafin) AS fechafin, 
+                                                t.tipodocumento,
+                                                s.sucursal,
+                                                p.nombre, p.documento, p.telef, p.email
+                                            FROM v_vehiculos v
+                                            LEFT JOIN v_re_documentosvehiculos d ON v.idvehiculo = d.idvehiculo
+                                            LEFT JOIN v_tipodocumento t ON t.idtipo = d.idtipodocumento
+                                            LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
+                                            LEFT JOIN v_re_propietariosvehiculos pv ON pv.idvehiculo = v.idvehiculo
+                                            LEFT JOIN propietario p ON p.idxp = pv.idpropietario
+                                            GROUP BY d.idtipodocumento, v.idvehiculo
+                                            ORDER BY v.placa");
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+	}
 }
 
 /* ===================================================
