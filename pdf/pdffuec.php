@@ -1,7 +1,7 @@
 <?php
 
 # CONFIGURACION DE LA SESION
-include '../config.php';
+include '../config/config.php';
 
 # Si no existe una sesion se redireciona directamente al inicio
 // if (!isset($_SESSION["iniciarSesion"])) {

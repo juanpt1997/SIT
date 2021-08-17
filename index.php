@@ -6,7 +6,7 @@
    /* ===================== 
    INCLUIMOS LA CONFIGURACION DE LAS SESIONES 
    ========================= */
-   include  __DIR__ .  '/config.php';
+   include  __DIR__ .  '/config/config.php';
 
 /* ===================================================
        INDEX: Mostraremos la salida de las vistas al usuario y tambien a traves de el enviaremos las distintas acciones que el usuario envíe al controlador

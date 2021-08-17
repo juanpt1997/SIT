@@ -19,18 +19,6 @@ $(function () {
 });
 
 /* ===================================================
-  DOMINIO DE LA PAGINA
-===================================================*/
-
-var proyecto = "elsaman"
-var urlActual = window.location.href;
-var arrayUrlApp = urlActual.split('/');
-var protocoloArray = urlActual.split(':');
-var protocolo = protocoloArray[0];
-var dominioApp = protocolo + "://" + window.document.domain;
-var urlPagina = `${dominioApp}/sit/${proyecto}/`;
-
-/* ===================================================
   PERMITIR ESCRIBIR EN EL SWEET ALERT
 ===================================================*/
 // No permite escribir en el input del sweet alert

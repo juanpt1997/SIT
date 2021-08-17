@@ -1,7 +1,7 @@
 <?php
 
 # IMPORTAMOS LA CONFIGURACION DE LA SESSION
-include '../config.php';
+include '../config/config.php';
 
 # REQUERIMOS EL CONTROLADOR Y EL MODELO PARA QUE REALICE LA PETICION
 require_once '../controllers/contratos.controlador.php';

@@ -1,6 +1,6 @@
 <?php
 # IMPORTAMOS LA CONFIGURACION DE LA SESSION Y DE LAS VARIABLES GLOBALES
-include '../config.php';
+include '../config/config.php';
 
 # REQUERIMOS EL CONTROLADOR Y EL MODELO PARA QUE REALICE LA PETICION
 require_once '../controllers/files.controlador.php';
