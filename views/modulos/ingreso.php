@@ -18,7 +18,7 @@
     <!-- /.login-logo -->
 
     <!-- login card -->
-    <div class="card ml-4">
+    <div class="card">
         <div class="card-body login-card-body">
             <h5 class="login-box-msg font-weight-bold">Inicio de sesión</h5>
 
