@@ -27,6 +27,7 @@ require '../models/contratos.modelo.php';
 
 
 //$resultado = ControladorVehiculos::ctrDatosVehiculo("idvehiculo", $idvehiculo);
+$empresa = ModeloConceptosGH::mdlVerEmpresa();
 $resultado = true;
 
 /* ===================== 
@@ -81,7 +82,7 @@ class OrdenServicioPDF
     /* ===================== 
       GENERACION DE ARCHIVOS PDF DE LA PETICION DE OFERTA 
     ========================= */
-    static public function makePDF($info)
+    static public function makePDF($info, $empresa)
     {
 
         /* ===================== 
@@ -174,7 +175,7 @@ class OrdenServicioPDF
         // $image_ponal = '../views/img/plantilla/fuec/img_ponal.png';
         // $image_mintransporte = '../views/img/plantilla/fuec/img_mintransporte.jpeg';
         // $image_iso = '../views/img/plantilla/fuec/img_iso.jpeg';
-        $image_elsaman = '../views/img/plantilla/fuec/img_elsaman.jpg';
+        $image_elsaman = '../views/img/plantilla/fuec/img_logo.jpg';
         // $image_codigos = '../views/img/plantilla/fuec/img_codigos.png';
         // $image_5estrellas = '../views/img/plantilla/fuec/img_5estrellas.jpg';
         // $image_qr = '../views/img/plantilla/fuec/img_qr.png';
@@ -196,14 +197,14 @@ class OrdenServicioPDF
         $x = ($anchoPaginaMM / 2) - ($anchoTexto / 2);
         $y = $pdf->GetY() + 15;
         //Titulo principal
-        $pdf->MultiCell(130, 5, 'TRANS. ESPECIALES EL SAMAN SERVIENCARGA S.A.S', 0, 'C', 0, 1, $x, $y, true);
+        $pdf->MultiCell(130, 5, $empresa['razon_social'], 0, 'C', 0, 1, $x, $y, true);
         $pdf->SetFont('helvetica', '', '8');
         $pdf->Ln(4);
         //NIT
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(130, 5, "NIT:", 0, 'C', 0, 1, $x, '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(130, 5, '800.240.911-6', 0, 'C', 0, 1, $x, '', true);
+        $pdf->MultiCell(130, 5, $empresa['nit'], 0, 'C', 0, 1, $x, '', true);
         $pdf->Ln(4);
         //INFORME
         // $pdf->SetFont('helvetica', 'B', '8');
@@ -346,4 +347,4 @@ class OrdenServicioPDF
 }
 
 # SE INSTANCIA LA CLASE PARA LA GENERACION DEL ARCHIVO PDF
-OrdenServicioPDF::makePDF($resultado);
+OrdenServicioPDF::makePDF($resultado, $empresa);

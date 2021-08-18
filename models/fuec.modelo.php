@@ -14,7 +14,16 @@ class ModeloFuec
     ===================================================*/
     static public function mdlListaFUEC()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT f.*, cl.nombre AS nomContratante, cl.Documento AS docContratante, cl.direccion AS direccion, cl.telefono AS telContratante, cl.nombrerespons, cl.Documentorespons, cl.telefono2 AS telrespons, v.placa, v.numinterno, v.tipovinculacion, oc.objetocontrato, c1.Nombre AS conductor1, c1.Documento AS docConductor1, c2.Nombre AS conductor2, c2.Documento AS docConductor2, c3.Nombre AS conductor3, c3.Documento AS docConductor3, fc.nombre AS ClienteFijo, u.Nombre AS usuarioCreacion
+        $stmt = Conexion::conectar()->prepare("SELECT f.*, 
+                                                cl.nombre AS nomContratante, cl.Documento AS docContratante, cl.direccion AS direccion, cl.telefono AS telContratante, cl.nombrerespons, cl.Documentorespons, cl.telefono2 AS telrespons, 
+                                                v.placa, v.numinterno, v.tipovinculacion, 
+                                                s.sucursal,
+                                                oc.objetocontrato, 
+                                                c1.Nombre AS conductor1, c1.Documento AS docConductor1, 
+                                                c2.Nombre AS conductor2, c2.Documento AS docConductor2, 
+                                                c3.Nombre AS conductor3, c3.Documento AS docConductor3, 
+                                                fc.nombre AS ClienteFijo, 
+                                                u.Nombre AS usuarioCreacion
                                                 FROM fuec f
                                                 INNER JOIN v_vehiculos v ON v.idvehiculo = f.idvehiculo
                                                 INNER JOIN v_objetocontrato oc ON oc.idobjeto = f.idobjeto_contrato
@@ -26,6 +35,7 @@ class ModeloFuec
                                                 LEFT JOIN gh_personal c3 ON c3.idPersonal = f.idconductor3
                                                 LEFT JOIN cont_fijos fj ON f.contratofijo = fj.idfijos
                                                 LEFT JOIN cont_clientes fc ON fc.idcliente = fj.idcliente
+                                                LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
                                                 INNER JOIN l_usuarios u ON u.Cedula = f.usuario_creacion");
         $stmt->execute();
         $retorno = $stmt->fetchAll();

@@ -157,8 +157,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                             <span class="sr-only">Loading...</span>
                         </div>
                         <div class="col-12 table-responsive">
-                            <table id="tblReporteDocumentos" class="table table-sm text-sm table-light table-striped table-bordered w-100">
-                                <thead class="text-capitalize text-nowrap" style="font-size: 13px;">
+                            <table id="tblReporteDocumentos" class="table table-sm table-striped table-bordered table-hover w-100">
+                                <thead class="thead-light text-sm text-nowrap" style="font-size: 13px;">
                                     <tr>
                                         <td>Placa</td>
                                         <td>Nro Interno afiliado</td>

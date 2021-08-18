@@ -15,20 +15,20 @@
          -->
         <a href="<?= URL_APP ?>inicio">
             <div class="image text-center mt-4">
-                <img src="<?= URL_APP ?>views/img/plantilla/elsaman-logo2.png" class="img-fluid img-circle elevation-2 w-50" alt="User Image">
+                <img src="<?= URL_APP ?>views/img/plantilla/logo.png" class="img-fluid img-circle elevation-2 w-50" alt="User Image">
             </div>
         </a>
 
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel d-flex">
             <!-- <div class="image">
-                <img src="<?= URL_APP ?>views/img/plantilla/elsaman-logo2.png" class="img-circle elevation-2" alt="User Image">
+                <img src="<?= URL_APP ?>views/img/plantilla/logo.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block">El Saman</a>
             </div> -->
             <div class="info">
-                <a href="<?= URL_APP ?>inicio" class="d-block font-weight-bold">Trans Especiales El Samán</a>
+                <a href="<?= URL_APP ?>inicio" class="d-block font-weight-bold"><?= NOM_MENU ?></a>
             </div>
         </div>
 

@@ -1175,6 +1175,8 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
             TABLA REPORTE COMPLETO DE DOCUMENTOS
         ===================================================*/
         let TablaReporteDocumentos = (nombreTabla) => {
+            // console.log(`#tbl${nombreTabla}`);
+            // console.log(`#tbody${nombreTabla}`);
             // Agregar spinner
             $(`#spinnerTabla${nombreTabla}`).removeClass("d-none");
             // Quitar datatable
@@ -1207,11 +1209,14 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                     /* ===================================================
                       FILTRAR POR COLUMNA
                     ===================================================*/
-                    // /* Filtrar por columna */
-                    // //Clonar el tr del thead
+                    /* Filtrar por columna */
+                    //Clonar el tr del thead
+                    // $(`#tbl${nombreTabla} thead tr`).clone(true).appendTo(`#tbl${nombreTabla} thead`);
                     // $(`#tbl${nombreTabla} thead tr`).clone(true).appendTo(`#tbl${nombreTabla} thead`);
                     // //Por cada th creado hacer lo siguiente
+                    // //console.log($(`#tbl${nombreTabla} thead tr:eq(1) th`));
                     // $(`#tbl${nombreTabla} thead tr:eq(1) th`).each(function (i) {
+                    //     console.log("y luego aca");
                     //     //Remover clase sorting y el evento que tiene cuando se hace click
                     //     $(this).removeClass("sorting").unbind();
                     //     //Agregar input de busqueda

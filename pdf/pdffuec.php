@@ -175,7 +175,7 @@ class PdfFuec
         $image_ponal = '../views/img/plantilla/fuec/img_ponal.png';
         $image_mintransporte = '../views/img/plantilla/fuec/img_mintransporte.jpeg';
         $image_iso = '../views/img/plantilla/fuec/img_iso.jpeg';
-        $image_elsaman = '../views/img/plantilla/fuec/img_elsaman.jpg';
+        $image_elsaman = '../views/img/plantilla/fuec/img_logo.jpg';
         $image_codigos = '../views/img/plantilla/fuec/img_codigos.png';
         $image_5estrellas = '../views/img/plantilla/fuec/img_5estrellas.jpg';
         $image_qr = '../views/img/plantilla/fuec/img_qr.png';
