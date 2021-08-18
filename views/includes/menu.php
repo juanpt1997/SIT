@@ -28,7 +28,7 @@
                 <a href="#" class="d-block">El Saman</a>
             </div> -->
             <div class="info">
-                <a href="<?= URL_APP ?>inicio" class="d-block font-weight-bold"><?= NOM_MENU ?></a>
+                <a href="<?= URL_APP ?>inicio" class="d-block font-weight-bold text-sm"><?= NOM_MENU ?></a>
             </div>
         </div>
 

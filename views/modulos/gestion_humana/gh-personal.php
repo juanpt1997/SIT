@@ -266,7 +266,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                             </div>
-                                            <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" max="<?php echo date('Y-m-d', strtotime(date("Y-m-d"))); ?>" required>
+                                            <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" max="<?php echo date('Y-m-d', strtotime(date("Y-m-d"))); ?>" required>
                                         </div>
                                         <!-- /.input group -->
                                     </div>
