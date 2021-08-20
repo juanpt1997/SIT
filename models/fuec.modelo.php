@@ -96,7 +96,7 @@ class ModeloFuec
                     LEFT JOIN v_tipovehiculos tv ON tv.idtipovehiculo = v.idtipovehiculo
                     LEFT JOIN v_marcas vm ON vm.idmarca = v.idmarca
                     INNER JOIN v_objetocontrato oc ON oc.idobjeto = f.idobjeto_contrato
-                    INNER JOIN convenios cnv ON cnv.idxc = v.idconvenio
+                    LEFT JOIN convenios cnv ON cnv.idxc = v.idconvenio
                     LEFT JOIN gh_personal c1 ON c1.idPersonal = f.idconductor1
                     LEFT JOIN gh_re_personallicencias lic1 ON lic1.idPersonal = c1.idPersonal
                     LEFT JOIN gh_personal c2 ON c2.idPersonal = f.idconductor2
@@ -130,7 +130,7 @@ class ModeloFuec
                     LEFT JOIN v_tipovehiculos tv ON tv.idtipovehiculo = v.idtipovehiculo
                     LEFT JOIN v_marcas vm ON vm.idmarca = v.idmarca
                     INNER JOIN v_objetocontrato oc ON oc.idobjeto = f.idobjeto_contrato
-                    INNER JOIN convenios cnv ON cnv.idxc = v.idconvenio
+                    LEFT JOIN convenios cnv ON cnv.idxc = v.idconvenio
                     LEFT JOIN gh_personal c1 ON c1.idPersonal = f.idconductor1
                     LEFT JOIN gh_re_personallicencias lic1 ON lic1.idPersonal = c1.idPersonal
                     LEFT JOIN gh_personal c2 ON c2.idPersonal = f.idconductor2

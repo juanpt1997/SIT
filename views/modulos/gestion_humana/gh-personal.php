@@ -972,7 +972,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                                     <i class="fas fa-file-alt"></i>
                                                 </span>
                                             </div>
-                                            <input type="file" class="form-control" name="" id="inputfile-prorrogas" accept="image/png, image/jpeg">
+                                            <input type="file" class="form-control" name="" id="inputfile-prorrogas" accept="image/png, image/jpeg, application/pdf">
                                         </div>
                                     </div>
                                 </div>
@@ -1291,7 +1291,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                                     <i class="fas fa-file-alt"></i>
                                                 </span>
                                             </div>
-                                            <input type="file" class="form-control" name="" id="inputfile-examenes" accept="image/png, image/jpeg">
+                                            <input type="file" class="form-control" name="" id="inputfile-examenes" accept="image/png, image/jpeg, application/pdf">
                                         </div>
                                     </div>
                                 </div>
