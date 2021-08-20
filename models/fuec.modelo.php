@@ -158,8 +158,8 @@ class ModeloFuec
     static public function mdlAgregarFUEC($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("INSERT INTO fuec (tipocontrato, contratofijo, contratante, idvehiculo, idconductor1, idconductor2, idconductor3, fecha_inicial, fecha_vencimiento, idobjeto_contrato, origen, destino, observaciones, precio, listado_pasajeros, estado_pago, valor_neto, estado_fuec, usuario_creacion, nro_contrato) VALUES 
-        (:tipocontrato, :contratofijo, :contratante, :idvehiculo, :idconductor1, :idconductor2, :idconductor3, :fecha_inicial, :fecha_vencimiento, :idobjeto_contrato, :origen, :destino, :observaciones, :precio, :listado_pasajeros, :estado_pago, :valor_neto, :estado_fuec, :usuario_creacion, :nro_contrato)");
+        $stmt = $conexion->prepare("INSERT INTO fuec (tipocontrato, contratofijo, contratante, idvehiculo, idconductor1, idconductor2, idconductor3, fecha_inicial, fecha_vencimiento, idobjeto_contrato, anotObjetoContrato, origen, destino, observaciones, precio, listado_pasajeros, estado_pago, valor_neto, estado_fuec, usuario_creacion, nro_contrato) VALUES 
+        (:tipocontrato, :contratofijo, :contratante, :idvehiculo, :idconductor1, :idconductor2, :idconductor3, :fecha_inicial, :fecha_vencimiento, :idobjeto_contrato, :anotObjetoContrato, :origen, :destino, :observaciones, :precio, :listado_pasajeros, :estado_pago, :valor_neto, :estado_fuec, :usuario_creacion, :nro_contrato)");
 
         $stmt->bindParam(":tipocontrato", $datos['tipocontrato'], PDO::PARAM_STR);
         $stmt->bindParam(":contratofijo", $datos['contratofijo'], PDO::PARAM_INT);
@@ -171,6 +171,7 @@ class ModeloFuec
         $stmt->bindParam(":fecha_inicial", $datos['fechaini'], PDO::PARAM_STR);
         $stmt->bindParam(":fecha_vencimiento", $datos['fechafin'], PDO::PARAM_STR);
         $stmt->bindParam(":idobjeto_contrato", $datos['objetocontrato'], PDO::PARAM_INT);
+        $stmt->bindParam(":anotObjetoContrato", $datos['anotObjetoContrato'], PDO::PARAM_STR);
         $stmt->bindParam(":origen", $datos['origen'], PDO::PARAM_STR);
         $stmt->bindParam(":destino", $datos['destino'], PDO::PARAM_STR);
         $stmt->bindParam(":observaciones", $datos['observacionescontr'], PDO::PARAM_STR);
@@ -199,7 +200,7 @@ class ModeloFuec
     static public function mdlEditarFUEC($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("UPDATE fuec SET tipocontrato = :tipocontrato, contratofijo = :contratofijo, contratante = :contratante, idvehiculo = :idvehiculo, idconductor1 = :idconductor1, idconductor2 = :idconductor2, idconductor3 = :idconductor3, fecha_inicial = :fecha_inicial, fecha_vencimiento = :fecha_vencimiento, idobjeto_contrato = :idobjeto_contrato, origen = :origen, destino = :destino, observaciones = :observaciones, precio = :precio, listado_pasajeros = :listado_pasajeros, estado_pago = :estado_pago, valor_neto = :valor_neto, estado_fuec = :estado_fuec, usuario_creacion = :usuario_creacion, nro_contrato = :nro_contrato
+        $stmt = $conexion->prepare("UPDATE fuec SET tipocontrato = :tipocontrato, contratofijo = :contratofijo, contratante = :contratante, idvehiculo = :idvehiculo, idconductor1 = :idconductor1, idconductor2 = :idconductor2, idconductor3 = :idconductor3, fecha_inicial = :fecha_inicial, fecha_vencimiento = :fecha_vencimiento, idobjeto_contrato = :idobjeto_contrato, anotObjetoContrato = :anotObjetoContrato, origen = :origen, destino = :destino, observaciones = :observaciones, precio = :precio, listado_pasajeros = :listado_pasajeros, estado_pago = :estado_pago, valor_neto = :valor_neto, estado_fuec = :estado_fuec, usuario_creacion = :usuario_creacion, nro_contrato = :nro_contrato
                                     WHERE idfuec = :idfuec");
 
         $stmt->bindParam(":idfuec", $datos['idfuec'], PDO::PARAM_INT);
@@ -213,6 +214,7 @@ class ModeloFuec
         $stmt->bindParam(":fecha_inicial", $datos['fechaini'], PDO::PARAM_STR);
         $stmt->bindParam(":fecha_vencimiento", $datos['fechafin'], PDO::PARAM_STR);
         $stmt->bindParam(":idobjeto_contrato", $datos['objetocontrato'], PDO::PARAM_INT);
+        $stmt->bindParam(":anotObjetoContrato", $datos['anotObjetoContrato'], PDO::PARAM_STR);
         $stmt->bindParam(":origen", $datos['origen'], PDO::PARAM_STR);
         $stmt->bindParam(":destino", $datos['destino'], PDO::PARAM_STR);
         $stmt->bindParam(":observaciones", $datos['observacionescontr'], PDO::PARAM_STR);

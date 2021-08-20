@@ -417,14 +417,21 @@ $(document).ready(function () {
                             })
                             break;
                         default:
+                            var idfuec = response;
+
                             // Mensaje de éxito al usuario
                             Swal.fire({
                                 icon: 'success',
                                 title: '¡Datos guardados correctamente!',
                                 showConfirmButton: true,
-                                confirmButtonText: 'Cerrar',
-                            })
-                            var idfuec = response;
+                                showCancelButton: true,
+                                confirmButtonText: 'Ver PDF',
+                                cancelButtonText: 'Cerrar',
+                            }).then((result) => {
+                                if (result.value){
+                                    window.open(`./pdf/pdffuec.php?cod=${idfuec}`, '', 'width=1280,height=720,left=50,top=50,toolbar=yes');
+                                }
+                            });
 
                             // Id fuec
                             $("#idfuec").val(idfuec);
@@ -521,6 +528,7 @@ $(document).ready(function () {
                         $("#fechaini").val(response.fecha_inicial);
                         $("#fechafin").val(response.fecha_vencimiento);
                         $("#objetocontrato").val(response.idobjeto_contrato);
+                        $("#anotObjetoContrato").val(response.anotObjetoContrato);
                         $("#origen").val(response.origen);
                         $("#destino").val(response.destino);
                         $("#observacionescontr").val(response.observaciones);

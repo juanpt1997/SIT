@@ -435,6 +435,22 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                             </div>
                         </div><!-- /.col -->
 
+                        <!-- Anotación objeto de contrato -->
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label>Anotación objeto de contrato</label>
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-caret-right"></i>
+                                        </span>
+                                    </div>
+                                    <input class="form-control input-fuec" type="text" id="anotObjetoContrato" name="anotObjetoContrato">
+                                </div>
+                            </div>
+
+                        </div><!-- /.col -->
+
                         <!-- Origen -->
                         <div class="col-12 col-md-6">
                             <div class="form-group">

@@ -265,10 +265,16 @@ class PdfFuec
         $pdf->Ln();
 
         # OBJETO CONTRATO
+        if ($info['anotObjetoContrato'] == null || $info['anotObjetoContrato'] == ""){
+            $objetoContrato = $info['objetocontrato'];
+        }
+        else{
+            $objetoContrato = $info['objetocontrato'] . " - " . $info['anotObjetoContrato'];
+        }
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(32, 5, "OBJETO CONTRATO:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(160, 5, $info['objetocontrato'], 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(160, 5, $objetoContrato, 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
 
         # ORIGEN - DESTINO
@@ -303,9 +309,9 @@ class PdfFuec
                     <tbody>
                         <tr>
                             <th style="color:#000 ;font-weight:bold;">FECHA INICIAL:</th>
-                            <td style="text-align: center"><span style="font-weight:bold; font-size:9px">DÍA:</span><br>' . date('d', strtotime($info['fecha_inicial']))  . '</td>
-                            <td style="text-align: center"><span style="font-weight:bold; font-size:9px">MES:</span><br>' . date('m', strtotime($info['fecha_inicial']))  . '</td>
-                            <td style="text-align: center"><span style="font-weight:bold; font-size:9px">AÑO:</span><br>' . date('Y', strtotime($info['fecha_inicial']))  . '</td>
+                            <td style="text-align: center; font-size:9px"><span style="font-weight:bold; font-size:10px">DÍA:</span><br>' . date('d', strtotime($info['fecha_inicial']))  . '</td>
+                            <td style="text-align: center; font-size:9px"><span style="font-weight:bold; font-size:10px">MES:</span><br>' . date('m', strtotime($info['fecha_inicial']))  . '</td>
+                            <td style="text-align: center; font-size:9px"><span style="font-weight:bold; font-size:10px">AÑO:</span><br>' . date('Y', strtotime($info['fecha_inicial']))  . '</td>
                         </tr>
                         <tr>
                             <th style="color:#000 ;font-weight:bold;">FECHA VENCIMIENTO:</th>
