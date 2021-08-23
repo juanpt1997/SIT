@@ -35,27 +35,26 @@ class AjaxConvenios
 /* ===================================================
    * BLOQUEO DE PERSONAL 
 ===================================================*/
-class AjaxBloqueoPersonal 
+class AjaxBloqueoPersonal
 {
-	static public function ajaxHistorial($id)
-	{
-		$respuesta = ControladorBloqueos::ctrHIstorial($id);
+    static public function ajaxHistorial($id)
+    {
+        $respuesta = ControladorBloqueos::ctrHIstorial($id);
         $tr = "";
         foreach ($respuesta as $key => $value) {
 
-            
-            if( $value['estado'] == 1){
+
+            if ($value['estado'] == 1) {
 
                 $estado = "<span class='badge badge-success'>Desbloqueado</span>";
-
             } else {
 
                 $estado = "<span class='badge badge-danger'>Bloqueado</span>";
             }
 
-                                             
 
-        	$tr .= "
+
+            $tr .= "
                 <tr>
                     <td>" . $value['idbloqueo'] . "</td>
                     <td>" . $value['conductor'] . "</td>
@@ -68,7 +67,7 @@ class AjaxBloqueoPersonal
         }
 
         echo $tr;
-	}
+    }
 
     static public function ajaxMostrarConductor($id)
     {
@@ -80,7 +79,7 @@ class AjaxBloqueoPersonal
     {
         $respuesta = ModeloBloqueoP::mdlUltimoBloqueo($idpersonal);
         echo json_encode($respuesta);
-    }	
+    }
 }
 
 /* ===================================================
@@ -106,17 +105,16 @@ class AjaxBloqueoVehiculo
         $tr = "";
         foreach ($respuesta as $key => $value) {
 
-            
-            if( $value['estado'] == 1){
+
+            if ($value['estado'] == 1) {
 
                 $estado = "<span class='badge badge-success'>Desbloqueado</span>";
-
             } else {
 
                 $estado = "<span class='badge badge-danger'>Bloqueado</span>";
             }
 
-                                             
+
 
             $tr .= "
                 <tr>
@@ -131,8 +129,7 @@ class AjaxBloqueoVehiculo
         }
 
         echo $tr;
-    }   
-
+    }
 }
 
 
@@ -251,13 +248,12 @@ class AjaxVehiculos
                 $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnSubirDoc . "</div>";
             }
             # Badge que indica si el documento está vencido o activo
-            if ($value['fechafin'] > date("Y-m-d")){
+            if ($value['fechafin'] > date("Y-m-d")) {
                 $badgecolor = "success";
-            }else{
-                if($value['fechafin'] == date("Y-m-d")){
+            } else {
+                if ($value['fechafin'] == date("Y-m-d")) {
                     $badgecolor = "warning";
-                }
-                else{
+                } else {
                     $badgecolor = "danger";
                 }
             }
@@ -405,25 +401,164 @@ class AjaxVehiculos
     {
         $Respuesta = ControladorVehiculos::ctrReporteDocumentos();
         $tr = "";
-        foreach ($Respuesta as $key => $value) {
-            
-            $tr .= "
-                <tr>
-                        <td>" . $value['placa'] . "</td>
-                        <td>" . $value['numinterno'] . "</td>
-                        <td>" . $value['sucursal'] . "</td>
-                        <td>" . $value['tipovinculacion'] . "</td>
-                        <td>" . $value['activo'] . "</td>
-                        <td>" . $value['tipodocumento'] . "</td>
-                        <td>" . $value['fechainicio'] . "</td>
-                        <td>" . $value['fechafin'] . "</td>
-                        <td>" . $value['nombre'] . "</td>
-                        <td>" . $value['documento'] . "</td>
-                        <td>" . $value['telef'] . "</td>
-                        <td>" . $value['email'] . "</td>
-                </tr>
-            ";
+
+        $contadorDocumentos = 0;
+        $NDocumentos = count(ControladorVehiculos::ctrTiposDocumentacion());
+        for ($i = 0; $i < count($Respuesta); $i++) {
+            # Badge que indica si el documento está vencido o activo
+            if ($Respuesta[$i]['fechafin'] > date("Y-m-d")) {
+                $badgecolor = "success";
+            } else {
+                if ($Respuesta[$i]['fechafin'] == date("Y-m-d")) {
+                    $badgecolor = "warning";
+                } else {
+                    $badgecolor = "danger";
+                }
+            }
+            $fechavencimiento = "<span class='badge badge-{$badgecolor}'>{$Respuesta[$i]['fechafin']}</span>";
+            $tipodocumento = "<span class='badge badge-{$badgecolor} text-uppercase'>{$Respuesta[$i]['tipodocumento']}</span>";
+
+            # Si es igual al siguiente
+            if ($i < count($Respuesta) - 1 && $Respuesta[$i]['placa'] == $Respuesta[$i + 1]['placa']) {
+
+                # Igual al anterior e igual al siguiente
+                if ($i > 0 && $Respuesta[$i]['placa'] == $Respuesta[$i - 1]['placa']) {
+                    $tr .= "
+                            <td>" . $tipodocumento . "</td>
+                            <td>" . $Respuesta[$i]['fechainicio'] . "</td>
+                            <td>" . $fechavencimiento . "</td>";
+
+                    $contadorDocumentos++;
+                }
+                # Diferente al anterior e igual al siguiente
+                else {
+                    $tr .= "
+                            <tr>
+                                    <td>" . $Respuesta[$i]['placa'] . "</td>
+                                    <td>" . $Respuesta[$i]['numinterno'] . "</td>
+                                    <td>" . $Respuesta[$i]['sucursal'] . "</td>
+                                    <td>" . $Respuesta[$i]['tipovinculacion'] . "</td>
+                                    <td>" . $Respuesta[$i]['activo'] . "</td>
+                                    <td>" . $tipodocumento . "</td>
+                                    <td>" . $Respuesta[$i]['fechainicio'] . "</td>
+                                    <td>" . $fechavencimiento . "</td>";
+                    $contadorDocumentos++;
+                }
+            }
+
+            # Diferente al siguiente
+            else {
+                # Igual al anterior y diferente al siguiente
+                if ($i > 0 && $Respuesta[$i]['placa'] == $Respuesta[$i - 1]['placa']) {
+                    $tr .= "
+                                <td>" . $tipodocumento . "</td>
+                                <td>" . $Respuesta[$i]['fechainicio'] . "</td>
+                                <td>" . $fechavencimiento . "</td>";
+                    for ($j = $contadorDocumentos; $j < $NDocumentos - 1; $j++) {
+                        $tr .= "
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>";
+                    }
+
+                    $tr .= "
+                                <td>" . $Respuesta[$i]['nombre'] . "</td>
+                                <td>" . $Respuesta[$i]['documento'] . "</td>
+                                <td>" . $Respuesta[$i]['telef'] . "</td>
+                                <td>" . $Respuesta[$i]['email'] . "</td>
+                        </tr>";
+
+                    $contadorDocumentos = 0;
+                }
+                # Diferente al anterior y diferente al siguiente
+                else {
+                    $tr .= "
+                            <tr>
+                                    <td>" . $Respuesta[$i]['placa'] . "</td>
+                                    <td>" . $Respuesta[$i]['numinterno'] . "</td>
+                                    <td>" . $Respuesta[$i]['sucursal'] . "</td>
+                                    <td>" . $Respuesta[$i]['tipovinculacion'] . "</td>
+                                    <td>" . $Respuesta[$i]['activo'] . "</td>
+                                    <td>" . $tipodocumento . "</td>
+                                    <td>" . $Respuesta[$i]['fechainicio'] . "</td>
+                                    <td>" . $fechavencimiento . "</td>";
+
+                    for ($j = $contadorDocumentos; $j < $NDocumentos - 1; $j++) {
+                        $tr .= "
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>";
+                    }
+
+                    $tr .= "
+                                    <td>" . $Respuesta[$i]['nombre'] . "</td>
+                                    <td>" . $Respuesta[$i]['documento'] . "</td>
+                                    <td>" . $Respuesta[$i]['telef'] . "</td>
+                                    <td>" . $Respuesta[$i]['email'] . "</td>
+                            </tr>
+                        ";
+
+                    $contadorDocumentos = 0;
+                }
+            }
+
+
+
+            // if ($i > 0 && $Respuesta[$i]['placa'] == $Respuesta[$i - 1]['placa']){
+            // }else{
+            //     if ($i == 0){
+            //     }
+            //     else{
+            //         if ($i < count($Respuesta) - 1){
+            //             $tr .= "
+            //                 <tr>
+            //                         <td>" . $Respuesta[$i]['placa'] . "</td>
+            //                         <td>" . $Respuesta[$i]['numinterno'] . "</td>
+            //                         <td>" . $Respuesta[$i]['sucursal'] . "</td>
+            //                         <td>" . $Respuesta[$i]['tipovinculacion'] . "</td>
+            //                         <td>" . $Respuesta[$i]['activo'] . "</td>";
+            //         }
+            //     }
+            // }
+
+            //     $tr .= "
+            //     <tr>
+            //             <td>" . $Respuesta[$i]['placa'] . "</td>
+            //             <td>" . $Respuesta[$i]['numinterno'] . "</td>
+            //             <td>" . $Respuesta[$i]['sucursal'] . "</td>
+            //             <td>" . $Respuesta[$i]['tipovinculacion'] . "</td>
+            //             <td>" . $Respuesta[$i]['activo'] . "</td>
+            //             <td>" . $Respuesta[$i]['tipodocumento'] . "</td>
+            //             <td>" . $Respuesta[$i]['fechainicio'] . "</td>
+            //             <td>" . $Respuesta[$i]['fechafin'] . "</td>
+            //             <td>" . $Respuesta[$i]['nombre'] . "</td>
+            //             <td>" . $Respuesta[$i]['documento'] . "</td>
+            //             <td>" . $Respuesta[$i]['telef'] . "</td>
+            //             <td>" . $Respuesta[$i]['email'] . "</td>
+            //     </tr>
+            // ";
         }
+        // foreach ($Respuesta as $key => $value) {
+
+
+
+        //     $tr .= "
+        //         <tr>
+        //                 <td>" . $value['placa'] . "</td>
+        //                 <td>" . $value['numinterno'] . "</td>
+        //                 <td>" . $value['sucursal'] . "</td>
+        //                 <td>" . $value['tipovinculacion'] . "</td>
+        //                 <td>" . $value['activo'] . "</td>
+        //                 <td>" . $value['tipodocumento'] . "</td>
+        //                 <td>" . $value['fechainicio'] . "</td>
+        //                 <td>" . $value['fechafin'] . "</td>
+        //                 <td>" . $value['nombre'] . "</td>
+        //                 <td>" . $value['documento'] . "</td>
+        //                 <td>" . $value['telef'] . "</td>
+        //                 <td>" . $value['email'] . "</td>
+        //         </tr>
+        //     ";
+        // }
 
         echo $tr;
     }
@@ -466,7 +601,7 @@ if (isset($_POST['ajaxHistorialV']) && $_POST['ajaxHistorialV'] == "ok") {
     AjaxBloqueoVehiculo::ajaxHistorialV($_POST['idvehiculo']);
 }
 
-    
+
 
 
 # LLAMADOS A AJAX VEHICULOS
@@ -519,6 +654,6 @@ if (isset($_POST['EliminarDocumentoVehiculo']) && $_POST['EliminarDocumentoVehic
 
 
 # LLAMADO AL REPORTE COMPLETO DOCUMENTOS VEHICULOS
-if (isset($_POST['ReporteDocumentos']) && $_POST['ReporteDocumentos'] == "ok") {
+if (isset($_REQUEST['ReporteDocumentos']) && $_REQUEST['ReporteDocumentos'] == "ok") {
     AjaxVehiculos::ajaxReporteDocumentos();
 }

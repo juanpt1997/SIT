@@ -1209,12 +1209,10 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                     /* ===================================================
                       FILTRAR POR COLUMNA
                     ===================================================*/
-                    /* Filtrar por columna */
-                    //Clonar el tr del thead
-                    // $(`#tbl${nombreTabla} thead tr`).clone(true).appendTo(`#tbl${nombreTabla} thead`);
+                    // /* Filtrar por columna */
+                    // //Clonar el tr del thead
                     // $(`#tbl${nombreTabla} thead tr`).clone(true).appendTo(`#tbl${nombreTabla} thead`);
                     // //Por cada th creado hacer lo siguiente
-                    // //console.log($(`#tbl${nombreTabla} thead tr:eq(1) th`));
                     // $(`#tbl${nombreTabla} thead tr:eq(1) th`).each(function (i) {
                     //     console.log("y luego aca");
                     //     //Remover clase sorting y el evento que tiene cuando se hace click

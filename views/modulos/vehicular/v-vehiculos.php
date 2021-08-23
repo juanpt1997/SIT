@@ -165,9 +165,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <td>sucursal</td>
                                         <td>tipo vinculación</td>
                                         <td>activo</td>
-                                        <td>tipo documento</td>
+                                        <?php foreach ($tiposDocumentacion as $key => $value) : ?>
+                                            <td>tipo documento</td>
+                                            <td>fecha desde</td>
+                                            <td>fecha hasta</td>
+                                        <?php endforeach ?>
+                                        <!-- <td>tipo documento</td>
                                         <td>fecha desde</td>
-                                        <td>fecha hasta</td>
+                                        <td>fecha hasta</td> -->
                                         <td>nombre</td>
                                         <td>documento</td>
                                         <td>teléfono</td>
