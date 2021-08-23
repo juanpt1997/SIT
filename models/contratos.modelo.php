@@ -454,10 +454,10 @@ class ModeloOrdenServicio
 
       $stmt = Conexion::conectar()->prepare("SELECT C.*, O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, CL.nombre, CL.Documento, CL.direccion, CL.telefono, CL.telefono2, CL.nombrerespons, CL.Documentorespons, CL.cedula_expedidaen, cr.municipio AS ciudadrespons, exped.municipio AS ciudad_cedula_expedidaen
                                              FROM cont_ordenservicio O
-                                             INNER JOIN cont_cotizaciones C ON O.idcotizacion = C.idcotizacion
-                                             INNER JOIN cont_clientes CL ON CL.idcliente = C.idcliente
-                                             INNER JOIN gh_municipios cr ON cr.idmunicipio = CL.idciudadrespons
-                                             INNER JOIN gh_municipios exped ON exped.idmunicipio = CL.cedula_expedidaen
+                                             LEFT JOIN cont_cotizaciones C ON O.idcotizacion = C.idcotizacion
+                                             LEFT JOIN cont_clientes CL ON CL.idcliente = C.idcliente
+                                             LEFT JOIN gh_municipios cr ON cr.idmunicipio = CL.idciudadrespons
+                                             LEFT JOIN gh_municipios exped ON exped.idmunicipio = CL.cedula_expedidaen
                                              WHERE O.idorden = :idorden");
 
       $stmt->bindParam(":idorden",  $valor, PDO::PARAM_INT);
@@ -470,8 +470,8 @@ class ModeloOrdenServicio
    static public function mdlVerListaOrden()
    {
       $stmt = Conexion::conectar()->prepare("SELECT C.*, O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, CL.nombre AS nomContrata, CL.Documento AS doContrata, CL.direccion, CL.telefono, CL.telefono2, CL.nombrerespons  FROM cont_ordenservicio O
-                                             INNER JOIN cont_cotizaciones C ON O.idcotizacion = C.idcotizacion
-                                             INNER JOIN cont_clientes CL ON CL.idcliente = C.idcliente");
+                                             LEFT JOIN cont_cotizaciones C ON O.idcotizacion = C.idcotizacion
+                                             LEFT JOIN cont_clientes CL ON CL.idcliente = C.idcliente");
 
       $stmt->execute();
       $retorno =  $stmt->fetchAll();

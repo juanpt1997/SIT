@@ -4,9 +4,9 @@
 include '../config/config.php';
 
 # Si no existe una sesion se redireciona directamente al inicio
-// if (!isset($_SESSION["iniciarSesion"])) {
-//     header("Location: " . URL_APP);
-// }
+if (!isset($_SESSION["iniciarSesion"])) {
+    header("Location: " . URL_APP);
+}
 
 # SE VALIDA DE QUE EL ID SEA DE TIPO INT 
 if (isset($_REQUEST['idorden']) && preg_match('/^[0-9]+$/', $_REQUEST['idorden'])) {
@@ -24,11 +24,11 @@ require '../vendor/autoload.php';
 # REQUERIMOS EL CONTROLADOR Y EL MODELO PARA HACER USO DE LA INFORMACIÓN
 require '../controllers/contratos.controlador.php';
 require '../models/contratos.modelo.php';
+require '../models/conceptos.modelo.php';
 
 
-//$resultado = ControladorVehiculos::ctrDatosVehiculo("idvehiculo", $idvehiculo);
+$resultado = ModeloOrdenServicio::mdlVerOrden($idorden);
 $empresa = ModeloConceptosGH::mdlVerEmpresa();
-$resultado = true;
 
 /* ===================== 
   SI LA INFORMACIÓN VIENE FALSA SE REDIRECCIONA A LAS ORDERS
@@ -229,21 +229,21 @@ class OrdenServicioPDF
             </tr>
             <tr>
                 <td colspan="3" style="text-align: center"><b><i>Nombre contratante</i></b></td>
-                <td colspan="4">Pancho de Jesus Ojaldia</td>
+                <td colspan="4">' . $info['nombre'] . '</td>
                 <td colspan="3"  style="text-align: center"><b><i>NIT / CC</i></b></td>
-                <td colspan="4">10999028283</td>
+                <td colspan="4">' . $info['Documento'] . '</td>
             </tr>
             <tr>
                 <td colspan="3" style="text-align: center"><b><i>Dirección</i></b></td>
-                <td colspan="4">Calle 56 el holguin de por alla</td>
+                <td colspan="4">' . $info['direccion'] . '</td>
                 <td colspan="3" style="text-align: center"><b><i>Teléfono</i></b></td>
-                <td colspan="4">3218063563</td>
+                <td colspan="4">' . $info['telefono'] . '</td>
             </tr>
             <tr>
                 <td colspan="3" style="text-align: center"><b><i>Nombre contacto</i></b></td>
-                <td colspan="4">Mateo Sarna Silva Pollas</td>
+                <td colspan="4">' . $info['nombrerespons'] . '</td>
                 <td colspan="3" style="text-align: center"><b><i>Teléfono 2</i></b></td>
-                <td colspan="4">378556554</td>
+                <td colspan="4">' . $info['telefono2'] . '</td>
             </tr>
             <tr>
                 <td colspan="14" style="text-align: center"><b>DATOS DEL SERVICIO</b></td>
@@ -258,21 +258,21 @@ class OrdenServicioPDF
                 <td colspan="2" style="text-align: center"><b><i>Valor a facturar</i></b></td>
             </tr>
             <tr>
+                <td colspan="2">' . $info['idorden'] . '</td>
                 <td colspan="2"></td>
-                <td colspan="2"></td>
-                <td colspan="2"></td>
-                <td colspan="2"></td>
-                <td colspan="2"></td>
-                <td colspan="2"></td>
-                <td colspan="2"></td>
+                <td colspan="2">' . $info['fecha_inicio'] . '</td>
+                <td colspan="2">' . $info['fecha_fin'] . '</td>
+                <td colspan="2">' . $info['hora_salida'] . '</td>
+                <td colspan="2">' . $info['hora_recogida'] . '</td>
+                <td colspan="2">' . $info['valortotal'] . '</td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: center"><b><i>Origen:</i></b></td>
-                <td colspan="2" style="text-align: center"></td>
+                <td colspan="2" style="text-align: center">' . $info['origen'] . '</td>
                 <td colspan="2" style="text-align: center"><b><i>Destino:</i></b></td>
-                <td colspan="2" style="text-align: center"></td>
+                <td colspan="2" style="text-align: center">' . $info['destino'] . '</td>
                 <td colspan="2" style="text-align: center"><b><i>Ruta:</i></b></td>
-                <td colspan="4" style="text-align: center"></td>
+                <td colspan="4" style="text-align: center">' . $info['descripcion'] . '</td>
             </tr>
             <tr>
                 <td colspan="14" style="text-align: center"><b>REQUISITOS DEL CLIENTE</b></td>
@@ -287,24 +287,24 @@ class OrdenServicioPDF
                 <td colspan="2"><b><i>Otro</i></b></td>
             </tr>
             <tr>
-                <td colspan="2"></td>
-                <td colspan="2"></td>
-                <td colspan="2"></td>
-                <td colspan="2"></td>
-                <td colspan="2"></td>
-                <td colspan="2"></td>
-                <td colspan="2"></td>
+                <td colspan="2">' . $info['bano'] . '</td>
+                <td colspan="2">' . $info['musica'] . '</td>
+                <td colspan="2">' . $info['aire'] . '</td>
+                <td colspan="2">' . $info['wifi'] . '</td>
+                <td colspan="2">' . $info['silleriareclinable'] . '</td>
+                <td colspan="2">' . $info['bodega'] . '</td>
+                <td colspan="2">' . $info['otro'] . '</td>
             </tr>
             <tr>
                 <td colspan="14" style="text-align: center"><b>OBSERVACIONES DE FACTURACIÓN</b></td>
             </tr>
             <tr>
                 <td colspan="3" style="text-align: center"><b>Num. Factura</b></td>
-                <td colspan="3"></td>
+                <td colspan="3">' . $info['nro_factura'] . '</td>
                 <td colspan="2" style="text-align: center"><b>Fecha de facturación</b></td>
-                <td colspan="2"></td>
+                <td colspan="2">' . $info['fecha_facturacion'] . '</td>
                 <td colspan="2" style="text-align: center"><b>CANCELADA</b></td>
-                <td colspan="2"></td>
+                <td colspan="2">' . $info['cancelada'] . '</td>
             </tr>
             <tr>
                 <td colspan="14" style="text-align: center"><b>INFORMACIÓN DE LOS VEHÍCULOS</b></td>
