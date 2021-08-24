@@ -151,6 +151,11 @@
                 ) {
                     include "modulos/contratos/{$ruta}.php";
                 }
+                else if ( # Mantenimiento
+                    $ruta == "m-proveedores"
+                ) {
+                    include "modulos/mantenimiento/{$ruta}.php";
+                }
                  else { # Página no válida
                     include "includes/error404.php";
                 }
