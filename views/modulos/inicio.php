@@ -153,8 +153,8 @@
                     ** Mantenimiento
                 =================================================== -->
                 <?php if (validarModulo('M_OPCIONES')) : ?>
-                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-                        <a href="#">
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-none">
+                        <a href="#" class="d-none">
                             <div class="info-box border border-danger">
                                 <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-cogs"></i></span>
                                 <div class="info-box-content">
@@ -164,6 +164,22 @@
                             </div>
                             <!-- /.info-box -->
                         </a>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="dropdown" style="cursor: pointer;">
+                            <div class="info-box border border-danger" id="dropdownMenuMantenimiento" data-toggle="dropdown">
+                                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-cogs"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Mantenimiento</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuMantenimiento">
+                                <a class="dropdown-item font-weight-bold" href="m-proveedores"><u>Proveedores</u></a>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.col -->
                 <?php endif ?>
