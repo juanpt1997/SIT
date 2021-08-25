@@ -278,4 +278,126 @@ class ControladorUsuarios
 
 		// return $actualizarPassword;
 	}
+
+	/* ===================== 
+	  SOLICITAR CAMBIO DE CONTRASEÑA  DESDE EL FORMULARIO ("olvidé mi contraseña")
+	========================= */
+	public function ctrFrmRestablecerPassword()
+	{
+
+		if (isset($_POST['ingCambiarPassowrd'])) {
+
+			# SE PERMITE INGRESAR CARACTERES NUMERICOS
+			if (preg_match('/^[0-9]+$/', $_POST["ingCambiarPassowrd"])) {
+
+				# Valido si el usuario existe para cambiar la contraseña
+				$valor = $_POST["ingCambiarPassowrd"];
+
+				$usuario = ModeloUsuarios::mdlMostrarUsuarios($valor);
+
+				if ($usuario !== false && $usuario['Cedula'] != '') {
+
+					/* GENERAR EL CODIGO ALETORIO */
+					/*  http://www.elcodigofuente.com/usando-rand-crear-cadena-aleatoria-806/ */
+					$caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"; //posibles caracteres a usar
+					$numerodeletras = 6; //numero de letras para generar el texto
+					$cadena = ""; //variable para almacenar la cadena generada
+					for ($i = 0; $i < $numerodeletras; $i++) {
+						$cadena .= substr($caracteres, rand(0, strlen($caracteres)), 1); /*Extraemos 1 caracter de los caracteres entre el rango 0 a Numero de letras que tiene la cadena */
+					}
+
+					# Se encripta la cadena para luego actualizar el campo del usuario
+					$encriptar = crypt($cadena, '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+
+					# Actualizo la contraseña con el codigo generado 
+					$tabla = "l_usuarios";
+					$item1 = "Password";
+					$valor1 = $encriptar;
+					$item2 = "Cedula";
+					$valor2 = $usuario['Cedula'];
+					# Actualizo la contraseña
+					$actualizarPassword = ModeloUsuarios::mdlActualizarUsuario($tabla, $item1, $valor1, $item2, $valor2);
+
+					if ($actualizarPassword == "ok") {
+
+
+						$correoOculto = substr_replace($usuario['Email'], "********", 0, 8);
+
+						$to = $usuario['Email'];
+						$subject = "Restauración de contraseña";
+						$message = "<html>
+                                    <body>
+                                    <p>
+									Su contraseña ha sido restaurada.<br><br>
+                                    USUARIO: Su número de identificación, CONTRASEÑA: $cadena<br>
+                                    <a href='" . URL_APP . "'>Enlace para ir al sitio web.</a><br>
+                                    Gracias,<br>
+                                    Equipo de Tecnolab</p><br>
+                                    </body>
+                                    </html>";
+						ControladorCorreo::ctrEnviarCorreo($to, $subject, $message);
+
+						//IMPRIMO MENSAJE DE EXITO
+						echo "
+							<script>
+								Swal.fire({
+									icon: 'success',
+									title: 'Ingrese con la constraseña que se envió a este correo {$correoOculto}',
+									footer: 'Si no reconoce el correo electrónico o el mensaje no llega después de unos minutos, comuníquese con soporte.',						
+									showConfirmButton: true,
+									confirmButtonText: 'Cerrar',
+									
+								}).then((result)=>{
+
+									if(result.value){
+										window.location = 'inicio';
+									}
+
+								})
+							</script>
+						";
+					} else {
+						echo "
+							<script>
+								Swal.fire({
+									icon: 'error',
+									title: '¡Error!',						
+									footer: 'Por favor intente de nuevo más tarde o comuníquese con soporte',
+									showConfirmButton: true,
+									confirmButtonText: 'Cerrar',
+									closeOnConfirm: false
+									
+								}).then((result)=>{
+
+									if(result.value){
+										window.location = 'inicio';
+									}
+
+								})
+							</script>
+						";
+					}
+				} else {
+					echo "
+						<script>
+							Swal.fire({
+								icon: 'error',
+								title: '¡El usuario no existe por favor verfique su identificación!',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								closeOnConfirm: false
+								
+							}).then((result)=>{
+
+								if(result.value){
+									window.location = 'inicio';
+								}
+
+							})
+						</script>
+					";
+				}
+			}
+		}
+	}
 }

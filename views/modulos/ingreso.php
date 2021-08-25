@@ -100,8 +100,8 @@
 
                                 <?php
                                 # Ejecutamos el controlador para que realice la accion
-                                // $restaurarPassword = new ControladorUsuarios();
-                                // $restaurarPassword->ctrFrmRestablecerPassword();
+                                $restaurarPassword = new ControladorUsuarios();
+                                $restaurarPassword->ctrFrmRestablecerPassword();
                                 ?>
 
                             </form>
