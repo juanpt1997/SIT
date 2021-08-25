@@ -514,17 +514,51 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                             /* ===================================================
                               ? PREVISUALIZAR FOTOS VEHICULO Y TARJETA DE PROPIEDAD
                             ===================================================*/
+                            $("#foto_vehiculo").val(""); // Fotos del vehiculo
+                            $("#foto_tarjetapropiedad").val(""); // Tarjeta de propiedad
+
+                            // Fotos del vehiculo
+                            $("#colPrevisualizacion_fotos").find(".carousel-indicators").html(""); // RESET DE LAS FOTOS DEL VEHICULO
+                            $("#colPrevisualizacion_fotos").find(".carousel-inner").html(""); // RESET DE LAS FOTOS DEL VEHICULO
+
+                            // AJAX PARA CARGAR LAS FOTOS AL USUARIO    
+                            var datos = new FormData();
+                            datos.append('DatosVehiculo', "ok");
+                            datos.append('item', 'idvehiculo');
+                            datos.append('valor', $("#idvehiculo").val());
+                            $.ajax({
+                                type: 'post',
+                                url: `${urlPagina}ajax/vehicular.ajax.php`,
+                                data: datos,
+                                dataType: 'JSON',
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                success: function (Vehiculo) {
+                                    // Tarjeta de propiedad
+                                    if (Vehiculo.datosVehiculo.ruta_tarjetapropiedad != null) {
+                                        $("#imagenPrevisualizacion_TarjetaPro").attr("href", Vehiculo.datosVehiculo.ruta_tarjetapropiedad).find("img").attr("src", Vehiculo.datosVehiculo.ruta_tarjetapropiedad);
+                                    }
+
+                                    // Fotos del vehiculo
+                                    FuncionCargarFotosVehiculo(Vehiculo.fotosVehiculo);
+                                }
+                            });
+
+
+
                             // Tarjeta de propiedad
                             if ($("#foto_tarjetapropiedad").val() != "") {
-                                var datosImagen = new FileReader();
-                                datosImagen.readAsDataURL(tarjetapropiedad[0]);
+                                // var datosImagen = new FileReader();
+                                // datosImagen.readAsDataURL(tarjetapropiedad[0]);
 
-                                $(datosImagen).on("load", function (event) {
-                                    var rutaImagen = event.target.result;
-                                    $("#imagenPrevisualizacion_TarjetaPro").attr("href", rutaImagen).find("img").attr("src", rutaImagen);
-                                });
+                                // $(datosImagen).on("load", function (event) {
+                                //     var rutaImagen = event.target.result;
+                                //     //$("#imagenPrevisualizacion_TarjetaPro").attr("href", rutaImagen).find("img").attr("src", rutaImagen);
+                                //     $("#imagenPrevisualizacion_TarjetaPro").find("img").attr("src", rutaImagen);
+                                // });
 
-                                $("#foto_tarjetapropiedad").val("");
+                                // $("#foto_tarjetapropiedad").val("");
                             }
 
                             // Fotos del vehiculo
@@ -549,28 +583,6 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                                 //                                                                     </div>`);
                                 //     numFotosVehiculo++;
                                 // });
-
-                                $("#foto_vehiculo").val("");
-
-                                $("#colPrevisualizacion_fotos").find(".carousel-indicators").html(""); // RESET DE LAS FOTOS DEL VEHICULO
-                                $("#colPrevisualizacion_fotos").find(".carousel-inner").html(""); // RESET DE LAS FOTOS DEL VEHICULO
-
-                                var datos = new FormData();
-                                datos.append('DatosVehiculo', "ok");
-                                datos.append('item', 'idvehiculo');
-                                datos.append('valor', $("#idvehiculo").val());
-                                $.ajax({
-                                    type: 'post',
-                                    url: `${urlPagina}ajax/vehicular.ajax.php`,
-                                    data: datos,
-                                    dataType: 'JSON',
-                                    cache: false,
-                                    contentType: false,
-                                    processData: false,
-                                    success: function (Vehiculo) {
-                                        FuncionCargarFotosVehiculo(Vehiculo.fotosVehiculo);
-                                    }
-                                });
                             }
 
                             break;
