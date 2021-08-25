@@ -953,6 +953,167 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
         }
 
         /* ===================================================
+          EDITAR REGISTRO
+        ===================================================*/
+        $(document).on("click", ".btn-editarRegistro", function () {
+            var idregistro = $(this).attr("idregistro");
+            var tabla = $(this).attr("tabla");
+            var nombre = $(this).attr("nombre");
+            var idvehiculo = $(this).attr("idvehiculo");
+
+            var datos = new FormData();
+            datos.append('VerDetalleVehiculo', "ok");
+            datos.append('tabla', tabla);
+            datos.append('idregistro', idregistro);
+            $.ajax({
+                type: 'post',
+                url: `${urlPagina}ajax/vehicular.ajax.php`,
+                data: datos,
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log(response);
+                    if (response != "") {
+                        switch (tabla) {
+                            case 'v_re_propietariosvehiculos':
+                                Swal.fire({
+                                    title: `${nombre}`,
+                                    html:
+                                        `
+                                        <hr>
+                                        <label for="">Porcentaje participación</label>
+                                        <input class="form-control" id="swal-propietario-part" type="number" value="${response.participacion}">
+                                        <label for="">Observaciones</label>
+                                        <input class="form-control" id="swal-propietario-obs" type="text" value="${response.observacion}">
+                                        `
+                                    ,
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#5cb85c',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Continuar!',
+                                    cancelButtonText: 'Cancelar'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        var observacion = $("#swal-propietario-obs").val();
+                                        var participacion = $("#swal-propietario-part").val();
+                                        var datos = new FormData();
+                                        datos.append('EditarDetalleVehiculo', "ok");
+                                        datos.append('tabla', tabla);
+                                        datos.append('idregistro', idregistro);
+                                        datos.append('observacion', observacion);
+                                        datos.append('participacion', participacion);
+
+                                        $.ajax({
+                                            type: 'post',
+                                            url: `${urlPagina}ajax/vehicular.ajax.php`,
+                                            data: datos,
+                                            //dataType: 'dataType',
+                                            cache: false,
+                                            contentType: false,
+                                            processData: false,
+                                            success: function (response) {
+                                                if (response == "ok") {
+                                                    // Cargar de nuevo la tabla correspondiente
+                                                    AjaxTablaDinamica(idvehiculo, "Propietarios");
+                                                    Swal.fire({
+                                                        icon: 'success',
+                                                        timer: 1500,
+                                                        showConfirmButton: false
+                                                    })
+                                                }
+                                                else {
+                                                    Swal.fire({
+                                                        icon: 'error',
+                                                        title: '¡Ha ocurrido un error, por favor intente de nuevo más tarde!',
+                                                        showConfirmButton: true,
+                                                        confirmButtonText: 'Cerrar',
+                                                    }).then((result) => {
+                                                        if (result.dismiss) {
+                                                            window.location = 'v-vehiculos';
+                                                        }
+                                                    })
+                                                }
+                                            }
+                                        });
+                                    }
+                                })
+                                break;
+
+                            case 'v_re_conductoresvehiculos':
+                                Swal.fire({
+                                    title: `${nombre}`,
+                                    html:
+                                        `
+                                        <hr>
+                                        <label for="">Observaciones</label>
+                                        <input class="form-control" id="swal-conductor-obs" type="text" value="${response.observacion}">
+                                        `
+                                    ,
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#5cb85c',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Continuar!',
+                                    cancelButtonText: 'Cancelar'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        var observacion = $("#swal-conductor-obs").val();
+                                        var datos = new FormData();
+                                        datos.append('EditarDetalleVehiculo', "ok");
+                                        datos.append('tabla', tabla);
+                                        datos.append('idregistro', idregistro);
+                                        datos.append('observacion', observacion);
+
+                                        $.ajax({
+                                            type: 'post',
+                                            url: `${urlPagina}ajax/vehicular.ajax.php`,
+                                            data: datos,
+                                            //dataType: 'dataType',
+                                            cache: false,
+                                            contentType: false,
+                                            processData: false,
+                                            success: function (response) {
+                                                if (response == "ok") {
+                                                    // Cargar de nuevo la tabla correspondiente
+                                                    AjaxTablaDinamica(idvehiculo, "Conductores");
+                                                    Swal.fire({
+                                                        icon: 'success',
+                                                        timer: 1500,
+                                                        showConfirmButton: false
+                                                    })
+                                                }
+                                                else {
+                                                    Swal.fire({
+                                                        icon: 'error',
+                                                        title: '¡Ha ocurrido un error, por favor intente de nuevo más tarde!',
+                                                        showConfirmButton: true,
+                                                        confirmButtonText: 'Cerrar',
+                                                    }).then((result) => {
+                                                        if (result.dismiss) {
+                                                            window.location = 'v-vehiculos';
+                                                        }
+                                                    })
+                                                }
+                                            }
+                                        });
+                                    }
+                                })
+                                break;
+
+                            default:
+                                Swal.fire({
+                                    icon: 'error',
+                                    showConfirmButton: false,
+                                })
+                                break;
+                        }
+                    }
+                }
+            });
+        });
+
+        /* ===================================================
             ELIMINAR REGISTRO
         ===================================================*/
         $(document).on("click", ".eliminarRegistro", function () {

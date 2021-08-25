@@ -403,6 +403,14 @@ class ControladorVehiculos
 	}
 
 	/* ===================================================
+	   VER DATOS DE UN REGISTRO EN ESPECIFICIO DE PROPIETARIOS O CONDUCTORES
+	===================================================*/
+	static public function ctrVerDetalleVehiculo($datos)
+	{
+		return ModeloVehiculos::mdlVerDetalleVehiculo($datos);
+	}
+
+	/* ===================================================
 	   CONDUCTORES
 	===================================================*/
 	static public function ctrListaConductores()
@@ -419,11 +427,20 @@ class ControladorVehiculos
 	}
 
 	/* ===================================================
-       GUARDAR OTROS DETALLES DE UN VEHICULO COMO EL PROPIETARIO, CONDUCTOR O DOCUMENTOS
+       GUARDAR(agregar) OTROS DETALLES DE UN VEHICULO COMO EL PROPIETARIO, CONDUCTOR O DOCUMENTOS
     ===================================================*/
 	static public function ctrGuardarDetallesVehiculo($datos)
 	{
 		$guardarDatos = ModeloVehiculos::mdlGuardarDetallesVehiculo($datos);
+		return $guardarDatos;
+	}
+
+	/* ===================================================
+       EDITAR OTROS DETALLES DE UN VEHICULO COMO EL PROPIETARIO O CONDUCTOR
+    ===================================================*/
+	static public function ctrEditarDetalleVehiculo($datos)
+	{
+		$guardarDatos = ModeloVehiculos::mdlEditarDetalleVehiculo($datos);
 		return $guardarDatos;
 	}
 

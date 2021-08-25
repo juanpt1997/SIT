@@ -807,7 +807,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <div class="col-12 col-md-8 col-lg-4">
                                                     <div class="form-group">
                                                         <label for="exampleInput1">Observaciones</label>
-                                                        <textarea class="form-control" name="observacion" rows="1" style="min-height:70px" required></textarea>
+                                                        <textarea class="form-control" name="observacion" rows="1" style="min-height:70px"></textarea>
                                                     </div>
                                                 </div>
 
@@ -881,7 +881,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <div class="col-12 col-md-8 col-lg-6">
                                                     <div class="form-group">
                                                         <label for="exampleInput1">Observaciones</label>
-                                                        <textarea class="form-control" name="observacion" rows="1" style="min-height:70px" required></textarea>
+                                                        <textarea class="form-control" name="observacion" rows="1" style="min-height:70px"></textarea>
                                                     </div>
                                                 </div>
 
