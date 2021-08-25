@@ -16,6 +16,7 @@
    CONTROLADORES DEL PROYECTO QUE REQUERIMOS
 ===================================================*/
 require_once 'controllers/plantilla.controlador.php';
+require_once 'controllers/mail.controller.php';
 require_once 'controllers/usuarios.controlador.php';
 require_once 'controllers/gh.controlador.php';
 require_once 'controllers/files.controlador.php';
