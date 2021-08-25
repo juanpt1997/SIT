@@ -28,7 +28,7 @@ class ControladorUsuarios
 				$encriptar = crypt($_POST["ingreso_contrasenia"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 				//$encriptar = $_POST['ingreso_contrasenia'];
 
-				if ($respuesta["Cedula"] == $cedulaUsuario && $respuesta["Password"] == $encriptar) {
+				if ($respuesta !== false && $respuesta["Cedula"] == $cedulaUsuario && $respuesta["Password"] == $encriptar) {
 					#SI EL USUARIO ESTA ACTIVO EN EL SISTEMA
 					if ($respuesta['estado'] == 1) {
 						$_SESSION['iniciarSesion'] = "ok";
