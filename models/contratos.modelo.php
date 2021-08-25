@@ -355,8 +355,9 @@ class ModeloFijos
    static public function mdlAgregarFijo($datos)
    {
       //,documento_escaneado//,:documento_escaneado
-      $stmt = Conexion::conectar()->prepare("INSERT INTO cont_fijos(idcliente,numcontrato,fecha_inicial,fecha_final,observaciones)
-                                             VALUES(:idcliente,:numcontrato,:fecha_inicial,:fecha_final,:observaciones)");
+      $conexion = Conexion::conectar();
+      $stmt = $conexion->prepare("INSERT INTO cont_fijos(idcliente,numcontrato,fecha_inicial,fecha_final, observaciones)
+                                             VALUES(:idcliente,:numcontrato,:fecha_inicial,:fecha_final, :observaciones)");
 
       $stmt->bindParam(":idcliente", $datos["idcliente"], PDO::PARAM_INT);
       $stmt->bindParam(":numcontrato", $datos["numcontrato"], PDO::PARAM_INT);
@@ -366,7 +367,7 @@ class ModeloFijos
       $stmt->bindParam(":observaciones", $datos["observaciones"], PDO::PARAM_STR);
 
       if ($stmt->execute()) {
-         $retorno = "ok";
+         $retorno = $conexion->lastInsertId();
       } else {
          $retorno = "error";
       }
@@ -389,7 +390,8 @@ class ModeloFijos
       } else {
 
          $stmt = Conexion::conectar()->prepare("SELECT F.*, C.nombre as nombre_cliente  FROM cont_fijos F
-         INNER JOIN cont_clientes C ON F.idcliente = C.idcliente");
+         INNER JOIN cont_clientes C ON F.idcliente = C.idcliente
+         ORDER BY F.idfijos");
 
          $stmt->execute();
          $retorno =  $stmt->fetchAll();
@@ -401,7 +403,7 @@ class ModeloFijos
    static public function mdlEditarFijos($datos)
    {
       //documento_escaneado=:documento_escaneado
-      $stmt = Conexion::conectar()->prepare("UPDATE cont_fijos set idcliente = :idcliente, numcontrato=:numcontrato,fecha_inicial=:fecha_inicial,fecha_final=:fecha_final,observaciones=:observaciones
+      $stmt = Conexion::conectar()->prepare("UPDATE cont_fijos set idcliente = :idcliente, numcontrato=:numcontrato,fecha_inicial=:fecha_inicial,fecha_final=:fecha_final, documento_escaneado=:documento_escaneado, observaciones=:observaciones
 											            WHERE idfijos = :idfijos");
 
       $stmt->bindParam(":idfijos", $datos["idfijos"], PDO::PARAM_INT);
@@ -409,7 +411,7 @@ class ModeloFijos
       $stmt->bindParam(":numcontrato", $datos["numcontrato"], PDO::PARAM_INT);
       $stmt->bindParam(":fecha_inicial", $datos["fecha_inicial"], PDO::PARAM_STR);
       $stmt->bindParam(":fecha_final", $datos["fecha_final"], PDO::PARAM_STR);
-      //$stmt->bindParam(":documento_escaneado", $datos["documento_escaneado"], PDO::PARAM_STR);
+      $stmt->bindParam(":documento_escaneado", $datos["documento_escaneado"], PDO::PARAM_STR);
       $stmt->bindParam(":observaciones", $datos["observaciones"], PDO::PARAM_STR);
 
       if ($stmt->execute()) {

@@ -146,14 +146,15 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                         </div>
                     </div><!-- row-->
 
-                    <hr class="my-4 bg-dark d-none">
+                    <hr class="my-4 bg-dark">
 
-                    <div class="col-md-6 d-none">
+                    <div class="col-md-6">
                         <div class="form-group">
                             <label class="text-sm">Documento escaneado</label>
                             <div class="input-group input-group-sm">
-                                <input class="form-control-file input-fijos" type="file" id="documento_es" name="documento_es">
+                                <input class="form-control-file input-fijos" type="file" id="documento_es" name="documento_es" accept="image/png, image/jpeg, application/pdf">
                             </div>
+                            <a id="visualizDocumento" href="" target="_blank"></a>
                         </div>
                     </div>
 

@@ -218,7 +218,7 @@ if (
         $(document).on("change", "#listaclientes", function () {
             var id = $(this).val();
 
-            if (id != ""){
+            if (id != "") {
                 var datos = new FormData();
                 datos.append("DatosClientes", "ok");
                 datos.append("item", "idcliente");
@@ -265,6 +265,7 @@ if (
             var idcliente = $(this).attr("idcliente");
             $("#idconfijo").val(idfijos);
             $("#num_contrato").val(idfijos);
+            $("#visualizDocumento").text("");
 
             var datos = new FormData();
             datos.append("DatosFijos", "ok");
@@ -295,6 +296,13 @@ if (
                     $("#observaciones_fijos").val(response.observaciones);
                     //$("#documento_es").val(response.documento_escaneado);
                     $('.select2-single').trigger('change'); //MUESTRA EL VALOR DEL SELECT
+
+                    // Visualizacion contrato adjunto
+                    if (response.documento_escaneado != null) {
+                        let nombre = response.documento_escaneado.split("/");
+                        nombre = nombre[nombre.length - 1];
+                        $("#visualizDocumento").attr("href", urlPagina + response.documento_escaneado).text(nombre);
+                    }
                 },
             });
         });
@@ -302,6 +310,7 @@ if (
         var AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         $(document).on("click", ".btn-agregarfijo", function () {
             $("#titulo_fijos").html("Nuevo contrato fijo");
+            $("#visualizDocumento").text("");
             if (AbiertoxEditar) { // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
                 $(".input-fijos").val("");
             }
