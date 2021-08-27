@@ -514,17 +514,51 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                             /* ===================================================
                               ? PREVISUALIZAR FOTOS VEHICULO Y TARJETA DE PROPIEDAD
                             ===================================================*/
+                            $("#foto_vehiculo").val(""); // Fotos del vehiculo
+                            $("#foto_tarjetapropiedad").val(""); // Tarjeta de propiedad
+
+                            // Fotos del vehiculo
+                            $("#colPrevisualizacion_fotos").find(".carousel-indicators").html(""); // RESET DE LAS FOTOS DEL VEHICULO
+                            $("#colPrevisualizacion_fotos").find(".carousel-inner").html(""); // RESET DE LAS FOTOS DEL VEHICULO
+
+                            // AJAX PARA CARGAR LAS FOTOS AL USUARIO    
+                            var datos = new FormData();
+                            datos.append('DatosVehiculo', "ok");
+                            datos.append('item', 'idvehiculo');
+                            datos.append('valor', $("#idvehiculo").val());
+                            $.ajax({
+                                type: 'post',
+                                url: `${urlPagina}ajax/vehicular.ajax.php`,
+                                data: datos,
+                                dataType: 'JSON',
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                success: function (Vehiculo) {
+                                    // Tarjeta de propiedad
+                                    if (Vehiculo.datosVehiculo.ruta_tarjetapropiedad != null) {
+                                        $("#imagenPrevisualizacion_TarjetaPro").attr("href", Vehiculo.datosVehiculo.ruta_tarjetapropiedad).find("img").attr("src", Vehiculo.datosVehiculo.ruta_tarjetapropiedad);
+                                    }
+
+                                    // Fotos del vehiculo
+                                    FuncionCargarFotosVehiculo(Vehiculo.fotosVehiculo);
+                                }
+                            });
+
+
+
                             // Tarjeta de propiedad
                             if ($("#foto_tarjetapropiedad").val() != "") {
-                                var datosImagen = new FileReader();
-                                datosImagen.readAsDataURL(tarjetapropiedad[0]);
+                                // var datosImagen = new FileReader();
+                                // datosImagen.readAsDataURL(tarjetapropiedad[0]);
 
-                                $(datosImagen).on("load", function (event) {
-                                    var rutaImagen = event.target.result;
-                                    $("#imagenPrevisualizacion_TarjetaPro").attr("href", rutaImagen).find("img").attr("src", rutaImagen);
-                                });
+                                // $(datosImagen).on("load", function (event) {
+                                //     var rutaImagen = event.target.result;
+                                //     //$("#imagenPrevisualizacion_TarjetaPro").attr("href", rutaImagen).find("img").attr("src", rutaImagen);
+                                //     $("#imagenPrevisualizacion_TarjetaPro").find("img").attr("src", rutaImagen);
+                                // });
 
-                                $("#foto_tarjetapropiedad").val("");
+                                // $("#foto_tarjetapropiedad").val("");
                             }
 
                             // Fotos del vehiculo
@@ -549,28 +583,6 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                                 //                                                                     </div>`);
                                 //     numFotosVehiculo++;
                                 // });
-
-                                $("#foto_vehiculo").val("");
-
-                                $("#colPrevisualizacion_fotos").find(".carousel-indicators").html(""); // RESET DE LAS FOTOS DEL VEHICULO
-                                $("#colPrevisualizacion_fotos").find(".carousel-inner").html(""); // RESET DE LAS FOTOS DEL VEHICULO
-
-                                var datos = new FormData();
-                                datos.append('DatosVehiculo', "ok");
-                                datos.append('item', 'idvehiculo');
-                                datos.append('valor', $("#idvehiculo").val());
-                                $.ajax({
-                                    type: 'post',
-                                    url: `${urlPagina}ajax/vehicular.ajax.php`,
-                                    data: datos,
-                                    dataType: 'JSON',
-                                    cache: false,
-                                    contentType: false,
-                                    processData: false,
-                                    success: function (Vehiculo) {
-                                        FuncionCargarFotosVehiculo(Vehiculo.fotosVehiculo);
-                                    }
-                                });
                             }
 
                             break;
@@ -939,6 +951,167 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                 }
             });
         }
+
+        /* ===================================================
+          EDITAR REGISTRO
+        ===================================================*/
+        $(document).on("click", ".btn-editarRegistro", function () {
+            var idregistro = $(this).attr("idregistro");
+            var tabla = $(this).attr("tabla");
+            var nombre = $(this).attr("nombre");
+            var idvehiculo = $(this).attr("idvehiculo");
+
+            var datos = new FormData();
+            datos.append('VerDetalleVehiculo', "ok");
+            datos.append('tabla', tabla);
+            datos.append('idregistro', idregistro);
+            $.ajax({
+                type: 'post',
+                url: `${urlPagina}ajax/vehicular.ajax.php`,
+                data: datos,
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log(response);
+                    if (response != "") {
+                        switch (tabla) {
+                            case 'v_re_propietariosvehiculos':
+                                Swal.fire({
+                                    title: `${nombre}`,
+                                    html:
+                                        `
+                                        <hr>
+                                        <label for="">Porcentaje participación</label>
+                                        <input class="form-control" id="swal-propietario-part" type="number" value="${response.participacion}">
+                                        <label for="">Observaciones</label>
+                                        <input class="form-control" id="swal-propietario-obs" type="text" value="${response.observacion}">
+                                        `
+                                    ,
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#5cb85c',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Continuar!',
+                                    cancelButtonText: 'Cancelar'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        var observacion = $("#swal-propietario-obs").val();
+                                        var participacion = $("#swal-propietario-part").val();
+                                        var datos = new FormData();
+                                        datos.append('EditarDetalleVehiculo', "ok");
+                                        datos.append('tabla', tabla);
+                                        datos.append('idregistro', idregistro);
+                                        datos.append('observacion', observacion);
+                                        datos.append('participacion', participacion);
+
+                                        $.ajax({
+                                            type: 'post',
+                                            url: `${urlPagina}ajax/vehicular.ajax.php`,
+                                            data: datos,
+                                            //dataType: 'dataType',
+                                            cache: false,
+                                            contentType: false,
+                                            processData: false,
+                                            success: function (response) {
+                                                if (response == "ok") {
+                                                    // Cargar de nuevo la tabla correspondiente
+                                                    AjaxTablaDinamica(idvehiculo, "Propietarios");
+                                                    Swal.fire({
+                                                        icon: 'success',
+                                                        timer: 1500,
+                                                        showConfirmButton: false
+                                                    })
+                                                }
+                                                else {
+                                                    Swal.fire({
+                                                        icon: 'error',
+                                                        title: '¡Ha ocurrido un error, por favor intente de nuevo más tarde!',
+                                                        showConfirmButton: true,
+                                                        confirmButtonText: 'Cerrar',
+                                                    }).then((result) => {
+                                                        if (result.dismiss) {
+                                                            window.location = 'v-vehiculos';
+                                                        }
+                                                    })
+                                                }
+                                            }
+                                        });
+                                    }
+                                })
+                                break;
+
+                            case 'v_re_conductoresvehiculos':
+                                Swal.fire({
+                                    title: `${nombre}`,
+                                    html:
+                                        `
+                                        <hr>
+                                        <label for="">Observaciones</label>
+                                        <input class="form-control" id="swal-conductor-obs" type="text" value="${response.observacion}">
+                                        `
+                                    ,
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#5cb85c',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Continuar!',
+                                    cancelButtonText: 'Cancelar'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        var observacion = $("#swal-conductor-obs").val();
+                                        var datos = new FormData();
+                                        datos.append('EditarDetalleVehiculo', "ok");
+                                        datos.append('tabla', tabla);
+                                        datos.append('idregistro', idregistro);
+                                        datos.append('observacion', observacion);
+
+                                        $.ajax({
+                                            type: 'post',
+                                            url: `${urlPagina}ajax/vehicular.ajax.php`,
+                                            data: datos,
+                                            //dataType: 'dataType',
+                                            cache: false,
+                                            contentType: false,
+                                            processData: false,
+                                            success: function (response) {
+                                                if (response == "ok") {
+                                                    // Cargar de nuevo la tabla correspondiente
+                                                    AjaxTablaDinamica(idvehiculo, "Conductores");
+                                                    Swal.fire({
+                                                        icon: 'success',
+                                                        timer: 1500,
+                                                        showConfirmButton: false
+                                                    })
+                                                }
+                                                else {
+                                                    Swal.fire({
+                                                        icon: 'error',
+                                                        title: '¡Ha ocurrido un error, por favor intente de nuevo más tarde!',
+                                                        showConfirmButton: true,
+                                                        confirmButtonText: 'Cerrar',
+                                                    }).then((result) => {
+                                                        if (result.dismiss) {
+                                                            window.location = 'v-vehiculos';
+                                                        }
+                                                    })
+                                                }
+                                            }
+                                        });
+                                    }
+                                })
+                                break;
+
+                            default:
+                                Swal.fire({
+                                    icon: 'error',
+                                    showConfirmButton: false,
+                                })
+                                break;
+                        }
+                    }
+                }
+            });
+        });
 
         /* ===================================================
             ELIMINAR REGISTRO

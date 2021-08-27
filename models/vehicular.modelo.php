@@ -515,6 +515,25 @@ class ModeloVehiculos
     }
 
     /* ===================================================
+       VER DATOS DE UN REGISTRO EN ESPECIFICIO DE PROPIETARIOS O CONDUCTORES
+    ===================================================*/
+    static public function mdlVerDetalleVehiculo($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("SELECT *
+                                    FROM {$datos['tabla']}
+                                    WHERE {$datos['item']} = :{$datos['item']}");
+        $stmt->bindParam(":" . $datos['item'], $datos['valor'], PDO::PARAM_INT);
+
+
+        $stmt->execute();
+        $retorno = $stmt->fetch();
+        $stmt->closeCursor();
+        $conexion = null;
+        return $retorno;
+    }
+
+    /* ===================================================
        TIPOS DE DOCUMENTACIÓN VEHICULAR
     ===================================================*/
     static public function mdlTiposDocumentacion()
@@ -527,7 +546,7 @@ class ModeloVehiculos
     }
 
     /* ===================================================
-       GUARDAR OTROS DETALLES DE UN VEHICULO COMO EL PROPIETARIO, CONDUCTOR O DOCUMENTOS
+       GUARDAR(agregar) OTROS DETALLES DE UN VEHICULO COMO EL PROPIETARIO, CONDUCTOR O DOCUMENTOS
     ===================================================*/
     static public function mdlGuardarDetallesVehiculo($datos)
     {
@@ -575,11 +594,46 @@ class ModeloVehiculos
     }
 
     /* ===================================================
+       EDITAR OTROS DETALLES DE UN VEHICULO COMO EL PROPIETARIO O CONDUCTOR
+    ===================================================*/
+    static public function mdlEditarDetalleVehiculo($datos)
+    {
+        $conexion = Conexion::conectar();
+
+        switch ($datos['tabla']) {
+            case 'v_re_propietariosvehiculos':
+                $sql = "";
+                break;
+
+            case 'v_re_conductoresvehiculos':
+                $sql = "";
+                break;
+
+            default:
+
+                break;
+        }
+
+        $stmt = $conexion->prepare($sql);
+        $stmt->bindParam(":idregistro", $datos['idregistro'], PDO::PARAM_INT);
+        $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
+
+        if (isset($stmt) && $stmt->execute()) {
+            $id = $conexion->lastInsertId();
+        } else {
+            $id = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $id;
+    }
+
+    /* ===================================================
 		REPORTE COMPLETO DOCUMENTOS VEHICULOS
 	===================================================*/
-	static public function mdlReporteDocumentos()
-	{
-		$stmt = Conexion::conectar()->prepare("SELECT 
+    static public function mdlReporteDocumentos()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT 
                                                 v.placa, v.numinterno, v.tipovinculacion, v.activo, 
                                                 d.fechainicio, MAX(d.fechafin) AS fechafin, 
                                                 t.tipodocumento,
@@ -598,7 +652,7 @@ class ModeloVehiculos
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();
         return $retorno;
-	}
+    }
 }
 
 /* ===================================================
@@ -607,9 +661,10 @@ class ModeloVehiculos
 class ModeloBloqueoP
 {
 
-    static public function mdlUltimoBloqueo($value){
+    static public function mdlUltimoBloqueo($value)
+    {
 
-        if($value != null){
+        if ($value != null) {
 
             $stmt = Conexion::conectar()->prepare(" SELECT p.Nombre AS conductor, b.motivo, b.estado, b.fecha, b.idbloqueo, p.idPersonal ,u.Nombre AS nomUsuario 
                                                     FROM v_bloqueopersonal b
@@ -623,8 +678,7 @@ class ModeloBloqueoP
             $stmt->bindParam(":personal",  $value, PDO::PARAM_INT);
             $stmt->execute();
             $retorno =  $stmt->fetch();
-
-        }else {
+        } else {
 
             $stmt = Conexion::conectar()->prepare(" SELECT p.Nombre AS conductor, b.motivo, b.estado, b.fecha, b.idbloqueo, p.idPersonal ,u.Nombre AS nomUsuario 
                                                     FROM v_bloqueopersonal b
@@ -635,15 +689,16 @@ class ModeloBloqueoP
                                                                 T ON b.idbloqueo = T.idbloqueo");
 
             $stmt->execute();
-            $retorno = $stmt->fetchAll();            
+            $retorno = $stmt->fetchAll();
         }
 
         $stmt->closeCursor();
-            return $retorno;      
+        return $retorno;
     }
 
 
-    static public function mdlHistorial($value){
+    static public function mdlHistorial($value)
+    {
 
         $stmt = Conexion::conectar()->prepare("SELECT p.Nombre AS conductor, b.motivo, b.estado, b.fecha, b.idbloqueo, 
                                                       u.Nombre AS nomUsuario 
@@ -661,14 +716,15 @@ class ModeloBloqueoP
         return $retorno;
     }
 
-    static public function mdlMostrarConductor($value){
+    static public function mdlMostrarConductor($value)
+    {
 
         $stmt = Conexion::conectar()->prepare("SELECT p.nombre AS conductor 
                                                FROM v_bloqueopersonal b
                                                     INNER JOIN gh_personal p ON p.idPersonal = b.idPersonal
                                                WHERE b.idPersonal = :idper
                                                GROUP BY b.idPersonal");
-        
+
         $stmt->bindParam(":idper",  $value, PDO::PARAM_INT);
         $stmt->execute();
         $retorno =  $stmt->fetch();
@@ -676,7 +732,8 @@ class ModeloBloqueoP
         return $retorno;
     }
 
-    static public function mdlNuevoBloqueo($datos){
+    static public function mdlNuevoBloqueo($datos)
+    {
 
         $stmt = Conexion::conectar()->prepare("INSERT INTO v_bloqueopersonal(idPersonal,motivo,estado,fecha,usuario)
                                                 VALUES(:idPersonal,:motivo,:estado,:fecha,:usuario)");
@@ -686,13 +743,12 @@ class ModeloBloqueoP
         $stmt->bindParam(":estado", $datos["estadobloqueo"], PDO::PARAM_INT);
         $stmt->bindParam(":fecha", $datos["fecha_vin"], PDO::PARAM_STR);
         $stmt->bindParam(":usuario", $datos["cedula"], PDO::PARAM_INT);
-        
+
         if ($stmt->execute()) {
-           
+
             $retorno = "ok";
-        
         } else {
-            
+
             $retorno = "error";
         }
 
@@ -708,9 +764,10 @@ class ModeloBloqueoP
 ===================================================*/
 class ModeloBloqueoV
 {
-    static public function mdlUltimoBloqueoV($value){
+    static public function mdlUltimoBloqueoV($value)
+    {
 
-        if($value != null){
+        if ($value != null) {
 
             $stmt = Conexion::conectar()->prepare(" SELECT b.*, v.placa, u.nombre AS nomUsuario
                                                     FROM v_bloqueovehiculo b
@@ -727,8 +784,7 @@ class ModeloBloqueoV
             $stmt->bindParam(":vehiculo",  $value, PDO::PARAM_INT);
             $stmt->execute();
             $retorno =  $stmt->fetch();
-
-        }else {
+        } else {
 
             $stmt = Conexion::conectar()->prepare("SELECT b.*, v.placa, u.nombre AS nomUsuario
                                                     FROM v_bloqueovehiculo b
@@ -742,30 +798,31 @@ class ModeloBloqueoV
                                                     T ON b.idbloqueov = T.idbloqueov");
 
             $stmt->execute();
-            $retorno = $stmt->fetchAll();            
+            $retorno = $stmt->fetchAll();
         }
 
         $stmt->closeCursor();
-            return $retorno; 
+        return $retorno;
     }
 
-    static public function mdlMostrarPlaca($value){
+    static public function mdlMostrarPlaca($value)
+    {
 
         $stmt = Conexion::conectar()->prepare("SELECT v.placa AS placa 
                                                 FROM v_bloqueovehiculo b
                                                 INNER JOIN v_vehiculos v ON v.idvehiculo = b.idvehiculo
                                                 WHERE b.idvehiculo = :idve
                                                 GROUP BY b.idvehiculo");
-        
+
         $stmt->bindParam(":idve",  $value, PDO::PARAM_INT);
         $stmt->execute();
         $retorno =  $stmt->fetch();
         $stmt->closeCursor();
         return $retorno;
-
     }
 
-    static public function mdlNuevoBloqueoV($datos){
+    static public function mdlNuevoBloqueoV($datos)
+    {
 
         $stmt = Conexion::conectar()->prepare("INSERT INTO v_bloqueovehiculo(idvehiculo,motivo,estado,fecha,usuario)
                                                 VALUES(:idvehiculo,:motivo,:estado,:fecha,:usuario)");
@@ -775,13 +832,12 @@ class ModeloBloqueoV
         $stmt->bindParam(":estado", $datos["estadobloqueov"], PDO::PARAM_INT);
         $stmt->bindParam(":fecha", $datos["fecha_des"], PDO::PARAM_STR);
         $stmt->bindParam(":usuario", $datos["cedula"], PDO::PARAM_INT);
-        
+
         if ($stmt->execute()) {
-           
+
             $retorno = "ok";
-        
         } else {
-            
+
             $retorno = "error";
         }
 
@@ -791,7 +847,8 @@ class ModeloBloqueoV
         return $retorno;
     }
 
-    static public function mdlHistorialV($value){
+    static public function mdlHistorialV($value)
+    {
 
         $stmt = Conexion::conectar()->prepare("     SELECT b.*, v.placa AS placa, u.nombre AS nomUsuario
                                                     FROM v_bloqueovehiculo b
@@ -806,7 +863,5 @@ class ModeloBloqueoV
         $retorno =  $stmt->fetchAll();
         $stmt->closeCursor();
         return $retorno;
-    }    
-
-
+    }
 }

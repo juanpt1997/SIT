@@ -187,7 +187,9 @@ class AjaxVehiculos
         $tr = "";
         $cont = 1;
         foreach ($Respuesta as $key => $value) {
-            $btnEliminar = "<button type='button' class='btn btn-danger eliminarRegistro' tabla='v_re_propietariosvehiculos' idregistro='{$value['idpropietariovehiculo']}' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-trash-alt'></i></button>";
+            $btnEditar = "<button type='button' class='btn btn-info btn-sm m-1 btn-editarRegistro' tabla='v_re_propietariosvehiculos' idregistro='{$value['idpropietariovehiculo']}' idvehiculo='{$value['idvehiculo']}' nombre='{$value['propietario']}'><i class='fas fa-edit'></i></button>";
+            $btnEliminar = "<button type='button' class='btn btn-danger btn-sm m-1 eliminarRegistro' tabla='v_re_propietariosvehiculos' idregistro='{$value['idpropietariovehiculo']}' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-trash-alt'></i></button>";
+            $botonAcciones = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnEditar . $btnEliminar . "</div>";
 
             $tr .= "
                 <tr>
@@ -195,7 +197,7 @@ class AjaxVehiculos
                         <td>" . $value['propietario'] . "</td>
                         <td>" . $value['participacion'] . "</td>
                         <td>" . $value['observacion'] . "</td>
-                        <td>$btnEliminar</td>
+                        <td>$botonAcciones</td>
                 </tr>
             ";
             $cont++;
@@ -212,13 +214,15 @@ class AjaxVehiculos
         $Respuesta = ControladorVehiculos::ctrConductoresxVehiculo($idvehiculo);
         $tr = "";
         foreach ($Respuesta as $key => $value) {
-            $btnEliminar = "<button type='button' class='btn btn-danger eliminarRegistro' tabla='v_re_conductoresvehiculos' idregistro='{$value['idconductorvehiculo']}' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-trash-alt'></i></button>";
+            $btnEditar = "<button type='button' class='btn btn-info btn-sm m-1 btn-editarRegistro' tabla='v_re_conductoresvehiculos' idregistro='{$value['idconductorvehiculo']}' idvehiculo='{$value['idvehiculo']}' nombre='{$value['conductor']}'><i class='fas fa-edit'></i></button>";
+            $btnEliminar = "<button type='button' class='btn btn-danger btn-sm m-1 eliminarRegistro' tabla='v_re_conductoresvehiculos' idregistro='{$value['idconductorvehiculo']}' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-trash-alt'></i></button>";
+            $botonAcciones = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnEditar . $btnEliminar . "</div>";
 
             $tr .= "
                 <tr>
                         <td>" . $value['conductor'] . "</td>
                         <td>" . $value['observacion'] . "</td>
-                        <td>$btnEliminar</td>
+                        <td>$botonAcciones</td>
                 </tr>
             ";
         }
@@ -276,11 +280,80 @@ class AjaxVehiculos
     }
 
     /* ===================================================
-       GUARDAR OTROS DETALLES DE UN VEHICULO COMO EL PROPIETARIO, CONDUCTOR O DOCUMENTOS
+       VER DATOS DE UN REGISTRO EN ESPECIFICIO DE PROPIETARIOS O CONDUCTORES
+    ===================================================*/
+    static public function ajaxVerDetalleVehiculo($idregistro, $tabla)
+    {
+        switch ($tabla) {
+            case 'v_re_propietariosvehiculos':
+                $item = "idpropietariovehiculo";
+                break;
+
+            case 'v_re_conductoresvehiculos':
+                $item = "idconductorvehiculo";
+                break;
+
+            default:
+                $item = "";
+                break;
+        }
+
+        $datos = array(
+            'tabla' => $tabla,
+            'item' => $item,
+            'valor' => $idregistro
+        );
+        $respuesta = ControladorVehiculos::ctrVerDetalleVehiculo($datos);
+        echo json_encode($respuesta);
+    }
+
+    /* ===================================================
+       GUARDAR(agregar) OTROS DETALLES DE UN VEHICULO COMO EL PROPIETARIO, CONDUCTOR O DOCUMENTOS
     ===================================================*/
     static public function ajaxGuardarDetallesVehiculo($formData)
     {
         $respuesta = ControladorVehiculos::ctrGuardarDetallesVehiculo($formData);
+        echo $respuesta;
+    }
+
+    /* ===================================================
+       EDITAR OTROS DETALLES DE UN VEHICULO COMO EL PROPIETARIO O CONDUCTOR
+    ===================================================*/
+    static public function ajaxEditarDetalleVehiculo($formData)
+    {
+        switch ($formData['tabla']) {
+            case 'v_re_propietariosvehiculos':
+                $item2 = 'idpropietariovehiculo';
+                # Actualizar porcentaje de participacion, esto es unico del propietario
+                $datosActualizar = array(
+                    'tabla' => $formData['tabla'],
+                    'item1' => 'participacion',
+                    'valor1' => $formData['participacion'],
+                    'item2' => $item2,
+                    'valor2' => $formData['idregistro']
+                );
+                ModeloVehiculos::mdlActualizarVehiculo($datosActualizar);
+                break;
+
+            case 'v_re_conductoresvehiculos':
+                $item2 = 'idconductorvehiculo';
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+        $datosActualizar = array(
+            'tabla' => $formData['tabla'],
+            'item1' => 'observacion',
+            'valor1' => $formData['observacion'],
+            'item2' => $item2,
+            'valor2' => $formData['idregistro']
+        );
+        $respuesta = ModeloVehiculos::mdlActualizarVehiculo($datosActualizar);
+
+        //$respuesta = ControladorVehiculos::ctrEditarDetalleVehiculo($formData);
         echo $respuesta;
     }
 
@@ -632,8 +705,16 @@ if (isset($_POST['TablaDocumentos']) && $_POST['TablaDocumentos'] == "ok") {
     AjaxVehiculos::ajaxTablaDocumentos($_POST['idvehiculo']);
 }
 
+if (isset($_POST['VerDetalleVehiculo']) && $_POST['VerDetalleVehiculo'] == "ok") {
+    AjaxVehiculos::ajaxVerDetalleVehiculo($_POST['idregistro'], $_POST['tabla']);
+}
+
 if (isset($_POST['GuardarDetallesVehiculo']) && $_POST['GuardarDetallesVehiculo'] == "ok") {
     AjaxVehiculos::ajaxGuardarDetallesVehiculo($_POST);
+}
+
+if (isset($_POST['EditarDetalleVehiculo']) && $_POST['EditarDetalleVehiculo'] == "ok") {
+    AjaxVehiculos::ajaxEditarDetalleVehiculo($_POST);
 }
 
 if (isset($_POST['EliminarRegistro']) && $_POST['EliminarRegistro'] == "ok") {
