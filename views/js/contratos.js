@@ -104,7 +104,9 @@ if (
     window.location.href == `${urlPagina}contratos-cotizaciones`
 ) {
     $(document).ready(function () {
+        var ActualizoListaClientes = true;
         $(document).on("click", ".btn-editarcotizacion", function () {
+            ActualizoListaClientes = false;
             AbiertoxEditar = true; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
 
             var idcot = $(this).attr("id_cot");
@@ -182,6 +184,7 @@ if (
 
         var AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         $(document).on("click", ".btn-agregarcotizacion", function () {
+            ActualizoListaClientes = true;
             // Reset valores del formulario
             $("#id_cot").val("");
             $("#titulo_cotizacion").html("Nueva cotización");
@@ -199,7 +202,7 @@ if (
             if (cambio == "cliente") {
                 $('#listaclientes').prop('disabled', false);
                 //$("#listaclientes").attr("readonly", false);
-                $(".input-clientes").attr("readonly", "readonly");
+                //$(".input-clientes").attr("readonly", "readonly");
                 $("#listaclientes").attr("required", "required");
                 //$("#ciudadcliente").select2("readonly");
                 $('.select-ciudad').prop('disabled', true);
@@ -219,37 +222,42 @@ if (
         });
 
         $(document).on("change", "#listaclientes", function () {
-            var id = $(this).val();
-
-            if (id != "") {
-                var datos = new FormData();
-                datos.append("DatosClientes", "ok");
-                datos.append("item", "idcliente");
-                datos.append("valor", id);
-                $.ajax({
-                    type: "POST",
-                    url: "ajax/contratos.ajax.php",
-                    data: datos,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    dataType: "json",
-                    success: function (response) {
-                        $("#nom_contrata").val(response.nombre);
-                        $("#t_document_empre").val(response.tipo_doc);
-                        $("#document").val(response.Documento);
-                        $("#tel1").val(response.telefono);
-                        $("#direcci").val(response.direccion);
-                        $("#nom_respo").val(response.nombrerespons);
-                        $("#t_document_respo").val(response.tipo_docrespons);
-                        $("#ciudadresponsable").val(response.idciudadrespons);
-                        $("#ciudadcliente").val(response.idciudad);
-                        $("#expedicion").val(response.cedula_expedidaen);
-                        $("#docum_respo").val(response.Documentorespons);
-                        $("#tel2").val(response.telefono);
-                        $(".select-ciudad").trigger("change"); //MUESTRA EL VALOR DEL SELECT
-                    },
-                });
+            // CONDICION PARA QUE OCURRA UNICAMENTE CUANDO EL USUARIO SELECCIONE UN CLIENTE Y ESTA NO SE MODIFIQUE CUANDO ABRA LA MODAL POR EDITAR
+            if (ActualizoListaClientes){
+                var id = $(this).val();
+    
+                if (id != "") {
+                    var datos = new FormData();
+                    datos.append("DatosClientes", "ok");
+                    datos.append("item", "idcliente");
+                    datos.append("valor", id);
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/contratos.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        dataType: "json",
+                        success: function (response) {
+                            $("#nom_contrata").val(response.nombre);
+                            $("#t_document_empre").val(response.tipo_doc);
+                            $("#document").val(response.Documento);
+                            $("#tel1").val(response.telefono);
+                            $("#direcci").val(response.direccion);
+                            $("#nom_respo").val(response.nombrerespons);
+                            $("#t_document_respo").val(response.tipo_docrespons);
+                            $("#ciudadresponsable").val(response.idciudadrespons);
+                            $("#ciudadcliente").val(response.idciudad);
+                            $("#expedicion").val(response.cedula_expedidaen);
+                            $("#docum_respo").val(response.Documentorespons);
+                            $("#tel2").val(response.telefono);
+                            $(".select-ciudad").trigger("change"); //MUESTRA EL VALOR DEL SELECT
+                        },
+                    });
+                }
+            }else{
+                ActualizoListaClientes = true;
             }
         });
     });

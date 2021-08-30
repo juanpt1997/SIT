@@ -274,7 +274,7 @@ class ModeloCotizaciones
          $stmt = Conexion::conectar()->prepare("SELECT C.*, S.sucursal AS sucursal, V.tipovehiculo AS tipo, Cl.*  FROM cont_cotizaciones C
          LEFT JOIN gh_sucursales S ON C.idsucursal = S.ids
          LEFT JOIN v_tipovehiculos V ON C.idtipovehiculo = V.idtipovehiculo
-         INNER JOIN cont_clientes Cl ON C.idcliente = CL.idcliente
+         INNER JOIN cont_clientes Cl ON C.idcliente = Cl.idcliente
          WHERE  C.idcotizacion = :id_cot");
 
 
@@ -283,10 +283,10 @@ class ModeloCotizaciones
          $retorno =  $stmt->fetch();
       } else {
 
-         $stmt = Conexion::conectar()->prepare("SELECT C.*, S.sucursal AS sucursal, V.tipovehiculo AS tipo, Cl.*, CONCAT('ID: ',C.idcotizacion, ' - ',Cl.nombre) AS clientexist  FROM cont_cotizaciones C
+         $stmt = Conexion::conectar()->prepare("SELECT C.*, S.sucursal AS sucursal, V.tipovehiculo AS tipo, Cl.*, CONCAT('ID: ',C.idcotizacion, ' - ',C.nombre_con) AS clientexist  FROM cont_cotizaciones C
          LEFT JOIN gh_sucursales S ON C.idsucursal = S.ids
          LEFT JOIN v_tipovehiculos V ON C.idtipovehiculo = V.idtipovehiculo
-         INNER JOIN cont_clientes Cl ON C.idcliente = CL.idcliente");
+         INNER JOIN cont_clientes Cl ON C.idcliente = Cl.idcliente");
 
          $stmt->execute();
          $retorno =  $stmt->fetchAll();

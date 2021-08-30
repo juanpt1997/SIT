@@ -72,12 +72,12 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                     </div>
                                                 </td>
                                                 <td><?= $value['idcotizacion'] ?></td>
-                                                <td><?= $value['nombre'] ?></td>
-                                                <td><?= $value['Documento'] ?></td>
-                                                <td><?= $value['direccion'] ?></td>
-                                                <td><?= $value['telefono'] ?></td>
-                                                <td><?= $value['telefono2'] ?></td>
-                                                <td><?= $value['nombrerespons'] ?></td>
+                                                <td><?= $value['nombre_con'] ?></td>
+                                                <td><?= $value['documento_con'] ?></td>
+                                                <td><?= $value['direccion_con'] ?></td>
+                                                <td><?= $value['tel_1'] ?></td>
+                                                <td><?= $value['tel_2'] ?></td>
+                                                <td><?= $value['nombre_respo'] ?></td>
                                                 <td><?= $value['empresa'] ?></td>
                                                 <td><?= $value['origen'] ?></td>
                                                 <td><?= $value['destino'] ?></td>
