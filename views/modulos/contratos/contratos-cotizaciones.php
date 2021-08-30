@@ -142,7 +142,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm"><i>Lista de clientes</i></label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control select2-single input-sm" id="listaclientes" style="width: 99%" name="listaclientes" readonly>
+                                    <select class="form-control select2-single select-clientes input-sm" id="listaclientes" style="width: 99%" name="listaclientes" readonly>
                                         <option value="" selected><b>-Seleccione un cliente existente-</b></option>
                                         <?php foreach ($clientes as $key => $value) : ?>
                                             <option value="<?= $value['idcliente'] ?>"><?= $value['clientexist'] ?></option>

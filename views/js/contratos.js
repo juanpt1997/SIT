@@ -112,9 +112,10 @@ if (
             var document = $(this).attr("document");
             $("#pcliente").val("cliente");
             $("#listaclientes").attr("readonly", false);
-            $(".input-clientes").attr("readonly", "readonly");
-            $('.select-ciudad').prop('disabled', true);
+            //$(".input-clientes").attr("readonly", "readonly");
+            //$('.select-ciudad').prop('disabled', true);
             $("#listaclientes").attr("required", "required");
+            //$('#listaclientes').prop('disabled', true);
 
             var datos = new FormData();
             datos.append("DatosCotizaciones", "ok");
@@ -132,23 +133,25 @@ if (
                     $("#titulo_cotizacion").html(
                         "Editar cotización ( " + response.nombre + " )"
                     );
-                    $("#nom_contrata").val(response.nombre);
-                    $("#t_document_empre").val(response.tipo_doc);
-                    $("#t_document_respo").val(response.tipo_docrespons);
-                    $("#document").val(response.Documento);
-                    $("#direcci").val(response.direccion);
-                    $("#ciudadcliente").val(response.idciudad);
-                    $("#nom_respo").val(response.nombrerespons);
-                    $("#docum_respo").val(response.Documentorespons);
-                    $("#ciudadresponsable").val(response.idciudadrespons);
-                    $("#expedicion").val(response.cedula_expedidaen);
+                    $("#nom_contrata").val(response.nombre_con);
+                    $("#t_document_empre").val(response.tipo_doc_con);
+                    $("#document").val(response.documento_con);
+                    $("#tel1").val(response.tel_1);
+                    $("#direcci").val(response.direccion_con);
+                    $("#nom_respo").val(response.nombre_respo);
+                    $("#t_document_respo").val(response.tipo_doc_respo);
+                    $("#ciudadresponsable").val(response.ciudad_res);
+                    $("#ciudadcliente").val(response.ciudad_con);
+                    $("#expedicion").val(response.cedula_expedicion);
+                    $("#docum_respo").val(response.documento_res);
+                    $("#tel2").val(response.tel_2);
+
                     $("#origin").val(response.origen);
                     $("#f_sol").val(response.fecha_solicitud);
                     $("#h_salida").val(response.hora_salida);
                     $("#h_recog").val(response.hora_recogida);
                     $("#capaci").val(response.capacidad);
                     $("#cotiz").val(response.cotizacion);
-                    $("#tel1").val(response.telefono);
                     $("#empres").val(response.empresa);
                     $("#destin").val(response.destino);
                     $("#f_resuelve").val(response.fecha_solucion);
@@ -156,7 +159,6 @@ if (
                     $("#tipovehiculocot").val(response.idtipovehiculo);
                     $("#valor_vel").val(response.valorxvehiculo);
                     $("#clasi_cot").val(response.clasificacion);
-                    $("#tel2").val(response.telefono2);
                     $("#sucursalcot").val(response.idsucursal);
                     $("#des_sol").val(response.descripcion);
                     $("#f_inicio").val(response.fecha_inicio);
@@ -186,6 +188,7 @@ if (
             if (AbiertoxEditar) { // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
                 $("#formulariocotizacion").trigger("reset");
                 $(".select-ciudad").trigger("change");
+                $(".select-clientes").trigger("change");
             }
             AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         });
@@ -243,6 +246,7 @@ if (
                         $("#ciudadcliente").val(response.idciudad);
                         $("#expedicion").val(response.cedula_expedidaen);
                         $("#docum_respo").val(response.Documentorespons);
+                        $("#tel2").val(response.telefono);
                         $(".select-ciudad").trigger("change"); //MUESTRA EL VALOR DEL SELECT
                     },
                 });

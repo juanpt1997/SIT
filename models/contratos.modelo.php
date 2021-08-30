@@ -50,11 +50,12 @@ class ModeloClientes
 
       # VER DATOS DE UN SOLO CLIENTE
       if ($datos != null) {
-         $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad, Mr.municipio AS ciudadres, Mc.municipio AS expedida
+         $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad, Mr.municipio AS ciudadres, Mc.municipio AS expedida, Co.*
                                                 FROM cont_clientes C
                                                 LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio
                                                 LEFT JOIN gh_municipios Mr ON C.idciudadrespons = Mr.idmunicipio
                                                 LEFT JOIN gh_municipios Mc ON C.cedula_expedidaen = Mc.idmunicipio
+                                                LEFT JOIN cont_cotizaciones Co ON C.idcliente = Co.idcliente
                                                 WHERE C.{$datos['item']} = :{$datos['item']};");
 
 
@@ -207,17 +208,25 @@ class ModeloCotizaciones
       //nomcontratante,Documento,direccion,telefono1,telefono2,nomcontacto,
       $stmt = Conexion::conectar()->prepare("INSERT INTO cont_cotizaciones(idcliente,empresa,idsucursal,
       origen,destino,descripcion,fecha_solicitud,fecha_solucion,fecha_inicio,fecha_fin,duracion,hora_salida,hora_recogida,idtipovehiculo,nro_vehiculos,
-      capacidad,valorxvehiculo,valortotal,cotizacion,clasificacion,musica,aire,wifi,silleriareclinable,bano,bodega,otro,realiza_viaje,porque)
-      VALUES(:idcliente,:empresa,:idsucursal,:origen,:destino,:descripcion,:fecha_solicitud,:fecha_solucion,:fecha_inicio,:fecha_fin,:duracion,:hora_salida,:hora_recogida,:idtipovehiculo,:nro_vehiculos,:capacidad,:valorxvehiculo,:valortotal,:cotizacion,:clasificacion,:musica,:aire,:wifi,:silleriareclinable,:bano,:bodega,:otro,:realiza_viaje,:porque)");
+      capacidad,valorxvehiculo,valortotal,cotizacion,clasificacion,musica,aire,wifi,silleriareclinable,bano,bodega,otro,realiza_viaje,porque,nombre_con,documento_con,tipo_doc_con,tel_1,direccion_con,nombre_respo,tipo_doc_respo,cedula_expedicion,documento_res,ciudad_con,ciudad_res,tel_2)
+      VALUES(:idcliente,:empresa,:idsucursal,:origen,:destino,:descripcion,:fecha_solicitud,:fecha_solucion,:fecha_inicio,:fecha_fin,:duracion,:hora_salida,:hora_recogida,:idtipovehiculo,:nro_vehiculos,:capacidad,:valorxvehiculo,:valortotal,:cotizacion,:clasificacion,:musica,:aire,:wifi,:silleriareclinable,:bano,:bodega,:otro,:realiza_viaje,:porque,:nombre_con,:documento_con,:tipo_doc_con,:tel_1,:direccion_con,:nombre_respo,:tipo_doc_respo,:cedula_expedicion,:documento_res,:ciudad_con,:ciudad_res,:tel_2)");
 
-      // $stmt->bindParam(":nomcontratante", $datos["nom_contrata"], PDO::PARAM_STR);
-      // $stmt->bindParam(":Documento", $datos["document"], PDO::PARAM_STR);
-      // $stmt->bindParam(":tipo", $datos["tipo"], PDO::PARAM_STR);
-      // $stmt->bindParam(":direccion", $datos["direcci"], PDO::PARAM_STR);
-      // $stmt->bindParam(":telefono1", $datos["tel1"], PDO::PARAM_STR);
-      // $stmt->bindParam(":telefono2", $datos["tel2"], PDO::PARAM_STR);
-      // $stmt->bindParam(":nomcontacto", $datos["nom_contact"], PDO::PARAM_STR);
+      $stmt->bindParam(":documento_con", $datos["document"], PDO::PARAM_STR);
+      $stmt->bindParam(":tipo_doc_con", $datos["t_document_empre"], PDO::PARAM_STR);
+      $stmt->bindParam(":tel_1", $datos["tel1"], PDO::PARAM_STR);
+      $stmt->bindParam(":direccion_con", $datos["direcci"], PDO::PARAM_STR);
+      $stmt->bindParam(":nombre_respo", $datos["nom_respo"], PDO::PARAM_STR);
+      $stmt->bindParam(":tipo_doc_respo", $datos["t_document_respo"], PDO::PARAM_STR);
+      $stmt->bindParam(":cedula_expedicion", $datos["expedicion"], PDO::PARAM_INT);
+      $stmt->bindParam(":documento_res", $datos["docum_respo"], PDO::PARAM_STR);
+      $stmt->bindParam(":ciudad_con", $datos["ciudadcliente"], PDO::PARAM_INT);
+      $stmt->bindParam(":ciudad_res", $datos["ciudadresponsable"], PDO::PARAM_INT);
+      $stmt->bindParam(":tel_2", $datos["tel2"], PDO::PARAM_STR);
+
+
+
       $stmt->bindParam(":idcliente", $datos["id_cliente"], PDO::PARAM_INT);
+      $stmt->bindParam(":nombre_con", $datos["nom_contact"], PDO::PARAM_STR);
       $stmt->bindParam(":empresa", $datos["empres"], PDO::PARAM_STR);
       $stmt->bindParam(":idsucursal", $datos["sucursalcot"], PDO::PARAM_INT);
       $stmt->bindParam(":origen", $datos["origin"], PDO::PARAM_STR);
@@ -293,18 +302,25 @@ class ModeloCotizaciones
       empresa=:empresa,idsucursal=:idsucursal,origen=:origen,destino=:destino,descripcion=:descripcion,fecha_solicitud=:fecha_solicitud,fecha_solucion=:fecha_solucion,fecha_inicio=:fecha_inicio,
       fecha_fin=:fecha_fin,duracion=:duracion,idcliente =:idcliente,hora_salida=:hora_salida,hora_recogida=:hora_recogida,idtipovehiculo=:idtipovehiculo,nro_vehiculos=:nro_vehiculos,
       capacidad=:capacidad,valorxvehiculo=:valorxvehiculo,valortotal=:valortotal,cotizacion=:cotizacion,clasificacion=:clasificacion,musica=:musica,aire=:aire,wifi=:wifi,
-      silleriareclinable=:silleriareclinable,bano=:bano,bodega=:bodega,otro=:otro,realiza_viaje=:realiza_viaje,porque=:porque
+      silleriareclinable=:silleriareclinable,bano=:bano,bodega=:bodega,otro=:otro,realiza_viaje=:realiza_viaje,porque=:porque,nombre_con=:nombre_con,documento_con=:documento_con,tipo_doc_con=:tipo_doc_con,tel_1=:tel_1,direccion_con=:direccion_con,nombre_respo=:nombre_respo,tipo_doc_respo=:tipo_doc_respo,cedula_expedicion=:cedula_expedicion,documento_res=:documento_res,ciudad_con=:ciudad_con,ciudad_res=:ciudad_res,tel_2=:tel_2
 		WHERE idcotizacion = :idcotizacion");
 
       $stmt->bindParam(":idcotizacion", $datos["id_cot"], PDO::PARAM_INT);
-      // $stmt->bindParam(":nomcontratante", $datos["nom_contrata"], PDO::PARAM_STR);
-      // $stmt->bindParam(":Documento", $datos["document"], PDO::PARAM_STR);
-      // $stmt->bindParam(":direccion", $datos["direcci"], PDO::PARAM_STR);
-      // $stmt->bindParam(":telefono1", $datos["tel1"], PDO::PARAM_STR);
-      // $stmt->bindParam(":telefono2", $datos["tel2"], PDO::PARAM_STR);
-      // $stmt->bindParam(":nomcontacto", $datos["nom_contact"], PDO::PARAM_STR);
+      $stmt->bindParam(":nombre_con", $datos["nom_contrata"], PDO::PARAM_STR);
+
+      $stmt->bindParam(":documento_con", $datos["document"], PDO::PARAM_STR);
+      $stmt->bindParam(":tipo_doc_con", $datos["t_document_empre"], PDO::PARAM_STR);
+      $stmt->bindParam(":tel_1", $datos["tel1"], PDO::PARAM_STR);
+      $stmt->bindParam(":direccion_con", $datos["direcci"], PDO::PARAM_STR);
+      $stmt->bindParam(":nombre_respo", $datos["nom_respo"], PDO::PARAM_STR);
+      $stmt->bindParam(":tipo_doc_respo", $datos["t_document_respo"], PDO::PARAM_STR);
+      $stmt->bindParam(":cedula_expedicion", $datos["expedicion"], PDO::PARAM_INT);
+      $stmt->bindParam(":documento_res", $datos["docum_respo"], PDO::PARAM_STR);
+      $stmt->bindParam(":ciudad_con", $datos["ciudadcliente"], PDO::PARAM_INT);
+      $stmt->bindParam(":ciudad_res", $datos["ciudadresponsable"], PDO::PARAM_INT);
+      $stmt->bindParam(":tel_2", $datos["tel2"], PDO::PARAM_STR);
+
       $stmt->bindParam(":idcliente", $datos["id_cliente"], PDO::PARAM_STR);
-      // $stmt->bindParam(":tipo", $datos["tipo"], PDO::PARAM_STR);
       $stmt->bindParam(":empresa", $datos["empres"], PDO::PARAM_STR);
       $stmt->bindParam(":idsucursal", $datos["sucursalcot"], PDO::PARAM_INT);
       $stmt->bindParam(":origen", $datos["origin"], PDO::PARAM_STR);
