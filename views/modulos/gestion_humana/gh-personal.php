@@ -63,27 +63,29 @@ $Sucursales = ControladorGH::ctrSucursales();
                 <div class="col-12">
                     <div id="spinnerTablaPersonal" class="spinner-border" role="status">
                         <span class="sr-only">Loading...</span>
-                    </div>                                                                                                                                     
-                    <table id="tblPersonal" class="table table-sm text-sm table-light table-striped table-bordered tablas dt-responsive w-100">
-                        <thead class="text-capitalize">
-                            <tr>
-                                <th style="min-width:40px;">Id</th>
-                                <th>Foto</th>
-                                <th>Nombre</th>
-                                <th>Documento</th>
-                                <th>Dirección</th>
-                                <th>Telefono 1</th>
-                                <th>Telefono 2</th>
-                                <th>Correo</th>
-                                <th>Tipo sangre</th>
-                                <th>Activo</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbodyPersonal">
-                            
-                        </tbody>
-                    </table>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="tblPersonal" class="table table-sm text-sm table-light table-striped table-bordered tablas w-100">
+                            <thead class="text-capitalize">
+                                <tr>
+                                    <th style="min-width:40px;">Id</th>
+                                    <th>Foto</th>
+                                    <th>Nombre</th>
+                                    <th>Documento</th>
+                                    <th>Dirección</th>
+                                    <th>Telefono 1</th>
+                                    <th>Telefono 2</th>
+                                    <th>Correo</th>
+                                    <th>Tipo sangre</th>
+                                    <th>Activo</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyPersonal">
+                                
+                            </tbody>
+                        </table>
+                    </div>                                                                                                                                
                 </div><!-- col -->
 
 
