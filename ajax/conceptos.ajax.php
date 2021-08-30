@@ -1,7 +1,7 @@
 <?php
 
 # IMPORTAMOS LA CONFIGURACION DE LA SESSION
-include '../config.php';
+include '../config/config.php';
 
 # REQUERIMOS EL CONTROLADOR Y EL MODELO PARA QUE REALICE LA PETICION
 require_once '../controllers/conceptos.controlador.php';
@@ -470,7 +470,7 @@ class AjaxConceptosGH
 				break;
 
 			case 'Categorias de licencias':
-				$tabla = "licencias";
+				$tabla = "v_categoria_licencias";
 				$item = "tipo";
 				break;
 
@@ -528,7 +528,7 @@ class AjaxConceptosGH
 				break;
 
 			case 'Categorias de licencias':
-				$tabla = "licencias";
+				$tabla = "v_categoria_licencias";
 				$item1 = "tipo";
 				$item2 = "descripcion";
 				break;
@@ -567,7 +567,7 @@ class AjaxConceptosGH
 				break;
 
 			case 'Categorias de licencias':
-				$tabla = "licencias";
+				$tabla = "v_categoria_licencias";
 				$item1 = "tipo";
 				$item2 = "descripcion";
 				$idtabla = "idlicencia";
@@ -610,7 +610,7 @@ class AjaxConceptosGH
 				break;
 
 			case 'Categorias de licencias':
-				$tabla = "licencias";
+				$tabla = "v_categoria_licencias";
 				$item1 = "tipo";
 				$item2 = "descripcion";
 				break;
@@ -647,7 +647,7 @@ class AjaxConceptosGH
 				break;
 
 			case 'Categorias de licencias':
-				$tabla = "licencias";
+				$tabla = "v_categoria_licencias";
 				$item1 = "tipo";
 				$item2 = "descripcion";
 				$id = "idlicencia";
