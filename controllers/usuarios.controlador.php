@@ -307,8 +307,8 @@ class ControladorUsuarios
 					}
 
 					# Se encripta la cadena para luego actualizar el campo del usuario
-					//$encriptar = crypt($cadena, '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-					$encriptar = crypt($usuario['Cedula'], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+					$encriptar = crypt($cadena, '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+					//$encriptar = crypt($usuario['Cedula'], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 
 					# Actualizo la contraseña con el codigo generado 
 					$tabla = "l_usuarios";
@@ -333,7 +333,7 @@ class ControladorUsuarios
                                     USUARIO: Su número de identificación, CONTRASEÑA: $cadena<br>
                                     <a href='" . URL_APP . "'>Enlace para ir al sitio web.</a><br>
                                     Gracias,<br>
-                                    Equipo de Tecnolab</p><br>
+                                    Equipo de Tecnolab.</p><br>
                                     </body>
                                     </html>";
 						ControladorCorreo::ctrEnviarCorreo($to, $subject, $message);
