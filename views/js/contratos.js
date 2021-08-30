@@ -353,12 +353,12 @@ if (
             processData: false,
             dataType: "json",
             success: function (response) {
-                $("#nomcontrataorden").val(response.nombre);
-                $("#documentorden").val(response.Documento);
-                $("#direcciorden").val(response.direccion);
-                $("#telefono1").val(response.telefono);
-                $("#telefono2").val(response.telefono2);
-                $("#nomcontacto").val(response.nombrerespons);
+                $("#nomcontrataorden").val(response.nombre_con);
+                $("#documentorden").val(response.documento_con);
+                $("#direcciorden").val(response.direccion_con);
+                $("#telefono1").val(response.tel_1);
+                $("#telefono2").val(response.tel_2);
+                $("#nomcontacto").val(response.nombre_respo);
                 //$("#numcontrato").val(response.tipo_docrespons);
                 $("#h_incio_orden").val(response.hora_salida);
                 $("#h_final_orden").val(response.hora_recogida);
@@ -399,7 +399,7 @@ if (
             processData: false,
             dataType: "json",
             success: function (response) {
-                $("#titulo_orden").html("Editar órden (# " + response.nro_contrato + " - " + response.nombre + ")");
+                $("#titulo_orden").html("Editar órden (# " + response.nro_contrato + " - " + response.nombre_con + ")");
                 $("#listacotizaciones").val(response.idcotizacion);
                 $("#numcontrato").val(response.nro_contrato);
                 $("#numfacturaorden").val(response.nro_factura);

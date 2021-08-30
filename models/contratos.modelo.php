@@ -470,7 +470,7 @@ class ModeloOrdenServicio
    static public function mdlVerOrden($valor)
    {
 
-      $stmt = Conexion::conectar()->prepare("SELECT C.*, O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, CL.nombre, CL.Documento, CL.direccion, CL.telefono, CL.telefono2, CL.nombrerespons, CL.Documentorespons, CL.cedula_expedidaen, cr.municipio AS ciudadrespons, exped.municipio AS ciudad_cedula_expedidaen
+      $stmt = Conexion::conectar()->prepare("SELECT C.*, O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, C.nombre_con, C.documento_con, C.direccion_con, C.tel_1, C.tel_2, C.nombre_respo, C.documento_res, C.cedula_expedicion, cr.municipio AS ciudadrespons, exped.municipio AS ciudad_cedula_expedidaen
                                              FROM cont_ordenservicio O
                                              LEFT JOIN cont_cotizaciones C ON O.idcotizacion = C.idcotizacion
                                              LEFT JOIN cont_clientes CL ON CL.idcliente = C.idcliente
@@ -487,7 +487,7 @@ class ModeloOrdenServicio
 
    static public function mdlVerListaOrden()
    {
-      $stmt = Conexion::conectar()->prepare("SELECT C.*, O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, CL.nombre AS nomContrata, CL.Documento AS doContrata, CL.direccion, CL.telefono, CL.telefono2, CL.nombrerespons  FROM cont_ordenservicio O
+      $stmt = Conexion::conectar()->prepare("SELECT C.*, O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, C.nombre_con AS nomContrata, C.documento_con AS doContrata, C.direccion_con, C.tel_1, C.tel_2, C.nombre_respo  FROM cont_ordenservicio O
                                              LEFT JOIN cont_cotizaciones C ON O.idcotizacion = C.idcotizacion
                                              LEFT JOIN cont_clientes CL ON CL.idcliente = C.idcliente");
 
