@@ -152,7 +152,8 @@
                     include "modulos/contratos/{$ruta}.php";
                 }
                 else if ( # Mantenimiento
-                    $ruta == "m-proveedores"
+                    $ruta == "m-proveedores" ||
+                    $ruta == "m-alistamiento"
                 ) {
                     include "modulos/mantenimiento/{$ruta}.php";
                 }
