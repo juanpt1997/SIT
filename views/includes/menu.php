@@ -346,7 +346,7 @@
                                     Protocolo de alistamiento
                                 =================================================== -->
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="m-alistamiento" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Protocolo de alistamiento</p>
                                 </a>
