@@ -2214,28 +2214,28 @@
                             <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
 
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="datos_vehiculos" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true"><u>Vehiculo Documentos</u></a>
+                                    <a class="nav-link active" id="datos_vehiculos" data-toggle="pill" href="#custom-tabs-two-homeedit" role="tab" aria-controls="custom-tabs-two-homeedit" aria-selected="true"><u>Vehiculo Documentos</u></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-two-sistemaluces-tab" data-toggle="pill" href="#custom-tabs-two-sistemaluces" role="tab" aria-controls="custom-tabs-two-sistemaluces" aria-selected="false"><u>Sistema Luces</u></a>
+                                    <a class="nav-link" id="custom-tabs-two-sistemaluces-tab" data-toggle="pill" href="#custom-tabs-two-sistemalucesedit" role="tab" aria-controls="custom-tabs-two-sistemalucesedit" aria-selected="false"><u>Sistema Luces</u></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-two-carroceria-tab" data-toggle="pill" href="#custom-tabs-two-carroceria" role="tab" aria-controls="custom-tabs-two-carroceria" aria-selected="false"><u>Carroceria</u></a>
+                                    <a class="nav-link" id="custom-tabs-two-carroceria-tab" data-toggle="pill" href="#custom-tabs-two-carroceriaedit" role="tab" aria-controls="custom-tabs-two-carroceriaedit" aria-selected="false"><u>Carroceria</u></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-two-sistemas-tab" data-toggle="pill" href="#custom-tabs-two-sistemas" role="tab" aria-controls="custom-tabs-two-sistemas" aria-selected="false"><u>Sistemas</u></a>
+                                    <a class="nav-link" id="custom-tabs-two-sistemas-tab" data-toggle="pill" href="#custom-tabs-two-sistemasedit" role="tab" aria-controls="custom-tabs-two-sistemasedit" aria-selected="false"><u>Sistemas</u></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-two-indicadorestableros-tab" data-toggle="pill" href="#custom-tabs-two-indicadorestableros" role="tab" aria-controls="custom-tabs-two-indicadorestableros" aria-selected="false"><u>Indicadores Tablero</u></a>
+                                    <a class="nav-link" id="custom-tabs-two-indicadorestableros-tab" data-toggle="pill" href="#custom-tabs-two-indicadorestablerosedit" role="tab" aria-controls="custom-tabs-two-indicadorestablerosedit" aria-selected="false"><u>Indicadores Tablero</u></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-two-mantenimiento-tab" data-toggle="pill" href="#custom-tabs-two-mantenimiento" role="tab" aria-controls="custom-tabs-two-mantenimiento" aria-selected="false"><u>Mantenimiento</u></a>
+                                    <a class="nav-link" id="custom-tabs-two-mantenimiento-tab" data-toggle="pill" href="#custom-tabs-two-mantenimientoedit" role="tab" aria-controls="custom-tabs-two-mantenimientoedit" aria-selected="false"><u>Mantenimiento</u></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-two-llantas-tab" data-toggle="pill" href="#custom-tabs-two-llantas" role="tab" aria-controls="custom-tabs-two-llantas" aria-selected="false"><u>Llantas</u></a>
+                                    <a class="nav-link" id="custom-tabs-two-llantas-tab" data-toggle="pill" href="#custom-tabs-two-llantasedit" role="tab" aria-controls="custom-tabs-two-llantasedit" aria-selected="false"><u>Llantas</u></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-two-equiposeguridad-tab" data-toggle="pill" href="#custom-tabs-two-equiposeguridad" role="tab" aria-controls="custom-tabs-two-equiposeguridad" aria-selected="false"><u>Equipo de Seguridad</u></a>
+                                    <a class="nav-link" id="custom-tabs-two-equiposeguridad-tab" data-toggle="pill" href="#custom-tabs-two-equiposeguridadedit" role="tab" aria-controls="custom-tabs-two-equiposeguridadedit" aria-selected="false"><u>Equipo de Seguridad</u></a>
                                 </li>
                             </ul>
                         </div>
@@ -2245,7 +2245,7 @@
                                 <!-- ===================================================
                                    TAB VEHICULO / DOCUMENTOS
                                 =================================================== -->
-                                <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
+                                <div class="tab-pane fade show active" id="custom-tabs-two-homeedit" role="tabpanel" aria-labelledby="custom-tabs-two-homeedit-tab">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
@@ -2326,7 +2326,7 @@
                                 </div>
 
                                 <!--|||TAB SISTEMA DE LUCES|||-->
-                                <div class="tab-pane fade" id="custom-tabs-two-sistemaluces" role="tabpanel" aria-labelledby="custom-tabs-two-sistemaluces-tab">
+                                <div class="tab-pane fade" id="custom-tabs-two-sistemalucesedit" role="tabpanel" aria-labelledby="custom-tabs-two-sistemalucesedit-tab">
                                     <table class="table table-bordered text-center border-danger">
                                         <thead>
                                             <tr>
@@ -2600,7 +2600,7 @@
                                 </div>
 
                                 <!--|||TAB CARROCERIA|||-->
-                                <div class="tab-pane fade" id="custom-tabs-two-carroceria" role="tabpanel" aria-labelledby="custom-tabs-two-carroceria-tab">
+                                <div class="tab-pane fade" id="custom-tabs-two-carroceriaedit" role="tabpanel" aria-labelledby="custom-tabs-two-carroceriaedit-tab">
                                     <table class="table table-bordered text-center">
                                         <thead>
                                             <tr>
@@ -3185,7 +3185,7 @@
                                 </div>
 
                                 <!--|||TAB SISTEMAS|||-->
-                                <div class="tab-pane fade" id="custom-tabs-two-sistemas" role="tabpanel" aria-labelledby="custom-tabs-two-sistemas-tab">
+                                <div class="tab-pane fade" id="custom-tabs-two-sistemasedit" role="tabpanel" aria-labelledby="custom-tabs-two-sistemasedit-tab">
                                     <table class="table table-bordered text-center">
                                         <thead>
                                             <tr>
@@ -3407,7 +3407,7 @@
                                 </div>
 
                                 <!--|||TAB INDICADORES TABLERO|||-->
-                                <div class="tab-pane fade" id="custom-tabs-two-indicadorestableros" role="tabpanel" aria-labelledby="custom-tabs-two-indicadorestableros-tab">
+                                <div class="tab-pane fade" id="custom-tabs-two-indicadorestablerosedit" role="tabpanel" aria-labelledby="custom-tabs-two-indicadorestablerosedit-tab">
                                     <table class="table table-bordered text-center">
                                         <thead>
                                             <tr>
@@ -3543,7 +3543,7 @@
                                 </div>
 
                                 <!--|||TAB MANTENIMIENTO|||-->
-                                <div class="tab-pane fade" id="custom-tabs-two-mantenimiento" role="tabpanel" aria-labelledby="custom-tabs-two-mantenimiento-tab">
+                                <div class="tab-pane fade" id="custom-tabs-two-mantenimientoedit" role="tabpanel" aria-labelledby="custom-tabs-two-mantenimientoedit-tab">
                                     <table class="table table-bordered text-center">
                                         <thead>
                                             <tr>
@@ -3600,7 +3600,7 @@
                                 </div>
 
                                 <!--|||TAB LLANTAS|||-->
-                                <div class="tab-pane fade" id="custom-tabs-two-llantas" role="tabpanel" aria-labelledby="custom-tabs-two-llantas-tab">
+                                <div class="tab-pane fade" id="custom-tabs-two-llantasedit" role="tabpanel" aria-labelledby="custom-tabs-two-llantasedit-tab">
                                     <table class="table table-bordered text-center">
                                         <thead>
                                             <tr>
@@ -3832,7 +3832,7 @@
                                 </div>
 
                                 <!--|||TAB EQUIPO DE SEGURIDAD|||-->
-                                <div class="tab-pane fade" id="custom-tabs-two-equiposeguridad" role="tabpanel" aria-labelledby="custom-tabs-two-equiposeguridad-tab">
+                                <div class="tab-pane fade" id="custom-tabs-two-equiposeguridadedit" role="tabpanel" aria-labelledby="custom-tabs-two-equiposeguridadedit-tab">
                                     <table class="table table-bordered text-center">
                                         <thead>
                                             <tr>
