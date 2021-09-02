@@ -147,7 +147,8 @@
                     $ruta == "contratos-fijos"||
                     $ruta == "contratos-cotizaciones"||
                     $ruta == "contratos-ordenservicio" ||
-                    $ruta == "contratos-fuec"
+                    $ruta == "contratos-fuec" ||
+                    $ruta == "busqueda-fuec"
                 ) {
                     include "modulos/contratos/{$ruta}.php";
                 }
