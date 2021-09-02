@@ -7,6 +7,11 @@ include '../config/config.php';
 require_once '../controllers/usuarios.controlador.php';
 require_once '../models/usuarios.modelo.php';
 
+if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok"){
+	echo "<script>window.location = 'inicio';</script>";
+	die();
+}
+
 class AjaxUsuarios
 {
     /* ===================================================

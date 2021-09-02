@@ -7,6 +7,11 @@ require_once '../controllers/files.controlador.php';
 require_once '../controllers/vehicular.controlador.php';
 require_once '../models/vehicular.modelo.php';
 
+if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok"){
+	echo "<script>window.location = 'inicio';</script>";
+	die();
+}
+
 /* ===================================================
    * PROPIETARIOS
 ===================================================*/

@@ -8,9 +8,9 @@ require_once '../controllers/contratos.controlador.php';
 require_once '../models/contratos.modelo.php';
 
 
-if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok") {
-   echo "larguese hacker, te estoy observando";
-   die();
+if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok"){
+	echo "<script>window.location = 'inicio';</script>";
+	die();
 }
 
 /* ===================================================
