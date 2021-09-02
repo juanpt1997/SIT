@@ -1367,6 +1367,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                 contentType: false,
                 processData: false,
                 success: function (response) {
+                    console.log(response);
                     // Quitar spinner
                     $(`#spinnerTabla${nombreTabla}`).addClass("d-none");
 

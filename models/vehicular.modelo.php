@@ -653,6 +653,34 @@ class ModeloVehiculos
         $stmt->closeCursor();
         return $retorno;
     }
+
+    /* ===================================================
+       REPORTE DOCUMENTOS X VEHICULO
+    ===================================================*/
+    static public function mdlReporteDocumentosxVehiculo($idvehiculo)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT t.tipodocumento, MAX(d.fechafin) AS fechafin
+                                                FROM v_tipodocumento t
+                                                LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
+                                                WHERE d.idvehiculo = :idvehiculo
+                                                GROUP BY t.idtipo UNION ALL
+                                                SELECT t.tipodocumento, NULL AS fechafin
+                                                FROM v_tipodocumento t
+                                                LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
+                                                WHERE t.tipodocumento NOT IN (
+                                                SELECT t.tipodocumento
+                                                FROM v_tipodocumento t
+                                                LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
+                                                WHERE d.idvehiculo = :idvehiculo
+                                                GROUP BY t.idtipo)
+                                                GROUP BY t.idtipo;");
+        $stmt->bindParam(":idvehiculo", $idvehiculo, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
 }
 
 /* ===================================================
