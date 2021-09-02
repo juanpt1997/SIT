@@ -1,5 +1,5 @@
 <?php
- 
+
 // if(!validarModulo('CARGAR_OPCION')) {
 //     echo "<script> window.location = 'inicio'; </script>";
 // }
@@ -9,7 +9,7 @@
 <!-- ===================== 
   MODELO PARA LA IMPLEMENTARCION EN EL DISEÑO DE LOS MODULOS
   ESTRUCTURA 
-========================= --> 
+========================= -->
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -17,15 +17,7 @@
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0 text-dark ">Plantilla</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="inicio">Inicio</a></li>
-                        <li class="breadcrumb-item active">Plantilla</li>
-                    </ol>
-                </div><!-- /.col -->
+
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
@@ -36,14 +28,26 @@
         <div class="container-fluid">
             <!-- ===================== 
               AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
-            ========================= -->            
-            <div class="row">
-                <div class="col-md-12  card ">
-                   
-                </div><!-- col -->
-                
-               
-            </div> <!-- /.row -->
+            ========================= -->
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-6">
+                    <div class="card card-outline card-success text-center">
+                        <div class="card-body">
+                            <label>Consulta - Busqueda de FUEC</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <button type="" class="btn btn-success">Codigo de seguridad</button>
+                                </div>
+                                <!-- /btn-group -->
+                                <input type="text" class="form-control" placeholder="Digite su codigo de seguridad">
+                            </div>
+                            <button type="submit" id="busquedafuec" class="btn btn-default">Busqueda</button>
+                            <button type="submit" id="limpiarfiltros" class="btn btn-default">Limpiar Filtros</button>
+                            <button type="submit" id="salir" class="btn btn-default">Salir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
