@@ -2180,12 +2180,89 @@
                                     </table>
                                 </div>
                             </div>
+
+                            <div class="card card-secondary card-tabs">
+                                <div class="card-header p-0 pt-1">
+                                    <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+
+                                        <li class="pt-2 px-3">
+                                            <h3 class="card-title">Detalles</h3>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link active" id="pills-observaimagenes-tab" data-toggle="pill" href="#pills-observaimagenes" role="tab" aria-controls="pills-observaimagenes" aria-selected="true"><u>Registro fotografico</u></a>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="tab-content" id="custom-tabs-two-tabContent">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Imagen de Evidencia (1 Foto a la vez)</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-append">
+                                                            <span class="input-group-text">
+                                                                <i class="fas fa-camera-retro"></i>
+                                                            </span>
+                                                        </div>
+                                                        <input type="file" class="form-control" name="foto_evidencia" id="foto_evidencia" accept="image/png, image/jpeg">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Observaciones</label>
+                                                    <textarea class="form-control" rows="2" placeholder="Digite las observaciones vistas en la inspeccion."></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+
+                                            </div>
+
+                                            <div class="col-md-4 align-center">
+                                                <button type="button" class="btn btn-block bg-gradient-success"><i class="far fa-save"> Cargar informacion</i></button>
+                                            </div>
+
+                                            <div class="col-md-4">
+
+                                            </div>
+                                        </div>
+
+                                        <br>
+
+                                        <table class="table table-striped text-center">
+                                            <thead>
+                                                <tr>
+                                                    <th>Imagenes de Evidencia</th>
+                                                    <th>Observaciones</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        #
+                                                    </td>
+                                                    <td>
+                                                        #
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </form>
             </div>
 
-            <div class="modal-footer justify-content-center bg-dark">
+            <div class="modal-footer justify-content-center bg-info">
                 <button type="button" class="btn btn-success"><i class="fas fa-print"></i> Guardar</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
             </div>
@@ -2197,7 +2274,7 @@
 <!-- ==============================
   MODAL EDITAR VEHICULO
  ============================== -->
- <div class="modal fade show" id="modal-editar" style="display: none; padding-right: 17px;" aria-modal="true" role="dialog">
+<div class="modal fade show" id="modal-editar" style="display: none; padding-right: 17px;" aria-modal="true" role="dialog">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header bg-info">
@@ -4093,7 +4170,7 @@
                 </form>
             </div>
 
-            <div class="modal-footer justify-content-center bg-dark">
+            <div class="modal-footer justify-content-center bg-info">
                 <button type="button" class="btn btn-success"><i class="fas fa-print"></i> Guardar</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
             </div>
