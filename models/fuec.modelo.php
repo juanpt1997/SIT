@@ -73,6 +73,10 @@ class ModeloFuec
         $FUEC = $stmt->fetch();
         $stmt->closeCursor();
 
+        if ($FUEC === false){
+            return false;
+        }
+
         $tipocontrato = $FUEC['tipocontrato'];
 
         if ($tipocontrato == "OCASIONAL"){

@@ -635,54 +635,54 @@ class AjaxVehiculos
 
         echo $tr;
     }
-    static public function ajaxReporteDocumentos2()
-    {
-        $Vehiculos = ControladorVehiculos::ctrListaVehiculos();
+    // static public function ajaxReporteDocumentos2()
+    // {
+    //     $Vehiculos = ControladorVehiculos::ctrListaVehiculos();
 
-        $tr = "";
+    //     $tr = "";
 
-        for ($i = 0; $i < 20; $i++) {
-            $Documentos = ControladorVehiculos::ctrReporteDocumentosxVehiculo($Vehiculos[$i]['idvehiculo']);
-            $tr .= "<tr>
-                        <td>" . $Vehiculos[$i]['placa'] . "</td>
-                        <td>" . $Vehiculos[$i]['numinterno'] . "</td>
-                        <td>" . $Vehiculos[$i]['sucursal'] . "</td>
-                        <td>" . $Vehiculos[$i]['tipovinculacion'] . "</td>
-                        <td>" . $Vehiculos[$i]['activo'] . "</td>";
-            foreach ($Documentos as $key2 => $value2) {
-                $tr .= "
-                                    <td>" . $value2['tipodocumento'] . "</td>
-                                    <td></td>
-                                    <td>" . $value2['fechafin'] . "</td>";
-            }
-            $tr .= "<td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>";
-        }
-        foreach ($Vehiculos as $key => $value) {
-            // $Documentos = ControladorVehiculos::ctrReporteDocumentosxVehiculo($value['idvehiculo']);
-            // $tr .= "<tr>
-            //             <td>" . $value['placa'] . "</td>
-            //             <td>" . $value['numinterno'] . "</td>
-            //             <td>" . $value['sucursal'] . "</td>
-            //             <td>" . $value['tipovinculacion'] . "</td>
-            //             <td>" . $value['activo'] . "</td>";
-            // foreach ($Documentos as $key2 => $value2) {
-            //     $tr .= "
-            //                         <td>" . $value2['tipodocumento'] . "</td>
-            //                         <td>" . $value2['tipodocumento'] . "</td>
-            //                         <td>" . $value2['fechafin'] . "</td>";              
-            // }
-            // $tr .= "<td></td>
-            //         <td></td>
-            //         <td></td>
-            //         <td></td>
-            //     </tr>";
-        }
-        echo $tr;
-    }
+    //     for ($i = 0; $i < 20; $i++) {
+    //         $Documentos = ControladorVehiculos::ctrReporteDocumentosxVehiculo($Vehiculos[$i]['idvehiculo']);
+    //         $tr .= "<tr>
+    //                     <td>" . $Vehiculos[$i]['placa'] . "</td>
+    //                     <td>" . $Vehiculos[$i]['numinterno'] . "</td>
+    //                     <td>" . $Vehiculos[$i]['sucursal'] . "</td>
+    //                     <td>" . $Vehiculos[$i]['tipovinculacion'] . "</td>
+    //                     <td>" . $Vehiculos[$i]['activo'] . "</td>";
+    //         foreach ($Documentos as $key2 => $value2) {
+    //             $tr .= "
+    //                                 <td>" . $value2['tipodocumento'] . "</td>
+    //                                 <td></td>
+    //                                 <td>" . $value2['fechafin'] . "</td>";
+    //         }
+    //         $tr .= "<td></td>
+    //                 <td></td>
+    //                 <td></td>
+    //                 <td></td>
+    //             </tr>";
+    //     }
+    //     foreach ($Vehiculos as $key => $value) {
+    //         // $Documentos = ControladorVehiculos::ctrReporteDocumentosxVehiculo($value['idvehiculo']);
+    //         // $tr .= "<tr>
+    //         //             <td>" . $value['placa'] . "</td>
+    //         //             <td>" . $value['numinterno'] . "</td>
+    //         //             <td>" . $value['sucursal'] . "</td>
+    //         //             <td>" . $value['tipovinculacion'] . "</td>
+    //         //             <td>" . $value['activo'] . "</td>";
+    //         // foreach ($Documentos as $key2 => $value2) {
+    //         //     $tr .= "
+    //         //                         <td>" . $value2['tipodocumento'] . "</td>
+    //         //                         <td>" . $value2['tipodocumento'] . "</td>
+    //         //                         <td>" . $value2['fechafin'] . "</td>";              
+    //         // }
+    //         // $tr .= "<td></td>
+    //         //         <td></td>
+    //         //         <td></td>
+    //         //         <td></td>
+    //         //     </tr>";
+    //     }
+    //     echo $tr;
+    // }
     static public function ajaxReporteDocumentos3()
     {
         $Respuesta = ControladorVehiculos::ctrReporteDocumentos();
@@ -842,7 +842,6 @@ class AjaxVehiculos
                 else {
                     $tr .= "
                             <tr>
-                                    <td>" . $i . "</td>
                                     <td>" . $Arreglo[$i]['placa'] . "</td>
                                     <td>" . $Arreglo[$i]['numinterno'] . "</td>
                                     <td>" . $Arreglo[$i]['sucursal'] . "</td>
@@ -883,7 +882,6 @@ class AjaxVehiculos
                 else {
                     $tr .= "
                             <tr>
-                                    <td>" . $i . "</td>
                                     <td>" . $Arreglo[$i]['placa'] . "</td>
                                     <td>" . $Arreglo[$i]['numinterno'] . "</td>
                                     <td>" . $Arreglo[$i]['sucursal'] . "</td>

@@ -160,7 +160,6 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                             <table id="tblReporteDocumentos" class="table table-sm table-striped table-bordered table-hover w-100">
                                 <thead class="thead-light text-sm text-nowrap" style="font-size: 13px;">
                                     <tr>
-                                        <td>#</td>
                                         <td>Placa</td>
                                         <td>Nro Interno afiliado</td>
                                         <td>sucursal</td>
