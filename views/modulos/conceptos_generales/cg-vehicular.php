@@ -53,15 +53,15 @@
                                     <!-- /.info-box -->
                                 </div>
 
-                                <div class="col-12 col-sm-6 col-md-3">
+                                <!-- <div class="col-12 col-sm-6 col-md-3">
                                     <div class="info-box border border-secondary">
                                       <span class="info-box-icon bg-info elevation-1"><i class="fas fa-road"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text"><i>Rutas y recorridos</i></span>
                                             <span class="info-box-number" concepto="Rutas y recorridos"></span>        
-                                        </div>
+                                        </div> -->
                                         <!-- /.info-box-content -->
-                                            <div>
+                                            <!-- <div>
                                                 <button concepto="Rutas y recorridos" type="button" class="btn-toolbar btn-ver-ruta btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarRutas"><i class="far fa-eye"></i></button>
                                                 <button concepto="Rutas y recorridos" type="button" class="btn-toolbar btn-nueva-ruta btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarRuta" id="btn-tausentismo"><i class="fas fa-plus-circle"></i></button>  
                                             </div>
@@ -69,9 +69,9 @@
                                             <div class="overlay d-none" concepto="Rutas y recorridos">
                                                 <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                                             </div>
-                                    </div>
+                                    </div> -->
                                     <!-- /.info-box -->
-                                </div>
+                                <!-- </div> -->
 
                                 <!-- <div class="col-12 col-sm-6 col-md-3">
                                     <div class="info-box border border-secondary">
@@ -96,15 +96,15 @@
                                     <!-- /.info-box -->
                                 <!-- </div> -->
 
-                                <div class="col-12 col-sm-6 col-md-3">
+                                <!-- <div class="col-12 col-sm-6 col-md-3">
                                     <div class="info-box border border-secondary">
                                       <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-id-badge"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text"><i>Categorias de licencias</i></span>
-                                            <span class="info-box-number" concepto="Categorias de licencias"></span>        
-                                        </div>
+                                            <span class="info-box-number" concepto="Categorias de licencias"></span>         -->
+                                        <!-- </div> -->
                                         <!-- /.info-box-content -->
-                                            <div>
+                                            <!-- <div>
                                                 <button concepto="Categorias de licencias" type="button" class="btn-toolbar btn-ver-2 btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarV1"><i class="far fa-eye"></i></button>
                                                 <button concepto="Categorias de licencias" type="button" class="btn-toolbar btn-nuevo-2 btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarV2" id="btn-tausentismo"><i class="fas fa-plus-circle"></i></button>  
                                             </div>
@@ -112,9 +112,9 @@
                                             <div class="overlay d-none" concepto="Categorias de licencias">
                                                 <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                                             </div>
-                                    </div>
+                                    </div> -->
                                     <!-- /.info-box -->
-                                </div>
+                                <!-- </div> -->
 
                                 <div class="col-12 col-sm-6 col-md-3">
                                     <div class="info-box border border-secondary">
