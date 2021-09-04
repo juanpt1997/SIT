@@ -314,7 +314,7 @@ class ModeloFuec
     ===================================================*/
     static public function mdlObjetosContrato()
     {
-        $sql = "SELECT * FROM v_objetocontrato";
+        $sql = "SELECT * FROM v_objetocontrato WHERE estado = 1";
         $stmt = Conexion::conectar()->prepare($sql);
 
         $stmt->execute();

@@ -42,8 +42,8 @@
                         <!-- /.info-box -->
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuCG">
                             <a class="dropdown-item font-weight-bold" href="cg-gestion-humana"><u>Gestión humana</u></a>
+                            <a class="dropdown-item font-weight-bold" href="cg-vehicular"><u>Vehicular</u></a>
                             <?php if (validarModulo('M_OPCIONES')) : ?>
-                                <a class="dropdown-item font-weight-bold" href="cg-vehicular"><u>Vehicular</u></a>
                                 <a class="dropdown-item font-weight-bold" href="cg-mantenimiento"><u>Matenimiento</u></a>
                                 <a class="dropdown-item font-weight-bold" href="cg-seguridad"><u>Seguridad</u></a>
                             <?php endif ?>

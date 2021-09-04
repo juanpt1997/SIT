@@ -205,7 +205,7 @@ class ModeloVehiculos
     {
 
         $stmt = Conexion::conectar()->prepare("SELECT *
-                                                FROM v_marcas");
+                                                FROM v_marcas WHERE estado = 1");
 
         $stmt->execute();
         $retorno = $stmt->fetchAll();
@@ -538,7 +538,7 @@ class ModeloVehiculos
     ===================================================*/
     static public function mdlTiposDocumentacion()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM v_tipodocumento");
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM v_tipodocumento WHERE estado = 1");
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();

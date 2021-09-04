@@ -110,7 +110,7 @@ class ModeloGH
     static public function mdlSucursales()
     {
         $stmt = Conexion::conectar()->prepare("SELECT *
-                                                FROM gh_sucursales");
+                                                FROM gh_sucursales WHERE estado = 1");
 
         $stmt->execute();
         $retorno = $stmt->fetchAll();
@@ -126,6 +126,7 @@ class ModeloGH
         $stmt = Conexion::conectar()->prepare("SELECT m.idmunicipio, m.municipio, m.iddepartamento AS iddepar, d.nombre AS departamento, CONCAT(d.nombre, ' - ', m.municipio) AS DeparMunic
                                                 FROM gh_municipios m
                                                 INNER JOIN gh_departamentos d ON m.iddepartamento = d.iddepartamento
+                                                WHERE m.estado = 1
                                                 ORDER BY d.nombre, m.municipio");
 
         $stmt->execute();
@@ -154,7 +155,7 @@ class ModeloGH
     static public function mdlProcesos()
     {
         $stmt = Conexion::conectar()->prepare("SELECT *
-                                                FROM gh_procesos");
+                                                FROM gh_procesos WHERE estado = 1");
 
         $stmt->execute();
         $retorno = $stmt->fetchAll();
@@ -168,7 +169,7 @@ class ModeloGH
     static public function mdlListadoEPS()
     {
         $stmt = Conexion::conectar()->prepare("SELECT *
-                                                FROM gh_eps");
+                                                FROM gh_eps WHERE estado = 1");
 
         $stmt->execute();
         $retorno = $stmt->fetchAll();
@@ -182,7 +183,7 @@ class ModeloGH
     static public function mdlListadoAFP()
     {
         $stmt = Conexion::conectar()->prepare("SELECT *
-                                                FROM gh_fondospension");
+                                                FROM gh_fondospension WHERE estado = 1");
 
         $stmt->execute();
         $retorno = $stmt->fetchAll();
@@ -196,7 +197,7 @@ class ModeloGH
     static public function mdlListadoARL()
     {
         $stmt = Conexion::conectar()->prepare("SELECT *
-                                                FROM gh_arl");
+                                                FROM gh_arl WHERE estado = 1");
 
         $stmt->execute();
         $retorno = $stmt->fetchAll();
