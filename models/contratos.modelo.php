@@ -470,12 +470,16 @@ class ModeloOrdenServicio
    static public function mdlVerOrden($valor)
    {
 
-      $stmt = Conexion::conectar()->prepare("SELECT C.*, O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, C.nombre_con, C.documento_con, C.direccion_con, C.tel_1, C.tel_2, C.nombre_respo, C.documento_res, C.cedula_expedicion, cr.municipio AS ciudadrespons, exped.municipio AS ciudad_cedula_expedidaen
+      $stmt = Conexion::conectar()->prepare("SELECT C.*, 
+                                                O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, 
+                                                -- C.nombre_con, C.documento_con, C.direccion_con, C.tel_1, C.tel_2, C.nombre_respo, C.documento_res, C.cedula_expedicion, 
+                                                cr.municipio AS ciudadrespons, 
+                                                exped.municipio AS ciudad_cedula_expedidaen
                                              FROM cont_ordenservicio O
                                              LEFT JOIN cont_cotizaciones C ON O.idcotizacion = C.idcotizacion
                                              LEFT JOIN cont_clientes CL ON CL.idcliente = C.idcliente
-                                             LEFT JOIN gh_municipios cr ON cr.idmunicipio = CL.idciudadrespons
-                                             LEFT JOIN gh_municipios exped ON exped.idmunicipio = CL.cedula_expedidaen
+                                             LEFT JOIN gh_municipios cr ON cr.idmunicipio = C.ciudad_res
+                                             LEFT JOIN gh_municipios exped ON exped.idmunicipio = C.cedula_expedicion
                                              WHERE O.idorden = :idorden");
 
       $stmt->bindParam(":idorden",  $valor, PDO::PARAM_INT);
@@ -487,7 +491,11 @@ class ModeloOrdenServicio
 
    static public function mdlVerListaOrden()
    {
-      $stmt = Conexion::conectar()->prepare("SELECT C.*, O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, C.nombre_con AS nomContrata, C.documento_con AS doContrata, C.direccion_con, C.tel_1, C.tel_2, C.nombre_respo  FROM cont_ordenservicio O
+      $stmt = Conexion::conectar()->prepare("SELECT C.*, 
+                                             O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, 
+                                             C.nombre_con AS nomContrata, C.documento_con AS doContrata
+                                             -- C.direccion_con, C.tel_1, C.tel_2, C.nombre_respo  
+                                             FROM cont_ordenservicio O
                                              LEFT JOIN cont_cotizaciones C ON O.idcotizacion = C.idcotizacion
                                              LEFT JOIN cont_clientes CL ON CL.idcliente = C.idcliente");
 

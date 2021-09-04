@@ -205,7 +205,7 @@ if (
                 //$(".input-clientes").attr("readonly", "readonly");
                 $("#listaclientes").attr("required", "required");
                 //$("#ciudadcliente").select2("readonly");
-                $('.select-ciudad').prop('disabled', true);
+                //$('.select-ciudad').prop('disabled', true);
             }
             // Si selecciona posible cliente
             else {
@@ -216,7 +216,7 @@ if (
                 $("#listaclientes").trigger("change");
                 $(".input-clientes").removeAttr("readonly");
                 $("#listaclientes").removeAttr("required");
-                $('.select-ciudad').prop('disabled', false);
+                //$('.select-ciudad').prop('disabled', false);
                 $(".select-ciudad").trigger("change");
             }
         });
