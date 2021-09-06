@@ -443,7 +443,7 @@ class PdfFuec
 
         $pdf->Image($image_ponal, '', '', 26, 20,  'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         $x = $pdf->GetX() + 5;
-        //$pdf->MultiCell(129, 5, 'Para su autenticidad de esta planilla consultar la página web ..................... ingresando el siguiente código ....', 0, 'L', 0, 0, $x, '', true);
+        $pdf->MultiCell(129, 5, 'Para su autenticidad de esta planilla consultar la página web ' . $empresa['sitio_web'] . 'busqueda-fuec o escanear el código QR de la parte superior de este documento e ingresando el siguiente código: ' . $info['idfuec'], 0, 'L', 0, 0, $x, '', true);
         $pdf->Ln();
 
 

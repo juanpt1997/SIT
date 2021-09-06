@@ -455,10 +455,10 @@ class ControladorVehiculos
 	/* ===================================================
 		REPORTE DOCUMENTOS X VEHICULO
 	===================================================*/
-	static public function ctrReporteDocumentosxVehiculo($idvehiculo)
-	{
-		return ModeloVehiculos::mdlReporteDocumentosxVehiculo($idvehiculo);
-	}
+	// static public function ctrReporteDocumentosxVehiculo($idvehiculo)
+	// {
+	// 	return ModeloVehiculos::mdlReporteDocumentosxVehiculo($idvehiculo);
+	// }
 }
 
 /* ===================================================

@@ -72,12 +72,12 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                     </div>
                                                 </td>
                                                 <td><?= $value['idcotizacion'] ?></td>
-                                                <td><?= $value['nombre'] ?></td>
-                                                <td><?= $value['Documento'] ?></td>
-                                                <td><?= $value['direccion'] ?></td>
-                                                <td><?= $value['telefono'] ?></td>
-                                                <td><?= $value['telefono2'] ?></td>
-                                                <td><?= $value['nombrerespons'] ?></td>
+                                                <td><?= $value['nombre_con'] ?></td>
+                                                <td><?= $value['documento_con'] ?></td>
+                                                <td><?= $value['direccion_con'] ?></td>
+                                                <td><?= $value['tel_1'] ?></td>
+                                                <td><?= $value['tel_2'] ?></td>
+                                                <td><?= $value['nombre_respo'] ?></td>
                                                 <td><?= $value['empresa'] ?></td>
                                                 <td><?= $value['origen'] ?></td>
                                                 <td><?= $value['destino'] ?></td>
@@ -142,7 +142,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm"><i>Lista de clientes</i></label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control select2-single input-sm" id="listaclientes" style="width: 99%" name="listaclientes" readonly>
+                                    <select class="form-control select2-single select-clientes input-sm" id="listaclientes" style="width: 99%" name="listaclientes" readonly>
                                         <option value="" selected><b>-Seleccione un cliente existente-</b></option>
                                         <?php foreach ($clientes as $key => $value) : ?>
                                             <option value="<?= $value['idcliente'] ?>"><?= $value['clientexist'] ?></option>

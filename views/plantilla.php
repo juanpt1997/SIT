@@ -88,6 +88,11 @@
 
 </head>
 
+<?php if (strpos($_SERVER['REQUEST_URI'], "busqueda-fuec") !== false) : ?>
+<body >
+    <?php include('modulos/contratos/busqueda-fuec.php'); ?>
+</body>
+<?php else : ?>
 <body class="hold-transition layout-fixed layout-navbar-fixed sidebar-collapse ">
 
     <?php if (isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == "ok") : ?>
@@ -185,17 +190,20 @@
     include 'includes/modals.php';
     ?>
 
-    <!-- =================================================== CUSTOM JS =================================================== -->
-    <script src="<?= URL_APP ?>config/config.js?v=<?= time() ?>"></script>
-    <script src="<?= URL_APP ?>views/js/plantilla.js?v=<?= time() ?>"></script>
-    <script src="<?= URL_APP ?>views/js/usuarios.js?v=<?= time() ?>"></script>
-    <script src="<?= URL_APP ?>views/js/gh.js?v=<?= time() ?>"></script>
-    <script src="<?= URL_APP ?>views/js/vehicular.js?v=<?= time() ?>"></script>
-    <script src="<?= URL_APP ?>views/js/conceptos.js?v=<?= time() ?>"></script>
-    <script src="<?= URL_APP ?>views/js/contratos.js?v=<?= time() ?>"></script>
-    <script src="<?= URL_APP ?>views/js/fuec.js?v=<?= time() ?>"></script>
 
 </body>
+<?php endif ?>
+
+<!-- =================================================== CUSTOM JS =================================================== -->
+<script src="<?= URL_APP ?>config/config.js?v=<?= time() ?>"></script>
+<script src="<?= URL_APP ?>views/js/plantilla.js?v=<?= time() ?>"></script>
+<script src="<?= URL_APP ?>views/js/usuarios.js?v=<?= time() ?>"></script>
+<script src="<?= URL_APP ?>views/js/gh.js?v=<?= time() ?>"></script>
+<script src="<?= URL_APP ?>views/js/vehicular.js?v=<?= time() ?>"></script>
+<script src="<?= URL_APP ?>views/js/conceptos.js?v=<?= time() ?>"></script>
+<script src="<?= URL_APP ?>views/js/contratos.js?v=<?= time() ?>"></script>
+<script src="<?= URL_APP ?>views/js/fuec.js?v=<?= time() ?>"></script>
+
 
 
 </html>

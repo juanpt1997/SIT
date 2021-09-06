@@ -73,11 +73,15 @@ class ModeloFuec
         $FUEC = $stmt->fetch();
         $stmt->closeCursor();
 
+        if ($FUEC === false){
+            return false;
+        }
+
         $tipocontrato = $FUEC['tipocontrato'];
 
         if ($tipocontrato == "OCASIONAL"){
             $sql = "SELECT f.*, 
-                        cl.nombre AS nomContratante, cl.Documento AS docContratante, cl.direccion AS direccion, cl.telefono AS telContratante, cl.nombrerespons, cl.Documentorespons, cl.telefono2 AS telrespons, 
+                        c.nombre_con AS nomContratante, c.documento_con AS docContratante, c.direccion_con AS direccion, c.tel_1 AS telContratante, c.nombre_respo AS nombrerespons, c.documento_res AS Documentorespons, c.tel_2 AS telrespons, 
                         v.placa, v.numinterno, v.tipovinculacion, v.modelo, 
                         vm.marca, 
                         tv.tipovehiculo,
@@ -310,7 +314,7 @@ class ModeloFuec
     ===================================================*/
     static public function mdlObjetosContrato()
     {
-        $sql = "SELECT * FROM v_objetocontrato";
+        $sql = "SELECT * FROM v_objetocontrato WHERE estado = 1";
         $stmt = Conexion::conectar()->prepare($sql);
 
         $stmt->execute();

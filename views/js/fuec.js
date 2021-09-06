@@ -299,13 +299,13 @@ $(document).ready(function () {
                         processData: false,
                         success: function (response) {
                             // Datos cliente
-                            $("#docum_empre").val(response.Documento);
-                            $("#dir_empre").val(response.direccion);
-                            $("#telefono_empre").val(response.telefono);
-                            $("#nom_respo").val(response.nombrerespons);
-                            $("#docum_respo").val(response.Documentorespons);
-                            $("#dir_respo").val(response.direccion);
-                            $("#telefono_cliente").val(response.telefono2);
+                            $("#docum_empre").val(response.documento_con);
+                            $("#dir_empre").val(response.direccion_con);
+                            $("#telefono_empre").val(response.tel_1);
+                            $("#nom_respo").val(response.nombre_con);
+                            $("#docum_respo").val(response.documento_con);
+                            $("#dir_respo").val(response.direccion_con);
+                            $("#telefono_cliente").val(response.tel_1);
                             $("#ciudad_cliente").val(response.ciudadrespons);
                             $("#expedicion_doccliente").val(response.ciudad_cedula_expedidaen);
 
@@ -428,7 +428,7 @@ $(document).ready(function () {
                                 confirmButtonText: 'Ver PDF',
                                 cancelButtonText: 'Cerrar',
                             }).then((result) => {
-                                if (result.value){
+                                if (result.value) {
                                     window.open(`./pdf/pdffuec.php?cod=${idfuec}`, '', 'width=1280,height=720,left=50,top=50,toolbar=yes');
                                 }
                             });
@@ -576,5 +576,67 @@ $(document).ready(function () {
             $(".btn-copy-fuec").addClass("d-none");
         });
 
+    }
+
+    /* ===================================================
+      * BUSQUEDA FUEC
+    ===================================================*/
+    if (window.location.href == `${urlPagina}busqueda-fuec/` ||
+        window.location.href == `${urlPagina}busqueda-fuec`
+    ) {
+        /* ===================================================
+          CLIC EN BUSQUEDA
+        ===================================================*/
+        $(document).on("click", "#busquedafuec", function () {
+            if ($("#codigoFuec").val() != "") {
+                console.log("entra");
+                var idfuec = $("#codigoFuec").val();
+                var datos = new FormData();
+                datos.append('DatosFUEC', "ok");
+                datos.append('item', 'idfuec');
+                datos.append('valor', idfuec);
+                $.ajax({
+                    type: 'post',
+                    url: `${urlPagina}ajax/fuec.ajax.php`,
+                    data: datos,
+                    dataType: 'json',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response != "") {
+                            // Mensaje de éxito al usuario
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'FUEC ENCONTRADO',
+                                showConfirmButton: true,
+                                showCancelButton: true,
+                                confirmButtonText: 'Ver PDF',
+                                cancelButtonText: 'Cerrar',
+                            }).then((result) => {
+                                if (result.value) {
+                                    window.open(`./pdf/pdffuec.php?cod=${idfuec}`, '', 'width=1280,height=720,left=50,top=50,toolbar=yes');
+                                }
+                            });
+                        }else{
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'No se ha podido encontrar el respectivo FUEC',
+                                showConfirmButton: true,
+                                confirmButtonText: 'Cerrar',
+                                closeOnConfirm: false
+                            })
+                        }
+                    }
+                });
+            }
+        });
+
+        /* ===================================================
+          CLIC EN LIMPIAR FILTRO
+        ===================================================*/
+        $(document).on("click", "#limpiarfiltros", function () {
+            $("#codigoFuec").val("");
+        });
     }
 });

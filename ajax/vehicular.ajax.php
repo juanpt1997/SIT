@@ -7,6 +7,11 @@ require_once '../controllers/files.controlador.php';
 require_once '../controllers/vehicular.controlador.php';
 require_once '../models/vehicular.modelo.php';
 
+if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok"){
+	echo "<script>window.location = 'inicio';</script>";
+	die();
+}
+
 /* ===================================================
    * PROPIETARIOS
 ===================================================*/
@@ -635,52 +640,282 @@ class AjaxVehiculos
 
         echo $tr;
     }
-    static public function ajaxReporteDocumentos2()
-    {
-        $Vehiculos = ControladorVehiculos::ctrListaVehiculos();
+    // static public function ajaxReporteDocumentos2()
+    // {
+    //     $Vehiculos = ControladorVehiculos::ctrListaVehiculos();
 
+    //     $tr = "";
+
+    //     for ($i = 0; $i < 20; $i++) {
+    //         $Documentos = ControladorVehiculos::ctrReporteDocumentosxVehiculo($Vehiculos[$i]['idvehiculo']);
+    //         $tr .= "<tr>
+    //                     <td>" . $Vehiculos[$i]['placa'] . "</td>
+    //                     <td>" . $Vehiculos[$i]['numinterno'] . "</td>
+    //                     <td>" . $Vehiculos[$i]['sucursal'] . "</td>
+    //                     <td>" . $Vehiculos[$i]['tipovinculacion'] . "</td>
+    //                     <td>" . $Vehiculos[$i]['activo'] . "</td>";
+    //         foreach ($Documentos as $key2 => $value2) {
+    //             $tr .= "
+    //                                 <td>" . $value2['tipodocumento'] . "</td>
+    //                                 <td></td>
+    //                                 <td>" . $value2['fechafin'] . "</td>";
+    //         }
+    //         $tr .= "<td></td>
+    //                 <td></td>
+    //                 <td></td>
+    //                 <td></td>
+    //             </tr>";
+    //     }
+    //     foreach ($Vehiculos as $key => $value) {
+    //         // $Documentos = ControladorVehiculos::ctrReporteDocumentosxVehiculo($value['idvehiculo']);
+    //         // $tr .= "<tr>
+    //         //             <td>" . $value['placa'] . "</td>
+    //         //             <td>" . $value['numinterno'] . "</td>
+    //         //             <td>" . $value['sucursal'] . "</td>
+    //         //             <td>" . $value['tipovinculacion'] . "</td>
+    //         //             <td>" . $value['activo'] . "</td>";
+    //         // foreach ($Documentos as $key2 => $value2) {
+    //         //     $tr .= "
+    //         //                         <td>" . $value2['tipodocumento'] . "</td>
+    //         //                         <td>" . $value2['tipodocumento'] . "</td>
+    //         //                         <td>" . $value2['fechafin'] . "</td>";              
+    //         // }
+    //         // $tr .= "<td></td>
+    //         //         <td></td>
+    //         //         <td></td>
+    //         //         <td></td>
+    //         //     </tr>";
+    //     }
+    //     echo $tr;
+    // }
+    static public function ajaxReporteDocumentos3()
+    {
+        $Respuesta = ControladorVehiculos::ctrReporteDocumentos();
         $tr = "";
 
-        for ($i=0; $i < 20; $i++) { 
-            $Documentos = ControladorVehiculos::ctrReporteDocumentosxVehiculo($Vehiculos[$i]['idvehiculo']);
-            $tr .= "<tr>
-                        <td>" . $Vehiculos[$i]['placa'] . "</td>
-                        <td>" . $Vehiculos[$i]['numinterno'] . "</td>
-                        <td>" . $Vehiculos[$i]['sucursal'] . "</td>
-                        <td>" . $Vehiculos[$i]['tipovinculacion'] . "</td>
-                        <td>" . $Vehiculos[$i]['activo'] . "</td>";
-            foreach ($Documentos as $key2 => $value2) {
-                $tr .= "
-                                    <td>" . $value2['tipodocumento'] . "</td>
-                                    <td></td>
-                                    <td>" . $value2['fechafin'] . "</td>";              
-            }
-            $tr .= "<td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>";
-        }
-        foreach ($Vehiculos as $key => $value) {
-            // $Documentos = ControladorVehiculos::ctrReporteDocumentosxVehiculo($value['idvehiculo']);
-            // $tr .= "<tr>
-            //             <td>" . $value['placa'] . "</td>
-            //             <td>" . $value['numinterno'] . "</td>
-            //             <td>" . $value['sucursal'] . "</td>
-            //             <td>" . $value['tipovinculacion'] . "</td>
-            //             <td>" . $value['activo'] . "</td>";
-            // foreach ($Documentos as $key2 => $value2) {
-            //     $tr .= "
-            //                         <td>" . $value2['tipodocumento'] . "</td>
-            //                         <td>" . $value2['tipodocumento'] . "</td>
-            //                         <td>" . $value2['fechafin'] . "</td>";              
+        $contadorDocumentos = 0;
+        $TiposDocumento = ControladorVehiculos::ctrTiposDocumentacion();
+        $NDocumentos = count($TiposDocumento);
+        //$NDocumentos = count(ControladorVehiculos::ctrTiposDocumentacion());
+
+        $test = array(
+            'placa' => "CEE835",
+            'numinterno' => "CEE835",
+            'tipovinculacion' => "CEE835",
+            'activo' => "CEE835",
+            'fechainicio' => "CEE835",
+            'fechafin' => "CEE835",
+            'tipodocumento' => "CEE835",
+            'idtipo' => "CEE835",
+            'sucursal' => "CEE835",
+            'nombre' => "CEE835",
+            'documento' => "CEE835",
+            'telef' => "CEE835",
+            'email' => "CEE835"
+        );
+
+        # Relleno el arreglo con espacios vacios
+        $Arreglo = array();
+        $cont = 1;
+        for ($i = 0; $i < count($Respuesta); $i++) {
+            //echo $cont;
+
+            // if ($Respuesta[$i]['idtipo'] < $cont){
+
             // }
-            // $tr .= "<td></td>
-            //         <td></td>
-            //         <td></td>
-            //         <td></td>
-            //     </tr>";
+
+            // Hay campos vacios antes de...
+            if ($Respuesta[$i]['idtipo'] > $cont) {
+                for ($j = $cont; $j < $Respuesta[$i]['idtipo']; $j++) {
+                    $test = array(
+                        'placa' => $Respuesta[$i]['placa'],
+                        'numinterno' => $Respuesta[$i]['numinterno'],
+                        'tipovinculacion' => $Respuesta[$i]['tipovinculacion'],
+                        'activo' => $Respuesta[$i]['activo'],
+                        'fechainicio' => "",
+                        'fechafin' => "",
+                        'tipodocumento' => "",
+                        'idtipo' => $Respuesta[$i]['idtipo'],
+                        'sucursal' => $Respuesta[$i]['sucursal'],
+                        'nombre' => $Respuesta[$i]['nombre'],
+                        'documento' => $Respuesta[$i]['documento'],
+                        'telef' => $Respuesta[$i]['telef'],
+                        'email' => $Respuesta[$i]['email']
+                    );
+                    $Arreglo[] = $test;
+                    //var_dump($test);
+                    //echo " Entro a llenar esto $j";
+                }
+            }
+            // Pasa a un nuevo vehiculo y quedan vacios los espacios siguientes del vehiculo anterior
+            else {
+                if ($Respuesta[$i]['idtipo'] < $cont) {
+                    // Completo lo que sigue
+                    for ($j = $cont; $j <= $NDocumentos; $j++) {
+                        $test = array(
+                            'placa' => $Respuesta[$i - 1]['placa'],
+                            'numinterno' => $Respuesta[$i - 1]['numinterno'],
+                            'tipovinculacion' => $Respuesta[$i - 1]['tipovinculacion'],
+                            'activo' => $Respuesta[$i - 1]['activo'],
+                            'fechainicio' => "",
+                            'fechafin' => "",
+                            'tipodocumento' => "",
+                            'idtipo' => "",
+                            'sucursal' => $Respuesta[$i - 1]['sucursal'],
+                            'nombre' => $Respuesta[$i - 1]['nombre'],
+                            'documento' => $Respuesta[$i - 1]['documento'],
+                            'telef' => $Respuesta[$i - 1]['telef'],
+                            'email' => $Respuesta[$i - 1]['email']
+                        );
+                        $Arreglo[] = $test;
+                        //var_dump($test);
+                        //echo " Entro a llenar esto $j";
+                    }
+                    $cont = 1;
+
+                    // Vuelve y ocurre que los espacios anterior estan vacios
+                    if ($Respuesta[$i]['idtipo'] > $cont) {
+                        for ($j = $cont; $j < $Respuesta[$i]['idtipo']; $j++) {
+                            $test = array(
+                                'placa' => $Respuesta[$i]['placa'],
+                                'numinterno' => $Respuesta[$i]['numinterno'],
+                                'tipovinculacion' => $Respuesta[$i]['tipovinculacion'],
+                                'activo' => $Respuesta[$i]['activo'],
+                                'fechainicio' => "",
+                                'fechafin' => "",
+                                'tipodocumento' => "",
+                                'idtipo' => "",
+                                'sucursal' => $Respuesta[$i]['sucursal'],
+                                'nombre' => $Respuesta[$i]['nombre'],
+                                'documento' => $Respuesta[$i]['documento'],
+                                'telef' => $Respuesta[$i]['telef'],
+                                'email' => $Respuesta[$i]['email']
+                            );
+                            $Arreglo[] = $test;
+                            //var_dump($test);
+                            //echo " Entro a llenar esto $j";
+                        }
+                    }
+                }
+            }
+            //var_dump($Respuesta[$i]);
+
+            $Arreglo[] = $Respuesta[$i]; // Meto el que es en la posicion correcta
+
+            if ($cont < $NDocumentos) {
+                $cont = $Respuesta[$i]['idtipo'] + 1; // Aumento contador si se que no ha llegado al final
+                //echo " sumé 1 a $cont ";
+            } else {
+                //echo " cont = 1 ";
+                $cont = 1; // Si llega al final de los posibles documentos, reinicio el contador
+            }
         }
+
+        //var_dump($Arreglo);
+        //var_dump($Respuesta);
+
+
+
+
+        for ($i = 0; $i < count($Arreglo); $i++) {
+            # Badge que indica si el documento está vencido o activo
+            if ($Arreglo[$i]['fechafin'] > date("Y-m-d")) {
+                $badgecolor = "success";
+            } else {
+                if ($Arreglo[$i]['fechafin'] == date("Y-m-d")) {
+                    $badgecolor = "warning";
+                } else {
+                    $badgecolor = "danger";
+                }
+            }
+            $fechavencimiento = "<span class='badge badge-{$badgecolor}'>{$Arreglo[$i]['fechafin']}</span>";
+            $tipodocumento = "<span class='badge badge-{$badgecolor} text-uppercase'>{$Arreglo[$i]['tipodocumento']}</span>";
+
+            # Si es igual al siguiente
+            if ($i < count($Arreglo) - 1 && $Arreglo[$i]['placa'] == $Arreglo[$i + 1]['placa']) {
+
+                # Igual al anterior e igual al siguiente
+                if ($i > 0 && $Arreglo[$i]['placa'] == $Arreglo[$i - 1]['placa']) {
+                    $tr .= "
+                            <td>" . $tipodocumento . "</td>
+                            <td>" . $Arreglo[$i]['fechainicio'] . "</td>
+                            <td>" . $fechavencimiento . "</td>";
+
+                    $contadorDocumentos++;
+                }
+                # Diferente al anterior e igual al siguiente
+                else {
+                    $tr .= "
+                            <tr>
+                                    <td>" . $Arreglo[$i]['placa'] . "</td>
+                                    <td>" . $Arreglo[$i]['numinterno'] . "</td>
+                                    <td>" . $Arreglo[$i]['sucursal'] . "</td>
+                                    <td>" . $Arreglo[$i]['tipovinculacion'] . "</td>
+                                    <td>" . $Arreglo[$i]['activo'] . "</td>
+                                    <td>" . $tipodocumento . "</td>
+                                    <td>" . $Arreglo[$i]['fechainicio'] . "</td>
+                                    <td>" . $fechavencimiento . "</td>";
+                    $contadorDocumentos++;
+                }
+            }
+
+            # Diferente al siguiente
+            else {
+                # Igual al anterior y diferente al siguiente
+                if ($i > 0 && $Arreglo[$i]['placa'] == $Arreglo[$i - 1]['placa']) {
+                    $tr .= "
+                                <td>" . $tipodocumento . "</td>
+                                <td>" . $Arreglo[$i]['fechainicio'] . "</td>
+                                <td>" . $fechavencimiento . "</td>";
+                    for ($j = $contadorDocumentos; $j < $NDocumentos - 1; $j++) {
+                        $tr .= "
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>";
+                    }
+
+                    $tr .= "
+                                <td>" . $Arreglo[$i]['nombre'] . "</td>
+                                <td>" . $Arreglo[$i]['documento'] . "</td>
+                                <td>" . $Arreglo[$i]['telef'] . "</td>
+                                <td>" . $Arreglo[$i]['email'] . "</td>
+                        </tr>";
+
+                    $contadorDocumentos = 0;
+                }
+                # Diferente al anterior y diferente al siguiente
+                else {
+                    $tr .= "
+                            <tr>
+                                    <td>" . $Arreglo[$i]['placa'] . "</td>
+                                    <td>" . $Arreglo[$i]['numinterno'] . "</td>
+                                    <td>" . $Arreglo[$i]['sucursal'] . "</td>
+                                    <td>" . $Arreglo[$i]['tipovinculacion'] . "</td>
+                                    <td>" . $Arreglo[$i]['activo'] . "</td>
+                                    <td>" . $tipodocumento . "</td>
+                                    <td>" . $Arreglo[$i]['fechainicio'] . "</td>
+                                    <td>" . $fechavencimiento . "</td>";
+
+                    for ($j = $contadorDocumentos; $j < $NDocumentos - 1; $j++) {
+                        $tr .= "
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>";
+                    }
+
+                    $tr .= "
+                                    <td>" . $Arreglo[$i]['nombre'] . "</td>
+                                    <td>" . $Arreglo[$i]['documento'] . "</td>
+                                    <td>" . $Arreglo[$i]['telef'] . "</td>
+                                    <td>" . $Arreglo[$i]['email'] . "</td>
+                            </tr>
+                        ";
+
+                    $contadorDocumentos = 0;
+                }
+            }
+        }
+
         echo $tr;
     }
 }
@@ -784,5 +1019,5 @@ if (isset($_POST['EliminarDocumentoVehiculo']) && $_POST['EliminarDocumentoVehic
 
 # LLAMADO AL REPORTE COMPLETO DOCUMENTOS VEHICULOS
 if (isset($_REQUEST['ReporteDocumentos']) && $_REQUEST['ReporteDocumentos'] == "ok") {
-    AjaxVehiculos::ajaxReporteDocumentos2();
+    AjaxVehiculos::ajaxReporteDocumentos3();
 }

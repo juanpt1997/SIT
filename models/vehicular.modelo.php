@@ -205,7 +205,7 @@ class ModeloVehiculos
     {
 
         $stmt = Conexion::conectar()->prepare("SELECT *
-                                                FROM v_marcas");
+                                                FROM v_marcas WHERE estado = 1");
 
         $stmt->execute();
         $retorno = $stmt->fetchAll();
@@ -538,7 +538,7 @@ class ModeloVehiculos
     ===================================================*/
     static public function mdlTiposDocumentacion()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM v_tipodocumento");
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM v_tipodocumento WHERE estado = 1");
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();
@@ -635,18 +635,18 @@ class ModeloVehiculos
     {
         $stmt = Conexion::conectar()->prepare("SELECT 
                                                 v.placa, v.numinterno, v.tipovinculacion, v.activo, 
-                                                d.fechainicio, MAX(d.fechafin) AS fechafin, 
-                                                t.tipodocumento,
+                                                date_format(d.fechainicio, '%Y/%m/%d') as fechainicio, date_format(MAX(d.fechafin), '%Y/%m/%d') AS fechafin, 
+                                                t.tipodocumento, t.idtipo,
                                                 s.sucursal,
                                                 p.nombre, p.documento, p.telef, p.email
-                                            FROM v_vehiculos v
-                                            LEFT JOIN v_re_documentosvehiculos d ON v.idvehiculo = d.idvehiculo
-                                            LEFT JOIN v_tipodocumento t ON t.idtipo = d.idtipodocumento
-                                            LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
-                                            LEFT JOIN v_re_propietariosvehiculos pv ON pv.idvehiculo = v.idvehiculo
-                                            LEFT JOIN propietario p ON p.idxp = pv.idpropietario
-                                            GROUP BY d.idtipodocumento, v.idvehiculo
-                                            ORDER BY v.placa");
+                                                FROM v_vehiculos v
+                                                LEFT JOIN v_re_documentosvehiculos d ON v.idvehiculo = d.idvehiculo
+                                                LEFT JOIN v_tipodocumento t ON t.idtipo = d.idtipodocumento
+                                                LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
+                                                LEFT JOIN v_re_propietariosvehiculos pv ON pv.idvehiculo = v.idvehiculo
+                                                LEFT JOIN propietario p ON p.idxp = pv.idpropietario
+                                                GROUP BY d.idtipodocumento, v.idvehiculo
+                                                ORDER BY v.placa, t.idtipo");
 
         $stmt->execute();
         $retorno = $stmt->fetchAll();
@@ -657,30 +657,30 @@ class ModeloVehiculos
     /* ===================================================
        REPORTE DOCUMENTOS X VEHICULO
     ===================================================*/
-    static public function mdlReporteDocumentosxVehiculo($idvehiculo)
-    {
-        $stmt = Conexion::conectar()->prepare("SELECT t.tipodocumento, MAX(d.fechafin) AS fechafin
-                                                FROM v_tipodocumento t
-                                                LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
-                                                WHERE d.idvehiculo = :idvehiculo
-                                                GROUP BY t.idtipo UNION ALL
-                                                SELECT t.tipodocumento, NULL AS fechafin
-                                                FROM v_tipodocumento t
-                                                LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
-                                                WHERE t.tipodocumento NOT IN (
-                                                SELECT t.tipodocumento
-                                                FROM v_tipodocumento t
-                                                LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
-                                                WHERE d.idvehiculo = :idvehiculo
-                                                GROUP BY t.idtipo)
-                                                GROUP BY t.idtipo;");
-        $stmt->bindParam(":idvehiculo", $idvehiculo, PDO::PARAM_INT);
+    // static public function mdlReporteDocumentosxVehiculo($idvehiculo)
+    // {
+    //     $stmt = Conexion::conectar()->prepare("SELECT t.tipodocumento, MAX(d.fechafin) AS fechafin
+    //                                             FROM v_tipodocumento t
+    //                                             LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
+    //                                             WHERE d.idvehiculo = :idvehiculo
+    //                                             GROUP BY t.idtipo UNION ALL
+    //                                             SELECT t.tipodocumento, NULL AS fechafin
+    //                                             FROM v_tipodocumento t
+    //                                             LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
+    //                                             WHERE t.tipodocumento NOT IN (
+    //                                             SELECT t.tipodocumento
+    //                                             FROM v_tipodocumento t
+    //                                             LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
+    //                                             WHERE d.idvehiculo = :idvehiculo
+    //                                             GROUP BY t.idtipo)
+    //                                             GROUP BY t.idtipo;");
+    //     $stmt->bindParam(":idvehiculo", $idvehiculo, PDO::PARAM_INT);
 
-        $stmt->execute();
-        $retorno = $stmt->fetchAll();
-        $stmt->closeCursor();
-        return $retorno;
-    }
+    //     $stmt->execute();
+    //     $retorno = $stmt->fetchAll();
+    //     $stmt->closeCursor();
+    //     return $retorno;
+    // }
 }
 
 /* ===================================================

@@ -104,7 +104,9 @@ if (
     window.location.href == `${urlPagina}contratos-cotizaciones`
 ) {
     $(document).ready(function () {
+        var ActualizoListaClientes = true;
         $(document).on("click", ".btn-editarcotizacion", function () {
+            ActualizoListaClientes = false;
             AbiertoxEditar = true; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
 
             var idcot = $(this).attr("id_cot");
@@ -112,9 +114,10 @@ if (
             var document = $(this).attr("document");
             $("#pcliente").val("cliente");
             $("#listaclientes").attr("readonly", false);
-            $(".input-clientes").attr("readonly", "readonly");
-            $('.select-ciudad').prop('disabled', true);
+            //$(".input-clientes").attr("readonly", "readonly");
+            //$('.select-ciudad').prop('disabled', true);
             $("#listaclientes").attr("required", "required");
+            //$('#listaclientes').prop('disabled', true);
 
             var datos = new FormData();
             datos.append("DatosCotizaciones", "ok");
@@ -132,23 +135,25 @@ if (
                     $("#titulo_cotizacion").html(
                         "Editar cotización ( " + response.nombre + " )"
                     );
-                    $("#nom_contrata").val(response.nombre);
-                    $("#t_document_empre").val(response.tipo_doc);
-                    $("#t_document_respo").val(response.tipo_docrespons);
-                    $("#document").val(response.Documento);
-                    $("#direcci").val(response.direccion);
-                    $("#ciudadcliente").val(response.idciudad);
-                    $("#nom_respo").val(response.nombrerespons);
-                    $("#docum_respo").val(response.Documentorespons);
-                    $("#ciudadresponsable").val(response.idciudadrespons);
-                    $("#expedicion").val(response.cedula_expedidaen);
+                    $("#nom_contrata").val(response.nombre_con);
+                    $("#t_document_empre").val(response.tipo_doc_con);
+                    $("#document").val(response.documento_con);
+                    $("#tel1").val(response.tel_1);
+                    $("#direcci").val(response.direccion_con);
+                    $("#nom_respo").val(response.nombre_respo);
+                    $("#t_document_respo").val(response.tipo_doc_respo);
+                    $("#ciudadresponsable").val(response.ciudad_res);
+                    $("#ciudadcliente").val(response.ciudad_con);
+                    $("#expedicion").val(response.cedula_expedicion);
+                    $("#docum_respo").val(response.documento_res);
+                    $("#tel2").val(response.tel_2);
+
                     $("#origin").val(response.origen);
                     $("#f_sol").val(response.fecha_solicitud);
                     $("#h_salida").val(response.hora_salida);
                     $("#h_recog").val(response.hora_recogida);
                     $("#capaci").val(response.capacidad);
                     $("#cotiz").val(response.cotizacion);
-                    $("#tel1").val(response.telefono);
                     $("#empres").val(response.empresa);
                     $("#destin").val(response.destino);
                     $("#f_resuelve").val(response.fecha_solucion);
@@ -156,7 +161,6 @@ if (
                     $("#tipovehiculocot").val(response.idtipovehiculo);
                     $("#valor_vel").val(response.valorxvehiculo);
                     $("#clasi_cot").val(response.clasificacion);
-                    $("#tel2").val(response.telefono2);
                     $("#sucursalcot").val(response.idsucursal);
                     $("#des_sol").val(response.descripcion);
                     $("#f_inicio").val(response.fecha_inicio);
@@ -180,12 +184,14 @@ if (
 
         var AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         $(document).on("click", ".btn-agregarcotizacion", function () {
+            ActualizoListaClientes = true;
             // Reset valores del formulario
             $("#id_cot").val("");
             $("#titulo_cotizacion").html("Nueva cotización");
             if (AbiertoxEditar) { // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
                 $("#formulariocotizacion").trigger("reset");
                 $(".select-ciudad").trigger("change");
+                $(".select-clientes").trigger("change");
             }
             AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         });
@@ -196,10 +202,10 @@ if (
             if (cambio == "cliente") {
                 $('#listaclientes').prop('disabled', false);
                 //$("#listaclientes").attr("readonly", false);
-                $(".input-clientes").attr("readonly", "readonly");
+                //$(".input-clientes").attr("readonly", "readonly");
                 $("#listaclientes").attr("required", "required");
                 //$("#ciudadcliente").select2("readonly");
-                $('.select-ciudad').prop('disabled', true);
+                //$('.select-ciudad').prop('disabled', true);
             }
             // Si selecciona posible cliente
             else {
@@ -210,42 +216,48 @@ if (
                 $("#listaclientes").trigger("change");
                 $(".input-clientes").removeAttr("readonly");
                 $("#listaclientes").removeAttr("required");
-                $('.select-ciudad').prop('disabled', false);
+                //$('.select-ciudad').prop('disabled', false);
                 $(".select-ciudad").trigger("change");
             }
         });
 
         $(document).on("change", "#listaclientes", function () {
-            var id = $(this).val();
-
-            if (id != "") {
-                var datos = new FormData();
-                datos.append("DatosClientes", "ok");
-                datos.append("item", "idcliente");
-                datos.append("valor", id);
-                $.ajax({
-                    type: "POST",
-                    url: "ajax/contratos.ajax.php",
-                    data: datos,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    dataType: "json",
-                    success: function (response) {
-                        $("#nom_contrata").val(response.nombre);
-                        $("#t_document_empre").val(response.tipo_doc);
-                        $("#document").val(response.Documento);
-                        $("#tel1").val(response.telefono);
-                        $("#direcci").val(response.direccion);
-                        $("#nom_respo").val(response.nombrerespons);
-                        $("#t_document_respo").val(response.tipo_docrespons);
-                        $("#ciudadresponsable").val(response.idciudadrespons);
-                        $("#ciudadcliente").val(response.idciudad);
-                        $("#expedicion").val(response.cedula_expedidaen);
-                        $("#docum_respo").val(response.Documentorespons);
-                        $(".select-ciudad").trigger("change"); //MUESTRA EL VALOR DEL SELECT
-                    },
-                });
+            // CONDICION PARA QUE OCURRA UNICAMENTE CUANDO EL USUARIO SELECCIONE UN CLIENTE Y ESTA NO SE MODIFIQUE CUANDO ABRA LA MODAL POR EDITAR
+            if (ActualizoListaClientes){
+                var id = $(this).val();
+    
+                if (id != "") {
+                    var datos = new FormData();
+                    datos.append("DatosClientes", "ok");
+                    datos.append("item", "idcliente");
+                    datos.append("valor", id);
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/contratos.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        dataType: "json",
+                        success: function (response) {
+                            $("#nom_contrata").val(response.nombre);
+                            $("#t_document_empre").val(response.tipo_doc);
+                            $("#document").val(response.Documento);
+                            $("#tel1").val(response.telefono);
+                            $("#direcci").val(response.direccion);
+                            $("#nom_respo").val(response.nombrerespons);
+                            $("#t_document_respo").val(response.tipo_docrespons);
+                            $("#ciudadresponsable").val(response.idciudadrespons);
+                            $("#ciudadcliente").val(response.idciudad);
+                            $("#expedicion").val(response.cedula_expedidaen);
+                            $("#docum_respo").val(response.Documentorespons);
+                            $("#tel2").val(response.telefono);
+                            $(".select-ciudad").trigger("change"); //MUESTRA EL VALOR DEL SELECT
+                        },
+                    });
+                }
+            }else{
+                ActualizoListaClientes = true;
             }
         });
     });
@@ -341,12 +353,12 @@ if (
             processData: false,
             dataType: "json",
             success: function (response) {
-                $("#nomcontrataorden").val(response.nombre);
-                $("#documentorden").val(response.Documento);
-                $("#direcciorden").val(response.direccion);
-                $("#telefono1").val(response.telefono);
-                $("#telefono2").val(response.telefono2);
-                $("#nomcontacto").val(response.nombrerespons);
+                $("#nomcontrataorden").val(response.nombre_con);
+                $("#documentorden").val(response.documento_con);
+                $("#direcciorden").val(response.direccion_con);
+                $("#telefono1").val(response.tel_1);
+                $("#telefono2").val(response.tel_2);
+                $("#nomcontacto").val(response.nombre_respo);
                 //$("#numcontrato").val(response.tipo_docrespons);
                 $("#h_incio_orden").val(response.hora_salida);
                 $("#h_final_orden").val(response.hora_recogida);
@@ -387,7 +399,7 @@ if (
             processData: false,
             dataType: "json",
             success: function (response) {
-                $("#titulo_orden").html("Editar órden (# " + response.nro_contrato + " - " + response.nombre + ")");
+                $("#titulo_orden").html("Editar órden (# " + response.nro_contrato + " - " + response.nombre_con + ")");
                 $("#listacotizaciones").val(response.idcotizacion);
                 $("#numcontrato").val(response.nro_contrato);
                 $("#numfacturaorden").val(response.nro_factura);

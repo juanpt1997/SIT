@@ -101,7 +101,17 @@ class PdfVehiculo
     static public function makePDF($info)
     {
         $Propietarios = ControladorVehiculos::ctrPropietariosxVehiculo($info['idvehiculo']);
-        $Documentos = ControladorVehiculos::ctrDocumentosxVehiculo($info['idvehiculo']);
+        $DocumentosTodos = ControladorVehiculos::ctrDocumentosxVehiculo($info['idvehiculo']);
+        // Lista que almacena los documentos que se han mostrado, con esto se Verifica que se muestre unicamente el mas reciente
+        $ListaDocumentosSinRepetir = array();
+        $Documentos = array();
+        // Guardar documentos del vehiculo (Sin repetir)
+        foreach ($DocumentosTodos as $key => $documento) {
+            if (!in_array($documento['tipodocumento'], $ListaDocumentosSinRepetir)) {
+                $ListaDocumentosSinRepetir[] = $documento['tipodocumento'];
+                $Documentos[] = $documento;
+            }
+        }
         $Fotos = ControladorVehiculos::ctrFotosVehiculo("idvehiculo", $info['idvehiculo']);
 
         /* ===================== 
@@ -388,7 +398,10 @@ class PdfVehiculo
         $conversorPixToMM = 0.264;
 
         /* AÑADIMOS LA TARJETA DE PROPIEDAD A LA LISTA DE DOCUMENTOS */
-        $tarjetaPropiedad = array('ruta_documento' => $info['ruta_tarjetapropiedad']);
+        $tarjetaPropiedad = array(
+            'ruta_documento' => $info['ruta_tarjetapropiedad'],
+            'tipodocumento' => 'tarjetapropiedad'
+        );
         //$Documentos[] = $tarjetaPropiedad;
         array_unshift($Documentos, $tarjetaPropiedad);
         foreach ($Documentos as $key => $documento) {
@@ -397,29 +410,31 @@ class PdfVehiculo
                 $pdf->AddPage();
                 $pdf->Ln();
 
-                $posy = $pdf->GetY();
+                if ($documento == $Documentos[0]) {
+                    $posy = $pdf->GetY();
+                    $margin = $pdf->getMargins();
+                    $altoPaginaMM = $altoPaginaMM - $posy - $margin['bottom'];
+                }
+
                 $ruta = '../' . $documento['ruta_documento']; // Ruta imagen
                 list($widthPix, $heightPix) = getimagesize($ruta); // Dimensiones de la imagen
                 $widthMM = $widthPix * $conversorPixToMM; // Ancho en milimetros
                 $heightMM = $heightPix * $conversorPixToMM; // Altura en milimetros
-
+                
                 // En caso de que la altura sobre salga de la página
-                $posy = $pdf->GetY();
-                $margin = $pdf->getMargins();
-                $altoPaginaMM = $altoPaginaMM - $posy - $margin['bottom'];
-                if ($heightMM > $altoPaginaMM){
+                if ($heightMM > $altoPaginaMM) {
                     $widthMM = $altoPaginaMM * $widthMM / $heightMM; // Calculamos la proporción del ancho de la imagen segun la altura
                     $heightMM = $altoPaginaMM; // Igualamos la altura de la imagen al alto de la página
                 }
 
                 // En caso de que el ancho sobre salga de la página
-                if ($widthMM > $anchoPaginaMM){
+                if ($widthMM > $anchoPaginaMM) {
                     $heightMM = $anchoPaginaMM * $heightMM / $widthMM; // Calculamos la proporción de la altura de la imagen segun el ancho
                     $widthMM = $anchoPaginaMM; // Igualamos el ancho de la imagen al ancho de la página
                     $posx = 0; // Se dibuja desde el inicio en x
                 }
                 // Ancho de la imagen menor al ancho de la pagina
-                else{
+                else {
                     $posx = ($anchoPaginaMM / 2) - ($widthMM / 2); // Dejar centrada la imagen
                 }
 

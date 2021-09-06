@@ -229,21 +229,21 @@ class OrdenServicioPDF
             </tr>
             <tr>
                 <td colspan="3" style="text-align: center"><b><i>Nombre contratante</i></b></td>
-                <td colspan="4">' . $info['nombre'] . '</td>
+                <td colspan="4">' . $info['nombre_con'] . '</td>
                 <td colspan="3"  style="text-align: center"><b><i>NIT / CC</i></b></td>
-                <td colspan="4">' . $info['Documento'] . '</td>
+                <td colspan="4">' . $info['documento_con'] . '</td>
             </tr>
             <tr>
                 <td colspan="3" style="text-align: center"><b><i>Dirección</i></b></td>
-                <td colspan="4">' . $info['direccion'] . '</td>
+                <td colspan="4">' . $info['direccion_con'] . '</td>
                 <td colspan="3" style="text-align: center"><b><i>Teléfono</i></b></td>
-                <td colspan="4">' . $info['telefono'] . '</td>
+                <td colspan="4">' . $info['tel_1'] . '</td>
             </tr>
             <tr>
                 <td colspan="3" style="text-align: center"><b><i>Nombre contacto</i></b></td>
-                <td colspan="4">' . $info['nombrerespons'] . '</td>
+                <td colspan="4">' . $info['nombre_respo'] . '</td>
                 <td colspan="3" style="text-align: center"><b><i>Teléfono 2</i></b></td>
-                <td colspan="4">' . $info['telefono2'] . '</td>
+                <td colspan="4">' . $info['tel_2'] . '</td>
             </tr>
             <tr>
                 <td colspan="14" style="text-align: center"><b>DATOS DEL SERVICIO</b></td>
