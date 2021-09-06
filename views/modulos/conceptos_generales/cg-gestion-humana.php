@@ -203,6 +203,27 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
 
                                 <div class="col-12 col-sm-6 col-md-3">
                                     <div class="info-box border border-secondary">
+                                        <span class="info-box-icon bg-info elevation-1"><i class="fas fa-sitemap"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text"><i>Cargos</i></span>
+                                            <span class="info-box-number" concepto="cargo"></span>
+
+                                        </div>
+                                        <!-- /.info-box-content -->
+                                        <div>
+                                            <button concepto="cargo" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarGH"><i class="far fa-eye"></i></button>
+                                            <button concepto="cargo" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarGH"><i class="fas fa-plus-circle"></i></button>
+                                        </div>
+
+                                        <div class="overlay d-none" concepto="cargo">
+                                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                        </div>
+                                    </div>
+                                    <!-- /.info-box -->
+                                </div>
+
+                                <div class="col-12 col-sm-6 col-md-3">
+                                    <div class="info-box border border-secondary">
                                         <span class="info-box-icon bg-warning elevation-1"><i class="far fa-building"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text"><i>Empresa</i></span>

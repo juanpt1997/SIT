@@ -12,7 +12,7 @@ require_once '../models/gh.modelo.php';
  * 
  */
 
-if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok"){
+if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok") {
 	echo "<script>window.location = 'inicio';</script>";
 	die();
 }
@@ -58,6 +58,10 @@ class AjaxConceptosGH
 			case 'EPS':
 				$tabla = "gh_eps";
 				$item = "eps";
+				break;
+			case 'cargo':
+				$tabla = "gh_cargos";
+				$item = "cargo";
 				break;
 				//VEHICULAR
 			case 'Tipos de vehiculos':
@@ -153,6 +157,11 @@ class AjaxConceptosGH
 				$tabla = "gh_eps";
 				$item = "eps";
 				$id = "ideps";
+				break;
+			case 'cargo':
+				$tabla = "gh_cargos";
+				$item = "cargo";
+				$id = "idCargo";
 				break;
 
 				//VEHICULAR
@@ -272,6 +281,11 @@ class AjaxConceptosGH
 				$item = "eps";
 				$idtabla = "ideps";
 				break;
+			case 'cargo':
+				$tabla = "gh_cargos";
+				$item = "cargo";
+				$idtabla = "idCargo";
+				break;
 
 				//VEHICULAR
 			case 'Tipos de vehiculos':
@@ -365,6 +379,10 @@ class AjaxConceptosGH
 				$tabla = "gh_eps";
 				$item = "eps";
 				break;
+			case 'cargo':
+				$tabla = "gh_cargos";
+				$item = "cargo";
+				break;
 
 				//VEHICULAR
 			case 'Tipos de vehículos':
@@ -447,6 +465,10 @@ class AjaxConceptosGH
 			case 'EPS':
 				$tabla = "gh_eps";
 				$item = "eps";
+				break;
+			case 'cargo':
+				$tabla = "gh_cargos";
+				$item = "cargo";
 				break;
 				//VEHICULAR
 			case 'Tipos de vehiculos':
@@ -839,6 +861,10 @@ class AjaxConceptosGH
 			case 'EPS':
 				$tabla = "gh_eps";
 				$id_tabla = "ideps";
+				break;
+			case 'cargo':
+				$tabla = "gh_cargos";
+				$id_tabla = "idCargo";
 				break;
 				//VEHICULAR
 			case 'Tipos de vehiculos':
