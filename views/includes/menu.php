@@ -379,6 +379,15 @@
                                     <p>Proveedores</p>
                                 </a>
                             </li>
+                            <!-- ===================================================
+                                    Inventario
+                                =================================================== -->
+                                <li class="nav-item">
+                                <a href="m-inventario" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Inventario</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 <?php endif ?>

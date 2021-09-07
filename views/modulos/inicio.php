@@ -179,6 +179,7 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuMantenimiento">
                                 <a class="dropdown-item font-weight-bold" href="m-proveedores"><u>Proveedores</u></a>
                                 <a class="dropdown-item font-weight-bold" href="m-alistamiento"><u>Protocolo de Alistamiento</u></a>
+                                <a class="dropdown-item font-weight-bold" href="m-inventario"><u>Inventario</u></a>
                             </div>
                         </div>
                     </div>
