@@ -226,7 +226,7 @@ class ModeloCotizaciones
 
 
       $stmt->bindParam(":idcliente", $datos["id_cliente"], PDO::PARAM_INT);
-      $stmt->bindParam(":nombre_con", $datos["nom_contact"], PDO::PARAM_STR);
+      $stmt->bindParam(":nombre_con", $datos["nom_contrata"], PDO::PARAM_STR);
       $stmt->bindParam(":empresa", $datos["empres"], PDO::PARAM_STR);
       $stmt->bindParam(":idsucursal", $datos["sucursalcot"], PDO::PARAM_INT);
       $stmt->bindParam(":origen", $datos["origin"], PDO::PARAM_STR);
