@@ -342,48 +342,54 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>ID</label>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" readonly>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Marca</label>
-                                                <input type="text" class="form-control" placeholder="Digite marca del vehiculo">
+                                                <input type="text" class="form-control" placeholder="Digite marca del vehiculo" readonly>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Conductor</label>
-                                                <input type="text" class="form-control" placeholder="Nombre de conductor">
+                                                <input type="text" class="form-control" placeholder="Nombre de conductor" readonly>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>SOAT</label>
-                                                <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
+                                                <div class="input-group date" id="reservationdatetime" data-target-input="nearest" readonly>
                                                     <input type="date" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="col-md-4">
+
                                             <div class="form-group">
                                                 <label>Placa</label>
-                                                <input type="text" class="form-control" placeholder="Digite numero de placa">
+                                                <select id="my-select" class="form-control select2-single" type="number" style="width: 99%" name="">
+                                                    <option value="" selected>-Seleccione una placa-</option>
+                                                    <option value="1"></option>
+                                                </select>
                                             </div>
+
+
 
                                             <div class="form-group">
                                                 <label>Modelo</label>
-                                                <input type="text" class="form-control" placeholder="Año modelo del vehiculo">
+                                                <input type="text" class="form-control" placeholder="Año modelo del vehiculo" readonly>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Polizas RCE-RC</label>
-                                                <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
+                                                <div class="input-group date" id="reservationdatetime" data-target-input="nearest" readonly>
                                                     <input type="date" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Revision Tecnicomecanica</label>
-                                                <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
+                                                <div class="input-group date" id="reservationdatetime" data-target-input="nearest" readonly>
                                                     <input type="date" class="form-control">
                                                 </div>
                                             </div>
@@ -392,24 +398,24 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label># Interno de Afiliado</label>
-                                                <input type="text" class="form-control" placeholder="Numero de afiliado">
+                                                <input type="text" class="form-control" placeholder="Numero de afiliado" readonly>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Sucursal</label>
-                                                <input type="text" class="form-control" placeholder="Digite la sucursal">
+                                                <input type="text" class="form-control" placeholder="Digite la sucursal" readonly>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Revision Preventiva</label>
-                                                <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
+                                                <div class="input-group date" id="reservationdatetime" data-target-input="nearest" readonly>
                                                     <input type="date" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Tarjeta de Operacion</label>
-                                                <div class="input-group date" id="reservationdatetime" data-target-input="nearest">
+                                                <div class="input-group date" id="reservationdatetime" data-target-input="nearest" readonly>
                                                     <input type="date" class="form-control">
                                                 </div>
                                             </div>
