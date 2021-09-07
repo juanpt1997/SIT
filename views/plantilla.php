@@ -202,6 +202,7 @@
 <script src="<?= URL_APP ?>views/js/conceptos.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/contratos.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/fuec.js?v=<?= time() ?>"></script>
+<script src="<?= URL_APP ?>views/js/mantenimiento.js?v=<?= time() ?>"></script>
 
 
 

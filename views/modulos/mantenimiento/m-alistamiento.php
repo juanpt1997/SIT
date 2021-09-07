@@ -4,6 +4,7 @@
 //     echo "<script> window.location = 'inicio'; </script>";
 // }
 
+$Vehiculos = ControladorVehiculos::ctrListaVehiculos();
 
 ?>
 <!-- ===================== 
@@ -35,7 +36,7 @@
     <div class="content">
         <div class="container-fluid">
             <div class="col-sm">
-                <button type="button" class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-nuevovh"><i class="fas fa-bus"></i> Nuevo Vehiculo</button>
+                <button type="button" class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-nuevoAlistamiento"><i class="fas fa-bus"></i> Nuevo</button>
             </div>
             <!-- ===================== 
               AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
@@ -289,11 +290,11 @@
 <!-- ==============================
   MODAL DE INGRESO NUEVO VEHICULO
  ============================== -->
-<div class="modal fade show" id="modal-nuevovh" style="display: none; padding-right: 17px;" aria-modal="true" role="dialog">
+<div class="modal fade show" id="modal-nuevoAlistamiento" style="display: none; padding-right: 17px;" aria-modal="true" role="dialog">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header bg-info">
-                <h4 class="modal-title">Ingreso - Nuevo Vehiculo</h4>
+                <h4 class="modal-title">Ingreso - Vehículo</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -306,7 +307,7 @@
                             <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
 
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="datos_vehiculos" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true"><u>Vehiculo Documentos</u></a>
+                                    <a class="nav-link active" id="datos_vehiculos" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true"><u>Vehículo Documentos</u></a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-two-sistemaluces-tab" data-toggle="pill" href="#custom-tabs-two-sistemaluces" role="tab" aria-controls="custom-tabs-two-sistemaluces" aria-selected="false"><u>Sistema Luces</u></a>
@@ -342,24 +343,22 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label>ID</label>
-                                                <input type="text" class="form-control" readonly>
+                                                <input id="idvehiculo" type="text" class="form-control" readonly>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Marca</label>
-                                                <input type="text" class="form-control" placeholder="Digite marca del vehiculo" readonly>
+                                                <input id="marca" type="text" class="form-control" placeholder="Digite marca del vehículo" readonly>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Conductor</label>
-                                                <input type="text" class="form-control" placeholder="Nombre de conductor" readonly>
+                                                <input type="text" class="form-control" placeholder="Nombre de conductor">
                                             </div>
 
                                             <div class="form-group">
                                                 <label>SOAT</label>
-                                                <div class="input-group date" id="reservationdatetime" data-target-input="nearest" readonly>
-                                                    <input type="date" class="form-control">
-                                                </div>
+                                                <input id="SOAT" type="date" class="form-control">
                                             </div>
                                         </div>
 
@@ -367,9 +366,11 @@
 
                                             <div class="form-group">
                                                 <label>Placa</label>
-                                                <select id="my-select" class="form-control select2-single" type="number" style="width: 99%" name="">
-                                                    <option value="" selected>-Seleccione una placa-</option>
-                                                    <option value="1"></option>
+                                                <select id="placa" class="form-control select2-single" type="number" style="width: 99%" name="">
+                                                    <option value="" selected>-Seleccione un vehículo</option>
+                                                    <?php foreach ($Vehiculos as $key => $value) : ?>
+                                                        <option value="<?= $value['placa'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?></option>
+                                                    <?php endforeach ?>
                                                 </select>
                                             </div>
 
@@ -377,18 +378,18 @@
 
                                             <div class="form-group">
                                                 <label>Modelo</label>
-                                                <input type="text" class="form-control" placeholder="Año modelo del vehiculo" readonly>
+                                                <input id="modelo" type="text" class="form-control" placeholder="Año modelo del vehículo" readonly>
                                             </div>
 
                                             <div class="form-group">
-                                                <label>Polizas RCE-RC</label>
+                                                <label>Pólizas RCE-RC</label>
                                                 <div class="input-group date" id="reservationdatetime" data-target-input="nearest" readonly>
                                                     <input type="date" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label>Revision Tecnicomecanica</label>
+                                                <label>Revisión Tecnicomecánica</label>
                                                 <div class="input-group date" id="reservationdatetime" data-target-input="nearest" readonly>
                                                     <input type="date" class="form-control">
                                                 </div>
@@ -398,23 +399,23 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label># Interno de Afiliado</label>
-                                                <input type="text" class="form-control" placeholder="Numero de afiliado" readonly>
+                                                <input id="numinterno" type="text" class="form-control" placeholder="Numero de afiliado" readonly>
                                             </div>
 
                                             <div class="form-group">
                                                 <label>Sucursal</label>
-                                                <input type="text" class="form-control" placeholder="Digite la sucursal" readonly>
+                                                <input id="sucursal" type="text" class="form-control" placeholder="Digite la sucursal" readonly>
                                             </div>
 
                                             <div class="form-group">
-                                                <label>Revision Preventiva</label>
+                                                <label>Revisión Preventiva</label>
                                                 <div class="input-group date" id="reservationdatetime" data-target-input="nearest" readonly>
                                                     <input type="date" class="form-control">
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
-                                                <label>Tarjeta de Operacion</label>
+                                                <label>Tarjeta de Operación</label>
                                                 <div class="input-group date" id="reservationdatetime" data-target-input="nearest" readonly>
                                                     <input type="date" class="form-control">
                                                 </div>
