@@ -159,7 +159,8 @@
                 }
                 else if ( # Mantenimiento
                     $ruta == "m-proveedores" ||
-                    $ruta == "m-alistamiento"
+                    $ruta == "m-alistamiento" ||
+                    $ruta == "m-inventario"
                 ) {
                     include "modulos/mantenimiento/{$ruta}.php";
                 }
