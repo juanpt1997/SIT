@@ -38,7 +38,7 @@
               AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
             ========================= -->
             <div class="row mt-2">
-                <div class="col-12">
+                <div class="col-12 col-lg">
                     <div class="card card-outline card-success">
                         <div class="card-body">
                             <!-- ===================== 
@@ -69,7 +69,7 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="col-7 col-sm-9">
+                                                <div class="col col-lg">
 
                                                     <div class="form-group">
                                                         <label for="exampleSelectRounded0">Seleccione tipo de vehiculo</label>
@@ -80,7 +80,7 @@
                                                     </div>
 
                                                     <!-- /.ESTE ES EL TAB MADRE DEL CUESTIONARIO-->
-                                                    <div class="tab-content" id="vert-tabs-tabContent">
+                                                    <div class="tab-content table-responsive" id="vert-tabs-tabContent">
                                                         <div class="tab-pane text-left fade active show" id="vert-tabs-homesaman" role="tabpanel" aria-labelledby="vert-tabs-homesaman-tab">
                                                             <table class="table table-bordered text-center">
                                                                 <tbody>
