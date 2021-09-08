@@ -283,6 +283,12 @@ class AjaxVehiculos
 
         echo $tr;
     }
+    # DOCUMENTOS POR VEHICULO SIN REPETIR
+    static public function ajaxDocumentosxVehiculoSinRepetir($idvehiculo)
+    {
+        $respuesta = ControladorVehiculos::ctrDocumentosxVehiculoSinRepetir($idvehiculo);
+        echo json_encode($respuesta);
+    }
 
     /* ===================================================
        VER DATOS DE UN REGISTRO EN ESPECIFICIO DE PROPIETARIOS O CONDUCTORES
@@ -987,6 +993,11 @@ if (isset($_POST['TablaConductores']) && $_POST['TablaConductores'] == "ok") {
 if (isset($_POST['TablaDocumentos']) && $_POST['TablaDocumentos'] == "ok") {
     AjaxVehiculos::ajaxTablaDocumentos($_POST['idvehiculo']);
 }
+# DOCUMENTOS POR VEHICULO SIN REPETIR
+if (isset($_POST['DocumentosxVehiculo']) && $_POST['DocumentosxVehiculo'] == "ok") {
+    AjaxVehiculos::ajaxDocumentosxVehiculoSinRepetir($_POST['idvehiculo']);
+}
+
 
 if (isset($_POST['VerDetalleVehiculo']) && $_POST['VerDetalleVehiculo'] == "ok") {
     AjaxVehiculos::ajaxVerDetalleVehiculo($_POST['idregistro'], $_POST['tabla']);

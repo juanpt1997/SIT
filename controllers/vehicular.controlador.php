@@ -401,6 +401,23 @@ class ControladorVehiculos
 		$respuesta = ModeloVehiculos::mdlDocumentosxVehiculo($idvehiculo);
 		return $respuesta;
 	}
+	# DOCUMENTOS POR VEHICULO SIN REPETIR
+	static public function ctrDocumentosxVehiculoSinRepetir($idvehiculo)
+	{
+		$DocumentosTodos = ModeloVehiculos::mdlDocumentosxVehiculo($idvehiculo);
+		// Lista que almacena los documentos que se han mostrado, con esto se Verifica que se muestre unicamente el mas reciente
+		$ListaDocumentosSinRepetir = array();
+        $Documentos = array();
+        // Guardar documentos del vehiculo (Sin repetir)
+        foreach ($DocumentosTodos as $key => $documento) {
+            if (!in_array($documento['tipodocumento'], $ListaDocumentosSinRepetir)) {
+                $ListaDocumentosSinRepetir[] = $documento['tipodocumento'];
+                $Documentos[] = $documento;
+            }
+        }
+
+		return $Documentos;
+	}
 
 	/* ===================================================
 	   VER DATOS DE UN REGISTRO EN ESPECIFICIO DE PROPIETARIOS O CONDUCTORES

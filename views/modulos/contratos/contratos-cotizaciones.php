@@ -1,4 +1,9 @@
 <?php
+
+if (!validarModulo('M_CONTRATOS')) {
+    echo "<script> window.location = 'inicio'; </script>";
+}
+
 $tvehiculos = ControladorVehiculos::ctrMostrarTipoVehiculo();
 $Sucursales = ControladorGH::ctrSucursales();
 $Cotizaciones = ControladorCotizaciones::ctrVerCotizacion();

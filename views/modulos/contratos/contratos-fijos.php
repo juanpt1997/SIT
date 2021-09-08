@@ -1,4 +1,9 @@
 <?php
+
+if (!validarModulo('M_CONTRATOS')) {
+    echo "<script> window.location = 'inicio'; </script>";
+}
+
 $ListarFijos = ControladorFijos::ctrVerFijos();
 $clientes = ControladorClientes::ctrVerCliente("clientes");
 ?>

@@ -101,17 +101,19 @@ class PdfVehiculo
     static public function makePDF($info)
     {
         $Propietarios = ControladorVehiculos::ctrPropietariosxVehiculo($info['idvehiculo']);
-        $DocumentosTodos = ControladorVehiculos::ctrDocumentosxVehiculo($info['idvehiculo']);
+        $Documentos = ControladorVehiculos::ctrDocumentosxVehiculoSinRepetir($info['idvehiculo']);
+
+        # lo de abajo que está comentado ya no es necesario porque creamos un procedimiento en el controlador que hace lo mismo
         // Lista que almacena los documentos que se han mostrado, con esto se Verifica que se muestre unicamente el mas reciente
-        $ListaDocumentosSinRepetir = array();
-        $Documentos = array();
-        // Guardar documentos del vehiculo (Sin repetir)
-        foreach ($DocumentosTodos as $key => $documento) {
-            if (!in_array($documento['tipodocumento'], $ListaDocumentosSinRepetir)) {
-                $ListaDocumentosSinRepetir[] = $documento['tipodocumento'];
-                $Documentos[] = $documento;
-            }
-        }
+        // $ListaDocumentosSinRepetir = array();
+        // $Documentos = array();
+        // // Guardar documentos del vehiculo (Sin repetir)
+        // foreach ($DocumentosTodos as $key => $documento) {
+        //     if (!in_array($documento['tipodocumento'], $ListaDocumentosSinRepetir)) {
+        //         $ListaDocumentosSinRepetir[] = $documento['tipodocumento'];
+        //         $Documentos[] = $documento;
+        //     }
+        // }
         $Fotos = ControladorVehiculos::ctrFotosVehiculo("idvehiculo", $info['idvehiculo']);
 
         /* ===================== 

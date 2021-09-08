@@ -1,4 +1,9 @@
 <?php
+
+if (!validarModulo('M_CONTRATOS')) {
+    echo "<script> window.location = 'inicio'; </script>";
+}
+
 $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 $ListarClientes = ControladorClientes::ctrVerCliente();
 ?>
