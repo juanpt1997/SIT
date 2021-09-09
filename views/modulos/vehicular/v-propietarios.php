@@ -15,7 +15,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark ">Propietarios</h1>
+                    <h1 class="m-0 text-dark "><i><b>Propietarios</b></i></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -31,7 +31,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-
+        <hr class="my-4">
                             <div class="row">
                                 <div class="col">
                                     <!-- BOTON NUEVO PROVEEDOR-->
