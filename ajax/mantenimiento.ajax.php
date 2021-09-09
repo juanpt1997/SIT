@@ -7,6 +7,7 @@ include '../config/config.php';
 require_once '../controllers/files.controlador.php';
 require_once '../controllers/mantenimiento.controlador.php';
 require_once '../models/mantenimiento.modelo.php';
+require_once '../models/vehicular.modelo.php';
 require_once '../models/conceptos.modelo.php';
 
 if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok"){
@@ -25,6 +26,16 @@ class AjaxAlistamiento
     static public function ajaxTablaAlistamiento()
     {
         # code...
+    }
+
+    /* ===================================================
+       GUARDAR DATOS DEL ALISTAMIENTO
+    ===================================================*/
+    static public function ajaxGuardarAlistamiento($formData)
+    {
+        $respuesta = ControladorAlistamiento::ctrGuardarAlistamiento($formData);
+        echo $respuesta;
+        //echo json_encode($respuesta);
     }
 
     /* ===================================================
@@ -80,6 +91,10 @@ class AjaxProveedores
 #Llamados ajax alistamiento
 if (isset($_POST['TablaEvidencias']) && $_POST['TablaEvidencias'] == "ok") {
     AjaxAlistamiento::ajaxTablaEvidencias($_POST['idvehiculo']);
+}
+
+if (isset($_POST['GuardarAlistamiento']) && $_POST['GuardarAlistamiento'] == "ok") {
+    AjaxAlistamiento::ajaxGuardarAlistamiento($_POST);
 }
 
 #Llamados ajax proveedores

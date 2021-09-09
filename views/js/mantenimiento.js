@@ -116,6 +116,75 @@ $(document).ready(function () {
         });
 
         /* ===================================================
+          GUARDAR FORMULARIO ALISTAMIENTO
+        ===================================================*/
+        $("#alistamiento_form").submit(function (e) {
+            e.preventDefault();
+            AbiertoxEditar = true; //BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
+
+            var datosAjax = new FormData();
+            datosAjax.append('GuardarAlistamiento', "ok");
+
+            // DATOS FORMULARIO
+            var datosFrm = $(this).serializeArray();
+            datosFrm.forEach(element => {
+                datosAjax.append(element.name, element.value);
+            });
+
+            $.ajax({
+                type: 'post',
+                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                data: datosAjax,
+                cache: false,
+                // dataType: 'json',
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log(response);
+                    switch (response) {
+                        case "error":
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Ha ocurrido un error, por favor intente de nuevo',
+                                showConfirmButton: true,
+                                confirmButtonText: 'Cerrar',
+                                closeOnConfirm: false
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    window.location = 'm-alistamiento';
+                                }
+
+                            })
+                            break;
+                        default:
+                            var idalistamiento = response;
+
+                            // Mensaje de éxito al usuario
+                            Swal.fire({
+                                icon: 'success',
+                                title: '¡Datos guardados correctamente!',
+                                showConfirmButton: true,
+                                confirmButtonText: 'Cerrar',
+                            })
+
+                            // Id fuec
+                            $("#idalistamiento").val(idalistamiento);
+
+                            // Titulo modal
+                            $("#TituloModal").val($("#placa").val());
+
+                            // Evento para refrescar la pagina cuando sale de la modal
+                            $('#modal-nuevoAlistamiento').on('hidden.bs.modal', function () {
+                                window.location = 'm-alistamiento';
+                            })
+                            break;
+                    }
+                }
+            });
+        });
+
+        /* ===================================================
             TABLA EVIDENCIAS
         ===================================================*/
         const AjaxTablaEvidencias = (idvehiculo) => {
