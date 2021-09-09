@@ -1,7 +1,7 @@
 <?php
- 
-if(!validarModulo('M_VEHICULAR')) {
-   echo "<script> window.location = 'inicio'; </script>";
+
+if (!validarModulo('M_VEHICULAR')) {
+    echo "<script> window.location = 'inicio'; </script>";
 }
 
 $Convenios = ControladorConvenios::ctrMostrar();
@@ -12,7 +12,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 <!-- ===================== 
   MODELO PARA LA IMPLEMENTARCION EN EL DISEÑO DE LOS MODULOS
   ESTRUCTURA 
-========================= --> 
+========================= -->
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -21,7 +21,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark ">Convenios</h1>
+                    <h1 class="m-0 text-dark "><i><b>Convenios</b></i></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -38,18 +38,20 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
     <div class="content">
         <div class="container-fluid">
 
-                            <div class="row">
-                                <div class="col">
-                                    <!--BOTON NUEVO CONVENIO-->
-                                    <button type="button" class="btn btn-success btn-md btn-agregarConvenio" data-toggle="modal" data-target="#ConveniosModal">
-                                        <i class="fas fa-user-plus"></i> Añadir Convenio
-                                    </button>
-                                </div><!-- col -->
-                            </div> <!-- /.row -->
+            <hr class="my-4">
+
+            <div class="row">
+                <div class="col">
+                    <!--BOTON NUEVO CONVENIO-->
+                    <button type="button" class="btn btn-success btn-md btn-agregarConvenio" data-toggle="modal" data-target="#ConveniosModal">
+                        <i class="fas fa-user-plus"></i> Añadir Convenio
+                    </button>
+                </div><!-- col -->
+            </div> <!-- /.row -->
 
             <!-- ===================== 
               AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
-            ========================= -->            
+            ========================= -->
             <div class="row mt-2">
                 <div class="col-12">
                     <div class="card">
@@ -69,9 +71,9 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                             <th>Ciudad</th>
                                             <th>Acciones</th>
                                         </tr>
-                                    </thead> 
+                                    </thead>
                                     <tbody class="text-sm">
-                                        <?php foreach ($Convenios as $key => $value):?>
+                                        <?php foreach ($Convenios as $key => $value) : ?>
                                             <tr>
                                                 <td><?= $value['idxc'] ?></td>
                                                 <td><?= $value['nit'] ?></td>
@@ -80,14 +82,14 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                 <td><?= $value['telefono1'] ?></td>
                                                 <td><?= $value['telefono2'] ?></td>
                                                 <td><?= $value['ciudad'] ?></td>
-                                                <td> 
+                                                <td>
                                                     <div class="btn-group" role="group" aria-label="Button group">
                                                         <button class="btn btn-sm btn-warning btnEditarConv" nit="<?= $value['nit'] ?>" data-toggle="modal" data-target="#ConveniosModal"><i class="fas fa-edit"></i></button>
                                                     </div>
                                                 </td>
                                             </tr>
                                         <?php endforeach ?>
-                                    </tbody>                            
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -143,7 +145,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         </div>
                     </div>
 
-                     <!-- DIRECCION -->
+                    <!-- DIRECCION -->
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-append">
@@ -155,7 +157,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         </div>
                     </div>
 
-                      <!-- TELEFONO 1   -->
+                    <!-- TELEFONO 1   -->
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-append">
@@ -179,7 +181,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         </div>
                     </div>
 
-                 <!-- CIUDAD -->
+                    <!-- CIUDAD -->
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-append">
@@ -188,7 +190,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                 </span>
                             </div>
                             <select class="form-control input-convenio select2-single" style="width: 92%" type="text" id="ciudadcon" name="ciudadcon" required>
-                              <option selected value="">-Seleccione una ciudad-</option>
+                                <option selected value="">-Seleccione una ciudad-</option>
                                 <?php foreach ($DeparMunicipios as $key => $value) : ?>
                                     <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
                                 <?php endforeach ?>
@@ -214,4 +216,3 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
         </div>
     </div>
 </div>
-

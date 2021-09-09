@@ -7,6 +7,7 @@ include '../config/config.php';
 require_once '../controllers/files.controlador.php';
 require_once '../controllers/mantenimiento.controlador.php';
 require_once '../models/mantenimiento.modelo.php';
+require_once '../models/conceptos.modelo.php';
 
 if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok"){
 	echo "<script>window.location = 'inicio';</script>";
@@ -53,6 +54,41 @@ class AjaxAlistamiento
     }
 }
 
+class AjaxProveedores
+{
+    static public function ajaxDatosProveedor($documento)
+    {
+        $respuesta = ModeloProveedores::mdlListarProveedores($documento);
+        echo json_encode($respuesta);
+    }
+
+    static public function ajaxEliminarProveedor($id)
+    {
+        $datos = array(
+			"tabla" => "m_proveedores",
+			"item" => "estado",
+			"valor" => "0",
+			"id_tabla" => "id",
+			"id" => $id
+		);
+
+        $respuesta = ModeloConceptosGH::mdlEliminar($datos);
+		echo $respuesta;
+    }
+}
+
+#Llamados ajax alistamiento
 if (isset($_POST['TablaEvidencias']) && $_POST['TablaEvidencias'] == "ok") {
     AjaxAlistamiento::ajaxTablaEvidencias($_POST['idvehiculo']);
 }
+
+#Llamados ajax proveedores
+if (isset($_POST['DatosProveedor']) && $_POST['DatosProveedor'] == "ok") {
+    AjaxProveedores::ajaxDatosProveedor($_POST['documento']);
+}
+
+if (isset($_POST['EliminarProveedor']) && $_POST['EliminarProveedor'] == "ok") {
+    AjaxProveedores::ajaxEliminarProveedor($_POST['id']);
+}
+
+
