@@ -700,1496 +700,1508 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                         <!--|||TAB CARROCERIA|||-->
                                         <div class="tab-pane fade" id="custom-tabs-two-carroceria" role="tabpanel" aria-labelledby="custom-tabs-two-carroceria-tab">
-                                            <table class="table table-bordered text-center">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: px">Retrovisores izquierdo</th>
-                                                        <th style="width: px">Espejo interno</th>
-                                                        <th style="width: px">Apoya cabeza - Conductor</th>
-                                                        <th style="width: px">Equipo de Audio</th>
-                                                    </tr>
-                                                </thead>
+                                            <div class="table table-responsive">
+                                                <table class="table table-bordered text-center">
+                                                    <thead class="text-nowrap">
+                                                        <tr>
+                                                            <th style="width: px">Retrovisores izquierdo</th>
+                                                            <th style="width: px">Espejo interno</th>
+                                                            <th style="width: px">Apoya cabeza - Conductor</th>
+                                                            <th style="width: px">Equipo de Audio</th>
+                                                        </tr>
+                                                    </thead>
 
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioretroizq1" name="retrovisor_izquierdo" value="1">
-                                                                    <label for="radioretroizq1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                    <tbody class="text-nowrap">
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioretroizq1" name="retrovisor_izquierdo" value="1">
+                                                                        <label for="radioretroizq1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioretroizq2" name="retrovisor_izquierdo" value="0">
-                                                                    <label for="radioretroizq2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioretroizq2" name="retrovisor_izquierdo" value="0">
+                                                                        <label for="radioretroizq2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioespint1" name="espejointerno" value="1">
-                                                                    <label for="radioespint1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioespint1" name="espejointerno" value="1">
+                                                                        <label for="radioespint1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioespint2" name="espejointerno" value="0">
-                                                                    <label for="radioespint2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
-                                                                </div>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioespint2" name="espejointerno" value="0">
+                                                                        <label for="radioespint2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-warning d-inline">
-                                                                    <input type="radio" id="radioespint3" name="espejointerno" value="2">
-                                                                    <label for="radioespint3">
-                                                                        <i class="fas fa-ban"></i>
-                                                                    </label>
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radioespint3" name="espejointerno" value="2">
+                                                                        <label for="radioespint3">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioapocondu1" name="apoyacabeza_conductor" value="1">
-                                                                    <label for="radioapocondu1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioapocondu1" name="apoyacabeza_conductor" value="1">
+                                                                        <label for="radioapocondu1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioapocondu2" name="apoyacabeza_conductor" value="0">
-                                                                    <label for="radioapocondu2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
-                                                                </div>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioapocondu2" name="apoyacabeza_conductor" value="0">
+                                                                        <label for="radioapocondu2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-warning d-inline">
-                                                                    <input type="radio" id="radioapocondu3" name="apoyacabeza_conductor" value="2">
-                                                                    <label for="radioapocondu3">
-                                                                        <i class="fas fa-ban"></i>
-                                                                    </label>
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radioapocondu3" name="apoyacabeza_conductor" value="2">
+                                                                        <label for="radioapocondu3">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioaudio1" name="equipoaudio" value="1">
-                                                                    <label for="radioaudio1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioaudio1" name="equipoaudio" value="1">
+                                                                        <label for="radioaudio1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioaudio2" name="equipoaudio" value="0">
-                                                                    <label for="radioaudio2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
-                                                                </div>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioaudio2" name="equipoaudio" value="0">
+                                                                        <label for="radioaudio2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-warning d-inline">
-                                                                    <input type="radio" id="radioaudio3" name="equipoaudio" value="2">
-                                                                    <label for="radioaudio3">
-                                                                        <i class="fas fa-ban"></i>
-                                                                    </label>
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radioaudio3" name="equipoaudio" value="2">
+                                                                        <label for="radioaudio3">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td><b>Claraboyas</b></td>
-                                                        <td><b>Alarma de Retroceso</b></td>
-                                                        <td><b>Parabrisas</b></td>
-                                                        <td><b>Retrovisor derecho</b></td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td><b>Claraboyas</b></td>
+                                                            <td><b>Alarma de Retroceso</b></td>
+                                                            <td><b>Parabrisas</b></td>
+                                                            <td><b>Retrovisor derecho</b></td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioclaraboya1" name="claraboya" value="1">
-                                                                    <label for="radioclaraboya1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioclaraboya1" name="claraboya" value="1">
+                                                                        <label for="radioclaraboya1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioclaraboya2" name="claraboya" value="0">
-                                                                    <label for="radioclaraboya2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
-                                                                </div>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioclaraboya2" name="claraboya" value="0">
+                                                                        <label for="radioclaraboya2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-warning d-inline">
-                                                                    <input type="radio" id="radioclaraboya3" name="claraboya" value="2">
-                                                                    <label for="radioclaraboya3">
-                                                                        <i class="fas fa-ban"></i>
-                                                                    </label>
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radioclaraboya3" name="claraboya" value="2">
+                                                                        <label for="radioclaraboya3">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioretro1" name="alarmareversa" value="1">
-                                                                    <label for="radioretro1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioretro1" name="alarmareversa" value="1">
+                                                                        <label for="radioretro1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioretro2" name="alarmareversa" value="0">
-                                                                    <label for="radioretro2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
-                                                                </div>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioretro2" name="alarmareversa" value="0">
+                                                                        <label for="radioretro2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-warning d-inline">
-                                                                    <input type="radio" id="radioretro3" name="alarmareversa" value="2">
-                                                                    <label for="radioretro3">
-                                                                        <i class="fas fa-ban"></i>
-                                                                    </label>
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radioretro3" name="alarmareversa" value="2">
+                                                                        <label for="radioretro3">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioparabirsas1" name="parabirsas" value="1">
-                                                                    <label for="radioparabirsas1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioparabirsas1" name="parabirsas" value="1">
+                                                                        <label for="radioparabirsas1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioparabirsas2" name="parabirsas" value="0">
-                                                                    <label for="radioparabirsas2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioparabirsas2" name="parabirsas" value="0">
+                                                                        <label for="radioparabirsas2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioretroder1" name="retrovisor_derecho" value="1">
-                                                                    <label for="radioretroder1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioretroder1" name="retrovisor_derecho" value="1">
+                                                                        <label for="radioretroder1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioretroder2" name="retrovisor_derecho" value="0">
-                                                                    <label for="radioretroder2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioretroder2" name="retrovisor_derecho" value="0">
+                                                                        <label for="radioretroder2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td><b>Apoya cabeza Pasajero</b></td>
-                                                        <td><b>Placas</b></td>
-                                                        <td><b>Limpia parabrisas Derecho</b></td>
-                                                        <td><b>Limpia parabrizas Izquierdo</b></td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td><b>Apoya cabeza Pasajero</b></td>
+                                                            <td><b>Placas</b></td>
+                                                            <td><b>Limpia parabrisas Derecho</b></td>
+                                                            <td><b>Limpia parabrizas Izquierdo</b></td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioapoyapasa1" name="apoyacabeza_pasajero" value="1">
-                                                                    <label for="radioapoyapasa1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioapoyapasa1" name="apoyacabeza_pasajero" value="1">
+                                                                        <label for="radioapoyapasa1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioapoyapasa2" name="apoyacabeza_pasajero" value="0">
-                                                                    <label for="radioapoyapasa2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
-                                                                </div>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioapoyapasa2" name="apoyacabeza_pasajero" value="0">
+                                                                        <label for="radioapoyapasa2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-warning d-inline">
-                                                                    <input type="radio" id="radioapoyapasa3" name="apoyacabeza_pasajero" value="2">
-                                                                    <label for="radioapoyapasa3">
-                                                                        <i class="fas fa-ban"></i>
-                                                                    </label>
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radioapoyapasa3" name="apoyacabeza_pasajero" value="2">
+                                                                        <label for="radioapoyapasa3">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
+                                                            </td>
 
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioplacas1" name="placas" value="1">
-                                                                    <label for="radioplacas1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioplacas1" name="placas" value="1">
+                                                                        <label for="radioplacas1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioplacas2" name="placas" value="0">
-                                                                    <label for="radioplacas2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioplacas2" name="placas" value="0">
+                                                                        <label for="radioplacas2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
+                                                            </td>
 
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiolimpder1" name="limpiaparabrisas_derecho" value="1">
-                                                                    <label for="radiolimpder1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiolimpder1" name="limpiaparabrisas_derecho" value="1">
+                                                                        <label for="radiolimpder1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiolimpder2" name="limpiaparabrisas_derecho" value="0">
-                                                                    <label for="radiolimpder2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiolimpder2" name="limpiaparabrisas_derecho" value="0">
+                                                                        <label for="radiolimpder2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiolimpizq1" name="limpiaparabrisas_izquierdo" value="1">
-                                                                    <label for="radiolimpizq1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiolimpizq1" name="limpiaparabrisas_izquierdo" value="1">
+                                                                        <label for="radiolimpizq1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiolimpizq2" name="limpiaparabrisas_izquierdo" value="0">
-                                                                    <label for="radiolimpizq2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiolimpizq2" name="limpiaparabrisas_izquierdo" value="0">
+                                                                        <label for="radiolimpizq2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td><b>Piso</b></td>
-                                                        <td><b>Bomper delantero</b></td>
-                                                        <td><b>Alarma de Reversa</b></td>
-                                                        <td><b>Sillas</b></td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td><b>Piso</b></td>
+                                                            <td><b>Bomper delantero</b></td>
+                                                            <td><b>Alarma de Reversa</b></td>
+                                                            <td><b>Sillas</b></td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiopiso1" name="piso" value="1">
-                                                                    <label for="radiopiso1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiopiso1" name="piso" value="1">
+                                                                        <label for="radiopiso1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiopiso2" name="piso" value="0">
-                                                                    <label for="radiopiso2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiopiso2" name="piso" value="0">
+                                                                        <label for="radiopiso2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiobomperdel1" name="bomper_delantero" value="1">
-                                                                    <label for="radiobomperdel1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiobomperdel1" name="bomper_delantero" value="1">
+                                                                        <label for="radiobomperdel1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiobomperdel2" name="bomper_delantero" value="0">
-                                                                    <label for="radiobomperdel2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiobomperdel2" name="bomper_delantero" value="0">
+                                                                        <label for="radiobomperdel2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioalarmrever1" name="alarmareversa" value="1">
-                                                                    <label for="radioalarmrever1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioalarmrever1" name="alarmareversa" value="1">
+                                                                        <label for="radioalarmrever1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioalarmrever2" name="alarmareversa" value="0">
-                                                                    <label for="radioalarmrever2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioalarmrever2" name="alarmareversa" value="0">
+                                                                        <label for="radioalarmrever2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiosillas1" name="sillas" value="1">
-                                                                    <label for="radiosillas1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiosillas1" name="sillas" value="1">
+                                                                        <label for="radiosillas1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiosillas2" name="sillas" value="0">
-                                                                    <label for="radiosillas2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
-                                                                </div>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiosillas2" name="sillas" value="0">
+                                                                        <label for="radiosillas2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-warning d-inline">
-                                                                    <input type="radio" id="radiosillas3" name="sillas" value="2">
-                                                                    <label for="radiosillas3">
-                                                                        <i class="fas fa-ban"></i>
-                                                                    </label>
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radiosillas3" name="sillas" value="2">
+                                                                        <label for="radiosillas3">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td><b>Antideslizante escaleras</b></td>
-                                                        <td><b>Puertas</b></td>
-                                                        <td><b>Bomper trasero</b></td>
-                                                        <td><b>Claxon</b></td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td><b>Antideslizante escaleras</b></td>
+                                                            <td><b>Puertas</b></td>
+                                                            <td><b>Bomper trasero</b></td>
+                                                            <td><b>Claxon</b></td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioantidesli1" name="antideslizante_escaleras" value="1">
-                                                                    <label for="radioantidesli1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioantidesli1" name="antideslizante_escaleras" value="1">
+                                                                        <label for="radioantidesli1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioantidesli2" name="antideslizante_escaleras" value="0">
-                                                                    <label for="radioantidesli2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
-                                                                </div>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioantidesli2" name="antideslizante_escaleras" value="0">
+                                                                        <label for="radioantidesli2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-warning d-inline">
-                                                                    <input type="radio" id="radioantidesli3" name="antideslizante_escaleras" value="2">
-                                                                    <label for="radioantidesli3">
-                                                                        <i class="fas fa-ban"></i>
-                                                                    </label>
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radioantidesli3" name="antideslizante_escaleras" value="2">
+                                                                        <label for="radioantidesli3">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiopuertas1" name="puertas" value="1">
-                                                                    <label for="radiopuertas1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiopuertas1" name="puertas" value="1">
+                                                                        <label for="radiopuertas1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiopuertas2" name="puertas" value="0">
-                                                                    <label for="radiopuertas2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
-                                                                </div>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiopuertas2" name="puertas" value="0">
+                                                                        <label for="radiopuertas2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-warning d-inline">
-                                                                    <input type="radio" id="radiopuertas3" name="puertas" value="2">
-                                                                    <label for="radiopuertas3">
-                                                                        <i class="fas fa-ban"></i>
-                                                                    </label>
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radiopuertas3" name="puertas" value="2">
+                                                                        <label for="radiopuertas3">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiobompertra1" name="bomper_trasero" value="1">
-                                                                    <label for="radiobompertra1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiobompertra1" name="bomper_trasero" value="1">
+                                                                        <label for="radiobompertra1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiobompertra2" name="bomper_trasero" value="0">
-                                                                    <label for="radiobompertra2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiobompertra2" name="bomper_trasero" value="0">
+                                                                        <label for="radiobompertra2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioclaxon1" name="claxon" value="1">
-                                                                    <label for="radioclaxon1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioclaxon1" name="claxon" value="1">
+                                                                        <label for="radioclaxon1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioclaxon2" name="claxon" value="0">
-                                                                    <label for="radioclaxon2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioclaxon2" name="claxon" value="0">
+                                                                        <label for="radioclaxon2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td><b>Cinturones de seguridad Pasajeros</b></td>
-                                                        <td><b>Pasamanos interno</b></td>
-                                                        <td><b>Indicador de Velocidad</b></td>
-                                                        <td><b>Ventanería</b></td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td><b>Cinturones de seguridad Pasajeros</b></td>
+                                                            <td><b>Pasamanos interno</b></td>
+                                                            <td><b>Indicador de Velocidad</b></td>
+                                                            <td><b>Ventanería</b></td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiocinturonpasaje1" name="cinturones_pasajero" value="1">
-                                                                    <label for="radiocinturonpasaje1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiocinturonpasaje1" name="cinturones_pasajero" value="1">
+                                                                        <label for="radiocinturonpasaje1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiocinturonpasaje2" name="cinturones_pasajero" value="0">
-                                                                    <label for="radiocinturonpasaje2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
-                                                                </div>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiocinturonpasaje2" name="cinturones_pasajero" value="0">
+                                                                        <label for="radiocinturonpasaje2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-warning d-inline">
-                                                                    <input type="radio" id="radiocinturonpasaje3" name="cinturones_pasajero" value="2">
-                                                                    <label for="radiocinturonpasaje3">
-                                                                        <i class="fas fa-ban"></i>
-                                                                    </label>
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radiocinturonpasaje3" name="cinturones_pasajero" value="2">
+                                                                        <label for="radiocinturonpasaje3">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiopasamainter1" name="pasamanos_interno" value="1">
-                                                                    <label for="radiopasamainter1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiopasamainter1" name="pasamanos_interno" value="1">
+                                                                        <label for="radiopasamainter1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiopasamainter2" name="pasamanos_interno" value="0">
-                                                                    <label for="radiopasamainter2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
-                                                                </div>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiopasamainter2" name="pasamanos_interno" value="0">
+                                                                        <label for="radiopasamainter2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-warning d-inline">
-                                                                    <input type="radio" id="radiopasamainter3" name="pasamanos_interno" value="2">
-                                                                    <label for="radiopasamainter3">
-                                                                        <i class="fas fa-ban"></i>
-                                                                    </label>
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radiopasamainter3" name="pasamanos_interno" value="2">
+                                                                        <label for="radiopasamainter3">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioindivelo1" name="indicador_velocidad" value="1">
-                                                                    <label for="radioindivelo1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioindivelo1" name="indicador_velocidad" value="1">
+                                                                        <label for="radioindivelo1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioindivelo2" name="indicador_velocidad" value="0">
-                                                                    <label for="radioindivelo2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioindivelo2" name="indicador_velocidad" value="0">
+                                                                        <label for="radioindivelo2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioventaneria1" name="ventaneria" value="1">
-                                                                    <label for="radioventaneria1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioventaneria1" name="ventaneria" value="1">
+                                                                        <label for="radioventaneria1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioventaneria2" name="ventaneria" value="0">
-                                                                    <label for="radioventaneria2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioventaneria2" name="ventaneria" value="0">
+                                                                        <label for="radioventaneria2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td><b>Cinturones de seguridad Conductor</b></td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td><b>Cinturones de seguridad Conductor</b></td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiosegucondu1" name="cinturones_conductor" value="1">
-                                                                    <label for="radiosegucondu1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiosegucondu1" name="cinturones_conductor" value="1">
+                                                                        <label for="radiosegucondu1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
+
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiosegucondu2" name="cinturones_conductor" value="0">
+                                                                        <label for="radiosegucondu2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
+
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radiosegucondu3" name="cinturones_conductor" value="2">
+                                                                        <label for="radiosegucondu3">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiosegucondu2" name="cinturones_conductor" value="0">
-                                                                    <label for="radiosegucondu2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
-                                                                </div>
-
-                                                                <div class="icheck-warning d-inline">
-                                                                    <input type="radio" id="radiosegucondu3" name="cinturones_conductor" value="2">
-                                                                    <label for="radiosegucondu3">
-                                                                        <i class="fas fa-ban"></i>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
 
                                         <!--|||TAB SISTEMAS|||-->
                                         <div class="tab-pane fade" id="custom-tabs-two-sistemas" role="tabpanel" aria-labelledby="custom-tabs-two-sistemas-tab">
-                                            <table class="table table-bordered text-center">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: 278px">Nivel de Refrigerante</th>
-                                                        <th style="width: 278px;">Nivel de Combustible</th>
-                                                        <th style="width: 278px;">Baterías</th>
-                                                        <th style="width: 278px;">Freno principal</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radionivrefri1" name="nivel_refrigerante" value="1">
-                                                                    <label for="radionivrefri1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                            <div class="table table-responsive">
+                                                <table class="table table-bordered text-center">
+                                                    <thead class="text-nowrap">
+                                                        <tr>
+                                                            <th style="width: 278px">Nivel de Refrigerante</th>
+                                                            <th style="width: 278px;">Nivel de Combustible</th>
+                                                            <th style="width: 278px;">Baterías</th>
+                                                            <th style="width: 278px;">Freno principal</th>
+                                                        </tr>
+                                                    </thead>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radionivrefri2" name="nivel_refrigerante" value="0">
-                                                                    <label for="radionivrefri2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radionivcombus1" name="nivel_combustible" value="1">
-                                                                    <label for="radionivcombus1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                    <tbody class="text-nowrap">
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radionivrefri1" name="nivel_refrigerante" value="1">
+                                                                        <label for="radionivrefri1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radionivcombus2" name="nivel_combustible" value="0">
-                                                                    <label for="radionivcombus2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radionivrefri2" name="nivel_refrigerante" value="0">
+                                                                        <label for="radionivrefri2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiobateria1" name="baterias" value="1">
-                                                                    <label for="radiobateria1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radionivcombus1" name="nivel_combustible" value="1">
+                                                                        <label for="radionivcombus1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiobateria2" name="baterias" value="0">
-                                                                    <label for="radiobateria2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radionivcombus2" name="nivel_combustible" value="0">
+                                                                        <label for="radionivcombus2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiofrenoprin1" name="freno_emergencia" value="1">
-                                                                    <label for="radiofrenoprin1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiobateria1" name="baterias" value="1">
+                                                                        <label for="radiobateria1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiofrenoprin2" name="freno_emergencia" value="0">
-                                                                    <label for="radiofrenoprin2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiobateria2" name="baterias" value="0">
+                                                                        <label for="radiobateria2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><b>Líquido Hidráulico</b></td>
-                                                        <td><b>Estado de correas</b></td>
-                                                        <td><b>Nivel líquido de Frenos</b></td>
-                                                        <td><b>Caja de Cambios</b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioliqhidra1" name="liquido_hidraulico" value="1">
-                                                                    <label for="radioliqhidra1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiofrenoprin1" name="freno_emergencia" value="1">
+                                                                        <label for="radiofrenoprin1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioliqhidra2" name="liquido_hidraulico" value="0">
-                                                                    <label for="radioliqhidra2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiofrenoprin2" name="freno_emergencia" value="0">
+                                                                        <label for="radiofrenoprin2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioestcorreas1" name="estado_correas" value="1">
-                                                                    <label for="radioestcorreas1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td><b>Líquido Hidráulico</b></td>
+                                                            <td><b>Estado de correas</b></td>
+                                                            <td><b>Nivel líquido de Frenos</b></td>
+                                                            <td><b>Caja de Cambios</b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioliqhidra1" name="liquido_hidraulico" value="1">
+                                                                        <label for="radioliqhidra1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioestcorreas2" name="estado_correas" value="0">
-                                                                    <label for="radioestcorreas2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioliqhidra2" name="liquido_hidraulico" value="0">
+                                                                        <label for="radioliqhidra2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radionivliqufrenos1" name="nivel_liquido_frenos" value="1">
-                                                                    <label for="radionivliqufrenos1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioestcorreas1" name="estado_correas" value="1">
+                                                                        <label for="radioestcorreas1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radionivliqufrenos2" name="nivel_liquido_frenos" value="0">
-                                                                    <label for="radionivliqufrenos2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioestcorreas2" name="estado_correas" value="0">
+                                                                        <label for="radioestcorreas2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiocajcambios1" name="caja_cambios" value="1">
-                                                                    <label for="radiocajcambios1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radionivliqufrenos1" name="nivel_liquido_frenos" value="1">
+                                                                        <label for="radionivliqufrenos1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiocajcambios2" name="caja_cambios" value="0">
-                                                                    <label for="radiocajcambios2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radionivliqufrenos2" name="nivel_liquido_frenos" value="0">
+                                                                        <label for="radionivliqufrenos2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiocajcambios1" name="caja_cambios" value="1">
+                                                                        <label for="radiocajcambios1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                    <tr>
-                                                        <td><b>Dirección</b></td>
-                                                        <td><b>Nivel de Aceite</b></td>
-                                                        <td><b>Freno de Emergencia</b></td>
-                                                        <td><b></b></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiodireccion1" name="direccion" value="1">
-                                                                    <label for="radiodireccion1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiocajcambios2" name="caja_cambios" value="0">
+                                                                        <label for="radiocajcambios2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
+                                                            </td>
+                                                        </tr>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiodireccion2" name="direccion" value="0">
-                                                                    <label for="radiodireccion2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radionivaceite1" name="nivel_aceite" value="1">
-                                                                    <label for="radionivaceite1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                        <tr>
+                                                            <td><b>Dirección</b></td>
+                                                            <td><b>Nivel de Aceite</b></td>
+                                                            <td><b>Freno de Emergencia</b></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiodireccion1" name="direccion" value="1">
+                                                                        <label for="radiodireccion1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radionivaceite2" name="nivel_aceite" value="0">
-                                                                    <label for="radionivaceite2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiodireccion2" name="direccion" value="0">
+                                                                        <label for="radiodireccion2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiofrenoemerge1" name="freno_emergencia" value="1">
-                                                                    <label for="radiofrenoemerge1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radionivaceite1" name="nivel_aceite" value="1">
+                                                                        <label for="radionivaceite1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiofrenoemerge2" name="freno_emergencia" value="0">
-                                                                    <label for="radiofrenoemerge2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radionivaceite2" name="nivel_aceite" value="0">
+                                                                        <label for="radionivaceite2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiofrenoemerge1" name="freno_emergencia" value="1">
+                                                                        <label for="radiofrenoemerge1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
+
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiofrenoemerge2" name="freno_emergencia" value="0">
+                                                                        <label for="radiofrenoemerge2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
 
                                         <!--|||TAB INDICADORES TABLERO|||-->
                                         <div class="tab-pane fade" id="custom-tabs-two-indicadorestableros" role="tabpanel" aria-labelledby="custom-tabs-two-indicadorestableros-tab">
-                                            <table class="table table-bordered text-center">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: 278px">Velocímetro</th>
-                                                        <th style="width: 278px;">Carga de la Batería</th>
-                                                        <th style="width: 278px;">Presión de Aceite</th>
-                                                        <th style="width: 278px;">Temperatura</th>
-                                                    </tr>
-                                                </thead>
+                                            <div class="table table-responsive">
+                                                <table class="table table-bordered text-center">
+                                                    <thead class="text-nowrap">
+                                                        <tr>
+                                                            <th>Velocímetro</th>
+                                                            <th>Carga de la Batería</th>
+                                                            <th>Presión de Aceite</th>
+                                                        </tr>
+                                                    </thead>
 
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiovelocimetro1" name="velocimetro" value="1">
-                                                                    <label for="radiovelocimetro1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                    <tbody class="text-nowrap">
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiovelocimetro1" name="velocimetro" value="1">
+                                                                        <label for="radiovelocimetro1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiovelocimetro2" name="velocimetro" value="0">
-                                                                    <label for="radiovelocimetro2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiovelocimetro2" name="velocimetro" value="0">
+                                                                        <label for="radiovelocimetro2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
+                                                            </td>
 
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiocargabateria1" name="carga_bateria" value="1">
-                                                                    <label for="radiocargabateria1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiocargabateria1" name="carga_bateria" value="1">
+                                                                        <label for="radiocargabateria1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiocargabateria2" name="carga_bateria" value="0">
-                                                                    <label for="radiocargabateria2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiocargabateria2" name="carga_bateria" value="0">
+                                                                        <label for="radiocargabateria2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
+                                                            </td>
 
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioprecionaceite1" name="presion_aceite" value="1">
-                                                                    <label for="radioprecionaceite1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioprecionaceite1" name="presion_aceite" value="1">
+                                                                        <label for="radioprecionaceite1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioprecionaceite2" name="presion_aceite" value="0">
-                                                                    <label for="radioprecionaceite2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioprecionaceite2" name="presion_aceite" value="0">
+                                                                        <label for="radioprecionaceite2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
+                                                            </td>
+                                                        </tr>
 
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiotemperatura1" name="temperatura" value="1">
-                                                                    <label for="radiotemperatura1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                        <tr>
+                                                            <td><b>Combustible</b></td>
+                                                            <td><b>Presión de Aire</b></td>
+                                                            <td><b>Temperatura</b></td>
+                                                        </tr>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiotemperatura2" name="temperatura" value="0">
-                                                                    <label for="radiotemperatura2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiocombustible1" name="combustible" value="1">
+                                                                        <label for="radiocombustible1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                    <tr>
-                                                        <td><b>Combustible</b></td>
-                                                        <td><b>Presión de Aire</b></td>
-                                                    </tr>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiocombustible2" name="combustible" value="0">
+                                                                        <label for="radiocombustible2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiopresionaire1" name="presion_aire" value="1">
+                                                                        <label for="radiopresionaire1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiocombustible1" name="combustible" value="1">
-                                                                    <label for="radiocombustible1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiopresionaire2" name="presion_aire" value="0">
+                                                                        <label for="radiopresionaire2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiocombustible2" name="combustible" value="0">
-                                                                    <label for="radiocombustible2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radiopresionaire3" name="presion_aire" value="2">
+                                                                        <label for="radiopresionaire3">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiopresionaire1" name="presion_aire" value="1">
-                                                                    <label for="radiopresionaire1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiopresionaire2" name="presion_aire" value="0">
-                                                                    <label for="radiopresionaire2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
-                                                                </div>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiotemperatura1" name="temperatura" value="1">
+                                                                        <label for="radiotemperatura1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-warning d-inline">
-                                                                    <input type="radio" id="radiopresionaire3" name="presion_aire" value="2">
-                                                                    <label for="radiopresionaire3">
-                                                                        <i class="fas fa-ban"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiotemperatura2" name="temperatura" value="0">
+                                                                        <label for="radiotemperatura2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
 
                                         <!--|||TAB MANTENIMIENTO|||-->
                                         <div class="tab-pane fade table-responsive" id="custom-tabs-two-mantenimiento" role="tabpanel" aria-labelledby="custom-tabs-two-mantenimiento-tab">
-                                            <table class="table table-bordered text-center">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: 278px">Cambio de Aceite</th>
-                                                        <th style="width: 278px;">Engrase</th>
-                                                        <th style="width: 278px;">Rotación de Llantas</th>
-                                                    </tr>
-                                                </thead>
+                                            <div class="table table-responsive">
+                                                <table class="table table-bordered text-center">
+                                                    <thead class="text-nowrap">
+                                                        <tr>
+                                                            <th style="width: 278px">Cambio de Aceite</th>
+                                                            <th style="width: 278px;">Engrase</th>
+                                                            <th style="width: 278px;">Rotación de Llantas</th>
+                                                        </tr>
+                                                    </thead>
 
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="input-group date" data-target-input="nearest">
-                                                                <input type="date" class="form-control" id="cambio_aceite" name="cambio_aceite">
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="input-group date" data-target-input="nearest">
-                                                                <input type="date" class="form-control" id="engrase" name="engrase">
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="input-group date" data-target-input="nearest">
-                                                                <input type="date" class="form-control" id="rotacion_llantas" name="rotacion_llantas">
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                    <tbody class="text-nowrap">
+                                                        <tr>
+                                                            <td>
+                                                                <div class="input-group date" data-target-input="nearest">
+                                                                    <input type="date" class="form-control" id="cambio_aceite" name="cambio_aceite">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-group date" data-target-input="nearest">
+                                                                    <input type="date" class="form-control" id="engrase" name="engrase">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-group date" data-target-input="nearest">
+                                                                    <input type="date" class="form-control" id="rotacion_llantas" name="rotacion_llantas">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td><b>Filtro de Aire</b></td>
-                                                        <td><b>Sincronización</b></td>
-                                                        <td><b>Alineacion y Balaneceo</b></td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td><b>Filtro de Aire</b></td>
+                                                            <td><b>Sincronización</b></td>
+                                                            <td><b>Alineacion y Balaneceo</b></td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="input-group date" data-target-input="nearest">
-                                                                <input type="date" class="form-control" id="filtro_aire" name="filtro_aire">
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="input-group date" data-target-input="nearest">
-                                                                <input type="date" class="form-control" id="sincronizacion" name="sincronizacion">
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="input-group date" data-target-input="nearest">
-                                                                <input type="date" class="form-control" id="alineacion_balanceo" name="alineacion_balanceo">
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="input-group date" data-target-input="nearest">
+                                                                    <input type="date" class="form-control" id="filtro_aire" name="filtro_aire">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-group date" data-target-input="nearest">
+                                                                    <input type="date" class="form-control" id="sincronizacion" name="sincronizacion">
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="input-group date" data-target-input="nearest">
+                                                                    <input type="date" class="form-control" id="alineacion_balanceo" name="alineacion_balanceo">
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
 
                                         <!--|||TAB LLANTAS|||-->
                                         <div class="tab-pane fade" id="custom-tabs-two-llantas" role="tabpanel" aria-labelledby="custom-tabs-two-llantas-tab">
-                                            <table class="table table-bordered text-center">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: 278px">Delanteras</th>
-                                                        <th style="width: 278px;">Traseras</th>
-                                                        <th style="width: 278px;">Cortes</th>
-                                                        <th style="width: 278px;">Espárragos</th>
-                                                    </tr>
-                                                </thead>
+                                            <div class="table table-responsive">
+                                                <table class="table table-bordered text-center">
+                                                    <thead class="text-nowrap">
+                                                        <tr>
+                                                            <th style="width: 278px">Delanteras</th>
+                                                            <th style="width: 278px;">Traseras</th>
+                                                            <th style="width: 278px;">Cortes</th>
+                                                            <th style="width: 278px;">Espárragos</th>
+                                                        </tr>
+                                                    </thead>
 
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiodelanteras1" name="llantas_delanteras" value="1">
-                                                                    <label for="radiodelanteras1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                    <tbody class="text-nowrap">
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiodelanteras1" name="llantas_delanteras" value="1">
+                                                                        <label for="radiodelanteras1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiodelanteras2" name="llantas_delanteras" value="0">
-                                                                    <label for="radiodelanteras2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiodelanteras2" name="llantas_delanteras" value="0">
+                                                                        <label for="radiodelanteras2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiotraseras1" name="llantas_traseras" value="1">
-                                                                    <label for="radiotraseras1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiotraseras1" name="llantas_traseras" value="1">
+                                                                        <label for="radiotraseras1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiotraseras2" name="llantas_traseras" value="0">
-                                                                    <label for="radiotraseras2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiotraseras2" name="llantas_traseras" value="0">
+                                                                        <label for="radiotraseras2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiocortes1" name="cortes" value="1">
-                                                                    <label for="radiocortes1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiocortes1" name="cortes" value="1">
+                                                                        <label for="radiocortes1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiocortes2" name="cortes" value="0">
-                                                                    <label for="radiocortes2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiocortes2" name="cortes" value="0">
+                                                                        <label for="radiocortes2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioesparragos1" name="esparragos" value="1">
-                                                                    <label for="radioesparragos1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioesparragos1" name="esparragos" value="1">
+                                                                        <label for="radioesparragos1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioesparragos2" name="esparragos" value="0">
-                                                                    <label for="radioesparragos2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioesparragos2" name="esparragos" value="0">
+                                                                        <label for="radioesparragos2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td><b>Profundidad de huella 2mm</b></td>
-                                                        <td><b>Llanta de Repuesto</b></td>
-                                                        <td><b>Presión de Inflado</b></td>
-                                                        <td><b>Abultamientos</b></td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td><b>Profundidad de huella 2mm</b></td>
+                                                            <td><b>Llanta de Repuesto</b></td>
+                                                            <td><b>Presión de Inflado</b></td>
+                                                            <td><b>Abultamientos</b></td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiohuellas2mm1" name="profundidad_huella" value="1">
-                                                                    <label for="radiohuellas2mm1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiohuellas2mm1" name="profundidad_huella" value="1">
+                                                                        <label for="radiohuellas2mm1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiohuellas2mm2" name="profundidad_huella" value="0">
-                                                                    <label for="radiohuellas2mm2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiohuellas2mm2" name="profundidad_huella" value="0">
+                                                                        <label for="radiohuellas2mm2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiorepuesto1" name="llanta_repuesto" value="1">
-                                                                    <label for="radiorepuesto1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiorepuesto1" name="llanta_repuesto" value="1">
+                                                                        <label for="radiorepuesto1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiorepuesto2" name="llanta_repuesto" value="0">
-                                                                    <label for="radiorepuesto2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiorepuesto2" name="llanta_repuesto" value="0">
+                                                                        <label for="radiorepuesto2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioinflado1" name="presion_inflado" value="1">
-                                                                    <label for="radioinflado1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioinflado1" name="presion_inflado" value="1">
+                                                                        <label for="radioinflado1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioinflado2" name="presion_inflado" value="0">
-                                                                    <label for="radioinflado2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioinflado2" name="presion_inflado" value="0">
+                                                                        <label for="radioinflado2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioabultamiento1" name="abultamiento" value="1">
-                                                                    <label for="radioabultamiento1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioabultamiento1" name="abultamiento" value="1">
+                                                                        <label for="radioabultamiento1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioabultamiento2" name="abultamiento" value="0">
-                                                                    <label for="radioabultamiento2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioabultamiento2" name="abultamiento" value="0">
+                                                                        <label for="radioabultamiento2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td><b>Reloj / Braza viga</b></td>
-                                                        <td><b>Boca de la Llanta</b></td>
-                                                        <td><b>Rines</b></td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td><b>Reloj / Braza viga</b></td>
+                                                            <td><b>Boca de la Llanta</b></td>
+                                                            <td><b>Rines</b></td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioreloj1" name="reloj_braza" value="1">
-                                                                    <label for="radioreloj1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioreloj1" name="reloj_braza" value="1">
+                                                                        <label for="radioreloj1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioreloj2" name="reloj_braza" value="0">
-                                                                    <label for="radioreloj2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
-                                                                </div>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioreloj2" name="reloj_braza" value="0">
+                                                                        <label for="radioreloj2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-warning d-inline">
-                                                                    <input type="radio" id="radioreloj3" name="reloj_braza" value="2">
-                                                                    <label for="radioreloj3">
-                                                                        <i class="fas fa-ban"></i>
-                                                                    </label>
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radioreloj3" name="reloj_braza" value="2">
+                                                                        <label for="radioreloj3">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiobocallanta1" name="boca_llanta" value="1">
-                                                                    <label for="radiobocallanta1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiobocallanta1" name="boca_llanta" value="1">
+                                                                        <label for="radiobocallanta1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiobocallanta2" name="boca_llanta" value="0">
-                                                                    <label for="radiobocallanta2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiobocallanta2" name="boca_llanta" value="0">
+                                                                        <label for="radiobocallanta2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiorines1" name="rines" value="1">
-                                                                    <label for="radiorines1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiorines1" name="rines" value="1">
+                                                                        <label for="radiorines1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiorines2" name="rines" value="0">
-                                                                    <label for="radiorines2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiorines2" name="rines" value="0">
+                                                                        <label for="radiorines2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
 
                                         <!--|||TAB EQUIPO DE SEGURIDAD|||-->
                                         <div class="tab-pane fade" id="custom-tabs-two-equiposeguridad" role="tabpanel" aria-labelledby="custom-tabs-two-equiposeguridad-tab">
-                                            <table class="table table-bordered text-center">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width: 278px">Chaleco reflectivo</th>
-                                                        <th style="width: 278px;">Linterna</th>
-                                                        <th style="width: 278px;">Conos 2 o Triángulos</th>
-                                                        <th style="width: 278px;">Tacos de Bloques</th>
-                                                    </tr>
-                                                </thead>
+                                            <div class="table table-responsive">
+                                                <table class="table table-bordered text-center">
+                                                    <thead class="text-nowrap">
+                                                        <tr>
+                                                            <th style="width: 278px">Chaleco reflectivo</th>
+                                                            <th style="width: 278px;">Linterna</th>
+                                                            <th style="width: 278px;">Conos 2 o Triángulos</th>
+                                                            <th style="width: 278px;">Tacos de Bloques</th>
+                                                        </tr>
+                                                    </thead>
 
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiochaleco1" name="chalecoreflectivo" value="1">
-                                                                    <label for="radiochaleco1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                    <tbody class="text-nowrap">
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiochaleco1" name="chalecoreflectivo" value="1">
+                                                                        <label for="radiochaleco1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiochaleco2" name="chalecoreflectivo" value="0">
-                                                                    <label for="radiochaleco2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiochaleco2" name="chalecoreflectivo" value="0">
+                                                                        <label for="radiochaleco2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiolinterna1" name="linterna" value="1">
-                                                                    <label for="radiolinterna1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiolinterna1" name="linterna" value="1">
+                                                                        <label for="radiolinterna1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiolinterna2" name="linterna" value="0">
-                                                                    <label for="radiolinterna2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiolinterna2" name="linterna" value="0">
+                                                                        <label for="radiolinterna2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioconos1" name="conos_triangulos" value="1">
-                                                                    <label for="radioconos1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioconos1" name="conos_triangulos" value="1">
+                                                                        <label for="radioconos1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioconos2" name="conos_triangulos" value="0">
-                                                                    <label for="radioconos2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioconos2" name="conos_triangulos" value="0">
+                                                                        <label for="radioconos2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiobloques1" name="tacos_bloques" value="1">
-                                                                    <label for="radiobloques1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiobloques1" name="tacos_bloques" value="1">
+                                                                        <label for="radiobloques1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiobloques2" name="tacos_bloques" value="0">
-                                                                    <label for="radiobloques2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiobloques2" name="tacos_bloques" value="0">
+                                                                        <label for="radiobloques2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td><b>Gato</b></td>
-                                                        <td><b>Cruceta o Copa</b></td>
-                                                        <td><b>Alicate</b></td>
-                                                        <td><b>Destornilladores</b></td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td><b>Gato</b></td>
+                                                            <td><b>Cruceta o Copa</b></td>
+                                                            <td><b>Alicate</b></td>
+                                                            <td><b>Destornilladores</b></td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiogato1" name="gato" value="1">
-                                                                    <label for="radiogato1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiogato1" name="gato" value="1">
+                                                                        <label for="radiogato1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiogato2" name="gato" value="0">
-                                                                    <label for="radiogato2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiogato2" name="gato" value="0">
+                                                                        <label for="radiogato2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiocruceta1" name="cruceta_copa" value="1">
-                                                                    <label for="radiocruceta1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiocruceta1" name="cruceta_copa" value="1">
+                                                                        <label for="radiocruceta1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiocruceta2" name="cruceta_copa" value="0">
-                                                                    <label for="radiocruceta2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiocruceta2" name="cruceta_copa" value="0">
+                                                                        <label for="radiocruceta2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioalicate1" name="alicate" value="1">
-                                                                    <label for="radioalicate1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioalicate1" name="alicate" value="1">
+                                                                        <label for="radioalicate1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioalicate2" name="alicate" value="0">
-                                                                    <label for="radioalicate2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioalicate2" name="alicate" value="0">
+                                                                        <label for="radioalicate2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiodestornilladores1" name="destornilladores" value="1">
-                                                                    <label for="radiodestornilladores1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiodestornilladores1" name="destornilladores" value="1">
+                                                                        <label for="radiodestornilladores1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiodestornilladores2" name="destornilladores" value="0">
-                                                                    <label for="radiodestornilladores2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiodestornilladores2" name="destornilladores" value="0">
+                                                                        <label for="radiodestornilladores2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td><b>Llaves fijas</b></td>
-                                                        <td><b>Botiquín</b></td>
-                                                        <td><b>Llave de Expansión</b></td>
-                                                        <td><b>Extintor</b></td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td><b>Llaves fijas</b></td>
+                                                            <td><b>Botiquín</b></td>
+                                                            <td><b>Llave de Expansión</b></td>
+                                                            <td><b>Extintor</b></td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiollavesfijas1" name="llavesfijas" value="1">
-                                                                    <label for="radiollavesfijas1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                        <tr>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiollavesfijas1" name="llavesfijas" value="1">
+                                                                        <label for="radiollavesfijas1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiollavesfijas2" name="llavesfijas" value="0">
-                                                                    <label for="radiollavesfijas2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiollavesfijas2" name="llavesfijas" value="0">
+                                                                        <label for="radiollavesfijas2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radiobotiquin1" name="botiquin" value="1">
-                                                                    <label for="radiobotiquin1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiobotiquin1" name="botiquin" value="1">
+                                                                        <label for="radiobotiquin1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radiobotiquin2" name="botiquin" value="0">
-                                                                    <label for="radiobotiquin2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiobotiquin2" name="botiquin" value="0">
+                                                                        <label for="radiobotiquin2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioexpansion1" name="llave_expansion" value="1">
-                                                                    <label for="radioexpansion1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
-                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioexpansion1" name="llave_expansion" value="1">
+                                                                        <label for="radioexpansion1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioexpansion2" name="llave_expansion" value="0">
-                                                                    <label for="radioexpansion2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioexpansion2" name="llave_expansion" value="0">
+                                                                        <label for="radioexpansion2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <div class="form-group clearfix">
-                                                                <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioextintor1" name="extintor" value="1">
-                                                                    <label for="radioextintor1">
-                                                                        <i class="fas fa-thumbs-up"></i>
-                                                                    </label>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radioextintor1" name="extintor" value="1">
+                                                                        <label for="radioextintor1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
+
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radioextintor2" name="extintor" value="0">
+                                                                        <label for="radioextintor2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
+                                                            </td>
+                                                        </tr>
 
-                                                                <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioextintor2" name="extintor" value="0">
-                                                                    <label for="radioextintor2">
-                                                                        <i class="fas fa-thumbs-down"></i>
-                                                                    </label>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td><b>Kilometraje total</b></td>
+                                                            <td><b>Observaciones</b></td>
+                                                        </tr>
 
-                                                    <tr>
-                                                        <td><b>Kilometraje total</b></td>
-                                                        <td><b>Observaciones</b></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>
-                                                            <textarea class="form-control" id="kmtotal" name="kilometraje_total" rows="2" placeholder="..."></textarea>
-                                                        </td>
-                                                        <td>
-                                                            <textarea class="form-control" id="observaciones" name="observaciones" rows="2" placeholder="..."></textarea>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                                        <tr>
+                                                            <td>
+                                                                <textarea class="form-control" id="kmtotal" name="kilometraje_total" rows="2" placeholder="..."></textarea>
+                                                            </td>
+                                                            <td>
+                                                                <textarea class="form-control" id="observaciones" name="observaciones" rows="2" placeholder="..."></textarea>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </form>

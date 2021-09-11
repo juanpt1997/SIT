@@ -142,6 +142,16 @@ $(document).ready(function () {
                 success: function (response) {
                     console.log(response);
                     switch (response) {
+                        case "existe":
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Ya existe un vehículo registrado para este día',
+                                showConfirmButton: true,
+                                confirmButtonText: 'Cerrar',
+                                closeOnConfirm: false
+                            })
+                            break;
+
                         case "error":
                             Swal.fire({
                                 icon: 'error',
