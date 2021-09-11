@@ -74,7 +74,7 @@ $Proveedores = ControladorProveedores::ctrListarProveedores();
                                                 <tr>
                                                     <td>
                                                         <button type="button" class="btn btn-info btn-sm btn_imprimir" data-toggle="modal" data-target="#modal-imprimir"><i class="fas fa-print"></i></button>
-                                                        <button type="button" class="btn btn-success btn-sm btn_editar" data-toggle="modal" data-target="#modal-nuevo" nit_editar="<?= $value['documento'] ?>"><i class="fas fa-edit"></i></button>
+                                                        <button type="button" class="btn btn-success btn-sm btn_editar" data-toggle="modal" data-target="#modal-nuevo" nit_editar="<?= $value['documento'] ?>" id_prov="<?= $value['id'] ?>"><i class="fas fa-edit"></i></button>
                                                         <button type="button" class="btn btn-danger btn-sm btn_eliminar" id="<?= $value['id'] ?>"><i class="fas fa-trash"></i></button>
 
                                                     </td>
@@ -90,26 +90,6 @@ $Proveedores = ControladorProveedores::ctrListarProveedores();
                                         </tbody>
                                     </table>
                                 </div>
-
-                                <!-- <div class="row d-none">
-                                    <div class="col-sm-12 col-md-5">
-                                        <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
-                                    </div>
-                                    <div class="col-sm-12 col-md-7">
-                                        <div class="dataTables_paginate paging_simple_numbers" id="example2_paginate">
-                                            <ul class="pagination">
-                                                <li class="paginate_button page-item previous disabled" id="example2_previous"><a href="#" aria-controls="example2" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                                                <li class="paginate_button page-item active"><a href="#" aria-controls="example2" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="3" tabindex="0" class="page-link">3</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="example2" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
-                                                <li class="paginate_button page-item next" id="example2_next"><a href="#" aria-controls="example2" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -147,6 +127,9 @@ $Proveedores = ControladorProveedores::ctrListarProveedores();
                     <div class="row">
 
                         <div class="col-md-6">
+
+                            <input class="input-proveedores" id="id_proveedor" type="hidden" name="id_proveedor" value="">
+
                             <div class="form-group">
                                 <label>CC / NIT</label>
                                 <input type="text" class="form-control input-proveedores" placeholder="Ingrese una cédula o NIT" id="cc_proveedor" name="cc_proveedor">

@@ -244,6 +244,9 @@ $(document).ready(function () {
 
         $(".btn_editar").on("click", function () {
 
+            var id = $(this).attr("id_prov");
+            $("#id_proveedor").val(id);
+
             var documento = $(this).attr("nit_editar");
             var datos = new FormData();
             datos.append("DatosProveedor", "ok");
@@ -284,7 +287,7 @@ $(document).ready(function () {
                 confirmButtonText: "SI, borrar",
                 cancelButtonText: "Cancelar",
                 confirmButtonColor: "#ff0000",
-                cancelButtonColor: "#66ff99",
+                cancelButtonColor: "#0080ff",
                 allowOutsideClick: false
             }).then((result) => {
 

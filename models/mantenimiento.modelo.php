@@ -584,8 +584,9 @@ class ModeloProveedores
     {
         $stmt = Conexion::conectar()->prepare("UPDATE m_proveedores set documento=:documento, nombre_contacto=:nombre_contacto, razon_social=:razon_social, direccion=:direccion,
                                                       correo=:correo, telefono=:telefono ,idciudad=:idciudad
-                                               WHERE documento = :documento");
+                                               WHERE id = :id");
 
+        $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
         $stmt->bindParam(":documento", $datos["nit"], PDO::PARAM_STR);
         $stmt->bindParam(":nombre_contacto", $datos["cont"], PDO::PARAM_STR);
         $stmt->bindParam(":razon_social", $datos["nombre"], PDO::PARAM_STR);
