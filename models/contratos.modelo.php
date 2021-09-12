@@ -283,9 +283,13 @@ class ModeloCotizaciones
          $retorno =  $stmt->fetch();
       } else {
 
-         $stmt = Conexion::conectar()->prepare("SELECT C.*, S.sucursal AS sucursal, V.tipovehiculo AS tipo, Cl.*, CONCAT('ID: ',C.idcotizacion, ' - ',C.nombre_con) AS clientexist  FROM cont_cotizaciones C
+         $stmt = Conexion::conectar()->prepare("SELECT C.*, S.sucursal AS sucursal, V.tipovehiculo AS tipov, Cl.*, CONCAT('ID: ',C.idcotizacion, ' - ',C.nombre_con) AS clientexist, m1.municipio AS ciudadcon, m2.municipio AS ciudadres, m3.municipio AS cedulaexpe
+         FROM cont_cotizaciones C
          LEFT JOIN gh_sucursales S ON C.idsucursal = S.ids
          LEFT JOIN v_tipovehiculos V ON C.idtipovehiculo = V.idtipovehiculo
+         LEFT JOIN gh_municipios m1 ON C.ciudad_con = m1.idmunicipio
+         LEFT JOIN gh_municipios m2 ON C.ciudad_res = m2.idmunicipio
+         LEFT JOIN gh_municipios m3 ON C.cedula_expedicion = m3.idmunicipio
          INNER JOIN cont_clientes Cl ON C.idcliente = Cl.idcliente");
 
          $stmt->execute();
@@ -405,7 +409,7 @@ class ModeloFijos
          $retorno =  $stmt->fetch();
       } else {
 
-         $stmt = Conexion::conectar()->prepare("SELECT F.*, C.nombre as nombre_cliente  FROM cont_fijos F
+         $stmt = Conexion::conectar()->prepare("SELECT F.*, C.nombre as nombre_cliente, C.Documento as nit  FROM cont_fijos F
          INNER JOIN cont_clientes C ON F.idcliente = C.idcliente
          ORDER BY F.idfijos");
 
