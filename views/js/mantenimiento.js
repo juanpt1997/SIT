@@ -284,6 +284,105 @@ $(document).ready(function () {
                 }
             }
         });
+
+        /* ===================================================
+          BOTON CAMBIAR ESTADO EVIDENCIA
+        ===================================================*/
+        $(document).on("click", ".btn-estado", function () {
+            var $boton = $(this);
+            var idevidencia = $(this).attr("idevidencia");
+            var idvehiculo = $(this).attr("idvehiculo");
+            var estado = $(this).attr("estado");
+
+            var textoBoton = estado == "PENDIENTE" ? "Resuelto!" : "Aún pendiente";
+            var colorBoton = estado == "PENDIENTE" ? "#5cb85c" : "#d33";
+            Swal.fire({
+                title: `Esto se encuentra ${estado}`,
+                html:
+                    `
+                                        <hr>
+                                        <label for="">Observaciones</label>
+                                        <input class="form-control" id="swal-evidencia-obs" type="text" value="${$('#obs_' + idevidencia).text()}">
+                                        `
+                ,
+                showCancelButton: true,
+                confirmButtonColor: colorBoton,
+                cancelButtonColor: '#007bff',
+                confirmButtonText: textoBoton,
+                cancelButtonText: 'Cerrar'
+            }).then((result) => {
+                if (result.value) {
+                    var observaciones = $("#swal-evidencia-obs").val();
+
+                    if (observaciones != "") {
+                        var datos = new FormData();
+                        datos.append("CambiarEstadoEvidencia", "ok");
+                        datos.append("idevidencia", idevidencia);
+                        datos.append("estadoActual", estado);
+                        datos.append("observaciones", observaciones);
+                        $.ajax({
+                            url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                            method: "POST",
+                            data: datos,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (response) {
+                                if (response == "ok") {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        timer: 1000,
+                                        title: 'Registro modificado correctamente!',
+                                        showConfirmButton: false,
+                                    })
+                                    /* ===================================================
+                                        TABLA DE EVIDENCIAS
+                                    ===================================================*/
+                                    AjaxTablaEvidencias(idvehiculo);
+                                    // if (estado == 'RESUELTO') {
+                                    //     $boton.removeClass("btn-success");
+                                    //     $boton.addClass("btn-danger");
+                                    //     $boton.html(`<i class="far fa-clock"></i> PENDIENTE`);
+                                    //     $boton.attr("estado", "PENDIENTE");
+                                    // } else {
+                                    //     $boton.addClass("btn-success");
+                                    //     $boton.removeClass("btn-danger");
+                                    //     $boton.html(`<i class="far fa-check-square"></i> RESUELTO`);
+                                    //     $boton.attr("estado", "RESUELTO");
+                                    // }
+                                }
+                                else
+                                    // Mensaje de error
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Ha ocurrido un error, por favor intente de nuevo',
+                                        showConfirmButton: true,
+                                        confirmButtonText: 'Cerrar',
+                                        closeOnConfirm: false
+                                    }).then((result) => {
+
+                                        if (result.value) {
+                                            window.location = 'm-alistamiento';
+                                        }
+
+                                    })
+
+                            }
+                        });
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'warning',
+                            timer: 3000,
+                            title: 'No pueden quedar en blanco las observaciones',
+                            showConfirmButton: false,
+                        })
+                    }
+                }
+            })
+
+
+        });
     }
 
     /* ===================================================

@@ -575,6 +575,34 @@ class ModeloAlistamiento
         $conexion = null;
         return $respuesta;
     }
+
+    /* ===================================================
+       CAMBIAR ESTADO EVIDENCIA
+    ===================================================*/
+    static public function mdlActualizarEstado($datos)
+    {
+
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("UPDATE `m_re_alistamientoevidencias` SET 
+            `estado` = :estado,
+            `observaciones` = :observaciones
+            WHERE `idevidencia`=:idevidencia");
+
+        $stmt->bindParam(":idevidencia", $datos['idevidencia'], PDO::PARAM_INT);
+        $stmt->bindParam(":observaciones", $datos['observaciones'], PDO::PARAM_STR);
+        $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_STR);
+
+
+        if ($stmt->execute()) {
+            $respuesta = "ok";
+        } else {
+            $respuesta = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $respuesta;
+    }
+
 }
 
 class ModeloProveedores

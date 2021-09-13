@@ -152,6 +152,22 @@ class ControladorAlistamiento
 
         return $retorno;
     }
+
+    /* ===================================================
+       CAMBIAR ESTADO EVIDENCIA
+    ===================================================*/
+    static public function ctrActualizarEstado($idevidencia, $estadoActual, $observaciones)
+    {
+        $nuevoEstado = $estadoActual == "RESUELTO" ? "PENDIENTE" : "RESUELTO";
+
+        $datos = array(
+            'idevidencia' => $idevidencia,
+            'observaciones' => $observaciones,
+            'estado' => $nuevoEstado
+        ); 
+        $respuesta = ModeloAlistamiento::mdlActualizarEstado($datos); 
+        return $respuesta;
+    }
 }
 
 class ControladorProveedores

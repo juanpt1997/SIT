@@ -50,19 +50,29 @@ class AjaxAlistamiento
         $Respuesta = ControladorAlistamiento::ctrListaEvidencias($idvehiculo);
         $tr = "";
         foreach ($Respuesta as $key => $value) {
+            # Foto
             if ($value['ruta_foto'] != null) {
                 $btnVerDoc = "<a href='" . URL_APP . $value['ruta_foto'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a>";
+            }else{
+                $btnVerDoc = "";
             }
-            $btnEditar = "<button type='button' class='btn btn-info btn-sm m-1 btn-editarRegistro' idregistro='{$value['idevidencia']}' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-edit'></i></button>";
-            $btnEliminar = "<button type='button' class='btn btn-danger btn-sm m-1 eliminarRegistro' idregistro='{$value['idevidencia']}' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-trash-alt'></i></button>";
-            $botonAcciones = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnEditar . $btnEliminar . "</div>";
+
+            # Botones
+            // $btnEditar = "<button type='button' class='btn btn-info btn-sm m-1 btn-editarRegistro' idregistro='{$value['idevidencia']}' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-edit'></i></button>";
+            // $btnEliminar = "<button type='button' class='btn btn-danger btn-sm m-1 eliminarRegistro' idregistro='{$value['idevidencia']}' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-trash-alt'></i></button>";
+            // $botonAcciones = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnEditar . $btnEliminar . "</div>";
+
+            # Estado
+            $colorEstado = $value['estado'] == 'PENDIENTE' ? "danger" : "success";
+            $iconoEstado = $value['estado'] == 'PENDIENTE' ? "far fa-clock" : "far fa-check-square";
+            $estado = '<button class="btn btn-sm btn-estado btn-' . $colorEstado . ' font-weight-bold" idevidencia="' . $value["idevidencia"] . '" idvehiculo="' . $idvehiculo . '" estado="' . $value["estado"] . '"><i class="' . $iconoEstado . '"></i> ' . $value["estado"] . '</button>';
 
             $tr .= "
                 <tr>
                         <td>" . $value['fecha'] . "</td>
                         <td>" . $btnVerDoc . "</td>
-                        <td>" . $value['observaciones'] . "</td>
-                        <td>" . $value['estado'] . "</td>
+                        <td id='obs_" . $value["idevidencia"] . "'>" . $value['observaciones'] . "</td>
+                        <td>" . $estado . "</td>
                         <td>" . $value['autor'] . "</td>
                 </tr>
             ";
@@ -140,6 +150,15 @@ class AjaxAlistamiento
             echo "error";
         }
     }
+
+    /* ===================================================
+       CAMBIAR ESTADO EVIDENCIA
+    ===================================================*/
+    static public function ajaxActualizaEstado($idevidencia, $estadoActual, $observaciones)
+    {
+        $respuesta = ControladorAlistamiento::ctrActualizarEstado($idevidencia, $estadoActual, $observaciones);
+        echo $respuesta;
+    }
 }
 
 class AjaxProveedores
@@ -176,6 +195,10 @@ if (isset($_POST['TablaEvidencias']) && $_POST['TablaEvidencias'] == "ok") {
 
 if (isset($_POST['GuardarEvidencia']) && $_POST['GuardarEvidencia'] == "ok") {
     AjaxAlistamiento::ajaxGuardarEvidencia($_POST, $_FILES['fotoEvidencia']);
+}
+
+if (isset($_POST['CambiarEstadoEvidencia']) && $_POST['CambiarEstadoEvidencia'] == "ok") {
+    AjaxAlistamiento::ajaxActualizaEstado($_POST['idevidencia'], $_POST['estadoActual'], $_POST['observaciones']);
 }
 
 #Llamados ajax proveedores
