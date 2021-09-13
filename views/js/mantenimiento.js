@@ -69,7 +69,7 @@ $(document).ready(function () {
                                     response.forEach(element => {
                                         // Asigno valor fecha
                                         $(`#documento_${element.idtipodocumento}`).val(element.fechafin);
-                                        
+
                                         // Color del fondo segun la fecha
                                         var bg = element.fechafin >= moment().format("YYYY-MM-DD") ? "bg-success" : "bg-danger";
                                         $(`#documento_${element.idtipodocumento}`).addClass(bg);
@@ -228,6 +228,62 @@ $(document).ready(function () {
                 }
             });
         }
+
+        /* ===================================================
+          GUARDAR EVIDENCIA
+        ===================================================*/
+        $(document).on("click", "#btnGuardarEvidencia", function () {
+            var idvehiculo = $("#idvehiculo").val();
+
+            if (idvehiculo != "") {
+                var fotoEvidencia = $('#foto_evidencia')[0].files;
+                var observaciones = $("#observacion_evidencia").val();
+                if (fotoEvidencia.length > 0 && observaciones != "") {
+                    var datos = new FormData();
+                    datos.append('GuardarEvidencia', "ok");
+                    datos.append('idvehiculo', idvehiculo);
+                    datos.append('fotoEvidencia', fotoEvidencia[0]);
+                    datos.append('observaciones', observaciones);
+
+                    $.ajax({
+                        type: 'post',
+                        url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: 'success',
+                                    timer: 1500,
+                                    title: 'Documento subido correctamente!',
+                                    showConfirmButton: false,
+                                })
+                                /* ===================================================
+                                    TABLA DE EVIDENCIAS
+                                ===================================================*/
+                                AjaxTablaEvidencias(idvehiculo);
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '¡Ha ocurrido un error, por favor intente de nuevo más tarde!',
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                })
+                            }
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Primero seleccione un archivo y digite las observaciones',
+                        showConfirmButton: false,
+                        confirmButtonText: 'Aceptar'
+                    })
+                }
+            }
+        });
     }
 
     /* ===================================================
@@ -235,7 +291,7 @@ $(document).ready(function () {
     ===================================================*/
     if (window.location.href == `${urlPagina}m-proveedores/` ||
         window.location.href == `${urlPagina}m-proveedores`
-    ){
+    ) {
         $(".btn_nuevo").on("click", function () {
 
             $("#titulo_modal_proveedores").html("Agregar proveedor");
@@ -261,7 +317,7 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (response) {
 
-                    $("#titulo_modal_proveedores").html("Actualizando datos de:  " + response.razon_social); 
+                    $("#titulo_modal_proveedores").html("Actualizando datos de:  " + response.razon_social);
 
                     $("#cc_proveedor").val(response.documento);
                     $("#nom_razonsocial").val(response.razon_social);
@@ -296,7 +352,7 @@ $(document).ready(function () {
                     var datos = new FormData();
                     datos.append("EliminarProveedor", "ok");
                     datos.append("id", id);
-                    
+
                     $.ajax({
                         type: "POST",
                         url: "ajax/mantenimiento.ajax.php",
