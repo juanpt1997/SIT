@@ -4,6 +4,7 @@
 //     echo "<script> window.location = 'inicio'; </script>";
 // }
 
+$Alistamientos = ControladorAlistamiento::ctrListaAlistamientos();
 $Vehiculos = ControladorVehiculos::ctrListaVehiculos();
 $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
@@ -51,12 +52,13 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                             <div class="card-body">
                                 <!--|||TABLA PROTOCOLO DE ALISTAMIENTO|||-->
                                 <div class="table-responsive">
-                                    <table id="example1" class="table table-bordered table-striped text-center nowrap tablas">
+                                    <table id="tblAlistamientos" class="table table-bordered table-striped text-center nowrap tablas">
                                         <thead>
                                             <tr>
                                                 <th>...</th>
                                                 <th>ID</th>
                                                 <th>Placa</th>
+                                                <th>Fecha - Hora</th>
                                                 <th>Documentos</th>
                                                 <th>Nivel de Aceite</th>
                                                 <th>Llantas de Servicio</th>
@@ -82,201 +84,49 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <th>Vidrios</th>
                                                 <th>Fugas</th>
                                                 <th>Plumillas</th>
-                                                <th>Fecha - Hora</th>
                                                 <th>Kilometraje Total</th>
                                                 <th>Consumo de Combustible</th>
                                             </tr>
                                         </thead>
 
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
-
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                </td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                        </tbody>
+                                        <tbody id="tbodyAlistamientos">
+                                            <?php foreach ($Alistamientos as $key => $value) : ?>
+                                                <tr>
+                                                    <td>
+                                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
+                                                    </td>
+                                                    <td><?= $value['id'] ?></td>
+                                                    <td><?= $value['placa'] ?></td>
+                                                    <td><?= $value['fechaalista'] ?></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                </tr>
+                                            <?php endforeach ?>
                                     </table>
                                 </div>
                             </div>

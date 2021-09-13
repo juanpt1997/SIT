@@ -6,6 +6,15 @@
 class ControladorAlistamiento
 {
     /* ===================================================
+       LISTA ALISTAMIENTOS
+    ===================================================*/
+    static public function ctrListaAlistamientos()
+    {
+        $respuesta = ModeloAlistamiento::mdlListaAlistamientos();
+        return $respuesta;
+    }
+
+    /* ===================================================
        LISTA DE EVIDENCIAS
     ===================================================*/
     static public function ctrListaEvidencias($idvehiculo)

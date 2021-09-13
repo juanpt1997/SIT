@@ -12,6 +12,19 @@ class ModeloAlistamiento
     /* ===================================================
        LISTA ALISTAMIENTOS
     ===================================================*/
+    static public function mdlListaAlistamientos()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.numinterno, a.*
+                                                FROM m_alistamiento a
+                                                INNER JOIN v_vehiculos v ON v.idvehiculo = a.idvehiculo
+                                                LEFT JOIN gh_personal p ON p.idPersonal = a.idconductor
+                                                ORDER BY a.fechaalista DESC");
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
 
     /* ===================================================
        DATOS DE UN SOLO ALISTAMIENTO
@@ -19,7 +32,7 @@ class ModeloAlistamiento
     static public function mdlDatosAlistamiento($datos, $parametro = "")
     {
         if ($parametro == "fecha") {
-            $parametro = "AND fechaalista = CURDATE()";
+            $parametro = "AND DATE_FORMAT(fechaalista, '%Y-%m-%d') = CURDATE()";
         }
 
         $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.numinterno, a.* FROM m_alistamiento a
@@ -42,7 +55,7 @@ class ModeloAlistamiento
         $stmt = $conexion->prepare("INSERT INTO `m_alistamiento`(
                                     `idvehiculo`,
                                     `idconductor`,
-                                    `fechaalista`,
+                                    /* `fechaalista`, */
                                     `lucesbajas`,
                                     `lucesaltas`,
                                     `lucesreversa`,
@@ -130,7 +143,7 @@ class ModeloAlistamiento
                                     VALUES (
                                     :idvehiculo,
                                     :idconductor,
-                                    curdate(),
+                                    /* curdate(), */
                                     :lucesbajas,
                                     :lucesaltas,
                                     :lucesreversa,

@@ -145,7 +145,7 @@ $(document).ready(function () {
                         case "existe":
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Ya existe un vehículo registrado para este día',
+                                title: 'Ya existe dicho vehículo registrado para este día',
                                 showConfirmButton: true,
                                 confirmButtonText: 'Cerrar',
                                 closeOnConfirm: false
