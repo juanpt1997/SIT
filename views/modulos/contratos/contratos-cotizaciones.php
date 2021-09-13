@@ -54,10 +54,16 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                             <th style="width:10px;">ID</th>
                                             <th>Nombre contratante</th>
                                             <th>NIT/CC</th>
+                                            <th>Tipo documento</th>
                                             <th>Dirección</th>
+                                            <th>Ciudad</th>
                                             <th>Teléfono 1</th>
                                             <th>Teléfono 2</th>
                                             <th>Nombre contacto</th>
+                                            <th>Tipo documento</th>
+                                            <th>Documento contacto</th>
+                                            <th>Cc. Expedida</th>
+                                            <th>Ciudad</th>
                                             <th>Empresa</th>
                                             <th>Origen</th>
                                             <th>Destino</th>
@@ -66,6 +72,26 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                             <th>Fecha respuesta</th>
                                             <th>Fecha inicio</th>
                                             <th>Fecha final</th>
+                                            <th>Sucursal</th>
+                                            <th>Duración</th>
+                                            <th>Hora salida</th>
+                                            <th>Hora recogida</th>
+                                            <th>Tipo vehículo</th>
+                                            <th>Nro. Vehículos</th>
+                                            <th>Capacidad</th>
+                                            <th>Valor / vehículo</th>
+                                            <th>Valor total</th>
+                                            <th>Cotización</th>
+                                            <th>Clasificación</th>
+                                            <th>Musica</th>
+                                            <th>Aire</th>
+                                            <th>Wi-Fi</th>
+                                            <th>Silla reclinable</th>
+                                            <th>Baño</th>
+                                            <th>Bodega</th>
+                                            <th>Otro</th>
+                                            <th>Realiza viaje</th>
+                                            <th>Por qué</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-sm">
@@ -79,10 +105,16 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                 <td><?= $value['idcotizacion'] ?></td>
                                                 <td><?= $value['nombre_con'] ?></td>
                                                 <td><?= $value['documento_con'] ?></td>
+                                                <td><?= $value['tipo_doc_con'] ?></td>
                                                 <td><?= $value['direccion_con'] ?></td>
+                                                <td><?= $value['ciudadcon'] ?></td>
                                                 <td><?= $value['tel_1'] ?></td>
                                                 <td><?= $value['tel_2'] ?></td>
                                                 <td><?= $value['nombre_respo'] ?></td>
+                                                <td><?= $value['tipo_doc_respo'] ?></td>
+                                                <td><?= $value['documento_res'] ?></td>
+                                                <td><?= $value['cedulaexpe'] ?></td>
+                                                <td><?= $value['ciudadres'] ?></td>
                                                 <td><?= $value['empresa'] ?></td>
                                                 <td><?= $value['origen'] ?></td>
                                                 <td><?= $value['destino'] ?></td>
@@ -91,6 +123,26 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                 <td><?= $value['fecha_solucion'] ?></td>
                                                 <td><?= $value['fecha_inicio'] ?></td>
                                                 <td><?= $value['fecha_fin'] ?></td>
+                                                <td><?= $value['sucursal'] ?></td>
+                                                <td><?= $value['duracion'] ?></td>
+                                                <td><?= $value['hora_salida'] ?></td>
+                                                <td><?= $value['hora_recogida'] ?></td>
+                                                <td><?= $value['tipov'] ?></td>
+                                                <td><?= $value['nro_vehiculos'] ?></td>
+                                                <td><?= $value['capacidad'] ?></td>
+                                                <td><?= $value['valorxvehiculo'] ?></td>
+                                                <td><?= $value['valortotal'] ?></td>
+                                                <td><?= $value['cotizacion'] ?></td>
+                                                <td><?= $value['clasificacion'] ?></td>
+                                                <td><?= $value['musica'] ?></td>
+                                                <td><?= $value['aire'] ?></td>
+                                                <td><?= $value['wifi'] ?></td>
+                                                <td><?= $value['silleriareclinable'] ?></td>
+                                                <td><?= $value['bano'] ?></td>
+                                                <td><?= $value['bodega'] ?></td>
+                                                <td><?= $value['otro'] ?></td>
+                                                <td><?= $value['realiza_viaje'] ?></td>
+                                                <td><?= $value['porque'] ?></td>
                                             </tr>
                                         <?php endforeach ?>
                                     </tbody>
