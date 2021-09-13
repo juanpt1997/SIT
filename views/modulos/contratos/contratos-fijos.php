@@ -50,6 +50,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                             <th>...</th>
                                             <th style="width:10px;"><b>ID</b></th>
                                             <th>Nombre de cliente</th>
+                                            <th>NIT/CC</th>
                                             <th>Nro. Contrato</th>
                                             <th>Observaciones</th>
                                             <th>Fecha inicial</th>
@@ -66,6 +67,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                 </td>
                                                 <td><?= $value['idfijos'] ?></td>
                                                 <td><?= $value['nombre_cliente'] ?></td>
+                                                <td><?= $value['nit'] ?></td>
                                                 <td><?= $value['numcontrato'] ?></td>
                                                 <td><?= $value['observaciones'] ?></td>
                                                 <td><?= $value['fecha_inicial'] ?></td>
@@ -116,7 +118,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                             <select class="form-control input-fijos select2-single" id="nom_clien" style="width: 99%" name="nom_clien" required>
                                 <option value="" selected><b>-Seleccione un cliente-</b></option>
                                 <?php foreach ($clientes as $key => $value) : ?>
-                                    <option value="<?= $value['idcliente'] ?>"><?= $value['nombre'] ?></option>
+                                    <option value="<?= $value['idcliente'] ?>"><?= $value['clientexist'] ?></option>
                                 <?php endforeach ?>
                             </select>
                         </div>
@@ -157,7 +159,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                         <div class="form-group">
                             <label class="text-sm">Documento escaneado</label>
                             <div class="input-group input-group-sm">
-                                <input class="form-control-file input-fijos" type="file" id="documento_es" name="documento_es" accept="image/png, image/jpeg, application/pdf">
+                                <input class="form-control-file input-fijos" type="file" id="documento_es" name="documento_es" accept="image/png, image/jpeg, application/pdf" required>
                             </div>
                             <a id="visualizDocumento" href="" target="_blank"></a>
                         </div>
