@@ -722,7 +722,7 @@ class ModeloPagoSS
     ===================================================*/
     static public function mdlMostrarPagoSS($idFechas)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT s.idsegursoc, p.Nombre, p.pago_seguridadsocial, s.pago, e.eps, ar.arl, fp.fondo AS afp, c.cargo, sc.sucursal
+        $stmt = Conexion::conectar()->prepare("SELECT s.idsegursoc, p.Nombre, p.Documento AS cedula, p.pago_seguridadsocial, s.pago, e.eps, ar.arl, fp.fondo AS afp, c.cargo, sc.sucursal
                                                 FROM gh_re_personalsegursoc s
                                                 INNER JOIN gh_personal p ON p.idPersonal = s.idPersonal
                                                 LEFT JOIN gh_eps e ON e.ideps = p.eps

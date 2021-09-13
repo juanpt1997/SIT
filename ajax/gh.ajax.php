@@ -737,6 +737,7 @@ class AjaxPagoSS
             }
             $tr .= "
                 <tr>
+                        <td>" . $value['cedula'] . "</td>
                         <td>" . $value['Nombre'] . "</td>
                         <td>" . $value['pago_seguridadsocial'] . "</td>
                         <td>" . $pago . "</td>

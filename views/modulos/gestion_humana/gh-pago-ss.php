@@ -143,6 +143,7 @@ $FechasPagoSS = ControladorPagoSS::ctrMostrarFechas();
                         <table id="tblPagoSS" class="table table-sm table-hover row-border w-100">
                             <thead class="thead-light">
                                 <tr>
+                                    <th>Cédula</th>
                                     <th>Empleado</th>
                                     <th>Seguridad social</th>
                                     <th>Pago</th>
