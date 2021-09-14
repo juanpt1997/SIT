@@ -12,6 +12,19 @@ class ModeloAlistamiento
     /* ===================================================
        LISTA ALISTAMIENTOS
     ===================================================*/
+    static public function mdlListaAlistamientos()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.numinterno, a.*
+                                                FROM m_alistamiento a
+                                                INNER JOIN v_vehiculos v ON v.idvehiculo = a.idvehiculo
+                                                LEFT JOIN gh_personal p ON p.idPersonal = a.idconductor
+                                                ORDER BY a.fechaalista DESC");
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
 
     /* ===================================================
        DATOS DE UN SOLO ALISTAMIENTO
@@ -19,7 +32,7 @@ class ModeloAlistamiento
     static public function mdlDatosAlistamiento($datos, $parametro = "")
     {
         if ($parametro == "fecha") {
-            $parametro = "AND fechaalista = CURDATE()";
+            $parametro = "AND DATE_FORMAT(fechaalista, '%Y-%m-%d') = CURDATE()";
         }
 
         $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.numinterno, a.* FROM m_alistamiento a
@@ -42,7 +55,7 @@ class ModeloAlistamiento
         $stmt = $conexion->prepare("INSERT INTO `m_alistamiento`(
                                     `idvehiculo`,
                                     `idconductor`,
-                                    `fechaalista`,
+                                    /* `fechaalista`, */
                                     `lucesbajas`,
                                     `lucesaltas`,
                                     `lucesreversa`,
@@ -130,7 +143,7 @@ class ModeloAlistamiento
                                     VALUES (
                                     :idvehiculo,
                                     :idconductor,
-                                    curdate(),
+                                    /* curdate(), */
                                     :lucesbajas,
                                     :lucesaltas,
                                     :lucesreversa,
@@ -514,10 +527,12 @@ class ModeloAlistamiento
     ===================================================*/
     static public function mdlListaEvidencias($idvehiculo)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM m_re_alistamientoevidencias e
+        $stmt = Conexion::conectar()->prepare("SELECT e.idevidencia, e.idvehiculo, e.fecha, e.ruta_foto, e.observaciones, e.estado, e.autor AS idautor, u.Nombre AS autor
+                                                FROM m_re_alistamientoevidencias e
                                                 INNER JOIN v_vehiculos v ON e.idvehiculo = v.idvehiculo
+                                                LEFT JOIN l_usuarios u ON u.Cedula = e.autor
                                                 WHERE v.idvehiculo = :idvehiculo
-                                                ORDER BY e.estado ASC, e.fecha DESC");
+                                                ORDER BY e.estado ASC, e.fecha DESC, e.idevidencia DESC");
 
         $stmt->bindParam(":idvehiculo", $idvehiculo, PDO::PARAM_INT);
         $stmt->execute();
@@ -525,6 +540,69 @@ class ModeloAlistamiento
         $stmt->closeCursor();
         return $retorno;
     }
+
+    /* ===================================================
+       GUARDAR EVIDENCIA
+    ===================================================*/
+    static public function mdlGuardarEvidencia($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO `m_re_alistamientoevidencias`(
+                                    `idvehiculo`,
+                                    `fecha`,
+                                    `ruta_foto`,
+                                    `observaciones`,
+                                    `autor`) 
+                                    VALUES (
+                                    :idvehiculo,
+                                    curdate(),
+                                    :ruta_foto,
+                                    :observaciones,
+                                    :autor)
+        ");
+
+        $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
+        $stmt->bindParam(":ruta_foto", $datos['ruta_foto'], PDO::PARAM_STR);
+        $stmt->bindParam(":observaciones", $datos['observaciones'], PDO::PARAM_STR);
+        $stmt->bindParam(":autor", $datos['autor'], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $respuesta = "ok";
+        } else {
+            $respuesta = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $respuesta;
+    }
+
+    /* ===================================================
+       CAMBIAR ESTADO EVIDENCIA
+    ===================================================*/
+    static public function mdlActualizarEstado($datos)
+    {
+
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("UPDATE `m_re_alistamientoevidencias` SET 
+            `estado` = :estado,
+            `observaciones` = :observaciones
+            WHERE `idevidencia`=:idevidencia");
+
+        $stmt->bindParam(":idevidencia", $datos['idevidencia'], PDO::PARAM_INT);
+        $stmt->bindParam(":observaciones", $datos['observaciones'], PDO::PARAM_STR);
+        $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_STR);
+
+
+        if ($stmt->execute()) {
+            $respuesta = "ok";
+        } else {
+            $respuesta = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $respuesta;
+    }
+
 }
 
 class ModeloProveedores

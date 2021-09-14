@@ -240,7 +240,8 @@ class AjaxVehiculos
     ===================================================*/
     static public function ajaxTablaDocumentos($idvehiculo)
     {
-        $Respuesta = ControladorVehiculos::ctrDocumentosxVehiculo($idvehiculo);
+        //$Respuesta = ControladorVehiculos::ctrDocumentosxVehiculo($idvehiculo);
+        $Respuesta = ControladorVehiculos::ctrDocumentosxVehiculoSinRepetir($idvehiculo);
         $tr = "";
         foreach ($Respuesta as $key => $value) {
             $btnEliminar = "<button type='button' class='btn btn-danger eliminarRegistro' tabla='v_re_documentosvehiculos' idregistro='{$value['iddocumento']}' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-trash-alt'></i></button>";

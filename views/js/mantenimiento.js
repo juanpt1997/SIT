@@ -69,7 +69,7 @@ $(document).ready(function () {
                                     response.forEach(element => {
                                         // Asigno valor fecha
                                         $(`#documento_${element.idtipodocumento}`).val(element.fechafin);
-                                        
+
                                         // Color del fondo segun la fecha
                                         var bg = element.fechafin >= moment().format("YYYY-MM-DD") ? "bg-success" : "bg-danger";
                                         $(`#documento_${element.idtipodocumento}`).addClass(bg);
@@ -145,7 +145,7 @@ $(document).ready(function () {
                         case "existe":
                             Swal.fire({
                                 icon: 'warning',
-                                title: 'Ya existe un vehículo registrado para este día',
+                                title: 'Ya existe dicho vehículo registrado para este día',
                                 showConfirmButton: true,
                                 confirmButtonText: 'Cerrar',
                                 closeOnConfirm: false
@@ -228,6 +228,161 @@ $(document).ready(function () {
                 }
             });
         }
+
+        /* ===================================================
+          GUARDAR EVIDENCIA
+        ===================================================*/
+        $(document).on("click", "#btnGuardarEvidencia", function () {
+            var idvehiculo = $("#idvehiculo").val();
+
+            if (idvehiculo != "") {
+                var fotoEvidencia = $('#foto_evidencia')[0].files;
+                var observaciones = $("#observacion_evidencia").val();
+                if (fotoEvidencia.length > 0 && observaciones != "") {
+                    var datos = new FormData();
+                    datos.append('GuardarEvidencia', "ok");
+                    datos.append('idvehiculo', idvehiculo);
+                    datos.append('fotoEvidencia', fotoEvidencia[0]);
+                    datos.append('observaciones', observaciones);
+
+                    $.ajax({
+                        type: 'post',
+                        url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: 'success',
+                                    timer: 1500,
+                                    title: 'Documento subido correctamente!',
+                                    showConfirmButton: false,
+                                })
+                                /* ===================================================
+                                    TABLA DE EVIDENCIAS
+                                ===================================================*/
+                                AjaxTablaEvidencias(idvehiculo);
+                            } else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '¡Ha ocurrido un error, por favor intente de nuevo más tarde!',
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                })
+                            }
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Primero seleccione un archivo y digite las observaciones',
+                        showConfirmButton: false,
+                        confirmButtonText: 'Aceptar'
+                    })
+                }
+            }
+        });
+
+        /* ===================================================
+          BOTON CAMBIAR ESTADO EVIDENCIA
+        ===================================================*/
+        $(document).on("click", ".btn-estado", function () {
+            var $boton = $(this);
+            var idevidencia = $(this).attr("idevidencia");
+            var idvehiculo = $(this).attr("idvehiculo");
+            var estado = $(this).attr("estado");
+
+            var textoBoton = estado == "PENDIENTE" ? "Resuelto!" : "Aún pendiente";
+            var colorBoton = estado == "PENDIENTE" ? "#5cb85c" : "#d33";
+            Swal.fire({
+                title: `Esto se encuentra ${estado}`,
+                html:
+                    `
+                                        <hr>
+                                        <label for="">Observaciones</label>
+                                        <input class="form-control" id="swal-evidencia-obs" type="text" value="${$('#obs_' + idevidencia).text()}">
+                                        `
+                ,
+                showCancelButton: true,
+                confirmButtonColor: colorBoton,
+                cancelButtonColor: '#007bff',
+                confirmButtonText: textoBoton,
+                cancelButtonText: 'Cerrar'
+            }).then((result) => {
+                if (result.value) {
+                    var observaciones = $("#swal-evidencia-obs").val();
+
+                    if (observaciones != "") {
+                        var datos = new FormData();
+                        datos.append("CambiarEstadoEvidencia", "ok");
+                        datos.append("idevidencia", idevidencia);
+                        datos.append("estadoActual", estado);
+                        datos.append("observaciones", observaciones);
+                        $.ajax({
+                            url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                            method: "POST",
+                            data: datos,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (response) {
+                                if (response == "ok") {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        timer: 1000,
+                                        title: 'Registro modificado correctamente!',
+                                        showConfirmButton: false,
+                                    })
+                                    /* ===================================================
+                                        TABLA DE EVIDENCIAS
+                                    ===================================================*/
+                                    AjaxTablaEvidencias(idvehiculo);
+                                    // if (estado == 'RESUELTO') {
+                                    //     $boton.removeClass("btn-success");
+                                    //     $boton.addClass("btn-danger");
+                                    //     $boton.html(`<i class="far fa-clock"></i> PENDIENTE`);
+                                    //     $boton.attr("estado", "PENDIENTE");
+                                    // } else {
+                                    //     $boton.addClass("btn-success");
+                                    //     $boton.removeClass("btn-danger");
+                                    //     $boton.html(`<i class="far fa-check-square"></i> RESUELTO`);
+                                    //     $boton.attr("estado", "RESUELTO");
+                                    // }
+                                }
+                                else
+                                    // Mensaje de error
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Ha ocurrido un error, por favor intente de nuevo',
+                                        showConfirmButton: true,
+                                        confirmButtonText: 'Cerrar',
+                                        closeOnConfirm: false
+                                    }).then((result) => {
+
+                                        if (result.value) {
+                                            window.location = 'm-alistamiento';
+                                        }
+
+                                    })
+
+                            }
+                        });
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'warning',
+                            timer: 3000,
+                            title: 'No pueden quedar en blanco las observaciones',
+                            showConfirmButton: false,
+                        })
+                    }
+                }
+            })
+
+
+        });
     }
 
     /* ===================================================
@@ -235,7 +390,7 @@ $(document).ready(function () {
     ===================================================*/
     if (window.location.href == `${urlPagina}m-proveedores/` ||
         window.location.href == `${urlPagina}m-proveedores`
-    ){
+    ) {
         $(".btn_nuevo").on("click", function () {
 
             $("#titulo_modal_proveedores").html("Agregar proveedor");
@@ -261,7 +416,7 @@ $(document).ready(function () {
                 dataType: "json",
                 success: function (response) {
 
-                    $("#titulo_modal_proveedores").html("Actualizando datos de:  " + response.razon_social); 
+                    $("#titulo_modal_proveedores").html("Actualizando datos de:  " + response.razon_social);
 
                     $("#cc_proveedor").val(response.documento);
                     $("#nom_razonsocial").val(response.razon_social);
@@ -296,7 +451,7 @@ $(document).ready(function () {
                     var datos = new FormData();
                     datos.append("EliminarProveedor", "ok");
                     datos.append("id", id);
-                    
+
                     $.ajax({
                         type: "POST",
                         url: "ajax/mantenimiento.ajax.php",

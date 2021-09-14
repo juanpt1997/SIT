@@ -143,6 +143,7 @@ $FechasPagoSS = ControladorPagoSS::ctrMostrarFechas();
                         <table id="tblPagoSS" class="table table-sm table-hover row-border w-100">
                             <thead class="thead-light">
                                 <tr>
+                                    <th>Cédula</th>
                                     <th>Empleado</th>
                                     <th>Seguridad social</th>
                                     <th>Pago</th>
@@ -155,36 +156,6 @@ $FechasPagoSS = ControladorPagoSS::ctrMostrarFechas();
                                 </tr>
                             </thead>
                             <tbody id="tbodyPagoSS">
-                                <tr>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>1</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>3</td>
-                                    <td>3</td>
-                                    <td>3</td>
-                                    <td>3</td>
-                                    <td>3</td>
-                                    <td>3</td>
-                                    <td>3</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>

@@ -26,5 +26,8 @@ docsVehiculos/
 contratosFuec/
 contratosFijos/
 
+# IGNORAMOS LA CARPETA DE IMAGENES DE MANTENIMIENTO
+imgMantenimiento/
+
 # IGNORAMOS CARPETA CON LAS IMAGENES DE LA PLANTILLA
 plantilla/
