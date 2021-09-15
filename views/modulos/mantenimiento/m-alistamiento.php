@@ -39,7 +39,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <button type="button" class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-nuevoAlistamiento"><i class="fas fa-bus"></i> Nuevo</button>
+                    <button type="button" class="btn bg-gradient-success btn-nuevoAlistamiento" data-toggle="modal" data-target="#modal-nuevoAlistamiento"><i class="fas fa-bus"></i> Nuevo</button>
                 </div>
             </div>
             <!-- ===================== 
@@ -52,7 +52,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                             <div class="card-body">
                                 <!--|||TABLA PROTOCOLO DE ALISTAMIENTO|||-->
                                 <div class="table-responsive">
-                                    <table id="tblAlistamientos" class="table table-bordered table-striped text-center nowrap tablas">
+                                    <table id="tblAlistamientos" class="table table-bordered table-striped text-center nowrap tablasBtnExport">
                                         <thead>
                                             <tr>
                                                 <th>...</th>

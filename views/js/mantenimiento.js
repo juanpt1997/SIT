@@ -109,6 +109,13 @@ $(document).ready(function () {
                             AjaxTablaEvidencias(Vehiculo.idvehiculo);
                         }
                     });
+                } 
+                // Vehiculo no seleccionado
+                else {
+                    // Quitar datatable evidencias
+                    $(`#tblEvidencias`).dataTable().fnDestroy();
+                    // Borrar datos
+                    $(`#tbodyEvidencias`).html("");
                 }
             } else {
                 actualizo = true;
@@ -195,54 +202,73 @@ $(document).ready(function () {
         });
 
         /* ===================================================
+            CLIC EN NUEVO ALISTAMIENTO
+        ===================================================*/
+        var AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
+        $(document).on("click", ".btn-nuevoAlistamiento", function () {
+            $("#idalistamiento").val(""); // RESET id alistamiento
+            $("#TituloModal").html("");
+            // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
+            if (AbiertoxEditar) {
+                $("#alistamiento_form").trigger("reset"); //reset formulario
+                $("#placa").trigger("change");
+            }
+            AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
+        });
+
+        /* ===================================================
           CLICK EN EDITAR ALISTAMIENTO
         ===================================================*/
         $(document).on("click", ".btn-editarAlistamiento", function () {
+            AbiertoxEditar = true; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
+
             var idalistamiento = $(this).attr("idalistamiento");
             var placa = $(this).attr("placa");
 
-            $("#idalistamiento").val(idalistamiento).trigger("change");
-            $("#placa").val(placa).trigger("change");
-            setTimeout(() => {
-                
-                var datos = new FormData();
-                datos.append('DatosAlistamiento', "ok");
-                datos.append('idalistamiento', idalistamiento);
-                $.ajax({
-                    type: 'post',
-                    url: `${urlPagina}ajax/mantenimiento.ajax.php`,
-                    data: datos,
-                    dataType: 'json',
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        if (response != ""){
-                            console.log(response);
-                            // console.log(response.placa);
-                            // //console.log(response[0]);
-                            // var keys = Object.keys(response);
+            $("#TituloModal").html(placa);
+            $("#alistamiento_form").trigger("reset"); //reset formulario
 
-                            // console.log(keys);
-                            // keys.forEach(nombre => {
-                            //     if (isNaN(nombre)){
-                            //         if (nombre != "placa" && nombre != "numinterno" && nombre != "id" && nombre != "idvehiculo" && nombre != "idconductor" && nombre != "fechaalista"){
-                            //             console.log("cada name: " + nombre);
-                            //             console.log(response.${nombre});
-                            //             //$(`input[name='${nombre}'][value='${response.${nombre}}']`).iCheck('check');
-                            //         }
-                            //     }
-                            // });
-                            //console.log(keys);
-                            // response.forEach(element => {
-                                // console.log(element);
-                            // });
+            $("#idalistamiento").val(idalistamiento);
+            $("#placa").val(placa).trigger("change");
+            var datos = new FormData();
+            datos.append('DatosAlistamiento', "ok");
+            datos.append('idalistamiento', idalistamiento);
+            $.ajax({
+                type: 'post',
+                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                data: datos,
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response != "") {
+                        var keys = Object.keys(response);
+                        var values = Object.values(response);
+
+                        // Recorremos ambos arreglos
+                        for (let index = 0; index < keys.length; index++) {
+                            // NO tomamos las llaves numericas
+                            if (isNaN(keys[index])) {
+                                if (keys[index] != "placa" && keys[index] != "numinterno" && keys[index] != "id" && keys[index] != "idvehiculo" && keys[index] != "idconductor" && keys[index] != "fechaalista") {
+                                    // Si el input es un check - radio
+                                    $(`input[name='${keys[index]}'][value='${values[index]}']`).iCheck('check');
+
+                                    // Si el input es distinto a un radio button
+                                    if ($(`input[name='${keys[index]}']`).attr("type") != "radio") {
+                                        $(`input[name='${keys[index]}']`).val(values[index]);
+                                    }
+                                }
+                            }
                         }
-                        
+
+                        setTimeout(() => {
+                            $("#idconductor").val(response.idconductor);
+                        }, 1000);
                     }
-                });
-                
-            }, 2000);
+
+                }
+            });
         });
 
         /* ===================================================
@@ -285,6 +311,7 @@ $(document).ready(function () {
         ===================================================*/
         $(document).on("click", "#btnGuardarEvidencia", function () {
             var idvehiculo = $("#idvehiculo").val();
+            AbiertoxEditar = true; //BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
 
             if (idvehiculo != "") {
                 var fotoEvidencia = $('#foto_evidencia')[0].files;
