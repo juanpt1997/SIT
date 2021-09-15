@@ -59,33 +59,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <th>ID</th>
                                                 <th>Placa</th>
                                                 <th>Fecha - Hora</th>
-                                                <th>Documentos</th>
-                                                <th>Nivel de Aceite</th>
-                                                <th>Llantas de Servicio</th>
-                                                <th>Llanta de Repuesto</th>
-                                                <th>Sistema de frenos</th>
-                                                <th>Sistema Eléctrico</th>
-                                                <th>Sistema de Suspensión</th>
-                                                <th>Freno de Mano</th>
-                                                <th>Retrovisores</th>
-                                                <th>Luces Bajas</th>
-                                                <th>Luces Medias</th>
-                                                <th>Luces Altas</th>
-                                                <th>Luces de Freno</th>
-                                                <th>Luces de Reversa</th>
-                                                <th>Alarma de Reversa</th>
-                                                <th>Claxon</th>
-                                                <th>Refrigerante</th>
-                                                <th>Batería</th>
-                                                <th>Líquido Hidráulico</th>
-                                                <th>Cinturones de Seguridad</th>
-                                                <th>Kit de Carretera</th>
-                                                <th>Herramienta Básica</th>
-                                                <th>Vidrios</th>
-                                                <th>Fugas</th>
-                                                <th>Plumillas</th>
-                                                <th>Kilometraje Total</th>
-                                                <th>Consumo de Combustible</th>
+                                                <th>Luces bajas</th>
                                             </tr>
                                         </thead>
 
@@ -98,33 +72,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                     <td><?= $value['id'] ?></td>
                                                     <td><?= $value['placa'] ?></td>
                                                     <td><?= $value['fechaalista'] ?></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
+                                                    <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesbajas']) ?></td>
                                                 </tr>
                                             <?php endforeach ?>
                                     </table>
