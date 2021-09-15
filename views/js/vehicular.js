@@ -950,6 +950,11 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                     dataTable(`#tbl${nombreTabla}`);
                 }
             });
+
+            // HISTORICO EN CASO DE QUERER ACTUALIZAR LA TABLA DOCUMENTOS
+            if (nombreTabla == "Documentos"){
+                //alert("actualizar tabla histórico");
+            }
         }
 
         /* ===================================================

@@ -240,7 +240,7 @@ class AjaxVehiculos
     ===================================================*/
     static public function ajaxTablaDocumentos($idvehiculo)
     {
-        //$Respuesta = ControladorVehiculos::ctrDocumentosxVehiculo($idvehiculo);
+        //$Respuesta = ControladorVehiculos::ctrDocumentosxVehiculo($idvehiculo); // HISTÓRICO
         $Respuesta = ControladorVehiculos::ctrDocumentosxVehiculoSinRepetir($idvehiculo);
         $tr = "";
         foreach ($Respuesta as $key => $value) {
