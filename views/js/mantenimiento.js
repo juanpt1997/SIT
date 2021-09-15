@@ -195,6 +195,57 @@ $(document).ready(function () {
         });
 
         /* ===================================================
+          CLICK EN EDITAR ALISTAMIENTO
+        ===================================================*/
+        $(document).on("click", ".btn-editarAlistamiento", function () {
+            var idalistamiento = $(this).attr("idalistamiento");
+            var placa = $(this).attr("placa");
+
+            $("#idalistamiento").val(idalistamiento).trigger("change");
+            $("#placa").val(placa).trigger("change");
+            setTimeout(() => {
+                
+                var datos = new FormData();
+                datos.append('DatosAlistamiento', "ok");
+                datos.append('idalistamiento', idalistamiento);
+                $.ajax({
+                    type: 'post',
+                    url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                    data: datos,
+                    dataType: 'json',
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response != ""){
+                            console.log(response);
+                            // console.log(response.placa);
+                            // //console.log(response[0]);
+                            // var keys = Object.keys(response);
+
+                            // console.log(keys);
+                            // keys.forEach(nombre => {
+                            //     if (isNaN(nombre)){
+                            //         if (nombre != "placa" && nombre != "numinterno" && nombre != "id" && nombre != "idvehiculo" && nombre != "idconductor" && nombre != "fechaalista"){
+                            //             console.log("cada name: " + nombre);
+                            //             console.log(response.${nombre});
+                            //             //$(`input[name='${nombre}'][value='${response.${nombre}}']`).iCheck('check');
+                            //         }
+                            //     }
+                            // });
+                            //console.log(keys);
+                            // response.forEach(element => {
+                                // console.log(element);
+                            // });
+                        }
+                        
+                    }
+                });
+                
+            }, 2000);
+        });
+
+        /* ===================================================
             TABLA EVIDENCIAS
         ===================================================*/
         const AjaxTablaEvidencias = (idvehiculo) => {

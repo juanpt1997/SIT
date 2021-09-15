@@ -67,7 +67,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                             <?php foreach ($Alistamientos as $key => $value) : ?>
                                                 <tr>
                                                     <td>
-                                                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
+                                                        <button type="button" class="btn btn-success btn-sm btn-editarAlistamiento" idalistamiento="<?= $value['id'] ?>" placa="<?= $value['placa'] ?>" data-toggle="modal" data-target="#modal-nuevoAlistamiento"><i class="fas fa-edit"></i></button>
                                                     </td>
                                                     <td><?= $value['id'] ?></td>
                                                     <td><?= $value['placa'] ?></td>
