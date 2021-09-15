@@ -33,6 +33,20 @@ class AjaxAlistamiento
     }
 
     /* ===================================================
+       DATOS ALISTAMIENTO
+    ===================================================*/
+    static public function ajaxDatosAlistamiento($idalistamiento)
+    {
+        $datos = array(
+                    'item' => "id",
+                    'valor' => $idalistamiento,
+                        );
+        $respuesta = ModeloAlistamiento::mdlDatosAlistamiento($datos);
+
+        echo json_encode($respuesta);
+    }
+
+    /* ===================================================
        GUARDAR DATOS DEL ALISTAMIENTO
     ===================================================*/
     static public function ajaxGuardarAlistamiento($formData)
@@ -187,6 +201,10 @@ class AjaxProveedores
 #Llamados ajax alistamiento
 if (isset($_POST['GuardarAlistamiento']) && $_POST['GuardarAlistamiento'] == "ok") {
     AjaxAlistamiento::ajaxGuardarAlistamiento($_POST);
+}
+
+if (isset($_POST['DatosAlistamiento']) && $_POST['DatosAlistamiento'] == "ok") {
+    AjaxAlistamiento::ajaxDatosAlistamiento($_POST['idalistamiento']);
 }
 
 if (isset($_POST['TablaEvidencias']) && $_POST['TablaEvidencias'] == "ok") {

@@ -81,17 +81,17 @@ class AjaxConceptosGH
 
 				//MANTENIMIENTO
 			case 'Descripción de actividades':
-				$tabla = "actividades";
+				$tabla = "m_actividades";
 				$item = "actividad";
 				break;
 
 			case 'Mantenimiento diagnostico':
-				$tabla = "diagnosticos";
+				$tabla = "m_diagnosticos";
 				$item = "diagnostico";
 				break;
 
 			case 'Repuestos':
-				$tabla = "repuestos";
+				$tabla = "m_repuestos";
 				$item = "repuesto";
 				break;
 
@@ -185,19 +185,19 @@ class AjaxConceptosGH
 
 				//MANTENIMIENTO
 			case 'Descripción de actividades':
-				$tabla = "actividades";
+				$tabla = "m_actividades";
 				$item = "actividad";
 				$id = "idactividad";
 				break;
 
 			case 'Mantenimiento diagnostico':
-				$tabla = "diagnosticos";
+				$tabla = "m_diagnosticos";
 				$item = "diagnostico";
 				$id = "iddiagnostico";
 				break;
 
 			case 'Repuestos':
-				$tabla = "repuestos";
+				$tabla = "m_repuestos";
 				$item = "repuesto";
 				$id = "idrepuesto";
 				break;
@@ -308,19 +308,19 @@ class AjaxConceptosGH
 
 				//MANTENIMIENTO
 			case 'Descripción de actividades':
-				$tabla = "actividades";
+				$tabla = "m_actividades";
 				$item = "actividad";
 				$idtabla = "idactividad";
 				break;
 
 			case 'Mantenimiento diagnostico':
-				$tabla = "diagnosticos";
+				$tabla = "m_diagnosticos";
 				$item = "diagnostico";
 				$idtabla = "iddiagnostico";
 				break;
 
 			case 'Repuestos':
-				$tabla = "repuestos";
+				$tabla = "m_repuestos";
 				$item = "repuesto";
 				$idtabla = "idrepuesto";
 				break;
@@ -402,17 +402,17 @@ class AjaxConceptosGH
 
 				//MANTENIMIENTO
 			case 'Descripción de actividades':
-				$tabla = "actividades";
+				$tabla = "m_actividades";
 				$item = "actividad";
 				break;
 
 			case 'Mantenimiento diagnostico':
-				$tabla = "diagnosticos";
+				$tabla = "m_diagnosticos";
 				$item = "diagnostico";
 				break;
 
 			case 'Repuestos':
-				$tabla = "repuestos";
+				$tabla = "m_repuestos";
 				$item = "repuesto";
 				break;
 
@@ -503,17 +503,17 @@ class AjaxConceptosGH
 
 				//MANTENIMIENTO
 			case 'Descripción de actividades':
-				$tabla = "actividades";
+				$tabla = "m_actividades";
 				$item = "actividad";
 				break;
 
 			case 'Mantenimiento diagnostico':
-				$tabla = "diagnosticos";
+				$tabla = "m_diagnosticos";
 				$item = "diagnostico";
 				break;
 
 			case 'Repuestos':
-				$tabla = "repuestos";
+				$tabla = "m_repuestos";
 				$item = "repuesto";
 				break;
 
@@ -884,17 +884,17 @@ class AjaxConceptosGH
 
 				//MANTENIMIENTO
 			case 'Descripción de actividades':
-				$tabla = "actividades";
+				$tabla = "m_actividades";
 				$id_tabla = "idactividad";
 				break;
 
 			case 'Mantenimiento diagnostico':
-				$tabla = "diagnosticos";
+				$tabla = "m_diagnosticos";
 				$id_tabla = "iddiagnostico";
 				break;
 
 			case 'Repuestos':
-				$tabla = "repuestos";
+				$tabla = "m_repuestos";
 				$id_tabla = "idrepuesto";
 				break;
 

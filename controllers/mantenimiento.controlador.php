@@ -13,6 +13,30 @@ class ControladorAlistamiento
         $respuesta = ModeloAlistamiento::mdlListaAlistamientos();
         return $respuesta;
     }
+    
+    /* ===================================================
+       ALISTAMIENTO - FUNCION PARA RETORNAR NOMBRE CORRECTO DEL ESTADO DE CADA ITEM (BUENO, MALO, N/A, VACÍO)
+    ===================================================*/
+    static public function FTraducirEstado($estado)
+    {
+        switch ($estado) {
+            case "1":
+                return "Bueno";
+                break;
+
+            case "0":
+                return "Malo";
+                break;
+
+            case "2":
+                return "N/A";
+                break;
+            
+            default:
+                return "";
+                break;
+        }
+    }
 
     /* ===================================================
        LISTA DE EVIDENCIAS
