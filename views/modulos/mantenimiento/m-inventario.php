@@ -438,7 +438,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">9.</td>
                                                                                                                 <td>Puerta izquierda</td>
-                                                                                                                                    <td>
+                                                                                                                 <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Puerta_izquierda1" name="Puerta_izquierda" value="1">
                                                                                                                         <label for="Puerta_izquierda1">
@@ -487,15 +487,17 @@
                                                                                                                 <td style="width: 10px;">10.</td>
                                                                                                                 <td>Parabrisas izquierdo</td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="parabriizq1" name="parabriizq1" value="option1">
-                                                                                                                        <label for="parabriizq1" class="custom-control-label"></label>
+                                                                                                                 <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="parabrisas_izquierdo1" name="parabrisas_izquierdo" value="1">
+                                                                                                                        <label for="parabrisas_izquierdo1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="parabriizq2" name="parabriizq2" value="option1">
-                                                                                                                        <label for="parabriizq2" class="custom-control-label"></label>
+                                                                                                                 <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="parabrisas_izquierdo2" name="parabrisas_izquierdo" value="0">
+                                                                                                                        <label for="parabrisas_izquierdo2">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -504,15 +506,17 @@
                                                                                                                 <td style="width: 10px;">11.</td>
                                                                                                                 <td>Parabrisas derecho</td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="parabrider1" name="parabrider1" value="option1">
-                                                                                                                        <label for="parabrider1" class="custom-control-label"></label>
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="parabrisas_derecho1" name="parabrisas_derecho" value="1">
+                                                                                                                        <label for="parabrisas_derecho1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="parabrider2" name="parabrider2" value="option1">
-                                                                                                                        <label for="parabrider2" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="parabrisas_derecho2" name="parabrisas_derecho" value="0">
+                                                                                                                        <label for="parabrisas_derecho2">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -521,15 +525,17 @@
                                                                                                                 <td style="width: 10px;">12.</td>
                                                                                                                 <td>Espejo retrovisor derecho</td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="esperetroder1" name="esperetroder1" value="option1">
-                                                                                                                        <label for="esperetroder1" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Espejo_retrovisor_derecho1" name="Espejo_retrovisor_derecho" value="1">
+                                                                                                                        <label for="Espejo_retrovisor_derecho1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="esperetroder2" name="esperetroder2" value="option1">
-                                                                                                                        <label for="esperetroder2" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Espejo_retrovisor_derecho2" name="Espejo_retrovisor_derecho" value="0">
+                                                                                                                        <label for="Espejo_retrovisor_derecho2">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -538,15 +544,17 @@
                                                                                                                 <td style="width: 10px;">13.</td>
                                                                                                                 <td>Espejo retrovisor izquierdo</td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="esperetroizq1" name="esperetroizq1" value="option1">
-                                                                                                                        <label for="esperetroizq1" class="custom-control-label"></label>
+                                                                                                                 <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Espejo_retrovisor_izquierdo1" name="Espejo_retrovisor_izquierdo" value="1">
+                                                                                                                        <label for="Espejo_retrovisor_izquierdo1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="esperetroizq2" name="esperetroizq2" value="option1">
-                                                                                                                        <label for="esperetroizq2" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Espejo_retrovisor_izquierdo2" name="Espejo_retrovisor_izquierdo" value="0">
+                                                                                                                        <label for="Espejo_retrovisor_izquierdo2">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -555,32 +563,36 @@
                                                                                                                 <td style="width: 10px;">14.</td>
                                                                                                                 <td>Vidrios ventanas lateral derecho</td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="vilateralder1" name="vilateralder1" value="option1">
-                                                                                                                        <label for="vilateralder1" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Vidrios_ventanas_lateral_derecho1" name="Vidrios_ventanas_lateral_derecho" value="1">
+                                                                                                                        <label for="Vidrios_ventanas_lateral_derecho1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="vilateralder2" name="vilateralder2" value="option1">
-                                                                                                                        <label for="vilateralder2" class="custom-control-label"></label>
-                                                                                                                    </div>
-                                                                                                                </td>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Vidrios_ventanas_lateral_derecho2" name="Vidrios_ventanas_lateral_derecho" value="0">
+                                                                                                                        <label for="Vidrios_ventanas_lateral_derecho2">
+                                                                                                                        </label>
+                                                                                                                    </div>                              
+                                                                                                                 </td>
                                                                                                             </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">15.</td>
                                                                                                                 <td>Vidrios ventanas lateral izquierdo</td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="vilateralizq1" name="vilateralizq1" value="option1">
-                                                                                                                        <label for="vilateralizq1" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Vidrios_ventanas_lateral_izquierdo1" name="Vidrios_ventanas_lateral_izquierdo" value="1">
+                                                                                                                        <label for="Vidrios_ventanas_lateral_izquierdo1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="vilateralizq2" name="vilateralizq2" value="option1">
-                                                                                                                        <label for="vilateralizq2" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Vidrios_ventanas_lateral_izquierdo2" name="Vidrios_ventanas_lateral_izquierdo" value="0">
+                                                                                                                        <label for="Vidrios_ventanas_lateral_izquierdo2">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -589,15 +601,17 @@
                                                                                                                 <td style="width: 10px;">16.</td>
                                                                                                                 <td>Parabrisas trasero</td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="parabritrasero1" name="parabritrasero1" value="option1">
-                                                                                                                        <label for="parabritrasero1" class="custom-control-label"></label>
+                                                                                                                  <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Parabrisas_trasero1" name="Parabrisas_trasero" value="1">
+                                                                                                                        <label for="Parabrisas_ trasero1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="parabritrasero2" name="parabritrasero2" value="option1">
-                                                                                                                        <label for="parabritrasero2" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Parabrisas_trasero2" name="Parabrisas_trasero" value="0">
+                                                                                                                        <label for="Parabrisas_trasero2">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -606,15 +620,17 @@
                                                                                                                 <td style="width: 10px;">17.</td>
                                                                                                                 <td>Vidrios de puertas</td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="vidriospuertas1" name="vidriospuertas1" value="option1">
-                                                                                                                        <label for="vidriospuertas1" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Vidrios_puertas1" name="Vidrios_puertas" value="1">
+                                                                                                                        <label for="Vidrios_puertas1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="vidriospuertas2" name="vidriospuertas2" value="option1">
-                                                                                                                        <label for="vidriospuertas2" class="custom-control-label"></label>
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Vidrios_puertas2" name="Vidrios_puertas" value="0">
+                                                                                                                        <label for="Vidrios_puertas2">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -644,22 +660,25 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">18.</td>
                                                                                                                 <td>Direccional delantera izquierda</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="dirdelanizq1" name="dirdelanizq1" value="option1">
-                                                                                                                        <label for="dirdelanizq1" class="custom-control-label"></label>
+                                                                                                              <td>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Direccional_izquierda1" name="Direccionalelantera_izquierda" value="1">
+                                                                                                                        <label for="Direccional_izquierda1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="dirdelanizq2" name="dirdelanizq2" value="option1">
-                                                                                                                        <label for="dirdelanizq2" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Direccional_izquierda4" name="Direccionalelantera_izquierda" value=" 0">
+                                                                                                                        <label for="Direccional_izquierda4">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="dirdelanizq3" name="dirdelanizq3" value="option1">
-                                                                                                                        <label for="dirdelanizq3" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Direccional_izquierda5" name="Direccionalelantera_izquierda" value="2">
+                                                                                                                        <label for="Direccional_izquierda5">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -667,22 +686,25 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">19.</td>
                                                                                                                 <td>Direccional delantera derecha</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="dirdelander1" name="dirdelander1" value="option1">
-                                                                                                                        <label for="dirdelander1" class="custom-control-label"></label>
+                                                                                                                     <td>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Direccional_derecha1" name="Direccional_elantera_derecha" value="1">
+                                                                                                                        <label for="Direccional_derecha1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="dirdelander2" name="dirdelander2" value="option1">
-                                                                                                                        <label for="dirdelander2" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Direccional_derecha4" name="Direccional_elantera_derecha" value=" 0">
+                                                                                                                        <label for="Direccional_derecha4">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="dirdelander3" name="dirdelander3" value="option1">
-                                                                                                                        <label for="dirdelander3" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Direccional_derecha5" name="Direccional_elantera_derecha" value="2">
+                                                                                                                        <label for="Direccional_derecha5">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -691,21 +713,24 @@
                                                                                                                 <td style="width: 10px;">20.</td>
                                                                                                                 <td>Stop trasero derecho</td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="stoptraseroder1" name="stoptraseroder1" value="option1">
-                                                                                                                        <label for="stoptraseroder1" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Stop_trasero_derecho1" name="Stop_trasero_derecho" value="1">
+                                                                                                                        <label for="Stop_trasero_derecho1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="stoptraseroder2" name="stoptraseroder2" value="option1">
-                                                                                                                        <label for="stoptraseroder2" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Stop_trasero_derecho4" name="Stop_trasero_derecho" value=" 0">
+                                                                                                                        <label for="Stop_trasero_derecho4">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="stoptrasero3der" name="stoptrasero3der" value="option1">
-                                                                                                                        <label for="stoptrasero3der" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Stop_trasero_derecho5" name="Stop_trasero_derecho" value="2">
+                                                                                                                        <label for="Stop_trasero_derecho5">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -713,22 +738,25 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">21.</td>
                                                                                                                 <td>Stop trasero izquierdo</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="stoptraseroizq1" name="stoptraseroizq1" value="option1">
-                                                                                                                        <label for="stoptraseroizq1" class="custom-control-label"></label>
+                                                                                                                  <td>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Stop_trasero_izquierdo1" name="Stop_trasero_izquierdo" value="1">
+                                                                                                                        <label for="Stop_trasero_izquierdo1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="stoptraseroizq2" name="stoptraseroizq2" value="option1">
-                                                                                                                        <label for="stoptraseroizq2" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Stop_trasero_izquierdo4" name="Stop_trasero_izquierdo" value=" 0">
+                                                                                                                        <label for="Stop_trasero_izquierdo4">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="stoptraseroizq3" name="stoptraseroizq3" value="option1">
-                                                                                                                        <label for="stoptraseroizq3" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Stop_trasero_izquierdo5" name="Stop_trasero_izquierdo" value="2">
+                                                                                                                        <label for="Stop_trasero_izquierdo5">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -736,22 +764,25 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">22.</td>
                                                                                                                 <td>Cucuyo lateral derecho</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="cucuyolateder1" name="cucuyolateder1" value="option1">
-                                                                                                                        <label for="cucuyolateder1" class="custom-control-label"></label>
+                                                                                                                 <td>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Cucuyo_lateral_derecho1" name="Cucuyo_lateral_derecho" value="1">
+                                                                                                                        <label for="Cucuyo_lateral_derecho1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="cucuyolateder2" name="cucuyolateder2" value="option1">
-                                                                                                                        <label for="cucuyolateder2" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Cucuyo_lateral_derecho4" name="Cucuyo_lateral_derecho" value=" 0">
+                                                                                                                        <label for="Cucuyo_lateral_derecho4">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="cucuyolateder3" name="cucuyolateder3" value="option1">
-                                                                                                                        <label for="cucuyolateder3" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Cucuyo_lateral_derecho5" name="Cucuyo_lateral_derecho" value="2">
+                                                                                                                        <label for="Cucuyo_lateral_derecho5">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -759,22 +790,25 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">23.</td>
                                                                                                                 <td>Cucuyo lateral izquierdo</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="cucuyolaterizq1" name="cucuyolaterizq1" value="option1">
-                                                                                                                        <label for="cucuyolaterizq1" class="custom-control-label"></label>
+                                                                                                                 <td>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Cucuyo_lateral_izquierdo1" name="Cucuyo_lateral_izquierdo" value="1">
+                                                                                                                        <label for="Cucuyo_lateral_izquierdo1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="cucuyolaterizq2" name="cucuyolaterizq2" value="option1">
-                                                                                                                        <label for="cucuyolaterizq2" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Cucuyo_lateral_izquierdo4" name="Cucuyo_lateral_izquierdo" value=" 0">
+                                                                                                                        <label for="Cucuyo_lateral_izquierdo4">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="cucuyolaterizq3" name="cucuyolaterizq3" value="option1">
-                                                                                                                        <label for="cucuyolaterizq3" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Cucuyo_lateral_izquierdo5" name="Cucuyo_lateral_izquierdo" value="2">
+                                                                                                                        <label for="Cucuyo_lateral_izquierdo5">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -792,21 +826,24 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox ">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="lucesinternas1" name="lucesinternas1" value="option1">
-                                                                                                                        <label for="lucesinternas1" class="custom-control-label"></label>
+                                                                                                                     <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Luces_internas1" name="Luces_internas" value="1">
+                                                                                                                        <label for="Luces_internas1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="lucesinternas2" name="lucesinternas2" value="option1">
-                                                                                                                        <label for="lucesinternas2" class="custom-control-label"></label>
+                                                                                                                     <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Luces_internas4" name="Luces_internas" value="0">
+                                                                                                                        <label for="Luces_internas4">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="lucesinternas3" name="lucesinternas3" value="option1">
-                                                                                                                        <label for="lucesinternas3" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Luces_internas5" name="Luces_internas" value="2">
+                                                                                                                        <label for="Luces_internas5">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -814,22 +851,25 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">25.</td>
                                                                                                                 <td>Balizas ( Licuadoras )</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
-                                                                                                                        <label for="customCheckbox1" class="custom-control-label"></label>
+                                                                                                               <td>
+                                                                                                                     <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Balizas1" name="Balizas" value="1">
+                                                                                                                        <label for="Balizas1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
-                                                                                                                        <label for="customCheckbox1" class="custom-control-label"></label>
+                                                                                                                     <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Balizas4" name="Balizas" value="0">
+                                                                                                                        <label for="Balizas4">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="customCheckbox1" value="option1">
-                                                                                                                        <label for="customCheckbox1" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Balizas5" name="Balizas" value="2">
+                                                                                                                        <label for="Balizas5">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -860,44 +900,51 @@
                                                                                                                 <td style="width: 10px;">26.</td>
                                                                                                                 <td>Delantera izquierda ( R1 )</td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="delanizq1" name="delanizq1" value="option1">
-                                                                                                                        <label for="delanizq1" class="custom-control-label"></label>
+                                                                                                                     <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Delantera_izquierda_R11" name="Delantera_izquierda_R1" value="3">
+                                                                                                                        <label for="Delantera_izquierda_R11">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="delanizq2" name="delanizq2" value="option1">
-                                                                                                                        <label for="delanizq2" class="custom-control-label"></label>
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Delantera_izquierda_R14" name="Delantera_izquierda_R1" value="1">
+                                                                                                                        <label for="Delantera_izquierda_R14">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="delanizq3" name="delanizq3" value="option1">
-                                                                                                                        <label for="delanizq3" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Delantera_izquierda_R15" name="Delantera_izquierda_R1" value="0">
+                                                                                                                        <label for="Delantera_izquierda_R15">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
+
                                                                                                             </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">27.</td>
                                                                                                                 <td>Delantera derecha ( R2 )</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="delander1" name="delander1" value="option1">
-                                                                                                                        <label for="delander1" class="custom-control-label"></label>
+                                                                                                                 <td>
+                                                                                                                     <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Delantera_derecha_R21" name="Delantera_izquierda_R2" value="3">
+                                                                                                                        <label for="Delantera_derecha_R21">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="delander2" name="delander2" value="option1">
-                                                                                                                        <label for="delander2" class="custom-control-label"></label>
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Delantera_izquierda_R24" name="Delantera_izquierda_R2" value="1">
+                                                                                                                        <label for="Delantera_izquierda_R24">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="delander3" name="delander3" value="option1">
-                                                                                                                        <label for="delander3" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Delantera_izquierda_R25" name="Delantera_izquierda_R2" value="0">
+                                                                                                                        <label for="Delantera_izquierda_R25">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -905,22 +952,25 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">28.</td>
                                                                                                                 <td>Trasera interior izquierda ( R3 )</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="traserinterizq1" name="traserinterizq1" value="option1">
-                                                                                                                        <label for="traserinterizq1" class="custom-control-label"></label>
+                                                                                                           <td>
+                                                                                                                     <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Trasera_interior_izquierda_R31" name="Trasera_interior_izquierda_R3" value="3">
+                                                                                                                        <label for="Trasera_interior_izquierda_R31">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="traserinterizq2" name="traserinterizq2" value="option1">
-                                                                                                                        <label for="traserinterizq2" class="custom-control-label"></label>
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Trasera_interior_izquierda_R34" name="Trasera_interior_izquierda_R3" value="1">
+                                                                                                                        <label for="Trasera_interior_izquierda_R34">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="traserinterizq3" name="traserinterizq3" value="option1">
-                                                                                                                        <label for="traserinterizq3" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Trasera_interior_izquierda_R3_5" name="Trasera_interior_izquierda_R3" value="0">
+                                                                                                                        <label for="Trasera_interior_izquierda_R3_5">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -928,22 +978,25 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">29.</td>
                                                                                                                 <td>Trasera exterior izquierda ( R4 )</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="traserexteizq1" name="traserexteizq1" value="option1">
-                                                                                                                        <label for="traserexteizq1" class="custom-control-label"></label>
+                                                                                                             <td>
+                                                                                                                     <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Trasera_exterior_izquierda_R41" name="Trasera_exterior_izquierda_R4" value="3">
+                                                                                                                        <label for="Trasera_exterior_izquierda_R41">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="traserexteizq2" name="traserexteizq2" value="option1">
-                                                                                                                        <label for="traserexteizq2" class="custom-control-label"></label>
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Trasera_exterior_izquierda_R44" name="Trasera_exterior_izquierda_R4" value="1">
+                                                                                                                        <label for="Trasera_exterior_izquierda_R44">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="traserexteizq3" name="traserexteizq3" value="option1">
-                                                                                                                        <label for="traserexteizq3" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Trasera_exterior_izquierda_R4_5" name="Trasera_exterior_izquierda_R4" value="0">
+                                                                                                                        <label for="Trasera_exterior_izquierda_R4_5">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -951,22 +1004,25 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">30.</td>
                                                                                                                 <td>Trasera interior derecha ( R5 )</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="traserinteder1" name="traserinteder1" value="option1">
-                                                                                                                        <label for="traserinteder1" class="custom-control-label"></label>
+                                                                                                             <td>
+                                                                                                                     <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Trasera_interior_derecha_R51" name="Trasera_interior_derecha_R5" value="3">
+                                                                                                                        <label for="Trasera_interior_derecha_R51">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="traserinteder2" name="traserinteder2" value="option1">
-                                                                                                                        <label for="traserinteder2" class="custom-control-label"></label>
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Trasera_interior_derecha_R54" name="Trasera_interior_derecha_R5" value="1">
+                                                                                                                        <label for="Trasera_interior_derecha_R54">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="traserinteder3" name="traserinteder3" value="option1">
-                                                                                                                        <label for="traserinteder3" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Trasera_interior_derecha_R55" name="Trasera_interior_derecha_R5" value="0">
+                                                                                                                        <label for="Trasera_interior_derecha_R55">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -974,24 +1030,28 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">31.</td>
                                                                                                                 <td>Trasera exterior derecha ( R6 )</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="traserexteder1" name="traserexteder1" value="option1">
-                                                                                                                        <label for="traserexteder1" class="custom-control-label"></label>
+                                                                                                                 <td>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Trasera_exterior_derecha_R61" name="Trasera_exterior_derecha_R6" value="3">
+                                                                                                                        <label for="Trasera_exterior_derecha_R61">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="traserexteder2" name="traserexteder2" value="option1">
-                                                                                                                        <label for="traserexteder2" class="custom-control-label"></label>
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Trasera_exterior_derecha_R64" name="Trasera_exterior_derecha_R6" value="1">
+                                                                                                                        <label for="Trasera_exterior_derecha_R64">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="traserexteder3" name="traserexteder3" value="option1">
-                                                                                                                        <label for="traserexteder3" class="custom-control-label"></label>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Trasera_exterior_derecha_R65" name="Trasera_exterior_derecha_R6" value="0">
+                                                                                                                        <label for="Trasera_exterior_derecha_R65">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
+
                                                                                                             </tr>
                                                                                                         </tbody>
                                                                                                     </table>
@@ -1019,15 +1079,17 @@
                                                                                                                 <td style="width: 10px;">32.</td>
                                                                                                                 <td>Gato</td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="gato1" name="gato1" value="option1">
-                                                                                                                        <label for="gato1" class="custom-control-label"></label>
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Gato1" name="Gato" value="1">
+                                                                                                                        <label for="Gato1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="gato2" name="gato2" value="option1">
-                                                                                                                        <label for="gato2" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Gato2" name="Gato" value="0">
+                                                                                                                        <label for="Gato2">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                             </tr>
@@ -1035,172 +1097,191 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">33.</td>
                                                                                                                 <td>Cruceta o Copa</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="crucecopa1" name="crucecopa1" value="option1">
-                                                                                                                        <label for="crucecopa1" class="custom-control-label"></label>
+                                                                                                                   <td>
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Cruceta__Copa1" name="Cruceta__Copa" value="1">
+                                                                                                                        <label for="Cruceta__Copa1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="crucecopa2" name="crucecopa2" value="option1">
-                                                                                                                        <label for="crucecopa2" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Cruceta__Copa2" name="Cruceta__Copa" value="0">
+                                                                                                                        <label for="Cruceta__Copa2">
+                                                                                                                        </label>
                                                                                                                     </div>
-                                                                                                                </td>
-                                                                                                            </tr>
+                                                                                                                </td>                                                                                                            </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">34.</td>
                                                                                                                 <td>2 Conos o Triangulos</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="conotriangu1" name="conotriangu1" value="option1">
-                                                                                                                        <label for="conotriangu1" class="custom-control-label"></label>
+                                                                                                                <td>                 
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="2Conos__Triangulos1" name="2Conos__Triangulos" value="1">
+                                                                                                                        <label for="2Conos__Triangulos1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="conotriangu2" name="conotriangu2" value="option1">
-                                                                                                                        <label for="conotriangu2" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="2Conos__Triangulos2" name="2Conos__Triangulos" value="0">
+                                                                                                                        <label for="2Conos__Triangulos2">
+                                                                                                                        </label>
                                                                                                                     </div>
-                                                                                                                </td>
-                                                                                                            </tr>
+                                                                                                                 </td>
+                                                                                                             </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">35.</td>
                                                                                                                 <td>Botiquin</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="botiquin1" name="botiquin1" value="option1">
-                                                                                                                        <label for="botiquin1" class="custom-control-label"></label>
+                                                                                                                 <td>                 
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Botiquin1" name="Botiquin" value="1">
+                                                                                                                        <label for="Botiquin1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="botiquin2" name="botiquin1" value="option1">
-                                                                                                                        <label for="botiquin2" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Botiquin2" name="Botiquin" value="0">
+                                                                                                                        <label for="Botiquin2">
+                                                                                                                        </label>
                                                                                                                     </div>
-                                                                                                                </td>
+                                                                                                                 </td>
                                                                                                             </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">36.</td>
                                                                                                                 <td>Extintor</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="extintor1" name="extintor1" value="option1">
-                                                                                                                        <label for="extintor1" class="custom-control-label"></label>
+                                                                                                                     <td>                 
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Extintor1" name="Extintor" value="1">
+                                                                                                                        <label for="Extintor1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="extintor2" name="extintor2" value="option1">
-                                                                                                                        <label for="extintor2" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Extintor2" name="Extintor" value="0">
+                                                                                                                        <label for="Extintor2">
+                                                                                                                        </label>
                                                                                                                     </div>
-                                                                                                                </td>
+                                                                                                                 </td>
                                                                                                             </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">37.</td>
                                                                                                                 <td>2 Tacos o Bloques</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="tacosbloques1" name="tacosbloques1" value="option1">
-                                                                                                                        <label for="tacosbloques1" class="custom-control-label"></label>
+                                                                                                                     <td>                 
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="2Tacos_Bloques1" name="2Tacos_Bloques" value="1">
+                                                                                                                        <label for="2Tacos_Bloques1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="tacosbloques2" name="tacosbloques1" value="option1">
-                                                                                                                        <label for="tacosbloques2" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="2Tacos_Bloques2" name="2Tacos_Bloques" value="0">
+                                                                                                                        <label for="2Tacos_Bloques2">
+                                                                                                                        </label>
                                                                                                                     </div>
-                                                                                                                </td>
+                                                                                                                 </td>
                                                                                                             </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">38.1</td>
                                                                                                                 <td>Alicate, destornillaodor</td>
                                                                                                                 </td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="alicatedestor1" name="alicatedestor1" value="option1">
-                                                                                                                        <label for="alicatedestor1" class="custom-control-label"></label>
+                                                                                                                  <td>                 
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="1Alicate_destornillaodor1" name="1Alicate_destornillaodor" value="1">
+                                                                                                                        <label for="1Alicate_destornillaodor1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="alicatedestor2" name="alicatedestor2" value="option1">
-                                                                                                                        <label for="alicatedestor2" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="1Alicate_destornillaodor2" name="1Alicate_destornillaodor" value="0">
+                                                                                                                        <label for="1Alicate_destornillaodor2">
+                                                                                                                        </label>
                                                                                                                     </div>
-                                                                                                                </td>
+                                                                                                                 </td>
                                                                                                             </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">38.2</td>
                                                                                                                 <td>PLlave de expancion, LLaves fijas</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="expafijas1" name="expafijas1" value="option1">
-                                                                                                                        <label for="expafijas1" class="custom-control-label"></label>
+                                                                                                                  <td>                 
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="2PLlave_expancion_LLaves_fijas1" name="2PLlave_expancion_LLaves_fijas" value="1">
+                                                                                                                        <label for="2PLlave_expancion_LLaves_fijas1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="expafijas2" name="expafijas2" value="option1">
-                                                                                                                        <label for="expafijas2" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="2PLlave_expancion_LLaves_fijas2" name="2PLlave_expancion_LLaves_fijas" value="0">
+                                                                                                                        <label for="2PLlave_expancion_LLaves_fijas2">
+                                                                                                                        </label>
                                                                                                                     </div>
-                                                                                                                </td>
+                                                                                                                 </td>
                                                                                                             </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">39.</td>
                                                                                                                 <td>LLanta de repuesto</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="llantarepuesto1" name="llantarepuesto1" value="option1">
-                                                                                                                        <label for="llantarepuesto1" class="custom-control-label"></label>
+                                                                                                                 <td>                 
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="LLanta_repuesto1" name="LLanta_repuesto" value="1">
+                                                                                                                        <label for="LLanta_repuesto1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="llantarepuesto2" name="llantarepuesto2" value="option1">
-                                                                                                                        <label for="llantarepuesto2" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="LLanta_repuesto2" name="LLanta_repuesto" value="0">
+                                                                                                                        <label for="LLanta_repuesto2">
+                                                                                                                        </label>
                                                                                                                     </div>
-                                                                                                                </td>
+                                                                                                                 </td>
                                                                                                             </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">40.</td>
                                                                                                                 <td>Linterna con pila</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="linterna1" name="linterna1" value="option1">
-                                                                                                                        <label for="linterna1" class="custom-control-label"></label>
+                                                                                                               <td>                 
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Linterna_pila1" name="Linterna_pila" value="1">
+                                                                                                                        <label for="Linterna_pila1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="linterna2" name="linterna2" value="option1">
-                                                                                                                        <label for="linterna2" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Linterna_pila2" name="Linterna_pila" value="0">
+                                                                                                                        <label for="Linterna_pila2">
+                                                                                                                        </label>
                                                                                                                     </div>
-                                                                                                                </td>
+                                                                                                                 </td>
                                                                                                             </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">41.</td>
                                                                                                                 <td>Cinturon del conductor</td>
-                                                                                                                <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="cinturonconductor1" name="cinturonconductor1" value="option1">
-                                                                                                                        <label for="cinturonconductor1" class="custom-control-label"></label>
+                                                                                                                <td>                 
+                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" id="Cinturon_conductor1" name="Cinturon_conductor" value="1">
+                                                                                                                        <label for="Cinturon_conductor1">
+                                                                                                                        </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="custom-control custom-checkbox">
-                                                                                                                        <input class="custom-control-input" type="checkbox" id="cinturonconductor2" name="cinturonconductor2" value="option1">
-                                                                                                                        <label for="cinturonconductor2" class="custom-control-label"></label>
+                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" id="Cinturon_conductor2" name="Cinturon_conductor" value="0">
+                                                                                                                        <label for="Cinturon_conductor2">
+                                                                                                                        </label>
                                                                                                                     </div>
-                                                                                                                </td>
+                                                                                                                 </td>
                                                                                                             </tr>
                                                                                                         </tbody>
                                                                                                     </table>
