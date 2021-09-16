@@ -8,6 +8,7 @@ $(document).ready(function () {
         /* ===================================================
           INICIALIZAR DATATABLE
         ===================================================*/
+        // Acá pondremos la tabla de alistamiento por ajax
 
 
 
