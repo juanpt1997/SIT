@@ -670,22 +670,25 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                 }
             });
 
-            let inputsRequeridosHtml = `<ul>`;
-            Requeridos.forEach(element => {
-                inputsRequeridosHtml += `<li>${element}</li>`;
-            });
-            inputsRequeridosHtml += `</ul>`;
+            if (Requeridos.length > 0){
+                let inputsRequeridosHtml = `<ul>`;
+                Requeridos.forEach(element => {
+                    inputsRequeridosHtml += `<li>${element}</li>`;
+                });
+                inputsRequeridosHtml += `</ul>`;
 
-            Swal.fire({
-                icon: 'warning',
-                html: `<div class="text-left">
-                                                <p class="font-weight-bold">Primero debe diligenciar los siguientes campos:</p>
-                                                    ${inputsRequeridosHtml}
-                                            </div>`,
-                showConfirmButton: true,
-                confirmButtonText: 'Cerrar',
-                closeOnConfirm: false
-            });
+                Swal.fire({
+                    icon: 'warning',
+                    html: `<div class="text-left">
+                                                    <p class="font-weight-bold">Primero debe diligenciar los siguientes campos:</p>
+                                                        ${inputsRequeridosHtml}
+                                                </div>`,
+                    showConfirmButton: true,
+                    confirmButtonText: 'Cerrar',
+                    closeOnConfirm: false
+                });
+            }
+
         });
 
         /* ===================================================
