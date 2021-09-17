@@ -653,6 +653,42 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
         });
 
         /* ===================================================
+            ALMACENAR INPUTS REQUERIDOS QUE NO SE HAN DILIGENCIADO Y MOSTRAR ALERTA
+        ===================================================*/
+        var Requeridos = [];
+        $(document).on("click", ".btn-guardarVehiculo", function () {
+            Requeridos = [];
+
+            $('input:invalid').each(function (index, element) {
+                var $input = $(this);
+
+                var idform = $input.closest("form").attr("id");
+
+                if (idform == "vehiculos_form") {
+                    var label = $input.attr("nombre");
+                    Requeridos.push(label);
+                }
+            });
+
+            let inputsRequeridosHtml = `<ul>`;
+            Requeridos.forEach(element => {
+                inputsRequeridosHtml += `<li>${element}</li>`;
+            });
+            inputsRequeridosHtml += `</ul>`;
+
+            Swal.fire({
+                icon: 'warning',
+                html: `<div class="text-left">
+                                                <p class="font-weight-bold">Primero debe diligenciar los siguientes campos:</p>
+                                                    ${inputsRequeridosHtml}
+                                            </div>`,
+                showConfirmButton: true,
+                confirmButtonText: 'Cerrar',
+                closeOnConfirm: false
+            });
+        });
+
+        /* ===================================================
           SIEMPRE MAYUSCULA EN LA PLACA
         ===================================================*/
         $(document).on("keyup", "#placa", function () {
@@ -952,7 +988,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
             });
 
             // HISTORICO EN CASO DE QUERER ACTUALIZAR LA TABLA DOCUMENTOS
-            if (nombreTabla == "Documentos"){
+            if (nombreTabla == "Documentos") {
                 //alert("actualizar tabla histórico");
             }
         }
