@@ -180,6 +180,7 @@
                                 <a class="dropdown-item font-weight-bold" href="m-proveedores"><u>Proveedores</u></a>
                                 <a class="dropdown-item font-weight-bold" href="m-alistamiento"><u>Protocolo de Alistamiento</u></a>
                                 <a class="dropdown-item font-weight-bold" href="m-inventario"><u>Inventario</u></a>
+                                <a class="dropdown-item font-weight-bold" href="m-rodamiento"><u>Plan de Rodamiento</u></a>
                             </div>
                         </div>
                     </div>
