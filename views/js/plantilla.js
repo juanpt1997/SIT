@@ -456,7 +456,7 @@ $(document).ready(function () {
         if ($(this).attr("id") != "nuevaFoto") {
             var archivo = this.files[0];
 
-            if (archivo.size > MAXIMO_TAMANIO_BYTES) {
+            if (false/*archivo.size > MAXIMO_TAMANIO_BYTES*/) {
                 const tamanioEnMb = MAXIMO_TAMANIO_BYTES / 1000000;
                 Swal.fire({
                     icon: "warning",

@@ -26,8 +26,27 @@ class FilesController
 
             # Esto es en caso de que queramos un tamaño en especial para guardar las imagenes o guardar asi por defecto
             if ($nuevoAncho == null || $nuevoAlto == null){
-                $nuevoAncho = $ancho;
-                $nuevoAlto = $alto;
+                // $nuevoAncho = $ancho;
+                // $nuevoAlto = $alto;
+
+                $ancho_limite = 1280;
+
+                if ($ancho > $ancho_limite || $alto > $ancho_limite){
+                    // Para foto horizontal
+                    if ($ancho > $alto){
+                        $nuevoAncho = $ancho_limite;
+                        $nuevoAlto = $ancho_limite * $alto / $ancho;
+                    }
+                    // Para foto vertical
+                    else{
+                        $nuevoAlto = $ancho_limite;
+                        $nuevoAncho = $ancho_limite * $ancho / $alto;
+                    }
+                }
+                else{
+                    $nuevoAncho = $ancho;
+                    $nuevoAlto = $alto;
+                }
             }
             
             /* ===================== 
