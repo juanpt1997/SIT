@@ -99,7 +99,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <th>Nivel de Combustible</th>  
                                                 <th>Baterías</th>   
                                                 <th>Freno principal</th>
-                                                <th>Líquido Hidráulico</th> 
+                                                <th>Líquido Hidráulico</th>
+                                                <th>Sistema Hidráulico</th>
                                                 <th>Estado de correas  
                                                 <th>Nivel líquido de Frenos</th>    
                                                 <th>Caja de Cambios</th>
@@ -127,7 +128,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <th>Presión de Inflado</th>  
                                                 <th>Abultamientos</th>
                                                 <th>Chaleco reflectivo</th> 
-                                                <th>Lintern</th>a  
+                                                <th>Linterna</th>
                                                 <th>Conos 2 o Triángulos</th>  
                                                 <th>Tacos de Bloques</th>
                                                 <th>Gato</th>  
@@ -235,6 +236,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                       </td>
                                                       </td>
                                                         <td><?= ControladorAlistamiento::FTraducirEstado($value['liquido_hidraulico']) ?>
+                                                      </td>
+                                                        <td><?= ControladorAlistamiento::FTraducirEstado($value['sistema_hidraulico']) ?>
                                                       </td>
                                                       </td>
                                                         <td><?= ControladorAlistamiento::FTraducirEstado($value['estado_correas']) ?>
@@ -1042,7 +1045,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         <tr>
                                                             <td><b>Piso</b></td>
                                                             <td><b>Bomper delantero</b></td>
-                                                            <td><b>Alarma de Reversa</b></td>
+                                                            <td><b>Cinturones de Seguridad conductor</b></td>
                                                             <td><b>Sillas</b></td>
                                                         </tr>
 
@@ -1084,16 +1087,23 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <td>
                                                                 <div class="form-group clearfix">
                                                                     <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radioalarmrever1" name="alarmareversa" value="1">
-                                                                        <label for="radioalarmrever1">
+                                                                        <input type="radio" id="radiosegucondu1" name="cinturones_conductor" value="1">
+                                                                        <label for="radiosegucondu1">
                                                                             <i class="fas fa-thumbs-up"></i>
                                                                         </label>
                                                                     </div>
 
                                                                     <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radioalarmrever2" name="alarmareversa" value="0">
-                                                                        <label for="radioalarmrever2">
+                                                                        <input type="radio" id="radiosegucondu2" name="cinturones_conductor" value="0">
+                                                                        <label for="radiosegucondu2">
                                                                             <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
+
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radiosegucondu3" name="cinturones_conductor" value="2">
+                                                                        <label for="radiosegucondu3">
+                                                                            <i class="fas fa-ban"></i>
                                                                         </label>
                                                                     </div>
                                                                 </div>
@@ -1307,37 +1317,6 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                 </div>
                                                             </td>
                                                         </tr>
-
-                                                        <tr>
-                                                            <td><b>Cinturones de seguridad Conductor</b></td>
-                                                        </tr>
-
-                                                        <tr>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radiosegucondu1" name="cinturones_conductor" value="1">
-                                                                        <label for="radiosegucondu1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
-
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radiosegucondu2" name="cinturones_conductor" value="0">
-                                                                        <label for="radiosegucondu2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radiosegucondu3" name="cinturones_conductor" value="2">
-                                                                        <label for="radiosegucondu3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -1412,14 +1391,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <td>
                                                                 <div class="form-group clearfix">
                                                                     <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radiofrenoprin1" name="freno_prncipal" value="1">
+                                                                        <input type="radio" id="radiofrenoprin1" name="freno_principal" value="1">
                                                                         <label for="radiofrenoprin1">
                                                                             <i class="fas fa-thumbs-up"></i>
                                                                         </label>
                                                                     </div>
 
                                                                     <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radiofrenoprin2" name="freno_prncipal" value="0">
+                                                                        <input type="radio" id="radiofrenoprin2" name="freno_principal" value="0">
                                                                         <label for="radiofrenoprin2">
                                                                             <i class="fas fa-thumbs-down"></i>
                                                                         </label>
@@ -1428,7 +1407,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             </td>
                                                         </tr>
                                                         <tr>
-                                                            <td><b>Líquido Hidráulico</b></td>
+                                                            <td><b>Nivel líquido Hidráulico</b></td>
                                                             <td><b>Estado de correas</b></td>
                                                             <td><b>Nivel líquido de Frenos</b></td>
                                                             <td><b>Caja de Cambios</b></td>
@@ -1505,9 +1484,10 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         </tr>
 
                                                         <tr>
-                                                            <td><b>Dirección</b></td>
+                                                            <td><b>Barra de Dirección</b></td>
                                                             <td><b>Nivel de Aceite</b></td>
                                                             <td><b>Freno de Emergencia</b></td>
+                                                            <td><b>Sistema Hidráulico</b></td>
                                                         </tr>
                                                         <tr>
                                                             <td>
@@ -1561,6 +1541,23 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                     </div>
                                                                 </div>
                                                             </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiosistemahidra1" name="sistema_hidraulico" value="1">
+                                                                        <label for="radiosistemahidra1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
+
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiosistemahidra12" name="sistema_hidraulico" value="0">
+                                                                        <label for="radiosistemahidra12">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -1596,6 +1593,13 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                             <i class="fas fa-thumbs-down"></i>
                                                                         </label>
                                                                     </div>
+
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radiovelocimetro3" name="velocimetro" value="2">
+                                                                        <label for="radiovelocimetro3">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
                                                             </td>
 
@@ -1614,6 +1618,13 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                             <i class="fas fa-thumbs-down"></i>
                                                                         </label>
                                                                     </div>
+
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radiocargabateria3" name="carga_bateria" value="2">
+                                                                        <label for="radiocargabateria3">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </label>
+                                                                    </div>
                                                                 </div>
                                                             </td>
 
@@ -1630,6 +1641,13 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                         <input type="radio" id="radioprecionaceite2" name="presion_aceite" value="0">
                                                                         <label for="radioprecionaceite2">
                                                                             <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
+
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radiopresionaceite3" name="presion_aceite" value="2">
+                                                                        <label for="radiopresionaceite3">
+                                                                            <i class="fas fa-ban"></i>
                                                                         </label>
                                                                     </div>
                                                                 </div>
@@ -1656,6 +1674,13 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                         <input type="radio" id="radiocombustible2" name="combustible" value="0">
                                                                         <label for="radiocombustible2">
                                                                             <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
+
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radiocombustible3" name="combustible" value="2">
+                                                                        <label for="radiocombustible3">
+                                                                            <i class="fas fa-ban"></i>
                                                                         </label>
                                                                     </div>
                                                                 </div>
@@ -1698,6 +1723,13 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                         <input type="radio" id="radiotemperatura2" name="temperatura" value="0">
                                                                         <label for="radiotemperatura2">
                                                                             <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
+
+                                                                    <div class="icheck-warning d-inline">
+                                                                        <input type="radio" id="radiotemperatura3" name="temperatura" value="2">
+                                                                        <label for="radiotemperatura3">
+                                                                            <i class="fas fa-ban"></i>
                                                                         </label>
                                                                     </div>
                                                                 </div>
@@ -2010,7 +2042,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <th style="width: 278px">Chaleco reflectivo</th>
                                                             <th style="width: 278px;">Linterna</th>
                                                             <th style="width: 278px;">Conos 2 o Triángulos</th>
-                                                            <th style="width: 278px;">Tacos de Bloques</th>
+                                                            <th style="width: 278px;">Tacos de Bloqueo</th>
                                                         </tr>
                                                     </thead>
 
@@ -2931,14 +2963,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <td>
                                                     <div class="form-group clearfix">
                                                         <div class="icheck-success d-inline">
-                                                            <input type="radio" id="radioparabirsas1" name="parabirsas1">
+                                                            <input type="radio" id="radioparabirsas1" name="parabirsas" value="1">
                                                             <label for="radioparabirsas1">
                                                                 <i class="fas fa-thumbs-up"></i>
                                                             </label>
                                                         </div>
 
                                                         <div class="icheck-danger d-inline">
-                                                            <input type="radio" id="radioparabirsas2" name="parabirsas1">
+                                                            <input type="radio" id="radioparabirsas2" name="parabirsas" value="0">
                                                             <label for="radioparabirsas2">
                                                                 <i class="fas fa-thumbs-down"></i>
                                                             </label>
@@ -3419,14 +3451,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <td>
                                                     <div class="form-group clearfix">
                                                         <div class="icheck-success d-inline">
-                                                            <input type="radio" id="radiofrenoprin1" name="frenoprin1">
+                                                            <input type="radio" id="radiofrenoprin1" name="freno_principal" value="1">
                                                             <label for="radiofrenoprin1">
                                                                 <i class="fas fa-thumbs-up"></i>
                                                             </label>
                                                         </div>
 
                                                         <div class="icheck-danger d-inline">
-                                                            <input type="radio" id="radiofrenoprin2" name="frenoprin1">
+                                                            <input type="radio" id="radiofrenoprin2" name="freno_principal" value="0">
                                                             <label for="radiofrenoprin2">
                                                                 <i class="fas fa-thumbs-down"></i>
                                                             </label>
