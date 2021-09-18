@@ -72,7 +72,7 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <button type="button" class="btn btn-success btn-sm btn-editarAlistamiento" idalistamiento="<?= $value['id'] ?>" placa="<?= $value['placa'] ?>" #interno_afiliado="<?= $value['#interno_afiliado'] ?>" data-toggle="modal" data-target="#modal-nuevoplanrodamiento"><i class="fas fa-edit"></i></button>
+                                                    <button type="button" class="btn btn-success btn-sm btn-editarAlistamiento" data-toggle="modal" data-target="#modal-nuevoplanrodamiento"><i class="fas fa-edit"></i></button>
                                                 </td>
                                                 <td></td>
                                                 <td></td>
