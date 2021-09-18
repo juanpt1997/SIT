@@ -109,16 +109,16 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <th>Freno de Emergencia</th>
                                                 <th>Velocímetro</th>    
                                                 <th>Carga de la Batería</th>  
-                                                 <th> Presión de Aceite</th>
+                                                <th> Presión de Aceite</th>
                                                 <th>Combustible</th>   
                                                 <th>Presión de Aire</th>    
                                                 <th>Temperatura</th>
-                                                <th>Cambio de Aceitea</th>  
-                                                <th>Engrasea</th>   
-                                                <th>Rotación de Llantasa</th>
-                                                <th>Filtro de Airea</th>  
-                                                <th>Sincronizacióna</th>  
-                                                <th>Alineacion y Balaneceoa</th>
+                                                <th>Cambio de Aceite</th>  
+                                                <th>Engrase</th>   
+                                                <th>Rotación de Llantas</th>
+                                                <th>Filtro de Aire</th>  
+                                                <th>Sincronización</th>  
+                                                <th>Alineacion y Balaneceo</th>
                                                 <th>Delanteras</th>  
                                                 <th>Traseras</th>    
                                                 <th>Cortes</th>  
