@@ -147,6 +147,7 @@ if (
                     $("#expedicion").val(response.cedula_expedicion);
                     $("#docum_respo").val(response.documento_res);
                     $("#tel2").val(response.tel_2);
+                    $("#otro_v").val(response.otro_v);
 
                     $("#origin").val(response.origen);
                     $("#f_sol").val(response.fecha_solicitud);

@@ -77,6 +77,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                             <th>Hora salida</th>
                                             <th>Hora recogida</th>
                                             <th>Tipo vehículo</th>
+                                            <th>Otro vehiculo</th>
                                             <th>Nro. Vehículos</th>
                                             <th>Capacidad</th>
                                             <th>Valor / vehículo</th>
@@ -128,6 +129,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                 <td><?= $value['hora_salida'] ?></td>
                                                 <td><?= $value['hora_recogida'] ?></td>
                                                 <td><?= $value['tipov'] ?></td>
+                                                <td><?= $value['otro_v'] ?></td>
                                                 <td><?= $value['nro_vehiculos'] ?></td>
                                                 <td><?= $value['capacidad'] ?></td>
                                                 <td><?= $value['valorxvehiculo'] ?></td>
@@ -455,6 +457,15 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                         <div class="col-md-4">
                             <div class="form-group">
+                                <label class="text-sm">Otro tipo de vehículo</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control" type="text" id="otro_v" name="otro_v" placeholder="Ingrese otro tipo de vehículo (opcional)" maxlength="15">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 <label class="text-sm">Valor por vehículo</label>
                                 <div class="input-group input-group-sm">
                                     <input class="form-control" type="number" id="valor_vel" name="valor_vel" placeholder="Digite un valor por vehículo" required>
@@ -493,7 +504,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm">Descripción de la solicitud</label>
                                 <div class="input-group input-group-sm">
-                                    <textarea class="form-control" type="text" id="des_sol" name="des_sol" placeholder="Describa la solicitud" style="min-height:70px"></textarea requiered>
+                                    <textarea class="form-control" type="text" id="des_sol" name="des_sol" placeholder="Describa la solicitud" style="min-height:70px" required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -534,7 +545,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
 
                     <hr class="my-4 bg-dark">
