@@ -611,9 +611,9 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
 
             /* RESET DE LAS TABLAS QUE INCLUYEN EL RESTO DEL FORMULARIO */
             // Quitar datatable
-            $("#tblPropietarios, #tblConductores, #tblDocumentos").dataTable().fnDestroy();
+            $("#tblPropietarios, #tblConductores, #tblDocumentos,#tblHistorico").dataTable().fnDestroy();
             // Borrar datos
-            $("#tbodyPropietarios, #tbodyConductores, #tbodyDocumentos").html("");
+            $("#tbodyPropietarios, #tbodyConductores, #tbodyDocumentos,#tbodyTablaHistorico").html("");
         });
 
         /* ===================================================
@@ -989,10 +989,38 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                     dataTable(`#tbl${nombreTabla}`);
                 }
             });
-
             // HISTORICO EN CASO DE QUERER ACTUALIZAR LA TABLA DOCUMENTOS
             if (nombreTabla == "Documentos") {
-                //alert("actualizar tabla histórico");
+            // Quitar datatable
+            $("#tblHistorico").dataTable().fnDestroy();
+            // Borrar datos
+            $("#tbodyTablaHistorico").html("");
+
+                    let datoshistorico = new FormData();
+                    datoshistorico.append('TablaHistorico', 'ok');
+                    datoshistorico.append('idvehiculo', idvehiculo);
+                    $.ajax({
+                        type: "POST",
+                        url: `${urlPagina}ajax/vehicular.ajax.php`,
+                        data: datoshistorico,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        // dataType: "json",
+                        success: function (response) {
+                            console.log(response);
+                            if (response != '' || response != null) {
+                                $("#tbodyTablaHistorico").html(response);
+                            } else {
+                                $("#tbodyTablaHistorico").html('');
+                            }
+
+                            /* ===================================================
+                            INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                            ===================================================*/
+                            dataTable("#tblHistorico");
+                        }
+                    });  
             }
         }
 
