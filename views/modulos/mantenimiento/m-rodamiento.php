@@ -18,7 +18,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark ">Plan de Rodamiento</h1>
+                    <h1 class="m-0 text-dark "><b><i>Plan de rodamiento</i></b></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -34,6 +34,7 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
+            <hr class="my-4">
             <div class="row">
                 <div class="col-12">
                     <button type="button" class="btn bg-gradient-success btn-nuevoplanrodamiento" data-toggle="modal" data-target="#modal-nuevoplanrodamiento"><i class="fas fa-paste"></i> Nuevo plan de rodamiento</button>
@@ -53,6 +54,7 @@
                                         <thead>
                                             <tr>
                                                 <th>...</th>
+                                                <th>ID</th>
                                                 <th>Placa</th>
                                                 <th># Interno afiliado</th>
                                                 <th>Marca</th>
@@ -72,8 +74,9 @@
                                         <tbody>
                                             <tr>
                                                 <td>
-                                                    <button type="button" class="btn btn-success btn-sm btn-editarAlistamiento" idalistamiento="<?= $value['id'] ?>" placa="<?= $value['placa'] ?>" #interno_afiliado="<?= $value['#interno_afiliado'] ?>" data-toggle="modal" data-target="#modal-nuevoplanrodamiento"><i class="fas fa-edit"></i></button>
+                                                    <button type="button" class="btn btn-success btn-sm btn-editarAlistamiento" data-toggle="modal" data-target="#modal-nuevoplanrodamiento"><i class="fas fa-edit"></i></button>
                                                 </td>
+                                                <td></td>
                                                 <td></td>
                                                 <td></td>
                                                 <td></td>
@@ -122,14 +125,14 @@
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label>ID</label>
-                                <input id="iddatosroda" name="iddatosroda" class="form-control datosrodamiento" type="text" required>
+                                <input id="iddatosroda" name="idvehiculo" class="form-control datosrodamiento" type="text" required>
                             </div>
                         </div>
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label>Placa</label>
-                                <select id="placadatosroda" name="placadatosroda" class="form-control select2-single" type="number" style="width: 99%" required>
+                                <select id="placadatosroda" name="placa" class="form-control select2-single" type="number" style="width: 99%" required>
 
                                 </select>
                             </div>
@@ -138,14 +141,14 @@
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label># Interno de Afiliado</label>
-                                <input id="numinternodatosroda" type="text" class="form-control datosroda" placeholder="Numero de afiliado" required>
+                                <input id="numinternodatosroda" name="numinterno" type="text" class="form-control datosroda" placeholder="Numero de afiliado" required>
                             </div>
                         </div>
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label>Marca</label>
-                                <input id="marcadatosroda" type="text" class="form-control datosroda" placeholder="Digite marca del vehículo" required>
+                                <input id="marcadatosroda" name="idmarca" type="text" class="form-control datosroda" placeholder="Digite marca del vehículo" required>
                             </div>
                         </div>
 
@@ -190,7 +193,7 @@
                             <div class="form-group">
                                 <label>Hora de inicio</label>
                                 <div class="input-group time" data-target-input="nearest">
-                                    <input type="time" class="form-control" id="hora_inicio" name="hora_inicio" required>
+                                    <input type="time" class="form-control" id="hora_inicio" name="h_salida" required>
                                 </div>
                             </div>
                         </div>
@@ -199,7 +202,7 @@
                             <div class="form-group">
                                 <label>Hora de final</label>
                                 <div class="input-group time" data-target-input="nearest">
-                                    <input type="time" class="form-control" id="hora_final" name="hora_final" required>
+                                    <input type="time" class="form-control" id="hora_final" name="h_llegada" required>
                                 </div>
                             </div>
                         </div>
@@ -207,21 +210,21 @@
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label>Origen</label>
-                                <input id="origendatosroda" type="text" class="form-control datosroda" placeholder="Digite el origien del vehículo" required>
+                                <input id="origendatosroda" name="idorigne" type="text" class="form-control datosroda" placeholder="Digite el origien del vehículo" required>
                             </div>
                         </div>
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label>Destino</label>
-                                <input id="destinodatosroda" type="text" class="form-control datosroda" placeholder="Digite el destino del vehículo" required>
+                                <input id="destinodatosroda" name="iddestino" type="text" class="form-control datosroda" placeholder="Digite el destino del vehículo" required>
                             </div>
                         </div>
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group">
                                 <label>Kilometros recorridos</label>
-                                <input id="kmrecorridosdatosroda" type="text" class="form-control datosroda" placeholder="Digite los Kilometros recorridos" required>
+                                <input id="kmrecorridosdatosroda" name="kmrecorrido" type="text" class="form-control datosroda" placeholder="Digite los Kilometros recorridos" required>
                             </div>
                         </div>
                     </div>
