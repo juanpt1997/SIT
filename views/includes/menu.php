@@ -388,6 +388,15 @@
                                     <p>Inventario</p>
                                 </a>
                             </li>
+                            <!-- ===================================================
+                                    Plan de Rodamiento
+                                =================================================== -->
+                                <li class="nav-item">
+                                <a href="m-rodamiento" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Plan de Rodamiento</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 <?php endif ?>
