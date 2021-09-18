@@ -128,7 +128,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <th>Presión de Inflado</th>  
                                                 <th>Abultamientos</th>
                                                 <th>Chaleco reflectivo</th> 
-                                                <th>Lintern</th>a  
+                                                <th>Linterna</th>
                                                 <th>Conos 2 o Triángulos</th>  
                                                 <th>Tacos de Bloques</th>
                                                 <th>Gato</th>  

@@ -266,6 +266,10 @@ $(document).ready(function () {
                         setTimeout(() => {
                             $("#idconductor").val(response.idconductor);
                         }, 1000);
+
+
+                        $("#kmtotal").val(response.kilometraje_total);
+                        $("#observaciones").val(response.observaciones);
                     }
 
                 }
