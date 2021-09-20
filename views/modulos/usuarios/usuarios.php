@@ -16,7 +16,7 @@ $Sucursales = ControladorGH::ctrSucursales();
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">Control de usuarios</h1>
+                    <h1 class="m-0 text-dark"><b><i>Control de usuarios</i></b></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -30,6 +30,7 @@ $Sucursales = ControladorGH::ctrSucursales();
     <!-- /.content-header -->
     <section class="content">
         <div class="container-fluid pt-4">
+            <hr class="my-4">
             <!-- ===================================================
                 BOTON PARA AGREGAR NUEVO USUARIO
             =================================================== -->

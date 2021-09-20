@@ -304,16 +304,6 @@
                                 </a>
                             </li>
 
-                            <!-- ===================================================
-                                    FUEC
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="contratos-fuec" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>FUEC</p>
-                                </a>
-                            </li>
-
                         </ul>
                     </li>
                 <?php endif ?>
@@ -344,24 +334,6 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <!-- ===================================================
-                                    Protocolo de alistamiento
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="m-alistamiento" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Protocolo de alistamiento</p>
-                                </a>
-                            </li>
-                            <!-- ===================================================
-                                    Plan de rodamiento
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Plan de rodamiento</p>
-                                </a>
-                            </li>
-                            <!-- ===================================================
                                     Mantenimientos
                                 =================================================== -->
                             <li class="nav-item">
@@ -388,13 +360,48 @@
                                     <p>Inventario</p>
                                 </a>
                             </li>
+                        </ul>
+                    </li>
+                <?php endif ?>
+
+                <!-- ===================================================
+                    ** Operaciones
+                =================================================== -->
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-road"></i>
+                            <p>
+                                Operaciones
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <!-- ===================================================
+                                    FUEC
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="o-contratos-fuec" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>FUEC</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
+                                    Protocolo de Alistamiento
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="o-alistamiento" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Protocolo de alistamiento</p>
+                                </a>
+                            </li>
                             <!-- ===================================================
                                     Plan de Rodamiento
                                 =================================================== -->
                                 <li class="nav-item">
-                                <a href="m-rodamiento" class="nav-link">
+                                <a href="o-rodamiento" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Plan de Rodamiento</p>
+                                    <p>Plan de rodamiento</p>
                                 </a>
                             </li>
                         </ul>
