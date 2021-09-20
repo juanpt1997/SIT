@@ -25,6 +25,7 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
+            <hr class="my-4">
             <div class="row">
                 <div class="col">
                     <div class="card border border-secondary">
