@@ -163,7 +163,7 @@
                     include "modulos/mantenimiento/{$ruta}.php";
                 }
                 else if ( # Operaciones
-                    $ruta == "o-contratos-fuec" ||
+                    $ruta == "o-fuec" ||
                     $ruta == "o-alistamiento" ||
                     $ruta == "o-rodamiento" 
                 ) {    

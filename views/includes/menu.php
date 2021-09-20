@@ -82,27 +82,27 @@
                                 <p>Vehicular</p>
                             </a>
                         </li>
-                        
+
                         <?php if (validarModulo('M_OPCIONES')) : ?>
-                        <!-- ===================================================
+                            <!-- ===================================================
                                 Mantenimiento
                             =================================================== -->
-                        <li class="nav-item">
-                            <a href="cg-mantenimiento" class="nav-link" target="_blank">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Mantenimiento</p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="cg-mantenimiento" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Mantenimiento</p>
+                                </a>
+                            </li>
 
-                        <!-- ===================================================
+                            <!-- ===================================================
                                 Seguridad
                             =================================================== -->
-                        <li class="nav-item">
-                            <a href="cg-seguridad" class="nav-link" target="_blank">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Seguridad</p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="cg-seguridad" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Seguridad</p>
+                                </a>
+                            </li>
                         <?php endif ?>
                     </ul>
                 </li>
@@ -188,7 +188,7 @@
                 =================================================== -->
                 <?php if (validarModulo('M_VEHICULAR')) : ?>
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link" >
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-truck"></i>
                             <p>
                                 Vehicular
@@ -346,7 +346,7 @@
                                     Proveedores
                                 =================================================== -->
                             <li class="nav-item">
-                                <a href="m-proveedores" class="nav-link">
+                                <a href="m-proveedores" class="nav-link" target="_blank">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Proveedores</p>
                                 </a>
@@ -354,8 +354,8 @@
                             <!-- ===================================================
                                     Inventario
                                 =================================================== -->
-                                <li class="nav-item">
-                                <a href="m-inventario" class="nav-link">
+                            <li class="nav-item">
+                                <a href="m-inventario" class="nav-link" target="_blank">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Inventario</p>
                                 </a>
@@ -367,7 +367,7 @@
                 <!-- ===================================================
                     ** Operaciones
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarModulo('M_CONTRATOS')) : ?>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-road"></i>
@@ -381,7 +381,7 @@
                                     FUEC
                                 =================================================== -->
                             <li class="nav-item">
-                                <a href="o-contratos-fuec" class="nav-link">
+                                <a href="o-fuec" class="nav-link" target="_blank">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>FUEC</p>
                                 </a>
@@ -390,7 +390,7 @@
                                     Protocolo de Alistamiento
                                 =================================================== -->
                             <li class="nav-item">
-                                <a href="o-alistamiento" class="nav-link">
+                                <a href="o-alistamiento" class="nav-link" target="_blank">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Protocolo de alistamiento</p>
                                 </a>
@@ -398,8 +398,8 @@
                             <!-- ===================================================
                                     Plan de Rodamiento
                                 =================================================== -->
-                                <li class="nav-item">
-                                <a href="o-rodamiento" class="nav-link">
+                            <li class="nav-item">
+                                <a href="o-rodamiento" class="nav-link" target="_blank">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Plan de rodamiento</p>
                                 </a>
