@@ -257,8 +257,8 @@ class ModeloConceptosGH
     //RUTAS
     static public function mdlAgregarRuta($datos)
     {
-        $stmt = Conexion::conectar()->prepare("INSERT INTO rutas(ruta,origen,destino)
-                                                VALUES(:ruta,:origen,:destino)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO v_rutas(idorigen,iddestino,nombreruta)
+                                                VALUES(:origen,:destino,:ruta)");
 
         $stmt->bindParam(":ruta", $datos["ruta"], PDO::PARAM_STR);
         $stmt->bindParam(":origen", $datos["origen"], PDO::PARAM_STR);
@@ -267,7 +267,7 @@ class ModeloConceptosGH
         if ($stmt->execute()) {
             $retorno = "ok";
         } else {
-            $retorno = "error";
+            $retorno = "errorr";
         }
 
         $stmt->closeCursor();
@@ -279,8 +279,8 @@ class ModeloConceptosGH
     static public function mdlEditarRuta($datos)
     {
 
-        $stmt = Conexion::conectar()->prepare("UPDATE rutas set ruta = :ruta, origen=:origen, destino=:destino
-                                               WHERE idruta = :idruta");
+        $stmt = Conexion::conectar()->prepare("UPDATE v_rutas set nombreruta = :ruta, idorigen=:origen, iddestino=:destino
+                                               WHERE id = :idruta");
 
         $stmt->bindParam(":idruta", $datos["idruta"], PDO::PARAM_INT);
         $stmt->bindParam(":ruta", $datos["ruta"], PDO::PARAM_STR);
@@ -302,7 +302,7 @@ class ModeloConceptosGH
     static public function mdlListarRutas()
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("SELECT idruta, ruta, origen, destino FROM rutas WHERE estado = 1");
+        $stmt = $conexion->prepare("SELECT id, nombreruta, idorigen, iddestino,o.municipio AS orig ,d.municipio AS dest  FROM v_rutas  JOIN gh_municipios AS o ON o.idmunicipio=v_rutas.idorigen  JOIN gh_municipios AS d ON d.idmunicipio=v_rutas.iddestino  WHERE v_rutas.estado = 1");
 
         $stmt->execute();
         $respuesta =  $stmt->fetchAll();
