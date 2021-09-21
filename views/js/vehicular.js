@@ -1460,7 +1460,6 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                     $(`#tbl${nombreTabla} thead tr`).clone(true).appendTo(`#tbl${nombreTabla} thead`);
                     //Por cada th creado hacer lo siguiente
                     $(`#tbl${nombreTabla} thead tr:eq(1) th`).each(function (i) {
-                        console.log("entra");
                         //Remover clase sorting y el evento que tiene cuando se hace click
                         $(this).removeClass("sorting").unbind();
                         //Agregar input de busqueda
