@@ -59,6 +59,9 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <th>...</th>
                                                 <th>ID</th>
                                                 <th>Placa</th>
+                                                <th>Número interno</th>
+                                                <th>Nombre del conductor</th>
+                                                <th>Cédula del conductor</th>
                                                 <th>Fecha - Hora</th>
                                                 <th>Luces bajas</th>
                                                 <th>Luces altas</th>
@@ -155,6 +158,9 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                     </td>
                                                     <td><?= $value['id'] ?></td>
                                                     <td><?= $value['placa'] ?></td>
+                                                    <td><?= $value['numinterno'] ?></td>
+                                                    <td><?= $value['conductor'] ?></td>
+                                                    <td><?= $value['cedulaConductor'] ?></td>
                                                     <td><?= $value['fechaalista'] ?></td>
                                                     <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesbajas']) ?></td>
                                                     <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesaltas']) ?></td>
