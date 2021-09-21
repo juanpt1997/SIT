@@ -39,7 +39,7 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
                         <div class="card-body">
                             <div class="row">
 
-                                <div class="col-12 col-sm-6 col-md-3">
+                                <div class="col-12 col-sm-6 col-md-4">
                                     <div class="info-box border border-secondary">
                                         <span class="info-box-icon bg-primary elevation-1"><i class="far fa-envelope"></i></span>
                                         <div class="info-box-content">
@@ -47,7 +47,7 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
                                             <span class="info-box-number" concepto="Tipo de ausentismo"></span>
                                         </div>
                                         <!-- /.info-box-content -->
-                                        <div>
+                                        <div class="d-flex flex-column">
                                             <button concepto="Tipo de ausentismo" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarGH"><i class="far fa-eye"></i></button>
                                             <button concepto="Tipo de ausentismo" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarGH"><i class="fas fa-plus-circle"></i></button>
                                         </div>
@@ -59,7 +59,7 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
                                     <!-- /.info-box -->
                                 </div>
 
-                                <div class="col-12 col-sm-6 col-md-3">
+                                <div class="col-12 col-sm-6 col-md-4 text-nowrap">
                                     <div class="info-box border border-secondary">
                                         <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-store-alt"></i></span>
                                         <div class="info-box-content">
@@ -67,7 +67,7 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
                                             <span class="info-box-number" concepto="Sucursales"></span>
                                         </div>
                                         <!-- /.info-box-content -->
-                                        <div>
+                                        <div class="d-flex flex-column">
                                             <button concepto="Sucursales" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarGH"><i class="far fa-eye"></i></button>
                                             <button concepto="Sucursales" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarGH"><i class="fas fa-plus-circle"></i></button>
                                         </div>
@@ -79,7 +79,7 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
                                     <!-- /.info-box -->
                                 </div>
 
-                                <div class="col-12 col-sm-6 col-md-3">
+                                <div class="col-12 col-sm-6 col-md-4 text-nowrap">
                                     <div class="info-box border border-secondary">
                                         <span class="info-box-icon bg-dark elevation-1"><i class="fas fa-project-diagram"></i></span>
                                         <div class="info-box-content">
@@ -87,7 +87,7 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
                                             <span class="info-box-number" concepto="Procesos"></span>
                                         </div>
                                         <!-- /.info-box-content -->
-                                        <div>
+                                        <div class="d-flex flex-column">
                                             <button concepto="Procesos" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarGH"><i class="far fa-eye"></i></button>
                                             <button concepto="Procesos" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarGH"><i class="fas fa-plus-circle"></i></button>
                                         </div>
@@ -100,7 +100,7 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
                                     <!-- /.info-box -->
                                 </div>
 
-                                <div class="col-12 col-sm-6 col-md-3">
+                                <div class="col-12 col-sm-6 col-md-4 text-nowrap">
                                     <div class="info-box border border-secondary">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-hand-holding-heart"></i></span>
                                         <div class="info-box-content">
@@ -108,7 +108,7 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
                                             <span class="info-box-number" concepto="ARL"></span>
                                         </div>
                                         <!-- /.info-box-content -->
-                                        <div>
+                                        <div class="d-flex flex-column">
                                             <button concepto="ARL" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarGH"><i class="far fa-eye"></i></button>
                                             <button concepto="ARL" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarGH"><i class="fas fa-plus-circle"></i></button>
                                         </div>
@@ -120,7 +120,7 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
                                     <!-- /.info-box -->
                                 </div>
 
-                                <div class="col-12 col-sm-6 col-md-3">
+                                <div class="col-12 col-sm-6 col-md-4 text-nowrap">
                                     <div class="info-box border border-secondary">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-hand-holding-usd"></i></span>
                                         <div class="info-box-content">
@@ -128,9 +128,9 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
                                             <span class="info-box-number" concepto="AFP"></span>
                                         </div>
                                         <!-- /.info-box-content -->
-                                        <div>
-                                            <button concepto="AFP" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarGH"><i class="far fa-eye"></i></button>
-                                            <button concepto="AFP" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarGH"><i class="fas fa-plus-circle"></i></button>
+                                        <div class="d-flex flex-column">
+                                            <button concepto="AFP" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px; max-height:25px" data-toggle="modal" data-target="#VisualizarGH"><i class="far fa-eye"></i></button>
+                                            <button concepto="AFP" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px; max-height:25px" data-toggle="modal" data-target="#AgregarEditarGH"><i class="fas fa-plus-circle"></i></button>
                                         </div>
 
                                         <div class="overlay d-none" concepto="AFP">
@@ -140,7 +140,7 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
                                     <!-- /.info-box -->
                                 </div>
 
-                                <div class="col-12 col-sm-6 col-md-3">
+                                <div class="col-12 col-sm-6 col-md-4 text-nowrap">
                                     <div class="info-box border border-secondary">
                                         <span class="info-box-icon bg-info elevation-1"><i class="fas fa-map-marked-alt"></i></span>
                                         <div class="info-box-content">
@@ -148,7 +148,7 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
                                             <span class="info-box-number ciudades" concepto="Ciudades"></span>
                                         </div>
                                         <!-- /.info-box-content-->
-                                        <div>
+                                        <div class="d-flex flex-column">
                                             <button concepto="Ciudades" type="button" class="btn-toolbar btn-ver-ciudad btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarCiudades"><i class="far fa-eye"></i></button>
                                             <button concepto="Ciudades" type="button" class="btn-toolbar btn-nueva-ciudad btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarCiudad"><i class="fas fa-plus-circle"></i></button>
                                         </div>
@@ -161,7 +161,7 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
                                 </div>
 
 
-                                <div class="col-12 col-sm-6 col-md-3">
+                                <div class="col-12 col-sm-6 col-md-4 text-nowrap">
                                     <div class="info-box border border-secondary">
                                         <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-map-marked-alt"></i></span>
                                         <div class="info-box-content">
@@ -169,7 +169,7 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
                                             <span class="info-box-number" concepto="Departamentos"></span>
                                         </div>
                                         <!-- /.info-box-content -->
-                                        <div>
+                                        <div class="d-flex flex-column">
                                             <button concepto="Departamentos" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarGH"><i class="far fa-eye"></i></button>
                                             <button concepto="Departamentos" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarGH"><i class="fas fa-plus-circle"></i></button>
                                         </div>
@@ -181,7 +181,7 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
                                     <!-- /.info-box -->
                                 </div>
 
-                                <div class="col-12 col-sm-6 col-md-3">
+                                <div class="col-12 col-sm-6 col-md-4 text-nowrap">
                                     <div class="info-box border border-secondary">
                                         <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-clinic-medical"></i></span>
                                         <div class="info-box-content">
@@ -190,7 +190,7 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
 
                                         </div>
                                         <!-- /.info-box-content -->
-                                        <div>
+                                        <div class="d-flex flex-column">
                                             <button concepto="EPS" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarGH"><i class="far fa-eye"></i></button>
                                             <button concepto="EPS" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarGH"><i class="fas fa-plus-circle"></i></button>
                                         </div>
@@ -202,7 +202,7 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
                                     <!-- /.info-box -->
                                 </div>
 
-                                <div class="col-12 col-sm-6 col-md-3">
+                                <div class="col-12 col-sm-6 col-md-4 text-nowrap">
                                     <div class="info-box border border-secondary">
                                         <span class="info-box-icon bg-info elevation-1"><i class="fas fa-sitemap"></i></span>
                                         <div class="info-box-content">
@@ -211,7 +211,7 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
 
                                         </div>
                                         <!-- /.info-box-content -->
-                                        <div>
+                                        <div class="d-flex flex-column">
                                             <button concepto="cargo" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarGH"><i class="far fa-eye"></i></button>
                                             <button concepto="cargo" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarGH"><i class="fas fa-plus-circle"></i></button>
                                         </div>
@@ -223,14 +223,14 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
                                     <!-- /.info-box -->
                                 </div>
 
-                                <div class="col-12 col-sm-6 col-md-3">
+                                <div class="col-12 col-sm-6 col-md-4 text-nowrap">
                                     <div class="info-box border border-secondary">
                                         <span class="info-box-icon bg-warning elevation-1"><i class="far fa-building"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text"><i>Empresa</i></span>
                                         </div>
                                         <!-- /.info-box-content -->
-                                        <div>
+                                        <div class="d-flex flex-column">
                                             <button concepto="Empresa" type="button" class="btn-toolbar btn-ver-empresa btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarEmpresa"><i class="far fa-eye"></i></button>
                                         </div>
                                         <div class="overlay d-none" concepto="Empresa">
