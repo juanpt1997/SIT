@@ -179,6 +179,15 @@
                                     <p>Gráficos perfil sociodemográfico</p>
                                 </a>
                             </li>
+                            <!-- ===================================================
+                                    Bloqueo de personal
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="gh-bloqueo-personal" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Bloqueo de personal</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 <?php endif ?>
@@ -196,15 +205,6 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <!-- ===================================================
-                                    Bloqueo de personal
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="v-bloqueo-personal" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Bloqueo de personal</p>
-                                </a>
-                            </li>
                             <!-- ===================================================
                                     Bloqueo de vehículo
                                 =================================================== -->
@@ -308,6 +308,51 @@
                     </li>
                 <?php endif ?>
 
+
+                <!-- ===================================================
+                    ** Operaciones
+                =================================================== -->
+                <?php if (validarModulo('M_CONTRATOS')) : ?>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-road"></i>
+                            <p>
+                                Operaciones
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <!-- ===================================================
+                                    FUEC
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="o-fuec" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>FUEC</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
+                                    Protocolo de Alistamiento
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="o-alistamiento" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Protocolo de alistamiento</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
+                                    Plan de Rodamiento
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="o-rodamiento" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Plan de rodamiento</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif ?>
+
                 <!-- ===================================================
                     * Control Usuarios
                 =================================================== -->
@@ -358,50 +403,6 @@
                                 <a href="m-inventario" class="nav-link" target="_blank">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Inventario</p>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                <?php endif ?>
-
-                <!-- ===================================================
-                    ** Operaciones
-                =================================================== -->
-                <?php if (validarModulo('M_CONTRATOS')) : ?>
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-road"></i>
-                            <p>
-                                Operaciones
-                                <i class="fas fa-angle-left right"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <!-- ===================================================
-                                    FUEC
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="o-fuec" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>FUEC</p>
-                                </a>
-                            </li>
-                            <!-- ===================================================
-                                    Protocolo de Alistamiento
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="o-alistamiento" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Protocolo de alistamiento</p>
-                                </a>
-                            </li>
-                            <!-- ===================================================
-                                    Plan de Rodamiento
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="o-rodamiento" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Plan de rodamiento</p>
                                 </a>
                             </li>
                         </ul>

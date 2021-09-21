@@ -126,6 +126,7 @@
                     $ruta == "gh-perfil-sd" ||
                     $ruta == "gh-pago-ss" ||
                     $ruta == "gh-alertas-contratos" ||
+                    $ruta == "gh-bloqueo-personal"||
                     $ruta == "gh-ausentismo"
                 ) {
                     include "modulos/gestion_humana/{$ruta}.php";
@@ -133,7 +134,6 @@
                     $ruta == "v-vehiculos" ||
                     $ruta == "v-convenios" ||
                     $ruta == "v-propietarios"||
-                    $ruta == "v-bloqueo-personal"||
                     $ruta == "v-bloqueo-vehiculo"||
                     $ruta == "v-fuec"
                 ) {
