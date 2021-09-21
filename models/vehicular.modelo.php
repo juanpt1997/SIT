@@ -640,7 +640,7 @@ class ModeloVehiculos
                                                 s.sucursal,
                                                 p.nombre, p.documento, p.telef, p.email
                                                 FROM v_vehiculos v
-                                                LEFT JOIN v_re_documentosvehiculos d ON v.idvehiculo = d.idvehiculo
+                                                INNER JOIN v_re_documentosvehiculos d ON v.idvehiculo = d.idvehiculo
                                                 LEFT JOIN v_tipodocumento t ON t.idtipo = d.idtipodocumento
                                                 LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
                                                 LEFT JOIN v_re_propietariosvehiculos pv ON pv.idvehiculo = v.idvehiculo
