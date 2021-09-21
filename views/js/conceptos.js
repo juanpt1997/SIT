@@ -1376,8 +1376,11 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
 
                         $("#tbody_ver_ruta").html('');
                     }
-
-                    dataTable("#ver_ruta");
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        /* 'copy', 'csv', 'excel', 'pdf', 'print' */
+                    ];
+                    dataTableCustom("#ver_ruta", buttons);
                 }
             });
         });
