@@ -1317,8 +1317,8 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
             datos.append("AgregarRuta", "ok");
             datos.append("dato1", $("#id_ruta").val());
             datos.append("dato2", $("#origen").val());
-            datos.append("dato3", $("#destino").val());
-
+            datos.append("dato3", $("#id_destino").val());
+            
 
             $.ajax({
                 url: "ajax/conceptos.ajax.php",
@@ -1367,7 +1367,7 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                 processData: false,
                 //dataType: "json",
                 success: function (response) {
-
+ 
                     if (response != '' || response != null) {
 
                         $("#tbody_ver_ruta").html(response);
@@ -1376,8 +1376,11 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
 
                         $("#tbody_ver_ruta").html('');
                     }
-
-                    dataTable("#ver_ruta");
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        /* 'copy', 'csv', 'excel', 'pdf', 'print' */
+                    ];
+                    dataTableCustom("#ver_ruta", buttons);
                 }
             });
         });

@@ -123,7 +123,6 @@
                                 <a class="dropdown-item font-weight-bold" href="contratos-fijos"><u>Fijos</u></a>
                                 <a class="dropdown-item font-weight-bold" href="contratos-cotizaciones"><u>Cotizaciones</u></a>
                                 <a class="dropdown-item font-weight-bold" href="contratos-ordenservicio"><u>Orden de servicio</u></a>
-                                <a class="dropdown-item font-weight-bold" href="contratos-fuec"><u>FUEC</u></a>
                             </div>
                         </div>
                     </div>
@@ -178,9 +177,44 @@
                             <!-- /.info-box -->
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuMantenimiento">
                                 <a class="dropdown-item font-weight-bold" href="m-proveedores"><u>Proveedores</u></a>
-                                <a class="dropdown-item font-weight-bold" href="m-alistamiento"><u>Protocolo de Alistamiento</u></a>
                                 <a class="dropdown-item font-weight-bold" href="m-inventario"><u>Inventario</u></a>
-                                <a class="dropdown-item font-weight-bold" href="m-rodamiento"><u>Plan de Rodamiento</u></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                <?php endif ?>
+
+                 <!-- ===================================================
+                    ** Operaciones
+                =================================================== -->
+                <?php if (validarModulo('M_OPCIONES')) : ?>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-none">
+                        <a href="#" class="d-none">
+                            <div class="info-box border border-danger">
+                                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-cogs"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Operaciones</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                        </a>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="dropdown" style="cursor: pointer;">
+                            <div class="info-box border border-success" id="dropdownMenuOperaciones" data-toggle="dropdown">
+                                <span class="info-box-icon bg-default elevation-1"><i class="fas fa-road"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Operaciones</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuOperaciones">
+                                <a class="dropdown-item font-weight-bold" href="o-fuec"><u>FUEC</u></a>
+                                <a class="dropdown-item font-weight-bold" href="o-alistamiento"><u>Protocolo de alistamiento</u></a>
+                                <a class="dropdown-item font-weight-bold" href="o-rodamiento"><u>Plan de rodamiento</u></a>
                             </div>
                         </div>
                     </div>

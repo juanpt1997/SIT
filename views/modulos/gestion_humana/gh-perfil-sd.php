@@ -19,7 +19,7 @@ $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark ">Perfil sociodemográfico</h1>
+                    <h1 class="m-0 text-dark "><b><i>Perfil sociodemográfico</i></b></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -35,6 +35,7 @@ $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
+            <hr class="my-4">
             <div id="ghTabs"></div>
 
             <!-- ===================== 
@@ -43,7 +44,7 @@ $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
             <div class="row mt-2">
                 <div id="spinnerTablaPerfilSD" class="spinner-border" role="status">
                     <span class="sr-only">Loading...</span>
-                </div>       
+                </div>
                 <div class="col-12 table-responsive">
                     <table id="tblPerfilSD" class="table table-sm text-sm table-light table-striped table-bordered tablasBtnExport w-100">
                         <thead class="text-capitalize text-nowrap" style="font-size: 13px;">
@@ -92,7 +93,7 @@ $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
                                 <th style="min-width:60px;">Número licencia</th>
                                 <th style="min-width:60px;">Categoría</th>
                                 <th style="min-width:60px;">Fecha vencim.</th>
-                                <?php for ($i=0; $i < $CantidadColumnasHijos; $i++) : ?>
+                                <?php for ($i = 0; $i < $CantidadColumnasHijos; $i++) : ?>
                                     <th style="min-width:60px;">Nombre hijo <?= $i + 1 ?></th>
                                     <th style="min-width:60px;">Fec. nacimiento</th>
                                     <th style="min-width:60px;">Edad</th>
@@ -102,7 +103,7 @@ $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
                             </tr>
                         </thead>
                         <tbody id="tbodyPerfilSD" style="font-size: 13px;">
-                            
+
                         </tbody>
                     </table>
                 </div><!-- col -->

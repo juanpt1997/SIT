@@ -21,7 +21,7 @@ $TiposAusentismo = ControladorAusentismo::ctrTiposAusentismo();
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark ">Control de ausentismo</h1>
+                    <h1 class="m-0 text-dark "><b><i>Control de ausentismo</i></b></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -37,6 +37,7 @@ $TiposAusentismo = ControladorAusentismo::ctrTiposAusentismo();
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
+            <hr class="my-4">
             <div id="ghTabs"></div>
 
             <div class="card card-secondary card-outline">
@@ -82,39 +83,39 @@ $TiposAusentismo = ControladorAusentismo::ctrTiposAusentismo();
                                     </tr>
                                 </thead>
                                 <tbody class="text-sm">
-                                <?php foreach ($Ausentismos as $key => $value) : ?>
-                                    <?php 
+                                    <?php foreach ($Ausentismos as $key => $value) : ?>
+                                        <?php
                                         $BotonEditar = "<div class='btn-group'>
                                                             {$value['idAusentismo']}
                                                             <button type='button' class='btn btn-editAusentismo' data-toggle='modal' data-target='#AusentismoModal' idAusentismo='{$value['idAusentismo']}'>
                                                                 <i class='fas fa-edit text-info'></i>
                                                             </button>
-                                                        </div>";   
-                                        
-                                    ?>
-                                    <tr>
-                                        <!-- <td style="vertical-align: middle;"><?= $value['idAusentismo'] ?><button class="btn" type="button"><i class="fas fa-edit text-warning"></i></button></td> -->
-                                        <td style="vertical-align: middle;"><?= $BotonEditar ?></td>
-                                        <td><?= $value['fecha'] ?></td>
-                                        <td><?= $value['Documento'] ?></td>
-                                        <td><?= $value['Nombre'] ?></td>
-                                        <td><?= $value['Cargo'] ?></td>
-                                        <td><?= $value['Proceso'] ?></td>
-                                        <td><?= $value['tipoAusentismo'] ?></td>
-                                        <td><?= $value['fechaini'] ?></td>
-                                        <td><?= $value['fechafin'] ?></td>
-                                        <td><?= $value['ndias_laborales'] ?></td>
-                                        <td><?= $value['hora_inicio'] ?></td>
-                                        <td><?= $value['hora_fin'] ?></td>
-                                        <td><?= $value['total_horas'] ?></td>
-                                        <td><?= $value['total_dias_laborales'] ?></td>
-                                        <td><?= $value['total_hora'] ?></td>
-                                        <td><?= $value['dx_incapacidad'] ?></td>
-                                        <td><?= $value['descripcion'] ?></td>
-                                        <td><?= $value['Eps'] ?></td>
-                                        <td><?= $value['salario_basico'] ?></td>
-                                    </tr>
-                                <?php endforeach ?>
+                                                        </div>";
+
+                                        ?>
+                                        <tr>
+                                            <!-- <td style="vertical-align: middle;"><?= $value['idAusentismo'] ?><button class="btn" type="button"><i class="fas fa-edit text-warning"></i></button></td> -->
+                                            <td style="vertical-align: middle;"><?= $BotonEditar ?></td>
+                                            <td><?= $value['fecha'] ?></td>
+                                            <td><?= $value['Documento'] ?></td>
+                                            <td><?= $value['Nombre'] ?></td>
+                                            <td><?= $value['Cargo'] ?></td>
+                                            <td><?= $value['Proceso'] ?></td>
+                                            <td><?= $value['tipoAusentismo'] ?></td>
+                                            <td><?= $value['fechaini'] ?></td>
+                                            <td><?= $value['fechafin'] ?></td>
+                                            <td><?= $value['ndias_laborales'] ?></td>
+                                            <td><?= $value['hora_inicio'] ?></td>
+                                            <td><?= $value['hora_fin'] ?></td>
+                                            <td><?= $value['total_horas'] ?></td>
+                                            <td><?= $value['total_dias_laborales'] ?></td>
+                                            <td><?= $value['total_hora'] ?></td>
+                                            <td><?= $value['dx_incapacidad'] ?></td>
+                                            <td><?= $value['descripcion'] ?></td>
+                                            <td><?= $value['Eps'] ?></td>
+                                            <td><?= $value['salario_basico'] ?></td>
+                                        </tr>
+                                    <?php endforeach ?>
                                 </tbody>
                             </table>
                         </div>
@@ -441,8 +442,8 @@ $TiposAusentismo = ControladorAusentismo::ctrTiposAusentismo();
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                 <button class="btn btn-success float-right" type="submit" form="frmAusentismo"><i class="fas fa-save"></i> Guardar</button>
             </div>
-            <?php 
-                $guardarAusentismo = ControladorAusentismo::ctrGuardarAusentismo();
+            <?php
+            $guardarAusentismo = ControladorAusentismo::ctrGuardarAusentismo();
             ?>
         </div>
     </div>

@@ -152,18 +152,22 @@
                     $ruta == "contratos-fijos"||
                     $ruta == "contratos-cotizaciones"||
                     $ruta == "contratos-ordenservicio" ||
-                    $ruta == "contratos-fuec" ||
                     $ruta == "busqueda-fuec"
                 ) {
                     include "modulos/contratos/{$ruta}.php";
                 }
                 else if ( # Mantenimiento
                     $ruta == "m-proveedores" ||
-                    $ruta == "m-alistamiento" ||
-                    $ruta == "m-inventario" ||
-                    $ruta == "m-rodamiento"
+                    $ruta == "m-inventario" 
                 ) {
                     include "modulos/mantenimiento/{$ruta}.php";
+                }
+                else if ( # Operaciones
+                    $ruta == "o-fuec" ||
+                    $ruta == "o-alistamiento" ||
+                    $ruta == "o-rodamiento" 
+                ) {    
+                    include "modulos/operaciones/{$ruta}.php";
                 }
                  else { # Página no válida
                     include "includes/error404.php";
@@ -205,6 +209,7 @@
 <script src="<?= URL_APP ?>views/js/contratos.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/fuec.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/mantenimiento.js?v=<?= time() ?>"></script>
+<script src="<?= URL_APP ?>views/js/operaciones.js?v=<?= time() ?>"></script>
 
 
 

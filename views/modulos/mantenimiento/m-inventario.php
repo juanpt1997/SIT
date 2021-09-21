@@ -34,6 +34,7 @@
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
+            <hr class="my-4">
             <!-- ===================== 
               AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
             ========================= -->

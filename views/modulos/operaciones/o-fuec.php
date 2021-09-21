@@ -19,7 +19,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark ">FUEC</h1>
+                    <h1 class="m-0 text-dark "><b><i>FUEC</i></b></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -36,6 +36,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
+            <hr class="my-4">
             <div class="row">
                 <div class="col">
                     <!--BOTON NUEVO FUEC-->
