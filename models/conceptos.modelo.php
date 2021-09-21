@@ -278,14 +278,15 @@ class ModeloConceptosGH
 
     static public function mdlEditarRuta($datos)
     {
+        print_r($datos);
 
         $stmt = Conexion::conectar()->prepare("UPDATE v_rutas set nombreruta = :ruta, idorigen=:origen, iddestino=:destino
                                                WHERE id = :idruta");
 
-        $stmt->bindParam(":idruta", $datos["idruta"], PDO::PARAM_INT);
-        $stmt->bindParam(":ruta", $datos["ruta"], PDO::PARAM_STR);
-        $stmt->bindParam(":origen", $datos["origen"], PDO::PARAM_STR);
-        $stmt->bindParam(":destino", $datos["destino"], PDO::PARAM_STR);
+        $stmt->bindParam(":idruta", $datos["id"], PDO::PARAM_INT);
+        $stmt->bindParam(":ruta", $datos["origen"], PDO::PARAM_STR);
+        $stmt->bindParam(":origen", $datos["dato2"], PDO::PARAM_STR);
+        $stmt->bindParam(":destino", $datos["dato3"], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             $retorno = "ok";
