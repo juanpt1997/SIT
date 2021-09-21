@@ -45,37 +45,37 @@ $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
                 <div id="spinnerTablaPerfilSD" class="spinner-border" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
-                <div class="col-12 table-responsive">
+                <div class="col-12 table-responsive text-center">
                     <table id="tblPerfilSD" class="table table-sm text-sm table-light table-striped table-bordered tablasBtnExport w-100">
                         <thead class="text-capitalize text-nowrap" style="font-size: 13px;">
                             <tr>
-                                <th style="min-width:60px;">Id</th>
+                                <th style="min-width:90px;">Id</th>
                                 <th style="min-width:60px;">Consentimiento</th>
-                                <th style="min-width:60px;">Nombre</th>
+                                <th style="min-width:90px;">Nombre</th>
                                 <th style="min-width:60px;">Fecha ingreso</th>
                                 <th style="min-width:60px;">Tipo documento</th>
                                 <th style="min-width:60px;">Documento</th>
                                 <th style="min-width:60px;">Lugar exped.</th>
                                 <th style="min-width:60px;">Fec. nacimiento</th>
                                 <th style="min-width:60px;">Lugar nacim.</th>
-                                <th style="min-width:60px;">Edad</th>
+                                <th style="min-width:90px;">Edad</th>
                                 <th style="min-width:60px;">Lugar resid.</th>
-                                <th style="min-width:60px;">Direccion</th>
-                                <th style="min-width:60px;">Barrio</th>
+                                <th style="min-width:90px;">Direccion</th>
+                                <th style="min-width:90px;">Barrio</th>
                                 <th style="min-width:60px;">Estrato social</th>
-                                <th style="min-width:60px;">Telefono 1</th>
-                                <th style="min-width:60px;">Telefono 2</th>
+                                <th style="min-width:90px;">Telefono 1</th>
+                                <th style="min-width:90px;">Telefono 2</th>
                                 <th style="min-width:60px;">Correo</th>
-                                <th style="min-width:60px;">Eps</th>
-                                <th style="min-width:60px;">Afp</th>
-                                <th style="min-width:60px;">Arl</th>
-                                <th style="min-width:60px;">Escolaridad</th>
-                                <th style="min-width:60px;">Raza</th>
+                                <th style="min-width:90px;">Eps</th>
+                                <th style="min-width:90px;">Afp</th>
+                                <th style="min-width:90px;">Arl</th>
+                                <th style="min-width:90px;">Escolaridad</th>
+                                <th style="min-width:90px;">Raza</th>
                                 <th style="min-width:60px;">Pago segur. social</th>
-                                <th style="min-width:60px;">Cargo</th>
+                                <th style="min-width:90px;">Cargo</th>
                                 <th style="min-width:60px;">Turno trabajo</th>
-                                <th style="min-width:60px;">Área</th>
-                                <th style="min-width:60px;">Género</th>
+                                <th style="min-width:90px;">Área</th>
+                                <th style="min-width:90px;">Género</th>
                                 <th style="min-width:60px;">Tipo sangre</th>
                                 <th style="min-width:60px;">Salario básico</th>
                                 <th style="min-width:60px;">Beneficio fijo</th>
@@ -89,17 +89,17 @@ $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
                                 <th style="min-width:60px;">Personas a cargo</th>
                                 <th style="min-width:60px;">Ciudad</th>
                                 <th style="min-width:60px;">Departamento</th>
-                                <th style="min-width:60px;">Sucursal</th>
+                                <th style="min-width:90px;">Sucursal</th>
                                 <th style="min-width:60px;">Número licencia</th>
-                                <th style="min-width:60px;">Categoría</th>
+                                <th style="min-width:90px;">Categoría</th>
                                 <th style="min-width:60px;">Fecha vencim.</th>
                                 <?php for ($i = 0; $i < $CantidadColumnasHijos; $i++) : ?>
                                     <th style="min-width:60px;">Nombre hijo <?= $i + 1 ?></th>
                                     <th style="min-width:60px;">Fec. nacimiento</th>
-                                    <th style="min-width:60px;">Edad</th>
-                                    <th style="min-width:60px;">Género</th>
+                                    <th style="min-width:90px;">Edad</th>
+                                    <th style="min-width:90px;">Género</th>
                                 <?php endfor ?>
-                                <th style="min-width:60px;">Activo</th>
+                                <th style="min-width:90px;">Activo</th>
                             </tr>
                         </thead>
                         <tbody id="tbodyPerfilSD" style="font-size: 13px;">

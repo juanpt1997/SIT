@@ -695,11 +695,11 @@ class ModeloBloqueoP
         if ($value != null) {
 
             $stmt = Conexion::conectar()->prepare(" SELECT p.Nombre AS conductor, b.motivo, b.estado, b.fecha, b.idbloqueo, p.idPersonal ,u.Nombre AS nomUsuario 
-                                                    FROM v_bloqueopersonal b
+                                                    FROM gh_bloqueopersonal b
                                                         INNER JOIN gh_personal p ON p.idPersonal = b.idPersonal
                                                         INNER JOIN l_usuarios u ON u.Cedula = b.usuario
                                                         INNER JOIN 
-                                                            (SELECT MAX(idbloqueo) AS idbloqueo FROM v_bloqueopersonal GROUP BY idPersonal) 
+                                                            (SELECT MAX(idbloqueo) AS idbloqueo FROM gh_bloqueopersonal GROUP BY idPersonal) 
                                                                 T ON b.idbloqueo = T.idbloqueo 
                                                                 WHERE p.idPersonal = :personal");
 
@@ -709,11 +709,11 @@ class ModeloBloqueoP
         } else {
 
             $stmt = Conexion::conectar()->prepare(" SELECT p.Nombre AS conductor, b.motivo, b.estado, b.fecha, b.idbloqueo, p.idPersonal ,u.Nombre AS nomUsuario 
-                                                    FROM v_bloqueopersonal b
+                                                    FROM gh_bloqueopersonal b
                                                         INNER JOIN gh_personal p ON p.idPersonal = b.idPersonal
                                                         INNER JOIN l_usuarios u ON u.Cedula = b.usuario
                                                         INNER JOIN 
-                                                            (SELECT MAX(idbloqueo) AS idbloqueo FROM v_bloqueopersonal GROUP BY idPersonal) 
+                                                            (SELECT MAX(idbloqueo) AS idbloqueo FROM gh_bloqueopersonal GROUP BY idPersonal) 
                                                                 T ON b.idbloqueo = T.idbloqueo");
 
             $stmt->execute();
@@ -730,7 +730,7 @@ class ModeloBloqueoP
 
         $stmt = Conexion::conectar()->prepare("SELECT p.Nombre AS conductor, b.motivo, b.estado, b.fecha, b.idbloqueo, 
                                                       u.Nombre AS nomUsuario 
-                                                FROM v_bloqueopersonal b
+                                                FROM gh_bloqueopersonal b
                                                     INNER JOIN gh_personal p ON p.idPersonal = b.idPersonal
                                                     INNER JOIN l_usuarios u ON u.Cedula = b.usuario
                                                 WHERE b.idPersonal = :idper
@@ -748,7 +748,7 @@ class ModeloBloqueoP
     {
 
         $stmt = Conexion::conectar()->prepare("SELECT p.nombre AS conductor 
-                                               FROM v_bloqueopersonal b
+                                               FROM gh_bloqueopersonal b
                                                     INNER JOIN gh_personal p ON p.idPersonal = b.idPersonal
                                                WHERE b.idPersonal = :idper
                                                GROUP BY b.idPersonal");
@@ -763,7 +763,7 @@ class ModeloBloqueoP
     static public function mdlNuevoBloqueo($datos)
     {
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO v_bloqueopersonal(idPersonal,motivo,estado,fecha,usuario)
+        $stmt = Conexion::conectar()->prepare("INSERT INTO gh_bloqueopersonal(idPersonal,motivo,estado,fecha,usuario)
                                                 VALUES(:idPersonal,:motivo,:estado,:fecha,:usuario)");
 
         $stmt->bindParam(":idPersonal", $datos["conductorB"], PDO::PARAM_INT);

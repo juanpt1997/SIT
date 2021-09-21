@@ -121,8 +121,8 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
     });
 }
 
-if (window.location.href == `${urlPagina}v-bloqueo-personal/` ||
-    window.location.href == `${urlPagina}v-bloqueo-personal`
+if (window.location.href == `${urlPagina}gh-bloqueo-personal/` ||
+    window.location.href == `${urlPagina}gh-bloqueo-personal`
 ) {
 
     $(document).on("click", ".btnHistorial", function () {

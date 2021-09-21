@@ -536,7 +536,7 @@ class ControladorBloqueos
 					}).then((result)=>{
 
 						if(result.value){
-							window.location = 'v-bloqueo-personal';
+							window.location = 'gh-bloqueo-personal';
 						}
 
 					})
@@ -556,7 +556,7 @@ class ControladorBloqueos
 						}).then((result)=>{
 
 							if(result.value){
-								window.location = 'v-bloqueo-personal';
+								window.location = 'gh-bloqueo-personal';
 							}
 
 						})
@@ -574,7 +574,7 @@ class ControladorBloqueos
 						}).then((result)=>{
 
 							if(result.value){
-								window.location = 'v-bloqueo-personal';
+								window.location = 'gh-bloqueo-personal';
 							}
 
 						})
