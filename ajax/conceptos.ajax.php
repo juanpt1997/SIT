@@ -518,8 +518,8 @@ class AjaxConceptosGH
 				break;
 
 			case 'Rutas y recorridos':
-				$tabla = "rutas";
-				$item = "ruta";
+				$tabla = "v_rutas";
+				$item = "id";
 				break;
 			case 'Ciudades':
 				$tabla = "gh_municipios";
@@ -732,7 +732,7 @@ class AjaxConceptosGH
 	static public function EditarRuta($dato1, $dato2, $dato3, $id)
 	{
 		$datos = array(
-			"origen" => $dato1,
+			"origen" => $dato2,
 			"destino" => $dato2,
 			"ruta" => $dato3,
 			"idruta" => $id
@@ -744,22 +744,23 @@ class AjaxConceptosGH
 
 	static public function VerRutas()
 	{
+
 		$respuesta = ModeloConceptosGH::mdlListarRutas();
 		$tr = "";
 
 		foreach ($respuesta as $key => $value) {
 			$tr .= "
 			<tr>
-			<td>{$value["idruta"]}</td>
-			<td>{$value["origen"]}</td>
-			<td>{$value["destino"]}</td>
-			<td>{$value["ruta"]}</td>
+			<td>{$value["id"]}</td>
+			<td>{$value["orig"]}</td>
+			<td>{$value["dest"]}</td>
+			<td>{$value["nombreruta"]}</td>
 			<td> 
 			<div class='btn-group' role='group' aria-label='Button group'>
-			<button idregistro = '{$value["idruta"]}' dato1='{$value["origen"]}' dato2='{$value["destino"]}' dato3='{$value["ruta"]}' class='btn btn-sm btn-warning btnEditarRuta'><i class='fas fa-edit'></i></button>
+			<button idregistro = '{$value["id"]}' dato1='{$value["orig"]}' dato2='{$value["dest"]}' dato3='{$value["nombreruta"]}' class='btn btn-sm btn-warning btnEditarRuta'><i class='fas fa-edit'></i></button>
 			</div>
 			<div class='btn-group' role='group' aria-label='Button group'>
-			<button idregistro = '{$value["idruta"]}' valor-cambio = '0' concepto = 'Rutas y recorridos' class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button>
+			<button idregistro = '{$value["id"]}' valor-cambio = '0' concepto = 'Rutas y recorridos' class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button>
 			</div>
 			</td>
 			</tr>

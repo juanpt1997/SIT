@@ -87,3 +87,15 @@ class ControladorCiudades
 		return $respuesta;
 	}
 }
+
+class ControladorRutas
+{
+	static public function ctrCrearRuta($datos)
+    {
+        $respuesta = ModeloConceptosGH::AgregarRuta($datos);
+        return $respuesta;
+    }
+
+
+	
+}

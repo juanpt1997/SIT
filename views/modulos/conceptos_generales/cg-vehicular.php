@@ -1,4 +1,7 @@
-
+<?php
+$DeparMunicipios = ControladorGH::ctrDeparMunicipios();
+//$CrearRura=Conceptos.controlador::ctrCrearRuta(),
+?>
 <!-- ===================== 
   CONCEPTOS GENERALES - Vehicular (modulo)
   ========================= --> 
@@ -53,15 +56,15 @@
                                     <!-- /.info-box -->
                                 </div>
 
-                                <!-- <div class="col-12 col-sm-6 col-md-3">
+                                 <div class="col-12 col-sm-6 col-md-3">
                                     <div class="info-box border border-secondary">
                                       <span class="info-box-icon bg-info elevation-1"><i class="fas fa-road"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text"><i>Rutas y recorridos</i></span>
                                             <span class="info-box-number" concepto="Rutas y recorridos"></span>        
-                                        </div> -->
+                                        </div> 
                                         <!-- /.info-box-content -->
-                                            <!-- <div>
+                                          <div>
                                                 <button concepto="Rutas y recorridos" type="button" class="btn-toolbar btn-ver-ruta btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarRutas"><i class="far fa-eye"></i></button>
                                                 <button concepto="Rutas y recorridos" type="button" class="btn-toolbar btn-nueva-ruta btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarRuta" id="btn-tausentismo"><i class="fas fa-plus-circle"></i></button>  
                                             </div>
@@ -69,9 +72,9 @@
                                             <div class="overlay d-none" concepto="Rutas y recorridos">
                                                 <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                                             </div>
-                                    </div> -->
+                                    </div> 
                                     <!-- /.info-box -->
-                                <!-- </div> -->
+                                < </div>  
 
                                 <!-- <div class="col-12 col-sm-6 col-md-3">
                                     <div class="info-box border border-secondary">
@@ -476,7 +479,12 @@
                                         <i class="fas fa-address-card"></i>
                                     </span>
                                 </div>
-                                <input class="form-control" type="text" id="origen" name="origen" required>
+                                 <select   class="form-control select2-single" style="width: 90%" id="origen" name="origen" required>
+                                                <option value="" selected>DEPARTAMENTO - MUNICIPIO</option>
+                                                <?php foreach ($DeparMunicipios as $key => $value) : ?>
+                                                    <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
+                                                <?php endforeach ?>
+                                            </select>
                             </div>
                         </div>
 
@@ -488,12 +496,17 @@
                                         <i class="fas fa-address-card"></i>
                                     </span>
                                 </div>
-                                <input class="form-control" type="text" id="destino" name="destino" required>
+                                  <select   class="form-control select2-single" style="width: 90%" id="id_destino" name="id_destino" required>
+                                                <option value="" selected>DEPARTAMENTO - MUNICIPIO</option>
+                                                <?php foreach ($DeparMunicipios as $key => $value) : ?>
+                                                    <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
+                                                <?php endforeach ?>
+                                            </select>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label>Ruta</label>
+                            <label>Descripcion</label>
                             <div class="input-group">
                                 <div class="input-group-append">
                                     <span class="input-group-text">
