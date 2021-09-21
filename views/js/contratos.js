@@ -104,6 +104,43 @@ if (
     window.location.href == `${urlPagina}contratos-cotizaciones`
 ) {
     $(document).ready(function () {
+        /* ===================================================
+          INICIALIZAR DATATABLE CON FILTRO AVANZADO
+        ===================================================*/
+        let TablaCotizaciones = () => {
+            /* ===================================================
+              FILTRAR POR COLUMNA
+            ===================================================*/
+            /* Filtrar por columna */
+            //Clonar el tr del thead
+            $(`#tblCotizaciones thead tr`).clone(true).appendTo(`#tblCotizaciones thead`);
+            //Por cada th creado hacer lo siguiente
+            $(`#tblCotizaciones thead tr:eq(1) th`).each(function (i) {
+                //Remover clase sorting y el evento que tiene cuando se hace click
+                $(this).removeClass("sorting").unbind();
+                //Agregar input de busqueda
+                $(this).html('<input class="form-control" type="text" placeholder="Buscar"/>');
+                //Evento para detectar cambio en el input y buscar
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                            .column(i)
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+
+            /* ===================================================
+            INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+            ===================================================*/
+            var buttons = [
+                { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+            ];
+            var table = dataTableCustom(`#tblCotizaciones`, buttons);
+        }
+        TablaCotizaciones();
+
         var ActualizoListaClientes = true;
         $(document).on("click", ".btn-editarcotizacion", function () {
             ActualizoListaClientes = false;
@@ -224,9 +261,9 @@ if (
 
         $(document).on("change", "#listaclientes", function () {
             // CONDICION PARA QUE OCURRA UNICAMENTE CUANDO EL USUARIO SELECCIONE UN CLIENTE Y ESTA NO SE MODIFIQUE CUANDO ABRA LA MODAL POR EDITAR
-            if (ActualizoListaClientes){
+            if (ActualizoListaClientes) {
                 var id = $(this).val();
-    
+
                 if (id != "") {
                     var datos = new FormData();
                     datos.append("DatosClientes", "ok");
@@ -257,7 +294,7 @@ if (
                         },
                     });
                 }
-            }else{
+            } else {
                 ActualizoListaClientes = true;
             }
         });

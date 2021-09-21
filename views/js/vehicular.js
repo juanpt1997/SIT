@@ -1455,26 +1455,25 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                     /* ===================================================
                       FILTRAR POR COLUMNA
                     ===================================================*/
-                    // /* Filtrar por columna */
-                    // //Clonar el tr del thead
-                    // $(`#tbl${nombreTabla} thead tr`).clone(true).appendTo(`#tbl${nombreTabla} thead`);
-                    // //Por cada th creado hacer lo siguiente
-                    // $(`#tbl${nombreTabla} thead tr:eq(1) th`).each(function (i) {
-                    //     console.log("y luego aca");
-                    //     //Remover clase sorting y el evento que tiene cuando se hace click
-                    //     $(this).removeClass("sorting").unbind();
-                    //     //Agregar input de busqueda
-                    //     $(this).html('<input class="form-control" type="text" placeholder="Buscar"/>');
-                    //     //Evento para detectar cambio en el input y buscar
-                    //     $('input', this).on('keyup change', function () {
-                    //         if (table.column(i).search() !== this.value) {
-                    //             table
-                    //                 .column(i)
-                    //                 .search(this.value)
-                    //                 .draw();
-                    //         }
-                    //     });
-                    // });
+                    /* Filtrar por columna */
+                    //Clonar el tr del thead
+                    $(`#tbl${nombreTabla} thead tr`).clone(true).appendTo(`#tbl${nombreTabla} thead`);
+                    //Por cada th creado hacer lo siguiente
+                    $(`#tbl${nombreTabla} thead tr:eq(1) th`).each(function (i) {
+                        //Remover clase sorting y el evento que tiene cuando se hace click
+                        $(this).removeClass("sorting").unbind();
+                        //Agregar input de busqueda
+                        $(this).html('<input class="form-control" type="text" placeholder="Buscar"/>');
+                        //Evento para detectar cambio en el input y buscar
+                        $('input', this).on('keyup change', function () {
+                            if (table.column(i).search() !== this.value) {
+                                table
+                                    .column(i)
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                    });
 
                     /* ===================================================
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
@@ -1483,6 +1482,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                         { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
                     ];
                     var table = dataTableCustom(`#tbl${nombreTabla}`, buttons);
+
                 }
             });
         }

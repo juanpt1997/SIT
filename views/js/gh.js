@@ -1370,6 +1370,29 @@ if (
                     }
 
                     /* ===================================================
+                      FILTRAR POR COLUMNA
+                    ===================================================*/
+                    /* Filtrar por columna */
+                    //Clonar el tr del thead
+                    $(`#tblPagoSS thead tr`).clone(true).appendTo(`#tblPagoSS thead`);
+                    //Por cada th creado hacer lo siguiente
+                    $(`#tblPagoSS thead tr:eq(1) th`).each(function (i) {
+                        //Remover clase sorting y el evento que tiene cuando se hace click
+                        $(this).removeClass("sorting").unbind();
+                        //Agregar input de busqueda
+                        $(this).html('<input class="form-control" type="text" placeholder="Buscar"/>');
+                        //Evento para detectar cambio en el input y buscar
+                        $('input', this).on('keyup change', function () {
+                            if (table.column(i).search() !== this.value) {
+                                table
+                                    .column(i)
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                    });
+
+                    /* ===================================================
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
                     var buttons = [
@@ -1377,7 +1400,7 @@ if (
                         { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
                         /* 'copy', 'csv', 'excel', 'pdf', 'print' */
                     ];
-                    dataTableCustom(`#tblPagoSS`, buttons);
+                    var table = dataTableCustom(`#tblPagoSS`, buttons);
                 }
             });
         }
