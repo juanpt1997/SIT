@@ -481,7 +481,11 @@ if (
                     /* ===================================================
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
-                    dataTable("#tblHijos");
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#tblHijos`, buttons);
+                    //dataTable("#tblHijos");
                 }
             });
         }
