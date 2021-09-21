@@ -18,12 +18,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark ">Inventario Vehicular</h1>
+                    <h1 class="m-0 text-dark "><b><i>Inventario Vehicular</i></b></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="inicio">Inicio</a></li>
-                        <li class="breadcrumb-item active">Plantilla</li>
+                        <li class="breadcrumb-item active">Inventario vehicular</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -71,118 +71,200 @@
 
                                                 <div class="col col-lg">
 
-                                                    <div class="form-group">
-                                                        <label for="exampleSelectRounded0">Seleccione tipo de vehiculo</label>
-                                                        <select class="custom-select rounded-0" id="selectbusocamioneta" name="selectbusocamioneta">
-                                                            <option>Bus - Buseta</option>
-                                                            <option>Camioneta - Microbus</option>
-                                                        </select>
-                                                    </div>
-
                                                     <!-- /.ESTE ES EL TAB MADRE DEL CUESTIONARIO-->
                                                     <div class="tab-content table-responsive" id="vert-tabs-tabContent">
                                                         <div class="tab-pane text-left fade active show" id="vert-tabs-homesaman" role="tabpanel" aria-labelledby="vert-tabs-homesaman-tab">
-                                                            <table class="table table-bordered text-center text-nowrap">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td colspan="13">
-                                                                            <h4>INVENTARIO DE VEHÍCULO</h4>
-                                                                        </td>
-                                                                        <td colspan="4">Codigo: GH-FR-04 <br> Version: 2</td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td colspan="5">
-                                                                            <label>Numero interno</label>
-                                                                            <div class="col">
-                                                                                <input type="text" class="form-control" placeholder="Numero interno:" id="Numero_interno" name="Numero_interno">
-                                                                            </div>
-                                                                        </td>
-                                                                        <td colspan="5">
-                                                                            <label>Marca</label>
-                                                                            <div class="col">
-                                                                                <input type="text" class="form-control" placeholder="Marca:" id="marca" name="marca">
-                                                                            </div>
-                                                                        </td>
-                                                                        <td colspan="3">
-                                                                            <label>Clase de Vehículo</label>
-                                                                            <div class="col">
-                                                                                <input type="text" class="form-control" placeholder="Clade de Vehiculo" id="clasevehiculo" name="clasevehiculo">
-                                                                            </div>
-                                                                        </td>
-                                                                        <td colspan="4">
-                                                                            <label>Fecha</label>
-                                                                            <div class="col">
-                                                                                <input type="date" class="form-control" placeholder="Fecha" id="fecha" name="fecha">
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td colspan="5">
-                                                                            <label>Placa</label>
-                                                                            <div class="col">
-                                                                                <input type="text" class="form-control" placeholder="Placa:" id="placa" name="placa">
-                                                                            </div>
-                                                                        </td>
-                                                                        <td colspan="5">
-                                                                            <label>Modelo</label>
-                                                                            <div class="col">
-                                                                                <input type="text" class="form-control" placeholder="Modelo:" id="modelo" name="modelo">
-                                                                            </div>
-                                                                        </td>
-                                                                        <td colspan="3">
-                                                                            <label>Kilometraje</label>
-                                                                            <div class="col">
-                                                                                <input type="text" class="form-control" placeholder="Kilometraje:" id="kilometraje" name="kilometraje">
-                                                                            </div>
-                                                                        </td>
-                                                                        <td><b>Entrega de vehículo</b></td>
-                                                                        <td>
-                                                                            <div class="custom-control custom-checkbox">
-                                                                                <input class="custom-control-input" type="checkbox" id="entregaveh" name="entregaveh" value="option1">
-                                                                                <label for="entregaveh" class="custom-control-label"></label>
-                                                                            </div>
-                                                                        </td>
-                                                                        <td><b>Recepción de vehículo</b></td>
-                                                                        <td>
-                                                                            <div class="custom-control custom-checkbox">
-                                                                                <input class="custom-control-input" type="checkbox" id="recepveh" name="recepveh" value="option1">
-                                                                                <label for="recepveh" class="custom-control-label"></label>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
 
-                                                                    <tr>
-                                                                        <td colspan="6">
-                                                                            <label>Conductor</label>
-                                                                            <div class="col">
-                                                                                <input type="text" class="form-control" placeholder="Ingrese nombre conductor" id="conductor" name="conductor">
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <div class="input-group">
+                                                                        <h4><b><i>Codigo: GH-FR-04 </i></b><small><b>Version: 2</b></small></h4>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <form action="">
+
+                                                                <div class="row">
+                                                                    <div class="col">
+                                                                        <div class="col">
+                                                                            <div class="form-group">
+                                                                                <label for="tipo_vel">Tipo</label>
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                        <span class="input-group-text"><i class="fas fa-bus"></i></span>
+                                                                                    </div>
+                                                                                    <select id="tipo_vel" class="form-control" name="tipo_vel">
+                                                                                        <option>-Seleccione el tipo de vehículo-</option>
+                                                                                    </select>
+                                                                                </div>
                                                                             </div>
-                                                                        </td>
-                                                                        <td colspan="6">
-                                                                            <label>Categoría licencia</label>
-                                                                            <div class="col">
-                                                                                <input type="text" class="form-control" placeholder="Ingrese categoria" id="categolicencia" name="categolicencia">
+                                                                        </div>
+
+                                                                        <div class="col">
+                                                                            <div class="form-group">
+                                                                                <label for="">Placa</label>
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                        <span class="input-group-text"><i class="fas fa-digital-tachograph"></i></span>
+                                                                                    </div>
+                                                                                    <select id="placa_invent" class="form-control" name="placa_invent">
+                                                                                        <option>-Seleccione la placa deseada-</option>
+                                                                                    </select>
+                                                                                </div>
                                                                             </div>
-                                                                        </td>
-                                                                        <td colspan="5">
-                                                                            <label>Vencimiento licencia</label>
-                                                                            <div class="col">
-                                                                                <input type="date" class="form-control" id="vencilicencia" name="vencilicencia">
+                                                                        </div>
+
+                                                                        <div class="col">
+                                                                            <div class="form-group">
+                                                                                <label for="numinter_invent">Num. interno</label>
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                        <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
+                                                                                    </div>
+                                                                                    <input class="form-control" type="text" id="numinter_invent" name="numinter_invent">
+                                                                                </div>
                                                                             </div>
-                                                                        </td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
+                                                                        </div>
+
+                                                                        <div class="col">
+                                                                            <div class="form-group">
+                                                                                <label for="marca_invent">Marca</label>
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                        <span class="input-group-text"><i class="far fa-registered"></i></span>
+                                                                                    </div>
+                                                                                    <input class="form-control" type="text" id="marca_invent" name="marca_invent">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col">
+                                                                            <div class="form-group">
+                                                                                <label for="modelo_invent">Modelo</label>
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                        <span class="input-group-text"><i class="fas fa-bus"></i></span>
+                                                                                    </div>
+                                                                                    <input class="form-control" type="text" id="modelo_invent" name="modelo_invent">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col">
+                                                                            <div class="form-group">
+                                                                                <label for="kilo_invent">Kilometraje</label>
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                        <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
+                                                                                    </div>
+                                                                                    <input class="form-control" type="text" id="kilo_invent" name="kilo_invent">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col">
+                                                                            <div class="form-group">
+                                                                                <label for="fecha_invent">Fecha</label>
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                        <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
+                                                                                    </div>
+                                                                                    <input class="form-control" type="date" id="fecha_invent" name="fecha_invent">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col">
+
+                                                                        <div class="col">
+                                                                            <div class="form-group">
+                                                                                <label for="conductor_invent">Conductor</label>
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                        <span class="input-group-text"><i class="fas fa-id-card-alt"></i></span>
+                                                                                    </div>
+                                                                                    <input class="form-control" type="text" id="conductor_invent" name="conductor_invent">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col">
+                                                                            <div class="form-group">
+                                                                                <label for="categoria_invent">Categoria licencia</label>
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                        <span class="input-group-text"><i class="far fa-list-alt"></i></span>
+                                                                                    </div>
+                                                                                    <input class="form-control" type="text" id="categoria_invent" name="categoria_invent">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col">
+                                                                            <div class="form-group">
+                                                                                <label for="vencimineto_inventario">Vencimiento licencia</label>
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                        <span class="input-group-text"><i class="far fa-calendar-times"></i></span>
+                                                                                    </div>
+                                                                                    <input class="form-control" type="text" id="vencimineto_inventario" name="vencimineto_inventario">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col">
+                                                                            <div class="form-group">
+                                                                                <label for="entrega_invent">Entrega de vehículo</label>
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                        <span class="input-group-text"><i class="far fa-address-card"></i></span>
+                                                                                    </div>
+                                                                                    <input class="form-control" type="text" id="entrega_invent" name="entrega_invent">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col">
+                                                                            <div class="form-group">
+                                                                                <label for="recep_invent">Recepción de vehículo</label>
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                        <span class="input-group-text"><i class="far fa-address-card"></i></span>
+                                                                                    </div>
+                                                                                    <input class="form-control" type="text" id="recep_invent" name="recep_invent">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col">
+                                                                            <div class="form-group">
+                                                                                <label for="clase_invent">Clase vehículo</label>
+                                                                                <div class="input-group">
+                                                                                    <div class="input-group-prepend">
+                                                                                        <span class="input-group-text"><i class="fas fa-window-maximize"></i></span>
+                                                                                    </div>
+                                                                                    <input class="form-control" type="text" id="clase_invent" name="clase_invent">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+
+                                                            <hr class="my-4 bg-dark">
+
                                                             <div class="row">
                                                                 <div class="col">
                                                                     <div class="card card-info card-tabs">
                                                                         <div class="card-header p-0 pt-1">
                                                                             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist" style="text-decoration: none;">
                                                                                 <li class="nav-item">
-                                                                                    <a class="nav-link active" id="custom-tabs-one-lamina-tab" data-toggle="pill" href="#custom-tabs-one-lamina" role="tab" aria-controls="custom-tabs-one-lamina" aria-selected="true">Lamina</a>
+                                                                                    <a class="nav-link active" id="custom-tabs-one-lamina-tab" data-toggle="pill" href="#custom-tabs-one-lamina" role="tab" aria-controls="custom-tabs-one-lamina" aria-selected="true">Lámina</a>
                                                                                 </li>
                                                                                 <li class="nav-item">
-                                                                                    <a class="nav-link" id="custom-tabs-one-vidriosespejos-tab" data-toggle="pill" href="#custom-tabs-one-vidriosespejos" role="tab" aria-controls="custom-tabs-one-vidriosespejos" aria-selected="false">Vidrios y Espejos</a>
+                                                                                    <a class="nav-link" id="custom-tabs-one-vidriosespejos-tab" data-toggle="pill" href="#custom-tabs-one-vidriosespejos" role="tab" aria-controls="custom-tabs-one-vidriosespejos" aria-selected="false">Vidrios y espejos</a>
                                                                                 </li>
                                                                                 <li class="nav-item">
                                                                                     <a class="nav-link" id="custom-tabs-one-luces-tab" data-toggle="pill" href="#custom-tabs-one-luces" role="tab" aria-controls="custom-tabs-one-luces" aria-selected="false">Luces</a>
@@ -191,10 +273,10 @@
                                                                                     <a class="nav-link" id="custom-tabs-one-llantas-tab" data-toggle="pill" href="#custom-tabs-one-llantas" role="tab" aria-controls="custom-tabs-one-llantas" aria-selected="false">Llantas</a>
                                                                                 </li>
                                                                                 <li class="nav-item">
-                                                                                    <a class="nav-link" id="custom-tabs-one-preveseguridad-tab" data-toggle="pill" href="#custom-tabs-one-preveseguridad" role="tab" aria-controls="custom-tabs-one-preveseguridad" aria-selected="false">Prevencion y Seguridad</a>
+                                                                                    <a class="nav-link" id="custom-tabs-one-preveseguridad-tab" data-toggle="pill" href="#custom-tabs-one-preveseguridad" role="tab" aria-controls="custom-tabs-one-preveseguridad" aria-selected="false">Prevención y Seguridad</a>
                                                                                 </li>
                                                                                 <li class="nav-item">
-                                                                                    <a class="nav-link" id="custom-tabs-one-documentosveh-tab" data-toggle="pill" href="#custom-tabs-one-documentosveh" role="tab" aria-controls="custom-tabs-one-documentosveh" aria-selected="false">Documentos Vehiculo</a>
+                                                                                    <a class="nav-link" id="custom-tabs-one-documentosveh-tab" data-toggle="pill" href="#custom-tabs-one-documentosveh" role="tab" aria-controls="custom-tabs-one-documentosveh" aria-selected="false">Documentos vehículo</a>
                                                                                 </li>
                                                                                 <li class="nav-item">
                                                                                     <a class="nav-link" id="custom-tabs-one-extintor-tab" data-toggle="pill" href="#custom-tabs-one-extintor" role="tab" aria-controls="custom-tabs-one-extintor" aria-selected="false">Extintor</a>
@@ -221,7 +303,7 @@
                                                                                                     <table class="table table-bordered text-center text-nowrap">
                                                                                                         <tbody>
                                                                                                             <tr>
-                                                                                                                <td colspan="2"><b>LAMINAS</b></td>
+                                                                                                                <td colspan="2"><b>LÁMINAS</b></td>
                                                                                                                 <td style="width: 15px;">Bueno</td>
                                                                                                                 <td style="width: 15px;">Rayado</td>
                                                                                                                 <td style="width: 15px;">Golpe</td>
@@ -238,7 +320,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Techo_exterior4" name="Techo_exterior" value="4">
                                                                                                                         <label for="Techo_exterior4">
                                                                                                                         </label>
@@ -256,7 +338,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">2.</td>
                                                                                                                 <td>Techo interior</td>
-                                                                                                               <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Techo_interior1" name="Techo_interior" value="1">
                                                                                                                         <label for="Techo_interior1">
@@ -264,14 +346,14 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Techo_interior4" name="Techo_interior" value="4">
                                                                                                                         <label for="Techo_interior4">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="icheck-danger d-inline"> 
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Techo_interior5" name="Techo_interior" value="5">
                                                                                                                         <label for="Techo_interior5">
                                                                                                                         </label>
@@ -282,7 +364,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">3.</td>
                                                                                                                 <td>Frente</td>
-                                                                                                               <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Frente1" name="Frente" value="1">
                                                                                                                         <label for="Frente1">
@@ -290,14 +372,14 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Frente4" name="Frente" value="4">
                                                                                                                         <label for="Frente4">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="icheck-danger d-inline"> 
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Frente5" name="Frente" value="5">
                                                                                                                         <label for="Frente5">
                                                                                                                         </label>
@@ -308,7 +390,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">4.</td>
                                                                                                                 <td>Bomper delantero</td>
-                                                                                                                 <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Bomper_delantero1" name="Bomper_delantero" value="1">
                                                                                                                         <label for="Bomper_delantero1">
@@ -316,14 +398,14 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Bomper_delantero4" name="Bomper_delantero" value="4">
                                                                                                                         <label for="Bomper_delantero4">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="icheck-danger d-inline"> 
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Bomper_delantero5" name="Bomper_delantero" value="5">
                                                                                                                         <label for="Bomper_delantero5">
                                                                                                                         </label>
@@ -342,14 +424,14 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Bomper_trasero4" name="Bomper_trasero" value="4">
                                                                                                                         <label for="Bomper_trasero4">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="icheck-danger d-inline"> 
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Bomper_trasero5" name="Bomper_trasero" value="5">
                                                                                                                         <label for="Bomper_trasero5">
                                                                                                                         </label>
@@ -368,14 +450,14 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Lateral_derecho4" name="Lateral_derecho" value="4">
                                                                                                                         <label for="Lateral_derecho4">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="icheck-danger d-inline"> 
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Lateral_derecho5" name="Lateral_derecho" value="5">
                                                                                                                         <label for="Lateral_derecho5">
                                                                                                                         </label>
@@ -386,7 +468,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">7.</td>
                                                                                                                 <td>Lateral izquierdo</td>
-                                                                                                                    <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Lateral_izquierdo1" name="Lateral_izquierdo" value="1">
                                                                                                                         <label for="Lateral_izquierdo1">
@@ -394,14 +476,14 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Lateral_izquierdo4" name="Lateral_izquierdo" value="4">
                                                                                                                         <label for="Lateral_izquierdo4">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="icheck-danger d-inline"> 
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Lateral_izquierdo5" name="Lateral_izquierdo" value="5">
                                                                                                                         <label for="Lateral_izquierdo5">
                                                                                                                         </label>
@@ -412,7 +494,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">8.</td>
                                                                                                                 <td>Puerta derecha</td>
-                                                                                                                                     <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Puerta_derecho1" name="Puerta_derecho" value="1">
                                                                                                                         <label for="Puerta_derecho1">
@@ -420,14 +502,14 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Puerta_derecho4" name="Puerta_derecho" value="4">
                                                                                                                         <label for="Puerta_derecho4">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="icheck-danger d-inline"> 
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Puerta_derecho5" name="Puerta_derecho" value="5">
                                                                                                                         <label for="Puerta_derecho5">
                                                                                                                         </label>
@@ -438,7 +520,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">9.</td>
                                                                                                                 <td>Puerta izquierda</td>
-                                                                                                                 <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Puerta_izquierda1" name="Puerta_izquierda" value="1">
                                                                                                                         <label for="Puerta_izquierda1">
@@ -446,14 +528,14 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Puerta_izquierda4" name="Puerta_izquierda" value="4">
                                                                                                                         <label for="Puerta_izquierda4">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="icheck-danger d-inline"> 
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Puerta_izquierda5" name="Puerta_izquierda" value="5">
                                                                                                                         <label for="Puerta_izquierda5">
                                                                                                                         </label>
@@ -487,14 +569,14 @@
                                                                                                                 <td style="width: 10px;">10.</td>
                                                                                                                 <td>Parabrisas izquierdo</td>
                                                                                                                 <td>
-                                                                                                                 <div class="icheck-success d-inline">
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="parabrisas_izquierdo1" name="parabrisas_izquierdo" value="1">
                                                                                                                         <label for="parabrisas_izquierdo1">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                 <div class="icheck-success d-inline">
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="parabrisas_izquierdo2" name="parabrisas_izquierdo" value="0">
                                                                                                                         <label for="parabrisas_izquierdo2">
                                                                                                                         </label>
@@ -506,7 +588,7 @@
                                                                                                                 <td style="width: 10px;">11.</td>
                                                                                                                 <td>Parabrisas derecho</td>
                                                                                                                 <td>
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="parabrisas_derecho1" name="parabrisas_derecho" value="1">
                                                                                                                         <label for="parabrisas_derecho1">
                                                                                                                         </label>
@@ -544,7 +626,7 @@
                                                                                                                 <td style="width: 10px;">13.</td>
                                                                                                                 <td>Espejo retrovisor izquierdo</td>
                                                                                                                 <td>
-                                                                                                                 <div class="icheck-success d-inline">
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Espejo_retrovisor_izquierdo1" name="Espejo_retrovisor_izquierdo" value="1">
                                                                                                                         <label for="Espejo_retrovisor_izquierdo1">
                                                                                                                         </label>
@@ -574,15 +656,15 @@
                                                                                                                         <input type="radio" id="Vidrios_ventanas_lateral_derecho2" name="Vidrios_ventanas_lateral_derecho" value="0">
                                                                                                                         <label for="Vidrios_ventanas_lateral_derecho2">
                                                                                                                         </label>
-                                                                                                                    </div>                              
-                                                                                                                 </td>
+                                                                                                                    </div>
+                                                                                                                </td>
                                                                                                             </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">15.</td>
                                                                                                                 <td>Vidrios ventanas lateral izquierdo</td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-success d-inline">
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Vidrios_ventanas_lateral_izquierdo1" name="Vidrios_ventanas_lateral_izquierdo" value="1">
                                                                                                                         <label for="Vidrios_ventanas_lateral_izquierdo1">
                                                                                                                         </label>
@@ -601,7 +683,7 @@
                                                                                                                 <td style="width: 10px;">16.</td>
                                                                                                                 <td>Parabrisas trasero</td>
                                                                                                                 <td>
-                                                                                                                  <div class="icheck-success d-inline">
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Parabrisas_trasero1" name="Parabrisas_trasero" value="1">
                                                                                                                         <label for="Parabrisas_ trasero1">
                                                                                                                         </label>
@@ -627,7 +709,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Vidrios_puertas2" name="Vidrios_puertas" value="0">
                                                                                                                         <label for="Vidrios_puertas2">
                                                                                                                         </label>
@@ -660,7 +742,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">18.</td>
                                                                                                                 <td>Direccional delantera izquierda</td>
-                                                                                                              <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Direccional_izquierda1" name="Direccionalelantera_izquierda" value="1">
                                                                                                                         <label for="Direccional_izquierda1">
@@ -668,7 +750,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Direccional_izquierda4" name="Direccionalelantera_izquierda" value=" 0">
                                                                                                                         <label for="Direccional_izquierda4">
                                                                                                                         </label>
@@ -686,7 +768,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">19.</td>
                                                                                                                 <td>Direccional delantera derecha</td>
-                                                                                                                     <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Direccional_derecha1" name="Direccional_elantera_derecha" value="1">
                                                                                                                         <label for="Direccional_derecha1">
@@ -694,7 +776,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Direccional_derecha4" name="Direccional_elantera_derecha" value=" 0">
                                                                                                                         <label for="Direccional_derecha4">
                                                                                                                         </label>
@@ -720,7 +802,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Stop_trasero_derecho4" name="Stop_trasero_derecho" value=" 0">
                                                                                                                         <label for="Stop_trasero_derecho4">
                                                                                                                         </label>
@@ -738,7 +820,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">21.</td>
                                                                                                                 <td>Stop trasero izquierdo</td>
-                                                                                                                  <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Stop_trasero_izquierdo1" name="Stop_trasero_izquierdo" value="1">
                                                                                                                         <label for="Stop_trasero_izquierdo1">
@@ -746,7 +828,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Stop_trasero_izquierdo4" name="Stop_trasero_izquierdo" value=" 0">
                                                                                                                         <label for="Stop_trasero_izquierdo4">
                                                                                                                         </label>
@@ -764,7 +846,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">22.</td>
                                                                                                                 <td>Cucuyo lateral derecho</td>
-                                                                                                                 <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Cucuyo_lateral_derecho1" name="Cucuyo_lateral_derecho" value="1">
                                                                                                                         <label for="Cucuyo_lateral_derecho1">
@@ -772,7 +854,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Cucuyo_lateral_derecho4" name="Cucuyo_lateral_derecho" value=" 0">
                                                                                                                         <label for="Cucuyo_lateral_derecho4">
                                                                                                                         </label>
@@ -790,7 +872,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">23.</td>
                                                                                                                 <td>Cucuyo lateral izquierdo</td>
-                                                                                                                 <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Cucuyo_lateral_izquierdo1" name="Cucuyo_lateral_izquierdo" value="1">
                                                                                                                         <label for="Cucuyo_lateral_izquierdo1">
@@ -798,7 +880,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Cucuyo_lateral_izquierdo4" name="Cucuyo_lateral_izquierdo" value=" 0">
                                                                                                                         <label for="Cucuyo_lateral_izquierdo4">
                                                                                                                         </label>
@@ -826,21 +908,21 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                     <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Luces_internas1" name="Luces_internas" value="1">
                                                                                                                         <label for="Luces_internas1">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                     <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Luces_internas4" name="Luces_internas" value="0">
                                                                                                                         <label for="Luces_internas4">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Luces_internas5" name="Luces_internas" value="2">
                                                                                                                         <label for="Luces_internas5">
                                                                                                                         </label>
@@ -851,22 +933,22 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">25.</td>
                                                                                                                 <td>Balizas ( Licuadoras )</td>
-                                                                                                               <td>
-                                                                                                                     <div class="icheck-danger d-inline">
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Balizas1" name="Balizas" value="1">
                                                                                                                         <label for="Balizas1">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                     <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Balizas4" name="Balizas" value="0">
                                                                                                                         <label for="Balizas4">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Balizas5" name="Balizas" value="2">
                                                                                                                         <label for="Balizas5">
                                                                                                                         </label>
@@ -900,21 +982,21 @@
                                                                                                                 <td style="width: 10px;">26.</td>
                                                                                                                 <td>Delantera izquierda ( R1 )</td>
                                                                                                                 <td>
-                                                                                                                     <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Delantera_izquierda_R11" name="Delantera_izquierda_R1" value="3">
                                                                                                                         <label for="Delantera_izquierda_R11">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Delantera_izquierda_R14" name="Delantera_izquierda_R1" value="1">
                                                                                                                         <label for="Delantera_izquierda_R14">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Delantera_izquierda_R15" name="Delantera_izquierda_R1" value="0">
                                                                                                                         <label for="Delantera_izquierda_R15">
                                                                                                                         </label>
@@ -926,22 +1008,22 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">27.</td>
                                                                                                                 <td>Delantera derecha ( R2 )</td>
-                                                                                                                 <td>
-                                                                                                                     <div class="icheck-danger d-inline">
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Delantera_derecha_R21" name="Delantera_izquierda_R2" value="3">
                                                                                                                         <label for="Delantera_derecha_R21">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Delantera_izquierda_R24" name="Delantera_izquierda_R2" value="1">
                                                                                                                         <label for="Delantera_izquierda_R24">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Delantera_izquierda_R25" name="Delantera_izquierda_R2" value="0">
                                                                                                                         <label for="Delantera_izquierda_R25">
                                                                                                                         </label>
@@ -952,15 +1034,15 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">28.</td>
                                                                                                                 <td>Trasera interior izquierda ( R3 )</td>
-                                                                                                           <td>
-                                                                                                                     <div class="icheck-danger d-inline">
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Trasera_interior_izquierda_R31" name="Trasera_interior_izquierda_R3" value="3">
                                                                                                                         <label for="Trasera_interior_izquierda_R31">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Trasera_interior_izquierda_R34" name="Trasera_interior_izquierda_R3" value="1">
                                                                                                                         <label for="Trasera_interior_izquierda_R34">
                                                                                                                         </label>
@@ -978,15 +1060,15 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">29.</td>
                                                                                                                 <td>Trasera exterior izquierda ( R4 )</td>
-                                                                                                             <td>
-                                                                                                                     <div class="icheck-danger d-inline">
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Trasera_exterior_izquierda_R41" name="Trasera_exterior_izquierda_R4" value="3">
                                                                                                                         <label for="Trasera_exterior_izquierda_R41">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Trasera_exterior_izquierda_R44" name="Trasera_exterior_izquierda_R4" value="1">
                                                                                                                         <label for="Trasera_exterior_izquierda_R44">
                                                                                                                         </label>
@@ -1004,15 +1086,15 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">30.</td>
                                                                                                                 <td>Trasera interior derecha ( R5 )</td>
-                                                                                                             <td>
-                                                                                                                     <div class="icheck-danger d-inline">
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Trasera_interior_derecha_R51" name="Trasera_interior_derecha_R5" value="3">
                                                                                                                         <label for="Trasera_interior_derecha_R51">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Trasera_interior_derecha_R54" name="Trasera_interior_derecha_R5" value="1">
                                                                                                                         <label for="Trasera_interior_derecha_R54">
                                                                                                                         </label>
@@ -1030,7 +1112,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">31.</td>
                                                                                                                 <td>Trasera exterior derecha ( R6 )</td>
-                                                                                                                 <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Trasera_exterior_derecha_R61" name="Trasera_exterior_derecha_R6" value="3">
                                                                                                                         <label for="Trasera_exterior_derecha_R61">
@@ -1038,7 +1120,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Trasera_exterior_derecha_R64" name="Trasera_exterior_derecha_R6" value="1">
                                                                                                                         <label for="Trasera_exterior_derecha_R64">
                                                                                                                         </label>
@@ -1079,14 +1161,14 @@
                                                                                                                 <td style="width: 10px;">32.</td>
                                                                                                                 <td>Gato</td>
                                                                                                                 <td>
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Gato1" name="Gato" value="1">
                                                                                                                         <label for="Gato1">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Gato2" name="Gato" value="0">
                                                                                                                         <label for="Gato2">
                                                                                                                         </label>
@@ -1097,191 +1179,192 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">33.</td>
                                                                                                                 <td>Cruceta o Copa</td>
-                                                                                                                   <td>
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Cruceta__Copa1" name="Cruceta__Copa" value="1">
                                                                                                                         <label for="Cruceta__Copa1">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Cruceta__Copa2" name="Cruceta__Copa" value="0">
                                                                                                                         <label for="Cruceta__Copa2">
                                                                                                                         </label>
                                                                                                                     </div>
-                                                                                                                </td>                                                                                                            </tr>
+                                                                                                                </td>
+                                                                                                            </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">34.</td>
                                                                                                                 <td>2 Conos o Triangulos</td>
-                                                                                                                <td>                 
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="2Conos__Triangulos1" name="2Conos__Triangulos" value="1">
                                                                                                                         <label for="2Conos__Triangulos1">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="2Conos__Triangulos2" name="2Conos__Triangulos" value="0">
                                                                                                                         <label for="2Conos__Triangulos2">
                                                                                                                         </label>
                                                                                                                     </div>
-                                                                                                                 </td>
-                                                                                                             </tr>
+                                                                                                                </td>
+                                                                                                            </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">35.</td>
                                                                                                                 <td>Botiquin</td>
-                                                                                                                 <td>                 
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Botiquin1" name="Botiquin" value="1">
                                                                                                                         <label for="Botiquin1">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Botiquin2" name="Botiquin" value="0">
                                                                                                                         <label for="Botiquin2">
                                                                                                                         </label>
                                                                                                                     </div>
-                                                                                                                 </td>
+                                                                                                                </td>
                                                                                                             </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">36.</td>
                                                                                                                 <td>Extintor</td>
-                                                                                                                     <td>                 
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Extintor1" name="Extintor" value="1">
                                                                                                                         <label for="Extintor1">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Extintor2" name="Extintor" value="0">
                                                                                                                         <label for="Extintor2">
                                                                                                                         </label>
                                                                                                                     </div>
-                                                                                                                 </td>
+                                                                                                                </td>
                                                                                                             </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">37.</td>
                                                                                                                 <td>2 Tacos o Bloques</td>
-                                                                                                                     <td>                 
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="2Tacos_Bloques1" name="2Tacos_Bloques" value="1">
                                                                                                                         <label for="2Tacos_Bloques1">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="2Tacos_Bloques2" name="2Tacos_Bloques" value="0">
                                                                                                                         <label for="2Tacos_Bloques2">
                                                                                                                         </label>
                                                                                                                     </div>
-                                                                                                                 </td>
+                                                                                                                </td>
                                                                                                             </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">38.1</td>
                                                                                                                 <td>Alicate, destornillaodor</td>
                                                                                                                 </td>
-                                                                                                                  <td>                 
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="1Alicate_destornillaodor1" name="1Alicate_destornillaodor" value="1">
                                                                                                                         <label for="1Alicate_destornillaodor1">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="1Alicate_destornillaodor2" name="1Alicate_destornillaodor" value="0">
                                                                                                                         <label for="1Alicate_destornillaodor2">
                                                                                                                         </label>
                                                                                                                     </div>
-                                                                                                                 </td>
+                                                                                                                </td>
                                                                                                             </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">38.2</td>
                                                                                                                 <td>PLlave de expancion, LLaves fijas</td>
-                                                                                                                  <td>                 
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="2PLlave_expancion_LLaves_fijas1" name="2PLlave_expancion_LLaves_fijas" value="1">
                                                                                                                         <label for="2PLlave_expancion_LLaves_fijas1">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="2PLlave_expancion_LLaves_fijas2" name="2PLlave_expancion_LLaves_fijas" value="0">
                                                                                                                         <label for="2PLlave_expancion_LLaves_fijas2">
                                                                                                                         </label>
                                                                                                                     </div>
-                                                                                                                 </td>
+                                                                                                                </td>
                                                                                                             </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">39.</td>
                                                                                                                 <td>LLanta de repuesto</td>
-                                                                                                                 <td>                 
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="LLanta_repuesto1" name="LLanta_repuesto" value="1">
                                                                                                                         <label for="LLanta_repuesto1">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="LLanta_repuesto2" name="LLanta_repuesto" value="0">
                                                                                                                         <label for="LLanta_repuesto2">
                                                                                                                         </label>
                                                                                                                     </div>
-                                                                                                                 </td>
+                                                                                                                </td>
                                                                                                             </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">40.</td>
                                                                                                                 <td>Linterna con pila</td>
-                                                                                                               <td>                 
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Linterna_pila1" name="Linterna_pila" value="1">
                                                                                                                         <label for="Linterna_pila1">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Linterna_pila2" name="Linterna_pila" value="0">
                                                                                                                         <label for="Linterna_pila2">
                                                                                                                         </label>
                                                                                                                     </div>
-                                                                                                                 </td>
+                                                                                                                </td>
                                                                                                             </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">41.</td>
                                                                                                                 <td>Cinturon del conductor</td>
-                                                                                                                <td>                 
-                                                                                                                     <div class="icheck-success d-inline">
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Cinturon_conductor1" name="Cinturon_conductor" value="1">
                                                                                                                         <label for="Cinturon_conductor1">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Cinturon_conductor2" name="Cinturon_conductor" value="0">
                                                                                                                         <label for="Cinturon_conductor2">
                                                                                                                         </label>
                                                                                                                     </div>
-                                                                                                                 </td>
+                                                                                                                </td>
                                                                                                             </tr>
                                                                                                         </tbody>
                                                                                                     </table>
@@ -1448,7 +1531,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">49.</td>
                                                                                                                 <td>Radioteléfono</td>
-                                                                                                               <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Radioteléfono1" name="Radioteléfono" value="1">
                                                                                                                         <label for="Radioteléfono1">
@@ -1456,7 +1539,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Radioteléfono2" name="Radioteléfono" value="0">
                                                                                                                         <label for="Radioteléfono2">
                                                                                                                         </label>
@@ -1482,7 +1565,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Antena2" name="Antena" value="0">
                                                                                                                         <label for="Antena2">
                                                                                                                         </label>
@@ -1500,7 +1583,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">51.</td>
                                                                                                                 <td>Equipo de Sonido</td>
-                                                                                                                      <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Equipo_Sonido1" name="Equipo_Sonido" value="1">
                                                                                                                         <label for="Equipo_Sonido1">
@@ -1508,7 +1591,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Equipo_Sonido2" name="Equipo_Sonido" value="0">
                                                                                                                         <label for="Equipo_Sonido2">
                                                                                                                         </label>
@@ -1552,7 +1635,7 @@
                                                                                                                         <input type="text" class="form-control" placeholder="Digite el numero de parlantes" id="numeroparlantes" name="numeroparlantes">
                                                                                                                     </div>
                                                                                                                 </td>
-                                                                                                                 <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Parlantes1" name="Parlantes" value="1">
                                                                                                                         <label for="Parlantes1">
@@ -1560,7 +1643,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Parlantes2" name="Parlantes" value="0">
                                                                                                                         <label for="Parlantes2">
                                                                                                                         </label>
@@ -1578,7 +1661,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">53.</td>
                                                                                                                 <td>Manguera de agua</td>
-                                                                                                               <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Manguera_agua1" name="Manguera_agua" value="1">
                                                                                                                         <label for="Manguera_agua1">
@@ -1586,7 +1669,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Manguera_agua2" name="Manguera_agua" value="0">
                                                                                                                         <label for="Manguera_agua2">
                                                                                                                         </label>
@@ -1604,7 +1687,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">54.</td>
                                                                                                                 <td>Manguera de aire</td>
-                                                                                                               <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Manguera_aire1" name="Manguera_aire" value="1">
                                                                                                                         <label for="Manguera_aire1">
@@ -1612,7 +1695,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Manguera_aire2" name="Manguera_aire" value="0">
                                                                                                                         <label for="Manguera_aire2">
                                                                                                                         </label>
@@ -1638,7 +1721,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Pantalla_Televisor2" name="Pantalla_Televisor" value="0">
                                                                                                                         <label for="Pantalla_Televisor2">
                                                                                                                         </label>
@@ -1656,7 +1739,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">56.</td>
                                                                                                                 <td>Reloj</td>
-                                                                                                                  <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Reloj1" name="Reloj" value="1">
                                                                                                                         <label for="Reloj1">
@@ -1664,7 +1747,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Reloj2" name="Reloj" value="0">
                                                                                                                         <label for="Reloj2">
                                                                                                                         </label>
@@ -1697,7 +1780,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Brazo_1_Izquierdo_R12" name="Brazo_1_Izquierdo_R1" value="0">
                                                                                                                         <label for="Brazo_1_Izquierdo_R12">
                                                                                                                         </label>
@@ -1715,7 +1798,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">58.</td>
                                                                                                                 <td>Brazo 2 Derecho R2</td>
-                                                                                                            <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Brazo_2_Derecho_R21" name="Brazo_2_Derecho_R2" value="1">
                                                                                                                         <label for="Brazo_2_Derecho_R21">
@@ -1723,7 +1806,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Brazo_2_Derecho_R22" name="Brazo_2_Derecho_R2" value="0">
                                                                                                                         <label for="Brazo_2_Derecho_R22">
                                                                                                                         </label>
@@ -1741,7 +1824,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">59.</td>
                                                                                                                 <td>Brazo 3 Izquierdo R3</td>
-                                                                                                                 <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Brazo_3_Izquierdo_R31" name="Brazo_3_Izquierdo_R3" value="1">
                                                                                                                         <label for="Brazo_3_Izquierdo_R31">
@@ -1749,7 +1832,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Brazo_3_Izquierdo_R32" name="Brazo_3_Izquierdo_R3" value="0">
                                                                                                                         <label for="Brazo_3_Izquierdo_R32">
                                                                                                                         </label>
@@ -1767,7 +1850,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">60.</td>
                                                                                                                 <td>Brazo 4 Derecho R6</td>
-                                                                                                                  <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Brazo_4_Derecho_R61" name="Brazo_4_Derecho_R6" value="1">
                                                                                                                         <label for="Brazo_4_Derecho_R61">
@@ -1775,7 +1858,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Brazo_4_Derecho_R62" name="Brazo_4_Derecho_R6" value="0">
                                                                                                                         <label for="Brazo_4_Derecho_R62">
                                                                                                                         </label>
@@ -1815,7 +1898,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">61.</td>
                                                                                                                 <td>Emblema izquierdo de la empresa</td>
-                                                                                                                     <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Emblema_izquierdo_empresa1" name="Emblema_izquierdo_empresa" value="1">
                                                                                                                         <label for="Emblema_izquierdo_empresa1">
@@ -1823,7 +1906,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Emblema_izquierdo_empresa2" name="Emblema_izquierdo_empresa" value="0">
                                                                                                                         <label for="Emblema_izquierdo_empresa2">
                                                                                                                         </label>
@@ -1841,7 +1924,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">62.</td>
                                                                                                                 <td>Emblema derecho de la empresa</td>
-                                                                                                                    <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Emblema_derecho_empresa1" name="Emblema_derecho_empresa" value="1">
                                                                                                                         <label for="Emblema_derecho_empresa1">
@@ -1849,7 +1932,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Emblema_izquierdo_empresa2" name="Emblema_derecho_empresa" value="0">
                                                                                                                         <label for="Emblema_derecho_empresa2">
                                                                                                                         </label>
@@ -1862,12 +1945,12 @@
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
-                                                                                                         </tr>
+                                                                                                            </tr>
 
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">63.</td>
                                                                                                                 <td>Escolar delantero</td>
-                                                                                                                      <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Escolar_delantero1" name="Escolar_delantero" value="1">
                                                                                                                         <label for="Escolar_delantero1">
@@ -1875,7 +1958,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Escolar_delantero2" name="Escolar_delantero" value="0">
                                                                                                                         <label for="Escolar_delantero2">
                                                                                                                         </label>
@@ -1904,7 +1987,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">64.</td>
                                                                                                                 <td>Logo izquierdo</td>
-                                                                                                                 <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Logo_izquierdo1" name="Logo_izquierdo" value="1">
                                                                                                                         <label for="Logo_izquierdo1">
@@ -1912,7 +1995,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Logo_izquierdo2" name="Logo_izquierdo" value="0">
                                                                                                                         <label for="Logo_izquierdo2">
                                                                                                                         </label>
@@ -1930,7 +2013,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">65.</td>
                                                                                                                 <td>Logo derecho</td>
-                                                                                                             <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Logo_derecho1" name="Logo_derecho" value="1">
                                                                                                                         <label for="Logo_derecho1">
@@ -1938,7 +2021,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Logo_derecho2" name="Logo_derecho" value="0">
                                                                                                                         <label for="Logo_derecho2">
                                                                                                                         </label>
@@ -1956,7 +2039,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">66.</td>
                                                                                                                 <td>N° Interno delantero</td>
-                                                                                                                 <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="N_Interno_delantero1" name="N_Interno_delantero" value="1">
                                                                                                                         <label for="N_Interno_delantero1">
@@ -1964,7 +2047,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="N_Interno_delantero2" name="N_Interno_delantero" value="0">
                                                                                                                         <label for="N_Interno_delantero2">
                                                                                                                         </label>
@@ -1990,7 +2073,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="N_Interno_trasero2" name="N_Interno_trasero" value="0">
                                                                                                                         <label for="N_Interno_trasero2">
                                                                                                                         </label>
@@ -2008,7 +2091,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">68.</td>
                                                                                                                 <td>N° Interno izquierdo</td>
-                                                                                                             <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="N_Interno_izquierdo1" name="N_Interno_izquierdo" value="1">
                                                                                                                         <label for="N_Interno_izquierdo1">
@@ -2016,14 +2099,14 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="N_Interno_izquierdo2" name="N_Interno_izquierdo" value="0">
                                                                                                                         <label for="N_Interno_izquierdo2">
                                                                                                                         </label>
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                    <div class="icheck-danger d-inline"> 
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="N_Interno_izquierdo5" name="N_Interno_izquierdo" value="2">
                                                                                                                         <label for="N_Interno_izquierdo5">
                                                                                                                         </label>
@@ -2034,7 +2117,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">69.</td>
                                                                                                                 <td>N° Interno derecho</td>
-                                                                                                              <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="N_Interno_derecho1" name="N_Interno_derecho" value="1">
                                                                                                                         <label for="N_Interno_derecho1">
@@ -2042,7 +2125,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="N_Interno_derecho2" name="N_Interno_derecho" value="0">
                                                                                                                         <label for="N_Interno_derecho2">
                                                                                                                         </label>
@@ -2069,7 +2152,7 @@
                                                                                                                         <input type="text" class="form-control" placeholder="# ..." id="numsalimarti" name="Nsaliadas_martillos">
                                                                                                                     </div>
                                                                                                                 </td>
-                                                                                                                    <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Salidas_emergencia_martillos1" name="Salidas_emergencia_martillos" value="1">
                                                                                                                         <label for="Salidas_emergencia_martillos1">
@@ -2077,7 +2160,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Salidas_emergencia_martillos2" name="Salidas_emergencia_martillos" value="0">
                                                                                                                         <label for="Salidas_emergencia_martillos2">
                                                                                                                         </label>
@@ -2095,7 +2178,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">71.</td>
                                                                                                                 <td>Dispositivo de velocidad</td>
-                                                                                                                 <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Dispositivo_velocidad1" name="Dispositivo_velocidad" value="1">
                                                                                                                         <label for="Dispositivo_velocidad1">
@@ -2103,7 +2186,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Dispositivo_velocidad2" name="Dispositivo_velocidad" value="0">
                                                                                                                         <label for="Dispositivo_velocidad2">
                                                                                                                         </label>
@@ -2121,7 +2204,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">72.</td>
                                                                                                                 <td>Aviso: Como conduzco </td>
-                                                                                                                     <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Av_Como_conduzco1" name="Av_Como_conduzco" value="1">
                                                                                                                         <label for="Av_Como_conduzco1">
@@ -2129,7 +2212,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Av_Como_conduzco2" name="Av_Como_conduzco" value="0">
                                                                                                                         <label for="Av_Como_conduzco2">
                                                                                                                         </label>
@@ -2180,7 +2263,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">73.</td>
                                                                                                                 <td>Brazo limpiaparabrisas izquierdo</td>
-                                                                                                               <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Brazo_limpiaparabrisas_izquierdo1" name="Brazo_limpiaparabrisas_izquierdo" value="1">
                                                                                                                         <label for="Brazo_limpiaparabrisas_izquierdo1">
@@ -2188,7 +2271,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Brazo_limpiaparabrisas_izquierdo2" name="Brazo_limpiaparabrisas_izquierdo" value="0">
                                                                                                                         <label for="Brazo_limpiaparabrisas_izquierdo2">
                                                                                                                         </label>
@@ -2206,7 +2289,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">74.</td>
                                                                                                                 <td>Plumilla limpiaparabrisas izquierdo</td>
-                                                                                                                 <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Plumilla_limpiaparabrisas_izquierdo1" name="Plumilla_limpiaparabrisas_izquierdo" value="1">
                                                                                                                         <label for="Plumilla_limpiaparabrisas_izquierdo1">
@@ -2214,7 +2297,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Plumilla_limpiaparabrisas_izquierdo2" name="Plumilla_limpiaparabrisas_izquierdo" value="0">
                                                                                                                         <label for="Plumilla_limpiaparabrisas_izquierdo2">
                                                                                                                         </label>
@@ -2232,7 +2315,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">75.</td>
                                                                                                                 <td>Brazo limpiaparabrisas derecho</td>
-                                                                                                                  <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="7Brazo_limpiaparabrisas_derecho1" name="7Brazo_limpiaparabrisas_derecho" value="1">
                                                                                                                         <label for="7Brazo_limpiaparabrisas_derecho1">
@@ -2240,7 +2323,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="7Brazo_limpiaparabrisas_derecho2" name="7Brazo_limpiaparabrisas_derecho" value="0">
                                                                                                                         <label for="7Brazo_limpiaparabrisas_derecho2">
                                                                                                                         </label>
@@ -2258,7 +2341,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">76.</td>
                                                                                                                 <td>Plumilla limpiaparabrisas derecho</td>
-                                                                                                                   <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Plumilla_limpiaparabrisas_derecho1" name="Plumilla_limpiaparabrisas_derecho" value="1">
                                                                                                                         <label for="Plumilla_limpiaparabrisas_derecho1">
@@ -2266,7 +2349,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Plumilla_limpiaparabrisas_derecho2" name="Plumilla_limpiaparabrisas_derecho" value="0">
                                                                                                                         <label for="Plumilla_limpiaparabrisas_derecho2">
                                                                                                                         </label>
@@ -2284,7 +2367,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">77.</td>
                                                                                                                 <td>Baterias</td>
-                                                                                                                  <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Baterias1" name="Baterias" value="1">
                                                                                                                         <label for="Baterias1">
@@ -2292,7 +2375,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Baterias2" name="Baterias" value="0">
                                                                                                                         <label for="Baterias2">
                                                                                                                         </label>
@@ -2310,7 +2393,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">78.</td>
                                                                                                                 <td>Botones de tableron y timon</td>
-                                                                                                           <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Botones_tableron_timon1" name="Botones_tableron_timon" value="1">
                                                                                                                         <label for="Botones_tableron_timon1">
@@ -2318,7 +2401,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Botones_tableron_timon2" name="Botones_tableron_timon" value="0">
                                                                                                                         <label for="Botones_tableron_timon2">
                                                                                                                         </label>
@@ -2336,7 +2419,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">79.</td>
                                                                                                                 <td>Tapa radiador</td>
-                                                                                                           <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Tapa_radiador1" name="Tapa_radiador" value="1">
                                                                                                                         <label for="Tapa_radiador1">
@@ -2344,7 +2427,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Tapa_radiador2" name="Tapa_radiador" value="0">
                                                                                                                         <label for="Tapa_radiador2">
                                                                                                                         </label>
@@ -2362,7 +2445,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">80.</td>
                                                                                                                 <td>Tapa deposito hidráulico</td>
-                                                                                                                 <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Tapa_deposito_hidráulico1" name="Tapa_deposito_hidráulico" value="1">
                                                                                                                         <label for="Tapa_deposito_hidráulico1">
@@ -2370,7 +2453,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Tapa_deposito_hidráulico2" name="Tapa_deposito_hidráulico" value="0">
                                                                                                                         <label for="Tapa_deposito_hidráulico2">
                                                                                                                         </label>
@@ -2396,7 +2479,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Cojineria_general2" name="Cojineria_general" value="0">
                                                                                                                         <label for="Cojineria_general2">
                                                                                                                         </label>
@@ -2414,7 +2497,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">82.</td>
                                                                                                                 <td>Cinturon sillas calidad</td>
-                                                                                                              <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Cinturon_sillas_calidad1" name="Cinturon_sillas_calidad" value="1">
                                                                                                                         <label for="Cinturon_sillas_calidad1">
@@ -2422,7 +2505,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Cinturon_sillas_calidad2" name="Cinturon_sillas_calidad" value="0">
                                                                                                                         <label for="Cinturon_sillas_calidad2">
                                                                                                                         </label>
@@ -2448,7 +2531,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Pasamanos2" name="Pasamanos" value="0">
                                                                                                                         <label for="Pasamanos2">
                                                                                                                         </label>
@@ -2466,7 +2549,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">84.</td>
                                                                                                                 <td>Claxon</td>
-                                                                                                             <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Claxon1" name="Claxon" value="1">
                                                                                                                         <label for="Claxon1">
@@ -2474,7 +2557,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Claxon2" name="Claxon" value="0">
                                                                                                                         <label for="Claxon2">
                                                                                                                         </label>
@@ -2492,7 +2575,7 @@
                                                                                                             <tr>
                                                                                                                 <td style="width: 10px;">85.</td>
                                                                                                                 <td>Placas reglamentarias</td>
-                                                                                                               <td>
+                                                                                                                <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" id="Placas_reglamentarias1" name="Placas_reglamentarias" value="1">
                                                                                                                         <label for="Placas_reglamentarias1">
@@ -2500,7 +2583,7 @@
                                                                                                                     </div>
                                                                                                                 </td>
                                                                                                                 <td>
-                                                                                                                   <div class="icheck-danger d-inline">
+                                                                                                                    <div class="icheck-danger d-inline">
                                                                                                                         <input type="radio" id="Placas_reglamentarias2" name="Placas_reglamentarias" value="0">
                                                                                                                         <label for="Placas_reglamentarias2">
                                                                                                                         </label>
@@ -2521,6 +2604,8 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
+
+                                                                                <hr class="my-4 bg-dark">
 
                                                                                 <!-- /.TAB REGISTRO FOTOGRAFICO Y OBSERVACIONES -->
                                                                                 <div class="col-12">
@@ -2628,7 +2713,6 @@
                                 </div>
                                 <!-- /.card-body -->
                             </div>
-
                             <!-- ===================== 
                             CARD DE TABLA RESUMEN
                             ========================= -->
@@ -2655,15 +2739,15 @@
                                             <!-- TABLAS RESUMENES -->
 
                                             <!-- TABLA RESUMEN LAMINAS -->
-                                            <h3 class="text-center">Laminas</h3>
+                                            <h5 class="text-center">Láminas</h5>
                                             <div class="table-responsive">
-                                                <table id="tablaresulaminas" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresulaminas" class="table table-sm table-bordered table-striped text-center nowrap tablas">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
                                                             <th>Placa</th>
                                                             <th>Fecha</th>
-                                                            <th>Numero interno</th>
+                                                            <th>Número interno</th>
                                                             <th>Conductor</th>
                                                             <th>Techo exterior</th>
                                                             <th>Techo interior</th>
@@ -2676,91 +2760,6 @@
                                                             <th>Puerta izquierda</th>
                                                         </tr>
                                                     </thead>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
                                                     <tbody>
                                                         <tr>
                                                             <td>
@@ -2784,18 +2783,18 @@
                                                 </table>
                                             </div>
 
-                                            <br>
+                                            <hr class="my-4 bg-dark">
 
                                             <!-- TABLA RESUMEN VIDRIOS Y ESPEJOS -->
-                                            <h3 class="text-center">Vidrios y Espejos</h3>
+                                            <h5 class="text-center">Vidrios y espejos</h5>
                                             <div class="table-responsive">
-                                                <table id="tablaresuvidriosespejos" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresuvidriosespejos" class="table table-sm table-bordered table-striped text-center nowrap tablas">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
                                                             <th>Placa</th>
                                                             <th>Fecha</th>
-                                                            <th>Numero interno</th>
+                                                            <th>Número interno</th>
                                                             <th>Conductor</th>
                                                             <th>Parabrisas izquierdo</th>
                                                             <th>Parabrisas derecho</th>
@@ -2825,97 +2824,21 @@
                                                             <td></td>
                                                         </tr>
                                                     </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
                                                 </table>
                                             </div>
 
-                                            <br>
+                                            <hr class="my-4 bg-dark">
 
                                             <!-- TABLA RESUMEN LUCES -->
-                                            <h3 class="text-center">Luces</h3>
+                                            <h5 class="text-center">Luces</h5>
                                             <div class="table-responsive">
-                                                <table id="tablaresuluces" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresuluces" class="table table-sm table-bordered table-striped text-center nowrap tablas">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
                                                             <th>Placa</th>
                                                             <th>Fecha</th>
-                                                            <th>Numero interno</th>
+                                                            <th>Número interno</th>
                                                             <th>Conductor</th>
                                                             <th>Direccionales delanteras izquierda</th>
                                                             <th>Direccionales delanteras derecha</th>
@@ -2947,101 +2870,21 @@
                                                             <td></td>
                                                         </tr>
                                                     </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
                                                 </table>
                                             </div>
 
-                                            <br>
+                                            <hr class="my-4 bg-dark">
 
                                             <!-- TABLA RESUMEN LLANTAS -->
-                                            <h3 class="text-center">Llantas</h3>
+                                            <h5 class="text-center">Llantas</h5>
                                             <div class="table-responsive">
-                                                <table id="tablaresullantas" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresullantas" class="table table-sm table-bordered table-striped text-center nowrap tablas">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
                                                             <th>Placa</th>
                                                             <th>Fecha</th>
-                                                            <th>Numero interno</th>
+                                                            <th>Número interno</th>
                                                             <th>Conductor</th>
                                                             <th>Delantera izquierda (R1)</th>
                                                             <th>Delantera derecha (R2)</th>
@@ -3069,199 +2912,35 @@
                                                             <td></td>
                                                         </tr>
                                                     </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
                                                 </table>
                                             </div>
 
-                                            <br>
+                                            <hr class="my-4 bg-dark">
 
                                             <!-- TABLA RESUMEN EQUIPO DE PREVENCION Y SEGURIDAD -->
-                                            <h3 class="text-center">Equipo de prevecion y seguridad</h3>
+                                            <h5 class="text-center">Equipo de prevención y seguridad</h5>
                                             <div class="table-responsive">
-                                                <table id="tablaresuprevenseguridad" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresuprevenseguridad" class="table table-sm table-bordered table-striped text-center nowrap tablas">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
                                                             <th>Placa</th>
                                                             <th>Fecha</th>
-                                                            <th>Numero interno</th>
+                                                            <th>Número interno</th>
                                                             <th>Conductor</th>
                                                             <th>Gato</th>
                                                             <th>Cruceta o Copa</th>
-                                                            <th>2 Conos o Triangulos</th>
-                                                            <th>Botiquin</th>
+                                                            <th>2 Conos o Triángulos</th>
+                                                            <th>Botiquín</th>
                                                             <th>Extintor</th>
                                                             <th>2 Tacos</th>
                                                             <th>Alicate, destornillador</th>
-                                                            <th>Llave de expansion, llaves fijas</th>
+                                                            <th>Llave de expansión, llaves fijas</th>
                                                             <th>Llanta de repuesto</th>
                                                             <th>Linterna con pila</th>
-                                                            <th>Cinturon del conductor</th>
+                                                            <th>Cinturón del conductor</th>
                                                         </tr>
                                                     </thead>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
 
                                                     <tbody>
                                                         <tr>
@@ -3288,100 +2967,27 @@
                                                 </table>
                                             </div>
 
-                                            <br>
+                                            <hr class="my-4 bg-dark">
 
                                             <!-- TABLA RESUMEN DOCUMENTOS VEHICULOS -->
-                                            <h3 class="text-center">Documentos vehiculos</h3>
+                                            <h5 class="text-center">Documentos de vehículos</h5>
                                             <div class="table-responsive">
-                                                <table id="tablaresudocvehiculos" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresudocvehiculos" class="table table-sm table-bordered table-striped text-center nowrap tablas">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
                                                             <th>Placa</th>
                                                             <th>Fecha</th>
-                                                            <th>Numero interno</th>
+                                                            <th>Número interno</th>
                                                             <th>Conductor</th>
                                                             <th>Tarjeta de propiedad</th>
-                                                            <th>Tarjeta de operacion</th>
-                                                            <th>Seguro Obliogatorio</th>
-                                                            <th>Revision tecnico mecanica</th>
-                                                            <th>Poliza contractual</th>
-                                                            <th>Poliza extracontractual</th>
+                                                            <th>Tarjeta de operación</th>
+                                                            <th>Seguro obligatorio</th>
+                                                            <th>Revisión técnico mecánica</th>
+                                                            <th>Póliza contractual</th>
+                                                            <th>Póliza extracontractual</th>
                                                         </tr>
                                                     </thead>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
                                                     <tbody>
                                                         <tr>
                                                             <td>
@@ -3402,75 +3008,22 @@
                                                 </table>
                                             </div>
 
-                                            <br>
+                                            <hr class="my-4 bg-dark">
 
                                             <!-- TABLA RESUMEN EXTINTOR -->
-                                            <h3 class="text-center">Extintor</h3>
+                                            <h5 class="text-center">Extintor</h5>
                                             <div class="table-responsive">
-                                                <table id="tablaresuextintor" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresuextintor" class="table table-sm table-bordered table-striped text-center nowrap tablas">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
                                                             <th>Placa</th>
                                                             <th>Fecha</th>
-                                                            <th>Numero interno</th>
+                                                            <th>Número interno</th>
                                                             <th>Conductor</th>
                                                             <th>Extintor tipo ABC</th>
                                                         </tr>
                                                     </thead>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
                                                     <tbody>
                                                         <tr>
                                                             <td>
@@ -3486,25 +3039,25 @@
                                                 </table>
                                             </div>
 
-                                            <br>
+                                            <hr class="my-4 bg-dark">
 
                                             <!-- TABLA RESUMEN ACCESORIOS -->
-                                            <h3 class="text-center">Accesorios</h3>
+                                            <h5 class="text-center">Accesorios</h5>
                                             <div class="table-responsive">
-                                                <table id="tablaresuaccesorios" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresuaccesorios" class="table table-sm table-bordered table-striped text-center nowrap tablas">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
                                                             <th>Placa</th>
                                                             <th>Fecha</th>
-                                                            <th>Numero interno</th>
+                                                            <th>Número interno</th>
                                                             <th>Conductor</th>
-                                                            <th>Radiotelefono</th>
+                                                            <th>Radioteléfono</th>
                                                             <th>Antena</th>
-                                                            <th>Equipo de Sonido</th>
+                                                            <th>Equipo de sonido</th>
                                                             <th>Sonido CD o USB</th>
                                                             <th>Parlantes</th>
-                                                            <th>Numero de parlantes</th>
+                                                            <th>Número de parlantes</th>
                                                             <th>Manguera de agua</th>
                                                             <th>Pantalla / Televisor</th>
                                                             <th>Reloj</th>
@@ -3514,107 +3067,6 @@
                                                             <th>Brazo 4 derecho R6</th>
                                                         </tr>
                                                     </thead>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
                                                     <tbody>
                                                         <tr>
                                                             <td>
@@ -3642,28 +3094,28 @@
                                                 </table>
                                             </div>
 
-                                            <br>
+                                            <hr class="my-4 bg-dark">
 
                                             <!-- TABLA RESUMEN EMBLEMAS -->
-                                            <h3 class="text-center">Emblemas</h3>
+                                            <h5 class="text-center">Emblemas</h5>
                                             <div class="table-responsive">
-                                                <table id="tablaresuemblemas" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresuemblemas" class="table table-sm table-bordered table-striped text-center nowrap tablas">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
                                                             <th>Placa</th>
                                                             <th>Fecha</th>
-                                                            <th>Numero interno</th>
+                                                            <th>Número interno</th>
                                                             <th>Conductor</th>
                                                             <th>Emblema izquierdo de la empresa</th>
                                                             <th>Emblema derecho de la empresa</th>
                                                             <th>Escolar: delantero - trasero</th>
                                                             <th>Logo izquierdo</th>
                                                             <th>Logo derecho</th>
-                                                            <th>Numero interno delantero</th>
-                                                            <th>Numero interno trasero</th>
-                                                            <th>Numero interno izquierdo</th>
-                                                            <th>Numero interno derecho</th>
+                                                            <th>Número interno delantero</th>
+                                                            <th>Número interno trasero</th>
+                                                            <th>Número interno izquierdo</th>
+                                                            <th>Número interno derecho</th>
                                                             <th>Salidas de emergencia y martillos</th>
                                                             <th>Dispositivo de velocidad</th>
                                                             <th>Aviso: como conduzco interno - externo</th>
@@ -3693,234 +3145,37 @@
                                                             <td></td>
                                                         </tr>
                                                     </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
                                                 </table>
                                             </div>
 
-                                            <br>
+                                            <hr class="my-4 bg-dark">
 
                                             <!-- TABLA RESUMEN OTROS ELEMENTOS -->
-                                            <h3 class="text-center">Otros elementos</h3>
+                                            <h5 class="text-center">Otros elementos</h5>
                                             <div class="table-responsive">
-                                                <table id="tablaresuotroselementos" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresuotroselementos" class="table table-sm table-bordered table-striped text-center nowrap tablas">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
                                                             <th>Placa</th>
                                                             <th>Fecha</th>
-                                                            <th>Numero interno</th>
+                                                            <th>Número interno</th>
                                                             <th>Conductor</th>
                                                             <th>Brazo limpiaparabrisas izquierdo</th>
                                                             <th>Plumillas limpiaparabrisas izquierdo</th>
                                                             <th>Brazo limpiaparabrisas derecho</th>
                                                             <th>Plumilla limpiaparabrisas derecho</th>
                                                             <th>Baterias</th>
-                                                            <th>Botones de tablero y timon</th>
+                                                            <th>Botones de tablero y timón</th>
                                                             <th>Tapa de radiador</th>
-                                                            <th>Tapa deposito hidraulico</th>
+                                                            <th>Tapa deposito hidráulico</th>
                                                             <th>Cojineria en general</th>
-                                                            <th>Cinturon sillas cantidad</th>
+                                                            <th>Cinturón sillas cantidad</th>
                                                             <th>Pasamanos</th>
-                                                            <th>Claxon</th>
+                                                            <th>Claxón</th>
                                                             <th>Placas reglamentarias</th>
                                                         </tr>
                                                     </thead>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-editar"><i class="fas fa-edit"></i></button>
-                                                            </td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
-                                                        </tr>
-                                                    </tbody>
-
                                                     <tbody>
                                                         <tr>
                                                             <td>
