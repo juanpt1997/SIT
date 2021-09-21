@@ -152,38 +152,46 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                     CONTENIDO DOCUMENTOS
                 =================================================== -->
                 <div class="tab-pane fade" id="pills-documentos" role="tabpanel" aria-labelledby="pills-documentos-tab">
-                    <div class="row">
-                        <div id="spinnerTablaReporteDocumentos" class="spinner-border" role="status">
-                            <span class="sr-only">Loading...</span>
-                        </div>
-                        <div class="col-12 table-responsive">
-                            <table id="tblReporteDocumentos" class="table table-sm table-striped table-bordered table-hover w-100">
-                                <thead class="thead-light text-sm text-nowrap" style="font-size: 13px;">
-                                    <tr>
-                                        <td>Placa</td>
-                                        <td>Nro Interno afiliado</td>
-                                        <td>sucursal</td>
-                                        <td>tipo vinculación</td>
-                                        <td>activo</td>
-                                        <?php foreach ($tiposDocumentacion as $key => $value) : ?>
-                                            <td>tipo documento</td>
-                                            <td>fecha desde</td>
-                                            <td>fecha hasta</td>
-                                        <?php endforeach ?>
-                                        <!-- <td>tipo documento</td>
+                    <div class="card">
+                        <div class="card-header bg-info"></div>
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div id="spinnerTablaReporteDocumentos" class="spinner-border" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
+                                <div class="col-12 table-responsive">
+                                    <table id="tblReporteDocumentos" class="table table-sm table-striped table-bordered table-hover w-100">
+                                        <thead class="thead-light text-sm text-center text-nowrap"              style="font-size: 13px;">
+                                            <tr>
+                                                <td>Placa</td>
+                                                <td>Nro Interno afiliado</td>
+                                                <td>Sucursal</td>
+                                                <td>Tipo vinculación</td>
+                                                <td>Activo</td>
+                                                <?php foreach ($tiposDocumentacion as $key => $value) : ?>
+                                                    <td>Tipo documento</td>
+                                                    <td>Fecha desde</td>
+                                                    <td>Fecha hasta</td>
+                                                <?php endforeach ?>
+                                                <!-- <td>tipo documento</td>
                                         <td>fecha desde</td>
                                         <td>fecha hasta</td> -->
-                                        <td>nombre</td>
-                                        <td>documento</td>
-                                        <td>teléfono</td>
-                                        <td>correo</td>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbodyReporteDocumentos" style="font-size: 13px;">
+                                                <td>Propietario</td>
+                                                <td>Documento</td>
+                                                <td>Teléfono</td>
+                                                <td>Correo</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbodyReporteDocumentos" style="font-size: 13px;">
 
-                                </tbody>
-                            </table>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
                         </div>
+                        <div class="card-footer bg-dark"></div>
                     </div>
                 </div>
             </div>
@@ -1009,34 +1017,82 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                             </div>
                                         </form>
 
-                                        <div class="table-responsive mt-2">
-                                            <table id="tblDocumentos" class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
-                                                <thead class="thead-light text-sm text-center">
-                                                    <tr>
-                                                        <th>Tipo documento</th>
-                                                        <th>Nro Documento</th>
-                                                        <th>Fecha desde</th>
-                                                        <th>Fecha hasta</th>
-                                                        <th>Tarifa</th>
-                                                        <th>Documento</th>
-                                                        <th>Eliminar</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="tbodyDocumentos" class="text-center">
-                                                    <tr>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td>
-                                                            <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                        <div class="row mt-2 border border-info rounded">
+                                            <div class="col">
+                                                <div class="card card-light card-tabs">
+                                                    <div class="card-header p-0 pt-1">
+                                                        <ul class="nav nav-tabs" id="custom-tabs-five-tab" role="tablist">
+                                                            <li class="nav-item">
+                                                                <a class="nav-link active" id="custom-tabs-five-overlay-tab" data-toggle="pill" href="#custom-tabs-five-overlay" role="tab" aria-controls="custom-tabs-five-overlay" aria-selected="true"><b>Documentos</b></a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" id="custom-tabs-five-overlay-dark-tab" data-toggle="pill" href="#custom-tabs-five-overlay-dark" role="tab" aria-controls="custom-tabs-five-overlay-dark" aria-selected="false"><b>Historial</b></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+                                                    <div class="card-body">
+                                                        <div class="tab-content" id="custom-tabs-five-tabContent">
+                                                            <div class="tab-pane fade active show" id="custom-tabs-five-overlay" role="tabpanel" aria-labelledby="custom-tabs-five-overlay-tab">
+                                                                <div class="table-responsive mt-2">
+                                                                    <table id="tblDocumentos" class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
+                                                                        <thead class="thead-light text-sm text-center">
+                                                                            <tr>
+                                                                                <th>Tipo documento</th>
+                                                                                <th>Nro Documento</th>
+                                                                                <th>Fecha desde</th>
+                                                                                <th>Fecha hasta</th>
+                                                                                <th>Tarifa</th>
+                                                                                <th>Documento</th>
+                                                                                <th>Eliminar</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody id="tbodyDocumentos" class="text-center">
+                                                                            <tr>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td></td>
+                                                                                <td>
+                                                                                    <button type="button" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="tab-pane fade" id="custom-tabs-five-overlay-dark" role="tabpanel" aria-labelledby="custom-tabs-five-overlay-dark-tab">
+                                                                <div class="table-responsive mt-2">
+                                                                    <table id="tblHistorico" class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
+                                                                        <thead class="thead-light text-sm text-center">
+                                                                            <tr>
+                                                                                <th>Tipo documento</th>
+                                                                                <th>Nro. Documento</th>
+                                                                                <th>Fecha desde</th>
+                                                                                <th>Fecha hasta</th>
+                                                                                <th>Tarifa</th>
+                                                                                <th>Documento</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody id="tbodyTablaHistorico" class="text-center">
+                                                                        
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.card -->
+                                                </div>
+
+                                            </div>
                                         </div>
+
+
+
                                     </div>
                                 </div>
                             </div>

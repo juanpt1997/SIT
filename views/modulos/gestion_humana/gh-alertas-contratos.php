@@ -19,7 +19,7 @@ $ContratosVencer = ControladorGH::ctrContratosVencer();
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark ">Alertas de contratos</h1>
+                    <h1 class="m-0 text-dark "><b><i>Alertas de contratos</i></b></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -35,6 +35,7 @@ $ContratosVencer = ControladorGH::ctrContratosVencer();
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
+            <hr class="my-4">
             <div id="ghTabs"></div>
 
             <div class="card card-secondary card-outline">

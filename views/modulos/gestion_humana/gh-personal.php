@@ -26,7 +26,7 @@ $Sucursales = ControladorGH::ctrSucursales();
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark ">Personal</h1>
+                    <h1 class="m-0 text-dark "><b><i>Personal</i></b></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -42,6 +42,7 @@ $Sucursales = ControladorGH::ctrSucursales();
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
+            <hr class="my-4">
             <div id="ghTabs"></div>
 
 
@@ -82,10 +83,10 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 </tr>
                             </thead>
                             <tbody id="tbodyPersonal">
-                                
+
                             </tbody>
                         </table>
-                    </div>                                                                                                                                
+                    </div>
                 </div><!-- col -->
 
 
@@ -177,7 +178,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                         </div>
                                     </div>
                                 </div>
-                                
+
 
                                 <!-- ===================================================
                                     Nombre Completo

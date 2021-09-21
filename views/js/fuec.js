@@ -2,8 +2,8 @@ $(document).ready(function () {
     /* ===================================================
         * FUEC
     ===================================================*/
-    if (window.location.href == `${urlPagina}contratos-fuec/` ||
-        window.location.href == `${urlPagina}contratos-fuec`
+    if (window.location.href == `${urlPagina}o-fuec/` ||
+        window.location.href == `${urlPagina}o-fuec`
     ) {
         /* ===================================================
           INICIALIZAR DATATABLE
@@ -411,7 +411,7 @@ $(document).ready(function () {
                             }).then((result) => {
 
                                 if (result.value) {
-                                    window.location = 'contratos-fuec';
+                                    window.location = 'o-fuec';
                                 }
 
                             })
@@ -442,7 +442,7 @@ $(document).ready(function () {
 
                             // Evento para refrescar la pagina cuando sale de la modal
                             $('#NuevoFuecModal').on('hidden.bs.modal', function () {
-                                window.location = 'contratos-fuec';
+                                window.location = 'o-fuec';
                             })
                             break;
                     }

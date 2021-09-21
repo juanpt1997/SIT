@@ -20,7 +20,7 @@ $Proveedores = ControladorProveedores::ctrListarProveedores();
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark ">Proveedores</h1>
+                    <h1 class="m-0 text-dark "><b><i>Proveedores</i></b></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -36,6 +36,7 @@ $Proveedores = ControladorProveedores::ctrListarProveedores();
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
+            <hr class="my-4">
             <!-- ===================== 
               AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
             ========================= -->

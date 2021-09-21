@@ -284,6 +284,46 @@ class AjaxVehiculos
 
         echo $tr;
     }
+    static public function ajaxTablaHistorico($idvehiculo)
+    {
+        $Respuesta = ControladorVehiculos::ctrDocumentosxVehiculo($idvehiculo); // HISTÓRICO
+        $tr = "";
+        foreach ($Respuesta as $key => $value) {
+            # Documento
+            if ($value['ruta_documento'] != null) {
+                $btnVerDoc = "<a href='" . URL_APP . $value['ruta_documento'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a>";
+                $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnVerDoc . "</div>";
+            } else {
+                $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'><span class='badge badge-secondary'>sin documento</span></div>";
+                
+            }
+            # Badge que indica si el documento está vencido o activo
+            if ($value['fechafin'] > date("Y-m-d")) {
+                $badgecolor = "success";
+            } else {
+                if ($value['fechafin'] == date("Y-m-d")) {
+                    $badgecolor = "warning";
+                } else {
+                    $badgecolor = "danger";
+                }
+            }
+            $tipodocumento = "<span class='badge badge-{$badgecolor}'>{$value['tipodocumento']}</span>";
+            $fechafin = "<span class='badge badge-{$badgecolor}'>{$value['fechafin']}</span>";
+            $tr .= "
+                <tr>
+                        <td>" . $tipodocumento . "</td>
+                        <td>" . $value['nrodocumento'] . "</td>
+                        <td>" . $value['fechainicio'] . "</td>
+                        <td>" . $fechafin . "</td>
+                        <td>" . $value['tarifa'] . "</td>
+                        <td>$btnAccionesDoc</td>
+                </tr>
+            ";
+        }
+
+        echo $tr;
+    }
+
     # DOCUMENTOS POR VEHICULO SIN REPETIR
     static public function ajaxDocumentosxVehiculoSinRepetir($idvehiculo)
     {
@@ -965,8 +1005,6 @@ if (isset($_POST['ajaxHistorialV']) && $_POST['ajaxHistorialV'] == "ok") {
 }
 
 
-
-
 # LLAMADOS A AJAX VEHICULOS
 if (isset($_POST['GuardarVehiculo']) && $_POST['GuardarVehiculo'] == "ok") {
     $tarjetapropiedad = isset($_FILES['tarjetapropiedad']) ? $_FILES['tarjetapropiedad'] : "";
@@ -993,6 +1031,10 @@ if (isset($_POST['TablaConductores']) && $_POST['TablaConductores'] == "ok") {
 
 if (isset($_POST['TablaDocumentos']) && $_POST['TablaDocumentos'] == "ok") {
     AjaxVehiculos::ajaxTablaDocumentos($_POST['idvehiculo']);
+}
+
+if (isset($_POST['TablaHistorico']) && $_POST['TablaHistorico'] == "ok") {
+    AjaxVehiculos::ajaxTablaHistorico($_POST['idvehiculo']);
 }
 # DOCUMENTOS POR VEHICULO SIN REPETIR
 if (isset($_POST['DocumentosxVehiculo']) && $_POST['DocumentosxVehiculo'] == "ok") {
