@@ -36,7 +36,7 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
             <hr class="my-4">
 
             <button type="button" class="btn btn-success btn-md btn-agregarorden" data-toggle="modal" data-target="#ordenserviciomodal">
-                <i class="fas fa-book"></i> Agregar nueva Órden
+                <i class="fas fa-book"></i> Agregar nueva Orden
             </button>
 
             <div class="row mt-2">
@@ -54,7 +54,7 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                             <th>Dirección</th>
                                             <th>Teléfono 1</th>
                                             <th>Teléfono 2</th>
-                                            <th>Órden de servicio</th>
+                                            <th>Orden de servicio</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-sm">

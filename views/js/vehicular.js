@@ -670,7 +670,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                 }
             });
 
-            if (Requeridos.length > 0){
+            if (Requeridos.length > 0) {
                 let inputsRequeridosHtml = `<ul>`;
                 Requeridos.forEach(element => {
                     inputsRequeridosHtml += `<li>${element}</li>`;
@@ -991,36 +991,36 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
             });
             // HISTORICO EN CASO DE QUERER ACTUALIZAR LA TABLA DOCUMENTOS
             if (nombreTabla == "Documentos") {
-            // Quitar datatable
-            $("#tblHistorico").dataTable().fnDestroy();
-            // Borrar datos
-            $("#tbodyTablaHistorico").html("");
+                // Quitar datatable
+                $("#tblHistorico").dataTable().fnDestroy();
+                // Borrar datos
+                $("#tbodyTablaHistorico").html("");
 
-                    let datoshistorico = new FormData();
-                    datoshistorico.append('TablaHistorico', 'ok');
-                    datoshistorico.append('idvehiculo', idvehiculo);
-                    $.ajax({
-                        type: "POST",
-                        url: `${urlPagina}ajax/vehicular.ajax.php`,
-                        data: datoshistorico,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        // dataType: "json",
-                        success: function (response) {
-                            console.log(response);
-                            if (response != '' || response != null) {
-                                $("#tbodyTablaHistorico").html(response);
-                            } else {
-                                $("#tbodyTablaHistorico").html('');
-                            }
-
-                            /* ===================================================
-                            INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-                            ===================================================*/
-                            dataTable("#tblHistorico");
+                let datoshistorico = new FormData();
+                datoshistorico.append('TablaHistorico', 'ok');
+                datoshistorico.append('idvehiculo', idvehiculo);
+                $.ajax({
+                    type: "POST",
+                    url: `${urlPagina}ajax/vehicular.ajax.php`,
+                    data: datoshistorico,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    // dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        if (response != '' || response != null) {
+                            $("#tbodyTablaHistorico").html(response);
+                        } else {
+                            $("#tbodyTablaHistorico").html('');
                         }
-                    });  
+
+                        /* ===================================================
+                        INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                        ===================================================*/
+                        dataTable("#tblHistorico");
+                    }
+                });
             }
         }
 
