@@ -1,6 +1,6 @@
 <?php
 $empresa = ControladorEmpresa::ctrVerEmpresa();
-$departamentos = ControladorGH::ctrDeparMunicipios();
+$departamentos = ControladorCiudades::ctrListaDepar();
 ?>
 <!-- ===================== 
   CONCEPTOS GENERALES - Gestion humana (modulo)

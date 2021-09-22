@@ -123,9 +123,11 @@ class ModeloGH
     ===================================================*/
     static public function mdlDeparMunicipios() 
     {
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM gh_departamentos
-                                                        WHERE  estado=1
-                                                        ORDER BY nombre");
+        $stmt = Conexion::conectar()->prepare("SELECT m.idmunicipio, m.municipio, m.iddepartamento AS iddepar, d.nombre AS departamento, CONCAT(d.nombre, ' - ', m.municipio) AS DeparMunic
+                                                    FROM gh_municipios m
+                                                    INNER JOIN gh_departamentos d ON m.iddepartamento = d.iddepartamento
+                                                    WHERE m.estado = 1
+                                                    ORDER BY d.nombre, m.municipio");
 
         $stmt->execute();
         $retorno = $stmt->fetchAll();

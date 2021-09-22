@@ -802,7 +802,7 @@ class AjaxConceptosGH
 
 	static public function VerCiudades()
 	{
-		$respuesta = ModeloGH::mdlDeparMunicipios();
+		$respuesta = ModeloConceptosGH::mdlDeparMunicipios();
 		$tr = "";
 
 		foreach ($respuesta as $key => $value) {
