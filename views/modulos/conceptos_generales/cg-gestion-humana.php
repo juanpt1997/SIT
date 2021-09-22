@@ -428,7 +428,7 @@ $departamentos = ControladorGH::ctrDeparMunicipios();
                             <select class="form-control select2-single" style="width: 92%" type="text" id="departamentos" name="departamentos" required>
                                 <option selected value="">-Seleccione un departamento-</option>
                                 <?php foreach ($departamentos as $key => $value) : ?>
-                                    <option value="<?= $value['iddepar'] ?>"><?= $value['DeparMunic'] ?></option>
+                                    <option value="<?= $value['iddepartamento'] ?>"><?= $value['nombre'] ?></option>
                                 <?php endforeach ?>
                             </select>
                         </div>
