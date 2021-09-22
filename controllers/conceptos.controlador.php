@@ -86,6 +86,22 @@ class ControladorCiudades
 		$respuesta = ModeloConceptosGH::mdlVerciudad($datoId);
 		return $respuesta;
 	}
+
+	static public function ctrListaDepar()
+	{
+		$tabla = "gh_departamentos";
+		$item = "nombre";
+		$id = "iddepartamento";
+		$datos = array(
+			"tabla" => $tabla,
+			"item"  => $item,
+			"id" => $id
+		);
+
+		$respuesta = ModeloConceptosGH::mdlVer($datos);
+		return $respuesta;
+	}
+
 }
 
 class ControladorRutas
@@ -95,7 +111,4 @@ class ControladorRutas
         $respuesta = ModeloConceptosGH::AgregarRuta($datos);
         return $respuesta;
     }
-
-
-	
 }

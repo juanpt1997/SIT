@@ -165,7 +165,7 @@ class ModeloConceptosGH
 
     static public function mdlEditarEmpresa($datos)
     {
-        $sql = "UPDATE empresa set razon_social=:razon_social, nit=:nit, nro_resolucion=:nro_resolucion, anio_resolucion=:anio_resolucion, dir_territorial=:dir_territorial, ruta_firma=:ruta_firma, sitio_web=:sitio_web WHERE id = :id";
+         $sql = "UPDATE empresa set razon_social=:razon_social, nit=:nit, nro_resolucion=:nro_resolucion, anio_resolucion=:anio_resolucion, dir_territorial=:dir_territorial, ruta_firma=:ruta_firma, sitio_web=:sitio_web WHERE id = :id";
         $stmt = Conexion::conectar()->prepare($sql);
 
         $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
