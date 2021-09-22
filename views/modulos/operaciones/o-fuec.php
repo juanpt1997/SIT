@@ -75,7 +75,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                             <th>Conductor 3</th>
                                             <th>Documento conductor 3</th>
                                             <th>Cliente ocasional</th>
-                                            <th>Cliente fijo</th>
+                                            <th style="min-width:90px;">Cliente fijo</th>
                                             <th>Fecha de creación</th>
                                             <th style="min-width:90px;">Usuario</th>
                                             <th>Sucursal</th>

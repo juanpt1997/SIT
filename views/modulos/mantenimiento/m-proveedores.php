@@ -56,7 +56,7 @@ $Proveedores = ControladorProveedores::ctrListarProveedores();
                                 <hr class="my-4">
 
                                 <div class="table-responsive">
-                                    <table id="tabla_proveedores" class="table table-sm table-bordered table-striped text-center tablas">
+                                    <table id="tabla_proveedores" class="table table-sm table-bordered table-striped text-center tablasBtnExport">
                                         <thead>
                                             <tr>
                                                 <th>Acciones</th>
