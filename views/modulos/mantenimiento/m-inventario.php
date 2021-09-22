@@ -2654,12 +2654,12 @@
                                                 <div class=""></div>
                                             </div>
 
-                                            <!-- TABLAS RESUMENES -->
+                                            <!-- Tablas RESUMENES -->
 
                                             <!-- TABLA RESUMEN LAMINAS -->
                                             <h3 class="text-center">Laminas</h3>
                                             <div class="table-responsive">
-                                                <table id="tablaresulaminas" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresulaminas" class="table table-bordered table-striped text-center nowrap tablasBtnExport">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
@@ -2791,7 +2791,7 @@
                                             <!-- TABLA RESUMEN VIDRIOS Y ESPEJOS -->
                                             <h3 class="text-center">Vidrios y Espejos</h3>
                                             <div class="table-responsive">
-                                                <table id="tablaresuvidriosespejos" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresuvidriosespejos" class="table table-bordered table-striped text-center nowrap tablasBtnExport">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
@@ -2911,7 +2911,7 @@
                                             <!-- TABLA RESUMEN LUCES -->
                                             <h3 class="text-center">Luces</h3>
                                             <div class="table-responsive">
-                                                <table id="tablaresuluces" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresuluces" class="table table-bordered table-striped text-center nowrap tablasBtnExport">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
@@ -3037,7 +3037,7 @@
                                             <!-- TABLA RESUMEN LLANTAS -->
                                             <h3 class="text-center">Llantas</h3>
                                             <div class="table-responsive">
-                                                <table id="tablaresullantas" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresullantas" class="table table-bordered table-striped text-center nowrap tablasBtnExport">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
@@ -3151,7 +3151,7 @@
                                             <!-- TABLA RESUMEN EQUIPO DE PREVENCION Y SEGURIDAD -->
                                             <h3 class="text-center">Equipo de prevecion y seguridad</h3>
                                             <div class="table-responsive">
-                                                <table id="tablaresuprevenseguridad" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresuprevenseguridad" class="table table-bordered table-striped text-center nowrap tablasBtnExport">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
@@ -3295,7 +3295,7 @@
                                             <!-- TABLA RESUMEN DOCUMENTOS VEHICULOS -->
                                             <h3 class="text-center">Documentos vehiculos</h3>
                                             <div class="table-responsive">
-                                                <table id="tablaresudocvehiculos" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresudocvehiculos" class="table table-bordered table-striped text-center nowrap tablasBtnExport">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
@@ -3409,7 +3409,7 @@
                                             <!-- TABLA RESUMEN EXTINTOR -->
                                             <h3 class="text-center">Extintor</h3>
                                             <div class="table-responsive">
-                                                <table id="tablaresuextintor" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresuextintor" class="table table-bordered table-striped text-center nowrap tablasBtnExport">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
@@ -3493,7 +3493,7 @@
                                             <!-- TABLA RESUMEN ACCESORIOS -->
                                             <h3 class="text-center">Accesorios</h3>
                                             <div class="table-responsive">
-                                                <table id="tablaresuaccesorios" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresuaccesorios" class="table table-bordered table-striped text-center nowrap tablasBtnExport">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
@@ -3649,7 +3649,7 @@
                                             <!-- TABLA RESUMEN EMBLEMAS -->
                                             <h3 class="text-center">Emblemas</h3>
                                             <div class="table-responsive">
-                                                <table id="tablaresuemblemas" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresuemblemas" class="table table-bordered table-striped text-center nowrap tablasBtnExport">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>
@@ -3799,7 +3799,7 @@
                                             <!-- TABLA RESUMEN OTROS ELEMENTOS -->
                                             <h3 class="text-center">Otros elementos</h3>
                                             <div class="table-responsive">
-                                                <table id="tablaresuotroselementos" class="table table-bordered table-striped text-center nowrap tablas">
+                                                <table id="tablaresuotroselementos" class="table table-bordered table-striped text-center nowrap tablasBtnExport">
                                                     <thead>
                                                         <tr>
                                                             <th>...</th>

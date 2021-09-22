@@ -156,7 +156,10 @@ if (window.location.href == `${urlPagina}gh-bloqueo-personal/` ||
                     $("#tbodyhistorial").html('');
                 }
 
-                dataTable("#tabla-historial");
+                var buttons = [
+                    { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                ];
+                var table = dataTableCustom(`#tabla-historial`, buttons);
 
             }
         });
@@ -986,7 +989,10 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                     /* ===================================================
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
-                    dataTable(`#tbl${nombreTabla}`);
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#tbl${nombreTabla}`, buttons);
                 }
             });
             // HISTORICO EN CASO DE QUERER ACTUALIZAR LA TABLA DOCUMENTOS
@@ -1018,7 +1024,10 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                         /* ===================================================
                         INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                         ===================================================*/
-                        dataTable("#tblHistorico");
+                        var buttons = [
+                            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        ];
+                        var table = dataTableCustom(`#tblHistorico`, buttons);
                     }
                 });
             }

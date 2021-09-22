@@ -87,7 +87,10 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                         $("#tbody_ver_concepto").html('');
                     }
 
-                    dataTable("#ver_concepto");
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#ver_concepto`, buttons);
                 }
             });
         });
@@ -210,7 +213,10 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                         $("#tbody_tabla_empresa").html('');
                     }
 
-                    dataTable("#tabla_empresa");
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#tabla_empresa`, buttons);
                 }
             });
         });
@@ -352,7 +358,10 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                         $("#tbody_ver_ciudad").html('');
                     }
 
-                    dataTable("#ver_ciudad");
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#ver_ciudad`, buttons);
                 }
             });
         });
@@ -581,7 +590,10 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
                         $("#tbody_ver_concepto").html('');
                     }
 
-                    dataTable("#ver_concepto");
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#ver_concepto`, buttons);
                 }
             });
         });
@@ -979,7 +991,10 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                         $("#tbody_ver_conceptoV").html('');
                     }
 
-                    dataTable("#ver_conceptoV");
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#ver_conceptoV`, buttons);
                 }
             });
         });
@@ -1193,7 +1208,10 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                         $("#tbody_ver_conceptoV2").html('');
                     }
 
-                    dataTable("#ver_conceptoV2");
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#ver_conceptoV2`, buttons);
                 }
             });
         });
@@ -1235,7 +1253,10 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                         $("#tbody_ver_conceptoV2").html('');
                     }
 
-                    dataTable("#ver_conceptoV2");
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#ver_conceptoV2`, buttons);
                 }
             });
         });
