@@ -53,13 +53,16 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                             <div class="card-body">
                                 <!--|||TABLA PROTOCOLO DE ALISTAMIENTO|||-->
                                 <div class="table-responsive">
-                                    <table id="tblAlistamientos" class="table table-bordered table-striped text-center nowrap tablasBtnExport">
+                                    <table id="tblAlistamientos" class="table table-bordered table-striped text-center nowrap">
                                         <thead>
                                             <tr>
                                                 <th>...</th>
-                                                <th>ID</th>
-                                                <th>Placa</th>
+                                                <th style="min-width:70px;">ID</th>
                                                 <th>Fecha - Hora</th>
+                                                <th style="min-width:80px;">Placa</th>
+                                                <th>Número interno</th>
+                                                <th>Nombre del conductor</th>
+                                                <th>Cédula del conductor</th>
                                                 <th>Luces bajas</th>
                                                 <th>Luces altas</th>
                                                 <th>Luces reversa</th>
@@ -72,7 +75,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <th>Direccionales traseras</th>
                                                 <th>Luz escala</th>
                                                 <th>Baliza / Licuadora</th>
-                                                <th>Retrovisores izquierdoD</th>
+                                                <th>Retrovisores izquierdo</th>
                                                 <th>Espejo interno</th>
                                                 <th>Apoya cabeza - Conductor</th>
                                                 <th>Equipo de Audio</th>
@@ -154,8 +157,11 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         <button type="button" class="btn btn-success btn-sm btn-editarAlistamiento" idalistamiento="<?= $value['id'] ?>" placa="<?= $value['placa'] ?>" data-toggle="modal" data-target="#modal-nuevoAlistamiento"><i class="fas fa-edit"></i></button>
                                                     </td>
                                                     <td><?= $value['id'] ?></td>
-                                                    <td><?= $value['placa'] ?></td>
                                                     <td><?= $value['fechaalista'] ?></td>
+                                                    <td><?= $value['placa'] ?></td>
+                                                    <td><?= $value['numinterno'] ?></td>
+                                                    <td><?= $value['conductor'] ?></td>
+                                                    <td><?= $value['cedulaConductor'] ?></td>
                                                     <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesbajas']) ?></td>
                                                     <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesaltas']) ?></td>
                                                     <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesreversa']) ?></td>

@@ -65,11 +65,11 @@ $Sucursales = ControladorGH::ctrSucursales();
                     <div id="spinnerTablaPersonal" class="spinner-border" role="status">
                         <span class="sr-only">Loading...</span>
                     </div>
-                    <div class="table-responsive">
+                    <div class="table-responsive text-center">
                         <table id="tblPersonal" class="table table-sm text-sm table-light table-striped table-bordered tablas w-100">
                             <thead class="text-capitalize">
                                 <tr>
-                                    <th style="min-width:40px;">Id</th>
+                                    <th style="width:90px;">Id</th>
                                     <th>Foto</th>
                                     <th>Nombre</th>
                                     <th>Documento</th>

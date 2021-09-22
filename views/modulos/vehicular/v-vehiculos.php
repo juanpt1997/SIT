@@ -72,8 +72,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <table id="tblVehiculos" class="table table-sm table-striped table-bordered table-hover w-100">
                                             <thead class="thead-light text-sm text-center text-nowrap">
                                                 <tr>
-                                                    <th style="width:10px;">#</th>
-                                                    <th>Placa</th>
+                                                    <th style="min-width:80px;">#</th>
+                                                    <th style="min-width:70px;">Placa</th>
                                                     <th>Nro. Interno</th>
                                                     <th>Sucursal</th>
                                                     <th>Fecha vinculacion</th>
@@ -164,23 +164,23 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                     <table id="tblReporteDocumentos" class="table table-sm table-striped table-bordered table-hover w-100">
                                         <thead class="thead-light text-sm text-center text-nowrap"              style="font-size: 13px;">
                                             <tr>
-                                                <td>Placa</td>
-                                                <td>Nro Interno afiliado</td>
-                                                <td>Sucursal</td>
-                                                <td>Tipo vinculación</td>
-                                                <td>Activo</td>
+                                                <th style="min-width:70px;">Placa</th>
+                                                <th>Nro Interno afiliado</th>
+                                                <th>Sucursal</th>
+                                                <th>Tipo vinculación</th>
+                                                <th>Activo</th>
                                                 <?php foreach ($tiposDocumentacion as $key => $value) : ?>
-                                                    <td>Tipo documento</td>
-                                                    <td>Fecha desde</td>
-                                                    <td>Fecha hasta</td>
+                                                    <th>Tipo documento</th>
+                                                    <th>Fecha desde</th>
+                                                    <th>Fecha hasta</th>
                                                 <?php endforeach ?>
-                                                <!-- <td>tipo documento</td>
-                                        <td>fecha desde</td>
-                                        <td>fecha hasta</td> -->
-                                                <td>Propietario</td>
-                                                <td>Documento</td>
-                                                <td>Teléfono</td>
-                                                <td>Correo</td>
+                                                <!-- <th>tipo documento</th>
+                                        <th>fecha desde</th>
+                                        <th>fecha hasta</th> -->
+                                                <th>Propietario</th>
+                                                <th>Documento</th>
+                                                <th>Teléfono</th>
+                                                <th>Correo</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tbodyReporteDocumentos" style="font-size: 13px;">

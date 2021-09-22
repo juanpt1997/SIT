@@ -47,13 +47,13 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                     <div class="card card-outline card-success">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
+                                <table id="tblCotizaciones" class="table table-sm table-striped table-bordered table-hover w-100">
                                     <thead class="text-sm text-center text-nowrap">
                                         <tr>
                                             <th>...</th>
-                                            <th style="width:10px;">ID</th>
+                                            <th style="min-width:70px;">ID</th>
                                             <th>Nombre contratante</th>
-                                            <th>NIT/CC</th>
+                                            <th style="min-width:70px;">NIT/CC</th>
                                             <th>Tipo documento</th>
                                             <th>Dirección</th>
                                             <th>Ciudad</th>
@@ -67,7 +67,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                             <th>Empresa</th>
                                             <th>Origen</th>
                                             <th>Destino</th>
-                                            <th>Ruta</th>
+                                            <th style="min-width:70px;">Ruta</th>
                                             <th>Fecha recepción</th>
                                             <th>Fecha respuesta</th>
                                             <th>Fecha inicio</th>
@@ -84,18 +84,18 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                             <th>Valor total</th>
                                             <th>Cotización</th>
                                             <th>Clasificación</th>
-                                            <th>Musica</th>
-                                            <th>Aire</th>
-                                            <th>Wi-Fi</th>
+                                            <th style="min-width:70px;">Música</th>
+                                            <th style="min-width:70px;">Aire</th>
+                                            <th style="min-width:70px;">Wi-Fi</th>
                                             <th>Silla reclinable</th>
-                                            <th>Baño</th>
+                                            <th style="min-width:70px;">Baño</th>
                                             <th>Bodega</th>
-                                            <th>Otro</th>
+                                            <th style="min-width:70px;">Otro</th>
                                             <th>Realiza viaje</th>
-                                            <th>Por qué</th>
+                                            <th style="min-width:70px;">Por qué</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="text-sm">
+                                    <tbody id="tbodyCotizaciones" class="text-sm">
                                         <?php foreach ($Cotizaciones as $key => $value) : ?>
                                             <tr>
                                                 <td class="text-center">
