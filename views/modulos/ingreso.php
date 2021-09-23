@@ -44,6 +44,7 @@
                 $ingreso->ctrIngresoUsuario();
                 ?>
                 <button type="submit" class="btn btn-success btn-block">Ingresar</button>
+                <a href="../" type="button" class="btn btn-danger btn-block">Regresar al inicio</a>
             </form>
 
             <small class="">

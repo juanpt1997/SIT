@@ -337,7 +337,10 @@ $(document).ready(function () {
                     /* ===================================================
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
-                    dataTable(`#tblEvidencias`);
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#tblEvidencias`, buttons);
                 }
             });
         }

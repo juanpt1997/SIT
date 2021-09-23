@@ -164,11 +164,11 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                     <table id="tblReporteDocumentos" class="table table-sm table-striped table-bordered table-hover w-100">
                                         <thead class="thead-light text-sm text-center text-nowrap"              style="font-size: 13px;">
                                             <tr>
-                                                <th style="min-width:70px;">Placa</th>
+                                                <th style="min-width:90px;">Placa</th>
                                                 <th>Nro Interno afiliado</th>
-                                                <th>Sucursal</th>
+                                                <th style="min-width:90px;">Sucursal</th>
                                                 <th>Tipo vinculación</th>
-                                                <th>Activo</th>
+                                                <th style="min-width:90px;">Activo</th>
                                                 <?php foreach ($tiposDocumentacion as $key => $value) : ?>
                                                     <th>Tipo documento</th>
                                                     <th>Fecha desde</th>
@@ -179,7 +179,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <th>fecha hasta</th> -->
                                                 <th>Propietario</th>
                                                 <th>Documento</th>
-                                                <th>Teléfono</th>
+                                                <th style="min-width:90px;">Teléfono</th>
                                                 <th>Correo</th>
                                             </tr>
                                         </thead>
