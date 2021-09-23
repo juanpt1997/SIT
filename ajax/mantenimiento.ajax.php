@@ -44,7 +44,15 @@ class AjaxProveedores
     }
 }
 
+class AjaxInventario
+{
+    static public function ajaxLicenciaxVehiculo($idconductor)
+    {
+        $respuesta = ModeloInventario::mdlLicenciaConductor($idconductor);
+        echo json_encode($respuesta);
+    }
 
+}
 
 #Llamados ajax proveedores
 if (isset($_POST['DatosProveedor']) && $_POST['DatosProveedor'] == "ok") {
@@ -53,4 +61,9 @@ if (isset($_POST['DatosProveedor']) && $_POST['DatosProveedor'] == "ok") {
 
 if (isset($_POST['EliminarProveedor']) && $_POST['EliminarProveedor'] == "ok") {
     AjaxProveedores::ajaxEliminarProveedor($_POST['id']);
+}
+
+#Llamados ajax inventario
+if (isset($_POST['LicenciasxVehiculo']) && $_POST['LicenciasxVehiculo'] == "ok") {
+    AjaxInventario::ajaxLicenciaxVehiculo($_POST['idconductor']);
 }
