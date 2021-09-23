@@ -249,7 +249,7 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                             <label class="text-sm">Número de resolución</label>
                             <input class="form-control" id="num" name="num" type="text" value="${response.nro_resolucion}" required>
                             <label class="text-sm">Año de resolución</label>
-                            <input class="form-control" id="anio" name="anio" type="text" value="${response.anio_resolucion}" required>
+                            <input class="form-control" id="anio" name="anio" type="text" value="${response.anio_resolucion}" required  >
                             <label class="text-sm">Dirección territorial</label>
                             <input class="form-control" id="dir" name="dir" type="text" value="${response.dir_territorial}" required>
                             <label class="text-sm">Ruta firma</label>
@@ -265,51 +265,54 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                             cancelButtonColor: '#d33',
                             cancelButtonText: 'Cancelar'
                         }).then((result) => {
-                            var datosAjax = new FormData();
-                            var datosFrm = $("#formulario_editar_empresa").serializeArray();
-                            datosAjax.append('EditarEmpresa', "ok");
-                            datosAjax.append("id_empresa", id);
-                            
-                            var vacio = false;
-                            datosFrm.forEach(element => {
 
-                                datosAjax.append(element.name, element.value);
+                            if (result.value) {
+                                var datosAjax = new FormData();
+                                var datosFrm = $("#formulario_editar_empresa").serializeArray();
+                                datosAjax.append('EditarEmpresa', "ok");
+                                datosAjax.append("id_empresa", id);
+                                
+                                var vacio = false;
+                                datosFrm.forEach(element => {
 
-                                if(element.value == ''){
-                                    vacio = true;
-                                }
-                            });
-                            if(!vacio){
+                                    datosAjax.append(element.name, element.value);
 
-                                $.ajax({
-                                    type: "post",
-                                    url: "ajax/conceptos.ajax.php",
-                                    data: datosAjax,
-                                    cache: false,
-                                    contentType: false,
-                                    processData: false,
-                                    //dataType: "json",
-                                    success: function (response) {
-                                        if(response != '')
-                                        {
-                                            Swal.fire({
-                                                icon: 'success',
-                                                showConfirmButton: true,
-                                                title: "La empresa ha sido actualizada",
-                                                confirmButtonText: "¡Cerrar!",
-                                                allowOutsideClick: false
-                                            })
-                                        }else{
-                                            Swal.fire({
-                                                icon: 'error',
-                                                showConfirmButton: true,
-                                                title: "Problema al actualizar la empresa",
-                                                confirmButtonText: "¡Cerrar!",
-                                                allowOutsideClick: false
-                                            })
-                                        }
+                                    if(element.value == ''){
+                                        vacio = true;
                                     }
                                 });
+                                if(!vacio){
+
+                                    $.ajax({
+                                        type: "post",
+                                        url: "ajax/conceptos.ajax.php",
+                                        data: datosAjax,
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
+                                        //dataType: "json",
+                                        success: function (response) {
+                                            if(response == 'ok')
+                                            {
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    showConfirmButton: true,
+                                                    title: "La empresa ha sido actualizada",
+                                                    confirmButtonText: "¡Cerrar!",
+                                                    allowOutsideClick: false
+                                                })
+                                            }else{
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    showConfirmButton: true,
+                                                    title: "Problema al actualizar la empresa",
+                                                    confirmButtonText: "¡Cerrar!",
+                                                    allowOutsideClick: false
+                                                })
+                                            }
+                                        }
+                                    });
+                                }
                             }
                         })
                     }
