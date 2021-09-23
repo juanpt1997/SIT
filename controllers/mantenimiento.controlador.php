@@ -239,7 +239,45 @@ class ControladorInventario
                 'observ' => $_POST['observaciones']
 			);
 
+			$responseModel = ModeloInventario::mdlAgregarInventario($datos);
+
+            if ($responseModel == "ok") {
+				echo "
+						<script>
+							Swal.fire({
+								icon: 'success',
+								title: '¡Inventario guardado correctamente!',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								
+							}).then((result)=>{
+
+								if(result.value){
+									window.location = 'm-inventario';
+								}
+
+							})
+						</script>
+					";
+			} else {
+				echo "
+						<script>
+							Swal.fire({
+								icon: 'success',
+								title: '¡Problema al guardar le inventario!',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								
+							}).then((result)=>{
+
+								if(result.value){
+									window.location = 'm-inventario';
+								}
+
+							})
+						</script>
+					";
+			}
         }
     }
-
 }
