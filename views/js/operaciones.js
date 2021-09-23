@@ -8,10 +8,41 @@ $(document).ready(function () {
         /* ===================================================
           INICIALIZAR DATATABLE
         ===================================================*/
-        // Acá pondremos la tabla de alistamiento por ajax
-    
-    
-    
+        // Acá pondremos la tabla de alistamiento por ajax (por ahora no, unicamente filtro)
+        let TablaAlistamientos = () => {
+            /* ===================================================
+              FILTRAR POR COLUMNA
+            ===================================================*/
+            /* Filtrar por columna */
+            //Clonar el tr del thead
+            $(`#tblAlistamientos thead tr`).clone(true).appendTo(`#tblAlistamientos thead`);
+            //Por cada th creado hacer lo siguiente
+            $(`#tblAlistamientos thead tr:eq(1) th`).each(function (i) {
+                //Remover clase sorting y el evento que tiene cuando se hace click
+                $(this).removeClass("sorting").unbind();
+                //Agregar input de busqueda
+                $(this).html('<input class="form-control" type="text" placeholder="Buscar"/>');
+                //Evento para detectar cambio en el input y buscar
+                $('input', this).on('keyup change', function () {
+                    if (table.column(i).search() !== this.value) {
+                        table
+                            .column(i)
+                            .search(this.value)
+                            .draw();
+                    }
+                });
+            });
+
+            /* ===================================================
+            INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+            ===================================================*/
+            var buttons = [
+                { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+            ];
+            var table = dataTableCustom(`#tblAlistamientos`, buttons);
+        }
+        TablaAlistamientos();
+
         /* ===================================================
             DETECTA SELECCIÓN DE UN VEHICULO
         ===================================================*/
@@ -19,17 +50,17 @@ $(document).ready(function () {
         $(document).on("change", "#placa", function () {
             var placa = $(this).val();
             var $select = $(this);
-    
+
             /* Esta condicion sirve para ejecutar el evento unicamente cuando de verdad seleccione un vehiculo porque puede ocurrir que el select sea modificado internamente con $select.trigger('change')*/
             if (actualizo) {
                 // Reset valores
                 $(".documentos").val("").removeClass("bg-danger bg-success");
                 $(".overlay-conductores").removeClass("d-none");
                 $(".datosVehiculo").val("");
-    
+
                 if (placa != "") {
                     //$select.val("");
-    
+
                     // Cargo datos del vehiculo
                     var datos = new FormData();
                     datos.append('DatosVehiculo', "ok");
@@ -45,13 +76,13 @@ $(document).ready(function () {
                         processData: false,
                         success: function (response) {
                             var Vehiculo = response.datosVehiculo;
-    
+
                             $("#idvehiculo").val(Vehiculo.idvehiculo);
                             $("#marca").val(Vehiculo.marca);
                             $("#modelo").val(Vehiculo.modelo);
                             $("#numinterno").val(Vehiculo.numinterno);
                             $("#sucursal").val(Vehiculo.sucursal);
-    
+
                             /* ===================================================
                                 Cargar fechas de vencimiento del vehículo
                             ===================================================*/
@@ -70,14 +101,14 @@ $(document).ready(function () {
                                     response.forEach(element => {
                                         // Asigno valor fecha
                                         $(`#documento_${element.idtipodocumento}`).val(element.fechafin);
-    
+
                                         // Color del fondo segun la fecha
                                         var bg = element.fechafin >= moment().format("YYYY-MM-DD") ? "bg-success" : "bg-danger";
                                         $(`#documento_${element.idtipodocumento}`).addClass(bg);
                                     });
                                 }
                             });
-    
+
                             /* ===================================================
                                 CARGAR LISTA CONDUCTORES
                             ===================================================*/
@@ -103,14 +134,14 @@ $(document).ready(function () {
                                     $("#idconductor").html(htmlSelect);
                                 }
                             });
-    
+
                             /* ===================================================
                                 TABLA DE EVIDENCIAS
                             ===================================================*/
                             AjaxTablaEvidencias(Vehiculo.idvehiculo);
                         }
                     });
-                } 
+                }
                 // Vehiculo no seleccionado
                 else {
                     // Quitar datatable evidencias
@@ -122,23 +153,23 @@ $(document).ready(function () {
                 actualizo = true;
             }
         });
-    
+
         /* ===================================================
           GUARDAR FORMULARIO ALISTAMIENTO
         ===================================================*/
         $("#alistamiento_form").submit(function (e) {
             e.preventDefault();
             AbiertoxEditar = true; //BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
-    
+
             var datosAjax = new FormData();
             datosAjax.append('GuardarAlistamiento', "ok");
-    
+
             // DATOS FORMULARIO
             var datosFrm = $(this).serializeArray();
             datosFrm.forEach(element => {
                 datosAjax.append(element.name, element.value);
             });
-    
+
             $.ajax({
                 type: 'post',
                 url: `${urlPagina}ajax/operaciones.ajax.php`,
@@ -159,7 +190,7 @@ $(document).ready(function () {
                                 closeOnConfirm: false
                             })
                             break;
-    
+
                         case "error":
                             Swal.fire({
                                 icon: 'error',
@@ -168,16 +199,16 @@ $(document).ready(function () {
                                 confirmButtonText: 'Cerrar',
                                 closeOnConfirm: false
                             }).then((result) => {
-    
+
                                 if (result.value) {
                                     window.location = 'o-alistamiento';
                                 }
-    
+
                             })
                             break;
                         default:
                             var idalistamiento = response;
-    
+
                             // Mensaje de éxito al usuario
                             Swal.fire({
                                 icon: 'success',
@@ -185,13 +216,13 @@ $(document).ready(function () {
                                 showConfirmButton: true,
                                 confirmButtonText: 'Cerrar',
                             })
-    
+
                             // Id fuec
                             $("#idalistamiento").val(idalistamiento);
-    
+
                             // Titulo modal
                             $("#TituloModal").val($("#placa").val());
-    
+
                             // Evento para refrescar la pagina cuando sale de la modal
                             $('#modal-nuevoAlistamiento').on('hidden.bs.modal', function () {
                                 window.location = 'o-alistamiento';
@@ -201,7 +232,7 @@ $(document).ready(function () {
                 }
             });
         });
-    
+
         /* ===================================================
             CLIC EN NUEVO ALISTAMIENTO
         ===================================================*/
@@ -216,19 +247,19 @@ $(document).ready(function () {
             }
             AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         });
-    
+
         /* ===================================================
           CLICK EN EDITAR ALISTAMIENTO
         ===================================================*/
         $(document).on("click", ".btn-editarAlistamiento", function () {
             AbiertoxEditar = true; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
-    
+
             var idalistamiento = $(this).attr("idalistamiento");
             var placa = $(this).attr("placa");
-    
+
             $("#TituloModal").html(placa);
             $("#alistamiento_form").trigger("reset"); //reset formulario
-    
+
             $("#idalistamiento").val(idalistamiento);
             $("#placa").val(placa).trigger("change");
             var datos = new FormData();
@@ -246,7 +277,7 @@ $(document).ready(function () {
                     if (response != "") {
                         var keys = Object.keys(response);
                         var values = Object.values(response);
-    
+
                         // Recorremos ambos arreglos
                         for (let index = 0; index < keys.length; index++) {
                             // NO tomamos las llaves numericas
@@ -254,7 +285,7 @@ $(document).ready(function () {
                                 if (keys[index] != "placa" && keys[index] != "numinterno" && keys[index] != "id" && keys[index] != "idvehiculo" && keys[index] != "idconductor" && keys[index] != "fechaalista") {
                                     // Si el input es un check - radio
                                     $(`input[name='${keys[index]}'][value='${values[index]}']`).iCheck('check');
-    
+
                                     // Si el input es distinto a un radio button
                                     if ($(`input[name='${keys[index]}']`).attr("type") != "radio") {
                                         $(`input[name='${keys[index]}']`).val(values[index]);
@@ -262,20 +293,20 @@ $(document).ready(function () {
                                 }
                             }
                         }
-    
+
                         setTimeout(() => {
                             $("#idconductor").val(response.idconductor);
                         }, 1000);
-    
-    
+
+
                         $("#kmtotal").val(response.kilometraje_total);
                         $("#observaciones").val(response.observaciones);
                     }
-    
+
                 }
             });
         });
-    
+
         /* ===================================================
             TABLA EVIDENCIAS
         ===================================================*/
@@ -284,7 +315,7 @@ $(document).ready(function () {
             $(`#tblEvidencias`).dataTable().fnDestroy();
             // Borrar datos
             $(`#tbodyEvidencias`).html("");
-    
+
             let datos = new FormData();
             datos.append(`TablaEvidencias`, 'ok');
             datos.append('idvehiculo', idvehiculo);
@@ -302,22 +333,25 @@ $(document).ready(function () {
                     } else {
                         $(`#tbodyEvidencias`).html('');
                     }
-    
+
                     /* ===================================================
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
-                    dataTable(`#tblEvidencias`);
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#tblEvidencias`, buttons);
                 }
             });
         }
-    
+
         /* ===================================================
           GUARDAR EVIDENCIA
         ===================================================*/
         $(document).on("click", "#btnGuardarEvidencia", function () {
             var idvehiculo = $("#idvehiculo").val();
             AbiertoxEditar = true; //BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
-    
+
             if (idvehiculo != "") {
                 var fotoEvidencia = $('#foto_evidencia')[0].files;
                 var observaciones = $("#observacion_evidencia").val();
@@ -327,7 +361,7 @@ $(document).ready(function () {
                     datos.append('idvehiculo', idvehiculo);
                     datos.append('fotoEvidencia', fotoEvidencia[0]);
                     datos.append('observaciones', observaciones);
-    
+
                     $.ajax({
                         type: 'post',
                         url: `${urlPagina}ajax/operaciones.ajax.php`,
@@ -367,7 +401,7 @@ $(document).ready(function () {
                 }
             }
         });
-    
+
         /* ===================================================
           BOTON CAMBIAR ESTADO EVIDENCIA
         ===================================================*/
@@ -376,7 +410,7 @@ $(document).ready(function () {
             var idevidencia = $(this).attr("idevidencia");
             var idvehiculo = $(this).attr("idvehiculo");
             var estado = $(this).attr("estado");
-    
+
             var textoBoton = estado == "PENDIENTE" ? "Resuelto!" : "Aún pendiente";
             var colorBoton = estado == "PENDIENTE" ? "#5cb85c" : "#d33";
             Swal.fire({
@@ -396,7 +430,7 @@ $(document).ready(function () {
             }).then((result) => {
                 if (result.value) {
                     var observaciones = $("#swal-evidencia-obs").val();
-    
+
                     if (observaciones != "") {
                         var datos = new FormData();
                         datos.append("CambiarEstadoEvidencia", "ok");
@@ -443,13 +477,13 @@ $(document).ready(function () {
                                         confirmButtonText: 'Cerrar',
                                         closeOnConfirm: false
                                     }).then((result) => {
-    
+
                                         if (result.value) {
                                             window.location = 'o-alistamiento';
                                         }
-    
+
                                     })
-    
+
                             }
                         });
                     }
@@ -463,9 +497,8 @@ $(document).ready(function () {
                     }
                 }
             })
-    
-    
+
+
         });
     }
 });
-    

@@ -32,7 +32,8 @@ class ControladorGH
     static public function ctrDeparMunicipios()
     {
         $respuesta = ModeloGH::mdlDeparMunicipios();
-        return $respuesta;
+         return $respuesta;
+
     }
 
     /* ===================================================

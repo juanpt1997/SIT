@@ -54,13 +54,13 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                         <div class="card-header bg-info"></div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="tblFUEC" class="table table-sm table-striped table-bordered table-hover w-100">
+                                <table id="tblFUEC" class="table table-sm table-striped table-bordered table-hover w-100 text-center">
                                     <thead class="thead-light text-sm text-nowrap">
                                         <tr>
-                                            <th style="min-width:40px;">#</th>
+                                            <th style="min-width:90px;">#</th>
                                             <th>Acciones</th>
                                             <!-- <th>FUEC</th> -->
-                                            <th>Placa</th>
+                                            <th style="min-width:90px;">Placa</th>
                                             <th>Nro. Interno afiliado</th>
                                             <th>Vinculación</th>
                                             <th>Objeto contrato</th>
@@ -75,9 +75,9 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                             <th>Conductor 3</th>
                                             <th>Documento conductor 3</th>
                                             <th>Cliente ocasional</th>
-                                            <th>Cliente fijo</th>
+                                            <th style="min-width:90px;">Cliente fijo</th>
                                             <th>Fecha de creación</th>
-                                            <th>Usuario</th>
+                                            <th style="min-width:90px;">Usuario</th>
                                             <th>Sucursal</th>
                                         </tr>
                                     </thead>

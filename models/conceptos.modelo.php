@@ -165,7 +165,7 @@ class ModeloConceptosGH
 
     static public function mdlEditarEmpresa($datos)
     {
-        $sql = "UPDATE empresa set razon_social=:razon_social, nit=:nit, nro_resolucion=:nro_resolucion, anio_resolucion=:anio_resolucion, dir_territorial=:dir_territorial, ruta_firma=:ruta_firma, sitio_web=:sitio_web WHERE id = :id";
+         $sql = "UPDATE empresa set razon_social=:razon_social, nit=:nit, nro_resolucion=:nro_resolucion, anio_resolucion=:anio_resolucion, dir_territorial=:dir_territorial, ruta_firma=:ruta_firma, sitio_web=:sitio_web WHERE id = :id";
         $stmt = Conexion::conectar()->prepare($sql);
 
         $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
@@ -278,14 +278,13 @@ class ModeloConceptosGH
 
     static public function mdlEditarRuta($datos)
     {
+        //print_r($datos);
 
-        $stmt = Conexion::conectar()->prepare("UPDATE v_rutas set nombreruta = :ruta, idorigen=:origen, iddestino=:destino
-                                               WHERE id = :idruta");
+        $stmt = Conexion::conectar()->prepare("UPDATE v_rutas set nombreruta = :ruta     WHERE id = :idruta");
 
         $stmt->bindParam(":idruta", $datos["idruta"], PDO::PARAM_INT);
         $stmt->bindParam(":ruta", $datos["ruta"], PDO::PARAM_STR);
-        $stmt->bindParam(":origen", $datos["origen"], PDO::PARAM_STR);
-        $stmt->bindParam(":destino", $datos["destino"], PDO::PARAM_STR);
+   
 
         if ($stmt->execute()) {
             $retorno = "ok";
@@ -383,10 +382,10 @@ class ModeloConceptosGH
     static public function mdlEliminar($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("UPDATE {$datos['tabla']} SET {$datos['item']} = :{$datos['item']}
+        $stmt = $conexion->prepare("UPDATE {$datos['tabla']} SET estado = 0
             WHERE {$datos['id_tabla']} = :{$datos['id']}");
 
-        $stmt->bindParam(":" . $datos['item'], $datos['valor'], PDO::PARAM_INT);
+        //$stmt->bindParam(":" . $datos['item'], $datos['valor'], PDO::PARAM_INT);
         $stmt->bindParam(":" . $datos['id'], $datos["id"], PDO::PARAM_INT);
 
         if ($stmt->execute()) {

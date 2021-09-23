@@ -33,7 +33,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         <div class="card-header bg-success"><h5>Crear / Editar / Eliminar / Visualizar</h5></div>
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-12 col-sm-6 col-md-3">
+                                <div class="col-12 col-sm-6 col-md-6 text-nowrap">
                                     <div class="info-box border border-secondary">
                                       <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-file-signature"></i></span>
                                         <div class="info-box-content">
@@ -41,7 +41,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                             <span class="info-box-number" concepto="Objeto de contrato"></span>        
                                         </div>
                                         <!-- /.info-box-content -->
-                                            <div>
+                                            <div class="d-flex flex-column">
                                                 <button concepto="Objeto de contrato" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarV"><i class="far fa-eye"></i></button>
                                                 <button concepto="Objeto de contrato" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarV" id="btn-tausentismo"><i class="fas fa-plus-circle"></i></button>  
                                             </div>
@@ -51,7 +51,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     </div>
                                     <!-- /.info-box -->
                                 </div>
-                                 <div class="col-12 col-sm-6 col-md-3">
+                                 <div class="col-12 col-sm-6 col-md-6 text-nowrap">
                                     <div class="info-box border border-secondary">
                                       <span class="info-box-icon bg-info elevation-1"><i class="fas fa-road"></i></span>
                                         <div class="info-box-content">
@@ -59,7 +59,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                             <span class="info-box-number" concepto="Rutas y recorridos"></span>        
                                         </div> 
                                         <!-- /.info-box-content -->
-                                          <div>
+                                          <div class="d-flex flex-column">
                                                 <button concepto="Rutas y recorridos" type="button" class="btn-toolbar btn-ver-ruta btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarRutas"><i class="far fa-eye"></i></button>
                                                 <button concepto="Rutas y recorridos" type="button" class="btn-toolbar btn-nueva-ruta btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarRuta" id="btn-tausentismo"><i class="fas fa-plus-circle"></i></button>  
                                             </div>
@@ -68,8 +68,8 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                             </div>
                                     </div> 
                                     <!-- /.info-box -->
-                                < </div>  
-                                <!-- <div class="col-12 col-sm-6 col-md-3">
+                                 </div>  
+                                <!-- <div class="col-12 col-sm-6 col-md-6 text-nowrap">
                                     <div class="info-box border border-secondary">
                                       <span class="info-box-icon bg-success elevation-1"><i class="fas fa-dollar-sign"></i></span>
                                         <div class="info-box-content">
@@ -90,7 +90,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     </div> -->
                                     <!-- /.info-box -->
                                 <!-- </div> -->
-                                <!-- <div class="col-12 col-sm-6 col-md-3">
+                                <!-- <div class="col-12 col-sm-6 col-md-6 text-nowrap">
                                     <div class="info-box border border-secondary">
                                       <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-id-badge"></i></span>
                                         <div class="info-box-content">
@@ -108,7 +108,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     </div> -->
                                     <!-- /.info-box -->
                                 <!-- </div> -->
-                                <div class="col-12 col-sm-6 col-md-3">
+                                <div class="col-12 col-sm-6 col-md-6 text-nowrap">
                                     <div class="info-box border border-secondary">
                                       <span class="info-box-icon bg-success elevation-1"><i class="fas fa-registered"></i></span>
                                         <div class="info-box-content">
@@ -116,7 +116,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                             <span class="info-box-number" concepto="Marcas de vehículos"></span>        
                                         </div>
                                         <!-- /.info-box-content -->
-                                            <div>
+                                            <div class="d-flex flex-column">
                                                 <button concepto="Marcas de vehículos" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarV"><i class="far fa-eye"></i></button>
                                                 <button concepto="Marcas de vehículos" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarV" id="btn-tausentismo"><i class="fas fa-plus-circle"></i></button>  
                                             </div>
@@ -126,7 +126,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     </div>
                                     <!-- /.info-box -->
                                 </div>
-                                <div class="col-12 col-sm-6 col-md-3">
+                                <div class="col-12 col-sm-6 col-md-6 text-nowrap">
                                     <div class="info-box border border-secondary">
                                       <span class="info-box-icon bg-dark elevation-1"><i class="fas fa-file-alt"></i></span>
                                         <div class="info-box-content">
@@ -134,7 +134,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                             <span class="info-box-number" concepto="Documento vehicular"></span>        
                                         </div>
                                         <!-- /.info-box-content -->
-                                            <div>
+                                            <div class="d-flex flex-column">
                                                 <button concepto="Documento vehicular" type="button" class="btn-toolbar btn-ver-documento btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarV1"><i class="far fa-eye"></i></button>
                                                 <button concepto="Documento vehicular" type="button" class="btn-toolbar btn-nuevo-documento btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarV3" id="btn-tausentismo"><i class="fas fa-plus-circle"></i></button>  
                                             </div>
@@ -144,7 +144,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     </div>
                                     <!-- /.info-box -->
                                 </div>
-                                <div class="col-12 col-sm-6 col-md-3">
+                                <div class="col-12 col-sm-6 col-md-6 text-nowrap">
                                     <div class="info-box border border-secondary">
                                       <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-bus-alt"></i></span>
                                         <div class="info-box-content">
@@ -152,7 +152,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                             <span class="info-box-number" concepto="Tipos de vehiculos"></span>        
                                         </div>
                                         <!-- /.info-box-content -->
-                                            <div>
+                                            <div class="d-flex flex-column">
                                                 <button concepto="Tipos de vehiculos" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarV"><i class="far fa-eye"></i></button>
                                                 <button concepto="Tipos de vehiculos" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarV" id="btn-tausentismo"><i class="fas fa-plus-circle"></i></button>  
                                             </div>
@@ -162,7 +162,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     </div>
                                     <!-- /.info-box -->
                                 </div>
-                                <!-- <div class="col-12 col-sm-6 col-md-3">
+                                <!-- <div class="col-12 col-sm-6 col-md-6 text-nowrap">
                                     <div class="info-box border border-secondary">
                                       <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-id-card-alt"></i></span>
                                         <div class="info-box-content">

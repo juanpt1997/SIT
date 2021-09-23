@@ -30,7 +30,6 @@ $Sucursales = ControladorGH::ctrSucursales();
     <!-- /.content-header -->
     <section class="content">
         <div class="container-fluid pt-4">
-            <hr class="my-4">
             <!-- ===================================================
                 BOTON PARA AGREGAR NUEVO USUARIO
             =================================================== -->
@@ -41,13 +40,14 @@ $Sucursales = ControladorGH::ctrSucursales();
                     </button>
                 </div>
             </div>
+            <hr class="my-4">
 
             <!-- ===================== 
                 TABLA DE USUARIOS
             ========================= -->
             <div class="row mt-3">
                 <div class="col-sm-12">
-                    <table class="table table-sm table-striped table-bordered table-hover tablas dt-responsive w-100">
+                    <table class="table table-sm table-striped table-bordered table-hover tablasBtnExport dt-responsive w-100">
                         <thead class="thead-light text-capitalize">
                             <tr>
                                 <th style="width:10px;">#</th>

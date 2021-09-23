@@ -47,55 +47,55 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                     <div class="card card-outline card-success">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
+                                <table id="tblCotizaciones" class="table table-sm table-striped table-bordered table-hover w-100 text-center">
                                     <thead class="text-sm text-center text-nowrap">
                                         <tr>
                                             <th>...</th>
-                                            <th style="width:10px;">ID</th>
+                                            <th style="min-width:90px;">ID</th>
                                             <th>Nombre contratante</th>
-                                            <th>NIT/CC</th>
+                                            <th style="min-width:90px;">NIT/CC</th>
                                             <th>Tipo documento</th>
                                             <th>Dirección</th>
                                             <th>Ciudad</th>
-                                            <th>Teléfono 1</th>
-                                            <th>Teléfono 2</th>
+                                            <th style="min-width:90px;">Teléfono 1</th>
+                                            <th style="min-width:90px;">Teléfono 2</th>
                                             <th>Nombre contacto</th>
                                             <th>Tipo documento</th>
                                             <th>Documento contacto</th>
                                             <th>Cc. Expedida</th>
-                                            <th>Ciudad</th>
-                                            <th>Empresa</th>
+                                            <th style="min-width:90px;">Ciudad</th>
+                                            <th style="min-width:90px;">Empresa</th>
                                             <th>Origen</th>
                                             <th>Destino</th>
-                                            <th>Ruta</th>
+                                            <th style="min-width:70px;">Ruta</th>
                                             <th>Fecha recepción</th>
                                             <th>Fecha respuesta</th>
                                             <th>Fecha inicio</th>
-                                            <th>Fecha final</th>
+                                            <th style="min-width:90px;">Fecha final</th>
                                             <th>Sucursal</th>
-                                            <th>Duración</th>
+                                            <th style="min-width:90px;">Duración</th>
                                             <th>Hora salida</th>
                                             <th>Hora recogida</th>
                                             <th>Tipo vehículo</th>
                                             <th>Otro vehiculo</th>
                                             <th>Nro. Vehículos</th>
-                                            <th>Capacidad</th>
+                                            <th style="min-width:90px;">Capacidad</th>
                                             <th>Valor / vehículo</th>
-                                            <th>Valor total</th>
-                                            <th>Cotización</th>
+                                            <th style="min-width:90px;">Valor total</th>
+                                            <th style="min-width:90px;">Cotización</th>
                                             <th>Clasificación</th>
-                                            <th>Musica</th>
-                                            <th>Aire</th>
-                                            <th>Wi-Fi</th>
+                                            <th style="min-width:90px;">Música</th>
+                                            <th style="min-width:90px;">Aire</th>
+                                            <th style="min-width:90px;">Wi-Fi</th>
                                             <th>Silla reclinable</th>
-                                            <th>Baño</th>
-                                            <th>Bodega</th>
-                                            <th>Otro</th>
+                                            <th style="min-width:90px;">Baño</th>
+                                            <th style="min-width:90px;">Bodega</th>
+                                            <th style="min-width:90px;">Otro</th>
                                             <th>Realiza viaje</th>
-                                            <th>Por qué</th>
+                                            <th style="min-width:90px;">Por qué</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="text-sm">
+                                    <tbody id="tbodyCotizaciones" class="text-sm">
                                         <?php foreach ($Cotizaciones as $key => $value) : ?>
                                             <tr>
                                                 <td class="text-center">

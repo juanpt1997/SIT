@@ -106,7 +106,7 @@ class AjaxAlistamiento
             CREAMOS DIRECTORIO DONDE VAMOS A GUARDAR EL ARCHIVO
         ========================= */
         # Verificar Directorio imagenes mantenimiento
-        $directorio = DIR_APP . "views/img/imgMantenimiento";
+        $directorio = DIR_APP . "views/img/imgAlistamientos";
         if (!is_dir($directorio)) {
             mkdir($directorio, 0755);
         }

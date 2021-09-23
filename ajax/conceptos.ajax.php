@@ -729,16 +729,22 @@ class AjaxConceptosGH
 		echo $respuesta;
 	}
 
-	static public function EditarRuta($dato1, $dato2, $dato3, $id)
+	static public function EditarRuta( $dato3, $id)
 	{
 		$datos = array(
-			"origen" => $dato2,
-			"destino" => $dato2,
 			"ruta" => $dato3,
 			"idruta" => $id
 		);
 
 		$respuesta = ModeloConceptosGH::mdlEditarRuta($datos);
+		echo $respuesta;
+	}
+
+
+	static public function BorrarRuta( $id)//nuevo 
+	{
+		 
+		$respuesta = ModeloConceptosGH::mdlEditarRuta($id);
 		echo $respuesta;
 	}
 
@@ -757,7 +763,7 @@ class AjaxConceptosGH
 			<td>{$value["nombreruta"]}</td>
 			<td> 
 			<div class='btn-group' role='group' aria-label='Button group'>
-			<button idregistro = '{$value["id"]}' dato1='{$value["orig"]}' dato2='{$value["dest"]}' dato3='{$value["nombreruta"]}' class='btn btn-sm btn-warning btnEditarRuta'><i class='fas fa-edit'></i></button>
+			<button idregistro = '{$value["id"]}' dato1='{$value["orig"]}' dato2='{$value["dest"]}' dato3='{$value["nombreruta"]}' class='btn btn-sm btn-warning btnEditarRuta '><i class='fas fa-edit'></i></button>
 			</div>
 			<div class='btn-group' role='group' aria-label='Button group'>
 			<button idregistro = '{$value["id"]}' valor-cambio = '0' concepto = 'Rutas y recorridos' class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button>
@@ -796,7 +802,7 @@ class AjaxConceptosGH
 
 	static public function VerCiudades()
 	{
-		$respuesta = ModeloGH::mdlDeparMunicipios();
+		$respuesta = ModeloConceptosGH::mdlDeparMunicipios();
 		$tr = "";
 
 		foreach ($respuesta as $key => $value) {
@@ -825,7 +831,7 @@ class AjaxConceptosGH
 		echo json_encode($respuesta);
 	}
 
-	static public function ajaxEliminar($id, $valor_cambio, $concepto)
+	static public function ajaxEliminar($id, /*$valor_cambio,*/ $concepto)
 	{
 		switch ($concepto) {
 				//GESTION HUMANA
@@ -905,8 +911,8 @@ class AjaxConceptosGH
 				break;
 
 			case 'Rutas y recorridos':
-				$tabla = "rutas";
-				$id_tabla = "idruta";
+				$tabla = "v_rutas";
+				$id_tabla = "id";
 				break;
 
 			case 'Documento vehicular':
@@ -930,8 +936,8 @@ class AjaxConceptosGH
 
 		$datos = array(
 			"tabla" => $tabla,
-			"item" => "estado",
-			"valor" => $valor_cambio,
+			// "item" => "estado",
+			// "valor" => $valor_cambio,
 			"id_tabla" => $id_tabla,
 			"id" => $id
 		);
@@ -1029,8 +1035,9 @@ if (isset($_POST['VerRutas']) && $_POST['VerRutas'] == "ok") {
 	AjaxConceptosGH::VerRutas();
 }
 
-if (isset($_POST['EditarRuta']) && $_POST['EditarRuta'] == "ok") {
-	AjaxConceptosGH::EditarRuta($_POST['dato1'], $_POST['dato2'], $_POST['dato3'], $_POST['id']);
+
+ if (isset($_POST['EditarRuta']) && $_POST['EditarRuta'] == "ok") {
+	AjaxConceptosGH::EditarRuta($_POST['dato3'], $_POST['id']);
 }
 
 //AJAX EMPRESA
@@ -1065,5 +1072,5 @@ if (isset($_POST['DatosCiudad']) && $_POST['DatosCiudad'] == "ok") {
 
 //ELIMINAR
 if (isset($_POST['EliminarRegistro']) && $_POST['EliminarRegistro'] == "ok") {
-	AjaxConceptosGH::ajaxEliminar($_POST['id'], $_POST['valor'], $_POST['concepto']);
+	AjaxConceptosGH::ajaxEliminar($_POST['id'], /*$_POST['valor'],*/ $_POST['concepto']);
 }

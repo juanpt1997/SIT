@@ -87,7 +87,10 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                         $("#tbody_ver_concepto").html('');
                     }
 
-                    dataTable("#ver_concepto");
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#ver_concepto`, buttons);
                 }
             });
         });
@@ -210,7 +213,10 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                         $("#tbody_tabla_empresa").html('');
                     }
 
-                    dataTable("#tabla_empresa");
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#tabla_empresa`, buttons);
                 }
             });
         });
@@ -352,7 +358,10 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                         $("#tbody_ver_ciudad").html('');
                     }
 
-                    dataTable("#ver_ciudad");
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#ver_ciudad`, buttons);
                 }
             });
         });
@@ -581,7 +590,10 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
                         $("#tbody_ver_concepto").html('');
                     }
 
-                    dataTable("#ver_concepto");
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#ver_concepto`, buttons);
                 }
             });
         });
@@ -979,7 +991,10 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                         $("#tbody_ver_conceptoV").html('');
                     }
 
-                    dataTable("#ver_conceptoV");
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#ver_conceptoV`, buttons);
                 }
             });
         });
@@ -1193,7 +1208,10 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                         $("#tbody_ver_conceptoV2").html('');
                     }
 
-                    dataTable("#ver_conceptoV2");
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#ver_conceptoV2`, buttons);
                 }
             });
         });
@@ -1235,7 +1253,10 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                         $("#tbody_ver_conceptoV2").html('');
                     }
 
-                    dataTable("#ver_conceptoV2");
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#ver_conceptoV2`, buttons);
                 }
             });
         });
@@ -1399,11 +1420,11 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                     `
                 <hr>
                 <label>Origen</label>
-                <input class="form-control" id="input-edit1" type="text" value="${dato1}">
+                <input class="form-control" id="input-edit1" type="text" value="${dato1}" readonly>
                 <label>Destino</label>
-                <input class="form-control" id="input-edit2" type="text" value="${dato2}">
+                <input class="form-control" id="input-edit2" type="text" value="${dato2}" readonly>
                 <label>Ruta</label>
-                <input class="form-control" id="input-edit3" type="text" value="${dato3}">`
+                <input class="form-control" id="input-edit3" type="text" value="${dato3}"  >`
                 ,
                 showCancelButton: true,
                 confirmButtonColor: '#5cb85c',
@@ -1420,8 +1441,6 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                     var datos = new FormData();
                     datos.append("EditarRuta", "ok");
                     datos.append("id", id);
-                    datos.append("dato1", dato_edit1);
-                    datos.append("dato2", dato_edit2);
                     datos.append("dato3", dato_edit3);
 
                     $.ajax({
@@ -1488,6 +1507,7 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                         processData: false,
                         //dataType: "json",
                         success: function (response) {
+                            console.log(response)
                             if (response == "ok") {
                                 Swal.fire({
                                     icon: 'success',

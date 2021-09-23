@@ -121,8 +121,8 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
     });
 }
 
-if (window.location.href == `${urlPagina}v-bloqueo-personal/` ||
-    window.location.href == `${urlPagina}v-bloqueo-personal`
+if (window.location.href == `${urlPagina}gh-bloqueo-personal/` ||
+    window.location.href == `${urlPagina}gh-bloqueo-personal`
 ) {
 
     $(document).on("click", ".btnHistorial", function () {
@@ -156,7 +156,10 @@ if (window.location.href == `${urlPagina}v-bloqueo-personal/` ||
                     $("#tbodyhistorial").html('');
                 }
 
-                dataTable("#tabla-historial");
+                var buttons = [
+                    { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                ];
+                var table = dataTableCustom(`#tabla-historial`, buttons);
 
             }
         });
@@ -670,7 +673,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                 }
             });
 
-            if (Requeridos.length > 0){
+            if (Requeridos.length > 0) {
                 let inputsRequeridosHtml = `<ul>`;
                 Requeridos.forEach(element => {
                     inputsRequeridosHtml += `<li>${element}</li>`;
@@ -986,41 +989,47 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                     /* ===================================================
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
-                    dataTable(`#tbl${nombreTabla}`);
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#tbl${nombreTabla}`, buttons);
                 }
             });
             // HISTORICO EN CASO DE QUERER ACTUALIZAR LA TABLA DOCUMENTOS
             if (nombreTabla == "Documentos") {
-            // Quitar datatable
-            $("#tblHistorico").dataTable().fnDestroy();
-            // Borrar datos
-            $("#tbodyTablaHistorico").html("");
+                // Quitar datatable
+                $("#tblHistorico").dataTable().fnDestroy();
+                // Borrar datos
+                $("#tbodyTablaHistorico").html("");
 
-                    let datoshistorico = new FormData();
-                    datoshistorico.append('TablaHistorico', 'ok');
-                    datoshistorico.append('idvehiculo', idvehiculo);
-                    $.ajax({
-                        type: "POST",
-                        url: `${urlPagina}ajax/vehicular.ajax.php`,
-                        data: datoshistorico,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        // dataType: "json",
-                        success: function (response) {
-                            console.log(response);
-                            if (response != '' || response != null) {
-                                $("#tbodyTablaHistorico").html(response);
-                            } else {
-                                $("#tbodyTablaHistorico").html('');
-                            }
-
-                            /* ===================================================
-                            INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-                            ===================================================*/
-                            dataTable("#tblHistorico");
+                let datoshistorico = new FormData();
+                datoshistorico.append('TablaHistorico', 'ok');
+                datoshistorico.append('idvehiculo', idvehiculo);
+                $.ajax({
+                    type: "POST",
+                    url: `${urlPagina}ajax/vehicular.ajax.php`,
+                    data: datoshistorico,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    // dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        if (response != '' || response != null) {
+                            $("#tbodyTablaHistorico").html(response);
+                        } else {
+                            $("#tbodyTablaHistorico").html('');
                         }
-                    });  
+
+                        /* ===================================================
+                        INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                        ===================================================*/
+                        var buttons = [
+                            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        ];
+                        var table = dataTableCustom(`#tblHistorico`, buttons);
+                    }
+                });
             }
         }
 
@@ -1455,26 +1464,25 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                     /* ===================================================
                       FILTRAR POR COLUMNA
                     ===================================================*/
-                    // /* Filtrar por columna */
-                    // //Clonar el tr del thead
-                    // $(`#tbl${nombreTabla} thead tr`).clone(true).appendTo(`#tbl${nombreTabla} thead`);
-                    // //Por cada th creado hacer lo siguiente
-                    // $(`#tbl${nombreTabla} thead tr:eq(1) th`).each(function (i) {
-                    //     console.log("y luego aca");
-                    //     //Remover clase sorting y el evento que tiene cuando se hace click
-                    //     $(this).removeClass("sorting").unbind();
-                    //     //Agregar input de busqueda
-                    //     $(this).html('<input class="form-control" type="text" placeholder="Buscar"/>');
-                    //     //Evento para detectar cambio en el input y buscar
-                    //     $('input', this).on('keyup change', function () {
-                    //         if (table.column(i).search() !== this.value) {
-                    //             table
-                    //                 .column(i)
-                    //                 .search(this.value)
-                    //                 .draw();
-                    //         }
-                    //     });
-                    // });
+                    /* Filtrar por columna */
+                    //Clonar el tr del thead
+                    $(`#tbl${nombreTabla} thead tr`).clone(true).appendTo(`#tbl${nombreTabla} thead`);
+                    //Por cada th creado hacer lo siguiente
+                    $(`#tbl${nombreTabla} thead tr:eq(1) th`).each(function (i) {
+                        //Remover clase sorting y el evento que tiene cuando se hace click
+                        $(this).removeClass("sorting").unbind();
+                        //Agregar input de busqueda
+                        $(this).html('<input class="form-control" type="text" placeholder="Buscar"/>');
+                        //Evento para detectar cambio en el input y buscar
+                        $('input', this).on('keyup change', function () {
+                            if (table.column(i).search() !== this.value) {
+                                table
+                                    .column(i)
+                                    .search(this.value)
+                                    .draw();
+                            }
+                        });
+                    });
 
                     /* ===================================================
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
@@ -1483,6 +1491,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                         { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
                     ];
                     var table = dataTableCustom(`#tbl${nombreTabla}`, buttons);
+
                 }
             });
         }
