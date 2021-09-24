@@ -2352,6 +2352,9 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                                 <div class="col-12 col-md-8 col-lg-6 col-xl-4">
                                                     <button type="button" id="btnGuardarEvidencia" class="btn btn-block bg-gradient-success"><i class="far fa-save"> Cargar información</i></button>
+                                                    <div class="overlay d-none" id="overlayBtnGuardarEvidencia">
+                                                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                                    </div>
                                                 </div>
                                             </div>
 

@@ -352,10 +352,16 @@ $(document).ready(function () {
             var idvehiculo = $("#idvehiculo").val();
             AbiertoxEditar = true; //BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
 
+            // Tenga un vehiculo seleccionado
             if (idvehiculo != "") {
                 var fotoEvidencia = $('#foto_evidencia')[0].files;
                 var observaciones = $("#observacion_evidencia").val();
+                // foto no sea vacia y las observaciones tampoco sean vacias
                 if (fotoEvidencia.length > 0 && observaciones != "") {
+                    // Cambiar la animacion del boton para que no pueda guardar
+                    //$("#btnGuardarEvidencia").attr("disabled", true);
+                    $("#overlayBtnGuardarEvidencia").removeClass("d-none");
+
                     var datos = new FormData();
                     datos.append('GuardarEvidencia', "ok");
                     datos.append('idvehiculo', idvehiculo);
@@ -370,6 +376,10 @@ $(document).ready(function () {
                         contentType: false,
                         processData: false,
                         success: function (response) {
+                            // Despues de traer respuesta, cambiar animacion del boton para poder guardar
+                            //$("#btnGuardarEvidencia").removeAttr("disabled");
+                            $("#overlayBtnGuardarEvidencia").addClass("d-none");
+
                             if (response == "ok") {
                                 Swal.fire({
                                     icon: 'success',
