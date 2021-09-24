@@ -178,12 +178,12 @@ $TiposAusentismo = ControladorAusentismo::ctrTiposAusentismo();
                                         =================================================== -->
                                         <div class="col-12 col-md-6 col-lg-4">
                                             <div class="form-group">
-                                                <label for="exampleInput1">Empleado *</label>
+                                                <label for="idPersonal">Empleado *</label>
                                                 <div class="input-group">
-                                                    <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
+                                                    <div class="input-group-append">
                                                         <span class="input-group-text"><i class="fas fa-user"></i></span>
                                                     </div>
-                                                    <select class="form-control select2-single" style="width: 90%" name="idPersonal" id="idPersonal" required>
+                                                    <select class="form-control select2-single select2-hidden-accessible" style="width: 70%;" name="idPersonal" id="idPersonal" required>
                                                         <option value="" selected>Seleccione un empleado</option>
                                                         <?php foreach ($ListaEmpleados as $key => $value) : ?>
                                                             <option value="<?= $value['idPersonal'] ?>"><?= $value['Nombre'] ?></option>

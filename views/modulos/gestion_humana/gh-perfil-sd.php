@@ -45,8 +45,8 @@ $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
                 <div id="spinnerTablaPerfilSD" class="spinner-border" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
-                <div class="col-12 table-responsive text-center">
-                    <table id="tblPerfilSD" class="table table-sm text-sm table-light table-striped table-bordered tablasBtnExport w-100">
+                <div class="col-12 table-responsive">
+                    <table id="tblPerfilSD" class="table table-sm text-sm table-light table-striped table-bordered tablasBtnExport w-100 text-center">
                         <thead class="text-capitalize text-nowrap" style="font-size: 13px;">
                             <tr>
                                 <th style="min-width:90px;">Id</th>
