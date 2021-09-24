@@ -68,8 +68,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                 <div class="card-header bg-info"></div>
                                 <div class="card-body">
 
-                                    <div class="table-responsive">
-                                        <table id="tblVehiculos" class="table table-sm table-striped table-bordered table-hover w-100">
+                                        <table id="tblVehiculos" class="table table-responsive table-sm table-striped table-bordered table-hover w-100">
                                             <thead class="thead-light text-sm text-center text-nowrap">
                                                 <tr>
                                                     <th style="min-width:80px;">#</th>
@@ -140,7 +139,6 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                         </table>
 
-                                    </div>
                                 </div>
                                 <div class="card-footer bg-dark"></div>
                             </div>
@@ -160,8 +158,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                 <div id="spinnerTablaReporteDocumentos" class="spinner-border" role="status">
                                     <span class="sr-only">Loading...</span>
                                 </div>
-                                <div class="col-12 table-responsive">
-                                    <table id="tblReporteDocumentos" class="table table-sm table-striped table-bordered table-hover w-100">
+                                <div class="col-12">
+                                    <table id="tblReporteDocumentos" class="table table-responsive table-sm table-striped table-bordered table-hover w-100">
                                         <thead class="thead-light text-sm text-center text-nowrap"              style="font-size: 13px;">
                                             <tr>
                                                 <th style="min-width:90px;">Placa</th>
