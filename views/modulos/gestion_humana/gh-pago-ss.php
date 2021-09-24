@@ -141,7 +141,7 @@ $FechasPagoSS = ControladorPagoSS::ctrMostrarFechas();
                 =================================================== -->
                 <div class="row">
                     <div class="col-12">
-                        <table id="tblPagoSS" class="table table-sm table-hover row-border w-100">
+                        <table id="tblPagoSS" class="table table-responsive table-sm table-hover row-border w-100">
                             <thead class="thead-light">
                                 <tr>
                                     <th>Cédula</th>

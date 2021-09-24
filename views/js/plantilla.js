@@ -125,7 +125,6 @@ $('.tablas').DataTable({
     stateSave: true,
 
     "order": [],
-
     "language": {
         "decimal": ",",
         "thousands": ".",
@@ -248,7 +247,6 @@ $('.tablasBtnExport').DataTable({
     ],
     "order": [],
     stateSave: true,
-
     "language": {
 
         "sProcessing": "Procesando...",

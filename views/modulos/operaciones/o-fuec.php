@@ -53,8 +53,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                     <div class="card">
                         <div class="card-header bg-info"></div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="tblFUEC" class="table table-sm table-striped table-bordered table-hover w-100 text-center">
+                                <table id="tblFUEC" class="table table-responsive table-sm table-striped table-bordered table-hover w-100 text-center">
                                     <thead class="thead-light text-sm text-nowrap">
                                         <tr>
                                             <th style="min-width:90px;">#</th>
@@ -114,7 +113,6 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                         <?php endforeach ?>
                                     </tbody>
                                 </table>
-                            </div>
                         </div>
                         <div class="card-footer bg-dark"></div>
                     </div>
