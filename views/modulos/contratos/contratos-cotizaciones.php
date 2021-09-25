@@ -165,6 +165,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
             <div class="modal-header bg-info">
                 <h3 class="modal-title" id="titulo_cotizacion"></h3>
+                <button class="btn btn-secondary ml-2 d-none btn-copy-cotizacion" type="button"><i class="far fa-copy"></i> Copia</button>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

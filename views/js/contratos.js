@@ -156,6 +156,8 @@ if (
             $("#listaclientes").attr("required", "required");
             //$('#listaclientes').prop('disabled', true);
 
+            $(".btn-copy-cotizacion").removeClass("d-none");
+
             var datos = new FormData();
             datos.append("DatosCotizaciones", "ok");
             datos.append("value", idcot);
@@ -226,6 +228,7 @@ if (
             // Reset valores del formulario
             $("#id_cot").val("");
             $("#titulo_cotizacion").html("Nueva cotización");
+            $(".btn-copy-cotizacion").addClass("d-none");
             if (AbiertoxEditar) { // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
                 $("#formulariocotizacion").trigger("reset");
                 $(".select-ciudad").trigger("change");
@@ -297,6 +300,15 @@ if (
             } else {
                 ActualizoListaClientes = true;
             }
+        });
+
+        /* ===================================================
+          COPIA DE COTIZACION
+        ===================================================*/
+        $(document).on("click", ".btn-copy-cotizacion", function () {
+            $("#id_cot").val(""); //reset id cotizacion
+            $("#titulo_cotizacion").html("Nuevo");
+            $(".btn-copy-cotizacion").addClass("d-none");
         });
     });
 }

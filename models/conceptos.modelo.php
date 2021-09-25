@@ -165,7 +165,9 @@ class ModeloConceptosGH
 
     static public function mdlEditarEmpresa($datos)
     {
-         $sql = "UPDATE empresa set razon_social=:razon_social, nit=:nit, nro_resolucion=:nro_resolucion, anio_resolucion=:anio_resolucion, dir_territorial=:dir_territorial, ruta_firma=:ruta_firma, sitio_web=:sitio_web WHERE id = :id";
+         $sql = "UPDATE empresa set razon_social=:razon_social, nit=:nit, nro_resolucion=:nro_resolucion, anio_resolucion=:anio_resolucion, dir_territorial=:dir_territorial, 
+         -- ruta_firma=:ruta_firma, 
+         sitio_web=:sitio_web WHERE id = :id";
         $stmt = Conexion::conectar()->prepare($sql);
 
         $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
@@ -174,7 +176,7 @@ class ModeloConceptosGH
         $stmt->bindParam(":nro_resolucion", $datos["nro_resolucion"], PDO::PARAM_STR);
         $stmt->bindParam(":anio_resolucion", $datos["anio_resolucion"], PDO::PARAM_STR);
         $stmt->bindParam(":dir_territorial", $datos["dir_territorial"], PDO::PARAM_INT);
-        $stmt->bindParam(":ruta_firma", $datos["ruta_firma"], PDO::PARAM_STR);
+        //$stmt->bindParam(":ruta_firma", $datos["ruta_firma"], PDO::PARAM_STR);
         $stmt->bindParam(":sitio_web", $datos["sitio_web"], PDO::PARAM_STR);
 
         if ($stmt->execute()) {

@@ -270,24 +270,24 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                             confirmButtonColor: '#33cc33',
                             cancelButtonColor: '#d33',
                             cancelButtonText: 'Cancelar'
-                         }).then((result) => {
+                        }).then((result) => {
 
                             if (result.value) {
                                 var datosAjax = new FormData();
                                 var datosFrm = $("#formulario_editar_empresa").serializeArray();
                                 datosAjax.append('EditarEmpresa', "ok");
                                 datosAjax.append("id_empresa", id);
-                                 $('#VisualizarEmpresa').modal('toggle');
-                                 var vacio = false;
+
+                                var vacio = false;
                                 datosFrm.forEach(element => {
 
                                     datosAjax.append(element.name, element.value);
 
-                                    if(element.value == ''){
+                                    if (element.value == '') {
                                         vacio = true;
                                     }
                                 });
-                                if(!vacio){
+                                if (!vacio) {
 
                                     $.ajax({
                                         type: "post",
@@ -298,16 +298,16 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                                         processData: false,
                                         //dataType: "json",
                                         success: function (response) {
-                                            if(response == 'ok')
-                                            {
+                                            $('#VisualizarEmpresa').modal('toggle');
+                                            if (response == 'ok') {
                                                 Swal.fire({
                                                     icon: 'success',
                                                     showConfirmButton: true,
                                                     title: "La empresa ha sido actualizada",
                                                     confirmButtonText: "¡Cerrar!",
                                                     allowOutsideClick: false
-                                                }) 
-                                            }else{
+                                                })
+                                            } else {
                                                 Swal.fire({
                                                     icon: 'error',
                                                     showConfirmButton: true,
@@ -323,7 +323,7 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                         })
                     }
                 }
-            });            
+            });
         });
         //CIUDADES
         //========
@@ -353,7 +353,7 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                 success: function (response) {
 
                     if (response != '' || response != null) {
-                                                
+
                         $("#tbody_ver_ciudad").html(response);
 
                     } else {
@@ -369,11 +369,11 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
             });
         });
         //Cerrar Modal de ver ciudades al abrir el modal de editar ciudades
-        $ ("#EditarCiudad").on('show.bs.modal',function(e){$ ("#VisualizarCiudades").modal("hide");});
+        $("#EditarCiudad").on('show.bs.modal', function (e) { $("#VisualizarCiudades").modal("hide"); });
         //BOTON EDITAR CIUDAD
         $(document).on("click", ".btnEditarCiudad", function () {
 
-            
+
             //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
             var id = $(this).attr("idregistro");
             $("#idmunicipioedit").val(id);
@@ -398,8 +398,8 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                     $("#municipioEdit").val(response.municipio);
                     $("#departamentosEdit").val(response.iddepartamento);
                     $('.select2-single').trigger('change'); //MUESTRA EL VALOR DEL SELECT 
-                    }    
-             });
+                }
+            });
         });
         //BOTON AGREGAR CIUDAD
         $(document).on("click", ".btn-nueva-ciudad", function () {
@@ -412,7 +412,7 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
         });
         //SUBMIT DEL FORMULARIO DE CIUDAD
         $("#formularioCiudadesEdit").submit(function (e) {
-  
+
             e.preventDefault();//Previene la accion por defecto del boton
             var datos = new FormData();
 
@@ -421,7 +421,7 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
             datos.append("EditarCiudad", "ok");
             datos.append("dato1", $("#departamentosEdit").val());
             datos.append("dato2", $("#municipioEdit").val());
-            datos.append("id",id);
+            datos.append("id", id);
 
             $.ajax({
                 url: "ajax/conceptos.ajax.php",
@@ -452,7 +452,7 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
         //ELIMINAR
         $(document).on("click", ".btnBorrar", function () {
 
-            
+
             //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
             var id = $(this).attr("idregistro");
             var valor_cambio = $(this).attr("valor-cambio");
@@ -477,7 +477,7 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                     datos.append("id", id);
                     datos.append("valor", valor_cambio);
                     datos.append("concepto", concepto);
-                    
+
 
                     $.ajax({
                         type: "POST",
@@ -552,7 +552,7 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
                                 window.location = 'cg-mantenimiento';
                             }
                         })
-                    } 
+                    }
                 }
             });
         });
@@ -686,7 +686,7 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
         //ELIMINAR
         $(document).on("click", ".btnBorrar", function () {
 
-            
+
             //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
             var id = $(this).attr("idregistro");
             var valor_cambio = $(this).attr("valor-cambio");
@@ -711,7 +711,7 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
                     datos.append("id", id);
                     datos.append("valor", valor_cambio);
                     datos.append("concepto", concepto);
-                    
+
 
                     $.ajax({
                         type: "POST",
@@ -922,7 +922,7 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
             //Envio de concepto al titulo del modal
-            $("#titulo_modalV").html(concepto); 
+            $("#titulo_modalV").html(concepto);
         });
         //SUBMIT DEL FORMULARIO DE VEHICULAR
         $("#formularioV").submit(function (e) {
@@ -1083,23 +1083,23 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                 }
             });
         });
-         //BOTON NUEVO DOCUMENTO VEHICULAR
-         $(document).on("click", ".btn-nuevo-documento", function () {
+        //BOTON NUEVO DOCUMENTO VEHICULAR
+        $(document).on("click", ".btn-nuevo-documento", function () {
 
             var concepto = $(this).attr("concepto");
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
             //Envio de concepto al titulo del modal
-            $("#titulo_modalV3").html(concepto); 
+            $("#titulo_modalV3").html(concepto);
         });
-         //BOTON NUEVA LICENCIA, TIPO IDENTIFICACION
-         $(document).on("click", ".btn-nuevo-2", function () {
+        //BOTON NUEVA LICENCIA, TIPO IDENTIFICACION
+        $(document).on("click", ".btn-nuevo-2", function () {
 
             var concepto = $(this).attr("concepto");
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
             //Envio de concepto al titulo del modal
-            $("#titulo_modalV2").html(concepto); 
+            $("#titulo_modalV2").html(concepto);
         });
         //SUBMIT DEL FORMULARIO DE VEHICULAR - 2
         $("#formularioV2").submit(function (e) {
@@ -1148,7 +1148,7 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
 
             var hd = $('#input_dias').val();
 
-            
+
 
             $.ajax({
                 url: "ajax/conceptos.ajax.php",
@@ -1263,8 +1263,8 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                 }
             });
         });
-         //BOTON EDITAR 2
-         $(document).on("click", ".btnEditarV2", function () {
+        //BOTON EDITAR 2
+        $(document).on("click", ".btnEditarV2", function () {
 
             //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
             var concepto = $(this).attr("concepto");
@@ -1331,7 +1331,7 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
             //Envio de concepto al titulo del modal
-            $("#titulo_modal_ruta").html(concepto); 
+            $("#titulo_modal_ruta").html(concepto);
         });
         //SUBMIT DEL FORMULARIO DE RUTAS
         $("#formularioRuta").submit(function (e) {
@@ -1342,7 +1342,7 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
             datos.append("dato1", $("#id_ruta").val());
             datos.append("dato2", $("#origen").val());
             datos.append("dato3", $("#id_destino").val());
-            
+
 
             $.ajax({
                 url: "ajax/conceptos.ajax.php",
@@ -1366,7 +1366,7 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                     }
                 }
             });
-        }); 
+        });
         //BOTON VER RUTAS
         $(document).on("click", ".btn-ver-ruta", function () {
 
@@ -1379,7 +1379,7 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
             $("#ver_ruta").dataTable().fnDestroy();
             // Borrar datos
             $("#tbody_ver_ruta").html("");
-          
+
             var datos = new FormData();
             datos.append("VerRutas", "ok");
             $.ajax({
@@ -1391,7 +1391,7 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                 processData: false,
                 //dataType: "json",
                 success: function (response) {
- 
+
                     if (response != '' || response != null) {
 
                         $("#tbody_ver_ruta").html(response);
@@ -1470,11 +1470,11 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                 }
             })
         });
-        
+
         //ELIMINAR
         $(document).on("click", ".btnBorrar", function () {
 
-            
+
             //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
             var id = $(this).attr("idregistro");
             var valor_cambio = $(this).attr("valor-cambio");
@@ -1499,7 +1499,7 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                     datos.append("id", id);
                     datos.append("valor", valor_cambio);
                     datos.append("concepto", concepto);
-                    
+
 
                     $.ajax({
                         type: "POST",
