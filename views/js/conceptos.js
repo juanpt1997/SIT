@@ -277,7 +277,7 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                                 var datosFrm = $("#formulario_editar_empresa").serializeArray();
                                 datosAjax.append('EditarEmpresa', "ok");
                                 datosAjax.append("id_empresa", id);
-                                
+                                window.location = 'cg-gestion-humana';
                                 var vacio = false;
                                 datosFrm.forEach(element => {
 
@@ -306,7 +306,7 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                                                     title: "La empresa ha sido actualizada",
                                                     confirmButtonText: "¡Cerrar!",
                                                     allowOutsideClick: false
-                                                })
+                                                }).then((result) => { window.location = 'cg-gestion-humana'; })
                                             }else{
                                                 Swal.fire({
                                                     icon: 'error',
