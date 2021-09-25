@@ -53,8 +53,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                     <div class="card">
                         <div class="card-header bg-info"></div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="tblFUEC" class="table table-sm table-striped table-bordered table-hover w-100 text-center">
+                                <table id="tblFUEC" class="table table-responsive table-sm table-striped table-bordered table-hover w-100 text-center">
                                     <thead class="thead-light text-sm text-nowrap">
                                         <tr>
                                             <th style="min-width:90px;">#</th>
@@ -75,7 +74,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                             <th>Conductor 3</th>
                                             <th>Documento conductor 3</th>
                                             <th>Cliente ocasional</th>
-                                            <th style="min-width:90px;">Cliente fijo</th>
+                                            <th>Cliente fijo</th>
                                             <th>Fecha de creación</th>
                                             <th style="min-width:90px;">Usuario</th>
                                             <th>Sucursal</th>
@@ -114,7 +113,6 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                         <?php endforeach ?>
                                     </tbody>
                                 </table>
-                            </div>
                         </div>
                         <div class="card-footer bg-dark"></div>
                     </div>
@@ -319,7 +317,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                 <label>Vehículo</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
-                                        <span class="input-group-text" style="height: 93%;"><i class="fas fa-car-side"></i></span>
+                                        <span class="input-group-text" style="height: 100%;"><i class="fas fa-car-side"></i></span>
                                     </div>
                                     <select id="vehiculofuec" class="form-control select2-single input-fuec" style="width: 90%" name="vehiculofuec" required>
                                         <option value="" selected>-Seleccione un vehículo</option>
@@ -337,7 +335,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                 <label>Conductor 1</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
-                                        <span class="input-group-text" style="height: 93%;"><i class="fas fa-user-check"></i></span>
+                                        <span class="input-group-text" style="height: 100%;"><i class="fas fa-user-check"></i></span>
                                     </div>
                                     <select id="conductor1" class="form-control select2-single input-fuec conductores" style="width: 90%" name="conductor1" required>
                                         <option value="" selected>-Seleccione un conductor</option>
@@ -355,7 +353,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                 <label>Conductor 2</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
-                                        <span class="input-group-text" style="height: 93%;"><i class="fas fa-user-check"></i></span>
+                                        <span class="input-group-text" style="height: 100%;"><i class="fas fa-user-check"></i></span>
                                     </div>
                                     <select id="conductor2" class="form-control select2-single input-fuec conductores" style="width: 90%" name="conductor2">
                                         <option value="" selected>-Seleccione un conductor</option>
@@ -373,7 +371,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                 <label>Conductor 3</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
-                                        <span class="input-group-text" style="height: 93%;"><i class="fas fa-user-check"></i></span>
+                                        <span class="input-group-text" style="height: 100%;"><i class="fas fa-user-check"></i></span>
                                     </div>
                                     <select id="conductor3" class="form-control select2-single input-fuec conductores" style="width: 90%" name="conductor3">
                                         <option value="" selected>-Seleccione un conductor</option>

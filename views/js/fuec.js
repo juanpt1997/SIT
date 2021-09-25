@@ -203,7 +203,7 @@ $(document).ready(function () {
 
             /* Esta condicion sirve para ejecutar el evento unicamente cuando de verdad seleccione un vehiculo porque puede ocurrir que el select sea modificado internamente con $select.trigger('change')*/
             if (actualizoSelectConductor) {
-                if (idconductor != "") {
+                if (idconductor != "" && idconductor != null) {
                     $select.val("");
 
                     // Reviso si el vehículo tiene bloqueo y los documentos estan al dia
@@ -312,6 +312,7 @@ $(document).ready(function () {
                             // Datos cotizacion
                             $("#fechaini").val(response.fecha_inicio);
                             $("#fechafin").val(response.fecha_fin);
+                            FuncionValidarFechaVencimiento();
                             $("#origen").val(response.origen);
                             $("#destino").val(response.destino);
                             $("#observacionescontr").val(response.descripcion);
@@ -365,6 +366,11 @@ $(document).ready(function () {
                                 confirmButtonText: 'Cerrar',
                                 closeOnConfirm: false
                             });
+                            $("#vehiculofuec").val("");
+                            actualizoSelectConductor = false;
+                            $(".conductores").empty();
+                            actualizo = false;
+                            $("#vehiculofuec").trigger('change'); //MUESTRA EL VALOR DEL SELECT
                         }
                     }
                 });
@@ -618,7 +624,7 @@ $(document).ready(function () {
                                     window.open(`./pdf/pdffuec.php?cod=${idfuec}`, '', 'width=1280,height=720,left=50,top=50,toolbar=yes');
                                 }
                             });
-                        }else{
+                        } else {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'No se ha podido encontrar el respectivo FUEC',
