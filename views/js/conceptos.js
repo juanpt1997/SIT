@@ -270,15 +270,15 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                             confirmButtonColor: '#33cc33',
                             cancelButtonColor: '#d33',
                             cancelButtonText: 'Cancelar'
-                        }).then((result) => {
+                         }).then((result) => {
 
                             if (result.value) {
                                 var datosAjax = new FormData();
                                 var datosFrm = $("#formulario_editar_empresa").serializeArray();
                                 datosAjax.append('EditarEmpresa', "ok");
                                 datosAjax.append("id_empresa", id);
-                                window.location = 'cg-gestion-humana';
-                                var vacio = false;
+                                 $('#VisualizarEmpresa').modal('toggle');
+                                 var vacio = false;
                                 datosFrm.forEach(element => {
 
                                     datosAjax.append(element.name, element.value);
@@ -306,7 +306,7 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                                                     title: "La empresa ha sido actualizada",
                                                     confirmButtonText: "¡Cerrar!",
                                                     allowOutsideClick: false
-                                                }).then((result) => { window.location = 'cg-gestion-humana'; })
+                                                }) 
                                             }else{
                                                 Swal.fire({
                                                     icon: 'error',
