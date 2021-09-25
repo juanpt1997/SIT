@@ -532,7 +532,7 @@ class ModeloAlistamiento
     static public function mdlListaEvidencias($idvehiculo)
     {
         $stmt = Conexion::conectar()->prepare("SELECT e.idevidencia, e.idvehiculo, e.fecha, e.ruta_foto, e.observaciones, e.estado, e.autor AS idautor, u.Nombre AS autor
-                                                FROM m_re_alistamientoevidencias e
+                                                FROM o_re_alistamientoevidencias e
                                                 INNER JOIN v_vehiculos v ON e.idvehiculo = v.idvehiculo
                                                 LEFT JOIN l_usuarios u ON u.Cedula = e.autor
                                                 WHERE v.idvehiculo = :idvehiculo
@@ -551,7 +551,7 @@ class ModeloAlistamiento
     static public function mdlGuardarEvidencia($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("INSERT INTO `m_re_alistamientoevidencias`(
+        $stmt = $conexion->prepare("INSERT INTO `o_re_alistamientoevidencias`(
                                     `idvehiculo`,
                                     `fecha`,
                                     `ruta_foto`,
@@ -587,7 +587,7 @@ class ModeloAlistamiento
     {
 
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("UPDATE `m_re_alistamientoevidencias` SET 
+        $stmt = $conexion->prepare("UPDATE `o_re_alistamientoevidencias` SET 
             `estado` = :estado,
             `observaciones` = :observaciones
             WHERE `idevidencia`=:idevidencia");
