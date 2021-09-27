@@ -198,7 +198,7 @@ class ModeloInventario
                                                             Nsalidas_martillos,
                                                             interno_externo_comoConduzco,
                                                             Av_Como_conduzco,
-                                                            Dispositivo_ velocidad,
+                                                            Dispositivo_velocidad,
                                                             Salidas_emergencia_martillos,
                                                             Brazo_limpiaparabrisas_izquierdo,
                                                             Plumilla_limpiaparabrisas_izquierdo,
@@ -215,7 +215,8 @@ class ModeloInventario
                                                             Placas_reglamentarias,
                                                             observaciones,
                                                             escolar,
-                                                            num_parlantes) --91
+                                                            num_parlantes,
+                                                            numero_luces_internas) --91
                                                     VALUES(
                                                             :idvehiculo,
                                                             :idconductor,
@@ -307,41 +308,42 @@ class ModeloInventario
                                                             :Placas_reglamentarias,
                                                             :observaciones,
                                                             :escolar,
-                                                            :num_parlantes)"); //91
+                                                            :num_parlantes,
+                                                            :numero_luces_internas)"); //91
 
-        $stmt->bindParam(":idvehiculo", $datos["placa"], PDO::PARAM_INT);
-        $stmt->bindParam(":idconductor", $datos["conductor"], PDO::PARAM_INT);
-        $stmt->bindParam(":tipovehi", $datos["tipovel"], PDO::PARAM_INT);
-        $stmt->bindParam(":fecha_inventario", $datos["fechai"], PDO::PARAM_STR);
-        $stmt->bindParam(":kilometraje", $datos["kilom"], PDO::PARAM_INT);
-        $stmt->bindParam(":recepcion_entrega_vehiculo", $datos["recep_entrega"], PDO::PARAM_INT);
-        $stmt->bindParam(":Techo_exterior", $datos["techoext"], PDO::PARAM_INT);
-        $stmt->bindParam(":Techo_interior", $datos["techoint"], PDO::PARAM_INT);
-        $stmt->bindParam(":Frente", $datos["frente"], PDO::PARAM_INT);
-        $stmt->bindParam(":numero_luces_internas", $datos["num_luces_in"], PDO::PARAM_INT);
-        $stmt->bindParam(":Bomper_delantero", $datos["bomper_del"], PDO::PARAM_INT);
-        $stmt->bindParam(":Bomper_trasero", $datos["bomper_tra"], PDO::PARAM_INT);
-        $stmt->bindParam(":Lateral_derecho", $datos["lateral_der"], PDO::PARAM_INT);
-        $stmt->bindParam(":Lateral_izquierdo", $datos["lateral_izq"], PDO::PARAM_INT);
-        $stmt->bindParam(":Puerta_izquierda", $datos["puerta_izq"], PDO::PARAM_INT);
-        $stmt->bindParam(":Parabrisas_izquierdo", $datos["parab_izq"], PDO::PARAM_INT);
-        $stmt->bindParam(":Parabrisas_derecho", $datos["parab_der"], PDO::PARAM_INT);
-        $stmt->bindParam(":parabrisas_trasero", $datos["parab_tra"], PDO::PARAM_INT);
-        $stmt->bindParam(":Espejo_retrovisor_derecho", $datos["espejo_re_der"], PDO::PARAM_INT);
-        $stmt->bindParam(":Espejo_retrovisor_izquierdo", $datos["espejo_re_izq"], PDO::PARAM_INT);
-        $stmt->bindParam(":Vidrios_ventanas_lateral_derecho", $datos["vidrios_ven_der"], PDO::PARAM_INT);
-        $stmt->bindParam(":Vidrios_entanas_ateral_izquierdo", $datos["vidrios_ven_izq"], PDO::PARAM_INT);
-        $stmt->bindParam(":Vidrios_puertas", $datos["vidrios_puert"], PDO::PARAM_INT);
-        $stmt->bindParam(":Direccionalelantera_izquierda", $datos["dir_del_izq"], PDO::PARAM_INT);
-        $stmt->bindParam(":Direccional_elantera_derecha", $datos["dir_del_der"], PDO::PARAM_INT);
-        $stmt->bindParam(":Stop_trasero_derecho", $datos["stop_tra_der"], PDO::PARAM_INT);
-        $stmt->bindParam(":Stop_trasero_izquierdo", $datos["stop_tra_izq"], PDO::PARAM_INT);
-        $stmt->bindParam(":Cucuyo_lateral_derecho", $datos["cucu_la_der"], PDO::PARAM_INT);
-        $stmt->bindParam(":Cucuyo_lateral_izquierdo", $datos["cucu_la_izq"], PDO::PARAM_INT);
-        $stmt->bindParam(":Luces_internas", $datos["luces_in"], PDO::PARAM_INT);
-        $stmt->bindParam(":balizas", $datos["balizas"], PDO::PARAM_INT);
-        $stmt->bindParam(":Delantera_izquierda_R1", $datos["delan_izq_r1"], PDO::PARAM_INT);
-        $stmt->bindParam(":Delantera_derecha_R2", $datos["Delantera_izquierda_R2"], PDO::PARAM_INT);
+        $stmt->bindParam(":idvehiculo", $datos["placa"], PDO::PARAM_INT); //
+        $stmt->bindParam(":idconductor", $datos["conductor"], PDO::PARAM_INT); //
+        $stmt->bindParam(":tipovehi", $datos["tipovel"], PDO::PARAM_INT); //
+        $stmt->bindParam(":fecha_inventario", $datos["fechai"], PDO::PARAM_STR); //
+        $stmt->bindParam(":kilometraje", $datos["kilom"], PDO::PARAM_INT); //
+        $stmt->bindParam(":recepcion_entrega_vehiculo", $datos["recep_entrega"], PDO::PARAM_INT); //
+        $stmt->bindParam(":Techo_exterior", $datos["techoext"], PDO::PARAM_INT); //
+        $stmt->bindParam(":Techo_interior", $datos["techoint"], PDO::PARAM_INT); //
+        $stmt->bindParam(":Frente", $datos["frente"], PDO::PARAM_INT); //
+        $stmt->bindParam(":numero_luces_internas", $datos["num_luces_in"], PDO::PARAM_INT);// 
+        $stmt->bindParam(":Bomper_delantero", $datos["bomper_del"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Bomper_trasero", $datos["bomper_tra"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Lateral_derecho", $datos["lateral_der"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Lateral_izquierdo", $datos["lateral_izq"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Puerta_izquierda", $datos["puerta_izq"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Parabrisas_izquierdo", $datos["parab_izq"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Parabrisas_derecho", $datos["parab_der"], PDO::PARAM_INT);//
+        $stmt->bindParam(":parabrisas_trasero", $datos["parab_tra"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Espejo_retrovisor_derecho", $datos["espejo_re_der"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Espejo_retrovisor_izquierdo", $datos["espejo_re_izq"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Vidrios_ventanas_lateral_derecho", $datos["vidrios_ven_der"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Vidrios_entanas_ateral_izquierdo", $datos["vidrios_ven_izq"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Vidrios_puertas", $datos["vidrios_puert"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Direccionalelantera_izquierda", $datos["dir_del_izq"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Direccional_elantera_derecha", $datos["dir_del_der"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Stop_trasero_derecho", $datos["stop_tra_der"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Stop_trasero_izquierdo", $datos["stop_tra_izq"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Cucuyo_lateral_derecho", $datos["cucu_la_der"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Cucuyo_lateral_izquierdo", $datos["cucu_la_izq"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Luces_internas", $datos["luces_in"], PDO::PARAM_INT);//
+        $stmt->bindParam(":balizas", $datos["balizas"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Delantera_izquierda_R1", $datos["delan_izq_r1"], PDO::PARAM_INT);//
+        $stmt->bindParam(":Delantera_derecha_R2", $datos["delan_izq_r2"], PDO::PARAM_INT);
         $stmt->bindParam(":Trasera_interior_izquierda_R3", $datos["tra_in_izq_r3"], PDO::PARAM_INT);
         $stmt->bindParam(":Trasera_exterior_izquierda_R4", $datos["tra_ex_izq_r4"], PDO::PARAM_INT);
         $stmt->bindParam(":Trasera_interior_derecha_R5", $datos["tra_in_der_r5"], PDO::PARAM_INT);

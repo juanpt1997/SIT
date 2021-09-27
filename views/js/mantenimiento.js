@@ -97,8 +97,16 @@ $(document).ready(function () {
     window.location.href == `${urlPagina}m-inventario/` ||
     window.location.href == `${urlPagina}m-inventario`
   ) {
+
+
+    //EVENTO QUE MUESTRA LOS CONDCUTORES SEGUN LA PLACA DEL VEHICULO
     $(document).on("change", "#placa_invent", function () {
       let idvehiculo = $(this).val();
+
+      if(idvehiculo == "null")
+      {
+        $(".documentos").val("");
+      }
 
       // Datos del vehiculo
       var datos = new FormData();
@@ -118,16 +126,39 @@ $(document).ready(function () {
           $("#numinter_invent").val(Vehiculo.datosVehiculo.numinterno);
           $("#marca_invent").val(Vehiculo.datosVehiculo.idmarca);
           $("#modelo_invent").val(Vehiculo.datosVehiculo.modelo);
-
+          //Funcion para cargar las fotos del vehiculo segun ese id
           cargarFotosVehiculo(Vehiculo.fotosVehiculo);
-
         },
       });
+
+      //DOCUMENTOS DEL VEHICULO
+      var datos = new FormData();
+      datos.append("DocumentosxVehiculo", "ok");
+      datos.append("idvehiculo", idvehiculo);
+      $.ajax({
+        type: "post",
+        url: `${urlPagina}ajax/vehicular.ajax.php`,
+        data: datos,
+        dataType: "json",
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+          response.forEach((element) => {
+            // var bg =
+            //   element.fechafin >= moment().format("YYYY-MM-DD")
+            //     ? "bg-success"
+            //     : "bg-danger";              
+              // Asigno valor fecha
+              $(`#documento_${element.idtipodocumento}`).val(element.fechafin);
+          });
+        },
+      });
+
       // lISTA CONDUCTORES
       var datos = new FormData();
       datos.append("ListaConductores", "ok");
       datos.append("idvehiculo", idvehiculo);
-
       $.ajax({
         type: "post",
         url: `${urlPagina}ajax/fuec.ajax.php`,
@@ -167,13 +198,13 @@ $(document).ready(function () {
       });
     });
 
+    //EVENTO QUE MUESTRA EL TIPO DE LICENCIA SEGUN EL CONDUCTOR 
     $(document).on("change", "#conductor_invent", function () {
       let idconductor = $(this).val();
 
       var datos = new FormData();
       datos.append("LicenciasxVehiculo", "ok");
       datos.append("idconductor", idconductor);
-
       $.ajax({
         type: "post",
         url: `${urlPagina}ajax/mantenimiento.ajax.php`,
@@ -187,60 +218,35 @@ $(document).ready(function () {
             $("#categoria_invent").val(response.categoria);
             $("#vencimineto_inventario").val(response.fecha_vencimiento);
           }
-
-          /* ===================================================
-               Cargar fechas de vencimiento del vehículo
-          ===================================================*/
-          var datos = new FormData();
-          datos.append("DocumentosxVehiculo", "ok");
-          datos.append("idvehiculo", response.idvehiculo);
-          $.ajax({
-            type: "post",
-            url: `${urlPagina}ajax/vehicular.ajax.php`,
-            data: datos,
-            dataType: "json",
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-              response.forEach((element) => {
-                // Asigno valor fecha
-                $(`#documento_${element.idtipodocumento}`).val(
-                  element.fechafin
-                );
-
-                // Color del fondo segun la fecha
-                var bg =
-                  element.fechafin >= moment().format("YYYY-MM-DD")
-                    ? "bg-success"
-                    : "bg-danger";
-                $(`#documento_${element.idtipodocumento}`).addClass(bg);
-              });
-            },
-          });
         },
       });
     });
 
+    //Funcion que carga las fotos de un vehiculo
     let cargarFotosVehiculo = (response) => {
-
       let htmljumbo = ``;
 
       for (let index = 0; index < response.length; index++) {
-
         console.log(response[index].ruta_foto);
 
-       // htmljumbo += `<img src="${response[index].ruta_foto}" class="d-block w-100" alt="...">` 
+        // htmljumbo += `<img src="${response[index].ruta_foto}" class="d-block w-100" alt="...">`
         htmljumbo += `<div class="jumbotron jumbotron-fluid">
                         <div class="container insertar_fotos">
                           <img src="${response[index].ruta_foto}" class="d-block w-100" alt="...">
                         </div>
                       </div>
-                      <hr class="my-5">` 
+                      <hr class="my-5">`;
       }
-    
-      $("#col_fotos_inventario").html(htmljumbo);
 
+      $("#col_fotos_inventario").html(htmljumbo);
     };
+
+    $(".cancelar").click(function (e) { 
+      e.preventDefault();
+      $(".documentos").val("");
+      $(".conductores").val("");
+      $(".inventario").val("");      
+      $('input[type=checkbox]').prop('checked',false);
+    });
   }
 });
