@@ -340,15 +340,17 @@
                                     <p>Protocolo de alistamiento</p>
                                 </a>
                             </li>
-                            <!-- ===================================================
-                                    Plan de Rodamiento
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="o-rodamiento" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Plan de rodamiento</p>
-                                </a>
-                            </li>
+                            <?php if (validarModulo('M_OPCIONES')) : ?>
+                                <!-- ===================================================
+                                        Plan de Rodamiento
+                                    =================================================== -->
+                                <li class="nav-item">
+                                    <a href="o-rodamiento" class="nav-link" target="_blank">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Plan de rodamiento</p>
+                                    </a>
+                                </li>
+                            <?php endif ?>
                         </ul>
                     </li>
                 <?php endif ?>

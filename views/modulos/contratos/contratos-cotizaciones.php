@@ -46,8 +46,8 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                 <div class="col-12">
                     <div class="card card-outline card-success">
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="tblCotizaciones" class="table table-sm table-striped table-bordered table-hover w-100 text-center">
+                            
+                                <table id="tblCotizaciones" class="table table-responsive table-sm table-striped table-bordered table-hover w-100 text-center">
                                     <thead class="text-sm text-center text-nowrap">
                                         <tr>
                                             <th>...</th>
@@ -149,7 +149,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                         <?php endforeach ?>
                                     </tbody>
                                 </table>
-                            </div>
+                            
                         </div><!-- card-body-->
                     </div><!-- card-->
                 </div><!-- col-->
@@ -165,6 +165,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
             <div class="modal-header bg-info">
                 <h3 class="modal-title" id="titulo_cotizacion"></h3>
+                <button class="btn btn-secondary ml-2 d-none btn-copy-cotizacion" type="button"><i class="far fa-copy"></i> Copia</button>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

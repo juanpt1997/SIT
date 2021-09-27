@@ -132,9 +132,9 @@
 
                 
                  <!-- ===================================================
-                    ** Operaciones
+                    Operaciones
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarModulo('M_CONTRATOS')) : ?>
                     <div class="col-12 col-sm-6 col-md-4 col-xl-3 d-none">
                         <a href="#" class="d-none">
                             <div class="info-box border border-danger">
@@ -161,7 +161,9 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuOperaciones">
                                 <a class="dropdown-item font-weight-bold" href="o-fuec"><u>FUEC</u></a>
                                 <a class="dropdown-item font-weight-bold" href="o-alistamiento"><u>Protocolo de alistamiento</u></a>
-                                <a class="dropdown-item font-weight-bold" href="o-rodamiento"><u>Plan de rodamiento</u></a>
+                                <?php if (validarModulo('M_OPCIONES')) : ?>
+                                    <a class="dropdown-item font-weight-bold" href="o-rodamiento"><u>Plan de rodamiento</u></a>
+                                <?php endif ?>
                             </div>
                         </div>
                     </div>

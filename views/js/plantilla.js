@@ -125,7 +125,6 @@ $('.tablas').DataTable({
     stateSave: true,
 
     "order": [],
-
     "language": {
         "decimal": ",",
         "thousands": ".",
@@ -248,7 +247,6 @@ $('.tablasBtnExport').DataTable({
     ],
     "order": [],
     stateSave: true,
-
     "language": {
 
         "sProcessing": "Procesando...",
@@ -395,7 +393,12 @@ $(document).ready(function () {
           INICIALIZAR SELECT 2 DE LOS FORMULARIOS ACTIVOS
         ===================================================*/
     $('.select2-single').select2({
-        theme: "classic"
+        theme: 'bootstrap4',
+        "language": {
+            "noResults": function () {
+                return "No hay resultados para esta búsqueda.";
+            }
+        }
     });
 
     /* ===================================================
@@ -467,13 +470,13 @@ $(document).ready(function () {
                 });
                 // Limpiar
                 $(this).val("");
-            }else{
+            } else {
                 var admitidos = $(this).attr("accept");
                 /* let admitejpg = admitidos.includes("image/jpeg");
                 let admitepng = admitidos.includes("image/png");
                 let admitepdf = admitidos.includes("application/pdf"); */
                 admitefile = admitidos.includes(archivo["type"]);
-                if (!admitefile){
+                if (!admitefile) {
                     Swal.fire({
                         icon: "error",
                         title: "¡Este tipo de archivo no es permitido!",

@@ -65,8 +65,8 @@ $Sucursales = ControladorGH::ctrSucursales();
                     <div id="spinnerTablaPersonal" class="spinner-border" role="status">
                         <span class="sr-only">Loading...</span>
                     </div>
-                    <div class="table-responsive text-center">
-                        <table id="tblPersonal" class="table table-sm text-sm table-light table-striped table-bordered tablas w-100">
+                    <div class="table-responsive">
+                        <table id="tblPersonal" class="table table-sm text-sm table-light table-striped table-bordered tablas w-100 text-center">
                             <thead class="text-capitalize">
                                 <tr>
                                     <th style="width:90px;">Id</th>
@@ -246,7 +246,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                         <label for="exampleInput1">Lugar de Expedición *</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
-                                                <span class="input-group-text" style="height: 93%;"><i class="fas fa-map-marker-alt"></i></span>
+                                                <span class="input-group-text" style="height: 100%;"><i class="fas fa-map-marker-alt"></i></span>
                                             </div>
                                             <select id="lugar_expedicion" class="form-control select2-single" style="width: 90%" name="lugar_expedicion" required>
                                                 <option value="" selected>DEPARTAMENTO - MUNICIPIO</option>
@@ -283,7 +283,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                         <label for="exampleInput1">Lugar de Nacimiento *</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
-                                                <span class="input-group-text" style="height: 93%;"><i class="fas fa-map-marker-alt"></i></span>
+                                                <span class="input-group-text" style="height: 100%;"><i class="fas fa-map-marker-alt"></i></span>
                                             </div>
                                             <select id="lugar_nacimiento" class="form-control select2-single" style="width: 90%" name="lugar_nacimiento" required>
                                                 <option value="" selected>DEPARTAMENTO - MUNICIPIO</option>
@@ -314,7 +314,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                         <label for="exampleInput1">Lugar de Residencia *</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
-                                                <span class="input-group-text" style="height: 93%;"><i class="fas fa-map-marker-alt"></i></span>
+                                                <span class="input-group-text" style="height: 100%;"><i class="fas fa-map-marker-alt"></i></span>
                                             </div>
                                             <select id="lugar_residencia" class="form-control select2-single" style="width: 90%" name="lugar_residencia" required>
                                                 <option value="" selected>DEPARTAMENTO - MUNICIPIO</option>
@@ -784,7 +784,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                         <label for="exampleInput1">Ciudad</label>
                                         <div class="input-group">
                                             <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
-                                                <span class="input-group-text" style="height: 93%;"><i class="fas fa-map-marker-alt"></i></span>
+                                                <span class="input-group-text" style="height: 100%;"><i class="fas fa-map-marker-alt"></i></span>
                                             </div>
                                             <select id="ciudad" class="form-control select2-single" style="width: 90%" name="ciudad">
                                                 <option value="" selected>DEPARTAMENTO - MUNICIPIO</option>
