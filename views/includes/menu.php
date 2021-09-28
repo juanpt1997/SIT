@@ -359,11 +359,34 @@
                     * Control Usuarios
                 =================================================== -->
                 <?php if (validarModulo('M_USUARIOS')) : ?>
-                    <li class="nav-item">
-                        <a href="usuarios" class="nav-link" target="_blank">
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-users"></i>
-                            <p>Control Usuarios</p>
+                            <p>
+                                Control de usuarios
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <!-- ===================================================
+                                    Usuarios
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="usuarios" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Usuarios</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
+                                    Roles
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="roles-usuarios" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Roles</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 <?php endif ?>
 

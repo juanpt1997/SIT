@@ -133,7 +133,8 @@ if (isset($_GET['pagina'])) {
                     ) {
                         include "modulos/{$ruta}.php";
                     } else if (
-                        $ruta == "usuarios"
+                        $ruta == "usuarios" ||
+                        $ruta == "roles-usuarios"
                     ) {
                         include "modulos/usuarios/{$ruta}.php";
                     } else if (
