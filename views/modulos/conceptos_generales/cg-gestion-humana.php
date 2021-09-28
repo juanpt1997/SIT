@@ -366,7 +366,7 @@ $departamentos = ControladorCiudades::ctrListaDepar();
                                 <th>Num. Resolución</th>
                                 <th>Año de resolución</th>
                                 <th>Dirección territorial</th>
-                                <th>Ruta firma</th>
+                                <th>Foto firma</th>
                                 <th>Sitio WEB</th>
                                 <th>Acciones</th>
                             </tr>

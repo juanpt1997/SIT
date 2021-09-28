@@ -1,18 +1,49 @@
 <?php
 
+/*=============================================================
+=====================Controlador EMPRESA=======================
+============================================================?*/
 class ControladorEmpresa
 {
+	#Ver datos de una empresa
 	static public function ctrVerEmpresa()
 	{
 		$respuesta = ModeloConceptosGH::mdlListaEmpresa();
 		return $respuesta;
 	}
-
-	static public function ctrAgregarEditarEmpresa($POST)
+	#Agregar/ Editar una empresa (la opcion de agregar se encuentra inhabilitada)
+	static public function ctrAgregarEditarEmpresa($POST, $imagen)
 	{
-		if (isset($POST['id_empresa'])) {
+		$response = "";
+		# Verificar Directorio imagenes de firma en empresa
+        $directorio = DIR_APP . "views/img/plantilla/fuec/fotosFirmaEmpresa";
+        if (!is_dir($directorio)) {
+            mkdir($directorio, 0755);
+        }
 
-			//$empresa = ModeloConceptosGH::mdlUnaEmpresa($POST['id_empresa']);
+		$fecha = date('Y-m-d');
+        $hora = date('His');
+
+		/* ===================================================
+            GUARDAMOS EL ARCHIVO
+        ===================================================*/
+        $GuardarArchivo = new FilesController();
+        $GuardarArchivo->file = $imagen;
+        $aleatorio = mt_rand(100, 999);
+        $GuardarArchivo->ruta = $directorio . "/{$aleatorio}_{$fecha}_{$hora}";
+
+		if ($imagen['type'] == "image/jpeg" || $imagen['type'] == "image/png") {
+			$response = $GuardarArchivo->ctrImages(null, null);
+		}
+
+		# Actualizar el campo de la base de datos donde queda la ruta del archivo
+        if ($response != "") {
+            $rutaDoc = str_replace(DIR_APP, "", $response);
+		} else {
+			echo "error";
+		}
+
+		if (isset($POST['id_empresa'])) {
 
 			$datos = array(
 				'id' => $POST['id_empresa'],
@@ -21,72 +52,35 @@ class ControladorEmpresa
 				'nro_resolucion' => $POST['num'],
 				'anio_resolucion' => $POST['anio'],
 				'dir_territorial' => $POST['dir'],
-				'ruta_firma' => $POST['firma'],
+				'ruta_firma' => $rutaDoc,
 				'sitio_web' => $POST['sitio']
 			);
 
 			if ($POST['id_empresa'] == '') {
 
-
 				$responseModel = ModeloConceptosGH::mdlAgregarEmpresa($datos);
 			} else {
-
 
 				$responseModel = ModeloConceptosGH::mdlEditarEmpresa($datos);
 			}
 			return $responseModel;
-
-			// if ($responseModel == "ok") {
-
-			// 	echo "
-			// 			<script>
-			// 				Swal.fire({
-			// 					icon: 'success',
-			// 					title: '¡Empresa actualizada correctamente!',						
-			// 					showConfirmButton: true,
-			// 					confirmButtonText: 'Cerrar',
-
-			// 				}).then((result)=>{
-
-			// 					if(result.value){
-			// 						window.location = 'cg-gestion-humana';
-			// 					}
-
-			// 				})
-			// 			</script>
-			// 		";
-			// } else {
-			// 	echo "
-			// 			<script>
-			// 				Swal.fire({
-			// 					icon: 'warning',
-			// 					title: '¡Problema al actualizar la empresa!',						
-			// 					showConfirmButton: true,
-			// 					confirmButtonText: 'Cerrar',
-
-			// 				}).then((result)=>{
-
-			// 					if(result.value){
-			// 						window.location = 'cg-gestion-humana';
-			// 					}
-
-			// 				})
-			// 			</script>
-			// 		";
-			// }
 		}
 	}
 }
 
+/*=============================================================
+=====================Controlador CIUDADES=======================
+============================================================?*/
 class ControladorCiudades
 {
+	#Ver datos de una ciudad
 	static public function ctrVerCiudad($id)
 	{
 		$datoId = array('id' => $id);
 		$respuesta = ModeloConceptosGH::mdlVerciudad($datoId);
 		return $respuesta;
 	}
-
+	#Ver todos los registros de los departamentos
 	static public function ctrListaDepar()
 	{
 		$tabla = "gh_departamentos";
@@ -101,14 +95,4 @@ class ControladorCiudades
 		$respuesta = ModeloConceptosGH::mdlVer($datos);
 		return $respuesta;
 	}
-
-}
-
-class ControladorRutas
-{
-	static public function ctrCrearRuta($datos)
-    {
-        $respuesta = ModeloConceptosGH::AgregarRuta($datos);
-        return $respuesta;
-    }
 }

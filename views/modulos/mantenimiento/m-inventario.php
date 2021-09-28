@@ -100,8 +100,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                             <div class="form-group">
                                                                                 <label for=""><b><i>Placa</i></b></label>
                                                                                 <div class="input-group">
-                                                                                    <select id="placa_invent" class="form-control select2-single" name="placa_invent" style="width: 99%">
-                                                                                        <option>-Seleccione la placa deseada-</option>
+                                                                                    <select id="placa_invent" class="form-control select2-single inventario" name="placa_invent" style="width: 99%">
+                                                                                        <option value="null">-Seleccione la placa deseada-</option>
                                                                                         <?php foreach ($Vehiculos as $key => $value) : ?>
                                                                                             <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?></option>
                                                                                         <?php endforeach ?>
@@ -117,7 +117,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><i class="fas fa-bus"></i></span>
                                                                                     </div>
-                                                                                    <select id="tipo_vel" class="form-control" name="tipo_vel" readonly>
+                                                                                    <select id="tipo_vel" class="form-control inventario" name="tipo_vel" readonly>
                                                                                         <option>-Seleccione el tipo de vehículo-</option>
                                                                                         <?php foreach ($TipoVehiculos as $key => $value) : ?>
                                                                                             <option value="<?= $value['idtipovehiculo'] ?>"><?= $value['tipovehiculo'] ?></option>
@@ -134,7 +134,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
                                                                                     </div>
-                                                                                    <input class="form-control" type="number" id="numinter_invent" name="numinter_invent" readonly>
+                                                                                    <input class="form-control inventario" type="number" id="numinter_invent" name="numinter_invent" readonly>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -146,7 +146,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><i class="far fa-registered"></i></span>
                                                                                     </div>
-                                                                                    <select id="marca_invent" class="form-control" name="marca_invent" readonly>
+                                                                                    <select id="marca_invent" class="form-control inventario" name="marca_invent" readonly>
                                                                                         <option>-Marca del vehículo-</option>
                                                                                         <?php foreach ($marca as $key => $value) : ?>
                                                                                             <option value="<?= $value['idmarca'] ?>"><?= $value['marca'] ?></option>
@@ -163,7 +163,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><i class="fas fa-bus"></i></span>
                                                                                     </div>
-                                                                                    <input class="form-control" type="text" id="modelo_invent" name="modelo_invent" readonly>
+                                                                                    <input class="form-control inventario" type="text" id="modelo_invent" name="modelo_invent" readonly>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -189,7 +189,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><i class="far fa-list-alt"></i></span>
                                                                                     </div>
-                                                                                    <input class="form-control" type="text" id="categoria_invent" name="categoria_invent" readonly>
+                                                                                    <input class="form-control inventario" type="text" id="categoria_invent" name="categoria_invent" readonly>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -201,7 +201,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><i class="far fa-calendar-times"></i></span>
                                                                                     </div>
-                                                                                    <input class="form-control" type="date" id="vencimineto_inventario" name="vencimineto_inventario" readonly>
+                                                                                    <input class="form-control inventario" type="date" id="vencimineto_inventario" name="vencimineto_inventario" readonly>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -213,7 +213,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
                                                                                     </div>
-                                                                                    <input class="form-control" type="number" id="kilo_invent" name="kilometraje">
+                                                                                    <input class="form-control inventario" type="number" id="kilo_invent" name="kilometraje" required>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -225,7 +225,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                     <div class="input-group-prepend">
                                                                                         <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
                                                                                     </div>
-                                                                                    <input class="form-control" type="date" id="fecha_invent" name="fecha_inventario">
+                                                                                    <input class="form-control inventario" type="date" id="fecha_invent" name="fecha_inventario" required>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -234,14 +234,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                                                         <div class="col">
                                                                             <div class="form-check form-check-inline">
-                                                                                <input class="form-check-input" type="radio" value="1" id="entrega_invent" name="recepcion_entrega_vehiculo">
+                                                                                <input class="form-check-input inventario" type="radio" value="1" id="entrega_invent" name="recepcion_entrega_vehiculo" required>
                                                                                 <label class="form-check-label text-nowrap" for="defaultCheck1">
                                                                                     <b>Entrega de vehículo</b>
                                                                                 </label>
                                                                             </div>
 
                                                                             <div class="form-check form-check-inline">
-                                                                                <input class="form-check-input" type="radio" value="0" id="recep_invent" name="recepcion_entrega_vehiculo">
+                                                                                <input class="form-check-input inventario" type="radio" value="0" id="recep_invent" name="recepcion_entrega_vehiculo" required>
                                                                                 <label class="form-check-label text-nowrap" for="defaultCheck2">
                                                                                     <b>Recepción de vehículo</b>
                                                                                 </label>
@@ -332,21 +332,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Techo exterior</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Techo_exterior1" name="Techo_exterior" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Techo_exterior1" name="Techo_exterior" value="1">
                                                                                                                             <label for="Techo_exterior1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Techo_exterior4" name="Techo_exterior" value="4">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Techo_exterior4" name="Techo_exterior" value="4">
                                                                                                                             <label for="Techo_exterior4">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Techo_exterior5" name="Techo_exterior" value="5">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Techo_exterior5" name="Techo_exterior" value="5">
                                                                                                                             <label for="Techo_exterior5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -358,21 +358,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Techo interior</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Techo_interior1" name="Techo_interior" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Techo_interior1" name="Techo_interior" value="1">
                                                                                                                             <label for="Techo_interior1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Techo_interior4" name="Techo_interior" value="4">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Techo_interior4" name="Techo_interior" value="4">
                                                                                                                             <label for="Techo_interior4">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Techo_interior5" name="Techo_interior" value="5">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Techo_interior5" name="Techo_interior" value="5">
                                                                                                                             <label for="Techo_interior5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -384,21 +384,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Frente</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Frente1" name="Frente" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Frente1" name="Frente" value="1">
                                                                                                                             <label for="Frente1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Frente4" name="Frente" value="4">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Frente4" name="Frente" value="4">
                                                                                                                             <label for="Frente4">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Frente5" name="Frente" value="5">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Frente5" name="Frente" value="5">
                                                                                                                             <label for="Frente5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -410,21 +410,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Bomper delantero</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Bomper_delantero1" name="Bomper_delantero" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Bomper_delantero1" name="Bomper_delantero" value="1">
                                                                                                                             <label for="Bomper_delantero1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Bomper_delantero4" name="Bomper_delantero" value="4">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Bomper_delantero4" name="Bomper_delantero" value="4">
                                                                                                                             <label for="Bomper_delantero4">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Bomper_delantero5" name="Bomper_delantero" value="5">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Bomper_delantero5" name="Bomper_delantero" value="5">
                                                                                                                             <label for="Bomper_delantero5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -436,21 +436,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Bomper trasero</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Bomper_trasero1" name="Bomper_trasero" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Bomper_trasero1" name="Bomper_trasero" value="1">
                                                                                                                             <label for="Bomper_trasero1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Bomper_trasero4" name="Bomper_trasero" value="4">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Bomper_trasero4" name="Bomper_trasero" value="4">
                                                                                                                             <label for="Bomper_trasero4">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Bomper_trasero5" name="Bomper_trasero" value="5">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Bomper_trasero5" name="Bomper_trasero" value="5">
                                                                                                                             <label for="Bomper_trasero5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -462,21 +462,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Lateral derecho</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Lateral_derecho1" name="Lateral_derecho" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Lateral_derecho1" name="Lateral_derecho" value="1">
                                                                                                                             <label for="Lateral_derecho1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Lateral_derecho4" name="Lateral_derecho" value="4">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Lateral_derecho4" name="Lateral_derecho" value="4">
                                                                                                                             <label for="Lateral_derecho4">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Lateral_derecho5" name="Lateral_derecho" value="5">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Lateral_derecho5" name="Lateral_derecho" value="5">
                                                                                                                             <label for="Lateral_derecho5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -488,21 +488,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Lateral izquierdo</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Lateral_izquierdo1" name="Lateral_izquierdo" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Lateral_izquierdo1" name="Lateral_izquierdo" value="1">
                                                                                                                             <label for="Lateral_izquierdo1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Lateral_izquierdo4" name="Lateral_izquierdo" value="4">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Lateral_izquierdo4" name="Lateral_izquierdo" value="4">
                                                                                                                             <label for="Lateral_izquierdo4">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Lateral_izquierdo5" name="Lateral_izquierdo" value="5">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Lateral_izquierdo5" name="Lateral_izquierdo" value="5">
                                                                                                                             <label for="Lateral_izquierdo5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -514,21 +514,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Puerta derecha</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Puerta_derecho1" name="Puerta_derecho" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Puerta_derecho1" name="Puerta_derecho" value="1">
                                                                                                                             <label for="Puerta_derecho1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Puerta_derecho4" name="Puerta_derecho" value="4">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Puerta_derecho4" name="Puerta_derecho" value="4">
                                                                                                                             <label for="Puerta_derecho4">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Puerta_derecho5" name="Puerta_derecho" value="5">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Puerta_derecho5" name="Puerta_derecho" value="5">
                                                                                                                             <label for="Puerta_derecho5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -540,21 +540,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Puerta izquierda</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Puerta_izquierda1" name="Puerta_izquierda" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Puerta_izquierda1" name="Puerta_izquierda" value="1">
                                                                                                                             <label for="Puerta_izquierda1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Puerta_izquierda4" name="Puerta_izquierda" value="4">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Puerta_izquierda4" name="Puerta_izquierda" value="4">
                                                                                                                             <label for="Puerta_izquierda4">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Puerta_izquierda5" name="Puerta_izquierda" value="5">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Puerta_izquierda5" name="Puerta_izquierda" value="5">
                                                                                                                             <label for="Puerta_izquierda5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -588,14 +588,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Parabrisas izquierdo</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="parabrisas_izquierdo1" name="parabrisas_izquierdo" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="parabrisas_izquierdo1" name="parabrisas_izquierdo" value="1">
                                                                                                                             <label for="parabrisas_izquierdo1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="parabrisas_izquierdo2" name="parabrisas_izquierdo" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="parabrisas_izquierdo2" name="parabrisas_izquierdo" value="0">
                                                                                                                             <label for="parabrisas_izquierdo2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -607,14 +607,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Parabrisas derecho</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="parabrisas_derecho1" name="parabrisas_derecho" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="parabrisas_derecho1" name="parabrisas_derecho" value="1">
                                                                                                                             <label for="parabrisas_derecho1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="parabrisas_derecho2" name="parabrisas_derecho" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="parabrisas_derecho2" name="parabrisas_derecho" value="0">
                                                                                                                             <label for="parabrisas_derecho2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -626,14 +626,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Espejo retrovisor derecho</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Espejo_retrovisor_derecho1" name="Espejo_retrovisor_derecho" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Espejo_retrovisor_derecho1" name="Espejo_retrovisor_derecho" value="1">
                                                                                                                             <label for="Espejo_retrovisor_derecho1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Espejo_retrovisor_derecho2" name="Espejo_retrovisor_derecho" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Espejo_retrovisor_derecho2" name="Espejo_retrovisor_derecho" value="0">
                                                                                                                             <label for="Espejo_retrovisor_derecho2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -645,14 +645,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Espejo retrovisor izquierdo</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Espejo_retrovisor_izquierdo1" name="Espejo_retrovisor_izquierdo" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Espejo_retrovisor_izquierdo1" name="Espejo_retrovisor_izquierdo" value="1">
                                                                                                                             <label for="Espejo_retrovisor_izquierdo1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Espejo_retrovisor_izquierdo2" name="Espejo_retrovisor_izquierdo" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Espejo_retrovisor_izquierdo2" name="Espejo_retrovisor_izquierdo" value="0">
                                                                                                                             <label for="Espejo_retrovisor_izquierdo2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -664,14 +664,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Vidrios ventanas lateral derecho</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Vidrios_ventanas_lateral_derecho1" name="Vidrios_ventanas_lateral_derecho" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Vidrios_ventanas_lateral_derecho1" name="Vidrios_ventanas_lateral_derecho" value="1">
                                                                                                                             <label for="Vidrios_ventanas_lateral_derecho1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Vidrios_ventanas_lateral_derecho2" name="Vidrios_ventanas_lateral_derecho" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Vidrios_ventanas_lateral_derecho2" name="Vidrios_ventanas_lateral_derecho" value="0">
                                                                                                                             <label for="Vidrios_ventanas_lateral_derecho2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -683,14 +683,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Vidrios ventanas lateral izquierdo</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Vidrios_ventanas_lateral_izquierdo1" name="Vidrios_ventanas_lateral_izquierdo" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Vidrios_ventanas_lateral_izquierdo1" name="Vidrios_ventanas_lateral_izquierdo" value="1">
                                                                                                                             <label for="Vidrios_ventanas_lateral_izquierdo1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Vidrios_ventanas_lateral_izquierdo2" name="Vidrios_ventanas_lateral_izquierdo" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Vidrios_ventanas_lateral_izquierdo2" name="Vidrios_ventanas_lateral_izquierdo" value="0">
                                                                                                                             <label for="Vidrios_ventanas_lateral_izquierdo2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -702,14 +702,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Parabrisas trasero</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Parabrisas_trasero1" name="Parabrisas_trasero" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Parabrisas_trasero1" name="Parabrisas_trasero" value="1">
                                                                                                                             <label for="Parabrisas_trasero1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Parabrisas_trasero2" name="Parabrisas_trasero" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Parabrisas_trasero2" name="Parabrisas_trasero" value="0">
                                                                                                                             <label for="Parabrisas_trasero2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -721,14 +721,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Vidrios de puertas</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Vidrios_puertas1" name="Vidrios_puertas" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Vidrios_puertas1" name="Vidrios_puertas" value="1">
                                                                                                                             <label for="Vidrios_puertas1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Vidrios_puertas2" name="Vidrios_puertas" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Vidrios_puertas2" name="Vidrios_puertas" value="0">
                                                                                                                             <label for="Vidrios_puertas2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -762,21 +762,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Direccional delantera izquierda</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Direccional_izquierda1" name="Direccionalelantera_izquierda" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Direccional_izquierda1" name="Direccionalelantera_izquierda" value="1">
                                                                                                                             <label for="Direccional_izquierda1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Direccional_izquierda4" name="Direccionalelantera_izquierda" value=" 0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Direccional_izquierda4" name="Direccionalelantera_izquierda" value=" 0">
                                                                                                                             <label for="Direccional_izquierda4">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Direccional_izquierda5" name="Direccionalelantera_izquierda" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Direccional_izquierda5" name="Direccionalelantera_izquierda" value="2">
                                                                                                                             <label for="Direccional_izquierda5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -788,21 +788,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Direccional delantera derecha</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Direccional_derecha1" name="Direccional_elantera_derecha" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Direccional_derecha1" name="Direccional_elantera_derecha" value="1">
                                                                                                                             <label for="Direccional_derecha1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Direccional_derecha4" name="Direccional_elantera_derecha" value=" 0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Direccional_derecha4" name="Direccional_elantera_derecha" value=" 0">
                                                                                                                             <label for="Direccional_derecha4">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Direccional_derecha5" name="Direccional_elantera_derecha" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Direccional_derecha5" name="Direccional_elantera_derecha" value="2">
                                                                                                                             <label for="Direccional_derecha5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -814,21 +814,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Stop trasero derecho</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Stop_trasero_derecho1" name="Stop_trasero_derecho" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Stop_trasero_derecho1" name="Stop_trasero_derecho" value="1">
                                                                                                                             <label for="Stop_trasero_derecho1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Stop_trasero_derecho4" name="Stop_trasero_derecho" value=" 0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Stop_trasero_derecho4" name="Stop_trasero_derecho" value=" 0">
                                                                                                                             <label for="Stop_trasero_derecho4">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Stop_trasero_derecho5" name="Stop_trasero_derecho" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Stop_trasero_derecho5" name="Stop_trasero_derecho" value="2">
                                                                                                                             <label for="Stop_trasero_derecho5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -840,21 +840,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Stop trasero izquierdo</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Stop_trasero_izquierdo1" name="Stop_trasero_izquierdo" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Stop_trasero_izquierdo1" name="Stop_trasero_izquierdo" value="1">
                                                                                                                             <label for="Stop_trasero_izquierdo1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Stop_trasero_izquierdo4" name="Stop_trasero_izquierdo" value=" 0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Stop_trasero_izquierdo4" name="Stop_trasero_izquierdo" value=" 0">
                                                                                                                             <label for="Stop_trasero_izquierdo4">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Stop_trasero_izquierdo5" name="Stop_trasero_izquierdo" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Stop_trasero_izquierdo5" name="Stop_trasero_izquierdo" value="2">
                                                                                                                             <label for="Stop_trasero_izquierdo5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -866,21 +866,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Cucuyo lateral derecho</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Cucuyo_lateral_derecho1" name="Cucuyo_lateral_derecho" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Cucuyo_lateral_derecho1" name="Cucuyo_lateral_derecho" value="1">
                                                                                                                             <label for="Cucuyo_lateral_derecho1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Cucuyo_lateral_derecho4" name="Cucuyo_lateral_derecho" value=" 0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Cucuyo_lateral_derecho4" name="Cucuyo_lateral_derecho" value=" 0">
                                                                                                                             <label for="Cucuyo_lateral_derecho4">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Cucuyo_lateral_derecho5" name="Cucuyo_lateral_derecho" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Cucuyo_lateral_derecho5" name="Cucuyo_lateral_derecho" value="2">
                                                                                                                             <label for="Cucuyo_lateral_derecho5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -892,21 +892,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Cucuyo lateral izquierdo</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Cucuyo_lateral_izquierdo1" name="Cucuyo_lateral_izquierdo" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Cucuyo_lateral_izquierdo1" name="Cucuyo_lateral_izquierdo" value="1">
                                                                                                                             <label for="Cucuyo_lateral_izquierdo1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Cucuyo_lateral_izquierdo4" name="Cucuyo_lateral_izquierdo" value=" 0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Cucuyo_lateral_izquierdo4" name="Cucuyo_lateral_izquierdo" value=" 0">
                                                                                                                             <label for="Cucuyo_lateral_izquierdo4">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Cucuyo_lateral_izquierdo5" name="Cucuyo_lateral_izquierdo" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Cucuyo_lateral_izquierdo5" name="Cucuyo_lateral_izquierdo" value="2">
                                                                                                                             <label for="Cucuyo_lateral_izquierdo5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -931,21 +931,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Luces_internas1" name="Luces_internas" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Luces_internas1" name="Luces_internas" value="1">
                                                                                                                             <label for="Luces_internas1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Luces_internas4" name="Luces_internas" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Luces_internas4" name="Luces_internas" value="0">
                                                                                                                             <label for="Luces_internas4">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Luces_internas5" name="Luces_internas" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Luces_internas5" name="Luces_internas" value="2">
                                                                                                                             <label for="Luces_internas5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -956,22 +956,22 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td style="width: 10px;">25.</td>
                                                                                                                     <td>Balizas ( Licuadoras )</td>
                                                                                                                     <td>
-                                                                                                                        <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Balizas1" name="Balizas" value="1">
+                                                                                                                        <div class="icheck-success d-inline">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Balizas1" name="Balizas" value="1">
                                                                                                                             <label for="Balizas1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Balizas4" name="Balizas" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Balizas4" name="Balizas" value="0">
                                                                                                                             <label for="Balizas4">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Balizas5" name="Balizas" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Balizas5" name="Balizas" value="2">
                                                                                                                             <label for="Balizas5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1005,21 +1005,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Delantera izquierda ( R1 )</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Delantera_izquierda_R11" name="Delantera_izquierda_R1" value="3">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Delantera_izquierda_R11" name="Delantera_izquierda_R1" value="3">
                                                                                                                             <label for="Delantera_izquierda_R11">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Delantera_izquierda_R14" name="Delantera_izquierda_R1" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Delantera_izquierda_R14" name="Delantera_izquierda_R1" value="1">
                                                                                                                             <label for="Delantera_izquierda_R14">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Delantera_izquierda_R15" name="Delantera_izquierda_R1" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Delantera_izquierda_R15" name="Delantera_izquierda_R1" value="0">
                                                                                                                             <label for="Delantera_izquierda_R15">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1032,21 +1032,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Delantera derecha ( R2 )</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Delantera_derecha_R21" name="Delantera_izquierda_R2" value="3">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Delantera_derecha_R21" name="Delantera_izquierda_R2" value="3">
                                                                                                                             <label for="Delantera_derecha_R21">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Delantera_izquierda_R24" name="Delantera_izquierda_R2" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Delantera_izquierda_R24" name="Delantera_izquierda_R2" value="1">
                                                                                                                             <label for="Delantera_izquierda_R24">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Delantera_izquierda_R25" name="Delantera_izquierda_R2" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Delantera_izquierda_R25" name="Delantera_izquierda_R2" value="0">
                                                                                                                             <label for="Delantera_izquierda_R25">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1058,21 +1058,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Trasera interior izquierda ( R3 )</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Trasera_interior_izquierda_R31" name="Trasera_interior_izquierda_R3" value="3">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Trasera_interior_izquierda_R31" name="Trasera_interior_izquierda_R3" value="3">
                                                                                                                             <label for="Trasera_interior_izquierda_R31">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Trasera_interior_izquierda_R34" name="Trasera_interior_izquierda_R3" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Trasera_interior_izquierda_R34" name="Trasera_interior_izquierda_R3" value="1">
                                                                                                                             <label for="Trasera_interior_izquierda_R34">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Trasera_interior_izquierda_R3_5" name="Trasera_interior_izquierda_R3" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Trasera_interior_izquierda_R3_5" name="Trasera_interior_izquierda_R3" value="0">
                                                                                                                             <label for="Trasera_interior_izquierda_R3_5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1084,21 +1084,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Trasera exterior izquierda ( R4 )</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Trasera_exterior_izquierda_R41" name="Trasera_exterior_izquierda_R4" value="3">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Trasera_exterior_izquierda_R41" name="Trasera_exterior_izquierda_R4" value="3">
                                                                                                                             <label for="Trasera_exterior_izquierda_R41">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Trasera_exterior_izquierda_R44" name="Trasera_exterior_izquierda_R4" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Trasera_exterior_izquierda_R44" name="Trasera_exterior_izquierda_R4" value="1">
                                                                                                                             <label for="Trasera_exterior_izquierda_R44">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Trasera_exterior_izquierda_R4_5" name="Trasera_exterior_izquierda_R4" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Trasera_exterior_izquierda_R4_5" name="Trasera_exterior_izquierda_R4" value="0">
                                                                                                                             <label for="Trasera_exterior_izquierda_R4_5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1110,21 +1110,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Trasera interior derecha ( R5 )</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Trasera_interior_derecha_R51" name="Trasera_interior_derecha_R5" value="3">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Trasera_interior_derecha_R51" name="Trasera_interior_derecha_R5" value="3">
                                                                                                                             <label for="Trasera_interior_derecha_R51">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Trasera_interior_derecha_R54" name="Trasera_interior_derecha_R5" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Trasera_interior_derecha_R54" name="Trasera_interior_derecha_R5" value="1">
                                                                                                                             <label for="Trasera_interior_derecha_R54">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Trasera_interior_derecha_R55" name="Trasera_interior_derecha_R5" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Trasera_interior_derecha_R55" name="Trasera_interior_derecha_R5" value="0">
                                                                                                                             <label for="Trasera_interior_derecha_R55">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1136,21 +1136,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Trasera exterior derecha ( R6 )</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Trasera_exterior_derecha_R61" name="Trasera_exterior_derecha_R6" value="3">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Trasera_exterior_derecha_R61" name="Trasera_exterior_derecha_R6" value="3">
                                                                                                                             <label for="Trasera_exterior_derecha_R61">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Trasera_exterior_derecha_R64" name="Trasera_exterior_derecha_R6" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Trasera_exterior_derecha_R64" name="Trasera_exterior_derecha_R6" value="1">
                                                                                                                             <label for="Trasera_exterior_derecha_R64">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Trasera_exterior_derecha_R65" name="Trasera_exterior_derecha_R6" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Trasera_exterior_derecha_R65" name="Trasera_exterior_derecha_R6" value="0">
                                                                                                                             <label for="Trasera_exterior_derecha_R65">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1184,14 +1184,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Gato</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Gato1" name="Gato" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Gato1" name="Gato" value="1">
                                                                                                                             <label for="Gato1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Gato2" name="Gato" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Gato2" name="Gato" value="0">
                                                                                                                             <label for="Gato2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1203,14 +1203,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Cruceta o Copa</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Cruceta__Copa1" name="Cruceta__Copa" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Cruceta__Copa1" name="Cruceta__Copa" value="1">
                                                                                                                             <label for="Cruceta__Copa1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Cruceta__Copa2" name="Cruceta__Copa" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Cruceta__Copa2" name="Cruceta__Copa" value="0">
                                                                                                                             <label for="Cruceta__Copa2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1222,14 +1222,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>2 Conos o Triángulos</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="2Conos__Triangulos1" name="2Conos__Triangulos" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="2Conos__Triangulos1" name="2Conos__Triangulos" value="1">
                                                                                                                             <label for="2Conos__Triangulos1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="2Conos__Triangulos2" name="2Conos__Triangulos" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="2Conos__Triangulos2" name="2Conos__Triangulos" value="0">
                                                                                                                             <label for="2Conos__Triangulos2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1241,14 +1241,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Botiquín</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Botiquin1" name="Botiquin" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Botiquin1" name="Botiquin" value="1">
                                                                                                                             <label for="Botiquin1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Botiquin2" name="Botiquin" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Botiquin2" name="Botiquin" value="0">
                                                                                                                             <label for="Botiquin2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1260,14 +1260,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Extintor</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Extintor1" name="Extintor" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Extintor1" name="Extintor" value="1">
                                                                                                                             <label for="Extintor1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Extintor2" name="Extintor" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Extintor2" name="Extintor" value="0">
                                                                                                                             <label for="Extintor2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1279,14 +1279,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>2 Tacos o Bloques</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="2Tacos_Bloques1" name="2Tacos_Bloques" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="2Tacos_Bloques1" name="2Tacos_Bloques" value="1">
                                                                                                                             <label for="2Tacos_Bloques1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="2Tacos_Bloques2" name="2Tacos_Bloques" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="2Tacos_Bloques2" name="2Tacos_Bloques" value="0">
                                                                                                                             <label for="2Tacos_Bloques2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1295,18 +1295,18 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                                                                                                 <tr>
                                                                                                                     <td style="width: 10px;">38.1</td>
-                                                                                                                    <td>Alicate, destornillaodor</td>
+                                                                                                                    <td>Alicate, destornillador</td>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="1Alicate_destornillaodor1" name="1Alicate_destornillaodor" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="1Alicate_destornillaodor1" name="1Alicate_destornillaodor" value="1">
                                                                                                                             <label for="1Alicate_destornillaodor1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="1Alicate_destornillaodor2" name="1Alicate_destornillaodor" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="1Alicate_destornillaodor2" name="1Alicate_destornillaodor" value="0">
                                                                                                                             <label for="1Alicate_destornillaodor2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1318,14 +1318,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Llave de expansión, llaves fijas</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="2PLlave_expancion_LLaves_fijas1" name="2PLlave_expancion_LLaves_fijas" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="2PLlave_expancion_LLaves_fijas1" name="2PLlave_expancion_LLaves_fijas" value="1">
                                                                                                                             <label for="2PLlave_expancion_LLaves_fijas1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="2PLlave_expancion_LLaves_fijas2" name="2PLlave_expancion_LLaves_fijas" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="2PLlave_expancion_LLaves_fijas2" name="2PLlave_expancion_LLaves_fijas" value="0">
                                                                                                                             <label for="2PLlave_expancion_LLaves_fijas2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1337,14 +1337,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Llanta de repuesto</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="LLanta_repuesto1" name="LLanta_repuesto" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="LLanta_repuesto1" name="LLanta_repuesto" value="1">
                                                                                                                             <label for="LLanta_repuesto1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="LLanta_repuesto2" name="LLanta_repuesto" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="LLanta_repuesto2" name="LLanta_repuesto" value="0">
                                                                                                                             <label for="LLanta_repuesto2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1356,14 +1356,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Linterna con pila</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Linterna_pila1" name="Linterna_pila" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Linterna_pila1" name="Linterna_pila" value="1">
                                                                                                                             <label for="Linterna_pila1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Linterna_pila2" name="Linterna_pila" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Linterna_pila2" name="Linterna_pila" value="0">
                                                                                                                             <label for="Linterna_pila2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1375,14 +1375,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Cinturón del conductor</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Cinturon_conductor1" name="Cinturon_conductor" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Cinturon_conductor1" name="Cinturon_conductor" value="1">
                                                                                                                             <label for="Cinturon_conductor1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Cinturon_conductor2" name="Cinturon_conductor" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Cinturon_conductor2" name="Cinturon_conductor" value="0">
                                                                                                                             <label for="Cinturon_conductor2">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1416,21 +1416,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Radioteléfono</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Radioteléfono1" name="Radioteléfono" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Radioteléfono1" name="Radioteléfono" value="1">
                                                                                                                             <label for="Radioteléfono1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Radioteléfono2" name="Radioteléfono" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Radioteléfono2" name="Radioteléfono" value="0">
                                                                                                                             <label for="Radioteléfono2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Radioteléfono5" name="Radioteléfono" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Radioteléfono5" name="Radioteléfono" value="2">
                                                                                                                             <label for="Radioteléfono5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1442,21 +1442,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Antena</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Antena1" name="Antena" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Antena1" name="Antena" value="1">
                                                                                                                             <label for="Antena1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Antena2" name="Antena" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Antena2" name="Antena" value="0">
                                                                                                                             <label for="Antena2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Antena5" name="Antena" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Antena5" name="Antena" value="2">
                                                                                                                             <label for="Antena5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1484,21 +1484,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Equipo_Sonido1" name="Equipo_Sonido" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Equipo_Sonido1" name="Equipo_Sonido" value="1">
                                                                                                                             <label for="Equipo_Sonido1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Equipo_Sonido2" name="Equipo_Sonido" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Equipo_Sonido2" name="Equipo_Sonido" value="0">
                                                                                                                             <label for="Equipo_Sonido2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Equipo_Sonido5" name="Equipo_Sonido" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Equipo_Sonido5" name="Equipo_Sonido" value="2">
                                                                                                                             <label for="Equipo_Sonido5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1522,21 +1522,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Parlantes1" name="Parlantes" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Parlantes1" name="Parlantes" value="1">
                                                                                                                             <label for="Parlantes1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Parlantes2" name="Parlantes" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Parlantes2" name="Parlantes" value="0">
                                                                                                                             <label for="Parlantes2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Parlantes5" name="Parlantes" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Parlantes5" name="Parlantes" value="2">
                                                                                                                             <label for="Parlantes5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1548,21 +1548,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Manguera de agua</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Manguera_agua1" name="Manguera_agua" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Manguera_agua1" name="Manguera_agua" value="1">
                                                                                                                             <label for="Manguera_agua1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Manguera_agua2" name="Manguera_agua" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Manguera_agua2" name="Manguera_agua" value="0">
                                                                                                                             <label for="Manguera_agua2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Manguera_agua5" name="Manguera_agua" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Manguera_agua5" name="Manguera_agua" value="2">
                                                                                                                             <label for="Manguera_agua5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1574,21 +1574,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Manguera de aire</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Manguera_aire1" name="Manguera_aire" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Manguera_aire1" name="Manguera_aire" value="1">
                                                                                                                             <label for="Manguera_aire1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Manguera_aire2" name="Manguera_aire" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Manguera_aire2" name="Manguera_aire" value="0">
                                                                                                                             <label for="Manguera_aire2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Manguera_aire5" name="Manguera_aire" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Manguera_aire5" name="Manguera_aire" value="2">
                                                                                                                             <label for="Manguera_aire5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1600,21 +1600,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Pantalla / Televisor</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Pantalla_Televisor1" name="Pantalla_Televisor" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Pantalla_Televisor1" name="Pantalla_Televisor" value="1">
                                                                                                                             <label for="Pantalla_Televisor1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Pantalla_Televisor2" name="Pantalla_Televisor" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Pantalla_Televisor2" name="Pantalla_Televisor" value="0">
                                                                                                                             <label for="Pantalla_Televisor2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Pantalla_Televisor5" name="Pantalla_Televisor" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Pantalla_Televisor5" name="Pantalla_Televisor" value="2">
                                                                                                                             <label for="Pantalla_Televisor5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1629,21 +1629,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Reloj</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Reloj1" name="Reloj" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Reloj1" name="Reloj" value="1">
                                                                                                                             <label for="Reloj1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Reloj2" name="Reloj" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Reloj2" name="Reloj" value="0">
                                                                                                                             <label for="Reloj2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Reloj5" name="Reloj" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Reloj5" name="Reloj" value="2">
                                                                                                                             <label for="Reloj5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1656,21 +1656,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Brazo 1 Izquierdo R1</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Brazo_1_Izquierdo_R11" name="Brazo_1_Izquierdo_R1" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Brazo_1_Izquierdo_R11" name="Brazo_1_Izquierdo_R1" value="1">
                                                                                                                             <label for="Brazo_1_Izquierdo_R11">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Brazo_1_Izquierdo_R12" name="Brazo_1_Izquierdo_R1" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Brazo_1_Izquierdo_R12" name="Brazo_1_Izquierdo_R1" value="0">
                                                                                                                             <label for="Brazo_1_Izquierdo_R12">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Brazo_1_Izquierdo_R15" name="Brazo_1_Izquierdo_R1" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Brazo_1_Izquierdo_R15" name="Brazo_1_Izquierdo_R1" value="2">
                                                                                                                             <label for="Brazo_1_Izquierdo_R15">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1682,21 +1682,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Brazo 2 Derecho R2</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Brazo_2_Derecho_R21" name="Brazo_2_Derecho_R2" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Brazo_2_Derecho_R21" name="Brazo_2_Derecho_R2" value="1">
                                                                                                                             <label for="Brazo_2_Derecho_R21">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Brazo_2_Derecho_R22" name="Brazo_2_Derecho_R2" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Brazo_2_Derecho_R22" name="Brazo_2_Derecho_R2" value="0">
                                                                                                                             <label for="Brazo_2_Derecho_R22">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Brazo_2_Derecho_R25" name="Brazo_2_Derecho_R2" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Brazo_2_Derecho_R25" name="Brazo_2_Derecho_R2" value="2">
                                                                                                                             <label for="Brazo_2_Derecho_R25">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1708,21 +1708,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Brazo 3 Izquierdo R3</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Brazo_3_Izquierdo_R31" name="Brazo_3_Izquierdo_R3" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Brazo_3_Izquierdo_R31" name="Brazo_3_Izquierdo_R3" value="1">
                                                                                                                             <label for="Brazo_3_Izquierdo_R31">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Brazo_3_Izquierdo_R32" name="Brazo_3_Izquierdo_R3" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Brazo_3_Izquierdo_R32" name="Brazo_3_Izquierdo_R3" value="0">
                                                                                                                             <label for="Brazo_3_Izquierdo_R32">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Brazo_3_Izquierdo_R35" name="Brazo_3_Izquierdo_R3" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Brazo_3_Izquierdo_R35" name="Brazo_3_Izquierdo_R3" value="2">
                                                                                                                             <label for="Brazo_3_Izquierdo_R35">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1734,21 +1734,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Brazo 4 Derecho R6</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Brazo_4_Derecho_R61" name="Brazo_4_Derecho_R6" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Brazo_4_Derecho_R61" name="Brazo_4_Derecho_R6" value="1">
                                                                                                                             <label for="Brazo_4_Derecho_R61">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Brazo_4_Derecho_R62" name="Brazo_4_Derecho_R6" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Brazo_4_Derecho_R62" name="Brazo_4_Derecho_R6" value="0">
                                                                                                                             <label for="Brazo_4_Derecho_R62">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Brazo_4_Derecho_R65" name="Brazo_4_Derecho_R6" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Brazo_4_Derecho_R65" name="Brazo_4_Derecho_R6" value="2">
                                                                                                                             <label for="Brazo_4_Derecho_R65">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1782,21 +1782,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Emblema izquierdo de la empresa</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Emblema_izquierdo_empresa1" name="Emblema_izquierdo_empresa" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Emblema_izquierdo_empresa1" name="Emblema_izquierdo_empresa" value="1">
                                                                                                                             <label for="Emblema_izquierdo_empresa1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Emblema_izquierdo_empresa2" name="Emblema_izquierdo_empresa" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Emblema_izquierdo_empresa2" name="Emblema_izquierdo_empresa" value="0">
                                                                                                                             <label for="Emblema_izquierdo_empresa2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Emblema_izquierdo_empresa5" name="Emblema_izquierdo_empresa" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Emblema_izquierdo_empresa5" name="Emblema_izquierdo_empresa" value="2">
                                                                                                                             <label for="Emblema_izquierdo_empresa5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1808,21 +1808,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Emblema derecho de la empresa</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Emblema_derecho_empresa1" name="Emblema_derecho_empresa" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Emblema_derecho_empresa1" name="Emblema_derecho_empresa" value="1">
                                                                                                                             <label for="Emblema_derecho_empresa1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Emblema_derecho_empresa2" name="Emblema_derecho_empresa" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Emblema_derecho_empresa2" name="Emblema_derecho_empresa" value="0">
                                                                                                                             <label for="Emblema_derecho_empresa2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Emblema_derecho_empresa5" name="Emblema_derecho_empresa" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Emblema_derecho_empresa5" name="Emblema_derecho_empresa" value="2">
                                                                                                                             <label for="Emblema_derecho_empresa5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1850,21 +1850,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="escolar" name="escolar" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="escolar" name="escolar" value="1">
                                                                                                                             <label for="escolar">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="escolar2" name="escolar" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="escolar2" name="escolar" value="0">
                                                                                                                             <label for="escolar2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="escolar3" name="escolar" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="escolar3" name="escolar" value="2">
                                                                                                                             <label for="escolar3">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1877,21 +1877,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Logo izquierdo</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Logo_izquierdo1" name="Logo_izquierdo" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Logo_izquierdo1" name="Logo_izquierdo" value="1">
                                                                                                                             <label for="Logo_izquierdo1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Logo_izquierdo2" name="Logo_izquierdo" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Logo_izquierdo2" name="Logo_izquierdo" value="0">
                                                                                                                             <label for="Logo_izquierdo2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Logo_izquierdo5" name="Logo_izquierdo" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Logo_izquierdo5" name="Logo_izquierdo" value="2">
                                                                                                                             <label for="Logo_izquierdo5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1903,21 +1903,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Logo derecho</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Logo_derecho1" name="Logo_derecho" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Logo_derecho1" name="Logo_derecho" value="1">
                                                                                                                             <label for="Logo_derecho1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Logo_derecho2" name="Logo_derecho" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Logo_derecho2" name="Logo_derecho" value="0">
                                                                                                                             <label for="Logo_derecho2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Logo_derecho5" name="Logo_derecho" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Logo_derecho5" name="Logo_derecho" value="2">
                                                                                                                             <label for="Logo_derecho5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1929,21 +1929,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>N° Interno delantero</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="N_Interno_delantero1" name="N_Interno_delantero" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="N_Interno_delantero1" name="N_Interno_delantero" value="1">
                                                                                                                             <label for="N_Interno_delantero1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="N_Interno_delantero2" name="N_Interno_delantero" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="N_Interno_delantero2" name="N_Interno_delantero" value="0">
                                                                                                                             <label for="N_Interno_delantero2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="N_Interno_delantero5" name="N_Interno_delantero" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="N_Interno_delantero5" name="N_Interno_delantero" value="2">
                                                                                                                             <label for="N_Interno_delantero5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1955,21 +1955,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>N° Interno trasero</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="N_Interno_trasero1" name="N_Interno_trasero" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="N_Interno_trasero1" name="N_Interno_trasero" value="1">
                                                                                                                             <label for="N_Interno_trasero1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="N_Interno_trasero2" name="N_Interno_trasero" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="N_Interno_trasero2" name="N_Interno_trasero" value="0">
                                                                                                                             <label for="N_Interno_trasero2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="N_Interno_trasero5" name="N_Interno_trasero" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="N_Interno_trasero5" name="N_Interno_trasero" value="2">
                                                                                                                             <label for="N_Interno_trasero5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -1981,21 +1981,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>N° Interno izquierdo</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="N_Interno_izquierdo1" name="N_Interno_izquierdo" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="N_Interno_izquierdo1" name="N_Interno_izquierdo" value="1">
                                                                                                                             <label for="N_Interno_izquierdo1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="N_Interno_izquierdo2" name="N_Interno_izquierdo" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="N_Interno_izquierdo2" name="N_Interno_izquierdo" value="0">
                                                                                                                             <label for="N_Interno_izquierdo2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="N_Interno_izquierdo5" name="N_Interno_izquierdo" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="N_Interno_izquierdo5" name="N_Interno_izquierdo" value="2">
                                                                                                                             <label for="N_Interno_izquierdo5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -2007,21 +2007,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>N° Interno derecho</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="N_Interno_derecho1" name="N_Interno_derecho" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="N_Interno_derecho1" name="N_Interno_derecho" value="1">
                                                                                                                             <label for="N_Interno_derecho1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="N_Interno_derecho2" name="N_Interno_derecho" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="N_Interno_derecho2" name="N_Interno_derecho" value="0">
                                                                                                                             <label for="N_Interno_derecho2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="N_Interno_derecho5" name="N_Interno_derecho" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="N_Interno_derecho5" name="N_Interno_derecho" value="2">
                                                                                                                             <label for="N_Interno_derecho5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -2046,21 +2046,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Salidas_emergencia_martillos1" name="Salidas_emergencia_martillos" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Salidas_emergencia_martillos1" name="Salidas_emergencia_martillos" value="1">
                                                                                                                             <label for="Salidas_emergencia_martillos1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Salidas_emergencia_martillos2" name="Salidas_emergencia_martillos" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Salidas_emergencia_martillos2" name="Salidas_emergencia_martillos" value="0">
                                                                                                                             <label for="Salidas_emergencia_martillos2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Salidas_emergencia_martillos5" name="Salidas_emergencia_martillos" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Salidas_emergencia_martillos5" name="Salidas_emergencia_martillos" value="2">
                                                                                                                             <label for="Salidas_emergencia_martillos5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -2072,21 +2072,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Dispositivo de velocidad</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Dispositivo_velocidad1" name="Dispositivo_velocidad" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Dispositivo_velocidad1" name="Dispositivo_velocidad" value="1">
                                                                                                                             <label for="Dispositivo_velocidad1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Dispositivo_velocidad2" name="Dispositivo_velocidad" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Dispositivo_velocidad2" name="Dispositivo_velocidad" value="0">
                                                                                                                             <label for="Dispositivo_velocidad2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Dispositivo_velocidad5" name="Dispositivo_velocidad" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Dispositivo_velocidad5" name="Dispositivo_velocidad" value="2">
                                                                                                                             <label for="Dispositivo_velocidad5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -2114,21 +2114,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Av_Como_conduzco1" name="Av_Como_conduzco" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Av_Como_conduzco1" name="Av_Como_conduzco" value="1">
                                                                                                                             <label for="Av_Como_conduzco1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Av_Como_conduzco2" name="Av_Como_conduzco" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Av_Como_conduzco2" name="Av_Como_conduzco" value="0">
                                                                                                                             <label for="Av_Como_conduzco2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Av_Como_conduzco5" name="Av_Como_conduzco" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Av_Como_conduzco5" name="Av_Como_conduzco" value="2">
                                                                                                                             <label for="Av_Como_conduzco5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -2163,21 +2163,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Brazo limpiaparabrisas izquierdo</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Brazo_limpiaparabrisas_izquierdo1" name="Brazo_limpiaparabrisas_izquierdo" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Brazo_limpiaparabrisas_izquierdo1" name="Brazo_limpiaparabrisas_izquierdo" value="1">
                                                                                                                             <label for="Brazo_limpiaparabrisas_izquierdo1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Brazo_limpiaparabrisas_izquierdo2" name="Brazo_limpiaparabrisas_izquierdo" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Brazo_limpiaparabrisas_izquierdo2" name="Brazo_limpiaparabrisas_izquierdo" value="0">
                                                                                                                             <label for="Brazo_limpiaparabrisas_izquierdo2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Brazo_limpiaparabrisas_izquierdo5" name="Brazo_limpiaparabrisas_izquierdo" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Brazo_limpiaparabrisas_izquierdo5" name="Brazo_limpiaparabrisas_izquierdo" value="2">
                                                                                                                             <label for="Brazo_limpiaparabrisas_izquierdo5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -2189,21 +2189,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Plumilla limpiaparabrisas izquierdo</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Plumilla_limpiaparabrisas_izquierdo1" name="Plumilla_limpiaparabrisas_izquierdo" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Plumilla_limpiaparabrisas_izquierdo1" name="Plumilla_limpiaparabrisas_izquierdo" value="1">
                                                                                                                             <label for="Plumilla_limpiaparabrisas_izquierdo1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Plumilla_limpiaparabrisas_izquierdo2" name="Plumilla_limpiaparabrisas_izquierdo" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Plumilla_limpiaparabrisas_izquierdo2" name="Plumilla_limpiaparabrisas_izquierdo" value="0">
                                                                                                                             <label for="Plumilla_limpiaparabrisas_izquierdo2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Plumilla_limpiaparabrisas_izquierdo5" name="Plumilla_limpiaparabrisas_izquierdo" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Plumilla_limpiaparabrisas_izquierdo5" name="Plumilla_limpiaparabrisas_izquierdo" value="2">
                                                                                                                             <label for="Plumilla_limpiaparabrisas_izquierdo5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -2215,21 +2215,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Brazo limpiaparabrisas derecho</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="7Brazo_limpiaparabrisas_derecho1" name="7Brazo_limpiaparabrisas_derecho" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="7Brazo_limpiaparabrisas_derecho1" name="7Brazo_limpiaparabrisas_derecho" value="1">
                                                                                                                             <label for="7Brazo_limpiaparabrisas_derecho1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="7Brazo_limpiaparabrisas_derecho2" name="7Brazo_limpiaparabrisas_derecho" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="7Brazo_limpiaparabrisas_derecho2" name="7Brazo_limpiaparabrisas_derecho" value="0">
                                                                                                                             <label for="7Brazo_limpiaparabrisas_derecho2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="7Brazo_limpiaparabrisas_derecho52" name="7Brazo_limpiaparabrisas_derecho" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="7Brazo_limpiaparabrisas_derecho52" name="7Brazo_limpiaparabrisas_derecho" value="2">
                                                                                                                             <label for="7Brazo_limpiaparabrisas_derecho52">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -2241,21 +2241,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Plumilla limpiaparabrisas derecho</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Plumilla_limpiaparabrisas_derecho1" name="Plumilla_limpiaparabrisas_derecho" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Plumilla_limpiaparabrisas_derecho1" name="Plumilla_limpiaparabrisas_derecho" value="1">
                                                                                                                             <label for="Plumilla_limpiaparabrisas_derecho1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Plumilla_limpiaparabrisas_derecho2" name="Plumilla_limpiaparabrisas_derecho" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Plumilla_limpiaparabrisas_derecho2" name="Plumilla_limpiaparabrisas_derecho" value="0">
                                                                                                                             <label for="Plumilla_limpiaparabrisas_derecho2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Plumilla_limpiaparabrisas_derecho5" name="Plumilla_limpiaparabrisas_derecho" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Plumilla_limpiaparabrisas_derecho5" name="Plumilla_limpiaparabrisas_derecho" value="2">
                                                                                                                             <label for="Plumilla_limpiaparabrisas_derecho5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -2267,21 +2267,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Baterías</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Baterias1" name="Baterias" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Baterias1" name="Baterias" value="1">
                                                                                                                             <label for="Baterias1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Baterias2" name="Baterias" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Baterias2" name="Baterias" value="0">
                                                                                                                             <label for="Baterias2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Baterias5" name="Baterias" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Baterias5" name="Baterias" value="2">
                                                                                                                             <label for="Baterias5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -2293,21 +2293,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Botones de tablerón y timón</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Botones_tableron_timon1" name="Botones_tableron_timon" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Botones_tableron_timon1" name="Botones_tableron_timon" value="1">
                                                                                                                             <label for="Botones_tableron_timon1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Botones_tableron_timon2" name="Botones_tableron_timon" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Botones_tableron_timon2" name="Botones_tableron_timon" value="0">
                                                                                                                             <label for="Botones_tableron_timon2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Botones_tableron_timon5" name="Botones_tableron_timon" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Botones_tableron_timon5" name="Botones_tableron_timon" value="2">
                                                                                                                             <label for="Botones_tableron_timon5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -2319,21 +2319,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Tapa radiador</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Tapa_radiador1" name="Tapa_radiador" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Tapa_radiador1" name="Tapa_radiador" value="1">
                                                                                                                             <label for="Tapa_radiador1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Tapa_radiador2" name="Tapa_radiador" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Tapa_radiador2" name="Tapa_radiador" value="0">
                                                                                                                             <label for="Tapa_radiador2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Tapa_radiador5" name="Tapa_radiador" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Tapa_radiador5" name="Tapa_radiador" value="2">
                                                                                                                             <label for="Tapa_radiador5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -2345,21 +2345,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Tapa deposito hidráulico</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Tapa_deposito_hidráulico1" name="Tapa_deposito_hidráulico" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Tapa_deposito_hidráulico1" name="Tapa_deposito_hidráulico" value="1">
                                                                                                                             <label for="Tapa_deposito_hidráulico1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Tapa_deposito_hidráulico2" name="Tapa_deposito_hidráulico" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Tapa_deposito_hidráulico2" name="Tapa_deposito_hidráulico" value="0">
                                                                                                                             <label for="Tapa_deposito_hidráulico2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Tapa_deposito_hidráulico5" name="Tapa_deposito_hidráulico" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Tapa_deposito_hidráulico5" name="Tapa_deposito_hidráulico" value="2">
                                                                                                                             <label for="Tapa_deposito_hidráulico5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -2371,21 +2371,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Cojineria en general</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Cojineria_general1" name="Cojineria_general" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Cojineria_general1" name="Cojineria_general" value="1">
                                                                                                                             <label for="Cojineria_general1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Cojineria_general2" name="Cojineria_general" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Cojineria_general2" name="Cojineria_general" value="0">
                                                                                                                             <label for="Cojineria_general2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Cojineria_general5" name="Cojineria_general" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Cojineria_general5" name="Cojineria_general" value="2">
                                                                                                                             <label for="Cojineria_general5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -2397,21 +2397,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Cinturón sillas calidad</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Cinturon_sillas_calidad1" name="Cinturon_sillas_calidad" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Cinturon_sillas_calidad1" name="Cinturon_sillas_calidad" value="1">
                                                                                                                             <label for="Cinturon_sillas_calidad1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Cinturon_sillas_calidad2" name="Cinturon_sillas_calidad" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Cinturon_sillas_calidad2" name="Cinturon_sillas_calidad" value="0">
                                                                                                                             <label for="Cinturon_sillas_calidad2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Cinturon_sillas_calidad5" name="Cinturon_sillas_calidad" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Cinturon_sillas_calidad5" name="Cinturon_sillas_calidad" value="2">
                                                                                                                             <label for="Cinturon_sillas_calidad5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -2423,21 +2423,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Pasamanos</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Pasamanos1" name="Pasamanos" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Pasamanos1" name="Pasamanos" value="1">
                                                                                                                             <label for="Pasamanos1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Pasamanos2" name="Pasamanos" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Pasamanos2" name="Pasamanos" value="0">
                                                                                                                             <label for="Pasamanos2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Pasamanos5" name="Pasamanos" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Pasamanos5" name="Pasamanos" value="2">
                                                                                                                             <label for="Pasamanos5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -2449,21 +2449,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Claxón</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Claxon1" name="Claxon" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Claxon1" name="Claxon" value="1">
                                                                                                                             <label for="Claxon1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Claxon2" name="Claxon" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Claxon2" name="Claxon" value="0">
                                                                                                                             <label for="Claxon2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Claxon5" name="Claxon" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Claxon5" name="Claxon" value="2">
                                                                                                                             <label for="Claxon5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -2475,21 +2475,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                                     <td>Placas reglamentarias</td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Placas_reglamentarias1" name="Placas_reglamentarias" value="1">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Placas_reglamentarias1" name="Placas_reglamentarias" value="1">
                                                                                                                             <label for="Placas_reglamentarias1">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Placas_reglamentarias2" name="Placas_reglamentarias" value="0">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Placas_reglamentarias2" name="Placas_reglamentarias" value="0">
                                                                                                                             <label for="Placas_reglamentarias2">
                                                                                                                             </label>
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-secondary d-inline">
-                                                                                                                            <input type="radio" class="form-control" id="Placas_reglamentarias5" name="Placas_reglamentarias" value="2">
+                                                                                                                            <input type="radio" class="form-control inventario" required id="Placas_reglamentarias5" name="Placas_reglamentarias" value="2">
                                                                                                                             <label for="Placas_reglamentarias5">
                                                                                                                             </label>
                                                                                                                         </div>
@@ -2541,7 +2541,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                         <div class="col-md-6">
                                                                                                             <div class="form-group">
                                                                                                                 <label>Observaciones</label>
-                                                                                                                <textarea class="form-control" rows="2" placeholder="Digite las observaciones vistas en la inspeccion." id="observaciones" name="observaciones"></textarea>
+                                                                                                                <textarea class="form-control" rows="2" placeholder="Digite las observaciones vistas en la inspeccion." id="observaciones" name="observaciones" required></textarea>
                                                                                                             </div>
                                                                                                         </div>
 
@@ -2586,11 +2586,13 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                     </div>
 
                                                                                     <!-- /.BOTONES DE GUARDAR O CANCELAR DE LOS TABS -->
+                                                                                    <hr class="my-5">
+
                                                                                     <div class="text-center">
                                                                                         <button type="submit" class="btn btn-lg btn-success">
                                                                                             <i class="fas fa-save"></i>Guardar</button>
 
-                                                                                        <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Cancelar</button>
+                                                                                        <button type="button" class="btn btn-lg btn-danger cancelar" data-dismiss="modal">Cancelar</button>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

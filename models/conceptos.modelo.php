@@ -4,30 +4,12 @@
 include_once DIR_APP . 'config/conexion.php';
 
 /**
- *  GESTION HUMANA
+ *  GESTION HUMANA,VEHICULAR,MANTENIMIENTO. (Modulo SEGURIDAD está sin implementar en conceptos generales)
  */
 class ModeloConceptosGH
 {
-    # DATOS GENERALIZADOS
-    static public function mdlActualizarGH($tabla, $input1)
-    {
-
-        $stmt = Conexion::conectar()->prepare("UPDATE $tabla SET $input1 = :$input1");
-
-        $stmt->bindParam(":" . $input1, PDO::PARAM_STR);
-
-        if ($stmt->execute()) {
-            $retorno = "ok";
-        } else {
-            $retorno = "error";
-        }
-
-        $stmt->closeCursor();
-        $stmt = null;
-
-        return $retorno;
-    }
-
+    //GESTION HUMANA
+    #Agregar un nuevo concepto general (modelo para dos campos de base de datos)
     static public function mdlNuevo($datos)
     {
         $conexion = Conexion::conectar();
@@ -46,7 +28,7 @@ class ModeloConceptosGH
         $conexion = null;
         return $respuesta;
     }
-
+    #Listar todos los datos de un concepto general para visualizar en la tabla
     static public function mdlVer($datos)
     {
         $conexion = Conexion::conectar();
@@ -57,7 +39,7 @@ class ModeloConceptosGH
         $stmt->closeCursor();
         return $respuesta;
     }
-
+    #Editar datos de conceptos generales
     static public function mdlEditar($datos)
     {
         $conexion = Conexion::conectar();
@@ -78,7 +60,7 @@ class ModeloConceptosGH
 
         return $retorno;
     }
-
+    #Visualizar datos de un solo registro de conceptos generales
     static public function mdlVerUnConcepto($datos)
     {
         $conexion = Conexion::conectar();
@@ -91,7 +73,7 @@ class ModeloConceptosGH
         $stmt->closeCursor();
         return $respuesta;
     }
-
+    #Cuenta cuantos registros hay de cada maestra de conceptos generales (excluye: empresa, seguridad no implementa, temporalmente)
     static public function mdlContarRegistros($datos)
     {
         $conexion = Conexion::conectar();
@@ -103,8 +85,9 @@ class ModeloConceptosGH
         return $respuesta;
     }
 
-
-    # EMPRESA
+    //Empresa
+    //Modelos para el manejo de datos de la maestra EMPRESA en gestion humana
+    #Visualizar los datos de la empresa en el FUEC
     static public function mdlVerEmpresa()
     {
         $sql = "SELECT * FROM empresa LIMIT 1";
@@ -115,7 +98,7 @@ class ModeloConceptosGH
         $stmt->closeCursor();
         return $retorno;
     }
-
+    #Visualizar todas las empresas (Limitado a una empresa temporalmente)
     static public function mdlListaEmpresa()
     {
         $sql = "SELECT * FROM empresa";
@@ -126,7 +109,7 @@ class ModeloConceptosGH
         $stmt->closeCursor();
         return $retorno;
     }
-
+    #Traer datos de una empresa, donde coincida el id
     static public function mdlUnaEmpresa($id)
     {
         $sql = "SELECT E.* FROM empresa E WHERE E.id = :id";
@@ -139,7 +122,7 @@ class ModeloConceptosGH
         return $retorno;
     }
 
-    #PROGRAMA LIMITADO A UNA EMPRESA, POR LO TANTO NO SE HABILITARA LA OPCION DE AGREGAR UNA EMPRESA NUEVA(POR EL MOMENTO)
+    #Agregar una nueva empresa (Programa limitado a una empresa)
     static public function mdlAgregarEmpresa($datos)
     {
         $sql = "INSERT empresa(razon_social,nit,nro_resolucion,anio_resolucion,dir_territorial,ruta_firma,sitio_web) VALUES(:razon_social,:nit,:nro_resolucion,:anio_resolucion,:dir_territorial,:ruta_firma,:sitio_web)";
@@ -162,12 +145,11 @@ class ModeloConceptosGH
         $stmt = null;
         return $retorno;
     }
-
+    #Editar los datos de la empresa actual
     static public function mdlEditarEmpresa($datos)
     {
-         $sql = "UPDATE empresa set razon_social=:razon_social, nit=:nit, nro_resolucion=:nro_resolucion, anio_resolucion=:anio_resolucion, dir_territorial=:dir_territorial, 
-         -- ruta_firma=:ruta_firma, 
-         sitio_web=:sitio_web WHERE id = :id";
+        $sql = "UPDATE empresa set razon_social=:razon_social, nit=:nit, nro_resolucion=:nro_resolucion, anio_resolucion=:anio_resolucion, dir_territorial=:dir_territorial,ruta_firma=:ruta_firma, 
+        sitio_web=:sitio_web WHERE id = :id";
         $stmt = Conexion::conectar()->prepare($sql);
 
         $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
@@ -176,7 +158,7 @@ class ModeloConceptosGH
         $stmt->bindParam(":nro_resolucion", $datos["nro_resolucion"], PDO::PARAM_STR);
         $stmt->bindParam(":anio_resolucion", $datos["anio_resolucion"], PDO::PARAM_STR);
         $stmt->bindParam(":dir_territorial", $datos["dir_territorial"], PDO::PARAM_INT);
-        //$stmt->bindParam(":ruta_firma", $datos["ruta_firma"], PDO::PARAM_STR);
+        $stmt->bindParam(":ruta_firma", $datos["ruta_firma"], PDO::PARAM_STR);
         $stmt->bindParam(":sitio_web", $datos["sitio_web"], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
@@ -184,14 +166,14 @@ class ModeloConceptosGH
         } else {
             $retorno = "error";
         }
-
         $stmt->closeCursor();
         $stmt = null;
-
         return $retorno;
     }
-
+ 
     # VEHICULAR 
+    //Modelo para el manejo de datos de la maestra de Documento vehicular, Categorias de licencias, Tipos de identificación en Vehicular
+    #Agregar nuevo Documento vehicular, Categorias de licencias, Tipos de identificación.
     static public function mdlAgregarVehicular($datos)
     {
         $conexion = Conexion::conectar();
@@ -210,7 +192,7 @@ class ModeloConceptosGH
         $conexion = null;
         return $respuesta;
     }
-
+    # Editar Documento vehicular, Categorias de licencias, Tipos de identificación 
     static public function mdlEditarVehicular($datos)
     {
         $conexion = Conexion::conectar();
@@ -232,7 +214,7 @@ class ModeloConceptosGH
 
         return $retorno;
     }
-
+    #Lista todos los datos para la tabla de Documento vehicular, Categorias de licencias, Tipos de identificación 
     static public function mdlListarVehicular($datos)
     {
         $conexion = Conexion::conectar();
@@ -243,7 +225,7 @@ class ModeloConceptosGH
         $stmt->closeCursor();
         return $respuesta;
     }
-
+    #Visualizar datos de un solo registro de Documento vehicular, Categorias de licencias, Tipos de identificación 
     static public function mdlListarUnConcepto($datos)
     {
         $conexion = Conexion::conectar();
@@ -256,7 +238,10 @@ class ModeloConceptosGH
         $stmt->closeCursor();
         return $respuesta;
     }
-    //RUTAS
+
+    #RUTAS
+    //Modelo para el manejo de datos de la maestra de Rutas en vehicular
+    //Agregar ruta nueva
     static public function mdlAgregarRuta($datos)
     {
         $stmt = Conexion::conectar()->prepare("INSERT INTO v_rutas(idorigen,iddestino,nombreruta)
@@ -277,7 +262,7 @@ class ModeloConceptosGH
 
         return $retorno;
     }
-
+    #Editar datos de una ruta
     static public function mdlEditarRuta($datos)
     {
         //print_r($datos);
@@ -299,7 +284,7 @@ class ModeloConceptosGH
 
         return $retorno;
     }
-
+    #Visualizar todas las rutas en la tabla
     static public function mdlListarRutas()
     {
         $conexion = Conexion::conectar();
@@ -311,7 +296,8 @@ class ModeloConceptosGH
         return $respuesta;
     }
 
-    //CIUDADES
+    #CIUDADES
+    //Modelo para el manejo de datos de la maestra de Ciudades en Gestion Humana
     static public function mdlAgregarCiudad($datos)
     {
         $stmt = Conexion::conectar()->prepare("INSERT INTO gh_municipios(iddepartamento,municipio)
@@ -331,7 +317,7 @@ class ModeloConceptosGH
 
         return $retorno;
     }
-
+    #Editar datos de una ciudad
     static public function mdlEditarCiudad($datos)
     {
 
@@ -353,7 +339,7 @@ class ModeloConceptosGH
 
         return $retorno;
     }
-
+    #Visualizar datos de un solo registro de ciudad
     static public function mdlVerciudad($datos)
     {
         $conexion = Conexion::conectar();
@@ -367,7 +353,7 @@ class ModeloConceptosGH
         $stmt->closeCursor();
         return $respuesta;
     }
-
+    #Visualizar todos los municipios 
     static public function mdlDeparMunicipios()
     {
         $stmt = Conexion::conectar()->prepare("SELECT m.idmunicipio, m.municipio, m.iddepartamento AS iddepar, d.nombre AS departamento, CONCAT(d.nombre, ' - ', m.municipio) AS DeparMunic
@@ -380,7 +366,7 @@ class ModeloConceptosGH
         $stmt->closeCursor();
         return $retorno;
     }
-
+    //MODELO UTILIZADO PARA EL BORRADO LOGICO, utilizado en todos los modulos de conceptos generales.
     static public function mdlEliminar($datos)
     {
         $conexion = Conexion::conectar();

@@ -239,6 +239,8 @@ class ControladorInventario
                 'observ' => $_POST['observaciones']
 			);
 
+			var_dump($datos);
+
 			$responseModel = ModeloInventario::mdlAgregarInventario($datos);
 
             if ($responseModel == "ok") {

@@ -2,12 +2,11 @@
 
 # IMPORTAMOS LA CONFIGURACION DE LA SESSION
 include '../config/config.php';
-
 # REQUERIMOS EL CONTROLADOR Y EL MODELO PARA QUE REALICE LA PETICION
 require_once '../controllers/conceptos.controlador.php';
 require_once '../models/conceptos.modelo.php';
 require_once '../models/gh.modelo.php';
-
+require_once '../controllers/files.controlador.php';
 /**
  * 
  */
@@ -17,9 +16,12 @@ if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok") {
 	die();
 }
 
+/*=============================================================
+=====================AJAX CONCEPTOS GENERALES==================
+============================================================?*/
 class AjaxConceptosGH
 {
-
+	//Ajax para agregar un nuevo concepto general (no incluye EMPRESA, RUTAS, Documento vehicular, Categorias de licencias, Tipos de identificación)
 	static public function ajaxNuevoConcepto($concepto, $dato)
 	{
 
@@ -109,7 +111,7 @@ class AjaxConceptosGH
 
 		echo $respuesta;
 	}
-
+	//AJAX para listar todos los registros de un concepto
 	static public function ajaxVerConcepto($concepto)
 	{
 		switch ($concepto) {
@@ -235,7 +237,7 @@ class AjaxConceptosGH
 
 		echo $tr;
 	}
-
+	//Ajax editar datos de un concepto segun su id
 	static public function ajaxEditarConcepto($concepto, $id, $dato)
 	{
 		switch ($concepto) {
@@ -340,7 +342,7 @@ class AjaxConceptosGH
 
 		echo $respuesta;
 	}
-
+	//Ajax para visualizar datos de un concepto por su ID
 	static public function ajaxVerUnConcepto($concepto, $id)
 	{
 		switch ($concepto) {
@@ -427,7 +429,7 @@ class AjaxConceptosGH
 		);
 		$respuesta = ModeloConceptosGH::mdlVerUnConcepto($datos);
 	}
-
+	//Ajax para el contador de registros de las maestras
 	static public function ajaxContarRegistro($concepto)
 	{
 		switch ($concepto) {
@@ -539,7 +541,7 @@ class AjaxConceptosGH
 
 		echo json_encode($respuesta);
 	}
-
+	//Agregar nuevo Documento vehicular, Categorias de licencias, Tipos de identificación
 	static public function ajaxNuevoVehicular($concepto, $dato1, $dato2)
 	{
 		switch ($concepto) {
@@ -577,7 +579,7 @@ class AjaxConceptosGH
 
 		echo $respuesta;
 	}
-
+	//Ajax Editar datos de Documento vehicular, Categorias de licencias, Tipos de identificación
 	static public function ajaxEditarVehicular($concepto, $id, $dato1, $dato2)
 	{
 		switch ($concepto) {
@@ -620,7 +622,7 @@ class AjaxConceptosGH
 
 		echo $respuesta;
 	}
-
+	//Ajax Visualizar datos de un registro de Documento vehicular, Categorias de licencias, Tipos de identificación
 	static public function ajaxVerUno($concepto, $id)
 	{
 		switch ($concepto) {
@@ -656,7 +658,7 @@ class AjaxConceptosGH
 
 		$respuesta = ModeloConceptosGH::mdlListarUnConcepto($datos);
 	}
-
+	//Ajax Listar todos los registros de Documento vehicular, Categorias de licencias, Tipos de identificación
 	static public function ajaxListar($concepto)
 	{
 		switch ($concepto) {
@@ -716,7 +718,7 @@ class AjaxConceptosGH
 
 		echo $tr;
 	}
-
+	//Ajax Agregar una nueva ruta
 	static public function AgregarRuta($dato1, $dato2, $dato3)
 	{
 		$datos = array(
@@ -728,7 +730,7 @@ class AjaxConceptosGH
 		$respuesta = ModeloConceptosGH::mdlAgregarRuta($datos);
 		echo $respuesta;
 	}
-
+	//Ajax Editar datos de una ruta segun su id
 	static public function EditarRuta( $dato3, $id)
 	{
 		$datos = array(
@@ -739,15 +741,7 @@ class AjaxConceptosGH
 		$respuesta = ModeloConceptosGH::mdlEditarRuta($datos);
 		echo $respuesta;
 	}
-
-
-	static public function BorrarRuta( $id)//nuevo 
-	{
-		 
-		$respuesta = ModeloConceptosGH::mdlEditarRuta($id);
-		echo $respuesta;
-	}
-
+	//Ajax Visualizar todas las rutas en la tabla
 	static public function VerRutas()
 	{
 
@@ -775,8 +769,8 @@ class AjaxConceptosGH
 
 		echo $tr;
 	}
-
 	//CIUDADES
+	//Ajax apra agregar una nueva ciudad
 	static public function AgregarCiudad($dato1, $dato2)
 	{
 		$datos = array(
@@ -787,7 +781,7 @@ class AjaxConceptosGH
 		$respuesta = ModeloConceptosGH::mdlAgregarCiudad($datos);
 		echo $respuesta;
 	}
-
+	//Ajax para editar los datos de una ciudad segun su ID
 	static public function EditarCiudad($dato1, $dato2, $id)
 	{
 		$datos = array(
@@ -799,7 +793,7 @@ class AjaxConceptosGH
 		$respuesta = ModeloConceptosGH::mdlEditarCiudad($datos);
 		echo $respuesta;
 	}
-
+	//Ajax para listar todas las ciudadas
 	static public function VerCiudades()
 	{
 		$respuesta = ModeloConceptosGH::mdlDeparMunicipios();
@@ -824,13 +818,13 @@ class AjaxConceptosGH
 		}
 		echo $tr;
 	}
-
+	//Ajax para visualizar los datos de una ciudad segun su ID
 	static public function DatosCiudad($id)
 	{
 		$respuesta = ControladorCiudades::ctrVerCiudad($id);
 		echo json_encode($respuesta);
 	}
-
+	//Ajax para el borrado logico de los registros de conceptos generales
 	static public function ajaxEliminar($id, /*$valor_cambio,*/ $concepto)
 	{
 		switch ($concepto) {
@@ -947,28 +941,36 @@ class AjaxConceptosGH
 		echo $respuesta;
 	}
 }
-
+/*=============================================================
+=====================AJAX EMPRESA=============================
+============================================================?*/
 class AjaxConceptoEmpresa
 {
+	//Ajax visualizar datos de una empresa segun su ID
 	static public function ajaxDatosEmpresa($id)
 	{
 		$respuesta = ModeloConceptosGH::mdlUnaEmpresa($id);
 		echo json_encode($respuesta);
 	}
-
-	static public function ajaxEditarEmpresa($formData)
+	//Ajax editar empresa
+	static public function ajaxEditarEmpresa($formData,$imagen)
 	{
-		$respuesta = ControladorEmpresa::ctrAgregarEditarEmpresa($formData);
-		//echo json_encode($formData);
+		$respuesta = ControladorEmpresa::ctrAgregarEditarEmpresa($formData,$imagen);
 		echo $respuesta;
 	}
-
+	//Ajax para listar todas las empresas en la tabla (Limitado a una empresa)
 	static public function ajaxVerEmpresa()
 	{
 		$respuesta = ModeloConceptosGH::mdlListaEmpresa();
 		$tr = "";
 
 		foreach ($respuesta as $key => $value) {
+            if ($value['ruta_firma'] != null) {
+                $btnVerFoto = "<a href='" . URL_APP . $value['ruta_firma'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a>";
+            }else{
+                $btnVerFoto = "";
+            }
+
 			$tr .= "
 			<tr>
 			<td>{$value['id']}</td>
@@ -977,7 +979,7 @@ class AjaxConceptoEmpresa
 			<td>{$value['nro_resolucion']}</td>
 			<td>{$value['anio_resolucion']}</td>
 			<td>{$value['dir_territorial']}</td>
-			<td>{$value['ruta_firma']}</td>
+			<td>" .$btnVerFoto. "</td>
 			<td>{$value['sitio_web']}</td>
 			<td> 
 			<div class='btn-group' role='group' aria-label='Button group'>
@@ -990,6 +992,10 @@ class AjaxConceptoEmpresa
 		echo $tr;
 	}
 }
+
+/*=============================================================
+=====================LLAMADOS AJAX=============================
+============================================================?*/
 
 if (isset($_POST['NuevoGH']) && $_POST['NuevoGH'] == "ok") {
 	AjaxConceptosGH::ajaxNuevoConcepto($_POST['concepto'], $_POST['dato']);
@@ -1027,6 +1033,7 @@ if (isset($_POST['EditarVehicular']) && $_POST['EditarVehicular'] == "ok") {
 	AjaxConceptosGH::ajaxEditarVehicular($_POST['concepto'], $_POST['id'], $_POST['dato1'], $_POST['dato2']);
 }
 
+//AJAX RUTAS
 if (isset($_POST['AgregarRuta']) && $_POST['AgregarRuta'] == "ok") {
 	AjaxConceptosGH::AgregarRuta($_POST['dato1'], $_POST['dato2'], $_POST['dato3']);
 }
@@ -1035,8 +1042,7 @@ if (isset($_POST['VerRutas']) && $_POST['VerRutas'] == "ok") {
 	AjaxConceptosGH::VerRutas();
 }
 
-
- if (isset($_POST['EditarRuta']) && $_POST['EditarRuta'] == "ok") {
+if (isset($_POST['EditarRuta']) && $_POST['EditarRuta'] == "ok") {
 	AjaxConceptosGH::EditarRuta($_POST['dato3'], $_POST['id']);
 }
 
@@ -1046,14 +1052,14 @@ if (isset($_POST['DatosEmpresa']) && $_POST['DatosEmpresa'] == "ok") {
 }
 
 if (isset($_POST['EditarEmpresa']) && $_POST['EditarEmpresa'] == "ok") {
-	AjaxConceptoEmpresa::ajaxEditarEmpresa($_POST);
+	AjaxConceptoEmpresa::ajaxEditarEmpresa($_POST, $_FILES['imagen']);
 }
 
 if (isset($_POST['VerEmpresa']) && $_POST['VerEmpresa'] == "ok") {
 	AjaxConceptoEmpresa::ajaxVerEmpresa();
 }
 
-//CIUDADES
+//AJAX CIUDADES
 if (isset($_POST['VerCiudades']) && $_POST['VerCiudades'] == "ok") {
 	AjaxConceptosGH::VerCiudades();
 }
@@ -1070,7 +1076,7 @@ if (isset($_POST['DatosCiudad']) && $_POST['DatosCiudad'] == "ok") {
 	AjaxConceptosGH::DatosCiudad($_POST['id']);
 }
 
-//ELIMINAR
+//ajax ELIMINAR (Borrado logico)
 if (isset($_POST['EliminarRegistro']) && $_POST['EliminarRegistro'] == "ok") {
 	AjaxConceptosGH::ajaxEliminar($_POST['id'], /*$_POST['valor'],*/ $_POST['concepto']);
 }

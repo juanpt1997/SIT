@@ -230,7 +230,7 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
             var datos = new FormData();
             datos.append("DatosEmpresa", "ok");
             datos.append("id", id);
-
+            //Actualizar datos de la empresa
             $.ajax({
                 type: "POST",
                 url: "ajax/conceptos.ajax.php",
@@ -258,8 +258,8 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                             <input class="form-control" id="anio" name="anio" type="text" value="${response.anio_resolucion}" required  >
                             <label class="text-sm">Dirección territorial</label>
                             <input class="form-control" id="dir" name="dir" type="text" value="${response.dir_territorial}" required>
-                            <label class="text-sm">Ruta firma</label>
-                            <input class="form-control" id="firma" name="firma" type="text" value="${response.ruta_firma}" required>
+                            <label class="text-sm">Foto firma</label>
+                            <input class="form-control" id="firma" name="firma" type="file" accept="image/png, image/jpeg">
                             <label class="text-sm">Sitio WEB</label>
                             <input class="form-control" id="sitio" name="sitio" type="text" value="${response.sitio_web}" required>
                             <label><br></label>
@@ -272,11 +272,13 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                             cancelButtonText: 'Cancelar'
                         }).then((result) => {
 
+                            var fotoFirma = $("#firma")[0].files;
                             if (result.value) {
                                 var datosAjax = new FormData();
                                 var datosFrm = $("#formulario_editar_empresa").serializeArray();
                                 datosAjax.append('EditarEmpresa', "ok");
                                 datosAjax.append("id_empresa", id);
+                                datosAjax.append("imagen", fotoFirma[0]);
 
                                 var vacio = false;
                                 datosFrm.forEach(element => {
