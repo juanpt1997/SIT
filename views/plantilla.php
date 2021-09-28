@@ -1,3 +1,12 @@
+<?php
+if (isset($_GET['pagina'])) {
+    $rutaUrl = explode("/", $_GET['pagina']);
+
+    //$ruta = $_GET['ruta'];
+    $ruta = $rutaUrl[0];
+}
+
+?>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -7,7 +16,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <title>SIT</title>
+    <?php if (isset($ruta)) : ?>
+        <title><?= $ruta ?></title>
+    <?php else : ?>
+        <title>SIT</title>
+    <?php endif ?>
 
     <!-- =================================================== 
         PLUGINS CSS
@@ -89,114 +102,111 @@
 </head>
 
 <?php if (strpos($_SERVER['REQUEST_URI'], "busqueda-fuec") !== false) : ?>
-<body >
-    <?php include('modulos/contratos/busqueda-fuec.php'); ?>
-</body>
+
+    <body>
+        <?php include('modulos/contratos/busqueda-fuec.php'); ?>
+    </body>
 <?php else : ?>
-<body class="hold-transition layout-fixed layout-navbar-fixed sidebar-collapse ">
 
-    <?php if (isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == "ok") : ?>
-        <div class="wrapper">
+    <body class="hold-transition layout-fixed layout-navbar-fixed sidebar-collapse ">
 
-            <!-- =================================================== NAVBAR (cabecera)=================================================== -->
-            <?php include('includes/cabecera.php'); ?>
+        <?php if (isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == "ok") : ?>
+            <div class="wrapper">
 
-            <!-- =================================================== MAIN SIDE BAR CONTAINER (menu) =================================================== -->
-            <?php include('includes/menu.php'); ?>
+                <!-- =================================================== NAVBAR (cabecera)=================================================== -->
+                <?php include('includes/cabecera.php'); ?>
 
-            <!-- =================================================== CONTENT(contenido) =================================================== -->
-            <?php
-            if (isset($_GET['pagina'])) {
-                $rutaUrl = explode("/", $_GET['pagina']);
+                <!-- =================================================== MAIN SIDE BAR CONTAINER (menu) =================================================== -->
+                <?php include('includes/menu.php'); ?>
 
-                //$ruta = $_GET['ruta'];
-                $ruta = $rutaUrl[0];
+                <!-- =================================================== CONTENT(contenido) =================================================== -->
+                <?php
+                if (isset($ruta)/* isset($_GET['pagina']) */) {
+                    // $rutaUrl = explode("/", $_GET['pagina']);
 
-                if (
-                    $ruta == "inicio" ||
-                    $ruta == "salir"
-                ) {
-                    include "modulos/{$ruta}.php";
-                } else if (
-                    $ruta == "usuarios"
-                ) {
-                    include "modulos/usuarios/{$ruta}.php";
-                } else if (
-                    $ruta == "gh-personal" ||
-                    $ruta == "gh-perfil-sd" ||
-                    $ruta == "gh-pago-ss" ||
-                    $ruta == "gh-alertas-contratos" ||
-                    $ruta == "gh-bloqueo-personal"||
-                    $ruta == "gh-ausentismo"
-                ) {
-                    include "modulos/gestion_humana/{$ruta}.php";
-                } else if (
-                    $ruta == "v-vehiculos" ||
-                    $ruta == "v-convenios" ||
-                    $ruta == "v-propietarios"||
-                    $ruta == "v-bloqueo-vehiculo"||
-                    $ruta == "v-fuec"
-                ) {
-                    include "modulos/vehicular/{$ruta}.php";
+                    // //$ruta = $_GET['ruta'];
+                    // $ruta = $rutaUrl[0];
+
+                    if (
+                        $ruta == "inicio" ||
+                        $ruta == "salir"
+                    ) {
+                        include "modulos/{$ruta}.php";
+                    } else if (
+                        $ruta == "usuarios"
+                    ) {
+                        include "modulos/usuarios/{$ruta}.php";
+                    } else if (
+                        $ruta == "gh-personal" ||
+                        $ruta == "gh-perfil-sd" ||
+                        $ruta == "gh-pago-ss" ||
+                        $ruta == "gh-alertas-contratos" ||
+                        $ruta == "gh-bloqueo-personal" ||
+                        $ruta == "gh-ausentismo"
+                    ) {
+                        include "modulos/gestion_humana/{$ruta}.php";
+                    } else if (
+                        $ruta == "v-vehiculos" ||
+                        $ruta == "v-convenios" ||
+                        $ruta == "v-propietarios" ||
+                        $ruta == "v-bloqueo-vehiculo" ||
+                        $ruta == "v-fuec"
+                    ) {
+                        include "modulos/vehicular/{$ruta}.php";
+                    } else if (
+                        $ruta == "cg-gestion-humana" ||
+                        $ruta == "cg-vehicular" ||
+                        $ruta == "cg-mantenimiento" ||
+                        $ruta == "cg-seguridad"
+                    ) {
+                        include "modulos/conceptos_generales/{$ruta}.php";
+                    } else if (
+                        $ruta == "contratos-clientes" ||
+                        $ruta == "contratos-fijos" ||
+                        $ruta == "contratos-cotizaciones" ||
+                        $ruta == "contratos-ordenservicio" ||
+                        $ruta == "busqueda-fuec"
+                    ) {
+                        include "modulos/contratos/{$ruta}.php";
+                    } else if ( # Mantenimiento
+                        $ruta == "m-proveedores" ||
+                        $ruta == "m-inventario"
+                    ) {
+                        include "modulos/mantenimiento/{$ruta}.php";
+                    } else if ( # Operaciones
+                        $ruta == "o-fuec" ||
+                        $ruta == "o-alistamiento" ||
+                        $ruta == "o-rodamiento"
+                    ) {
+                        include "modulos/operaciones/{$ruta}.php";
+                    } else { # Página no válida
+                        include "includes/error404.php";
+                    }
+                } else {
+                    include "modulos/inicio.php";
                 }
-                else if (
-                    $ruta == "cg-gestion-humana"||
-                    $ruta == "cg-vehicular"||
-                    $ruta == "cg-mantenimiento"||
-                    $ruta == "cg-seguridad"
-                ) {
-                    include "modulos/conceptos_generales/{$ruta}.php";
-                }
-                else if (
-                    $ruta == "contratos-clientes"||
-                    $ruta == "contratos-fijos"||
-                    $ruta == "contratos-cotizaciones"||
-                    $ruta == "contratos-ordenservicio" ||
-                    $ruta == "busqueda-fuec"
-                ) {
-                    include "modulos/contratos/{$ruta}.php";
-                }
-                else if ( # Mantenimiento
-                    $ruta == "m-proveedores" ||
-                    $ruta == "m-inventario" 
-                ) {
-                    include "modulos/mantenimiento/{$ruta}.php";
-                }
-                else if ( # Operaciones
-                    $ruta == "o-fuec" ||
-                    $ruta == "o-alistamiento" ||
-                    $ruta == "o-rodamiento" 
-                ) {    
-                    include "modulos/operaciones/{$ruta}.php";
-                }
-                 else { # Página no válida
-                    include "includes/error404.php";
-                }
-            } else {
-                include "modulos/inicio.php";
-            }
-            ?>
+                ?>
 
-            <!-- =================================================== MAIN FOOTER =================================================== -->
-            <?php include('includes/footer.php'); ?>
+                <!-- =================================================== MAIN FOOTER =================================================== -->
+                <?php include('includes/footer.php'); ?>
 
-        </div>
-        <!-- ./wrapper -->
-    <?php else : ?>
-        <div class="login-box">
-            <?php include('modulos/ingreso.php'); ?>
-        </div>
-    <?php endif ?>
+            </div>
+            <!-- ./wrapper -->
+        <?php else : ?>
+            <div class="login-box">
+                <?php include('modulos/ingreso.php'); ?>
+            </div>
+        <?php endif ?>
 
-    <?php
-    /* ===================================================
+        <?php
+        /* ===================================================
         MODALS
     ===================================================*/
-    include 'includes/modals.php';
-    ?>
+        include 'includes/modals.php';
+        ?>
 
 
-</body>
+    </body>
 <?php endif ?>
 
 <!-- =================================================== CUSTOM JS =================================================== -->
