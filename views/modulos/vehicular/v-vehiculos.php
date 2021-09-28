@@ -821,9 +821,10 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                     BOTON GUARDAR FORMULARIO
                                                 =================================================== -->
                                                 <div class="col-12 col-md-4 col-lg-1 text-right text-md-left align-self-center">
-                                                    <button type="submit" class="btn btn-success">
-                                                        <i class="fas fa-check-circle"></i>
-                                                    </button>
+                                                    <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
+                                                    <div class="overlay d-none overlayBtnguardar" id="overlayBtnGuardardetalles">
+                                                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </form>
@@ -895,9 +896,10 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                     BOTON GUARDAR FORMULARIO
                                                 =================================================== -->
                                                 <div class="col-12 col-md-4 col-lg-2 text-right text-md-left align-self-center">
-                                                    <button type="submit" class="btn btn-success">
-                                                        <i class="fas fa-check-circle"></i>
-                                                    </button>
+                                                    <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
+                                                    <div class="overlay d-none overlayBtnguardar" id="overlayBtnGuardardetalles">
+                                                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </form>
@@ -1008,9 +1010,10 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                     BOTON GUARDAR FORMULARIO
                                                 =================================================== -->
                                                 <div class="col-12 col-md-6 col-lg-2 col-xl-1 text-right text-md-left align-self-center">
-                                                    <button type="submit" class="btn btn-success">
-                                                        <i class="fas fa-check-circle"></i>
-                                                    </button>
+                                                    <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
+                                                    <div class="overlay d-none overlayBtnguardar" id="overlayBtnGuardardetalles">
+                                                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </form>

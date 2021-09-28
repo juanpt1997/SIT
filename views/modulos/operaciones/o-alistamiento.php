@@ -2302,8 +2302,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                     BOTON GUARDAR
                                 =================================================== -->
                             <div class="col-12 mb-1">
-                                <button type="submit" form="alistamiento_form" class="btn btn-sm btn-success float-right">
-                                    <i class="fas fa-print"></i>
+                                <button type="submit" form="alistamiento_form" class="btn btn-sm btn-success float-center">
+                                        <i class="fas fa-print"></i>
                                     Guardar
                                 </button>
                             </div>
