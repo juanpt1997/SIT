@@ -1295,7 +1295,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                                                                                                 <tr>
                                                                                                                     <td style="width: 10px;">38.1</td>
-                                                                                                                    <td>Alicate, destornillaodor</td>
+                                                                                                                    <td>Alicate, destornillador</td>
                                                                                                                     </td>
                                                                                                                     <td>
                                                                                                                         <div class="icheck-success d-inline">
@@ -2541,7 +2541,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                                                         <div class="col-md-6">
                                                                                                             <div class="form-group">
                                                                                                                 <label>Observaciones</label>
-                                                                                                                <textarea class="form-control" rows="2" placeholder="Digite las observaciones vistas en la inspeccion." id="observaciones" name="observaciones"></textarea>
+                                                                                                                <textarea class="form-control" rows="2" placeholder="Digite las observaciones vistas en la inspeccion." id="observaciones" name="observaciones" required></textarea>
                                                                                                             </div>
                                                                                                         </div>
 

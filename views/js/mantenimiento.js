@@ -145,10 +145,11 @@ $(document).ready(function () {
         processData: false,
         success: function (response) {
           response.forEach((element) => {
-            // var bg =
-            //   element.fechafin >= moment().format("YYYY-MM-DD")
-            //     ? "bg-success"
-            //     : "bg-danger";              
+            var bg =
+              element.fechafin >= moment().format("YYYY-MM-DD")
+                ? "bg-success"
+                : "bg-danger";
+            $(`#documento_${element.idtipodocumento}`).addClass(bg);              
               // Asigno valor fecha
               $(`#documento_${element.idtipodocumento}`).val(element.fechafin);
           });
@@ -227,9 +228,7 @@ $(document).ready(function () {
       let htmljumbo = ``;
 
       for (let index = 0; index < response.length; index++) {
-        console.log(response[index].ruta_foto);
 
-        // htmljumbo += `<img src="${response[index].ruta_foto}" class="d-block w-100" alt="...">`
         htmljumbo += `<div class="jumbotron jumbotron-fluid">
                         <div class="container insertar_fotos">
                           <img src="${response[index].ruta_foto}" class="d-block w-100" alt="...">

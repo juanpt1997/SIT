@@ -172,7 +172,7 @@ class ModeloInventario
                                                             LLanta_repuesto,
                                                             Linterna_pila,
                                                             Cinturon_conductor,
-                                                            Radioteléfono,
+                                                            Radiotelefono,
                                                             Antena,
                                                             Equipo_Sonido,
                                                             usb_cd,
@@ -265,7 +265,7 @@ class ModeloInventario
                                                             :LLanta_repuesto,
                                                             :Linterna_pila,
                                                             :Cinturon_conductor,
-                                                            :Radioteléfono,
+                                                            :Radiotelefono,
                                                             :Antena,
                                                             :Equipo_Sonido,
                                                             :usb_cd,
@@ -359,7 +359,7 @@ class ModeloInventario
         $stmt->bindParam(":LLanta_repuesto", $datos["llanta_repues"], PDO::PARAM_INT);
         $stmt->bindParam(":Linterna_pila", $datos["linterna_pila"], PDO::PARAM_INT);
         $stmt->bindParam(":Cinturon_conductor", $datos["cintu_cond"], PDO::PARAM_INT);
-        $stmt->bindParam(":Radioteléfono", $datos["radiotele"], PDO::PARAM_INT);
+        $stmt->bindParam(":Radiotelefono", $datos["radiotele"], PDO::PARAM_INT);
         $stmt->bindParam(":Antena", $datos["antena"], PDO::PARAM_INT);
         $stmt->bindParam(":Equipo_Sonido", $datos["equipo_sonido"], PDO::PARAM_INT);
         $stmt->bindParam(":usb_cd", $datos["usb_cd"], PDO::PARAM_INT);
