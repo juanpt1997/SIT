@@ -4,6 +4,9 @@
 //     echo "<script> window.location = 'inicio'; </script>";
 // }
 
+$Perfiles = ControladorUsuarios::ctrListadoPerfiles();
+
+
 
 ?>
 <!-- ===================== 
@@ -18,7 +21,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark "><b><i>Roles de usuario test gitea</i></b></h1>
+                    <h1 class="m-0 text-dark "><b><i>Roles de usuario</i></b></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -56,23 +59,25 @@
                                                 <th>ID</th>
                                                 <th>Nombre</th>
                                                 <th>Descripción</th>
-                                                <th>Status</th>
+                                                <th>Estado</th>
                                                 <th>...</th>
                                             </tr>
                                         </thead>
 
                                         <tbody>
+                                            <?php foreach ($Perfiles as $key => $value): ?>
                                             <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td><?= $value["idPerfil"] ?></td>
+                                                <td><?= $value["perfil"]?></td>
+                                                <td><?= $value["descripcion"]?></td>
+                                                <td><?= $value["Opcion"]?></td>
                                                 <td>
                                                     <button type="button" class="btn btn-default btn-sm btn-permisoroles" data-toggle="modal" data-target="#modal-permisoroles"><i class="fas fa-key"></i></button>
                                                     <button type="button" class="btn btn-success btn-sm btn-editarroles" data-toggle="modal" data-target="#modal-nuevorol"><i class="fas fa-edit"></i></button>
                                                     <button type="button" class="btn btn-danger btn-sm btn-eliminarroles"><i class="fas fa-trash"></i></button>
                                                 </td>
                                             </tr>
+                                            <?php endforeach ?>
                                         </tbody>
                                     </table>
                                 </div>
