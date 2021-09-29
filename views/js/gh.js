@@ -140,6 +140,8 @@ if (
 
             var datosAjax = new FormData();
             datosAjax.append('GuardarPersonal', "ok");
+            $("#overlayBtnGuardarformulariogeneral").removeClass("d-none");
+
 
             // DATOS FORMULARIO
             var datosFrm = $(this).serializeArray();
@@ -159,6 +161,8 @@ if (
                 contentType: false,
                 processData: false,
                 success: function (response) {
+                    $("#overlayBtnGuardarformulariogeneral").addClass("d-none");
+
                     switch (response) {
                         case "existe":
                             Swal.fire({
@@ -397,6 +401,7 @@ if (
             e.preventDefault();
 
             var idPersonal = $("#idPersonal").val();
+            $("#overlayBtnGuardarhijos").removeClass("d-none");
 
             if (idPersonal != "") {
                 var datosAjax = new FormData();
@@ -418,6 +423,8 @@ if (
                     contentType: false,
                     processData: false,
                     success: function (response) {
+                        $("#overlayBtnGuardarhijos").addClass("d-none");
+
                         if (response == "ok") {
                             // Cargar de nuevo la tabla hijos
                             AjaxTablaHijos(idPersonal);
@@ -567,6 +574,7 @@ if (
             if (idPersonal != "") {
                 var datosAjax = new FormData();
                 datosAjax.append('GuardarProrroga', "ok");
+                $("#overlayBtnGuardarcontratoprorroga").removeClass("d-none");
 
                 // DATOS FORMULARIO
                 var datosFrm = $(this).serializeArray();
@@ -584,6 +592,7 @@ if (
                     contentType: false,
                     processData: false,
                     success: function (response) {
+                        $("#overlayBtnGuardarcontratoprorroga").addClass("d-none");
                         if (response != "error") {
                             // DOCUMENTO
                             var documento = $('#inputfile-prorrogas')[0].files;
@@ -736,6 +745,8 @@ if (
             if (idPersonal != "") {
                 var datosAjax = new FormData();
                 datosAjax.append('GuardarLicencia', "ok");
+                $("#overlayBtnGuardarlicenciaconduccion").removeClass("d-none");
+
 
                 // DATOS FORMULARIO
                 var datosFrm = $(this).serializeArray();
@@ -753,10 +764,13 @@ if (
                     contentType: false,
                     processData: false,
                     success: function (response) {
+                        $("#overlayBtnGuardarlicenciaconduccion").addClass("d-none");
+
                         if (response != "error") {
                             if (response != "existe") {
                                 // DOCUMENTO
                                 var documento = $('#inputfile-licencias')[0].files;
+
                                 CargarDocumento(idPersonal, documento, "licencias", response, "no");
                                 // Cargar de nuevo la tabla licencias - esto se va a hacer despues de obtener respuesta de la funcion anterior de cargar documeno
                                 //AjaxTablaLicencias(idPersonal);
@@ -914,6 +928,8 @@ if (
             if (idPersonal != "") {
                 var datosAjax = new FormData();
                 datosAjax.append('GuardarExamen', "ok");
+                $("#overlayBtnGuardarexamenesmedicos").removeClass("d-none");
+
 
                 // DATOS FORMULARIO
                 var datosFrm = $(this).serializeArray();
@@ -931,6 +947,8 @@ if (
                     contentType: false,
                     processData: false,
                     success: function (response) {
+                        $("#overlayBtnGuardarexamenesmedicos").addClass("d-none");
+
                         if (response != "error") {
                             // DOCUMENTO
                             var documento = $('#inputfile-examenes')[0].files;
