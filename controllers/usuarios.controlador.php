@@ -55,7 +55,7 @@ class ControladorUsuarios
 						$valorOpcion = $respuesta['Cedula'];
 						$opciones = array();
 						$opcionesBD = ModeloUsuarios::mdlMostrarPerfilOpcion($itemOpcion, $valorOpcion);
-						# Dentro de un forech recorro y almaceno la opciones del Sio
+						# Dentro de un forech recorro y almaceno la opciones
 						foreach ($opcionesBD as $key => $value) {
 							array_push($opciones, $value['opcion']);
 						}
@@ -67,6 +67,11 @@ class ControladorUsuarios
 						$_SESSION['perfil'] = $perfil;
 						# Creo sesión para almacenar las opciones 
 						$_SESSION['opciones'] = $opciones;
+
+						/* ===================================================
+						   NUEVA VERSION PARA GUARDAR OPCIONES Y PERMISOS DISPONIBLES
+						===================================================*/
+						$_SESSION['permisos'] = ModeloUsuarios::mdlPermisos($respuesta['Cedula']); 
 
 
 						# Página de inicio

@@ -42,6 +42,16 @@ $Sucursales = ControladorGH::ctrSucursales();
             </div>
             <hr class="my-4">
 
+            <div class="row d-none">
+                <div class="col-12">
+                    <pre>
+                        <?php 
+                            var_dump($_SESSION['permisos']);
+                        ?>
+                    </pre>
+                </div>
+            </div>
+
             <!-- ===================== 
                 TABLA DE USUARIOS
             ========================= -->

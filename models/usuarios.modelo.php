@@ -148,4 +148,23 @@ class ModeloUsuarios
         
         return $retorno;
     }
+
+    /* ===================================================
+        PERMISOS DE USUARIO
+    ===================================================*/
+    static public function mdlPermisos($valor)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT u.UsuariosID, u.Cedula, u.Nombre, p.perfil, o.opcion, re.Crear, re.Leer, re.Actualizar, re.Borrar
+                                                FROM l_usuarios u
+                                                INNER JOIN l_perfiles p ON u.idPerfil = p.idPerfil
+                                                INNER JOIN l_re_permisos re ON re.idPerfil = p.idPerfil
+                                                INNER JOIN l_opciones o ON re.idOpcion = o.idOpcion
+                                                WHERE u.Cedula = :valor");
+        $stmt->bindParam(":valor", $valor, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno =  $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
 }
