@@ -440,6 +440,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
             AbiertoxEditar = true; //BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
 
             var datosAjax = new FormData();
+            $(".overlayBtnGuardarformugeneralvehiculos").removeClass("d-none");
             datosAjax.append('GuardarVehiculo', "ok");
 
             // ? DATOS FORMULARIO
@@ -467,6 +468,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                 contentType: false,
                 processData: false,
                 success: function (response) {
+                        $(".overlayBtnGuardarformugeneralvehiculos").addClass("d-none");
                     switch (response) {
                         case "existe":
                             Swal.fire({
