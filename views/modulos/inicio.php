@@ -174,17 +174,33 @@
                     * Control Usuarios
                 =================================================== -->
                 <?php if (validarModulo('M_USUARIOS')) : ?>
-                    <div class="col-12 col-sm-6 col-md-4 col-xl-3">
-                        <a href="usuarios">
+                    <!-- <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+                        <a href="#" class="d-none">
                             <div class="info-box border border-success">
                                 <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
                                 <div class="info-box-content">
                                     <span class="info-box-text font-weight-bold text-dark">Control Usuarios</span>
+                                </div> -->
+                                <!-- /.info-box-content -->
+                            <!-- </div> -->
+                            <!-- /.info-box -->
+                        <!-- </a>
+                    </div> -->
+                    <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+                        <div class="dropdown" style="cursor: pointer;">
+                            <div class="info-box border border-success" id="dropdownMenuUsuarios" data-toggle="dropdown">
+                                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Control de usuarios</span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
                             <!-- /.info-box -->
-                        </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuUsuarios">
+                                <a class="dropdown-item font-weight-bold" href="usuarios"><u>Usuarios</u></a>
+                                <a class="dropdown-item font-weight-bold" href="roles-usuarios"><u>Roles de usuarios</u></a>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.col -->
                 <?php endif ?>
