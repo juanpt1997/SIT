@@ -7,9 +7,9 @@ require_once '../controllers/files.controlador.php';
 require_once '../controllers/vehicular.controlador.php';
 require_once '../models/vehicular.modelo.php';
 
-if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok"){
-	echo "<script>window.location = 'inicio';</script>";
-	die();
+if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok") {
+    echo "<script>window.location = 'inicio';</script>";
+    die();
 }
 
 /* ===================================================
@@ -192,8 +192,19 @@ class AjaxVehiculos
         $tr = "";
         $cont = 1;
         foreach ($Respuesta as $key => $value) {
-            $btnEditar = "<button type='button' class='btn btn-info btn-sm m-1 btn-editarRegistro' tabla='v_re_propietariosvehiculos' idregistro='{$value['idpropietariovehiculo']}' idvehiculo='{$value['idvehiculo']}' nombre='{$value['propietario']}'><i class='fas fa-edit'></i></button>";
-            $btnEliminar = "<button type='button' class='btn btn-danger btn-sm m-1 eliminarRegistro' tabla='v_re_propietariosvehiculos' idregistro='{$value['idpropietariovehiculo']}' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-trash-alt'></i></button>";
+            /* Permiso de usuario */
+            if (validarPermiso('M_VEHICULAR', 'U')) {
+                $btnEditar = "<button type='button' class='btn btn-info btn-sm m-1 btn-editarRegistro' tabla='v_re_propietariosvehiculos' idregistro='{$value['idpropietariovehiculo']}' idvehiculo='{$value['idvehiculo']}' nombre='{$value['propietario']}'><i class='fas fa-edit'></i></button>";
+            } else {
+                $btnEditar = "";
+            }
+
+            /* Permiso de usuario */
+            if (validarPermiso('M_VEHICULAR', 'D')) {
+                $btnEliminar = "<button type='button' class='btn btn-danger btn-sm m-1 eliminarRegistro' tabla='v_re_propietariosvehiculos' idregistro='{$value['idpropietariovehiculo']}' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-trash-alt'></i></button>";
+            } else {
+                $btnEliminar = "";
+            }
             $botonAcciones = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnEditar . $btnEliminar . "</div>";
 
             $tr .= "
@@ -219,8 +230,19 @@ class AjaxVehiculos
         $Respuesta = ControladorVehiculos::ctrConductoresxVehiculo($idvehiculo);
         $tr = "";
         foreach ($Respuesta as $key => $value) {
-            $btnEditar = "<button type='button' class='btn btn-info btn-sm m-1 btn-editarRegistro' tabla='v_re_conductoresvehiculos' idregistro='{$value['idconductorvehiculo']}' idvehiculo='{$value['idvehiculo']}' nombre='{$value['conductor']}'><i class='fas fa-edit'></i></button>";
-            $btnEliminar = "<button type='button' class='btn btn-danger btn-sm m-1 eliminarRegistro' tabla='v_re_conductoresvehiculos' idregistro='{$value['idconductorvehiculo']}' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-trash-alt'></i></button>";
+            /* Permiso de usuario */
+            if (validarPermiso('M_VEHICULAR', 'U')) {
+                $btnEditar = "<button type='button' class='btn btn-info btn-sm m-1 btn-editarRegistro' tabla='v_re_conductoresvehiculos' idregistro='{$value['idconductorvehiculo']}' idvehiculo='{$value['idvehiculo']}' nombre='{$value['conductor']}'><i class='fas fa-edit'></i></button>";
+            } else {
+                $btnEditar = "";
+            }
+
+            /* Permiso de usuario */
+            if (validarPermiso('M_VEHICULAR', 'D')) {
+                $btnEliminar = "<button type='button' class='btn btn-danger btn-sm m-1 eliminarRegistro' tabla='v_re_conductoresvehiculos' idregistro='{$value['idconductorvehiculo']}' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-trash-alt'></i></button>";
+            } else {
+                $btnEliminar = "";
+            }
             $botonAcciones = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnEditar . $btnEliminar . "</div>";
 
             $tr .= "
@@ -244,17 +266,32 @@ class AjaxVehiculos
         $Respuesta = ControladorVehiculos::ctrDocumentosxVehiculoSinRepetir($idvehiculo);
         $tr = "";
         foreach ($Respuesta as $key => $value) {
-            $btnEliminar = "<button type='button' class='btn btn-danger eliminarRegistro' tabla='v_re_documentosvehiculos' idregistro='{$value['iddocumento']}' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-trash-alt'></i></button>";
+            /* Permiso de usuario */
+            if (validarPermiso('M_VEHICULAR', 'D')) {
+                $btnEliminar = "<button type='button' class='btn btn-danger eliminarRegistro' tabla='v_re_documentosvehiculos' idregistro='{$value['iddocumento']}' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-trash-alt'></i></button>";
+            } else {
+                $btnEliminar = "";
+            }
 
             # Documento
             if ($value['ruta_documento'] != null) {
                 $btnVerDoc = "<a href='" . URL_APP . $value['ruta_documento'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a>";
-                $btnSubirDoc = "<button class='btn btn-sm btn-secondary m-1 btnSubirDocVehiculo' idvehiculo='{$idvehiculo}' idregistro='{$value['iddocumento']}' type='button'><i class='fas fa-file-upload'></i></button>";
+                /* Permiso de usuario */
+                if (validarPermiso('M_VEHICULAR', 'U')) {
+                    $btnSubirDoc = "<button class='btn btn-sm btn-secondary m-1 btnSubirDocVehiculo' idvehiculo='{$idvehiculo}' idregistro='{$value['iddocumento']}' type='button'><i class='fas fa-file-upload'></i></button>";
+                } else {
+                    $btnSubirDoc = "";
+                }
                 $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnVerDoc . $btnSubirDoc . "</div>";
                 //$btnEliminarDoc = "<button class='btn btn-sm btn-danger m-1 btnEliminarDocVehiculo' idvehiculo='{$idvehiculo}' idregistro='{$value['iddocumento']}' type='button'><i class='fas fa-ban'></i></button>";
                 //$btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnVerDoc . $btnEliminarDoc . "</div>";
             } else {
-                $btnSubirDoc = "<button class='btn btn-sm btn-secondary m-1 btnSubirDocVehiculo' idvehiculo='{$idvehiculo}' idregistro='{$value['iddocumento']}' type='button'><i class='fas fa-file-upload'></i></button>";
+                /* Permiso de usuario */
+                if (validarPermiso('M_VEHICULAR', 'U')) {
+                    $btnSubirDoc = "<button class='btn btn-sm btn-secondary m-1 btnSubirDocVehiculo' idvehiculo='{$idvehiculo}' idregistro='{$value['iddocumento']}' type='button'><i class='fas fa-file-upload'></i></button>";
+                } else {
+                    $btnSubirDoc = "";
+                }
                 $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnSubirDoc . "</div>";
             }
             # Badge que indica si el documento está vencido o activo
@@ -295,7 +332,6 @@ class AjaxVehiculos
                 $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnVerDoc . "</div>";
             } else {
                 $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'><span class='badge badge-secondary'>sin documento</span></div>";
-                
             }
             # Badge que indica si el documento está vencido o activo
             if ($value['fechafin'] > date("Y-m-d")) {

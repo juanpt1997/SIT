@@ -8,9 +8,9 @@ require_once '../controllers/files.controlador.php';
 require_once '../controllers/gh.controlador.php';
 require_once '../models/gh.modelo.php';
 
-if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok"){
-	echo "<script>window.location = 'inicio';</script>";
-	die();
+if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok") {
+    echo "<script>window.location = 'inicio';</script>";
+    die();
 }
 
 /* ===================================================
@@ -126,7 +126,12 @@ class AjaxPersonal
         $hijos = ControladorGH::ctrMostrarHijos($idPersonal);
         $tr = "";
         foreach ($hijos as $key => $value) {
-            $btnEliminar = "<button type='button' class='btn btn-danger eliminarHijo' idhijo='{$value['idhijo']}' idPersonal='{$value['idPersonal']}'><i class='fas fa-trash-alt'></i></button>";
+            /* Permiso de usuario */
+            if (validarPermiso('M_GESTION_HUMANA', 'D')) {
+                $btnEliminar = "<button type='button' class='btn btn-danger eliminarHijo' idhijo='{$value['idhijo']}' idPersonal='{$value['idPersonal']}'><i class='fas fa-trash-alt'></i></button>";
+            } else {
+                $btnEliminar = "";
+            }
 
             $tr .= "
                 <tr>
@@ -176,15 +181,30 @@ class AjaxPersonal
         $prorrogas = ControladorGH::ctrMostrarProrrogas($idPersonal);
         $tr = "";
         foreach ($prorrogas as $key => $value) {
-            $btnEliminar = "<button type='button' class='btn btn-danger eliminarProrroga' idprorroga='{$value['idprorroga']}' idPersonal='{$value['idPersonal']}'><i class='fas fa-trash-alt'></i></button>";
+            /* Permiso de usuario */
+            if (validarPermiso('M_GESTION_HUMANA', 'D')) {
+                $btnEliminar = "<button type='button' class='btn btn-danger eliminarProrroga' idprorroga='{$value['idprorroga']}' idPersonal='{$value['idPersonal']}'><i class='fas fa-trash-alt'></i></button>";
+            } else {
+                $btnEliminar = "";
+            }
 
             # Documento
             if ($value['ruta_documento'] != null) {
                 $btnVerDoc = "<a href='" . URL_APP . $value['ruta_documento'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a>";
-                $btnEliminarDoc = "<button class='btn btn-sm btn-danger m-1 btnEliminarDoc' idPersonal='{$idPersonal}' idregistro='{$value['idprorroga']}' tipoDoc='contratos' type='button'><i class='fas fa-ban'></i></button>";
+                /* Permiso de usuario */
+                if (validarPermiso('M_GESTION_HUMANA', 'U')) {
+                    $btnEliminarDoc = "<button class='btn btn-sm btn-danger m-1 btnEliminarDoc' idPersonal='{$idPersonal}' idregistro='{$value['idprorroga']}' tipoDoc='contratos' type='button'><i class='fas fa-ban'></i></button>";
+                } else {
+                    $btnEliminarDoc = "";
+                }
                 $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnVerDoc . $btnEliminarDoc . "</div>";
             } else {
-                $btnSubirDoc = "<button class='btn btn-sm btn-secondary m-1 btnSubirDoc' idPersonal='{$idPersonal}' idregistro='{$value['idprorroga']}' tipoDoc='contratos' type='button'><i class='fas fa-file-upload'></i></button>";
+                /* Permiso de usuario */
+                if (validarPermiso('M_GESTION_HUMANA', 'U')) {
+                    $btnSubirDoc = "<button class='btn btn-sm btn-secondary m-1 btnSubirDoc' idPersonal='{$idPersonal}' idregistro='{$value['idprorroga']}' tipoDoc='contratos' type='button'><i class='fas fa-file-upload'></i></button>";
+                } else {
+                    $btnSubirDoc = "";
+                }
                 $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnSubirDoc . "</div>";
             }
 
@@ -237,15 +257,30 @@ class AjaxPersonal
         $Licencias = ControladorGH::ctrMostrarLicencias($idPersonal);
         $tr = "";
         foreach ($Licencias as $key => $value) {
-            $btnEliminar = "<button type='button' class='btn btn-danger eliminarLicencia' idlicencia='{$value['idlicencia']}' idPersonal='{$value['idPersonal']}'><i class='fas fa-trash-alt'></i></button>";
+            /* Permiso de usuario */
+            if (validarPermiso('M_GESTION_HUMANA', 'D')) {
+                $btnEliminar = "<button type='button' class='btn btn-danger eliminarLicencia' idlicencia='{$value['idlicencia']}' idPersonal='{$value['idPersonal']}'><i class='fas fa-trash-alt'></i></button>";
+            } else {
+                $btnEliminar = "";
+            }
 
             # Documento
             if ($value['ruta_documento'] != null) {
                 $btnVerDoc = "<a href='" . URL_APP . $value['ruta_documento'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a>";
-                $btnEliminarDoc = "<button class='btn btn-sm btn-danger m-1 btnEliminarDoc' idPersonal='{$idPersonal}' idregistro='{$value['idlicencia']}' tipoDoc='licencias' type='button'><i class='fas fa-ban'></i></button>";
+                /* Permiso de usuario */
+                if (validarPermiso('M_GESTION_HUMANA', 'U')) {
+                    $btnEliminarDoc = "<button class='btn btn-sm btn-danger m-1 btnEliminarDoc' idPersonal='{$idPersonal}' idregistro='{$value['idlicencia']}' tipoDoc='licencias' type='button'><i class='fas fa-ban'></i></button>";
+                } else {
+                    $btnEliminarDoc = "";
+                }
                 $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnVerDoc . $btnEliminarDoc . "</div>";
             } else {
-                $btnSubirDoc = "<button class='btn btn-sm btn-secondary m-1 btnSubirDoc' idPersonal='{$idPersonal}' idregistro='{$value['idlicencia']}' tipoDoc='licencias' type='button'><i class='fas fa-file-upload'></i></button>";
+                /* Permiso de usuario */
+                if (validarPermiso('M_GESTION_HUMANA', 'U')) {
+                    $btnSubirDoc = "<button class='btn btn-sm btn-secondary m-1 btnSubirDoc' idPersonal='{$idPersonal}' idregistro='{$value['idlicencia']}' tipoDoc='licencias' type='button'><i class='fas fa-file-upload'></i></button>";
+                } else {
+                    $btnSubirDoc = "";
+                }
                 $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnSubirDoc . "</div>";
             }
 
@@ -298,15 +333,30 @@ class AjaxPersonal
         $Examenes = ControladorGH::ctrMostrarExamenes($idPersonal);
         $tr = "";
         foreach ($Examenes as $key => $value) {
-            $btnEliminar = "<button type='button' class='btn btn-danger eliminarExamen' idexamen='{$value['idexamen']}' idPersonal='{$value['idPersonal']}'><i class='fas fa-trash-alt'></i></button>";
+            /* Permiso de usuario */
+            if (validarPermiso('M_GESTION_HUMANA', 'D')) {
+                $btnEliminar = "<button type='button' class='btn btn-danger eliminarExamen' idexamen='{$value['idexamen']}' idPersonal='{$value['idPersonal']}'><i class='fas fa-trash-alt'></i></button>";
+            } else {
+                $btnEliminar = "";
+            }
 
             # Documento
             if ($value['ruta_documento'] != null) {
                 $btnVerDoc = "<a href='" . URL_APP . $value['ruta_documento'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a>";
-                $btnEliminarDoc = "<button class='btn btn-sm btn-danger m-1 btnEliminarDoc' idPersonal='{$idPersonal}' idregistro='{$value['idexamen']}' tipoDoc='examenes' type='button'><i class='fas fa-ban'></i></button>";
+                /* Permiso de usuario */
+                if (validarPermiso('M_GESTION_HUMANA', 'U')) {
+                    $btnEliminarDoc = "<button class='btn btn-sm btn-danger m-1 btnEliminarDoc' idPersonal='{$idPersonal}' idregistro='{$value['idexamen']}' tipoDoc='examenes' type='button'><i class='fas fa-ban'></i></button>";
+                } else {
+                    $btnEliminarDoc = "";
+                }
                 $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnVerDoc . $btnEliminarDoc . "</div>";
             } else {
-                $btnSubirDoc = "<button class='btn btn-sm btn-secondary m-1 btnSubirDoc' idPersonal='{$idPersonal}' idregistro='{$value['idexamen']}' tipoDoc='examenes' type='button'><i class='fas fa-file-upload'></i></button>";
+                /* Permiso de usuario */
+                if (validarPermiso('M_GESTION_HUMANA', 'U')) {
+                    $btnSubirDoc = "<button class='btn btn-sm btn-secondary m-1 btnSubirDoc' idPersonal='{$idPersonal}' idregistro='{$value['idexamen']}' tipoDoc='examenes' type='button'><i class='fas fa-file-upload'></i></button>";
+                } else {
+                    $btnSubirDoc = "";
+                }
                 $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnSubirDoc . "</div>";
             }
 
@@ -731,9 +781,19 @@ class AjaxPagoSS
         foreach ($PagoSS as $key => $value) {
             # PAGO
             if ($value['pago'] == 'N') {
-                $pago = '<button class="btn btn-sm btn-danger btnPago" idsegursoc="' . $value["idsegursoc"] . '" pago="N">NO</button>';
+                /* Permiso de usuario */
+                if (validarPermiso('M_GESTION_HUMANA', 'U')) {
+                    $pago = '<button class="btn btn-sm btn-danger btnPago" idsegursoc="' . $value["idsegursoc"] . '" pago="N">NO</button>';
+                } else {
+                    $pago = '<button class="btn btn-sm btn-danger">NO</button>';
+                }
             } else {
-                $pago = '<button class="btn btn-sm btn-success btnPago" idsegursoc="' . $value["idsegursoc"] . '" pago="S">SI</button>';
+                /* Permiso de usuario */
+                if (validarPermiso('M_GESTION_HUMANA', 'U')) {
+                    $pago = '<button class="btn btn-sm btn-success btnPago" idsegursoc="' . $value["idsegursoc"] . '" pago="S">SI</button>';
+                } else {
+                    $pago = '<button class="btn btn-sm btn-success">SI</button>';
+                }
             }
             $tr .= "
                 <tr>
@@ -779,7 +839,6 @@ class AjaxPagoSS
         $respuesta = ControladorPagoSS::ctrAgregarEmpleado($idPersonal, $idFechas);
         echo $respuesta;
     }
-
 }
 
 /* ===================================================

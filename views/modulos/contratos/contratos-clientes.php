@@ -1,6 +1,6 @@
 <?php
 
-if (!validarModulo('M_CONTRATOS')) {
+if (!validarPermiso('M_CONTRATOS', 'R')) {
     echo "<script> window.location = 'inicio'; </script>";
 }
 
@@ -79,7 +79,7 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                                             ?>
 
 
-                                            <tr> 
+                                            <tr>
                                                 <td class="text-center">
                                                     <div class="btn-group" role="group" aria-label="Button group">
                                                         <button class="btn btn-toolbar btn-sm btn-info btn-editarcliente" idcliente="<?= $value['idcliente'] ?>" docum="<?= $value['Documento'] ?>" data-toggle="modal" data-target="#clientesmodal"><i class="fas fa-edit"></i></button>
@@ -270,10 +270,12 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
 
                 <div class="modal-footer bg-dark">
                     <button type="button" class="btn btn-danger btn-cancelar" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success">
-                        <i class="fas fa-save"></i>
-                        Guardar
-                    </button>
+                    <?php if (validarPermiso('M_CONTRATOS', 'U')) : ?>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i>
+                            Guardar
+                        </button>
+                    <?php endif ?>
                 </div>
                 <?php
                 $CrearCliente = new ControladorClientes();

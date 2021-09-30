@@ -1,6 +1,6 @@
 <?php
 
-if (!validarModulo('M_VEHICULAR')) {
+if (!validarPermiso('M_VEHICULAR', 'R')) {
     echo "<script> window.location = 'inicio'; </script>";
 }
 
@@ -238,13 +238,15 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                 <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-two-settings-tab" data-toggle="pill" href="#custom-tabs-two-settings" role="tab" aria-controls="custom-tabs-two-settings" aria-selected="false"><u>Imágenes</u></a>
                                 </li>
-                                <li class="d-flex align-items-center ml-2">
-                                    <button type="submit" class="btn btn-sm btn-success align-bottom btn-guardarVehiculo"><i class="fas fa-save"></i> Guardar
-                                    <div class="overlay d-none overlayBtnGuardarformugeneralvehiculos">
-                                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
-                                    </div>
-                                    </button>
-                                </li>
+                                <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
+                                    <li class="d-flex align-items-center ml-2">
+                                        <button type="submit" class="btn btn-sm btn-success align-bottom btn-guardarVehiculo"><i class="fas fa-save"></i> Guardar
+                                            <div class="overlay d-none overlayBtnGuardarformugeneralvehiculos">
+                                                <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                            </div>
+                                        </button>
+                                    </li>
+                                <?php endif ?>
                             </ul>
                         </div>
 
@@ -823,12 +825,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <!-- ===================================================
                                                     BOTON GUARDAR FORMULARIO
                                                 =================================================== -->
-                                                <div class="col-12 col-md-4 col-lg-1 text-right text-md-left align-self-center">
-                                                    <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
-                                                    <div class="overlay d-none overlayBtnguardar" id="overlayBtnGuardardetalles">
-                                                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                                <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
+                                                    <div class="col-12 col-md-4 col-lg-1 text-right text-md-left align-self-center">
+                                                        <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
+                                                        <div class="overlay d-none overlayBtnguardar" id="overlayBtnGuardardetalles">
+                                                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                <?php endif ?>
                                             </div>
                                         </form>
 
@@ -841,7 +845,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         <th>Propietario</th>
                                                         <th>Porcentaje participación</th>
                                                         <th>Observaciones</th>
-                                                        <th>Eliminar</th>
+                                                        <th>Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbodyPropietarios" class="text-center">
@@ -898,12 +902,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <!-- ===================================================
                                                     BOTON GUARDAR FORMULARIO
                                                 =================================================== -->
-                                                <div class="col-12 col-md-4 col-lg-2 text-right text-md-left align-self-center">
-                                                    <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
-                                                    <div class="overlay d-none overlayBtnguardar" id="overlayBtnGuardardetalles">
-                                                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                                <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
+                                                    <div class="col-12 col-md-4 col-lg-2 text-right text-md-left align-self-center">
+                                                        <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
+                                                        <div class="overlay d-none overlayBtnguardar" id="overlayBtnGuardardetalles">
+                                                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                <?php endif ?>
                                             </div>
                                         </form>
 
@@ -913,7 +919,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                     <tr>
                                                         <th>Conductor</th>
                                                         <th>Observaciones</th>
-                                                        <th>Eliminar</th>
+                                                        <th>Acciones</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="tbodyConductores" class="text-center">
@@ -1012,12 +1018,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <!-- ===================================================
                                                     BOTON GUARDAR FORMULARIO
                                                 =================================================== -->
-                                                <div class="col-12 col-md-6 col-lg-2 col-xl-1 text-right text-md-left align-self-center">
-                                                    <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
-                                                    <div class="overlay d-none overlayBtnguardar" id="overlayBtnGuardardetalles">
-                                                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                                <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
+                                                    <div class="col-12 col-md-6 col-lg-2 col-xl-1 text-right text-md-left align-self-center">
+                                                        <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
+                                                        <div class="overlay d-none overlayBtnguardar" id="overlayBtnGuardardetalles">
+                                                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                                        </div>
                                                     </div>
-                                                </div>
+                                                <?php endif ?>
                                             </div>
                                         </form>
 
@@ -1108,15 +1116,17 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                     <div class="col"></div>
                     Cancelar
                 </button>
-                <button type="submit" class="btn btn-success btn-guardarVehiculo" form="vehiculos_form">
-                    <i class="fas fa-save"></i>
-                    <div class="col">
-                        <div class="overlay d-none overlayBtnGuardarformugeneralvehiculos">
-                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
+                    <button type="submit" class="btn btn-success btn-guardarVehiculo" form="vehiculos_form">
+                        <i class="fas fa-save"></i>
+                        <div class="col">
+                            <div class="overlay d-none overlayBtnGuardarformugeneralvehiculos">
+                                <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                            </div>
                         </div>
-                    </div>
-                    Guardar
-                </button>
+                        Guardar
+                    </button>
+                <?php endif ?>
             </div>
 
         </div>
