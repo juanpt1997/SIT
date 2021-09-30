@@ -1,7 +1,7 @@
 <?php
- 
-if(!validarModulo('M_VEHICULAR')) {
-   echo "<script> window.location = 'inicio'; </script>";
+
+if (!validarPermiso('M_VEHICULAR', 'R')) {
+    echo "<script> window.location = 'inicio'; </script>";
 }
 
 $listavehiculos = ControladorVehiculos::ctrListaVehiculos();
@@ -34,10 +34,10 @@ $listaUltimo = ControladorBloqueosV::ctrUltimoBloqueoV();
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-        <hr class="my-4">
+            <hr class="my-4">
             <div class="row">
                 <div class="col">
-                <!--BOTON NUEVO CONVENIO-->
+                    <!--BOTON NUEVO CONVENIO-->
                     <button type="button" class="btn btn-danger btn-md btn-agregarBloqueov" data-toggle="modal" data-target="#AgregarBloqueov">
                         <i class="fas fa-ban"></i> Bloquear vehículo
                     </button>
@@ -45,7 +45,7 @@ $listaUltimo = ControladorBloqueosV::ctrUltimoBloqueoV();
             </div> <!-- /.row -->
             <!-- ===================== 
               AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
-            ========================= -->            
+            ========================= -->
             <div class="row mt-2">
                 <div class="col-12">
                     <div class="card">
@@ -62,36 +62,35 @@ $listaUltimo = ControladorBloqueosV::ctrUltimoBloqueoV();
                                             <th>Fecha desbloqueo</th>
                                             <th>Usuario</th>
                                             <th>Historial</th>
-                                        </tr>                 
+                                        </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($listaUltimo as $key => $value) : ?>
 
                                             <?php
-                                            if( $value['estado'] == 1){
+                                            if ($value['estado'] == 1) {
 
                                                 $estado = '<button class="btn btn-sm btn-success btndesbloqueadov" data-toggle="modal" data-target="#AgregarBloqueov" idveh="' . $value["idvehiculo"] . '">Desloqueado <i class="fas fa-lock-open"></i></button>';
-
                                             } else {
 
                                                 $estado = '<button class="btn btn-sm btn-danger btnbloqueadov" data-toggle="modal" data-target="#AgregarBloqueov" idveh="' . $value["idvehiculo"] . '">Bloqueado <i class="fas fa-lock"></i></button>';
                                             }
 
-                                             ?>
+                                            ?>
 
-                                        <tr>
-                                            <td><?= $value['idbloqueov'] ?></td>
-                                            <td><?= $value['placa'] ?></td>
-                                            <td><?= $value['motivo'] ?></td>
-                                            <td class="text-center"><b><?= $estado ?></b></td>
-                                            <td><?= $value['fecha'] ?></td>
-                                            <td><?= $value['nomUsuario'] ?></td>
-                                            <td class="text-center">
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button class="btn btn-md btn-info btnHistorialv" id_v="<?= $value['idvehiculo'] ?>" data-toggle="modal" data-target="#BloqueoHistorialv"><i class="fas fa-bus-alt"></i></i></button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                            <tr>
+                                                <td><?= $value['idbloqueov'] ?></td>
+                                                <td><?= $value['placa'] ?></td>
+                                                <td><?= $value['motivo'] ?></td>
+                                                <td class="text-center"><b><?= $estado ?></b></td>
+                                                <td><?= $value['fecha'] ?></td>
+                                                <td><?= $value['nomUsuario'] ?></td>
+                                                <td class="text-center">
+                                                    <div class="btn-group" role="group" aria-label="Button group">
+                                                        <button class="btn btn-md btn-info btnHistorialv" id_v="<?= $value['idvehiculo'] ?>" data-toggle="modal" data-target="#BloqueoHistorialv"><i class="fas fa-bus-alt"></i></i></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         <?php endforeach ?>
                                     </tbody>
                                 </table>
@@ -114,95 +113,97 @@ $listaUltimo = ControladorBloqueosV::ctrUltimoBloqueoV();
      ==================================-->
 
 
-     <!--MODAL AGREGAR BLOQUEO DE VEHICULO-->
+<!--MODAL AGREGAR BLOQUEO DE VEHICULO-->
 
 <div class="modal fade" id="AgregarBloqueov" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
 
             <div class="modal-header bg-info">
-                <h5 class="modal-title" id = "titulo_modal_1"></h5>
+                <h5 class="modal-title" id="titulo_modal_1"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
             <form method="post" enctype="multipart/form-data" id="formulario-bloqueo">
 
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label>Vehículo</label>
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                    </span>
-                                </div>
-                                <select class="form-control input-convenio select2-single" style="width: 92%" type="text" id="vehiculo" name="vehiculo" required>
-                                    <option selected value="">-Seleccione un vehículo-</option>
-                                    <?php foreach ($listavehiculos as $key => $value) : ?>
-                                        <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?></option>
-                                    <?php endforeach ?>
-                                </select>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Vehículo</label>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </span>
                             </div>
+                            <select class="form-control input-convenio select2-single" style="width: 92%" type="text" id="vehiculo" name="vehiculo" required>
+                                <option selected value="">-Seleccione un vehículo-</option>
+                                <?php foreach ($listavehiculos as $key => $value) : ?>
+                                    <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?></option>
+                                <?php endforeach ?>
+                            </select>
                         </div>
+                    </div>
 
 
-                        <div class="form-group">
-                            <div class="form-group clearfix">
-                                <label id="titulo-estado">ESTADO</label>  
-                                <div class="form-check-inline">
-                                    <input class="form-check-input" type="radio" id="opcion1" name="estadobloqueov" value="0">
-                                    <label class="form-check-label" for="opcion1"> Bloquear</label>
-                                </div>
-                                <div class="form-check-inline">
-                                    <input class="form-check-input" type="radio" id="opcion2" name="estadobloqueov"  value="1">
-                                    <label class="form-check-label" for="opcion2"> Desbloquear</label>
-                                </div>
+                    <div class="form-group">
+                        <div class="form-group clearfix">
+                            <label id="titulo-estado">ESTADO</label>
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="radio" id="opcion1" name="estadobloqueov" value="0">
+                                <label class="form-check-label" for="opcion1"> Bloquear</label>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Motivo</label>
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">
-                                        <i class="fas fa-align-left"></i>
-                                    </span>
-                                </div>
-                                <textarea class="form-control input-convenio" type="text" id="motivobv" name="motivobv" placeholder="Escriba los motivos del bloqueo/desbloqueo." required></textarea>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Fecha de bloque/desbloqueo</label>
-                            <div class="input-group">
-                                <div class="input-group-append">
-                                    <span class="input-group-text">
-                                        <i class="far fa-calendar-alt"></i>
-                                    </span>
-                                </div>
-                                <input class="form-control input-propietario" type="date" id="fecha_des" name="fecha_des" placeholder="Seleccione una fecha" required>
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="radio" id="opcion2" name="estadobloqueov" value="1">
+                                <label class="form-check-label" for="opcion2"> Desbloquear</label>
                             </div>
                         </div>
                     </div>
 
-                    <div class="modal-footer bg-dark">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <div class="form-group">
+                        <label>Motivo</label>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fas fa-align-left"></i>
+                                </span>
+                            </div>
+                            <textarea class="form-control input-convenio" type="text" id="motivobv" name="motivobv" placeholder="Escriba los motivos del bloqueo/desbloqueo." required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Fecha de bloque/desbloqueo</label>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="far fa-calendar-alt"></i>
+                                </span>
+                            </div>
+                            <input class="form-control input-propietario" type="date" id="fecha_des" name="fecha_des" placeholder="Seleccione una fecha" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer bg-dark">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
                         <button type="submit" class="btn btn-success">
                             <i class="fas fa-save"></i>
                             Guardar
                         </button>
-                    </div>  
+                    <?php endif ?>
+                </div>
 
-                    <?php
-                    $nuevobloqueov = new ControladorBloqueosV();
-                    $nuevobloqueov->ctrNuevoBloqueoV();
-                    ?>
+                <?php
+                $nuevobloqueov = new ControladorBloqueosV();
+                $nuevobloqueov->ctrNuevoBloqueoV();
+                ?>
 
             </form>
 
-                    
+
         </div>
     </div>
 </div>
@@ -214,15 +215,15 @@ $listaUltimo = ControladorBloqueosV::ctrUltimoBloqueoV();
         <div class="modal-content">
 
             <div class="modal-header bg-info">
-                <h5 class="modal-title" id = "titulo_modalv">Historial de bloqueos</h5>
+                <h5 class="modal-title" id="titulo_modalv">Historial de bloqueos</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
 
-                <!--ID REGISTRO-->  
-                    <input type="hidden" id="idbloqueo" name="idbloqueo" value=""> 
+                <!--ID REGISTRO-->
+                <input type="hidden" id="idbloqueo" name="idbloqueo" value="">
 
                 <div class="table-responsive">
                     <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100" id="tabla-historialv">
@@ -234,18 +235,14 @@ $listaUltimo = ControladorBloqueosV::ctrUltimoBloqueoV();
                                 <th>Estado</th>
                                 <th>Fecha desbloqueo</th>
                                 <th>Usuario</th>
-                            </tr>                 
+                            </tr>
                         </thead>
                         <tbody id="tbodyhistorialv">
                         </tbody>
                     </table>
-                </div>           
+                </div>
             </div>
             <div class="modal-footer bg-dark"></div>
         </div>
     </div>
 </div>
-
-
-
-

@@ -53,20 +53,25 @@ class ControladorUsuarios
 						========================= */
 						$itemOpcion = "Cedula";
 						$valorOpcion = $respuesta['Cedula'];
-						$opciones = array();
+						// $opciones = array();
 						$opcionesBD = ModeloUsuarios::mdlMostrarPerfilOpcion($itemOpcion, $valorOpcion);
-						# Dentro de un forech recorro y almaceno la opciones del Sio
-						foreach ($opcionesBD as $key => $value) {
-							array_push($opciones, $value['opcion']);
-						}
+						// # Dentro de un forech recorro y almaceno la opciones
+						// foreach ($opcionesBD as $key => $value) {
+						// 	array_push($opciones, $value['opcion']);
+						// }
+						// # Creo sesión para almacenar las opciones 
+						// $_SESSION['opciones'] = $opciones;
 
 						/* ===================== 
 							CREO SESION DEL PERFIL PARA IDENTIFICAR QUE ROL TIENE
 						========================= */
 						$perfil = $opcionesBD[0]['perfil'];
 						$_SESSION['perfil'] = $perfil;
-						# Creo sesión para almacenar las opciones 
-						$_SESSION['opciones'] = $opciones;
+
+						/* ===================================================
+						   NUEVA VERSION PARA GUARDAR OPCIONES Y PERMISOS DISPONIBLES
+						===================================================*/
+						$_SESSION['permisos'] = ModeloUsuarios::mdlPermisos($respuesta['Cedula']); 
 
 
 						# Página de inicio

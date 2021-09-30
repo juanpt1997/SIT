@@ -1,6 +1,6 @@
 <?php
 
-if (!validarModulo('M_GESTION_HUMANA')) {
+if (!validarPermiso('M_GESTION_HUMANA', 'R')) {
     echo "<script> window.location = 'inicio'; </script>";
 }
 
@@ -440,7 +440,9 @@ $TiposAusentismo = ControladorAusentismo::ctrTiposAusentismo();
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                <button class="btn btn-success float-right" type="submit" form="frmAusentismo"><i class="fas fa-save"></i> Guardar</button>
+                <?php if (validarPermiso('M_GESTION_HUMANA', 'U')) : ?>
+                    <button class="btn btn-success float-right" type="submit" form="frmAusentismo"><i class="fas fa-save"></i> Guardar</button>
+                <?php endif ?>
             </div>
             <?php
             $guardarAusentismo = ControladorAusentismo::ctrGuardarAusentismo();

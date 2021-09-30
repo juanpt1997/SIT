@@ -1,4 +1,9 @@
 <?php
+
+if (!validarPermiso('M_VEHICULAR', 'U')) {
+    echo "<script> window.location = 'inicio'; </script>";
+}
+
 $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 //$CrearRura=Conceptos.controlador::ctrCrearRuta(),
 ?>

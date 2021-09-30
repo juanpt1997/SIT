@@ -1,6 +1,6 @@
 <?php
 
-if (!validarModulo('M_GESTION_HUMANA')) {
+if (!validarPermiso('M_GESTION_HUMANA', 'R')) {
     echo "<script> window.location = '" . URL_APP . "'; </script>";
 }
 
@@ -893,10 +893,12 @@ $Sucursales = ControladorGH::ctrSucursales();
                             <div class="row">
                                 <div class="col-12 text-right">
                                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-                                    <button type="submit" class="btn btn-success">
-                                        <i class="fas fa-save"></i>
-                                        Guardar
-                                    </button>
+                                    <?php if (validarPermiso('M_GESTION_HUMANA', 'U')) : ?>
+                                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Guardar</button>
+                                        <div class="overlay d-none" id="overlayBtnGuardarformulariogeneral">
+                                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                        </div>
+                                    <?php endif ?>
                                 </div>
                             </div>
                         </form>
@@ -983,11 +985,14 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <!-- ===================================================
                                 BOTON GUARDAR FORMULARIO
                             =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4 text-right text-md-left align-self-center">
-                                    <button type="submit" class="btn btn-success">
-                                        <i class="fas fa-check-circle"></i>
-                                    </button>
-                                </div>
+                                <?php if (validarPermiso('M_GESTION_HUMANA', 'U')) : ?>
+                                    <div class="col-12 col-md-6 col-lg-4 text-right text-md-left align-self-center">
+                                        <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
+                                        <div class="overlay d-none" id="overlayBtnGuardarcontratoprorroga">
+                                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                        </div>
+                                    </div>
+                                <?php endif ?>
                             </div>
                         </form>
 
@@ -1083,11 +1088,16 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 </div>
 
                                 <!-- ===================================================
-                                    Boton submit                                    
-                                =================================================== -->
-                                <div class="col-6 col-md-12 col-lg-4 col-xl-1 text-center text-md-right text-lg-left align-self-center">
-                                    <button class="btn btn-success" type="submit"><i class="fas fa-check-circle"></i></button>
-                                </div>
+                                Boton submit                                    
+                            =================================================== -->
+                                <?php if (validarPermiso('M_GESTION_HUMANA', 'U')) : ?>
+                                    <div class="col-6 col-md-12 col-lg-4 col-xl-1 text-center text-md-right text-lg-left align-self-center">
+                                        <button class="btn btn-success" type="submit"><i class="fas fa-check-circle"></i></button>
+                                        <div class="overlay d-none" id="overlayBtnGuardarhijos">
+                                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                        </div>
+                                    </div>
+                                <?php endif ?>
 
                             </div>
                         </form>
@@ -1199,11 +1209,14 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <!-- ===================================================
                                 BOTON GUARDAR FORMULARIO
                             =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4 text-right text-md-left align-self-center">
-                                    <button type="submit" class="btn btn-success">
-                                        <i class="fas fa-check-circle"></i>
-                                    </button>
-                                </div>
+                                <?php if (validarPermiso('M_GESTION_HUMANA', 'U')) : ?>
+                                    <div class="col-12 col-md-6 col-lg-4 text-right text-md-left align-self-center">
+                                        <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
+                                        <div class="overlay d-none" id="overlayBtnGuardarlicenciaconduccion">
+                                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                        </div>
+                                    </div>
+                                <?php endif ?>
                             </div>
                         </form>
 
@@ -1302,11 +1315,14 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <!-- ===================================================
                                 BOTON GUARDAR FORMULARIO
                             =================================================== -->
-                                <div class="col-12 col-lg-4 text-right text-lg-left align-self-center">
-                                    <button type="submit" class="btn btn-success">
-                                        <i class="fas fa-check-circle"></i>
-                                    </button>
-                                </div>
+                                <?php if (validarPermiso('M_GESTION_HUMANA', 'U')) : ?>
+                                    <div class="col-12 col-lg-4 text-right text-lg-left align-self-center">
+                                        <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
+                                        <div class="overlay d-none" id="overlayBtnGuardarexamenesmedicos">
+                                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                        </div>
+                                    </div>
+                                <?php endif ?>
                             </div>
                         </form>
 

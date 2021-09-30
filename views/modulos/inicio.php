@@ -1,14 +1,3 @@
-<?php if (!array_search('M_DASHBOARD', $_SESSION['opciones'])) : ?>
-    <!-- <pre> -->
-    <?php
-    //var_dump($_SESSION['opciones']);
-    ?>
-    <!-- </pre> -->
-<?php endif ?>
-
-<?php
-
-?>
 
 <!-- =================================================== CONTENT =================================================== -->
 
@@ -30,32 +19,34 @@
                 <!-- ===================================================
                     * Conceptos generales
                 =================================================== -->
-                <div class="col-12 col-sm-6 col-md-4 col-xl-3">
-                    <div class="dropdown" style="cursor: pointer;">
-                        <div class="info-box border border-primary" id="dropdownMenuCG" data-toggle="dropdown">
-                            <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-building"></i></span>
-                            <div class="info-box-content">
-                                <span class="info-box-text font-weight-bold text-dark">Conceptos generales</span>
+                <?php if (validarPermiso('M_GESTION_HUMANA', 'U') || validarPermiso('M_VEHICULAR', 'U')) : ?>
+                    <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+                        <div class="dropdown" style="cursor: pointer;">
+                            <div class="info-box border border-primary" id="dropdownMenuCG" data-toggle="dropdown">
+                                <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-building"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text font-weight-bold text-dark">Conceptos generales</span>
+                                </div>
+                                <!-- /.info-box-content -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuCG">
-                            <a class="dropdown-item font-weight-bold" href="cg-gestion-humana"><u>Gestión humana</u></a>
-                            <a class="dropdown-item font-weight-bold" href="cg-vehicular"><u>Vehicular</u></a>
-                            <?php if (validarModulo('M_OPCIONES')) : ?>
-                                <a class="dropdown-item font-weight-bold" href="cg-mantenimiento"><u>Matenimiento</u></a>
-                                <a class="dropdown-item font-weight-bold" href="cg-seguridad"><u>Seguridad</u></a>
-                            <?php endif ?>
+                            <!-- /.info-box -->
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuCG">
+                                <a class="dropdown-item font-weight-bold" href="cg-gestion-humana"><u>Gestión humana</u></a>
+                                <a class="dropdown-item font-weight-bold" href="cg-vehicular"><u>Vehicular</u></a>
+                                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
+                                    <a class="dropdown-item font-weight-bold" href="cg-mantenimiento"><u>Matenimiento</u></a>
+                                    <a class="dropdown-item font-weight-bold" href="cg-seguridad"><u>Seguridad</u></a>
+                                <?php endif ?>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <!-- /.col -->
+                    <!-- /.col -->
+                <?php endif ?>
 
                 <!-- ===================================================
                     * Gestión Humana
                 =================================================== -->
-                <?php if (validarModulo('M_GESTION_HUMANA')) : ?>
+                <?php if (validarPermiso('M_GESTION_HUMANA', 'R')) : ?>
                     <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                         <div class="dropdown" style="cursor: pointer;">
                             <div class="info-box border border-secondary" id="dropdownMenuGH" data-toggle="dropdown">
@@ -83,7 +74,7 @@
                 <!-- ===================================================
                     * Vehicular
                 =================================================== -->
-                <?php if (validarModulo('M_VEHICULAR')) : ?>
+                <?php if (validarPermiso('M_VEHICULAR', 'R')) : ?>
                     <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                         <div class="dropdown" style="cursor: pointer;">
                             <div class="info-box border border-success" id="dropdownMenuVehicular" data-toggle="dropdown">
@@ -108,7 +99,7 @@
                 <!-- ===================================================
                     * Contratos
                 =================================================== -->
-                <?php if (validarModulo('M_CONTRATOS')) : ?>
+                <?php if (validarPermiso('M_CONTRATOS', 'R')) : ?>
                     <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                         <div class="dropdown" style="cursor: pointer;">
                             <div class="info-box border border-warning" id="dropdownMenuContratos" data-toggle="dropdown">
@@ -132,9 +123,9 @@
 
                 
                  <!-- ===================================================
-                    Operaciones
+                    * Operaciones
                 =================================================== -->
-                <?php if (validarModulo('M_CONTRATOS')) : ?>
+                <?php if (validarPermiso('M_OPERACIONES', 'R')) : ?>
                     <div class="col-12 col-sm-6 col-md-4 col-xl-3 d-none">
                         <a href="#" class="d-none">
                             <div class="info-box border border-danger">
@@ -161,7 +152,7 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuOperaciones">
                                 <a class="dropdown-item font-weight-bold" href="o-fuec"><u>FUEC</u></a>
                                 <a class="dropdown-item font-weight-bold" href="o-alistamiento"><u>Protocolo de alistamiento</u></a>
-                                <?php if (validarModulo('M_OPCIONES')) : ?>
+                                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                                     <a class="dropdown-item font-weight-bold" href="o-rodamiento"><u>Plan de rodamiento</u></a>
                                 <?php endif ?>
                             </div>
@@ -173,18 +164,22 @@
                 <!-- ===================================================
                     * Control Usuarios
                 =================================================== -->
-                <?php if (validarModulo('M_USUARIOS')) : ?>
+                <?php if (validarPermiso('M_USUARIOS', 'R')) : ?>
                     <div class="col-12 col-sm-6 col-md-4 col-xl-3">
-                        <a href="usuarios">
-                            <div class="info-box border border-success">
-                                <span class="info-box-icon bg-success elevation-1"><i class="fas fa-users"></i></span>
+                        <div class="dropdown" style="cursor: pointer;">
+                            <div class="info-box border border-success" id="dropdownMenuUsuarios" data-toggle="dropdown">
+                                <span class="info-box-icon bg-info elevation-1"><i class="fas fa-users"></i></span>
                                 <div class="info-box-content">
-                                    <span class="info-box-text font-weight-bold text-dark">Control Usuarios</span>
+                                    <span class="info-box-text font-weight-bold text-dark">Control de usuarios</span>
                                 </div>
                                 <!-- /.info-box-content -->
                             </div>
                             <!-- /.info-box -->
-                        </a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuUsuarios">
+                                <a class="dropdown-item font-weight-bold" href="usuarios"><u>Usuarios</u></a>
+                                <a class="dropdown-item font-weight-bold" href="roles-usuarios"><u>Roles de usuarios</u></a>
+                            </div>
+                        </div>
                     </div>
                     <!-- /.col -->
                 <?php endif ?>
@@ -192,7 +187,7 @@
                 <!-- ===================================================
                     ** Mantenimiento
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <div class="col-12 col-sm-6 col-md-4 col-xl-3 d-none">
                         <a href="#" class="d-none">
                             <div class="info-box border border-danger">
@@ -228,7 +223,7 @@
                 <!-- ===================================================
                     ** Documentos Contable
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                         <a href="#">
                             <div class="info-box border border-info">
@@ -247,7 +242,7 @@
                 <!-- ===================================================
                     ** Comercial
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                         <a href="#">
                             <div class="info-box border border-dark">
@@ -266,7 +261,7 @@
                 <!-- ===================================================
                     ** Escolar
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                         <a href="#">
                             <div class="info-box border border-light">
@@ -285,7 +280,7 @@
                 <!-- ===================================================
                     ** Contratos Fijos
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                         <a href="#">
                             <div class="info-box border border-secondary">
@@ -304,7 +299,7 @@
                 <!-- ===================================================
                     ** Compras
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                         <a href="#">
                             <div class="info-box border border-danger">
@@ -323,7 +318,7 @@
                 <!-- ===================================================
                     ** Estandar. procesos calidad
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                         <a href="#">
                             <div class="info-box border border-warning">
@@ -342,7 +337,7 @@
                 <!-- ===================================================
                     ** Formatos de calidad
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                         <a href="#">
                             <div class="info-box border border-primary">
@@ -361,7 +356,7 @@
                 <!-- ===================================================
                     ** Rastreo Satelital
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                         <a href="#">
                             <div class="info-box border border-info">

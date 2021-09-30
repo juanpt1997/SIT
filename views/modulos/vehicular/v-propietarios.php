@@ -1,9 +1,9 @@
 <?php
- 
-if(!validarModulo('M_VEHICULAR')) {
-   echo "<script> window.location = 'inicio'; </script>";
+
+if (!validarPermiso('M_VEHICULAR', 'R')) {
+    echo "<script> window.location = 'inicio'; </script>";
 }
-$Propietarios = ControladorPropietarios::ctrMostrar(); 
+$Propietarios = ControladorPropietarios::ctrMostrar();
 $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
 ?>
@@ -31,15 +31,15 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-        <hr class="my-4">
-                            <div class="row">
-                                <div class="col">
-                                    <!-- BOTON NUEVO PROVEEDOR-->
-                                    <button type="button" class="btn btn-success btn-md btn-agregarPropietario" data-toggle="modal" data-target="#PropietarioModal">
-                                        <i class="fas fa-user-plus"></i> Agregar propietario
-                                    </button>
-                                </div>               
-                            </div>
+            <hr class="my-4">
+            <div class="row">
+                <div class="col">
+                    <!-- BOTON NUEVO PROVEEDOR-->
+                    <button type="button" class="btn btn-success btn-md btn-agregarPropietario" data-toggle="modal" data-target="#PropietarioModal">
+                        <i class="fas fa-user-plus"></i> Agregar propietario
+                    </button>
+                </div>
+            </div>
 
             <!--|||TABLA PROPIETARIOS|||-->
 
@@ -63,7 +63,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                             <th>Ciudad</th>
                                             <th>Acciones</th>
                                         </tr>
-                                    </thead> 
+                                    </thead>
                                     <tbody class="text-sm">
                                         <?php foreach ($Propietarios as $key => $value) : ?>
                                             <tr>
@@ -75,21 +75,21 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                 <td><?= $value['telef'] ?></td>
                                                 <td><?= $value['direccion'] ?></td>
                                                 <td><?= $value['ciudad'] ?></td>
-                                                <td> 
+                                                <td>
                                                     <div class="btn-group" role="group" aria-label="Button group">
                                                         <button class="btn btn-sm btn-warning btnEditarProp" idxp="<?= $value['idxp'] ?>" cedula="<?= $value['documento'] ?>" data-toggle="modal" data-target="#PropietarioModal"><i class="fas fa-edit"></i></button>
                                                     </div>
                                                 </td>
                                             </tr>
                                         <?php endforeach ?>
-                                    </tbody>                            
+                                    </tbody>
                                 </table>
                             </div>
-                            
+
                         </div>
                         <div class="card-footer bg-dark"></div>
                     </div>
-                </div>      
+                </div>
             </div>
         </div><!-- /.container-fluid -->
     </div><!-- /.content -->
@@ -113,8 +113,8 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                 </div>
 
                 <div class="modal-body">
-                    <!--ID REGISTRO-->  
-                    <input type="hidden" id="idxp" name="idxp" value="">                  
+                    <!--ID REGISTRO-->
+                    <input type="hidden" id="idxp" name="idxp" value="">
 
                     <!--TIPO DE DOCUMENTO-->
                     <div class="form-group">
@@ -124,12 +124,12 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <i class="fas fa-address-card"></i>
                                 </span>
                             </div>
-                                <select class="form-control input-lg input-propietario" type="text" id="tdocumento" name="tdocumento" required>
-                                  <option>-Seleccione un documento-</option>
-                                  <option>NIT</option>
-                                  <option>CC</option>
-                                  <option>CE</option>
-                                </select>
+                            <select class="form-control input-lg input-propietario" type="text" id="tdocumento" name="tdocumento" required>
+                                <option>-Seleccione un documento-</option>
+                                <option>NIT</option>
+                                <option>CC</option>
+                                <option>CE</option>
+                            </select>
                         </div>
                     </div>
 
@@ -157,7 +157,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         </div>
                     </div>
 
-                      <!-- TELEFONO -->
+                    <!-- TELEFONO -->
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-append">
@@ -169,7 +169,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         </div>
                     </div>
 
-                      <!-- DIRECCION -->
+                    <!-- DIRECCION -->
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-append">
@@ -193,7 +193,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         </div>
                     </div>
 
-                      <!-- CIUDAD -->
+                    <!-- CIUDAD -->
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-append">
@@ -203,7 +203,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             </div>
 
                             <select class="form-control input-lg input-propietario select2-single" style="width: 92%" type="text" id="ciudadpro" name="ciudadpro" required>
-                              <option selected value="">-Seleccione una ciudad-</option>
+                                <option selected value="">-Seleccione una ciudad-</option>
                                 <?php foreach ($DeparMunicipios as $key => $value) : ?>
                                     <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
                                 <?php endforeach ?>
@@ -217,10 +217,12 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                 <div class="modal-footer bg-dark">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success">
-                        <i class="fas fa-save"></i>
-                        Guardar
-                    </button>
+                    <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i>
+                            Guardar
+                        </button>
+                    <?php endif ?>
                 </div>
 
                 <?php
