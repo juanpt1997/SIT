@@ -75,9 +75,9 @@ $Sucursales = ControladorGH::ctrSucursales();
 
                                 # Estado
                                 if ($value['estado'] == 0) {
-                                    $estado = '<button class="btn btn-sm btn-danger btnActivar" idUsuario="' . $value["UsuariosID"] . '" estadoUsuario="1">Inactivo</button>';
+                                    $estado = '<button class="btn btn-sm btn-danger btnActivar" idUsuario="' . $value["UsuariosID"] . '" estadoUsuario="0">Inactivo</button>';
                                 } else {
-                                    $estado = '<button class="btn btn-sm btn-success btnActivar" idUsuario="' . $value["UsuariosID"] . '" estadoUsuario="0">Activo</button>';
+                                    $estado = '<button class="btn btn-sm btn-success btnActivar" idUsuario="' . $value["UsuariosID"] . '" estadoUsuario="1">Activo</button>';
                                 }
 
                                 # Foto

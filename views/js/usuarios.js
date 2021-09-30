@@ -151,3 +151,8 @@ if (window.location.href == `${urlPagina}usuarios/` ||
         
     });
 }
+
+if (window.location.href == `${urlPagina}roles-usuarios/` ||
+    window.location.href == `${urlPagina}roles-usuarios`){
+        
+    }

@@ -63,14 +63,39 @@ class ModeloUsuarios
     ===================================================*/
     static public function mdlListadoPerfiles()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT *
-                                                FROM l_perfiles");
+        $stmt = Conexion::conectar()->prepare("SELECT p.idPerfil, p.perfil, p.estado  as estadoPerfil, p.descripcion
+                                                FROM l_perfiles p");
 
         $stmt->execute();
         $retorno =  $stmt->fetchAll();
         $stmt->closeCursor();
         return $retorno;
     }
+
+    /* ===================================================
+       AGREGAR ROL
+    ===================================================*/
+
+    static public function mdlAgregarRol($datos)
+    {
+        $stmt = conexion::conectar()->prepare("INSERT INTO l_perfiles(perfil,descripcion,estado) VALUES(:perfil,:descripcion,:estado)");
+
+        $stmt->bindParam(":perfil", $datos["Perfil"], PDO::PARAM_STR);
+        $stmt->bindParam(":descripcion", $datos["Descripcion"], PDO::PARAM_STR);
+        $stmt->bindParam(":estado",$datos["Estado"], PDO::PARAM_INT);
+
+        if($stmt->execute()){
+            $retorno = "ok";;
+        }else{
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+    
 
     /* ===================================================
        AGREGAR USUARIO

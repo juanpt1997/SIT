@@ -8,6 +8,7 @@ $Perfiles = ControladorUsuarios::ctrListadoPerfiles();
 
 
 
+
 ?>
 <!-- ===================== 
   MODELO PARA LA IMPLEMENTARCION EN EL DISEÑO DE LOS MODULOS
@@ -66,11 +67,22 @@ $Perfiles = ControladorUsuarios::ctrListadoPerfiles();
 
                                         <tbody>
                                             <?php foreach ($Perfiles as $key => $value): ?>
+                                            
+                                            <?php 
+                                                
+                                                if($value["estadoPerfil"] == 1){
+                                                    $estado = '<button class="btn btn-sm btn-success btnActivar" idPerfil="' . $value["idPerfil"] . '" estado="1">Activo</button>';
+                                                }else {
+                                                    $estado = '<button class="btn btn-sm btn-danger btnActivar" idPerfil="' . $value["idPerfil"] . '" estado="0">Inactivo</button>';
+                                                }
+
+                                            ?>
+
                                             <tr>
                                                 <td><?= $value["idPerfil"] ?></td>
                                                 <td><?= $value["perfil"]?></td>
                                                 <td><?= $value["descripcion"]?></td>
-                                                <td><?= $value["Opcion"]?></td>
+                                                <td><?= $estado?></td>
                                                 <td>
                                                     <button type="button" class="btn btn-default btn-sm btn-permisoroles" data-toggle="modal" data-target="#modal-permisoroles"><i class="fas fa-key"></i></button>
                                                     <button type="button" class="btn btn-success btn-sm btn-editarroles" data-toggle="modal" data-target="#modal-nuevorol"><i class="fas fa-edit"></i></button>
@@ -107,37 +119,43 @@ $Perfiles = ControladorUsuarios::ctrListadoPerfiles();
             </div>
 
             <div class="modal-body">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                                <label>Nombre</label>
-                                <input id="iddatosrol" name="iddatosrol" class="form-control datosrol" type="text" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Descripción</label>
-                                <select class="form-control">
-                                    <option>Administrador</option>
-                                    <option>Gestion Humana</option>
-                                    <option>Operaciones</option>
-                                    <option>Provicional</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Estado</label>
-                                <select class="form-control">
-                                    <option>Activo</option>
-                                    <option>Inactivo</option>
-                                </select>
+                <form action="" method="post" id="datosrol_form">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Perfil</label>
+                                    <input id="Perfil" maxlength="50" name="Perfil" class="form-control datosrol" type="text" required>
+                                </div>
+    
+                                <div class="form-group">
+                                    <label>Descripción</label>
+                                    <input id="Descripcion" name="Descripcion" class="form-control datosrol" type="text" required>
+                                </div>
+    
+                                <div class="form-group">
+                                    <label>Estado</label>
+                                    <select class="form-control" id="EstadoRol" name="EstadoRol">
+                                        <option value="1">Activo</option>
+                                        <option value="0">Inactivo</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <?php 
+                    
+                    $ctrRol = new ControladorUsuarios();
+                    $ctrRol->ctrAgregarEditarRol();
+                    // ControladorUsuarios::ctrAgregarEditarRol();
+                    
+                    
+
+                    ?>
+                </form>
             </div>
             <div class="modal-footer justify-content-center bg-info">
-                <button type="submit" form="datosroda_form" class="btn btn-success"><i class="far fa-check-circle"></i> Guardar</button>
+                <button type="submit" form="datosrol_form" class="btn btn-success"><i class="far fa-check-circle"></i> Guardar</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
             </div>
         </div>
@@ -238,7 +256,7 @@ $Perfiles = ControladorUsuarios::ctrListadoPerfiles();
                 </div>
             </div>
             <div class="modal-footer justify-content-center bg-info">
-                <button type="submit" form="datosroda_form" class="btn btn-success"><i class="far fa-check-circle"></i> Guardar</button>
+                <button type="submit" form="permisos_form" class="btn btn-success"><i class="far fa-check-circle"></i> Guardar</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
             </div>
         </div>

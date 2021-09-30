@@ -123,6 +123,42 @@ class ControladorUsuarios
 	}
 
 	/* ===================================================
+	   AGREGAR  ROL
+	===================================================*/
+
+	static public function ctrAgregarEditarRol(){
+		if(isset($_POST['Perfil']))
+		{
+			$datos = array(
+				'Perfil' => $_POST['Perfil'],
+				'Descripcion' => $_POST['Descripcion'],
+				'Estado' => $_POST['EstadoRol']
+			);
+
+			$AddEditRol = ModeloUsuarios::mdlAgregarRol($datos);
+			echo "
+							<script>
+								Swal.fire({
+									icon: 'success',
+									title: 'Perfil credo correctamente',
+									footer: 'Si no reconoce el correo electrónico o el mensaje no llega después de unos minutos, comuníquese con soporte.',						
+									showConfirmButton: true,
+									confirmButtonText: 'Cerrar',
+									
+								}).then((result)=>{
+
+									if(result.value){
+										window.location = 'roles-usuarios';
+									}
+
+								})
+							</script>
+						";
+		}
+	}
+
+
+	/* ===================================================
 	   AGREGAR/EDITAR USUARIO
 	===================================================*/
 	static public function ctrAgregarEditar()
