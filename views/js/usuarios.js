@@ -154,5 +154,16 @@ if (window.location.href == `${urlPagina}usuarios/` ||
 
 if (window.location.href == `${urlPagina}roles-usuarios/` ||
     window.location.href == `${urlPagina}roles-usuarios`){
-        
+    $(document).ready(function(){
+
+        $(document).on("click",".btn-editarroles", function(){
+
+            var idRoles = $(this).attr('#idRoles');
+            $("#idRoles").val(idRoles);
+
+                }
+            });
+        });
+
+    });
     }

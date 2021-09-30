@@ -96,6 +96,29 @@ class ModeloUsuarios
         return $retorno;
     }
     
+    /* ===================================================
+       EDITAR ROL
+    ===================================================*/
+
+    static public function mdlActualizarRol($datos){
+        $stmt = conexion::conectar()->prepare("UPDATE l_perfiles set perfil =:perfil, descripcion=:descripcion, estado=:estado WHERE idRoles = :idRoles");
+        
+        $stmt->bindParam(":perfil", $datos["Perfil"], PDO::PARAM_STR);
+        $stmt->bindParam(":descripcion", $datos["Descripcion"], PDO::PARAM_STR);
+        $stmt->bindParam(":estado",$datos["Estado"], PDO::PARAM_INT);
+
+        if($stmt->execute()){
+            $retorno = "ok";;
+        }else{
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+
+    }
 
     /* ===================================================
        AGREGAR USUARIO

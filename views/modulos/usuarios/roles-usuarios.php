@@ -120,6 +120,7 @@ $Perfiles = ControladorUsuarios::ctrListadoPerfiles();
 
             <div class="modal-body">
                 <form action="" method="post" id="datosrol_form">
+                    <input type="hidden" id="idRoles" name="idRoles" value="">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
@@ -146,7 +147,7 @@ $Perfiles = ControladorUsuarios::ctrListadoPerfiles();
                     <?php 
                     
                     $ctrRol = new ControladorUsuarios();
-                    $ctrRol->ctrAgregarEditarRol();
+                    $ctrRol->ctrAgregarEditarRol(NULL);
                     // ControladorUsuarios::ctrAgregarEditarRol();
                     
                     

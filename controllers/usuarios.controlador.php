@@ -126,34 +126,68 @@ class ControladorUsuarios
 	   AGREGAR  ROL
 	===================================================*/
 
-	static public function ctrAgregarEditarRol(){
-		if(isset($_POST['Perfil']))
+	static public function ctrAgregarEditarRol($value){
+		if(isset($_POST['idRoles']))
 		{
-			$datos = array(
-				'Perfil' => $_POST['Perfil'],
-				'Descripcion' => $_POST['Descripcion'],
-				'Estado' => $_POST['EstadoRol']
-			);
+			if($_POST['idRoles'] == ""){
+				$AddEditRol = ModeloUsuarios::mdlAgregarRol($_POST);
+			}else{
+				echo 'actualizando';
+				$AddEditRol = ModeloUsuarios::mdlActualizarRol($_POST);
+			}
 
-			$AddEditRol = ModeloUsuarios::mdlAgregarRol($datos);
+			if($AddEditRol == "ok"){
 			echo "
-							<script>
-								Swal.fire({
-									icon: 'success',
-									title: 'Perfil credo correctamente',
-									footer: 'Si no reconoce el correo electrónico o el mensaje no llega después de unos minutos, comuníquese con soporte.',						
-									showConfirmButton: true,
-									confirmButtonText: 'Cerrar',
+					<script>
+						Swal.fire({
+						icon: 'success',
+						title: 'Perfil credo correctamente',						
+						showConfirmButton: true,
+						confirmButtonText: 'Cerrar',
 									
-								}).then((result)=>{
+						}).then((result)=>{
 
-									if(result.value){
-										window.location = 'roles-usuarios';
-									}
+							if(result.value){
+								window.location = 'roles-usuarios';
+							}
 
-								})
-							</script>
+						})
+					</script>
 						";
+			}
+
+
+
+
+
+
+
+
+
+			// $datos = array(
+			// 	'Perfil' => $_POST['Perfil'],
+			// 	'Descripcion' => $_POST['Descripcion'],
+			// 	'Estado' => $_POST['EstadoRol']
+			// );
+
+			// $AddEditRol = ModeloUsuarios::mdlAgregarRol($datos);
+			// echo "
+			// 				<script>
+			// 					Swal.fire({
+			// 						icon: 'success',
+			// 						title: 'Perfil credo correctamente',						
+			// 						showConfirmButton: true,
+			// 						confirmButtonText: 'Cerrar',
+									
+			// 					}).then((result)=>{
+
+			// 						if(result.value){
+			// 							window.location = 'roles-usuarios';
+			// 						}
+
+			// 					})
+			// 				</script>
+			// 			";
 		}
 	}
 
