@@ -1624,10 +1624,10 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                                                         </div>
                                                                                                                     </td>
                                                                                                                 </tr>
-                                                                                                                <tr>
+                                                                                                                <!-- <tr>
                                                                                                                     <td></td>
                                                                                                                     <td><b>SISTEMA VIGIA</b></td>
-                                                                                                                </tr>
+                                                                                                                </tr> -->
                                                                                                                 <tr>
                                                                                                                     <td style="width: 10px;">56.</td>
                                                                                                                     <td>Reloj</td>
@@ -2634,7 +2634,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
             <div class="card-header">
                 <h3 class="card-title"><b><i>Vehículos</i></b></h3>
                 <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="maximize">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
                         <i class="fas fa-plus"></i>
                     </button>
                 </div>
