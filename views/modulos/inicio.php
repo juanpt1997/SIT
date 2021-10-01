@@ -1,4 +1,3 @@
-
 <!-- =================================================== CONTENT =================================================== -->
 
 <div class="content-wrapper">
@@ -31,8 +30,13 @@
                             </div>
                             <!-- /.info-box -->
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuCG">
-                                <a class="dropdown-item font-weight-bold" href="cg-gestion-humana"><u>Gestión humana</u></a>
+                                <?php if (validarPermiso('M_GESTION_HUMANA', 'U')) : ?>
+                                    <a class="dropdown-item font-weight-bold" href="cg-gestion-humana"><u>Gestión humana</u></a>
+                                <?php endif ?>
+
+                                <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
                                 <a class="dropdown-item font-weight-bold" href="cg-vehicular"><u>Vehicular</u></a>
+                                <?php endif ?>
                                 <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                                     <a class="dropdown-item font-weight-bold" href="cg-mantenimiento"><u>Matenimiento</u></a>
                                     <a class="dropdown-item font-weight-bold" href="cg-seguridad"><u>Seguridad</u></a>
@@ -121,8 +125,8 @@
                     <!-- /.col -->
                 <?php endif ?>
 
-                
-                 <!-- ===================================================
+
+                <!-- ===================================================
                     * Operaciones
                 =================================================== -->
                 <?php if (validarPermiso('M_OPERACIONES', 'R')) : ?>
