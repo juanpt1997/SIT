@@ -515,7 +515,11 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm">Fecha de inicio</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="date" id="f_inicio" name="f_inicio" required>
+                                    <?php
+                                       $fecha = date("Y , strtotime('-1 year')");
+                                       echo $fecha;
+                                    ?>
+                                    <input class="form-control" type="date" id="f_inicio" name="f_inicio" required min="<?php echo $fecha;?>">
                                 </div>
                             </div>
                         </div>
