@@ -1405,7 +1405,10 @@ if (
                     ===================================================*/
                     /* Filtrar por columna */
                     //Clonar el tr del thead
-                    $(`#tblPagoSS thead tr`).clone(true).appendTo(`#tblPagoSS thead`);
+                    // Evitar que se duplique cada que entra al modal
+                    if ($(`#tblPagoSS thead tr`).length == 1) {
+                        $(`#tblPagoSS thead tr`).clone(true).appendTo(`#tblPagoSS thead`);
+                    }
                     //Por cada th creado hacer lo siguiente
                     $(`#tblPagoSS thead tr:eq(1) th`).each(function (i) {
                         //Remover clase sorting y el evento que tiene cuando se hace click

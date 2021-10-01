@@ -1,6 +1,6 @@
 <?php
 
-if (!validarModulo('M_USUARIOS')) {
+if (!validarPermiso('M_USUARIOS', 'R')) {
     echo "<script> window.location = '" . URL_APP . "'; </script>";
 }
 
@@ -42,6 +42,7 @@ $Sucursales = ControladorGH::ctrSucursales();
             </div>
             <hr class="my-4">
 
+
             <!-- ===================== 
                 TABLA DE USUARIOS
             ========================= -->
@@ -65,9 +66,19 @@ $Sucursales = ControladorGH::ctrSucursales();
 
                                 # Estado
                                 if ($value['estado'] == 0) {
-                                    $estado = '<button class="btn btn-sm btn-danger btnActivar" idUsuario="' . $value["UsuariosID"] . '" estadoUsuario="1">Inactivo</button>';
+                                    /* Permiso de usuario */
+                                    if (validarPermiso('M_USUARIOS', 'U')) {
+                                        $estado = '<button class="btn btn-sm btn-danger btnActivar" idUsuario="' . $value["UsuariosID"] . '" estadoUsuario="1">Inactivo</button>';
+                                    } else {
+                                        $estado = '<button class="btn btn-sm btn-danger">Inactivo</button>';
+                                    }
                                 } else {
-                                    $estado = '<button class="btn btn-sm btn-success btnActivar" idUsuario="' . $value["UsuariosID"] . '" estadoUsuario="0">Activo</button>';
+                                    /* Permiso de usuario */
+                                    if (validarPermiso('M_USUARIOS', 'U')) {
+                                        $estado = '<button class="btn btn-sm btn-success btnActivar" idUsuario="' . $value["UsuariosID"] . '" estadoUsuario="0">Activo</button>';
+                                    } else {
+                                        $estado = '<button class="btn btn-sm btn-success">Activo</button>';
+                                    }
                                 }
 
                                 # Foto
@@ -217,11 +228,13 @@ $Sucursales = ControladorGH::ctrSucursales();
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <button class="btn btn-warning" type="button" id="restablecerPswd" data-dismiss="modal"><i class="fas fa-lock-open"></i> Restablecer Contraseña</button>
-                    <button type="submit" class="btn btn-success">
-                        <i class="fas fa-save"></i>
-                        Guardar
-                    </button>
+                    <?php if (validarPermiso('M_USUARIOS', 'U')) : ?>
+                        <button class="btn btn-warning" type="button" id="restablecerPswd" data-dismiss="modal"><i class="fas fa-lock-open"></i> Restablecer Contraseña</button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i>
+                            Guardar
+                        </button>
+                    <?php endif ?>
                 </div>
 
                 <?php

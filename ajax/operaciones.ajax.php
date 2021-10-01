@@ -36,9 +36,9 @@ class AjaxAlistamiento
     static public function ajaxDatosAlistamiento($idalistamiento)
     {
         $datos = array(
-                    'item' => "id",
-                    'valor' => $idalistamiento,
-                        );
+            'item' => "id",
+            'valor' => $idalistamiento,
+        );
         $respuesta = ModeloAlistamiento::mdlDatosAlistamiento($datos);
 
         echo json_encode($respuesta);
@@ -65,7 +65,7 @@ class AjaxAlistamiento
             # Foto
             if ($value['ruta_foto'] != null) {
                 $btnVerDoc = "<a href='" . URL_APP . $value['ruta_foto'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a>";
-            }else{
+            } else {
                 $btnVerDoc = "";
             }
 
@@ -77,7 +77,13 @@ class AjaxAlistamiento
             # Estado
             $colorEstado = $value['estado'] == 'PENDIENTE' ? "danger" : "success";
             $iconoEstado = $value['estado'] == 'PENDIENTE' ? "far fa-clock" : "far fa-check-square";
-            $estado = '<button class="btn btn-sm btn-estado btn-' . $colorEstado . ' font-weight-bold" idevidencia="' . $value["idevidencia"] . '" idvehiculo="' . $idvehiculo . '" estado="' . $value["estado"] . '"><i class="' . $iconoEstado . '"></i> ' . $value["estado"] . '</button>';
+
+            /* Permiso de usuario */
+            if (validarPermiso('M_OPERACIONES', 'U')) {
+                $estado = '<button class="btn btn-sm btn-estado btn-' . $colorEstado . ' font-weight-bold" idevidencia="' . $value["idevidencia"] . '" idvehiculo="' . $idvehiculo . '" estado="' . $value["estado"] . '"><i class="' . $iconoEstado . '"></i> ' . $value["estado"] . '</button>';
+            } else {
+                $estado = '<button class="btn btn-sm btn-' . $colorEstado . ' font-weight-bold"><i class="' . $iconoEstado . '"></i> ' . $value["estado"] . '</button>';
+            }
 
             $tr .= "
                 <tr>
@@ -150,11 +156,11 @@ class AjaxAlistamiento
 
             //$actualizarRutaDoc = ModeloVehiculos::mdlActualizarVehiculo($datosRutaDoc);
             $datos = array(
-                            'idvehiculo' => $formData['idvehiculo'],
-                            'ruta_foto' => $rutaDoc,
-                            'observaciones' => $formData['observaciones'],
-                            'autor' => $_SESSION['cedula']
-                            );
+                'idvehiculo' => $formData['idvehiculo'],
+                'ruta_foto' => $rutaDoc,
+                'observaciones' => $formData['observaciones'],
+                'autor' => $_SESSION['cedula']
+            );
             $guardarEvidencia = ModeloAlistamiento::mdlGuardarEvidencia($datos);
 
             echo $guardarEvidencia;

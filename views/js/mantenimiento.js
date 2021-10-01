@@ -223,6 +223,20 @@ $(document).ready(function () {
       });
     });
 
+    $(".btn-editarInventario").on('click', function () {
+
+      //INSTRUCCION PARA EXPANDIR EL COLLAPSE DEL DATA WIDGET DEL CARD INVENTARIO
+      $('#card-inventario').CardWidget('expand');
+      //LLevar la atencion del cursor al primer INPUT      
+      $("#placa_invent").focus();
+      Swal.fire(
+        'Actualizar',
+        'Actualizando datos',
+        'success'
+      )
+      
+    });
+
     //Funcion que carga las fotos de un vehiculo
     let cargarFotosVehiculo = (response) => {
       let htmljumbo = ``;

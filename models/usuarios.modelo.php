@@ -63,13 +63,61 @@ class ModeloUsuarios
     ===================================================*/
     static public function mdlListadoPerfiles()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT *
-                                                FROM l_perfiles");
+        $stmt = Conexion::conectar()->prepare("SELECT p.idPerfil, p.perfil, p.estado  as estadoPerfil, p.descripcion
+                                                FROM l_perfiles p");
 
         $stmt->execute();
         $retorno =  $stmt->fetchAll();
         $stmt->closeCursor();
         return $retorno;
+    }
+
+    /* ===================================================
+       AGREGAR ROL
+    ===================================================*/
+
+    static public function mdlAgregarRol($datos)
+    {
+        $stmt = conexion::conectar()->prepare("INSERT INTO l_perfiles(perfil,descripcion,estado) VALUES(:perfil,:descripcion,:estado)");
+
+        $stmt->bindParam(":perfil", $datos["Perfil"], PDO::PARAM_STR);
+        $stmt->bindParam(":descripcion", $datos["Descripcion"], PDO::PARAM_STR);
+        $stmt->bindParam(":estado",$datos["Estado"], PDO::PARAM_INT);
+
+        if($stmt->execute()){
+            $retorno = "ok";;
+        }else{
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+    
+    /* ===================================================
+       EDITAR ROL
+    ===================================================*/
+
+    static public function mdlActualizarRol($datos){
+        $stmt = conexion::conectar()->prepare("UPDATE l_perfiles set perfil =:perfil, descripcion=:descripcion, estado=:estado WHERE idRoles = :idRoles");
+        
+        $stmt->bindParam(":perfil", $datos["Perfil"], PDO::PARAM_STR);
+        $stmt->bindParam(":descripcion", $datos["Descripcion"], PDO::PARAM_STR);
+        $stmt->bindParam(":estado",$datos["Estado"], PDO::PARAM_INT);
+
+        if($stmt->execute()){
+            $retorno = "ok";;
+        }else{
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+
     }
 
     /* ===================================================
@@ -146,6 +194,25 @@ class ModeloUsuarios
         $stmt->closeCursor();
         $stmt = null;
         
+        return $retorno;
+    }
+
+    /* ===================================================
+        PERMISOS DE USUARIO
+    ===================================================*/
+    static public function mdlPermisos($valor)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT u.UsuariosID, u.Cedula, u.Nombre, p.perfil, o.opcion, re.Crear, re.Leer, re.Actualizar, re.Borrar
+                                                FROM l_usuarios u
+                                                INNER JOIN l_perfiles p ON u.idPerfil = p.idPerfil
+                                                INNER JOIN l_re_permisos re ON re.idPerfil = p.idPerfil
+                                                INNER JOIN l_opciones o ON re.idOpcion = o.idOpcion
+                                                WHERE u.Cedula = :valor");
+        $stmt->bindParam(":valor", $valor, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno =  $stmt->fetchAll();
+        $stmt->closeCursor();
         return $retorno;
     }
 }

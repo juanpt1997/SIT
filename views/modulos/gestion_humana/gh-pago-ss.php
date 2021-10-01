@@ -1,6 +1,6 @@
 <?php
 
-if (!validarModulo('M_GESTION_HUMANA')) {
+if (!validarPermiso('M_GESTION_HUMANA', 'R')) {
     echo "<script> window.location = 'inicio'; </script>";
 }
 
@@ -129,7 +129,9 @@ $FechasPagoSS = ControladorPagoSS::ctrMostrarFechas();
                                     </div>
                                 </div>
                                 <div class="card-footer">
-                                    <button class="btn btn-success float-right" type="submit"><i class="fas fa-save"></i> Guardar</button>
+                                    <?php if (validarPermiso('M_GESTION_HUMANA', 'U')) : ?>
+                                        <button class="btn btn-success float-right" type="submit"><i class="fas fa-save"></i> Guardar</button>
+                                    <?php endif ?>
                                 </div>
                             </div>
                         </form>
@@ -140,8 +142,8 @@ $FechasPagoSS = ControladorPagoSS::ctrMostrarFechas();
                     TABLA CON LOS REGISTROS
                 =================================================== -->
                 <div class="row">
-                    <div class="col-12">
-                        <table id="tblPagoSS" class="table table-responsive table-sm table-hover row-border w-100">
+                    <div class="col-12 table-responsive">
+                        <table id="tblPagoSS" class="table table-sm table-hover row-border w-100">
                             <thead class="thead-light">
                                 <tr>
                                     <th>Cédula</th>

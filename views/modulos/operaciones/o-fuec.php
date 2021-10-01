@@ -1,6 +1,6 @@
 <?php
 
-if (!validarModulo('M_CONTRATOS')) {
+if (!validarPermiso('M_OPERACIONES', 'R')) {
     echo "<script> window.location = 'inicio'; </script>";
 }
 
@@ -53,66 +53,66 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                     <div class="card">
                         <div class="card-header bg-info"></div>
                         <div class="card-body">
-                                <table id="tblFUEC" class="table table-responsive table-sm table-striped table-bordered table-hover w-100 text-center">
-                                    <thead class="thead-light text-sm text-nowrap">
+                            <table id="tblFUEC" class="table table-responsive table-sm table-striped table-bordered table-hover w-100 text-center">
+                                <thead class="thead-light text-sm text-nowrap">
+                                    <tr>
+                                        <th style="min-width:90px;">#</th>
+                                        <th>Acciones</th>
+                                        <!-- <th>FUEC</th> -->
+                                        <th style="min-width:90px;">Placa</th>
+                                        <th>Nro. Interno afiliado</th>
+                                        <th>Vinculación</th>
+                                        <th>Objeto contrato</th>
+                                        <th>Origen</th>
+                                        <th>Destino</th>
+                                        <th>Fecha inicial</th>
+                                        <th>Fecha final</th>
+                                        <th>Conductor 1</th>
+                                        <th>Documento conductor 1</th>
+                                        <th>Conductor 2</th>
+                                        <th>Documento conductor 2</th>
+                                        <th>Conductor 3</th>
+                                        <th>Documento conductor 3</th>
+                                        <th>Cliente ocasional</th>
+                                        <th>Cliente fijo</th>
+                                        <th>Fecha de creación</th>
+                                        <th style="min-width:90px;">Usuario</th>
+                                        <th>Sucursal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($FUEC as $key => $value) : ?>
                                         <tr>
-                                            <th style="min-width:90px;">#</th>
-                                            <th>Acciones</th>
-                                            <!-- <th>FUEC</th> -->
-                                            <th style="min-width:90px;">Placa</th>
-                                            <th>Nro. Interno afiliado</th>
-                                            <th>Vinculación</th>
-                                            <th>Objeto contrato</th>
-                                            <th>Origen</th>
-                                            <th>Destino</th>
-                                            <th>Fecha inicial</th>
-                                            <th>Fecha final</th>
-                                            <th>Conductor 1</th>
-                                            <th>Documento conductor 1</th>
-                                            <th>Conductor 2</th>
-                                            <th>Documento conductor 2</th>
-                                            <th>Conductor 3</th>
-                                            <th>Documento conductor 3</th>
-                                            <th>Cliente ocasional</th>
-                                            <th>Cliente fijo</th>
-                                            <th>Fecha de creación</th>
-                                            <th style="min-width:90px;">Usuario</th>
-                                            <th>Sucursal</th>
+                                            <td><?= $value['idfuec'] ?></td>
+                                            <td>
+                                                <div class='btn-group'>
+                                                    <button class="btn btn-editarfuec" data-toggle="modal" data-target="#NuevoFuecModal" idfuec='<?= $value['idfuec'] ?>'><i class="fas fa-lg fa-pencil-alt text-info"></i></button>
+                                                    <button type='button' class='btn btn-FTFuec' idfuec='<?= $value['idfuec'] ?>'><i class='fas fa-lg fa-book text-secondary'></i></button>
+                                                </div>
+                                            </td>
+                                            <td><?= $value['placa'] ?></td>
+                                            <td><?= $value['numinterno'] ?></td>
+                                            <td><?= $value['tipovinculacion'] ?></td>
+                                            <td><?= $value['objetocontrato'] ?></td>
+                                            <td><?= $value['origen'] ?></td>
+                                            <td><?= $value['destino'] ?></td>
+                                            <td><?= $value['fecha_inicial'] ?></td>
+                                            <td><?= $value['fecha_vencimiento'] ?></td>
+                                            <td><?= $value['conductor1'] ?></td>
+                                            <td><?= $value['docConductor1'] ?></td>
+                                            <td><?= $value['conductor2'] ?></td>
+                                            <td><?= $value['docConductor2'] ?></td>
+                                            <td><?= $value['conductor3'] ?></td>
+                                            <td><?= $value['docConductor3'] ?></td>
+                                            <td><?= $value['nomContratante'] ?></td>
+                                            <td><?= $value['ClienteFijo'] ?></td>
+                                            <td><?= $value['fecha_creacion'] ?></td>
+                                            <td><?= $value['usuarioCreacion'] ?></td>
+                                            <td><?= $value['sucursal'] ?></td>
                                         </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($FUEC as $key => $value) : ?>
-                                            <tr>
-                                                <td><?= $value['idfuec'] ?></td>
-                                                <td>
-                                                    <div class='btn-group'>
-                                                        <button class="btn btn-editarfuec" data-toggle="modal" data-target="#NuevoFuecModal" idfuec='<?= $value['idfuec'] ?>'><i class="fas fa-lg fa-pencil-alt text-info"></i></button>
-                                                        <button type='button' class='btn btn-FTFuec' idfuec='<?= $value['idfuec'] ?>'><i class='fas fa-lg fa-book text-secondary'></i></button>
-                                                    </div>
-                                                </td>
-                                                <td><?= $value['placa'] ?></td>
-                                                <td><?= $value['numinterno'] ?></td>
-                                                <td><?= $value['tipovinculacion'] ?></td>
-                                                <td><?= $value['objetocontrato'] ?></td>
-                                                <td><?= $value['origen'] ?></td>
-                                                <td><?= $value['destino'] ?></td>
-                                                <td><?= $value['fecha_inicial'] ?></td>
-                                                <td><?= $value['fecha_vencimiento'] ?></td>
-                                                <td><?= $value['conductor1'] ?></td>
-                                                <td><?= $value['docConductor1'] ?></td>
-                                                <td><?= $value['conductor2'] ?></td>
-                                                <td><?= $value['docConductor2'] ?></td>
-                                                <td><?= $value['conductor3'] ?></td>
-                                                <td><?= $value['docConductor3'] ?></td>
-                                                <td><?= $value['nomContratante'] ?></td>
-                                                <td><?= $value['ClienteFijo'] ?></td>
-                                                <td><?= $value['fecha_creacion'] ?></td>
-                                                <td><?= $value['usuarioCreacion'] ?></td>
-                                                <td><?= $value['sucursal'] ?></td>
-                                            </tr>
-                                        <?php endforeach ?>
-                                    </tbody>
-                                </table>
+                                    <?php endforeach ?>
+                                </tbody>
+                            </table>
                         </div>
                         <div class="card-footer bg-dark"></div>
                     </div>
@@ -610,10 +610,12 @@ $FUEC = ControladorFuec::ctrListaFUEC();
 
             <div class="modal-footer bg-dark">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                <button type="submit" form="frmFUEC" class="btn btn-success">
-                    <i class="fas fa-save"></i>
-                    Guardar
-                </button>
+                <?php if (validarPermiso('M_OPERACIONES', 'U')) : ?>
+                    <button type="submit" form="frmFUEC" class="btn btn-success">
+                        <i class="fas fa-save"></i>
+                        Guardar
+                    </button>
+                <?php endif ?>
             </div>
         </div>
     </div>
