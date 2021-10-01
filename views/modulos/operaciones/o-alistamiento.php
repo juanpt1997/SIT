@@ -54,6 +54,17 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                             <table id="tblAlistamientos" class="table table-responsive table-bordered table-striped text-center w-100">
                                 <thead class="text-nowrap text-sm">
                                     <tr>
+                                        <th colspan="7">INFORMACIÓN GENERAL</th>
+                                        <th colspan="12">SISTEMA DE LUCES</th>
+                                        <th colspan="24">CARROCERÍA</th>
+                                        <th colspan="12">SISTEMAS</th>
+                                        <th colspan="6">INDICADORES DE TABLERO</th>
+                                        <th colspan="6">MANTENIMIENTO</th>
+                                        <th colspan="11">LLANTAS</th>
+                                        <th colspan="14">EQUIPO DE SEGURIDAD</th>
+                                    </tr>
+
+                                    <tr>
                                         <th>...</th>
                                         <th style="min-width:70px;">ID</th>
                                         <th>Fecha - Hora</th>

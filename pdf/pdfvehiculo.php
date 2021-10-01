@@ -406,7 +406,7 @@ class PdfVehiculo
         );
         //$Documentos[] = $tarjetaPropiedad;
         array_unshift($Documentos, $tarjetaPropiedad);
-        foreach ($Documentos as $key => $documento) {
+        /* foreach ($Documentos as $key => $documento) {
             // Si es pdf, no se muestra la imagen del documento
             if (strpos($documento['ruta_documento'], '.pdf') === false && $documento['ruta_documento'] != "" && $documento['ruta_documento'] != null) {
                 $pdf->AddPage();
@@ -443,7 +443,76 @@ class PdfVehiculo
                 // Dibujar la imagen en el PDF
                 $pdf->Image($ruta, $posx, '', $widthMM, $heightMM, '', '', '', false, 300, '', false, false, 0, false, false, false);
             }
-        }
+        } */
+
+        // TABLA CON LOS DOCUMENTOS MATRICULA SOAT Y TECNO
+        $pdf->AddPage();
+
+        $pdf->writeHTML("<br>");
+        $tabla = '
+        <table cellspacing="5" cellpadding="10">
+              <thead>
+                  <tr style="text-align: center; font-weight:bold;">
+                     <th colspan="2" border="2">MATRICULA</th>
+                  </tr>
+              </thead>
+
+            <tbody>
+              <tr style="text-align: center;">
+                <td colspan="2" border="1"></td>
+              </tr>
+
+              <tr style="text-align: center; font-weight:bold;">
+                <td border="2">SOAT</td>
+                <td border="2">REVISIÓN TECNO-MECÁNICA Y DE GASES</td>
+              </tr>
+
+              <tr>
+                <td border="1"><img src="../' . $SOAT['ruta_documento'] . '"></td>
+                <td border="1"><img src="../' . $RevisionPreventiva['ruta_documento'] . '"></td>
+              </tr>
+            </tbody>
+        </table>
+        ';
+        $pdf->SetFont('helvetica', '', '8');
+        $pdf->writeHTML($tabla);
+
+        // TABLA CON LOS DOCUMENTOS TARJETA DE OPERACION, PÓLIZA EXTRACTUAL, PÓLIZA CONTRACTUAL
+        
+        $pdf->AddPage();
+
+        $pdf->writeHTML("<br>");
+        $tabla = '
+        <table cellspacing="5" cellpadding="10">
+               <tbody> 
+                  <tr style="text-align: center; font-weight:bold;">
+                     <th colspan="2" border="2">TARJETA DE OPERACIÓN</th>
+                  </tr>
+
+                  <tr style="text-align: center;">
+                    <td colspan="2" border="1"><img src="../' . $TarjetaOperacion['ruta_documento'] . '"></td>
+                  </tr>
+
+                  <tr style="text-align: center; font-weight:bold;">
+                     <th colspan="2" border="2">PÓLIZA EXTRACONTRACTUAL</th>
+                  </tr>
+
+                  <tr style="text-align: center;">
+                    <td colspan="2" border="1"><img src="../' . $RCE['ruta_documento'] . '"></td>
+                  </tr>
+
+                  <tr style="text-align: center; font-weight:bold;">
+                     <th colspan="2" border="2">PÓLIZA CONTRACTUAL</th>
+                  </tr>
+
+                  <tr style="text-align: center;">
+                    <td colspan="2" border="1"><img src="../' . $RCC['ruta_documento'] . '"></td>
+                  </tr>
+              </tbody>
+        </table>
+        ';
+        $pdf->SetFont('helvetica', '', '8');
+        $pdf->writeHTML($tabla);
 
         // ---------------------------------------------------------
 
