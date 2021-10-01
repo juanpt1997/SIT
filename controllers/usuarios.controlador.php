@@ -123,6 +123,76 @@ class ControladorUsuarios
 	}
 
 	/* ===================================================
+	   AGREGAR  ROL
+	===================================================*/
+
+	static public function ctrAgregarEditarRol($value){
+		if(isset($_POST['idRoles']))
+		{
+			if($_POST['idRoles'] == ""){
+				$AddEditRol = ModeloUsuarios::mdlAgregarRol($_POST);
+			}else{
+				echo 'actualizando';
+				$AddEditRol = ModeloUsuarios::mdlActualizarRol($_POST);
+			}
+
+			if($AddEditRol == "ok"){
+			echo "
+					<script>
+						Swal.fire({
+						icon: 'success',
+						title: 'Perfil credo correctamente',						
+						showConfirmButton: true,
+						confirmButtonText: 'Cerrar',
+									
+						}).then((result)=>{
+
+							if(result.value){
+								window.location = 'roles-usuarios';
+							}
+
+						})
+					</script>
+						";
+			}
+
+
+
+
+
+
+
+
+
+			// $datos = array(
+			// 	'Perfil' => $_POST['Perfil'],
+			// 	'Descripcion' => $_POST['Descripcion'],
+			// 	'Estado' => $_POST['EstadoRol']
+			// );
+
+			// $AddEditRol = ModeloUsuarios::mdlAgregarRol($datos);
+			// echo "
+			// 				<script>
+			// 					Swal.fire({
+			// 						icon: 'success',
+			// 						title: 'Perfil credo correctamente',						
+			// 						showConfirmButton: true,
+			// 						confirmButtonText: 'Cerrar',
+									
+			// 					}).then((result)=>{
+
+			// 						if(result.value){
+			// 							window.location = 'roles-usuarios';
+			// 						}
+
+			// 					})
+			// 				</script>
+			// 			";
+		}
+	}
+
+
+	/* ===================================================
 	   AGREGAR/EDITAR USUARIO
 	===================================================*/
 	static public function ctrAgregarEditar()

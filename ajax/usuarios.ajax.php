@@ -24,6 +24,16 @@ class AjaxUsuarios
     }
 
     /* ===================================================
+        VISUALIZAR DATOS DE UN PERFIL
+    ===================================================*/
+
+    static public function ajaxDatosPerfiles($value)
+    {
+        $respuesta =ModeloUsuarios::mdlListadoPerfiles();
+        echo json_encode($respuesta);
+    }
+
+    /* ===================================================
        ACTIVAR USUARIO
     ===================================================*/
     static public function ajaxActivarUsuario($idUsuario, $value)
