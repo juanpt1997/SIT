@@ -23,15 +23,15 @@ class AjaxUsuarios
         echo json_encode($respuesta);
     }
 
-    /* ===================================================
-        VISUALIZAR DATOS DE UN PERFIL
-    ===================================================*/
+    // /* ===================================================
+    //     VISUALIZAR DATOS DE UN PERFIL
+    // ===================================================*/
 
-    static public function ajaxDatosPerfiles($value)
-    {
-        $respuesta =ModeloUsuarios::mdlListadoPerfiles();
-        echo json_encode($respuesta);
-    }
+    // static public function ajaxDatosPerfiles($value)
+    // {
+    //     $respuesta =ModeloUsuarios::mdlListadoPerfiles();
+    //     echo json_encode($respuesta);
+    // }
 
     /* ===================================================
        ACTIVAR USUARIO
@@ -70,6 +70,18 @@ class AjaxUsuarios
         $respuesta = ControladorUsuarios::ctrCambiarPswd($datos);
         echo $respuesta;
     }
+
+     /* ===================================================
+        DATOS DEL PERFIL
+    ===================================================*/
+    static public function AjaxDatosPerfil($idPerfil)
+    {
+        $respuesta = ControladorUsuarios::ctrDatosPerfil($idPerfil);
+        /* echo "<pre>";
+        var_dump($respuesta);
+        echo "</pre>"; */
+        echo json_encode($respuesta);
+    }
 }
 
 if (isset($_POST['DatosUsuario']) && $_POST['DatosUsuario'] == "ok") {
@@ -101,4 +113,8 @@ if (isset($_POST['CambiarPass']) && $_POST['CambiarPass'] == "ok"){
                 'confirmPass' => $_POST['confirmPass']
                 );
     AjaxUsuarios::AjaxCambiarPass($datos);
+}
+
+if (isset($_POST['DatosPerfil']) && $_POST['DatosPerfil'] == "ok"){
+    AjaxUsuarios::ajaxDatosPerfil($_POST['idPerfil']);
 }

@@ -27,7 +27,7 @@ $Perfiles = ControladorUsuarios::ctrListadoPerfiles();
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="inicio">Inicio</a></li>
-                        <li class="breadcrumb-item active">Plantilla</li>
+                        <li class="breadcrumb-item active">Roles</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -85,7 +85,7 @@ $Perfiles = ControladorUsuarios::ctrListadoPerfiles();
                                                 <td><?= $estado?></td>
                                                 <td>
                                                     <button type="button" class="btn btn-default btn-sm btn-permisoroles" data-toggle="modal" data-target="#modal-permisoroles"><i class="fas fa-key"></i></button>
-                                                    <button type="button" class="btn btn-success btn-sm btn-editarroles" data-toggle="modal" data-target="#modal-nuevorol"><i class="fas fa-edit"></i></button>
+                                                    <button type="button" class="btn btn-success btn-sm btn-editarroles" idPerfil="<?= $value['idPerfil'] ?>" data-toggle="modal" data-target="#modal-nuevorol"><i class="fas fa-edit"></i></button>
                                                     <button type="button" class="btn btn-danger btn-sm btn-eliminarroles"><i class="fas fa-trash"></i></button>
                                                 </td>
                                             </tr>
@@ -120,13 +120,8 @@ $Perfiles = ControladorUsuarios::ctrListadoPerfiles();
 
             <div class="modal-body">
                 <form action="" method="post" id="datosrol_form">
-                    <input type="hidden" id="idRoles" name="idRoles" value="">
-                    <?php 
+                    <input type="hidden" id="idPerfil" name="idPerfil" value="">
                     
-                    $BotonEditar = "{$value['idRoles']}
-                                    <button type='button' class='btn btn-success btn-sm btn-editarroles' data-toggle='modal' data-target='#modal-nuevorol' idRoles = {$value['idRoles']}><i class='fas fa-edit'></i></button>"
-                    
-                    ?>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
@@ -142,7 +137,7 @@ $Perfiles = ControladorUsuarios::ctrListadoPerfiles();
     
                                 <div class="form-group">
                                     <label>Estado</label>
-                                    <select class="form-control" id="EstadoRol" name="EstadoRol">
+                                    <select class="form-control" id="estado" name="estado">
                                         <option value="1">Activo</option>
                                         <option value="0">Inactivo</option>
                                     </select>

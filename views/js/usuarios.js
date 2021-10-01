@@ -159,10 +159,31 @@ if (window.location.href == `${urlPagina}roles-usuarios/` ||
 
         console.log("Click en editar");
 
-        var idRoles = $(this).attr("idRoles");
-        $("#idRoles").val("idRoles");
-        console.log($("#idRoles"));
+        var idPerfil = $(this).attr("idPerfil");
+        $("#idPerfil").val(idPerfil);
+
+        var datos = new FormData();
+        datos.append("DatosPerfil", "ok");
+        datos.append("idPerfil", idPerfil);
+
+        $.ajax({
+            type: "POST",
+            url: "ajax/usuarios.ajax.php",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (response) {
+                if (response!=""){
+                    
+                    $("#Perfil").val(response.perfil);
+                    $("#Descripcion").val(response.descripcion);
+                    $("#estado").val(response.estado);
 
 
+                }
+            }
+        });
     });
 }

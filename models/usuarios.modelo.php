@@ -82,7 +82,7 @@ class ModeloUsuarios
 
         $stmt->bindParam(":perfil", $datos["Perfil"], PDO::PARAM_STR);
         $stmt->bindParam(":descripcion", $datos["Descripcion"], PDO::PARAM_STR);
-        $stmt->bindParam(":estado",$datos["Estado"], PDO::PARAM_INT);
+        $stmt->bindParam(":estado",$datos["estado"], PDO::PARAM_INT);
 
         if($stmt->execute()){
             $retorno = "ok";;
@@ -97,15 +97,35 @@ class ModeloUsuarios
     }
     
     /* ===================================================
-       EDITAR ROL
+       MOSTRAR PERFIL SOLICITADO POR EL ID
     ===================================================*/
 
+    static public function mdlDatosPerfil($idPerfil){
+        $stmt = conexion::conectar()->prepare("SELECT * FROM l_perfiles WHERE idPerfil = :idPerfil");
+
+
+        $stmt->bindParam(":idPerfil", $idPerfil, PDO::PARAM_INT);
+        $stmt->execute();
+        $retorno =  $stmt->fetch();
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    
+    /* ===================================================
+       EDITAR ROL
+    ===================================================*/
+    
     static public function mdlActualizarRol($datos){
-        $stmt = conexion::conectar()->prepare("UPDATE l_perfiles set perfil =:perfil, descripcion=:descripcion, estado=:estado WHERE idRoles = :idRoles");
+        $stmt = conexion::conectar()->prepare("UPDATE l_perfiles set perfil =:perfil, descripcion=:descripcion, estado=:estado WHERE idPerfil = :idPerfil");
         
+        $stmt->bindParam(":idPerfil", $datos["idPerfil"], PDO::PARAM_INT);
         $stmt->bindParam(":perfil", $datos["Perfil"], PDO::PARAM_STR);
         $stmt->bindParam(":descripcion", $datos["Descripcion"], PDO::PARAM_STR);
-        $stmt->bindParam(":estado",$datos["Estado"], PDO::PARAM_INT);
+        $stmt->bindParam(":estado",$datos["estado"], PDO::PARAM_INT);
 
         if($stmt->execute()){
             $retorno = "ok";;
