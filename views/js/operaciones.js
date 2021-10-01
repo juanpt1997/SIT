@@ -15,9 +15,9 @@ $(document).ready(function () {
             ===================================================*/
             /* Filtrar por columna */
             //Clonar el tr del thead
-            $(`#tblAlistamientos thead tr`).clone(true).appendTo(`#tblAlistamientos thead`);
+            $(`#tblAlistamientos thead tr:eq(1)`).clone(true).appendTo(`#tblAlistamientos thead`);
             //Por cada th creado hacer lo siguiente
-            $(`#tblAlistamientos thead tr:eq(1) th`).each(function (i) {
+            $(`#tblAlistamientos thead tr:eq(2) th`).each(function (i) {
                 //Remover clase sorting y el evento que tiene cuando se hace click
                 $(this).removeClass("sorting").unbind();
                 //Agregar input de busqueda
