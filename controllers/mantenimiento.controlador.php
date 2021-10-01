@@ -232,7 +232,7 @@ class ControladorInventario
 				'Baterias' => $_POST['Baterias'],
 				'Botones_tablero_timon' => $_POST['Botones_tablero_timon'],
 				'Tapa_radiador' => $_POST['Tapa_radiador'],
-                'Tapa_deposito_hidráulico' => $_POST['Tapa_deposito_hidráulico'],
+                'Tapa_deposito_hidraulico' => $_POST['Tapa_deposito_hidraulico'],
                 'Cojineria_general' => $_POST['Cojineria_general'],
 				'Cinturon_sillas_calidad' => $_POST['Cinturon_sillas_calidad'],
 				'Pasamanos' => $_POST['Pasamanos'],
@@ -240,11 +240,7 @@ class ControladorInventario
                 'Placas_reglamentarias' => $_POST['Placas_reglamentarias']
 			);
 
-			echo "<pre>";
-			var_dump($_POST);
-			echo "</pre>";
-
-			$responseModel = ModeloInventario::mdlAgregarInventario($_POST);
+			$responseModel = ModeloInventario::mdlAgregarInventario($datos);
 
 			echo $responseModel;
 
