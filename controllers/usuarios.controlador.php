@@ -123,6 +123,17 @@ class ControladorUsuarios
 	}
 
 	/* ===================================================
+	   ACTUALIZAR ROL
+	===================================================*/
+
+	static public function ctrActualizarRol($idPerfil, $activo){
+		$nuevoActivo = $activo == 1 ? 0 : 1;
+		$respuesta = ModeloUsuarios::mdlActualizarRol($idPerfil,$nuevoActivo);
+		return $respuesta;
+	}
+
+
+	/* ===================================================
 	   AGREGAR  ROL
 	===================================================*/
 
@@ -151,7 +162,7 @@ class ControladorUsuarios
 								";
 					}
 			}else{
-				$AddEditRol = ModeloUsuarios::mdlActualizarRol($_POST);
+				$AddEditRol = ModeloUsuarios::mdlEditarRol($_POST);
 				if($AddEditRol == "ok"){
 					echo "
 							<script>

@@ -63,8 +63,8 @@ class ModeloUsuarios
     ===================================================*/
     static public function mdlListadoPerfiles()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT p.idPerfil, p.perfil, p.estado  as estadoPerfil, p.descripcion
-                                                FROM l_perfiles p");
+        $stmt = Conexion::conectar()->prepare("SELECT p.idPerfil, p.perfil, p.estado,  p.activo  as activoPerfil, p.descripcion
+                                                FROM l_perfiles p WHERE p.estado = 1");
 
         $stmt->execute();
         $retorno =  $stmt->fetchAll();
@@ -78,11 +78,11 @@ class ModeloUsuarios
 
     static public function mdlAgregarRol($datos)
     {
-        $stmt = conexion::conectar()->prepare("INSERT INTO l_perfiles(perfil,descripcion,estado) VALUES(:perfil,:descripcion,:estado)");
+        $stmt = conexion::conectar()->prepare("INSERT INTO l_perfiles(perfil,descripcion,activo) VALUES(:perfil,:descripcion,:activo)");
 
         $stmt->bindParam(":perfil", $datos["Perfil"], PDO::PARAM_STR);
         $stmt->bindParam(":descripcion", $datos["Descripcion"], PDO::PARAM_STR);
-        $stmt->bindParam(":estado",$datos["estado"], PDO::PARAM_INT);
+        $stmt->bindParam(":activo",$datos["activo"], PDO::PARAM_INT);
 
         if($stmt->execute()){
             $retorno = "ok";;
@@ -119,13 +119,13 @@ class ModeloUsuarios
        EDITAR ROL
     ===================================================*/
     
-    static public function mdlActualizarRol($datos){
-        $stmt = conexion::conectar()->prepare("UPDATE l_perfiles set perfil =:perfil, descripcion=:descripcion, estado=:estado WHERE idPerfil = :idPerfil");
+    static public function mdlEditarRol($datos){
+        $stmt = conexion::conectar()->prepare("UPDATE l_perfiles set perfil =:perfil, descripcion=:descripcion, activo=:activo WHERE idPerfil = :idPerfil");
         
         $stmt->bindParam(":idPerfil", $datos["idPerfil"], PDO::PARAM_INT);
         $stmt->bindParam(":perfil", $datos["Perfil"], PDO::PARAM_STR);
         $stmt->bindParam(":descripcion", $datos["Descripcion"], PDO::PARAM_STR);
-        $stmt->bindParam(":estado",$datos["estado"], PDO::PARAM_INT);
+        $stmt->bindParam(":activo",$datos["activo"], PDO::PARAM_INT);
 
         if($stmt->execute()){
             $retorno = "ok";;
@@ -140,6 +140,32 @@ class ModeloUsuarios
 
     }
 
+    /* ===================================================
+       AGREGAR USUARIO
+    ===================================================*/
+
+    static public function mdlActualizarRol($idPerfil,$activo){
+        $stmt = conexion::conectar()->prepare(" UPDATE l_perfiles SET activo = :activo WHERE idPerfil = :idPerfil");
+
+        $stmt->bindParam(":idPerfil", $idPerfil, PDO::PARAM_INT);
+        $stmt->bindParam(":activo", $activo, PDO::PARAM_INT);
+
+        if($stmt->execute()){
+            $retorno = "ok";;
+        }else{
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+
+
+
+    }
+
+    
     /* ===================================================
        AGREGAR USUARIO
     ===================================================*/

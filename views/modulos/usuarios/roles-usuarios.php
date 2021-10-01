@@ -70,10 +70,10 @@ $Perfiles = ControladorUsuarios::ctrListadoPerfiles();
                                             
                                             <?php 
                                                 
-                                                if($value["estadoPerfil"] == 1){
-                                                    $estado = '<button class="btn btn-sm btn-success btnActivar" idPerfil="' . $value["idPerfil"] . '" estado="1">Activo</button>';
+                                                if($value["activoPerfil"] == 1){
+                                                    $activo = '<button class="btn btn-sm btn-success btnActivar" idPerfil="' . $value["idPerfil"] . '" activo="1">Activo</button>';
                                                 }else {
-                                                    $estado = '<button class="btn btn-sm btn-danger btnActivar" idPerfil="' . $value["idPerfil"] . '" estado="0">Inactivo</button>';
+                                                    $activo = '<button class="btn btn-sm btn-danger btnActivar" idPerfil="' . $value["idPerfil"] . '" activo="0">Inactivo</button>';
                                                 }
 
                                             ?>
@@ -82,11 +82,11 @@ $Perfiles = ControladorUsuarios::ctrListadoPerfiles();
                                                 <td><?= $value["idPerfil"] ?></td>
                                                 <td><?= $value["perfil"]?></td>
                                                 <td><?= $value["descripcion"]?></td>
-                                                <td><?= $estado?></td>
+                                                <td><?= $activo?></td>
                                                 <td>
                                                     <button type="button" class="btn btn-default btn-sm btn-permisoroles" data-toggle="modal" data-target="#modal-permisoroles"><i class="fas fa-key"></i></button>
                                                     <button type="button" class="btn btn-success btn-sm btn-editarroles" idPerfil="<?= $value['idPerfil'] ?>" data-toggle="modal" data-target="#modal-nuevorol"><i class="fas fa-edit"></i></button>
-                                                    <button type="button" class="btn btn-danger btn-sm btn-eliminarroles"><i class="fas fa-trash"></i></button>
+                                                    <button type="button" class="btn btn-danger btn-sm btn-eliminarroles" idPerfil="<?= $value['idPerfil']?>" idEstado="<?= $value['estado']?>"><i class="fas fa-trash"></i></button>
                                                 </td>
                                             </tr>
                                             <?php endforeach ?>
@@ -136,8 +136,8 @@ $Perfiles = ControladorUsuarios::ctrListadoPerfiles();
                                 </div>
     
                                 <div class="form-group">
-                                    <label>Estado</label>
-                                    <select class="form-control" id="estado" name="estado">
+                                    <label>Activo</label>
+                                    <select class="form-control" id="activo" name="activo">
                                         <option value="1">Activo</option>
                                         <option value="0">Inactivo</option>
                                     </select>
