@@ -1,6 +1,6 @@
 <?php
 
-if (!validarModulo('M_VEHICULAR')) {
+if (!validarPermiso('M_VEHICULAR', 'R')) {
     echo "<script> window.location = 'inicio'; </script>";
 }
 
@@ -201,8 +201,10 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                 <div class="modal-footer bg-dark">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
                     <button type="submit" class="btn btn-success">
-                        <i class="fas fa-save"></i>Guardar</button>
+                        <i class="fas fa-save"></i> Guardar</button>
+                    <?php endif ?>
                 </div>
 
                 <?php

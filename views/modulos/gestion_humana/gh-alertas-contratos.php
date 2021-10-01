@@ -1,6 +1,6 @@
 <?php
 
-if (!validarModulo('M_GESTION_HUMANA')) {
+if (!validarPermiso('M_GESTION_HUMANA', 'R')) {
     echo "<script> window.location = 'inicio'; </script>";
 }
 

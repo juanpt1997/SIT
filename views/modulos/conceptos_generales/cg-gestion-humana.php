@@ -1,4 +1,9 @@
 <?php
+
+if (!validarPermiso('M_GESTION_HUMANA', 'U')) {
+    echo "<script> window.location = 'inicio'; </script>";
+}
+
 $empresa = ControladorEmpresa::ctrVerEmpresa();
 $departamentos = ControladorCiudades::ctrListaDepar();
 ?>

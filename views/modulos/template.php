@@ -1,6 +1,6 @@
 <?php
  
-if(!validarModulo('CARGAR_OPCION')) {
+if (!validarPermiso('CARGAR_OPCION', 'R')) {
     echo "<script> window.location = 'inicio'; </script>";
 }
 

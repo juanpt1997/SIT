@@ -1,6 +1,6 @@
 <?php
 
-if (!validarModulo('M_CONTRATOS')) {
+if (!validarPermiso('M_CONTRATOS', 'R')) {
     echo "<script> window.location = 'inicio'; </script>";
 }
 
@@ -46,110 +46,110 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                 <div class="col-12">
                     <div class="card card-outline card-success">
                         <div class="card-body">
-                            
-                                <table id="tblCotizaciones" class="table table-responsive table-sm table-striped table-bordered table-hover w-100 text-center">
-                                    <thead class="text-sm text-center text-nowrap">
+
+                            <table id="tblCotizaciones" class="table table-responsive table-sm table-striped table-bordered table-hover w-100 text-center">
+                                <thead class="text-sm text-center text-nowrap">
+                                    <tr>
+                                        <th>...</th>
+                                        <th style="min-width:90px;">ID</th>
+                                        <th>Nombre contratante</th>
+                                        <th style="min-width:90px;">NIT/CC</th>
+                                        <th>Tipo documento</th>
+                                        <th>Dirección</th>
+                                        <th>Ciudad</th>
+                                        <th style="min-width:90px;">Teléfono 1</th>
+                                        <th style="min-width:90px;">Teléfono 2</th>
+                                        <th>Nombre contacto</th>
+                                        <th>Tipo documento</th>
+                                        <th>Documento contacto</th>
+                                        <th>Cc. Expedida</th>
+                                        <th style="min-width:90px;">Ciudad</th>
+                                        <th style="min-width:90px;">Empresa</th>
+                                        <th>Origen</th>
+                                        <th>Destino</th>
+                                        <th style="min-width:70px;">Ruta</th>
+                                        <th>Fecha recepción</th>
+                                        <th>Fecha respuesta</th>
+                                        <th>Fecha inicio</th>
+                                        <th style="min-width:90px;">Fecha final</th>
+                                        <th>Sucursal</th>
+                                        <th style="min-width:90px;">Duración</th>
+                                        <th>Hora salida</th>
+                                        <th>Hora recogida</th>
+                                        <th>Tipo vehículo</th>
+                                        <th>Otro vehiculo</th>
+                                        <th>Nro. Vehículos</th>
+                                        <th style="min-width:90px;">Capacidad</th>
+                                        <th>Valor / vehículo</th>
+                                        <th style="min-width:90px;">Valor total</th>
+                                        <th style="min-width:90px;">Cotización</th>
+                                        <th>Clasificación</th>
+                                        <th style="min-width:90px;">Música</th>
+                                        <th style="min-width:90px;">Aire</th>
+                                        <th style="min-width:90px;">Wi-Fi</th>
+                                        <th>Silla reclinable</th>
+                                        <th style="min-width:90px;">Baño</th>
+                                        <th style="min-width:90px;">Bodega</th>
+                                        <th style="min-width:90px;">Otro</th>
+                                        <th>Realiza viaje</th>
+                                        <th style="min-width:90px;">Por qué</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbodyCotizaciones" class="text-sm">
+                                    <?php foreach ($Cotizaciones as $key => $value) : ?>
                                         <tr>
-                                            <th>...</th>
-                                            <th style="min-width:90px;">ID</th>
-                                            <th>Nombre contratante</th>
-                                            <th style="min-width:90px;">NIT/CC</th>
-                                            <th>Tipo documento</th>
-                                            <th>Dirección</th>
-                                            <th>Ciudad</th>
-                                            <th style="min-width:90px;">Teléfono 1</th>
-                                            <th style="min-width:90px;">Teléfono 2</th>
-                                            <th>Nombre contacto</th>
-                                            <th>Tipo documento</th>
-                                            <th>Documento contacto</th>
-                                            <th>Cc. Expedida</th>
-                                            <th style="min-width:90px;">Ciudad</th>
-                                            <th style="min-width:90px;">Empresa</th>
-                                            <th>Origen</th>
-                                            <th>Destino</th>
-                                            <th style="min-width:70px;">Ruta</th>
-                                            <th>Fecha recepción</th>
-                                            <th>Fecha respuesta</th>
-                                            <th>Fecha inicio</th>
-                                            <th style="min-width:90px;">Fecha final</th>
-                                            <th>Sucursal</th>
-                                            <th style="min-width:90px;">Duración</th>
-                                            <th>Hora salida</th>
-                                            <th>Hora recogida</th>
-                                            <th>Tipo vehículo</th>
-                                            <th>Otro vehiculo</th>
-                                            <th>Nro. Vehículos</th>
-                                            <th style="min-width:90px;">Capacidad</th>
-                                            <th>Valor / vehículo</th>
-                                            <th style="min-width:90px;">Valor total</th>
-                                            <th style="min-width:90px;">Cotización</th>
-                                            <th>Clasificación</th>
-                                            <th style="min-width:90px;">Música</th>
-                                            <th style="min-width:90px;">Aire</th>
-                                            <th style="min-width:90px;">Wi-Fi</th>
-                                            <th>Silla reclinable</th>
-                                            <th style="min-width:90px;">Baño</th>
-                                            <th style="min-width:90px;">Bodega</th>
-                                            <th style="min-width:90px;">Otro</th>
-                                            <th>Realiza viaje</th>
-                                            <th style="min-width:90px;">Por qué</th>
+                                            <td class="text-center">
+                                                <div class="btn-group" role="group" aria-label="Button group">
+                                                    <button class="btn btn-toolbar btn-sm btn-info btn-editarcotizacion" id_cot="<?= $value['idcotizacion'] ?>" document="<?= $value['Documento'] ?>" data-toggle="modal" data-target="#cotizacionmodal"><i class="fas fa-edit"></i></button>
+                                                </div>
+                                            </td>
+                                            <td><?= $value['idcotizacion'] ?></td>
+                                            <td><?= $value['nombre_con'] ?></td>
+                                            <td><?= $value['documento_con'] ?></td>
+                                            <td><?= $value['tipo_doc_con'] ?></td>
+                                            <td><?= $value['direccion_con'] ?></td>
+                                            <td><?= $value['ciudadcon'] ?></td>
+                                            <td><?= $value['tel_1'] ?></td>
+                                            <td><?= $value['tel_2'] ?></td>
+                                            <td><?= $value['nombre_respo'] ?></td>
+                                            <td><?= $value['tipo_doc_respo'] ?></td>
+                                            <td><?= $value['documento_res'] ?></td>
+                                            <td><?= $value['cedulaexpe'] ?></td>
+                                            <td><?= $value['ciudadres'] ?></td>
+                                            <td><?= $value['empresa'] ?></td>
+                                            <td><?= $value['origen'] ?></td>
+                                            <td><?= $value['destino'] ?></td>
+                                            <td><?= $value['descripcion'] ?></td>
+                                            <td><?= $value['fecha_solicitud'] ?></td>
+                                            <td><?= $value['fecha_solucion'] ?></td>
+                                            <td><?= $value['fecha_inicio'] ?></td>
+                                            <td><?= $value['fecha_fin'] ?></td>
+                                            <td><?= $value['sucursal'] ?></td>
+                                            <td><?= $value['duracion'] ?></td>
+                                            <td><?= $value['hora_salida'] ?></td>
+                                            <td><?= $value['hora_recogida'] ?></td>
+                                            <td><?= $value['tipov'] ?></td>
+                                            <td><?= $value['otro_v'] ?></td>
+                                            <td><?= $value['nro_vehiculos'] ?></td>
+                                            <td><?= $value['capacidad'] ?></td>
+                                            <td><?= $value['valorxvehiculo'] ?></td>
+                                            <td><?= $value['valortotal'] ?></td>
+                                            <td><?= $value['cotizacion'] ?></td>
+                                            <td><?= $value['clasificacion'] ?></td>
+                                            <td><?= $value['musica'] ?></td>
+                                            <td><?= $value['aire'] ?></td>
+                                            <td><?= $value['wifi'] ?></td>
+                                            <td><?= $value['silleriareclinable'] ?></td>
+                                            <td><?= $value['bano'] ?></td>
+                                            <td><?= $value['bodega'] ?></td>
+                                            <td><?= $value['otro'] ?></td>
+                                            <td><?= $value['realiza_viaje'] ?></td>
+                                            <td><?= $value['porque'] ?></td>
                                         </tr>
-                                    </thead>
-                                    <tbody id="tbodyCotizaciones" class="text-sm">
-                                        <?php foreach ($Cotizaciones as $key => $value) : ?>
-                                            <tr>
-                                                <td class="text-center">
-                                                    <div class="btn-group" role="group" aria-label="Button group">
-                                                        <button class="btn btn-toolbar btn-sm btn-info btn-editarcotizacion" id_cot="<?= $value['idcotizacion'] ?>" document="<?= $value['Documento'] ?>" data-toggle="modal" data-target="#cotizacionmodal"><i class="fas fa-edit"></i></button>
-                                                    </div>
-                                                </td>
-                                                <td><?= $value['idcotizacion'] ?></td>
-                                                <td><?= $value['nombre_con'] ?></td>
-                                                <td><?= $value['documento_con'] ?></td>
-                                                <td><?= $value['tipo_doc_con'] ?></td>
-                                                <td><?= $value['direccion_con'] ?></td>
-                                                <td><?= $value['ciudadcon'] ?></td>
-                                                <td><?= $value['tel_1'] ?></td>
-                                                <td><?= $value['tel_2'] ?></td>
-                                                <td><?= $value['nombre_respo'] ?></td>
-                                                <td><?= $value['tipo_doc_respo'] ?></td>
-                                                <td><?= $value['documento_res'] ?></td>
-                                                <td><?= $value['cedulaexpe'] ?></td>
-                                                <td><?= $value['ciudadres'] ?></td>
-                                                <td><?= $value['empresa'] ?></td>
-                                                <td><?= $value['origen'] ?></td>
-                                                <td><?= $value['destino'] ?></td>
-                                                <td><?= $value['descripcion'] ?></td>
-                                                <td><?= $value['fecha_solicitud'] ?></td>
-                                                <td><?= $value['fecha_solucion'] ?></td>
-                                                <td><?= $value['fecha_inicio'] ?></td>
-                                                <td><?= $value['fecha_fin'] ?></td>
-                                                <td><?= $value['sucursal'] ?></td>
-                                                <td><?= $value['duracion'] ?></td>
-                                                <td><?= $value['hora_salida'] ?></td>
-                                                <td><?= $value['hora_recogida'] ?></td>
-                                                <td><?= $value['tipov'] ?></td>
-                                                <td><?= $value['otro_v'] ?></td>
-                                                <td><?= $value['nro_vehiculos'] ?></td>
-                                                <td><?= $value['capacidad'] ?></td>
-                                                <td><?= $value['valorxvehiculo'] ?></td>
-                                                <td><?= $value['valortotal'] ?></td>
-                                                <td><?= $value['cotizacion'] ?></td>
-                                                <td><?= $value['clasificacion'] ?></td>
-                                                <td><?= $value['musica'] ?></td>
-                                                <td><?= $value['aire'] ?></td>
-                                                <td><?= $value['wifi'] ?></td>
-                                                <td><?= $value['silleriareclinable'] ?></td>
-                                                <td><?= $value['bano'] ?></td>
-                                                <td><?= $value['bodega'] ?></td>
-                                                <td><?= $value['otro'] ?></td>
-                                                <td><?= $value['realiza_viaje'] ?></td>
-                                                <td><?= $value['porque'] ?></td>
-                                            </tr>
-                                        <?php endforeach ?>
-                                    </tbody>
-                                </table>
-                            
+                                    <?php endforeach ?>
+                                </tbody>
+                            </table>
+
                         </div><!-- card-body-->
                     </div><!-- card-->
                 </div><!-- col-->
@@ -661,10 +661,12 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                 <div class="modal-footer bg-dark">
                     <button type="button" class="btn btn-danger btn-cancelar" data-dismiss="modal">Cancelar</button>
+                    <?php if (validarPermiso('M_CONTRATOS', 'U')) : ?>
                     <button type="submit" class="btn btn-success">
                         <i class="fas fa-save"></i>
                         Guardar
                     </button>
+                    <?php endif ?>
                 </div>
                 <?php
                 $CrearCotizacion = new ControladorCotizaciones();

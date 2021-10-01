@@ -54,63 +54,69 @@
                 <!-- ===================================================
                     * Conceptos generales
                 =================================================== -->
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-building"></i>
-                        <p>
-                            Conceptos generales
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <!-- ===================================================
-                                Gestión humana
-                            =================================================== -->
-                        <li class="nav-item">
-                            <a href="cg-gestion-humana" class="nav-link" target="_blank">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Gestión humana</p>
-                            </a>
-                        </li>
+                <?php if (validarPermiso('M_GESTION_HUMANA', 'U') || validarPermiso('M_VEHICULAR', 'U')) : ?>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-building"></i>
+                            <p>
+                                Conceptos generales
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <?php if (validarPermiso('M_GESTION_HUMANA', 'U')) : ?>
+                                <!-- ===================================================
+                                        Gestión humana
+                                    =================================================== -->
+                                <li class="nav-item">
+                                    <a href="cg-gestion-humana" class="nav-link" target="_blank">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Gestión humana</p>
+                                    </a>
+                                </li>
+                            <?php endif ?>
 
-                        <!-- ===================================================
-                                Vehicular
-                            =================================================== -->
-                        <li class="nav-item">
-                            <a href="cg-vehicular" class="nav-link" target="_blank">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Vehicular</p>
-                            </a>
-                        </li>
+                            <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
+                                <!-- ===================================================
+                                        Vehicular
+                                    =================================================== -->
+                                <li class="nav-item">
+                                    <a href="cg-vehicular" class="nav-link" target="_blank">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Vehicular</p>
+                                    </a>
+                                </li>
+                            <?php endif ?>
 
-                        <?php if (validarModulo('M_OPCIONES')) : ?>
-                            <!-- ===================================================
-                                Mantenimiento
-                            =================================================== -->
-                            <li class="nav-item">
-                                <a href="cg-mantenimiento" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Mantenimiento</p>
-                                </a>
-                            </li>
+                            <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
+                                <!-- ===================================================
+                                    Mantenimiento
+                                =================================================== -->
+                                <li class="nav-item">
+                                    <a href="cg-mantenimiento" class="nav-link" target="_blank">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Mantenimiento</p>
+                                    </a>
+                                </li>
 
-                            <!-- ===================================================
-                                Seguridad
-                            =================================================== -->
-                            <li class="nav-item">
-                                <a href="cg-seguridad" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Seguridad</p>
-                                </a>
-                            </li>
-                        <?php endif ?>
-                    </ul>
-                </li>
+                                <!-- ===================================================
+                                    Seguridad
+                                =================================================== -->
+                                <li class="nav-item">
+                                    <a href="cg-seguridad" class="nav-link" target="_blank">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Seguridad</p>
+                                    </a>
+                                </li>
+                            <?php endif ?>
+                        </ul>
+                    </li>
+                <?php endif ?>
 
                 <!-- ===================================================
                     * Gestión Humana
                 =================================================== -->
-                <?php if (validarModulo('M_GESTION_HUMANA')) : ?>
+                <?php if (validarPermiso('M_GESTION_HUMANA', 'R')) : ?>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-user-friends"></i>
@@ -195,7 +201,7 @@
                 <!-- ===================================================
                     * Vehicular
                 =================================================== -->
-                <?php if (validarModulo('M_VEHICULAR')) : ?>
+                <?php if (validarPermiso('M_VEHICULAR', 'R')) : ?>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-truck"></i>
@@ -253,7 +259,7 @@
                 <!-- ===================================================
                     * Contratos
                 =================================================== -->
-                <?php if (validarModulo('M_CONTRATOS')) : ?>
+                <?php if (validarPermiso('M_CONTRATOS', 'R')) : ?>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-folder-open"></i>
@@ -310,9 +316,9 @@
 
 
                 <!-- ===================================================
-                    ** Operaciones
+                    * Operaciones
                 =================================================== -->
-                <?php if (validarModulo('M_CONTRATOS')) : ?>
+                <?php if (validarPermiso('M_OPERACIONES', 'R')) : ?>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-road"></i>
@@ -340,7 +346,7 @@
                                     <p>Protocolo de alistamiento</p>
                                 </a>
                             </li>
-                            <?php if (validarModulo('M_OPCIONES')) : ?>
+                            <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                                 <!-- ===================================================
                                         Plan de Rodamiento
                                     =================================================== -->
@@ -358,7 +364,7 @@
                 <!-- ===================================================
                     * Control Usuarios
                 =================================================== -->
-                <?php if (validarModulo('M_USUARIOS')) : ?>
+                <?php if (validarPermiso('M_USUARIOS', 'R')) : ?>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-users"></i>
@@ -393,7 +399,7 @@
                 <!-- ===================================================
                     ** Mantenimiento
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-cogs"></i>
@@ -437,7 +443,7 @@
                 <!-- ===================================================
                     ** DOCUMENTOS CONTABLE
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-book"></i>
@@ -449,7 +455,7 @@
                 <!-- ===================================================
                     ** COMERCIAL
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-chart-line"></i>
@@ -461,7 +467,7 @@
                 <!-- ===================================================
                     ** ESCOLAR
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-school"></i>
@@ -473,7 +479,7 @@
                 <!-- ===================================================
                     ** CONTRATOS FIJOS
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-file-contract"></i>
@@ -485,7 +491,7 @@
                 <!-- ===================================================
                     ** COMPRAS
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-shopping-cart"></i>
@@ -497,7 +503,7 @@
                 <!-- ===================================================
                     ** ESTANDAR PROCESOS DE CALIDAD
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-tasks"></i>
@@ -509,7 +515,7 @@
                 <!-- ===================================================
                     ** FORMATOS DE CALIDAD
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-clipboard-check"></i>
@@ -521,7 +527,7 @@
                 <!-- ===================================================
                     ** Rastreo Satelital
                 =================================================== -->
-                <?php if (validarModulo('M_OPCIONES')) : ?>
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-map-marked-alt"></i>

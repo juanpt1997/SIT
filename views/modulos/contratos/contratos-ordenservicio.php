@@ -1,6 +1,6 @@
 <?php
 
-if (!validarModulo('M_CONTRATOS')) {
+if (!validarPermiso('M_CONTRATOS', 'R')) {
     echo "<script> window.location = 'inicio'; </script>";
 }
 
@@ -405,10 +405,12 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
 
                 <div class="modal-footer bg-dark">
                     <button type="button" class="btn btn-danger btn-cancelar" data-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-success">
-                        <i class="fas fa-save"></i>
-                        Guardar
-                    </button>
+                    <?php if (validarPermiso('M_CONTRATOS', 'U')) : ?>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i>
+                            Guardar
+                        </button>
+                    <?php endif ?>
                 </div>
                 <?php
                 $CrearOrden = new ControladorOrdenServicio();
