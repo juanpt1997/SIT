@@ -102,7 +102,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                 <label for=""><b><i>Placa</i></b></label>
                                                                                 <div class="input-group">
                                                                                     <select id="placa_invent" class="form-control select2-single inventario" name="idvehiculo" style="width: 99%">
-                                                                                        <option value="null">-Seleccione la placa deseada-</option>
+                                                                                        <option value="">-Seleccione la placa deseada-</option>
                                                                                         <?php foreach ($Vehiculos as $key => $value) : ?>
                                                                                             <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?></option>
                                                                                         <?php endforeach ?>
@@ -171,6 +171,8 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                     </div>
 
                                                                     <div class="col">
+
+                                                                        <input type="hidden" id="observador_conductoresInventario" idconductor="">
 
                                                                         <div class="col">
                                                                             <div class="form-group">
@@ -2524,7 +2526,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                             <div class="text-center">
                                                                 <button type="submit" form="formulario_inventario" class="btn btn-lg btn-success">
                                                                     <i class="fas fa-save"></i>Guardar</button>
-
+                                                
                                                                 <button type="button" class="btn btn-lg btn-danger cancelar" data-dismiss="modal">Cancelar</button>
                                                             </div>
 
@@ -2610,7 +2612,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
 
                                                     <?php
                                                     $guardarInventario = new ControladorInventario();
-                                                    $guardarInventario->ctrAgregarInventario();
+                                                    $guardarInventario->ctrAgregarEditarInventario();
                                                     ?>
                                                     </form>
                                                     <!-- /.card -->
@@ -2645,9 +2647,8 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                     <table id="tabla_resumen_inventario" class="table table-sm table-bordered table-striped text-center nowrap tablasBtnExport">
                         <thead>
                             <tr>
-                                <th colspan="2"></th>
+                                <th colspan="4"></th>
                                 <th colspan="3">VEHÍCULO</th>
-                                <th colspan="2"></th>
                                 <th colspan="9">LÁMINAS</th>
                                 <th colspan="8">VIDRIOS Y ESPEJOS</th>
                                 <th colspan="9">LUCES</th>
@@ -2661,11 +2662,11 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                             <tr>
                                 <th>...</th>
                                 <th>ID</th>
+                                <th>Fecha</th>
+                                <th>Entrega/Recibe</th>
                                 <th>Placa</th>
                                 <th>Número interno</th>
                                 <th>Conductor</th>
-                                <th>Fecha</th>
-                                <th>Entrega/Recibe</th>
                                 <!--LAMINAS-->
                                 <th>Techo exterior</th>
                                 <th>Techo interior</th>
@@ -2799,14 +2800,14 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                 ?>
                                 <tr>
                                     <td>
-                                        <button type="button" class="btn btn-success btn-sm btn-editarInventario"><i class="fas fa-edit"></i></button>
+                                        <button type="button" class="btn btn-success btn-sm btn-editarInventario" id_inventario="<?= $value['id'] ?>"><i class="fas fa-edit"></i></button>
                                     </td>
                                     <td><?= $value['id'] ?></td>
+                                    <td><?= $value['fecha_inventario'] ?></td>
+                                    <td><?= ControladorInventario::TraducirEstadoInventario($value['recepcion_entrega_vehiculo']) ?></td>
                                     <td><?= $value['placa'] ?></td>
                                     <td><?= $value['numinterno'] ?></td>
                                     <td><?= $value['conductor'] ?></td>
-                                    <td><?= $value['fecha_inventario'] ?></td>
-                                    <td><?= ControladorInventario::TraducirEstadoInventario($value['recepcion_entrega_vehiculo']) ?></td>
                                     <td><?= ControladorInventario::TraducirEstadoInventario($value['Techo_exterior']) ?></td>
                                     <td><?= ControladorInventario::TraducirEstadoInventario($value['Techo_interior']) ?></td>
                                     <td><?= ControladorInventario::TraducirEstadoInventario($value['Frente']) ?></td>

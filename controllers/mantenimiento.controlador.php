@@ -143,9 +143,9 @@ class ControladorInventario
 	 /* ===================================================
        AGREGAR INVENTARIO
     ===================================================*/
-    public function ctrAgregarInventario()
+    public function ctrAgregarEditarInventario()
     {
-        if( isset($_POST['idvehiculo'])){
+        if(isset($_POST['idvehiculo'])){
 
             $datos = array(
 				'idvehiculo' => $_POST['idvehiculo'],
@@ -240,6 +240,7 @@ class ControladorInventario
                 'Placas_reglamentarias' => $_POST['Placas_reglamentarias']
 			);
 
+
 			$responseModel = ModeloInventario::mdlAgregarInventario($datos);
 
 			echo $responseModel;
@@ -289,7 +290,7 @@ class ControladorInventario
     ===================================================*/
     static public function ctrListaInventario()
     {
-        $respuesta = ModeloInventario::mdlListarInventario();
+        $respuesta = ModeloInventario::mdlListarInventario(null);
         return $respuesta;
     }
 

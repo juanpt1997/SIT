@@ -52,6 +52,12 @@ class AjaxInventario
         echo json_encode($respuesta);
     }
 
+    static public function ajaxDatosInventario($documento)
+    {
+        $respuesta = ModeloInventario::mdlListarInventario($documento);
+        echo json_encode($respuesta);
+    }
+
 }
 
 #Llamados ajax proveedores
@@ -66,4 +72,8 @@ if (isset($_POST['EliminarProveedor']) && $_POST['EliminarProveedor'] == "ok") {
 #Llamados ajax inventario
 if (isset($_POST['LicenciasxVehiculo']) && $_POST['LicenciasxVehiculo'] == "ok") {
     AjaxInventario::ajaxLicenciaxVehiculo($_POST['idconductor']);
+}
+
+if (isset($_POST['DatosInventario']) && $_POST['DatosInventario'] == "ok") {
+    AjaxInventario::ajaxDatosInventario($_POST['id']);
 }

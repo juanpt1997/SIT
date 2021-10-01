@@ -275,21 +275,18 @@ $(document).ready(function () {
                 processData: false,
                 success: function (response) {
                     if (response != "") {
+                        //Guarda en KEYS los elementos llaves, nombres, name del JSON
                         var keys = Object.keys(response);
+                        //Guarda en VALUES los elementos de valor del JSON
                         var values = Object.values(response);
 
                         // Recorremos ambos arreglos
                         for (let index = 0; index < keys.length; index++) {
-                            // NO tomamos las llaves numericas
+                            // NO tomamos las llaves numericas (normalmente un json repite el arreglo json con llaves numericos)
                             if (isNaN(keys[index])) {
                                 if (keys[index] != "placa" && keys[index] != "numinterno" && keys[index] != "id" && keys[index] != "idvehiculo" && keys[index] != "idconductor" && keys[index] != "fechaalista") {
                                     // Si el input es un check - radio
                                     $(`input[name='${keys[index]}'][value='${values[index]}']`).iCheck('check');
-
-                                    // Si el input es distinto a un radio button
-                                    if ($(`input[name='${keys[index]}']`).attr("type") != "radio") {
-                                        $(`input[name='${keys[index]}']`).val(values[index]);
-                                    }
                                 }
                             }
                         }

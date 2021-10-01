@@ -89,7 +89,6 @@ $(document).ready(function () {
       });
     });
   }
-
   /* ===================================================
     * INVENTARIO
     ===================================================*/
@@ -97,14 +96,12 @@ $(document).ready(function () {
     window.location.href == `${urlPagina}m-inventario/` ||
     window.location.href == `${urlPagina}m-inventario`
   ) {
-
-
-    //EVENTO QUE MUESTRA LOS CONDCUTORES SEGUN LA PLACA DEL VEHICULO
+    //EVENTO QUE MUESTRA LOS CONDUCTORES SEGUN LA PLACA DEL VEHICULO
     $(document).on("change", "#placa_invent", function () {
+      $(".documentos").val("").removeClass("bg-danger bg-success");
       let idvehiculo = $(this).val();
 
-      if(idvehiculo == "null")
-      {
+      if (idvehiculo == "null") {
         $(".documentos").val("");
       }
 
@@ -149,9 +146,9 @@ $(document).ready(function () {
               element.fechafin >= moment().format("YYYY-MM-DD")
                 ? "bg-success"
                 : "bg-danger";
-            $(`#documento_${element.idtipodocumento}`).addClass(bg);              
-              // Asigno valor fecha
-              $(`#documento_${element.idtipodocumento}`).val(element.fechafin);
+            $(`#documento_${element.idtipodocumento}`).addClass(bg);
+            // Asigno valor fecha
+            $(`#documento_${element.idtipodocumento}`).val(element.fechafin);
           });
         },
       });
@@ -170,8 +167,6 @@ $(document).ready(function () {
         processData: false,
         success: function (response) {
           if (response != "") {
-            console.log(response);
-
             let htmlSelect = `<option value="" selected>-Seleccione un conductor</option>`;
             if (response != "") {
               response.forEach((element) => {
@@ -179,30 +174,38 @@ $(document).ready(function () {
               });
             }
             $(".conductores").html(htmlSelect);
-            Swal.fire({
-              icon: "success",
-              text: "Seleccione un conductor",
-              showConfirmButton: true,
-              confirmButtonText: "Cerrar",
-              closeOnConfirm: false,
-            });
+            // Swal.fire({
+            //   icon: "success",
+            //   text: "Seleccione un conductor",
+            //   showConfirmButton: true,
+            //   confirmButtonText: "Cerrar",
+            //   closeOnConfirm: false,
+            // });
+
+            // Accionar el observador
+            $("#observador_conductoresInventario").trigger("change");
           } else {
             Swal.fire({
               icon: "warning",
-              text: "No se ha encontrado conductor con esa placa",
+              title: "No se ha encontrado conductor",
+              text: "Seleccione otra placa",
               showConfirmButton: true,
               confirmButtonText: "Cerrar",
               closeOnConfirm: false,
             });
+            //RESET DE VALOR
+            $(".documentos").val("").removeClass("bg-danger bg-success");
+            $("#conductor_invent").empty();
+            $(".inventario").val("");
+            $(".inventario").prop("checked", false);
           }
         },
       });
     });
 
-    //EVENTO QUE MUESTRA EL TIPO DE LICENCIA SEGUN EL CONDUCTOR 
+    //EVENTO QUE MUESTRA EL TIPO DE LICENCIA SEGUN EL CONDUCTOR
     $(document).on("change", "#conductor_invent", function () {
       let idconductor = $(this).val();
-
       var datos = new FormData();
       datos.append("LicenciasxVehiculo", "ok");
       datos.append("idconductor", idconductor);
@@ -223,18 +226,75 @@ $(document).ready(function () {
       });
     });
 
-    $(".btn-editarInventario").on('click', function () {
+    /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+    ELEMENTO OBSERVADOR QUE PONE EL CONDUCTOR CUANDO SE ACTUALIZA EL SELECT (Permite ver el valor que tiene el slect conductores al editar)
+    ==========================================================================*/
+    $(document).on("change", "#observador_conductoresInventario", function () {
+      let idconductor = $(this).attr("idconductor");
+      console.log(idconductor);
+      setTimeout(() => {
+        $("#conductor_invent").val(idconductor).trigger("change");
+      }, 1000);
+    });
 
+    //BOTON EDITAR UN ELEMENTO DEL INVENTARIO
+    $(".btn-editarInventario").on("click", function () {
       //INSTRUCCION PARA EXPANDIR EL COLLAPSE DEL DATA WIDGET DEL CARD INVENTARIO
-      $('#card-inventario').CardWidget('expand');
-      //LLevar la atencion del cursor al primer INPUT      
-      $("#placa_invent").focus();
-      Swal.fire(
-        'Actualizar',
-        'Actualizando datos',
-        'success'
-      )
-      
+      $("#card-inventario").CardWidget("expand");
+      $(window).scrollTop(0);
+
+      let id = $(this).attr("id_inventario");
+      let datos = new FormData();
+      datos.append("DatosInventario", "ok");
+      datos.append("id", id);
+      $.ajax({
+        type: "POST",
+        url: "ajax/mantenimiento.ajax.php",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (response) {
+          $("#placa_invent").val(response.idvehiculo).trigger("change");
+          $("#observador_conductoresInventario").attr("idconductor", response.idconductor);
+          $("#kilo_invent").val(response.kilometraje);
+          $("#fecha_invent").val(response.fecha_inventario);
+
+          var keys = Object.keys(response);
+          var values = Object.values(response);
+
+          // Recorremos ambos arreglos
+          for (let index = 0; index < keys.length; index++) {
+            // NO tomamos las llaves numericas
+            if (isNaN(keys[index])) {
+                if (keys[index] != "idvehiculo" && keys[index] != "tipo_vel" && keys[index] != "numinter_invent" && keys[index] != "marca_invent" && keys[index] != "modelo_invent" && keys[index] != "idconductor" && keys[index] != "categoria_invent" && keys[index] != "vencimineto_inventario") {
+                    // Si el input es un check - radio
+                    $(`input[name='${keys[index]}'][value='${values[index]}']`).iCheck('check');
+
+                    // Si el input es distinto a un radio button
+                    if ($(`input[name='${keys[index]}']`).attr("type") != "radio") {
+                        $(`input[name='${keys[index]}']`).val(values[index]);
+                    }
+                }
+            }
+        }
+
+
+
+        },
+      });
+    });
+
+    //BOTON CANCELAR LA SELECCION DE INVENTARIO
+    $(".cancelar").click(function (e) {
+      e.preventDefault();
+      $(".documentos").val("").removeClass("bg-danger bg-success");
+      // $(".conductores").val("");
+      // $(".inventario").val("");
+      // $(".inventario").prop("checked", false);
+      $("#formulario_inventario").trigger("reset");//reset formulario
+      $(".select2-single").trigger("change");
     });
 
     //Funcion que carga las fotos de un vehiculo
@@ -242,7 +302,6 @@ $(document).ready(function () {
       let htmljumbo = ``;
 
       for (let index = 0; index < response.length; index++) {
-
         htmljumbo += `<div class="jumbotron jumbotron-fluid">
                         <div class="container insertar_fotos">
                           <img src="${response[index].ruta_foto}" class="d-block w-100" alt="...">
@@ -253,13 +312,5 @@ $(document).ready(function () {
 
       $("#col_fotos_inventario").html(htmljumbo);
     };
-
-    $(".cancelar").click(function (e) { 
-      e.preventDefault();
-      $(".documentos").val("");
-      $(".conductores").val("");
-      $(".inventario").val("");      
-      $('input[type=checkbox]').prop('checked',false);
-    });
   }
 });
