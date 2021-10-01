@@ -28,9 +28,19 @@ class AjaxPersonal
         foreach ($respuestaBD as $key => $value) {
             # Activo
             if ($value['activo'] == 'S') {
-                $activo = "<button class='btn btn-sm btn-success btnActivarPersonal' idPersonal='{$value['idPersonal']}' estado='S'>Activo</button>";
+                /* Permiso de usuario */
+                if (validarPermiso('M_GESTION_HUMANA', 'U')) {
+                    $activo = "<button class='btn btn-sm btn-success btnActivarPersonal' idPersonal='{$value['idPersonal']}' estado='S'>Activo</button>";
+                } else {
+                    $activo = "<button class='btn btn-sm btn-success'>Activo</button>";
+                }
             } else {
-                $activo = "<button class='btn btn-sm btn-danger btnActivarPersonal' idPersonal='{$value['idPersonal']}' estado='N'>Inactivo</button>";
+                /* Permiso de usuario */
+                if (validarPermiso('M_GESTION_HUMANA', 'U')) {
+                    $activo = "<button class='btn btn-sm btn-danger btnActivarPersonal' idPersonal='{$value['idPersonal']}' estado='N'>Inactivo</button>";
+                } else {
+                    $activo = "<button class='btn btn-sm btn-danger'>Inactivo</button>";
+                }
             }
 
             # Foto
