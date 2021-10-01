@@ -121,6 +121,12 @@ $Perfiles = ControladorUsuarios::ctrListadoPerfiles();
             <div class="modal-body">
                 <form action="" method="post" id="datosrol_form">
                     <input type="hidden" id="idRoles" name="idRoles" value="">
+                    <?php 
+                    
+                    $BotonEditar = "{$value['idRoles']}
+                                    <button type='button' class='btn btn-success btn-sm btn-editarroles' data-toggle='modal' data-target='#modal-nuevorol' idRoles = {$value['idRoles']}><i class='fas fa-edit'></i></button>"
+                    
+                    ?>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12">
