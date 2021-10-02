@@ -229,7 +229,7 @@ const dataTableCustom = (tabla, buttons) => {
             }
 
         },
-        "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todo"]]
+        "lengthMenu": [[10, 25, 50, 75, -1], [10, 25, 50, 75, "Todo"]]
 
     });
 
