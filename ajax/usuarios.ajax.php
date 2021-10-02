@@ -85,7 +85,16 @@ class AjaxUsuarios
     ===================================================*/
 
     static public function AjaxActivarPerfil($idPerfil,$activo){
-        $respuesta = ControladorUsuarios::ctrActualizarRol($idPerfil, $activo);
+        $respuesta = ControladorUsuarios::ctrActualizarPerfil($idPerfil, $activo);
+        echo $respuesta;
+    }
+
+    /* ===================================================
+        BORRAR PERFIL
+    ===================================================*/
+
+    static public function AjaxBorrarPerfil($idPerfil){
+        $respuesta = controladorUsuarios::ctrBorrarPerfil($idPerfil);
         echo $respuesta;
     }
 
@@ -144,8 +153,8 @@ if (isset($_POST['ActivarPerfil']) && $_POST['ActivarPerfil'] == "ok"){
         BORRADO LOGICO
     ===================================================*/
 
-// if(isset($_POST['Borrado']) && $_POST['Borrado'] == "ok"){
-//     AjaxUsuarios::AjaxBorrarPerfil()
-// }
+if(isset($_POST['Borrado']) && $_POST['Borrado'] == "ok"){
+    AjaxUsuarios::AjaxBorrarPerfil($_POST['idPerfil']);
+}
 
 

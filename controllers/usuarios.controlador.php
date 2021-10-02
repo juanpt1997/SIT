@@ -126,9 +126,9 @@ class ControladorUsuarios
 	   ACTUALIZAR ROL
 	===================================================*/
 
-	static public function ctrActualizarRol($idPerfil, $activo){
+	static public function ctrActualizarPerfil($idPerfil, $activo){
 		$nuevoActivo = $activo == 1 ? 0 : 1;
-		$respuesta = ModeloUsuarios::mdlActualizarRol($idPerfil,$nuevoActivo);
+		$respuesta = ModeloUsuarios::mdlActualizarPerfil($idPerfil,$nuevoActivo, "activo");
 		return $respuesta;
 	}
 
@@ -137,11 +137,11 @@ class ControladorUsuarios
 	   AGREGAR  ROL
 	===================================================*/
 
-	static public function ctrAgregarEditarRol($value){
+	static public function ctrAgregarEditarPerfil($value){
 		if(isset($_POST['idPerfil']))
 		{
 			if($_POST['idPerfil'] == ""){
-				$AddEditRol = ModeloUsuarios::mdlAgregarRol($_POST);
+				$AddEditRol = ModeloUsuarios::mdlAgregarPerfil($_POST);
 				if($AddEditRol == "ok"){
 					echo "
 							<script>
@@ -162,7 +162,7 @@ class ControladorUsuarios
 								";
 					}
 			}else{
-				$AddEditRol = ModeloUsuarios::mdlEditarRol($_POST);
+				$AddEditRol = ModeloUsuarios::mdlEditarPerfil($_POST);
 				if($AddEditRol == "ok"){
 					echo "
 							<script>
@@ -195,6 +195,18 @@ class ControladorUsuarios
 		$respuesta = ModeloUsuarios::mdlDatosPerfil($idPerfil);
 		return $respuesta;
 	}
+
+	/* ===================================================
+	   BORRADO LOGICO PERFIL
+	===================================================*/
+
+	static public function ctrBorrarPerfil($idPerfil)
+	{
+		$nuevoEstado = 0;
+		$respuesta = ModeloUsuarios::mdlActualizarPerfil($idPerfil, $nuevoEstado, "estado");
+		return $respuesta;
+	}
+
 
 	/* ===================================================
 	   AGREGAR/EDITAR USUARIO
@@ -480,4 +492,16 @@ class ControladorUsuarios
 			}
 		}
 	}
+
+	/* ===================== 
+	  MOSTRAR LISTADO OPCIONES
+	========================= */
+
+	static public function ctrListadoOpciones()
+	{
+		$respuesta = ModeloUsuarios::mdlListadoOpciones();
+		return $respuesta;
+	}
+
+
 }

@@ -251,31 +251,57 @@ if (window.location.href == `${urlPagina}roles-usuarios/` ||
      BORRADO LOGICO
     ===================================================*/
 
-    // $(document).on("click",".btn-eliminarroles", function(){
-    //     var idPerfil = $(this).attr("idPerfil");
-    //     var idEstado = $(this).attr("idEstado");
+    $(document).on("click",".btn-eliminarroles", function(){
+        
+        var idPerfil = $(this).attr("idPerfil");
+        
 
-    //     var datos = new FormData();
-    //     datos.append("Borrado","ok");
-    //     datos.append("idPerfil", idPerfil);
-    //     datos.append("idEstado",idEstado);
+        var datos = new FormData();
+        datos.append("Borrado","ok");
+        datos.append("idPerfil", idPerfil);
+        
 
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "ajax/usuarios.ajax.php",
-    //         data: datos,
-    //         cache: false,
-    //         contentType: false,
-    //         processData: false,
-    //         success: function (response) {
+        $.ajax({
+            type: "POST",
+            url: "ajax/usuarios.ajax.php",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                console.log(response);
+                if(response == "ok"){
+                    
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Perfil eliminado correctamente',						
+                        showConfirmButton: true,
+                        confirmButtonText: 'Cerrar',
+                                    
+                        }).then((result)=>{
 
-    //             console.log(response)
+                            if(result.value){
+                                window.location = 'roles-usuarios';
+                            }
+
+                        })
+
+                }else{
+
+                    Swal.fire({
+                        icon: 'error',
+                        showConfirmButton: true,
+                        confirmButtonColor: '#5cb85c',
+                        text: 'El perfil no se ha podido eliminar'
+                    });
+
+                }
 
 
-    //         }
-    // });
+            }
+        });
 
-
+    });
 
 
 

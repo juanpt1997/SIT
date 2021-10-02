@@ -76,7 +76,7 @@ class ModeloUsuarios
        AGREGAR ROL
     ===================================================*/
 
-    static public function mdlAgregarRol($datos)
+    static public function mdlAgregarPerfil($datos)
     {
         $stmt = conexion::conectar()->prepare("INSERT INTO l_perfiles(perfil,descripcion,activo) VALUES(:perfil,:descripcion,:activo)");
 
@@ -100,7 +100,8 @@ class ModeloUsuarios
        MOSTRAR PERFIL SOLICITADO POR EL ID
     ===================================================*/
 
-    static public function mdlDatosPerfil($idPerfil){
+    static public function mdlDatosPerfil($idPerfil)
+    {
         $stmt = conexion::conectar()->prepare("SELECT * FROM l_perfiles WHERE idPerfil = :idPerfil");
 
 
@@ -119,7 +120,8 @@ class ModeloUsuarios
        EDITAR ROL
     ===================================================*/
     
-    static public function mdlEditarRol($datos){
+    static public function mdlEditarPerfil($datos)
+    {
         $stmt = conexion::conectar()->prepare("UPDATE l_perfiles set perfil =:perfil, descripcion=:descripcion, activo=:activo WHERE idPerfil = :idPerfil");
         
         $stmt->bindParam(":idPerfil", $datos["idPerfil"], PDO::PARAM_INT);
@@ -141,14 +143,15 @@ class ModeloUsuarios
     }
 
     /* ===================================================
-       AGREGAR USUARIO
+       ACTUALIZAR ROL
     ===================================================*/
 
-    static public function mdlActualizarRol($idPerfil,$activo){
-        $stmt = conexion::conectar()->prepare(" UPDATE l_perfiles SET activo = :activo WHERE idPerfil = :idPerfil");
+    static public function mdlActualizarPerfil($idPerfil,$valor, $campo)
+    {
+        $stmt = conexion::conectar()->prepare(" UPDATE l_perfiles SET {$campo} = :{$campo} WHERE idPerfil = :idPerfil");
 
         $stmt->bindParam(":idPerfil", $idPerfil, PDO::PARAM_INT);
-        $stmt->bindParam(":activo", $activo, PDO::PARAM_INT);
+        $stmt->bindParam(":{$campo}", $valor, PDO::PARAM_INT);
 
         if($stmt->execute()){
             $retorno = "ok";;
@@ -165,7 +168,6 @@ class ModeloUsuarios
 
     }
 
-    
     /* ===================================================
        AGREGAR USUARIO
     ===================================================*/
@@ -261,4 +263,18 @@ class ModeloUsuarios
         $stmt->closeCursor();
         return $retorno;
     }
+
+    /* ===================================================
+        LISTADO OPCIONES
+    ===================================================*/
+
+    static public function mdlListadoOpciones()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT o.idOpcion, o.nombre FROM l_opciones o");
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
 }
