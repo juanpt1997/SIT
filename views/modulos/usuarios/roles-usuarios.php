@@ -84,7 +84,7 @@ $Opciones = ControladorUsuarios::ctrListadoOpciones();
                                                     <td><?= $value["descripcion"] ?></td>
                                                     <td><?= $activo ?></td>
                                                     <td>
-                                                        <button type="button" class="btn btn-default btn-sm btn-permisoroles" data-toggle="modal" data-target="#modal-permisoroles"><i class="fas fa-key"></i></button>
+                                                        <button type="button" class="btn btn-default btn-sm btn-permisoroles" idPerfil="<?= $value['idPerfil'] ?>"data-toggle="modal" data-target="#modal-permisoroles"><i class="fas fa-key"></i></button>
                                                         <button type="button" class="btn btn-success btn-sm btn-editarroles" idPerfil="<?= $value['idPerfil'] ?>" data-toggle="modal" data-target="#modal-nuevorol"><i class="fas fa-edit"></i></button>
                                                         <button type="button" class="btn btn-danger btn-sm btn-eliminarroles" idPerfil="<?= $value['idPerfil'] ?>"><i class="fas fa-trash"></i></button>
                                                     </td>
@@ -181,7 +181,7 @@ $Opciones = ControladorUsuarios::ctrListadoOpciones();
             <div class="modal-body">
                 <div class="card-body">
                     <form id="permisos_form" method="post">
-
+                        <input type="hidden" name="idpermisos" id="idpermisos" value="">
 
                         <div class="row">
                             <div class="card-body table-responsive p-0">
@@ -198,35 +198,39 @@ $Opciones = ControladorUsuarios::ctrListadoOpciones();
                                     </thead>
                                     <tbody>
                                         <?php foreach ($Opciones as $key => $value) : ?>
-                                            <tr>
+                                            <tr class="form-group">
                                                 <td><?= $value['idOpcion'] ?></td>
                                                 <td><?= $value['nombre'] ?></td>
                                                 <td>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input class="custom-control-input" type="checkbox" name="Ver[]" id="Ver<?= $key ?>" value="<?=$value['idOpcion']?>" require>
+                                                    <label class="custom-control-label" for="Ver<?= $key ?>"></label>
+                                                </div>   
+                                                </td>
+                                                <td>
                                                     <div class="custom-control custom-checkbox">
-                                                        <input class="custom-control-input" type="checkbox" id="checkver1" value="option1">
-                                                        <label for="checkver1" class="custom-control-label"></label>
+                                                        <input class="custom-control-input" type="checkbox" name="Crear[]" id="Crear<?= $key ?>" value="<?=$value['idOpcion']?>" require>
+                                                        <label class="custom-control-label" for="Crear<?= $key ?>"></label>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="custom-control custom-checkbox">
-                                                        <input class="custom-control-input" type="checkbox" id="checkcrear1" value="option1">
-                                                        <label for="checkcrear1" class="custom-control-label"></label>
+                                                        <input class="custom-control-input" type="checkbox" name="Actualizar[]" id="Actualizar<?= $key ?>" value="<?=$value['idOpcion']?>" require>
+                                                        <label class="custom-control-label" for="Actualizar<?= $key ?>"></label>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="custom-control custom-checkbox">
-                                                        <input class="custom-control-input" type="checkbox" id="checkactualizar1" value="option1">
-                                                        <label for="checkactualizar1" class="custom-control-label"></label>
+                                                        <input class="custom-control-input" type="checkbox" name="Eliminar[]" id="Eliminar<?= $key ?>" value="<?=$value['idOpcion']?>" requiere>
+                                                        <label class="custom-control-label" for="Eliminar<?= $key ?>"></label>
                                                     </div>
                                                 </td>
-                                                <td>
-                                                    <div class="custom-control custom-checkbox">
-                                                        <input class="custom-control-input" type="checkbox" id="checkeliminar1" value="option1">
-                                                        <label for="checkeliminar1" class="custom-control-label"></label>
-                                                    </div>
-                                                </td>
+                                                  
                                             </tr>
                                         <?php endforeach ?>
+                                        <?php 
+                                        $ctrPermisosRol = ControladorUsuarios::ctrEditarPermisosRol();
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>
@@ -238,7 +242,7 @@ $Opciones = ControladorUsuarios::ctrListadoOpciones();
                 </div>
             </div>
             <div class="modal-footer justify-content-center bg-info">
-                <button type="submit" form="permisos_form" class="btn btn-success"><i class="far fa-check-circle"></i> Guardar</button>
+                <button type="submit" form="permisos_form" class="btn btn-success" id="PermisosRoles"><i class="far fa-check-circle"></i> Guardar</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
             </div>
         </div>

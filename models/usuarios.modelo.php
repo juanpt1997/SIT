@@ -277,4 +277,39 @@ class ModeloUsuarios
         return $retorno;
     }
 
+    /* ===================================================
+       ELIMINA PERMISOS PERFIL
+    ===================================================*/
+
+
+    static public function mdlEliminarPermisosRol($idPerfil)
+    {
+        $stmt = Conexion::conectar()->prepare("DELETE FROM l_re_permisos re WHERE idPerfil = :idPerfil");
+
+        $stmt->bindParam(":idPerfil",$idPerfil,PDO::PARAM_INT);
+
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+            echo $retorno;
+        }else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+        
+        return $retorno;
+    }
+
+
+    /* ===================================================
+        AGREGA PERMISOS ROL
+    ===================================================*/
+
+    static public function mdlAgregarPermisosRol($idPerfil)
+    {
+       
+    }
+
 }

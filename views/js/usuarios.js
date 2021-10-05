@@ -161,8 +161,6 @@ if (window.location.href == `${urlPagina}roles-usuarios/` ||
     
     $(document).on("click", ".btn-editarroles", function(){
 
-        console.log("Click en editar");
-
         var idPerfil = $(this).attr("idPerfil");
         $("#idPerfil").val(idPerfil);
 
@@ -197,10 +195,12 @@ if (window.location.href == `${urlPagina}roles-usuarios/` ||
        ===================================================*/
 
        $(document).on("click", ".btnActivar", function(){
-        console.log("Click en activo");
+        
 
         var idPerfil = $(this).attr("idPerfil");
         var activo = $(this).attr("activo");
+
+        console.log(idPerfil);
 
         var datos = new FormData();
         datos.append("ActivarPerfil", "ok");
@@ -247,15 +247,13 @@ if (window.location.href == `${urlPagina}roles-usuarios/` ||
     });
 
 
-/* ===================================================
-     BORRADO LOGICO
+    /* ===================================================
+                BORRADO LOGICO
     ===================================================*/
 
     $(document).on("click",".btn-eliminarroles", function(){
         
         var idPerfil = $(this).attr("idPerfil");
-        
-
         var datos = new FormData();
         datos.append("Borrado","ok");
         datos.append("idPerfil", idPerfil);
@@ -303,6 +301,39 @@ if (window.location.href == `${urlPagina}roles-usuarios/` ||
 
     });
 
+    /* ===================================================
+                PERMISOS ROL
+    ===================================================*/
+
+
+    $(document).on("click",".btn-permisoroles", function(){
+        console.log("llegando al jaj")
+
+        var idPerfil = $(this).attr("idPerfil");
+        $("#idpermisos").val(idPerfil);
+        var datos = new FormData();
+        datos.append("permisosrol","ok");
+        datos.append("idPerfil",idPerfil);
+
+
+
+        $.ajax({
+            type: "POST",
+            url: "ajax/usuarios.ajax.php",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response){
+                console.log(response);
+            }
+        });
+
+
+
+
+        
+    });
 
 
 

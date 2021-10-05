@@ -71,7 +71,7 @@ class ControladorUsuarios
 						/* ===================================================
 						   NUEVA VERSION PARA GUARDAR OPCIONES Y PERMISOS DISPONIBLES
 						===================================================*/
-						$_SESSION['permisos'] = ModeloUsuarios::mdlPermisos($respuesta['Cedula']); 
+						$_SESSION['permisos'] = ModeloUsuarios::mdlPermisos($respuesta['Cedula']);
 
 
 						# Página de inicio
@@ -126,9 +126,10 @@ class ControladorUsuarios
 	   ACTUALIZAR ROL
 	===================================================*/
 
-	static public function ctrActualizarPerfil($idPerfil, $activo){
+	static public function ctrActualizarPerfil($idPerfil, $activo)
+	{
 		$nuevoActivo = $activo == 1 ? 0 : 1;
-		$respuesta = ModeloUsuarios::mdlActualizarPerfil($idPerfil,$nuevoActivo, "activo");
+		$respuesta = ModeloUsuarios::mdlActualizarPerfil($idPerfil, $nuevoActivo, "activo");
 		return $respuesta;
 	}
 
@@ -137,12 +138,12 @@ class ControladorUsuarios
 	   AGREGAR  ROL
 	===================================================*/
 
-	static public function ctrAgregarEditarPerfil($value){
-		if(isset($_POST['idPerfil']))
-		{
-			if($_POST['idPerfil'] == ""){
+	static public function ctrAgregarEditarPerfil($value)
+	{
+		if (isset($_POST['idPerfil'])) {
+			if ($_POST['idPerfil'] == "") {
 				$AddEditRol = ModeloUsuarios::mdlAgregarPerfil($_POST);
-				if($AddEditRol == "ok"){
+				if ($AddEditRol == "ok") {
 					echo "
 							<script>
 								Swal.fire({
@@ -160,10 +161,10 @@ class ControladorUsuarios
 								})
 							</script>
 								";
-					}
-			}else{
+				}
+			} else {
 				$AddEditRol = ModeloUsuarios::mdlEditarPerfil($_POST);
-				if($AddEditRol == "ok"){
+				if ($AddEditRol == "ok") {
 					echo "
 							<script>
 								Swal.fire({
@@ -181,7 +182,7 @@ class ControladorUsuarios
 								})
 							</script>
 								";
-					}
+				}
 			}
 		}
 	}
@@ -503,5 +504,77 @@ class ControladorUsuarios
 		return $respuesta;
 	}
 
+	/* ===================== 
+	  GUARDAR PERMISOS ROL
+	========================= */
 
+	static public function ctrEditarPermisosRol()
+	{
+		if (isset($_POST['Ver']) || isset($_POST['Crear']) || isset($_POST['Actualizar']) || isset($_POST['Eliminar'])) {
+			//ModeloUsuarios::mdlEliminarPermisosRol($_POST['idpermisos']);
+
+			
+			// Arreglo de opciones
+			
+			// Recorrer el arreglo y realizar la busqueda por cada posicion
+
+			// Cada que busque, hay que crear un arreglo con los datos de (idpermisos, idopcion(dinamico en cada iteracion), Crear, Leer, Actualizar, Borrar)
+			// $datos = array(
+			// 	'idPerfil' => $_POST['idpermisos'],
+			// 	'idOpcion' => "#",
+			// 	'Crear' => 1,
+			// 	'Ver' => 0,
+			// 	'Actualizar' => 1,
+			// 	'Borrar' => 1
+			// );
+			// echo "<pre>";
+			// var_dump($datos);
+			// echo "</pre>";
+			
+
+			if (self::BuscarOpcionPermiso($_POST['Ver'], 1)){
+				echo "Encuentra";
+			}
+			else{
+				echo "No encuentra";
+			}
+
+
+
+			// echo 'Crear';
+			// echo '<pre>';;
+
+			// print_r($_POST['Crear']);
+
+			// echo '</pre>';
+
+			// echo 'Actualizar';
+			// echo '<pre>';;
+
+			// print_r($_POST['Actualizar']);
+
+			// echo '</pre>';
+
+			// echo 'Eliminar';
+			// echo '<pre>';;
+
+			// print_r($_POST['Eliminar']);
+
+			// echo '</pre>';
+
+		}
+	}
+
+	static public function BuscarOpcionPermiso($arreglo, $opcion)
+	{
+		$key = array_search(1, $_POST['Ver']);
+		if (false === $key) {
+			return false;
+			//echo "no encuentra";
+			/* echo "<script> window.location = '" . URL_APP . "'; </script>"; */
+		} else {
+			return true;
+			//echo "Coincide";
+		}
+	}
 }
