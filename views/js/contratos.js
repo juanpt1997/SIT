@@ -218,6 +218,7 @@ if (
                     $("#porque").val(response.porque);
                     $(".select-ciudad").trigger("change");
                     $("#listaclientes").trigger("change");
+                    $("#idruta").val(response.idruta).trigger("change");
                 },
             });
         });

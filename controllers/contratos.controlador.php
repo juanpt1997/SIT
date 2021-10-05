@@ -351,7 +351,9 @@ class ControladorCotizaciones
                         'realizav' => $_POST['realizav'],
                         'wi_fi' => $_POST['wi_fi'],
                         'silleteriar' => $_POST['silleteriar'],
-                        'porque' => $_POST['porque']
+                        'porque' => $_POST['porque'],
+                        'otro_v' => $_POST['otro_v'],
+                        'idruta' => $_POST['idruta'] == "" ? null : $_POST['idruta']
                     );
 
                     if ($_POST['id_cot'] != "" && is_array($CotizacionExistente)) {

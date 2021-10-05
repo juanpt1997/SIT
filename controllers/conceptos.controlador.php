@@ -95,4 +95,13 @@ class ControladorCiudades
 		$respuesta = ModeloConceptosGH::mdlVer($datos);
 		return $respuesta;
 	}
+
+	/* ===================================================
+	   RUTAS
+	===================================================*/
+	static public function ctrListarRutas()
+	{
+		$respuesta = ModeloConceptosGH::mdlListarRutas();
+		return $respuesta;
+	}
 }

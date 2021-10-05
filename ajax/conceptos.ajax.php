@@ -745,7 +745,7 @@ class AjaxConceptosGH
 	static public function VerRutas()
 	{
 
-		$respuesta = ModeloConceptosGH::mdlListarRutas();
+		$respuesta = ControladorCiudades::ctrListarRutas();
 		$tr = "";
 
 		foreach ($respuesta as $key => $value) {
