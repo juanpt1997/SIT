@@ -101,12 +101,12 @@ class AjaxUsuarios
     }
 
      /* ===================================================
-        EDITAR PERMISOS DEL PERFIL
+        AGREGAR PERMISOS DEL PERFIL
     ===================================================*/
 
-    static public function AjaxEditarPermisosRol($idPerfil)
+    static public function AjaxAgregarPermisosRol($idPerfil)
     {
-        $respuesta = ControladorUsuarios::ctrEditarPermisosRol($idPerfil);
+        $respuesta = ControladorUsuarios::ctrAgregarPermisosRol($idPerfil);
         echo $respuesta;
     }
 
@@ -117,7 +117,8 @@ class AjaxUsuarios
     static public function AjaxDatosPermisosRol($idPerfil)
     {
         $respuesta = ControladorUsuarios::ctrDatosPermisosRol($idPerfil);
-        echo $respuesta;
+        echo json_encode($respuesta);
+        // echo $respuesta;
     }
 
 }
@@ -185,6 +186,10 @@ if(isset($_POST['Borrado']) && $_POST['Borrado'] == "ok"){
     ===================================================*/
 
 if(isset($_POST['permisosrol']) && $_POST['permisosrol'] == "ok"){
-    AjaxUsuarios::AjaxEditarPermisosRol($_POST['idPerfil']);
+    AjaxUsuarios::AjaxAgregarPermisosRol($_POST['idPerfil']);
+    // AjaxUsuarios::AjaxDatosPermisosRol($_POST['idPerfil']);
+}
+
+if(isset($_POST['Datosrol'])&& $_POST['Datosrol'] == "ok"){
     AjaxUsuarios::AjaxDatosPermisosRol($_POST['idPerfil']);
 }

@@ -508,7 +508,7 @@ class ControladorUsuarios
 	  GUARDAR PERMISOS ROL
 	========================= */
 
-	static public function ctrEditarPermisosRol()
+	static public function ctrAgregarPermisosRol()
 	{
 		if (isset($_POST['Ver']) || isset($_POST['Crear']) || isset($_POST['Actualizar']) || isset($_POST['Eliminar'])) {
 			ModeloUsuarios::mdlEliminarPermisosRol($_POST['idpermisos']);
@@ -539,48 +539,40 @@ class ControladorUsuarios
 
 				if(isset($_POST['Crear'])){
 					if(self::BuscarOpcionPermiso($_POST['Crear'],$idOpcion)){
-						$datos['idOpcion'] = $idOpcion;
 						$datos['Crear'] = 1;
 					}
 				}else{
-					$datos['idOpcion'] = $idOpcion;
 					$datos['Crear'] = 0;
 				}
 
 
 				if(isset($_POST['Actualizar'])){
 					if(self::BuscarOpcionPermiso($_POST['Actualizar'],$idOpcion)){
-						$datos['idOpcion'] = $idOpcion;
 						$datos['Actualizar'] = 1;
 					}
 				}else{
-					$datos['idOpcion'] = $idOpcion;
 					$datos['Actualizar'] = 0;
 				}
 
 
 				if(isset($_POST['Eliminar'])){
 					if(self::BuscarOpcionPermiso($_POST['Eliminar'], $idOpcion)){
-						$datos['idOpcion'] = $idOpcion;
 						$datos['Borrar'] = 1;
 					}
 				}else{
-					$datos['idOpcion'] = $idOpcion;
 					$datos['Borrar'] = 0;
 				}
 
 				$idPerfil = $_POST['idpermisos'];
-				$idOpcion = $datos['idOpcion'];
-				$Crear = $datos['Crear'];
-				$Leer = $datos['Ver'];
-				$Actualizar = $datos['Actualizar'];
-				$Borrar = $datos['Borrar'];
+				$datos['idPerfil'] = $idPerfil;
+				$datos['idOpcion'] = $idOpcion;
+		
 
 				if($datos['Crear'] == 0 && $datos['Ver'] == 0 && $datos['Actualizar'] == 0 && $datos['Borrar'] == 0){
 					echo "no hay cambios";
 				}else{
 					
-					$respuesta = ModeloUsuarios::mdlAgregarPermisosRol($idPerfil,$idOpcion,$Crear,$Leer,$Actualizar,$Borrar);
+					$respuesta = ModeloUsuarios::mdlAgregarPermisosRol($datos);
 					if($respuesta == "ok"){
 						echo "
 						<script>
@@ -622,12 +614,7 @@ class ControladorUsuarios
 				}
 
 
-				
-				// echo $respuesta;
-				// echo '<pre>';
-				// echo "(Perfil: ".$idPerfil.", Modulo: ".$idOpcion.",Crear: ".$Crear.", Leer: ".$Leer.",Act: ".$Actualizar.",Borrar: ".$Borrar.")";
-				// echo '</pre>';
-
+				//Se ponen las opciones en 0 para evitar que inserte por cada ciclo que haga  
 				$datos['Crear'] = 0;
 				$datos['Ver'] = 0;
 				$datos['Actualizar'] = 0;
@@ -638,6 +625,9 @@ class ControladorUsuarios
 	
 	}
 
+	/* =============================
+		FUNCION BUSCAR OPCION
+	================================*/
 	static public function BuscarOpcionPermiso($arreglo, $opcion)
 	{
 		$key = array_search($opcion, $arreglo);
@@ -657,7 +647,8 @@ class ControladorUsuarios
 
 	static public function ctrDatosPermisosRol($idPerfil)
 	{
-		
+		$respuesta = ModeloUsuarios::mdlDatosPermisosRol($idPerfil);
+		return $respuesta;
 	}
 
 

@@ -97,7 +97,7 @@ class ModeloUsuarios
     }
     
     /* ===================================================
-       MOSTRAR PERFIL SOLICITADO POR EL ID
+       MOSTRAR PERFIL 
     ===================================================*/
 
     static public function mdlDatosPerfil($idPerfil)
@@ -307,17 +307,17 @@ class ModeloUsuarios
         AGREGA PERMISOS ROL
     ===================================================*/
 
-    static public function mdlAgregarPermisosRol($idPerfil,$idOpcion,$Crear,$Leer,$Actualizar,$Borrar)
+    static public function mdlAgregarPermisosRol($datos)
     {
        $stmt = Conexion::conectar()->prepare("INSERT INTO l_re_permisos (idPerfil, idOpcion, Crear, Leer, Actualizar, Borrar) 
                                             VALUES(:idPerfil, :idOpcion, :Crear, :Leer, :Actualizar, :Borrar )");
 
-        $stmt->bindParam(":idPerfil",$idPerfil,PDO::PARAM_INT);
-        $stmt->bindParam(":idOpcion",$idOpcion,PDO::PARAM_INT);
-        $stmt->bindParam(":Crear",$Crear,PDO::PARAM_INT);
-        $stmt->bindParam(":Leer",$Leer,PDO::PARAM_INT);
-        $stmt->bindParam(":Actualizar",$Actualizar,PDO::PARAM_INT);
-        $stmt->bindParam(":Borrar",$Borrar,PDO::PARAM_INT);
+        $stmt->bindParam(":idPerfil",$datos['idPerfil'],PDO::PARAM_INT);
+        $stmt->bindParam(":idOpcion",$datos['idOpcion'],PDO::PARAM_INT);
+        $stmt->bindParam(":Crear",$datos['Crear'],PDO::PARAM_INT);
+        $stmt->bindParam(":Leer",$datos['Ver'],PDO::PARAM_INT);
+        $stmt->bindParam(":Actualizar",$datos['Actualizar'],PDO::PARAM_INT);
+        $stmt->bindParam(":Borrar",$datos['Borrar'],PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $retorno = "ok";
@@ -331,6 +331,23 @@ class ModeloUsuarios
         
         return $retorno;
 
+    }
+
+
+    /*====================================================
+        DATOS PERMISOS ROL 
+    =====================================================*/
+
+    static public function mdlDatosPermisosRol($idPerfil)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT p.* FROM l_re_permisos p
+        INNER JOIN l_opciones o ON p.idOpcion = o.idOpcion
+        WHERE idPerfil = $idPerfil");
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
     }
 
 }

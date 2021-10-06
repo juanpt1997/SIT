@@ -307,33 +307,50 @@ if (window.location.href == `${urlPagina}roles-usuarios/` ||
 
 
     $(document).on("click",".btn-permisoroles", function(){
-        console.log("llegando al jaj")
+        
 
         var idPerfil = $(this).attr("idPerfil");
         $("#idpermisos").val(idPerfil);
-        var datos = new FormData();
-        datos.append("permisosrol","ok");
-        datos.append("idPerfil",idPerfil);
 
+        // Reset Formulario
+        $("#permisos_form").trigger('reset');
 
+        var datos1 = new FormData();
+        datos1.append("Datosrol","ok");
+        datos1.append("idPerfil",idPerfil);
+
+       
 
         $.ajax({
             type: "POST",
             url: "ajax/usuarios.ajax.php",
-            data: datos,
+            data: datos1,
             cache: false,
             contentType: false,
             processData: false,
+            dataType: 'json',
             success: function (response){
-                console.log(response);
+                
+                response.forEach(element => {
+                    if(element.Leer == 1)$(`input[name='Ver[]'][value='${element.idOpcion}']`).iCheck('check');
+                    if(element.Crear == 1)$(`input[name='Crear[]'][value='${element.idOpcion}']`).iCheck('check');
+                    if(element.Actualizar == 1)$(`input[name='Actualizar[]'][value='${element.idOpcion}']`).iCheck('check');
+                    if(element.Borrar)$(`input[name='Eliminar[]'][value='${element.idOpcion}']`).iCheck('check');
+                    
+                    
+                });
             }
         });
 
+
+        
 
 
 
         
     });
+
+
 
 
 

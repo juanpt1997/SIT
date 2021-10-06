@@ -229,7 +229,7 @@ $Opciones = ControladorUsuarios::ctrListadoOpciones();
                                             </tr>
                                         <?php endforeach ?>
                                         <?php 
-                                        $ctrPermisosRol = ControladorUsuarios::ctrEditarPermisosRol();
+                                        $ctrPermisosRol = ControladorUsuarios::ctrAgregarPermisosRol();
                                         ?>
                                     </tbody>
                                 </table>
