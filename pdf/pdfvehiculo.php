@@ -356,6 +356,12 @@ class PdfVehiculo
             'ruta_documento' => "",
             'Ffechafin' => ''
         );
+        // var_dump($SOAT);
+        // var_dump($CDA);
+        // var_dump($TarjetaOperacion);
+        // var_dump($RevisionPreventiva);
+        // var_dump($RCC);
+        // var_dump($Extintor);
 
          $pdf->SetFont('helvetica', 'B', '12');
          $pdf->Cell(0, 0, "VENCIMIENTO DE DOCUMENTOS", 0, 0, 'C', 0, '', 0);
@@ -431,6 +437,7 @@ class PdfVehiculo
             'ruta_documento' => $info['ruta_tarjetapropiedad'],
             'tipodocumento' => 'tarjetapropiedad'
         );
+        $tarjetaPropiedad['ruta_documento'] = $tarjetaPropiedad['ruta_documento'] == "" || $tarjetaPropiedad['ruta_documento'] == null ? "" : '../' . $tarjetaPropiedad['ruta_documento'];
         //$Documentos[] = $tarjetaPropiedad;
         array_unshift($Documentos, $tarjetaPropiedad);
         /* foreach ($Documentos as $key => $documento) {
