@@ -96,7 +96,9 @@ $(document).ready(function () {
     window.location.href == `${urlPagina}m-inventario/` ||
     window.location.href == `${urlPagina}m-inventario`
   ) {
-    //EVENTO QUE MUESTRA LOS CONDUCTORES SEGUN LA PLACA DEL VEHICULO
+    /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+    CONDUCTORES SEGUN LA PLACA DEL VEHICULO
+    ==========================================================================*/
     $(document).on("change", "#placa_invent", function () {
       $(".documentos").val("").removeClass("bg-danger bg-success");
       let idvehiculo = $(this).val();
@@ -104,6 +106,9 @@ $(document).ready(function () {
       if (idvehiculo == "null") {
         $(".documentos").val("");
       }
+
+    AjaxTablaEvidencias(idvehiculo);
+
 
       // Datos del vehiculo
       var datos = new FormData();
@@ -203,7 +208,9 @@ $(document).ready(function () {
       });
     });
 
-    //EVENTO QUE MUESTRA EL TIPO DE LICENCIA SEGUN EL CONDUCTOR
+    /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+    LICENCIA DEL CONDUCTOR SELECCIONADO
+    ==========================================================================*/
     $(document).on("change", "#conductor_invent", function () {
       let idconductor = $(this).val();
       var datos = new FormData();
@@ -227,23 +234,28 @@ $(document).ready(function () {
     });
 
     /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    ELEMENTO OBSERVADOR QUE PONE EL CONDUCTOR CUANDO SE ACTUALIZA EL SELECT (Permite ver el valor que tiene el slect conductores al editar)
+    ELEMENTO OBSERVADOR QUE PONE EL CONDUCTOR CUANDO SE ACTUALIZA EL SELECT 
     ==========================================================================*/
     $(document).on("change", "#observador_conductoresInventario", function () {
       let idconductor = $(this).attr("idconductor");
-      console.log(idconductor);
       setTimeout(() => {
         $("#conductor_invent").val(idconductor).trigger("change");
       }, 1000);
     });
 
-    //BOTON EDITAR UN ELEMENTO DEL INVENTARIO
+    /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+    EDITAR INVENTARIO
+    ==========================================================================*/
     $(".btn-editarInventario").on("click", function () {
+      //Capturamos el id del inventario del boton
+      let id = $(this).attr("id_inventario");
+      //Le pasamos el ID al input escondido para validar AGREGAR/EDITAR
+      $("#inventario_id").val(id);
       //INSTRUCCION PARA EXPANDIR EL COLLAPSE DEL DATA WIDGET DEL CARD INVENTARIO
       $("#card-inventario").CardWidget("expand");
+      //llevar el
       $(window).scrollTop(0);
-
-      let id = $(this).attr("id_inventario");
+      //AJAX que trae los datos del inventario seleccionado
       let datos = new FormData();
       datos.append("DatosInventario", "ok");
       datos.append("id", id);
@@ -257,9 +269,15 @@ $(document).ready(function () {
         dataType: "json",
         success: function (response) {
           $("#placa_invent").val(response.idvehiculo).trigger("change");
-          $("#observador_conductoresInventario").attr("idconductor", response.idconductor);
           $("#kilo_invent").val(response.kilometraje);
           $("#fecha_invent").val(response.fecha_inventario);
+          $("#observador_conductoresInventario").attr(
+            "idconductor",
+            response.idconductor
+          );
+          $("#numero_luces").val(response.numero_luces_internas);
+          $("#numeroparlantes").val(response.num_parlantes);
+          $("#numsalimarti").val(response.Nsalidas_martillos);
 
           var keys = Object.keys(response);
           var values = Object.values(response);
@@ -268,36 +286,88 @@ $(document).ready(function () {
           for (let index = 0; index < keys.length; index++) {
             // NO tomamos las llaves numericas
             if (isNaN(keys[index])) {
-                if (keys[index] != "idvehiculo" && keys[index] != "tipo_vel" && keys[index] != "numinter_invent" && keys[index] != "marca_invent" && keys[index] != "modelo_invent" && keys[index] != "idconductor" && keys[index] != "categoria_invent" && keys[index] != "vencimineto_inventario") {
-                    // Si el input es un check - radio
-                    $(`input[name='${keys[index]}'][value='${values[index]}']`).iCheck('check');
-
-                    // Si el input es distinto a un radio button
-                    if ($(`input[name='${keys[index]}']`).attr("type") != "radio") {
-                        $(`input[name='${keys[index]}']`).val(values[index]);
-                    }
-                }
+              if (
+                keys[index] != "idvehiculo" &&
+                keys[index] != "tipo_vel" &&
+                keys[index] != "numinter_invent" &&
+                keys[index] != "marca_invent" &&
+                keys[index] != "modelo_invent" &&
+                keys[index] != "idconductor" &&
+                keys[index] != "categoria_invent" &&
+                keys[index] != "vencimineto_inventario"
+              ) {
+                // Si el input es un check - radio
+                $(
+                  `input[name='${keys[index]}'][value='${values[index]}']`
+                ).iCheck("check");
+              }
             }
-        }
-
-
-
+          }
+          AjaxTablaEvidencias(response.idvehiculo);
         },
       });
     });
 
-    //BOTON CANCELAR LA SELECCION DE INVENTARIO
+    /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+    CANCELAR AGREGAR/EDITAR
+    ==========================================================================*/
     $(".cancelar").click(function (e) {
       e.preventDefault();
-      $(".documentos").val("").removeClass("bg-danger bg-success");
-      // $(".conductores").val("");
-      // $(".inventario").val("");
-      // $(".inventario").prop("checked", false);
-      $("#formulario_inventario").trigger("reset");//reset formulario
-      $(".select2-single").trigger("change");
+      //$(".documentos").val("").removeClass("bg-danger bg-success");
+      //$("#formulario_inventario")[0].reset(); //reset formulario
+      //$("#formulario_inventario").trigger("reset"); //reset formulario
+      //$("#conductor_invent").empty();
+      //$(".select2-single").trigger("change");
+      //$("#placa_invent").val("");
+      //$(".inventario").val("");
+      //$('input:checkbox').removeAttr('checked');
     });
 
-    //Funcion que carga las fotos de un vehiculo
+    /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+    FUNCION PARA LISTAR LAS IMAGENES DE EVIDENCIA
+    ==========================================================================*/
+    const AjaxTablaEvidencias = (idvehiculo) => {
+      // Quitar datatable
+      $(`#tabla_fotos`).dataTable().fnDestroy();
+      // Borrar datos
+      $(`#tbody_tabla_fotos`).html("");
+
+      let datos = new FormData();
+      datos.append(`FotosVehiculos`, "ok");
+      datos.append("idvehiculo", idvehiculo);
+      $.ajax({
+        type: "POST",
+        url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        // dataType: "json",
+        success: function (response) {
+          if (response != "" || response != null) {
+            $(`#tbody_tabla_fotos`).html(response);
+          } else {
+            $(`#tbody_tabla_fotos`).html("");
+          }
+
+          /* ===================================================
+                  INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                  ===================================================*/
+          var buttons = [
+            {
+              extend: "excel",
+              className: "btn-info",
+              text: '<i class="far fa-file-excel"></i> Exportar',
+            },
+          ];
+          var table = dataTableCustom(`#tabla_fotos`, buttons);
+        },
+      });
+    };
+    
+    /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+    FUNCION PARA CARGAR LAS FOTOS DE LOS VEHICULOS
+    ==========================================================================*/
     let cargarFotosVehiculo = (response) => {
       let htmljumbo = ``;
 
@@ -312,5 +382,239 @@ $(document).ready(function () {
 
       $("#col_fotos_inventario").html(htmljumbo);
     };
+
+    /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+    GUARDAR IMAGENES DE EVIDENCIA
+    ==========================================================================*/
+    $(document).on("click", ".btn_evidencias_inventario", function () {
+      let idvehiculo = $("#placa_invent").val();
+
+      if (idvehiculo != "") {
+        var fotoInventario = $("#foto_evidencia_inventario")[0].files;
+        var observaciones = $("#observaciones").val();
+
+        if (fotoInventario.length > 0 && observaciones != "") {
+          //$("#overlayBtnGuardarEvidencia").removeClass("d-none");
+
+          var datos = new FormData();
+          datos.append("GuardarEvidencia", "ok");
+          datos.append("idvehiculo", idvehiculo);
+          datos.append("fotoInventario", fotoInventario[0]);
+          datos.append("observaciones", observaciones);
+
+          $.ajax({
+            type: "post",
+            url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+              // Despues de traer respuesta, cambiar animacion del boton para poder guardar
+              //$("#btnGuardarEvidencia").removeAttr("disabled");
+              //$("#overlayBtnGuardarEvidencia").addClass("d-none");
+
+              if (response == "ok") {
+                Swal.fire({
+                  icon: "success",
+                  timer: 1500,
+                  title: "Documento subido correctamente!",
+                  showConfirmButton: false,
+                });
+                /* ===================================================
+                        TABLA DE EVIDENCIAS
+                ===================================================*/
+                AjaxTablaEvidencias(idvehiculo);
+              } else {
+                Swal.fire({
+                  icon: "error",
+                  title:
+                    "¡Ha ocurrido un error, por favor intente de nuevo más tarde!",
+                  showConfirmButton: true,
+                  confirmButtonText: "Cerrar",
+                });
+              }
+            },
+          });
+        }
+      } else {
+        Swal.fire({
+          icon: "warning",
+          title: "Seleccione un vehículo / placa",
+          showConfirmButton: false,
+          confirmButtonText: "Aceptar",
+        });
+      }
+    });
+
+    /*==========================================================================
+    BOTON CAMBIAR ESTADO EVIDENCIA
+    ==========================================================================*/
+    $(document).on("click", ".btn-estado", function () {
+      
+      var $boton = $(this);
+      var idevidencia = $(this).attr("idevidencia");
+      var idvehiculo = $(this).attr("idvehiculo");
+      var estado = $(this).attr("estado");
+
+      var textoBoton = estado == "PENDIENTE" ? "Resuelto!" : "Aún pendiente";
+      var colorBoton = estado == "PENDIENTE" ? "#5cb85c" : "#d33";
+      Swal.fire({
+        title: `Esto se encuentra ${estado}`,
+        html: `
+                                      <hr>
+                                      <label for="">Observaciones</label>
+                                      <input class="form-control" id="swal-evidencia-obs" type="text" value="${$(
+                                        "#obs_" + idevidencia
+                                      ).text()}">
+                                      `,
+        showCancelButton: true,
+        confirmButtonColor: colorBoton,
+        cancelButtonColor: "#007bff",
+        confirmButtonText: textoBoton,
+        cancelButtonText: "Cerrar",
+      }).then((result) => {
+        if (result.value) {
+          var observaciones = $("#swal-evidencia-obs").val();
+
+          if (observaciones != "") {
+            var datos = new FormData();
+            datos.append("CambiarEstadoEvidencia", "ok");
+            datos.append("idevidencia", idevidencia);
+            datos.append("estadoActual", estado);
+            datos.append("observaciones", observaciones);
+            $.ajax({
+              url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+              method: "POST",
+              data: datos,
+              cache: false,
+              contentType: false,
+              processData: false,
+              success: function (response) {
+                if (response == "ok") {
+                  Swal.fire({
+                    icon: "success",
+                    timer: 1000,
+                    title: "Registro modificado correctamente!",
+                    showConfirmButton: false,
+                  });
+                  /* ===================================================
+                                      TABLA DE EVIDENCIAS
+                                  ===================================================*/
+                  AjaxTablaEvidencias(idvehiculo);
+                  // if (estado == 'RESUELTO') {
+                  //     $boton.removeClass("btn-success");
+                  //     $boton.addClass("btn-danger");
+                  //     $boton.html(`<i class="far fa-clock"></i> PENDIENTE`);
+                  //     $boton.attr("estado", "PENDIENTE");
+                  // } else {
+                  //     $boton.addClass("btn-success");
+                  //     $boton.removeClass("btn-danger");
+                  //     $boton.html(`<i class="far fa-check-square"></i> RESUELTO`);
+                  //     $boton.attr("estado", "RESUELTO");
+                  // }
+                }
+                // Mensaje de error
+                else
+                  Swal.fire({
+                    icon: "error",
+                    title: "Ha ocurrido un error, por favor intente de nuevo",
+                    showConfirmButton: true,
+                    confirmButtonText: "Cerrar",
+                    closeOnConfirm: false,
+                  }).then((result) => {
+                    if (result.value) {
+                      window.location = "m-inventario";
+                    }
+                  });
+              },
+            });
+          } else {
+            Swal.fire({
+              icon: "warning",
+              timer: 3000,
+              title: "No pueden quedar en blanco las observaciones",
+              showConfirmButton: false,
+            });
+          }
+        }
+      });
+    });
+
+    /*==========================================================================
+    BOTON VALIDAR INPUTS REQUERIDOS
+    ==========================================================================*/   
+    $(document).on("click", ".btn-agregar-inventario", function () {
+      Requeridos = [];
+
+      $('input:invalid').each(function (index, element) {
+          var $input = $(this);
+
+          var idform = $input.closest("form").attr("id");
+
+          if (idform == "formulario_inventario") {
+              Requeridos.push($input);
+          }
+      });
+
+      if (Requeridos.length > 0) {
+          Swal.fire({
+              icon: 'warning',
+              text: 'Verifique que ha diligenciado todos los datos necesarios',
+              showConfirmButton: true,
+              confirmButtonText: 'Cerrar',
+              closeOnConfirm: false
+          });
+      }
+
+  });
+
+    /*==========================================================================
+    BOTON ELIMINAR INVENTARIO
+    ===========================================================================*/
+    $(".btn-eliminar").on("click", function () {
+      let id = $(this).attr("id_inventario");
+
+      Swal.fire({
+        icon: "warning",
+        showConfirmButton: true,
+        showCancelButton: true,
+        title: "¿Seguro que desea borrar este registro?",
+        confirmButtonText: "SI, borrar",
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#e60000",
+        cancelButtonColor: "#0066ff",
+        allowOutsideClick: false,
+      }).then((result) => {
+        if (result.value) {
+          var datos = new FormData();
+          datos.append("EliminarInventario", "ok");
+          datos.append("idvehiculo", id);
+
+          $.ajax({
+            type: "POST",
+            url: "ajax/mantenimiento.ajax.php",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            //dataType: "json",
+            success: function (response) {
+              if (response == "ok") {
+                Swal.fire({
+                  icon: "success",
+                  showConfirmButton: true,
+                  title: "¡El registro ha sido borrado correctamente!",
+                  confirmButtonText: "¡Cerrar!",
+                  allowOutsideClick: false,
+                }).then((result) => {
+                  window.location = "m-inventario";
+                });
+              }
+            },
+          });
+        }
+      });
+    });
   }
 });

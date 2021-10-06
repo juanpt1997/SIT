@@ -423,6 +423,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
                                             <div class="row">
                                                 <input type="hidden" id="idalistamiento" name="id" value="">
+                                                <input type="hidden" id="observador_conductoresAlistamiento" idconductor="">
 
                                                 <div class="col-12 col-sm-6 col-lg-4">
                                                     <div class="form-group">
