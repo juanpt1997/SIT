@@ -288,6 +288,7 @@ class PdfVehiculo
         $pdf->MultiCell(40, 5, $info['marca'], $complex_cell_border, 'L', 0, 0, '', '', true);
         $pdf->Ln();
         $pdf->Ln();
+        $pdf->Ln();
 
         /* ===================================================
            VENCIMIENTO DE DOCUMENTOS
@@ -297,27 +298,33 @@ class PdfVehiculo
             switch ($documento['tipodocumento']) {
                 case 'SOAT':
                     $SOAT = $documento;
+                    $SOAT['ruta_documento'] = $SOAT['ruta_documento'] == null || $SOAT['ruta_documento'] == "" ? '' : '../' . $documento['ruta_documento'];
                     break;
 
                 case 'Revision tecnico-mecanica':
                     $CDA = $documento;
+                    $CDA['ruta_documento'] = $CDA['ruta_documento'] == null || $CDA['ruta_documento'] == "" ? '' : '../' . $documento['ruta_documento'];
                     break;
 
                 case 'Tarjeta de Operacion':
                     $TarjetaOperacion = $documento;
+                    $TarjetaOperacion['ruta_documento'] = $TarjetaOperacion['ruta_documento'] == null || $TarjetaOperacion['ruta_documento'] == "" ? '' : '../' . $documento['ruta_documento'];
                     break;
 
                 case 'Revision preventiva':
                     $RevisionPreventiva = $documento;
+                    $RevisionPreventiva['ruta_documento'] = $RevisionPreventiva['ruta_documento'] == null || $RevisionPreventiva['ruta_documento'] == "" ? '' : '../' . $documento['ruta_documento'];
                     break;
 
                 case 'Poliza RC - RCE':
                     $RCC = $documento;
-                    $RCE = $documento;
+                    $RCC['ruta_documento'] = $RCC['ruta_documento'] == null || $RCC['ruta_documento'] == "" ? '' : '../' . $documento['ruta_documento'];
+                    //$RCE = $documento;
                     break;
 
                 case 'Extintor':
                     $Extintor = $documento;
+                    $Extintor['ruta_documento'] = $Extintor['ruta_documento'] == null || $Extintor['ruta_documento'] == "" ? '' : '../' . $documento['ruta_documento'];
                     break;
 
                 default:
@@ -325,6 +332,30 @@ class PdfVehiculo
                     break;
             }
         }
+        $SOAT = isset($SOAT) ? $SOAT : array(
+            'ruta_documento' => "",
+            'Ffechafin' => ''
+        );
+        $CDA = isset($CDA) ? $CDA : array(
+            'ruta_documento' => "",
+            'Ffechafin' => ''
+        );
+        $TarjetaOperacion = isset($TarjetaOperacion) ? $TarjetaOperacion : array(
+            'ruta_documento' => "",
+            'Ffechafin' => ''
+        );
+        $RevisionPreventiva = isset($RevisionPreventiva) ? $RevisionPreventiva : array(
+            'ruta_documento' => "",
+            'Ffechafin' => ''
+        );
+        $RCC = isset($RCC) ? $RCC : array(
+            'ruta_documento' => "",
+            'Ffechafin' => ''
+        );
+        $Extintor = isset($Extintor) ? $Extintor : array(
+            'ruta_documento' => "",
+            'Ffechafin' => ''
+        );
 
          $pdf->SetFont('helvetica', 'B', '12');
          $pdf->Cell(0, 0, "VENCIMIENTO DE DOCUMENTOS", 0, 0, 'C', 0, '', 0);
@@ -335,15 +366,15 @@ class PdfVehiculo
          $pdf->SetFont('helvetica', 'B', '10');
          $pdf->MultiCell(40, 5, "Tarjeta de Operación:", 0, 'L', 0, 0, '', '', true);
          $pdf->SetFont('helvetica', '', '10');
-         $fechavencimiento = isset($TarjetaOperacion) ? $TarjetaOperacion['Ffechafin'] : "";
-         $pdf->MultiCell(55, 5, $fechavencimiento, $complex_cell_border, 'L', 0, 0, '', '', true);
+         $fechavencimiento = $TarjetaOperacion['Ffechafin'];
+         $pdf->MultiCell(53, 5, $fechavencimiento, $complex_cell_border, 'L', 0, 0, '', '', true);
 
-         # Póliza RCC
+         # Póliza RC/RCE
          $pdf->SetFont('helvetica', 'B', '10');
-         $pdf->MultiCell(24, 5, " Póliza RCC:", 0, 'L', 0, 0, '', '', true);
+         $pdf->MultiCell(30, 5, " Póliza RC/RCE:", 0, 'L', 0, 0, '', '', true);
          $pdf->SetFont('helvetica', '', '10');
-         $fechavencimiento = isset($RCC) ? $RCC['Ffechafin'] : "";
-         $pdf->MultiCell(61, 5, $fechavencimiento, $complex_cell_border, 'L', 0, 0, '', '', true);
+         $fechavencimiento = $RCC['Ffechafin'];
+         $pdf->MultiCell(57, 5, $fechavencimiento, $complex_cell_border, 'L', 0, 0, '', '', true);
          $pdf->Ln();
          $pdf->Ln();
 
@@ -351,40 +382,40 @@ class PdfVehiculo
          $pdf->SetFont('helvetica', 'B', '10');
          $pdf->MultiCell(20, 5, "SOAT:", 0, 'L', 0, 0, '', '', true);
          $pdf->SetFont('helvetica', '', '10');
-         $fechavencimiento = isset($SOAT) ? $SOAT['Ffechafin'] : "";
-         $pdf->MultiCell(68, 5, $fechavencimiento, $complex_cell_border, 'L', 0, 0, '', '', true);
+         $fechavencimiento = $SOAT['Ffechafin'];
+         $pdf->MultiCell(59, 5, $fechavencimiento, $complex_cell_border, 'L', 0, 0, '', '', true);
 
          # Póliza RCE
-         $pdf->SetFont('helvetica', 'B', '10');
-         $pdf->MultiCell(24, 5, " Póliza RCE:", 0, 'L', 0, 0, '', '', true);
-         $pdf->SetFont('helvetica', '', '10');
-         $fechavencimiento = isset($RCE) ? $RCE['Ffechafin'] : "";
-         $pdf->MultiCell(68, 5, $fechavencimiento, $complex_cell_border, 'L', 0, 0, '', '', true);
-         $pdf->Ln();
-         $pdf->Ln();
+        //  $pdf->SetFont('helvetica', 'B', '10');
+        //  $pdf->MultiCell(24, 5, " Póliza RCE:", 0, 'L', 0, 0, '', '', true);
+        //  $pdf->SetFont('helvetica', '', '10');
+        //  $fechavencimiento = isset($RCE) ? $RCE['Ffechafin'];
+        //  $pdf->MultiCell(68, 5, $fechavencimiento, $complex_cell_border, 'L', 0, 0, '', '', true);
+        //  $pdf->Ln();
+        //  $pdf->Ln();
 
          # Revisión Bimestral
          $pdf->SetFont('helvetica', 'B', '10');
          $pdf->MultiCell(35, 5, "Revisión Bimestral:", 0, 'L', 0, 0, '', '', true);
          $pdf->SetFont('helvetica', '', '10');
-         $fechavencimiento = isset($RevisionPreventiva) ? $RevisionPreventiva['Ffechafin'] : "";
+         $fechavencimiento = $RevisionPreventiva['Ffechafin'];
          $pdf->MultiCell(66, 5, $fechavencimiento, $complex_cell_border, 'L', 0, 0, '', '', true);
+         $pdf->Ln();
+         $pdf->Ln();
 
          # CDA
          $pdf->SetFont('helvetica', 'B', '10');
          $pdf->MultiCell(12, 5, " CDA:", 0, 'L', 0, 0, '', '', true);
          $pdf->SetFont('helvetica', '', '10');
-         $fechavencimiento = isset($CDA) ? $CDA['Ffechafin'] : "";
-         $pdf->MultiCell(67, 5, $fechavencimiento, $complex_cell_border, 'L', 0, 0, '', '', true);
-         $pdf->Ln();
-         $pdf->Ln();
+         $fechavencimiento = $CDA['Ffechafin'];
+         $pdf->MultiCell(75, 5, $fechavencimiento, $complex_cell_border, 'L', 0, 0, '', '', true);
 
          # Extintor
          $pdf->SetFont('helvetica', 'B', '10');
-         $pdf->MultiCell(20, 5, "Extintor:", 0, 'L', 0, 0, '', '', true);
+         $pdf->MultiCell(18, 5, "Extintor:", 0, 'L', 0, 0, '', '', true);
          $pdf->SetFont('helvetica', '', '10');
-         $fechavencimiento = isset($Extintor) ? $Extintor['Ffechafin'] : "";
-         $pdf->MultiCell(70, 5, $fechavencimiento, $complex_cell_border, 'L', 0, 0, '', '', true);
+         $fechavencimiento = $Extintor['Ffechafin'];
+         $pdf->MultiCell(75, 5, $fechavencimiento, $complex_cell_border, 'L', 0, 0, '', '', true);
          $pdf->Ln();
          $pdf->Ln();
 
@@ -446,7 +477,7 @@ class PdfVehiculo
         <table cellspacing="2" cellpadding="3">
             <tbody>
             <tr style="text-align: center; font-weight:bold;">
-            <th colspan="2" border="2" width="625">MATRICULA</th>
+            <th colspan="2" border="2" width="625">MATRÍCULA</th>
            </tr>
 
            <tr style="text-align: center;">
@@ -458,7 +489,7 @@ class PdfVehiculo
         </tr>
 
         <tr style="text-align: center;">
-          <td colspan="2" border="1" height="200"><img src="../' . $TarjetaOperacion['ruta_documento'] . '"></td>
+          <td colspan="2" border="1" height="200"><img src="' . $TarjetaOperacion['ruta_documento'] . '"></td>
         </tr>
             </tbody>
         </table>
@@ -478,8 +509,8 @@ class PdfVehiculo
                 </tr>
   
                 <tr>
-                  <td border="1" height="200"><img src="../' . $SOAT['ruta_documento'] . '"></td>
-                  <td border="1" height="200"><img src="../' . $CDA['ruta_documento'] . '"></td>
+                  <td border="1" height="200"><img src="' . $SOAT['ruta_documento'] . '"></td>
+                  <td border="1" height="200"><img src="' . $CDA['ruta_documento'] . '"></td>
                 </tr>
 
                   <tr style="text-align: center; font-weight:bold;">
@@ -487,7 +518,7 @@ class PdfVehiculo
                   </tr>
 
                   <tr style="text-align: center;">
-                    <td colspan="2" border="1" height="200"><img src="../' . $RCE['ruta_documento'] . '"></td>
+                    <td colspan="2" border="1" height="200"><img src="' . $RCC['ruta_documento'] . '"></td>
                   </tr>
               </tbody>
         </table>
