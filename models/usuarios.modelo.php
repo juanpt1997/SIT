@@ -307,9 +307,30 @@ class ModeloUsuarios
         AGREGA PERMISOS ROL
     ===================================================*/
 
-    static public function mdlAgregarPermisosRol($idPerfil)
+    static public function mdlAgregarPermisosRol($idPerfil,$idOpcion,$Crear,$Leer,$Actualizar,$Borrar)
     {
-       
+       $stmt = Conexion::conectar()->prepare("INSERT INTO l_re_permisos (idPerfil, idOpcion, Crear, Leer, Actualizar, Borrar) 
+                                            VALUES(:idPerfil, :idOpcion, :Crear, :Leer, :Actualizar, :Borrar )");
+
+        $stmt->bindParam(":idPerfil",$idPerfil,PDO::PARAM_INT);
+        $stmt->bindParam(":idOpcion",$idOpcion,PDO::PARAM_INT);
+        $stmt->bindParam(":Crear",$Crear,PDO::PARAM_INT);
+        $stmt->bindParam(":Leer",$Leer,PDO::PARAM_INT);
+        $stmt->bindParam(":Actualizar",$Actualizar,PDO::PARAM_INT);
+        $stmt->bindParam(":Borrar",$Borrar,PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+            echo $retorno;
+        }else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+        
+        return $retorno;
+
     }
 
 }

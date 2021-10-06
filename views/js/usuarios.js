@@ -156,7 +156,7 @@ if (window.location.href == `${urlPagina}roles-usuarios/` ||
     window.location.href == `${urlPagina}roles-usuarios`){
     
     /* ===================================================
-            EDIRAR ROL
+            EDITAR ROL
         ===================================================*/
     
     $(document).on("click", ".btn-editarroles", function(){

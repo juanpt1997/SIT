@@ -203,25 +203,25 @@ $Opciones = ControladorUsuarios::ctrListadoOpciones();
                                                 <td><?= $value['nombre'] ?></td>
                                                 <td>
                                                 <div class="custom-control custom-checkbox">
-                                                    <input class="custom-control-input" type="checkbox" name="Ver[]" id="Ver<?= $key ?>" value="<?=$value['idOpcion']?>" require>
+                                                    <input class="custom-control-input" type="checkbox" name="Ver[]" id="Ver<?= $key ?>" value="<?=$value['idOpcion']?>" >
                                                     <label class="custom-control-label" for="Ver<?= $key ?>"></label>
                                                 </div>   
                                                 </td>
                                                 <td>
                                                     <div class="custom-control custom-checkbox">
-                                                        <input class="custom-control-input" type="checkbox" name="Crear[]" id="Crear<?= $key ?>" value="<?=$value['idOpcion']?>" require>
+                                                        <input class="custom-control-input" type="checkbox" name="Crear[]" id="Crear<?= $key ?>" value="<?=$value['idOpcion']?>" >
                                                         <label class="custom-control-label" for="Crear<?= $key ?>"></label>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="custom-control custom-checkbox">
-                                                        <input class="custom-control-input" type="checkbox" name="Actualizar[]" id="Actualizar<?= $key ?>" value="<?=$value['idOpcion']?>" require>
+                                                        <input class="custom-control-input" type="checkbox" name="Actualizar[]" id="Actualizar<?= $key ?>" value="<?=$value['idOpcion']?>" >
                                                         <label class="custom-control-label" for="Actualizar<?= $key ?>"></label>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="custom-control custom-checkbox">
-                                                        <input class="custom-control-input" type="checkbox" name="Eliminar[]" id="Eliminar<?= $key ?>" value="<?=$value['idOpcion']?>" requiere>
+                                                        <input class="custom-control-input" type="checkbox" name="Eliminar[]" id="Eliminar<?= $key ?>" value="<?=$value['idOpcion']?>" >
                                                         <label class="custom-control-label" for="Eliminar<?= $key ?>"></label>
                                                     </div>
                                                 </td>

@@ -511,70 +511,155 @@ class ControladorUsuarios
 	static public function ctrEditarPermisosRol()
 	{
 		if (isset($_POST['Ver']) || isset($_POST['Crear']) || isset($_POST['Actualizar']) || isset($_POST['Eliminar'])) {
-			//ModeloUsuarios::mdlEliminarPermisosRol($_POST['idpermisos']);
+			ModeloUsuarios::mdlEliminarPermisosRol($_POST['idpermisos']);
 
 			
 			// Arreglo de opciones
+			$arrayop = ModeloUsuarios::mdlListadoOpciones();
 			
+
 			// Recorrer el arreglo y realizar la busqueda por cada posicion
+			foreach ($arrayop as $key => $value) {
+				$idOpcion = $value['idOpcion'];
 
-			// Cada que busque, hay que crear un arreglo con los datos de (idpermisos, idopcion(dinamico en cada iteracion), Crear, Leer, Actualizar, Borrar)
-			// $datos = array(
-			// 	'idPerfil' => $_POST['idpermisos'],
-			// 	'idOpcion' => "#",
-			// 	'Crear' => 1,
-			// 	'Ver' => 0,
-			// 	'Actualizar' => 1,
-			// 	'Borrar' => 1
-			// );
-			// echo "<pre>";
-			// var_dump($datos);
-			// echo "</pre>";
-			
+				if(isset($_POST['Ver'])){
+					if(self::BuscarOpcionPermiso($_POST['Ver'], $idOpcion)){
+						$datos = array(
+							'idPerfil' => $_POST['idpermisos'],
+							'idOpcion' => $idOpcion,
+							'Crear' => 0,
+							'Ver' => 1,
+							'Actualizar' => 0,
+							'Borrar' => 0
+						);
+					}
+				}else{
+					$datos['Ver'] = 0;
+				}
 
-			if (self::BuscarOpcionPermiso($_POST['Ver'], 1)){
-				echo "Encuentra";
+				if(isset($_POST['Crear'])){
+					if(self::BuscarOpcionPermiso($_POST['Crear'],$idOpcion)){
+						$datos['idOpcion'] = $idOpcion;
+						$datos['Crear'] = 1;
+					}
+				}else{
+					$datos['idOpcion'] = $idOpcion;
+					$datos['Crear'] = 0;
+				}
+
+
+				if(isset($_POST['Actualizar'])){
+					if(self::BuscarOpcionPermiso($_POST['Actualizar'],$idOpcion)){
+						$datos['idOpcion'] = $idOpcion;
+						$datos['Actualizar'] = 1;
+					}
+				}else{
+					$datos['idOpcion'] = $idOpcion;
+					$datos['Actualizar'] = 0;
+				}
+
+
+				if(isset($_POST['Eliminar'])){
+					if(self::BuscarOpcionPermiso($_POST['Eliminar'], $idOpcion)){
+						$datos['idOpcion'] = $idOpcion;
+						$datos['Borrar'] = 1;
+					}
+				}else{
+					$datos['idOpcion'] = $idOpcion;
+					$datos['Borrar'] = 0;
+				}
+
+				$idPerfil = $_POST['idpermisos'];
+				$idOpcion = $datos['idOpcion'];
+				$Crear = $datos['Crear'];
+				$Leer = $datos['Ver'];
+				$Actualizar = $datos['Actualizar'];
+				$Borrar = $datos['Borrar'];
+
+				if($datos['Crear'] == 0 && $datos['Ver'] == 0 && $datos['Actualizar'] == 0 && $datos['Borrar'] == 0){
+					echo "no hay cambios";
+				}else{
+					
+					$respuesta = ModeloUsuarios::mdlAgregarPermisosRol($idPerfil,$idOpcion,$Crear,$Leer,$Actualizar,$Borrar);
+					if($respuesta == "ok"){
+						echo "
+						<script>
+							Swal.fire({
+								icon: 'success',
+								title: 'Permisos modificados correctamente',
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								
+							}).then((result)=>{
+
+								if(result.value){
+									window.location = 'roles-usuarios';
+								}
+
+							})
+						</script>
+					";
+					}else{
+						echo "
+						<script>
+							Swal.fire({
+								icon: 'error',
+								title: '¡Los permisos no puedieron ser modificados!',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								closeOnConfirm: false
+								
+							}).then((result)=>{
+
+								if(result.value){
+									window.location = 'roles-usuarios';
+								}
+
+							})
+						</script>
+					";
+					}
+				}
+
+
+				
+				// echo $respuesta;
+				// echo '<pre>';
+				// echo "(Perfil: ".$idPerfil.", Modulo: ".$idOpcion.",Crear: ".$Crear.", Leer: ".$Leer.",Act: ".$Actualizar.",Borrar: ".$Borrar.")";
+				// echo '</pre>';
+
+				$datos['Crear'] = 0;
+				$datos['Ver'] = 0;
+				$datos['Actualizar'] = 0;
+				$datos['Borrar'] = 0;
+
 			}
-			else{
-				echo "No encuentra";
-			}
-
-
-
-			// echo 'Crear';
-			// echo '<pre>';;
-
-			// print_r($_POST['Crear']);
-
-			// echo '</pre>';
-
-			// echo 'Actualizar';
-			// echo '<pre>';;
-
-			// print_r($_POST['Actualizar']);
-
-			// echo '</pre>';
-
-			// echo 'Eliminar';
-			// echo '<pre>';;
-
-			// print_r($_POST['Eliminar']);
-
-			// echo '</pre>';
-
 		}
+	
 	}
 
 	static public function BuscarOpcionPermiso($arreglo, $opcion)
 	{
-		$key = array_search(1, $_POST['Ver']);
+		$key = array_search($opcion, $arreglo);
 		if (false === $key) {
 			return false;
-			//echo "no encuentra";
-			/* echo "<script> window.location = '" . URL_APP . "'; </script>"; */
+			
 		} else {
 			return true;
-			//echo "Coincide";
+			
 		}
 	}
+
+
+	/* ===================================================
+	   CARGAR DATOS PERMISOS ROL
+	===================================================*/
+
+	static public function ctrDatosPermisosRol($idPerfil)
+	{
+		
+	}
+
+
+
 }
