@@ -310,6 +310,13 @@ $(document).ready(function () {
                         //     $("#idconductor").val(response.idconductor);
                         // }, 1000);
 
+                        $("#cambio_aceite").val(response.cambio_aceite);
+                        $("#engrase").val(response.engrase);
+                        $("#rotacion_llantas").val(response.rotacion_llantas);
+                        $("#filtro_aire").val(response.filtro_aire);
+                        $("#sincronizacion").val(response.sincronizacion);
+                        $("#alineacion_balanceo").val(response.alineacion_balanceo);
+
 
                         $("#kmtotal").val(response.kilometraje_total);
                         $("#observaciones").val(response.observaciones);

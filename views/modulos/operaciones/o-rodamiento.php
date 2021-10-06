@@ -166,10 +166,11 @@
                             </div>
                         </div>
 
-                        <!-- ******* TIPO DE VINCULACION ******* -->
+                        <!-- ******* SELECT2 DE RUTAS (esto debe ir de primero) ******* -->
+                        <!-- ******* TIPO DE VINCULACION (se trae del vehiculo) ******* -->
                         <!-- ******* CONDUCTOR ******* -->
-                        <!-- ******* CLIENTE ******* -->
-                        <!-- ******* TIPO DE SERVICIO ******* -->
+                        <!-- ******* CLIENTE (lista clientes)******* -->
+                        <!-- ******* TIPO DE SERVICIO (ENTRADA / SALIDA)******* -->
 
 
                         <div class="col-12 col-sm-6 col-lg-4">
