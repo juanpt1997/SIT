@@ -50,7 +50,8 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                             ========================= -->
                             <div class="card card-success collapsed-card" id="card-inventario">
                                 <div class="card-header">
-                                    <h3 class="card-title"><b><i>INVENTARIO</i></b></h3>
+                                    <h3 class="card-title"><b><i>Inventario</i></b>
+                                    <i class="fas fa-boxes"></i></h3>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-plus"></i>
@@ -71,7 +72,9 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                 <div class="col-5 col-sm-3">
 
                                                     <hr class="my-5">
-                                                    <h4><b><i>Imágenes del vehículo</i></b></h4>
+                                                    <h4><b><i>Imágenes del vehículo</i></b>
+                                                        <i class="fas fa-shuttle-van"></i>
+                                                    </h4>
                                                     <div id="col_fotos_inventario">
 
                                                     </div>
@@ -102,7 +105,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                 <label for=""><b><i>Placa</i></b></label>
                                                                                 <div class="input-group">
                                                                                     <select id="placa_invent" class="form-control select2-single inventario" name="idvehiculo" style="width: 99%">
-                                                                                        <option value="">-Seleccione la placa deseada-</option>
+                                                                                        <option value="" selected>-Seleccione la placa deseada-</option>
                                                                                         <?php foreach ($Vehiculos as $key => $value) : ?>
                                                                                             <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?></option>
                                                                                         <?php endforeach ?>
@@ -173,6 +176,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                     <div class="col">
 
                                                                         <input type="hidden" id="observador_conductoresInventario" idconductor="">
+                                                                        <input type="hidden" id="inventario_id" name="inventario_id" value="">
 
                                                                         <div class="col">
                                                                             <div class="form-group">
@@ -279,7 +283,16 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
 
                                                                 <hr class="my-4 bg-dark">
 
+                                                                <div class="col">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group">
+                                                                            <h4><b><i>Inventario</i></b></h4>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
                                                                 <div class="row">
+
                                                                     <div class="col">
                                                                         <div class="card card-info card-tabs">
                                                                             <div class="card-header p-0 pt-1">
@@ -2524,13 +2537,21 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                             <hr class="my-4 bg-dark">
 
                                                             <div class="text-center">
-                                                                <button type="submit" form="formulario_inventario" class="btn btn-lg btn-success">
-                                                                    <i class="fas fa-save"></i>Guardar</button>
-                                                
+                                                                <button type="submit" class="btn btn-lg btn-success btn-agregar-inventario" form="formulario_inventario">
+                                                                    <i class="fas fa-save"></i> Guardar</button>
+
                                                                 <button type="button" class="btn btn-lg btn-danger cancelar" data-dismiss="modal">Cancelar</button>
                                                             </div>
 
                                                             <hr class="my-4 bg-dark">
+
+                                                            <div class="col">
+                                                                <div class="form-group">
+                                                                    <div class="input-group">
+                                                                        <h4><b><i>Evidencias</i></b></h4>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
 
                                                             <!-- /.TAB REGISTRO FOTOGRAFICO Y OBSERVACIONES -->
                                                             <div class="col-12">
@@ -2554,50 +2575,66 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                 <div class="row">
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group">
-                                                                                            <label>Imagen de evidencia (1 Foto a la vez)</label>
+                                                                                            <label>SUBIR / TOMAR imagen de evidencia (1 Foto a la vez)</label>
                                                                                             <div class="input-group">
                                                                                                 <div class="input-group-append">
                                                                                                     <span class="input-group-text">
-                                                                                                        <i class="fas fa-camera-retro"></i>
+                                                                                                        <i class="fas fa-camera"></i>
                                                                                                     </span>
                                                                                                 </div>
-                                                                                                <input type="file" class="form-control" name="foto_evidenciabusbuseta" id="foto_evidenciabusbuseta" accept="image/png, image/jpeg">
+                                                                                                <input type="file" class="form-control" name="foto_evidencia_inventario" id="foto_evidencia_inventario" accept="image/png, image/jpeg">
                                                                                             </div>
                                                                                         </div>
+                                                                                        <!-- <label> TOMAR imagen de evidencia</label>
+                                                                                        <div class="input-group">
+                                                                                            <div class="input-group-append">
+                                                                                                <span class="input-group-text">
+                                                                                                    <i class="fas fa-camera-retro"></i>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                            <input type="file" class="form-control" name="camarafoto_evidencia" id="camarafoto_evidencia" capture="camera">
+                                                                                        </div> -->
+
                                                                                     </div>
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group">
                                                                                             <label>Observaciones</label>
-                                                                                            <textarea class="form-control" rows="2" placeholder="Digite las observaciones vistas en la inspeccion." id="observaciones" name="observaciones" required></textarea>
+                                                                                            <textarea class="form-control" rows="4" placeholder="Digite las observaciones vistas en la inspeccion." id="observaciones" name="observaciones" required></textarea>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
 
-                                                                                <div class="row">
-                                                                                    <div class="col-sm align-center">
-                                                                                        <button type="button" class="btn btn-block bg-gradient-success btn-evidencias-inventario"><i class="far fa-save"> Guardar información</i></button>
-                                                                                    </div>
+                                                                                <hr class="my-4">
+
+                                                                                <div class="text-center">
+                                                                                    <button type="button" class="btn btn-lg bg-gradient-success btn_evidencias_inventario"><i class="far fa-save"><b> Guardar información</b></i></button>
                                                                                 </div>
+
                                                                             </form>
 
 
                                                                             <hr class="my-5 bg-dark">
 
+                                                                            <div class="col">
+                                                                                <div class="form-group">
+                                                                                    <div class="input-group">
+                                                                                        <h5><b><i>Imágenes subidas</i></b></h5>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+
                                                                             <div class="table-responsive">
-                                                                                <table class="table table-sm table-striped table-bordered table-hover text-center">
+                                                                                <table class="table table-sm table-striped table-bordered table-hover text-center" id="tabla_fotos">
                                                                                     <thead>
                                                                                         <tr>
+                                                                                            <th>Fecha</th>
                                                                                             <th>Imágenes de evidencia</th>
                                                                                             <th>Observaciones</th>
+                                                                                            <th>Estado</th>
                                                                                         </tr>
                                                                                     </thead>
-                                                                                    <tbody>
-                                                                                        <tr>
-                                                                                            <td>
-                                                                                            </td>
-                                                                                            <td>
-                                                                                            </td>
-                                                                                        </tr>
+                                                                                    <tbody id="tbody_tabla_fotos">
+
                                                                                     </tbody>
                                                                                 </table>
                                                                             </div>
@@ -2614,6 +2651,9 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                     $guardarInventario = new ControladorInventario();
                                                     $guardarInventario->ctrAgregarEditarInventario();
                                                     ?>
+                                                    <script>
+                                                        $("#inventario_id").val("");
+                                                    </script>
                                                     </form>
                                                     <!-- /.card -->
                                                 </div>
@@ -2634,7 +2674,8 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
         ========================= -->
         <div class="card card-success collapsed-card">
             <div class="card-header">
-                <h3 class="card-title"><b><i>Vehículos</i></b></h3>
+                <h3 class="card-title"><b><i>Vehículos</i></b> 
+                <i class="fas fa-car-alt"></i></h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                         <i class="fas fa-plus"></i>
@@ -2801,6 +2842,8 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                 <tr>
                                     <td>
                                         <button type="button" class="btn btn-success btn-sm btn-editarInventario" id_inventario="<?= $value['id'] ?>"><i class="fas fa-edit"></i></button>
+                                        <button type="button" class="btn btn-danger btn-sm btn-eliminar" id_inventario="<?= $value['id'] ?>"><i class="fas fa-trash"></i></button>
+
                                     </td>
                                     <td><?= $value['id'] ?></td>
                                     <td><?= $value['fecha_inventario'] ?></td>
