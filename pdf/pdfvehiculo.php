@@ -288,7 +288,6 @@ class PdfVehiculo
         $pdf->MultiCell(40, 5, $info['marca'], $complex_cell_border, 'L', 0, 0, '', '', true);
         $pdf->Ln();
         $pdf->Ln();
-        $pdf->Ln();
 
         /* ===================================================
            VENCIMIENTO DE DOCUMENTOS
