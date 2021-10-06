@@ -132,6 +132,9 @@ $(document).ready(function () {
                                         });
                                     }
                                     $("#idconductor").html(htmlSelect);
+                                    
+                                    // Accionar el observador
+                                    $("#observador_conductoresAlistamiento").trigger("change");
                                 }
                             });
 
@@ -153,6 +156,16 @@ $(document).ready(function () {
                 actualizo = true;
             }
         });
+
+        /* ==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+        ELEMENTO OBSERVADOR QUE PONE EL CONDUCTOR CUANDO SE ACTUALIZA EL SELECT 
+        ==========================================================================*/
+        $(document).on("change", "#observador_conductoresAlistamiento", function () {
+        let idconductor = $(this).attr("idconductor");
+        setTimeout(() => {
+            $("#idconductor").val(idconductor).trigger("change");
+        }, 1000);
+        });        
 
         /* ===================================================
           GUARDAR FORMULARIO ALISTAMIENTO
@@ -291,9 +304,11 @@ $(document).ready(function () {
                             }
                         }
 
-                        setTimeout(() => {
-                            $("#idconductor").val(response.idconductor);
-                        }, 1000);
+                        $("#observador_conductoresInventario").attr("idconductor", response.idconductor);
+
+                        // setTimeout(() => {
+                        //     $("#idconductor").val(response.idconductor);
+                        // }, 1000);
 
 
                         $("#kmtotal").val(response.kilometraje_total);
