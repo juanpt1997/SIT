@@ -247,7 +247,7 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                         <div class="col-md-6">
 
                             <div class="form-group">
-                                <label class="text-sm">Cédula expedidad en</label>
+                                <label class="text-sm">Cédula expedida en:</label>
                                 <div class="input-group input-group-sm">
                                     <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="expedicion" name="expedicion" required>
                                         <option selected value="">-Seleccione una ciudad-</option>
