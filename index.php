@@ -26,6 +26,7 @@ require_once 'controllers/fuec.controlador.php';
 require_once 'controllers/contratos.controlador.php';
 require_once 'controllers/mantenimiento.controlador.php';
 require_once 'controllers/operaciones.controlador.php';
+require_once 'controllers/telegram.controlador.php';
 
 
 

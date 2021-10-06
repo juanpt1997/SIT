@@ -71,7 +71,7 @@ class ControladorUsuarios
 						/* ===================================================
 						   NUEVA VERSION PARA GUARDAR OPCIONES Y PERMISOS DISPONIBLES
 						===================================================*/
-						$_SESSION['permisos'] = ModeloUsuarios::mdlPermisos($respuesta['Cedula']); 
+						$_SESSION['permisos'] = ModeloUsuarios::mdlPermisos($respuesta['Cedula']);
 
 
 						# Página de inicio
@@ -126,9 +126,10 @@ class ControladorUsuarios
 	   ACTUALIZAR ROL
 	===================================================*/
 
-	static public function ctrActualizarRol($idPerfil, $activo){
+	static public function ctrActualizarPerfil($idPerfil, $activo)
+	{
 		$nuevoActivo = $activo == 1 ? 0 : 1;
-		$respuesta = ModeloUsuarios::mdlActualizarRol($idPerfil,$nuevoActivo);
+		$respuesta = ModeloUsuarios::mdlActualizarPerfil($idPerfil, $nuevoActivo, "activo");
 		return $respuesta;
 	}
 
@@ -137,12 +138,12 @@ class ControladorUsuarios
 	   AGREGAR  ROL
 	===================================================*/
 
-	static public function ctrAgregarEditarRol($value){
-		if(isset($_POST['idPerfil']))
-		{
-			if($_POST['idPerfil'] == ""){
-				$AddEditRol = ModeloUsuarios::mdlAgregarRol($_POST);
-				if($AddEditRol == "ok"){
+	static public function ctrAgregarEditarPerfil($value)
+	{
+		if (isset($_POST['idPerfil'])) {
+			if ($_POST['idPerfil'] == "") {
+				$AddEditRol = ModeloUsuarios::mdlAgregarPerfil($_POST);
+				if ($AddEditRol == "ok") {
 					echo "
 							<script>
 								Swal.fire({
@@ -160,10 +161,10 @@ class ControladorUsuarios
 								})
 							</script>
 								";
-					}
-			}else{
-				$AddEditRol = ModeloUsuarios::mdlEditarRol($_POST);
-				if($AddEditRol == "ok"){
+				}
+			} else {
+				$AddEditRol = ModeloUsuarios::mdlEditarPerfil($_POST);
+				if ($AddEditRol == "ok") {
 					echo "
 							<script>
 								Swal.fire({
@@ -181,7 +182,7 @@ class ControladorUsuarios
 								})
 							</script>
 								";
-					}
+				}
 			}
 		}
 	}
@@ -195,6 +196,18 @@ class ControladorUsuarios
 		$respuesta = ModeloUsuarios::mdlDatosPerfil($idPerfil);
 		return $respuesta;
 	}
+
+	/* ===================================================
+	   BORRADO LOGICO PERFIL
+	===================================================*/
+
+	static public function ctrBorrarPerfil($idPerfil)
+	{
+		$nuevoEstado = 0;
+		$respuesta = ModeloUsuarios::mdlActualizarPerfil($idPerfil, $nuevoEstado, "estado");
+		return $respuesta;
+	}
+
 
 	/* ===================================================
 	   AGREGAR/EDITAR USUARIO
@@ -480,4 +493,164 @@ class ControladorUsuarios
 			}
 		}
 	}
+
+	/* ===================== 
+	  MOSTRAR LISTADO OPCIONES
+	========================= */
+
+	static public function ctrListadoOpciones()
+	{
+		$respuesta = ModeloUsuarios::mdlListadoOpciones();
+		return $respuesta;
+	}
+
+	/* ===================== 
+	  GUARDAR PERMISOS ROL
+	========================= */
+
+	static public function ctrAgregarPermisosRol()
+	{
+		if (isset($_POST['Ver']) || isset($_POST['Crear']) || isset($_POST['Actualizar']) || isset($_POST['Eliminar'])) {
+			ModeloUsuarios::mdlEliminarPermisosRol($_POST['idpermisos']);
+
+			
+			// Arreglo de opciones
+			$arrayop = ModeloUsuarios::mdlListadoOpciones();
+			
+
+			// Recorrer el arreglo y realizar la busqueda por cada posicion
+			foreach ($arrayop as $key => $value) {
+				$idOpcion = $value['idOpcion'];
+
+				if(isset($_POST['Ver'])){
+					if(self::BuscarOpcionPermiso($_POST['Ver'], $idOpcion)){
+						$datos = array(
+							'idPerfil' => $_POST['idpermisos'],
+							'idOpcion' => $idOpcion,
+							'Crear' => 0,
+							'Ver' => 1,
+							'Actualizar' => 0,
+							'Borrar' => 0
+						);
+					}
+				}else{
+					$datos['Ver'] = 0;
+				}
+
+				if(isset($_POST['Crear'])){
+					if(self::BuscarOpcionPermiso($_POST['Crear'],$idOpcion)){
+						$datos['Crear'] = 1;
+					}
+				}else{
+					$datos['Crear'] = 0;
+				}
+
+
+				if(isset($_POST['Actualizar'])){
+					if(self::BuscarOpcionPermiso($_POST['Actualizar'],$idOpcion)){
+						$datos['Actualizar'] = 1;
+					}
+				}else{
+					$datos['Actualizar'] = 0;
+				}
+
+
+				if(isset($_POST['Eliminar'])){
+					if(self::BuscarOpcionPermiso($_POST['Eliminar'], $idOpcion)){
+						$datos['Borrar'] = 1;
+					}
+				}else{
+					$datos['Borrar'] = 0;
+				}
+
+				$idPerfil = $_POST['idpermisos'];
+				$datos['idPerfil'] = $idPerfil;
+				$datos['idOpcion'] = $idOpcion;
+		
+
+				if($datos['Crear'] == 0 && $datos['Ver'] == 0 && $datos['Actualizar'] == 0 && $datos['Borrar'] == 0){
+					echo "no hay cambios";
+				}else{
+					
+					$respuesta = ModeloUsuarios::mdlAgregarPermisosRol($datos);
+					if($respuesta == "ok"){
+						echo "
+						<script>
+							Swal.fire({
+								icon: 'success',
+								title: 'Permisos modificados correctamente',
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								
+							}).then((result)=>{
+
+								if(result.value){
+									window.location = 'roles-usuarios';
+								}
+
+							})
+						</script>
+					";
+					}else{
+						echo "
+						<script>
+							Swal.fire({
+								icon: 'error',
+								title: '¡Los permisos no puedieron ser modificados!',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								closeOnConfirm: false
+								
+							}).then((result)=>{
+
+								if(result.value){
+									window.location = 'roles-usuarios';
+								}
+
+							})
+						</script>
+					";
+					}
+				}
+
+
+				//Se ponen las opciones en 0 para evitar que inserte por cada ciclo que haga  
+				$datos['Crear'] = 0;
+				$datos['Ver'] = 0;
+				$datos['Actualizar'] = 0;
+				$datos['Borrar'] = 0;
+
+			}
+		}
+	
+	}
+
+	/* =============================
+		FUNCION BUSCAR OPCION
+	================================*/
+	static public function BuscarOpcionPermiso($arreglo, $opcion)
+	{
+		$key = array_search($opcion, $arreglo);
+		if (false === $key) {
+			return false;
+			
+		} else {
+			return true;
+			
+		}
+	}
+
+
+	/* ===================================================
+	   CARGAR DATOS PERMISOS ROL
+	===================================================*/
+
+	static public function ctrDatosPermisosRol($idPerfil)
+	{
+		$respuesta = ModeloUsuarios::mdlDatosPermisosRol($idPerfil);
+		return $respuesta;
+	}
+
+
+
 }
