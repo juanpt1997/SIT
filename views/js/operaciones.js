@@ -304,7 +304,7 @@ $(document).ready(function () {
                             }
                         }
 
-                        $("#observador_conductoresInventario").attr("idconductor", response.idconductor);
+                        $("#observador_conductoresAlistamiento").attr("idconductor", response.idconductor);
 
                         // setTimeout(() => {
                         //     $("#idconductor").val(response.idconductor);
