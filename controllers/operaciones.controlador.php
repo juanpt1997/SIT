@@ -174,6 +174,15 @@ class ControladorAlistamiento
             }
         }
 
+        /* ===================================================
+           TELEGRAM
+        ===================================================*/
+        # Mensaje de telegram
+
+        $msg = "Testeo bot telegram";
+
+        ControladorTelegram::ctrNotificaciones($msg);
+
         return $retorno;
     }
 

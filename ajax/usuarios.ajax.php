@@ -84,9 +84,41 @@ class AjaxUsuarios
         ACTIVAR PERFIL
     ===================================================*/
 
-    static public function AjaxActivarPerfil($idPerfil,$activo){
-        $respuesta = ControladorUsuarios::ctrActualizarRol($idPerfil, $activo);
+    static public function AjaxActivarPerfil($idPerfil,$activo)
+    {
+        $respuesta = ControladorUsuarios::ctrActualizarPerfil($idPerfil, $activo);
         echo $respuesta;
+    }
+
+    /* ===================================================
+        BORRAR PERFIL
+    ===================================================*/
+
+    static public function AjaxBorrarPerfil($idPerfil)
+    {
+        $respuesta = controladorUsuarios::ctrBorrarPerfil($idPerfil);
+        echo $respuesta;
+    }
+
+     /* ===================================================
+        AGREGAR PERMISOS DEL PERFIL
+    ===================================================*/
+
+    static public function AjaxAgregarPermisosRol($idPerfil)
+    {
+        $respuesta = ControladorUsuarios::ctrAgregarPermisosRol($idPerfil);
+        echo $respuesta;
+    }
+
+    /* ===================================================
+        CARGAR DATOS PERMISOS DEL PERFIL
+    ===================================================*/
+
+    static public function AjaxDatosPermisosRol($idPerfil)
+    {
+        $respuesta = ControladorUsuarios::ctrDatosPermisosRol($idPerfil);
+        echo json_encode($respuesta);
+        // echo $respuesta;
     }
 
 }
@@ -144,8 +176,20 @@ if (isset($_POST['ActivarPerfil']) && $_POST['ActivarPerfil'] == "ok"){
         BORRADO LOGICO
     ===================================================*/
 
-// if(isset($_POST['Borrado']) && $_POST['Borrado'] == "ok"){
-//     AjaxUsuarios::AjaxBorrarPerfil()
-// }
+if(isset($_POST['Borrado']) && $_POST['Borrado'] == "ok"){
+    AjaxUsuarios::AjaxBorrarPerfil($_POST['idPerfil']);
+}
 
 
+/* ===================================================
+       PERMISOS ROL
+    ===================================================*/
+
+if(isset($_POST['permisosrol']) && $_POST['permisosrol'] == "ok"){
+    AjaxUsuarios::AjaxAgregarPermisosRol($_POST['idPerfil']);
+    // AjaxUsuarios::AjaxDatosPermisosRol($_POST['idPerfil']);
+}
+
+if(isset($_POST['Datosrol'])&& $_POST['Datosrol'] == "ok"){
+    AjaxUsuarios::AjaxDatosPermisosRol($_POST['idPerfil']);
+}
