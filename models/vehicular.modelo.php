@@ -504,7 +504,7 @@ class ModeloVehiculos
                                                 FROM v_re_documentosvehiculos d
                                                 INNER JOIN v_tipodocumento t ON t.idtipo = d.idtipodocumento
                                                 WHERE d.idvehiculo = :idvehiculo
-                                                ORDER BY d.fechacreacion DESC");
+                                                ORDER BY d.fechacreacion DESC, d.fechafin DESC");
 
         $stmt->bindParam(":idvehiculo", $idvehiculo, PDO::PARAM_INT);
 

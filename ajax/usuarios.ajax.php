@@ -23,15 +23,15 @@ class AjaxUsuarios
         echo json_encode($respuesta);
     }
 
-    /* ===================================================
-        VISUALIZAR DATOS DE UN PERFIL
-    ===================================================*/
+    // /* ===================================================
+    //     VISUALIZAR DATOS DE UN PERFIL
+    // ===================================================*/
 
-    static public function ajaxDatosPerfiles($value)
-    {
-        $respuesta =ModeloUsuarios::mdlListadoPerfiles();
-        echo json_encode($respuesta);
-    }
+    // static public function ajaxDatosPerfiles($value)
+    // {
+    //     $respuesta =ModeloUsuarios::mdlListadoPerfiles();
+    //     echo json_encode($respuesta);
+    // }
 
     /* ===================================================
        ACTIVAR USUARIO
@@ -70,6 +70,25 @@ class AjaxUsuarios
         $respuesta = ControladorUsuarios::ctrCambiarPswd($datos);
         echo $respuesta;
     }
+
+     /* ===================================================
+        DATOS DEL PERFIL
+    ===================================================*/
+    static public function AjaxDatosPerfil($idPerfil)
+    {
+        $respuesta = ControladorUsuarios::ctrDatosPerfil($idPerfil);
+        echo json_encode($respuesta);
+    }
+
+    /* ===================================================
+        ACTIVAR PERFIL
+    ===================================================*/
+
+    static public function AjaxActivarPerfil($idPerfil,$activo){
+        $respuesta = ControladorUsuarios::ctrActualizarRol($idPerfil, $activo);
+        echo $respuesta;
+    }
+
 }
 
 if (isset($_POST['DatosUsuario']) && $_POST['DatosUsuario'] == "ok") {
@@ -102,3 +121,31 @@ if (isset($_POST['CambiarPass']) && $_POST['CambiarPass'] == "ok"){
                 );
     AjaxUsuarios::AjaxCambiarPass($datos);
 }
+
+/* ===================================================
+        CAPTURAR DATOS PARA EDITAR EL PERFIL
+    ===================================================*/
+
+if (isset($_POST['DatosPerfil']) && $_POST['DatosPerfil'] == "ok"){
+    AjaxUsuarios::ajaxDatosPerfil($_POST['idPerfil']);
+}
+
+/* ===================================================
+        ACTIVAR PERFIL
+    ===================================================*/
+
+if (isset($_POST['ActivarPerfil']) && $_POST['ActivarPerfil'] == "ok"){
+    //AjaxUsuarios::ajaxDatosPerfil($_POST['idPerfil']);
+    // echo $_POST['activo'];
+    AjaxUsuarios::AjaxActivarPerfil($_POST['idPerfil'], $_POST['activo']);
+}
+
+/* ===================================================
+        BORRADO LOGICO
+    ===================================================*/
+
+// if(isset($_POST['Borrado']) && $_POST['Borrado'] == "ok"){
+//     AjaxUsuarios::AjaxBorrarPerfil()
+// }
+
+

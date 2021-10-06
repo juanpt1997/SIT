@@ -154,15 +154,130 @@ if (window.location.href == `${urlPagina}usuarios/` ||
 
 if (window.location.href == `${urlPagina}roles-usuarios/` ||
     window.location.href == `${urlPagina}roles-usuarios`){
-        
+    
+    /* ===================================================
+            EDIRAR ROL
+        ===================================================*/
+    
     $(document).on("click", ".btn-editarroles", function(){
 
         console.log("Click en editar");
 
-        var idRoles = $(this).attr("idRoles");
-        $("#idRoles").val("idRoles");
-        console.log($("#idRoles"));
+        var idPerfil = $(this).attr("idPerfil");
+        $("#idPerfil").val(idPerfil);
 
+        var datos = new FormData();
+        datos.append("DatosPerfil", "ok");
+        datos.append("idPerfil", idPerfil);
+
+        $.ajax({
+            type: "POST",
+            url: "ajax/usuarios.ajax.php",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (response) {
+                if (response!=""){
+                    
+                    $("#Perfil").val(response.perfil);
+                    $("#Descripcion").val(response.descripcion);
+                    $("#activo").val(response.activo);
+
+
+                }
+            }
+        });
+    });
+
+
+    /* ===================================================
+        CAMBIAR ACTIVO/INACTIVO
+       ===================================================*/
+
+       $(document).on("click", ".btnActivar", function(){
+        console.log("Click en activo");
+
+        var idPerfil = $(this).attr("idPerfil");
+        var activo = $(this).attr("activo");
+
+        var datos = new FormData();
+        datos.append("ActivarPerfil", "ok");
+        datos.append("idPerfil", idPerfil);
+        datos.append("activo",activo);
+
+        $.ajax({
+            type: "POST",
+            url: "ajax/usuarios.ajax.php",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response=="ok"){
+                    
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Estado actualizado correctamente',						
+                        showConfirmButton: true,
+                        confirmButtonText: 'Cerrar',
+                                    
+                        }).then((result)=>{
+
+                            if(result.value){
+                                window.location = 'roles-usuarios';
+                            }
+
+                        })
+                    
+                    
+                }else{
+                    
+                    Swal.fire({
+                        icon: 'error',
+                        showConfirmButton: true,
+                        confirmButtonColor: '#5cb85c',
+                        text: 'Por favor digite correctamente el usuario y contraseña'
+                    });
+                }
+            }
+        });
 
     });
+
+
+/* ===================================================
+     BORRADO LOGICO
+    ===================================================*/
+
+    // $(document).on("click",".btn-eliminarroles", function(){
+    //     var idPerfil = $(this).attr("idPerfil");
+    //     var idEstado = $(this).attr("idEstado");
+
+    //     var datos = new FormData();
+    //     datos.append("Borrado","ok");
+    //     datos.append("idPerfil", idPerfil);
+    //     datos.append("idEstado",idEstado);
+
+    //     $.ajax({
+    //         type: "POST",
+    //         url: "ajax/usuarios.ajax.php",
+    //         data: datos,
+    //         cache: false,
+    //         contentType: false,
+    //         processData: false,
+    //         success: function (response) {
+
+    //             console.log(response)
+
+
+    //         }
+    // });
+
+
+
+
+
+
 }

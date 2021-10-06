@@ -123,74 +123,78 @@ class ControladorUsuarios
 	}
 
 	/* ===================================================
+	   ACTUALIZAR ROL
+	===================================================*/
+
+	static public function ctrActualizarRol($idPerfil, $activo){
+		$nuevoActivo = $activo == 1 ? 0 : 1;
+		$respuesta = ModeloUsuarios::mdlActualizarRol($idPerfil,$nuevoActivo);
+		return $respuesta;
+	}
+
+
+	/* ===================================================
 	   AGREGAR  ROL
 	===================================================*/
 
 	static public function ctrAgregarEditarRol($value){
-		if(isset($_POST['idRoles']))
+		if(isset($_POST['idPerfil']))
 		{
-			if($_POST['idRoles'] == ""){
+			if($_POST['idPerfil'] == ""){
 				$AddEditRol = ModeloUsuarios::mdlAgregarRol($_POST);
+				if($AddEditRol == "ok"){
+					echo "
+							<script>
+								Swal.fire({
+								icon: 'success',
+								title: 'Perfil creado correctamente',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+											
+								}).then((result)=>{
+		
+									if(result.value){
+										window.location = 'roles-usuarios';
+									}
+		
+								})
+							</script>
+								";
+					}
 			}else{
-				echo 'actualizando';
-				$AddEditRol = ModeloUsuarios::mdlActualizarRol($_POST);
+				$AddEditRol = ModeloUsuarios::mdlEditarRol($_POST);
+				if($AddEditRol == "ok"){
+					echo "
+							<script>
+								Swal.fire({
+								icon: 'success',
+								title: 'Perfil actualizado correctamente',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+											
+								}).then((result)=>{
+		
+									if(result.value){
+										window.location = 'roles-usuarios';
+									}
+		
+								})
+							</script>
+								";
+					}
 			}
-
-			if($AddEditRol == "ok"){
-			echo "
-					<script>
-						Swal.fire({
-						icon: 'success',
-						title: 'Perfil credo correctamente',						
-						showConfirmButton: true,
-						confirmButtonText: 'Cerrar',
-									
-						}).then((result)=>{
-
-							if(result.value){
-								window.location = 'roles-usuarios';
-							}
-
-						})
-					</script>
-						";
-			}
-
-
-
-
-
-
-
-
-
-			// $datos = array(
-			// 	'Perfil' => $_POST['Perfil'],
-			// 	'Descripcion' => $_POST['Descripcion'],
-			// 	'Estado' => $_POST['EstadoRol']
-			// );
-
-			// $AddEditRol = ModeloUsuarios::mdlAgregarRol($datos);
-			// echo "
-			// 				<script>
-			// 					Swal.fire({
-			// 						icon: 'success',
-			// 						title: 'Perfil credo correctamente',						
-			// 						showConfirmButton: true,
-			// 						confirmButtonText: 'Cerrar',
-									
-			// 					}).then((result)=>{
-
-			// 						if(result.value){
-			// 							window.location = 'roles-usuarios';
-			// 						}
-
-			// 					})
-			// 				</script>
-			// 			";
 		}
 	}
 
+	/* ===================================================
+	   VISUALIZAR DATOS PERFIL
+	===================================================*/
+
+	static public function ctrDatosPerfil($idPerfil)
+	{
+		$respuesta = ModeloUsuarios::mdlDatosPerfil($idPerfil);
+		return $respuesta;
+	}
 
 	/* ===================================================
 	   AGREGAR/EDITAR USUARIO

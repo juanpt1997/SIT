@@ -966,8 +966,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 =================================================== -->
                                                 <div class="col-12 col-md-6 col-lg-4">
                                                     <div class="form-group">
-                                                        <label for="exampleInput1">Nro Documento *</label>
-                                                        <input type="text" class="form-control" name="nrodocumento" required>
+                                                        <label for="exampleInput1">Nro Documento</label>
+                                                        <input type="text" class="form-control" name="nrodocumento">
                                                     </div>
                                                 </div>
 
@@ -998,6 +998,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                     <div class="form-group">
                                                         <label for="exampleInput1">Tarifa *</label>
                                                         <select id="my-select" class="form-control" name="tarifa">
+                                                            <option>0</option>
                                                             <option>91</option>
                                                             <option>92</option>
                                                             <option>71</option>
