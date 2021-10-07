@@ -76,7 +76,7 @@ class ModeloUsuarios
        AGREGAR ROL
     ===================================================*/
 
-    static public function mdlAgregarRol($datos)
+    static public function mdlAgregarPerfil($datos)
     {
         $stmt = conexion::conectar()->prepare("INSERT INTO l_perfiles(perfil,descripcion,activo) VALUES(:perfil,:descripcion,:activo)");
 
@@ -97,10 +97,11 @@ class ModeloUsuarios
     }
     
     /* ===================================================
-       MOSTRAR PERFIL SOLICITADO POR EL ID
+       MOSTRAR PERFIL 
     ===================================================*/
 
-    static public function mdlDatosPerfil($idPerfil){
+    static public function mdlDatosPerfil($idPerfil)
+    {
         $stmt = conexion::conectar()->prepare("SELECT * FROM l_perfiles WHERE idPerfil = :idPerfil");
 
 
@@ -119,7 +120,8 @@ class ModeloUsuarios
        EDITAR ROL
     ===================================================*/
     
-    static public function mdlEditarRol($datos){
+    static public function mdlEditarPerfil($datos)
+    {
         $stmt = conexion::conectar()->prepare("UPDATE l_perfiles set perfil =:perfil, descripcion=:descripcion, activo=:activo WHERE idPerfil = :idPerfil");
         
         $stmt->bindParam(":idPerfil", $datos["idPerfil"], PDO::PARAM_INT);
@@ -141,14 +143,15 @@ class ModeloUsuarios
     }
 
     /* ===================================================
-       AGREGAR USUARIO
+       ACTUALIZAR ROL
     ===================================================*/
 
-    static public function mdlActualizarRol($idPerfil,$activo){
-        $stmt = conexion::conectar()->prepare(" UPDATE l_perfiles SET activo = :activo WHERE idPerfil = :idPerfil");
+    static public function mdlActualizarPerfil($idPerfil,$valor, $campo)
+    {
+        $stmt = conexion::conectar()->prepare(" UPDATE l_perfiles SET {$campo} = :{$campo} WHERE idPerfil = :idPerfil");
 
         $stmt->bindParam(":idPerfil", $idPerfil, PDO::PARAM_INT);
-        $stmt->bindParam(":activo", $activo, PDO::PARAM_INT);
+        $stmt->bindParam(":{$campo}", $valor, PDO::PARAM_INT);
 
         if($stmt->execute()){
             $retorno = "ok";;
@@ -165,7 +168,6 @@ class ModeloUsuarios
 
     }
 
-    
     /* ===================================================
        AGREGAR USUARIO
     ===================================================*/
@@ -261,4 +263,91 @@ class ModeloUsuarios
         $stmt->closeCursor();
         return $retorno;
     }
+
+    /* ===================================================
+        LISTADO OPCIONES
+    ===================================================*/
+
+    static public function mdlListadoOpciones()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT o.idOpcion, o.nombre FROM l_opciones o");
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /* ===================================================
+       ELIMINA PERMISOS PERFIL
+    ===================================================*/
+
+
+    static public function mdlEliminarPermisosRol($idPerfil)
+    {
+        $stmt = Conexion::conectar()->prepare("DELETE FROM l_re_permisos re WHERE idPerfil = :idPerfil");
+
+        $stmt->bindParam(":idPerfil",$idPerfil,PDO::PARAM_INT);
+
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+            echo $retorno;
+        }else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+        
+        return $retorno;
+    }
+
+
+    /* ===================================================
+        AGREGA PERMISOS ROL
+    ===================================================*/
+
+    static public function mdlAgregarPermisosRol($datos)
+    {
+       $stmt = Conexion::conectar()->prepare("INSERT INTO l_re_permisos (idPerfil, idOpcion, Crear, Leer, Actualizar, Borrar) 
+                                            VALUES(:idPerfil, :idOpcion, :Crear, :Leer, :Actualizar, :Borrar )");
+
+        $stmt->bindParam(":idPerfil",$datos['idPerfil'],PDO::PARAM_INT);
+        $stmt->bindParam(":idOpcion",$datos['idOpcion'],PDO::PARAM_INT);
+        $stmt->bindParam(":Crear",$datos['Crear'],PDO::PARAM_INT);
+        $stmt->bindParam(":Leer",$datos['Ver'],PDO::PARAM_INT);
+        $stmt->bindParam(":Actualizar",$datos['Actualizar'],PDO::PARAM_INT);
+        $stmt->bindParam(":Borrar",$datos['Borrar'],PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+            echo $retorno;
+        }else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+        
+        return $retorno;
+
+    }
+
+
+    /*====================================================
+        DATOS PERMISOS ROL 
+    =====================================================*/
+
+    static public function mdlDatosPermisosRol($idPerfil)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT p.* FROM l_re_permisos p
+        INNER JOIN l_opciones o ON p.idOpcion = o.idOpcion
+        WHERE idPerfil = $idPerfil");
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
 }

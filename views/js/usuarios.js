@@ -156,12 +156,10 @@ if (window.location.href == `${urlPagina}roles-usuarios/` ||
     window.location.href == `${urlPagina}roles-usuarios`){
     
     /* ===================================================
-            EDIRAR ROL
+            EDITAR ROL
         ===================================================*/
     
     $(document).on("click", ".btn-editarroles", function(){
-
-        console.log("Click en editar");
 
         var idPerfil = $(this).attr("idPerfil");
         $("#idPerfil").val(idPerfil);
@@ -197,10 +195,12 @@ if (window.location.href == `${urlPagina}roles-usuarios/` ||
        ===================================================*/
 
        $(document).on("click", ".btnActivar", function(){
-        console.log("Click en activo");
+        
 
         var idPerfil = $(this).attr("idPerfil");
         var activo = $(this).attr("activo");
+
+        console.log(idPerfil);
 
         var datos = new FormData();
         datos.append("ActivarPerfil", "ok");
@@ -247,34 +247,108 @@ if (window.location.href == `${urlPagina}roles-usuarios/` ||
     });
 
 
-/* ===================================================
-     BORRADO LOGICO
+    /* ===================================================
+                BORRADO LOGICO
     ===================================================*/
 
-    // $(document).on("click",".btn-eliminarroles", function(){
-    //     var idPerfil = $(this).attr("idPerfil");
-    //     var idEstado = $(this).attr("idEstado");
+    $(document).on("click",".btn-eliminarroles", function(){
+        
+        var idPerfil = $(this).attr("idPerfil");
+        var datos = new FormData();
+        datos.append("Borrado","ok");
+        datos.append("idPerfil", idPerfil);
+        
 
-    //     var datos = new FormData();
-    //     datos.append("Borrado","ok");
-    //     datos.append("idPerfil", idPerfil);
-    //     datos.append("idEstado",idEstado);
+        $.ajax({
+            type: "POST",
+            url: "ajax/usuarios.ajax.php",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                console.log(response);
+                if(response == "ok"){
+                    
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Perfil eliminado correctamente',						
+                        showConfirmButton: true,
+                        confirmButtonText: 'Cerrar',
+                                    
+                        }).then((result)=>{
 
-    //     $.ajax({
-    //         type: "POST",
-    //         url: "ajax/usuarios.ajax.php",
-    //         data: datos,
-    //         cache: false,
-    //         contentType: false,
-    //         processData: false,
-    //         success: function (response) {
+                            if(result.value){
+                                window.location = 'roles-usuarios';
+                            }
 
-    //             console.log(response)
+                        })
+
+                }else{
+
+                    Swal.fire({
+                        icon: 'error',
+                        showConfirmButton: true,
+                        confirmButtonColor: '#5cb85c',
+                        text: 'El perfil no se ha podido eliminar'
+                    });
+
+                }
 
 
-    //         }
-    // });
+            }
+        });
 
+    });
+
+    /* ===================================================
+                PERMISOS ROL
+    ===================================================*/
+
+
+    $(document).on("click",".btn-permisoroles", function(){
+        
+
+        var idPerfil = $(this).attr("idPerfil");
+        $("#idpermisos").val(idPerfil);
+
+        // Reset Formulario
+        $("#permisos_form").trigger('reset');
+
+        var datos1 = new FormData();
+        datos1.append("Datosrol","ok");
+        datos1.append("idPerfil",idPerfil);
+
+       
+
+        $.ajax({
+            type: "POST",
+            url: "ajax/usuarios.ajax.php",
+            data: datos1,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function (response){
+                
+                response.forEach(element => {
+                    if(element.Leer == 1)$(`input[name='Ver[]'][value='${element.idOpcion}']`).iCheck('check');
+                    if(element.Crear == 1)$(`input[name='Crear[]'][value='${element.idOpcion}']`).iCheck('check');
+                    if(element.Actualizar == 1)$(`input[name='Actualizar[]'][value='${element.idOpcion}']`).iCheck('check');
+                    if(element.Borrar)$(`input[name='Eliminar[]'][value='${element.idOpcion}']`).iCheck('check');
+                    
+                    
+                });
+            }
+        });
+
+
+        
+
+
+
+        
+    });
 
 
 

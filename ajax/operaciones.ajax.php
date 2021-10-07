@@ -5,6 +5,7 @@ include '../config/config.php';
 
 # REQUERIMOS EL CONTROLADOR Y EL MODELO PARA QUE REALICE LA PETICION
 require_once '../controllers/files.controlador.php';
+require_once '../controllers/telegram.controlador.php';
 
 require_once '../controllers/operaciones.controlador.php';
 require_once '../models/operaciones.modelo.php';
