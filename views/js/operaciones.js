@@ -172,6 +172,10 @@ $(document).ready(function () {
         ===================================================*/
         $("#alistamiento_form").submit(function (e) {
             e.preventDefault();
+
+            
+
+
             AbiertoxEditar = true; //BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
 
             var datosAjax = new FormData();
@@ -530,4 +534,57 @@ $(document).ready(function () {
 
         });
     }
+
+    /* ===================================================
+        COMPROBAR INPUTS 
+    ====================================================== */
+
+    $(document).on("click", ".btn-alistamientoguardar", function(){
+
+        
+        Areas = [];
+        Requeridos = [];
+
+      $('input:invalid').each(function (index, element) {
+          var $input = $(this);
+
+          var idform = $input.closest("form").attr("id");
+
+          if (idform == "alistamiento_form") {
+              Requeridos.push($input);
+          }
+      });
+
+      $('textarea:invalid').each(function(index,element){
+        var $area = $(this);
+
+        var idform = $area.closest("form").attr("id");
+
+        if (idform == "alistamiento_form") {
+            Areas.push($area);
+        }
+
+
+      });
+
+      if (Requeridos.length > 0 || Areas.length > 0) {
+          Swal.fire({
+              icon: 'warning',
+              text: 'Verifique que ha diligenciado todos los datos necesarios',
+              showConfirmButton: true,
+              confirmButtonText: 'Cerrar',
+              closeOnConfirm: false
+          });
+      }
+        
+    });
+
+
+
+
+
+
+
+
+
 });
