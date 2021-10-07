@@ -2315,7 +2315,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                 =================================================== -->
                             <?php if (validarPermiso('M_OPERACIONES', 'U')) : ?>
                                 <div class="col-12 mb-1">
-                                    <button type="submit" form="alistamiento_form" class="btn btn-sm btn-success float-center">
+                                    <button type="submit" form="alistamiento_form" class="btn btn-sm btn-success float-center btn-alistamientoguardar">
                                         <i class="fas fa-print"></i>
                                         Guardar
                                     </button>

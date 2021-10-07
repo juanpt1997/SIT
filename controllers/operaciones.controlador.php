@@ -174,12 +174,54 @@ class ControladorAlistamiento
             }
         }
 
+        
+        
         /* ===================================================
-           TELEGRAM
+        TELEGRAM
         ===================================================*/
         # Mensaje de telegram
+        $msg = "";
+        
+        //para buscar el conductor
+        $datosPersonal = array(
+            'item' => 'idPersonal',
+            'valor' => $datos['idconductor']
+        );
 
-        $msg = "Testeo bot telegram";
+        $respuesta = ModeloGH::mdlDatosEmpleado($datosPersonal);
+
+        //Para buscar placa
+
+        $datosplaca = array(
+            'item' => 'idvehiculo',
+            'valor' => $datos['idvehiculo']
+        );
+
+        $respuestaPlaca = ModeloVehiculos::mdlDatosVehiculo($datosplaca);
+        date_default_timezone_set('America/Bogota');
+        $fecha = localtime(time(),true);
+        
+        $msg = $msg."<b>Conductor: </b>".$respuesta['Nombre']."\n";
+        $msg = $msg."<b>Placa: </b>".$respuestaPlaca['placa']."\n";
+        $msg = $msg."<b>Fecha: </b>".$fecha['tm_mday']."/".$fecha['tm_mon']."/".date("y")."\n";
+        $msg = $msg."<b>Hora: </b>".$fecha['tm_hour'].":".$fecha['tm_min'].":".$fecha['tm_sec']."\n";
+
+
+        foreach ($datos as $key => $value) {
+        if($key == 'nivel_refrigerante' && $value == 0) $msg = $msg. "<b>Nivel refrigerante:</b> Bajo \n";
+            if($key == 'nivel_combustible' && $value == 0) $msg = $msg."<b>Nivel de combustible:</b> Bajo \n";
+            if($key == 'liquido_hidraulico' && $value == 0)$msg = $msg."<b>Nivel de líquido hidráulico:</b> Bajo \n";
+            if($key == 'nivel_liquido_frenos' && $value == 0)$msg = $msg."<b>Nivel de líquido de frenos:</b> Bajo \n";
+            if($key == 'nivel_aceite' && $value == 0)$msg = $msg."<b>Nivel de aceite:</b> Bajo \n";
+        }
+        
+        // foreach ($arraymensaje as $key => $value) {
+        //     $msg = "-".$key;
+        // }
+        
+
+
+       
 
         ControladorTelegram::ctrNotificaciones($msg);
 
