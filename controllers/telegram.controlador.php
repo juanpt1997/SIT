@@ -1,6 +1,6 @@
 <?php
 // INCLUIMOS LA CONFIGURACIÓN PARA ACCEDER AL CANAL DE TELGRAM
-include_once $_SERVER['DOCUMENT_ROOT'] . '/ti/sio/srm/config/telegram.php';
+include_once DIR_APP . 'config/telegram.php';
 
 class ControladorTelegram
 {
