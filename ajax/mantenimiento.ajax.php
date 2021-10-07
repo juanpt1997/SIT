@@ -61,13 +61,13 @@ class AjaxInventario
             CREAMOS DIRECTORIO DONDE VAMOS A GUARDAR EL ARCHIVO
         ========================= */
         # Verificar Directorio imagenes mantenimiento
-        $directorio = DIR_APP . "views/img/imgInventario";
+        $directorio = DIR_APP . "views/img/imgMantenimiento";
         if (!is_dir($directorio)) {
             mkdir($directorio, 0755);
         }
 
         # Verificar Directorio Evidencias
-        $directorio .= "/evidencias";
+        $directorio .= "/evidenciasInventario";
         if (!is_dir($directorio)) {
             mkdir($directorio, 0755);
         }

@@ -13,3 +13,47 @@ select[readonly]{
   /* .sidebar-mini-md.sidebar-collapse .main-sidebar:hover .nav-sidebar.nav-child-indent .nav-treeview, .sidebar-mini-md.sidebar-collapse .main-sidebar.sidebar-focused .nav-sidebar.nav-child-indent .nav-treeview {
     padding-left: 1rem;
   } */
+
+
+/* Scroll paralelo efecto */
+
+/* .parallax1 {
+
+  background-image: url("./views/img/plantilla/plantillapdf.png");
+  min-height: 500px;
+  min-width: 500px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: grid;
+  place-items: center;
+} */
+
+/* .parallax2 {
+
+  background-image: url();
+  min-height: 500px;
+  min-width: 500px;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: grid;
+  place-items: center;
+} */
+
+/* h2 {
+  background: #fff;
+  width: 200px;
+  border-radius: 50px;
+  text-align: center;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
+  -ms-border-radius: 50px;
+  -o-border-radius: 50px;
+} */
+
+center {
+  font-size: 2rem;
+}
