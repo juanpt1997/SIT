@@ -179,7 +179,22 @@ class ControladorAlistamiento
         ===================================================*/
         # Mensaje de telegram
 
-        $msg = "Testeo bot telegram";
+        $msg = "Testeo 2";
+
+        // for ($i=0; $i < $datos ; $i++) { 
+        //     if($datos['nivel_refrigerante'] == 0 || $datos['nivel_combustible'] == 0  ){
+
+        //         $variable = $datos[$i];
+        //         $msg = $variable;
+
+
+
+        //     }
+        // }
+
+
+
+       
 
         ControladorTelegram::ctrNotificaciones($msg);
 
