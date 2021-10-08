@@ -9,7 +9,7 @@ $Sucursales = ControladorGH::ctrSucursales();
 $Cotizaciones = ControladorCotizaciones::ctrVerCotizacion();
 $clientes = ControladorClientes::ctrVerCliente();
 $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
-$Rutas = ControladorCiudades::ctrListarRutas();
+$Rutas = ControladorRutas::ctrListarRutas();
 ?>
 
 
