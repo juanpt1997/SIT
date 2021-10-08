@@ -606,5 +606,90 @@ class ModeloAlistamiento
         $conexion = null;
         return $respuesta;
     }
+}
 
+class ModeloRodamiento
+{
+    static public function mdlAgregarRodamiento($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO o_rodamiento(idvehiculo,idconductor,idcliente,idruta,h_inicio,h_final,kmrecorridos,cantidad_pasajeros,tipo_servicio,fecha_servicio)
+                                                VALUES(:idvehiculo,:idconductor,:idcliente,:idruta,:h_inicio,:h_final,:kmrecorridos,:cantidad_pasajeros,:tipo_servicio,:fecha_servicio)");
+
+        $stmt->bindParam(":idvehiculo", $datos["documento"], PDO::PARAM_INT);
+        $stmt->bindParam(":idconductor", $datos["tdocumento"], PDO::PARAM_INT);
+        $stmt->bindParam(":idcliente", $datos["nombre"], PDO::PARAM_INT);
+        $stmt->bindParam(":idruta", $datos["telpro"], PDO::PARAM_INT);
+        $stmt->bindParam(":h_inicio", $datos["dirpro"], PDO::PARAM_STR);
+        $stmt->bindParam(":h_final", $datos["emailp"], PDO::PARAM_STR);
+        $stmt->bindParam(":kmrecorridos", $datos["ciudadpro"], PDO::PARAM_INT);
+        $stmt->bindParam(":cantidad_pasajeros", $datos["ciudadpro"], PDO::PARAM_INT);
+        $stmt->bindParam(":tipo_servicio", $datos["ciudadpro"], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_servicio", $datos["ciudadpro"], PDO::PARAM_STR);
+
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    static public function mdlEditarRodamiento($datos)
+    {
+
+        $stmt = Conexion::conectar()->prepare("UPDATE o_rodamiento set idvehiculo = :idvehiculo, idconductor = :idconductor, idcliente = :idcliente, idruta = :idruta, h_inicio = :h_inicio, h_final = :h_final, kmrecorridos = :kmrecorridos, cantidad_pasajeros = :cantidad_pasajeros, tipo_servicio = :tipo_servicio, fecha_servicio = :fecha_servicio
+                                               WHERE idxp = :idxp");
+
+        $stmt->bindParam(":idvehiculo", $datos["documento"], PDO::PARAM_INT);
+        $stmt->bindParam(":idconductor", $datos["tdocumento"], PDO::PARAM_INT);
+        $stmt->bindParam(":idcliente", $datos["nombre"], PDO::PARAM_INT);
+        $stmt->bindParam(":idruta", $datos["telpro"], PDO::PARAM_INT);
+        $stmt->bindParam(":h_inicio", $datos["dirpro"], PDO::PARAM_STR);
+        $stmt->bindParam(":h_final", $datos["emailp"], PDO::PARAM_STR);
+        $stmt->bindParam(":kmrecorridos", $datos["ciudadpro"], PDO::PARAM_INT);
+        $stmt->bindParam(":cantidad_pasajeros", $datos["ciudadpro"], PDO::PARAM_INT);
+        $stmt->bindParam(":tipo_servicio", $datos["ciudadpro"], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_servicio", $datos["ciudadpro"], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    static public function mdlMostrar($value)
+    {
+
+        if ($value != null) {
+
+            $stmt = Conexion::conectar()->prepare("SELECT P.*, M.municipio AS ciudad FROM propietario P
+												   LEFT JOIN gh_municipios M ON P.idciudad = M.idmunicipio
+												   WHERE P.documento = :cedula");
+
+            $stmt->bindParam(":cedula",  $value, PDO::PARAM_INT);
+            $stmt->execute();
+            $retorno =  $stmt->fetch();
+        } else {
+
+            $stmt = Conexion::conectar()->prepare("SELECT P.*, M.municipio AS ciudad FROM propietario P
+									   			   LEFT JOIN gh_municipios M ON P.idciudad = M.idmunicipio
+									   			   WHERE P.estado = 1");
+            $stmt->execute();
+            $retorno =  $stmt->fetchAll();
+        }
+
+        $stmt->closeCursor();
+        return $retorno;
+    }
 }

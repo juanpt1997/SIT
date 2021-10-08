@@ -427,7 +427,7 @@
             <div style="height:100px;font-size:60px;"></div>
             <div class="card bg-dark">
                 <div class="card-body">
-                    <div class="parallax1">
+                    <div class="parallax2">
                     <div class="row">
                             <!-- ===================================================
                             * Conceptos generales
@@ -799,7 +799,7 @@
             <div style="height:100px;font-size:60px;"></div>
             <div class="card">
                 <div class="card-body">
-                    <div class="parallax1">
+                    <div class="parallax3">
                     <div class="row">
                             <!-- ===================================================
                             * Conceptos generales

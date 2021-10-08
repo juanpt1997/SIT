@@ -30,7 +30,7 @@ contratosFijos/
 imgAlistamientos/
 
 # IGNORAMOS LA CARPETA DE INVENTARIO
-imgInventario/
+imgMantenimiento/
 
 # IGNORAMOS CARPETA CON LAS IMAGENES DE LA PLANTILLA
 plantilla/

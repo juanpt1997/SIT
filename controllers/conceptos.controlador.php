@@ -96,3 +96,12 @@ class ControladorCiudades
 		return $respuesta;
 	}
 }
+
+class ControladorRutas
+{
+	static public function ctrListarRutas()
+	{
+		$respuesta = ModeloConceptosGH::mdlListarRutas();
+		return $respuesta;
+	}
+}
