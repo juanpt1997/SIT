@@ -203,8 +203,8 @@ class ControladorAlistamiento
         
         $msg = $msg."<b>Conductor: </b>".$respuesta['Nombre']."\n";
         $msg = $msg."<b>Placa: </b>".$respuestaPlaca['placa']."\n";
-        $msg = $msg."<b>Fecha: </b>".$fecha['tm_mday']."/".$fecha['tm_mon']."/".date("y")."\n";
-        $msg = $msg."<b>Hora: </b>".$fecha['tm_hour'].":".$fecha['tm_min'].":".$fecha['tm_sec']."\n";
+        $msg = $msg."<b>Fecha: </b>".date("d")."/".date("m")."/".date("y")."\n";
+        $msg = $msg."<b>Hora: </b>".date("H").":".date("i").":".date("s")."\n";
 
 
         foreach ($datos as $key => $value) {
@@ -214,11 +214,7 @@ class ControladorAlistamiento
             if($key == 'nivel_liquido_frenos' && $value == 0)$msg = $msg."<b>Nivel de líquido de frenos:</b> Bajo \n";
             if($key == 'nivel_aceite' && $value == 0)$msg = $msg."<b>Nivel de aceite:</b> Bajo \n";
         }
-        
-        // foreach ($arraymensaje as $key => $value) {
-        //     $msg = "-".$key;
-        // }
-        
+
 
 
        
