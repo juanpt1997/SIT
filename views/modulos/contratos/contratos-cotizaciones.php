@@ -9,6 +9,7 @@ $Sucursales = ControladorGH::ctrSucursales();
 $Cotizaciones = ControladorCotizaciones::ctrVerCotizacion();
 $clientes = ControladorClientes::ctrVerCliente();
 $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
+$Rutas = ControladorCiudades::ctrListarRutas();
 ?>
 
 
@@ -342,6 +343,50 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                     <div class="row">
 
+                        <div class="col-12 text-sm">
+                            <div class="form-group">
+                                <label for="my-input">Ruta</label>
+                                <select class="form-control input-sm select2-single" style="width: 99%" id="idruta" name="idruta" required>
+                                    <option selected value="">-Seleccione una ruta-</option>
+                                    <?php foreach ($Rutas as $key => $value) : ?>
+                                        <option value="<?= $value['id'] ?>"><?= $value['origendestino'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 d-none">
+                            <div class="form-group">
+                                <label class="text-sm">Origen</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control" type="text" id="origin" name="origin" placeholder="Ingrese el origen" maxlength="100">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 d-none">
+                            <div class="form-group">
+                                <label class="text-sm">Destino</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control" type="text" id="destin" name="destin" placeholder="Escriba el destino" maxlength="100">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 d-none">
+                            <div class="form-group">
+                                <label class="text-sm">Descripción de la solicitud</label>
+                                <div class="input-group input-group-sm">
+                                    <textarea class="form-control" type="text" id="des_sol" name="des_sol" placeholder="Describa la solicitud" style="min-height:70px"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr class="my-4 bg-dark">
+
+                    <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="text-sm">Empresa</label>
@@ -402,24 +447,6 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                         <option>Personal</option>
                                         <option>Escrita</option>
                                     </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="text-sm">Origen</label>
-                                <div class="input-group input-group-sm">
-                                    <input class="form-control" type="text" id="origin" name="origin" placeholder="Ingrese el origen" maxlength="100" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="text-sm">Destino</label>
-                                <div class="input-group input-group-sm">
-                                    <input class="form-control" type="text" id="destin" name="destin" placeholder="Escriba el destino" maxlength="100" required>
                                 </div>
                             </div>
                         </div>
@@ -501,15 +528,6 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             </div>
                         </div>
 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="text-sm">Descripción de la solicitud</label>
-                                <div class="input-group input-group-sm">
-                                    <textarea class="form-control" type="text" id="des_sol" name="des_sol" placeholder="Describa la solicitud" style="min-height:70px" required></textarea>
-                                </div>
-                            </div>
-                        </div>
-
 
                         <div class="col-md-4">
                             <div class="form-group">
@@ -519,7 +537,8 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     //    $fecha = date("Y , strtotime('-1 year')");
                                     //    echo $fecha;
                                     ?>
-                                    <input class="form-control" type="date" id="f_inicio" name="f_inicio" required min="<?php //echo $fecha;?>">
+                                    <input class="form-control" type="date" id="f_inicio" name="f_inicio" required min="<?php //echo $fecha;
+                                                                                                                        ?>">
                                 </div>
                             </div>
                         </div>

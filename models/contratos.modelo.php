@@ -208,8 +208,8 @@ class ModeloCotizaciones
       //nomcontratante,Documento,direccion,telefono1,telefono2,nomcontacto,
       $stmt = Conexion::conectar()->prepare("INSERT INTO cont_cotizaciones(idcliente,empresa,idsucursal,
       origen,destino,descripcion,fecha_solicitud,fecha_solucion,fecha_inicio,fecha_fin,duracion,hora_salida,hora_recogida,idtipovehiculo,nro_vehiculos,
-      capacidad,valorxvehiculo,valortotal,cotizacion,clasificacion,musica,aire,wifi,silleriareclinable,bano,bodega,otro,realiza_viaje,porque,nombre_con,documento_con,tipo_doc_con,tel_1,direccion_con,nombre_respo,tipo_doc_respo,cedula_expedicion,documento_res,ciudad_con,ciudad_res,tel_2,otro_v)
-      VALUES(:idcliente,:empresa,:idsucursal,:origen,:destino,:descripcion,:fecha_solicitud,:fecha_solucion,:fecha_inicio,:fecha_fin,:duracion,:hora_salida,:hora_recogida,:idtipovehiculo,:nro_vehiculos,:capacidad,:valorxvehiculo,:valortotal,:cotizacion,:clasificacion,:musica,:aire,:wifi,:silleriareclinable,:bano,:bodega,:otro,:realiza_viaje,:porque,:nombre_con,:documento_con,:tipo_doc_con,:tel_1,:direccion_con,:nombre_respo,:tipo_doc_respo,:cedula_expedicion,:documento_res,:ciudad_con,:ciudad_res,:tel_2,:otro_v)");
+      capacidad,valorxvehiculo,valortotal,cotizacion,clasificacion,musica,aire,wifi,silleriareclinable,bano,bodega,otro,realiza_viaje,porque,nombre_con,documento_con,tipo_doc_con,tel_1,direccion_con,nombre_respo,tipo_doc_respo,cedula_expedicion,documento_res,ciudad_con,ciudad_res,tel_2,otro_v, idruta)
+      VALUES(:idcliente,:empresa,:idsucursal,:origen,:destino,:descripcion,:fecha_solicitud,:fecha_solucion,:fecha_inicio,:fecha_fin,:duracion,:hora_salida,:hora_recogida,:idtipovehiculo,:nro_vehiculos,:capacidad,:valorxvehiculo,:valortotal,:cotizacion,:clasificacion,:musica,:aire,:wifi,:silleriareclinable,:bano,:bodega,:otro,:realiza_viaje,:porque,:nombre_con,:documento_con,:tipo_doc_con,:tel_1,:direccion_con,:nombre_respo,:tipo_doc_respo,:cedula_expedicion,:documento_res,:ciudad_con,:ciudad_res,:tel_2,:otro_v, :idruta)");
 
       $stmt->bindParam(":documento_con", $datos["document"], PDO::PARAM_STR);
       $stmt->bindParam(":tipo_doc_con", $datos["t_document_empre"], PDO::PARAM_STR);
@@ -256,6 +256,8 @@ class ModeloCotizaciones
       $stmt->bindParam(":realiza_viaje", $datos["realizav"], PDO::PARAM_STR);
       $stmt->bindParam(":porque", $datos["porque"], PDO::PARAM_STR);
 
+      $stmt->bindParam(":idruta", $datos["idruta"], PDO::PARAM_INT);
+
       if ($stmt->execute()) {
          $retorno = "ok";
       } else {
@@ -271,11 +273,27 @@ class ModeloCotizaciones
    static public function mdlVerCotizacion($valor)
    {
       if ($valor != null) {
-         $stmt = Conexion::conectar()->prepare("SELECT C.*, S.sucursal AS sucursal, V.tipovehiculo AS tipo, Cl.*  FROM cont_cotizaciones C
-         LEFT JOIN gh_sucursales S ON C.idsucursal = S.ids
-         LEFT JOIN v_tipovehiculos V ON C.idtipovehiculo = V.idtipovehiculo
-         INNER JOIN cont_clientes Cl ON C.idcliente = Cl.idcliente
-         WHERE  C.idcotizacion = :id_cot");
+         // $stmt = Conexion::conectar()->prepare("SELECT C.*, S.sucursal AS sucursal, V.tipovehiculo AS tipo, Cl.*  FROM cont_cotizaciones C
+         // LEFT JOIN gh_sucursales S ON C.idsucursal = S.ids
+         // LEFT JOIN v_tipovehiculos V ON C.idtipovehiculo = V.idtipovehiculo
+         // INNER JOIN cont_clientes Cl ON C.idcliente = Cl.idcliente
+         // WHERE  C.idcotizacion = :id_cot");
+         $stmt = Conexion::conectar()->prepare("SELECT C.idcotizacion, C.idcliente, C.empresa, C.idsucursal, 
+                                                ori.municipio AS origen,
+                                                des.municipio AS destino,
+                                                rt.nombreruta AS descripcion,
+                                                C.fecha_solicitud, C.fecha_solucion, C.fecha_inicio, C.fecha_fin, C.duracion, C.hora_salida, C.hora_recogida, C.idtipovehiculo, C.nro_vehiculos, C.capacidad, C.valorxvehiculo, C.valortotal, C.cotizacion, C.clasificacion, C.musica, C.aire, C.wifi, C.silleriareclinable, C.bano, C.bodega, C.otro, C.realiza_viaje, C.porque, C.nombre_con, C.documento_con, C.tipo_doc_con, C.tel_1, C.direccion_con, C.nombre_respo, C.tipo_doc_respo, C.cedula_expedicion, C.documento_res, C.ciudad_con, C.ciudad_res, C.tel_2, C.otro_v, C.idruta, 
+                                                S.sucursal AS sucursal, 
+                                                V.tipovehiculo AS tipo, 
+                                                Cl.*
+                                                FROM cont_cotizaciones C
+                                                LEFT JOIN gh_sucursales S ON C.idsucursal = S.ids
+                                                LEFT JOIN v_tipovehiculos V ON C.idtipovehiculo = V.idtipovehiculo
+                                                INNER JOIN cont_clientes Cl ON C.idcliente = Cl.idcliente
+                                                LEFT JOIN v_rutas rt ON rt.id = C.idruta
+                                                LEFT JOIN gh_municipios AS ori ON ori.idmunicipio=rt.idorigen
+                                                LEFT JOIN gh_municipios AS des ON des.idmunicipio=rt.iddestino
+                                                WHERE  C.idcotizacion = :id_cot");
 
 
          $stmt->bindParam(":id_cot",  $valor, PDO::PARAM_INT);
@@ -283,14 +301,30 @@ class ModeloCotizaciones
          $retorno =  $stmt->fetch();
       } else {
 
-         $stmt = Conexion::conectar()->prepare("SELECT C.*, S.sucursal AS sucursal, V.tipovehiculo AS tipov, Cl.*, CONCAT('ID: ',C.idcotizacion, ' - ',C.nombre_con) AS clientexist, m1.municipio AS ciudadcon, m2.municipio AS ciudadres, m3.municipio AS cedulaexpe
-         FROM cont_cotizaciones C
-         LEFT JOIN gh_sucursales S ON C.idsucursal = S.ids
-         LEFT JOIN v_tipovehiculos V ON C.idtipovehiculo = V.idtipovehiculo
-         LEFT JOIN gh_municipios m1 ON C.ciudad_con = m1.idmunicipio
-         LEFT JOIN gh_municipios m2 ON C.ciudad_res = m2.idmunicipio
-         LEFT JOIN gh_municipios m3 ON C.cedula_expedicion = m3.idmunicipio
-         INNER JOIN cont_clientes Cl ON C.idcliente = Cl.idcliente");
+         // $stmt = Conexion::conectar()->prepare("SELECT C.*, S.sucursal AS sucursal, V.tipovehiculo AS tipov, Cl.*, CONCAT('ID: ',C.idcotizacion, ' - ',C.nombre_con) AS clientexist, m1.municipio AS ciudadcon, m2.municipio AS ciudadres, m3.municipio AS cedulaexpe
+         // FROM cont_cotizaciones C
+         // LEFT JOIN gh_sucursales S ON C.idsucursal = S.ids
+         // LEFT JOIN v_tipovehiculos V ON C.idtipovehiculo = V.idtipovehiculo
+         // LEFT JOIN gh_municipios m1 ON C.ciudad_con = m1.idmunicipio
+         // LEFT JOIN gh_municipios m2 ON C.ciudad_res = m2.idmunicipio
+         // LEFT JOIN gh_municipios m3 ON C.cedula_expedicion = m3.idmunicipio
+         // INNER JOIN cont_clientes Cl ON C.idcliente = Cl.idcliente");
+         $stmt = Conexion::conectar()->prepare("SELECT C.idcotizacion, C.idcliente, C.empresa, C.idsucursal, 
+                                                   ori.municipio AS origen,
+                                                   des.municipio AS destino,
+                                                   rt.nombreruta AS descripcion,
+                                                   C.fecha_solicitud, C.fecha_solucion, C.fecha_inicio, C.fecha_fin, C.duracion, C.hora_salida, C.hora_recogida, C.idtipovehiculo, C.nro_vehiculos, C.capacidad, C.valorxvehiculo, C.valortotal, C.cotizacion, C.clasificacion, C.musica, C.aire, C.wifi, C.silleriareclinable, C.bano, C.bodega, C.otro, C.realiza_viaje, C.porque, C.nombre_con, C.documento_con, C.tipo_doc_con, C.tel_1, C.direccion_con, C.nombre_respo, C.tipo_doc_respo, C.cedula_expedicion, C.documento_res, C.ciudad_con, C.ciudad_res, C.tel_2, C.otro_v, C.idruta, 
+                                                   S.sucursal AS sucursal, V.tipovehiculo AS tipov, Cl.*, CONCAT('ID: ',C.idcotizacion, ' - ',C.nombre_con) AS clientexist, m1.municipio AS ciudadcon, m2.municipio AS ciudadres, m3.municipio AS cedulaexpe
+                                                      FROM cont_cotizaciones C
+                                                      LEFT JOIN gh_sucursales S ON C.idsucursal = S.ids
+                                                      LEFT JOIN v_tipovehiculos V ON C.idtipovehiculo = V.idtipovehiculo
+                                                      LEFT JOIN gh_municipios m1 ON C.ciudad_con = m1.idmunicipio
+                                                      LEFT JOIN gh_municipios m2 ON C.ciudad_res = m2.idmunicipio
+                                                      LEFT JOIN gh_municipios m3 ON C.cedula_expedicion = m3.idmunicipio
+                                                      LEFT JOIN v_rutas rt ON rt.id = C.idruta
+                                                   LEFT JOIN gh_municipios AS ori ON ori.idmunicipio=rt.idorigen
+                                                   LEFT JOIN gh_municipios AS des ON des.idmunicipio=rt.iddestino
+                                                      INNER JOIN cont_clientes Cl ON C.idcliente = Cl.idcliente");
 
          $stmt->execute();
          $retorno =  $stmt->fetchAll();
@@ -306,7 +340,7 @@ class ModeloCotizaciones
       empresa=:empresa,idsucursal=:idsucursal,origen=:origen,destino=:destino,descripcion=:descripcion,fecha_solicitud=:fecha_solicitud,fecha_solucion=:fecha_solucion,fecha_inicio=:fecha_inicio,
       fecha_fin=:fecha_fin,duracion=:duracion,idcliente =:idcliente,hora_salida=:hora_salida,hora_recogida=:hora_recogida,idtipovehiculo=:idtipovehiculo,nro_vehiculos=:nro_vehiculos,
       capacidad=:capacidad,valorxvehiculo=:valorxvehiculo,valortotal=:valortotal,cotizacion=:cotizacion,clasificacion=:clasificacion,musica=:musica,aire=:aire,wifi=:wifi,
-      silleriareclinable=:silleriareclinable,bano=:bano,bodega=:bodega,otro=:otro,realiza_viaje=:realiza_viaje,porque=:porque,nombre_con=:nombre_con,documento_con=:documento_con,tipo_doc_con=:tipo_doc_con,tel_1=:tel_1,direccion_con=:direccion_con,nombre_respo=:nombre_respo,tipo_doc_respo=:tipo_doc_respo,cedula_expedicion=:cedula_expedicion,documento_res=:documento_res,ciudad_con=:ciudad_con,ciudad_res=:ciudad_res,tel_2=:tel_2,otro_v=:otro_v
+      silleriareclinable=:silleriareclinable,bano=:bano,bodega=:bodega,otro=:otro,realiza_viaje=:realiza_viaje,porque=:porque,nombre_con=:nombre_con,documento_con=:documento_con,tipo_doc_con=:tipo_doc_con,tel_1=:tel_1,direccion_con=:direccion_con,nombre_respo=:nombre_respo,tipo_doc_respo=:tipo_doc_respo,cedula_expedicion=:cedula_expedicion,documento_res=:documento_res,ciudad_con=:ciudad_con,ciudad_res=:ciudad_res,tel_2=:tel_2,otro_v=:otro_v,idruta=:idruta
 		WHERE idcotizacion = :idcotizacion");
 
       $stmt->bindParam(":idcotizacion", $datos["id_cot"], PDO::PARAM_INT);
@@ -354,6 +388,8 @@ class ModeloCotizaciones
       $stmt->bindParam(":realiza_viaje", $datos["realizav"], PDO::PARAM_STR);
       $stmt->bindParam(":porque", $datos["porque"], PDO::PARAM_STR);
       $stmt->bindParam(":otro_v", $datos["otro_v"], PDO::PARAM_STR);
+
+      $stmt->bindParam(":idruta", $datos["idruta"], PDO::PARAM_INT);
 
       if ($stmt->execute()) {
          $retorno = "ok";
@@ -475,16 +511,35 @@ class ModeloOrdenServicio
    static public function mdlVerOrden($valor)
    {
 
-      $stmt = Conexion::conectar()->prepare("SELECT C.*, 
-                                                O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, 
-                                                -- C.nombre_con, C.documento_con, C.direccion_con, C.tel_1, C.tel_2, C.nombre_respo, C.documento_res, C.cedula_expedicion, 
-                                                cr.municipio AS ciudadrespons, 
-                                                exped.municipio AS ciudad_cedula_expedidaen
+      // $stmt = Conexion::conectar()->prepare("SELECT C.*, 
+      //                                           O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, 
+      //                                           -- C.nombre_con, C.documento_con, C.direccion_con, C.tel_1, C.tel_2, C.nombre_respo, C.documento_res, C.cedula_expedicion, 
+      //                                           cr.municipio AS ciudadrespons, 
+      //                                           exped.municipio AS ciudad_cedula_expedidaen
+      //                                        FROM cont_ordenservicio O
+      //                                        LEFT JOIN cont_cotizaciones C ON O.idcotizacion = C.idcotizacion
+      //                                        LEFT JOIN cont_clientes CL ON CL.idcliente = C.idcliente
+      //                                        LEFT JOIN gh_municipios cr ON cr.idmunicipio = C.ciudad_res
+      //                                        LEFT JOIN gh_municipios exped ON exped.idmunicipio = C.cedula_expedicion
+      //                                        WHERE O.idorden = :idorden");
+      $stmt = Conexion::conectar()->prepare("SELECT C.idcotizacion, C.idcliente, C.empresa, C.idsucursal, 
+                                             ori.municipio AS origen,
+                                             des.municipio AS destino,
+                                             rt.nombreruta AS descripcion,
+                                             C.fecha_solicitud, C.fecha_solucion, C.fecha_inicio, C.fecha_fin, C.duracion, C.hora_salida, C.hora_recogida, C.idtipovehiculo, C.nro_vehiculos, C.capacidad, C.valorxvehiculo, C.valortotal, C.cotizacion, C.clasificacion, C.musica, C.aire, C.wifi, C.silleriareclinable, C.bano, C.bodega, C.otro, C.realiza_viaje, C.porque, C.nombre_con, C.documento_con, C.tipo_doc_con, C.tel_1, C.direccion_con, C.nombre_respo, C.tipo_doc_respo, C.cedula_expedicion, C.documento_res, C.ciudad_con, C.ciudad_res, C.tel_2, C.otro_v, C.idruta, 
+                                             O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, 
+                                             -- C.nombre_con, C.documento_con, C.direccion_con, C.tel_1, C.tel_2, C.nombre_respo, C.documento_res, C.cedula_expedicion, 
+                                             cr.municipio
+                                             AS ciudadrespons, 
+                                             exped.municipio AS ciudad_cedula_expedidaen
                                              FROM cont_ordenservicio O
                                              LEFT JOIN cont_cotizaciones C ON O.idcotizacion = C.idcotizacion
                                              LEFT JOIN cont_clientes CL ON CL.idcliente = C.idcliente
                                              LEFT JOIN gh_municipios cr ON cr.idmunicipio = C.ciudad_res
                                              LEFT JOIN gh_municipios exped ON exped.idmunicipio = C.cedula_expedicion
+                                             LEFT JOIN v_rutas rt ON rt.id = C.idruta
+                                             LEFT JOIN gh_municipios AS ori ON ori.idmunicipio=rt.idorigen
+                                             LEFT JOIN gh_municipios AS des ON des.idmunicipio=rt.iddestino
                                              WHERE O.idorden = :idorden");
 
       $stmt->bindParam(":idorden",  $valor, PDO::PARAM_INT);
@@ -496,13 +551,27 @@ class ModeloOrdenServicio
 
    static public function mdlVerListaOrden()
    {
-      $stmt = Conexion::conectar()->prepare("SELECT C.*, 
+      // $stmt = Conexion::conectar()->prepare("SELECT C.*, 
+      //                                        O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, 
+      //                                        C.nombre_con AS nomContrata, C.documento_con AS doContrata
+      //                                        -- C.direccion_con, C.tel_1, C.tel_2, C.nombre_respo  
+      //                                        FROM cont_ordenservicio O
+      //                                        LEFT JOIN cont_cotizaciones C ON O.idcotizacion = C.idcotizacion
+      //                                        LEFT JOIN cont_clientes CL ON CL.idcliente = C.idcliente");
+      $stmt = Conexion::conectar()->prepare("SELECT C.idcotizacion, C.idcliente, C.empresa, C.idsucursal, 
+                                             ori.municipio AS origen,
+                                             des.municipio AS destino,
+                                             rt.nombreruta AS descripcion,
+                                             C.fecha_solicitud, C.fecha_solucion, C.fecha_inicio, C.fecha_fin, C.duracion, C.hora_salida, C.hora_recogida, C.idtipovehiculo, C.nro_vehiculos, C.capacidad, C.valorxvehiculo, C.valortotal, C.cotizacion, C.clasificacion, C.musica, C.aire, C.wifi, C.silleriareclinable, C.bano, C.bodega, C.otro, C.realiza_viaje, C.porque, C.nombre_con, C.documento_con, C.tipo_doc_con, C.tel_1, C.direccion_con, C.nombre_respo, C.tipo_doc_respo, C.cedula_expedicion, C.documento_res, C.ciudad_con, C.ciudad_res, C.tel_2, C.otro_v, C.idruta, 
                                              O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, 
                                              C.nombre_con AS nomContrata, C.documento_con AS doContrata
-                                             -- C.direccion_con, C.tel_1, C.tel_2, C.nombre_respo  
+                                             -- C.direccion_con, C.tel_1, C.tel_2, C.nombre_respo
                                              FROM cont_ordenservicio O
                                              LEFT JOIN cont_cotizaciones C ON O.idcotizacion = C.idcotizacion
-                                             LEFT JOIN cont_clientes CL ON CL.idcliente = C.idcliente");
+                                             LEFT JOIN cont_clientes CL ON CL.idcliente = C.idcliente
+                                             LEFT JOIN v_rutas rt ON rt.id = C.idruta
+                                             LEFT JOIN gh_municipios AS ori ON ori.idmunicipio=rt.idorigen
+                                             LEFT JOIN gh_municipios AS des ON des.idmunicipio=rt.iddestino");
 
       $stmt->execute();
       $retorno =  $stmt->fetchAll();

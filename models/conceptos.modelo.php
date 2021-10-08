@@ -288,7 +288,12 @@ class ModeloConceptosGH
     static public function mdlListarRutas()
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("SELECT id, nombreruta, idorigen, iddestino,o.municipio AS orig ,d.municipio AS dest  FROM v_rutas  JOIN gh_municipios AS o ON o.idmunicipio=v_rutas.idorigen  JOIN gh_municipios AS d ON d.idmunicipio=v_rutas.iddestino  WHERE v_rutas.estado = 1");
+        $stmt = $conexion->prepare("SELECT id, nombreruta, idorigen, iddestino, o.municipio AS orig, d.municipio AS dest, CONCAT(o.municipio, '-', d.municipio, ' (', nombreruta,')') AS origendestino
+                                    FROM v_rutas
+                                    LEFT JOIN gh_municipios AS o ON o.idmunicipio=v_rutas.idorigen
+                                    LEFT JOIN gh_municipios AS d ON d.idmunicipio=v_rutas.iddestino
+                                    WHERE v_rutas.estado = 1
+                                    ORDER BY orig, dest");
 
         $stmt->execute();
         $respuesta =  $stmt->fetchAll();
