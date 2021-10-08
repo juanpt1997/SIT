@@ -544,16 +544,23 @@ $(document).ready(function () {
         
         Areas = [];
         Requeridos = [];
+        Elementos = [];
+
+        //Validación de inputs
 
       $('input:invalid').each(function (index, element) {
           var $input = $(this);
 
           var idform = $input.closest("form").attr("id");
-
+          
+          
           if (idform == "alistamiento_form") {
               Requeridos.push($input);
           }
       });
+
+
+      //Validación textarea
 
       $('textarea:invalid').each(function(index,element){
         var $area = $(this);
@@ -563,9 +570,29 @@ $(document).ready(function () {
         if (idform == "alistamiento_form") {
             Areas.push($area);
         }
-
-
       });
+
+
+      var test = [];
+
+      //Se trae los tabs 
+      $('u').each(function(index,element){
+        var $u = $(this);
+        var idtab = $u.closest("ul").attr("id");
+        
+        if($u[0].innerHTML != "Registro fotográfico") Elementos.push($u[0].innerHTML);
+      });
+
+
+    //   $('u').each(function (index, element) {
+    //       for
+          
+    //   });
+
+      
+     
+      //console.log(Elementos);
+
 
       if (Requeridos.length > 0 || Areas.length > 0) {
           Swal.fire({
