@@ -14,7 +14,34 @@ class ModeloFuec
     ===================================================*/
     static public function mdlListaFUEC()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT f.*, 
+        // $stmt = Conexion::conectar()->prepare("SELECT f.*, 
+        //                                         cl.nombre AS nomContratante, cl.Documento AS docContratante, cl.direccion AS direccion, cl.telefono AS telContratante, cl.nombrerespons, cl.Documentorespons, cl.telefono2 AS telrespons, 
+        //                                         v.placa, v.numinterno, v.tipovinculacion, 
+        //                                         s.sucursal,
+        //                                         oc.objetocontrato, 
+        //                                         c1.Nombre AS conductor1, c1.Documento AS docConductor1, 
+        //                                         c2.Nombre AS conductor2, c2.Documento AS docConductor2, 
+        //                                         c3.Nombre AS conductor3, c3.Documento AS docConductor3, 
+        //                                         fc.nombre AS ClienteFijo, 
+        //                                         u.Nombre AS usuarioCreacion
+        //                                         FROM fuec f
+        //                                         INNER JOIN v_vehiculos v ON v.idvehiculo = f.idvehiculo
+        //                                         INNER JOIN v_objetocontrato oc ON oc.idobjeto = f.idobjeto_contrato
+        //                                         LEFT JOIN cont_ordenservicio o ON o.idorden = f.contratante
+        //                                         LEFT JOIN cont_cotizaciones c ON c.idcotizacion = o.idcotizacion
+        //                                         LEFT JOIN cont_clientes cl ON cl.idcliente = c.idcliente
+        //                                         LEFT JOIN gh_personal c1 ON c1.idPersonal = f.idconductor1
+        //                                         LEFT JOIN gh_personal c2 ON c2.idPersonal = f.idconductor2
+        //                                         LEFT JOIN gh_personal c3 ON c3.idPersonal = f.idconductor3
+        //                                         LEFT JOIN cont_fijos fj ON f.contratofijo = fj.idfijos
+        //                                         LEFT JOIN cont_clientes fc ON fc.idcliente = fj.idcliente
+        //                                         LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
+        //                                         INNER JOIN l_usuarios u ON u.Cedula = f.usuario_creacion");
+        $stmt = Conexion::conectar()->prepare("SELECT f.idfuec, f.tipocontrato, f.contratofijo, f.contratante, f.idvehiculo, f.idconductor1, f.idconductor2, f.idconductor3, f.fecha_inicial, f.fecha_vencimiento, f.idobjeto_contrato, f.anotObjetoContrato,
+                                                ori.municipio AS origen,
+                                                des.municipio AS destino,
+                                                rt.nombreruta AS descripcion,
+                                                f.precio, f.listado_pasajeros, f.estado_pago, f.valor_neto, f.estado_fuec, f.ruta_contrato, f.usuario_creacion, f.fecha_creacion, f.nro_contrato, f.idruta,
                                                 cl.nombre AS nomContratante, cl.Documento AS docContratante, cl.direccion AS direccion, cl.telefono AS telContratante, cl.nombrerespons, cl.Documentorespons, cl.telefono2 AS telrespons, 
                                                 v.placa, v.numinterno, v.tipovinculacion, 
                                                 s.sucursal,
@@ -36,7 +63,10 @@ class ModeloFuec
                                                 LEFT JOIN cont_fijos fj ON f.contratofijo = fj.idfijos
                                                 LEFT JOIN cont_clientes fc ON fc.idcliente = fj.idcliente
                                                 LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
-                                                INNER JOIN l_usuarios u ON u.Cedula = f.usuario_creacion");
+                                                INNER JOIN l_usuarios u ON u.Cedula = f.usuario_creacion
+                                                LEFT JOIN v_rutas rt ON rt.id = f.idruta
+                                                LEFT JOIN gh_municipios AS ori ON ori.idmunicipio=rt.idorigen
+                                                LEFT JOIN gh_municipios AS des ON des.idmunicipio=rt.iddestino");
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();
@@ -73,14 +103,18 @@ class ModeloFuec
         $FUEC = $stmt->fetch();
         $stmt->closeCursor();
 
-        if ($FUEC === false){
+        if ($FUEC === false) {
             return false;
         }
 
         $tipocontrato = $FUEC['tipocontrato'];
 
-        if ($tipocontrato == "OCASIONAL"){
-            $sql = "SELECT f.*, 
+        if ($tipocontrato == "OCASIONAL") {
+            $sql = "SELECT f.idfuec, f.tipocontrato, f.contratofijo, f.contratante, f.idvehiculo, f.idconductor1, f.idconductor2, f.idconductor3, f.fecha_inicial, f.fecha_vencimiento, f.idobjeto_contrato, f.anotObjetoContrato,
+                        ori.municipio AS origen,
+                        des.municipio AS destino,
+                        rt.nombreruta AS observaciones,
+                        f.precio, f.listado_pasajeros, f.estado_pago, f.valor_neto, f.estado_fuec, f.ruta_contrato, f.usuario_creacion, f.fecha_creacion, f.nro_contrato, f.idruta,
                         c.nombre_con AS nomContratante, c.documento_con AS docContratante, c.direccion_con AS direccion, c.tel_1 AS telContratante, c.nombre_respo AS nombrerespons, c.documento_res AS Documentorespons, c.tel_2 AS telrespons, 
                         v.placa, v.numinterno, v.tipovinculacion, v.modelo, 
                         vm.marca, 
@@ -111,10 +145,17 @@ class ModeloFuec
                     LEFT JOIN cont_ordenservicio o ON o.idorden = f.contratante
                     LEFT JOIN cont_cotizaciones c ON c.idcotizacion = o.idcotizacion
                     LEFT JOIN cont_clientes cl ON cl.idcliente = c.idcliente
+                    LEFT JOIN v_rutas rt ON rt.id = f.idruta
+                    LEFT JOIN gh_municipios AS ori ON ori.idmunicipio=rt.idorigen
+                    LEFT JOIN gh_municipios AS des ON des.idmunicipio=rt.iddestino
                     WHERE f.{$datos['item']} = :{$datos['item']}
                     GROUP BY idfuec";
-        }else{
-            $sql = "SELECT f.*, 
+        } else {
+            $sql = "SELECT f.idfuec, f.tipocontrato, f.contratofijo, f.contratante, f.idvehiculo, f.idconductor1, f.idconductor2, f.idconductor3, f.fecha_inicial, f.fecha_vencimiento, f.idobjeto_contrato, f.anotObjetoContrato,
+                        ori.municipio AS origen,
+                        des.municipio AS destino,
+                        rt.nombreruta AS observaciones,
+                        f.precio, f.listado_pasajeros, f.estado_pago, f.valor_neto, f.estado_fuec, f.ruta_contrato, f.usuario_creacion, f.fecha_creacion, f.nro_contrato, f.idruta,
                         cl.nombre AS nomContratante, cl.Documento AS docContratante, cl.direccion AS direccion, cl.telefono AS telContratante, cl.nombrerespons, cl.Documentorespons, cl.telefono2 AS telrespons, 
                         v.placa, v.numinterno, v.tipovinculacion, v.modelo, 
                         vm.marca, 
@@ -144,6 +185,9 @@ class ModeloFuec
                     INNER JOIN l_usuarios u ON u.Cedula = f.usuario_creacion
                     LEFT JOIN cont_fijos fj ON fj.idfijos = f.contratofijo
                     LEFT JOIN cont_clientes cl ON cl.idcliente = fj.idcliente
+                    LEFT JOIN v_rutas rt ON rt.id = f.idruta
+                    LEFT JOIN gh_municipios AS ori ON ori.idmunicipio=rt.idorigen
+                    LEFT JOIN gh_municipios AS des ON des.idmunicipio=rt.iddestino
                     WHERE f.{$datos['item']} = :{$datos['item']}
                     GROUP BY idfuec";
         }
@@ -232,7 +276,7 @@ class ModeloFuec
         $stmt->bindParam(":usuario_creacion", $datos['usuario_creacion'], PDO::PARAM_INT);
         $stmt->bindParam(":nro_contrato", $datos['nro_contrato'], PDO::PARAM_INT);
         $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
-        
+
 
         if ($stmt->execute()) {
             $respuesta = $datos['idfuec'];
@@ -363,5 +407,4 @@ class ModeloFuec
 
         return $retorno;
     }
-
 }
