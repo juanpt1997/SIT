@@ -71,7 +71,7 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
     $(document).ready(function () {
 
         //CARGAR DATOS DEL CONVENIO PARA EDITARLOS
-        $(document).on("click", ".btnEditarConv", function () {
+        $(document).on("click", ".btnEditarEmpresa", function () {
             AbiertoxEditar = true; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
 
             var nit = $(this).attr("nit");
@@ -105,10 +105,10 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
         });
 
         var AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
-        $(document).on("click", ".btn-agregarConvenio", function () {
+        $(document).on("click", ".btn-agregarEmpresa", function () {
             // Remover atributo readonly del formulario puesto que va a agregar uno nuevo
             $("#nit").removeAttr("readonly");
-            $("#titulo-modal-convenios").html("Nuevo convenio");
+            $("#titulo-modal-empresas").html("Nueva empresa");
 
             // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
             if (AbiertoxEditar) {
@@ -119,6 +119,23 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
             AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         });
     });
+
+    // $(document).on("click",".btn-agregarConvenio", function(){
+    //     $("#titulo-modal-convenios").html("Nuevo Convenio");
+
+    //     var datos = new FormData();
+    //     datos.append("")
+
+
+    // });
+
+    $(document).on("click",".btnEditarConv", function(){
+        $("#titulo-modal-convenios").html("Editar Convenio");
+    });
+
+
+
+
 }
 
 if (window.location.href == `${urlPagina}gh-bloqueo-personal/` ||
