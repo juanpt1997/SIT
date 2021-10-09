@@ -77,7 +77,7 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
             var nit = $(this).attr("nit");
 
             var datos = new FormData();
-            datos.append("DatosConvenios", "ok");
+            datos.append("DatosEmpresa", "ok");
             datos.append("value", nit);
             $.ajax({
                 type: "POST",
@@ -120,14 +120,9 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
         });
     });
 
-    // $(document).on("click",".btn-agregarConvenio", function(){
-    //     $("#titulo-modal-convenios").html("Nuevo Convenio");
-
-    //     var datos = new FormData();
-    //     datos.append("")
-
-
-    // });
+    $(document).on("click",".btn-agregarConvenio", function(){
+        $("#titulo-modal-convenios").html("Nuevo Convenio");
+    });
 
     $(document).on("click",".btnEditarConv", function(){
         $("#titulo-modal-convenios").html("Editar Convenio");

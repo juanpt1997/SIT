@@ -182,6 +182,24 @@ class ModeloConvenios
 
         return $retorno;
     }
+
+    static public function mdlMostrarConvenios(){
+
+        $stmt = Conexion::conectar()->prepare("SELECT c.*, e.nombre AS nomContratante, e.nit AS nitContratante, e2.nombre AS nomContratista, e2.nit AS nitContratista
+        FROM v_convenios c
+        INNER JOIN convenios e ON c.idcontratante = e.idxc
+        INNER JOIN convenios e2 ON c.idcontratista = e2.idxc");
+
+        $stmt->execute();
+        $retorno =  $stmt->fetchAll();
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+
+    }
+
+
 }
 
 /* ===================================================
