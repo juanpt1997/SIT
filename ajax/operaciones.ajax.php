@@ -181,6 +181,21 @@ class AjaxAlistamiento
     }
 }
 
+class AjaxRodamientos
+{
+    static public function ajaxDatosRodamiento($idrodamiento)
+    {
+        $respuesta = ModeloRodamiento::mdlListarRodamientos($idrodamiento);
+        echo json_encode($respuesta);
+    }
+
+    static public function ajaxEliminarRodamiento($idvehiculo)
+    {
+        $respuesta = ModeloRodamiento::mdlEliminarRodamiento($idvehiculo);
+        echo $respuesta;
+    }
+}
+
 #Llamados ajax alistamiento
 if (isset($_POST['GuardarAlistamiento']) && $_POST['GuardarAlistamiento'] == "ok") {
     AjaxAlistamiento::ajaxGuardarAlistamiento($_POST);
@@ -200,4 +215,13 @@ if (isset($_POST['GuardarEvidencia']) && $_POST['GuardarEvidencia'] == "ok") {
 
 if (isset($_POST['CambiarEstadoEvidencia']) && $_POST['CambiarEstadoEvidencia'] == "ok") {
     AjaxAlistamiento::ajaxActualizaEstado($_POST['idevidencia'], $_POST['estadoActual'], $_POST['observaciones']);
+}
+
+#Llamados ajax alistamiento
+if (isset($_POST['DatosRodamiento']) && $_POST['DatosRodamiento'] == "ok") {
+    AjaxRodamientos::ajaxDatosRodamiento($_POST['id']);
+}
+
+if (isset($_POST['EliminarRodamiento']) && $_POST['EliminarRodamiento'] == "ok") {
+    AjaxRodamientos::ajaxEliminarRodamiento($_POST['id']);
 }
