@@ -8,6 +8,7 @@ $OrdenesServicio = ControladorOrdenServicio::ctrVerListaOrden();
 $Fijos = ControladorFijos::ctrVerFijos();
 $Vehiculos = ControladorVehiculos::ctrListaVehiculos();
 $ObjetosContrato = ControladorFuec::ctrObjetosContrato();
+$Rutas = ControladorRutas::ctrListarRutas();
 $FUEC = ControladorFuec::ctrListaFUEC();
 ?>
 
@@ -450,8 +451,21 @@ $FUEC = ControladorFuec::ctrListaFUEC();
 
                         </div><!-- /.col -->
 
+                        <!-- Ruta -->
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="my-input">Ruta</label>
+                                <select class="form-control select2-single input-fuec input-ordenservicio" style="width: 99%" id="idruta" name="idruta" required>
+                                    <option selected value="">-Seleccione una ruta-</option>
+                                    <?php foreach ($Rutas as $key => $value) : ?>
+                                        <option value="<?= $value['id'] ?>"><?= $value['origendestino'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                        </div>
+
                         <!-- Origen -->
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-6 d-none">
                             <div class="form-group">
                                 <label>Origen</label>
                                 <div class="input-group">
@@ -460,14 +474,14 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                             <i class="fas fa-route"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec input-ordenservicio" type="text" id="origen" name="origen" required readonly>
+                                    <input class="form-control input-fuec input-ordenservicio" type="text" id="origen" name="origen" readonly>
                                 </div>
                             </div>
 
                         </div><!-- /.col -->
 
                         <!-- Destino -->
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-6 d-none">
                             <div class="form-group">
                                 <label>Destino</label>
                                 <div class="input-group">
@@ -476,13 +490,13 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                             <i class="fas fa-route"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec input-ordenservicio" type="text" id="destino" name="destino" required readonly>
+                                    <input class="form-control input-fuec input-ordenservicio" type="text" id="destino" name="destino" readonly>
                                 </div>
                             </div>
                         </div><!-- /.col -->
 
                         <!-- Observaciones del contrato -->
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-6 d-none">
                             <div class="form-group">
                                 <label>Observaciones del contrato</label>
                                 <div class="input-group">
@@ -491,7 +505,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                             <i class="fas fa-comment-dots"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec input-ordenservicio" type="text" id="observacionescontr" name="observacionescontr" required readonly>
+                                    <input class="form-control input-fuec input-ordenservicio" type="text" id="observacionescontr" name="observacionescontr" readonly>
                                 </div>
                             </div>
                         </div><!-- /.col -->

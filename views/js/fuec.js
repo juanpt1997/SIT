@@ -535,6 +535,7 @@ $(document).ready(function () {
                         $("#fechafin").val(response.fecha_vencimiento);
                         $("#objetocontrato").val(response.idobjeto_contrato);
                         $("#anotObjetoContrato").val(response.anotObjetoContrato);
+                        $("#idruta").val(response.idruta).trigger("change");
                         $("#origen").val(response.origen);
                         $("#destino").val(response.destino);
                         $("#observacionescontr").val(response.observaciones);
