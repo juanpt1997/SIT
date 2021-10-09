@@ -499,7 +499,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!--|||TAB SISTEMA DE LUCES|||-->
                                         <div class="tab-pane fade" id="custom-tabs-two-sistemaluces" role="tabpanel" aria-labelledby="custom-tabs-two-sistemaluces-tab">
                                             <div class="table-responsive">
-                                                <table class="table table-bordered text-center border-danger">
+                                                <table class="table table-bordered text-center border-danger" nombre = "Sistema Luces">
                                                     <thead class="text-nowrap">
                                                         <tr>
                                                             <th>Luces bajas</th>
@@ -775,7 +775,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!--|||TAB CARROCERIA|||-->
                                         <div class="tab-pane fade" id="custom-tabs-two-carroceria" role="tabpanel" aria-labelledby="custom-tabs-two-carroceria-tab">
                                             <div class="table table-responsive">
-                                                <table class="table table-bordered text-center">
+                                                <table class="table table-bordered text-center" nombre = "Carrocería">
                                                     <thead class="text-nowrap">
                                                         <tr>
                                                             <th style="width: px">Retrovisores izquierdo</th>
@@ -1340,7 +1340,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!--|||TAB SISTEMAS|||-->
                                         <div class="tab-pane fade" id="custom-tabs-two-sistemas" role="tabpanel" aria-labelledby="custom-tabs-two-sistemas-tab">
                                             <div class="table table-responsive">
-                                                <table class="table table-bordered text-center">
+                                                <table class="table table-bordered text-center" nombre="Sistemas">
                                                     <thead class="text-nowrap">
                                                         <tr>
                                                             <th style="width: 278px">Nivel de Refrigerante</th>
@@ -1582,7 +1582,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!--|||TAB INDICADORES TABLERO|||-->
                                         <div class="tab-pane fade" id="custom-tabs-two-indicadorestableros" role="tabpanel" aria-labelledby="custom-tabs-two-indicadorestableros-tab">
                                             <div class="table table-responsive">
-                                                <table class="table table-bordered text-center">
+                                                <table class="table table-bordered text-center" nombre="Indicadores Tablero">
                                                     <thead class="text-nowrap">
                                                         <tr>
                                                             <th>Velocímetro</th>
@@ -1758,7 +1758,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!--|||TAB MANTENIMIENTO|||-->
                                         <div class="tab-pane fade table-responsive" id="custom-tabs-two-mantenimiento" role="tabpanel" aria-labelledby="custom-tabs-two-mantenimiento-tab">
                                             <div class="table table-responsive">
-                                                <table class="table table-bordered text-center">
+                                                <table class="table table-bordered text-center" nombre="Mantenimiento">
                                                     <thead class="text-nowrap">
                                                         <tr>
                                                             <th style="width: 278px">Cambio de Aceite</th>
@@ -1817,7 +1817,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!--|||TAB LLANTAS|||-->
                                         <div class="tab-pane fade" id="custom-tabs-two-llantas" role="tabpanel" aria-labelledby="custom-tabs-two-llantas-tab">
                                             <div class="table table-responsive">
-                                                <table class="table table-bordered text-center">
+                                                <table class="table table-bordered text-center" nombre="Llantas">
                                                     <thead class="text-nowrap">
                                                         <tr>
                                                             <th style="width: 278px">Delanteras</th>
@@ -2051,7 +2051,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!--|||TAB EQUIPO DE SEGURIDAD|||-->
                                         <div class="tab-pane fade" id="custom-tabs-two-equiposeguridad" role="tabpanel" aria-labelledby="custom-tabs-two-equiposeguridad-tab">
                                             <div class="table table-responsive">
-                                                <table class="table table-bordered text-center">
+                                                <table class="table table-bordered text-center" nombre="Equipo de Seguridad">
                                                     <thead class="text-nowrap">
                                                         <tr>
                                                             <th style="width: 278px">Chaleco reflectivo</th>

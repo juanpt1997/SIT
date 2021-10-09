@@ -583,41 +583,51 @@ $(document).ready(function () {
                 var $area = $(this);
 
                 var idform = $area.closest("form").attr("id");
-
+                console.log(idform);
                 if (idform == "alistamiento_form") {
                     Areas.push($area);
                 }
             });
 
 
-            var test = [];
+            var tab = [];
 
             //Se trae los tabs 
-            $('u').each(function (index, element) {
-                var $u = $(this);
-                var idtab = $u.closest("ul").attr("id");
+            $('input:invalid').each(function (index, element) {
+                var $tabs = $(this);
+                var idtab = $tabs.closest("table").attr("nombre");
+                if(!tab.includes(idtab)) tab.push(idtab);
 
-                if ($u[0].innerHTML != "Registro fotográfico") Elementos.push($u[0].innerHTML);
+                
+                
+
+                // if ($u[0].innerHTML != "Registro fotográfico") Elementos.push($u[0].innerHTML);
             });
 
-
-            //   $('u').each(function (index, element) {
-            //       for
-
-            //   });
-
-
-
-            //console.log(Elementos);
+            
+            console.log(tab);
+            
+                 
+    
 
 
             if (Requeridos.length > 0 || Areas.length > 0) {
+
+                let inputsRequeridosHtml = `<ul>`;
+                tab.forEach(element => {
+                    inputsRequeridosHtml += `<li>${element}</li>`;
+                });
+                inputsRequeridosHtml += `</ul>`;
+
                 Swal.fire({
                     icon: 'warning',
-                    text: 'Verifique que ha diligenciado todos los datos necesarios',
+                    html: `<div class="text-left">
+                                                    <p class="font-weight-bold">Hace falta diligenciar campos en los siguientes apartados:</p>
+                                                        ${inputsRequeridosHtml}
+                                                </div>`,
                     showConfirmButton: true,
-                    confirmButtonText: "Cerrar",
-                    closeOnConfirm: false,
+                    confirmButtonText: 'Cerrar',
+                    closeOnConfirm: false
                 });
                 //RESET DE VALOR
                 $("#idconductor").empty();
