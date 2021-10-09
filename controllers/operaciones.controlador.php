@@ -174,14 +174,14 @@ class ControladorAlistamiento
             }
         }
 
-        
-        
+
+
         /* ===================================================
         TELEGRAM
         ===================================================*/
         # Mensaje de telegram
         $msg = "";
-        
+
         //para buscar el conductor
         $datosPersonal = array(
             'item' => 'idPersonal',
@@ -199,25 +199,25 @@ class ControladorAlistamiento
 
         $respuestaPlaca = ModeloVehiculos::mdlDatosVehiculo($datosplaca);
         date_default_timezone_set('America/Bogota');
-        $fecha = localtime(time(),true);
-        
-        $msg = $msg."<b>Conductor: </b>".$respuesta['Nombre']."\n";
-        $msg = $msg."<b>Placa: </b>".$respuestaPlaca['placa']."\n";
-        $msg = $msg."<b>Fecha: </b>".date("d")."/".date("m")."/".date("y")."\n";
-        $msg = $msg."<b>Hora: </b>".date("H").":".date("i").":".date("s")."\n";
+        $fecha = localtime(time(), true);
+
+        $msg = $msg . "<b>Conductor: </b>" . $respuesta['Nombre'] . "\n";
+        $msg = $msg . "<b>Placa: </b>" . $respuestaPlaca['placa'] . "\n";
+        $msg = $msg . "<b>Fecha: </b>" . date("d") . "/" . date("m") . "/" . date("y") . "\n";
+        $msg = $msg . "<b>Hora: </b>" . date("H") . ":" . date("i") . ":" . date("s") . "\n";
 
 
         foreach ($datos as $key => $value) {
-        if($key == 'nivel_refrigerante' && $value == 0) $msg = $msg. "<b>Nivel refrigerante:</b> Bajo \n";
-            if($key == 'nivel_combustible' && $value == 0) $msg = $msg."<b>Nivel de combustible:</b> Bajo \n";
-            if($key == 'liquido_hidraulico' && $value == 0)$msg = $msg."<b>Nivel de líquido hidráulico:</b> Bajo \n";
-            if($key == 'nivel_liquido_frenos' && $value == 0)$msg = $msg."<b>Nivel de líquido de frenos:</b> Bajo \n";
-            if($key == 'nivel_aceite' && $value == 0)$msg = $msg."<b>Nivel de aceite:</b> Bajo \n";
+            if ($key == 'nivel_refrigerante' && $value == 0) $msg = $msg . "<b>Nivel refrigerante:</b> Bajo \n";
+            if ($key == 'nivel_combustible' && $value == 0) $msg = $msg . "<b>Nivel de combustible:</b> Bajo \n";
+            if ($key == 'liquido_hidraulico' && $value == 0) $msg = $msg . "<b>Nivel de líquido hidráulico:</b> Bajo \n";
+            if ($key == 'nivel_liquido_frenos' && $value == 0) $msg = $msg . "<b>Nivel de líquido de frenos:</b> Bajo \n";
+            if ($key == 'nivel_aceite' && $value == 0) $msg = $msg . "<b>Nivel de aceite:</b> Bajo \n";
         }
 
 
 
-       
+
 
         ControladorTelegram::ctrNotificaciones($msg);
 
@@ -238,5 +238,117 @@ class ControladorAlistamiento
         );
         $respuesta = ModeloAlistamiento::mdlActualizarEstado($datos);
         return $respuesta;
+    }
+}
+
+/* ===================================================
+   * PROTOCOLO DE ALISTAMIENTO
+===================================================*/
+class ControladorRodamientos
+{
+    /* ===================================================
+       LISTA ALISTAMIENTOS
+    ===================================================*/
+    static public function ctrListarRodamientos()
+    {
+        $respuesta = ModeloRodamiento::mdlListarRodamientos(null);
+        return $respuesta;
+    }
+
+    static public function ctrAgregarEditarRodamiento()
+    {
+        if (isset($_POST['id_rodamiento'])) {
+
+            $datos = array(
+                'id_rodamiento' => $_POST['id_rodamiento'],
+                'ruta' => $_POST['idruta'],
+                'vehiculo' => $_POST['placa'],
+                'conductor' => $_POST['idconductor'],
+                'cliente' => $_POST['idcliente'],
+                'numinterno' => $_POST['numinterno'],
+                'marca' => $_POST['marca'],
+                'modelo' => $_POST['modelo'],
+                'capacidad' => $_POST['capacidad'],
+                'tipo_vin' => $_POST['tipo_vinculacion'],
+                'fecha_serv' => $_POST['fecha_servicio'],
+                'tipo_serv' => $_POST['tipo_servicio'],
+                'cantidad_pasa' => $_POST['cantidadpasajeros'],
+                'h_inicio' => $_POST['h_inicio'],
+                'h_final' => $_POST['h_final'],
+                'kmrecorrido' => $_POST['kmrecorrido'],
+            );
+
+            if ($_POST['id_rodamiento'] == "") {
+
+                $respuesta = ModeloRodamiento::mdlAgregarRodamiento($datos);
+
+                if ($respuesta == "ok") {
+                    echo "
+                            <script>
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '¡Plan de rodamiento guardado correctamente!',						
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                    
+                                }).then((result)=>{
+    
+                                    if(result.value){
+                                        window.location = 'o-rodamiento';
+                                    }
+    
+                                })
+                            </script>
+                        ";
+                } else {
+                    echo "
+                            <script>
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Problemas al guardar los datos',						
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                    closeOnConfirm: false								
+                                })
+                            </script>
+                        ";
+                }
+            } else {
+
+                $respuesta = ModeloRodamiento::mdlEditarRodamiento($datos);
+
+                if ($respuesta == "ok") {
+                    echo "
+                            <script>
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: '¡Plan de rodamiento actualizado correctamente!',						
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                    
+                                }).then((result)=>{
+    
+                                    if(result.value){
+                                        window.location = 'o-rodamiento';
+                                    }
+    
+                                })
+                            </script>
+                        ";
+                } else {
+                    echo "
+                            <script>
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Problemas al guardar los datos',						
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                    closeOnConfirm: false								
+                                })
+                            </script>
+                        ";
+                }
+            }
+        }
     }
 }

@@ -615,16 +615,16 @@ class ModeloRodamiento
         $stmt = Conexion::conectar()->prepare("INSERT INTO o_rodamiento(idvehiculo,idconductor,idcliente,idruta,h_inicio,h_final,kmrecorridos,cantidad_pasajeros,tipo_servicio,fecha_servicio)
                                                 VALUES(:idvehiculo,:idconductor,:idcliente,:idruta,:h_inicio,:h_final,:kmrecorridos,:cantidad_pasajeros,:tipo_servicio,:fecha_servicio)");
 
-        $stmt->bindParam(":idvehiculo", $datos["documento"], PDO::PARAM_INT);
-        $stmt->bindParam(":idconductor", $datos["tdocumento"], PDO::PARAM_INT);
-        $stmt->bindParam(":idcliente", $datos["nombre"], PDO::PARAM_INT);
-        $stmt->bindParam(":idruta", $datos["telpro"], PDO::PARAM_INT);
-        $stmt->bindParam(":h_inicio", $datos["dirpro"], PDO::PARAM_STR);
-        $stmt->bindParam(":h_final", $datos["emailp"], PDO::PARAM_STR);
-        $stmt->bindParam(":kmrecorridos", $datos["ciudadpro"], PDO::PARAM_INT);
-        $stmt->bindParam(":cantidad_pasajeros", $datos["ciudadpro"], PDO::PARAM_INT);
-        $stmt->bindParam(":tipo_servicio", $datos["ciudadpro"], PDO::PARAM_STR);
-        $stmt->bindParam(":fecha_servicio", $datos["ciudadpro"], PDO::PARAM_STR);
+        $stmt->bindParam(":idvehiculo", $datos["vehiculo"], PDO::PARAM_INT);
+        $stmt->bindParam(":idconductor", $datos["conductor"], PDO::PARAM_INT);
+        $stmt->bindParam(":idcliente", $datos["cliente"], PDO::PARAM_INT);
+        $stmt->bindParam(":idruta", $datos["ruta"], PDO::PARAM_INT);
+        $stmt->bindParam(":h_inicio", $datos["h_inicio"], PDO::PARAM_STR);
+        $stmt->bindParam(":h_final", $datos["h_final"], PDO::PARAM_STR);
+        $stmt->bindParam(":kmrecorridos", $datos["kmrecorrido"], PDO::PARAM_INT);
+        $stmt->bindParam(":cantidad_pasajeros", $datos["cantidad_pasa"], PDO::PARAM_INT);
+        $stmt->bindParam(":tipo_servicio", $datos["tipo_serv"], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_servicio", $datos["fecha_serv"], PDO::PARAM_STR);
 
 
         if ($stmt->execute()) {
@@ -643,18 +643,19 @@ class ModeloRodamiento
     {
 
         $stmt = Conexion::conectar()->prepare("UPDATE o_rodamiento set idvehiculo = :idvehiculo, idconductor = :idconductor, idcliente = :idcliente, idruta = :idruta, h_inicio = :h_inicio, h_final = :h_final, kmrecorridos = :kmrecorridos, cantidad_pasajeros = :cantidad_pasajeros, tipo_servicio = :tipo_servicio, fecha_servicio = :fecha_servicio
-                                               WHERE idxp = :idxp");
+                                               WHERE id = :id");
 
-        $stmt->bindParam(":idvehiculo", $datos["documento"], PDO::PARAM_INT);
-        $stmt->bindParam(":idconductor", $datos["tdocumento"], PDO::PARAM_INT);
-        $stmt->bindParam(":idcliente", $datos["nombre"], PDO::PARAM_INT);
-        $stmt->bindParam(":idruta", $datos["telpro"], PDO::PARAM_INT);
-        $stmt->bindParam(":h_inicio", $datos["dirpro"], PDO::PARAM_STR);
-        $stmt->bindParam(":h_final", $datos["emailp"], PDO::PARAM_STR);
-        $stmt->bindParam(":kmrecorridos", $datos["ciudadpro"], PDO::PARAM_INT);
-        $stmt->bindParam(":cantidad_pasajeros", $datos["ciudadpro"], PDO::PARAM_INT);
-        $stmt->bindParam(":tipo_servicio", $datos["ciudadpro"], PDO::PARAM_STR);
-        $stmt->bindParam(":fecha_servicio", $datos["ciudadpro"], PDO::PARAM_STR);
+        $stmt->bindParam(":id", $datos["id_rodamiento"], PDO::PARAM_INT);
+        $stmt->bindParam(":idvehiculo", $datos["vehiculo"], PDO::PARAM_INT);
+        $stmt->bindParam(":idconductor", $datos["conductor"], PDO::PARAM_INT);
+        $stmt->bindParam(":idcliente", $datos["cliente"], PDO::PARAM_INT);
+        $stmt->bindParam(":idruta", $datos["ruta"], PDO::PARAM_INT);
+        $stmt->bindParam(":h_inicio", $datos["h_inicio"], PDO::PARAM_STR);
+        $stmt->bindParam(":h_final", $datos["h_final"], PDO::PARAM_STR);
+        $stmt->bindParam(":kmrecorridos", $datos["kmrecorrido"], PDO::PARAM_INT);
+        $stmt->bindParam(":cantidad_pasajeros", $datos["cantidad_pasa"], PDO::PARAM_INT);
+        $stmt->bindParam(":tipo_servicio", $datos["tipo_serv"], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_servicio", $datos["fecha_serv"], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             $retorno = "ok";
@@ -668,28 +669,71 @@ class ModeloRodamiento
         return $retorno;
     }
 
-    static public function mdlMostrar($value)
+    static public function mdlListarRodamientos($value)
     {
 
         if ($value != null) {
 
-            $stmt = Conexion::conectar()->prepare("SELECT P.*, M.municipio AS ciudad FROM propietario P
-												   LEFT JOIN gh_municipios M ON P.idciudad = M.idmunicipio
-												   WHERE P.documento = :cedula");
+            $stmt = Conexion::conectar()->prepare("SELECT r.*, 
+                                                        v.placa, v.numinterno, v.modelo, v.capacidad, v.tipovinculacion,
+                                                        m.marca AS marca,
+                                                        p.Nombre AS conductor,
+                                                        c.nombre AS cliente,
+                                                        CONCAT(mu.municipio, '-', mu2.municipio) AS ruta
+                                                    FROM o_rodamiento r
+                                                    INNER JOIN v_vehiculos v ON v.idvehiculo = r.idvehiculo
+                                                    LEFT JOIN v_marcas m ON m.idmarca = v.idmarca
+                                                    INNER JOIN gh_personal p ON p.idPersonal = r.idconductor
+                                                    INNER JOIN cont_clientes c ON c.idcliente = r.idcliente
+                                                    INNER JOIN v_rutas ru ON ru.id = r.idruta
+                                                    INNER JOIN gh_municipios mu ON mu.idmunicipio = ru.idorigen
+                                                    INNER JOIN gh_municipios mu2 ON mu2.idmunicipio = ru.iddestino
+                                                    WHERE r.id = :id");
 
-            $stmt->bindParam(":cedula",  $value, PDO::PARAM_INT);
+            $stmt->bindParam(":id", $value, PDO::PARAM_INT);
             $stmt->execute();
             $retorno =  $stmt->fetch();
         } else {
 
-            $stmt = Conexion::conectar()->prepare("SELECT P.*, M.municipio AS ciudad FROM propietario P
-									   			   LEFT JOIN gh_municipios M ON P.idciudad = M.idmunicipio
-									   			   WHERE P.estado = 1");
+            $stmt = Conexion::conectar()->prepare("SELECT r.*, 
+                                                        v.placa, v.numinterno, v.modelo, v.capacidad, v.tipovinculacion,
+                                                        m.marca AS marca,
+                                                        p.Nombre AS conductor,
+                                                        c.nombre AS cliente, 
+                                                        CONCAT(mu.municipio, '-', mu2.municipio) AS ruta
+                                                    FROM o_rodamiento r
+                                                    INNER JOIN v_vehiculos v ON v.idvehiculo = r.idvehiculo
+                                                    LEFT JOIN v_marcas m ON m.idmarca = v.idmarca
+                                                    INNER JOIN gh_personal p ON p.idPersonal = r.idconductor
+                                                    INNER JOIN cont_clientes c ON c.idcliente = r.idcliente
+                                                    INNER JOIN v_rutas ru ON ru.id = r.idruta
+                                                    INNER JOIN gh_municipios mu ON mu.idmunicipio = ru.idorigen
+                                                    INNER JOIN gh_municipios mu2 ON mu2.idmunicipio = ru.iddestino
+                                                    WHERE r.estado = 1");
             $stmt->execute();
             $retorno =  $stmt->fetchAll();
         }
 
         $stmt->closeCursor();
+        return $retorno;
+    }
+
+    static public function mdlEliminarRodamiento($id)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE o_rodamiento set estado = 0
+                                               WHERE id = :id");
+
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
         return $retorno;
     }
 }
