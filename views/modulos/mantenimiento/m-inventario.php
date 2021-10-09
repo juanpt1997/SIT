@@ -51,7 +51,8 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                             <div class="card card-success collapsed-card" id="card-inventario">
                                 <div class="card-header">
                                     <h3 class="card-title"><b><i>Inventario</i></b>
-                                    <i class="fas fa-boxes"></i></h3>
+                                        <i class="fas fa-boxes"></i>
+                                    </h3>
                                     <div class="card-tools">
                                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-plus"></i>
@@ -70,15 +71,35 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                             <div class="row">
 
                                                 <div class="col-5 col-sm-3">
-
-                                                    <hr class="my-5">
+                                                    <!-- <hr class="my-5">
                                                     <h4><b><i>Imágenes del vehículo</i></b>
                                                         <i class="fas fa-shuttle-van"></i>
                                                     </h4>
                                                     <div id="col_fotos_inventario">
 
+                                                    </div> -->
+                                                    <hr class="my-5">
+                                                    <h4><b><i>Imágenes del vehículo</i></b> <i class="fas fa-shuttle-van"></i></h4>
+                                                    
+                                                    <div id="col_fotos_inventario" class="col" data-ride="carousel">
+                                                        <ol class="carousel-indicators">
+                                                            <!-- SE LLENA DESDE JAVASCRIPT -->
+                                                        </ol>
+                                                        <div class="carousel-inner text-center">
+                                                            <!-- SE LLENA DESDE JAVASCRIPT -->
+                                                        </div>
+                                                        <a class="carousel-control-prev" href="#col_fotos_inventario" role="button" data-slide="prev">
+                                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                            <span class="sr-only">Previous</span>
+                                                        </a>
+                                                        <a class="carousel-control-next" href="#col_fotos_inventario" role="button" data-slide="next">
+                                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                            <span class="sr-only">Next</span>
+                                                        </a>
                                                     </div>
+                                            
                                                 </div>
+                                                
 
                                                 <div class="col col-lg">
 
@@ -2585,16 +2606,6 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                                 <input type="file" class="form-control" name="foto_evidencia_inventario" id="foto_evidencia_inventario" accept="image/png, image/jpeg">
                                                                                             </div>
                                                                                         </div>
-                                                                                        <!-- <label> TOMAR imagen de evidencia</label>
-                                                                                        <div class="input-group">
-                                                                                            <div class="input-group-append">
-                                                                                                <span class="input-group-text">
-                                                                                                    <i class="fas fa-camera-retro"></i>
-                                                                                                </span>
-                                                                                            </div>
-                                                                                            <input type="file" class="form-control" name="camarafoto_evidencia" id="camarafoto_evidencia" capture="camera">
-                                                                                        </div> -->
-
                                                                                     </div>
                                                                                     <div class="col-md-6">
                                                                                         <div class="form-group">
@@ -2610,35 +2621,35 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                     <button type="button" class="btn btn-lg bg-gradient-success btn_evidencias_inventario"><i class="far fa-save"><b> Guardar información</b></i></button>
                                                                                 </div>
 
-                                                                            </form>
 
 
-                                                                            <hr class="my-5 bg-dark">
 
-                                                                            <div class="col">
-                                                                                <div class="form-group">
-                                                                                    <div class="input-group">
-                                                                                        <h5><b><i>Imágenes subidas</i></b></h5>
+                                                                                <hr class="my-5 bg-dark">
+
+                                                                                <div class="col">
+                                                                                    <div class="form-group">
+                                                                                        <div class="input-group">
+                                                                                            <h5><b><i>Imágenes subidas</i></b></h5>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
 
-                                                                            <div class="table-responsive">
-                                                                                <table class="table table-sm table-striped table-bordered table-hover text-center" id="tabla_fotos">
-                                                                                    <thead>
-                                                                                        <tr>
-                                                                                            <th>Fecha</th>
-                                                                                            <th>Imágenes de evidencia</th>
-                                                                                            <th>Observaciones</th>
-                                                                                            <th>Estado</th>
-                                                                                        </tr>
-                                                                                    </thead>
-                                                                                    <tbody id="tbody_tabla_fotos">
+                                                                                <div class="table-responsive">
+                                                                                    <table class="table table-sm table-striped table-bordered table-hover text-center" id="tabla_fotos">
+                                                                                        <thead>
+                                                                                            <tr>
+                                                                                                <th>Fecha</th>
+                                                                                                <th>Imágenes de evidencia</th>
+                                                                                                <th>Observaciones</th>
+                                                                                                <th>Estado</th>
+                                                                                            </tr>
+                                                                                        </thead>
+                                                                                        <tbody id="tbody_tabla_fotos">
 
-                                                                                    </tbody>
-                                                                                </table>
-                                                                            </div>
-
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </form>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -2674,8 +2685,9 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
         ========================= -->
         <div class="card card-success collapsed-card">
             <div class="card-header">
-                <h3 class="card-title"><b><i>Vehículos</i></b> 
-                <i class="fas fa-car-alt"></i></h3>
+                <h3 class="card-title"><b><i>Vehículos</i></b>
+                    <i class="fas fa-car-alt"></i>
+                </h3>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                         <i class="fas fa-plus"></i>
