@@ -126,8 +126,8 @@ class ControladorConvenios
 	{
 
 		if (isset($_POST['nit'])) {
-			// Ver si ya existe un convenio con ese nit
-			$convenioExistente = ModeloConvenios::mdlMostrar($_POST['nit']);
+			// Ver si ya existe una empresa con ese nit
+			$empresaExistente = ModeloConvenios::mdlMostrar($_POST['nit']);
 
 			$datos = array(
 				'nit' => $_POST['nit'],
@@ -138,7 +138,7 @@ class ControladorConvenios
 				'ciudadcon' => $_POST['ciudadcon']
 			);
 
-			if (is_array($convenioExistente)) {
+			if (is_array($empresaExistente)) {
 
 				$responseModel = ModeloConvenios::mdlEditar($datos);
 			} else {
@@ -185,6 +185,18 @@ class ControladorConvenios
 			}
 		}
 	}
+
+
+	static public function ctrMostrarConvenios()
+	{
+		$respuesta = ModeloConvenios::mdlMostrarConvenios();
+		return $respuesta;
+	}
+
+
+
+
+
 }
 
 /* ===================================================

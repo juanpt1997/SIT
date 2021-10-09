@@ -4,8 +4,13 @@ if (!validarPermiso('M_VEHICULAR', 'R')) {
     echo "<script> window.location = 'inicio'; </script>";
 }
 
-$Convenios = ControladorConvenios::ctrMostrar();
+$Empresas = ControladorConvenios::ctrMostrar();
 $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
+$Vehiculos = ControladorVehiculos::ctrMostrarTipoVehiculo();
+$Placas = ControladorVehiculos::ctrListaVehiculos();
+$Sucursales = ControladorGH::ctrSucursales();
+$Convenios = ControladorConvenios::ctrMostrarConvenios();
+
 
 
 ?>
@@ -47,21 +52,21 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
             <hr class="my-4">
 
-            
+
 
             <!-- ===================== 
               AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
             ========================= -->
             <div class="tab-content" id="pills-tabcontent">
                 <div class="tab-pane fade show active" id="pills-empresas" role="tabpanel" aria-labelledby="pills-empresas-tab">
-                <div class="row">
-                <div class="col">
-                    <!--BOTON NUEVO CONVENIO-->
-                    <button type="button" class="btn btn-success btn-md btn-agregarEmpresa" data-toggle="modal" data-target="#EmpresasModal">
-                        <i class="fas fa-user-plus"></i> Añadir Empresa
-                    </button>
-                </div><!-- col -->
-                </div> <!-- /.row -->
+                    <div class="row">
+                        <div class="col">
+                            <!--BOTON NUEVO CONVENIO-->
+                            <button type="button" class="btn btn-success btn-md btn-agregarEmpresa" data-toggle="modal" data-target="#EmpresasModal">
+                                <i class="fas fa-user-plus"></i> Añadir Empresa
+                            </button>
+                        </div><!-- col -->
+                    </div> <!-- /.row -->
                     <div class="row mt-2">
                         <div class="col-12">
                             <div class="card">
@@ -83,7 +88,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                 </tr>
                                             </thead>
                                             <tbody class="text-sm">
-                                                <?php foreach ($Convenios as $key => $value) : ?>
+                                                <?php foreach ($Empresas as $key => $value) : ?>
                                                     <tr>
                                                         <td><?= $value['idxc'] ?></td>
                                                         <td><?= $value['nit'] ?></td>
@@ -105,22 +110,25 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                 </div>
                                 <div class="card-footer bg-dark"></div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
-                
-                
+
+
                 <div class="tab-pane fade" id="pills-convenios" role="tabpanel" aria-labelledby="pills-convenios-tab">
-                <div class="row">
-                <div class="col">
-                    <!--BOTON NUEVO CONVENIO-->
-                    <button type="button" class="btn btn-success btn-md btn-agregarConvenio" data-toggle="modal" data-target="#ConvenioModal">
-                        <i class="fas fa-user-plus"></i> Añadir Convenio
-                    </button>
-                </div><!-- col -->
-                </div> <!-- /.row -->
-                <div class="row mt-2">
+                    <div class="row">
+                        <div class="col">
+                            <!--BOTON NUEVO CONVENIO-->
+                            <button type="button" class="btn btn-success btn-md btn-agregarConvenio" data-toggle="modal" data-target="#ConvenioModal">
+                                <i class="fas fa-user-plus"></i> Añadir Convenio
+                            </button>
+                        </div><!-- col -->
+                    </div> <!-- /.row -->
+                    <?php
+                    var_dump($Convenios);
+                    ?>
+                    <div class="row mt-2">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header bg-info"></div>
@@ -149,31 +157,49 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                     <th>Observación</th>
                                                 </tr>
                                             </thead>
+                                            <td>
+                                                <div class="btn-group" role="group" aria-label="Button group">
+                                                    <button class="btn btn-sm btn-warning btnEditarConv" nit="<?= $value['nit'] ?>" data-toggle="modal" data-target="#ConvenioModal"><i class="fas fa-edit"></i></button>
+                                                </div>
+                                            </td>
                                             <tbody class="text-sm">
-                    
-                                                    <tr>
-                
-                                                        <td>
-                                                            <div class="btn-group" role="group" aria-label="Button group">
-                                                                <button class="btn btn-sm btn-warning btnEditarConv" nit="<?= $value['nit'] ?>" data-toggle="modal" data-target="#ConvenioModal"><i class="fas fa-edit"></i></button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                
+                                                <?php foreach ($Convenios as $key => $value) : ?>
+                                                    <td><?= $value['idconvenio'] ?></td>
+                                                    <td><?= $value['nit'] ?></td>
+                                                    <td><?= $value['nombre'] ?></td>
+                                                        <td><?= $value['nit'] ?></td>
+                                                        <td><?= $value['nombre'] ?></td>
+                                                        <td><?= $value[''] ?></td>
+                                                        <td><?= $value[''] ?></td>
+                                                        <td><?= $value[''] ?></td>
+                                                        <td><?= $value[''] ?></td>
+                                                        <td><?= $value[''] ?></td>
+                                                        <td><?= $value[''] ?></td>
+                                                        <td><?= $value[''] ?></td>
+                                                        <td><?= $value[''] ?></td>
+                                                        <td><?= $value[''] ?></td>
+                                                        <td><?= $value[''] ?></td>
+                                                <?php endforeach ?>
+
+                                                <tr>
+
+
+                                                </tr>
+
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                                 <div class="card-footer bg-dark"></div>
                             </div>
-                            
+
                         </div>
                     </div>
-                                              
+
 
 
                 </div>
-            </div>                                    
+            </div>
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
@@ -281,8 +307,8 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                 <div class="modal-footer bg-dark">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                     <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
-                    <button type="submit" class="btn btn-success">
-                        <i class="fas fa-save"></i> Guardar</button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-save"></i> Guardar</button>
                     <?php endif ?>
                 </div>
 
@@ -304,7 +330,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 <div class="modal fade" id="ConvenioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-             <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data">
                 <!-- INICIO DEL FORMULARIO -->
 
                 <div class="modal-header bg-info">
@@ -316,16 +342,16 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                 <div class="modal-body">
                     <div class="row">
-                    <!-- EMPRESA CONTRATANTE -->
+                        <!-- EMPRESA CONTRATANTE -->
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="text-sm"><i>Empresa contratante</i></label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control select2-single select-clientes input-sm" id="listaempresas" style="width: 99%" name="listaclientes">
+                                    <select class="form-control select2-single" id="listaempresas" type="text" style="width: 99%" name="listaclientes">
                                         <option value="" selected><b>-Lista de empresas-</b></option>
-                                        <!-- <?php foreach ($clientes as $key => $value) : ?>
-                                            <option value="<?= $value['idcliente'] ?>"><?= $value['clientexist'] ?></option>
-                                        <?php endforeach ?> -->
+                                        <?php foreach ($Empresas as $key => $value) : ?>
+                                            <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
+                                        <?php endforeach ?>
                                     </select>
                                 </div>
                             </div>
@@ -338,20 +364,20 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label class="text-sm"><i>Empresa contratista</i></label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control select2-single select-clientes input-sm" id="listaempresas" style="width: 99%" name="listaclientes">
+                                    <select class="form-control select2-single" id="listaempresas" style="width: 99%" name="listaclientes">
                                         <option value="" selected><b>-Lista de empresas-</b></option>
-                                        <!-- <?php foreach ($clientes as $key => $value) : ?>
-                                            <option value="<?= $value['idcliente'] ?>"><?= $value['clientexist'] ?></option>
-                                        <?php endforeach ?> -->
+                                        <?php foreach ($Empresas as $key => $value) : ?>
+                                            <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
+                                        <?php endforeach ?>
                                     </select>
                                 </div>
                             </div>
-                        </div> 
-                    </div>                     
+                        </div>
+                    </div>
 
 
-                    <hr class="my-4 bg-dark"> 
-                    
+                    <hr class="my-4 bg-dark">
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
@@ -360,12 +386,17 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <input class="form-control input-clientes" type="text" id="tipo_contrato" name="tipo_contrato" placeholder="Ingrese el contrato a ejecutar" maxlength="45" required>
                                 </div>
                             </div>
-                        </div>    
+                        </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="text-sm">Sucursal</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" id="tipo_contrato" name="tipo_contrato" placeholder="Ingrese la sucursal" maxlength="45" required>
+                                    <select id="listaempresas" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes">
+                                        <option value="" selected><b>-Lista de sucursales-</b></option>
+                                        <?php foreach ($Sucursales as $key => $value) : ?>
+                                            <option value="<?= $value['ids'] ?>"><?= $value['sucursal'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -376,38 +407,44 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label class="test-sm">Placa</label>
+                                <div class="input-group input-group-sm">
+                                    <select id="listaempresas" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes">
+                                        <option value="" selected><b>-Lista de placas-</b></option>
+                                        <?php foreach ($Placas as $key => $value) : ?>
+                                            <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
                                 <label class="test-sm">Tipo de vehículo</label>
                                 <div class="input-group input-group-sm">
-                                    <select id="listaempresas" class="form-control select2-single select-clientes input-sm"style="width: 99%" name="listaclientes">
-                                    <option value="" selected><b>-Tipo de vehículo-</b></option>
-                                        <!-- <?php foreach ($clientes as $key => $value) : ?>
-                                            <option value="<?= $value['idcliente'] ?>"><?= $value['clientexist'] ?></option>
-                                        <?php endforeach ?> -->
+                                    <select id="listaempresas" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes" readonly>
+                                        <option value="" selected><b>-Tipo de vehículo-</b></option>
+                                        <?php foreach ($Vehiculos as $key => $value) : ?>
+                                            <option value="<?= $value['idtipovehiculo'] ?>"><?= $value['tipovehiculo'] ?></option>
+                                        <?php endforeach ?>
                                     </select>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="test-sm">Placa</label>
-                                <div class="input-group input-group-sm">
-                                    <select id="listaempresas" class="form-control select2-single select-clientes input-sm"style="width: 99%" name="listaclientes">
-                                    <option value="" selected><b>-Placa-</b></option>
-                                        <!-- <?php foreach ($clientes as $key => $value) : ?>
-                                            <option value="<?= $value['idcliente'] ?>"><?= $value['clientexist'] ?></option>
-                                        <?php endforeach ?> -->
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        
+
+
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                        <label class="text-sm">Número interno</label>
+                            <label class="text-sm">Número interno</label>
                             <div class="input-group input-group-sm">
-                                <input class="form-control input-clientes" type="text" id="tipo_contrato" name="tipo_contrato" placeholder="Ingrese el interno" maxlength="45" required>
+                                <select id="listaempresas" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes" readonly>
+                                    <option value="" selected><b>-Lista de números internos-</b></option>
+                                    <?php foreach ($Placas as $key => $value) : ?>
+                                        <option value="<?= $value['idvehiculo'] ?>"><?= $value['numinterno'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -434,24 +471,23 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         </div>
 
 
-                    </div>         
-                    
+                    </div>
+
                     <hr class="my-4 bg-dark">
 
                     <div class="row">
                         <div class="col-md-6">
                             <label class="test-sm">Estado en empresa</label>
-                                <div class="input-group input-group-sm">
-                                    <select id="listaempresas" class="form-control select2-single select-clientes input-sm"style="width: 99%" name="listaclientes">
-                                    <option value="" selected><b>-Estado-</b></option>
-                                    <option value=""><b>Firmado</b></option>
-                                    <option value=""><b>Pendiente firma cartera</b></option>
-                                    <option value=""><b>Pendiente firma ss</b></option>
-                                    <option value=""><b>Pendiente firma doc</b></option>
-                                    <option value=""><b>Devuelto a suc </b></option>
-                                
-                                    </select>
-                                </div>
+                            <div class="input-group input-group-sm">
+                                <select id="listaempresas" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes">
+                                    <option value="" selected><b>-Lista de estados-</b></option>
+                                    <option value="Firmado">Firmado</option>
+                                    <option value="Pendiente firma cartera">Pendiente firma cartera</option>
+                                    <option value="Pendiente firma ss">Pendiente firma ss</option>
+                                    <option value="Pendiente firma doc">Pendiente firma doc</option>
+                                    <option value="Devuelto a suc">Devuelto a suc</option>
+                                </select>
+                            </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
@@ -465,7 +501,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                     <div class="col-md-6">
                         <div class="form-group">
-                        <label class="text-sm">Número radicado</label>
+                            <label class="text-sm">Número radicado</label>
                             <div class="input-group input-group-sm">
                                 <input class="form-control input-clientes" type="text" id="tipo_contrato" name="tipo_contrato" placeholder="Número radicado" maxlength="45" required>
                             </div>
@@ -476,8 +512,8 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                     <div class="form-group">
                         <label class="text-sm">Observaciones</label>
-                            <div class="input-group input-group-sm">
-                                <textarea class="form-control" type="text" id="porque" name="porque" placeholder="Escriba los motivos" style="min-height:70px"></textarea requiered>
+                        <div class="input-group input-group-sm">
+                            <textarea class="form-control" type="text" id="porque" name="porque" placeholder="Escriba los motivos" style="min-height:70px"></textarea requiered>
                             </div>
                     </div>
 

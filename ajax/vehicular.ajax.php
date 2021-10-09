@@ -30,7 +30,7 @@ class AjaxPropietarios
 ===================================================*/
 class AjaxConvenios
 {
-    static public function ajaxDatosConvenios($nit)
+    static public function ajaxDatosEmpresas($nit)
     {
         $respuesta = ModeloConvenios::mdlMostrar($nit);
         echo json_encode($respuesta);
@@ -1010,8 +1010,8 @@ if (isset($_POST['DatosPropietarios']) && $_POST['DatosPropietarios'] == "ok") {
     AjaxPropietarios::ajaxDatosPropietarios($_POST['value']);
 }
 # LLAMADOS A AJAX CONVENIOS
-if (isset($_POST['DatosConvenios']) && $_POST['DatosConvenios'] == "ok") {
-    AjaxConvenios::ajaxDatosConvenios($_POST['value']);
+if (isset($_POST['DatosEmpresas']) && $_POST['DatosEmpresas'] == "ok") {
+    AjaxConvenios::ajaxDatosEmpresas($_POST['value']);
 }
 
 # LLAMADOS A AJAX BLOQUEO PERSONAL
