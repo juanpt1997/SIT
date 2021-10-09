@@ -171,21 +171,21 @@ $(document).ready(function () {
         contentType: false,
         processData: false,
         success: function (response) {
+
           if (response != "") {
+
             let htmlSelect = `<option value="" selected>-Seleccione un conductor</option>`;
+
             if (response != "") {
+
               response.forEach((element) => {
+
                 htmlSelect += `<option class="inv-conductor" value="${element.idconductor}">${element.Documento} - ${element.conductor}</option>`;
+
               });
             }
+
             $(".conductores").html(htmlSelect);
-            // Swal.fire({
-            //   icon: "success",
-            //   text: "Seleccione un conductor",
-            //   showConfirmButton: true,
-            //   confirmButtonText: "Cerrar",
-            //   closeOnConfirm: false,
-            // });
 
             // Accionar el observador
             $("#observador_conductoresInventario").trigger("change");
@@ -194,9 +194,8 @@ $(document).ready(function () {
               icon: "warning",
               title: "No se ha encontrado conductor",
               text: "Seleccione otra placa",
-              showConfirmButton: true,
-              confirmButtonText: "Cerrar",
-              closeOnConfirm: false,
+              showConfirmButton: false,
+              timer: 1600,
             });
             //RESET DE VALOR
             $(".documentos").val("").removeClass("bg-danger bg-success");
@@ -349,18 +348,6 @@ $(document).ready(function () {
           } else {
             $(`#tbody_tabla_fotos`).html("");
           }
-
-          /* ===================================================
-                  INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-                  ===================================================*/
-          var buttons = [
-            {
-              extend: "excel",
-              className: "btn-info",
-              text: '<i class="far fa-file-excel"></i> Exportar',
-            },
-          ];
-          var table = dataTableCustom(`#tabla_fotos`, buttons);
         },
       });
     };
@@ -369,18 +356,34 @@ $(document).ready(function () {
     FUNCION PARA CARGAR LAS FOTOS DE LOS VEHICULOS
     ==========================================================================*/
     let cargarFotosVehiculo = (response) => {
-      let htmljumbo = ``;
+      
+      //let htmljumbo = ``;
+      let htmlcarouselindicators = ``;
+      let htmlcarouselinner = ``;
 
       for (let index = 0; index < response.length; index++) {
-        htmljumbo += `<div class="jumbotron jumbotron-fluid">
-                        <div class="container insertar_fotos">
-                          <img src="${response[index].ruta_foto}" class="d-block w-100" alt="...">
-                        </div>
-                      </div>
-                      <hr class="my-5">`;
+
+        // htmljumbo += `<div class="jumbotron jumbotron-fluid">
+        //                 <div class="container insertar_fotos">
+        //                   <img src="${response[index].ruta_foto}" class="d-block w-100" alt="...">
+        //                 </div>
+        //               </div>
+        //               <hr class="my-5">`;
+
+        let activo = index == 0 ? `active` : ``;
+
+                htmlcarouselindicators += `<li data-target="#col_fotos_inventario" data-slide-to="${index}" class="${activo}"></li>`;
+                htmlcarouselinner += `<div class="carousel-item ${activo}">
+                                            <div class="btn-group my-1" role="group" aria-label="Basic example">
+                                                <a class="btn btn-info" href="${response[index].ruta_foto}" target="_blank"><i class="fas fa-external-link-alt"></i></a>
+                                            </div>
+                                            <img src="${response[index].ruta_foto}" class="d-block w-100" alt="...">
+                                        </div>`;
       }
 
-      $("#col_fotos_inventario").html(htmljumbo);
+      //$("#col_fotos_inventario").html(htmljumbo);
+      $("#col_fotos_inventario").find(".carousel-indicators").html(htmlcarouselindicators);
+      $("#col_fotos_inventario").find(".carousel-inner").html(htmlcarouselinner);
     };
 
     /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
@@ -410,10 +413,7 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function (response) {
-              // Despues de traer respuesta, cambiar animacion del boton para poder guardar
-              //$("#btnGuardarEvidencia").removeAttr("disabled");
-              //$("#overlayBtnGuardarEvidencia").addClass("d-none");
-
+ 
               if (response == "ok") {
                 Swal.fire({
                   icon: "success",
@@ -442,7 +442,7 @@ $(document).ready(function () {
           icon: "warning",
           title: "Seleccione un vehículo / placa",
           showConfirmButton: false,
-          confirmButtonText: "Aceptar",
+          timer: 1500,
         });
       }
     });
@@ -561,9 +561,8 @@ $(document).ready(function () {
           Swal.fire({
               icon: 'warning',
               text: 'Verifique que ha diligenciado todos los datos necesarios',
-              showConfirmButton: true,
-              confirmButtonText: 'Cerrar',
-              closeOnConfirm: false
+              showConfirmButton: false,
+              timer: 1600,
           });
       }
 
