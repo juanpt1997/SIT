@@ -351,256 +351,245 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                 <div class="tab-content" id="custom-tabs-one-tabContent">
                                                                                     <!-- /.TAB DE LAMINAS -->
                                                                                     <div class="tab-pane fade active show" id="custom-tabs-one-lamina" role="tabpanel" aria-labelledby="custom-tabs-one-lamina-tab">
-                                                                                        <div class="table table-responsive">
-                                                                                            <div class="row">
-                                                                                                <div class="col">
-                                                                                                    <div class="position-relative p-3 bg-transparent" style="height: 520px">
-                                                                                                        <table class="table table-bordered text-center text-nowrap">
-                                                                                                            <tbody>
-                                                                                                                <tr>
-                                                                                                                    <td colspan="2"><b>LÁMINAS</b></td>
-                                                                                                                    <td style="width: 15px;">Bueno</td>
-                                                                                                                    <td style="width: 15px;">Rayado</td>
-                                                                                                                    <td style="width: 15px;">Golpe</td>
-                                                                                                                </tr>
+                                                                                        <div class="row">
+                                                                                            <div class="col">
+                                                                                                <div class="p-3 table-responsive">
+                                                                                                    <table class="table table-bordered text-center text-nowrap">
+                                                                                                        <tbody>
+                                                                                                            <tr>
+                                                                                                                <td><b>LÁMINAS</b></td>
+                                                                                                                <td style="width: 15px;">Bueno</td>
+                                                                                                                <td style="width: 15px;">Rayado</td>
+                                                                                                                <td style="width: 15px;">Golpe</td>
+                                                                                                            </tr>
 
-                                                                                                                <tr>
-                                                                                                                    <td style="width: 10px;">1.</td>
-                                                                                                                    <td>Techo exterior</td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Techo_exterior1" name="Techo_exterior" value="1">
-                                                                                                                            <label for="Techo_exterior1">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Techo_exterior4" name="Techo_exterior" value="4">
-                                                                                                                            <label for="Techo_exterior4">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Techo_exterior5" name="Techo_exterior" value="5">
-                                                                                                                            <label for="Techo_exterior5">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                </tr>
+                                                                                                            <tr class="d-none">
+                                                                                                                <td>Techo exterior</td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Techo_exterior1" name="Techo_exterior" value="1">
+                                                                                                                        <label for="Techo_exterior1">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-warning d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Techo_exterior4" name="Techo_exterior" value="4">
+                                                                                                                        <label for="Techo_exterior4">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Techo_exterior5" name="Techo_exterior" value="5">
+                                                                                                                        <label for="Techo_exterior5">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                            </tr>
 
-                                                                                                                <tr>
-                                                                                                                    <td style="width: 10px;">2.</td>
-                                                                                                                    <td>Techo interior</td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Techo_interior1" name="Techo_interior" value="1">
-                                                                                                                            <label for="Techo_interior1">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Techo_interior4" name="Techo_interior" value="4">
-                                                                                                                            <label for="Techo_interior4">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Techo_interior5" name="Techo_interior" value="5">
-                                                                                                                            <label for="Techo_interior5">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                </tr>
+                                                                                                            <tr>
+                                                                                                                <td>Techo interior</td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Techo_interior1" name="Techo_interior" value="1">
+                                                                                                                        <label for="Techo_interior1">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-warning d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Techo_interior4" name="Techo_interior" value="4">
+                                                                                                                        <label for="Techo_interior4">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Techo_interior5" name="Techo_interior" value="5">
+                                                                                                                        <label for="Techo_interior5">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                            </tr>
 
-                                                                                                                <tr>
-                                                                                                                    <td style="width: 10px;">3.</td>
-                                                                                                                    <td>Frente</td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Frente1" name="Frente" value="1">
-                                                                                                                            <label for="Frente1">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Frente4" name="Frente" value="4">
-                                                                                                                            <label for="Frente4">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Frente5" name="Frente" value="5">
-                                                                                                                            <label for="Frente5">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                </tr>
+                                                                                                            <tr>
+                                                                                                                <td>Frente</td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Frente1" name="Frente" value="1">
+                                                                                                                        <label for="Frente1">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-warning d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Frente4" name="Frente" value="4">
+                                                                                                                        <label for="Frente4">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Frente5" name="Frente" value="5">
+                                                                                                                        <label for="Frente5">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                            </tr>
 
-                                                                                                                <tr>
-                                                                                                                    <td style="width: 10px;">4.</td>
-                                                                                                                    <td>Bomper delantero</td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Bomper_delantero1" name="Bomper_delantero" value="1">
-                                                                                                                            <label for="Bomper_delantero1">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Bomper_delantero4" name="Bomper_delantero" value="4">
-                                                                                                                            <label for="Bomper_delantero4">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Bomper_delantero5" name="Bomper_delantero" value="5">
-                                                                                                                            <label for="Bomper_delantero5">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                </tr>
+                                                                                                            <tr>
+                                                                                                                <td>Bomper delantero</td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Bomper_delantero1" name="Bomper_delantero" value="1">
+                                                                                                                        <label for="Bomper_delantero1">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-warning d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Bomper_delantero4" name="Bomper_delantero" value="4">
+                                                                                                                        <label for="Bomper_delantero4">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Bomper_delantero5" name="Bomper_delantero" value="5">
+                                                                                                                        <label for="Bomper_delantero5">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                            </tr>
 
-                                                                                                                <tr>
-                                                                                                                    <td style="width: 10px;">5.</td>
-                                                                                                                    <td>Bomper trasero</td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Bomper_trasero1" name="Bomper_trasero" value="1">
-                                                                                                                            <label for="Bomper_trasero1">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Bomper_trasero4" name="Bomper_trasero" value="4">
-                                                                                                                            <label for="Bomper_trasero4">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Bomper_trasero5" name="Bomper_trasero" value="5">
-                                                                                                                            <label for="Bomper_trasero5">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                </tr>
+                                                                                                            <tr>
+                                                                                                                <td>Bomper trasero</td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Bomper_trasero1" name="Bomper_trasero" value="1">
+                                                                                                                        <label for="Bomper_trasero1">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-warning d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Bomper_trasero4" name="Bomper_trasero" value="4">
+                                                                                                                        <label for="Bomper_trasero4">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Bomper_trasero5" name="Bomper_trasero" value="5">
+                                                                                                                        <label for="Bomper_trasero5">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                            </tr>
 
-                                                                                                                <tr>
-                                                                                                                    <td style="width: 10px;">6.</td>
-                                                                                                                    <td>Lateral derecho</td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Lateral_derecho1" name="Lateral_derecho" value="1">
-                                                                                                                            <label for="Lateral_derecho1">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Lateral_derecho4" name="Lateral_derecho" value="4">
-                                                                                                                            <label for="Lateral_derecho4">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Lateral_derecho5" name="Lateral_derecho" value="5">
-                                                                                                                            <label for="Lateral_derecho5">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                </tr>
+                                                                                                            <tr>
+                                                                                                                <td>Lateral derecho</td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Lateral_derecho1" name="Lateral_derecho" value="1">
+                                                                                                                        <label for="Lateral_derecho1">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-warning d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Lateral_derecho4" name="Lateral_derecho" value="4">
+                                                                                                                        <label for="Lateral_derecho4">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Lateral_derecho5" name="Lateral_derecho" value="5">
+                                                                                                                        <label for="Lateral_derecho5">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                            </tr>
 
-                                                                                                                <tr>
-                                                                                                                    <td style="width: 10px;">7.</td>
-                                                                                                                    <td>Lateral izquierdo</td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Lateral_izquierdo1" name="Lateral_izquierdo" value="1">
-                                                                                                                            <label for="Lateral_izquierdo1">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Lateral_izquierdo4" name="Lateral_izquierdo" value="4">
-                                                                                                                            <label for="Lateral_izquierdo4">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Lateral_izquierdo5" name="Lateral_izquierdo" value="5">
-                                                                                                                            <label for="Lateral_izquierdo5">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                </tr>
+                                                                                                            <tr>
+                                                                                                                <td>Lateral izquierdo</td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Lateral_izquierdo1" name="Lateral_izquierdo" value="1">
+                                                                                                                        <label for="Lateral_izquierdo1">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-warning d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Lateral_izquierdo4" name="Lateral_izquierdo" value="4">
+                                                                                                                        <label for="Lateral_izquierdo4">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Lateral_izquierdo5" name="Lateral_izquierdo" value="5">
+                                                                                                                        <label for="Lateral_izquierdo5">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                            </tr>
 
-                                                                                                                <tr>
-                                                                                                                    <td style="width: 10px;">8.</td>
-                                                                                                                    <td>Puerta derecha</td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Puerta_derecho1" name="puerta_derecha" value="1">
-                                                                                                                            <label for="Puerta_derecho1">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Puerta_derecho4" name="puerta_derecha" value="4">
-                                                                                                                            <label for="Puerta_derecho4">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Puerta_derecho5" name="puerta_derecha" value="5">
-                                                                                                                            <label for="Puerta_derecho5">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                </tr>
+                                                                                                            <tr>
+                                                                                                                <td>Puerta derecha</td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Puerta_derecho1" name="puerta_derecha" value="1">
+                                                                                                                        <label for="Puerta_derecho1">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-warning d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Puerta_derecho4" name="puerta_derecha" value="4">
+                                                                                                                        <label for="Puerta_derecho4">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Puerta_derecho5" name="puerta_derecha" value="5">
+                                                                                                                        <label for="Puerta_derecho5">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                            </tr>
 
-                                                                                                                <tr>
-                                                                                                                    <td style="width: 10px;">9.</td>
-                                                                                                                    <td>Puerta izquierda</td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-success d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Puerta_izquierda1" name="Puerta_izquierda" value="1">
-                                                                                                                            <label for="Puerta_izquierda1">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-warning d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Puerta_izquierda4" name="Puerta_izquierda" value="4">
-                                                                                                                            <label for="Puerta_izquierda4">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
-                                                                                                                    <td>
-                                                                                                                        <div class="icheck-danger d-inline">
-                                                                                                                            <input type="radio" class="form-control inventario" required id="Puerta_izquierda5" name="Puerta_izquierda" value="5">
-                                                                                                                            <label for="Puerta_izquierda5">
-                                                                                                                            </label>
-                                                                                                                        </div>
-                                                                                                                    </td>
+                                                                                                            <tr>
+                                                                                                                <td>Puerta izquierda</td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-success d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Puerta_izquierda1" name="Puerta_izquierda" value="1">
+                                                                                                                        <label for="Puerta_izquierda1">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-warning d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Puerta_izquierda4" name="Puerta_izquierda" value="4">
+                                                                                                                        <label for="Puerta_izquierda4">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
+                                                                                                                <td>
+                                                                                                                    <div class="icheck-danger d-inline">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Puerta_izquierda5" name="Puerta_izquierda" value="5">
+                                                                                                                        <label for="Puerta_izquierda5">
+                                                                                                                        </label>
+                                                                                                                    </div>
+                                                                                                                </td>
 
-                                                                                                                </tr>
-                                                                                                            </tbody>
-                                                                                                        </table>
-                                                                                                    </div>
+                                                                                                            </tr>
+                                                                                                        </tbody>
+                                                                                                    </table>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>
