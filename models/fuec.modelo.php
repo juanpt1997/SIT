@@ -38,9 +38,12 @@ class ModeloFuec
         //                                         LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
         //                                         INNER JOIN l_usuarios u ON u.Cedula = f.usuario_creacion");
         $stmt = Conexion::conectar()->prepare("SELECT f.idfuec, f.tipocontrato, f.contratofijo, f.contratante, f.idvehiculo, f.idconductor1, f.idconductor2, f.idconductor3, f.fecha_inicial, f.fecha_vencimiento, f.idobjeto_contrato, f.anotObjetoContrato,
-                                                ori.municipio AS origen,
-                                                des.municipio AS destino,
-                                                rt.nombreruta AS descripcion,
+                                                -- ori.municipio AS origen,
+                                                IF (f.idruta IS NULL, f.origen, ori.municipio) AS origen,
+                                                -- des.municipio AS destino,
+                                                IF (f.idruta IS NULL, f.destino, des.municipio) AS destino,
+                                                -- rt.nombreruta AS observaciones,
+                                                IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
                                                 f.precio, f.listado_pasajeros, f.estado_pago, f.valor_neto, f.estado_fuec, f.ruta_contrato, f.usuario_creacion, f.fecha_creacion, f.nro_contrato, f.idruta,
                                                 cl.nombre AS nomContratante, cl.Documento AS docContratante, cl.direccion AS direccion, cl.telefono AS telContratante, cl.nombrerespons, cl.Documentorespons, cl.telefono2 AS telrespons, 
                                                 v.placa, v.numinterno, v.tipovinculacion, 
@@ -111,9 +114,12 @@ class ModeloFuec
 
         if ($tipocontrato == "OCASIONAL") {
             $sql = "SELECT f.idfuec, f.tipocontrato, f.contratofijo, f.contratante, f.idvehiculo, f.idconductor1, f.idconductor2, f.idconductor3, f.fecha_inicial, f.fecha_vencimiento, f.idobjeto_contrato, f.anotObjetoContrato,
-                        ori.municipio AS origen,
-                        des.municipio AS destino,
-                        rt.nombreruta AS observaciones,
+                        -- ori.municipio AS origen,
+                        IF (f.idruta IS NULL, f.origen, ori.municipio) AS origen,
+                        -- des.municipio AS destino,
+                        IF (f.idruta IS NULL, f.destino, des.municipio) AS destino,
+                        -- rt.nombreruta AS observaciones,
+                        IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
                         f.precio, f.listado_pasajeros, f.estado_pago, f.valor_neto, f.estado_fuec, f.ruta_contrato, f.usuario_creacion, f.fecha_creacion, f.nro_contrato, f.idruta,
                         c.nombre_con AS nomContratante, c.documento_con AS docContratante, c.direccion_con AS direccion, c.tel_1 AS telContratante, c.nombre_respo AS nombrerespons, c.documento_res AS Documentorespons, c.tel_2 AS telrespons, 
                         v.placa, v.numinterno, v.tipovinculacion, v.modelo, 
@@ -152,9 +158,12 @@ class ModeloFuec
                     GROUP BY idfuec";
         } else {
             $sql = "SELECT f.idfuec, f.tipocontrato, f.contratofijo, f.contratante, f.idvehiculo, f.idconductor1, f.idconductor2, f.idconductor3, f.fecha_inicial, f.fecha_vencimiento, f.idobjeto_contrato, f.anotObjetoContrato,
-                        ori.municipio AS origen,
-                        des.municipio AS destino,
-                        rt.nombreruta AS observaciones,
+                        -- ori.municipio AS origen,
+                        IF (f.idruta IS NULL, f.origen, ori.municipio) AS origen,
+                        -- des.municipio AS destino,
+                        IF (f.idruta IS NULL, f.destino, des.municipio) AS destino,
+                        -- rt.nombreruta AS observaciones,
+                        IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
                         f.precio, f.listado_pasajeros, f.estado_pago, f.valor_neto, f.estado_fuec, f.ruta_contrato, f.usuario_creacion, f.fecha_creacion, f.nro_contrato, f.idruta,
                         cl.nombre AS nomContratante, cl.Documento AS docContratante, cl.direccion AS direccion, cl.telefono AS telContratante, cl.nombrerespons, cl.Documentorespons, cl.telefono2 AS telrespons, 
                         v.placa, v.numinterno, v.tipovinculacion, v.modelo, 

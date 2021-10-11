@@ -310,21 +310,24 @@ class ModeloCotizaciones
          // LEFT JOIN gh_municipios m3 ON C.cedula_expedicion = m3.idmunicipio
          // INNER JOIN cont_clientes Cl ON C.idcliente = Cl.idcliente");
          $stmt = Conexion::conectar()->prepare("SELECT C.idcotizacion, C.idcliente, C.empresa, C.idsucursal, 
-                                                   ori.municipio AS origen,
-                                                   des.municipio AS destino,
-                                                   rt.nombreruta AS descripcion,
-                                                   C.fecha_solicitud, C.fecha_solucion, C.fecha_inicio, C.fecha_fin, C.duracion, C.hora_salida, C.hora_recogida, C.idtipovehiculo, C.nro_vehiculos, C.capacidad, C.valorxvehiculo, C.valortotal, C.cotizacion, C.clasificacion, C.musica, C.aire, C.wifi, C.silleriareclinable, C.bano, C.bodega, C.otro, C.realiza_viaje, C.porque, C.nombre_con, C.documento_con, C.tipo_doc_con, C.tel_1, C.direccion_con, C.nombre_respo, C.tipo_doc_respo, C.cedula_expedicion, C.documento_res, C.ciudad_con, C.ciudad_res, C.tel_2, C.otro_v, C.idruta, 
-                                                   S.sucursal AS sucursal, V.tipovehiculo AS tipov, Cl.*, CONCAT('ID: ',C.idcotizacion, ' - ',C.nombre_con) AS clientexist, m1.municipio AS ciudadcon, m2.municipio AS ciudadres, m3.municipio AS cedulaexpe
-                                                      FROM cont_cotizaciones C
-                                                      LEFT JOIN gh_sucursales S ON C.idsucursal = S.ids
-                                                      LEFT JOIN v_tipovehiculos V ON C.idtipovehiculo = V.idtipovehiculo
-                                                      LEFT JOIN gh_municipios m1 ON C.ciudad_con = m1.idmunicipio
-                                                      LEFT JOIN gh_municipios m2 ON C.ciudad_res = m2.idmunicipio
-                                                      LEFT JOIN gh_municipios m3 ON C.cedula_expedicion = m3.idmunicipio
-                                                      LEFT JOIN v_rutas rt ON rt.id = C.idruta
-                                                   LEFT JOIN gh_municipios AS ori ON ori.idmunicipio=rt.idorigen
-                                                   LEFT JOIN gh_municipios AS des ON des.idmunicipio=rt.iddestino
-                                                      INNER JOIN cont_clientes Cl ON C.idcliente = Cl.idcliente");
+                                                -- ori.municipio AS origen,
+                                                IF (C.idruta IS NULL, C.origen, ori.municipio) AS origen,
+                                                -- des.municipio AS destino,
+                                                IF (C.idruta IS NULL, C.destino, des.municipio) AS destino,
+                                                -- rt.nombreruta AS descripcion,
+                                                IF (C.idruta IS NULL, C.descripcion, rt.nombreruta) AS descripcion,
+                                                C.fecha_solicitud, C.fecha_solucion, C.fecha_inicio, C.fecha_fin, C.duracion, C.hora_salida, C.hora_recogida, C.idtipovehiculo, C.nro_vehiculos, C.capacidad, C.valorxvehiculo, C.valortotal, C.cotizacion, C.clasificacion, C.musica, C.aire, C.wifi, C.silleriareclinable, C.bano, C.bodega, C.otro, C.realiza_viaje, C.porque, C.nombre_con, C.documento_con, C.tipo_doc_con, C.tel_1, C.direccion_con, C.nombre_respo, C.tipo_doc_respo, C.cedula_expedicion, C.documento_res, C.ciudad_con, C.ciudad_res, C.tel_2, C.otro_v, C.idruta, 
+                                                S.sucursal AS sucursal, V.tipovehiculo AS tipov, Cl.*, CONCAT('ID: ',C.idcotizacion, ' - ',C.nombre_con) AS clientexist, m1.municipio AS ciudadcon, m2.municipio AS ciudadres, m3.municipio AS cedulaexpe
+                                                FROM cont_cotizaciones C
+                                                LEFT JOIN gh_sucursales S ON C.idsucursal = S.ids
+                                                LEFT JOIN v_tipovehiculos V ON C.idtipovehiculo = V.idtipovehiculo
+                                                LEFT JOIN gh_municipios m1 ON C.ciudad_con = m1.idmunicipio
+                                                LEFT JOIN gh_municipios m2 ON C.ciudad_res = m2.idmunicipio
+                                                LEFT JOIN gh_municipios m3 ON C.cedula_expedicion = m3.idmunicipio
+                                                LEFT JOIN v_rutas rt ON rt.id = C.idruta
+                                                LEFT JOIN gh_municipios AS ori ON ori.idmunicipio=rt.idorigen
+                                                LEFT JOIN gh_municipios AS des ON des.idmunicipio=rt.iddestino
+                                                INNER JOIN cont_clientes Cl ON C.idcliente = Cl.idcliente");
 
          $stmt->execute();
          $retorno =  $stmt->fetchAll();
@@ -523,9 +526,12 @@ class ModeloOrdenServicio
       //                                        LEFT JOIN gh_municipios exped ON exped.idmunicipio = C.cedula_expedicion
       //                                        WHERE O.idorden = :idorden");
       $stmt = Conexion::conectar()->prepare("SELECT C.idcotizacion, C.idcliente, C.empresa, C.idsucursal, 
-                                             ori.municipio AS origen,
-                                             des.municipio AS destino,
-                                             rt.nombreruta AS descripcion,
+                                             -- ori.municipio AS origen,
+                                             IF (C.idruta IS NULL, C.origen, ori.municipio) AS origen,
+                                             -- des.municipio AS destino,
+                                             IF (C.idruta IS NULL, C.destino, des.municipio) AS destino,
+                                             -- rt.nombreruta AS descripcion,
+                                             IF (C.idruta IS NULL, C.descripcion, rt.nombreruta) AS descripcion,
                                              C.fecha_solicitud, C.fecha_solucion, C.fecha_inicio, C.fecha_fin, C.duracion, C.hora_salida, C.hora_recogida, C.idtipovehiculo, C.nro_vehiculos, C.capacidad, C.valorxvehiculo, C.valortotal, C.cotizacion, C.clasificacion, C.musica, C.aire, C.wifi, C.silleriareclinable, C.bano, C.bodega, C.otro, C.realiza_viaje, C.porque, C.nombre_con, C.documento_con, C.tipo_doc_con, C.tel_1, C.direccion_con, C.nombre_respo, C.tipo_doc_respo, C.cedula_expedicion, C.documento_res, C.ciudad_con, C.ciudad_res, C.tel_2, C.otro_v, C.idruta, 
                                              O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, 
                                              -- C.nombre_con, C.documento_con, C.direccion_con, C.tel_1, C.tel_2, C.nombre_respo, C.documento_res, C.cedula_expedicion, 
@@ -559,9 +565,12 @@ class ModeloOrdenServicio
       //                                        LEFT JOIN cont_cotizaciones C ON O.idcotizacion = C.idcotizacion
       //                                        LEFT JOIN cont_clientes CL ON CL.idcliente = C.idcliente");
       $stmt = Conexion::conectar()->prepare("SELECT C.idcotizacion, C.idcliente, C.empresa, C.idsucursal, 
-                                             ori.municipio AS origen,
-                                             des.municipio AS destino,
-                                             rt.nombreruta AS descripcion,
+                                             -- ori.municipio AS origen,
+                                             IF (C.idruta IS NULL, C.origen, ori.municipio) AS origen,
+                                             -- des.municipio AS destino,
+                                             IF (C.idruta IS NULL, C.destino, des.municipio) AS destino,
+                                             -- rt.nombreruta AS descripcion,
+                                             IF (C.idruta IS NULL, C.descripcion, rt.nombreruta) AS descripcion,
                                              C.fecha_solicitud, C.fecha_solucion, C.fecha_inicio, C.fecha_fin, C.duracion, C.hora_salida, C.hora_recogida, C.idtipovehiculo, C.nro_vehiculos, C.capacidad, C.valorxvehiculo, C.valortotal, C.cotizacion, C.clasificacion, C.musica, C.aire, C.wifi, C.silleriareclinable, C.bano, C.bodega, C.otro, C.realiza_viaje, C.porque, C.nombre_con, C.documento_con, C.tipo_doc_con, C.tel_1, C.direccion_con, C.nombre_respo, C.tipo_doc_respo, C.cedula_expedicion, C.documento_res, C.ciudad_con, C.ciudad_res, C.tel_2, C.otro_v, C.idruta, 
                                              O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, 
                                              C.nombre_con AS nomContrata, C.documento_con AS doContrata
