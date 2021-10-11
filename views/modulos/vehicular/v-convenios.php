@@ -125,9 +125,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                             </button>
                         </div><!-- col -->
                     </div> <!-- /.row -->
-                    <?php
-                    var_dump($Convenios);
-                    ?>
+                    
                     <div class="row mt-2">
                         <div class="col-12">
                             <div class="card">
@@ -157,34 +155,39 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                                     <th>Observación</th>
                                                 </tr>
                                             </thead>
-                                            <td>
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button class="btn btn-sm btn-warning btnEditarConv" nit="<?= $value['nit'] ?>" data-toggle="modal" data-target="#ConvenioModal"><i class="fas fa-edit"></i></button>
-                                                </div>
-                                            </td>
+                                            
                                             <tbody class="text-sm">
                                                 <?php foreach ($Convenios as $key => $value) : ?>
-                                                    <td><?= $value['idconvenio'] ?></td>
-                                                    <td><?= $value['nit'] ?></td>
-                                                    <td><?= $value['nombre'] ?></td>
-                                                        <td><?= $value['nit'] ?></td>
-                                                        <td><?= $value['nombre'] ?></td>
-                                                        <td><?= $value[''] ?></td>
-                                                        <td><?= $value[''] ?></td>
-                                                        <td><?= $value[''] ?></td>
-                                                        <td><?= $value[''] ?></td>
-                                                        <td><?= $value[''] ?></td>
-                                                        <td><?= $value[''] ?></td>
-                                                        <td><?= $value[''] ?></td>
-                                                        <td><?= $value[''] ?></td>
-                                                        <td><?= $value[''] ?></td>
-                                                        <td><?= $value[''] ?></td>
+                                                    <tr>
+                                                        <td> <div class="btn-group" role="group" aria-label="Button group">
+                                                                <button class="btn btn-sm btn-warning btnEditarConv" id="<?= $value['idconvenio'] ?>" data-toggle="modal" data-target="#ConvenioModal"><i class="fas fa-edit"></i></button>
+                                                            </div> 
+                                                        </td>    
+                                                    
+                                                        <td><?= $value['idconvenio'] ?></td>
+                                                        <td><?= $value['nitContratante'] ?></td>
+                                                        <td><?= $value['nomContratante'] ?></td>
+                                                        <td><?= $value['nitContratista'] ?></td>
+                                                        <td><?= $value['nomContratista'] ?></td>
+                                                        <td><?= $value['contrato'] ?></td>
+                                                        <td><?= $value['sucursal'] ?></td>
+                                                        <td>Completar</td>
+                                                        <td><?= $value['placa'] ?></td>
+                                                        <td><?= $value['numinterno'] ?></td>
+                                                        <td><?= $value['fecha_inicio'] ?></td>
+                                                        <td><?= $value['fecha_terminacion'] ?></td>
+                                                        <td><?= $value['estado'] ?></td>
+                                                        <td><?= $value['fecha_radicado'] ?></td>
+                                                        <td><?= $value['num_radicado'] ?></td>
+                                                        <td><?= $value['observacion']?></td>
+                                                        </tr>
+                                                        
                                                 <?php endforeach ?>
 
-                                                <tr>
+                                                
 
 
-                                                </tr>
+                                                
 
                                             </tbody>
                                         </table>
@@ -347,8 +350,8 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                             <div class="form-group">
                                 <label class="text-sm"><i>Empresa contratante</i></label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control select2-single" id="listaempresas" type="text" style="width: 99%" name="listaclientes">
-                                        <option value="" selected><b>-Lista de empresas-</b></option>
+                                    <select class="form-control select2-single" id="empresacontratante" type="text" style="width: 99%" name="listaclientes">
+                                        <option value=""  selected><b>-Lista de empresas-</b></option>
                                         <?php foreach ($Empresas as $key => $value) : ?>
                                             <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
                                         <?php endforeach ?>
@@ -364,7 +367,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                             <div class="form-group">
                                 <label class="text-sm"><i>Empresa contratista</i></label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control select2-single" id="listaempresas" style="width: 99%" name="listaclientes">
+                                    <select class="form-control select2-single" id="empresacontratista" style="width: 99%" name="">
                                         <option value="" selected><b>-Lista de empresas-</b></option>
                                         <?php foreach ($Empresas as $key => $value) : ?>
                                             <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
@@ -383,7 +386,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                             <div class="form-group">
                                 <label class="text-sm">Contrato a ejecutar</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" id="tipo_contrato" name="tipo_contrato" placeholder="Ingrese el contrato a ejecutar" maxlength="45" required>
+                                    <input class="form-control input-clientes" type="text" id="convenioContrato" name="tipo_contrato" placeholder="Ingrese el contrato a ejecutar" maxlength="45" required>
                                 </div>
                             </div>
                         </div>
@@ -391,7 +394,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                             <div class="form-group">
                                 <label class="text-sm">Sucursal</label>
                                 <div class="input-group input-group-sm">
-                                    <select id="listaempresas" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes">
+                                    <select id="listaempresas" class="form-control select2-single select-clientes input-sm" id="sucursal" style="width: 99%" name="listaclientes">
                                         <option value="" selected><b>-Lista de sucursales-</b></option>
                                         <?php foreach ($Sucursales as $key => $value) : ?>
                                             <option value="<?= $value['ids'] ?>"><?= $value['sucursal'] ?></option>

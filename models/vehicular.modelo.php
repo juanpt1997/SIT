@@ -183,12 +183,15 @@ class ModeloConvenios
         return $retorno;
     }
 
-    static public function mdlMostrarConvenios(){
-
-        $stmt = Conexion::conectar()->prepare("SELECT c.*, e.nombre AS nomContratante, e.nit AS nitContratante, e2.nombre AS nomContratista, e2.nit AS nitContratista
+    static public function mdlMostrarConvenios()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT c.*, e.nombre AS nomContratante, e.nit AS nitContratante, e2.nombre AS nomContratista, e2.nit AS nitContratista, s.sucursal AS sucursal, v.placa AS placa, v.numinterno AS numinterno
         FROM v_convenios c
         INNER JOIN convenios e ON c.idcontratante = e.idxc
-        INNER JOIN convenios e2 ON c.idcontratista = e2.idxc");
+        INNER JOIN convenios e2 ON c.idcontratista = e2.idxc
+        INNER JOIN gh_sucursales s ON c.idsucursal = s.ids
+        INNER JOIN v_vehiculos v ON c.idvehiculo = v.idvehiculo        
+        ");
 
         $stmt->execute();
         $retorno =  $stmt->fetchAll();
@@ -199,6 +202,24 @@ class ModeloConvenios
 
     }
 
+
+    static public function mldDatosConvenios($idconvenio)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT c.*, e.nombre AS nomContratante, e.nit AS nitContratante, e2.nombre AS nomContratista, e2.nit AS nitContratista, s.sucursal AS sucursal, v.placa AS placa, v.numinterno AS numinterno
+        FROM v_convenios c
+        INNER JOIN convenios e ON c.idcontratante = e.idxc
+        INNER JOIN convenios e2 ON c.idcontratista = e2.idxc
+        INNER JOIN gh_sucursales s ON c.idsucursal = s.ids
+        INNER JOIN v_vehiculos v ON c.idvehiculo = v.idvehiculo 
+        WHERE c.idconvenio = :idconvenio");
+        
+        $stmt->bindParam(":idconvenio",$idconvenio,PDO::PARAM_INT);
+        $stmt->execute();
+        $retorno = $stmt->fetch();
+        $stmt->closeCursor();
+        return $retorno;
+
+    }
 
 }
 

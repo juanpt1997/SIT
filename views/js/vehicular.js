@@ -120,12 +120,48 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
         });
     });
 
+    //AGREGAR CONVENIO
+
     $(document).on("click",".btn-agregarConvenio", function(){
         $("#titulo-modal-convenios").html("Nuevo Convenio");
     });
 
+    //EDITAR CONVENIO
+
     $(document).on("click",".btnEditarConv", function(){
         $("#titulo-modal-convenios").html("Editar Convenio");
+
+        var idconvenio = $(this).attr("id");
+        $("#idconvenio").val(idconvenio);
+
+
+        var datos = new FormData();
+        datos.append("DatosConvenio", "ok");
+        datos.append("idconvenio", idconvenio);
+
+        $.ajax({
+            type: "POST",
+            url: "ajax/vehicular.ajax.php",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (response) {
+                $('#empresacontratante').val(response.nomContratante);
+                $('#empresacontratante').attr("readonly","readonly");
+                $('#empresacontratista').val(response.nomContratista);
+                $('#empresacontratista').attr("readonly","readonly");
+                $('#sucursal').val(response.sucursal);
+                $('#sucursal').attr("readonly","readonly");
+                $('#convenioContrato').val(response.contrato);
+                
+            }
+        });
+        
+
+
+
     });
 
 

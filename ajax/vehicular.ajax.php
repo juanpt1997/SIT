@@ -35,6 +35,12 @@ class AjaxConvenios
         $respuesta = ModeloConvenios::mdlMostrar($nit);
         echo json_encode($respuesta);
     }
+
+    static public function ajaxDatosConvenios($idconvenio)
+    {
+        $respuesta = ControladorConvenios::ctrDatosConvenios($idconvenio);
+        echo json_encode($respuesta);
+    }
 }
 
 /* ===================================================
@@ -1110,4 +1116,10 @@ if (isset($_POST['EliminarDocumentoVehiculo']) && $_POST['EliminarDocumentoVehic
 # LLAMADO AL REPORTE COMPLETO DOCUMENTOS VEHICULOS
 if (isset($_REQUEST['ReporteDocumentos']) && $_REQUEST['ReporteDocumentos'] == "ok") {
     AjaxVehiculos::ajaxReporteDocumentos3();
+}
+
+#LLAMADO A LOS DATOS DE CONVENIO
+
+if(isset($_POST['DatosConvenio'])&& $_POST['DatosConvenio'] == "ok"){
+    AjaxConvenios::ajaxDatosConvenios($_POST['idconvenio']);
 }

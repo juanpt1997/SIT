@@ -193,6 +193,11 @@ class ControladorConvenios
 		return $respuesta;
 	}
 
+	static public function ctrDatosConvenios($idconvenio)
+	{
+		$respuesta = ModeloConvenios::mldDatosConvenios($idconvenio);
+		return $respuesta;
+	}
 
 
 
