@@ -75,9 +75,9 @@ class ControladorUsuarios
 
 
 						# Página de inicio
-						/* echo '<script>
+						echo '<script>
 									window.location = "inicio";
-								</script>'; */
+								</script>';
 					} else {
 						echo '<br><div class="alert alert-danger">El usuario no se encuentra activo</div>';
 					}
