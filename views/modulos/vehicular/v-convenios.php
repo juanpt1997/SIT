@@ -354,7 +354,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                             <!-- EMPRESA CONTRATANTE -->
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="text-sm"><i>Empresa contratante</i></label>
+                                    <label class="text-sm">Empresa contratante</label>
                                     <div class="input-group input-group-sm">
                                         <select class="form-control select2-single" id="empresacontratante" type="text" style="width: 99%" name="idcontratante">
                                             <option value="" selected><b>-Lista de empresas-</b></option>
@@ -371,7 +371,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
 
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="text-sm"><i>Empresa contratista</i></label>
+                                    <label class="text-sm">Empresa contratista</label>
                                     <div class="input-group input-group-sm">
                                         <select class="form-control select2-single" id="empresacontratista" style="width: 99%" name="idcontratista">
                                             <option value="" selected><b>-Lista de empresas-</b></option>
@@ -416,7 +416,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="test-sm">Placa</label>
+                                    <label class="text-sm">Placa</label>
                                     <div class="input-group input-group-sm">
                                         <select id="placa" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="idvehiculo">
                                             <option value="" selected><b>-Lista de placas-</b></option>
@@ -430,7 +430,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                             
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="test-sm">Tipo de vehículo</label>
+                                    <label class="text-sm">Tipo de vehículo</label>
                                     <div class="input-group input-group-sm">
                                         <select id="tipo_vehiculo" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes">
                                             <option value="" selected><b>-Tipo de vehículo-</b></option>
@@ -441,21 +441,21 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="text-sm">Número interno</label>
-                                <div class="input-group input-group-sm">
-                                    <select id="num_interno" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes" >
-                                        <option value="" selected><b>-Lista de números internos-</b></option>
-                                        <?php foreach ($Placas as $key => $value) : ?>
-                                        <option value="<?= $value['idvehiculo'] ?>"><?= $value['numinterno'] ?></option>
-                                        <?php endforeach ?>
-                                    </select>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-sm">Número interno</label>
+                                    <div class="input-group input-group-sm">
+                                        <select id="num_interno" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes" >
+                                            <option value="" selected><b>-Lista de números internos-</b></option>
+                                            <?php foreach ($Placas as $key => $value) : ?>
+                                            <option value="<?= $value['idvehiculo'] ?>"><?= $value['numinterno'] ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
 
                         <hr class="my-4 bg-dark">
 
@@ -485,15 +485,15 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
 
                         <div class="row">
                             <div class="col-md-6">
-                                <label class="test-sm">Estado en empresa</label>
+                                <label class="text-sm">Estado en empresa</label>
                                 <div class="input-group input-group-sm">
                                     <select id="estado" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="estado">
-                                        <option value="" selected><b>-Lista de estados-</b></option>
-                                        <option value="Firmado">Firmado</option>
-                                        <option value="Pendiente firma cartera">Pendiente firma cartera</option>
-                                        <option value="Pendiente firma ss">Pendiente firma ss</option>
-                                        <option value="Pendiente firma doc">Pendiente firma doc</option>
-                                        <option value="Devuelto a suc">Devuelto a suc</option>
+                                        <option class="text-sm" value="" selected><b>-Lista de estados-</b></option>
+                                        <option class="text-sm" value="Firmado">Firmado</option>
+                                        <option class="text-sm" value="Pendiente firma cartera">Pendiente firma cartera</option>
+                                        <option class="text-sm" value="Pendiente firma ss">Pendiente firma ss</option>
+                                        <option class="text-sm" value="Pendiente firma doc">Pendiente firma doc</option>
+                                        <option class="text-sm" value="Devuelto a suc">Devuelto a suc</option>
                                     </select>
                                 </div>
                             </div>
@@ -505,16 +505,17 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="text-sm">Número radicado</label>
-                                <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" id="num_radicado" name="num_radicado" placeholder="Número radicado" maxlength="45" required>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-sm">Número radicado</label>
+                                    <div class="input-group input-group-sm">
+                                        <input class="form-control input-clientes" type="text" id="num_radicado" name="num_radicado" placeholder="Número radicado" maxlength="45" required>
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
+
 
                         <hr class="my-4 bg-dark">
 

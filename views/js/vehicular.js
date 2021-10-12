@@ -217,19 +217,40 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
             processData: false,
             success: function (response){
                 if(response == "ok"){
+
                     Swal.fire({
-                        icon: 'success',
-                        title: 'Convenio eliminado correctamente',						
-                        showConfirmButton: true,
-                        confirmButtonText: 'Cerrar',
-                                    
-                        }).then((result)=>{
-
-                            if(result.value){
-                                window.location = 'v-convenios';
+                        title: '¿Está seguro de eliminar este convenio?',
+                        text: "No se podrán recuperar los datos",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        cancelButtonText: 'Cancelar',
+                        confirmButtonText: 'Si,borrar'
+                      }).then((result) => {
+                          console.log(result);
+                        if (result.value == true){
+                            Swal.fire({
+                                    icon: 'success',
+                                    title: 'Convenio eliminado correctamente',						
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                                
+                                    }).then((result)=>{
+            
+                                        if(result.value){
+                                            window.location = 'v-convenios';
+                                        }
+            
+                                    })
                             }
+                        
+                      })
 
-                        })
+
+
+
+
                 }else{
                     Swal.fire({
                         icon: 'error',
