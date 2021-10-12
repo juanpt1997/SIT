@@ -16,7 +16,7 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark "><i><b>Gestión de Órdenes de servicio</b></i></h1>
+                    <h1 class="m-0 text-dark "><i><b>Gestión de Órdenes de servicio <i class="fas fa-folder-plus"></i></b></i></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">

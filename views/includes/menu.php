@@ -70,7 +70,7 @@
                                     =================================================== -->
                                 <li class="nav-item">
                                     <a href="cg-gestion-humana" class="nav-link" target="_blank">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fas fa-user-friends"></i>
                                         <p>Gestión humana</p>
                                     </a>
                                 </li>
@@ -82,7 +82,7 @@
                                     =================================================== -->
                                 <li class="nav-item">
                                     <a href="cg-vehicular" class="nav-link" target="_blank">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fas fa-bus-alt"></i>
                                         <p>Vehicular</p>
                                     </a>
                                 </li>
@@ -94,7 +94,7 @@
                                 =================================================== -->
                                 <li class="nav-item">
                                     <a href="cg-mantenimiento" class="nav-link" target="_blank">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fas fa-tools"></i>
                                         <p>Mantenimiento</p>
                                     </a>
                                 </li>
@@ -104,7 +104,7 @@
                                 =================================================== -->
                                 <li class="nav-item">
                                     <a href="cg-seguridad" class="nav-link" target="_blank">
-                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="fas fa-shield-alt"></i>
                                         <p>Seguridad</p>
                                     </a>
                                 </li>
@@ -131,7 +131,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="gh-personal" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="far fa-id-card"></i>
                                     <p>Personal</p>
                                 </a>
                             </li>
@@ -141,7 +141,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="gh-perfil-sd" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-chart-area"></i>
                                     <p>Perfil sociodemográfico</p>
                                 </a>
                             </li>
@@ -151,7 +151,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="gh-pago-ss" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-file-invoice-dollar"></i>
                                     <p>Pago seguridad social</p>
                                 </a>
                             </li>
@@ -161,7 +161,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="gh-alertas-contratos" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-file-signature"></i>
                                     <p>Alertas de contratos</p>
                                 </a>
                             </li>
@@ -171,7 +171,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="gh-ausentismo" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-users-cog"></i>
                                     <p>Control Ausentismo</p>
                                 </a>
                             </li>
@@ -190,7 +190,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="gh-bloqueo-personal" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-user-alt-slash"></i>
                                     <p>Bloqueo de personal</p>
                                 </a>
                             </li>
@@ -216,7 +216,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="v-bloqueo-vehiculo" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-ban"></i>
                                     <p>Bloqueo de vehículo</p>
                                 </a>
                             </li>
@@ -225,7 +225,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="v-propietarios" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-user-tie"></i>
                                     <p>Propietarios</p>
                                 </a>
                             </li>
@@ -235,7 +235,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="v-convenios" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-file-contract"></i>
                                     <p>Convenios</p>
                                 </a>
                             </li>
@@ -245,7 +245,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="v-vehiculos" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-truck-pickup"></i>
                                     <p>Vehículos</p>
                                 </a>
                             </li>
@@ -275,7 +275,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="contratos-clientes" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-user-tag"></i>
                                     <p>Clientes</p>
                                 </a>
                             </li>
@@ -285,7 +285,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="contratos-fijos" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-file-signature"></i>
                                     <p>Fijos</p>
                                 </a>
                             </li>
@@ -295,7 +295,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="contratos-cotizaciones" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-comments-dollar"></i>
                                     <p>Cotizaciones</p>
                                 </a>
                             </li>
@@ -305,7 +305,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="contratos-ordenservicio" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-folder-plus"></i>
                                     <p>Orden de servicio</p>
                                 </a>
                             </li>
@@ -333,7 +333,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="o-fuec" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-book"></i>
                                     <p>FUEC</p>
                                 </a>
                             </li>
@@ -342,7 +342,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="o-alistamiento" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-briefcase"></i>
                                     <p>Protocolo de alistamiento</p>
                                 </a>
                             </li>
@@ -351,7 +351,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="o-rodamiento" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-road"></i>
                                     <p>Plan de rodamiento</p>
                                 </a>
                             </li>
@@ -377,7 +377,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="usuarios" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-users"></i>
                                     <p>Usuarios</p>
                                 </a>
                             </li>
@@ -386,7 +386,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="roles-usuarios" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-users-cog"></i>
                                     <p>Roles</p>
                                 </a>
                             </li>
@@ -412,7 +412,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-cogs"></i>
                                     <p>Mantenimientos</p>
                                 </a>
                             </li>
@@ -421,7 +421,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="m-proveedores" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-cart-arrow-down"></i>
                                     <p>Proveedores</p>
                                 </a>
                             </li>
@@ -430,7 +430,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="m-inventario" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-boxes"></i>
                                     <p>Inventario</p>
                                 </a>
                             </li>

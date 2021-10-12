@@ -20,7 +20,7 @@ $Proveedores = ControladorProveedores::ctrListarProveedores();
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark "><b><i>Proveedores</i></b></h1>
+                    <h1 class="m-0 text-dark "><b><i>Proveedores <i class="fas fa-cart-arrow-down"></i></i></b></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
