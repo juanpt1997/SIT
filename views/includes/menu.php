@@ -346,17 +346,15 @@
                                     <p>Protocolo de alistamiento</p>
                                 </a>
                             </li>
-                            <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
-                                <!-- ===================================================
-                                        Plan de Rodamiento
-                                    =================================================== -->
-                                <li class="nav-item">
-                                    <a href="o-rodamiento" class="nav-link" target="_blank">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Plan de rodamiento</p>
-                                    </a>
-                                </li>
-                            <?php endif ?>
+                            <!-- ===================================================
+                                    Plan de Rodamiento
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="o-rodamiento" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Plan de rodamiento</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 <?php endif ?>
