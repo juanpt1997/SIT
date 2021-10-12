@@ -58,7 +58,7 @@ $Plan_r = ControladorRodamientos::ctrListarRodamientos();
                             <div class="card-body">
                                 <!--|||TABLA PLAN DE RODAMIENTO|||-->
                                 <div class="table-responsive">
-                                    <table id="tblplanrodamiento" class="table table-responsive table-bordered table-striped text-center text-nowrap">
+                                    <table id="tblplanrodamiento" class="table table-bordered table-striped text-center text-nowrap">
                                         <thead>
                                             <tr>
                                                 <th>...</th>
