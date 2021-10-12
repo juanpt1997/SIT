@@ -490,4 +490,12 @@ $(document).ready(function () {
             }
         }
     });
+
+    /* ===================================================
+        CERRAR MODAL UNICAMENTE DE LOS BOTONES
+    ===================================================*/
+    //data-backdrop="static" data-keyboard="false"
+    $(".modal").attr("data-backdrop", "static");
+    $(".modal").attr("data-keyboard", "false");
+
 });
