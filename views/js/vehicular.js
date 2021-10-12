@@ -134,8 +134,8 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
     $(document).on("click",".btnEditarConv", function(){
         $("#titulo-modal-convenios").html("Editar Convenio");
 
-        var idconvenio = $(this).attr("id");
-        $("#idconvenio").val(idconvenio);
+        var idconvenio = $(this).attr("idConvenio");
+        $("#idConvenio").val(idconvenio);
 
 
         var datos = new FormData();
@@ -175,7 +175,72 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
 
     });
 
+    //CAPTURAR DATOS ID VEHICULO
+    $(document).on("change", '#placa', function(){
+      let idvehiculo = $(this).val();
+      console.log(idvehiculo);
+      var datos = new FormData();
+      datos.append("DatosVehiculo", "ok");
+      datos.append("item", "idvehiculo");
+      datos.append("valor", idvehiculo);
+      $.ajax({
+        type: "post",
+        url: `${urlPagina}ajax/vehicular.ajax.php`,
+        data: datos,
+        dataType: "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (Vehiculo) {
+        $("#tipo_vehiculo").val(Vehiculo.datosVehiculo.idtipovehiculo).trigger("change");
+        $('#tipo_vehiculo').attr('disabled','disabled');
+        $("#num_interno").val(Vehiculo.datosVehiculo.idvehiculo).trigger("change");
+        $('#num_interno').attr('disabled','disabled');  
+        },
+      });
+    });
 
+
+    $(document).on("click", ".btnBorrarConv", function(){
+        console.log("Borrando");
+        let idConvenio = $(this).attr("idConvenio");
+        var datos = new FormData();
+        datos.append("Borrado", "ok");
+        datos.append("idConvenio", idConvenio);
+
+        $.ajax({
+            type: "POST",
+            url: "ajax/vehicular.ajax.php",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response){
+                if(response == "ok"){
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Convenio eliminado correctamente',						
+                        showConfirmButton: true,
+                        confirmButtonText: 'Cerrar',
+                                    
+                        }).then((result)=>{
+
+                            if(result.value){
+                                window.location = 'v-convenios';
+                            }
+
+                        })
+                }else{
+                    Swal.fire({
+                        icon: 'error',
+                        showConfirmButton: true,
+                        confirmButtonColor: '#5cb85c',
+                        text: 'El convenio no se ha podido eliminar'
+                    });
+                }
+            }
+        });
+    });
 
 
 }
@@ -527,7 +592,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                        $(".overlayBtnGuardarformugeneralvehiculos").addClass("d-none");
+                    $(".overlayBtnGuardarformugeneralvehiculos").addClass("d-none");
                     switch (response) {
                         case "existe":
                             Swal.fire({
@@ -714,6 +779,12 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                     }
                 }
             });
+
+
+            /* AJAX PARA CARGAR DATOS DEL CONVENIO */
+            
+
+
         });
 
         /* ===================================================
@@ -908,6 +979,13 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
             $("#idconvenio").val(response.idconvenio);
             $("#idtipovehiculo").val(response.idtipovehiculo);
             $("#tipocombustible").val(response.tipocombustible);
+            $("#empresacontratante").val(response.idcontratante);
+            $("#empresacontratante").attr("readonly","readonly");
+            $("#empresacontratista").val(response.idcontratista);
+            $("#empresacontratista").attr("readonly","readonly");
+            $("#fecha_inicio").val(response.fecha_inicio);
+            $("#fecha_terminacion").val(response.fecha_terminacion);
+
 
             if (response.ruta_tarjetapropiedad != null) {
                 $("#imagenPrevisualizacion_TarjetaPro").attr("href", response.ruta_tarjetapropiedad).find("img").attr("src", response.ruta_tarjetapropiedad);

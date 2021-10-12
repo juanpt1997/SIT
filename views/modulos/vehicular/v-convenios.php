@@ -138,6 +138,8 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                                 <tr>
                                                     <th>...</th>
                                                     <th style="width:10px;">#</th>
+                                                    <th>Placa</th>
+                                                    <th>Interno</th>
                                                     <th>NIT</th>
                                                     <th>Empresa contratante</th>
                                                     <th>NIT</th>
@@ -145,8 +147,6 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                                     <th>Contrato a ejecutar</th>
                                                     <th>Sucursal</th>
                                                     <th>Tipo de vehículo</th>
-                                                    <th>Placa</th>
-                                                    <th>Interno</th>
                                                     <th>Fecha inicio del convenio</th>
                                                     <th>Fecha terminación del convenio</th>
                                                     <th>Estado en empresa</th>
@@ -160,12 +160,24 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                                 <?php foreach ($Convenios as $key => $value) : ?>
                                                     <tr>
                                                         <td>
-                                                            <div class="btn-group" role="group" aria-label="Button group">
-                                                                <button class="btn btn-sm btn-warning btnEditarConv" id="<?= $value['idconvenio'] ?>" data-toggle="modal" data-target="#ConvenioModal"><i class="fas fa-edit"></i></button>
+                                                            <div class="row d-flex flex-nowrap justify-content-center">
+                                                                <div class="col-md-6">
+                                                                    <div class="btn-group" role="group" aria-label="Button group">
+                                                                        <button class="btn btn-xs btn-info btnEditarConv" idConvenio="<?= $value['idconvenio'] ?>" data-toggle="modal" data-target="#ConvenioModal"><i class="fas fa-edit"></i></button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="btn-group" role="group" aria-label="Button group">
+                                                                        <button class="btn btn-xs btn-danger btnBorrarConv" idConvenio="<?= $value['idconvenio']?>"> <i class="fas fa-trash"></i> </button>
+                                                                    </div>
+                                                                </div>
+                                                                
                                                             </div>
                                                         </td>
 
                                                         <td><?= $value['idconvenio'] ?></td>
+                                                        <td><?= $value['placa'] ?></td>
+                                                        <td><?= $value['numinterno'] ?></td>
                                                         <td><?= $value['nitContratante'] ?></td>
                                                         <td><?= $value['nomContratante'] ?></td>
                                                         <td><?= $value['nitContratista'] ?></td>
@@ -173,8 +185,6 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                                         <td><?= $value['contrato'] ?></td>
                                                         <td><?= $value['sucursal'] ?></td>
                                                         <td><?= $value['tipovehiculo']?></td>
-                                                        <td><?= $value['placa'] ?></td>
-                                                        <td><?= $value['numinterno'] ?></td>
                                                         <td><?= $value['fecha_inicio'] ?></td>
                                                         <td><?= $value['fecha_terminacion'] ?></td>
                                                         <td><?= $value['estado'] ?></td>
@@ -338,7 +348,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                 </div>
 
                 <div class="modal-body">
-                    <form action="" method="post" id="datosconvenio_form"> <!-- INICIO DEL FORMULARIO -->
+                    <form method="post" id="datosconvenio_form"> <!-- INICIO DEL FORMULARIO -->
                         <input type="hidden" id="idConvenio" name="idConvenio">
                         <div class="row">
                             <!-- EMPRESA CONTRATANTE -->
@@ -346,7 +356,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                 <div class="form-group">
                                     <label class="text-sm"><i>Empresa contratante</i></label>
                                     <div class="input-group input-group-sm">
-                                        <select class="form-control select2-single" id="empresacontratante" type="text" style="width: 99%" name="listaclientes">
+                                        <select class="form-control select2-single" id="empresacontratante" type="text" style="width: 99%" name="idcontratante">
                                             <option value="" selected><b>-Lista de empresas-</b></option>
                                             <?php foreach ($Empresas as $key => $value) : ?>
                                                 <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
@@ -363,7 +373,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                 <div class="form-group">
                                     <label class="text-sm"><i>Empresa contratista</i></label>
                                     <div class="input-group input-group-sm">
-                                        <select class="form-control select2-single" id="empresacontratista" style="width: 99%" name="">
+                                        <select class="form-control select2-single" id="empresacontratista" style="width: 99%" name="idcontratista">
                                             <option value="" selected><b>-Lista de empresas-</b></option>
                                             <?php foreach ($Empresas as $key => $value) : ?>
                                             <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
@@ -382,7 +392,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                 <div class="form-group">
                                     <label class="text-sm">Contrato a ejecutar</label>
                                     <div class="input-group input-group-sm">
-                                        <input class="form-control input-clientes" type="text" id="convenioContrato" name="tipo_contrato" placeholder="Ingrese el contrato a ejecutar" maxlength="45" required>
+                                        <input class="form-control input-clientes" type="text" id="convenioContrato" name="contrato" placeholder="Ingrese el contrato a ejecutar" maxlength="45" required>
                                     </div>
                                 </div>
                             </div>
@@ -390,7 +400,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                 <div class="form-group">
                                     <label class="text-sm">Sucursal</label>
                                     <div class="input-group input-group-sm">
-                                        <select class="form-control select2-single select-clientes input-sm" id="sucursal" style="width: 99%" name="listaclientes">
+                                        <select class="form-control select2-single select-clientes input-sm" id="sucursal" style="width: 99%" name="idsucursal">
                                             <option value="" selected><b>-Lista de sucursales-</b></option>
                                             <?php foreach ($Sucursales as $key => $value) : ?>
                                             <option value="<?= $value['ids'] ?>"><?= $value['sucursal'] ?></option>
@@ -408,7 +418,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                 <div class="form-group">
                                     <label class="test-sm">Placa</label>
                                     <div class="input-group input-group-sm">
-                                        <select id="placa" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes">
+                                        <select id="placa" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="idvehiculo">
                                             <option value="" selected><b>-Lista de placas-</b></option>
                                             <?php foreach ($Placas as $key => $value) : ?>
                                             <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?></option>
@@ -422,7 +432,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                 <div class="form-group">
                                     <label class="test-sm">Tipo de vehículo</label>
                                     <div class="input-group input-group-sm">
-                                        <select id="tipo_vehiculo" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes" readonly>
+                                        <select id="tipo_vehiculo" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes">
                                             <option value="" selected><b>-Tipo de vehículo-</b></option>
                                             <?php foreach ($Vehiculos as $key => $value) : ?>
                                             <option value="<?= $value['idtipovehiculo'] ?>"><?= $value['tipovehiculo'] ?></option>
@@ -437,7 +447,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                             <div class="form-group">
                                 <label class="text-sm">Número interno</label>
                                 <div class="input-group input-group-sm">
-                                    <select id="num_interno" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes" readonly>
+                                    <select id="num_interno" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes" >
                                         <option value="" selected><b>-Lista de números internos-</b></option>
                                         <?php foreach ($Placas as $key => $value) : ?>
                                         <option value="<?= $value['idvehiculo'] ?>"><?= $value['numinterno'] ?></option>
@@ -454,7 +464,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                 <div class="form-group">
                                     <label class="text-sm">Fecha inicio del convenio</label>
                                     <div class="input-group input-group-sm">
-                                        <input class="form-control" type="date" id="fecha_inicio" name="f_resuelve" required>
+                                        <input class="form-control" type="date" id="fecha_inicio" name="fecha_inicio" required>
                                     </div>
                                 </div>
                             </div>
@@ -463,7 +473,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                 <div class="form-group">
                                     <label class="text-sm">Fecha terminación del convenio</label>
                                     <div class="input-group input-group-sm">
-                                        <input class="form-control" type="date" id="fecha_terminacion" name="f_resuelve" required>
+                                        <input class="form-control" type="date" id="fecha_terminacion" name="fecha_terminacion" required>
                                     </div>
                                 </div>
                             </div>
@@ -477,7 +487,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                             <div class="col-md-6">
                                 <label class="test-sm">Estado en empresa</label>
                                 <div class="input-group input-group-sm">
-                                    <select id="estado" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes">
+                                    <select id="estado" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="estado">
                                         <option value="" selected><b>-Lista de estados-</b></option>
                                         <option value="Firmado">Firmado</option>
                                         <option value="Pendiente firma cartera">Pendiente firma cartera</option>
@@ -491,7 +501,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                 <div class="form-group">
                                     <label class="text-sm">Fecha radicado ministerio</label>
                                     <div class="input-group input-group-sm">
-                                        <input class="form-control" type="date" id="fecha_radicado" name="f_resuelve" required>
+                                        <input class="form-control" type="date" id="fecha_radicado" name="fecha_radicado" required>
                                     </div>
                                 </div>
                             </div>
@@ -501,7 +511,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                             <div class="form-group">
                                 <label class="text-sm">Número radicado</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" id="num_radicado" name="tipo_contrato" placeholder="Número radicado" maxlength="45" required>
+                                    <input class="form-control input-clientes" type="text" id="num_radicado" name="num_radicado" placeholder="Número radicado" maxlength="45" required>
                                 </div>
                             </div>
                         </div>
@@ -511,19 +521,22 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                         <div class="form-group">
                             <label class="text-sm">Observaciones</label>
                             <div class="input-group input-group-sm">
-                                <textarea class="form-control" type="text" id="observacion" name="porque" placeholder="Escriba los motivos" style="min-height:70px"></textarea requiered>
+                                <textarea class="form-control" type="text" id="observacion" name="observacion" placeholder="Escriba los motivos" style="min-height:70px"></textarea requiered>
                             </div>
                         </div>
+                        <?php
+                        $ctrAdd = new ControladorConvenios();
+                        $ctrAdd->ctrAgregarEditarConvenios(NULL);
+                        ?>
                     </form> <!-- FIN FORMULARIO-->  
                 </div>
 
 
                 <div class="modal-footer bg-dark">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
-                    <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" form="datosconvenio_form" class="btn btn-success">
                         <i class="fas fa-save"></i> Guardar</button>
-                    <?php endif ?>
+                    
                 </div>
 
 

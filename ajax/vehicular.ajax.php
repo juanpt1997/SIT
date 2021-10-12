@@ -41,6 +41,12 @@ class AjaxConvenios
         $respuesta = ControladorConvenios::ctrDatosConvenios($idconvenio);
         echo json_encode($respuesta);
     }
+
+    static public function BorradoConvenios($idConvenio)
+    {
+        $respuesta = ControladorConvenios::ctrBorradoConvenios($idConvenio);
+        echo $respuesta;
+    }
 }
 
 /* ===================================================
@@ -1016,7 +1022,7 @@ if (isset($_POST['DatosPropietarios']) && $_POST['DatosPropietarios'] == "ok") {
     AjaxPropietarios::ajaxDatosPropietarios($_POST['value']);
 }
 # LLAMADOS A AJAX CONVENIOS
-if (isset($_POST['DatosEmpresas']) && $_POST['DatosEmpresas'] == "ok") {
+if (isset($_POST['DatosEmpresa']) && $_POST['DatosEmpresa'] == "ok") {
     AjaxConvenios::ajaxDatosEmpresas($_POST['value']);
 }
 
@@ -1122,4 +1128,10 @@ if (isset($_REQUEST['ReporteDocumentos']) && $_REQUEST['ReporteDocumentos'] == "
 
 if(isset($_POST['DatosConvenio'])&& $_POST['DatosConvenio'] == "ok"){
     AjaxConvenios::ajaxDatosConvenios($_POST['idconvenio']);
+}
+
+#LLAMADO A BORRAR CONVENIO
+
+if(isset($_POST['Borrado']) && $_POST['Borrado'] == "ok"){
+    AjaxConvenios::BorradoConvenios($_POST['idConvenio']);
 }

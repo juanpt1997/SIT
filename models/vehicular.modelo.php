@@ -112,7 +112,7 @@ class ModeloConvenios
 
         if ($value != null) {
 
-            $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad FROM convenios C
+            $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad FROM v_empresas_convenios C
                                                    LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio
                                                    WHERE C.nit = :nit");
 
@@ -121,7 +121,7 @@ class ModeloConvenios
             $retorno =  $stmt->fetch();
         } else {
 
-            $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad FROM convenios C
+            $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad FROM v_empresas_convenios C
                                                    LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio");
 
             $stmt->execute();
@@ -135,7 +135,7 @@ class ModeloConvenios
     static public function mdlAgregar($datos)
     {
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO convenios(nit,nombre,direccion,telefono1,telefono2,idciudad)
+        $stmt = Conexion::conectar()->prepare("INSERT INTO v_empresas_convenios(nit,nombre,direccion,telefono1,telefono2,idciudad)
                                                VALUES(:nit,:nombre,:direccion,:telefono1,:telefono2,:idciudad)");
 
         $stmt->bindParam(":nit", $datos["nit"], PDO::PARAM_STR);
@@ -160,7 +160,7 @@ class ModeloConvenios
     static public function mdlEditar($datos)
     {
 
-        $stmt = Conexion::conectar()->prepare("UPDATE convenios set nit=:nit,nombre=:nombre,direccion=:direccion,
+        $stmt = Conexion::conectar()->prepare("UPDATE v_empresas_convenios set nit=:nit,nombre=:nombre,direccion=:direccion,
                                                       telefono1=:telefono1,telefono2=:telefono2,idciudad=:idciudad
                                                WHERE nit = :nit");
 
@@ -183,6 +183,9 @@ class ModeloConvenios
         return $retorno;
     }
 
+    /*===================================
+        Listado convenios
+        ================================ */
     static public function mdlMostrarConvenios()
     {
         $stmt = Conexion::conectar()->prepare("SELECT c.*, 
@@ -191,12 +194,13 @@ class ModeloConvenios
         s.sucursal AS sucursal, 
         v.placa AS placa, v.numinterno AS numinterno,
         tv.tipovehiculo AS tipovehiculo
-        FROM v_convenios c
-        INNER JOIN convenios e ON c.idcontratante = e.idxc
-        INNER JOIN convenios e2 ON c.idcontratista = e2.idxc
+        FROM v_convenios c 
+        INNER JOIN v_empresas_convenios e ON c.idcontratante = e.idxc
+        INNER JOIN v_empresas_convenios e2 ON c.idcontratista = e2.idxc
         INNER JOIN gh_sucursales s ON c.idsucursal = s.ids
         INNER JOIN v_vehiculos v ON c.idvehiculo = v.idvehiculo
-        LEFT JOIN v_tipovehiculos tv ON v.idtipovehiculo = tv.idtipovehiculo      
+        LEFT JOIN v_tipovehiculos tv ON v.idtipovehiculo = tv.idtipovehiculo
+        WHERE c.activo = 1   
         ");
 
         $stmt->execute();
@@ -207,9 +211,11 @@ class ModeloConvenios
         return $retorno;
 
     }
-
-
-    static public function mldDatosConvenios($idconvenio)
+    
+    /*===================================
+        Listado convenios por Id 
+        ================================ */
+    static public function mdlDatosConvenios($idconvenio)
     {
         $stmt = Conexion::conectar()->prepare("SELECT c.*, 
         e.nombre AS nomContratante, e.nit AS nitContratante, 
@@ -218,8 +224,8 @@ class ModeloConvenios
         v.placa AS placa, v.numinterno AS numinterno,
         tv.tipovehiculo AS tv
         FROM v_convenios c
-        INNER JOIN convenios e ON c.idcontratante = e.idxc
-        INNER JOIN convenios e2 ON c.idcontratista = e2.idxc
+        INNER JOIN v_empresas_convenios e ON c.idcontratante = e.idxc
+        INNER JOIN v_empresas_convenios e2 ON c.idcontratista = e2.idxc
         INNER JOIN gh_sucursales s ON c.idsucursal = s.ids
         INNER JOIN v_vehiculos v ON c.idvehiculo = v.idvehiculo
         LEFT JOIN v_tipovehiculos tv ON v.idtipovehiculo = tv.idtipovehiculo
@@ -233,11 +239,94 @@ class ModeloConvenios
 
     }
 
+    /*===================================
+        AGREGAR CONVENIO 
+        ================================ */
+    static public function mdlAgregarConvenio($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO v_convenios (idcontratante, idcontratista, contrato, idsucursal, idvehiculo, estado, num_radicado, observacion, fecha_inicio, fecha_terminacion, fecha_radicado) 
+                                                VALUES (:idcontratante, :idcontratista, :contrato, :idsucursal, :idvehiculo, :estado, :num_radicado, :observacion,:fecha_inicio,:fecha_terminacion,:fecha_radicado )");
 
-    // static public function mdlAgregarConvenio()
-    // {
-        
-    // }
+        $stmt->bindParam(":idcontratante", $datos['idcontratante'], PDO::PARAM_INT);
+        $stmt->bindParam(":idcontratista", $datos['idcontratista'], PDO::PARAM_INT);
+        $stmt->bindParam(":contrato", $datos['contrato'], PDO::PARAM_STR);
+        $stmt->bindParam(":idsucursal", $datos['idsucursal'], PDO::PARAM_INT);
+        $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
+        $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_STR);
+        $stmt->bindParam(":num_radicado",$datos['num_radicado'], PDO::PARAM_INT);
+        $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_inicio", $datos['fecha_inicio'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_terminacion", $datos['fecha_terminacion'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_radicado", $datos['fecha_radicado'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+
+    }
+
+    /* ===================================
+        EDITAR CONVENIO
+        ==================================== */
+    static public function mdlEditarConvenio($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE v_convenios SET idcontratante = :idcontratante, idcontratista = :idcontratista, contrato = :contrato, idsucursal = :idsucursal, idvehiculo =:idvehiculo, 
+                                                                    estado = :estado, num_radicado = :num_radicado, observacion = :observacion, fecha_inicio = :fecha_inicio, 
+                                                                    fecha_terminacion = :fecha_terminacion, fecha_radicado = :fecha_radicado WHERE idConvenio = :idConvenio");
+
+        $stmt->bindParam(":idConvenio", $datos['idConvenio'], PDO::PARAM_INT);
+        $stmt->bindParam(":idcontratante", $datos['idcontratante'], PDO::PARAM_INT);
+        $stmt->bindParam(":idcontratista", $datos['idcontratista'], PDO::PARAM_INT);
+        $stmt->bindParam(":contrato", $datos['contrato'], PDO::PARAM_STR);
+        $stmt->bindParam(":idsucursal", $datos['idsucursal'], PDO::PARAM_INT);
+        $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
+        $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_STR);
+        $stmt->bindParam(":num_radicado",$datos['num_radicado'], PDO::PARAM_INT);
+        $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_inicio", $datos['fecha_inicio'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_terminacion", $datos['fecha_terminacion'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_radicado", $datos['fecha_radicado'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+
+    }
+
+    /* =======================================
+        BORRAR CONVENIO 
+        ====================================== */
+
+    static public function mdlBorradoConvenios($idConvenio)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE v_convenios SET activo = 0 WHERE idConvenio = :idConvenio");
+        $stmt->bindParam(":idConvenio", $idConvenio, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
 
 
 
@@ -279,11 +368,44 @@ class ModeloVehiculos
     static public function mdlVehiculos()
     {
         # todos los vehiculos
-        $sql = "SELECT v.*, t.tipovehiculo, m.marca, s.sucursal, c.nombre AS convenio FROM v_vehiculos v
+        // $sql = "SELECT v.*, t.tipovehiculo, m.marca, s.sucursal, vc.idconvenio, vc.idcontratante, vc.idcontratista, vc.fecha_inicio, vc.fecha_terminacion, c.nombre AS nom_contratante, co.nombre AS nom_contratista 
+        // FROM v_vehiculos v
+        // LEFT JOIN v_tipovehiculos t ON t.idtipovehiculo = v.idtipovehiculo
+        // LEFT JOIN v_marcas m ON m.idmarca = v.idmarca
+        // LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
+        // LEFT JOIN v_convenios vc ON vc.idconvenio = v.idvehiculo
+        // LEFT JOIN v_empresas_convenios c ON c.idxc = vc.idcontratante
+        // LEFT JOIN v_empresas_convenios co ON co.idxc = vc.idcontratista ";
+        $sql = "SELECT v.*, t.tipovehiculo, m.marca, s.sucursal, 
+                        (SELECT cv.fecha_inicio
+                        FROM v_convenios cv
+                        WHERE cv.idvehiculo = v.idvehiculo
+                        ORDER BY cv.fecha_terminacion DESC
+                        LIMIT 1) AS fecha_inicio,
+
+                        (SELECT cv.fecha_terminacion
+                        FROM v_convenios cv
+                        WHERE cv.idvehiculo = v.idvehiculo
+                        ORDER BY cv.fecha_terminacion DESC
+                        LIMIT 1) AS fecha_terminacion,
+                        
+                        (SELECT c.nombre
+                        FROM v_convenios cv
+                        INNER JOIN v_empresas_convenios c ON c.idxc = cv.idcontratante
+                        WHERE cv.idvehiculo = v.idvehiculo
+                        ORDER BY cv.fecha_terminacion DESC
+                        LIMIT 1) AS nom_contratante,
+                        
+                        (SELECT c.nombre
+                        FROM v_convenios cv
+                        INNER JOIN v_empresas_convenios c ON c.idxc = cv.idcontratista
+                        WHERE cv.idvehiculo = v.idvehiculo
+                        ORDER BY cv.fecha_terminacion DESC
+                        LIMIT 1) AS nom_contratista
+                FROM v_vehiculos v
                 LEFT JOIN v_tipovehiculos t ON t.idtipovehiculo = v.idtipovehiculo
                 LEFT JOIN v_marcas m ON m.idmarca = v.idmarca
-                LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
-                LEFT JOIN convenios c ON c.idxc = v.idconvenio;";
+                LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal";
         $stmt = Conexion::conectar()->prepare($sql);
         $stmt->execute();
         $retorno =  $stmt->fetchAll();
@@ -299,11 +421,44 @@ class ModeloVehiculos
     static public function mdlDatosVehiculo($datos)
     {
 
-        $stmt = Conexion::conectar()->prepare("SELECT v.*, t.tipovehiculo, m.marca, s.sucursal, c.nombre AS convenio FROM v_vehiculos v
+        // $stmt = Conexion::conectar()->prepare("SELECT v.*, t.tipovehiculo, m.marca, s.sucursal, c.nombre AS convenio FROM v_vehiculos v
+        //                                         LEFT JOIN v_tipovehiculos t ON t.idtipovehiculo = v.idtipovehiculo
+        //                                         LEFT JOIN v_marcas m ON m.idmarca = v.idmarca
+        //                                         LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
+        //                                         LEFT JOIN v_empresas_convenios c ON c.idxc = v.idconvenio
+        //                                         WHERE v.{$datos['item']} = :{$datos['item']};");
+        $stmt = Conexion::conectar()->prepare("SELECT v.*, t.tipovehiculo, m.marca, s.sucursal,
+                                                        (
+                                                        SELECT cv.fecha_inicio
+                                                        FROM v_convenios cv
+                                                        WHERE cv.idvehiculo = v.idvehiculo
+                                                        ORDER BY cv.fecha_terminacion DESC
+                                                        LIMIT 1) AS fecha_inicio,
+                                                        
+                                                        (
+                                                        SELECT cv.fecha_terminacion
+                                                        FROM v_convenios cv
+                                                        WHERE cv.idvehiculo = v.idvehiculo
+                                                        ORDER BY cv.fecha_terminacion DESC
+                                                        LIMIT 1) AS fecha_terminacion,
+                                                        
+                                                        (
+                                                        SELECT cv.idcontratante
+                                                        FROM v_convenios cv
+                                                        WHERE cv.idvehiculo = v.idvehiculo
+                                                        ORDER BY cv.fecha_terminacion DESC
+                                                        LIMIT 1) AS idcontratante,
+                                                        
+                                                        (
+                                                        SELECT cv.idcontratista
+                                                        FROM v_convenios cv
+                                                        WHERE cv.idvehiculo = v.idvehiculo
+                                                        ORDER BY cv.fecha_terminacion DESC
+                                                        LIMIT 1) AS idcontratista
+                                                FROM v_vehiculos v
                                                 LEFT JOIN v_tipovehiculos t ON t.idtipovehiculo = v.idtipovehiculo
                                                 LEFT JOIN v_marcas m ON m.idmarca = v.idmarca
                                                 LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
-                                                LEFT JOIN convenios c ON c.idxc = v.idconvenio
                                                 WHERE v.{$datos['item']} = :{$datos['item']};");
         $stmt->bindParam(":{$datos['item']}", $datos['valor']);
         $stmt->execute();
@@ -340,8 +495,16 @@ class ModeloVehiculos
     static public function mdlAgregarVehiculo($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("INSERT INTO v_vehiculos (placa, numinterno, fechavinculacion, chasis, numeromotor, modelo, color, capacidad, cilindraje, tipovinculacion, fechaimportacion, potenciahp, limitacion, activo, declaracionimpor, fechamatricula, fechaexpedicion, transito, tipocarroceria, fechafinconvenio, claveapp, fechadesvinculacion, observaciones, idsucursal, idmarca, idconvenio, idtipovehiculo, tipocombustible) VALUES 
-                                    (:placa, :numinterno, :fechavinculacion, :chasis, :numeromotor, :modelo, :color, :capacidad, :cilindraje, :tipovinculacion, :fechaimportacion, :potenciahp, :limitacion, :activo, :declaracionimpor, :fechamatricula, :fechaexpedicion, :transito, :tipocarroceria, :fechafinconvenio, :claveapp, :fechadesvinculacion, :observaciones, :idsucursal, :idmarca, :idconvenio, :idtipovehiculo, :tipocombustible)");
+        $stmt = $conexion->prepare("INSERT INTO v_vehiculos (placa, numinterno, fechavinculacion, chasis, numeromotor, modelo, color, capacidad, cilindraje, tipovinculacion, fechaimportacion, potenciahp, limitacion, activo, declaracionimpor, fechamatricula, fechaexpedicion, transito, tipocarroceria, 
+        -- fechafinconvenio, 
+        claveapp, fechadesvinculacion, observaciones, idsucursal, idmarca, 
+        -- idconvenio, 
+        idtipovehiculo, tipocombustible) VALUES 
+                                    (:placa, :numinterno, :fechavinculacion, :chasis, :numeromotor, :modelo, :color, :capacidad, :cilindraje, :tipovinculacion, :fechaimportacion, :potenciahp, :limitacion, :activo, :declaracionimpor, :fechamatricula, :fechaexpedicion, :transito, :tipocarroceria, 
+                                    -- :fechafinconvenio, 
+                                    :claveapp, :fechadesvinculacion, :observaciones, :idsucursal, :idmarca, 
+                                    -- :idconvenio, 
+                                    :idtipovehiculo, :tipocombustible)");
 
         $stmt->bindParam(":placa", $datos['placa'], PDO::PARAM_STR);
         $stmt->bindParam(":numinterno", $datos['numinterno'], PDO::PARAM_STR);
@@ -365,8 +528,8 @@ class ModeloVehiculos
         $stmt->bindParam(":fechaexpedicion", $fechaexpedicion, PDO::PARAM_STR);
         $stmt->bindParam(":transito", $datos['transito'], PDO::PARAM_STR);
         $stmt->bindParam(":tipocarroceria", $datos['tipocarroceria'], PDO::PARAM_STR);
-        $fechafinconvenio = $datos['fechafinconvenio'] == "" ? null : $datos['fechafinconvenio'];
-        $stmt->bindParam(":fechafinconvenio", $fechafinconvenio, PDO::PARAM_STR);
+        //$fechafinconvenio = $datos['fechafinconvenio'] == "" ? null : $datos['fechafinconvenio'];
+        //$stmt->bindParam(":fechafinconvenio", $fechafinconvenio, PDO::PARAM_STR);
         $stmt->bindParam(":claveapp", $datos['claveapp'], PDO::PARAM_STR);
         $fechadesvinculacion = $datos['fechadesvinculacion'] == "" ? null : $datos['fechadesvinculacion'];
         $stmt->bindParam(":fechadesvinculacion", $fechadesvinculacion, PDO::PARAM_STR);
@@ -375,8 +538,8 @@ class ModeloVehiculos
         $stmt->bindParam(":idsucursal", $idsucursal, PDO::PARAM_INT);
         $idmarca = $datos['idmarca'] == "" ? null : $datos['idmarca'];
         $stmt->bindParam(":idmarca", $idmarca, PDO::PARAM_INT);
-        $idconvenio = $datos['idconvenio'] == "" ? null : $datos['idconvenio'];
-        $stmt->bindParam(":idconvenio", $idconvenio, PDO::PARAM_INT);
+        //$idconvenio = $datos['idconvenio'] == "" ? null : $datos['idconvenio'];
+        //$stmt->bindParam(":idconvenio", $idconvenio, PDO::PARAM_INT);
         $idtipovehiculo = $datos['idtipovehiculo'] == "" ? null : $datos['idtipovehiculo'];
         $stmt->bindParam(":idtipovehiculo", $idtipovehiculo, PDO::PARAM_INT);
         $stmt->bindParam(":tipocombustible", $datos['tipocombustible'], PDO::PARAM_STR);
@@ -397,7 +560,11 @@ class ModeloVehiculos
     static public function mdlEditarVehiculo($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("UPDATE v_vehiculos SET placa = :placa, numinterno = :numinterno, fechavinculacion = :fechavinculacion, chasis = :chasis, numeromotor = :numeromotor, modelo = :modelo, color = :color, capacidad = :capacidad, cilindraje = :cilindraje, tipovinculacion = :tipovinculacion, fechaimportacion = :fechaimportacion, potenciahp = :potenciahp, limitacion = :limitacion, activo = :activo, declaracionimpor = :declaracionimpor, fechamatricula = :fechamatricula, fechaexpedicion = :fechaexpedicion, transito = :transito, tipocarroceria = :tipocarroceria, fechafinconvenio = :fechafinconvenio, claveapp = :claveapp, fechadesvinculacion = :fechadesvinculacion, observaciones = :observaciones, idsucursal = :idsucursal, idmarca = :idmarca, idconvenio = :idconvenio, idtipovehiculo = :idtipovehiculo, tipocombustible = :tipocombustible
+        $stmt = $conexion->prepare("UPDATE v_vehiculos SET placa = :placa, numinterno = :numinterno, fechavinculacion = :fechavinculacion, chasis = :chasis, numeromotor = :numeromotor, modelo = :modelo, color = :color, capacidad = :capacidad, cilindraje = :cilindraje, tipovinculacion = :tipovinculacion, fechaimportacion = :fechaimportacion, potenciahp = :potenciahp, limitacion = :limitacion, activo = :activo, declaracionimpor = :declaracionimpor, fechamatricula = :fechamatricula, fechaexpedicion = :fechaexpedicion, transito = :transito, tipocarroceria = :tipocarroceria, 
+        -- fechafinconvenio = :fechafinconvenio, 
+        claveapp = :claveapp, fechadesvinculacion = :fechadesvinculacion, observaciones = :observaciones, idsucursal = :idsucursal, idmarca = :idmarca, 
+        -- idconvenio = :idconvenio, 
+        idtipovehiculo = :idtipovehiculo, tipocombustible = :tipocombustible
                                     WHERE idvehiculo = :idvehiculo");
 
         $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
@@ -423,8 +590,8 @@ class ModeloVehiculos
         $stmt->bindParam(":fechaexpedicion", $fechaexpedicion, PDO::PARAM_STR);
         $stmt->bindParam(":transito", $datos['transito'], PDO::PARAM_STR);
         $stmt->bindParam(":tipocarroceria", $datos['tipocarroceria'], PDO::PARAM_STR);
-        $fechafinconvenio = $datos['fechafinconvenio'] == "" ? null : $datos['fechafinconvenio'];
-        $stmt->bindParam(":fechafinconvenio", $fechafinconvenio, PDO::PARAM_STR);
+        //$fechafinconvenio = $datos['fechafinconvenio'] == "" ? null : $datos['fechafinconvenio'];
+        //$stmt->bindParam(":fechafinconvenio", $fechafinconvenio, PDO::PARAM_STR);
         $stmt->bindParam(":claveapp", $datos['claveapp'], PDO::PARAM_STR);
         $fechadesvinculacion = $datos['fechadesvinculacion'] == "" ? null : $datos['fechadesvinculacion'];
         $stmt->bindParam(":fechadesvinculacion", $fechadesvinculacion, PDO::PARAM_STR);
@@ -433,8 +600,8 @@ class ModeloVehiculos
         $stmt->bindParam(":idsucursal", $idsucursal, PDO::PARAM_INT);
         $idmarca = $datos['idmarca'] == "" ? null : $datos['idmarca'];
         $stmt->bindParam(":idmarca", $idmarca, PDO::PARAM_INT);
-        $idconvenio = $datos['idconvenio'] == "" ? null : $datos['idconvenio'];
-        $stmt->bindParam(":idconvenio", $idconvenio, PDO::PARAM_INT);
+        //$idconvenio = $datos['idconvenio'] == "" ? null : $datos['idconvenio'];
+        //$stmt->bindParam(":idconvenio", $idconvenio, PDO::PARAM_INT);
         $idtipovehiculo = $datos['idtipovehiculo'] == "" ? null : $datos['idtipovehiculo'];
         $stmt->bindParam(":idtipovehiculo", $idtipovehiculo, PDO::PARAM_INT);
         $stmt->bindParam(":tipocombustible", $datos['tipocombustible'], PDO::PARAM_STR);
