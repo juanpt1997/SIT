@@ -127,7 +127,13 @@ class ModeloFuec
                         tv.tipovehiculo,
                         (SELECT dv.nrodocumento FROM v_re_documentosvehiculos dv WHERE dv.idvehiculo = v.idvehiculo AND dv.idtipodocumento = 3 ORDER BY dv.fechacreacion DESC, dv.fechafin DESC LIMIT 1) AS tarjetaOperacion,
                         oc.objetocontrato, 
-                        IF(cnv.idxc = 0, '', cnv.nombre) AS nomconvenio,
+                        -- IF(cnv.idxc = 0, '', cnv.nombre) AS nomconvenio,
+                        (SELECT ecn.nombre
+                            FROM v_convenios cnv
+                            INNER JOIN v_empresas_convenios ecn ON ecn.idxc = cnv.idcontratista
+                            WHERE cnv.idvehiculo = v.idvehiculo
+                            ORDER BY cnv.fecha_terminacion DESC
+                            LIMIT 1) AS nomconvenio,
                         c1.Nombre AS conductor1, c1.Documento AS docConductor1, 
                         lic1.nro_licencia AS licencia1, MAX(lic1.fecha_vencimiento) AS vigenciaLic1,
                         c2.Nombre AS conductor2, c2.Documento AS docConductor2, 
@@ -140,7 +146,7 @@ class ModeloFuec
                     LEFT JOIN v_tipovehiculos tv ON tv.idtipovehiculo = v.idtipovehiculo
                     LEFT JOIN v_marcas vm ON vm.idmarca = v.idmarca
                     INNER JOIN v_objetocontrato oc ON oc.idobjeto = f.idobjeto_contrato
-                    LEFT JOIN v_empresas_convenios cnv ON cnv.idxc = v.idconvenio
+                    -- LEFT JOIN v_empresas_convenios cnv ON cnv.idxc = v.idconvenio
                     LEFT JOIN gh_personal c1 ON c1.idPersonal = f.idconductor1
                     LEFT JOIN gh_re_personallicencias lic1 ON lic1.idPersonal = c1.idPersonal
                     LEFT JOIN gh_personal c2 ON c2.idPersonal = f.idconductor2
@@ -171,7 +177,13 @@ class ModeloFuec
                         tv.tipovehiculo,
                         (SELECT dv.nrodocumento FROM v_re_documentosvehiculos dv WHERE dv.idvehiculo = v.idvehiculo AND dv.idtipodocumento = 3 ORDER BY dv.fechacreacion DESC, dv.fechafin DESC LIMIT 1) AS tarjetaOperacion,
                         oc.objetocontrato, 
-                        IF(cnv.idxc = 0, '', cnv.nombre) AS nomconvenio,                       
+                        -- IF(cnv.idxc = 0, '', cnv.nombre) AS nomconvenio,   
+                        (SELECT ecn.nombre
+                            FROM v_convenios cnv
+                            INNER JOIN v_empresas_convenios ecn ON ecn.idxc = cnv.idcontratista
+                            WHERE cnv.idvehiculo = v.idvehiculo
+                            ORDER BY cnv.fecha_terminacion DESC
+                            LIMIT 1) AS nomconvenio,                    
                         c1.Nombre AS conductor1, c1.Documento AS docConductor1, 
                         lic1.nro_licencia AS licencia1, MAX(lic1.fecha_vencimiento) AS vigenciaLic1,
                         c2.Nombre AS conductor2, c2.Documento AS docConductor2, 
@@ -184,7 +196,7 @@ class ModeloFuec
                     LEFT JOIN v_tipovehiculos tv ON tv.idtipovehiculo = v.idtipovehiculo
                     LEFT JOIN v_marcas vm ON vm.idmarca = v.idmarca
                     INNER JOIN v_objetocontrato oc ON oc.idobjeto = f.idobjeto_contrato
-                    LEFT JOIN v_empresas_convenios cnv ON cnv.idxc = v.idconvenio
+                    -- LEFT JOIN v_empresas_convenios cnv ON cnv.idxc = v.idconvenio
                     LEFT JOIN gh_personal c1 ON c1.idPersonal = f.idconductor1
                     LEFT JOIN gh_re_personallicencias lic1 ON lic1.idPersonal = c1.idPersonal
                     LEFT JOIN gh_personal c2 ON c2.idPersonal = f.idconductor2
