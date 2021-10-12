@@ -199,6 +199,14 @@ class ControladorConvenios
 		return $respuesta;
 	}
 
+	// static public function ctrAgregarEditarConvenios($value)
+	// {
+	// 	if(isset($_POST['idConvenio']) && $_POST['idConvenio'] == ""){
+	// 		$addConv = ModeloConvenios::mdlAgregarConvenio();
+	// 		return $addConv;
+	// 	}
+	// }
+
 
 
 

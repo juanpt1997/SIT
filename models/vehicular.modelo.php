@@ -185,12 +185,18 @@ class ModeloConvenios
 
     static public function mdlMostrarConvenios()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT c.*, e.nombre AS nomContratante, e.nit AS nitContratante, e2.nombre AS nomContratista, e2.nit AS nitContratista, s.sucursal AS sucursal, v.placa AS placa, v.numinterno AS numinterno
+        $stmt = Conexion::conectar()->prepare("SELECT c.*, 
+        e.nombre AS nomContratante, e.nit AS nitContratante, 
+        e2.nombre AS nomContratista, e2.nit AS nitContratista, 
+        s.sucursal AS sucursal, 
+        v.placa AS placa, v.numinterno AS numinterno,
+        tv.tipovehiculo AS tipovehiculo
         FROM v_convenios c
         INNER JOIN convenios e ON c.idcontratante = e.idxc
         INNER JOIN convenios e2 ON c.idcontratista = e2.idxc
         INNER JOIN gh_sucursales s ON c.idsucursal = s.ids
-        INNER JOIN v_vehiculos v ON c.idvehiculo = v.idvehiculo        
+        INNER JOIN v_vehiculos v ON c.idvehiculo = v.idvehiculo
+        LEFT JOIN v_tipovehiculos tv ON v.idtipovehiculo = tv.idtipovehiculo      
         ");
 
         $stmt->execute();
@@ -205,12 +211,18 @@ class ModeloConvenios
 
     static public function mldDatosConvenios($idconvenio)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT c.*, e.nombre AS nomContratante, e.nit AS nitContratante, e2.nombre AS nomContratista, e2.nit AS nitContratista, s.sucursal AS sucursal, v.placa AS placa, v.numinterno AS numinterno
+        $stmt = Conexion::conectar()->prepare("SELECT c.*, 
+        e.nombre AS nomContratante, e.nit AS nitContratante, 
+        e2.nombre AS nomContratista, e2.nit AS nitContratista, 
+        s.sucursal AS sucursal, 
+        v.placa AS placa, v.numinterno AS numinterno,
+        tv.tipovehiculo AS tv
         FROM v_convenios c
         INNER JOIN convenios e ON c.idcontratante = e.idxc
         INNER JOIN convenios e2 ON c.idcontratista = e2.idxc
         INNER JOIN gh_sucursales s ON c.idsucursal = s.ids
-        INNER JOIN v_vehiculos v ON c.idvehiculo = v.idvehiculo 
+        INNER JOIN v_vehiculos v ON c.idvehiculo = v.idvehiculo
+        LEFT JOIN v_tipovehiculos tv ON v.idtipovehiculo = tv.idtipovehiculo
         WHERE c.idconvenio = :idconvenio");
         
         $stmt->bindParam(":idconvenio",$idconvenio,PDO::PARAM_INT);
@@ -220,6 +232,15 @@ class ModeloConvenios
         return $retorno;
 
     }
+
+
+    // static public function mdlAgregarConvenio()
+    // {
+        
+    // }
+
+
+
 
 }
 

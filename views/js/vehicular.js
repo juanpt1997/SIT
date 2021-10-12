@@ -124,6 +124,9 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
 
     $(document).on("click",".btn-agregarConvenio", function(){
         $("#titulo-modal-convenios").html("Nuevo Convenio");
+        $("#datosconvenio_form").trigger("reset");
+        $('.select2-single').val(" ").trigger("change");
+        
     });
 
     //EDITAR CONVENIO
@@ -148,13 +151,21 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
             processData: false,
             dataType: "json",
             success: function (response) {
-                $('#empresacontratante').val(response.nomContratante);
-                $('#empresacontratante').attr("readonly","readonly");
-                $('#empresacontratista').val(response.nomContratista);
-                $('#empresacontratista').attr("readonly","readonly");
-                $('#sucursal').val(response.sucursal);
-                $('#sucursal').attr("readonly","readonly");
+                $('#empresacontratante').val(response.idcontratante).trigger("change");
+                //$('#empresacontratante').attr("readonly","readonly");
+                $('#empresacontratista').val(response.idcontratista).trigger("change");
+                //$('#empresacontratista').attr("readonly","readonly");
+                $('#sucursal').val(response.idsucursal).trigger("change");
+                //$('#sucursal').attr("readonly","readonly");
                 $('#convenioContrato').val(response.contrato);
+                $('#fecha_inicio').val(response.fecha_inicio);
+                $('#fecha_terminacion').val(response.fecha_terminacion);
+                $('#estado').val(response.estado).trigger("change");
+                $('#fecha_radicado').val(response.fecha_radicado);
+                $('#num_radicado').val(response.num_radicado);
+                $('#observacion').val(response.observacion);
+                $('#placa').val(response.idvehiculo).trigger("change");
+                
                 
             }
         });

@@ -125,7 +125,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                             </button>
                         </div><!-- col -->
                     </div> <!-- /.row -->
-                    
+
                     <div class="row mt-2">
                         <div class="col-12">
                             <div class="card">
@@ -155,15 +155,16 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                                     <th>Observación</th>
                                                 </tr>
                                             </thead>
-                                            
+
                                             <tbody class="text-sm">
                                                 <?php foreach ($Convenios as $key => $value) : ?>
                                                     <tr>
-                                                        <td> <div class="btn-group" role="group" aria-label="Button group">
+                                                        <td>
+                                                            <div class="btn-group" role="group" aria-label="Button group">
                                                                 <button class="btn btn-sm btn-warning btnEditarConv" id="<?= $value['idconvenio'] ?>" data-toggle="modal" data-target="#ConvenioModal"><i class="fas fa-edit"></i></button>
-                                                            </div> 
-                                                        </td>    
-                                                    
+                                                            </div>
+                                                        </td>
+
                                                         <td><?= $value['idconvenio'] ?></td>
                                                         <td><?= $value['nitContratante'] ?></td>
                                                         <td><?= $value['nomContratante'] ?></td>
@@ -171,7 +172,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                                         <td><?= $value['nomContratista'] ?></td>
                                                         <td><?= $value['contrato'] ?></td>
                                                         <td><?= $value['sucursal'] ?></td>
-                                                        <td>Completar</td>
+                                                        <td><?= $value['tipovehiculo']?></td>
                                                         <td><?= $value['placa'] ?></td>
                                                         <td><?= $value['numinterno'] ?></td>
                                                         <td><?= $value['fecha_inicio'] ?></td>
@@ -179,16 +180,10 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                                         <td><?= $value['estado'] ?></td>
                                                         <td><?= $value['fecha_radicado'] ?></td>
                                                         <td><?= $value['num_radicado'] ?></td>
-                                                        <td><?= $value['observacion']?></td>
-                                                        </tr>
-                                                        
+                                                        <td><?= $value['observacion'] ?></td>
+                                                    </tr>
+
                                                 <?php endforeach ?>
-
-                                                
-
-
-                                                
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -333,8 +328,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
 <div class="modal fade" id="ConvenioModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <form method="post" enctype="multipart/form-data">
-                <!-- INICIO DEL FORMULARIO -->
+                
 
                 <div class="modal-header bg-info">
                     <h5 class="modal-title" id="titulo-modal-convenios"></h5>
@@ -344,191 +338,183 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                 </div>
 
                 <div class="modal-body">
-                    <div class="row">
-                        <!-- EMPRESA CONTRATANTE -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="text-sm"><i>Empresa contratante</i></label>
-                                <div class="input-group input-group-sm">
-                                    <select class="form-control select2-single" id="empresacontratante" type="text" style="width: 99%" name="listaclientes">
-                                        <option value=""  selected><b>-Lista de empresas-</b></option>
-                                        <?php foreach ($Empresas as $key => $value) : ?>
+                    <form action="" method="post" id="datosconvenio_form"> <!-- INICIO DEL FORMULARIO -->
+                        <input type="hidden" id="idConvenio" name="idConvenio">
+                        <div class="row">
+                            <!-- EMPRESA CONTRATANTE -->
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-sm"><i>Empresa contratante</i></label>
+                                    <div class="input-group input-group-sm">
+                                        <select class="form-control select2-single" id="empresacontratante" type="text" style="width: 99%" name="listaclientes">
+                                            <option value="" selected><b>-Lista de empresas-</b></option>
+                                            <?php foreach ($Empresas as $key => $value) : ?>
+                                                <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- EMPRESA CONTRATISTA -->
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-sm"><i>Empresa contratista</i></label>
+                                    <div class="input-group input-group-sm">
+                                        <select class="form-control select2-single" id="empresacontratista" style="width: 99%" name="">
+                                            <option value="" selected><b>-Lista de empresas-</b></option>
+                                            <?php foreach ($Empresas as $key => $value) : ?>
                                             <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
-                                        <?php endforeach ?>
-                                    </select>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
 
-                        <!-- EMPRESA CONTRATISTA -->
+                        <hr class="my-4 bg-dark">
 
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="text-sm"><i>Empresa contratista</i></label>
-                                <div class="input-group input-group-sm">
-                                    <select class="form-control select2-single" id="empresacontratista" style="width: 99%" name="">
-                                        <option value="" selected><b>-Lista de empresas-</b></option>
-                                        <?php foreach ($Empresas as $key => $value) : ?>
-                                            <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
-                                        <?php endforeach ?>
-                                    </select>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-sm">Contrato a ejecutar</label>
+                                    <div class="input-group input-group-sm">
+                                        <input class="form-control input-clientes" type="text" id="convenioContrato" name="tipo_contrato" placeholder="Ingrese el contrato a ejecutar" maxlength="45" required>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-
-                    <hr class="my-4 bg-dark">
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="text-sm">Contrato a ejecutar</label>
-                                <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" id="convenioContrato" name="tipo_contrato" placeholder="Ingrese el contrato a ejecutar" maxlength="45" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="text-sm">Sucursal</label>
-                                <div class="input-group input-group-sm">
-                                    <select id="listaempresas" class="form-control select2-single select-clientes input-sm" id="sucursal" style="width: 99%" name="listaclientes">
-                                        <option value="" selected><b>-Lista de sucursales-</b></option>
-                                        <?php foreach ($Sucursales as $key => $value) : ?>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-sm">Sucursal</label>
+                                    <div class="input-group input-group-sm">
+                                        <select class="form-control select2-single select-clientes input-sm" id="sucursal" style="width: 99%" name="listaclientes">
+                                            <option value="" selected><b>-Lista de sucursales-</b></option>
+                                            <?php foreach ($Sucursales as $key => $value) : ?>
                                             <option value="<?= $value['ids'] ?>"><?= $value['sucursal'] ?></option>
-                                        <?php endforeach ?>
-                                    </select>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <hr class="my-4 bg-dark">
+                        <hr class="my-4 bg-dark">
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="test-sm">Placa</label>
-                                <div class="input-group input-group-sm">
-                                    <select id="listaempresas" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes">
-                                        <option value="" selected><b>-Lista de placas-</b></option>
-                                        <?php foreach ($Placas as $key => $value) : ?>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="test-sm">Placa</label>
+                                    <div class="input-group input-group-sm">
+                                        <select id="placa" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes">
+                                            <option value="" selected><b>-Lista de placas-</b></option>
+                                            <?php foreach ($Placas as $key => $value) : ?>
                                             <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?></option>
-                                        <?php endforeach ?>
-                                    </select>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="test-sm">Tipo de vehículo</label>
-                                <div class="input-group input-group-sm">
-                                    <select id="listaempresas" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes" readonly>
-                                        <option value="" selected><b>-Tipo de vehículo-</b></option>
-                                        <?php foreach ($Vehiculos as $key => $value) : ?>
+                            
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="test-sm">Tipo de vehículo</label>
+                                    <div class="input-group input-group-sm">
+                                        <select id="tipo_vehiculo" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes" readonly>
+                                            <option value="" selected><b>-Tipo de vehículo-</b></option>
+                                            <?php foreach ($Vehiculos as $key => $value) : ?>
                                             <option value="<?= $value['idtipovehiculo'] ?>"><?= $value['tipovehiculo'] ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="text-sm">Número interno</label>
+                                <div class="input-group input-group-sm">
+                                    <select id="num_interno" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes" readonly>
+                                        <option value="" selected><b>-Lista de números internos-</b></option>
+                                        <?php foreach ($Placas as $key => $value) : ?>
+                                        <option value="<?= $value['idvehiculo'] ?>"><?= $value['numinterno'] ?></option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>
                             </div>
                         </div>
 
+                        <hr class="my-4 bg-dark">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-sm">Fecha inicio del convenio</label>
+                                    <div class="input-group input-group-sm">
+                                        <input class="form-control" type="date" id="fecha_inicio" name="f_resuelve" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-sm">Fecha terminación del convenio</label>
+                                    <div class="input-group input-group-sm">
+                                        <input class="form-control" type="date" id="fecha_terminacion" name="f_resuelve" required>
+                                    </div>
+                                </div>
+                            </div>
 
 
-                    </div>
-                    <div class="col-md-6">
+                        </div>
+
+                        <hr class="my-4 bg-dark">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label class="test-sm">Estado en empresa</label>
+                                <div class="input-group input-group-sm">
+                                    <select id="estado" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes">
+                                        <option value="" selected><b>-Lista de estados-</b></option>
+                                        <option value="Firmado">Firmado</option>
+                                        <option value="Pendiente firma cartera">Pendiente firma cartera</option>
+                                        <option value="Pendiente firma ss">Pendiente firma ss</option>
+                                        <option value="Pendiente firma doc">Pendiente firma doc</option>
+                                        <option value="Devuelto a suc">Devuelto a suc</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="text-sm">Fecha radicado ministerio</label>
+                                    <div class="input-group input-group-sm">
+                                        <input class="form-control" type="date" id="fecha_radicado" name="f_resuelve" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="text-sm">Número radicado</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control input-clientes" type="text" id="num_radicado" name="tipo_contrato" placeholder="Número radicado" maxlength="45" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4 bg-dark">
+
                         <div class="form-group">
-                            <label class="text-sm">Número interno</label>
+                            <label class="text-sm">Observaciones</label>
                             <div class="input-group input-group-sm">
-                                <select id="listaempresas" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes" readonly>
-                                    <option value="" selected><b>-Lista de números internos-</b></option>
-                                    <?php foreach ($Placas as $key => $value) : ?>
-                                        <option value="<?= $value['idvehiculo'] ?>"><?= $value['numinterno'] ?></option>
-                                    <?php endforeach ?>
-                                </select>
+                                <textarea class="form-control" type="text" id="observacion" name="porque" placeholder="Escriba los motivos" style="min-height:70px"></textarea requiered>
                             </div>
                         </div>
-                    </div>
-
-                    <hr class="my-4 bg-dark">
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="text-sm">Fecha inicio del convenio</label>
-                                <div class="input-group input-group-sm">
-                                    <input class="form-control" type="date" id="f_resuelve" name="f_resuelve" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="text-sm">Fecha terminación del convenio</label>
-                                <div class="input-group input-group-sm">
-                                    <input class="form-control" type="date" id="f_resuelve" name="f_resuelve" required>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                    <hr class="my-4 bg-dark">
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label class="test-sm">Estado en empresa</label>
-                            <div class="input-group input-group-sm">
-                                <select id="listaempresas" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes">
-                                    <option value="" selected><b>-Lista de estados-</b></option>
-                                    <option value="Firmado">Firmado</option>
-                                    <option value="Pendiente firma cartera">Pendiente firma cartera</option>
-                                    <option value="Pendiente firma ss">Pendiente firma ss</option>
-                                    <option value="Pendiente firma doc">Pendiente firma doc</option>
-                                    <option value="Devuelto a suc">Devuelto a suc</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label class="text-sm">Fecha radicado ministerio</label>
-                                <div class="input-group input-group-sm">
-                                    <input class="form-control" type="date" id="f_resuelve" name="f_resuelve" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="text-sm">Número radicado</label>
-                            <div class="input-group input-group-sm">
-                                <input class="form-control input-clientes" type="text" id="tipo_contrato" name="tipo_contrato" placeholder="Número radicado" maxlength="45" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr class="my-4 bg-dark">
-
-                    <div class="form-group">
-                        <label class="text-sm">Observaciones</label>
-                        <div class="input-group input-group-sm">
-                            <textarea class="form-control" type="text" id="porque" name="porque" placeholder="Escriba los motivos" style="min-height:70px"></textarea requiered>
-                            </div>
-                    </div>
-
-
-
-
-
-
-
-
-                    
-                    <!-- FIN DEL MODAL CONVENIOS -->
+                    </form> <!-- FIN FORMULARIO-->  
                 </div>
 
 
@@ -541,8 +527,8 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                 </div>
 
 
-             </form>
-            
+             
+            <!-- FIN DEL MODAL CONVENIOS -->
         </div>
     </div>
 </div>
