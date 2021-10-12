@@ -984,7 +984,9 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
             $("#empresacontratista").val(response.idcontratista);
             $("#empresacontratista").attr("readonly","readonly");
             $("#fecha_inicio").val(response.fecha_inicio);
+            $("#fecha_inicio").attr("readonly","readonly");
             $("#fecha_terminacion").val(response.fecha_terminacion);
+            $("#fecha_terminacion").attr("readonly","readonly");
 
 
             if (response.ruta_tarjetapropiedad != null) {
