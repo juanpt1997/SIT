@@ -155,6 +155,12 @@ if (window.location.href == `${urlPagina}usuarios/` ||
 if (window.location.href == `${urlPagina}roles-usuarios/` ||
     window.location.href == `${urlPagina}roles-usuarios`){
     
+    $(document).on("click",".btn-nuevorol", function(){
+        console.log("click en nuevo rol");
+        $("#datosrol_form").trigger('reset');
+    });
+
+
     /* ===================================================
             EDITAR ROL
         ===================================================*/
