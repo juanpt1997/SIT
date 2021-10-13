@@ -198,9 +198,7 @@
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuOperaciones">
                                             <a class="dropdown-item font-weight-bold" href="o-fuec"><u>FUEC</u></a>
                                             <a class="dropdown-item font-weight-bold" href="o-alistamiento"><u>Protocolo de alistamiento</u></a>
-                                            <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
-                                                <a class="dropdown-item font-weight-bold" href="o-rodamiento"><u>Plan de rodamiento</u></a>
-                                            <?php endif ?>
+                                            <a class="dropdown-item font-weight-bold" href="o-rodamiento"><u>Plan de rodamiento</u></a>
                                         </div>
                                     </div>
                                 </div>

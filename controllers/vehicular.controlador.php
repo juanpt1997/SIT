@@ -151,7 +151,7 @@ class ControladorConvenios
 						<script>
 							Swal.fire({
 								icon: 'success',
-								title: '¡Convenio guardado correctamente!',						
+								title: 'Empresa guardada correctamente!',						
 								showConfirmButton: true,
 								confirmButtonText: 'Cerrar',
 								
@@ -169,7 +169,7 @@ class ControladorConvenios
 						<script>
 							Swal.fire({
 								icon: 'success',
-								title: '¡Problema al añadir el convenio!',						
+								title: '¡Problema al guardar la empresa!',						
 								showConfirmButton: true,
 								confirmButtonText: 'Cerrar',
 								
@@ -193,7 +193,73 @@ class ControladorConvenios
 		return $respuesta;
 	}
 
+	static public function ctrDatosConvenios($idconvenio)
+	{
+		$respuesta = ModeloConvenios::mdlDatosConvenios($idconvenio);
+		return $respuesta;
+	}
 
+	static public function ctrAgregarEditarConvenios()
+	{
+		
+		if(isset($_POST['idConvenio'])){
+			$datos = $_POST;
+			if($_POST['idConvenio'] == ""){
+				$addConv = ModeloConvenios::mdlAgregarConvenio($datos);
+			}else{
+				$addConv = ModeloConvenios::mdlEditarConvenio($datos);
+			}
+			
+			// alerta
+			if($addConv == "ok")
+			{
+				echo "
+					<script>
+						Swal.fire({
+							icon: 'success',
+							title: '¡Datos guardados correctamente!',						
+							showConfirmButton: true,
+							confirmButtonText: 'Cerrar',
+							
+						}).then((result)=>{
+
+							if(result.value){
+								window.location = 'v-convenios';
+							}
+
+						})
+					</script>
+				";
+			}else{
+				echo "
+					<script>
+						Swal.fire({
+							icon: 'error',
+							title: 'Los datos no pudieron ser guardados',						
+							showConfirmButton: true,
+							confirmButtonText: 'Cerrar',
+							
+						}).then((result)=>{
+
+							if(result.value){
+								window.location = 'v-convenios';
+							}
+
+						})
+					</script>
+				";
+			}
+
+				
+			
+		}
+	}
+
+	static public function ctrBorradoConvenios($idConvenio)
+	{
+		$respuesta = ModeloConvenios::mdlBorradoConvenios($idConvenio);
+		return $respuesta;
+	}
 
 
 

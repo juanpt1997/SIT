@@ -1,8 +1,8 @@
 <?php
 
-// if(!validarModulo('CARGAR_OPCION')) {
-//     echo "<script> window.location = 'inicio'; </script>";
-// }
+if (!validarPermiso('M_OPERACIONES', 'R')) {
+    echo "<script> window.location = 'inicio'; </script>";
+}
 
 $Vehiculos = ControladorVehiculos::ctrListaVehiculos();
 $Marca = ControladorVehiculos::ctrMostrarMarca();
@@ -58,7 +58,7 @@ $Plan_r = ControladorRodamientos::ctrListarRodamientos();
                             <div class="card-body">
                                 <!--|||TABLA PLAN DE RODAMIENTO|||-->
                                 <div class="table-responsive">
-                                    <table id="tblplanrodamiento" class="table table-responsive table-bordered table-striped text-center text-nowrap">
+                                    <table id="tblplanrodamiento" class="table table-bordered table-striped text-center text-nowrap">
                                         <thead>
                                             <tr>
                                                 <th>...</th>
@@ -86,7 +86,9 @@ $Plan_r = ControladorRodamientos::ctrListarRodamientos();
                                                 <tr>
                                                     <td>
                                                         <button type="button" class="btn btn-success btn-sm btn-editarRodamiento" id_rodamiento="<?= $value['id'] ?>" data-toggle="modal" data-target="#modal-nuevoplanrodamiento"><i class="fas fa-edit"></i></button>
-                                                        <button type="button" class="btn btn-danger btn-sm btn-eliminar-rodamiento" id_rodamiento="<?= $value['id'] ?>"><i class="fas fa-trash"></i></button>
+                                                        <?php if (validarPermiso('M_OPERACIONES', 'D')) : ?>
+                                                            <button type="button" class="btn btn-danger btn-sm btn-eliminar-rodamiento" id_rodamiento="<?= $value['id'] ?>"><i class="fas fa-trash"></i></button>
+                                                        <?php endif ?>
                                                     </td>
                                                     <td><?= $value['id'] ?></td>
                                                     <td><?= $value['conductor'] ?></td>
@@ -299,7 +301,9 @@ $Plan_r = ControladorRodamientos::ctrListarRodamientos();
                 </div>
 
                 <div class="modal-footer justify-content-center bg-info">
-                    <button type="submit" class="btn btn-success"><i class="fas fa-print"></i> Guardar</button>
+                    <?php if (validarPermiso('M_OPERACIONES', 'U')) : ?>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-print"></i> Guardar</button>
+                    <?php endif ?>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
                 </div>
                 <?php

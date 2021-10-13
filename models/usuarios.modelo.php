@@ -46,8 +46,8 @@ class ModeloUsuarios
         $stmt = Conexion::conectar()->prepare("SELECT u.UsuariosID, u.Cedula, u.Nombre, p.perfil, o.opcion
                                             FROM l_usuarios u
                                             INNER JOIN l_perfiles p ON u.idPerfil = p.idPerfil
-                                            INNER JOIN l_perfil_opcion po ON p.idPerfil = po.idPerfil
-                                            INNER JOIN l_opciones o ON po.idOpcion = o.idOpcion
+                                            LEFT JOIN l_perfil_opcion po ON p.idPerfil = po.idPerfil
+                                            LEFT JOIN l_opciones o ON po.idOpcion = o.idOpcion
                                             WHERE $item = :$item");
 
         $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);

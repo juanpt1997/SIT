@@ -84,6 +84,10 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <th>Cilindraje</th>
                                                 <th>Tipo vinculacion</th>
                                                 <th>Fecha importación</th>
+                                                <th>Fecha inicio convenio</th>
+                                                <th>Fecha terminación convenio</th>
+                                                <th>Empresa Contratante</th>
+                                                <th>Empresa Contratista</th>
                                                 <th>Potencia</th>
                                                 <th>Limitacion propiedad</th>
                                                 <th>Tipo de vehiculo</th>
@@ -91,7 +95,6 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <th>Tipo de combustible</th>
                                                 <th>Fecha matricula</th>
                                                 <th>Activo</th>
-                                                <th>Empresa Convenio</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -120,6 +123,10 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                     <td><?= $value['cilindraje'] ?></td>
                                                     <td><?= $value['tipovinculacion'] ?></td>
                                                     <td><?= $value['fechaimportacion'] ?></td>
+                                                    <td><?=$value['fecha_inicio']?></td>
+                                                    <td><?=$value['fecha_terminacion']?></td>
+                                                    <td><?= $value['nom_contratante'] ?></td>
+                                                    <td><?= $value['nom_contratista'] ?></td>
                                                     <td><?= $value['potenciahp'] ?></td>
                                                     <td><?= $value['limitacion'] ?></td>
                                                     <td><?= $value['tipovehiculo'] ?></td>
@@ -127,7 +134,6 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                     <td><?= $value['tipocombustible'] ?></td>
                                                     <td><?= $value['fechamatricula'] ?></td>
                                                     <td><?= $value['activo'] ?></td>
-                                                    <td><?= $value['convenio'] ?></td>
                                                     <!-- <td>
                                                     <div class="btn-group" role="group" aria-label="Button group">
                                                         <button class="btn btn-sm btn-warning btnEditarVehiculo" data-toggle="modal" data-target="#VehiculosModal"><i class="fas fa-edit"></i></button>
@@ -509,6 +515,77 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <div class="col-md-6">
 
                                             <div class="form-group">
+                                                <label>Empresa contratante convenio</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-building"></i>
+                                                        </span>
+                                                    </div>
+                                                    <select class="form-control input-lg" type="text" id="empresacontratante" name="idconvenio">
+                                                        <option value="" selected>-Seleccione una empresa-</option>
+                                                        <?php foreach ($empresaconvenio as $key => $value) : ?>
+                                                            <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
+                                                        <?php endforeach ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Empresa contratista convenio</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="fas fa-building"></i>
+                                                        </span>
+                                                    </div>
+                                                    <select class="form-control input-lg" type="text" id="empresacontratista" name="idconvenio">
+                                                        <option value="" selected>-Seleccione una empresa-</option>
+                                                        <?php foreach ($empresaconvenio as $key => $value) : ?>
+                                                            <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
+                                                        <?php endforeach ?>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Fecha inicio de convenio</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="far fa-calendar-alt"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input class="form-control" type="date" id="fecha_inicio" name="fecha_inicio" placeholder="Ingresar fecha de inicio de convenio">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Fecha terminación de convenio</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-append">
+                                                        <span class="input-group-text">
+                                                            <i class="far fa-calendar-alt"></i>
+                                                        </span>
+                                                    </div>
+                                                    <input class="form-control" type="date" id="fecha_terminacion" name="fecha_terminacion" placeholder="Ingresar fecha de terminacion de convenio">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <hr class="my-4 bg-dark">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
                                                 <label>Fecha de importación</label>
                                                 <div class="input-group">
                                                     <div class="input-group-append">
@@ -519,7 +596,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                     <input class="form-control" type="date" id="fechaimportacion" name="fechaimportacion" placeholder="Ingresar fecha de importación">
                                                 </div>
                                             </div>
-
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Limitación</label>
                                                 <div class="input-group">
@@ -532,7 +610,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                                 </div>
                                             </div>
-
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Estado</label>
                                                 <div class="input-group">
@@ -549,24 +628,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                     </select>
                                                 </div>
                                             </div>
+                                        </div>
 
-                                            <div class="form-group">
-                                                <label>Empresa convenio</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text">
-                                                            <i class="fas fa-building"></i>
-                                                        </span>
-                                                    </div>
-                                                    <select class="form-control input-lg" type="text" id="idconvenio" name="idconvenio">
-                                                        <option value="" selected>-Seleccione una empresa-</option>
-                                                        <?php foreach ($empresaconvenio as $key => $value) : ?>
-                                                            <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
-                                                        <?php endforeach ?>
-                                                    </select>
-                                                </div>
-                                            </div>
+                                    </div>
 
+                                    <hr class="my-4 bg-dark">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Declaración imp.</label>
                                                 <div class="input-group">
@@ -579,7 +648,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                                 </div>
                                             </div>
-
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Fecha matrícula</label>
                                                 <div class="input-group">
@@ -593,9 +663,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="col-md-6">
-
                                             <div class="form-group">
                                                 <label>Fecha de expedición</label>
                                                 <div class="input-group">
@@ -608,7 +676,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                                 </div>
                                             </div>
-
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Transito</label>
                                                 <div class="input-group">
@@ -621,20 +690,13 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                                 </div>
                                             </div>
+                                        </div>
+                                    </div>
 
-                                            <div class="form-group">
-                                                <label>Fecha convenio</label>
-                                                <div class="input-group">
-                                                    <div class="input-group-append">
-                                                        <span class="input-group-text">
-                                                            <i class="far fa-calendar-alt"></i>
-                                                        </span>
-                                                    </div>
-                                                    <input class="form-control" type="date" id="fechafinconvenio" name="fechafinconvenio" placeholder="Ingresar fecha de convenio">
+                                    <hr class="my-4 bg-dark">
 
-                                                </div>
-                                            </div>
-
+                                    <div class="row">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Clave APP</label>
                                                 <div class="input-group">
@@ -647,7 +709,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                                 </div>
                                             </div>
-
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Fecha de desvinculación</label>
                                                 <div class="input-group">
@@ -660,7 +723,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                                 </div>
                                             </div>
-
+                                        </div>
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Observaciones</label>
                                                 <div class="input-group">
@@ -672,9 +736,9 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                     <textarea class="form-control" type="text" id="observaciones" name="observaciones" placeholder="Escriba una observación" style="min-height:70px"></textarea>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
+
                                 </div>
 
                                 <!-- ===================================================

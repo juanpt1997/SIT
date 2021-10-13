@@ -155,6 +155,12 @@ if (window.location.href == `${urlPagina}usuarios/` ||
 if (window.location.href == `${urlPagina}roles-usuarios/` ||
     window.location.href == `${urlPagina}roles-usuarios`){
     
+    $(document).on("click",".btn-nuevorol", function(){
+        console.log("click en nuevo rol");
+        $("#datosrol_form").trigger('reset');
+    });
+
+
     /* ===================================================
             EDITAR ROL
         ===================================================*/
@@ -271,18 +277,33 @@ if (window.location.href == `${urlPagina}roles-usuarios/` ||
                 if(response == "ok"){
                     
                     Swal.fire({
-                        icon: 'success',
-                        title: 'Perfil eliminado correctamente',						
-                        showConfirmButton: true,
-                        confirmButtonText: 'Cerrar',
-                                    
-                        }).then((result)=>{
-
-                            if(result.value){
-                                window.location = 'roles-usuarios';
+                        title: '¿Está seguro de eliminar este rol',
+                        text: "No se podrán recuperar los datos",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        cancelButtonText: 'Cancelar',
+                        confirmButtonText: 'Si,borrar'
+                      }).then((result) => {
+                          console.log(result);
+                        if (result.value == true){
+                            Swal.fire({
+                                    icon: 'success',
+                                    title: 'Rol eliminado correctamente',						
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                                
+                                    }).then((result)=>{
+            
+                                        if(result.value){
+                                            window.location = 'roles-usuarios';
+                                        }
+            
+                                    })
                             }
-
-                        })
+                        
+                      })
 
                 }else{
 
