@@ -148,7 +148,7 @@ class ControladorInventario
 		if (isset($_POST['inventario_id'])) {
 
 			$datos = array(      
-				'id' => $_POST['inventario_id'],
+				/* 'id' => $_POST['inventario_id'], */
 				'idvehiculo' => $_POST['idvehiculo'],
 				'idconductor' => $_POST['idconductor'],
 				'kilometraje' => $_POST['kilometraje'],
@@ -240,6 +240,8 @@ class ControladorInventario
 				'Claxon' => $_POST['Claxon'],
 				'Placas_reglamentarias' => $_POST['Placas_reglamentarias']
 			);
+
+			$datos['id'] = $_POST['inventario_id'];
 
 			if ($_POST['inventario_id'] == "") {
 
