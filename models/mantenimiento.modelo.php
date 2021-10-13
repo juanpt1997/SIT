@@ -220,7 +220,8 @@ class ModeloInventario
                                                             Pasamanos,
                                                             Claxon,
                                                             Placas_reglamentarias,
-                                                            escolar)
+                                                            escolar,
+                                                            tipo_vel_inven)
                                                 VALUES(
                                                     :idvehiculo,
                                                     :idconductor,
@@ -311,7 +312,8 @@ class ModeloInventario
                                                     :Pasamanos,
                                                     :Claxon,
                                                     :Placas_reglamentarias,
-                                                    :escolar
+                                                    :escolar,
+                                                    :tipo_vel_inven
                                                     )");
 
         $stmt->bindParam(":idvehiculo", $datos["idvehiculo"], PDO::PARAM_INT);
@@ -404,6 +406,7 @@ class ModeloInventario
         $stmt->bindParam(":Claxon", $datos["Claxon"], PDO::PARAM_INT);
         $stmt->bindParam(":Placas_reglamentarias", $datos["Placas_reglamentarias"], PDO::PARAM_INT);
         $stmt->bindParam(":escolar", $datos["escolar"], PDO::PARAM_INT);
+        $stmt->bindParam(":tipo_vel_inven", $datos["inventario_tipo_vel"], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             $retorno = "ok";
@@ -514,7 +517,8 @@ class ModeloInventario
                                                             Pasamanos=:Pasamanos,
                                                             Claxon=:Claxon,
                                                             Placas_reglamentarias=:Placas_reglamentarias,
-                                                            escolar=:escolar 
+                                                            escolar=:escolar,
+                                                            tipo_vel_inven=:tipo_vel_inven 
                                                             WHERE id=:id ");
 
         $stmt->bindParam(":id", $datos["id"], PDO::PARAM_INT);
@@ -608,6 +612,7 @@ class ModeloInventario
         $stmt->bindParam(":Claxon", $datos["Claxon"], PDO::PARAM_INT);
         $stmt->bindParam(":Placas_reglamentarias", $datos["Placas_reglamentarias"], PDO::PARAM_INT);
         $stmt->bindParam(":escolar", $datos["escolar"], PDO::PARAM_INT);
+        $stmt->bindParam(":tipo_vel_inven", $datos["inventario_tipo_vel"], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             $retorno = "ok";

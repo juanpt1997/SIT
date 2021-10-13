@@ -323,6 +323,8 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                     </div>
                                                                 </div>
 
+                                                                <hr class="my-4 bg-dark">
+
                                                                 <div class="row">
                                                                     <div class="col">
                                                                         <div class="card card-info card-tabs">

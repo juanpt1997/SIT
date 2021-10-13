@@ -277,6 +277,7 @@ $(document).ready(function () {
           $("#numero_luces").val(response.numero_luces_internas);
           $("#numeroparlantes").val(response.num_parlantes);
           $("#numsalimarti").val(response.Nsalidas_martillos);
+          $("#inventario_tipo_vel").val(response.tipo_vel_inven).trigger("change");
 
           var keys = Object.keys(response);
           var values = Object.values(response);
@@ -616,6 +617,9 @@ $(document).ready(function () {
       });
     });
 
+    /*==========================================================================
+    BOTON SELECCIONAR EL TIPO DE VEHICULO
+    ===========================================================================*/
     $(document).on("change" , "#inventario_tipo_vel", function () {
       let tipo_ve = $(this).val();
 
@@ -623,64 +627,59 @@ $(document).ready(function () {
       {
         //Si selecciona camioneta se quita el atributo requerido para los campos que se esconden
         $(".input-camioneta").addClass("d-none");
-        //$(".camioneta").removeAttr("required"); 
-        // $(".camioneta").each(function () {
-        //  var $camioneta = $(this);
-        //  //$camioneta.removeAttr("required");
-        //  console.log($camioneta);
-        // });
+        $(".camioneta").removeAttr("required"); 
         $(".camioneta").val(0);
-        $("#Balizas1").removeAttr("required");
-        $("#Balizas4").removeAttr("required");
-        $("#Balizas5").removeAttr("required");
-        $("#Trasera_interior_derecha_R51").removeAttr("required");
-        $("#Trasera_interior_derecha_R54").removeAttr("required");
-        $("#Trasera_interior_derecha_R55").removeAttr("required");
-        $("#Trasera_exterior_derecha_R61").removeAttr("required");
-        $("#Trasera_exterior_derecha_R64").removeAttr("required");
-        $("#Trasera_exterior_derecha_R65").removeAttr("required");
-        $("#Radioteléfono1").removeAttr("required");
-        $("#Radioteléfono2").removeAttr("required");
-        $("#Radioteléfono5").removeAttr("required");
-        $("#Manguera_agua1").removeAttr("required");
-        $("#Manguera_agua2").removeAttr("required");
-        $("#Manguera_agua5").removeAttr("required");
-        $("#Manguera_aire1").removeAttr("required");
-        $("#Manguera_aire2").removeAttr("required");
-        $("#Manguera_aire5").removeAttr("required");
-        $("#Pantalla_Televisor1").removeAttr("required");
-        $("#Pantalla_Televisor2").removeAttr("required");
-        $("#Pantalla_Televisor5").removeAttr("required");
-        $("#Reloj1").removeAttr("required");
-        $("#Reloj2").removeAttr("required");
-        $("#Reloj5").removeAttr("required");
-        $("#Brazo_1_Izquierdo_R11").removeAttr("required");
-        $("#Brazo_1_Izquierdo_R12").removeAttr("required");
-        $("#Brazo_1_Izquierdo_R15").removeAttr("required");
-        $("#Brazo_2_Derecho_R21").removeAttr("required");
-        $("#Brazo_2_Derecho_R22").removeAttr("required");
-        $("#Brazo_2_Derecho_R25").removeAttr("required");
-        $("#Brazo_3_Izquierdo_R31").removeAttr("required");
-        $("#Brazo_3_Izquierdo_R32").removeAttr("required");
-        $("#Brazo_3_Izquierdo_R35").removeAttr("required");
-        $("#Brazo_4_Derecho_R61").removeAttr("required");
-        $("#Brazo_4_Derecho_R62").removeAttr("required");
-        $("#Brazo_4_Derecho_R65").removeAttr("required");
-        $("#escolardelantero4").removeAttr("required");
-        $("#escolardelantero5").removeAttr("required");
-        $("#escolar").removeAttr("required");
-        $("#escolar2").removeAttr("required");
-        $("#escolar3").removeAttr("required");
-        $("#numsalimarti").removeAttr("required");
-        $("#Salidas_emergencia_martillos1").removeAttr("required");
-        $("#Salidas_emergencia_martillos2").removeAttr("required");
-        $("#Salidas_emergencia_martillos5").removeAttr("required");
+        // $("#Balizas1").removeAttr("required");
+        // $("#Balizas4").removeAttr("required");
+        // $("#Balizas5").removeAttr("required");
+        // $("#Trasera_interior_derecha_R51").removeAttr("required");
+        // $("#Trasera_interior_derecha_R54").removeAttr("required");
+        // $("#Trasera_interior_derecha_R55").removeAttr("required");
+        // $("#Trasera_exterior_derecha_R61").removeAttr("required");
+        // $("#Trasera_exterior_derecha_R64").removeAttr("required");
+        // $("#Trasera_exterior_derecha_R65").removeAttr("required");
+        // $("#Radioteléfono1").removeAttr("required");
+        // $("#Radioteléfono2").removeAttr("required");
+        // $("#Radioteléfono5").removeAttr("required");
+        // $("#Manguera_agua1").removeAttr("required");
+        // $("#Manguera_agua2").removeAttr("required");
+        // $("#Manguera_agua5").removeAttr("required");
+        // $("#Manguera_aire1").removeAttr("required");
+        // $("#Manguera_aire2").removeAttr("required");
+        // $("#Manguera_aire5").removeAttr("required");
+        // $("#Pantalla_Televisor1").removeAttr("required");
+        // $("#Pantalla_Televisor2").removeAttr("required");
+        // $("#Pantalla_Televisor5").removeAttr("required");
+        // $("#Reloj1").removeAttr("required");
+        // $("#Reloj2").removeAttr("required");
+        // $("#Reloj5").removeAttr("required");
+        // $("#Brazo_1_Izquierdo_R11").removeAttr("required");
+        // $("#Brazo_1_Izquierdo_R12").removeAttr("required");
+        // $("#Brazo_1_Izquierdo_R15").removeAttr("required");
+        // $("#Brazo_2_Derecho_R21").removeAttr("required");
+        // $("#Brazo_2_Derecho_R22").removeAttr("required");
+        // $("#Brazo_2_Derecho_R25").removeAttr("required");
+        // $("#Brazo_3_Izquierdo_R31").removeAttr("required");
+        // $("#Brazo_3_Izquierdo_R32").removeAttr("required");
+        // $("#Brazo_3_Izquierdo_R35").removeAttr("required");
+        // $("#Brazo_4_Derecho_R61").removeAttr("required");
+        // $("#Brazo_4_Derecho_R62").removeAttr("required");
+        // $("#Brazo_4_Derecho_R65").removeAttr("required");
+        // $("#escolardelantero4").removeAttr("required");
+        // $("#escolardelantero5").removeAttr("required");
+        // $("#escolar").removeAttr("required");
+        // $("#escolar2").removeAttr("required");
+        // $("#escolar3").removeAttr("required");
+        // $("#numsalimarti").removeAttr("required");
+        // $("#Salidas_emergencia_martillos1").removeAttr("required");
+        // $("#Salidas_emergencia_martillos2").removeAttr("required");
+        // $("#Salidas_emergencia_martillos5").removeAttr("required");
 
       } else{
 
         $(".input-camioneta").removeClass("d-none");
+        $('.camioneta').prop("required", true);      
         //$(".camioneta").removeAttr("required");
-        //$('.camioneta').prop("required", true);      
       }
     });
   }
