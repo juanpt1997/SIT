@@ -434,8 +434,21 @@
                                     <p>Inventario</p>
                                 </a>
                             </li>
+                        
+
+                            <!-- ===================================================
+                                    Revison tecnomecánica 
+                                =================================================== -->
+
+                            <li class="nav-item">
+                                <a href="m-revision-tm" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Revision TM</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
+                    
                 <?php endif ?>
 
                 <!-- ===================================================
