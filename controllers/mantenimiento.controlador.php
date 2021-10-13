@@ -238,8 +238,8 @@ class ControladorInventario
 				'Cinturon_sillas_calidad' => $_POST['Cinturon_sillas_calidad'],
 				'Pasamanos' => $_POST['Pasamanos'],
 				'Claxon' => $_POST['Claxon'],
-				'Placas_reglamentarias' => $_POST['Placas_reglamentarias'],
-				'inventario_tipo_vel' => $_POST['inventario_tipo_vel']
+				'Placas_reglamentarias' => $_POST['Placas_reglamentarias']
+				//'inventario_tipo_vel' => $_POST['inventario_tipo_vel']
 			);
 			// Asignacion de valor NULL en caso de que el tipo de vehiculo sea una camioneta (se desactivan los campos)
 			$datos['balizas'] = isset($_POST['balizas']) ? $_POST['balizas'] : null;

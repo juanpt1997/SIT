@@ -76,12 +76,11 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                         <i class="fas fa-shuttle-van"></i>
                                                     </h4>
                                                     <div id="col_fotos_inventario">
-
                                                     </div> -->
                                                     <hr class="my-5">
                                                     <h4><b><i>Imágenes del vehículo</i></b> <i class="fas fa-shuttle-van"></i></h4>
 
-                                                    <div id="col_fotos_inventario" class="col" data-ride="carousel">
+                                                    <div id="col_fotos_inventario" class="col-12 carousel slide" data-ride="carousel">
                                                         <ol class="carousel-indicators">
                                                             <!-- SE LLENA DESDE JAVASCRIPT -->
                                                         </ol>
@@ -97,7 +96,6 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                             <span class="sr-only">Next</span>
                                                         </a>
                                                     </div>
-
                                                 </div>
 
 
@@ -304,26 +302,13 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
 
                                                                 <hr class="my-4 bg-dark">
 
-                                                                <!-- <div class="col">
+                                                                <div class="col">
                                                                     <div class="form-group">
                                                                         <div class="input-group">
                                                                             <h4><b><i>Inventario</i></b></h4>
                                                                         </div>
                                                                     </div>
-                                                                </div> -->
-
-                                                                <div class="form-group">
-                                                                    <label for=""><b><i>TIPO DE VEHÍCULO</i></b></label>
-                                                                    <div class="input-group">
-                                                                        <select id="inventario_tipo_vel" class="form-control" name="inventario_tipo_vel" style="width: 99%">
-                                                                            <option value="" selected>-Seleccione el tipo de vehículo-</option>
-                                                                            <option value="bus">Bus - Buseta</option>
-                                                                            <option value="camioneta">Camioneta - Micro</option>
-                                                                        </select>
-                                                                    </div>
                                                                 </div>
-
-                                                                <hr class="my-4 bg-dark">
 
                                                                 <div class="row">
                                                                     <div class="col">
@@ -331,7 +316,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                             <div class="card-header p-0 pt-1">
                                                                                 <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist" style="text-decoration: none;">
                                                                                     <li class="pt-2 px-3">
-                                                                                        <h3 class="card-title">INVENTARIO</h3>
+                                                                                        <h3 class="card-title">Registro</h3>
                                                                                     </li>
                                                                                     <li class="nav-item">
                                                                                         <a class="nav-link active" id="custom-tabs-one-lamina-tab" data-toggle="pill" href="#custom-tabs-one-lamina" role="tab" aria-controls="custom-tabs-one-lamina" aria-selected="true">Láminas</a>
