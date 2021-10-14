@@ -188,7 +188,8 @@ if (isset($_GET['pagina'])) {
                         include "modulos/contratos/{$ruta}.php";
                     } else if ( # Mantenimiento
                         $ruta == "m-proveedores" ||
-                        $ruta == "m-inventario"
+                        $ruta == "m-inventario" ||
+                        $ruta == "m-revision-tm"
                     ) {
                         include "modulos/mantenimiento/{$ruta}.php";
                     } else if ( # Operaciones

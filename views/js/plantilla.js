@@ -497,5 +497,4 @@ $(document).ready(function () {
     //data-backdrop="static" data-keyboard="false"
     $(".modal").attr("data-backdrop", "static");
     $(".modal").attr("data-keyboard", "false");
-
 });
