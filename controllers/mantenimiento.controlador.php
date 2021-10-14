@@ -239,7 +239,28 @@ class ControladorInventario
 				'Pasamanos' => $_POST['Pasamanos'],
 				'Claxon' => $_POST['Claxon'],
 				'Placas_reglamentarias' => $_POST['Placas_reglamentarias']
+				//'inventario_tipo_vel' => $_POST['inventario_tipo_vel']
 			);
+			// Asignacion de valor NULL en caso de que el tipo de vehiculo sea una camioneta (se desactivan los campos)
+			$datos['balizas'] = isset($_POST['balizas']) ? $_POST['balizas'] : null;
+			$datos['Trasera_interior_derecha_R5'] = isset($_POST['Trasera_interior_derecha_R5']) ? $_POST['Trasera_interior_derecha_R5'] : null;
+			$datos['Trasera_exterior_derecha_R6'] = isset($_POST['Trasera_exterior_derecha_R6']) ? $_POST['Trasera_exterior_derecha_R6'] : null;
+			$datos['Radiotelefono'] = isset($_POST['Radiotelefono']) ? $_POST['Radiotelefono'] : null;
+			$datos['Manguera_agua'] = isset($_POST['Manguera_agua']) ? $_POST['Manguera_agua'] : null;
+			$datos['Manguera_aire'] = isset($_POST['Manguera_aire']) ? $_POST['Manguera_aire'] : null;
+			$datos['Pantalla_Televisor'] = isset($_POST['Pantalla_Televisor']) ? $_POST['Pantalla_Televisor'] : null;
+			$datos['Reloj'] = isset($_POST['Reloj']) ? $_POST['Reloj'] : null;
+			$datos['Brazo_1_Izquierdo_R1'] = isset($_POST['Brazo_1_Izquierdo_R1']) ? $_POST['Brazo_1_Izquierdo_R1'] : null;
+			$datos['Brazo_2_Derecho_R2'] = isset($_POST['Brazo_2_Derecho_R2']) ? $_POST['Brazo_2_Derecho_R2'] : null;
+			$datos['Brazo_3_Izquierdo_R3'] = isset($_POST['Brazo_3_Izquierdo_R3']) ? $_POST['Brazo_3_Izquierdo_R3'] : null;
+			$datos['Brazo_4_Derecho_R6'] = isset($_POST['Brazo_4_Derecho_R6']) ? $_POST['Brazo_4_Derecho_R6'] : null;
+			$datos['escolar_delantero_trasero'] = isset($_POST['escolar_delantero_trasero']) ? $_POST['escolar_delantero_trasero'] : null;
+			$datos['escolar'] = isset($_POST['escolar']) ? $_POST['escolar'] : null;
+			$datos['Salidas_emergencia_martillos'] = isset($_POST['Salidas_emergencia_martillos']) ? $_POST['Salidas_emergencia_martillos'] : null;
+			$datos['Nsalidas_martillos'] = isset($_POST['Nsalidas_martillos']) ? $_POST['Nsalidas_martillos'] : null;
+			$datos['Reloj'] = isset($_POST['Reloj']) ? $_POST['Reloj'] : null;
+			$datos['Reloj'] = isset($_POST['Reloj']) ? $_POST['Reloj'] : null;
+			$datos['Reloj'] = isset($_POST['Reloj']) ? $_POST['Reloj'] : null;
 
 			if ($_POST['inventario_id'] == "") {
 
