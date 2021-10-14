@@ -107,8 +107,7 @@ $(document).ready(function () {
         $(".documentos").val("");
       }
 
-    AjaxTablaEvidencias(idvehiculo);
-
+      AjaxTablaEvidencias(idvehiculo);
 
       // Datos del vehiculo
       var datos = new FormData();
@@ -130,6 +129,8 @@ $(document).ready(function () {
           $("#modelo_invent").val(Vehiculo.datosVehiculo.modelo);
           //Funcion para cargar las fotos del vehiculo segun ese id
           cargarFotosVehiculo(Vehiculo.fotosVehiculo);
+          //CAMBIAR INVENTARIO SEGUN EL TIPO DE VEHICULO
+          inventario_tipo_vel(Vehiculo.datosVehiculo.tipovehiculo);
         },
       });
 
@@ -171,17 +172,12 @@ $(document).ready(function () {
         contentType: false,
         processData: false,
         success: function (response) {
-
           if (response != "") {
-
             let htmlSelect = `<option value="" selected>-Seleccione un conductor</option>`;
 
             if (response != "") {
-
               response.forEach((element) => {
-
                 htmlSelect += `<option class="inv-conductor" value="${element.idconductor}">${element.Documento} - ${element.conductor}</option>`;
-
               });
             }
 
@@ -277,6 +273,7 @@ $(document).ready(function () {
           $("#numero_luces").val(response.numero_luces_internas);
           $("#numeroparlantes").val(response.num_parlantes);
           $("#numsalimarti").val(response.Nsalidas_martillos);
+          //$("#inventario_tipo_vel").val(response.tipo_vel_inven).trigger("change");
 
           var keys = Object.keys(response);
           var values = Object.values(response);
@@ -351,18 +348,16 @@ $(document).ready(function () {
         },
       });
     };
-    
+
     /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
     FUNCION PARA CARGAR LAS FOTOS DE LOS VEHICULOS
     ==========================================================================*/
     let cargarFotosVehiculo = (response) => {
-      
       //let htmljumbo = ``;
       let htmlcarouselindicators = ``;
       let htmlcarouselinner = ``;
 
       for (let index = 0; index < response.length; index++) {
-
         // htmljumbo += `<div class="jumbotron jumbotron-fluid">
         //                 <div class="container insertar_fotos">
         //                   <img src="${response[index].ruta_foto}" class="d-block w-100" alt="...">
@@ -372,18 +367,36 @@ $(document).ready(function () {
 
         let activo = index == 0 ? `active` : ``;
 
-                htmlcarouselindicators += `<li data-target="#col_fotos_inventario" data-slide-to="${index}" class="${activo}"></li>`;
-                htmlcarouselinner += `<div class="carousel-item ${activo}">
+        htmlcarouselindicators += `<li data-target="#col_fotos_inventario" data-slide-to="${index}" class="${activo}"></li>`;
+        htmlcarouselinner += `<div class="carousel-item ${activo}">
                                             <div class="btn-group my-1" role="group" aria-label="Basic example">
                                                 <a class="btn btn-info" href="${response[index].ruta_foto}" target="_blank"><i class="fas fa-external-link-alt"></i></a>
                                             </div>
                                             <img src="${response[index].ruta_foto}" class="d-block w-100" alt="...">
-                                        </div>`;
+                              </div>`;
       }
 
       //$("#col_fotos_inventario").html(htmljumbo);
       $("#col_fotos_inventario").find(".carousel-indicators").html(htmlcarouselindicators);
       $("#col_fotos_inventario").find(".carousel-inner").html(htmlcarouselinner);
+    };
+
+    /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+    FUNCION PARA CAMBIAR EL INVENTARIO SEGUN EL TIPO DE VEHICULO
+    ==========================================================================*/
+    let inventario_tipo_vel = (response) => {
+      if (
+        response == "Camioneta" ||
+        response == "Camioneta Doble Cabina" ||
+        response == "Microbus"
+      ) {
+        $(".input-camioneta").addClass("d-none");
+        $(".camioneta").removeAttr("required");
+        $(".camioneta").val(0);
+      } else {
+        $(".input-camioneta").removeClass("d-none");
+        $(".camioneta").prop("required", true);
+      }
     };
 
     /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
@@ -413,7 +426,6 @@ $(document).ready(function () {
             contentType: false,
             processData: false,
             success: function (response) {
- 
               if (response == "ok") {
                 Swal.fire({
                   icon: "success",
@@ -451,7 +463,6 @@ $(document).ready(function () {
     BOTON CAMBIAR ESTADO EVIDENCIA
     ==========================================================================*/
     $(document).on("click", ".btn-estado", function () {
-      
       var $boton = $(this);
       var idevidencia = $(this).attr("idevidencia");
       var idvehiculo = $(this).attr("idvehiculo");
@@ -543,30 +554,29 @@ $(document).ready(function () {
 
     /*==========================================================================
     BOTON VALIDAR INPUTS REQUERIDOS
-    ==========================================================================*/   
+    ==========================================================================*/
     $(document).on("click", ".btn-agregar-inventario", function () {
       Requeridos = [];
 
-      $('input:invalid').each(function (index, element) {
-          var $input = $(this);
+      $("input:invalid").each(function (index, element) {
+        var $input = $(this);
 
-          var idform = $input.closest("form").attr("id");
+        var idform = $input.closest("form").attr("id");
 
-          if (idform == "formulario_inventario") {
-              Requeridos.push($input);
-          }
+        if (idform == "formulario_inventario") {
+          Requeridos.push($input);
+        }
       });
 
       if (Requeridos.length > 0) {
-          Swal.fire({
-              icon: 'warning',
-              text: 'Verifique que ha diligenciado todos los datos necesarios',
-              showConfirmButton: false,
-              timer: 1600,
-          });
+        Swal.fire({
+          icon: "warning",
+          text: "Verifique que ha diligenciado todos los datos necesarios",
+          showConfirmButton: false,
+          timer: 1600,
+        });
       }
-
-  });
+    });
 
     /*==========================================================================
     BOTON ELIMINAR INVENTARIO
