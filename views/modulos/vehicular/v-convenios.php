@@ -28,10 +28,10 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                 <div class="col-sm-6">
                     <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
                         <li class="nav-item border border-info rounded ml-2 mb-1 mb-md-0">
-                            <a class="nav-link active h4" id="pills-empresas-tab" data-toggle="tab" href="#pills-empresas" role="tab" aria-controls="pills-empresas" aria-selected="true">Empresas</a>
+                            <a class="nav-link active h4" id="pills-empresas-tab" data-toggle="tab" href="#pills-empresas" role="tab" aria-controls="pills-empresas" aria-selected="true">Empresas <i class="fas fa-building"></i></a>
                         </li>
                         <li class="nav-item border border-info rounded ml-2 mb-1 mb-md-0">
-                            <a class="nav-link h4" id="pills-convenios-tab" data-toggle="tab" href="#pills-convenios" role="tab" aria-controls="pills-convenios" aria-selected="false">Convenios</a>
+                            <a class="nav-link h4" id="pills-convenios-tab" data-toggle="tab" href="#pills-convenios" role="tab" aria-controls="pills-convenios" aria-selected="false">Convenios <i class="fas fa-file-contract"></i></a>
                         </li>
                     </ul>
                 </div><!-- /.col -->

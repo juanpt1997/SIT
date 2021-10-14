@@ -18,7 +18,7 @@ $listaUltimo = ControladorBloqueosV::ctrUltimoBloqueoV();
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark "><i><b>Bloqueo de vehículos</b></i></h1>
+                    <h1 class="m-0 text-dark "><i><b>Bloqueo de vehículos <i class="fas fa-ban"></i></b></i></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
