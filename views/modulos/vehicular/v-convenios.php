@@ -167,9 +167,11 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
+                                                                    <?php if (validarPermiso('M_VEHICULAR', 'D')) : ?>
                                                                     <div class="btn-group" role="group" aria-label="Button group">
                                                                         <button class="btn btn-xs btn-danger btnBorrarConv" idConvenio="<?= $value['idconvenio']?>"> <i class="fas fa-trash"></i> </button>
                                                                     </div>
+                                                                    <?php endif ?>
                                                                 </div>
                                                                 
                                                             </div>
@@ -535,8 +537,10 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
 
                 <div class="modal-footer bg-dark">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+                    <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
                     <button type="submit" form="datosconvenio_form" class="btn btn-success">
                         <i class="fas fa-save"></i> Guardar</button>
+                    <?php endif ?>
                     
                 </div>
 
