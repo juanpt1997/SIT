@@ -590,10 +590,11 @@ class ModeloOrdenServicio
 
    static public function mdlEditarOrden($datos)
    {
-      $stmt = Conexion::conectar()->prepare("UPDATE cont_ordenservicio set nro_contrato=:nro_contrato, nro_factura=:nro_factura, fecha_facturacion=:fecha_facturacion, cancelada=:cancelada, cod_autoriz=:cod_autoriz
+      $stmt = Conexion::conectar()->prepare("UPDATE cont_ordenservicio set idcotizacion=:idcotizacion, nro_contrato=:nro_contrato, nro_factura=:nro_factura, fecha_facturacion=:fecha_facturacion, cancelada=:cancelada, cod_autoriz=:cod_autoriz
 											            WHERE idorden = :idorden");
 
       $stmt->bindParam(":idorden", $datos["idorden"], PDO::PARAM_INT);
+      $stmt->bindParam(":idcotizacion", $datos["idcotizacion"], PDO::PARAM_INT);
       $stmt->bindParam(":nro_contrato", $datos["nro_contrato"], PDO::PARAM_INT);
       $stmt->bindParam(":nro_factura", $datos["nro_factura"], PDO::PARAM_STR);
       $stmt->bindParam(":fecha_facturacion", $datos["fecha_facturacion"], PDO::PARAM_STR);

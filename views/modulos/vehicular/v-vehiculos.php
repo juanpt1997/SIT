@@ -579,9 +579,11 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="col-12 text-right"><p class="text-sm font-italic">Nota: Para establecer un convenio debe realizarse desde la opción de <a href="v-convenios" target="_blank">convenios</a> y volver a abrir esta ventana.</p></div>
                                     </div>
 
-                                    <hr class="my-4 bg-dark">
+                                    <hr class="my-2 bg-dark">
 
                                     <div class="row">
                                         <div class="col-md-6">
