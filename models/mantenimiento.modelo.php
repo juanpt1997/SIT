@@ -756,3 +756,22 @@ class ModeloInventario
         return $retorno;
     }
 }
+
+class ModeloRevision
+{
+    static public function mdlListadoRevision()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT vh.placa AS placa, vh.numinterno AS numinterno, vh.modelo AS modelo, vh.idvehiculo AS idvehiculo,
+		                                        tm.kilometraje AS kilometraje, 
+		                                        tv.tipovehiculo AS tipovehiculo
+	 	                                        FROM m_revisiontm tm 
+		                                        INNER JOIN v_vehiculos vh ON tm.idvehiculo = vh.idvehiculo
+		                                        INNER JOIN v_tipovehiculos tv ON vh.idtipovehiculo = tv.idtipovehiculo 
+		                                        WHERE tm.estado = 1"); 
+
+        $stmt->execute();
+        $respuesta = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
+}

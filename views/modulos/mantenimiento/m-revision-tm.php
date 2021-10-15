@@ -1,7 +1,8 @@
-
-
-<?php 
+<?php
 $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
+$ListadoRevision = ControladorRevision::ctrListadoRevision();
+$Placas = ControladorVehiculos::ctrListaVehiculos();
+$Vehiculos = ControladorVehiculos::ctrMostrarTipoVehiculo();
 ?>
 
 <!-- ===================== 
@@ -29,239 +30,441 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
     </div>
     <!-- /.content-header -->
 
+
+
+    <!-- TABLA -->
     <div class="content">
         <div class="container-fluid">
             <hr class="my-4">
-
             <div class="row">
                 <div class="col-12">
-                    <button type="button" class="btn bg-gradient-success btn-nuevaRevision" data-toggle="modal" data-target="#modal-nuevaRevisiontm"><i class="fas fa-bus"></i> Nuevo</button>
+                    <button type="button" class="btn bg-gradient-success btn-nuevaRevision" data-toggle="modal" data-target="#modal-nuevaRevision"><i class="fas fa-bus"></i> Nuevo</button>
                 </div>
+            </div>
+            <!-- ===================== 
+              AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
+            ========================= -->
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div class="card card-outline card-success">
+                        <div class="card-body">
+                            <!--|||TABLA PROTOCOLO DE ALISTAMIENTO|||-->
+                            <table id="tblRevision" class="table table-responsive table-bordered table-striped text-center tablasBtnExport w-100">
+                                <thead class="text-nowrap text-sm">
+                                    <tr>
+                                        <th colspan="7">INFORMACIÓN GENERAL</th>
+                                        <th colspan="13">SISTEMA DE POTENCIA</th>
+                                        <th colspan="13">SISTEMA DE TRANSMISIÓN Y DIFERENCIA</th>
+                                        <th colspan="10">SISTEMA MUELLES Y SUSPENSIÓN</th>
+                                        <th colspan="10">SISTEMA DE DIRECCIÓN</th>
+                                        <th colspan="24">SISTEMA DE FRENOS Y LLANTAS</th>
+                                        <th colspan="22">SISTEMA ELÉCTRICO</th>
+                                        <th colspan="29">CARROCERIA</th>
+                                        <th colspan="31">ACCESORIOS Y OTROS</th>
+                                        <th colspan="7">EQUIPO DE PREVENCION Y SEGURIDAD</th>
+                                        <th colspan="5">HERRAMIENTA</th>
+                                        <th colspan="1"></th>
+                                    </tr>
+                                    <tr>
+                                        <th>...</th>
+                                        <th style="min-width:70px;">Placa</th>
+                                        <th>Número interno</th>
+                                        <th style="min-width:80px;">Modelo</th>
+                                        <th>Clase de vehículo</th>
+                                        <th>Kilometraje</th>
+                                        <th>Seguro obligatorio</th>
+                                        <th>Nivel de refrigerante </th>
+                                        <th>Nivel de aceite motor</th>
+                                        <th>Radiador</th>
+                                        <th>Mangueras y conexiones</th>
+                                        <th>Correas</th>
+                                        <th>Motor</th>
+                                        <th>Freno de ahogo</th>
+                                        <th>Exosto</th>
+                                        <th>Guaya de aceleración</th>
+                                        <th>Turbo</th>
+                                        <th>Tapa de radiador</th>
+                                        <th>Fuga de aceite</th>
+                                        <th>Fuga de combustible</th>
+                                        <th>Nivel de aceite transmisión</th>
+                                        <th>Transmisión</th>
+                                        <th>Tapon drenaje de transmisión</th>
+                                        <th>Revision sistema palanca de cambios</th>
+                                        <th>Embrague</th>
+                                        <th>Caucho pedal embrague</th>
+                                        <th>Cruceta de cardan</th>
+                                        <th>Cojinete intermedio de cardan</th>
+                                        <th>Cadena de cardan</th>
+                                        <th>Nivel de aceite diferencial</th>
+                                        <th>Tapón drenaje de dierencial</th>
+                                        <th>Fuga de aceite de transmisión</th>
+                                        <th>Fuga de aceite diferencial</th>
+                                        <th>Muelle delantero derecho</th>
+                                        <th>Amortiguador delantero derecho</th>
+                                        <th>Muelle delantero izquierdo</th>
+                                        <th>Amortiguador delantero izquierdo</th>
+                                        <th>Muelle trasero derecho</th>
+                                        <th>Amortiguador trasero derecho</th>
+                                        <th>Muelle trasero izquierdo</th>
+                                        <th>Amortiguador trasero izquierdo</th>
+                                        <th>Barra estabilizadora</th>
+                                        <th>Grapas y tornillo pasador central</th>
+                                        <th>Nivel de aceite hidráulico</th>
+                                        <th>Mangueras y lineas</th>
+                                        <th>Brazo pitman</th>
+                                        <th>Barra entre ejes</th>
+                                        <th>Tijeras</th>
+                                        <th>Splinders</th>
+                                        <th>Timón</th>
+                                        <th>Cajas de dirección</th>
+                                        <th>Cruceta de dirección</th>
+                                        <th>Fugas caja de dirección</th>
+                                        <th>Nivel de fluido</th>
+                                        <th>Mangueras y tuberias</th>
+                                        <th>Freno de parqueo</th>
+                                        <th>Frenos</th>
+                                        <th>Pedal de freno</th>
+                                        <th>Compresor</th>
+                                        <th>Fugas de aire</th>
+                                        <th>Bandas delantera derecha</th>
+                                        <th>Bandas delantera izquierda</th>
+                                        <th>Bandas trasera derecha</th>
+                                        <th>Bandas trasera izquierda</th>
+                                        <th>Rachets</th>
+                                        <th>Discos delanteros</th>
+                                        <th>Discos traseros</th>
+                                        <th>Pastillas de freno</th>
+                                        <th>Rines</th>
+                                        <th>Llantas R1</th>
+                                        <th>Llantas R2</th>
+                                        <th>Llantas R3</th>
+                                        <th>Llantas R4</th>
+                                        <th>Llantas R5</th>
+                                        <th>Llantas R6</th>
+                                        <th>Llanta de repuesto</th>
+                                        <th>Chequeo tanques de aire</th>
+                                        <th>Luces altas</th>
+                                        <th>Luces bajas</th>
+                                        <th>Luces direccionales</th>
+                                        <th>Luces estacionarias</th>
+                                        <th>Luces laterales</th>
+                                        <th>Luces de reversa</th>
+                                        <th>Luces internas</th>
+                                        <th>Luces delimitadoras</th>
+                                        <th>Alarma de reversa</th>
+                                        <th>Motor de arranque</th>
+                                        <th>Alternador</th>
+                                        <th>Baterias</th>
+                                        <th>Pito</th>
+                                        <th>Rutero</th>
+                                        <th>Cables y conexiones</th>
+                                        <th>Fusibles</th>
+                                        <th>Presión de aceite motor</th>
+                                        <th>Temperatura motor</th>
+                                        <th>Velocímetro</th>
+                                        <th>Nivel de combustible</th>
+                                        <th>Presión de aire</th>
+                                        <th>Carga de batería</th>
+                                        <th>Techo exterior</th>
+                                        <th>Techo interior</th>
+                                        <th>Bomper delantero</th>
+                                        <th>Bomper trasero</th>
+                                        <th>Frente</th>
+                                        <th>Lamina lateral derecho</th>
+                                        <th>Lamina lateral izquierdo</th>
+                                        <th>Estado de puerta principal</th>
+                                        <th>Estado de puerta lateral</th>
+                                        <th>Estribos de puertas</th>
+                                        <th>Sillas</th>
+                                        <th>Descansabrazos</th>
+                                        <th>Bocallanta</th>
+                                        <th>Guardapolvos</th>
+                                        <th>Piso</th>
+                                        <th>Parabrisas derecho</th>
+                                        <th>Brazo limpiaparabrizas derecho</th>
+                                        <th>Plumillas limpiaparabrizas derecho</th>
+                                        <th>Parabrisas izquierdo</th>
+                                        <th>Brazo limpiaparabrizas izquierdo</th>
+                                        <th>Plumillas limpiaparabrizas izquierdo</th>
+                                        <th>Espejo retrovisor derecho</th>
+                                        <th>Espejo retrovisor izquierdo</th>
+                                        <th>Espejo central</th>
+                                        <th>Ventanas laterales lado derecho</th>
+                                        <th>Ventanas laterales lado izquierdo</th>
+                                        <th>Parabrisas trasero</th>
+                                        <th>Vidrios de puerta principal</th>
+                                        <th>Vidrios de segunda puerta</th>
+                                        <th>Manijas ventanas</th>
+                                        <th>Claraboyas</th>
+                                        <th>Airbag</th>
+                                        <th>Aire acondicionado</th>
+                                        <th>Limpieza</th>
+                                        <th>Chapas de puertas</th>
+                                        <th>Parales</th>
+                                        <th>Booster de puertas</th>
+                                        <th>Relog vigia</th>
+                                        <th>Vigia rueda delantera derecha</th>
+                                        <th>Vigia rueda delantera izquierda</th>
+                                        <th>Vigia rueda trasera derecha</th>
+                                        <th>Vigia rueda trasera izquierda</th>
+                                        <th>Tapa motor</th>
+                                        <th>Tapa bodegas</th>
+                                        <th>Parasol</th>
+                                        <th>Cenefas</th>
+                                        <th>Emblema izquierdo empresa</th>
+                                        <th>Emblema derecho empresa</th>
+                                        <th>Emblema trasero empresa</th>
+                                        <th>Equipo de audio</th>
+                                        <th>Parlantes</th>
+                                        <th>Cinturon sillas usuario</th>
+                                        <th>Martillos salida de emergencia</th>
+                                        <th>Dispositivo de velocidad</th>
+                                        <th>Avisos</th>
+                                        <th>Placa trasera</th>
+                                        <th>Placa delantera</th>
+                                        <th>Placa lateral derecha</th>
+                                        <th>Placa lateral izquierda</th>
+                                        <th>Balizas</th>
+                                        <th>Cinturón</th>
+                                        <th>Gato</th>
+                                        <th>Cruceta o copa</th>
+                                        <th>Señales de carretera</th>
+                                        <th>Botiquin</th>
+                                        <th>Extintor</th>
+                                        <th>2 Tacos</th>
+                                        <th>Alicate</th>
+                                        <th>Destornilladores</th>
+                                        <th>Llaves de expansión</th>
+                                        <th>Llaves fijas</th>
+                                        <th>Linterna con pila</th>
+                                        <th>Observación</th>
+                                    </tr>
 
-                <div class="row mt-2">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header bg-info"></div>
-                                <div class="card-body">
+                                </thead>
 
-                                    <div class="table-responsive">
-                                        <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
-                                            <thead class="thead-light text-sm text-center text-nowrap">
-                                            <tr>
-                                            <th colspan="7">INFORMACIÓN GENERAL</th>
-                                            <th colspan="13">SISTEMA DE POTENCIA</th>
-                                            <th colspan="13">SISTEMA DE TRANSMISIÓN Y DIFERENCIA</th>
-                                            <th colspan="10">SISTEMA MUELLES Y SUSPENSIÓN</th>
-                                            <th colspan="10">SISTEMA DE DIRECCIÓN</th>
-                                            <th colspan="24">SISTEMA DE FRENOS Y LLANTAS</th>
-                                            <th colspan="22">SISTEMA ELÉCTRICO</th>
-                                            <th colspan="29">CARROCERIA</th>
-                                            <th colspan="31">ACCESORIOS Y OTROS</th>
-                                            <th colspan="7">EQUIPO DE PREVENCION Y SEGURIDAD</th>
-                                            <th colspan="5">HERRAMIENTA</th>
-                                            <th colspan="1">Observación</th>
-                                        </tr>
 
+                                <tbody class="text-sm">
+                                    <?php foreach ($ListadoRevision as $key => $value) : ?>
                                         <tr>
-                                            <th>...</th>
-                                            <th style="min-width:70px;">Placa</th>
-                                            <th>Número interno</th>
-                                            <th style="min-width:80px;">Modelo</th>
-                                            <th>Clase de vehículo</th>
-                                            <th>Kilometraje</th>
-                                            <th>Seguro obligatorio</th>
-                                            <th>Nivel de refrigerante </th>
-                                            <th>Nivel de aceite motor</th>
-                                            <th>Radiador</th>
-                                            <th>Mangueras y conexiones</th>
-                                            <th>Correas</th>
-                                            <th>Motor</th>
-                                            <th>Freno de ahogo</th>
-                                            <th>Exosto</th>
-                                            <th>Guaya de aceleración</th>
-                                            <th>Turbo</th>
-                                            <th>Tapa de radiador</th>
-                                            <th>Fuga de aceite</th>
-                                            <th>Fuga de combustible</th>
-                                            <th>Nivel de aceite transmisión</th>
-                                            <th>Transmisión</th>
-                                            <th>Tapon drenaje de transmisión</th>
-                                            <th>Revision sistema palanca de cambios</th>
-                                            <th>Embrague</th>
-                                            <th>Caucho pedal embrague</th>
-                                            <th>Cruceta de cardan</th>
-                                            <th>Cojinete intermedio de cardan</th>
-                                            <th>Cadena de cardan</th>
-                                            <th>Nivel de aceite diferencial</th>
-                                            <th>Tapón drenaje de dierencial</th>
-                                            <th>Fuga de aceite de transmisión</th>
-                                            <th>Fuga de aceite diferencial</th>
-                                            <th>Muelle delantero derecho</th>
-                                            <th>Amortiguador delantero derecho</th>
-                                            <th>Muelle delantero izquierdo</th>
-                                            <th>Amortiguador delantero izquierdo</th>
-                                            <th>Muelle trasero derecho</th>
-                                            <th>Amortiguador trasero derecho</th>
-                                            <th>Muelle trasero izquierdo</th>
-                                            <th>Amortiguador trasero izquierdo</th>
-                                            <th>Barra estabilizadora</th>
-                                            <th>Grapas y tornillo pasador central</th>
-                                            <th>Nivel de aceite hidráulico</th>
-                                            <th>Mangueras y lineas</th>
-                                            <th>Brazo pitman</th>
-                                            <th>Barra entre ejes</th>
-                                            <th>Tijeras</th>
-                                            <th>Splinders</th>
-                                            <th>Timón</th>
-                                            <th>Cajas de dirección</th>
-                                            <th>Cruceta de dirección</th>
-                                            <th>Fugas caja de dirección</th>
-                                            <th>Nivel de fluido</th>
-                                            <th>Mangueras y tuberias</th>
-                                            <th>Freno de parqueo</th>
-                                            <th>Frenos</th>
-                                            <th>Pedal de freno</th>
-                                            <th>Compresor</th>
-                                            <th>Fugas de aire</th>
-                                            <th>Bandas delantera derecha</th>
-                                            <th>Bandas delantera izquierda</th>
-                                            <th>Bandas trasera derecha</th>
-                                            <th>Bandas trasera izquierda</th>
-                                            <th>Rachets</th>
-                                            <th>Discos delanteros</th>
-                                            <th>Discos traseros</th>
-                                            <th>Pastillas de freno</th>
-                                            <th>Rines</th>
-                                            <th>Llantas R1</th>
-                                            <th>Llantas R2</th>
-                                            <th>Llantas R3</th>
-                                            <th>Llantas R4</th>
-                                            <th>Llantas R5</th>
-                                            <th>Llantas R6</th>
-                                            <th>Llanta de repuesto</th>
-                                            <th>Chequeo tanques de aire</th>
-                                            <th>Luces altas</th>
-                                            <th>Luces bajas</th>
-                                            <th>Luces direccionales</th>
-                                            <th>Luces estacionarias</th>
-                                            <th>Luces laterales</th>
-                                            <th>Luces de reversa</th>
-                                            <th>Luces internas</th>
-                                            <th>Luces delimitadoras</th>
-                                            <th>Alarma de reversa</th>
-                                            <th>Motor de arranque</th>
-                                            <th>Alternador</th>
-                                            <th>Baterias</th>
-                                            <th>Pito</th>
-                                            <th>Rutero</th>
-                                            <th>Cables y conexiones</th>
-                                            <th>Fusibles</th>
-                                            <th>Presión de aceite motor</th>
-                                            <th>Temperatura motor</th>
-                                            <th>Velocímetro</th>
-                                            <th>Nivel de combustible</th>
-                                            <th>Presión de aire</th>
-                                            <th>Carga de batería</th>
-                                            <th>Techo exterior</th>
-                                            <th>Techo interior</th>
-                                            <th>Bomper delantero</th>
-                                            <th>Bomper trasero</th>
-                                            <th>Frente</th>
-                                            <th>Lamina lateral derecho</th>
-                                            <th>Lamina lateral izquierdo</th>
-                                            <th>Estado de puerta principal</th>
-                                            <th>Estado de puerta lateral</th>
-                                            <th>Estribos de puertas</th>
-                                            <th>Sillas</th>
-                                            <th>Descansabrazos</th>
-                                            <th>Bocallanta</th>
-                                            <th>Guardapolvos</th>
-                                            <th>Piso</th>
-                                            <th>Parabrisas derecho</th>
-                                            <th>Brazo limpiaparabrizas derecho</th>
-                                            <th>Plumillas limpiaparabrizas derecho</th>
-                                            <th>Parabrisas izquierdo</th>
-                                            <th>Brazo limpiaparabrizas izquierdo</th>
-                                            <th>Plumillas limpiaparabrizas izquierdo</th>
-                                            <th>Espejo retrovisor derecho</th>
-                                            <th>Espejo retrovisor izquierdo</th>
-                                            <th>Espejo central</th>
-                                            <th>Ventanas laterales lado derecho</th>
-                                            <th>Ventanas laterales lado izquierdo</th>
-                                            <th>Parabrisas trasero</th>
-                                            <th>Vidrios de puerta principal</th>
-                                            <th>Vidrios de segunda puerta</th>
-                                            <th>Manijas ventanas</th>
-                                            <th>Claraboyas</th>
-                                            <th>Airbag</th>
-                                            <th>Aire acondicionado</th>
-                                            <th>Limpieza</th>
-                                            <th>Chapas de puertas</th>
-                                            <th>Parales</th>
-                                            <th>Booster de puertas</th>
-                                            <th>Relog vigia</th>
-                                            <th>Vigia rueda delantera derecha</th>
-                                            <th>Vigia rueda delantera izquierda</th>
-                                            <th>Vigia rueda trasera derecha</th>
-                                            <th>Vigia rueda trasera izquierda</th>
-                                            <th>Tapa motor</th>
-                                            <th>Tapa bodegas</th>
-                                            <th>Parasol</th>
-                                            <th>Cenefas</th>
-                                            <th>Emblema izquierdo empresa</th>
-                                            <th>Emblema derecho empresa</th>
-                                            <th>Emblema trasero empresa</th>
-                                            <th>Equipo de audio</th>
-                                            <th>Parlantes</th>
-                                            <th>Cinturon sillas usuario</th>
-                                            <th>Martillos salida de emergencia</th>
-                                            <th>Dispositivo de velocidad</th>
-                                            <th>Avisos</th>
-                                            <th>Placa trasera</th>
-                                            <th>Placa delantera</th>
-                                            <th>Placa lateral derecha</th>
-                                            <th>Placa lateral izquierda</th>
-                                            <th>Balizas</th>
-                                            <th>Cinturón</th>
-                                            <th>Gato</th>
-                                            <th>Cruceta o copa</th>
-                                            <th>Señales de carretera</th>
-                                            <th>Botiquin</th>
-                                            <th>Extintor</th>
-                                            <th>2 Tacos</th>
-                                            <th>Alicate</th>
-                                            <th>Destornilladores</th>
-                                            <th>Llaves de expansión</th>
-                                            <th>Llaves fijas</th>
-                                            <th>Linterna con pila</th>
-                                            <th></th>
-                                            
-                                        </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="card-footer bg-dark"></div>
-                            </div>
+                                            <td>
+                                                <div class="row d-flex flex-nowrap justify-content-center">
+                                                    <div class="col-md-6">
+                                                        <div class="btn-group" role="group" aria-label="Button group">
+                                                            <button class="btn btn-xs btn-info btnEditarRev" idvehiculo="<?= $value['idvehiculo'] ?>" data-toggle="modal" data-target="#modal-nuevaRevision"><i class="fas fa-edit"></i></button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <?php if (validarPermiso('M_VEHICULAR', 'D')) : ?>
+                                                            <div class="btn-group" role="group" aria-label="Button group">
+                                                                <button class="btn btn-xs btn-danger btnBorrarRev" idvehiculo="<?= $value['idvehiculo'] ?>"> <i class="fas fa-trash"></i> </button>
+                                                            </div>
+                                                        <?php endif ?>
+                                                    </div>
 
+                                                </div>
+                                            </td>
+                                            <td><?= $value['placa'] ?></td>
+                                            <td><?= $value['numinterno'] ?></td>
+                                            <td><?= $value['modelo'] ?></td>
+                                            <td><?= $value['tipovehiculo'] ?></td>
+                                            <td><?= $value['kilometraje'] ?></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+
+                                        </tr>
+                                    <?php endforeach ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
+                    <div class="card-footer bg-dark"></div>
+                </div>
             </div>
-        </div>
+        </div><!-- /.container-fluid -->
+    </div>
 
-        <!-- MODAL NUEVA REVISIÓN TECNOMECÁNICA -->
+    <!-- MODAL -->
 
-        <div class="modal" id="modal-nuevaRevisiontm" style="display: none; padding-right: 17px;" aria-modal="true" role="dialog" >
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
+    <div class="modal fade" id="modal-nuevaRevision" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl" role="document">
+            <div class="modal-content">
+
+                <form method="post" enctype="multipart/form-data">
+                    <!-- INICIO DEL FORMULARIO -->
+
                     <div class="modal-header bg-info">
-                        <h4 class="modal-title">Nueva revisión tecnomecánica <span id="TituloModal"></span></h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
+                        <h5 class="modal-title" id="titulo-modal-tecnomecanica"></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
 
                     <div class="modal-body">
+
                         <div class="card card-secondary card-tabs">
                             <div class="card-header p-0 pt-1">
                                 <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
@@ -304,596 +507,506 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                             <div class="card-body">
                                 <div class="row">
-                                <!--==============================
+                                    <!-- ==============================
                                     FORMULARIO
-                                =================================  -->
-                                <div class="col-12">
-                                    <form id="revisiontm_form" method="post" enctype="multipart/form-data">
-                                        <div class="tab-content" id="custom-tabs-two-tabContent">
-                                            <!-- TAB DE DOCUMENTO -->
-                                            <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
-                                                <div class="row">
+                                    ================================= -->
+                                    <div class="col-12">
+                                        <form id="revisiontm_form" method="post" enctype="multipart/form-data">
+                                            <div class="tab-content" id="custom-tabs-two-tabContent">
+                                                <!-- <TAB DE DOCUMENTO  -->
+                                                <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
+                                                    <div class="row">
 
-                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                        <div class="form-group">
-                                                            <label>Placa</label>
-                                                            <select id="placa" name="placa" class="form-control select2-single" type="number" style="width: 99%" required>
-                                                                <option value="" selected>-Seleccione un vehículo</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                        <div class="form-group">
-                                                            <label>Numero interno</label>
-                                                            <input id="numinterno" name="numinterno" type="text" class="form-control datosVehiculo" readonly>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                        <div class="form-group">
-                                                            <label>Marca</label>
-                                                            <input id="marca" name="marca" type="text" class="form-control datosVehiculo" readonly>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                        <div class="form-group">
-                                                            <label>Modelo</label>
-                                                            <input id="modelo" name="modelo" type="text" class="form-control datosVehiculo" readonly>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                        <div class="form-group">
-                                                            <label>Clase de vehículo</label>
-                                                            <input id="tipo_vehiculo" name="tipo_vehiculo" type="text" class="form-control datosVehiculo" readonly>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                        <div class="form-group">
-                                                            <label>Kilometraje</label>
-                                                            <input id="kilometraje" name="kilometraje" type="text" class="form-control datosVehiculo" readonly>
-                                                        </div>
-                                                    </div>
-
-
-
-                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                        <div class="form-group">
-                                                            <label>Tarjeta de operación</label>
-                                                            <input id="tarjeta_operacion" name="tarjeta_operacion" type="text" class="form-control datosVehiculo" readonly>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                        <div class="form-group">
-                                                            <label>Tarjeta de propiedad</label>
-                                                            <input id="tarjeta_propiedad" name="tarjeta_propiedad" type="text" class="form-control datosVehiculo" readonly>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                        <div class="form-group">
-                                                            <label>SOAT</label>
-                                                            <input id="soat" name="soat" type="text" class="form-control datosVehiculo" readonly>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                        <div class="form-group">
-                                                            <label>Poliza contractual - extracontractual</label>
-                                                            <input id="poliza" name="poliza" type="text" class="form-control datosVehiculo" readonly>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                        <div class="form-group">
-                                                            <label>Certificado revisión tecnomecánica</label>
-                                                            <input id="certificadotm" name="certificadotm" type="text" class="form-control datosVehiculo" readonly>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                        <div class="form-group">
-                                                            <label>Licencia de conducción</label>
-                                                            <input id="soat" name="soat" type="text" class="form-control datosVehiculo" readonly>
-                                                        </div>
-                                                    </div>
-
-                                                    
-                                                    <?php foreach ($tiposDocumentacion as $key => $value) : ?>
                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                             <div class="form-group">
-                                                                <label><?= $value['tipodocumento'] ?></label>
-                                                                <input id="documento_<?= $value['idtipo'] ?>" type="date" class="form-control documentos" readonly>
+                                                                <label>Placa</label>
+                                                                <select id="placa" name="placa" class="form-control select2-single" type="number" style="width: 99%" required>
+                                                                    <option value="" selected><b>-Lista de placas-</b></option>
+                                                                    <?php foreach ($Placas as $key => $value) : ?>
+                                                                        <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?></option>
+                                                                    <?php endforeach ?>
+                                                                </select>
                                                             </div>
                                                         </div>
-                                                    <?php endforeach ?>
 
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group">
+                                                                <label>Numero interno</label>
+                                                                <input id="numinterno" name="numinterno" type="text" class="form-control datosVehiculo" readonly>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group">
+                                                                <label>Marca</label>
+                                                                <select name="marca" id="marca" class="form-control select2-single" type="number" style="width: 99%" required>
+                                                                    <option value="" selected><b>--Lista de marcas--</b></option>
+                                                                    <!-- <?php foreach ($Vehiculos as $key => $value) : ?>
+                                                                        <option value="<?= $value['idmarca'] ?>"><? $value['marca'] ?></option>
+                                                                    <?php endforeach ?> -->
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group">
+                                                                <label>Modelo</label>
+                                                                <input id="modelo" name="modelo" type="text" class="form-control datosVehiculo" readonly>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group">
+                                                                <label>Clase de vehículo</label>
+                                                                <select id="tipo_vehiculo" class="form-control select2-single select-clientes input-sm" style="width: 99%" name="listaclientes">
+                                                                    <option value="" selected><b>-Tipo de vehículo-</b></option>
+                                                                    <?php foreach ($Vehiculos as $key => $value) : ?>
+                                                                        <option value="<?= $value['idtipovehiculo'] ?>"><?= $value['tipovehiculo'] ?></option>
+                                                                    <?php endforeach ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group">
+                                                                <label>Kilometraje</label>
+                                                                <input id="kilometraje" name="kilometraje" type="text" class="form-control datosVehiculo">
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group">
+                                                                <label>Tarjeta de operación</label>
+                                                                <input id="tarjeta_operacion" name="tarjeta_operacion" type="text" class="form-control datosVehiculo" readonly>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group">
+                                                                <label>Tarjeta de propiedad</label>
+                                                                <input id="tarjeta_propiedad" name="tarjeta_propiedad" type="text" class="form-control datosVehiculo" readonly>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group">
+                                                                <label>SOAT</label>
+                                                                <input id="soat" name="soat" type="text" class="form-control datosVehiculo" readonly>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group">
+                                                                <label>Poliza contractual - extracontractual</label>
+                                                                <input id="poliza" name="poliza" type="text" class="form-control datosVehiculo" readonly>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group">
+                                                                <label>Certificado revisión tecnomecánica</label>
+                                                                <input id="certificadotm" name="certificadotm" type="text" class="form-control datosVehiculo" readonly>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group">
+                                                                <label>Licencia de conducción</label>
+                                                                <input id="soat" name="soat" type="text" class="form-control datosVehiculo" readonly>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <?php foreach ($tiposDocumentacion as $key => $value) : ?>
+                                                            <div class="col-12 col-sm-6 col-lg-4">
+                                                                <div class="form-group">
+                                                                    <label><?= $value['tipodocumento'] ?></label>
+                                                                    <input id="documento_<?= $value['idtipo'] ?>" type="date" class="form-control documentos" readonly>
+                                                                </div>
+                                                            </div>
+                                                        <?php endforeach ?>
+
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- TAB SISTEMA POTENCIA -->
-                                            <div class="tab-pane fade show " id="custom-tabs-two-sistema-potencia" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-potencia">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered text-center border-danger" nombre = "Sistema potencia">
-                                                    <thead class="text-nowrap">
-                                                        <tr>
-                                                            <th>Nivel refrigerante</th>
-                                                            <th>Nivel aceite motor</th>
-                                                            <th>Radiador</th>
-                                                            <th>Mangueras y conexiones</th>
-                                                        </tr>
-                                                    </thead>
+                                                <!-- TAB SISTEMA POTENCIA -->
+                                                <div class="tab-pane fade show " id="custom-tabs-two-sistema-potencia" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-potencia">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
+                                                            <thead class="text-nowrap">
+                                                                <tr>
+                                                                    <th>Nivel refrigerante</th>
+                                                                    <th>Nivel aceite motor</th>
+                                                                    <th>Radiador</th>
+                                                                    <th>Mangueras y conexiones</th>
+                                                                </tr>
+                                                            </thead>
 
-                                                    <tbody class="text-nowrap">
-                                                        <tr>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radionivelrefrigerante1" name="nivelrefrigerante" value="1" required>
-                                                                        <label for="radionivelrefrigerante1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
+                                                            <tbody class="text-nowrap">
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radionivelrefrigerante1" name="nivelrefrigerante" value="1" required>
+                                                                                <label for="radionivelrefrigerante1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radionivelrefrigerante2" name="nivelrefrigerante" value="0" required>
-                                                                        <label for="radionivelrefrigerante2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radionivelrefrigerante3" name="nivelrefrigerante" value="2" required>
-                                                                        <label for="radionivelrefrigerante3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radionivelaceite1" name="nivelaceite" value="1" required>
-                                                                        <label for="radionivelaceite1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radionivelrefrigerante2" name="nivelrefrigerante" value="0" required>
+                                                                                <label for="radionivelrefrigerante2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radionivelrefrigerante3" name="nivelrefrigerante" value="2" required>
+                                                                                <label for="radionivelrefrigerante3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radionivelaceite1" name="nivelaceite" value="1" required>
+                                                                                <label for="radionivelaceite1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radionivelaceite2" name="nivelaceite" value="0" required>
-                                                                        <label for="radionivelaceite2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radionivelaceite2" name="nivelaceite" value="0" required>
+                                                                                <label for="radionivelaceite2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radionivelaceite3" name="nivelaceite" value="2" required>
-                                                                        <label for="radionivelaceite3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radioradiador1" name="radiador" value="1" required>
-                                                                        <label for="radioradiador1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radionivelaceite3" name="nivelaceite" value="2" required>
+                                                                                <label for="radionivelaceite3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radioradiador2" name="radiador" value="0" required>
-                                                                        <label for="radioradiador2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radioradiador3" name="radiador" value="2" required>
-                                                                        <label for="radioradiador3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radioMangueras1" name="Mangueras" value="1" required>
-                                                                        <label for="radioMangueras1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radioradiador1" name="radiador" value="1" required>
+                                                                                <label for="radioradiador1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radioMangueras2" name="Mangueras" value="0" required>
-                                                                        <label for="radioMangueras2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radioMangueras3" name="Mangueras" value="2" required>
-                                                                        <label for="radioMangueras3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="font-weight-bold">
-                                                            <td>Correas</td>
-                                                            <td>Motor</td>
-                                                            <td>Freno de ahogo</td>
-                                                            <td>Exosto</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radiocorreas1" name="correas" value="1" required>
-                                                                        <label for="radiocorreas1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radioradiador2" name="radiador" value="0" required>
+                                                                                <label for="radioradiador2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radioradiador3" name="radiador" value="2" required>
+                                                                                <label for="radioradiador3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radiomangueras1" name="mangueras" value="1" required>
+                                                                                <label for="radiomangueras1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radiocorreas2" name="correas" value="0" required>
-                                                                        <label for="radiocorreas2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radiocorreas3" name="correas" value="2" required>
-                                                                        <label for="radiocorreas3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radiomotor1" name="motor" value="1" required>
-                                                                        <label for="radiomotor1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radiomangueras2" name="mangueras" value="0" required>
+                                                                                <label for="radiomangueras2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radiomangueras3" name="mangueras" value="2" required>
+                                                                                <label for="radiomangueras3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="font-weight-bold">
+                                                                    <td>Correas</td>
+                                                                    <td>Motor</td>
+                                                                    <td>Freno de ahogo</td>
+                                                                    <td>Exosto</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radiocorreas1" name="correas" value="1" required>
+                                                                                <label for="radiocorreas1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radiomotor2" name="motor" value="0" required>
-                                                                        <label for="radiomotor2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radiomotor3" name="motor" value="2" required>
-                                                                        <label for="radiomotor3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radiofreno_ahogo1" name="freno_ahogo" value="1" required>
-                                                                        <label for="radiofreno_ahogo1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radiocorreas2" name="correas" value="0" required>
+                                                                                <label for="radiocorreas2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radiocorreas3" name="correas" value="2" required>
+                                                                                <label for="radiocorreas3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radiomotor1" name="motor" value="1" required>
+                                                                                <label for="radiomotor1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radiofreno_ahogo2" name="freno_ahogo" value="0" required>
-                                                                        <label for="radiofreno_ahogo2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radiofreno_ahogo3" name="freno_ahogo" value="2" required>
-                                                                        <label for="radiofreno_ahogo3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radioexosto1" name="exosto" value="1" required>
-                                                                        <label for="radioexosto1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radiomotor2" name="motor" value="0" required>
+                                                                                <label for="radiomotor2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radiomotor3" name="motor" value="2" required>
+                                                                                <label for="radiomotor3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radiofreno_ahogo1" name="freno_ahogo" value="1" required>
+                                                                                <label for="radiofreno_ahogo1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radioexosto2" name="exosto" value="0" required>
-                                                                        <label for="radioexosto2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radioexosto3" name="exosto" value="2" required>
-                                                                        <label for="radioexosto3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="font-weight-bold">
-                                                            <td>Guaya de aceleración</td>
-                                                            <td>Turbo</td>
-                                                            <td>Tapa de radiador</td>
-                                                            <td>Fuga de aceite</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radioguaya1" name="guaya" value="1" required>
-                                                                        <label for="radioguaya1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radiofreno_ahogo2" name="freno_ahogo" value="0" required>
+                                                                                <label for="radiofreno_ahogo2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radiofreno_ahogo3" name="freno_ahogo" value="2" required>
+                                                                                <label for="radiofreno_ahogo3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radioexosto1" name="exosto" value="1" required>
+                                                                                <label for="radioexosto1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radioguaya2" name="guaya" value="0" required>
-                                                                        <label for="radioguaya2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radioguaya3" name="guaya" value="2" required>
-                                                                        <label for="radioguaya3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radioturbo1" name="turbo" value="1" required>
-                                                                        <label for="radioturbo1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radioexosto2" name="exosto" value="0" required>
+                                                                                <label for="radioexosto2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radioexosto3" name="exosto" value="2" required>
+                                                                                <label for="radioexosto3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="font-weight-bold">
+                                                                    <td>Guaya de aceleración</td>
+                                                                    <td>Turbo</td>
+                                                                    <td>Tapa de radiador</td>
+                                                                    <td>Fuga de aceite</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radioguaya1" name="guaya" value="1" required>
+                                                                                <label for="radioguaya1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radioturbo2" name="turbo" value="0" required>
-                                                                        <label for="radioturbo2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radioturbo3" name="turbo" value="2" required>
-                                                                        <label for="radioturbo3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radiotapa_radiador1" name="tapa_radiador" value="1" required>
-                                                                        <label for="radiotapa_radiador1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radioguaya2" name="guaya" value="0" required>
+                                                                                <label for="radioguaya2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radioguaya3" name="guaya" value="2" required>
+                                                                                <label for="radioguaya3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radioturbo1" name="turbo" value="1" required>
+                                                                                <label for="radioturbo1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radiotapa_radiador2" name="tapa_radiador" value="0" required>
-                                                                        <label for="radiotapa_radiador2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radiotapa_radiador3" name="tapa_radiador" value="2" required>
-                                                                        <label for="radiotapa_radiador3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radiofuga_aceite1" name="fuga_aceite" value="1" required>
-                                                                        <label for="radiofuga_aceite1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radioturbo2" name="turbo" value="0" required>
+                                                                                <label for="radioturbo2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radioturbo3" name="turbo" value="2" required>
+                                                                                <label for="radioturbo3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radiotapa_radiador1" name="tapa_radiador" value="1" required>
+                                                                                <label for="radiotapa_radiador1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radiofuga_aceite2" name="fuga_aceite" value="0" required>
-                                                                        <label for="radiofuga_aceite2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radiofuga_aceite3" name="fuga_aceite" value="2" required>
-                                                                        <label for="radiofuga_aceite3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="font-weight-bold">
-                                                            <td>Fuga de combustible</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radiofuga_combustible1" name="fuga_combustible" value="1" required>
-                                                                        <label for="radiofuga_combustible1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radiotapa_radiador2" name="tapa_radiador" value="0" required>
+                                                                                <label for="radiotapa_radiador2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radiotapa_radiador3" name="tapa_radiador" value="2" required>
+                                                                                <label for="radiotapa_radiador3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radiofuga_aceite1" name="fuga_aceite" value="1" required>
+                                                                                <label for="radiofuga_aceite1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radiofuga_combustible2" name="fuga_combustible" value="0" required>
-                                                                        <label for="radiofuga_combustible2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radiofuga_combustible3" name="fuga_combustible" value="2" required>
-                                                                        <label for="radiofuga_combustible3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radiofuga_aceite2" name="fuga_aceite" value="0" required>
+                                                                                <label for="radiofuga_aceite2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radiofuga_aceite3" name="fuga_aceite" value="2" required>
+                                                                                <label for="radiofuga_aceite3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="font-weight-bold">
+                                                                    <td>Fuga de combustible</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radiofuga_combustible1" name="fuga_combustible" value="1" required>
+                                                                                <label for="radiofuga_combustible1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                    </table>
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radiofuga_combustible2" name="fuga_combustible" value="0" required>
+                                                                                <label for="radiofuga_combustible2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radiofuga_combustible3" name="fuga_combustible" value="2" required>
+                                                                                <label for="radiofuga_combustible3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- TAB SISTEMA TRANSMISIÓN DIGITAL -->
-                                            <div class="tab-pane fade show" id="custom-tabs-two-sistema-transmision" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-transmision">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered text-center border-danger" nombre = "Sistema potencia">
-                                                        <thead class="text-nowrap">
-                                                            <tr class="font-weight-bold">
-                                                                <th>Nivel de aceite transmisión</th>
-                                                                <th>Transmisión</th>
-                                                                <th>Tapón drenaje transmisión</th>
-                                                                <th>Revisión sistema palanca de cambios</th>
-                                                            </tr>
-                                                        </thead>
+                                                <!-- TAB SISTEMA TRANSMISIÓN DIGITAL -->
+                                                <div class="tab-pane fade show" id="custom-tabs-two-sistema-transmision" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-transmision">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
+                                                            <thead class="text-nowrap">
+                                                                <tr class="font-weight-bold">
+                                                                    <th>Nivel de aceite transmisión</th>
+                                                                    <th>Transmisión</th>
+                                                                    <th>Tapón drenaje transmisión</th>
+                                                                    <th>Revisión sistema palanca de cambios</th>
+                                                                </tr>
+                                                            </thead>
 
-                                                        <tr>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radionivel_aceite_transmision1" name="nivel_aceite_transmision" value="1" required>
-                                                                        <label for="radionivel_aceite_transmision1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
-
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radionivel_aceite_transmision2" name="nivel_aceite_transmision" value="0" required>
-                                                                        <label for="radionivel_aceite_transmision2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radionivel_aceite_transmision3" name="nivel_aceite_transmision" value="2" required>
-                                                                        <label for="radionivel_aceite_transmision3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radiotransmision1" name="transmision" value="1" required>
-                                                                        <label for="radiotransmision1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
-
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radiotransmision2" name="transmision" value="0" required>
-                                                                        <label for="radiotransmision2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radiotransmision3" name="transmision" value="2" required>
-                                                                        <label for="radiotransmision3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radiotapon_transmision1" name="tapon_transmision" value="1" required>
-                                                                        <label for="radiotapon_transmision1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
-
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radiotapon_transmision2" name="tapon_transmision" value="0" required>
-                                                                        <label for="radiotapon_transmision2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radiotapon_transmision3" name="tapon_transmision" value="2" required>
-                                                                        <label for="radiotapon_transmision3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radiopalanca_cambios1" name="palanca_cambios" value="1" required>
-                                                                        <label for="radiopalanca_cambios1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
-
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radiopalanca_cambios2" name="palanca_cambios" value="0" required>
-                                                                        <label for="radiopalanca_cambios2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radiopalanca_cambios3" name="palanca_cambios" value="2" required>
-                                                                        <label for="radiopalanca_cambios3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tbody class="text-nowrap">
-                                                            
-                                                            <tr class="font-weight-bold">
-                                                                <th>Embrague</th>
-                                                                <th>Caucho pedal embrague</th>
-                                                                <th>Cruceta de cardan</th>
-                                                                <th>Cojinete intermedio de cardan</th>
-                                                            </tr>
                                                             <tr>
                                                                 <td>
                                                                     <div class="form-group clearfix">
                                                                         <div class="icheck-success d-inline">
-                                                                            <input type="radio" id="radioembrague1" name="embrague" value="1" required>
-                                                                            <label for="radioembrague1">
+                                                                            <input type="radio" id="radionivel_aceite_transmision1" name="nivel_aceite_transmision" value="1" required>
+                                                                            <label for="radionivel_aceite_transmision1">
                                                                                 <i class="fas fa-thumbs-up"></i>
                                                                             </label>
                                                                         </div>
 
                                                                         <div class="icheck-danger d-inline">
-                                                                            <input type="radio" id="radioembrague2" name="embrague" value="0" required>
-                                                                            <label for="radioembrague2">
+                                                                            <input type="radio" id="radionivel_aceite_transmision2" name="nivel_aceite_transmision" value="0" required>
+                                                                            <label for="radionivel_aceite_transmision2">
                                                                                 <i class="fas fa-thumbs-down"></i>
                                                                             </label>
                                                                         </div>
                                                                         <div class="icheck-warning d-inline">
-                                                                            <input type="radio" id="radioembrague3" name="embrague" value="2" required>
-                                                                            <label for="radioembrague3">
+                                                                            <input type="radio" id="radionivel_aceite_transmision3" name="nivel_aceite_transmision" value="2" required>
+                                                                            <label for="radionivel_aceite_transmision3">
                                                                                 <i class="fas fa-ban"></i>
                                                                             </label>
                                                                         </div>
@@ -902,21 +1015,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                 <td>
                                                                     <div class="form-group clearfix">
                                                                         <div class="icheck-success d-inline">
-                                                                            <input type="radio" id="radiopedal_embrague1" name="pedal_embrague" value="1" required>
-                                                                            <label for="radiopedal_embrague1">
+                                                                            <input type="radio" id="radiotransmision1" name="transmision" value="1" required>
+                                                                            <label for="radiotransmision1">
                                                                                 <i class="fas fa-thumbs-up"></i>
                                                                             </label>
                                                                         </div>
 
                                                                         <div class="icheck-danger d-inline">
-                                                                            <input type="radio" id="radiopedal_embrague2" name="pedal_embrague" value="0" required>
-                                                                            <label for="radiopedal_embrague2">
+                                                                            <input type="radio" id="radiotransmision2" name="transmision" value="0" required>
+                                                                            <label for="radiotransmision2">
                                                                                 <i class="fas fa-thumbs-down"></i>
                                                                             </label>
                                                                         </div>
                                                                         <div class="icheck-warning d-inline">
-                                                                            <input type="radio" id="radiopedal_embrague3" name="pedal_embrague" value="2" required>
-                                                                            <label for="radiopedal_embrague3">
+                                                                            <input type="radio" id="radiotransmision3" name="transmision" value="2" required>
+                                                                            <label for="radiotransmision3">
                                                                                 <i class="fas fa-ban"></i>
                                                                             </label>
                                                                         </div>
@@ -925,21 +1038,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                 <td>
                                                                     <div class="form-group clearfix">
                                                                         <div class="icheck-success d-inline">
-                                                                            <input type="radio" id="radiocruceta_cardan1" name="cruceta_cardan" value="1" required>
-                                                                            <label for="radiocruceta_cardan1">
+                                                                            <input type="radio" id="radiotapon_transmision1" name="tapon_transmision" value="1" required>
+                                                                            <label for="radiotapon_transmision1">
                                                                                 <i class="fas fa-thumbs-up"></i>
                                                                             </label>
                                                                         </div>
 
                                                                         <div class="icheck-danger d-inline">
-                                                                            <input type="radio" id="radiocruceta_cardan2" name="cruceta_cardan" value="0" required>
-                                                                            <label for="radiocruceta_cardan2">
+                                                                            <input type="radio" id="radiotapon_transmision2" name="tapon_transmision" value="0" required>
+                                                                            <label for="radiotapon_transmision2">
                                                                                 <i class="fas fa-thumbs-down"></i>
                                                                             </label>
                                                                         </div>
                                                                         <div class="icheck-warning d-inline">
-                                                                            <input type="radio" id="radiocruceta_cardan3" name="cruceta_cardan" value="2" required>
-                                                                            <label for="radiocruceta_cardan3">
+                                                                            <input type="radio" id="radiotapon_transmision3" name="tapon_transmision" value="2" required>
+                                                                            <label for="radiotapon_transmision3">
                                                                                 <i class="fas fa-ban"></i>
                                                                             </label>
                                                                         </div>
@@ -948,295 +1061,295 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                 <td>
                                                                     <div class="form-group clearfix">
                                                                         <div class="icheck-success d-inline">
-                                                                            <input type="radio" id="radiocojinete_cardam1" name="cojinete_cardam" value="1" required>
-                                                                            <label for="radiocojinete_cardam1">
+                                                                            <input type="radio" id="radiopalanca_cambios1" name="palanca_cambios" value="1" required>
+                                                                            <label for="radiopalanca_cambios1">
                                                                                 <i class="fas fa-thumbs-up"></i>
                                                                             </label>
                                                                         </div>
 
                                                                         <div class="icheck-danger d-inline">
-                                                                            <input type="radio" id="radiocojinete_cardam2" name="cojinete_cardam" value="0" required>
-                                                                            <label for="radiocojinete_cardam2">
+                                                                            <input type="radio" id="radiopalanca_cambios2" name="palanca_cambios" value="0" required>
+                                                                            <label for="radiopalanca_cambios2">
                                                                                 <i class="fas fa-thumbs-down"></i>
                                                                             </label>
                                                                         </div>
                                                                         <div class="icheck-warning d-inline">
-                                                                            <input type="radio" id="radiocojinete_cardam3" name="cojinete_cardam" value="2" required>
-                                                                            <label for="radiocojinete_cardam3">
+                                                                            <input type="radio" id="radiopalanca_cambios3" name="palanca_cambios" value="2" required>
+                                                                            <label for="radiopalanca_cambios3">
                                                                                 <i class="fas fa-ban"></i>
                                                                             </label>
                                                                         </div>
                                                                     </div>
                                                                 </td>
                                                             </tr>
-                                                            <tr class="font-weight-bold">
-                                                                <th>Cadena de cardan</th>
-                                                                <th>Nivel de aceite diferencial</th>
-                                                                <th>Tapón drenaje diferencial</th>
-                                                                <th>Fuga de aceite transmisión</th>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="form-group clearfix">
-                                                                        <div class="icheck-success d-inline">
-                                                                            <input type="radio" id="radiocadena_cardan1" name="cadena_cardan" value="1" required>
-                                                                            <label for="radiocadena_cardan1">
-                                                                                <i class="fas fa-thumbs-up"></i>
-                                                                            </label>
-                                                                        </div>
 
-                                                                        <div class="icheck-danger d-inline">
-                                                                            <input type="radio" id="radiocadena_cardan2" name="cadena_cardan" value="0" required>
-                                                                            <label for="radiocadena_cardan2">
-                                                                                <i class="fas fa-thumbs-down"></i>
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="icheck-warning d-inline">
-                                                                            <input type="radio" id="radiocadena_cardan3" name="cadena_cardan" value="2" required>
-                                                                            <label for="radiocadena_cardan3">
-                                                                                <i class="fas fa-ban"></i>
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                <div class="form-group clearfix">
-                                                                        <div class="icheck-success d-inline">
-                                                                            <input type="radio" id="radioaceite_diferencial1" name="aceite_diferencial" value="1" required>
-                                                                            <label for="radioaceite_diferencial1">
-                                                                                <i class="fas fa-thumbs-up"></i>
-                                                                            </label>
-                                                                        </div>
+                                                            <tbody class="text-nowrap">
 
-                                                                        <div class="icheck-danger d-inline">
-                                                                            <input type="radio" id="radioaceite_diferencial2" name="aceite_diferencial" value="0" required>
-                                                                            <label for="radioaceite_diferencial2">
-                                                                                <i class="fas fa-thumbs-down"></i>
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="icheck-warning d-inline">
-                                                                            <input type="radio" id="radioaceite_diferencial3" name="aceite_diferencial" value="2" required>
-                                                                            <label for="radioaceite_diferencial3">
-                                                                                <i class="fas fa-ban"></i>
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                <div class="form-group clearfix">
-                                                                        <div class="icheck-success d-inline">
-                                                                            <input type="radio" id="radiodrenaje_diferencial1" name="drenaje_diferencial" value="1" required>
-                                                                            <label for="radiodrenaje_diferencial1">
-                                                                                <i class="fas fa-thumbs-up"></i>
-                                                                            </label>
-                                                                        </div>
+                                                                <tr class="font-weight-bold">
+                                                                    <th>Embrague</th>
+                                                                    <th>Caucho pedal embrague</th>
+                                                                    <th>Cruceta de cardan</th>
+                                                                    <th>Cojinete intermedio de cardan</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radioembrague1" name="embrague" value="1" required>
+                                                                                <label for="radioembrague1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                                        <div class="icheck-danger d-inline">
-                                                                            <input type="radio" id="radiodrenaje_diferencial2" name="drenaje_diferencial" value="0" required>
-                                                                            <label for="radiodrenaje_diferencial2">
-                                                                                <i class="fas fa-thumbs-down"></i>
-                                                                            </label>
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radioembrague2" name="embrague" value="0" required>
+                                                                                <label for="radioembrague2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radioembrague3" name="embrague" value="2" required>
+                                                                                <label for="radioembrague3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="icheck-warning d-inline">
-                                                                            <input type="radio" id="radiodrenaje_diferencial3" name="drenaje_diferencial" value="2" required>
-                                                                            <label for="radiodrenaje_diferencial3">
-                                                                                <i class="fas fa-ban"></i>
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                <div class="form-group clearfix">
-                                                                        <div class="icheck-success d-inline">
-                                                                            <input type="radio" id="radiofuga_transmision1" name="fuga_transmision" value="1" required>
-                                                                            <label for="radiofuga_transmision1">
-                                                                                <i class="fas fa-thumbs-up"></i>
-                                                                            </label>
-                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radiopedal_embrague1" name="pedal_embrague" value="1" required>
+                                                                                <label for="radiopedal_embrague1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                                        <div class="icheck-danger d-inline">
-                                                                            <input type="radio" id="radiofuga_transmision2" name="fuga_transmision" value="0" required>
-                                                                            <label for="radiofuga_transmision2">
-                                                                                <i class="fas fa-thumbs-down"></i>
-                                                                            </label>
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radiopedal_embrague2" name="pedal_embrague" value="0" required>
+                                                                                <label for="radiopedal_embrague2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radiopedal_embrague3" name="pedal_embrague" value="2" required>
+                                                                                <label for="radiopedal_embrague3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="icheck-warning d-inline">
-                                                                            <input type="radio" id="radiofuga_transmision3" name="fuga_transmision" value="2" required>
-                                                                            <label for="radiofuga_transmision3">
-                                                                                <i class="fas fa-ban"></i>
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr class="font-weight-bold">
-                                                                <th>Fuga de aceite diferencial</th>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                <div class="form-group clearfix">
-                                                                        <div class="icheck-success d-inline">
-                                                                            <input type="radio" id="radiofuga_diferencial1" name="fuga_diferencial" value="1" required>
-                                                                            <label for="radiofuga_diferencial1">
-                                                                                <i class="fas fa-thumbs-up"></i>
-                                                                            </label>
-                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radiocruceta_cardan1" name="cruceta_cardan" value="1" required>
+                                                                                <label for="radiocruceta_cardan1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                                        <div class="icheck-danger d-inline">
-                                                                            <input type="radio" id="radiofuga_diferencial2" name="fuga_diferencial" value="0" required>
-                                                                            <label for="radiofuga_diferencial2">
-                                                                                <i class="fas fa-thumbs-down"></i>
-                                                                            </label>
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radiocruceta_cardan2" name="cruceta_cardan" value="0" required>
+                                                                                <label for="radiocruceta_cardan2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radiocruceta_cardan3" name="cruceta_cardan" value="2" required>
+                                                                                <label for="radiocruceta_cardan3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
                                                                         </div>
-                                                                        <div class="icheck-warning d-inline">
-                                                                            <input type="radio" id="radiofuga_diferencial3" name="fuga_diferencial" value="2" required>
-                                                                            <label for="radiofuga_diferencial3">
-                                                                                <i class="fas fa-ban"></i>
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radiocojinete_cardan1" name="cojinete_cardan" value="1" required>
+                                                                                <label for="radiocojinete_cardan1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
 
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radiocojinete_cardan2" name="cojinete_cardan" value="0" required>
+                                                                                <label for="radiocojinete_cardan2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radiocojinete_cardan3" name="cojinete_cardan" value="2" required>
+                                                                                <label for="radiocojinete_cardan3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="font-weight-bold">
+                                                                    <th>Cadena de cardan</th>
+                                                                    <th>Nivel de aceite diferencial</th>
+                                                                    <th>Tapón drenaje diferencial</th>
+                                                                    <th>Fuga de aceite transmisión</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radiocadena_cardan1" name="cadena_cardan" value="1" required>
+                                                                                <label for="radiocadena_cardan1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
+
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radiocadena_cardan2" name="cadena_cardan" value="0" required>
+                                                                                <label for="radiocadena_cardan2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radiocadena_cardan3" name="cadena_cardan" value="2" required>
+                                                                                <label for="radiocadena_cardan3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radioaceite_diferencial1" name="aceite_diferencial" value="1" required>
+                                                                                <label for="radioaceite_diferencial1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
+
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radioaceite_diferencial2" name="aceite_diferencial" value="0" required>
+                                                                                <label for="radioaceite_diferencial2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radioaceite_diferencial3" name="aceite_diferencial" value="2" required>
+                                                                                <label for="radioaceite_diferencial3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radiodrenaje_diferencial1" name="drenaje_diferencial" value="1" required>
+                                                                                <label for="radiodrenaje_diferencial1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
+
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radiodrenaje_diferencial2" name="drenaje_diferencial" value="0" required>
+                                                                                <label for="radiodrenaje_diferencial2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radiodrenaje_diferencial3" name="drenaje_diferencial" value="2" required>
+                                                                                <label for="radiodrenaje_diferencial3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radiofuga_transmision1" name="fuga_transmision" value="1" required>
+                                                                                <label for="radiofuga_transmision1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
+
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radiofuga_transmision2" name="fuga_transmision" value="0" required>
+                                                                                <label for="radiofuga_transmision2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radiofuga_transmision3" name="fuga_transmision" value="2" required>
+                                                                                <label for="radiofuga_transmision3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="font-weight-bold">
+                                                                    <th>Fuga de aceite diferencial</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radiofuga_diferencial1" name="fuga_diferencial" value="1" required>
+                                                                                <label for="radiofuga_diferencial1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
+
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radiofuga_diferencial2" name="fuga_diferencial" value="0" required>
+                                                                                <label for="radiofuga_diferencial2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radiofuga_diferencial3" name="fuga_diferencial" value="2" required>
+                                                                                <label for="radiofuga_diferencial3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- TAB MUELLES Y SUSPENSION -->
-                                            <div class="tab-pane fade show" id="custom-tabs-two-sistema-muelles" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-muelles">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered text-center border-danger" nombre = "Sistema potencia">
-                                                        <thead class="text-nowrap">
-                                                            <tr class="font-weight-bold">
-                                                                <th>Muelle delantero derecho</th>
-                                                                <th>Amortiguador delantero derecho</th>
-                                                                <th>Muelle delantero izquierdo</th>
-                                                                <th>Amortiguador delantero izquierdo</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radiomuelle_delantero_derecho1" name="muelle_delantero_derecho" value="1" required>
-                                                                        <label for="radiomuelle_delantero_derecho1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
-
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radiomuelle_delantero_derecho2" name="muelle_delantero_derecho" value="0" required>
-                                                                        <label for="radiomuelle_delantero_derecho2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radiomuelle_delantero_derecho3" name="muelle_delantero_derecho" value="2" required>
-                                                                        <label for="radiomuelle_delantero_derecho3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radioamortiguador_delantero_derecho1" name="amortiguador_delantero_derecho" value="1" required>
-                                                                        <label for="radioamortiguador_delantero_derecho1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
-
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radioamortiguador_delantero_derecho2" name="amortiguador_delantero_derecho" value="0" required>
-                                                                        <label for="radioamortiguador_delantero_derecho2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radioamortiguador_delantero_derecho3" name="amortiguador_delantero_derecho" value="2" required>
-                                                                        <label for="radioamortiguador_delantero_derecho3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radiomuelle_delantero_izquierdo1" name="muelle_delantero_izquierdo" value="1" required>
-                                                                        <label for="radiomuelle_delantero_izquierdo1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
-
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radiomuelle_delantero_izquierdo2" name="muelle_delantero_izquierdo" value="0" required>
-                                                                        <label for="radiomuelle_delantero_izquierdo2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radiomuelle_delantero_izquierdo3" name="muelle_delantero_izquierdo" value="2" required>
-                                                                        <label for="radiomuelle_delantero_izquierdo3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radioamortiguador_delantero_izquierdo1" name="amortiguador_delantero_izquierdo" value="1" required>
-                                                                        <label for="radioamortiguador_delantero_izquierdo1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
-
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radioamortiguador_delantero_izquierdo2" name="amortiguador_delantero_izquierdo" value="0" required>
-                                                                        <label for="radioamortiguador_delantero_izquierdo2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radioamortiguador_delantero_izquierdo3" name="amortiguador_delantero_izquierdo" value="2" required>
-                                                                        <label for="radioamortiguador_delantero_izquierdo3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-
-                                                        <tbody class="text-nowrap">
-                                                            
-                                                            <tr class="font-weight-bold">
-                                                                <th>Muelle trasero derecho</th>
-                                                                <th>Amortiguador trasero derecho</th>
-                                                                <th>Muelle trasero izquierdo</th>
-                                                                <th>Amortiguador trasero izquierdo</th>
-                                                            </tr>
+                                                <!-- TAB MUELLES Y SUSPENSION -->
+                                                <div class="tab-pane fade show" id="custom-tabs-two-sistema-muelles" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-muelles">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
+                                                            <thead class="text-nowrap">
+                                                                <tr class="font-weight-bold">
+                                                                    <th>Muelle delantero derecho</th>
+                                                                    <th>Amortiguador delantero derecho</th>
+                                                                    <th>Muelle delantero izquierdo</th>
+                                                                    <th>Amortiguador delantero izquierdo</th>
+                                                                </tr>
+                                                            </thead>
                                                             <tr>
                                                                 <td>
                                                                     <div class="form-group clearfix">
                                                                         <div class="icheck-success d-inline">
-                                                                            <input type="radio" id="radiomuelle_trasero_derecho1" name="muelle_trasero_derecho" value="1" required>
-                                                                            <label for="radiomuelle_trasero_derecho1">
+                                                                            <input type="radio" id="radiomuelle_delantero_derecho1" name="muelle_delantero_derecho" value="1" required>
+                                                                            <label for="radiomuelle_delantero_derecho1">
                                                                                 <i class="fas fa-thumbs-up"></i>
                                                                             </label>
                                                                         </div>
 
                                                                         <div class="icheck-danger d-inline">
-                                                                            <input type="radio" id="radiomuelle_trasero_derecho2" name="muelle_trasero_derecho" value="0" required>
-                                                                            <label for="radiomuelle_trasero_derecho2">
+                                                                            <input type="radio" id="radiomuelle_delantero_derecho2" name="muelle_delantero_derecho" value="0" required>
+                                                                            <label for="radiomuelle_delantero_derecho2">
                                                                                 <i class="fas fa-thumbs-down"></i>
                                                                             </label>
                                                                         </div>
                                                                         <div class="icheck-warning d-inline">
-                                                                            <input type="radio" id="radiomuelle_trasero_derecho3" name="muelle_trasero_derecho" value="2" required>
-                                                                            <label for="radiomuelle_trasero_derecho3">
+                                                                            <input type="radio" id="radiomuelle_delantero_derecho3" name="muelle_delantero_derecho" value="2" required>
+                                                                            <label for="radiomuelle_delantero_derecho3">
                                                                                 <i class="fas fa-ban"></i>
                                                                             </label>
                                                                         </div>
@@ -1245,21 +1358,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                 <td>
                                                                     <div class="form-group clearfix">
                                                                         <div class="icheck-success d-inline">
-                                                                            <input type="radio" id="radioamortiguador_trasero_derecho1" name="amortiguador_trasero_derecho" value="1" required>
-                                                                            <label for="radioamortiguador_trasero_derecho1">
+                                                                            <input type="radio" id="radioamortiguador_delantero_derecho1" name="amortiguador_delantero_derecho" value="1" required>
+                                                                            <label for="radioamortiguador_delantero_derecho1">
                                                                                 <i class="fas fa-thumbs-up"></i>
                                                                             </label>
                                                                         </div>
 
                                                                         <div class="icheck-danger d-inline">
-                                                                            <input type="radio" id="radioamortiguador_trasero_derecho2" name="amortiguador_trasero_derecho" value="0" required>
-                                                                            <label for="radioamortiguador_trasero_derecho2">
+                                                                            <input type="radio" id="radioamortiguador_delantero_derecho2" name="amortiguador_delantero_derecho" value="0" required>
+                                                                            <label for="radioamortiguador_delantero_derecho2">
                                                                                 <i class="fas fa-thumbs-down"></i>
                                                                             </label>
                                                                         </div>
                                                                         <div class="icheck-warning d-inline">
-                                                                            <input type="radio" id="radioamortiguador_trasero_derecho3" name="amortiguador_trasero_derecho" value="2" required>
-                                                                            <label for="radioamortiguador_trasero_derecho3">
+                                                                            <input type="radio" id="radioamortiguador_delantero_derecho3" name="amortiguador_delantero_derecho" value="2" required>
+                                                                            <label for="radioamortiguador_delantero_derecho3">
                                                                                 <i class="fas fa-ban"></i>
                                                                             </label>
                                                                         </div>
@@ -1268,112 +1381,215 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                 <td>
                                                                     <div class="form-group clearfix">
                                                                         <div class="icheck-success d-inline">
-                                                                            <input type="radio" id="radiomuelle_trasero_izquierdo1" name="muelle_trasero_izquierdo" value="1" required>
-                                                                            <label for="radiomuelle_trasero_izquierdo1">
+                                                                            <input type="radio" id="radiomuelle_delantero_izquierdo1" name="muelle_delantero_izquierdo" value="1" required>
+                                                                            <label for="radiomuelle_delantero_izquierdo1">
                                                                                 <i class="fas fa-thumbs-up"></i>
                                                                             </label>
                                                                         </div>
 
                                                                         <div class="icheck-danger d-inline">
-                                                                            <input type="radio" id="radiomuelle_trasero_izquierdo2" name="muelle_trasero_izquierdo" value="0" required>
-                                                                            <label for="radiomuelle_trasero_izquierdo2">
+                                                                            <input type="radio" id="radiomuelle_delantero_izquierdo2" name="muelle_delantero_izquierdo" value="0" required>
+                                                                            <label for="radiomuelle_delantero_izquierdo2">
                                                                                 <i class="fas fa-thumbs-down"></i>
                                                                             </label>
                                                                         </div>
                                                                         <div class="icheck-warning d-inline">
-                                                                            <input type="radio" id="radiomuelle_trasero_izquierdo3" name="muelle_trasero_izquierdo" value="2" required>
-                                                                            <label for="radiomuelle_trasero_izquierdo3">
+                                                                            <input type="radio" id="radiomuelle_delantero_izquierdo3" name="muelle_delantero_izquierdo" value="2" required>
+                                                                            <label for="radiomuelle_delantero_izquierdo3">
                                                                                 <i class="fas fa-ban"></i>
                                                                             </label>
                                                                         </div>
                                                                     </div>
                                                                 </td>
                                                                 <td>
-                                                                <div class="form-group clearfix">
+                                                                    <div class="form-group clearfix">
                                                                         <div class="icheck-success d-inline">
-                                                                            <input type="radio" id="radioamortiguador_trasero_izquierdo1" name="amortiguador_trasero_izquierdo" value="1" required>
-                                                                            <label for="radioamortiguador_trasero_izquierdo1">
+                                                                            <input type="radio" id="radioamortiguador_delantero_izquierdo1" name="amortiguador_delantero_izquierdo" value="1" required>
+                                                                            <label for="radioamortiguador_delantero_izquierdo1">
                                                                                 <i class="fas fa-thumbs-up"></i>
                                                                             </label>
                                                                         </div>
 
                                                                         <div class="icheck-danger d-inline">
-                                                                            <input type="radio" id="radioamortiguador_trasero_izquierdo2" name="amortiguador_trasero_izquierdo" value="0" required>
-                                                                            <label for="radioamortiguador_trasero_izquierdo2">
+                                                                            <input type="radio" id="radioamortiguador_delantero_izquierdo2" name="amortiguador_delantero_izquierdo" value="0" required>
+                                                                            <label for="radioamortiguador_delantero_izquierdo2">
                                                                                 <i class="fas fa-thumbs-down"></i>
                                                                             </label>
                                                                         </div>
                                                                         <div class="icheck-warning d-inline">
-                                                                            <input type="radio" id="radioamortiguador_trasero_izquierdo3" name="amortiguador_trasero_izquierdo" value="2" required>
-                                                                            <label for="radioamortiguador_trasero_izquierdo3">
+                                                                            <input type="radio" id="radioamortiguador_delantero_izquierdo3" name="amortiguador_delantero_izquierdo" value="2" required>
+                                                                            <label for="radioamortiguador_delantero_izquierdo3">
                                                                                 <i class="fas fa-ban"></i>
                                                                             </label>
                                                                         </div>
                                                                     </div>
                                                                 </td>
                                                             </tr>
-                                                            <tr class="font-weight-bold">
-                                                                <th>Barra estabilizadora</th>
-                                                                <th>Grapas y tornillo pasador central</th>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <div class="form-group clearfix">
-                                                                        <div class="icheck-success d-inline">
-                                                                            <input type="radio" id="radiobarra_estabilizadora1" name="barra_estabilizadora" value="1" required>
-                                                                            <label for="radiobarra_estabilizadora1">
-                                                                                <i class="fas fa-thumbs-up"></i>
-                                                                            </label>
-                                                                        </div>
 
-                                                                        <div class="icheck-danger d-inline">
-                                                                            <input type="radio" id="radiobarra_estabilizadora2" name="barra_estabilizadora" value="0" required>
-                                                                            <label for="radiobarra_estabilizadora2">
-                                                                                <i class="fas fa-thumbs-down"></i>
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="icheck-warning d-inline">
-                                                                            <input type="radio" id="radiobarra_estabilizadora3" name="barra_estabilizadora" value="2" required>
-                                                                            <label for="radiobarra_estabilizadora3">
-                                                                                <i class="fas fa-ban"></i>
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="form-group clearfix">
-                                                                        <div class="icheck-success d-inline">
-                                                                            <input type="radio" id="radiotornillo_pasador_central1" name="tornillo_pasador_central" value="1" required>
-                                                                            <label for="radiotornillo_pasador_central1">
-                                                                                <i class="fas fa-thumbs-up"></i>
-                                                                            </label>
-                                                                        </div>
+                                                            <tbody class="text-nowrap">
 
-                                                                        <div class="icheck-danger d-inline">
-                                                                            <input type="radio" id="radiotornillo_pasador_central2" name="tornillo_pasador_central" value="0" required>
-                                                                            <label for="radiotornillo_pasador_central2">
-                                                                                <i class="fas fa-thumbs-down"></i>
-                                                                            </label>
-                                                                        </div>
-                                                                        <div class="icheck-warning d-inline">
-                                                                            <input type="radio" id="radiotornillo_pasador_central3" name="tornillo_pasador_central" value="2" required>
-                                                                            <label for="radiotornillo_pasador_central3">
-                                                                                <i class="fas fa-ban"></i>
-                                                                            </label>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
+                                                                <tr class="font-weight-bold">
+                                                                    <th>Muelle trasero derecho</th>
+                                                                    <th>Amortiguador trasero derecho</th>
+                                                                    <th>Muelle trasero izquierdo</th>
+                                                                    <th>Amortiguador trasero izquierdo</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radiomuelle_trasero_derecho1" name="muelle_trasero_derecho" value="1" required>
+                                                                                <label for="radiomuelle_trasero_derecho1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
 
-                                                    </table>
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radiomuelle_trasero_derecho2" name="muelle_trasero_derecho" value="0" required>
+                                                                                <label for="radiomuelle_trasero_derecho2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radiomuelle_trasero_derecho3" name="muelle_trasero_derecho" value="2" required>
+                                                                                <label for="radiomuelle_trasero_derecho3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radioamortiguador_trasero_derecho1" name="amortiguador_trasero_derecho" value="1" required>
+                                                                                <label for="radioamortiguador_trasero_derecho1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
+
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radioamortiguador_trasero_derecho2" name="amortiguador_trasero_derecho" value="0" required>
+                                                                                <label for="radioamortiguador_trasero_derecho2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radioamortiguador_trasero_derecho3" name="amortiguador_trasero_derecho" value="2" required>
+                                                                                <label for="radioamortiguador_trasero_derecho3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radiomuelle_trasero_izquierdo1" name="muelle_trasero_izquierdo" value="1" required>
+                                                                                <label for="radiomuelle_trasero_izquierdo1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
+
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radiomuelle_trasero_izquierdo2" name="muelle_trasero_izquierdo" value="0" required>
+                                                                                <label for="radiomuelle_trasero_izquierdo2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radiomuelle_trasero_izquierdo3" name="muelle_trasero_izquierdo" value="2" required>
+                                                                                <label for="radiomuelle_trasero_izquierdo3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radioamortiguador_trasero_izquierdo1" name="amortiguador_trasero_izquierdo" value="1" required>
+                                                                                <label for="radioamortiguador_trasero_izquierdo1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
+
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radioamortiguador_trasero_izquierdo2" name="amortiguador_trasero_izquierdo" value="0" required>
+                                                                                <label for="radioamortiguador_trasero_izquierdo2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radioamortiguador_trasero_izquierdo3" name="amortiguador_trasero_izquierdo" value="2" required>
+                                                                                <label for="radioamortiguador_trasero_izquierdo3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr class="font-weight-bold">
+                                                                    <th>Barra estabilizadora</th>
+                                                                    <th>Grapas y tornillo pasador central</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radiobarra_estabilizadora1" name="barra_estabilizadora" value="1" required>
+                                                                                <label for="radiobarra_estabilizadora1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
+
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radiobarra_estabilizadora2" name="barra_estabilizadora" value="0" required>
+                                                                                <label for="radiobarra_estabilizadora2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radiobarra_estabilizadora3" name="barra_estabilizadora" value="2" required>
+                                                                                <label for="radiobarra_estabilizadora3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="form-group clearfix">
+                                                                            <div class="icheck-success d-inline">
+                                                                                <input type="radio" id="radiotornillo_pasador_central1" name="tornillo_pasador_central" value="1" required>
+                                                                                <label for="radiotornillo_pasador_central1">
+                                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                                </label>
+                                                                            </div>
+
+                                                                            <div class="icheck-danger d-inline">
+                                                                                <input type="radio" id="radiotornillo_pasador_central2" name="tornillo_pasador_central" value="0" required>
+                                                                                <label for="radiotornillo_pasador_central2">
+                                                                                    <i class="fas fa-thumbs-down"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="icheck-warning d-inline">
+                                                                                <input type="radio" id="radiotornillo_pasador_central3" name="tornillo_pasador_central" value="2" required>
+                                                                                <label for="radiotornillo_pasador_central3">
+                                                                                    <i class="fas fa-ban"></i>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- TAB SISTEMA DE DIRECCIÓN -->
-                                            <div class="tab-pane fade show" id="custom-tabs-two-sistema-direccion" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-direccion">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered text-center border-danger" nombre = "Sistema potencia">
+                                                <!-- TAB SISTEMA DE DIRECCIÓN -->
+                                                <div class="tab-pane fade show" id="custom-tabs-two-sistema-direccion" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-direccion">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
                                                             <thead class="text-nowrap">
                                                                 <tr class="font-weight-bold">
                                                                     <th>Nivel de aceite hidráulico</th>
@@ -1406,8 +1622,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                         </div>
                                                                     </div>
                                                                 </td>
-                                                            
-                                                            
+
+
                                                                 <td>
                                                                     <div class="form-group clearfix">
                                                                         <div class="icheck-success d-inline">
@@ -1431,8 +1647,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                         </div>
                                                                     </div>
                                                                 </td>
-                                                            
-                                                           
+
+
                                                                 <td>
                                                                     <div class="form-group clearfix">
                                                                         <div class="icheck-success d-inline">
@@ -1637,14 +1853,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                 </tr>
 
                                                             </tbody>
-                                                    </table>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- TAB SISTEMA DE FRENOS Y LLANTAS -->
-                                            <div class="tab-pane fade show" id="custom-tabs-two-sistema-frenos" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-frenos">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered text-center border-danger" nombre = "Sistema potencia">
+                                                <!-- TAB SISTEMA DE FRENOS Y LLANTAS -->
+                                                <div class="tab-pane fade show" id="custom-tabs-two-sistema-frenos" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-frenos">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
                                                             <thead class="text-nowrap">
                                                                 <tr class="font-weight-bold">
                                                                     <th>Nivel de fluido</th>
@@ -2251,14 +2467,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
-                                                    </table>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- TAB SISTEMA ELÉCTRICO -->
-                                            <div class="tab-pane fade show" id="custom-tabs-two-sistema-electrico" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-electrico">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered text-center border-danger" nombre = "Sistema potencia">
+                                                <!-- TAB SISTEMA ELÉCTRICO -->
+                                                <div class="tab-pane fade show" id="custom-tabs-two-sistema-electrico" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-electrico">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
                                                             <thead class="text-nowrap">
                                                                 <tr class="font-weight-bold">
                                                                     <th>Luces altas</th>
@@ -2816,14 +3032,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
-                                                    </table>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- TAB CARROCERIA -->
-                                            <div class="tab-pane fade show" id="custom-tabs-two-carroceria" role="tabpanel" aria-labelledby="custom-tabs-two-carroceria">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered text-center border-danger" nombre = "Sistema potencia">
+                                                <!-- TAB CARROCERIA -->
+                                                <div class="tab-pane fade show" id="custom-tabs-two-carroceria" role="tabpanel" aria-labelledby="custom-tabs-two-carroceria">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
                                                             <thead class="text-nowrap">
                                                                 <tr class="font-weight-bold">
                                                                     <th>Techo exterior</th>
@@ -2835,97 +3051,97 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                                             <tr>
                                                                 <td>
-                                                                        <div class="form-group clearfix">
-                                                                            <div class="icheck-success d-inline">
-                                                                                <input type="radio" id="radiotecho_exterior1" name="techo_exterior" value="1" required>
-                                                                                <label for="radiotecho_exterior1">
-                                                                                    <i class="fas fa-thumbs-up"></i>
-                                                                                </label>
-                                                                            </div>
-
-                                                                            <div class="icheck-danger d-inline">
-                                                                                <input type="radio" id="radiotecho_exterior2" name="techo_exterior" value="0" required>
-                                                                                <label for="radiotecho_exterior2">
-                                                                                    <i class="fas fa-thumbs-down"></i>
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="icheck-warning d-inline">
-                                                                                <input type="radio" id="radiotecho_exterior3" name="techo_exterior" value="2" required>
-                                                                                <label for="radiotecho_exterior3">
-                                                                                    <i class="fas fa-ban"></i>
-                                                                                </label>
-                                                                            </div>
+                                                                    <div class="form-group clearfix">
+                                                                        <div class="icheck-success d-inline">
+                                                                            <input type="radio" id="radiotecho_exterior1" name="techo_exterior" value="1" required>
+                                                                            <label for="radiotecho_exterior1">
+                                                                                <i class="fas fa-thumbs-up"></i>
+                                                                            </label>
                                                                         </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="form-group clearfix">
-                                                                            <div class="icheck-success d-inline">
-                                                                                <input type="radio" id="radiotecho_interior1" name="techo_interior" value="1" required>
-                                                                                <label for="radiotecho_interior1">
-                                                                                    <i class="fas fa-thumbs-up"></i>
-                                                                                </label>
-                                                                            </div>
 
-                                                                            <div class="icheck-danger d-inline">
-                                                                                <input type="radio" id="radiotecho_interior2" name="techo_interior" value="0" required>
-                                                                                <label for="radiotecho_interior2">
-                                                                                    <i class="fas fa-thumbs-down"></i>
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="icheck-warning d-inline">
-                                                                                <input type="radio" id="radiotecho_interior3" name="techo_interior" value="2" required>
-                                                                                <label for="radiotecho_interior3">
-                                                                                    <i class="fas fa-ban"></i>
-                                                                                </label>
-                                                                            </div>
+                                                                        <div class="icheck-danger d-inline">
+                                                                            <input type="radio" id="radiotecho_exterior2" name="techo_exterior" value="0" required>
+                                                                            <label for="radiotecho_exterior2">
+                                                                                <i class="fas fa-thumbs-down"></i>
+                                                                            </label>
                                                                         </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="form-group clearfix">
-                                                                            <div class="icheck-success d-inline">
-                                                                                <input type="radio" id="radiobomper_delantero1" name="bomper_delantero" value="1" required>
-                                                                                <label for="radiobomper_delantero1">
-                                                                                    <i class="fas fa-thumbs-up"></i>
-                                                                                </label>
-                                                                            </div>
+                                                                        <div class="icheck-warning d-inline">
+                                                                            <input type="radio" id="radiotecho_exterior3" name="techo_exterior" value="2" required>
+                                                                            <label for="radiotecho_exterior3">
+                                                                                <i class="fas fa-ban"></i>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group clearfix">
+                                                                        <div class="icheck-success d-inline">
+                                                                            <input type="radio" id="radiotecho_interior1" name="techo_interior" value="1" required>
+                                                                            <label for="radiotecho_interior1">
+                                                                                <i class="fas fa-thumbs-up"></i>
+                                                                            </label>
+                                                                        </div>
 
-                                                                            <div class="icheck-danger d-inline">
-                                                                                <input type="radio" id="radiobomper_delantero2" name="bomper_delantero" value="0" required>
-                                                                                <label for="radiobomper_delantero2">
-                                                                                    <i class="fas fa-thumbs-down"></i>
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="icheck-warning d-inline">
-                                                                                <input type="radio" id="radiobomper_delantero3" name="bomper_delantero" value="2" required>
-                                                                                <label for="radiobomper_delantero3">
-                                                                                    <i class="fas fa-ban"></i>
-                                                                                </label>
-                                                                            </div>
+                                                                        <div class="icheck-danger d-inline">
+                                                                            <input type="radio" id="radiotecho_interior2" name="techo_interior" value="0" required>
+                                                                            <label for="radiotecho_interior2">
+                                                                                <i class="fas fa-thumbs-down"></i>
+                                                                            </label>
                                                                         </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="form-group clearfix">
-                                                                            <div class="icheck-success d-inline">
-                                                                                <input type="radio" id="radiobomper_trasero1" name="bomper_trasero" value="1" required>
-                                                                                <label for="radiobomper_trasero1">
-                                                                                    <i class="fas fa-thumbs-up"></i>
-                                                                                </label>
-                                                                            </div>
+                                                                        <div class="icheck-warning d-inline">
+                                                                            <input type="radio" id="radiotecho_interior3" name="techo_interior" value="2" required>
+                                                                            <label for="radiotecho_interior3">
+                                                                                <i class="fas fa-ban"></i>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group clearfix">
+                                                                        <div class="icheck-success d-inline">
+                                                                            <input type="radio" id="radiobomper_delantero1" name="bomper_delantero" value="1" required>
+                                                                            <label for="radiobomper_delantero1">
+                                                                                <i class="fas fa-thumbs-up"></i>
+                                                                            </label>
+                                                                        </div>
 
-                                                                            <div class="icheck-danger d-inline">
-                                                                                <input type="radio" id="radiobomper_trasero2" name="bomper_trasero" value="0" required>
-                                                                                <label for="radiobomper_trasero2">
-                                                                                    <i class="fas fa-thumbs-down"></i>
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="icheck-warning d-inline">
-                                                                                <input type="radio" id="radiobomper_trasero3" name="bomper_trasero" value="2" required>
-                                                                                <label for="radiobomper_trasero3">
-                                                                                    <i class="fas fa-ban"></i>
-                                                                                </label>
-                                                                            </div>
+                                                                        <div class="icheck-danger d-inline">
+                                                                            <input type="radio" id="radiobomper_delantero2" name="bomper_delantero" value="0" required>
+                                                                            <label for="radiobomper_delantero2">
+                                                                                <i class="fas fa-thumbs-down"></i>
+                                                                            </label>
                                                                         </div>
-                                                                    </td>
+                                                                        <div class="icheck-warning d-inline">
+                                                                            <input type="radio" id="radiobomper_delantero3" name="bomper_delantero" value="2" required>
+                                                                            <label for="radiobomper_delantero3">
+                                                                                <i class="fas fa-ban"></i>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group clearfix">
+                                                                        <div class="icheck-success d-inline">
+                                                                            <input type="radio" id="radiobomper_trasero1" name="bomper_trasero" value="1" required>
+                                                                            <label for="radiobomper_trasero1">
+                                                                                <i class="fas fa-thumbs-up"></i>
+                                                                            </label>
+                                                                        </div>
+
+                                                                        <div class="icheck-danger d-inline">
+                                                                            <input type="radio" id="radiobomper_trasero2" name="bomper_trasero" value="0" required>
+                                                                            <label for="radiobomper_trasero2">
+                                                                                <i class="fas fa-thumbs-down"></i>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="icheck-warning d-inline">
+                                                                            <input type="radio" id="radiobomper_trasero3" name="bomper_trasero" value="2" required>
+                                                                            <label for="radiobomper_trasero3">
+                                                                                <i class="fas fa-ban"></i>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
                                                             </tr>
 
 
@@ -2940,21 +3156,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                     <td>
                                                                         <div class="form-group clearfix">
                                                                             <div class="icheck-success d-inline">
-                                                                                <input type="radio" id="radioFrente1" name="Frente" value="1" required>
-                                                                                <label for="radioFrente1">
+                                                                                <input type="radio" id="radiofrente1" name="frente" value="1" required>
+                                                                                <label for="radiofrente1">
                                                                                     <i class="fas fa-thumbs-up"></i>
                                                                                 </label>
                                                                             </div>
 
                                                                             <div class="icheck-danger d-inline">
-                                                                                <input type="radio" id="radioFrente2" name="Frente" value="0" required>
-                                                                                <label for="radioFrente2">
+                                                                                <input type="radio" id="radiofrente2" name="frente" value="0" required>
+                                                                                <label for="radiofrente2">
                                                                                     <i class="fas fa-thumbs-down"></i>
                                                                                 </label>
                                                                             </div>
                                                                             <div class="icheck-warning d-inline">
-                                                                                <input type="radio" id="radioFrente3" name="Frente" value="2" required>
-                                                                                <label for="radioFrente3">
+                                                                                <input type="radio" id="radiofrente3" name="frente" value="2" required>
+                                                                                <label for="radiofrente3">
                                                                                     <i class="fas fa-ban"></i>
                                                                                 </label>
                                                                             </div>
@@ -3529,7 +3745,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                             </div>
                                                                         </div>
                                                                     </td>
-                                                                    
+
                                                                 </tr>
                                                                 <tr class="font-weight-bold">
                                                                     <th>Vidrios de segunda puerta</th>
@@ -3560,14 +3776,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
-                                                    </table>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- TAB ACCESORIOS Y OTROS -->
-                                            <div class="tab-pane fade show" id="custom-tabs-two-accesorios" role="tabpanel" aria-labelledby="custom-tabs-two-accesorios">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered text-center border-danger" nombre = "Sistema potencia">
+                                                <!-- TAB ACCESORIOS Y OTROS -->
+                                                <div class="tab-pane fade show" id="custom-tabs-two-accesorios" role="tabpanel" aria-labelledby="custom-tabs-two-accesorios">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
                                                             <thead class="text-nowrap">
                                                                 <tr class="font-weight-bold">
                                                                     <th>Manijas y ventanas</th>
@@ -3579,97 +3795,97 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                                             <tr>
                                                                 <td>
-                                                                        <div class="form-group clearfix">
-                                                                            <div class="icheck-success d-inline">
-                                                                                <input type="radio" id="radiomanijas1" name="manijas" value="1" required>
-                                                                                <label for="radiomanijas1">
-                                                                                    <i class="fas fa-thumbs-up"></i>
-                                                                                </label>
-                                                                            </div>
-
-                                                                            <div class="icheck-danger d-inline">
-                                                                                <input type="radio" id="radiomanijas2" name="manijas" value="0" required>
-                                                                                <label for="radiomanijas2">
-                                                                                    <i class="fas fa-thumbs-down"></i>
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="icheck-warning d-inline">
-                                                                                <input type="radio" id="radiomanijas3" name="manijas" value="2" required>
-                                                                                <label for="radiomanijas3">
-                                                                                    <i class="fas fa-ban"></i>
-                                                                                </label>
-                                                                            </div>
+                                                                    <div class="form-group clearfix">
+                                                                        <div class="icheck-success d-inline">
+                                                                            <input type="radio" id="radiomanijas1" name="manijas" value="1" required>
+                                                                            <label for="radiomanijas1">
+                                                                                <i class="fas fa-thumbs-up"></i>
+                                                                            </label>
                                                                         </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="form-group clearfix">
-                                                                            <div class="icheck-success d-inline">
-                                                                                <input type="radio" id="radioclaraboyas1" name="claraboyas" value="1" required>
-                                                                                <label for="radioclaraboyas1">
-                                                                                    <i class="fas fa-thumbs-up"></i>
-                                                                                </label>
-                                                                            </div>
 
-                                                                            <div class="icheck-danger d-inline">
-                                                                                <input type="radio" id="radioclaraboyas2" name="claraboyas" value="0" required>
-                                                                                <label for="radioclaraboyas2">
-                                                                                    <i class="fas fa-thumbs-down"></i>
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="icheck-warning d-inline">
-                                                                                <input type="radio" id="radioclaraboyas3" name="claraboyas" value="2" required>
-                                                                                <label for="radioclaraboyas3">
-                                                                                    <i class="fas fa-ban"></i>
-                                                                                </label>
-                                                                            </div>
+                                                                        <div class="icheck-danger d-inline">
+                                                                            <input type="radio" id="radiomanijas2" name="manijas" value="0" required>
+                                                                            <label for="radiomanijas2">
+                                                                                <i class="fas fa-thumbs-down"></i>
+                                                                            </label>
                                                                         </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="form-group clearfix">
-                                                                            <div class="icheck-success d-inline">
-                                                                                <input type="radio" id="radioairbag1" name="airbag" value="1" required>
-                                                                                <label for="radioairbag1">
-                                                                                    <i class="fas fa-thumbs-up"></i>
-                                                                                </label>
-                                                                            </div>
+                                                                        <div class="icheck-warning d-inline">
+                                                                            <input type="radio" id="radiomanijas3" name="manijas" value="2" required>
+                                                                            <label for="radiomanijas3">
+                                                                                <i class="fas fa-ban"></i>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group clearfix">
+                                                                        <div class="icheck-success d-inline">
+                                                                            <input type="radio" id="radioclaraboyas1" name="claraboyas" value="1" required>
+                                                                            <label for="radioclaraboyas1">
+                                                                                <i class="fas fa-thumbs-up"></i>
+                                                                            </label>
+                                                                        </div>
 
-                                                                            <div class="icheck-danger d-inline">
-                                                                                <input type="radio" id="radioairbag2" name="airbag" value="0" required>
-                                                                                <label for="radioairbag2">
-                                                                                    <i class="fas fa-thumbs-down"></i>
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="icheck-warning d-inline">
-                                                                                <input type="radio" id="radioairbag3" name="airbag" value="2" required>
-                                                                                <label for="radioairbag3">
-                                                                                    <i class="fas fa-ban"></i>
-                                                                                </label>
-                                                                            </div>
+                                                                        <div class="icheck-danger d-inline">
+                                                                            <input type="radio" id="radioclaraboyas2" name="claraboyas" value="0" required>
+                                                                            <label for="radioclaraboyas2">
+                                                                                <i class="fas fa-thumbs-down"></i>
+                                                                            </label>
                                                                         </div>
-                                                                    </td>
-                                                                    <td>
-                                                                        <div class="form-group clearfix">
-                                                                            <div class="icheck-success d-inline">
-                                                                                <input type="radio" id="radioaire_acondicionado1" name="aire_acondicionado" value="1" required>
-                                                                                <label for="radioaire_acondicionado1">
-                                                                                    <i class="fas fa-thumbs-up"></i>
-                                                                                </label>
-                                                                            </div>
+                                                                        <div class="icheck-warning d-inline">
+                                                                            <input type="radio" id="radioclaraboyas3" name="claraboyas" value="2" required>
+                                                                            <label for="radioclaraboyas3">
+                                                                                <i class="fas fa-ban"></i>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group clearfix">
+                                                                        <div class="icheck-success d-inline">
+                                                                            <input type="radio" id="radioairbag1" name="airbag" value="1" required>
+                                                                            <label for="radioairbag1">
+                                                                                <i class="fas fa-thumbs-up"></i>
+                                                                            </label>
+                                                                        </div>
 
-                                                                            <div class="icheck-danger d-inline">
-                                                                                <input type="radio" id="radioaire_acondicionado2" name="aire_acondicionado" value="0" required>
-                                                                                <label for="radioaire_acondicionado2">
-                                                                                    <i class="fas fa-thumbs-down"></i>
-                                                                                </label>
-                                                                            </div>
-                                                                            <div class="icheck-warning d-inline">
-                                                                                <input type="radio" id="radioaire_acondicionado3" name="aire_acondicionado" value="2" required>
-                                                                                <label for="radioaire_acondicionado3">
-                                                                                    <i class="fas fa-ban"></i>
-                                                                                </label>
-                                                                            </div>
+                                                                        <div class="icheck-danger d-inline">
+                                                                            <input type="radio" id="radioairbag2" name="airbag" value="0" required>
+                                                                            <label for="radioairbag2">
+                                                                                <i class="fas fa-thumbs-down"></i>
+                                                                            </label>
                                                                         </div>
-                                                                    </td>
+                                                                        <div class="icheck-warning d-inline">
+                                                                            <input type="radio" id="radioairbag3" name="airbag" value="2" required>
+                                                                            <label for="radioairbag3">
+                                                                                <i class="fas fa-ban"></i>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="form-group clearfix">
+                                                                        <div class="icheck-success d-inline">
+                                                                            <input type="radio" id="radioaire_acondicionado1" name="aire_acondicionado" value="1" required>
+                                                                            <label for="radioaire_acondicionado1">
+                                                                                <i class="fas fa-thumbs-up"></i>
+                                                                            </label>
+                                                                        </div>
+
+                                                                        <div class="icheck-danger d-inline">
+                                                                            <input type="radio" id="radioaire_acondicionado2" name="aire_acondicionado" value="0" required>
+                                                                            <label for="radioaire_acondicionado2">
+                                                                                <i class="fas fa-thumbs-down"></i>
+                                                                            </label>
+                                                                        </div>
+                                                                        <div class="icheck-warning d-inline">
+                                                                            <input type="radio" id="radioaire_acondicionado3" name="aire_acondicionado" value="2" required>
+                                                                            <label for="radioaire_acondicionado3">
+                                                                                <i class="fas fa-ban"></i>
+                                                                            </label>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
                                                             </tr>
 
 
@@ -4351,14 +4567,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
-                                                    </table>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- TAB EQUIPO DE PREVENCIÓN Y SEGURIDAD -->
-                                            <div class="tab-pane fade show" id="custom-tabs-two-seguridad" role="tabpanel" aria-labelledby="custom-tabs-two-seguridad">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered text-center border-danger" nombre = "Sistema potencia">
+                                                <!--  TAB EQUIPO DE PREVENCIÓN Y SEGURIDAD -->
+                                                <div class="tab-pane fade show" id="custom-tabs-two-seguridad" role="tabpanel" aria-labelledby="custom-tabs-two-seguridad">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
                                                             <thead class="text-nowrap">
                                                                 <tr class="font-weight-bold">
                                                                     <th>Gato</th>
@@ -4481,14 +4697,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
-                                                    </table>
+                                                        </table>
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <!-- TAB HERRAMIENTA -->
-                                            <div class="tab-pane fade show" id="custom-tabs-two-herramienta" role="tabpanel" aria-labelledby="custom-tabs-two-herramienta">
-                                                <div class="table-responsive">
-                                                    <table class="table table-bordered text-center border-danger" nombre = "Sistema potencia">
+                                                <!-- TAB HERRAMIENTA -->
+                                                <div class="tab-pane fade show" id="custom-tabs-two-herramienta" role="tabpanel" aria-labelledby="custom-tabs-two-herramienta">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
                                                             <thead class="text-nowrap">
                                                                 <tr class="font-weight-bold">
                                                                     <th>Alicate</th>
@@ -4497,7 +4713,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                     <th>Llaves fijas</th>
                                                                 </tr>
                                                             </thead>
-                                                            
+
                                                             <tr>
                                                                 <td>
                                                                     <div class="form-group clearfix">
@@ -4595,51 +4811,36 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                     <td>
                                                                         <div class="form-group clearfix">
                                                                             <div class="icheck-success d-inline">
-                                                                            <textarea class="form-control" id="observacion" name="observacion" rows="2" required placeholder="..."></textarea>
+                                                                                <textarea class="form-control" id="observacion" name="observacion" rows="2" required placeholder="..."></textarea>
                                                                             </div>
                                                                         </div>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
-                                                    </table>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </form>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
+
+
+
+
+
                         </div>
-                        
-                        
-                        
-                        
-                        
-                    </div>
-                    
-                    
-                    
-                </div>
-                
-                
-                
-                <!-- ===================================================
-                    BOTON GUARDAR
-                =================================================== -->
-                <div class="modal-footer justify-content-center bg-info">
-                    <?php if (validarPermiso('M_OPCIONES', 'U')) : ?>
-                        <button type="submit" form="alistamiento_form" class="btn btn-success"><i class="fas fa-print"></i> Guardar</button>
-                    <?php endif ?>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
-                </div>
-                <!-- FIN MODAL CONTENT  -->
-            </div> 
+
+
+                </form> <!-- FIN FORMULARIO -->
+
             </div>
         </div>
-
-
-
-
-
     </div>
 
+
+
+
 </div>
+

@@ -438,3 +438,11 @@ class ControladorInventario
         return $respuesta;
     }
 }
+
+class ControladorRevision{
+	static public function ctrListadoRevision()
+	{
+		$respuesta = ModeloRevision::mdlListadoRevision();
+		return $respuesta;
+	}
+}

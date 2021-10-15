@@ -476,8 +476,8 @@ $(document).ready(function () {
                                       <hr>
                                       <label for="">Observaciones</label>
                                       <input class="form-control" id="swal-evidencia-obs" type="text" value="${$(
-                                        "#obs_" + idevidencia
-                                      ).text()}">
+          "#obs_" + idevidencia
+        ).text()}">
                                       `,
         showCancelButton: true,
         confirmButtonColor: colorBoton,
@@ -626,4 +626,80 @@ $(document).ready(function () {
       });
     });
   }
+
+  /* ===================================================
+    * REVISIÓN TECNICOMECÁNICA
+  ====================================================== */
+  if (
+    window.location.href == `${urlPagina}m-revision-tm/` ||
+    window.location.href == `${urlPagina}m-revision-tm`
+  ) {
+
+    $(document).on("click", ".btnEditarRev", function () {
+      $("#titulo-modal-tecnomecanica").html("Editar convenio");
+
+      var idvehiculo = $(this).attr("idvehiculo");
+      $("#idvehiculo").val(idvehiculo);
+
+      var datos = new FormData();
+      datos.append("DatosRevision", "ok");
+      datos.append("idvehiculo", idvehiculo);
+
+
+      $.ajax({
+        type: "POST",
+        url: "ajax/mantenimiento.ajax.php",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (response) {
+          console.log(response);
+          $('#placa').val(response.idvehiculo).trigger("change");
+        }
+      });
+
+      $(document).on("change", '#placa', function(){
+        let idvehiculo = $(this).val();
+        console.log(idvehiculo);
+        var datos = new FormData();
+        datos.append("DatosVehiculo", "ok");
+        datos.append("item", "idvehiculo");
+        datos.append("valor", idvehiculo);
+        $.ajax({
+          type: "post",
+          url: `${urlPagina}ajax/vehicular.ajax.php`,
+          data: datos,
+          dataType: "JSON",
+          cache: false,
+          contentType: false,
+          processData: false,
+          success: function (Vehiculo) {
+          
+          $('#numinterno').val(Vehiculo.datosVehiculo.numinterno);
+          $('#modelo').val(Vehiculo.datosVehiculo.modelo);
+          $("#tipo_vehiculo").val(Vehiculo.datosVehiculo.idtipovehiculo).trigger("change");
+          console.log(Vehiculo.datosVehiculo.idmarca);
+          // $('#tipo_vehiculo').attr('disabled','disabled');
+          $("#num_interno").val(Vehiculo.datosVehiculo.idvehiculo).trigger("change");
+          $('#num_interno').attr('disabled','disabled');
+          $('#tarjeta_propiedad').val(Vehiculo.datosVehiculo.fechamatricula);
+          
+          },
+        });
+      });
+
+
+    });
+
+    $(document).on("click", ".btn-nuevaRevision", function () {
+      $("#titulo-modal-tecnomecanica").html("Nuevo convenio");
+    });
+
+  }
+
+
+
+
 });

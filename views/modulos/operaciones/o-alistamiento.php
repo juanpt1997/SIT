@@ -352,6 +352,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                         </tr>
                                     <?php endforeach ?>
+                                </tbody>
                             </table>
                         </div>
                     </div>
@@ -499,7 +500,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!--|||TAB SISTEMA DE LUCES|||-->
                                         <div class="tab-pane fade" id="custom-tabs-two-sistemaluces" role="tabpanel" aria-labelledby="custom-tabs-two-sistemaluces-tab">
                                             <div class="table-responsive">
-                                                <table class="table table-bordered text-center border-danger" nombre = "Sistema Luces">
+                                                <table class="table table-bordered text-center border-danger" nombre="Sistema Luces">
                                                     <thead class="text-nowrap">
                                                         <tr>
                                                             <th>Luces bajas</th>
@@ -775,7 +776,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!--|||TAB CARROCERIA|||-->
                                         <div class="tab-pane fade" id="custom-tabs-two-carroceria" role="tabpanel" aria-labelledby="custom-tabs-two-carroceria-tab">
                                             <div class="table table-responsive">
-                                                <table class="table table-bordered text-center" nombre = "Carrocería">
+                                                <table class="table table-bordered text-center" nombre="Carrocería">
                                                     <thead class="text-nowrap">
                                                         <tr>
                                                             <th style="width: px">Retrovisores izquierdo</th>
