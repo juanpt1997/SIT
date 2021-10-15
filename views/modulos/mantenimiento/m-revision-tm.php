@@ -1,4 +1,9 @@
 
+
+<?php 
+$tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
+?>
+
 <!-- ===================== 
   MODELO PARA LA IMPLEMENTARCION EN EL DISEÑO DE LOS MODULOS
   ESTRUCTURA 
@@ -34,216 +39,213 @@
                 </div>
 
                 <div class="row mt-2">
-                <div class="col-12">
-                    <div class="card card-outline card-success">
-                        <div class="card-body">
-                            <!--|||TABLA PROTOCOLO DE ALISTAMIENTO|||-->
-                            <table id="tblAlistamientos" class="table table-responsive table-bordered table-striped text-center w-100">
-                                <thead class="text-nowrap text-sm">
-                                    <tr>
-                                        <th colspan="7">INFORMACIÓN GENERAL</th>
-                                        <th colspan="13">SISTEMA DE POTENCIA</th>
-                                        <th colspan="13">SISTEMA DE TRANSMISIÓN Y DIFERENCIA</th>
-                                        <th colspan="10">SISTEMA MUELLES Y SUSPENSIÓN</th>
-                                        <th colspan="10">SISTEMA DE DIRECCIÓN</th>
-                                        <th colspan="24">SISTEMA DE FRENOS Y LLANTAS</th>
-                                        <th colspan="22">SISTEMA ELÉCTRICO</th>
-                                        <th colspan="29">CARROCERIA</th>
-                                        <th colspan="31">ACCESORIOS Y OTROS</th>
-                                        <th colspan="7">EQUIPO DE PREVENCION Y SEGURIDAD</th>
-                                        <th colspan="5">HERRAMIENTA</th>
-                                        <th colspan="1">Observación</th>
-                                    </tr>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header bg-info"></div>
+                                <div class="card-body">
 
-                                    <tr>
-                                        <th>...</th>
-                                        <th style="min-width:70px;">Placa</th>
-                                        <th>Número interno</th>
-                                        <th style="min-width:80px;">Modelo</th>
-                                        <th>Clase de vehículo</th>
-                                        <th>Kilometraje</th>
-                                        <th>Seguro obligatorio</th>
-                                        <th>Nivel de refrigerante </th>
-                                        <th>Nivel de aceite motor</th>
-                                        <th>Radiador</th>
-                                        <th>Mangueras y conexiones</th>
-                                        <th>Correas</th>
-                                        <th>Motor</th>
-                                        <th>Freno de ahogo</th>
-                                        <th>Exosto</th>
-                                        <th>Guaya de aceleración</th>
-                                        <th>Turbo</th>
-                                        <th>Tapa de radiador</th>
-                                        <th>Fuga de aceite</th>
-                                        <th>Fuga de combustible</th>
-                                        <th>Nivel de aceite transmisión</th>
-                                        <th>Transmisión</th>
-                                        <th>Tapon drenaje de transmisión</th>
-                                        <th>Revision sistema palanca de cambios</th>
-                                        <th>Embrague</th>
-                                        <th>Caucho pedal embrague</th>
-                                        <th>Cruceta de cardan</th>
-                                        <th>Cojinete intermedio de cardan</th>
-                                        <th>Cadena de cardan</th>
-                                        <th>Nivel de aceite diferencial</th>
-                                        <th>Tapón drenaje de dierencial</th>
-                                        <th>Fuga de aceite de transmisión</th>
-                                        <th>Fuga de aceite diferencial</th>
-                                        <th>Muelle delantero derecho</th>
-                                        <th>Amortiguador delantero derecho</th>
-                                        <th>Muelle delantero izquierdo</th>
-                                        <th>Amortiguador delantero izquierdo</th>
-                                        <th>Muelle trasero derecho</th>
-                                        <th>Amortiguador trasero derecho</th>
-                                        <th>Muelle trasero izquierdo</th>
-                                        <th>Amortiguador trasero izquierdo</th>
-                                        <th>Barra estabilizadora</th>
-                                        <th>Grapas y tornillo pasador central</th>
-                                        <th>Nivel de aceite hidráulico</th>
-                                        <th>Mangueras y lineas</th>
-                                        <th>Brazo pitman</th>
-                                        <th>Barra entre ejes</th>
-                                        <th>Tijeras</th>
-                                        <th>Splinders</th>
-                                        <th>Timón</th>
-                                        <th>Cajas de dirección</th>
-                                        <th>Cruceta de dirección</th>
-                                        <th>Fugas caja de dirección</th>
-                                        <th>Nivel de fluido</th>
-                                        <th>Mangueras y tuberias</th>
-                                        <th>Freno de parqueo</th>
-                                        <th>Frenos</th>
-                                        <th>Pedal de freno</th>
-                                        <th>Compresor</th>
-                                        <th>Fugas de aire</th>
-                                        <th>Bandas delantera derecha</th>
-                                        <th>Bandas delantera izquierda</th>
-                                        <th>Bandas trasera derecha</th>
-                                        <th>Bandas trasera izquierda</th>
-                                        <th>Rachets</th>
-                                        <th>Discos delanteros</th>
-                                        <th>Discos traseros</th>
-                                        <th>Pastillas de freno</th>
-                                        <th>Rines</th>
-                                        <th>Llantas R1</th>
-                                        <th>Llantas R2</th>
-                                        <th>Llantas R3</th>
-                                        <th>Llantas R4</th>
-                                        <th>Llantas R5</th>
-                                        <th>Llantas R6</th>
-                                        <th>Llanta de repuesto</th>
-                                        <th>Chequeo tanques de aire</th>
-                                        <th>Luces altas</th>
-                                        <th>Luces bajas</th>
-                                        <th>Luces direccionales</th>
-                                        <th>Luces estacionarias</th>
-                                        <th>Luces laterales</th>
-                                        <th>Luces de reversa</th>
-                                        <th>Luces internas</th>
-                                        <th>Luces delimitadoras</th>
-                                        <th>Alarma de reversa</th>
-                                        <th>Motor de arranque</th>
-                                        <th>Alternador</th>
-                                        <th>Baterias</th>
-                                        <th>Pito</th>
-                                        <th>Rutero</th>
-                                        <th>Cables y conexiones</th>
-                                        <th>Fusibles</th>
-                                        <th>Presión de aceite motor</th>
-                                        <th>Temperatura motor</th>
-                                        <th>Velocímetro</th>
-                                        <th>Nivel de combustible</th>
-                                        <th>Presión de aire</th>
-                                        <th>Carga de batería</th>
-                                        <th>Techo exterior</th>
-                                        <th>Techo interior</th>
-                                        <th>Bomper delantero</th>
-                                        <th>Bomper trasero</th>
-                                        <th>Frente</th>
-                                        <th>Lamina lateral derecho</th>
-                                        <th>Lamina lateral izquierdo</th>
-                                        <th>Estado de puerta principal</th>
-                                        <th>Estado de puerta lateral</th>
-                                        <th>Estribos de puertas</th>
-                                        <th>Sillas</th>
-                                        <th>Descansabrazos</th>
-                                        <th>Bocallanta</th>
-                                        <th>Guardapolvos</th>
-                                        <th>Piso</th>
-                                        <th>Parabrisas derecho</th>
-                                        <th>Brazo limpiaparabrizas derecho</th>
-                                        <th>Plumillas limpiaparabrizas derecho</th>
-                                        <th>Parabrisas izquierdo</th>
-                                        <th>Brazo limpiaparabrizas izquierdo</th>
-                                        <th>Plumillas limpiaparabrizas izquierdo</th>
-                                        <th>Espejo retrovisor derecho</th>
-                                        <th>Espejo retrovisor izquierdo</th>
-                                        <th>Espejo central</th>
-                                        <th>Ventanas laterales lado derecho</th>
-                                        <th>Ventanas laterales lado izquierdo</th>
-                                        <th>Parabrisas trasero</th>
-                                        <th>Vidrios de puerta principal</th>
-                                        <th>Vidrios de segunda puerta</th>
-                                        <th>Manijas ventanas</th>
-                                        <th>Claraboyas</th>
-                                        <th>Airbag</th>
-                                        <th>Aire acondicionado</th>
-                                        <th>Limpieza</th>
-                                        <th>Chapas de puertas</th>
-                                        <th>Parales</th>
-                                        <th>Booster de puertas</th>
-                                        <th>Relog vigia</th>
-                                        <th>Vigia rueda delantera derecha</th>
-                                        <th>Vigia rueda delantera izquierda</th>
-                                        <th>Vigia rueda trasera derecha</th>
-                                        <th>Vigia rueda trasera izquierda</th>
-                                        <th>Tapa motor</th>
-                                        <th>Tapa bodegas</th>
-                                        <th>Parasol</th>
-                                        <th>Cenefas</th>
-                                        <th>Emblema izquierdo empresa</th>
-                                        <th>Emblema derecho empresa</th>
-                                        <th>Emblema trasero empresa</th>
-                                        <th>Equipo de audio</th>
-                                        <th>Parlantes</th>
-                                        <th>Cinturon sillas usuario</th>
-                                        <th>Martillos salida de emergencia</th>
-                                        <th>Dispositivo de velocidad</th>
-                                        <th>Avisos</th>
-                                        <th>Placa trasera</th>
-                                        <th>Placa delantera</th>
-                                        <th>Placa lateral derecha</th>
-                                        <th>Placa lateral izquierda</th>
-                                        <th>Balizas</th>
-                                        <th>Cinturón</th>
-                                        <th>Gato</th>
-                                        <th>Cruceta o copa</th>
-                                        <th>Señales de carretera</th>
-                                        <th>Botiquin</th>
-                                        <th>Extintor</th>
-                                        <th>2 Tacos</th>
-                                        <th>Alicate</th>
-                                        <th>Destornilladores</th>
-                                        <th>Llaves de expansión</th>
-                                        <th>Llaves fijas</th>
-                                        <th>Linterna con pila</th>
-                                        <th></th>
-                                        
-                                    </tr>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
+                                            <thead class="thead-light text-sm text-center text-nowrap">
+                                            <tr>
+                                            <th colspan="7">INFORMACIÓN GENERAL</th>
+                                            <th colspan="13">SISTEMA DE POTENCIA</th>
+                                            <th colspan="13">SISTEMA DE TRANSMISIÓN Y DIFERENCIA</th>
+                                            <th colspan="10">SISTEMA MUELLES Y SUSPENSIÓN</th>
+                                            <th colspan="10">SISTEMA DE DIRECCIÓN</th>
+                                            <th colspan="24">SISTEMA DE FRENOS Y LLANTAS</th>
+                                            <th colspan="22">SISTEMA ELÉCTRICO</th>
+                                            <th colspan="29">CARROCERIA</th>
+                                            <th colspan="31">ACCESORIOS Y OTROS</th>
+                                            <th colspan="7">EQUIPO DE PREVENCION Y SEGURIDAD</th>
+                                            <th colspan="5">HERRAMIENTA</th>
+                                            <th colspan="1">Observación</th>
+                                        </tr>
 
-                                </thead>
+                                        <tr>
+                                            <th>...</th>
+                                            <th style="min-width:70px;">Placa</th>
+                                            <th>Número interno</th>
+                                            <th style="min-width:80px;">Modelo</th>
+                                            <th>Clase de vehículo</th>
+                                            <th>Kilometraje</th>
+                                            <th>Seguro obligatorio</th>
+                                            <th>Nivel de refrigerante </th>
+                                            <th>Nivel de aceite motor</th>
+                                            <th>Radiador</th>
+                                            <th>Mangueras y conexiones</th>
+                                            <th>Correas</th>
+                                            <th>Motor</th>
+                                            <th>Freno de ahogo</th>
+                                            <th>Exosto</th>
+                                            <th>Guaya de aceleración</th>
+                                            <th>Turbo</th>
+                                            <th>Tapa de radiador</th>
+                                            <th>Fuga de aceite</th>
+                                            <th>Fuga de combustible</th>
+                                            <th>Nivel de aceite transmisión</th>
+                                            <th>Transmisión</th>
+                                            <th>Tapon drenaje de transmisión</th>
+                                            <th>Revision sistema palanca de cambios</th>
+                                            <th>Embrague</th>
+                                            <th>Caucho pedal embrague</th>
+                                            <th>Cruceta de cardan</th>
+                                            <th>Cojinete intermedio de cardan</th>
+                                            <th>Cadena de cardan</th>
+                                            <th>Nivel de aceite diferencial</th>
+                                            <th>Tapón drenaje de dierencial</th>
+                                            <th>Fuga de aceite de transmisión</th>
+                                            <th>Fuga de aceite diferencial</th>
+                                            <th>Muelle delantero derecho</th>
+                                            <th>Amortiguador delantero derecho</th>
+                                            <th>Muelle delantero izquierdo</th>
+                                            <th>Amortiguador delantero izquierdo</th>
+                                            <th>Muelle trasero derecho</th>
+                                            <th>Amortiguador trasero derecho</th>
+                                            <th>Muelle trasero izquierdo</th>
+                                            <th>Amortiguador trasero izquierdo</th>
+                                            <th>Barra estabilizadora</th>
+                                            <th>Grapas y tornillo pasador central</th>
+                                            <th>Nivel de aceite hidráulico</th>
+                                            <th>Mangueras y lineas</th>
+                                            <th>Brazo pitman</th>
+                                            <th>Barra entre ejes</th>
+                                            <th>Tijeras</th>
+                                            <th>Splinders</th>
+                                            <th>Timón</th>
+                                            <th>Cajas de dirección</th>
+                                            <th>Cruceta de dirección</th>
+                                            <th>Fugas caja de dirección</th>
+                                            <th>Nivel de fluido</th>
+                                            <th>Mangueras y tuberias</th>
+                                            <th>Freno de parqueo</th>
+                                            <th>Frenos</th>
+                                            <th>Pedal de freno</th>
+                                            <th>Compresor</th>
+                                            <th>Fugas de aire</th>
+                                            <th>Bandas delantera derecha</th>
+                                            <th>Bandas delantera izquierda</th>
+                                            <th>Bandas trasera derecha</th>
+                                            <th>Bandas trasera izquierda</th>
+                                            <th>Rachets</th>
+                                            <th>Discos delanteros</th>
+                                            <th>Discos traseros</th>
+                                            <th>Pastillas de freno</th>
+                                            <th>Rines</th>
+                                            <th>Llantas R1</th>
+                                            <th>Llantas R2</th>
+                                            <th>Llantas R3</th>
+                                            <th>Llantas R4</th>
+                                            <th>Llantas R5</th>
+                                            <th>Llantas R6</th>
+                                            <th>Llanta de repuesto</th>
+                                            <th>Chequeo tanques de aire</th>
+                                            <th>Luces altas</th>
+                                            <th>Luces bajas</th>
+                                            <th>Luces direccionales</th>
+                                            <th>Luces estacionarias</th>
+                                            <th>Luces laterales</th>
+                                            <th>Luces de reversa</th>
+                                            <th>Luces internas</th>
+                                            <th>Luces delimitadoras</th>
+                                            <th>Alarma de reversa</th>
+                                            <th>Motor de arranque</th>
+                                            <th>Alternador</th>
+                                            <th>Baterias</th>
+                                            <th>Pito</th>
+                                            <th>Rutero</th>
+                                            <th>Cables y conexiones</th>
+                                            <th>Fusibles</th>
+                                            <th>Presión de aceite motor</th>
+                                            <th>Temperatura motor</th>
+                                            <th>Velocímetro</th>
+                                            <th>Nivel de combustible</th>
+                                            <th>Presión de aire</th>
+                                            <th>Carga de batería</th>
+                                            <th>Techo exterior</th>
+                                            <th>Techo interior</th>
+                                            <th>Bomper delantero</th>
+                                            <th>Bomper trasero</th>
+                                            <th>Frente</th>
+                                            <th>Lamina lateral derecho</th>
+                                            <th>Lamina lateral izquierdo</th>
+                                            <th>Estado de puerta principal</th>
+                                            <th>Estado de puerta lateral</th>
+                                            <th>Estribos de puertas</th>
+                                            <th>Sillas</th>
+                                            <th>Descansabrazos</th>
+                                            <th>Bocallanta</th>
+                                            <th>Guardapolvos</th>
+                                            <th>Piso</th>
+                                            <th>Parabrisas derecho</th>
+                                            <th>Brazo limpiaparabrizas derecho</th>
+                                            <th>Plumillas limpiaparabrizas derecho</th>
+                                            <th>Parabrisas izquierdo</th>
+                                            <th>Brazo limpiaparabrizas izquierdo</th>
+                                            <th>Plumillas limpiaparabrizas izquierdo</th>
+                                            <th>Espejo retrovisor derecho</th>
+                                            <th>Espejo retrovisor izquierdo</th>
+                                            <th>Espejo central</th>
+                                            <th>Ventanas laterales lado derecho</th>
+                                            <th>Ventanas laterales lado izquierdo</th>
+                                            <th>Parabrisas trasero</th>
+                                            <th>Vidrios de puerta principal</th>
+                                            <th>Vidrios de segunda puerta</th>
+                                            <th>Manijas ventanas</th>
+                                            <th>Claraboyas</th>
+                                            <th>Airbag</th>
+                                            <th>Aire acondicionado</th>
+                                            <th>Limpieza</th>
+                                            <th>Chapas de puertas</th>
+                                            <th>Parales</th>
+                                            <th>Booster de puertas</th>
+                                            <th>Relog vigia</th>
+                                            <th>Vigia rueda delantera derecha</th>
+                                            <th>Vigia rueda delantera izquierda</th>
+                                            <th>Vigia rueda trasera derecha</th>
+                                            <th>Vigia rueda trasera izquierda</th>
+                                            <th>Tapa motor</th>
+                                            <th>Tapa bodegas</th>
+                                            <th>Parasol</th>
+                                            <th>Cenefas</th>
+                                            <th>Emblema izquierdo empresa</th>
+                                            <th>Emblema derecho empresa</th>
+                                            <th>Emblema trasero empresa</th>
+                                            <th>Equipo de audio</th>
+                                            <th>Parlantes</th>
+                                            <th>Cinturon sillas usuario</th>
+                                            <th>Martillos salida de emergencia</th>
+                                            <th>Dispositivo de velocidad</th>
+                                            <th>Avisos</th>
+                                            <th>Placa trasera</th>
+                                            <th>Placa delantera</th>
+                                            <th>Placa lateral derecha</th>
+                                            <th>Placa lateral izquierda</th>
+                                            <th>Balizas</th>
+                                            <th>Cinturón</th>
+                                            <th>Gato</th>
+                                            <th>Cruceta o copa</th>
+                                            <th>Señales de carretera</th>
+                                            <th>Botiquin</th>
+                                            <th>Extintor</th>
+                                            <th>2 Tacos</th>
+                                            <th>Alicate</th>
+                                            <th>Destornilladores</th>
+                                            <th>Llaves de expansión</th>
+                                            <th>Llaves fijas</th>
+                                            <th>Linterna con pila</th>
+                                            <th></th>
+                                            
+                                        </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-dark"></div>
+                            </div>
 
-
-                                <tbody id="tbodyRevisionTM" class="text-sm">
-
-                                   
-                            </table>
                         </div>
                     </div>
-                </div>
-            </div>
-
-
             </div>
         </div>
 
@@ -401,7 +403,14 @@
                                                     </div>
 
                                                     
-
+                                                    <?php foreach ($tiposDocumentacion as $key => $value) : ?>
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group">
+                                                                <label><?= $value['tipodocumento'] ?></label>
+                                                                <input id="documento_<?= $value['idtipo'] ?>" type="date" class="form-control documentos" readonly>
+                                                            </div>
+                                                        </div>
+                                                    <?php endforeach ?>
 
                                                 </div>
                                             </div>
@@ -480,17 +489,18 @@
 
                                                                     <div class="icheck-danger d-inline">
                                                                         <input type="radio" id="radioradiador2" name="radiador" value="0" required>
-                                                                        <label for="radionradiador2">
+                                                                        <label for="radioradiador2">
                                                                             <i class="fas fa-thumbs-down"></i>
                                                                         </label>
                                                                     </div>
                                                                     <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radionivelradiador3" name="nivelradiador" value="2" required>
-                                                                        <label for="radionivelradiador3">
+                                                                        <input type="radio" id="radioradiador3" name="radiador" value="2" required>
+                                                                        <label for="radioradiador3">
                                                                             <i class="fas fa-ban"></i>
                                                                         </label>
                                                                     </div>
                                                                 </div>
+                                                            </td>
                                                             <td>
                                                                 <div class="form-group clearfix">
                                                                     <div class="icheck-success d-inline">
@@ -502,7 +512,7 @@
 
                                                                     <div class="icheck-danger d-inline">
                                                                         <input type="radio" id="radioMangueras2" name="Mangueras" value="0" required>
-                                                                        <label for="radionMangueras2">
+                                                                        <label for="radioMangueras2">
                                                                             <i class="fas fa-thumbs-down"></i>
                                                                         </label>
                                                                     </div>
@@ -1463,7 +1473,7 @@
                                                                         </div>
                                                                         <div class="icheck-warning d-inline">
                                                                             <input type="radio" id="radiobarra_ejes3" name="barra_ejes" value="2" required>
-                                                                            <label for="radioaceite_hidraulico3">
+                                                                            <label for="radiobarra_ejes3">
                                                                                 <i class="fas fa-ban"></i>
                                                                             </label>
                                                                         </div>
@@ -3519,6 +3529,12 @@
                                                                             </div>
                                                                         </div>
                                                                     </td>
+                                                                    
+                                                                </tr>
+                                                                <tr class="font-weight-bold">
+                                                                    <th>Vidrios de segunda puerta</th>
+                                                                </tr>
+                                                                <tr>
                                                                     <td>
                                                                         <div class="form-group clearfix">
                                                                             <div class="icheck-success d-inline">
@@ -3542,9 +3558,6 @@
                                                                             </div>
                                                                         </div>
                                                                     </td>
-                                                                </tr>
-                                                                <tr class="font-weight-bold">
-                                                                    <th>Vidrios de segunda puerta</th>
                                                                 </tr>
                                                             </tbody>
                                                     </table>
@@ -3808,7 +3821,7 @@
                                                                             </div>
                                                                             <div class="icheck-warning d-inline">
                                                                                 <input type="radio" id="radiovigia_delantera_derecha3" name="vigia_delantera_derecha" value="2" required>
-                                                                                <label for="radioespejo_central3">
+                                                                                <label for="radiovigia_delantera_derecha3">
                                                                                     <i class="fas fa-ban"></i>
                                                                                 </label>
                                                                             </div>
@@ -4591,28 +4604,35 @@
                                                     </table>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </form>
                                 </div>
-
-                                </div>
                             </div>
-                            
-
-
-
-
                         </div>
-
-
-
+                        
+                        
+                        
+                        
+                        
                     </div>
-
-
-
-                        <!-- FIN MODAL CONTENT  -->
-                </div> 
+                    
+                    
+                    
+                </div>
+                
+                
+                
+                <!-- ===================================================
+                    BOTON GUARDAR
+                =================================================== -->
+                <div class="modal-footer justify-content-center bg-info">
+                    <?php if (validarPermiso('M_OPCIONES', 'U')) : ?>
+                        <button type="submit" form="alistamiento_form" class="btn btn-success"><i class="fas fa-print"></i> Guardar</button>
+                    <?php endif ?>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
+                </div>
+                <!-- FIN MODAL CONTENT  -->
+            </div> 
             </div>
         </div>
 
