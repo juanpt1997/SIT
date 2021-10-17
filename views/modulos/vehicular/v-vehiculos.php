@@ -24,10 +24,10 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                 <div class="col-sm-6">
                     <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
                         <li class="nav-item border border-info rounded ml-2 mb-1 mb-md-0">
-                            <a class="nav-link active h4" id="pills-vehiculos-tab" data-toggle="tab" href="#pills-vehiculos" role="tab" aria-controls="pills-vehiculos" aria-selected="true">Vehículos</a>
+                            <a class="nav-link active h4" id="pills-vehiculos-tab" data-toggle="tab" href="#pills-vehiculos" role="tab" aria-controls="pills-vehiculos" aria-selected="true">Vehículos <i class="fas fa-truck-pickup"></i></a>
                         </li>
                         <li class="nav-item border border-info rounded ml-2 mb-1 mb-md-0">
-                            <a class="nav-link h4" id="pills-documentos-tab" data-toggle="tab" href="#pills-documentos" role="tab" aria-controls="pills-documentos" aria-selected="false">Documentos</a>
+                            <a class="nav-link h4" id="pills-documentos-tab" data-toggle="tab" href="#pills-documentos" role="tab" aria-controls="pills-documentos" aria-selected="false">Documentos <i class="fas fa-file-alt"></i></a>
                         </li>
                     </ul>
                     <h1 class="m-0 text-dark d-none">Vehículos</h1>
@@ -579,9 +579,11 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="col-12 text-right"><p class="text-sm font-italic">Nota: Para establecer un convenio debe realizarse desde la opción de <a href="v-convenios" target="_blank">convenios</a> y volver a abrir esta ventana.</p></div>
                                     </div>
 
-                                    <hr class="my-4 bg-dark">
+                                    <hr class="my-2 bg-dark">
 
                                     <div class="row">
                                         <div class="col-md-6">

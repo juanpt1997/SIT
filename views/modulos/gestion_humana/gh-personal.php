@@ -26,7 +26,7 @@ $Sucursales = ControladorGH::ctrSucursales();
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark "><b><i>Personal</i></b></h1>
+                    <h1 class="m-0 text-dark "><b><i>Personal <i class="far fa-id-card"></i></i></b></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">

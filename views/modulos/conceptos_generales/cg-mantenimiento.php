@@ -9,7 +9,7 @@
         <div class="container-fluid">
             <div class="row mt-2 mb-2">
                 <div class="col-sm-6">
-                    <h2 class="m-0 text-dark "><i><b>Mantenimiento</b></i></h2>
+                    <h2 class="m-0 text-dark "><i><b>Mantenimiento</b> <i class="fas fa-tools"></i></i></h2>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">

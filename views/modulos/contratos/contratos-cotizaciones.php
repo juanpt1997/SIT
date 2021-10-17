@@ -20,7 +20,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark "><i><b>Gestión de cotizaciones</b></i></h1>
+                    <h1 class="m-0 text-dark "><i><b>Gestión de cotizaciones <i
+                                    class="fas fa-comments-dollar"></i></b></i></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -39,7 +40,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
 
             <hr class="my-4">
 
-            <button type="button" class="btn btn-success btn-md btn-agregarcotizacion" data-toggle="modal" data-target="#cotizacionmodal">
+            <button type="button" class="btn btn-success btn-md btn-agregarcotizacion" data-toggle="modal"
+                data-target="#cotizacionmodal">
                 <i class="fas fa-file-invoice-dollar"></i> Agregar nueva cotización
             </button>
 
@@ -48,7 +50,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                     <div class="card card-outline card-success">
                         <div class="card-body">
 
-                            <table id="tblCotizaciones" class="table table-responsive table-sm table-striped table-bordered table-hover w-100 text-center">
+                            <table id="tblCotizaciones"
+                                class="table table-responsive table-sm table-striped table-bordered table-hover w-100 text-center">
                                 <thead class="text-sm text-center text-nowrap">
                                     <tr>
                                         <th>...</th>
@@ -98,55 +101,58 @@ $Rutas = ControladorRutas::ctrListarRutas();
                                 </thead>
                                 <tbody id="tbodyCotizaciones" class="text-sm">
                                     <?php foreach ($Cotizaciones as $key => $value) : ?>
-                                        <tr>
-                                            <td class="text-center">
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button class="btn btn-toolbar btn-sm btn-info btn-editarcotizacion" id_cot="<?= $value['idcotizacion'] ?>" document="<?= $value['Documento'] ?>" data-toggle="modal" data-target="#cotizacionmodal"><i class="fas fa-edit"></i></button>
-                                                </div>
-                                            </td>
-                                            <td><?= $value['idcotizacion'] ?></td>
-                                            <td><?= $value['nombre_con'] ?></td>
-                                            <td><?= $value['documento_con'] ?></td>
-                                            <td><?= $value['tipo_doc_con'] ?></td>
-                                            <td><?= $value['direccion_con'] ?></td>
-                                            <td><?= $value['ciudadcon'] ?></td>
-                                            <td><?= $value['tel_1'] ?></td>
-                                            <td><?= $value['tel_2'] ?></td>
-                                            <td><?= $value['nombre_respo'] ?></td>
-                                            <td><?= $value['tipo_doc_respo'] ?></td>
-                                            <td><?= $value['documento_res'] ?></td>
-                                            <td><?= $value['cedulaexpe'] ?></td>
-                                            <td><?= $value['ciudadres'] ?></td>
-                                            <td><?= $value['empresa'] ?></td>
-                                            <td><?= $value['origen'] ?></td>
-                                            <td><?= $value['destino'] ?></td>
-                                            <td><?= $value['descripcion'] ?></td>
-                                            <td><?= $value['fecha_solicitud'] ?></td>
-                                            <td><?= $value['fecha_solucion'] ?></td>
-                                            <td><?= $value['fecha_inicio'] ?></td>
-                                            <td><?= $value['fecha_fin'] ?></td>
-                                            <td><?= $value['sucursal'] ?></td>
-                                            <td><?= $value['duracion'] ?></td>
-                                            <td><?= $value['hora_salida'] ?></td>
-                                            <td><?= $value['hora_recogida'] ?></td>
-                                            <td><?= $value['tipov'] ?></td>
-                                            <td><?= $value['otro_v'] ?></td>
-                                            <td><?= $value['nro_vehiculos'] ?></td>
-                                            <td><?= $value['capacidad'] ?></td>
-                                            <td><?= $value['valorxvehiculo'] ?></td>
-                                            <td><?= $value['valortotal'] ?></td>
-                                            <td><?= $value['cotizacion'] ?></td>
-                                            <td><?= $value['clasificacion'] ?></td>
-                                            <td><?= $value['musica'] ?></td>
-                                            <td><?= $value['aire'] ?></td>
-                                            <td><?= $value['wifi'] ?></td>
-                                            <td><?= $value['silleriareclinable'] ?></td>
-                                            <td><?= $value['bano'] ?></td>
-                                            <td><?= $value['bodega'] ?></td>
-                                            <td><?= $value['otro'] ?></td>
-                                            <td><?= $value['realiza_viaje'] ?></td>
-                                            <td><?= $value['porque'] ?></td>
-                                        </tr>
+                                    <tr>
+                                        <td class="text-center">
+                                            <div class="btn-group" role="group" aria-label="Button group">
+                                                <button class="btn btn-toolbar btn-sm btn-info btn-editarcotizacion"
+                                                    id_cot="<?= $value['idcotizacion'] ?>"
+                                                    document="<?= $value['Documento'] ?>" data-toggle="modal"
+                                                    data-target="#cotizacionmodal"><i class="fas fa-edit"></i></button>
+                                            </div>
+                                        </td>
+                                        <td><?= $value['idcotizacion'] ?></td>
+                                        <td><?= $value['nombre_con'] ?></td>
+                                        <td><?= $value['documento_con'] ?></td>
+                                        <td><?= $value['tipo_doc_con'] ?></td>
+                                        <td><?= $value['direccion_con'] ?></td>
+                                        <td><?= $value['ciudadcon'] ?></td>
+                                        <td><?= $value['tel_1'] ?></td>
+                                        <td><?= $value['tel_2'] ?></td>
+                                        <td><?= $value['nombre_respo'] ?></td>
+                                        <td><?= $value['tipo_doc_respo'] ?></td>
+                                        <td><?= $value['documento_res'] ?></td>
+                                        <td><?= $value['cedulaexpe'] ?></td>
+                                        <td><?= $value['ciudadres'] ?></td>
+                                        <td><?= $value['empresa'] ?></td>
+                                        <td><?= $value['origen'] ?></td>
+                                        <td><?= $value['destino'] ?></td>
+                                        <td><?= $value['descripcion'] ?></td>
+                                        <td><?= $value['fecha_solicitud'] ?></td>
+                                        <td><?= $value['fecha_solucion'] ?></td>
+                                        <td><?= $value['fecha_inicio'] ?></td>
+                                        <td><?= $value['fecha_fin'] ?></td>
+                                        <td><?= $value['sucursal'] ?></td>
+                                        <td><?= $value['duracion'] ?></td>
+                                        <td><?= $value['hora_salida'] ?></td>
+                                        <td><?= $value['hora_recogida'] ?></td>
+                                        <td><?= $value['tipov'] ?></td>
+                                        <td><?= $value['otro_v'] ?></td>
+                                        <td><?= $value['nro_vehiculos'] ?></td>
+                                        <td><?= $value['capacidad'] ?></td>
+                                        <td><?= $value['valorxvehiculo'] ?></td>
+                                        <td><?= $value['valortotal'] ?></td>
+                                        <td><?= $value['cotizacion'] ?></td>
+                                        <td><?= $value['clasificacion'] ?></td>
+                                        <td><?= $value['musica'] ?></td>
+                                        <td><?= $value['aire'] ?></td>
+                                        <td><?= $value['wifi'] ?></td>
+                                        <td><?= $value['silleriareclinable'] ?></td>
+                                        <td><?= $value['bano'] ?></td>
+                                        <td><?= $value['bodega'] ?></td>
+                                        <td><?= $value['otro'] ?></td>
+                                        <td><?= $value['realiza_viaje'] ?></td>
+                                        <td><?= $value['porque'] ?></td>
+                                    </tr>
                                     <?php endforeach ?>
                                 </tbody>
                             </table>
@@ -160,13 +166,15 @@ $Rutas = ControladorRutas::ctrListarRutas();
 </div><!-- /.content-wrapper -->
 
 
-<div class="modal fade" id="cotizacionmodal" tabindex="-1" data-backdrop="true" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="cotizacionmodal" tabindex="-1" data-backdrop="true" role="dialog"
+    aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
             <div class="modal-header bg-info">
                 <h3 class="modal-title" id="titulo_cotizacion"></h3>
-                <button class="btn btn-secondary ml-2 d-none btn-copy-cotizacion" type="button"><i class="far fa-copy"></i> Copia</button>
+                <button class="btn btn-secondary ml-2 d-none btn-copy-cotizacion" type="button"><i
+                        class="far fa-copy"></i> Copia</button>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -203,10 +211,11 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm"><i>Lista de clientes</i></label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control select2-single select-clientes input-sm" id="listaclientes" style="width: 99%" name="listaclientes" readonly>
+                                    <select class="form-control select2-single select-clientes input-sm"
+                                        id="listaclientes" style="width: 99%" name="listaclientes" readonly>
                                         <option value="" selected><b>-Seleccione un cliente existente-</b></option>
                                         <?php foreach ($clientes as $key => $value) : ?>
-                                            <option value="<?= $value['idcliente'] ?>"><?= $value['clientexist'] ?></option>
+                                        <option value="<?= $value['idcliente'] ?>"><?= $value['clientexist'] ?></option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>
@@ -221,14 +230,17 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Nombre de la empresa</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" id="nom_contrata" name="nom_contrata" placeholder="Ingrese el nombre de la empresa" maxlength="45" required>
+                                    <input class="form-control input-clientes" type="text" id="nom_contrata"
+                                        name="nom_contrata" placeholder="Ingrese el nombre de la empresa" maxlength="45"
+                                        required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="text-sm">NIT/CC</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" id="document" name="document" placeholder="Ingrese el documento" maxlength="15" required>
+                                    <input class="form-control input-clientes" type="text" id="document" name="document"
+                                        placeholder="Ingrese el documento" maxlength="15" required>
                                 </div>
                             </div>
                         </div>
@@ -237,7 +249,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Tipo de documento</label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control input-clientes" type="text" id="t_document_empre" name="t_document_empre" required>
+                                    <select class="form-control input-clientes" type="text" id="t_document_empre"
+                                        name="t_document_empre" required>
                                         <option selected value="">-Seleccione una opción-</option>
                                         <option>NIT</option>
                                         <option>CC</option>
@@ -249,10 +262,13 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Ciudad</label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control input-sm select2-single select-ciudad input-clientes" style="width: 99%" type="number" id="ciudadcliente" name="ciudadcliente" required>
+                                    <select class="form-control input-sm select2-single select-ciudad input-clientes"
+                                        style="width: 99%" type="number" id="ciudadcliente" name="ciudadcliente"
+                                        required>
                                         <option selected value="">-Seleccione una ciudad-</option>
                                         <?php foreach ($DeparMunicipios as $key => $value) : ?>
-                                            <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
+                                        <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?>
+                                        </option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>
@@ -264,7 +280,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                     <div class="form-group">
                         <label class="text-sm">Dirección</label>
                         <div class="input-group input-group-sm">
-                            <input class="form-control input-clientes" type="text" id="direcci" name="direcci" placeholder="Ingrese la dirección" maxlength="100" required>
+                            <input class="form-control input-clientes" type="text" id="direcci" name="direcci"
+                                placeholder="Ingrese la dirección" maxlength="100" required>
                         </div>
                     </div>
 
@@ -273,31 +290,38 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Teléfono 1</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" id="tel1" name="tel1" placeholder="Ingrese un teléfono" maxlength="10" required>
+                                    <input class="form-control input-clientes" type="text" id="tel1" name="tel1"
+                                        placeholder="Ingrese un teléfono" maxlength="10" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="text-sm">Nombre del responsable</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" id="nom_respo" name="nom_respo" placeholder="Nombre del responsable" maxlength="100" required>
+                                    <input class="form-control input-clientes" type="text" id="nom_respo"
+                                        name="nom_respo" placeholder="Nombre del responsable" maxlength="100" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="text-sm">Documento</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" id="docum_respo" name="docum_respo" placeholder="Documento del responsable" maxlength="15" required>
+                                    <input class="form-control input-clientes" type="text" id="docum_respo"
+                                        name="docum_respo" placeholder="Documento del responsable" maxlength="15"
+                                        required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="text-sm">Ciudad responsable</label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control input-sm select2-single select-ciudad input-clientes" style="width: 99%" type="number" id="ciudadresponsable" name="ciudadresponsable" required>
+                                    <select class="form-control input-sm select2-single select-ciudad input-clientes"
+                                        style="width: 99%" type="number" id="ciudadresponsable" name="ciudadresponsable"
+                                        required>
                                         <option selected value="">-Seleccione una ciudad-</option>
                                         <?php foreach ($DeparMunicipios as $key => $value) : ?>
-                                            <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
+                                        <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?>
+                                        </option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>
@@ -309,14 +333,16 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Teléfono 2</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" id="tel2" name="tel2" placeholder="Ingrese un segundo teléfono" maxlength="10" required>
+                                    <input class="form-control input-clientes" type="text" id="tel2" name="tel2"
+                                        placeholder="Ingrese un segundo teléfono" maxlength="10" required>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="text-sm">Tipo de documento del responsable</label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control input-clientes" type="text" id="t_document_respo" name="t_document_respo" required>
+                                    <select class="form-control input-clientes" type="text" id="t_document_respo"
+                                        name="t_document_respo" required>
                                         <option selected value="">-Seleccione una opción-</option>
                                         <option>NIT</option>
                                         <option>CC</option>
@@ -328,10 +354,12 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Cédula expedida en</label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control input-sm select2-single select-ciudad input-clientes" style="width: 99%" type="number" id="expedicion" name="expedicion" required>
+                                    <select class="form-control input-sm select2-single select-ciudad input-clientes"
+                                        style="width: 99%" type="number" id="expedicion" name="expedicion" required>
                                         <option selected value="">-Seleccione una ciudad-</option>
                                         <?php foreach ($DeparMunicipios as $key => $value) : ?>
-                                            <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
+                                        <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?>
+                                        </option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>
@@ -346,10 +374,11 @@ $Rutas = ControladorRutas::ctrListarRutas();
                         <div class="col-12 text-sm">
                             <div class="form-group">
                                 <label for="my-input">Ruta</label>
-                                <select class="form-control input-sm select2-single" style="width: 99%" id="idruta" name="idruta" required>
+                                <select class="form-control input-sm select2-single" style="width: 99%" id="idruta"
+                                    name="idruta" required>
                                     <option selected value="">-Seleccione una ruta-</option>
                                     <?php foreach ($Rutas as $key => $value) : ?>
-                                        <option value="<?= $value['id'] ?>"><?= $value['origendestino'] ?></option>
+                                    <option value="<?= $value['id'] ?>"><?= $value['origendestino'] ?></option>
                                     <?php endforeach ?>
                                 </select>
                             </div>
@@ -359,7 +388,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Origen</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="text" id="origin" name="origin" placeholder="Ingrese el origen" maxlength="100">
+                                    <input class="form-control" type="text" id="origin" name="origin"
+                                        placeholder="Ingrese el origen" maxlength="100">
                                 </div>
                             </div>
                         </div>
@@ -368,7 +398,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Destino</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="text" id="destin" name="destin" placeholder="Escriba el destino" maxlength="100">
+                                    <input class="form-control" type="text" id="destin" name="destin"
+                                        placeholder="Escriba el destino" maxlength="100">
                                 </div>
                             </div>
                         </div>
@@ -377,7 +408,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Descripción de la solicitud</label>
                                 <div class="input-group input-group-sm">
-                                    <textarea class="form-control" type="text" id="des_sol" name="des_sol" placeholder="Describa la solicitud" style="min-height:70px"></textarea>
+                                    <textarea class="form-control" type="text" id="des_sol" name="des_sol"
+                                        placeholder="Describa la solicitud" style="min-height:70px"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -414,7 +446,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Hora de salida</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="time" id="h_salida" name="h_salida" step="any" required>
+                                    <input class="form-control" type="time" id="h_salida" name="h_salida" step="any"
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -423,7 +456,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Hora de recogida</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="time" id="h_recog" name="h_recog" step="any" required>
+                                    <input class="form-control" type="time" id="h_recog" name="h_recog" step="any"
+                                        required>
                                 </div>
                             </div>
                         </div>
@@ -432,7 +466,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Capacidad</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="number" id="capaci" name="capaci" placeholder="Digite la capacidad" required>
+                                    <input class="form-control" type="number" id="capaci" name="capaci"
+                                        placeholder="Digite la capacidad" required>
                                 </div>
                             </div>
                         </div>
@@ -464,7 +499,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Duración</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="text" id="durac" name="durac" placeholder="Escriba la duración del viaje" maxlength="45" required>
+                                    <input class="form-control" type="text" id="durac" name="durac"
+                                        placeholder="Escriba la duración del viaje" maxlength="45" required>
                                 </div>
                             </div>
                         </div>
@@ -476,7 +512,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                                     <select class="form-control" id="tipovehiculocot" name="tipovehiculocot">
                                         <option value="" selected>-Seleccione un tipo-</option>
                                         <?php foreach ($tvehiculos as $key => $value) : ?>
-                                            <option value="<?= $value['idtipovehiculo'] ?>"><?= $value['tipovehiculo'] ?></option>
+                                        <option value="<?= $value['idtipovehiculo'] ?>"><?= $value['tipovehiculo'] ?>
+                                        </option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>
@@ -487,7 +524,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Otro tipo de vehículo</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="text" id="otro_v" name="otro_v" placeholder="Ingrese otro tipo de vehículo (opcional)" maxlength="15">
+                                    <input class="form-control" type="text" id="otro_v" name="otro_v"
+                                        placeholder="Ingrese otro tipo de vehículo (opcional)" maxlength="15">
                                 </div>
                             </div>
                         </div>
@@ -496,7 +534,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Valor por vehículo</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="number" id="valor_vel" name="valor_vel" placeholder="Digite un valor por vehículo" required>
+                                    <input class="form-control" type="number" id="valor_vel" name="valor_vel"
+                                        placeholder="Digite un valor por vehículo" required>
                                 </div>
                             </div>
                         </div>
@@ -521,7 +560,7 @@ $Rutas = ControladorRutas::ctrListarRutas();
                                     <select class="form-control" type="number" id="sucursalcot" name="sucursalcot">
                                         <option value="" selected>-Seleccione una sucursal-</option>
                                         <?php foreach ($Sucursales as $key => $value) : ?>
-                                            <option value="<?= $value['ids'] ?>"><?= $value['sucursal'] ?></option>
+                                        <option value="<?= $value['ids'] ?>"><?= $value['sucursal'] ?></option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>
@@ -533,12 +572,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Fecha de inicio</label>
                                 <div class="input-group input-group-sm">
-                                    <?php
-                                    //    $fecha = date("Y , strtotime('-1 year')");
-                                    //    echo $fecha;
-                                    ?>
-                                    <input class="form-control" type="date" id="f_inicio" name="f_inicio" required min="<?php //echo $fecha;
-                                                                                                                        ?>">
+                                    <input class="form-control" type="date" id="f_inicio" name="f_inicio" required
+                                        min="" max="">
                                 </div>
                             </div>
                         </div>
@@ -547,7 +582,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Fecha de final</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="date" id="f_fin" name="f_fin" required>
+                                    <input class="form-control" type="date" id="f_fin" name="f_fin" required min=""
+                                        max="">
                                 </div>
                             </div>
                         </div>
@@ -556,7 +592,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Nro. de vehículos</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="number" id="n_vehiculos" name="n_vehiculos" placeholder="Escriba el número de vehículos" required>
+                                    <input class="form-control" type="number" id="n_vehiculos" name="n_vehiculos"
+                                        placeholder="Escriba el número de vehículos" required>
                                 </div>
                             </div>
                         </div>
@@ -565,7 +602,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Valor total</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="number" id="vtotal" name="vtotal" placeholder="Escriba el valor total" required>
+                                    <input class="form-control" type="number" id="vtotal" name="vtotal"
+                                        placeholder="Escriba el valor total" required>
                                 </div>
                             </div>
                         </div>
@@ -663,7 +701,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Silleteria Reclinable</label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control" type="text" id="silleteriar" name="silleteriar" required>
+                                    <select class="form-control" type="text" id="silleteriar" name="silleteriar"
+                                        required>
                                         <option value="" selected>-Seleccione una opción-</option>
                                         <option>SI</option>
                                         <option>NO</option>
@@ -674,7 +713,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">¿Por qué?</label>
                                 <div class="input-group input-group-sm">
-                                    <textarea class="form-control" type="text" id="porque" name="porque" placeholder="Escriba los motivos" style="min-height:70px"></textarea requiered>
+                                    <textarea class="form-control" type="text" id="porque" name="porque"
+                                        placeholder="Escriba los motivos" style="min-height:70px"></textarea requiered>
                                 </div>
                             </div>
 

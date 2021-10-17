@@ -16,7 +16,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark "><i><b>Gestión de contratos fijos</b></i></h1>
+                    <h1 class="m-0 text-dark "><i><b>Gestión de contratos fijos <i class="fas fa-file-signature"></i></b></i></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
