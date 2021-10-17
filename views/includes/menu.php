@@ -420,15 +420,9 @@
                                     Inventario
                                 =================================================== -->
                             <li class="nav-item">
-<<<<<<< HEAD
                                 <a href="m-inventario" class="nav-link" target="_blank">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Inventario</p>
-=======
-                                <a href="m-proveedores" class="nav-link" target="_blank">
-                                    <i class="fas fa-cart-arrow-down nav-icon"></i>
-                                    <p>Proveedores</p>
->>>>>>> master
                                 </a>
                             </li>
                         </ul>
@@ -451,19 +445,12 @@
                                     Proveedores
                                 =================================================== -->
                             <li class="nav-item">
-<<<<<<< HEAD
                                 <a href="c-proveedores" class="nav-link" target="_blank">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Proveedores</p>
-=======
-                                <a href="m-inventario" class="nav-link" target="_blank">
-                                    <i class="fas fa-boxes nav-icon"></i>
-                                    <p>Inventario</p>
->>>>>>> master
                                 </a>
                             </li>
                         
-
                             <!-- ===================================================
                                     Revison tecnomecánica 
                                 =================================================== -->
