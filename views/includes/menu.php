@@ -417,21 +417,37 @@
                                 </a>
                             </li>
                             <!-- ===================================================
-                                    Proveedores
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="m-proveedores" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Proveedores</p>
-                                </a>
-                            </li>
-                            <!-- ===================================================
                                     Inventario
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="m-inventario" class="nav-link" target="_blank">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Inventario</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                <?php endif ?>
+
+                <!-- ===================================================
+                    ** COMPRAS
+                =================================================== -->
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-shopping-cart"></i>
+                            <p>Compras
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <!-- ===================================================
+                                    Proveedores
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="c-proveedores" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Proveedores</p>
                                 </a>
                             </li>
                         </ul>
@@ -447,6 +463,7 @@
                             <i class="nav-icon fas fa-book"></i>
                             <p>Documentos Contable</p>
                         </a>
+
                     </li>
                 <?php endif ?>
 
@@ -486,17 +503,6 @@
                     </li>
                 <?php endif ?>
 
-                <!-- ===================================================
-                    ** COMPRAS
-                =================================================== -->
-                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-shopping-cart"></i>
-                            <p>Compras</p>
-                        </a>
-                    </li>
-                <?php endif ?>
 
                 <!-- ===================================================
                     ** ESTANDAR PROCESOS DE CALIDAD
