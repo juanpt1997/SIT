@@ -440,9 +440,26 @@ class ControladorInventario
 }
 
 class ControladorRevision{
+	/*=============================
+		LISTADO REVISION
+		=========================== */
 	static public function ctrListadoRevision()
 	{
 		$respuesta = ModeloRevision::mdlListadoRevision();
 		return $respuesta;
+	}
+
+	/* ============================================
+		AGREGAR Y EDITAR REVISIÓN TECNICOMECÁNICA
+		========================================= */
+
+	static public function ctrAgregarEditarRevision()
+	{
+		if(!isset($_POST['idvehiculo'])){
+			// if($_POST['idvehiculo'] == ""){
+				$respuesta = ModeloRevision::mdlAgregarRevision($_POST);
+				return $respuesta;
+			// }
+		}
 	}
 }

@@ -598,15 +598,15 @@ $(document).ready(function () {
                     var $tabs = $(this);
                     var idtab = $tabs.closest("table").attr("nombre");
                     if (!tab.includes(idtab)) tab.push(idtab);
-
-
-
-
-                    // if ($u[0].innerHTML != "Registro fotográfico") Elementos.push($u[0].innerHTML);
                 });
+                
 
-
-                console.log(tab);
+                $('textarea:invalid').each(function(index,element){
+                    var $tabs = $(this);
+                    var idtab = $tabs.closest("table").attr("nombre");
+                    if (!tab.includes(idtab)) tab.push(idtab);
+                });
+                
 
 
 
