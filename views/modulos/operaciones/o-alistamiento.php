@@ -131,7 +131,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <th>Rotación de Llantas</th>
                                         <th>Filtro de Aire</th>
                                         <th>Sincronización</th>
-                                        <th>Alineacion y Balaneceo</th>
+                                        <th>Alineación y Balanceo</th>
                                         <th>Delanteras</th>
                                         <th>Traseras</th>
                                         <th>Cortes</th>
@@ -1789,7 +1789,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         <tr>
                                                             <td><b>Filtro de Aire</b></td>
                                                             <td><b>Sincronización</b></td>
-                                                            <td><b>Alineacion y Balaneceo</b></td>
+                                                            <td><b>Alineación y Balanceo</b></td>
                                                         </tr>
 
                                                         <tr>
