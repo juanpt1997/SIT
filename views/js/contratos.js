@@ -26,7 +26,9 @@ if (
                 processData: false,
                 dataType: "json",
                 success: function (response) {
-                    $("#titulo_clientes").html("Editar datos de: " + response.nombre);
+                    $("#titulo_clientes").html(
+                        "Editar datos de: " + response.nombre
+                    );
                     $("#nom_empre").val(response.nombre);
                     $("#t_document_empre").val(response.tipo_doc);
                     $("#docum_empre").val(response.Documento);
@@ -51,7 +53,8 @@ if (
             // Reset titulo modal
             $("#titulo_clientes").html("Nuevo cliente");
             // Reset valores del formulario
-            if (AbiertoxEditar) { // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
+            if (AbiertoxEditar) {
+                // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
                 $(".input-clientes").val("");
                 $(".select2-single").trigger("change");
             }
@@ -113,32 +116,49 @@ if (
             ===================================================*/
             /* Filtrar por columna */
             //Clonar el tr del thead
-            $(`#tblCotizaciones thead tr`).clone(true).appendTo(`#tblCotizaciones thead`);
+            $(`#tblCotizaciones thead tr`)
+                .clone(true)
+                .appendTo(`#tblCotizaciones thead`);
             //Por cada th creado hacer lo siguiente
             $(`#tblCotizaciones thead tr:eq(1) th`).each(function (i) {
                 //Remover clase sorting y el evento que tiene cuando se hace click
                 $(this).removeClass("sorting").unbind();
                 //Agregar input de busqueda
-                $(this).html('<input class="form-control" type="text" placeholder="Buscar"/>');
+                $(this).html(
+                    '<input class="form-control" type="text" placeholder="Buscar"/>'
+                );
                 //Evento para detectar cambio en el input y buscar
-                $('input', this).on('keyup change', function () {
+                $("input", this).on("keyup change", function () {
                     if (table.column(i).search() !== this.value) {
-                        table
-                            .column(i)
-                            .search(this.value)
-                            .draw();
+                        table.column(i).search(this.value).draw();
                     }
                 });
             });
 
             /* ===================================================
+          Fecha inicio y Fecha fin de los Inputs
+        ===================================================*/
+            let today = new Date();
+            let dateIMin = today.getFullYear() - 1 + "-" + "01" + "-" + "01";
+            let dateIMax = today.getFullYear() + "-" + "12" + "-" + "31";
+            let dateFMin = today.getFullYear() + "-" + "01" + "-" + "01";
+            let dateFMax = today.getFullYear() + 1 + "-" + "12" + "-" + "31";
+            $("#f_inicio").attr("min", dateIMin);
+            $("#f_inicio").attr("max", dateIMax);
+            $("#f_fin").attr("min", dateFMin);
+            $("#f_fin").attr("max", dateFMax);
+            /* ===================================================
             INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
             ===================================================*/
             var buttons = [
-                { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                {
+                    extend: "excel",
+                    className: "btn-info",
+                    text: '<i class="far fa-file-excel"></i> Exportar',
+                },
             ];
             var table = dataTableCustom(`#tblCotizaciones`, buttons);
-        }
+        };
         TablaCotizaciones();
 
         var ActualizoListaClientes = true;
@@ -230,7 +250,8 @@ if (
             $("#id_cot").val("");
             $("#titulo_cotizacion").html("Nueva cotización");
             $(".btn-copy-cotizacion").addClass("d-none");
-            if (AbiertoxEditar) { // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
+            if (AbiertoxEditar) {
+                // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
                 $("#formulariocotizacion").trigger("reset");
                 $(".select-ciudad").trigger("change");
                 $(".select-clientes").trigger("change");
@@ -242,7 +263,7 @@ if (
             var cambio = $(this).val();
             // Si selecciona cliente
             if (cambio == "cliente") {
-                $('#listaclientes').prop('disabled', false);
+                $("#listaclientes").prop("disabled", false);
                 //$("#listaclientes").attr("readonly", false);
                 //$(".input-clientes").attr("readonly", "readonly");
                 $("#listaclientes").attr("required", "required");
@@ -253,7 +274,7 @@ if (
             else {
                 $(".input-clientes").val("");
                 $("#listaclientes").val("");
-                $('#listaclientes').prop('disabled', true);
+                $("#listaclientes").prop("disabled", true);
                 //$("#listaclientes").attr("readonly", true);
                 $("#listaclientes").trigger("change");
                 $(".input-clientes").removeAttr("readonly");
@@ -288,8 +309,12 @@ if (
                             $("#tel1").val(response.telefono);
                             $("#direcci").val(response.direccion);
                             $("#nom_respo").val(response.nombrerespons);
-                            $("#t_document_respo").val(response.tipo_docrespons);
-                            $("#ciudadresponsable").val(response.idciudadrespons);
+                            $("#t_document_respo").val(
+                                response.tipo_docrespons
+                            );
+                            $("#ciudadresponsable").val(
+                                response.idciudadrespons
+                            );
                             $("#ciudadcliente").val(response.idciudad);
                             $("#expedicion").val(response.cedula_expedidaen);
                             $("#docum_respo").val(response.Documentorespons);
@@ -347,10 +372,10 @@ if (
 
                     $("#titulo_fijos").html(
                         "Editar (Contrato # " +
-                        response.numcontrato +
-                        " - " +
-                        response.nombre_cliente +
-                        ")"
+                            response.numcontrato +
+                            " - " +
+                            response.nombre_cliente +
+                            ")"
                     );
                     $("#nom_clien").val(response.idcliente);
                     //$("#num_contrato").val(response.numcontrato);
@@ -358,13 +383,18 @@ if (
                     $("#f_final_fijos").val(response.fecha_final);
                     $("#observaciones_fijos").val(response.observaciones);
                     //$("#documento_es").val(response.documento_escaneado);
-                    $('.select2-single').trigger('change'); //MUESTRA EL VALOR DEL SELECT
+                    $(".select2-single").trigger("change"); //MUESTRA EL VALOR DEL SELECT
 
                     // Visualizacion contrato adjunto
                     if (response.documento_escaneado != null) {
                         let nombre = response.documento_escaneado.split("/");
                         nombre = nombre[nombre.length - 1];
-                        $("#visualizDocumento").attr("href", urlPagina + response.documento_escaneado).text(nombre);
+                        $("#visualizDocumento")
+                            .attr(
+                                "href",
+                                urlPagina + response.documento_escaneado
+                            )
+                            .text(nombre);
                     }
                 },
             });
@@ -374,7 +404,8 @@ if (
         $(document).on("click", ".btn-agregarfijo", function () {
             $("#titulo_fijos").html("Nuevo contrato fijo");
             $("#visualizDocumento").text("");
-            if (AbiertoxEditar) { // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
+            if (AbiertoxEditar) {
+                // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
                 $(".input-fijos").val("");
             }
             AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
@@ -450,7 +481,13 @@ if (
             processData: false,
             dataType: "json",
             success: function (response) {
-                $("#titulo_orden").html("Editar órden (# " + response.nro_contrato + " - " + response.nombre_con + ")");
+                $("#titulo_orden").html(
+                    "Editar órden (# " +
+                        response.nro_contrato +
+                        " - " +
+                        response.nombre_con +
+                        ")"
+                );
                 $("#listacotizaciones").val(response.idcotizacion);
                 $("#numcontrato").val(response.nro_contrato);
                 $("#numfacturaorden").val(response.nro_factura);
@@ -468,7 +505,8 @@ if (
         // Reset valores del formulario
         $("#idorden").val("");
         $("#titulo_orden").html("Nueva órden de servicio");
-        if (AbiertoxEditar) { // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
+        if (AbiertoxEditar) {
+            // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
             $("#formulario_orden").trigger("reset");
             $(".select2-single").trigger("change");
         }
@@ -480,11 +518,10 @@ if (
          ===================================================*/
     $(document).on("click", ".btn-verorden", function () {
         var idorden = $(this).attr("idorden");
-        window.open(`./pdf/pdfordenservicio.php?idorden=${idorden}`, '', 'width=1280,height=720,left=50,top=50,toolbar=yes');
+        window.open(
+            `./pdf/pdfordenservicio.php?idorden=${idorden}`,
+            "",
+            "width=1280,height=720,left=50,top=50,toolbar=yes"
+        );
     });
-
-
-
-
-
 }
