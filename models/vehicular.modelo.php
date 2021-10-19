@@ -21,7 +21,7 @@ class ModeloPropietarios
 												   LEFT JOIN gh_municipios M ON P.idciudad = M.idmunicipio
 												   WHERE P.documento = :cedula");
 
-            $stmt->bindParam(":cedula",  $value, PDO::PARAM_INT);
+            $stmt->bindParam(":cedula",  $value, PDO::PARAM_STR);
             $stmt->execute();
             $retorno =  $stmt->fetch();
         } else {
