@@ -638,11 +638,75 @@ $(document).ready(function () {
     $(document).on("click", ".btnEditarRev", function () {
       $("#titulo-modal-tecnomecanica").html("Editar convenio");
 
+      // var idrevision = $(this).attr("idrevision");
+      // $("#idrevision").val(idrevision);
+
+      // var datos = new FormData();
+      // datos.append("DatosRevision", "ok");
+      // datos.append("idrevision", idrevision);
+      // // console.log(idrevision);
+
+      // $.ajax({
+      //   type: "POST",
+      //   url: "ajax/mantenimiento.ajax.php",
+      //   data: datos,
+      //   cache: false,
+      //   contentType: false,
+      //   processData: false,
+      //   dataType: "json",
+      //   success: function (response) {
+      //     if (response != "") {
+      //       //Guarda en KEYS los elementos llaves, nombres, name del JSON
+      //       var keys = Object.keys(response);
+      //       //Guarda en VALUES los elementos de valor del JSON
+      //       var values = Object.values(response);
+
+      //       // Recorremos ambos arreglos
+      //       for (let index = 0; index < keys.length; index++) {
+      //         // NO tomamos las llaves numericas (normalmente un json repite el arreglo json con llaves numericos)
+      //         if (isNaN(keys[index])) {
+      //           if (
+      //             keys[index] != "placa" &&
+      //             keys[index] != "numinterno" &&
+      //             keys[index] != "id" &&
+      //             keys[index] != "idvehiculo" &&
+      //             keys[index] != "idconductor"
+      //           ) {
+      //             // Si el input es un check - radio
+      //             $(
+      //               `input[name='${keys[index]}'][value='${values[index]}']`
+      //             ).iCheck("check");
+      //           }
+      //         }
+      //       }
+
+      //       $("#observador_conductoresAlistamiento").attr(
+      //         "idconductor",
+      //         response.idconductor
+      //       );
+
+      //       // setTimeout(() => {
+      //       //     $("#idconductor").val(response.idconductor);
+      //       // }, 1000);
+
+      //       $("#cambio_aceite").val(response.cambio_aceite);
+      //       $("#engrase").val(response.engrase);
+      //       $("#rotacion_llantas").val(response.rotacion_llantas);
+      //       $("#filtro_aire").val(response.filtro_aire);
+      //       $("#sincronizacion").val(response.sincronizacion);
+      //       $("#alineacion_balanceo").val(response.alineacion_balanceo);
+
+      //       $("#kmtotal").val(response.kilometraje_total);
+      //       $("#observaciones").val(response.observaciones);
+      //     }
+      //   }
+      // });
+
       var idvehiculo = $(this).attr("idvehiculo");
       $("#idvehiculo").val(idvehiculo);
 
       var datos = new FormData();
-      datos.append("DatosRevision", "ok");
+      datos.append("DatosVehiculo", "ok");
       datos.append("idvehiculo", idvehiculo);
 
 
@@ -666,6 +730,8 @@ $(document).ready(function () {
       $(document).on("change", '#placa', function () {
 
         let idvehiculo = $(this).val();
+
+
 
         var datos = new FormData();
         datos.append("DatosVehiculo", "ok");
@@ -692,7 +758,7 @@ $(document).ready(function () {
 
 
             //DESACTIVAR INPUTS DEPENDIENDO DEL TIPO DE VEHICULO
-            
+
             if (Vehiculo.idtipovehiculo == 9 || Vehiculo.idtipovehiculo == 2) {
               $("input[name='freno_ahogo']").attr('disabled', true);
               $("input[name='compresor']").attr('disabled', true);
@@ -714,7 +780,7 @@ $(document).ready(function () {
               $("input[name='claraboyas']").attr('disabled', true);
               $("input[name='parales']").attr('disabled', true);
               $("input[name='booster_puertas']").attr('disabled', true);
-              $("input[name='relog_vigia']").attr('disabled', true);
+              $("input[name='reloj_vigia']").attr('disabled', true);
               $("input[name='vigia_delantera_derecha']").attr('disabled', true);
               $("input[name='vigia_delantera_izquierda']").attr('disabled', true);
               $("input[name='vigia_trasera_derecha']").attr('disabled', true);
@@ -722,9 +788,9 @@ $(document).ready(function () {
               $("input[name='martillo_emergencia']").attr('disabled', true);
               $("input[name='dispositivo_velocidad']").attr('disabled', true);
               $("input[name='balizas']").attr('disabled', true);
-              
+
             } else {
-              $("input[name='freno_ahogo']").attr('style', 'display:none');
+              $("input[name='freno_ahogo']").attr('disabled', false);
               $("input[name='compresor']").attr('disabled', false);
               $("input[name='fuga_aire']").attr('disabled', false);
               $("input[name='banda_delantera_derecha']").attr('disabled', false);
@@ -742,17 +808,19 @@ $(document).ready(function () {
               $("input[name='vidrio_puerta_principal']").attr('disabled', false);
               $("input[name='vidrio_segunda_puerta']").attr('disabled', false);
               $("input[name='claraboyas']").attr('disabled', false);
-              $("input[name='parales']").attr('disabled', false);              
-              $("input[name='booster_puertas']").attr('disabled', false);              
-              $("input[name='relog_vigia']").attr('disabled', false);              
-              $("input[name='vigia_delantera_derecha']").attr('disabled', false);              
-              $("input[name='vigia_delantera_izquierda']").attr('disabled', false);              
-              $("input[name='vigia_trasera_derecha']").attr('disabled', false);              
-              $("input[name='vigia_trasera_izquierda']").attr('disabled', false);              
-              $("input[name='martillo_emergencia']").attr('disabled', false);              
-              $("input[name='dispositivo_velocidad']").attr('disabled', false);              
-              $("input[name='balizas']").attr('disabled', false);              
+              $("input[name='parales']").attr('disabled', false);
+              $("input[name='booster_puertas']").attr('disabled', false);
+              $("input[name='reloj_vigia']").attr('disabled', false);
+              $("input[name='vigia_delantera_derecha']").attr('disabled', false);
+              $("input[name='vigia_delantera_izquierda']").attr('disabled', false);
+              $("input[name='vigia_trasera_derecha']").attr('disabled', false);
+              $("input[name='vigia_trasera_izquierda']").attr('disabled', false);
+              $("input[name='martillo_emergencia']").attr('disabled', false);
+              $("input[name='dispositivo_velocidad']").attr('disabled', false);
+              $("input[name='balizas']").attr('disabled', false);
             }
+
+
 
             $('#numinterno').val(Vehiculo.numinterno);
             $('#modelo').val(Vehiculo.modelo);
@@ -764,6 +832,8 @@ $(document).ready(function () {
             $("#num_interno").val(Vehiculo.idvehiculo).trigger("change");
             $('#num_interno').attr('disabled', 'disabled');
 
+
+            // CARGA LOS DOCUMENTOS DEL VEHICULO
             var datos = new FormData();
             datos.append("DocumentosxVehiculo", "ok");
             datos.append("idvehiculo", Vehiculo.idvehiculo);
@@ -844,6 +914,10 @@ $(document).ready(function () {
             $('#tarjeta_operacion').val(Vehiculo.idtipodocumento);
             $("#num_interno").val(Vehiculo.idvehiculo).trigger("change");
             $('#num_interno').attr('disabled', 'disabled');
+
+
+
+            //CARGA DOCUMENTOS DEL VEHICULO
 
             var datos = new FormData();
             datos.append("DocumentosxVehiculo", "ok");

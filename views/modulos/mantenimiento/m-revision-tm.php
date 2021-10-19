@@ -183,8 +183,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <th>Guardapolvos</th>
                                         <th>Piso</th>
                                         <th>Parabrisas derecho</th>
-                                        <th>Brazo limpiaparabrizas derecho</th>
-                                        <th>Plumillas limpiaparabrizas derecho</th>
+                                        <th>Brazo limpiaparabrisas derecho</th>
+                                        <th>Plumillas limpiaparabrisas derecho</th>
                                         <th>Parabrisas izquierdo</th>
                                         <th>Brazo limpiaparabrisas izquierdo</th>
                                         <th>Plumillas limpiaparabrisas izquierdo</th>
@@ -204,7 +204,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <th>Chapas de puertas</th>
                                         <th>Parales</th>
                                         <th>Booster de puertas</th>
-                                        <th>Relog vigia</th>
+                                        <th>reloj vigia</th>
                                         <th>Vigia rueda delantera derecha</th>
                                         <th>Vigia rueda delantera izquierda</th>
                                         <th>Vigia rueda trasera derecha</th>
@@ -252,13 +252,13 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <div class="row d-flex flex-nowrap justify-content-center">
                                                     <div class="col-md-6">
                                                         <div class="btn-group" role="group" aria-label="Button group">
-                                                            <button class="btn btn-xs btn-info btnEditarRev" idvehiculo="<?= $value['idvehiculo'] ?>" data-toggle="modal" data-target="#modal-nuevaRevision"><i class="fas fa-edit"></i></button>
+                                                            <button class="btn btn-xs btn-info btnEditarRev" idrevision="<?=$value['idtm'] ?>" idvehiculo="<?= $value['idvehiculo'] ?>" data-toggle="modal" data-target="#modal-nuevaRevision"><i class="fas fa-edit"></i></button>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <?php if (validarPermiso('M_VEHICULAR', 'D')) : ?>
                                                             <div class="btn-group" role="group" aria-label="Button group">
-                                                                <button class="btn btn-xs btn-danger btnBorrarRev" idvehiculo="<?= $value['idvehiculo'] ?>"> <i class="fas fa-trash"></i> </button>
+                                                                <button class="btn btn-xs btn-danger btnBorrarRev" idrevision="<?=$value['idtm'] ?>" idvehiculo="<?= $value['idvehiculo'] ?>"> <i class="fas fa-trash"></i> </button>
                                                             </div>
                                                         <?php endif ?>
                                                     </div>
@@ -270,7 +270,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                             <td><?= $value['modelo'] ?></td>
                                             <td><?= $value['tipovehiculo'] ?></td>
                                             <td><?= $value['kilometraje'] ?></td>
-                                            <td></td>
+                                            <td><?= $value['fecha_revision']?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['nivelrefrigerante']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['nivelaceite']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['radiador']) ?></td>
@@ -400,7 +400,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['chapas']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['parales']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['booster_puertas']) ?></td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['relog_vigia']) ?></td>
+                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['reloj_vigia']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['vigia_delantera_derecha']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['vigia_delantera_izquierda']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['vigia_trasera_derecha']) ?></td>
@@ -426,7 +426,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['cinturon']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['gato']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['copa']) ?></td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['señales_carretera']) ?></td>
+                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['senales_carretera']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['botiquin']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['extintor']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['tacos']) ?></td>
@@ -511,7 +511,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                     ================================= -->
                             <div class="col-12">
                                 <form id="datosrevision_form" method="post" enctype="multipart/form-data">
-                                    <input type="hidden" id="idvehiculo" name="idvehiculo" value="">
+                                    <input type="hidden" id="idrevision" name="idrevision" value="">
                                     <div class="tab-content" id="custom-tabs-two-tabContent">
                                         <!-- <TAB DE DOCUMENTOS   -->
                                         <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
@@ -520,7 +520,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <div class="col-12 col-sm-6 col-lg-4">
                                                     <div class="form-group">
                                                         <label>Placa</label>
-                                                        <select id="placa" name="placa" class="form-control select2-single" type="number" style="width: 99%" required>
+                                                        <select id="placa" name="idvehiculo" class="form-control select2-single" type="number" style="width: 99%" required>
                                                             <option value="" selected><b>-Lista de placas-</b></option>
                                                             <?php foreach ($Placas as $key => $value) : ?>
                                                                 <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?></option>
@@ -3384,21 +3384,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <td>
                                                                 <div class="form-group clearfix">
                                                                     <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radioparabrizas_derecho1" name="parabrizas_derecho" value="1" required>
-                                                                        <label for="radioparabrizas_derecho1">
+                                                                        <input type="radio" id="radioparabrisas_derecho1" name="parabrisas_derecho" value="1" required>
+                                                                        <label for="radioparabrisas_derecho1">
                                                                             <i class="fas fa-thumbs-up"></i>
                                                                         </label>
                                                                     </div>
 
                                                                     <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radioparabrizas_derecho2" name="parabrizas_derecho" value="0" required>
-                                                                        <label for="radioparabrizas_derecho2">
+                                                                        <input type="radio" id="radioparabrisas_derecho2" name="parabrisas_derecho" value="0" required>
+                                                                        <label for="radioparabrisas_derecho2">
                                                                             <i class="fas fa-thumbs-down"></i>
                                                                         </label>
                                                                     </div>
                                                                     <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radioparabrizas_derecho3" name="parabrizas_derecho" value="2" required>
-                                                                        <label for="radioparabrizas_derecho3">
+                                                                        <input type="radio" id="radioparabrisas_derecho3" name="parabrisas_derecho" value="2" required>
+                                                                        <label for="radioparabrisas_derecho3">
                                                                             <i class="fas fa-ban"></i>
                                                                         </label>
                                                                     </div>
@@ -3406,10 +3406,10 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             </td>
                                                         </tr>
                                                         <tr class="font-weight-bold">
-                                                            <th>Brazo limpiaparabrizas derecho</th>
+                                                            <th>Brazo limpiaparabrisas derecho</th>
                                                             <th>Plumillas limpiaparabrisas derecho</th>
-                                                            <th>Parabrizas izquierdo</th>
-                                                            <th>Brazo limpiaparabrizas izquierdo</th>
+                                                            <th>parabrisas izquierdo</th>
+                                                            <th>Brazo limpiaparabrisas izquierdo</th>
                                                         </tr>
                                                         <tr>
                                                             <td>
@@ -3506,7 +3506,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             </td>
                                                         </tr>
                                                         <tr class="font-weight-bold">
-                                                            <th>Plumillas limpiaparabrizas izquierdo</th>
+                                                            <th>Plumillas limpiaparabrisas izquierdo</th>
                                                             <th>Espejo retrovisor derecho</th>
                                                             <th>Espejo retrovisor izquierdo</th>
                                                             <th>Espejo central</th>
@@ -3950,7 +3950,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             </td>
                                                         </tr>
                                                         <tr class="font-weight-bold">
-                                                            <th>Relog vigia</th>
+                                                            <th>reloj vigia</th>
                                                             <th>Vigia rueda delantera derecha</th>
                                                             <th>Vigia rueda delantera izquierda</th>
                                                             <th>Vigia rueda trasera derecha</th>
@@ -3959,21 +3959,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <td>
                                                                 <div class="form-group clearfix">
                                                                     <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radiorelog_vigia1" name="relog_vigia" value="1" required>
-                                                                        <label for="radiorelog_vigia1">
+                                                                        <input type="radio" id="radioreloj_vigia1" name="reloj_vigia" value="1" required>
+                                                                        <label for="radioreloj_vigia1">
                                                                             <i class="fas fa-thumbs-up"></i>
                                                                         </label>
                                                                     </div>
 
                                                                     <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radiorelog_vigia2" name="relog_vigia" value="0" required>
-                                                                        <label for="radiorelog_vigia2">
+                                                                        <input type="radio" id="radioreloj_vigia2" name="reloj_vigia" value="0" required>
+                                                                        <label for="radioreloj_vigia2">
                                                                             <i class="fas fa-thumbs-down"></i>
                                                                         </label>
                                                                     </div>
                                                                     <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radiorelog_vigia3" name="relog_vigia" value="2" required>
-                                                                        <label for="radiorelog_vigia3">
+                                                                        <input type="radio" id="radioreloj_vigia3" name="reloj_vigia" value="2" required>
+                                                                        <label for="radioreloj_vigia3">
                                                                             <i class="fas fa-ban"></i>
                                                                         </label>
                                                                     </div>
@@ -4581,15 +4581,15 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         <td>
                                                             <div class="form-group clearfix">
                                                                 <div class="icheck-success d-inline">
-                                                                    <input type="radio" id="radioseñales_carretera1" name="señales_carretera" value="1" required>
-                                                                    <label for="radioseñales_carretera1">
+                                                                    <input type="radio" id="radiosenales_carretera1" name="senales_carretera" value="1" required>
+                                                                    <label for="radiosenales_carretera1">
                                                                         <i class="fas fa-thumbs-up"></i>
                                                                     </label>
                                                                 </div>
 
                                                                 <div class="icheck-danger d-inline">
-                                                                    <input type="radio" id="radioseñales_carretera2" name="señales_carretera" value="0" required>
-                                                                    <label for="radioseñales_carretera2">
+                                                                    <input type="radio" id="radiosenales_carretera2" name="senales_carretera" value="0" required>
+                                                                    <label for="radiosenales_carretera2">
                                                                         <i class="fas fa-thumbs-down"></i>
                                                                     </label>
                                                                 </div>
@@ -4618,6 +4618,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         <tr class="font-weight-bold">
                                                             <th>Extintor</th>
                                                             <th>2 tacos</th>
+                                                            <th>Cinturon</th>
                                                         </tr>
                                                         <tr>
                                                             <td>
@@ -4649,6 +4650,23 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                     <div class="icheck-danger d-inline">
                                                                         <input type="radio" id="radiotacos2" name="tacos" value="0" required>
                                                                         <label for="radiotacos2">
+                                                                            <i class="fas fa-thumbs-down"></i>
+                                                                        </label>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <div class="form-group clearfix">
+                                                                    <div class="icheck-success d-inline">
+                                                                        <input type="radio" id="radiocinturon1" name="cinturon" value="1" required>
+                                                                        <label for="radiocinturon1">
+                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        </label>
+                                                                    </div>
+
+                                                                    <div class="icheck-danger d-inline">
+                                                                        <input type="radio" id="radiocinturon2" name="cinturon" value="0" required>
+                                                                        <label for="radiocinturon2">
                                                                             <i class="fas fa-thumbs-down"></i>
                                                                         </label>
                                                                     </div>
@@ -4781,11 +4799,21 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         </div>
                                     </div>
 
+
+
+                                    <div class="modal-footer justify-content-center bg-dark">
+                                        <?php if (validarPermiso('M_OPCIONES', 'U')) : ?>
+                                            <button type="submit" form="datosrevision_form" class="btn btn-success"><i class="fas fa-print"></i> Guardar</button>
+                                        <?php endif ?>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
+                                    </div>
+
                                     <?php
+
                                     $add = new ControladorRevision();
                                     $add->ctrAgregarEditarRevision();
-                                    ?>
 
+                                    ?>
 
                                 </form> <!-- FIN FORMULARIO -->
                             </div>
@@ -4795,12 +4823,6 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
             </div>
 
-            <div class="modal-footer justify-content-center bg-info">
-                <?php if (validarPermiso('M_OPERACIONES', 'U')) : ?>
-                    <button type="submit" form="datosrevision_form" class="btn btn-success"><i class="fas fa-print"></i> Guardar</button>
-                <?php endif ?>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
-            </div>
         </div>
     </div>
 </div>
