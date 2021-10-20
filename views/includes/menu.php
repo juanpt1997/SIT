@@ -362,7 +362,7 @@
                 <!-- ===================================================
                     * Control Usuarios
                 =================================================== -->
-                <?php if (validarPermiso('M_USUARIOS', 'R')) : ?>   
+                <?php if (validarPermiso('M_USUARIOS', 'R')) : ?>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-users"></i>
@@ -417,25 +417,14 @@
                                 </a>
                             </li>
                             <!-- ===================================================
-                                    Proveedores
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="m-proveedores" class="nav-link" target="_blank">
-                                    <i class="fas fa-cart-arrow-down nav-icon"></i>
-                                    <p>Proveedores</p>
-                                </a>
-                            </li>
-                            <!-- ===================================================
                                     Inventario
-                                =================================================== -->
+                                =======================================F============ -->
                             <li class="nav-item">
-                                <a href="m-inventario" class="nav-link" target="_blank">
+                                <a href="m-inventario" class="nav-link">
                                     <i class="fas fa-boxes nav-icon"></i>
                                     <p>Inventario</p>
                                 </a>
                             </li>
-                        
-
                             <!-- ===================================================
                                     Revison tecnomecánica 
                                 =================================================== -->
@@ -448,7 +437,43 @@
                             </li>
                         </ul>
                     </li>
-                    
+                <?php endif ?>
+
+                <!-- ===================================================
+                    ** COMPRAS
+                =================================================== -->
+                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-shopping-cart"></i>
+                            <p>Compras
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <!-- ===================================================
+                                    Proveedores
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="c-proveedores" class="nav-link" target="_blank">
+                                    <i class="fas fa-truck-moving nav-icon"></i>
+                                    <p>Proveedores</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
+                                    ORDEN DE COMPRA
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="c-orden-compra" class="nav-link" target="_blank">
+                                    <i class="fas fa-dollar-sign nav-icon"></i>
+                                    <p>Orden de compra</p>
+                                </a>
+                            </li>
+
+
+                        </ul>
+                    </li>
+
                 <?php endif ?>
 
                 <!-- ===================================================
@@ -460,6 +485,7 @@
                             <i class="nav-icon fas fa-book"></i>
                             <p>Documentos Contable</p>
                         </a>
+
                     </li>
                 <?php endif ?>
 
@@ -499,17 +525,6 @@
                     </li>
                 <?php endif ?>
 
-                <!-- ===================================================
-                    ** COMPRAS
-                =================================================== -->
-                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-shopping-cart"></i>
-                            <p>Compras</p>
-                        </a>
-                    </li>
-                <?php endif ?>
 
                 <!-- ===================================================
                     ** ESTANDAR PROCESOS DE CALIDAD

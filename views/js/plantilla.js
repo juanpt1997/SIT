@@ -242,7 +242,7 @@ $('.tablasBtnExport').DataTable({
         "<'row'<'col-sm-12'tr>>" +
         "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
     "buttons": [
-        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+        { extend: 'excel', className: 'btn-info no-print', text: '<i class="far fa-file-excel"></i> Exportar' }
         /* 'copy', 'csv', 'excel', 'pdf', 'print' */
     ],
     "order": [],
@@ -281,9 +281,10 @@ $(document).ready(function () {
     /* ===================================================
       MOSTRAR O ESCONDER EL MINI MENU DE LA IZQUIERDA SEGUN LA VISTA EN LA QUE SE ENCUENTRE
     ===================================================*/
-    if (window.location.href == `${dominioApp}/${proyecto}/inicio` ||
-        window.location.href == `${dominioApp}/${proyecto}/` ||
-        window.location.href == `${dominioApp}/${proyecto}`
+    if (window.location.href == `${dominioApp}/sit/${proyecto}/inicio/` ||
+        window.location.href == `${dominioApp}/sit/${proyecto}/inicio` ||
+        window.location.href == `${dominioApp}/sit/${proyecto}/` ||
+        window.location.href == `${dominioApp}/sit/${proyecto}`
     ) {
         $("body").removeClass("sidebar-mini");
     } else {
