@@ -176,6 +176,20 @@ class AjaxInventario
     }
 }
 
+class AjaxRevision
+{
+    static public function ajaxDatosVehiculo($idvehiculo)
+    {
+        $respuesta = ControladorVehiculos::ctrDatosVehiculo("idvehiculo", $idvehiculo);
+        echo json_encode($respuesta);
+    }
+
+    // static public function ajaxDatosRevision($idrevision)
+    // {
+    //     $respuesta = ControladorRevision::ctrRevisionxid($idrevision);
+    //     echo json_encode($respuesta);
+    // }
+}
 /* ===================================================
             LLAMADOS AJAX PROVEEDORES
 ====================================================*/
@@ -213,3 +227,15 @@ if (isset($_POST['FotosVehiculos']) && $_POST['FotosVehiculos'] == "ok") {
 if (isset($_POST['EliminarInventario']) && $_POST['EliminarInventario'] == "ok") {
 	AjaxInventario::ajaxEliminarInventario($_POST['idvehiculo']);
 }
+
+
+/* ==============================================
+        REVISIÓN TECNICOMECÁNICA
+    ============================================== */
+
+#Llamo a datos vehiculos para tecnomecánica
+
+if(isset($_POST['DatosVehiculo']) && $_POST['DatosVehiculo'] == "ok") AjaxRevision::ajaxDatosVehiculo($_POST['idvehiculo']);
+
+
+// if(isset($_POST['DatosRevision']) && $_POST['DatosRevision'] == "ok") AjaxRevision::ajaxDatosRevision($_POST['idrevision']);

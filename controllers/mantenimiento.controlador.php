@@ -147,7 +147,7 @@ class ControladorInventario
 	{
 		if (isset($_POST['inventario_id'])) {
 
-			$datos = array(      
+			$datos = array(
 				'id' => $_POST['inventario_id'],
 				'idvehiculo' => $_POST['idvehiculo'],
 				'idconductor' => $_POST['idconductor'],
@@ -413,28 +413,266 @@ class ControladorInventario
 		}
 	}
 
-	 /* ===================================================
+	/* ===================================================
        LISTAR EVIDENCIAS
     ===================================================*/
-    static public function ctrListaEvidencias($idvehiculo)
-    {
-        $respuesta = ModeloInventario::mdlListaEvidencias($idvehiculo);
-        return $respuesta;
-    }
+	static public function ctrListaEvidencias($idvehiculo)
+	{
+		$respuesta = ModeloInventario::mdlListaEvidencias($idvehiculo);
+		return $respuesta;
+	}
 
 	/*===================================================
        CAMBIAR ESTADO EVIDENCIA
     ===================================================*/
-    static public function ctrActualizarEstado($idevidencia, $estadoActual, $observaciones)
-    {
-        $nuevoEstado = $estadoActual == "RESUELTO" ? "PENDIENTE" : "RESUELTO";
+	static public function ctrActualizarEstado($idevidencia, $estadoActual, $observaciones)
+	{
+		$nuevoEstado = $estadoActual == "RESUELTO" ? "PENDIENTE" : "RESUELTO";
 
-        $datos = array(
-            'idevidencia' => $idevidencia,
-            'observaciones' => $observaciones,
-            'estado' => $nuevoEstado
-        );
-        $respuesta = ModeloInventario::mdlActualizarEstado($datos);
-        return $respuesta;
-    }
+		$datos = array(
+			'idevidencia' => $idevidencia,
+			'observaciones' => $observaciones,
+			'estado' => $nuevoEstado
+		);
+		$respuesta = ModeloInventario::mdlActualizarEstado($datos);
+		return $respuesta;
+	}
+}
+
+class ControladorRevision
+{
+	/*=============================
+		LISTADO REVISION
+		=========================== */
+	static public function ctrListadoRevision()
+	{
+		$respuesta = ModeloRevision::mdlListadoRevision();
+		return $respuesta;
+	}
+
+	/*===============================================
+		REVISION POR IDREVISION
+		========================================*/
+
+		// static public function ctrRevisionxid($idrevision)
+		// {
+		// 	$respuesta = ModeloRevision::mdlRevisionxid($idrevision);
+		// 	return $respuesta;
+		// }
+
+	/* ============================================
+		AGREGAR Y EDITAR REVISIÓN TECNICOMECÁNICA
+		========================================= */
+
+	static public function ctrAgregarEditarRevision()
+	{
+
+		// $_POST['freno_ahogo'] = $_POST['freno_ahogo'] == "" ? null : $_POST['freno_ahogo'];
+		if (isset($_POST['idrevision'])) {
+			$datos = $_POST;
+
+			if (!isset($_POST['freno_ahogo'])) {
+				$datos['freno_ahogo'] = "2";
+				$datos['compresor'] = "2";
+				$datos['fuga_aire'] = "2";
+				$datos['banda_delantera_derecha'] = "2";
+				$datos['banda_delantera_izquierda'] = "2";
+				$datos['rachets'] = "2";
+				$datos['llantar5'] = "2";
+				$datos['llantar6'] = "2";
+				$datos['tanques_aire'] = "2";
+				$datos['rutero'] = "2";
+				$datos['estribos_puerta'] = "2";
+				$datos['brazo_limpiaparabrisas_derecho'] = "2";
+				$datos['parabrisas_izquierdo'] = "2";
+				$datos['brazo_limpiaparabrisas_izquierdo'] = "2";
+				$datos['vidrio_puerta_principal'] = "2";
+				$datos['vidrio_segunda_puerta'] = "2";
+				$datos['claraboyas'] = "2";
+				$datos['parales'] = "2";
+				$datos['booster_puertas'] = "2";
+				$datos['reloj_vigia'] = "2";
+				$datos['vigia_delantera_derecha'] = "2";
+				$datos['vigia_delantera_izquierda'] = "2";
+				$datos['vigia_trasera_derecha'] = "2";
+				$datos['vigia_trasera_izquierda'] = "2";
+				$datos['martillo_emergencia'] = "2";
+				$datos['dispositivo_velocidad'] = "2";
+				$datos['balizas'] = "2";
+			}
+			//echo $datos['luces_delimitadoras'];
+
+			$datos['idvehiculo'] = isset($datos['idvehiculo']) ? $datos['idvehiculo'] : "null";
+			$datos['kilometraje'] = !isset($datos['kilometraje']) || $datos['kilometraje'] == "" ? "null" : $datos['kilometraje'];
+			$datos['nivelrefrigerante'] = isset($datos['nivelrefrigerante']) ? $datos['nivelrefrigerante'] : "null";
+			$datos['nivelaceite'] = isset($datos['nivelaceite']) ? $datos['nivelaceite'] : "null";
+			$datos['radiador'] = isset($datos['radiador']) ? $datos['radiador'] : "null";
+			$datos['mangueras'] = isset($datos['mangueras']) ? $datos['mangueras'] : "null";
+			$datos['correas'] = isset($datos['correas']) ? $datos['correas'] : "null";
+			$datos['motor'] = isset($datos['motor']) ? $datos['motor'] : "null";
+			$datos['freno_ahogo'] = isset($datos['freno_ahogo']) ? $datos['freno_ahogo'] : "null";
+			$datos['exosto'] = isset($datos['exosto']) ? $datos['exosto'] : "null";
+			$datos['guaya'] = isset($datos['guaya']) ? $datos['guaya'] : "null";
+			$datos['turbo'] = isset($datos['turbo']) ? $datos['turbo'] : "null";
+			$datos['tapa_radiador'] = isset($datos['tapa_radiador']) ? $datos['tapa_radiador'] : "null";
+			$datos['fuga_aceite'] = isset($datos['fuga_aceite']) ? $datos['fuga_aceite'] : "null";
+			$datos['fuga_combustible'] = isset($datos['fuga_combustible']) ? $datos['fuga_combustible'] : "null";
+			$datos['nivel_aceite_transmision'] = isset($datos['nivel_aceite_transmision']) ? $datos['nivel_aceite_transmision'] : "null";
+			$datos['transmision'] = isset($datos['transmision']) ? $datos['transmision'] : "null";
+			$datos['tapon_transmision'] = isset($datos['tapon_transmision']) ? $datos['tapon_transmision'] : "null";
+			$datos['palanca_cambios'] = isset($datos['palanca_cambios']) ? $datos['palanca_cambios'] : "null";
+			$datos['embrague'] = isset($datos['embrague']) ? $datos['embrague'] : "null";
+			$datos['pedal_embrague'] = isset($datos['pedal_embrague']) ? $datos['pedal_embrague'] : "null";
+			$datos['cruceta_cardan'] = isset($datos['cruceta_cardan']) ? $datos['cruceta_cardan'] : "null";
+			$datos['cojinete_cardan'] = isset($datos['cojinete_cardan']) ? $datos['cojinete_cardan'] : "null";
+			$datos['cadena_cardan'] = isset($datos['cadena_cardan']) ? $datos['cadena_cardan'] : "null";
+			$datos['aceite_diferencial'] = isset($datos['aceite_diferencial']) ? $datos['aceite_diferencial'] : "null";
+			$datos['drenaje_diferencial'] = isset($datos['drenaje_diferencial']) ? $datos['drenaje_diferencial'] : "null";
+			$datos['fuga_transmision'] = isset($datos['fuga_transmision']) ? $datos['fuga_transmision'] : "null";
+			$datos['fuga_diferencial'] = isset($datos['fuga_diferencial']) ? $datos['fuga_diferencial'] : "null";
+			$datos['muelle_delantero_derecho'] = isset($datos['muelle_delantero_derecho']) ? $datos['muelle_delantero_derecho'] : "null";
+			$datos['amortiguador_delantero_derecho'] = isset($datos['amortiguador_delantero_derecho']) ? $datos['amortiguador_delantero_derecho'] : "null";
+			$datos['muelle_delantero_izquierdo'] = isset($datos['muelle_delantero_izquierdo']) ? $datos['muelle_delantero_izquierdo'] : "null";
+			$datos['amortiguador_delantero_izquierdo'] = isset($datos['amortiguador_delantero_izquierdo']) ? $datos['amortiguador_delantero_izquierdo'] : "null";
+			$datos['muelle_trasero_derecho'] = isset($datos['muelle_trasero_derecho']) ? $datos['muelle_trasero_derecho'] : "null";
+			$datos['amortiguador_trasero_derecho'] = isset($datos['amortiguador_trasero_derecho']) ? $datos['amortiguador_trasero_derecho'] : "null";
+			$datos['muelle_trasero_izquierdo'] = isset($datos['muelle_trasero_izquierdo']) ? $datos['muelle_trasero_izquierdo'] : "null";
+			$datos['amortiguador_trasero_izquierdo'] = isset($datos['amortiguador_trasero_izquierdo']) ? $datos['amortiguador_trasero_izquierdo'] : "null";
+			$datos['barra_estabilizadora'] = isset($datos['barra_estabilizadora']) ? $datos['barra_estabilizadora'] : "null";
+			$datos['tornillo_pasador_central'] = isset($datos['tornillo_pasador_central']) ? $datos['tornillo_pasador_central'] : "null";
+			$datos['aceite_hidraulico'] = isset($datos['aceite_hidraulico']) ? $datos['aceite_hidraulico'] : "null";
+			$datos['lineas'] = isset($datos['lineas']) ? $datos['lineas'] : "null";
+			$datos['pitman'] = isset($datos['pitman']) ? $datos['pitman'] : "null";
+			$datos['barra_ejes'] = isset($datos['barra_ejes']) ? $datos['barra_ejes'] : "null";
+			$datos['tijeras'] = isset($datos['tijeras']) ? $datos['tijeras'] : "null";
+			$datos['splinders'] = isset($datos['splinders']) ? $datos['splinders'] : "null";
+			$datos['timon'] = isset($datos['timon']) ? $datos['timon'] : "null";
+			$datos['caja_direccion'] = isset($datos['caja_direccion']) ? $datos['caja_direccion'] : "null";
+			$datos['cruceta_direccion'] = isset($datos['cruceta_direccion']) ? $datos['cruceta_direccion'] : "null";
+			$datos['fuga_caja'] = isset($datos['fuga_caja']) ? $datos['fuga_caja'] : "null";
+			$datos['nivel_fluido'] = isset($datos['nivel_fluido']) ? $datos['nivel_fluido'] : "null";
+			$datos['tuberias'] = isset($datos['tuberias']) ? $datos['tuberias'] : "null";
+			$datos['freno_parqueo'] = isset($datos['freno_parqueo']) ? $datos['freno_parqueo'] : "null";
+			$datos['frenos'] = isset($datos['frenos']) ? $datos['frenos'] : "null";
+			$datos['pedal_freno'] = isset($datos['pedal_freno']) ? $datos['pedal_freno'] : "null";
+			$datos['compresor'] = isset($datos['compresor']) ? $datos['compresor'] : "null";
+			$datos['fuga_aire'] = isset($datos['fuga_aire']) ? $datos['fuga_aire'] : "null";
+			$datos['banda_delantera_derecha'] = isset($datos['banda_delantera_derecha']) ? $datos['banda_delantera_derecha'] : "null";
+			$datos['banda_delantera_izquierda'] = isset($datos['banda_delantera_izquierda']) ? $datos['banda_delantera_izquierda'] : "null";
+			$datos['banda_trasera_derecha'] = isset($datos['banda_trasera_derecha']) ? $datos['banda_trasera_derecha'] : "null";
+			$datos['banda_trasera_izquierda'] = isset($datos['banda_trasera_izquierda']) ? $datos['banda_trasera_izquierda'] : "null";
+			$datos['rachets'] = isset($datos['rachets']) ? $datos['rachets'] : "null";
+			$datos['discos_delanteros'] = isset($datos['discos_delanteros']) ? $datos['discos_delanteros'] : "null";
+			$datos['discos_traseros'] = isset($datos['discos_traseros']) ? $datos['discos_traseros'] : "null";
+			$datos['pastillas_freno'] = isset($datos['pastillas_freno']) ? $datos['pastillas_freno'] : "null";
+			$datos['rines'] = isset($datos['rines']) ? $datos['rines'] : "null";
+			$datos['llantar1'] = isset($datos['llantar1']) ? $datos['llantar1'] : "null";
+			$datos['llantar2'] = isset($datos['llantar2']) ? $datos['llantar2'] : "null";
+			$datos['llantar3'] = isset($datos['llantar3']) ? $datos['llantar3'] : "null";
+			$datos['llantar4'] = isset($datos['llantar4']) ? $datos['llantar4'] : "null";
+			$datos['llantar5'] = isset($datos['llantar5']) ? $datos['llantar5'] : "null";
+			$datos['llantar6'] = isset($datos['llantar6']) ? $datos['llantar6'] : "null";
+			$datos['llanta_repuesto'] = isset($datos['llanta_repuesto']) ? $datos['llanta_repuesto'] : "null";
+			$datos['tanques_aire'] = isset($datos['tanques_aire']) ? $datos['tanques_aire'] : "null";
+			$datos['luces_altas'] = isset($datos['luces_altas']) ? $datos['luces_altas'] : "null";
+			$datos['luces_bajas'] = isset($datos['luces_bajas']) ? $datos['luces_bajas'] : "null";
+			$datos['luces_direccionales'] = isset($datos['luces_direccionales']) ? $datos['luces_direccionales'] : "null";
+			$datos['luces_estacionarias'] = isset($datos['luces_estacionarias']) ? $datos['luces_estacionarias'] : "null";
+			$datos['luces_laterales'] = isset($datos['luces_laterales']) ? $datos['luces_laterales'] : "null";
+			$datos['luz_reversa'] = isset($datos['luz_reversa']) ? $datos['luz_reversa'] : "null";
+			$datos['luces_internas'] = isset($datos['luces_internas']) ? $datos['luces_internas'] : "null";
+			$datos['luces_delimitadoras'] = isset($datos['luces_delimitadoras']) ? $datos['luces_delimitadoras'] : "null";
+			$datos['alarma_reversa'] = isset($datos['alarma_reversa']) ? $datos['alarma_reversa'] : "null";
+			$datos['motor_arranque'] = isset($datos['motor_arranque']) ? $datos['motor_arranque'] : "null";
+			$datos['alternador'] = isset($datos['alternador']) ? $datos['alternador'] : "null";
+			$datos['baterias'] = isset($datos['baterias']) ? $datos['baterias'] : "null";
+			$datos['pito'] = isset($datos['pito']) ? $datos['pito'] : "null";
+			$datos['rutero'] = isset($datos['rutero']) ? $datos['rutero'] : "null";
+			$datos['cables_conexiones'] = isset($datos['cables_conexiones']) ? $datos['cables_conexiones'] : "null";
+			$datos['fusibles'] = isset($datos['fusibles']) ? $datos['fusibles'] : "null";
+			$datos['presion_aceite'] = isset($datos['presion_aceite']) ? $datos['presion_aceite'] : "null";
+			$datos['temperatura_motor'] = isset($datos['temperatura_motor']) ? $datos['temperatura_motor'] : "null";
+			$datos['velocimetro'] = isset($datos['velocimetro']) ? $datos['velocimetro'] : "null";
+			$datos['nivel_combustible'] = isset($datos['nivel_combustible']) ? $datos['nivel_combustible'] : "null";
+			$datos['presion_aire'] = isset($datos['presion_aire']) ? $datos['presion_aire'] : "null";
+			$datos['carga_bateria'] = isset($datos['carga_bateria']) ? $datos['carga_bateria'] : "null";
+			$datos['techo_exterior'] = isset($datos['techo_exterior']) ? $datos['techo_exterior'] : "null";
+			$datos['techo_interior'] = isset($datos['techo_interior']) ? $datos['techo_interior'] : "null";
+			$datos['bomper_delantero'] = isset($datos['bomper_delantero']) ? $datos['bomper_delantero'] : "null";
+			$datos['bomper_trasero'] = isset($datos['bomper_trasero']) ? $datos['bomper_trasero'] : "null";
+			$datos['frente'] = isset($datos['frente']) ? $datos['frente'] : "null";
+			$datos['lamina_lateral_derecho'] = isset($datos['lamina_lateral_derecho']) ? $datos['lamina_lateral_derecho'] : "null";
+			$datos['lamina_lateral_izquierdo'] = isset($datos['lamina_lateral_izquierdo']) ? $datos['lamina_lateral_izquierdo'] : "null";
+			$datos['puerta_principal'] = isset($datos['puerta_principal']) ? $datos['puerta_principal'] : "null";
+			$datos['puerta_lateral'] = isset($datos['puerta_lateral']) ? $datos['puerta_lateral'] : "null";
+			$datos['estribos_puerta'] = isset($datos['estribos_puerta']) ? $datos['estribos_puerta'] : "null";
+			$datos['sillas'] = isset($datos['sillas']) ? $datos['sillas'] : "null";
+			$datos['descansa_brazos'] = isset($datos['descansa_brazos']) ? $datos['descansa_brazos'] : "null";
+			$datos['bocallanta'] = isset($datos['bocallanta']) ? $datos['bocallanta'] : "null";
+			$datos['guardapolvos'] = isset($datos['guardapolvos']) ? $datos['guardapolvos'] : "null";
+			$datos['piso'] = isset($datos['piso']) ? $datos['piso'] : "null";
+			$datos['parabrisas_derecho'] = isset($datos['parabrisas_derecho']) ? $datos['parabrisas_derecho'] : "null";
+			$datos['brazo_limpiaparabrisas_derecho'] = isset($datos['brazo_limpiaparabrisas_derecho']) ? $datos['brazo_limpiaparabrisas_derecho'] : "null";
+			$datos['plumillas_limpiaparabrisas_derecho'] = isset($datos['plumillas_limpiaparabrisas_derecho']) ? $datos['plumillas_limpiaparabrisas_derecho'] : "null";
+			$datos['parabrisas_izquierdo'] = isset($datos['parabrisas_izquierdo']) ? $datos['parabrisas_izquierdo'] : "null";
+			$datos['brazo_limpiaparabrisas_izquierdo'] = isset($datos['brazo_limpiaparabrisas_izquierdo']) ? $datos['brazo_limpiaparabrisas_izquierdo'] : "null";
+			$datos['plumillas_limpiaparabrisas_izquierdo'] = isset($datos['plumillas_limpiaparabrisas_izquierdo']) ? $datos['plumillas_limpiaparabrisas_izquierdo'] : "null";
+			$datos['espejo_retrovisor_derecho'] = isset($datos['espejo_retrovisor_derecho']) ? $datos['espejo_retrovisor_derecho'] : "null";
+			$datos['espejo_retrovisor_izquierdo'] = isset($datos['espejo_retrovisor_izquierdo']) ? $datos['espejo_retrovisor_izquierdo'] : "null";
+			$datos['espejo_central'] = isset($datos['espejo_central']) ? $datos['espejo_central'] : "null";
+			$datos['ventanas_lado_derecho'] = isset($datos['ventanas_lado_derecho']) ? $datos['ventanas_lado_derecho'] : "null";
+			$datos['ventanas_lado_izquierdo'] = isset($datos['ventanas_lado_izquierdo']) ? $datos['ventanas_lado_izquierdo'] : "null";
+			$datos['parabrisas_trasero'] = isset($datos['parabrisas_trasero']) ? $datos['parabrisas_trasero'] : "null";
+			$datos['vidrio_puerta_principal'] = isset($datos['vidrio_puerta_principal']) ? $datos['vidrio_puerta_principal'] : "null";
+			$datos['vidrio_segunda_puerta'] = isset($datos['vidrio_segunda_puerta']) ? $datos['vidrio_segunda_puerta'] : "null";
+			$datos['manijas'] = isset($datos['manijas']) ? $datos['manijas'] : "null";
+			$datos['claraboyas'] = isset($datos['claraboyas']) ? $datos['claraboyas'] : "null";
+			$datos['airbag'] = isset($datos['airbag']) ? $datos['airbag'] : "null";
+			$datos['aire_acondicionado'] = isset($datos['aire_acondicionado']) ? $datos['aire_acondicionado'] : "null";
+			$datos['limpieza'] = isset($datos['limpieza']) ? $datos['limpieza'] : "null";
+			$datos['chapas'] = isset($datos['chapas']) ? $datos['chapas'] : "null";
+			$datos['parales'] = isset($datos['parales']) ? $datos['parales'] : "null";
+			$datos['booster_puertas'] = isset($datos['booster_puertas']) ? $datos['booster_puertas'] : "null";
+			$datos['reloj_vigia'] = isset($datos['reloj_vigia']) ? $datos['reloj_vigia'] : "null";
+			$datos['vigia_delantera_derecha'] = isset($datos['vigia_delantera_derecha']) ? $datos['vigia_delantera_derecha'] : "null";
+			$datos['vigia_delantera_izquierda'] = isset($datos['vigia_delantera_izquierda']) ? $datos['vigia_delantera_izquierda'] : "null";
+			$datos['vigia_trasera_derecha'] = isset($datos['vigia_trasera_derecha']) ? $datos['vigia_trasera_derecha'] : "null";
+			$datos['vigia_trasera_izquierda'] = isset($datos['vigia_trasera_izquierda']) ? $datos['vigia_trasera_izquierda'] : "null";
+			$datos['tapa_motor'] = isset($datos['tapa_motor']) ? $datos['tapa_motor'] : "null";
+			$datos['tapa_bodegas'] = isset($datos['tapa_bodegas']) ? $datos['tapa_bodegas'] : "null";
+			$datos['parasol'] = isset($datos['parasol']) ? $datos['parasol'] : "null";
+			$datos['cenefas'] = isset($datos['cenefas']) ? $datos['cenefas'] : "null";
+			$datos['emblema_izquierdo'] = isset($datos['emblema_izquierdo']) ? $datos['emblema_izquierdo'] : "null";
+			$datos['emblema_derecho'] = isset($datos['emblema_derecho']) ? $datos['emblema_derecho'] : "null";
+			$datos['emblema_trasero'] = isset($datos['emblema_trasero']) ? $datos['emblema_trasero'] : "null";
+			$datos['equipo_audio'] = isset($datos['equipo_audio']) ? $datos['equipo_audio'] : "null";
+			$datos['parlantes'] = isset($datos['parlantes']) ? $datos['parlantes'] : "null";
+			$datos['cinturon_usuario'] = isset($datos['cinturon_usuario']) ? $datos['cinturon_usuario'] : "null";
+			$datos['martillo_emergencia'] = isset($datos['martillo_emergencia']) ? $datos['martillo_emergencia'] : "null";
+			$datos['dispositivo_velocidad'] = isset($datos['dispositivo_velocidad']) ? $datos['dispositivo_velocidad'] : "null";
+			$datos['avisos'] = isset($datos['avisos']) ? $datos['avisos'] : "null";
+			$datos['placa_trasera'] = isset($datos['placa_trasera']) ? $datos['placa_trasera'] : "null";
+			$datos['placa_delantera'] = isset($datos['placa_delantera']) ? $datos['placa_delantera'] : "null";
+			$datos['placa_lateral_derecha'] = isset($datos['placa_lateral_derecha']) ? $datos['placa_lateral_derecha'] : "null";
+			$datos['placa_lateral_izquierda'] = isset($datos['placa_lateral_izquierda']) ? $datos['placa_lateral_izquierda'] : "null";
+			$datos['balizas'] = isset($datos['balizas']) ? $datos['balizas'] : "null";
+			$datos['cinturon'] = isset($datos['cinturon']) ? $datos['cinturon'] : "null";
+			$datos['gato'] = isset($datos['gato']) ? $datos['gato'] : "null";
+			$datos['copa'] = isset($datos['copa']) ? $datos['copa'] : "null";
+			$datos['senales_carretera'] = isset($datos['senales_carretera']) ? $datos['senales_carretera'] : "null";
+			$datos['botiquin'] = isset($datos['botiquin']) ? $datos['botiquin'] : "null";
+			$datos['extintor'] = isset($datos['extintor']) ? $datos['extintor'] : "null";
+			$datos['tacos'] = isset($datos['tacos']) ? $datos['tacos'] : "null";
+			$datos['alicate'] = isset($datos['alicate']) ? $datos['alicate'] : "null";
+			$datos['destornilladores'] = isset($datos['destornilladores']) ? $datos['destornilladores'] : "null";
+			$datos['llave_expansion'] = isset($datos['llave_expansion']) ? $datos['llave_expansion'] : "null";
+			$datos['llaves_fijas'] = isset($datos['llaves_fijas']) ? $datos['llaves_fijas'] : "null";
+			$datos['linterna'] = isset($datos['linterna']) ? $datos['linterna'] : "null";
+
+			var_dump($datos);
+
+			$respuesta = ModeloRevision::mdlAgregarRevision($datos);
+			return $respuesta;
+		}
+	}
 }

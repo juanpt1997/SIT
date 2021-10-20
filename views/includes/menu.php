@@ -442,7 +442,7 @@
 
                             <li class="nav-item">
                                 <a href="m-revision-tm" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-wrench nav-icon"></i>
                                     <p>Revision TM</p>
                                 </a>
                             </li>
