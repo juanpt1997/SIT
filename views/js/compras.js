@@ -99,9 +99,9 @@ $(document).ready(function () {
   ){
 
     $(".btn_print_orden").click(function (e) { 
+      window.print();
 
-
-    window.addEventListener("load", window.print);
+    /* window.addEventListener("load", window.print); */
 
 
     });
