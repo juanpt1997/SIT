@@ -281,9 +281,10 @@ $(document).ready(function () {
     /* ===================================================
       MOSTRAR O ESCONDER EL MINI MENU DE LA IZQUIERDA SEGUN LA VISTA EN LA QUE SE ENCUENTRE
     ===================================================*/
-    if (window.location.href == `${dominioApp}/${proyecto}/inicio` ||
-        window.location.href == `${dominioApp}/${proyecto}/` ||
-        window.location.href == `${dominioApp}/${proyecto}`
+    if (window.location.href == `${dominioApp}/sit/${proyecto}/inicio/` ||
+        window.location.href == `${dominioApp}/sit/${proyecto}/inicio` ||
+        window.location.href == `${dominioApp}/sit/${proyecto}/` ||
+        window.location.href == `${dominioApp}/sit/${proyecto}`
     ) {
         $("body").removeClass("sidebar-mini");
     } else {

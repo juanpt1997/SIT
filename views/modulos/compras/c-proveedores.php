@@ -46,10 +46,9 @@ $Proveedores = ControladorProveedores::ctrListarProveedores();
                         <div class="card-body">
                             <div class="col-sm-12">
 
-                                <div class="row mb">
-                                    <div class="col-sm text-center">
-                                        <button type="button" class="btn bg-gradient-warning btn_nuevo" data-toggle="modal" data-target="#modal-nuevo"><i class="fas fa-dolly"></i></i> Nuevo proveedor</button>
-                                        <button type="button" class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-guardar"><i class="far fa-save"></i> Guardar</button>
+                                <div class="row d-flex justify-content-center mb">
+                                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 text-center">
+                                        <button type="button" class="btn btn-block bg-gradient-success btn_nuevo" data-toggle="modal" data-target="#modal-nuevo"><i class="fas fa-dolly"></i> Nuevo proveedor</button>
                                     </div>
                                 </div>
 
@@ -74,7 +73,6 @@ $Proveedores = ControladorProveedores::ctrListarProveedores();
                                             <?php foreach ($Proveedores as $key => $value) : ?>
                                                 <tr>
                                                     <td>
-                                                        <button type="button" class="btn btn-info btn-sm btn_imprimir" data-toggle="modal" data-target="#modal-imprimir"><i class="fas fa-print"></i></button>
                                                         <button type="button" class="btn btn-success btn-sm btn_editar" data-toggle="modal" data-target="#modal-nuevo" nit_editar="<?= $value['documento'] ?>" id_prov="<?= $value['id'] ?>"><i class="fas fa-edit"></i></button>
                                                         <button type="button" class="btn btn-danger btn-sm btn_eliminar" id="<?= $value['id'] ?>"><i class="fas fa-trash"></i></button>
 
