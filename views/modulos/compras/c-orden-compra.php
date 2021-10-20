@@ -66,7 +66,7 @@ $vehiculos = ControladorVehiculos::ctrListaVehiculos();
 
                         </address>
                     </div>
-                    <div class="col-md-6 invoice-col">
+                    <div class="col-md-6">
                         <address>
                             <div>
                                 <form id="formulario_orden" method="post" enctype="multipart/form-data">
@@ -135,12 +135,12 @@ $vehiculos = ControladorVehiculos::ctrListaVehiculos();
                                                 </div>
                                             </div>
 
-                                            <div class="form-group">
+                                            <div class="form-group no-print">
                                                 <label for=""><i>Valor total</i></label>
                                                 <input class="form-control" type="number" step="any" id="nit_orden" name="nit_orden">
                                             </div>
 
-                                            <div class="form-group">
+                                            <div class="form-group no-print">
                                                 <a class="btn btn-app bg-success">
                                                     <i class="fas fa-plus"></i> Añadir Orden
                                                 </a>
@@ -164,7 +164,7 @@ $vehiculos = ControladorVehiculos::ctrListaVehiculos();
                 <hr class="my-4"> 
 
                 <!-- TABLA DE PRODUCTOS -->
-                <div class="row">
+                <div class="row no-print">
                     <div class="col-12 table-responsive">
                         <table class="table table-sm table-bordered table-striped text-center nowrap tablasBtnExport">
                             <thead>
@@ -215,7 +215,7 @@ $vehiculos = ControladorVehiculos::ctrListaVehiculos();
                 <!-- ESTA FILA NO SE IMPRIME -->
                 <div class="row no-print">
                     <div class="col-12">
-                        <button> <a href="#" rel="noopener" target="_blank" class="btn btn-default"><i class="fas fa-print"></i> Imprimir</a></button>
+                        <button rel="noopener" target="_blank" class="btn btn-default btn_print_orden"><i class="fas fa-print"></i> Imprimir</button>
                         <button type="button" class="btn btn-success float-right"><i class="far fa-credit-card"></i> Entregar orden
                         </button>
                         <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">

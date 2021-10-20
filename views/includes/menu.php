@@ -421,7 +421,7 @@
                                 =======================================F============ -->
                             <li class="nav-item">
                                 <a href="m-inventario" class="nav-link">
-                                    <i class="fas fa-boxes"></i>
+                                    <i class="fas fa-boxes nav-icon"></i>
                                     <p>Inventario</p>
                                 </a>
                             </li>
@@ -456,7 +456,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="c-proveedores" class="nav-link" target="_blank">
-                                    <i class="fas fa-truck-moving"></i>
+                                    <i class="fas fa-truck-moving nav-icon"></i>
                                     <p>Proveedores</p>
                                 </a>
                             </li>
@@ -465,7 +465,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="c-orden-compra" class="nav-link" target="_blank">
-                                    <i class="fas fa-dollar-sign"></i>
+                                    <i class="fas fa-dollar-sign nav-icon"></i>
                                     <p>Orden de compra</p>
                                 </a>
                             </li>
