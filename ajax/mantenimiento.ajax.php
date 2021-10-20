@@ -14,29 +14,6 @@ if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok") {
     die();
 }
 
-class AjaxProveedores
-{
-    static public function ajaxDatosProveedor($documento)
-    {
-        $respuesta = ModeloProveedores::mdlListarProveedores($documento);
-        echo json_encode($respuesta);
-    }
-
-    static public function ajaxEliminarProveedor($id)
-    {
-        $datos = array(
-            "tabla" => "m_proveedores",
-            "item" => "estado",
-            "valor" => "0",
-            "id_tabla" => "id",
-            "id" => $id
-        );
-
-        $respuesta = ModeloConceptosGH::mdlEliminar($datos);
-        echo $respuesta;
-    }
-}
-
 class AjaxInventario
 {
     static public function ajaxLicenciaxVehiculo($idconductor)
@@ -190,17 +167,6 @@ class AjaxRevision
     //     echo json_encode($respuesta);
     // }
 }
-/* ===================================================
-            LLAMADOS AJAX PROVEEDORES
-====================================================*/
-if (isset($_POST['DatosProveedor']) && $_POST['DatosProveedor'] == "ok") {
-    AjaxProveedores::ajaxDatosProveedor($_POST['documento']);
-}
-
-if (isset($_POST['EliminarProveedor']) && $_POST['EliminarProveedor'] == "ok") {
-    AjaxProveedores::ajaxEliminarProveedor($_POST['id']);
-}
-
 /* ===================================================
             LLAMADOS AJAX INVENTARIO
 ====================================================*/

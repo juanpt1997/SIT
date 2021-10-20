@@ -26,6 +26,7 @@ require_once 'controllers/fuec.controlador.php';
 require_once 'controllers/contratos.controlador.php';
 require_once 'controllers/mantenimiento.controlador.php';
 require_once 'controllers/operaciones.controlador.php';
+require_once 'controllers/compras.controlador.php';
 require_once 'controllers/telegram.controlador.php';
 
 
@@ -41,6 +42,7 @@ require_once 'models/conceptos.modelo.php';
 require_once 'models/fuec.modelo.php';
 require_once 'models/contratos.modelo.php';
 require_once 'models/mantenimiento.modelo.php';
+require_once 'models/compras.modelo.php';
 require_once 'models/operaciones.modelo.php';
 
 

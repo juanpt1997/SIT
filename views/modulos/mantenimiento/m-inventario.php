@@ -68,15 +68,19 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                             <div class="chartjs-size-monitor-shrink">
                                                 <div class=""></div>
                                             </div>
-                                            <div class="row">
+                                            <div class="row d-flex justify-content-center">
 
-                                                <div class="col-5 col-sm-3">
-                                                    <!-- <hr class="my-5">
+                                                <!--VISUALIZAR IMAGENES EN COMPUTADORAS-->
+                                                <div class="col-8 col-lg-3 d-none d-lg-block" id="col_computador">
+                                                    <hr class="my-5">
                                                     <h4><b><i>Imágenes del vehículo</i></b>
                                                         <i class="fas fa-shuttle-van"></i>
                                                     </h4>
-                                                    <div id="col_fotos_inventario">
-                                                    </div> -->
+                                                    <div id="col_fotos_inventario1">
+                                                    </div>
+                                                </div>
+                                                <!--VISUALIZAR IMAGENES EN CELULARES Y TABLETS  -->
+                                                <div class="col-12 col-sm-8 col-md-6 d-lg-none" id="col_celulares">
                                                     <hr class="my-5">
                                                     <h4><b><i>Imágenes del vehículo</i></b> <i class="fas fa-shuttle-van"></i></h4>
 
@@ -98,8 +102,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                     </div>
                                                 </div>
 
-
-                                                <div class="col col-lg">
+                                                <div class="col-12 col-lg">
 
                                                     <!-- /.ESTE ES EL TAB MADRE DEL CUESTIONARIO-->
                                                     <div class="tab-content table-responsive" id="vert-tabs-tabContent">
@@ -351,7 +354,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                         <div class="row">
                                                                                             <div class="col">
                                                                                                 <div class="p-3 table-responsive">
-                                                                                                    <table class="table table-bordered text-center text-nowrap">
+                                                                                                    <table class="table table-bordered text-center text-nowrap" nombre="Láminas">
                                                                                                         <tbody>
                                                                                                             <tr>
                                                                                                                 <td><b>LÁMINAS</b></td>
@@ -361,7 +364,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                                             </tr>
 
                                                                                                             <tr>
-                                                                                                                <td>Techo exterior</td>
+                                                                                                                <td nombre="techo">Techo exterior</td>
                                                                                                                 <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" class="form-control inventario" required id="Techo_exterior1" name="Techo_exterior" value="1">
@@ -597,7 +600,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                         <div class="row">
                                                                                             <div class="col">
                                                                                                 <div class="p-3 table-responsive">
-                                                                                                    <table class="table table-bordered text-center text-nowrap">
+                                                                                                    <table class="table table-bordered text-center text-nowrap" nombre="Vidrios y espejos">
                                                                                                         <tbody>
                                                                                                             <tr>
                                                                                                                 <td colspan="1"><b>VIDRIOS Y ESPEJOS</b></td>
@@ -760,7 +763,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                         <div class="row">
                                                                                             <div class="col">
                                                                                                 <div class="p-3 table-responsive">
-                                                                                                    <table class="table table-bordered text-center text-nowrap">
+                                                                                                    <table class="table table-bordered text-center text-nowrap" nombre="Luces">
                                                                                                         <tbody>
                                                                                                             <tr>
                                                                                                                 <td colspan="1"><b>LUCES</b></td>
@@ -991,7 +994,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                         <div class="row">
                                                                                             <div class="col">
                                                                                                 <div class="p-3 table-responsive">
-                                                                                                    <table class="table table-bordered text-center text-nowrap">
+                                                                                                    <table class="table table-bordered text-center text-nowrap" nombre="Llantas">
                                                                                                         <tbody>
                                                                                                             <tr>
                                                                                                                 <td colspan="1"><b>LLANTAS</b></td>
@@ -1163,7 +1166,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                         <div class="row">
                                                                                             <div class="col">
                                                                                                 <div class="p-3 table-responsive">
-                                                                                                    <table class="table table-bordered text-center text-nowrap">
+                                                                                                    <table class="table table-bordered text-center text-nowrap" nombre="Equipo de prevención y seguridad">
                                                                                                         <tbody>
                                                                                                             <tr>
                                                                                                                 <td colspan="1"><b>EQUIPO DE PREVENCIÓN Y SEGURIDAD (Art. 30 Ley 799102)</b></td>
@@ -1381,7 +1384,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                         <div class="row">
                                                                                             <div class="col">
                                                                                                 <div class="p-3 table-responsive">
-                                                                                                    <table class="table table-bordered text-center text-nowrap">
+                                                                                                    <table class="table table-bordered text-center text-nowrap" nombre="Accesorios"> 
                                                                                                         <tbody>
                                                                                                             <tr>
                                                                                                                 <td colspan="1"><b>ACCESORIOS</b></td>
@@ -1739,7 +1742,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                             <div class="row">
                                                                                                 <div class="col">
                                                                                                     <div class="p-3 table-responsive">
-                                                                                                        <table class="table table-bordered text-center text-nowrap">
+                                                                                                        <table class="table table-bordered text-center text-nowrap" nombre="Emblemas">
                                                                                                             <tbody>
                                                                                                                 <tr>
                                                                                                                     <td colspan="1"><b>EMBLEMAS</b></td>
@@ -2119,7 +2122,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                         <div class="row">
                                                                                             <div class="col">
                                                                                                 <div class="p-3 table-responsive">
-                                                                                                    <table class="table table-bordered text-center text-nowrap">
+                                                                                                    <table class="table table-bordered text-center text-nowrap" nombre="Otros elementos">
                                                                                                         <tbody>
                                                                                                             <tr>
                                                                                                                 <td colspan="1"><b>OTROS ELEMENTOS</b></td>

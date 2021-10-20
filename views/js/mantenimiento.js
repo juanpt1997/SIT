@@ -1,95 +1,5 @@
 $(document).ready(function () {
   /* ===================================================
-        * PROVEEDORES
-    ===================================================*/
-  if (
-    window.location.href == `${urlPagina}m-proveedores/` ||
-    window.location.href == `${urlPagina}m-proveedores`
-  ) {
-    $(".btn_nuevo").on("click", function () {
-      $("#titulo_modal_proveedores").html("Agregar proveedor");
-      $(".input-proveedores").val("");
-    });
-
-    $(".btn_editar").on("click", function () {
-      var id = $(this).attr("id_prov");
-      $("#id_proveedor").val(id);
-
-      var documento = $(this).attr("nit_editar");
-      var datos = new FormData();
-      datos.append("DatosProveedor", "ok");
-      datos.append("documento", documento);
-      $.ajax({
-        type: "POST",
-        url: "ajax/mantenimiento.ajax.php",
-        data: datos,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: "json",
-        success: function (response) {
-          $("#titulo_modal_proveedores").html(
-            "Actualizando datos de:  " + response.razon_social
-          );
-
-          $("#cc_proveedor").val(response.documento);
-          $("#nom_razonsocial").val(response.razon_social);
-          $("#direccion_proveedor").val(response.direccion);
-          $("#telef_proveedor").val(response.telefono);
-          $("#contacto_proveedor").val(response.nombre_contacto);
-          $("#correo_proveedor").val(response.correo);
-          $("#ciudad_proveedor").val(response.idciudad);
-          $(".select2-single").trigger("change");
-        },
-      });
-    });
-
-    $(".btn_eliminar").on("click", function () {
-      var id = $(this).attr("id");
-
-      Swal.fire({
-        icon: "warning",
-        showConfirmButton: true,
-        showCancelButton: true,
-        title: "¿Seguro que de sea borrar este registro?",
-        confirmButtonText: "SI, borrar",
-        cancelButtonText: "Cancelar",
-        confirmButtonColor: "#ff0000",
-        cancelButtonColor: "#0080ff",
-        allowOutsideClick: false,
-      }).then((result) => {
-        if (result.value) {
-          var datos = new FormData();
-          datos.append("EliminarProveedor", "ok");
-          datos.append("id", id);
-
-          $.ajax({
-            type: "POST",
-            url: "ajax/mantenimiento.ajax.php",
-            data: datos,
-            cache: false,
-            contentType: false,
-            processData: false,
-            //dataType: "json",
-            success: function (response) {
-              if (response == "ok") {
-                Swal.fire({
-                  icon: "success",
-                  showConfirmButton: true,
-                  title: "¡El registro ha sido borrado correctamente!",
-                  confirmButtonText: "¡Cerrar!",
-                  allowOutsideClick: false,
-                }).then((result) => {
-                  window.location = "m-proveedores";
-                });
-              }
-            },
-          });
-        }
-      });
-    });
-  }
-  /* ===================================================
     * INVENTARIO
     ===================================================*/
   if (
@@ -350,20 +260,20 @@ $(document).ready(function () {
     };
 
     /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    FUNCION PARA CARGAR LAS FOTOS DE LOS VEHICULOS
+    FUNCION PARA CARGAR LAS FOTOS DE LOS VEHICULOS EN COMPUTADOR Y CELULAR
     ==========================================================================*/
     let cargarFotosVehiculo = (response) => {
-      //let htmljumbo = ``;
+      let htmljumbo = ``;
       let htmlcarouselindicators = ``;
       let htmlcarouselinner = ``;
 
       for (let index = 0; index < response.length; index++) {
-        // htmljumbo += `<div class="jumbotron jumbotron-fluid">
-        //                 <div class="container insertar_fotos">
-        //                   <img src="${response[index].ruta_foto}" class="d-block w-100" alt="...">
-        //                 </div>
-        //               </div>
-        //               <hr class="my-5">`;
+        htmljumbo += `<div class="jumbotron jumbotron-fluid">
+                        <div class="container insertar_fotos">
+                          <img src="${response[index].ruta_foto}" class="d-block w-100" alt="...">
+                        </div>
+                      </div>
+                      <hr class="my-5">`;
 
         let activo = index == 0 ? `active` : ``;
 
@@ -376,7 +286,7 @@ $(document).ready(function () {
                               </div>`;
       }
 
-      //$("#col_fotos_inventario").html(htmljumbo);
+      $("#col_fotos_inventario1").html(htmljumbo);
       $("#col_fotos_inventario").find(".carousel-indicators").html(htmlcarouselindicators);
       $("#col_fotos_inventario").find(".carousel-inner").html(htmlcarouselinner);
     };
@@ -568,13 +478,34 @@ $(document).ready(function () {
         }
       });
 
+      var tables = [];
+
+      $("input:invalid").each(function (index, element) {
+        var $inputs = $(this);
+        var table = $inputs.closest("table").attr("nombre");
+
+        if(!tables.includes(table)) tables.push(table);
+      });
+
       if (Requeridos.length > 0) {
+
+        let InputRequeridos = `<ul>`;
+        tables.forEach(element => {
+            InputRequeridos += `<li>${element}</li>`;
+        })
+        InputRequeridos += `</ul>`;
+
+
         Swal.fire({
-          icon: "warning",
-          text: "Verifique que ha diligenciado todos los datos necesarios",
-          showConfirmButton: false,
-          timer: 1600,
-        });
+          icon: 'warning',
+          html: `<div class="text-left">
+                                      <p class="font-weight-bold">Hace falta diligenciar campos en los siguientes apartados:</p>
+                                          ${InputRequeridos}
+                                  </div>`,
+          showConfirmButton: true,
+          confirmButtonText: 'Cerrar',
+          closeOnConfirm: false
+      });
       }
     });
 
