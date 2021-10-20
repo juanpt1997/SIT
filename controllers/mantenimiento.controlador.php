@@ -450,15 +450,15 @@ class ControladorRevision
 		return $respuesta;
 	}
 
-	/*===============================================
-		REVISION POR IDREVISION
-		========================================*/
+	/*====================================
+		REVISION POR ID 
+		===========================*/
 
-		// static public function ctrRevisionxid($idrevision)
-		// {
-		// 	$respuesta = ModeloRevision::mdlRevisionxid($idrevision);
-		// 	return $respuesta;
-		// }
+	static public function ctrRevisionxid($idrevision)
+	{
+		$respuesta = ModeloRevision::mdlRevisionxid($idrevision);
+		return $respuesta;
+	}
 
 	/* ============================================
 		AGREGAR Y EDITAR REVISIÓN TECNICOMECÁNICA
@@ -649,8 +649,11 @@ class ControladorRevision
 			$datos['parlantes'] = isset($datos['parlantes']) ? $datos['parlantes'] : "null";
 			$datos['cinturon_usuario'] = isset($datos['cinturon_usuario']) ? $datos['cinturon_usuario'] : "null";
 			$datos['martillo_emergencia'] = isset($datos['martillo_emergencia']) ? $datos['martillo_emergencia'] : "null";
+			$datos['cant_martillos'] = isset($datos['cant_martillos']) ? $datos['cant_martillos'] : "null";
 			$datos['dispositivo_velocidad'] = isset($datos['dispositivo_velocidad']) ? $datos['dispositivo_velocidad'] : "null";
-			$datos['avisos'] = isset($datos['avisos']) ? $datos['avisos'] : "null";
+			$datos['avisos'] = isset($datos['avisos']) ? $datos['avisos'] : "null"; 
+			$datos['cant_internos'] = isset($datos['cant_internos']) ? $datos['cant_internos'] : "null"; 
+			$datos['cant_externos'] = isset($datos['cant_externos']) ? $datos['cant_externos'] : "null"; 
 			$datos['placa_trasera'] = isset($datos['placa_trasera']) ? $datos['placa_trasera'] : "null";
 			$datos['placa_delantera'] = isset($datos['placa_delantera']) ? $datos['placa_delantera'] : "null";
 			$datos['placa_lateral_derecha'] = isset($datos['placa_lateral_derecha']) ? $datos['placa_lateral_derecha'] : "null";
@@ -669,10 +672,63 @@ class ControladorRevision
 			$datos['llaves_fijas'] = isset($datos['llaves_fijas']) ? $datos['llaves_fijas'] : "null";
 			$datos['linterna'] = isset($datos['linterna']) ? $datos['linterna'] : "null";
 
-			var_dump($datos);
 
-			$respuesta = ModeloRevision::mdlAgregarRevision($datos);
-			return $respuesta;
+			if ($_POST['idrevision'] == "") {
+				$respuesta = ModeloRevision::mdlAgregarRevision($datos);
+			}else{
+				$respuesta = ModeloRevision::mdlEditarRevision($datos);
+			}
+
+			if($respuesta == "ok"){
+				echo "
+							<script>
+								Swal.fire({
+									icon: 'success',
+									title: '¡Inventario guardado correctamente!',						
+									showConfirmButton: true,
+									confirmButtonText: 'Cerrar',
+									
+								}).then((result)=>{
+	
+									if(result.value){
+										window.location = 'm-revision-tm';
+									}
+	
+								})
+							</script>
+						";
+			}else{
+
+				echo "
+							<script>
+								Swal.fire({
+									icon: 'success',
+									title: '¡Problema al actualizar le inventario!',						
+									showConfirmButton: true,
+									confirmButtonText: 'Cerrar',
+									
+								}).then((result)=>{
+	
+									if(result.value){
+										window.location = 'm-revision-tm';
+									}
+	
+								})
+							</script>
+						";
+
+			}
 		}
+	}
+
+	/* ==================================================
+		ELIMINAR REVISION 
+	===================================================== */
+
+	static public function ctrEliminarRevision($idrevision)
+	{
+		
+		$respuesta = ModeloRevision::mdlEliminarRevision($idrevision);
+		return $respuesta;
 	}
 }
