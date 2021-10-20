@@ -89,4 +89,39 @@ $(document).ready(function () {
       });
     });
   }
+
+  /* ===================================================
+      * ORDEN DE COMPRA
+  ===================================================*/
+  if (
+    window.location.href == `${urlPagina}c-orden-compra/` ||
+    window.location.href == `${urlPagina}c-orden-compra`
+  ){
+
+    $(".btn_print_orden").click(function (e) { 
+
+
+    window.addEventListener("load", window.print);
+
+
+    });
+
+
+
+
+
+
+  } 
+
+
+
+
+
+
+
+
+
+
+
+
 });

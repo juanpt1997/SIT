@@ -260,20 +260,20 @@ $(document).ready(function () {
     };
 
     /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    FUNCION PARA CARGAR LAS FOTOS DE LOS VEHICULOS
+    FUNCION PARA CARGAR LAS FOTOS DE LOS VEHICULOS EN COMPUTADOR Y CELULAR
     ==========================================================================*/
     let cargarFotosVehiculo = (response) => {
-      //let htmljumbo = ``;
+      let htmljumbo = ``;
       let htmlcarouselindicators = ``;
       let htmlcarouselinner = ``;
 
       for (let index = 0; index < response.length; index++) {
-        // htmljumbo += `<div class="jumbotron jumbotron-fluid">
-        //                 <div class="container insertar_fotos">
-        //                   <img src="${response[index].ruta_foto}" class="d-block w-100" alt="...">
-        //                 </div>
-        //               </div>
-        //               <hr class="my-5">`;
+        htmljumbo += `<div class="jumbotron jumbotron-fluid">
+                        <div class="container insertar_fotos">
+                          <img src="${response[index].ruta_foto}" class="d-block w-100" alt="...">
+                        </div>
+                      </div>
+                      <hr class="my-5">`;
 
         let activo = index == 0 ? `active` : ``;
 
@@ -286,7 +286,7 @@ $(document).ready(function () {
                               </div>`;
       }
 
-      //$("#col_fotos_inventario").html(htmljumbo);
+      $("#col_fotos_inventario1").html(htmljumbo);
       $("#col_fotos_inventario").find(".carousel-indicators").html(htmlcarouselindicators);
       $("#col_fotos_inventario").find(".carousel-inner").html(htmlcarouselinner);
     };
@@ -478,13 +478,34 @@ $(document).ready(function () {
         }
       });
 
+      var tables = [];
+
+      $("input:invalid").each(function (index, element) {
+        var $inputs = $(this);
+        var table = $inputs.closest("table").attr("nombre");
+
+        if(!tables.includes(table)) tables.push(table);
+      });
+
       if (Requeridos.length > 0) {
+
+        let InputRequeridos = `<ul>`;
+        tables.forEach(element => {
+            InputRequeridos += `<li>${element}</li>`;
+        })
+        InputRequeridos += `</ul>`;
+
+
         Swal.fire({
-          icon: "warning",
-          text: "Verifique que ha diligenciado todos los datos necesarios",
-          showConfirmButton: false,
-          timer: 1600,
-        });
+          icon: 'warning',
+          html: `<div class="text-left">
+                                      <p class="font-weight-bold">Hace falta diligenciar campos en los siguientes apartados:</p>
+                                          ${InputRequeridos}
+                                  </div>`,
+          showConfirmButton: true,
+          confirmButtonText: 'Cerrar',
+          closeOnConfirm: false
+      });
       }
     });
 

@@ -362,7 +362,7 @@
                 <!-- ===================================================
                     * Control Usuarios
                 =================================================== -->
-                <?php if (validarPermiso('M_USUARIOS', 'R')) : ?>   
+                <?php if (validarPermiso('M_USUARIOS', 'R')) : ?>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-users"></i>
@@ -418,11 +418,21 @@
                             </li>
                             <!-- ===================================================
                                     Inventario
-                                =================================================== -->
+                                =======================================F============ -->
                             <li class="nav-item">
-                                <a href="m-inventario" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                <a href="m-inventario" class="nav-link">
+                                    <i class="fas fa-boxes"></i>
                                     <p>Inventario</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
+                                    Revison tecnomecánica 
+                                =================================================== -->
+
+                            <li class="nav-item">
+                                <a href="m-revision-tm" class="nav-link" target="_blank">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Revision TM</p>
                                 </a>
                             </li>
                         </ul>
@@ -446,24 +456,24 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="c-proveedores" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
+                                    <i class="fas fa-truck-moving"></i>
                                     <p>Proveedores</p>
                                 </a>
                             </li>
-                        
                             <!-- ===================================================
-                                    Revison tecnomecánica 
+                                    ORDEN DE COMPRA
                                 =================================================== -->
-
                             <li class="nav-item">
-                                <a href="m-revision-tm" class="nav-link" target="_blank">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Revision TM</p>
+                                <a href="c-orden-compra" class="nav-link" target="_blank">
+                                    <i class="fas fa-dollar-sign"></i>
+                                    <p>Orden de compra</p>
                                 </a>
                             </li>
+
+
                         </ul>
                     </li>
-                    
+
                 <?php endif ?>
 
                 <!-- ===================================================
