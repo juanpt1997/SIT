@@ -346,6 +346,7 @@ $(document).ready(function () {
                             $("#origen").val(response.origen);
                             $("#destino").val(response.destino);
                             $("#observacionescontr").val(response.descripcion);
+                            $("#idruta").val(response.idruta).trigger("change");
                             $("#valorneto").val(response.valortotal);
                         },
                     });

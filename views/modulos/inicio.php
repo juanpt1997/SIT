@@ -272,7 +272,7 @@
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuMantenimiento">
                                             <a class="dropdown-item font-weight-bold" href="m-proveedores"><u>Proveedores</u></a>
                                             <a class="dropdown-item font-weight-bold" href="m-inventario"><u>Inventario</u></a>
-                                            <a class="dropdown-item font-weight-bold" href="m-revision-tm"><u>Revisión tecnomecánica</u></a>
+                                            <a class="dropdown-item font-weight-bold" href="m-revision-tm"><u>Revisión tecnicomecánica</u></a>
                                         </div>
                                     </div>
                                 </div>
