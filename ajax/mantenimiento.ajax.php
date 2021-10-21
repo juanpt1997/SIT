@@ -161,11 +161,16 @@ class AjaxRevision
         echo json_encode($respuesta);
     }
 
-    // static public function ajaxDatosRevision($idrevision)
-    // {
-    //     $respuesta = ControladorRevision::ctrRevisionxid($idrevision);
-    //     echo json_encode($respuesta);
-    // }
+    static public function ajaxDatosRevision($idrevision)
+    {
+        $respuesta = ControladorRevision::ctrRevisionxid($idrevision);
+        echo json_encode($respuesta);
+    }
+
+    static public function ajaxEliminarRevision($idrevision){
+        $respuesta = ControladorRevision::ctrEliminarRevision($idrevision);
+        echo $respuesta;
+    }
 }
 /* ===================================================
             LLAMADOS AJAX INVENTARIO
@@ -203,5 +208,8 @@ if (isset($_POST['EliminarInventario']) && $_POST['EliminarInventario'] == "ok")
 
 if(isset($_POST['DatosVehiculo']) && $_POST['DatosVehiculo'] == "ok") AjaxRevision::ajaxDatosVehiculo($_POST['idvehiculo']);
 
+#Llamado de los datos de la revison tecnicomecánica
+if(isset($_POST['DatosRevision']) && $_POST['DatosRevision'] == "ok") AjaxRevision::ajaxDatosRevision($_POST['idrevision']);
 
-// if(isset($_POST['DatosRevision']) && $_POST['DatosRevision'] == "ok") AjaxRevision::ajaxDatosRevision($_POST['idrevision']);
+#Llamado a borrar revision tecnicomecánica
+if(isset($_POST['EliminarRevision']) && $_POST['EliminarRevision'] == "ok") AjaxRevision::ajaxEliminarRevision($_POST['idrevision']);

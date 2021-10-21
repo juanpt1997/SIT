@@ -62,7 +62,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <th colspan="24">SISTEMA DE FRENOS Y LLANTAS</th>
                                         <th colspan="22">SISTEMA ELÉCTRICO</th>
                                         <th colspan="29">CARROCERIA</th>
-                                        <th colspan="31">ACCESORIOS Y OTROS</th>
+                                        <th colspan="34">ACCESORIOS Y OTROS</th>
                                         <th colspan="7">EQUIPO DE PREVENCION Y SEGURIDAD</th>
                                         <th colspan="5">HERRAMIENTA</th>
                                         <th colspan="1"></th>
@@ -74,7 +74,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <th style="min-width:80px;">Modelo</th>
                                         <th>Clase de vehículo</th>
                                         <th>Kilometraje</th>
-                                        <th>Fecha_revision</th>
+                                        <th>Fecha revisión</th>
                                         <th>Nivel de refrigerante </th>
                                         <th>Nivel de aceite motor</th>
                                         <th>Radiador</th>
@@ -220,8 +220,11 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <th>Parlantes</th>
                                         <th>Cinturon sillas usuario</th>
                                         <th>Martillos salida de emergencia</th>
+                                        <th>Cantidad martillos salida de emergencia</th>
                                         <th>Dispositivo de velocidad</th>
                                         <th>Avisos</th>
+                                        <th>Cantidad avisos internos</th>
+                                        <th>Cantidad avisos externos</th>
                                         <th>Placa trasera</th>
                                         <th>Placa delantera</th>
                                         <th>Placa lateral derecha</th>
@@ -252,13 +255,13 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <div class="row d-flex flex-nowrap justify-content-center">
                                                     <div class="col-md-6">
                                                         <div class="btn-group" role="group" aria-label="Button group">
-                                                            <button class="btn btn-xs btn-info btnEditarRev" idrevision="<?=$value['idtm'] ?>" idvehiculo="<?= $value['idvehiculo'] ?>" data-toggle="modal" data-target="#modal-nuevaRevision"><i class="fas fa-edit"></i></button>
+                                                            <button class="btn btn-xs btn-info btnEditarRev" idrevision="<?= $value['idtm'] ?>" idvehiculo="<?= $value['idvehiculo'] ?>" data-toggle="modal" data-target="#modal-nuevaRevision"><i class="fas fa-edit"></i></button>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <?php if (validarPermiso('M_VEHICULAR', 'D')) : ?>
+                                                        <?php if (validarPermiso('M_OPCIONES', 'D')) : ?>
                                                             <div class="btn-group" role="group" aria-label="Button group">
-                                                                <button class="btn btn-xs btn-danger btnBorrarRev" idrevision="<?=$value['idtm'] ?>" idvehiculo="<?= $value['idvehiculo'] ?>"> <i class="fas fa-trash"></i> </button>
+                                                                <button class="btn btn-xs btn-danger btnBorrarRev" idrevision="<?= $value['idtm'] ?>" idvehiculo="<?= $value['idvehiculo'] ?>"> <i class="fas fa-trash"></i> </button>
                                                             </div>
                                                         <?php endif ?>
                                                     </div>
@@ -270,7 +273,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                             <td><?= $value['modelo'] ?></td>
                                             <td><?= $value['tipovehiculo'] ?></td>
                                             <td><?= $value['kilometraje'] ?></td>
-                                            <td><?= $value['fecha_revision']?></td>
+                                            <td><?= $value['fecha_revision'] ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['nivelrefrigerante']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['nivelaceite']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['radiador']) ?></td>
@@ -416,8 +419,11 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['parlantes']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['cinturon_usuario']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['martillo_emergencia']) ?></td>
+                                            <td><?= $value['cant_martillos'] ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['dispositivo_velocidad']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['avisos']) ?></td>
+                                            <td><?= $value['cant_internos'] ?></td>
+                                            <td><?= $value['cant_externos'] ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['placa_trasera']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['placa_delantera']) ?></td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['placa_lateral_derecha']) ?></td>
@@ -442,8 +448,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                 </tbody>
                             </table>
                         </div>
+                        <div class="card-footer bg-dark"></div>
                     </div>
-                    <div class="card-footer bg-dark"></div>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
@@ -570,7 +576,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <div class="col-12 col-sm-6 col-lg-4">
                                                     <div class="form-group">
                                                         <label>Kilometraje</label>
-                                                        <input id="kilometraje" name="kilometraje" type="text" class="form-control datosVehiculo">
+                                                        <input id="kilometraje" name="kilometraje" type="number" class="form-control datosVehiculo" required>
                                                     </div>
                                                 </div>
 
@@ -598,7 +604,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         <tr>
                                                             <th>Nivel refrigerante</th>
                                                             <th>Nivel aceite motor</th>
-                                                            <th>Radiador</th>
+                                                            <th>Radiador <small><i>(Fugas y fisuras)</i></small></th>
                                                             <th>Mangueras y conexiones</th>
                                                         </tr>
                                                     </thead>
@@ -701,10 +707,10 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             </td>
                                                         </tr>
                                                         <tr class="font-weight-bold">
-                                                            <td>Correas</td>
-                                                            <td>Motor</td>
+                                                            <td>Correas <br> <small><i>(Alineación, Tensión, desgaste)</i></small></td>
+                                                            <td>Motor <br><small><i>(Combustión uniforme- Sistema de inyección)</i></small></td>
                                                             <td>Freno de ahogo</td>
-                                                            <td>Exosto</td>
+                                                            <td>Exosto <br><small><i>(Sistema de escape)</i></small></td>
                                                         </tr>
                                                         <tr>
                                                             <td>
@@ -937,11 +943,11 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!-- TAB SISTEMA TRANSMISIÓN DIGITAL  -->
                                         <div class="tab-pane fade show" id="custom-tabs-two-sistema-transmision" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-transmision">
                                             <div class="table-responsive">
-                                                <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
+                                                <table class="table table-bordered text-center border-danger" nombre="Sistema transmisión digital">
                                                     <thead class="text-nowrap">
                                                         <tr class="font-weight-bold">
                                                             <th>Nivel de aceite transmisión</th>
-                                                            <th>Transmisión</th>
+                                                            <th>Transmisión <small><i>(Ajustada, lubricada)</i></small></th>
                                                             <th>Tapón drenaje transmisión</th>
                                                             <th>Revisión sistema palanca de cambios</th>
                                                         </tr>
@@ -1045,9 +1051,9 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                     <tbody class="text-nowrap">
 
                                                         <tr class="font-weight-bold">
-                                                            <th>Embrague</th>
+                                                            <th>Embrague <small><i>(Ajustado, calibrado)</i></small></th>
                                                             <th>Caucho pedal embrague</th>
-                                                            <th>Cruceta de cardan</th>
+                                                            <th>Cruceta de cardan <small><i>(Ajustados, lubricados)</i></small></th>
                                                             <th>Cojinete intermedio de cardan</th>
                                                         </tr>
                                                         <tr>
@@ -1281,7 +1287,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!-- TAB MUELLES Y SUSPENSION  -->
                                         <div class="tab-pane fade show" id="custom-tabs-two-sistema-muelles" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-muelles">
                                             <div class="table-responsive">
-                                                <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
+                                                <table class="table table-bordered text-center border-danger" nombre="Muelles y suspensión">
                                                     <thead class="text-nowrap">
                                                         <tr class="font-weight-bold">
                                                             <th>Muelle delantero derecho</th>
@@ -1548,7 +1554,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!--  TAB SISTEMA DE DIRECCIÓN  -->
                                         <div class="tab-pane fade show" id="custom-tabs-two-sistema-direccion" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-direccion">
                                             <div class="table-responsive">
-                                                <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
+                                                <table class="table table-bordered text-center border-danger" nombre="Sistema de dirección">
                                                     <thead class="text-nowrap">
                                                         <tr class="font-weight-bold">
                                                             <th>Nivel de aceite hidráulico</th>
@@ -1819,13 +1825,13 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!-- TAB SISTEMA DE FRENOS Y LLANTAS  -->
                                         <div class="tab-pane fade show" id="custom-tabs-two-sistema-frenos" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-frenos">
                                             <div class="table-responsive">
-                                                <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
+                                                <table class="table table-bordered text-center border-danger" nombre="Sistema de frenos y llantas">
                                                     <thead class="text-nowrap">
                                                         <tr class="font-weight-bold">
-                                                            <th>Nivel de fluido</th>
+                                                            <th>Nivel de fluido <small><i>(Fugas)</i></small></th>
                                                             <th>Mangueras y tuberias</th>
                                                             <th>Freno de parqueo</th>
-                                                            <th>Frenos</th>
+                                                            <th>Frenos <small><i>(Calibrados)</i></small></th>
                                                         </tr>
                                                     </thead>
 
@@ -1928,8 +1934,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         <tr class="font-weight-bold">
                                                             <th>Pedal de freno</th>
                                                             <th>Compresor</th>
-                                                            <th>Fugas de aire</th>
-                                                            <th>Bandas delantera derecha</th>
+                                                            <th>Fugas de aire <small><i>(Neumático)</i></small></th>
+                                                            <th>Bandas delantera derecha <small><i>(Campanas)</i></small></th>
                                                         </tr>
                                                         <tr>
                                                             <td>
@@ -2026,10 +2032,10 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             </td>
                                                         </tr>
                                                         <tr class="font-weight-bold">
-                                                            <th>Bandas delantera izquierda</th>
-                                                            <th>Bandas trasera derecha</th>
-                                                            <th>Bandas trasera izquierda</th>
-                                                            <th>Rachets</th>
+                                                            <th>Bandas delantera izquierda <br> <small><i>(Campanas)</i></small></th>
+                                                            <th>Bandas trasera derecha <br> <small><i>(Campanas)</i></small></th>
+                                                            <th>Bandas trasera izquierda <br> <small><i>(Campanas)</i></small></th>
+                                                            <th>Rachets <br> <small><i>(Primer y segundo eje)</i></small></th>
                                                         </tr>
                                                         <tr>
                                                             <td>
@@ -2226,10 +2232,10 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             </td>
                                                         </tr>
                                                         <tr class="font-weight-bold">
-                                                            <th>Llanta R1</th>
-                                                            <th>Llanta R2</th>
-                                                            <th>Llanta R3</th>
-                                                            <th>Llanta R4</th>
+                                                            <th>Llanta R1 <br><small><i>(Delantera izquierda)(presion,tuerca,pernos)</i></small></th>
+                                                            <th>Llanta R2 <br><small><i>(Delantera derecha) (presion,tuerca,pernos)</i></small></th>
+                                                            <th>Llanta R3 <br><small><i>(Trasera exterior izquierda) (presion,tuerca,pernos)</i></small></th>
+                                                            <th>Llanta R4 <br><small><i>(Trasera interior izquierda) (presion,tuerca,pernos)</i></small></th>
                                                         </tr>
                                                         <tr>
                                                             <td>
@@ -2326,8 +2332,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             </td>
                                                         </tr>
                                                         <tr class="font-weight-bold">
-                                                            <th>Llanta R5</th>
-                                                            <th>Llanta R6</th>
+                                                            <th>Llanta R5 <br><small><i>(Trasera interior derecha) (presion,tuerca,pernos)</i></small></th>
+                                                            <th>Llanta R6 <br><small><i>(Trasera exterior derecha) (presion,tuerca,pernos)</i></small></th>
                                                             <th>Llanta de repuesto</th>
                                                             <th>Chequeo de tanques de aire</th>
                                                         </tr>
@@ -2433,7 +2439,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!-- TAB SISTEMA ELÉCTRICO  -->
                                         <div class="tab-pane fade show" id="custom-tabs-two-sistema-electrico" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-electrico">
                                             <div class="table-responsive">
-                                                <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
+                                                <table class="table table-bordered text-center border-danger" nombre="Sistema eléctrico">
                                                     <thead class="text-nowrap">
                                                         <tr class="font-weight-bold">
                                                             <th>Luces altas</th>
@@ -2541,7 +2547,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         <tr class="font-weight-bold">
                                                             <th>Luces laterales</th>
                                                             <th>Luz de reversa</th>
-                                                            <th>Luces internas</th>
+                                                            <th>Luces internas <small><i>(Escala)</i></small></th>
                                                             <th>Luces delimitadoras</th>
                                                         </tr>
                                                         <tr>
@@ -2640,9 +2646,9 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         </tr>
                                                         <tr class="font-weight-bold">
                                                             <th>Alarma de reversa</th>
-                                                            <th>Motor de arranque</th>
-                                                            <th>Alternador</th>
-                                                            <th>Baterias</th>
+                                                            <th>Motor de arranque <br><small><i>(Correcto funcionamiento)</i></small></th>
+                                                            <th>Alternador <br><small><i>(Correcto funcionamiento)</i></small></th>
+                                                            <th>Baterias <br><small><i>(Sujección, voltaje)</i></small></th>
                                                         </tr>
                                                         <tr>
                                                             <td>
@@ -2998,7 +3004,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!-- TAB CARROCERIA  -->
                                         <div class="tab-pane fade show" id="custom-tabs-two-carroceria" role="tabpanel" aria-labelledby="custom-tabs-two-carroceria">
                                             <div class="table-responsive">
-                                                <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
+                                                <table class="table table-bordered text-center border-danger" nombre="Carroceria">
                                                     <thead class="text-nowrap">
                                                         <tr class="font-weight-bold">
                                                             <th>Techo exterior</th>
@@ -3107,8 +3113,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                     <tbody class="text-nowrap">
                                                         <tr class="font-weight-bold">
                                                             <th>Frente</th>
-                                                            <th>Lamina lateral derecho</th>
-                                                            <th>Lamina lateral izquierdo</th>
+                                                            <th>Lamina lateral derecho <br><small><i>(Abolladuras, corrosión, pintura)</i></small></th>
+                                                            <th>Lamina lateral izquierdo <br><small><i>(Abolladuras, corrosión, pintura)</i></small></th>
                                                             <th>Estado de puerta principal</th>
                                                         </tr>
                                                         <tr>
@@ -3208,7 +3214,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         <tr class="font-weight-bold">
                                                             <th>Estado de puerta lateral</th>
                                                             <th>Estribos de puertas</th>
-                                                            <th>Sillas</th>
+                                                            <th>Sillas <br><small><i>(Cojineria en general)</i></small></th>
                                                             <th>Descansabrazos</th>
                                                         </tr>
                                                         <tr>
@@ -3742,7 +3748,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!-- TAB ACCESORIOS Y OTROS  -->
                                         <div class="tab-pane fade show" id="custom-tabs-two-accesorios" role="tabpanel" aria-labelledby="custom-tabs-two-accesorios">
                                             <div class="table-responsive">
-                                                <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
+                                                <table class="table table-bordered text-center border-danger" nombre="Accesorios y otros">
                                                     <thead class="text-nowrap">
                                                         <tr class="font-weight-bold">
                                                             <th>Manijas y ventanas</th>
@@ -3851,7 +3857,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                     <tbody class="text-nowrap">
                                                         <tr class="font-weight-bold">
                                                             <th>Limpieza</th>
-                                                            <th>Chapas de puertas</th>
+                                                            <th>Chapas de puertas <small><i>(Seguro, recibidores)</i></small></th>
                                                             <th>Parales</th>
                                                             <th>Booster de puertas</th>
                                                         </tr>
@@ -4051,8 +4057,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         </tr>
                                                         <tr class="font-weight-bold">
                                                             <th>Vigia rueda trasera izquierda</th>
-                                                            <th>Tapa motor</th>
-                                                            <th>Tapa bodegas</th>
+                                                            <th>Tapa motor <small><i>(Gatos)</i></small> </th>
+                                                            <th>Tapa bodegas <small><i>(Gatos)</i></small></th>
                                                             <th>Parasol</th>
                                                         </tr>
                                                         <tr>
@@ -4350,56 +4356,92 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             </td>
                                                         </tr>
                                                         <tr class="font-weight-bold">
+                                                            <th>Cantidad martillos salida <br> de emergencia</th>
                                                             <th>Dispositivo de velocidad</th>
-                                                            <th>Avisos</th>
+                                                            <th>Avisos <br><small><i>(Salida de emergencia, como conduzco)</i></small></th>
+                                                            <th>Cantidad avisos internos</th>
+                                                        </tr>
+                                                        <td>
+                                                            <div class="form-group clearfix">
+                                                                <div class="icheck-success d-inline">
+                                                                    <label for="cant_martillos">
+                                                                        <input id="cant_martillos" name="cant_martillos" type="number" class="form-control" required>
+                                                                    </label>
+                                                                </div>
+
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group clearfix">
+                                                                <div class="icheck-success d-inline">
+                                                                    <input type="radio" id="radiodispositivo_velocidad1" name="dispositivo_velocidad" value="1" required>
+                                                                    <label for="radiodispositivo_velocidad1">
+                                                                        <i class="fas fa-thumbs-up"></i>
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class="icheck-danger d-inline">
+                                                                    <input type="radio" id="radiodispositivo_velocidad2" name="dispositivo_velocidad" value="0" required>
+                                                                    <label for="radiodispositivo_velocidad2">
+                                                                        <i class="fas fa-thumbs-down"></i>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="icheck-warning d-inline">
+                                                                    <input type="radio" id="radiodispositivo_velocidad3" name="dispositivo_velocidad" value="2" required>
+                                                                    <label for="radiodispositivo_velocidad3">
+                                                                        <i class="fas fa-ban"></i>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group clearfix">
+                                                                <div class="icheck-success d-inline">
+                                                                    <input type="radio" id="radioavisos1" name="avisos" value="1" required>
+                                                                    <label for="radioavisos1">
+                                                                        <i class="fas fa-thumbs-up"></i>
+                                                                    </label>
+                                                                </div>
+
+                                                                <div class="icheck-danger d-inline">
+                                                                    <input type="radio" id="radioavisos2" name="avisos" value="0" required>
+                                                                    <label for="radioavisos2">
+                                                                        <i class="fas fa-thumbs-down"></i>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="icheck-warning d-inline">
+                                                                    <input type="radio" id="radioavisos3" name="avisos" value="2" required>
+                                                                    <label for="radioavisos3">
+                                                                        <i class="fas fa-ban"></i>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="form-group clearfix">
+                                                                <div class="icheck-success d-inline">
+                                                                    <label for="cant_internos">
+                                                                        <input id="cant_internos" name="cant_internos" type="number" class="form-control" required>
+                                                                    </label>
+                                                                </div>
+
+                                                            </div>
+                                                        </td>
+                                                        <tr class="font-weight-bold">
+                                                            <th>Cantidad avisos externos</th>
                                                             <th>Placa trasera</th>
                                                             <th>Placa delantera</th>
+                                                            <th>Placa lateral derecha</th>
                                                         </tr>
                                                         <tr>
                                                             <td>
                                                                 <div class="form-group clearfix">
                                                                     <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radiodispositivo_velocidad1" name="dispositivo_velocidad" value="1" required>
-                                                                        <label for="radiodispositivo_velocidad1">
-                                                                            <i class="fas fa-thumbs-up"></i>
+                                                                        <label for="cant_externos">
+                                                                            <input id="cant_externos" name="cant_externos" type="number" class="form-control" required>
                                                                         </label>
                                                                     </div>
 
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radiodispositivo_velocidad2" name="dispositivo_velocidad" value="0" required>
-                                                                        <label for="radiodispositivo_velocidad2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radiodispositivo_velocidad3" name="dispositivo_velocidad" value="2" required>
-                                                                        <label for="radiodispositivo_velocidad3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="form-group clearfix">
-                                                                    <div class="icheck-success d-inline">
-                                                                        <input type="radio" id="radioavisos1" name="avisos" value="1" required>
-                                                                        <label for="radioavisos1">
-                                                                            <i class="fas fa-thumbs-up"></i>
-                                                                        </label>
-                                                                    </div>
-
-                                                                    <div class="icheck-danger d-inline">
-                                                                        <input type="radio" id="radioavisos2" name="avisos" value="0" required>
-                                                                        <label for="radioavisos2">
-                                                                            <i class="fas fa-thumbs-down"></i>
-                                                                        </label>
-                                                                    </div>
-                                                                    <div class="icheck-warning d-inline">
-                                                                        <input type="radio" id="radioavisos3" name="avisos" value="2" required>
-                                                                        <label for="radioavisos3">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </label>
-                                                                    </div>
                                                                 </div>
                                                             </td>
                                                             <td>
@@ -4448,13 +4490,6 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                     </div>
                                                                 </div>
                                                             </td>
-                                                        </tr>
-                                                        <tr class="font-weight-bold">
-                                                            <th>Placa lateral derecha</th>
-                                                            <th>Placa lateral izquierda</th>
-                                                            <th>Balizas</th>
-                                                        </tr>
-                                                        <tr>
                                                             <td>
                                                                 <div class="form-group clearfix">
                                                                     <div class="icheck-success d-inline">
@@ -4478,6 +4513,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                     </div>
                                                                 </div>
                                                             </td>
+                                                        </tr>
+                                                        <tr class="font-weight-bold">
+
+                                                            <th>Placa lateral izquierda</th>
+                                                            <th>Balizas</th>
+                                                        </tr>
+                                                        <tr>
+
                                                             <td>
                                                                 <div class="form-group clearfix">
                                                                     <div class="icheck-success d-inline">
@@ -4533,12 +4576,12 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!-- TAB EQUIPO DE PREVENCIÓN Y SEGURIDAD  -->
                                         <div class="tab-pane fade show" id="custom-tabs-two-seguridad" role="tabpanel" aria-labelledby="custom-tabs-two-seguridad">
                                             <div class="table-responsive">
-                                                <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
+                                                <table class="table table-bordered text-center border-danger" nombre="Equipo de prevención y seguridad">
                                                     <thead class="text-nowrap">
                                                         <tr class="font-weight-bold">
                                                             <th>Gato</th>
                                                             <th>Cruceta o copa</th>
-                                                            <th>Señales de carretera</th>
+                                                            <th>Señales de carretera <small><i>(2 conos o triángulos)</i></small></th>
                                                             <th>Botiquin</th>
                                                         </tr>
                                                     </thead>
@@ -4681,7 +4724,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!-- TAB HERRAMIENTA  -->
                                         <div class="tab-pane fade show" id="custom-tabs-two-herramienta" role="tabpanel" aria-labelledby="custom-tabs-two-herramienta">
                                             <div class="table-responsive">
-                                                <table class="table table-bordered text-center border-danger" nombre="Sistema potencia">
+                                                <table class="table table-bordered text-center border-danger" nombre="Herramienta">
                                                     <thead class="text-nowrap">
                                                         <tr class="font-weight-bold">
                                                             <th>Alicate</th>
@@ -4803,7 +4846,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                     <div class="modal-footer justify-content-center bg-dark">
                                         <?php if (validarPermiso('M_OPCIONES', 'U')) : ?>
-                                            <button type="submit" form="datosrevision_form" class="btn btn-success"><i class="fas fa-print"></i> Guardar</button>
+                                            <button type="submit" form="datosrevision_form" class="btn btn-success btn-guardarRev"><i class="fas fa-print"></i> Guardar</button>
                                         <?php endif ?>
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
                                     </div>
@@ -4812,6 +4855,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                     $add = new ControladorRevision();
                                     $add->ctrAgregarEditarRevision();
+
 
                                     ?>
 

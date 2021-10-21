@@ -675,8 +675,20 @@ class ModeloRevision
         return $respuesta;
     }
 
-    
+    /* ===========================================
+        REVISION POR ID 
+        =========================================== */
 
+    static public function mdlRevisionxid($idrevision)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM m_revisiontm WHERE idtm = :idrevision");
+
+        $stmt->bindParam(":idrevision", $idrevision, PDO::PARAM_INT);
+        $stmt->execute();
+        $respuesta = $stmt->fetch();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
     /* ==========================================
         INSERTAR REVISION
         ========================================== */
@@ -830,8 +842,11 @@ class ModeloRevision
                 `parlantes`,
                 `cinturon_usuario`,
                 `martillo_emergencia`,
+                `cant_martillos`,
                 `dispositivo_velocidad`,
                 `avisos`,
+                `cant_internos`,
+                `cant_externos`,
                 `placa_trasera`,
                 `placa_delantera`,
                 `placa_lateral_derecha`,
@@ -999,8 +1014,11 @@ class ModeloRevision
                 :parlantes,
                 :cinturon_usuario,
                 :martillo_emergencia,
+                :cant_martillos,
                 :dispositivo_velocidad,
                 :avisos,
+                :cant_internos,
+                :cant_externos,
                 :placa_trasera,
                 :placa_delantera,
                 :placa_lateral_derecha,
@@ -1021,344 +1039,6 @@ class ModeloRevision
                 :observacion
                 )");
 
-        // $stmt = Conexion::conectar()->prepare("INSERT INTO `m_revisiontm` (
-        //         `idvehiculo`, 
-        //         `kilometraje`,
-        //         `nivelrefrigerante`,
-        //         `nivelaceite`,
-        //         `radiador`,
-        //         `mangueras`,
-        //         `correas`,
-        //         `motor`,
-        //         `freno_ahogo`,
-        //         `exosto`,
-        //         `guaya`,
-        //         `turbo`,
-        //         `tapa_radiador`,
-        //         `fuga_aceite`,
-        //         `fuga_combustible`,
-        //         `nivel_aceite_transmision`,
-        //         `transmision`,
-        //         `tapon_transmision`,
-        //         `palanca_cambios`,
-        //         `embrague`,
-        //         `pedal_embrague`,
-        //         `cruceta_cardan`,
-        //         `cojinete_cardan`,
-        //         `cadena_cardan`,
-        //         `aceite_diferencial`,
-        //         `drenaje_diferencial`,
-        //         `fuga_transmision`,
-        //         `fuga_diferencial`,
-        //         `muelle_delantero_derecho`,
-        //         `amortiguador_delantero_derecho`,
-        //         `muelle_delantero_izquierdo`,
-        //         `amortiguador_delantero_izquierdo`,
-        //         `muelle_trasero_derecho`,
-        //         `amortiguador_trasero_derecho`,
-        //         `muelle_trasero_izquierdo`,
-        //         `amortiguador_trasero_izquierdo`,
-        //         `barra_estabilizadora`,
-        //         `tornillo_pasador_central`,
-        //         `aceite_hidraulico`,
-        //         `lineas`,
-        //         `pitman`,
-        //         `barra_ejes`,
-        //         `tijeras`,
-        //         `splinders`,
-        //         `timon`, 
-        //         `caja_direccion`,
-        //         `cruceta_direccion`,
-        //         `fuga_caja`,
-        //         `nivel_fluido`,
-        //         `tuberias`,
-        //         `freno_parqueo`,
-        //         `frenos`,
-        //         `pedal_freno`,
-        //         `compresor`,
-        //         `fuga_aire`,
-        //         `banda_delantera_derecha`,
-        //         `banda_delantera_izquierda`,
-        //         `banda_trasera_derecha`,
-        //         `banda_trasera_izquierda`,
-        //         `rachets`,
-        //         `discos_delanteros`,
-        //         `discos_traseros`,
-        //         `pastillas_freno`,
-        //         `rines`,
-        //         `llantar1`,
-        //         `llantar2`,
-        //         `llantar3`,
-        //         `llantar4`,
-        //         `llantar5`,
-        //         `llantar6`,
-        //         `llanta_repuesto`,
-        //         `tanques_aire`,
-        //         `luces_altas`,
-        //         `luces_bajas`,
-        //         `luces_direccionales`,
-        //         `luces_estacionarias`,
-        //         `luces_laterales`,
-        //         `luz_reversa`,
-        //         `luces_internas`,
-        //         `luces_delimitadoras`,
-        //         `alarma_reversa`,
-        //         `motor_arranque`,
-        //         `alternador`,
-        //         `baterias`,
-        //         `pito`,
-        //         `rutero`,
-        //         `cables_conexiones`,
-        //         `fusibles`,
-        //         `presion_aceite`,
-        //         `temperatura_motor`,
-        //         `velocimetro`,
-        //         `nivel_combustible`,
-        //         `presion_aire`,
-        //         `carga_bateria`,
-        //         `techo_exterior`,
-        //         `techo_interior`,
-        //         `bomper_delantero`,
-        //         `bomper_trasero`,
-        //         `frente`,
-        //         `lamina_lateral_derecho`,
-        //         `lamina_lateral_izquierdo`,
-        //         `puerta_principal`,
-        //         `puerta_lateral`,
-        //         `estribos_puerta`,
-        //         `sillas`,
-        //         `descansa_brazos`,
-        //         `bocallanta`,
-        //         `guardapolvos`,
-        //         `piso`,
-        //         `parabrisas_derecho`,
-        //         `brazo_limpiaparabrisas_derecho`,
-        //         `plumillas_limpiaparabrisas_derecho`,
-        //         `parabrisas_izquierdo`,
-        //         `brazo_limpiaparabrisas_izquierdo`,
-        //         `plumillas_limpiaparabrisas_izquierdo`,
-        //         `espejo_retrovisor_derecho`,
-        //         `espejo_retrovisor_izquierdo`,
-        //         `espejo_central`,
-        //         `ventanas_lado_derecho`,
-        //         `ventanas_lado_izquierdo`,
-        //         `parabrisas_trasero`,
-        //         `vidrio_puerta_principal`,
-        //         `vidrio_segunda_puerta`,
-        //         `manijas`,
-        //         `claraboyas`,
-        //         `airbag`,
-        //         `aire_acondicionado`,
-        //         `limpieza`,
-        //         `chapas`,
-        //         `parales`,
-        //         `booster_puertas`,
-        //         `reloj_vigia`,
-        //         `vigia_delantera_derecha`,
-        //         `vigia_delantera_izquierda`,
-        //         `vigia_trasera_derecha`,
-        //         `vigia_trasera_izquierda`,
-        //         `tapa_motor`,
-        //         `tapa_bodegas`,
-        //         `parasol`,
-        //         `cenefas`,
-        //         `emblema_izquierdo`,
-        //         `emblema_derecho`,
-        //         `emblema_trasero`,
-        //         `equipo_audio`,
-        //         `parlantes`,
-        //         `cinturon_usuario`,
-        //         `martillo_emergencia`,
-        //         `dispositivo_velocidad`,
-        //         `avisos`,
-        //         `placa_trasera`,
-        //         `placa_delantera`,
-        //         `placa_lateral_derecha`,
-        //         `placa_lateral_izquierda`,
-        //         `balizas`,
-        //         `cinturon`,
-        //         `gato`,
-        //         `copa`,
-        //         `señales_carretera`,
-        //         `botiquin`,
-        //         `extintor`,
-        //         `tacos`,
-        //         `alicate`,
-        //         `destornilladores`,
-        //         `llave_expansion`,
-        //         `llaves_fijas`,
-        //         `linterna`,
-        //         `observacion`
-        //         ) 
-        //         VALUES (
-        //         " . $datos['idvehiculo'] . ",
-        //         " . $datos['kilometraje'] . ",
-        //         " . $datos['nivelrefrigerante'] . ",
-        //         " . $datos['nivelaceite'] . ",
-        //         " . $datos['radiador'] . ",
-        //         " . $datos['mangueras'] . ",
-        //         " . $datos['correas'] . ",
-        //         " . $datos['motor'] . ",
-        //         " . $datos['freno_ahogo'] . ",
-        //         " . $datos['exosto'] . ",
-        //         " . $datos['guaya'] . ",
-        //         " . $datos['turbo'] . ",
-        //         " . $datos['tapa_radiador'] . ",
-        //         " . $datos['fuga_aceite'] . ",
-        //         " . $datos['fuga_combustible'] . ",
-        //         " . $datos['nivel_aceite_transmision'] . ",
-        //         " . $datos['transmision'] . ",
-        //         " . $datos['tapon_transmision'] . ",
-        //         " . $datos['palanca_cambios'] . ",
-        //         " . $datos['embrague'] . ",
-        //         " . $datos['pedal_embrague'] . ",
-        //         " . $datos['cruceta_cardan'] . ",
-        //         " . $datos['cojinete_cardan'] . ",
-        //         " . $datos['cadena_cardan'] . ",
-        //         " . $datos['aceite_diferencial'] . ",
-        //         " . $datos['drenaje_diferencial'] . ",
-        //         " . $datos['fuga_transmision'] . ",
-        //         " . $datos['fuga_diferencial'] . ",
-        //         " . $datos['muelle_delantero_derecho'] . ",
-        //         " . $datos['amortiguador_delantero_derecho'] . ",
-        //         " . $datos['muelle_delantero_izquierdo'] . ",
-        //         " . $datos['amortiguador_delantero_izquierdo'] . ",
-        //         " . $datos['muelle_trasero_derecho'] . ",
-        //         " . $datos['amortiguador_trasero_derecho'] . ",
-        //         " . $datos['muelle_trasero_izquierdo'] . ",
-        //         " . $datos['amortiguador_trasero_izquierdo'] . ",
-        //         " . $datos['barra_estabilizadora'] . ",
-        //         " . $datos['tornillo_pasador_central'] . ",
-        //         " . $datos['aceite_hidraulico'] . ",
-        //         " . $datos['lineas'] . ",
-        //         " . $datos['pitman'] . ",
-        //         " . $datos['barra_ejes'] . ",
-        //         " . $datos['tijeras'] . ",
-        //         " . $datos['splinders'] . ",
-        //         " . $datos['timon'] . ",
-        //         " . $datos['caja_direccion'] . ",
-        //         " . $datos['cruceta_direccion'] . ",
-        //         " . $datos['fuga_caja'] . ",
-        //         " . $datos['nivel_fluido'] . ",
-        //         " . $datos['tuberias'] . ",
-        //         " . $datos['freno_parqueo'] . ",
-        //         " . $datos['frenos'] . ",
-        //         " . $datos['pedal_freno'] . ",
-        //         " . $datos['compresor'] . ",
-        //         " . $datos['fuga_aire'] . ",
-        //         " . $datos['banda_delantera_derecha'] . ",
-        //         " . $datos['banda_delantera_izquierda'] . ",
-        //         " . $datos['banda_trasera_derecha'] . ",
-        //         " . $datos['banda_trasera_izquierda'] . ",
-        //         " . $datos['rachets'] . ",
-        //         " . $datos['discos_delanteros'] . ",
-        //         " . $datos['discos_traseros'] . ",
-        //         " . $datos['pastillas_freno'] . ",
-        //         " . $datos['rines'] . ",
-        //         " . $datos['llantar1'] . ",
-        //         " . $datos['llantar2'] . ",
-        //         " . $datos['llantar3'] . ",
-        //         " . $datos['llantar4'] . ",
-        //         " . $datos['llantar5'] . ",
-        //         " . $datos['llantar6'] . ",
-        //         " . $datos['llanta_repuesto'] . ",
-        //         " . $datos['tanques_aire'] . ",
-        //         " . $datos['luces_altas'] . ",
-        //         " . $datos['luces_bajas'] . ",
-        //         " . $datos['luces_direccionales'] . ",
-        //         " . $datos['luces_estacionarias'] . ",
-        //         " . $datos['luces_laterales'] . ",
-        //         " . $datos['luz_reversa'] . ",
-        //         " . $datos['luces_internas'] . ",
-        //         " . $datos['luces_delimitadoras'] . ",
-        //         " . $datos['alarma_reversa'] . ",
-        //         " . $datos['motor_arranque'] . ",
-        //         " . $datos['alternador'] . ",
-        //         " . $datos['baterias'] . ",
-        //         " . $datos['pito'] . ",
-        //         " . $datos['rutero'] . ",
-        //         " . $datos['cables_conexiones'] . ",
-        //         " . $datos['fusibles'] . ",
-        //         " . $datos['presion_aceite'] . ",
-        //         " . $datos['temperatura_motor'] . ",
-        //         " . $datos['velocimetro'] . ",
-        //         " . $datos['nivel_combustible'] . ",
-        //         " . $datos['presion_aire'] . ",
-        //         " . $datos['carga_bateria'] . ",
-        //         " . $datos['techo_exterior'] . ",
-        //         " . $datos['techo_interior'] . ",
-        //         " . $datos['bomper_delantero'] . ",
-        //         " . $datos['bomper_trasero'] . ",
-        //         " . $datos['frente'] . ",
-        //         " . $datos['lamina_lateral_derecho'] . ",
-        //         " . $datos['lamina_lateral_izquierdo'] . ",
-        //         " . $datos['puerta_principal'] . ",
-        //         " . $datos['puerta_lateral'] . ",
-        //         " . $datos['estribos_puerta'] . ",
-        //         " . $datos['sillas'] . ",
-        //         " . $datos['descansa_brazos'] . ",
-        //         " . $datos['bocallanta'] . ",
-        //         " . $datos['guardapolvos'] . ",
-        //         " . $datos['piso'] . ",
-        //         " . $datos['parabrisas_derecho'] . ",
-        //         " . $datos['brazo_limpiaparabrisas_derecho'] . ",
-        //         " . $datos['plumillas_limpiaparabrisas_derecho'] . ",
-        //         " . $datos['parabrisas_izquierdo'] . ",
-        //         " . $datos['brazo_limpiaparabrisas_izquierdo'] . ",
-        //         " . $datos['plumillas_limpiaparabrisas_izquierdo'] . ",
-        //         " . $datos['espejo_retrovisor_derecho'] . ",
-        //         " . $datos['espejo_retrovisor_izquierdo'] . ",
-        //         " . $datos['espejo_central'] . ",
-        //         " . $datos['ventanas_lado_derecho'] . ",
-        //         " . $datos['ventanas_lado_izquierdo'] . ",
-        //         " . $datos['parabrisas_trasero'] . ",
-        //         " . $datos['vidrio_puerta_principal'] . ",
-        //         " . $datos['vidrio_segunda_puerta'] . ",
-        //         " . $datos['manijas'] . ",
-        //         " . $datos['claraboyas'] . ",
-        //         " . $datos['airbag'] . ",
-        //         " . $datos['aire_acondicionado'] . ",
-        //         " . $datos['limpieza'] . ",
-        //         " . $datos['chapas'] . ",
-        //         " . $datos['parales'] . ",
-        //         " . $datos['booster_puertas'] . ",
-        //         " . $datos['reloj_vigia'] . ",
-        //         " . $datos['vigia_delantera_derecha'] . ",
-        //         " . $datos['vigia_delantera_izquierda'] . ",
-        //         " . $datos['vigia_trasera_derecha'] . ",
-        //         " . $datos['vigia_trasera_izquierda'] . ",
-        //         " . $datos['tapa_motor'] . ",
-        //         " . $datos['tapa_bodegas'] . ",
-        //         " . $datos['parasol'] . ",
-        //         " . $datos['cenefas'] . ",
-        //         " . $datos['emblema_izquierdo'] . ",
-        //         " . $datos['emblema_derecho'] . ",
-        //         " . $datos['emblema_trasero'] . ",
-        //         " . $datos['equipo_audio'] . ",
-        //         " . $datos['parlantes'] . ",
-        //         " . $datos['cinturon_usuario'] . ",
-        //         " . $datos['martillo_emergencia'] . ",
-        //         " . $datos['dispositivo_velocidad'] . ",
-        //         " . $datos['avisos'] . ",
-        //         " . $datos['placa_trasera'] . ",
-        //         " . $datos['placa_delantera'] . ",
-        //         " . $datos['placa_lateral_derecha'] . ",
-        //         " . $datos['placa_lateral_izquierda'] . ",
-        //         " . $datos['balizas'] . ",
-        //         " . $datos['cinturon'] . ",
-        //         " . $datos['gato'] . ",
-        //         " . $datos['copa'] . ",
-        //         " . $datos['señales_carretera'] . ",
-        //         " . $datos['botiquin'] . ",
-        //         " . $datos['extintor'] . ",
-        //         " . $datos['tacos'] . ",
-        //         " . $datos['alicate'] . ",
-        //         " . $datos['destornilladores'] . ",
-        //         " . $datos['llave_expansion'] . ",
-        //         " . $datos['llaves_fijas'] . ",
-        //         " . $datos['linterna'] . ",
-        //         '" . $datos['observacion'] . "'
-        //         )");
 
         $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
         $stmt->bindParam(":kilometraje", $datos['kilometraje'], PDO::PARAM_INT);
@@ -1507,8 +1187,11 @@ class ModeloRevision
         $stmt->bindParam(":parlantes", $datos['parlantes'], PDO::PARAM_INT);
         $stmt->bindParam(":cinturon_usuario", $datos['cinturon_usuario'], PDO::PARAM_INT);
         $stmt->bindParam(":martillo_emergencia", $datos['martillo_emergencia'], PDO::PARAM_INT);
+        $stmt->bindParam(":cant_martillos", $datos['cant_martillos'], PDO::PARAM_INT);
         $stmt->bindParam(":dispositivo_velocidad", $datos['dispositivo_velocidad'], PDO::PARAM_INT);
         $stmt->bindParam(":avisos", $datos['avisos'], PDO::PARAM_INT);
+        $stmt->bindParam(":cant_internos", $datos['cant_internos'], PDO::PARAM_INT);
+        $stmt->bindParam(":cant_externos", $datos['cant_externos'], PDO::PARAM_INT);
         $stmt->bindParam(":placa_trasera", $datos['placa_trasera'], PDO::PARAM_INT);
         $stmt->bindParam(":placa_delantera", $datos['placa_delantera'], PDO::PARAM_INT);
         $stmt->bindParam(":placa_lateral_derecha", $datos['placa_lateral_derecha'], PDO::PARAM_INT);
@@ -1526,7 +1209,398 @@ class ModeloRevision
         $stmt->bindParam(":llave_expansion", $datos['llave_expansion'], PDO::PARAM_INT);
         $stmt->bindParam(":llaves_fijas", $datos['llaves_fijas'], PDO::PARAM_INT);
         $stmt->bindParam(":linterna", $datos['linterna'], PDO::PARAM_INT);
-        $stmt->bindParam(":observacion",$datos['observacion'], PDO::PARAM_STR);
+        $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+
+
+
+
+
+    /* =============================================
+        EDITAR REVISION
+    ================================================ */
+
+    static public function mdlEditarRevision($datos)
+    {
+        $stmt = Conexion::conectar()->prepare(
+            "UPDATE `m_revisiontm` SET
+        `idvehiculo`= :idvehiculo, 
+        `kilometraje`= :kilometraje,
+        `nivelrefrigerante`= :nivelrefrigerante,
+        `nivelaceite`= :nivelaceite,
+        `radiador`= :radiador,
+        `mangueras`= :mangueras,
+        `correas`= :correas,
+        `motor`= :motor,
+        `freno_ahogo`= :freno_ahogo,
+        `exosto`= :exosto,
+        `guaya`= :guaya,
+        `turbo`= :turbo,
+        `tapa_radiador`= :tapa_radiador,
+        `fuga_aceite`= :fuga_aceite,
+        `fuga_combustible`= :fuga_combustible,
+        `nivel_aceite_transmision`= :nivel_aceite_transmision,
+        `transmision`= :transmision,
+        `tapon_transmision`= :tapon_transmision,
+        `palanca_cambios`= :palanca_cambios,
+        `embrague`= :embrague,
+        `pedal_embrague`= :pedal_embrague,
+        `cruceta_cardan`= :cruceta_cardan,
+        `cojinete_cardan`= :cojinete_cardan,
+        `cadena_cardan`= :cadena_cardan,
+        `aceite_diferencial`= :aceite_diferencial,
+        `drenaje_diferencial`= :drenaje_diferencial,
+        `fuga_transmision`= :fuga_transmision,
+        `fuga_diferencial`= :fuga_diferencial,
+        `muelle_delantero_derecho`= :muelle_delantero_derecho,
+        `amortiguador_delantero_derecho`= :amortiguador_delantero_derecho,
+        `muelle_delantero_izquierdo`= :muelle_delantero_izquierdo,
+        `amortiguador_delantero_izquierdo`= :amortiguador_delantero_izquierdo,
+        `muelle_trasero_derecho`= :muelle_trasero_derecho,
+        `amortiguador_trasero_derecho`= :amortiguador_trasero_derecho,
+        `muelle_trasero_izquierdo`= :muelle_trasero_izquierdo,
+        `amortiguador_trasero_izquierdo`= :amortiguador_trasero_izquierdo,
+        `barra_estabilizadora`= :barra_estabilizadora,
+        `tornillo_pasador_central`= :tornillo_pasador_central,
+        `aceite_hidraulico`= :aceite_hidraulico,
+        `lineas`= :lineas,
+        `pitman`= :pitman,
+        `barra_ejes`= :barra_ejes,
+        `tijeras`= :tijeras,
+        `splinders`= :splinders,
+        `timon`= :timon, 
+        `caja_direccion`= :caja_direccion,
+        `cruceta_direccion`= :cruceta_direccion,
+        `fuga_caja`= :fuga_caja,
+        `nivel_fluido`= :nivel_fluido,
+        `tuberias`= :tuberias,
+        `freno_parqueo`= :freno_parqueo,
+        `frenos`= :frenos,
+        `pedal_freno`= :pedal_freno,
+        `compresor`= :compresor,
+        `fuga_aire`= :fuga_aire,
+        `banda_delantera_derecha`= :banda_delantera_derecha,
+        `banda_delantera_izquierda`= :banda_delantera_izquierda,
+        `banda_trasera_derecha`= :banda_trasera_derecha,
+        `banda_trasera_izquierda`= :banda_trasera_izquierda,
+        `rachets`= :rachets,
+        `discos_delanteros`= :discos_delanteros,
+        `discos_traseros`= :discos_traseros,
+        `pastillas_freno`= :pastillas_freno,
+        `rines`= :rines,
+        `llantar1`= :llantar1,
+        `llantar2`= :llantar2,
+        `llantar3`= :llantar3,
+        `llantar4`= :llantar4,
+        `llantar5`= :llantar5,
+        `llantar6`= :llantar6,
+        `llanta_repuesto`= :llanta_repuesto,
+        `tanques_aire`= :tanques_aire,
+        `luces_altas`= :luces_altas,
+        `luces_bajas`= :luces_bajas,
+        `luces_direccionales`= :luces_direccionales,
+        `luces_estacionarias`= :luces_estacionarias,
+        `luces_laterales`= :luces_laterales,
+        `luz_reversa`= :luz_reversa,
+        `luces_internas`= :luces_internas,
+        `luces_delimitadoras`= :luces_delimitadoras,
+        `alarma_reversa`= :alarma_reversa,
+        `motor_arranque`= :motor_arranque,
+        `alternador`= :alternador,
+        `baterias`= :baterias,
+        `pito`= :pito,
+        `rutero`= :rutero,
+        `cables_conexiones`= :cables_conexiones,
+        `fusibles`= :fusibles,
+        `presion_aceite`= :presion_aceite,
+        `temperatura_motor`= :temperatura_motor,
+        `velocimetro`= :velocimetro,
+        `nivel_combustible`= :nivel_combustible,
+        `presion_aire`= :presion_aire,
+        `carga_bateria`= :carga_bateria,
+        `techo_exterior`= :techo_exterior,
+        `techo_interior`= :techo_interior,
+        `bomper_delantero`= :bomper_delantero,
+        `bomper_trasero`= :bomper_trasero,
+        `frente`= :frente,
+        `lamina_lateral_derecho`= :lamina_lateral_derecho,
+        `lamina_lateral_izquierdo`= :lamina_lateral_izquierdo,
+        `puerta_principal`= :puerta_principal,
+        `puerta_lateral`= :puerta_lateral,
+        `estribos_puerta`= :estribos_puerta,
+        `sillas`= :sillas,
+        `descansa_brazos`= :descansa_brazos,
+        `bocallanta`= :bocallanta,
+        `guardapolvos`= :guardapolvos,
+        `piso`= :piso,
+        `parabrisas_derecho`= :parabrisas_derecho,
+        `brazo_limpiaparabrisas_derecho`= :brazo_limpiaparabrisas_derecho,
+        `plumillas_limpiaparabrisas_derecho`= :plumillas_limpiaparabrisas_derecho,
+        `parabrisas_izquierdo`= :parabrisas_izquierdo,
+        `brazo_limpiaparabrisas_izquierdo`= :brazo_limpiaparabrisas_izquierdo,
+        `plumillas_limpiaparabrisas_izquierdo`= :plumillas_limpiaparabrisas_izquierdo,
+        `espejo_retrovisor_derecho`= :espejo_retrovisor_derecho,
+        `espejo_retrovisor_izquierdo`= :espejo_retrovisor_izquierdo,
+        `espejo_central`= :espejo_central,
+        `ventanas_lado_derecho`= :ventanas_lado_derecho,
+        `ventanas_lado_izquierdo`= :ventanas_lado_izquierdo,
+        `parabrisas_trasero`= :parabrisas_trasero,
+        `vidrio_puerta_principal`= :vidrio_puerta_principal,
+        `vidrio_segunda_puerta`= :vidrio_segunda_puerta,
+        `manijas`= :manijas,
+        `claraboyas`= :claraboyas,
+        `airbag`= :airbag,
+        `aire_acondicionado`= :aire_acondicionado,
+        `limpieza`= :limpieza,
+        `chapas`= :chapas,
+        `parales`= :parales,
+        `booster_puertas`= :booster_puertas,
+        `reloj_vigia`= :reloj_vigia,
+        `vigia_delantera_derecha`= :vigia_delantera_derecha,
+        `vigia_delantera_izquierda`= :vigia_delantera_izquierda,
+        `vigia_trasera_derecha`= :vigia_trasera_derecha,
+        `vigia_trasera_izquierda`= :vigia_trasera_izquierda,
+        `tapa_motor`= :tapa_motor,
+        `tapa_bodegas`= :tapa_bodegas,
+        `parasol`= :parasol,
+        `cenefas`= :cenefas,
+        `emblema_izquierdo`= :emblema_izquierdo,
+        `emblema_derecho`= :emblema_derecho,
+        `emblema_trasero`= :emblema_trasero,
+        `equipo_audio`= :equipo_audio,
+        `parlantes`= :parlantes,
+        `cinturon_usuario`= :cinturon_usuario,
+        `martillo_emergencia`= :martillo_emergencia, 
+        `cant_martillos`= :cant_martillos, 
+        `dispositivo_velocidad`= :dispositivo_velocidad,
+        `avisos`= :avisos,
+        `cant_internos` =:cant_internos,
+        `cant_externos` =:cant_externos,
+        `placa_trasera`= :placa_trasera,
+        `placa_delantera`= :placa_delantera,
+        `placa_lateral_derecha`= :placa_lateral_derecha,
+        `placa_lateral_izquierda`= :placa_lateral_izquierda,
+        `balizas`= :balizas,
+        `cinturon`= :cinturon,
+        `gato`= :gato,
+        `copa`= :copa,
+        `senales_carretera`= :senales_carretera,
+        `botiquin`= :botiquin,
+        `extintor`= :extintor,
+        `tacos`= :tacos,
+        `alicate`= :alicate,
+        `destornilladores`= :destornilladores,
+        `llave_expansion`= :llave_expansion,
+        `llaves_fijas`= :llaves_fijas,
+        `linterna`= :linterna,
+        `observacion`= :observacion
+        WHERE idtm = :idrevision"
+        );
+
+
+        $stmt->bindParam(":idrevision", $datos['idrevision'], PDO::PARAM_INT);
+        $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
+        $stmt->bindParam(":kilometraje", $datos['kilometraje'], PDO::PARAM_INT);
+        $stmt->bindParam(":nivelrefrigerante", $datos['nivelrefrigerante'], PDO::PARAM_INT);
+        $stmt->bindParam(":nivelaceite", $datos['nivelaceite'], PDO::PARAM_INT);
+        $stmt->bindParam(":radiador", $datos['radiador'], PDO::PARAM_INT);
+        $stmt->bindParam(":mangueras", $datos['mangueras'], PDO::PARAM_INT);
+        $stmt->bindParam(":correas", $datos['correas'], PDO::PARAM_INT);
+        $stmt->bindParam(":motor", $datos['motor'], PDO::PARAM_INT);
+        $stmt->bindParam(":freno_ahogo", $datos['freno_ahogo'], PDO::PARAM_INT);
+        $stmt->bindParam(":exosto", $datos['exosto'], PDO::PARAM_INT);
+        $stmt->bindParam(":guaya", $datos['guaya'], PDO::PARAM_INT);
+        $stmt->bindParam(":turbo", $datos['turbo'], PDO::PARAM_INT);
+        $stmt->bindParam(":tapa_radiador", $datos['tapa_radiador'], PDO::PARAM_INT);
+        $stmt->bindParam(":fuga_aceite", $datos['fuga_aceite'], PDO::PARAM_INT);
+        $stmt->bindParam(":fuga_combustible", $datos['fuga_combustible'], PDO::PARAM_INT);
+        $stmt->bindParam(":nivel_aceite_transmision", $datos['nivel_aceite_transmision'], PDO::PARAM_INT);
+        $stmt->bindParam(":transmision", $datos['transmision'], PDO::PARAM_INT);
+        $stmt->bindParam(":tapon_transmision", $datos['tapon_transmision'], PDO::PARAM_INT);
+        $stmt->bindParam(":palanca_cambios", $datos['palanca_cambios'], PDO::PARAM_INT);
+        $stmt->bindParam(":embrague", $datos['embrague'], PDO::PARAM_INT);
+        $stmt->bindParam(":pedal_embrague", $datos['pedal_embrague'], PDO::PARAM_INT);
+        $stmt->bindParam(":cruceta_cardan", $datos['cruceta_cardan'], PDO::PARAM_INT);
+        $stmt->bindParam(":cojinete_cardan", $datos['cojinete_cardan'], PDO::PARAM_INT);
+        $stmt->bindParam(":cadena_cardan", $datos['cadena_cardan'], PDO::PARAM_INT);
+        $stmt->bindParam(":aceite_diferencial", $datos['aceite_diferencial'], PDO::PARAM_INT);
+        $stmt->bindParam(":drenaje_diferencial", $datos['drenaje_diferencial'], PDO::PARAM_INT);
+        $stmt->bindParam(":fuga_transmision", $datos['fuga_transmision'], PDO::PARAM_INT);
+        $stmt->bindParam(":fuga_diferencial", $datos['fuga_diferencial'], PDO::PARAM_INT);
+        $stmt->bindParam(":muelle_delantero_derecho", $datos['muelle_delantero_derecho'], PDO::PARAM_INT);
+        $stmt->bindParam(":amortiguador_delantero_derecho", $datos['amortiguador_delantero_derecho'], PDO::PARAM_INT);
+        $stmt->bindParam(":muelle_delantero_izquierdo", $datos['muelle_delantero_izquierdo'], PDO::PARAM_INT);
+        $stmt->bindParam(":amortiguador_delantero_izquierdo", $datos['amortiguador_delantero_izquierdo'], PDO::PARAM_INT);
+        $stmt->bindParam(":muelle_trasero_derecho", $datos['muelle_trasero_derecho'], PDO::PARAM_INT);
+        $stmt->bindParam(":amortiguador_trasero_derecho", $datos['amortiguador_trasero_derecho'], PDO::PARAM_INT);
+        $stmt->bindParam(":muelle_trasero_izquierdo", $datos['muelle_trasero_izquierdo'], PDO::PARAM_INT);
+        $stmt->bindParam(":amortiguador_trasero_izquierdo", $datos['amortiguador_trasero_izquierdo'], PDO::PARAM_INT);
+        $stmt->bindParam(":barra_estabilizadora", $datos['barra_estabilizadora'], PDO::PARAM_INT);
+        $stmt->bindParam(":tornillo_pasador_central", $datos['tornillo_pasador_central'], PDO::PARAM_INT);
+        $stmt->bindParam(":aceite_hidraulico", $datos['aceite_hidraulico'], PDO::PARAM_INT);
+        $stmt->bindParam(":lineas", $datos['lineas'], PDO::PARAM_INT);
+        $stmt->bindParam(":pitman", $datos['pitman'], PDO::PARAM_INT);
+        $stmt->bindParam(":barra_ejes", $datos['barra_ejes'], PDO::PARAM_INT);
+        $stmt->bindParam(":tijeras", $datos['tijeras'], PDO::PARAM_INT);
+        $stmt->bindParam(":splinders", $datos['splinders'], PDO::PARAM_INT);
+        $stmt->bindParam(":timon", $datos['timon'], PDO::PARAM_INT);
+        $stmt->bindParam(":caja_direccion", $datos['caja_direccion'], PDO::PARAM_INT);
+        $stmt->bindParam(":cruceta_direccion", $datos['cruceta_direccion'], PDO::PARAM_INT);
+        $stmt->bindParam(":fuga_caja", $datos['fuga_caja'], PDO::PARAM_INT);
+        $stmt->bindParam(":nivel_fluido", $datos['nivel_fluido'], PDO::PARAM_INT);
+        $stmt->bindParam(":tuberias", $datos['tuberias'], PDO::PARAM_INT);
+        $stmt->bindParam(":freno_parqueo", $datos['freno_parqueo'], PDO::PARAM_INT);
+        $stmt->bindParam(":frenos", $datos['frenos'], PDO::PARAM_INT);
+        $stmt->bindParam(":pedal_freno", $datos['pedal_freno'], PDO::PARAM_INT);
+        $stmt->bindParam(":compresor", $datos['compresor'], PDO::PARAM_INT);
+        $stmt->bindParam(":fuga_aire", $datos['fuga_aire'], PDO::PARAM_INT);
+        $stmt->bindParam(":banda_delantera_derecha", $datos['banda_delantera_derecha'], PDO::PARAM_INT);
+        $stmt->bindParam(":banda_delantera_izquierda", $datos['banda_delantera_izquierda'], PDO::PARAM_INT);
+        $stmt->bindParam(":banda_trasera_derecha", $datos['banda_trasera_derecha'], PDO::PARAM_INT);
+        $stmt->bindParam(":banda_trasera_izquierda", $datos['banda_trasera_izquierda'], PDO::PARAM_INT);
+        $stmt->bindParam(":rachets", $datos['rachets'], PDO::PARAM_INT);
+        $stmt->bindParam(":discos_delanteros", $datos['discos_delanteros'], PDO::PARAM_INT);
+        $stmt->bindParam(":discos_traseros", $datos['discos_traseros'], PDO::PARAM_INT);
+        $stmt->bindParam(":pastillas_freno", $datos['pastillas_freno'], PDO::PARAM_INT);
+        $stmt->bindParam(":rines", $datos['rines'], PDO::PARAM_INT);
+        $stmt->bindParam(":llantar1", $datos['llantar1'], PDO::PARAM_INT);
+        $stmt->bindParam(":llantar2", $datos['llantar2'], PDO::PARAM_INT);
+        $stmt->bindParam(":llantar3", $datos['llantar3'], PDO::PARAM_INT);
+        $stmt->bindParam(":llantar4", $datos['llantar4'], PDO::PARAM_INT);
+        $stmt->bindParam(":llantar5", $datos['llantar5'], PDO::PARAM_INT);
+        $stmt->bindParam(":llantar6", $datos['llantar6'], PDO::PARAM_INT);
+        $stmt->bindParam(":llanta_repuesto", $datos['llanta_repuesto'], PDO::PARAM_INT);
+        $stmt->bindParam(":tanques_aire", $datos['tanques_aire'], PDO::PARAM_INT);
+        $stmt->bindParam(":luces_altas", $datos['luces_altas'], PDO::PARAM_INT);
+        $stmt->bindParam(":luces_bajas", $datos['luces_bajas'], PDO::PARAM_INT);
+        $stmt->bindParam(":luces_direccionales", $datos['luces_direccionales'], PDO::PARAM_INT);
+        $stmt->bindParam(":luces_estacionarias", $datos['luces_estacionarias'], PDO::PARAM_INT);
+        $stmt->bindParam(":luces_laterales", $datos['luces_laterales'], PDO::PARAM_INT);
+        $stmt->bindParam(":luz_reversa", $datos['luz_reversa'], PDO::PARAM_INT);
+        $stmt->bindParam(":luces_internas", $datos['luces_internas'], PDO::PARAM_INT);
+        $stmt->bindParam(":luces_delimitadoras", $datos['luces_delimitadoras'], PDO::PARAM_INT);
+        $stmt->bindParam(":alarma_reversa", $datos['alarma_reversa'], PDO::PARAM_INT);
+        $stmt->bindParam(":motor_arranque", $datos['motor_arranque'], PDO::PARAM_INT);
+        $stmt->bindParam(":alternador", $datos['alternador'], PDO::PARAM_INT);
+        $stmt->bindParam(":baterias", $datos['baterias'], PDO::PARAM_INT);
+        $stmt->bindParam(":pito", $datos['pito'], PDO::PARAM_INT);
+        $stmt->bindParam(":rutero", $datos['rutero'], PDO::PARAM_INT);
+        $stmt->bindParam(":cables_conexiones", $datos['cables_conexiones'], PDO::PARAM_INT);
+        $stmt->bindParam(":fusibles", $datos['fusibles'], PDO::PARAM_INT);
+        $stmt->bindParam(":presion_aceite", $datos['presion_aceite'], PDO::PARAM_INT);
+        $stmt->bindParam(":temperatura_motor", $datos['temperatura_motor'], PDO::PARAM_INT);
+        $stmt->bindParam(":velocimetro", $datos['velocimetro'], PDO::PARAM_INT);
+        $stmt->bindParam(":nivel_combustible", $datos['nivel_combustible'], PDO::PARAM_INT);
+        $stmt->bindParam(":presion_aire", $datos['presion_aire'], PDO::PARAM_INT);
+        $stmt->bindParam(":carga_bateria", $datos['carga_bateria'], PDO::PARAM_INT);
+        $stmt->bindParam(":techo_exterior", $datos['techo_exterior'], PDO::PARAM_INT);
+        $stmt->bindParam(":techo_interior", $datos['techo_interior'], PDO::PARAM_INT);
+        $stmt->bindParam(":bomper_delantero", $datos['bomper_delantero'], PDO::PARAM_INT);
+        $stmt->bindParam(":bomper_trasero", $datos['bomper_trasero'], PDO::PARAM_INT);
+        $stmt->bindParam(":frente", $datos['frente'], PDO::PARAM_INT);
+        $stmt->bindParam(":lamina_lateral_derecho", $datos['lamina_lateral_derecho'], PDO::PARAM_INT);
+        $stmt->bindParam(":lamina_lateral_izquierdo", $datos['lamina_lateral_izquierdo'], PDO::PARAM_INT);
+        $stmt->bindParam(":puerta_principal", $datos['puerta_principal'], PDO::PARAM_INT);
+        $stmt->bindParam(":puerta_lateral", $datos['puerta_lateral'], PDO::PARAM_INT);
+        $stmt->bindParam(":estribos_puerta", $datos['estribos_puerta'], PDO::PARAM_INT);
+        $stmt->bindParam(":sillas", $datos['sillas'], PDO::PARAM_INT);
+        $stmt->bindParam(":descansa_brazos", $datos['descansa_brazos'], PDO::PARAM_INT);
+        $stmt->bindParam(":bocallanta", $datos['bocallanta'], PDO::PARAM_INT);
+        $stmt->bindParam(":guardapolvos", $datos['guardapolvos'], PDO::PARAM_INT);
+        $stmt->bindParam(":piso", $datos['piso'], PDO::PARAM_INT);
+        $stmt->bindParam(":parabrisas_derecho", $datos['parabrisas_derecho'], PDO::PARAM_INT);
+        $stmt->bindParam(":brazo_limpiaparabrisas_derecho", $datos['brazo_limpiaparabrisas_derecho'], PDO::PARAM_INT);
+        $stmt->bindParam(":plumillas_limpiaparabrisas_derecho", $datos['plumillas_limpiaparabrisas_derecho'], PDO::PARAM_INT);
+        $stmt->bindParam(":parabrisas_izquierdo", $datos['parabrisas_izquierdo'], PDO::PARAM_INT);
+        $stmt->bindParam(":brazo_limpiaparabrisas_izquierdo", $datos['brazo_limpiaparabrisas_izquierdo'], PDO::PARAM_INT);
+        $stmt->bindParam(":plumillas_limpiaparabrisas_izquierdo", $datos['plumillas_limpiaparabrisas_izquierdo'], PDO::PARAM_INT);
+        $stmt->bindParam(":espejo_retrovisor_derecho", $datos['espejo_retrovisor_derecho'], PDO::PARAM_INT);
+        $stmt->bindParam(":espejo_retrovisor_izquierdo", $datos['espejo_retrovisor_izquierdo'], PDO::PARAM_INT);
+        $stmt->bindParam(":espejo_central", $datos['espejo_central'], PDO::PARAM_INT);
+        $stmt->bindParam(":ventanas_lado_derecho", $datos['ventanas_lado_derecho'], PDO::PARAM_INT);
+        $stmt->bindParam(":ventanas_lado_izquierdo", $datos['ventanas_lado_izquierdo'], PDO::PARAM_INT);
+        $stmt->bindParam(":parabrisas_trasero", $datos['parabrisas_trasero'], PDO::PARAM_INT);
+        $stmt->bindParam(":vidrio_puerta_principal", $datos['vidrio_puerta_principal'], PDO::PARAM_INT);
+        $stmt->bindParam(":vidrio_segunda_puerta", $datos['vidrio_segunda_puerta'], PDO::PARAM_INT);
+        $stmt->bindParam(":manijas", $datos['manijas'], PDO::PARAM_INT);
+        $stmt->bindParam(":claraboyas", $datos['claraboyas'], PDO::PARAM_INT);
+        $stmt->bindParam(":airbag", $datos['airbag'], PDO::PARAM_INT);
+        $stmt->bindParam(":aire_acondicionado", $datos['aire_acondicionado'], PDO::PARAM_INT);
+        $stmt->bindParam(":limpieza", $datos['limpieza'], PDO::PARAM_INT);
+        $stmt->bindParam(":chapas", $datos['chapas'], PDO::PARAM_INT);
+        $stmt->bindParam(":parales", $datos['parales'], PDO::PARAM_INT);
+        $stmt->bindParam(":booster_puertas", $datos['booster_puertas'], PDO::PARAM_INT);
+        $stmt->bindParam(":reloj_vigia", $datos['reloj_vigia'], PDO::PARAM_INT);
+        $stmt->bindParam(":vigia_delantera_derecha", $datos['vigia_delantera_derecha'], PDO::PARAM_INT);
+        $stmt->bindParam(":vigia_delantera_izquierda", $datos['vigia_delantera_izquierda'], PDO::PARAM_INT);
+        $stmt->bindParam(":vigia_trasera_derecha", $datos['vigia_trasera_derecha'], PDO::PARAM_INT);
+        $stmt->bindParam(":vigia_trasera_izquierda", $datos['vigia_trasera_izquierda'], PDO::PARAM_INT);
+        $stmt->bindParam(":tapa_motor", $datos['tapa_motor'], PDO::PARAM_INT);
+        $stmt->bindParam(":tapa_bodegas", $datos['tapa_bodegas'], PDO::PARAM_INT);
+        $stmt->bindParam(":parasol", $datos['parasol'], PDO::PARAM_INT);
+        $stmt->bindParam(":cenefas", $datos['cenefas'], PDO::PARAM_INT);
+        $stmt->bindParam(":emblema_izquierdo", $datos['emblema_izquierdo'], PDO::PARAM_INT);
+        $stmt->bindParam(":emblema_derecho", $datos['emblema_derecho'], PDO::PARAM_INT);
+        $stmt->bindParam(":emblema_trasero", $datos['emblema_trasero'], PDO::PARAM_INT);
+        $stmt->bindParam(":equipo_audio", $datos['equipo_audio'], PDO::PARAM_INT);
+        $stmt->bindParam(":parlantes", $datos['parlantes'], PDO::PARAM_INT);
+        $stmt->bindParam(":cinturon_usuario", $datos['cinturon_usuario'], PDO::PARAM_INT);
+        $stmt->bindParam(":martillo_emergencia", $datos['martillo_emergencia'], PDO::PARAM_INT);
+        $stmt->bindParam(":cant_martillos", $datos['cant_martillos'], PDO::PARAM_INT);
+        $stmt->bindParam(":dispositivo_velocidad", $datos['dispositivo_velocidad'], PDO::PARAM_INT);
+        $stmt->bindParam(":avisos", $datos['avisos'], PDO::PARAM_INT);
+        $stmt->bindParam(":cant_internos", $datos['cant_internos'], PDO::PARAM_INT);
+        $stmt->bindParam(":cant_externos", $datos['cant_externos'], PDO::PARAM_INT);
+        $stmt->bindParam(":placa_trasera", $datos['placa_trasera'], PDO::PARAM_INT);
+        $stmt->bindParam(":placa_delantera", $datos['placa_delantera'], PDO::PARAM_INT);
+        $stmt->bindParam(":placa_lateral_derecha", $datos['placa_lateral_derecha'], PDO::PARAM_INT);
+        $stmt->bindParam(":placa_lateral_izquierda", $datos['placa_lateral_izquierda'], PDO::PARAM_INT);
+        $stmt->bindParam(":balizas", $datos['balizas'], PDO::PARAM_INT);
+        $stmt->bindParam(":cinturon", $datos['cinturon'], PDO::PARAM_INT);
+        $stmt->bindParam(":gato", $datos['gato'], PDO::PARAM_INT);
+        $stmt->bindParam(":copa", $datos['copa'], PDO::PARAM_INT);
+        $stmt->bindParam(":senales_carretera", $datos['senales_carretera'], PDO::PARAM_INT);
+        $stmt->bindParam(":botiquin", $datos['botiquin'], PDO::PARAM_INT);
+        $stmt->bindParam(":extintor", $datos['extintor'], PDO::PARAM_INT);
+        $stmt->bindParam(":tacos", $datos['tacos'], PDO::PARAM_INT);
+        $stmt->bindParam(":alicate", $datos['alicate'], PDO::PARAM_INT);
+        $stmt->bindParam(":destornilladores", $datos['destornilladores'], PDO::PARAM_INT);
+        $stmt->bindParam(":llave_expansion", $datos['llave_expansion'], PDO::PARAM_INT);
+        $stmt->bindParam(":llaves_fijas", $datos['llaves_fijas'], PDO::PARAM_INT);
+        $stmt->bindParam(":linterna", $datos['linterna'], PDO::PARAM_INT);
+        $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    static public function mdlEliminarRevision($idrevision)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE `m_revisiontm` SET
+        `estado`= 0
+        WHERE idtm = :idrevision");
+
+        $stmt->bindParam(":idrevision", $idrevision, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $retorno = "ok";
