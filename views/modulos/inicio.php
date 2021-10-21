@@ -427,13 +427,19 @@
           </div>
           <!--MODULO #2-->
           <div style="height:100px;font-size:60px;"></div>
-          <div class="card bg-dark">
+          <!-- <div class="card bg-dark">
               <div class="parallax1">
                   <div class="card-body">
 
+                      <div class="card">
+                          <div class="card-body">
+                              <div id='calendar' class="col-md-12 col-lg-12 col-xl-12"></div>
+                          </div>
+                      </div>
+
                   </div>
               </div>
-          </div>
+          </div> -->
           <!--MODULO #3-->
           <!-- <div style="height:100px;font-size:60px;"></div>
             <div class="card">
