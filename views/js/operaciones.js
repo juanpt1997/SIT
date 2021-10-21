@@ -575,8 +575,7 @@ $(document).ready(function () {
 
             //Validación textarea
 
-            $("textarea:invalid").each(function (index, element) {
-                var $area = $(this);
+            
 
                 //Validación textarea
 
@@ -599,6 +598,16 @@ $(document).ready(function () {
                     var idtab = $tabs.closest("table").attr("nombre");
                     if (!tab.includes(idtab)) tab.push(idtab);
                 });
+
+                $('select:invalid').each(function (index, element) {
+                    var $tabs = $(this);
+                    var idtab = $tabs.closest("table").attr("nombre");
+                    if( idtab == undefined) idtab = "Documentos";
+                    if (!tab.includes(idtab)) {
+                        tab.push(idtab);
+                        Requeridos.push($tabs);
+                    }
+                });
                 
 
                 $('textarea:invalid').each(function(index,element){
@@ -609,10 +618,6 @@ $(document).ready(function () {
                 
 
 
-
-
-                //   $('u').each(function (index, element) {
-                //       for
 
                 if (Requeridos.length > 0 || Areas.length > 0) {
 
@@ -632,14 +637,10 @@ $(document).ready(function () {
                         confirmButtonText: 'Cerrar',
                         closeOnConfirm: false
                     });
-                    //RESET DE VALOR
-                    $("#idconductor").empty();
-                    $(".datosroda").val("");
+                    
                 }
-            });
-            //RESET DE VALOR
-            $("#idconductor").empty();
-            $(".datosroda").val("");
+            
+            
         });
     }
 });
