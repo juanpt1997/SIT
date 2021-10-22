@@ -34,9 +34,9 @@ if (isset($_GET['pagina'])) {
     <meta name="theme-color" content="#ffffff">
 
     <?php if (isset($ruta)) : ?>
-        <title><?= $ruta ?></title>
+    <title><?= $ruta ?></title>
     <?php else : ?>
-        <title>SIT</title>
+    <title>SIT</title>
     <?php endif ?>
 
     <!-- =================================================== 
@@ -120,24 +120,24 @@ if (isset($_GET['pagina'])) {
 
 <?php if (strpos($_SERVER['REQUEST_URI'], "busqueda-fuec") !== false) : ?>
 
-    <body>
-        <?php include('modulos/contratos/busqueda-fuec.php'); ?>
-    </body>
+<body>
+    <?php include('modulos/contratos/busqueda-fuec.php'); ?>
+</body>
 <?php else : ?>
 
-    <body class="hold-transition layout-fixed layout-navbar-fixed sidebar-collapse ">
+<body class="hold-transition layout-fixed layout-navbar-fixed sidebar-collapse ">
 
-        <?php if (isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == "ok") : ?>
-            <div class="wrapper">
+    <?php if (isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == "ok") : ?>
+    <div class="wrapper">
 
-                <!-- =================================================== NAVBAR (cabecera)=================================================== -->
-                <?php include('includes/cabecera.php'); ?>
+        <!-- =================================================== NAVBAR (cabecera)=================================================== -->
+        <?php include('includes/cabecera.php'); ?>
 
-                <!-- =================================================== MAIN SIDE BAR CONTAINER (menu) =================================================== -->
-                <?php include('includes/menu.php'); ?>
+        <!-- =================================================== MAIN SIDE BAR CONTAINER (menu) =================================================== -->
+        <?php include('includes/menu.php'); ?>
 
-                <!-- =================================================== CONTENT(contenido) =================================================== -->
-                <?php
+        <!-- =================================================== CONTENT(contenido) =================================================== -->
+        <?php
                 if (isset($ruta)/* isset($_GET['pagina']) */) {
                     // $rutaUrl = explode("/", $_GET['pagina']);
 
@@ -202,6 +202,10 @@ if (isset($_GET['pagina'])) {
                         $ruta == "o-rodamiento"
                     ) {
                         include "modulos/operaciones/{$ruta}.php";
+                    } else if ( # Almacen
+                        $ruta == "a-inventario"
+                    ) {
+                        include "modulos/almacen/{$ruta}.php";
                     } else { # Página no válida
                         include "includes/error404.php";
                     }
@@ -210,18 +214,18 @@ if (isset($_GET['pagina'])) {
                 }
                 ?>
 
-                <!-- =================================================== MAIN FOOTER =================================================== -->
-                <?php include('includes/footer.php'); ?>
+        <!-- =================================================== MAIN FOOTER =================================================== -->
+        <?php include('includes/footer.php'); ?>
 
-            </div>
-            <!-- ./wrapper -->
-        <?php else : ?>
-            <div class="login-box">
-                <?php include('modulos/ingreso.php'); ?>
-            </div>
-        <?php endif ?>
+    </div>
+    <!-- ./wrapper -->
+    <?php else : ?>
+    <div class="login-box">
+        <?php include('modulos/ingreso.php'); ?>
+    </div>
+    <?php endif ?>
 
-        <?php
+    <?php
         /* ===================================================
         MODALS
     ===================================================*/
@@ -229,7 +233,7 @@ if (isset($_GET['pagina'])) {
         ?>
 
 
-    </body>
+</body>
 <?php endif ?>
 
 <!-- =================================================== CUSTOM JS =================================================== -->
