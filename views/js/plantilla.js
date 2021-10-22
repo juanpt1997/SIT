@@ -287,6 +287,28 @@ $(document).ready(function () {
         window.location.href == `${dominioApp}/sit/${proyecto}`
     ) {
         $("body").removeClass("sidebar-mini");
+
+
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                
+              //initialView: 'timeGridWeek',
+              //themeSystem: 'bootstrap'
+              //aspectRatio: -10
+              headerToolbar: {
+                lenguage: 'es',
+                left  : 'prev,next today',
+                center: 'title',
+                right : 'dayGridMonth,timeGridWeek,timeGridDay'
+              },
+              themeSystem: 'bootstrap'             
+          });
+            calendar.render();
+
+      
+          
+
+
     } else {
         $("body").addClass("sidebar-mini");
     }

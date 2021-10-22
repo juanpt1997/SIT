@@ -34,9 +34,9 @@ if (isset($_GET['pagina'])) {
     <meta name="theme-color" content="#ffffff">
 
     <?php if (isset($ruta)) : ?>
-        <title><?= $ruta ?></title>
+    <title><?= $ruta ?></title>
     <?php else : ?>
-        <title>SIT</title>
+    <title>SIT</title>
     <?php endif ?>
 
     <!-- =================================================== 
@@ -66,6 +66,8 @@ if (isset($_GET['pagina'])) {
     <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- cross-page-tab-navigation -->
     <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/cross-page-tab-navigation/jquery.simpletabs.css">
+    <!-- fullCalendar -->
+    <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/fullcalendar-5.10.0/lib/main.css">
 
 
     <!-- =================================================== 
@@ -92,9 +94,6 @@ if (isset($_GET['pagina'])) {
     <script src="<?= URL_APP ?>views/plugins/jszip/jszip.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/pdfmake/pdfmake.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/pdfmake/vfs_fonts.js"></script>
-    <!-- Momentjs -->
-    <script src="<?= URL_APP ?>views/plugins/moment/moment-with-locales.min.js"></script>
-    <script src="<?= URL_APP ?>views/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
     <!-- date-range-picker -->
     <script src="<?= URL_APP ?>views/plugins/daterangepicker/daterangepicker.js"></script>
     <!-- ChartJS -->
@@ -115,29 +114,31 @@ if (isset($_GET['pagina'])) {
     <script src="<?= URL_APP ?>views/plugins/icheck-bootstrap/icheck.min.js"></script>
     <!-- cross-page-tab-navigation -->
     <script src="<?= URL_APP ?>views/plugins/cross-page-tab-navigation/jquery.simpletabs.js"></script>
+    <!-- fullCalendar -->
+    <script src="<?= URL_APP ?>views/plugins/fullcalendar-5.10.0/lib/main.js"></script>
 
 </head>
 
 <?php if (strpos($_SERVER['REQUEST_URI'], "busqueda-fuec") !== false) : ?>
 
-    <body>
-        <?php include('modulos/contratos/busqueda-fuec.php'); ?>
-    </body>
+<body>
+    <?php include('modulos/contratos/busqueda-fuec.php'); ?>
+</body>
 <?php else : ?>
 
-    <body class="hold-transition layout-fixed layout-navbar-fixed sidebar-collapse ">
+<body class="hold-transition layout-fixed layout-navbar-fixed sidebar-collapse ">
 
-        <?php if (isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == "ok") : ?>
-            <div class="wrapper">
+    <?php if (isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == "ok") : ?>
+    <div class="wrapper">
 
-                <!-- =================================================== NAVBAR (cabecera)=================================================== -->
-                <?php include('includes/cabecera.php'); ?>
+        <!-- =================================================== NAVBAR (cabecera)=================================================== -->
+        <?php include('includes/cabecera.php'); ?>
 
-                <!-- =================================================== MAIN SIDE BAR CONTAINER (menu) =================================================== -->
-                <?php include('includes/menu.php'); ?>
+        <!-- =================================================== MAIN SIDE BAR CONTAINER (menu) =================================================== -->
+        <?php include('includes/menu.php'); ?>
 
-                <!-- =================================================== CONTENT(contenido) =================================================== -->
-                <?php
+        <!-- =================================================== CONTENT(contenido) =================================================== -->
+        <?php
                 if (isset($ruta)/* isset($_GET['pagina']) */) {
                     // $rutaUrl = explode("/", $_GET['pagina']);
 
@@ -192,7 +193,7 @@ if (isset($_GET['pagina'])) {
                     ) {
                         include "modulos/mantenimiento/{$ruta}.php";
                     } else if ( # Compras
-                        $ruta == "c-proveedores"||
+                        $ruta == "c-proveedores" ||
                         $ruta == "c-orden-compra"
                     ) {
                         include "modulos/compras/{$ruta}.php";
@@ -202,6 +203,10 @@ if (isset($_GET['pagina'])) {
                         $ruta == "o-rodamiento"
                     ) {
                         include "modulos/operaciones/{$ruta}.php";
+                    } else if ( # Almacen
+                        $ruta == "a-inventario"
+                    ) {
+                        include "modulos/almacen/{$ruta}.php";
                     } else { # Página no válida
                         include "includes/error404.php";
                     }
@@ -210,18 +215,18 @@ if (isset($_GET['pagina'])) {
                 }
                 ?>
 
-                <!-- =================================================== MAIN FOOTER =================================================== -->
-                <?php include('includes/footer.php'); ?>
+        <!-- =================================================== MAIN FOOTER =================================================== -->
+        <?php include('includes/footer.php'); ?>
 
-            </div>
-            <!-- ./wrapper -->
-        <?php else : ?>
-            <div class="login-box">
-                <?php include('modulos/ingreso.php'); ?>
-            </div>
-        <?php endif ?>
+    </div>
+    <!-- ./wrapper -->
+    <?php else : ?>
+    <div class="login-box">
+        <?php include('modulos/ingreso.php'); ?>
+    </div>
+    <?php endif ?>
 
-        <?php
+    <?php
         /* ===================================================
         MODALS
     ===================================================*/
@@ -229,7 +234,7 @@ if (isset($_GET['pagina'])) {
         ?>
 
 
-    </body>
+</body>
 <?php endif ?>
 
 <!-- =================================================== CUSTOM JS =================================================== -->
