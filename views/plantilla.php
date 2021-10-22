@@ -204,7 +204,8 @@ if (isset($_GET['pagina'])) {
                     ) {
                         include "modulos/operaciones/{$ruta}.php";
                     } else if ( # Almacen
-                        $ruta == "a-inventario"
+                        $ruta == "a-inventario" ||
+                        $ruta == "a-inventario-desarrollo"
                     ) {
                         include "modulos/almacen/{$ruta}.php";
                     } else { # Página no válida
