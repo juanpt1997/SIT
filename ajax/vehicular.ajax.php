@@ -172,11 +172,13 @@ class AjaxVehiculos
     ===================================================*/
     static public function ajaxDatosVehiculo($item, $valor)
     {
+        $serviciosVehiculo = ControladorVehiculos::ctrServiciosVehiculo($item, $valor);
         $datosVehiculo = ControladorVehiculos::ctrDatosVehiculo($item, $valor);
         $fotosVehiculo = ControladorVehiculos::ctrFotosVehiculo($item, $valor);
         $datos = [
             'datosVehiculo' => $datosVehiculo,
-            'fotosVehiculo' => $fotosVehiculo
+            'fotosVehiculo' => $fotosVehiculo,
+            'serviciosVehiculo' => $serviciosVehiculo
         ];
         echo json_encode($datos);
     }

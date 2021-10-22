@@ -80,7 +80,8 @@ $(document).ready(function () {
                         cache: false,
                         contentType: false,
                         processData: false,
-                        success: function (response) {
+                        success: function (response) {   
+
                             var Vehiculo = response.datosVehiculo;
 
                             $("#idvehiculo").val(Vehiculo.idvehiculo);
@@ -88,7 +89,19 @@ $(document).ready(function () {
                             $("#modelo").val(Vehiculo.modelo);
                             $("#numinterno").val(Vehiculo.numinterno);
                             $("#sucursal").val(Vehiculo.sucursal);
+                            
+                            var Servicios = response.serviciosVehiculo;
+                            
+                            Servicios.forEach(element => {
+                                if(element.idservicio == 1)$("#cambio_aceite").val(element.Ffecha);
+                                if(element.idservicio == 2)$("#engrase").val(element.Ffecha);
+                                if(element.idservicio == 3)$("#rotacion_llantas").val(element.Ffecha);
+                                if(element.idservicio == 4)$("#filtro_aire").val(element.Ffecha);
+                                if(element.idservicio == 5)$("#sincronizacion").val(element.Ffecha);
+                                if(element.idservicio == 6)$("#alineacion_balanceo").val(element.Ffecha);
 
+                            });
+                            
                             /* ===================================================
                                                             Cargar fechas de vencimiento del vehículo
                                                         ===================================================*/
@@ -119,6 +132,11 @@ $(document).ready(function () {
                                     });
                                 },
                             });
+
+                            
+                            
+
+
 
                             /* ===================================================
                                                             CARGAR LISTA CONDUCTORES
@@ -335,12 +353,12 @@ $(document).ready(function () {
                         //     $("#idconductor").val(response.idconductor);
                         // }, 1000);
 
-                        $("#cambio_aceite").val(response.cambio_aceite);
-                        $("#engrase").val(response.engrase);
-                        $("#rotacion_llantas").val(response.rotacion_llantas);
-                        $("#filtro_aire").val(response.filtro_aire);
-                        $("#sincronizacion").val(response.sincronizacion);
-                        $("#alineacion_balanceo").val(response.alineacion_balanceo);
+                        // $("#cambio_aceite").val(response.cambio_aceite);
+                        // $("#engrase").val(response.engrase);
+                        // $("#rotacion_llantas").val(response.rotacion_llantas);
+                        // $("#filtro_aire").val(response.filtro_aire);
+                        // $("#sincronizacion").val(response.sincronizacion);
+                        // $("#alineacion_balanceo").val(response.alineacion_balanceo);
 
                         $("#kmtotal").val(response.kilometraje_total);
                         $("#observaciones").val(response.observaciones);
@@ -575,72 +593,72 @@ $(document).ready(function () {
 
             //Validación textarea
 
-            
 
-                //Validación textarea
 
-                $('textarea:invalid').each(function (index, element) {
-                    var $area = $(this);
+            //Validación textarea
 
-                    var idform = $area.closest("form").attr("id");
-                    console.log(idform);
-                    if (idform == "alistamiento_form") {
-                        Areas.push($area);
-                    }
+            $('textarea:invalid').each(function (index, element) {
+                var $area = $(this);
+
+                var idform = $area.closest("form").attr("id");
+                console.log(idform);
+                if (idform == "alistamiento_form") {
+                    Areas.push($area);
+                }
+            });
+
+
+            var tab = [];
+
+            //Se trae los tabs 
+            $('input:invalid').each(function (index, element) {
+                var $tabs = $(this);
+                var idtab = $tabs.closest("table").attr("nombre");
+                if (!tab.includes(idtab)) tab.push(idtab);
+            });
+
+            $('select:invalid').each(function (index, element) {
+                var $tabs = $(this);
+                var idtab = $tabs.closest("table").attr("nombre");
+                if (idtab == undefined) idtab = "Documentos";
+                if (!tab.includes(idtab)) {
+                    tab.push(idtab);
+                    Requeridos.push($tabs);
+                }
+            });
+
+
+            $('textarea:invalid').each(function (index, element) {
+                var $tabs = $(this);
+                var idtab = $tabs.closest("table").attr("nombre");
+                if (!tab.includes(idtab)) tab.push(idtab);
+            });
+
+
+
+
+            if (Requeridos.length > 0 || Areas.length > 0) {
+
+                let inputsRequeridosHtml = `<ul>`;
+                tab.forEach(element => {
+                    inputsRequeridosHtml += `<li>${element}</li>`;
                 });
+                inputsRequeridosHtml += `</ul>`;
 
-
-                var tab = [];
-
-                //Se trae los tabs 
-                $('input:invalid').each(function (index, element) {
-                    var $tabs = $(this);
-                    var idtab = $tabs.closest("table").attr("nombre");
-                    if (!tab.includes(idtab)) tab.push(idtab);
-                });
-
-                $('select:invalid').each(function (index, element) {
-                    var $tabs = $(this);
-                    var idtab = $tabs.closest("table").attr("nombre");
-                    if( idtab == undefined) idtab = "Documentos";
-                    if (!tab.includes(idtab)) {
-                        tab.push(idtab);
-                        Requeridos.push($tabs);
-                    }
-                });
-                
-
-                $('textarea:invalid').each(function(index,element){
-                    var $tabs = $(this);
-                    var idtab = $tabs.closest("table").attr("nombre");
-                    if (!tab.includes(idtab)) tab.push(idtab);
-                });
-                
-
-
-
-                if (Requeridos.length > 0 || Areas.length > 0) {
-
-                    let inputsRequeridosHtml = `<ul>`;
-                    tab.forEach(element => {
-                        inputsRequeridosHtml += `<li>${element}</li>`;
-                    });
-                    inputsRequeridosHtml += `</ul>`;
-
-                    Swal.fire({
-                        icon: 'warning',
-                        html: `<div class="text-left">
+                Swal.fire({
+                    icon: 'warning',
+                    html: `<div class="text-left">
                                                     <p class="font-weight-bold">Hace falta diligenciar campos en los siguientes apartados:</p>
                                                         ${inputsRequeridosHtml}
                                                 </div>`,
-                        showConfirmButton: true,
-                        confirmButtonText: 'Cerrar',
-                        closeOnConfirm: false
-                    });
-                    
-                }
-            
-            
+                    showConfirmButton: true,
+                    confirmButtonText: 'Cerrar',
+                    closeOnConfirm: false
+                });
+
+            }
+
+
         });
     }
 });

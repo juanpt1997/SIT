@@ -7,6 +7,7 @@ if (!validarPermiso('M_OPERACIONES', 'R')) {
 $Alistamientos = ControladorAlistamiento::ctrListaAlistamientos();
 $Vehiculos = ControladorVehiculos::ctrListaVehiculos();
 $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
+$ServiciosMenores = ControladorVehiculos::ctrListadoServiciosMenores();
 
 ?>
 <!-- ===================== 
@@ -1771,18 +1772,18 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                     <tbody class="text-nowrap">
                                                         <tr>
                                                             <td>
-                                                                <div class="input-group date" data-target-input="nearest">
-                                                                    <input type="date" class="form-control" id="cambio_aceite" name="cambio_aceite" required>
+                                                                <div class="input-group date" data-target-input="nearest" >
+                                                                    <input type="date" class="form-control" id="cambio_aceite" name="cambio_aceite" readonly>
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="input-group date" data-target-input="nearest">
-                                                                    <input type="date" class="form-control" id="engrase" name="engrase" required>
+                                                                    <input type="date" class="form-control" id="engrase" name="engrase" readonly>
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="input-group date" data-target-input="nearest">
-                                                                    <input type="date" class="form-control" id="rotacion_llantas" name="rotacion_llantas" required>
+                                                                    <input type="date" class="form-control" id="rotacion_llantas" name="rotacion_llantas" readonly>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -1796,17 +1797,17 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         <tr>
                                                             <td>
                                                                 <div class="input-group date" data-target-input="nearest">
-                                                                    <input type="date" class="form-control" id="filtro_aire" name="filtro_aire" required>
+                                                                    <input type="date" class="form-control" id="filtro_aire" name="filtro_aire" readonly>
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="input-group date" data-target-input="nearest">
-                                                                    <input type="date" class="form-control" id="sincronizacion" name="sincronizacion" required>
+                                                                    <input type="date" class="form-control" id="sincronizacion" name="sincronizacion" readonly>
                                                                 </div>
                                                             </td>
                                                             <td>
                                                                 <div class="input-group date" data-target-input="nearest">
-                                                                    <input type="date" class="form-control" id="alineacion_balanceo" name="alineacion_balanceo" required>
+                                                                    <input type="date" class="form-control" id="alineacion_balanceo" name="alineacion_balanceo" readonly>
                                                                 </div>
                                                             </td>
                                                         </tr>

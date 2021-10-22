@@ -304,6 +304,30 @@ class ControladorVehiculos
 		return ModeloVehiculos::mdlFotosVehiculo($datos);
 	}
 
+	/*==================================================
+		SERVICIOS DEL VEHÍCULO 
+	===================================================*/
+
+	static public function ctrServiciosVehiculo($item, $valor)
+	{
+		$datos = array(
+			'item' => $item,
+			'valor' => $valor
+		);
+		$respuesta = ModeloVehiculos::mdlServiciosVehiculo($datos);
+		return $respuesta;
+	}
+
+	/* ===================================================
+		LISTADO DE SERVICIOS MENORES
+	===================================================*/
+
+	static public function ctrListadoServiciosMenores()
+	{
+		$respuesta = ModeloVehiculos::mdlListadoServiciosMenores();
+		return $respuesta;
+	}
+
 	/* ===================================================
 	   MOSTRAR TIPO DE VEHICULOS
 	===================================================*/
