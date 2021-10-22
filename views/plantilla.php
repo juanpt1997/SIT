@@ -66,6 +66,8 @@ if (isset($_GET['pagina'])) {
     <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- cross-page-tab-navigation -->
     <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/cross-page-tab-navigation/jquery.simpletabs.css">
+    <!-- fullCalendar -->
+    <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/fullcalendar-5.10.0/lib/main.css">
 
 
     <!-- =================================================== 
@@ -92,9 +94,6 @@ if (isset($_GET['pagina'])) {
     <script src="<?= URL_APP ?>views/plugins/jszip/jszip.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/pdfmake/pdfmake.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/pdfmake/vfs_fonts.js"></script>
-    <!-- Momentjs -->
-    <script src="<?= URL_APP ?>views/plugins/moment/moment-with-locales.min.js"></script>
-    <script src="<?= URL_APP ?>views/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
     <!-- date-range-picker -->
     <script src="<?= URL_APP ?>views/plugins/daterangepicker/daterangepicker.js"></script>
     <!-- ChartJS -->
@@ -115,6 +114,8 @@ if (isset($_GET['pagina'])) {
     <script src="<?= URL_APP ?>views/plugins/icheck-bootstrap/icheck.min.js"></script>
     <!-- cross-page-tab-navigation -->
     <script src="<?= URL_APP ?>views/plugins/cross-page-tab-navigation/jquery.simpletabs.js"></script>
+    <!-- fullCalendar -->
+    <script src="<?= URL_APP ?>views/plugins/fullcalendar-5.10.0/lib/main.js"></script>
 
 </head>
 
@@ -192,7 +193,7 @@ if (isset($_GET['pagina'])) {
                     ) {
                         include "modulos/mantenimiento/{$ruta}.php";
                     } else if ( # Compras
-                        $ruta == "c-proveedores"||
+                        $ruta == "c-proveedores" ||
                         $ruta == "c-orden-compra"
                     ) {
                         include "modulos/compras/{$ruta}.php";
