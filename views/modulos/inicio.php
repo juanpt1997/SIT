@@ -299,7 +299,7 @@
                               <!-- /.col -->
                               <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                                   <div class="dropdown" style="cursor: pointer;">
-                                      <div class="info-box border border-dark" id="dropdownMenuMantenimiento"
+                                      <div class="info-box border border-dark" id="dropdownMenuAlmacen"
                                           data-toggle="dropdown">
                                           <span class="info-box-icon bg-dark elevation-1"><i
                                                   class="fas fa-warehouse"></i></span>
@@ -309,7 +309,7 @@
                                           <!-- /.info-box-content -->
                                       </div>
                                       <!-- /.info-box -->
-                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuMantenimiento">
+                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuAlmacen">
                                           <a class="dropdown-item font-weight-bold"
                                               href="a-inventario"><u>Inventario</u></a>
                                       </div>
@@ -321,21 +321,6 @@
                             ** Mantenimiento
                             =================================================== -->
                               <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
-                              <div class="col-12 col-sm-6 col-md-4 col-xl-3 d-none">
-                                  <a href="#" class="d-none">
-                                      <div class="info-box border border-danger">
-                                          <span class="info-box-icon bg-danger elevation-1"><i
-                                                  class="fas fa-cogs"></i></span>
-                                          <div class="info-box-content">
-                                              <span
-                                                  class="info-box-text font-weight-bold text-dark">Mantenimiento</span>
-                                          </div>
-                                          <!-- /.info-box-content -->
-                                      </div>
-                                      <!-- /.info-box -->
-                                  </a>
-                              </div>
-                              <!-- /.col -->
                               <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                                   <div class="dropdown" style="cursor: pointer;">
                                       <div class="info-box border border-danger" id="dropdownMenuMantenimiento"
@@ -450,20 +435,23 @@
                             ** Compras
                             =================================================== -->
                               <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
-                              <div class="col-12 col-sm-6 col-md-4 col-xl-3">
-                                  <a href="#">
-                                      <div class="info-box border border-danger">
-                                          <span class="info-box-icon bg-danger elevation-1"><i
-                                                  class="fas fa-shopping-cart"></i></span>
-                                          <div class="info-box-content">
-                                              <span class="info-box-text font-weight-bold text-dark">Compras</span>
+                                  <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+                                      <div class="dropdown" style="cursor: pointer;">
+                                          <div class="info-box border border-danger" id="dropdownMenuCompras" data-toggle="dropdown">
+                                              <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-shopping-cart"></i></span>
+                                              <div class="info-box-content">
+                                                  <span class="info-box-text font-weight-bold text-dark">Compras</span>
+                                              </div>
+                                              <!-- /.info-box-content -->
                                           </div>
-                                          <!-- /.info-box-content -->
+                                          <!-- /.info-box -->
+                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuCompras">
+                                              <a class="dropdown-item font-weight-bold" href="c-proveedores"><u>Proveedores</u></a>
+                                              <a class="dropdown-item font-weight-bold" href="c-orden-compra"><u>Orden de compra</u></a>
+                                          </div>
                                       </div>
-                                      <!-- /.info-box -->
-                                  </a>
-                              </div>
-                              <!-- /.col -->
+                                  </div>
+                                  <!-- /.col -->
                               <?php endif ?>
 
                               <!-- ===================================================

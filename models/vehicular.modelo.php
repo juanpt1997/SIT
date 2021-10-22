@@ -100,6 +100,29 @@ class ModeloPropietarios
 
         return $retorno;
     }
+
+    /* ==================================
+        BORRADO LÓGICO PROPIETARIO
+    ==================================== */
+
+    static public function mdlEliminarPropietario($idxp)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE propietario set estado = 0 
+                                               where idxp = :idxp");
+
+        $stmt->bindParam(":idxp", $idxp, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
 }
 
 /* ===================================================
@@ -122,7 +145,8 @@ class ModeloConvenios
         } else {
 
             $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad FROM v_empresas_convenios C
-                                                   LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio");
+                                                   LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio
+                                                   WHERE C.estado = 1");
 
             $stmt->execute();
             $retorno =  $stmt->fetchAll();
@@ -329,6 +353,26 @@ class ModeloConvenios
     }
 
 
+    /* =================================================
+        BORRADO LÓGICO EMPRESA
+    =================================================== */
+
+    static public function mdlEliminarEmpresa($idxc)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE v_empresas_convenios SET estado = 0 WHERE idxc = :idxc");
+        $stmt->bindParam(":idxc", $idxc, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
 
 
 }

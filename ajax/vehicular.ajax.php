@@ -23,6 +23,12 @@ class AjaxPropietarios
         $respuesta = ModeloPropietarios::mdlMostrar($cedula);
         echo json_encode($respuesta);
     }
+
+    static public function AjaxEliminarPropietario($idxp)
+    {
+        $respuesta = ModeloPropietarios::mdlEliminarPropietario($idxp);
+        echo $respuesta;
+    }
 }
 
 /* ===================================================
@@ -45,6 +51,12 @@ class AjaxConvenios
     static public function BorradoConvenios($idConvenio)
     {
         $respuesta = ControladorConvenios::ctrBorradoConvenios($idConvenio);
+        echo $respuesta;
+    }
+
+    static public function AjaxEliminarEmpresa($idxc)
+    {
+        $respuesta = ModeloConvenios::mdlEliminarEmpresa($idxc);
         echo $respuesta;
     }
 }
@@ -1135,3 +1147,11 @@ if(isset($_POST['DatosConvenio'])&& $_POST['DatosConvenio'] == "ok"){
 if(isset($_POST['Borrado']) && $_POST['Borrado'] == "ok"){
     AjaxConvenios::BorradoConvenios($_POST['idConvenio']);
 }
+
+#LLAMADO A BORRAR PROPIETARIO
+
+if(isset($_POST['EliminarPropietario']) && $_POST['EliminarPropietario'] == "ok") AjaxPropietarios::AjaxEliminarPropietario($_POST['idxp']);
+
+#LLAMADO A BORRAR EMPRESA
+
+if(isset($_POST['EliminarEmpresa']) && $_POST['EliminarEmpresa'] == "ok") AjaxConvenios::AjaxEliminarEmpresa($_POST['idxc']);

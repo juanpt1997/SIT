@@ -62,6 +62,64 @@ if (window.location.href == `${urlPagina}v-propietarios/` ||
 
 
     });
+
+
+    /*==============================================
+        BORRADO LÓGICO PROPIETARIO
+    ============================================== */
+    $(document).on("click", ".btnBorrarProp", function () {
+
+        var idxp = $(this).attr("idxp");
+        $("#idxp").val(idxp);
+
+        Swal.fire({
+            icon: "warning",
+            showConfirmButton: true,
+            showCancelButton: true,
+            title: "¿Seguro que de sea borrar este registro?",
+            confirmButtonText: "Si, borrar",
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#ff0000",
+            cancelButtonColor: "#0080ff",
+            allowOutsideClick: false,
+        }).then((result) => {
+
+            if (result.value == true) {
+
+                var datos = new FormData();
+                datos.append("EliminarPropietario", "ok");
+                datos.append("idxp", idxp);
+
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/vehicular.ajax.php",
+                    data: datos,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    //dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        if (response == "ok") {
+                            console.log("entré");
+                            Swal.fire({
+                                icon: "success",
+                                showConfirmButton: true,
+                                title: "¡El propietario ha sido borrado correctamente!",
+                                confirmButtonText: "¡Cerrar!",
+                                allowOutsideClick: false,
+                            }).then((result) => {
+                                window.location = "v-propietarios";
+                            });
+                        }
+                    },
+                });
+            }
+        });
+
+    });
+
+
 }
 
 if (window.location.href == `${urlPagina}v-convenios/` ||
@@ -122,16 +180,16 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
 
     //AGREGAR CONVENIO
 
-    $(document).on("click",".btn-agregarConvenio", function(){
+    $(document).on("click", ".btn-agregarConvenio", function () {
         $("#titulo-modal-convenios").html("Nuevo Convenio");
         $("#datosconvenio_form").trigger("reset");
         $('.select2-single').val(" ").trigger("change");
-        
+
     });
 
     //EDITAR CONVENIO
 
-    $(document).on("click",".btnEditarConv", function(){
+    $(document).on("click", ".btnEditarConv", function () {
         $("#titulo-modal-convenios").html("Editar Convenio");
 
         var idconvenio = $(this).attr("idConvenio");
@@ -165,43 +223,43 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
                 $('#num_radicado').val(response.num_radicado);
                 $('#observacion').val(response.observacion);
                 $('#placa').val(response.idvehiculo).trigger("change");
-                
-                
+
+
             }
         });
-        
+
 
 
 
     });
 
     //CAPTURAR DATOS ID VEHICULO
-    $(document).on("change", '#placa', function(){
-      let idvehiculo = $(this).val();
-      console.log(idvehiculo);
-      var datos = new FormData();
-      datos.append("DatosVehiculo", "ok");
-      datos.append("item", "idvehiculo");
-      datos.append("valor", idvehiculo);
-      $.ajax({
-        type: "post",
-        url: `${urlPagina}ajax/vehicular.ajax.php`,
-        data: datos,
-        dataType: "JSON",
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function (Vehiculo) {
-        $("#tipo_vehiculo").val(Vehiculo.datosVehiculo.idtipovehiculo).trigger("change");
-        $('#tipo_vehiculo').attr('disabled','disabled');
-        $("#num_interno").val(Vehiculo.datosVehiculo.idvehiculo).trigger("change");
-        $('#num_interno').attr('disabled','disabled');  
-        },
-      });
+    $(document).on("change", '#placa', function () {
+        let idvehiculo = $(this).val();
+        console.log(idvehiculo);
+        var datos = new FormData();
+        datos.append("DatosVehiculo", "ok");
+        datos.append("item", "idvehiculo");
+        datos.append("valor", idvehiculo);
+        $.ajax({
+            type: "post",
+            url: `${urlPagina}ajax/vehicular.ajax.php`,
+            data: datos,
+            dataType: "JSON",
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (Vehiculo) {
+                $("#tipo_vehiculo").val(Vehiculo.datosVehiculo.idtipovehiculo).trigger("change");
+                $('#tipo_vehiculo').attr('disabled', 'disabled');
+                $("#num_interno").val(Vehiculo.datosVehiculo.idvehiculo).trigger("change");
+                $('#num_interno').attr('disabled', 'disabled');
+            },
+        });
     });
 
 
-    $(document).on("click", ".btnBorrarConv", function(){
+    $(document).on("click", ".btnBorrarConv", function () {
         console.log("Borrando");
         let idConvenio = $(this).attr("idConvenio");
         var datos = new FormData();
@@ -215,8 +273,8 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
             cache: false,
             contentType: false,
             processData: false,
-            success: function (response){
-                if(response == "ok"){
+            success: function (response) {
+                if (response == "ok") {
 
                     Swal.fire({
                         title: '¿Está seguro de eliminar este convenio?',
@@ -227,31 +285,31 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
                         cancelButtonColor: '#d33',
                         cancelButtonText: 'Cancelar',
                         confirmButtonText: 'Si,borrar'
-                      }).then((result) => {
-                          console.log(result);
-                        if (result.value == true){
+                    }).then((result) => {
+                        console.log(result);
+                        if (result.value == true) {
                             Swal.fire({
-                                    icon: 'success',
-                                    title: 'Convenio eliminado correctamente',						
-                                    showConfirmButton: true,
-                                    confirmButtonText: 'Cerrar',
-                                                
-                                    }).then((result)=>{
-            
-                                        if(result.value){
-                                            window.location = 'v-convenios';
-                                        }
-            
-                                    })
-                            }
-                        
-                      })
+                                icon: 'success',
+                                title: 'Convenio eliminado correctamente',
+                                showConfirmButton: true,
+                                confirmButtonText: 'Cerrar',
+
+                            }).then((result) => {
+
+                                if (result.value) {
+                                    window.location = 'v-convenios';
+                                }
+
+                            })
+                        }
+
+                    })
 
 
 
 
 
-                }else{
+                } else {
                     Swal.fire({
                         icon: 'error',
                         showConfirmButton: true,
@@ -261,6 +319,59 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
                 }
             }
         });
+    });
+
+
+    $(document).on("click", ".btnBorrarEmpresa", function () {
+        var idxc = $(this).attr("idxc")
+        $("#idxc").val(idxc);
+
+
+        Swal.fire({
+            icon: "warning",
+            showConfirmButton: true,
+            showCancelButton: true,
+            title: "¿Seguro que de sea borrar este registro?",
+            confirmButtonText: "Si, borrar",
+            cancelButtonText: "Cancelar",
+            confirmButtonColor: "#ff0000",
+            cancelButtonColor: "#0080ff",
+            allowOutsideClick: false,
+        }).then((result) => {
+
+            if (result.value == true) {
+
+                var datos = new FormData();
+                datos.append("EliminarEmpresa", "ok");
+                datos.append("idxc", idxc);
+
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/vehicular.ajax.php",
+                    data: datos,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    //dataType: "json",
+                    success: function (response) {
+                        if (response == "ok") {
+                            Swal.fire({
+                                icon: "success",
+                                showConfirmButton: true,
+                                title: "¡La empresa ha sido eliminada correctamente!",
+                                confirmButtonText: "¡Cerrar!",
+                                allowOutsideClick: false,
+                            }).then((result) => {
+                                window.location = "v-convenios";
+                            });
+                        }
+                    },
+                });
+            }
+        });
+
+
+
     });
 
 
@@ -803,7 +914,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
 
 
             /* AJAX PARA CARGAR DATOS DEL CONVENIO */
-            
+
 
 
         });
@@ -1001,13 +1112,13 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
             $("#idtipovehiculo").val(response.idtipovehiculo);
             $("#tipocombustible").val(response.tipocombustible);
             $("#empresacontratante").val(response.idcontratante);
-            $("#empresacontratante").attr("readonly","readonly");
+            $("#empresacontratante").attr("readonly", "readonly");
             $("#empresacontratista").val(response.idcontratista);
-            $("#empresacontratista").attr("readonly","readonly");
+            $("#empresacontratista").attr("readonly", "readonly");
             $("#fecha_inicio").val(response.fecha_inicio);
-            $("#fecha_inicio").attr("readonly","readonly");
+            $("#fecha_inicio").attr("readonly", "readonly");
             $("#fecha_terminacion").val(response.fecha_terminacion);
-            $("#fecha_terminacion").attr("readonly","readonly");
+            $("#fecha_terminacion").attr("readonly", "readonly");
 
 
             if (response.ruta_tarjetapropiedad != null) {
