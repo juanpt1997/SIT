@@ -472,7 +472,7 @@
                     ** COMPRAS
                 =================================================== -->
                 <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
-                <li class="nav-item has-treeview">
+                <li class="nav-item has-treeview d-none">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>Compras
