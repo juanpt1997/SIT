@@ -533,9 +533,10 @@ class ModeloVehiculos
     static public function mdlServiciosVehiculo($datos)
     {
         $stmt = Conexion::conectar()->prepare("SELECT sm.*, s.*, v.idvehiculo, DATE_FORMAT(sm.fecha, '%Y-%m-%d') AS Ffecha  FROM m_re_serviciosvehiculos sm 
-            INNER JOIN m_serviciosmenores s ON sm.idserviciovehiculo =  s.idservicio
+            INNER JOIN m_serviciosmenores s ON sm.idservicio =  s.idservicio
             INNER JOIN v_vehiculos v ON sm.idvehiculo = v.idvehiculo
-            WHERE v.{$datos['item']} = :{$datos['item']};");
+            WHERE v.{$datos['item']} = :{$datos['item']}
+            ORDER BY sm.fecha DESC;");
 
         $stmt->bindParam(":{$datos['item']}", $datos['valor']);
         $stmt->execute();
@@ -548,10 +549,10 @@ class ModeloVehiculos
         LISTADO DE SERVICIOS MENORES
     =====================================================*/
 
-    static public function mdlListadoServiciosMenores()
+    static public function mdlHistoricoServiciosMenores()
     {
         $stmt = Conexion::conectar()->prepare("SELECT sm.*, s.*, v.* FROM m_re_serviciosvehiculos sm 
-        INNER JOIN m_serviciosmenores s ON sm.idserviciovehiculo =  s.idservicio
+        INNER JOIN m_serviciosmenores s ON sm.idservicio =  s.idservicio
         INNER JOIN v_vehiculos v ON sm.idvehiculo = v.idvehiculo");
 
         $stmt->execute();
