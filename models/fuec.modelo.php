@@ -69,7 +69,8 @@ class ModeloFuec
                                                 INNER JOIN l_usuarios u ON u.Cedula = f.usuario_creacion
                                                 LEFT JOIN v_rutas rt ON rt.id = f.idruta
                                                 LEFT JOIN gh_municipios AS ori ON ori.idmunicipio=rt.idorigen
-                                                LEFT JOIN gh_municipios AS des ON des.idmunicipio=rt.iddestino");
+                                                LEFT JOIN gh_municipios AS des ON des.idmunicipio=rt.iddestino
+                                                order by fecha_creacion desc");
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();

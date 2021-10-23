@@ -412,7 +412,47 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
             //Envio de concepto al titulo del modal
             $("#titulo_ciudad").html("Agregar una nueva ciudad");
         });
-        //SUBMIT DEL FORMULARIO DE CIUDAD
+        /* ===================================================
+          ? AGREGAR/EDITAR CIUDAD
+        ===================================================*/
+        //AGREGAR
+        $("#formularioCiudades").submit(function (e) {
+
+            e.preventDefault();//Previene la accion por defecto del boton
+            var datos = new FormData();
+
+            var id = $("#idmunicipioedit").val();
+
+            datos.append("AgregarCiudad", "ok");
+            datos.append("dato1", $("#departamentos").val());
+            datos.append("dato2", $("#municipio").val());
+
+            $.ajax({
+                url: "ajax/conceptos.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: 'success',
+                            showConfirmButton: true,
+                            title: "¡La ciudad ha sido creada!",
+                            confirmButtonText: "¡Cerrar!",
+                            allowOutsideClick: false
+                        }).then((result) => {
+
+                            if (result.value) {
+                                window.location = 'cg-gestion-humana';
+                            }
+                        })
+                    }
+                }
+            });
+        });
+        //EDITAR
         $("#formularioCiudadesEdit").submit(function (e) {
 
             e.preventDefault();//Previene la accion por defecto del boton
@@ -451,7 +491,9 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
             });
         });
 
-        //ELIMINAR
+        /* ===================================================
+            ELIMINAR
+        ===================================================*/
         $(document).on("click", ".btnBorrar", function () {
 
 
