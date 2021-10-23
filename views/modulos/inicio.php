@@ -336,8 +336,6 @@
                                       <!-- /.info-box -->
                                       <div class="dropdown-menu" aria-labelledby="dropdownMenuMantenimiento">
                                           <a class="dropdown-item font-weight-bold"
-                                              href="m-proveedores"><u>Proveedores</u></a>
-                                          <a class="dropdown-item font-weight-bold"
                                               href="m-inventario"><u>Inventario</u></a>
                                           <a class="dropdown-item font-weight-bold" href="m-revision-tm"><u>Revisión
                                                   tecnicomecánica</u></a>
@@ -523,8 +521,8 @@
                   </div>
               </div>
               <!--MODULO #2-->
-              <div style="height:100px;font-size:60px;"></div>
-              <div class="card bg-dark">
+              <div style="height:100px;font-size:60px;" class="d-none"></div>
+              <div class="card bg-dark d-none">
                   <div class="parallax1">
                       <div class="card-body">
                           <div class="row">
