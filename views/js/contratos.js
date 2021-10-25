@@ -190,6 +190,7 @@ if (
                 processData: false,
                 dataType: "json",
                 success: function (response) {
+                    //console.log(response);
                     $("#listaclientes").val(response.idcliente);
                     $("#titulo_cotizacion").html(
                         "Editar cotización ( " + response.nombre + " )"
@@ -223,6 +224,7 @@ if (
                     $("#clasi_cot").val(response.clasificacion);
                     $("#sucursalcot").val(response.idsucursal);
                     $("#des_sol").val(response.descripcion);
+                    //console.log(response.descripcion);
                     $("#f_inicio").val(response.fecha_inicio);
                     $("#f_fin").val(response.fecha_fin);
                     $("#n_vehiculos").val(response.nro_vehiculos);
@@ -238,7 +240,8 @@ if (
                     $("#porque").val(response.porque);
                     $(".select-ciudad").trigger("change");
                     $("#listaclientes").trigger("change");
-                    $("#idruta").val(response.idruta).trigger("change");
+                    $("#idruta").val(response.idruta);
+                    $("#descrip").val(response.descripcion);
                 },
             });
         });

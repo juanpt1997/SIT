@@ -557,6 +557,19 @@ $(document).ready(function () {
       });
     });
 
+
+    /* ===================================================
+           VISUALIZAR PDF DEL INVENTARIO
+    ===================================================*/
+      $(document).on("click", ".btn-verInventario", function () {
+        var id_inventario = $(this).attr("id_inventario");
+          window.open(
+              `./pdf/pdfinventario.php?id_inventario=${id_inventario}`,
+              "",
+              "width=1280,height=720,left=50,top=50,toolbar=yes"
+          );
+      });    
+
     /*===================================================
               INICIALIZAR DATATABLE
     ===================================================*/

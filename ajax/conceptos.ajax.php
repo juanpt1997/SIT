@@ -786,7 +786,7 @@ class AjaxConceptosGH
 			 <td>{$value["nombreruta"]}</td>
 			 <td> 
 			 <div class='btn-group' role='group' aria-label='Button group'>
-			 <button title='Seleccionar ruta' idregistro = '{$value["id"]}' origen='{$value["orig"]}' destino='{$value["dest"]}' descripcion='{$value["nombreruta"]}' class='btn btn-sm btn-success btnSeleccionarRuta '><i class='fas fa-check'></i></button>
+			 <button data-toggle='tooltip' data-placement='top' title='Seleccionar ruta' idregistro = '{$value["id"]}' origen='{$value["orig"]}' destino='{$value["dest"]}' descripcion='{$value["nombreruta"]}' class='btn btn-sm btn-success btnSeleccionarRuta '><i class='fas fa-check'></i></button>
 			 </div>
 			 </td>
 			 </tr>

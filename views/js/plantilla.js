@@ -286,6 +286,11 @@ $(document).ready(function () {
         window.location.href == `${dominioApp}/sit/${proyecto}/` ||
         window.location.href == `${dominioApp}/sit/${proyecto}`
     ) {
+        // import { Calendar } from '@fullcalendar/core';
+        // import dayGridPlugin from '@fullcalendar/daygrid';
+        // import timeGridPlugin from '@fullcalendar/timegrid';
+        // import listPlugin from '@fullcalendar/list';
+
         $("body").removeClass("sidebar-mini");
 
 
@@ -301,13 +306,13 @@ $(document).ready(function () {
                 center: 'title',
                 right : 'dayGridMonth,timeGridWeek,timeGridDay'
               },
-              themeSystem: 'bootstrap'             
+              themeSystem: 'bootstrap',
+              editable:true,
+              eventLimit:true,
+              selectable:true,
+              selectHelper:true,
           });
             calendar.render();
-
-      
-          
-
 
     } else {
         $("body").addClass("sidebar-mini");
@@ -423,6 +428,14 @@ $(document).ready(function () {
             }
         }
     });
+
+    /* ===================================================
+          INICIALIZAR tooltip titulos de los botones
+    ===================================================*/    
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+      
 
     /* ===================================================
       CAMBIAR FOTO
