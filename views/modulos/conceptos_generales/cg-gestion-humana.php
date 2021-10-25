@@ -539,7 +539,7 @@ $departamentos = ControladorCiudades::ctrListaDepar();
                             <select class="form-control input-lg select2-single" style="width: 92%" type="text" id="departamentosEdit" name="departamentosEdit" required>
                                 <option selected value="">-Seleccione un departamento-</option>
                                 <?php foreach ($departamentos as $key => $value) : ?>
-                                    <option value="<?= $value['iddepar'] ?>"><?= $value['DeparMunic'] ?></option>
+                                    <option value="<?= $value['iddepartamento'] ?>"><?= $value['nombre'] ?></option>
                                 <?php endforeach ?>
                             </select>
                         </div>
