@@ -233,9 +233,8 @@ class ModeloConvenios
         $stmt = null;
 
         return $retorno;
-
     }
-    
+
     /*===================================
         Listado convenios por Id 
         ================================ */
@@ -254,13 +253,12 @@ class ModeloConvenios
         INNER JOIN v_vehiculos v ON c.idvehiculo = v.idvehiculo
         LEFT JOIN v_tipovehiculos tv ON v.idtipovehiculo = tv.idtipovehiculo
         WHERE c.idconvenio = :idconvenio");
-        
-        $stmt->bindParam(":idconvenio",$idconvenio,PDO::PARAM_INT);
+
+        $stmt->bindParam(":idconvenio", $idconvenio, PDO::PARAM_INT);
         $stmt->execute();
         $retorno = $stmt->fetch();
         $stmt->closeCursor();
         return $retorno;
-
     }
 
     /*===================================
@@ -277,7 +275,7 @@ class ModeloConvenios
         $stmt->bindParam(":idsucursal", $datos['idsucursal'], PDO::PARAM_INT);
         $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
         $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_STR);
-        $stmt->bindParam(":num_radicado",$datos['num_radicado'], PDO::PARAM_INT);
+        $stmt->bindParam(":num_radicado", $datos['num_radicado'], PDO::PARAM_INT);
         $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
         $stmt->bindParam(":fecha_inicio", $datos['fecha_inicio'], PDO::PARAM_STR);
         $stmt->bindParam(":fecha_terminacion", $datos['fecha_terminacion'], PDO::PARAM_STR);
@@ -293,7 +291,6 @@ class ModeloConvenios
         $stmt = null;
 
         return $retorno;
-
     }
 
     /* ===================================
@@ -312,7 +309,7 @@ class ModeloConvenios
         $stmt->bindParam(":idsucursal", $datos['idsucursal'], PDO::PARAM_INT);
         $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
         $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_STR);
-        $stmt->bindParam(":num_radicado",$datos['num_radicado'], PDO::PARAM_INT);
+        $stmt->bindParam(":num_radicado", $datos['num_radicado'], PDO::PARAM_INT);
         $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
         $stmt->bindParam(":fecha_inicio", $datos['fecha_inicio'], PDO::PARAM_STR);
         $stmt->bindParam(":fecha_terminacion", $datos['fecha_terminacion'], PDO::PARAM_STR);
@@ -328,7 +325,6 @@ class ModeloConvenios
         $stmt = null;
 
         return $retorno;
-
     }
 
     /* =======================================
@@ -373,8 +369,6 @@ class ModeloConvenios
 
         return $retorno;
     }
-
-
 }
 
 /* ===================================================
@@ -532,6 +526,41 @@ class ModeloVehiculos
         $stmt->closeCursor();
         return $retorno;
     }
+
+    /* ==================================================
+        CARGAR SERVICIOS 
+    ====================================================*/
+    static public function mdlServiciosVehiculo($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT sm.*, s.*, v.idvehiculo, DATE_FORMAT(sm.fecha, '%Y-%m-%d') AS Ffecha  FROM m_re_serviciosvehiculos sm 
+            INNER JOIN m_serviciosmenores s ON sm.idservicio =  s.idservicio
+            INNER JOIN v_vehiculos v ON sm.idvehiculo = v.idvehiculo
+            WHERE v.{$datos['item']} = :{$datos['item']}
+            ORDER BY sm.fecha DESC;");
+
+        $stmt->bindParam(":{$datos['item']}", $datos['valor']);
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /*====================================================
+        LISTADO DE SERVICIOS MENORES
+    =====================================================*/
+
+    static public function mdlHistoricoServiciosMenores()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT sm.*, s.*, v.* FROM m_re_serviciosvehiculos sm 
+        INNER JOIN m_serviciosmenores s ON sm.idservicio =  s.idservicio
+        INNER JOIN v_vehiculos v ON sm.idvehiculo = v.idvehiculo");
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
 
     /* ===================================================
        AGREGAR VEHICULO

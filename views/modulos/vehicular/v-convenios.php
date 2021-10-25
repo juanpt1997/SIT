@@ -28,10 +28,10 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                 <div class="col-sm-6">
                     <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
                         <li class="nav-item border border-info rounded ml-2 mb-1 mb-md-0">
-                            <a class="nav-link active h4" id="pills-empresas-tab" data-toggle="tab" href="#pills-empresas" role="tab" aria-controls="pills-empresas" aria-selected="true">Empresas <i class="fas fa-building"></i></a>
+                            <a class="nav-link h4" id="pills-empresas-tab" data-toggle="tab" href="#pills-empresas" role="tab" aria-controls="pills-empresas" aria-selected="false">Empresas <i class="fas fa-building"></i></a>
                         </li>
                         <li class="nav-item border border-info rounded ml-2 mb-1 mb-md-0">
-                            <a class="nav-link h4" id="pills-convenios-tab" data-toggle="tab" href="#pills-convenios" role="tab" aria-controls="pills-convenios" aria-selected="false">Convenios <i class="fas fa-file-contract"></i></a>
+                            <a class="nav-link active h4" id="pills-convenios-tab" data-toggle="tab" href="#pills-convenios" role="tab" aria-controls="pills-convenios" aria-selected="true">Convenios <i class="fas fa-file-contract"></i></a>
                         </li>
                     </ul>
                 </div><!-- /.col -->
@@ -58,7 +58,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
               AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
             ========================= -->
             <div class="tab-content" id="pills-tabcontent">
-                <div class="tab-pane fade show active" id="pills-empresas" role="tabpanel" aria-labelledby="pills-empresas-tab">
+                <div class="tab-pane fade" id="pills-empresas" role="tabpanel" aria-labelledby="pills-empresas-tab">
                     <div class="row">
                         <div class="col">
                             <!--BOTON NUEVO CONVENIO-->
@@ -126,7 +126,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                 </div>
 
 
-                <div class="tab-pane fade" id="pills-convenios" role="tabpanel" aria-labelledby="pills-convenios-tab">
+                <div class="tab-pane fade show active" id="pills-convenios" role="tabpanel" aria-labelledby="pills-convenios-tab">
                     <div class="row">
                         <div class="col">
                             <!--BOTON NUEVO CONVENIO-->
@@ -143,7 +143,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                 <div class="card-body">
 
                                     <div class="table-responsive">
-                                        <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
+                                        <table class="table table-sm table-striped table-bordered table-hover tablasBtnExport w-100">
                                             <thead class="thead-light text-sm text-center text-nowrap">
                                                 <tr>
                                                     <th>...</th>
@@ -354,6 +354,9 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
 
             <div class="modal-header bg-info">
                 <h5 class="modal-title" id="titulo-modal-convenios"></h5>
+                <button class="btn btn-secondary ml-3 btn-copy-convenio d-none"><i class="far fa-copy"></i>Copia</button>
+                <!-- <button class="btn btn-secondary ml-2 d-none btn-copy-" type="button"><i class="far fa-copy"></i> Copia
+                </button> -->
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

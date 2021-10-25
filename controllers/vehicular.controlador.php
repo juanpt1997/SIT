@@ -304,6 +304,63 @@ class ControladorVehiculos
 		return ModeloVehiculos::mdlFotosVehiculo($datos);
 	}
 
+	/*==================================================
+		SERVICIOS DEL VEHÍCULO 
+	===================================================*/
+
+	static public function ctrServiciosVehiculo($item, $valor)
+	{
+		$datos = array(
+			'item' => $item,
+			'valor' => $valor
+		);
+		$TodosServicios = ModeloVehiculos::mdlServiciosVehiculo($datos);
+
+		$ServiciosSinRepetir = array();
+		$Servicios = array();
+
+		foreach ($TodosServicios as $key => $Servicio) {
+            if (!in_array($Servicio['idservicio'], $ServiciosSinRepetir)) {
+                $ServiciosSinRepetir[] = $Servicio['idservicio'];
+                $Servicios[] = $Servicio;
+            }
+        }
+
+		return $Servicios;
+	}
+
+	/* ===================================================
+		HISTORICO DE SERVICIOS MENORES
+	===================================================*/
+
+	static public function ctrHistoricoServiciosMenores()
+	{
+		$respuesta = ModeloVehiculos::mdlHistoricoServiciosMenores();
+		return $respuesta;
+	}
+
+	/* ===================================================
+		SERVICIOS MENORES MÁS RECIENTES
+	===================================================*/
+	
+	static public function ctrServiciosMenoresRecientes()
+	{
+		$TodosServicios = ModeloVehiculos::mdlHistoricoServiciosMenores();
+
+		$ServiciosSinRepetir = array();
+		$Servicios = array();
+
+		foreach ($TodosServicios as $key => $Servicio) {
+            if (!in_array($Servicio['idservicio'], $ServiciosSinRepetir)) {
+                $ServiciosSinRepetir[] = $Servicio['idservicio'];
+                $Servicios[] = $Servicio;
+            }
+        }
+
+		return $Servicios;
+
+	}
+
 	/* ===================================================
 	   MOSTRAR TIPO DE VEHICULOS
 	===================================================*/
