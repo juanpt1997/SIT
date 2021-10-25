@@ -769,6 +769,33 @@ class AjaxConceptosGH
 
 		echo $tr;
 	}
+
+	//Ajax para visualizar y seleccionar las rutas en otra vista diferente a conceptos generales
+	 static public function ajaxTablaRutasGeneral()
+	 {
+ 
+		 $respuesta = ControladorRutas::ctrListarRutas();
+		 $tr = "";
+ 
+		 foreach ($respuesta as $key => $value) {
+			 $tr .= "
+			 <tr>
+			 <td>{$value["id"]}</td>
+			 <td>{$value["orig"]}</td>
+			 <td>{$value["dest"]}</td>
+			 <td>{$value["nombreruta"]}</td>
+			 <td> 
+			 <div class='btn-group' role='group' aria-label='Button group'>
+			 <button title='Seleccionar ruta' idregistro = '{$value["id"]}' origen='{$value["orig"]}' destino='{$value["dest"]}' descripcion='{$value["nombreruta"]}' class='btn btn-sm btn-success btnSeleccionarRuta '><i class='fas fa-check'></i></button>
+			 </div>
+			 </td>
+			 </tr>
+			 ";
+		 }
+ 
+		 echo $tr;
+	 }
+	 
 	//CIUDADES
 	//Ajax apra agregar una nueva ciudad
 	static public function AgregarCiudad($dato1, $dato2)
@@ -1044,6 +1071,10 @@ if (isset($_POST['VerRutas']) && $_POST['VerRutas'] == "ok") {
 
 if (isset($_POST['EditarRuta']) && $_POST['EditarRuta'] == "ok") {
 	AjaxConceptosGH::EditarRuta($_POST['dato3'], $_POST['id']);
+}
+
+if (isset($_POST['ListarRutas']) && $_POST['ListarRutas'] == "ok") {
+	AjaxConceptosGH::ajaxTablaRutasGeneral();
 }
 
 //AJAX EMPRESA

@@ -106,16 +106,19 @@ $(document).ready(function () {
                                 success: function (response) {
                                     response.forEach((element) => {
                                         // Asigno valor fecha
-                                        $(`#documento_${element.idtipodocumento}`).val(
-                                            element.fechafin
-                                        );
+                                        $(
+                                            `#documento_${element.idtipodocumento}`
+                                        ).val(element.fechafin);
 
                                         // Color del fondo segun la fecha
                                         var bg =
-                                            element.fechafin >= moment().format("YYYY-MM-DD")
+                                            element.fechafin >=
+                                            moment().format("YYYY-MM-DD")
                                                 ? "bg-success"
                                                 : "bg-danger";
-                                        $(`#documento_${element.idtipodocumento}`).addClass(bg);
+                                        $(
+                                            `#documento_${element.idtipodocumento}`
+                                        ).addClass(bg);
                                     });
                                 },
                             });
@@ -135,7 +138,9 @@ $(document).ready(function () {
                                 contentType: false,
                                 processData: false,
                                 success: function (response) {
-                                    $(".overlay-conductores").addClass("d-none");
+                                    $(".overlay-conductores").addClass(
+                                        "d-none"
+                                    );
                                     let htmlSelect = `<option value="" selected>-Seleccione un conductor</option>`;
                                     if (response != "") {
                                         response.forEach((element) => {
@@ -145,7 +150,9 @@ $(document).ready(function () {
                                     $("#idconductor").html(htmlSelect);
 
                                     // Accionar el observador
-                                    $("#observador_conductoresAlistamiento").trigger("change");
+                                    $(
+                                        "#observador_conductoresAlistamiento"
+                                    ).trigger("change");
                                 },
                             });
 
@@ -250,9 +257,12 @@ $(document).ready(function () {
                             $("#TituloModal").val($("#placa").val());
 
                             // Evento para refrescar la pagina cuando sale de la modal
-                            $("#modal-nuevoAlistamiento").on("hidden.bs.modal", function () {
-                                window.location = "o-alistamiento";
-                            });
+                            $("#modal-nuevoAlistamiento").on(
+                                "hidden.bs.modal",
+                                function () {
+                                    window.location = "o-alistamiento";
+                                }
+                            );
                             break;
                     }
                 },
@@ -340,7 +350,9 @@ $(document).ready(function () {
                         $("#rotacion_llantas").val(response.rotacion_llantas);
                         $("#filtro_aire").val(response.filtro_aire);
                         $("#sincronizacion").val(response.sincronizacion);
-                        $("#alineacion_balanceo").val(response.alineacion_balanceo);
+                        $("#alineacion_balanceo").val(
+                            response.alineacion_balanceo
+                        );
 
                         $("#kmtotal").val(response.kilometraje_total);
                         $("#observaciones").val(response.observaciones);
@@ -440,8 +452,7 @@ $(document).ready(function () {
                             } else {
                                 Swal.fire({
                                     icon: "error",
-                                    title:
-                                        "¡Ha ocurrido un error, por favor intente de nuevo más tarde!",
+                                    title: "¡Ha ocurrido un error, por favor intente de nuevo más tarde!",
                                     showConfirmButton: true,
                                     confirmButtonText: "Cerrar",
                                 });
@@ -468,7 +479,8 @@ $(document).ready(function () {
             var idvehiculo = $(this).attr("idvehiculo");
             var estado = $(this).attr("estado");
 
-            var textoBoton = estado == "PENDIENTE" ? "Resuelto!" : "Aún pendiente";
+            var textoBoton =
+                estado == "PENDIENTE" ? "Resuelto!" : "Aún pendiente";
             var colorBoton = estado == "PENDIENTE" ? "#5cb85c" : "#d33";
             Swal.fire({
                 title: `Esto se encuentra ${estado}`,
@@ -476,8 +488,8 @@ $(document).ready(function () {
                                         <hr>
                                         <label for="">Observaciones</label>
                                         <input class="form-control" id="swal-evidencia-obs" type="text" value="${$(
-                    "#obs_" + idevidencia
-                ).text()}">
+                                            "#obs_" + idevidencia
+                                        ).text()}">
                                         `,
                 showCancelButton: true,
                 confirmButtonColor: colorBoton,
@@ -575,72 +587,61 @@ $(document).ready(function () {
 
             //Validación textarea
 
-            
+            //Validación textarea
 
-                //Validación textarea
+            $("textarea:invalid").each(function (index, element) {
+                var $area = $(this);
 
-                $('textarea:invalid').each(function (index, element) {
-                    var $area = $(this);
+                var idform = $area.closest("form").attr("id");
+                console.log(idform);
+                if (idform == "alistamiento_form") {
+                    Areas.push($area);
+                }
+            });
 
-                    var idform = $area.closest("form").attr("id");
-                    console.log(idform);
-                    if (idform == "alistamiento_form") {
-                        Areas.push($area);
-                    }
+            var tab = [];
+
+            //Se trae los tabs
+            $("input:invalid").each(function (index, element) {
+                var $tabs = $(this);
+                var idtab = $tabs.closest("table").attr("nombre");
+                if (!tab.includes(idtab)) tab.push(idtab);
+            });
+
+            $("select:invalid").each(function (index, element) {
+                var $tabs = $(this);
+                var idtab = $tabs.closest("table").attr("nombre");
+                if (idtab == undefined) idtab = "Documentos";
+                if (!tab.includes(idtab)) {
+                    tab.push(idtab);
+                    Requeridos.push($tabs);
+                }
+            });
+
+            $("textarea:invalid").each(function (index, element) {
+                var $tabs = $(this);
+                var idtab = $tabs.closest("table").attr("nombre");
+                if (!tab.includes(idtab)) tab.push(idtab);
+            });
+
+            if (Requeridos.length > 0 || Areas.length > 0) {
+                let inputsRequeridosHtml = `<ul>`;
+                tab.forEach((element) => {
+                    inputsRequeridosHtml += `<li>${element}</li>`;
                 });
+                inputsRequeridosHtml += `</ul>`;
 
-
-                var tab = [];
-
-                //Se trae los tabs 
-                $('input:invalid').each(function (index, element) {
-                    var $tabs = $(this);
-                    var idtab = $tabs.closest("table").attr("nombre");
-                    if (!tab.includes(idtab)) tab.push(idtab);
-                });
-
-                $('select:invalid').each(function (index, element) {
-                    var $tabs = $(this);
-                    var idtab = $tabs.closest("table").attr("nombre");
-                    if( idtab == undefined) idtab = "Documentos";
-                    if (!tab.includes(idtab)) {
-                        tab.push(idtab);
-                        Requeridos.push($tabs);
-                    }
-                });
-                
-
-                $('textarea:invalid').each(function(index,element){
-                    var $tabs = $(this);
-                    var idtab = $tabs.closest("table").attr("nombre");
-                    if (!tab.includes(idtab)) tab.push(idtab);
-                });
-                
-
-
-
-                if (Requeridos.length > 0 || Areas.length > 0) {
-
-                    let inputsRequeridosHtml = `<ul>`;
-                    tab.forEach(element => {
-                        inputsRequeridosHtml += `<li>${element}</li>`;
-                    });
-                    inputsRequeridosHtml += `</ul>`;
-
-                    Swal.fire({
-                        icon: 'warning',
-                        html: `<div class="text-left">
+                Swal.fire({
+                    icon: "warning",
+                    html: `<div class="text-left">
                                                     <p class="font-weight-bold">Hace falta diligenciar campos en los siguientes apartados:</p>
                                                         ${inputsRequeridosHtml}
                                                 </div>`,
-                        showConfirmButton: true,
-                        confirmButtonText: 'Cerrar',
-                        closeOnConfirm: false
-                    });
-                    
-                }
-            
-            
+                    showConfirmButton: true,
+                    confirmButtonText: "Cerrar",
+                    closeOnConfirm: false,
+                });
+            }
         });
     }
 });
@@ -672,7 +673,9 @@ if (
             contentType: false,
             processData: false,
             success: function (Vehiculo) {
-                $("#tipo_vinculacion").val(Vehiculo.datosVehiculo.tipovinculacion);
+                $("#tipo_vinculacion").val(
+                    Vehiculo.datosVehiculo.tipovinculacion
+                );
                 $("#numinterno").val(Vehiculo.datosVehiculo.numinterno);
                 $("#marca").val(Vehiculo.datosVehiculo.marca);
                 $("#modelo").val(Vehiculo.datosVehiculo.modelo);
@@ -749,8 +752,12 @@ if (
                     response.idconductor
                 );
                 $("#fecha_servicio").val(response.fecha_servicio);
-                $("#tipo_servicio").val(response.tipo_servicio).trigger("change");
-                $("#cantidadpasajerosdatosroda").val(response.cantidad_pasajeros);
+                $("#tipo_servicio")
+                    .val(response.tipo_servicio)
+                    .trigger("change");
+                $("#cantidadpasajerosdatosroda").val(
+                    response.cantidad_pasajeros
+                );
                 $("#hora_inicio").val(response.h_inicio);
                 $("#hora_final").val(response.h_final);
                 $("#kmrecorridosdatosroda").val(response.kmrecorridos);
@@ -891,4 +898,70 @@ if (
         var table = dataTableCustom(`#tblplanrodamiento`, buttons);
     };
     FiltroTablaRodamiento();
+
+    /* ===================================================
+          SELECCIÓN DE RUTA EN RODAMIENTO
+    ===================================================*/
+    $(document).on("click", ".btn-ruta", function () {
+        $("#modal-nuevoplanrodamiento").modal("hide");
+        $("#titulo_modal_general").html("Seleccione una ruta");
+        $("#tabla_general_rutas").dataTable().fnDestroy();
+        // Borrar datos
+        $("#tbody_principal").html("");
+
+        $(".btnBorrar").addClass("d-none");
+
+        var datos = new FormData();
+        datos.append("ListarRutas", "ok");
+        $.ajax({
+            type: "POST",
+            url: "ajax/conceptos.ajax.php",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            //dataType: "json",
+            success: function (response) {
+                if (response != "" || response != null) {
+                    $("#tbody_principal").html(response);
+                } else {
+                    $("#tbody_principal").html("");
+                }
+                var buttons = [
+                    {
+                        extend: "excel",
+                        className: "btn-info",
+                        text: '<i class="far fa-file-excel"></i> Exportar',
+                    },
+                    /* 'copy', 'csv', 'excel', 'pdf', 'print' */
+                ];
+                dataTableCustom("#tabla_general_rutas", buttons);
+            },
+        });
+    });
+
+    $(document).on("click", ".btnSeleccionarRuta", function () {
+        $("#modal-nuevoplanrodamiento").modal("show");
+        $("#modal_general").modal("hide");
+
+        var origen = $(this).attr("origen");
+        var destino = $(this).attr("destino");
+        var descripcion = $(this).attr("descripcion");
+        var id = $(this).attr("idregistro");
+
+        $("#idruta").val(id);
+        $("#descrip").val(descripcion);
+        $("#origen").val(origen);
+        $("#destino").val(destino);
+    });
+
+    $(document).on("click", ".btn_cancelar_ruta", function () {
+        $("#modal-nuevoplanrodamiento").modal("show");
+        $("#modal_general").modal("hide");
+
+        $("#idruta").val("");
+        $("#descrip").val("");
+        $("#origen").val("");
+        $("#destino").val("");
+    });
 }
