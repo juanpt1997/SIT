@@ -108,12 +108,6 @@ class ModeloAlistamiento
                                     `temperatura`,
                                     `combustible`,
                                     `presion_aire`,
-                                    `cambio_aceite`,
-                                    `engrase`,
-                                    `sincronizacion`,
-                                    `filtro_aire`,
-                                    `rotacion_llantas`,
-                                    `alineacion_balanceo`,
                                     `llantas_delanteras`,
                                     `llantas_traseras`,
                                     `cortes`,
@@ -197,12 +191,6 @@ class ModeloAlistamiento
                                     :temperatura,
                                     :combustible,
                                     :presion_aire,
-                                    :cambio_aceite,
-                                    :engrase,
-                                    :sincronizacion,
-                                    :filtro_aire,
-                                    :rotacion_llantas,
-                                    :alineacion_balanceo,
                                     :llantas_delanteras,
                                     :llantas_traseras,
                                     :cortes,
@@ -286,12 +274,6 @@ class ModeloAlistamiento
         $stmt->bindParam(":temperatura", $datos['temperatura'], PDO::PARAM_INT);
         $stmt->bindParam(":combustible", $datos['combustible'], PDO::PARAM_INT);
         $stmt->bindParam(":presion_aire", $datos['presion_aire'], PDO::PARAM_INT);
-        $stmt->bindParam(":cambio_aceite", $datos['cambio_aceite'], PDO::PARAM_STR);
-        $stmt->bindParam(":engrase", $datos['engrase'], PDO::PARAM_STR);
-        $stmt->bindParam(":sincronizacion", $datos['sincronizacion'], PDO::PARAM_STR);
-        $stmt->bindParam(":filtro_aire", $datos['filtro_aire'], PDO::PARAM_STR);
-        $stmt->bindParam(":rotacion_llantas", $datos['rotacion_llantas'], PDO::PARAM_STR);
-        $stmt->bindParam(":alineacion_balanceo", $datos['alineacion_balanceo'], PDO::PARAM_STR);
         $stmt->bindParam(":llantas_delanteras", $datos['llantas_delanteras'], PDO::PARAM_INT);
         $stmt->bindParam(":llantas_traseras", $datos['llantas_traseras'], PDO::PARAM_INT);
         $stmt->bindParam(":cortes", $datos['cortes'], PDO::PARAM_INT);
@@ -392,12 +374,6 @@ class ModeloAlistamiento
             `temperatura`= :temperatura,
             `combustible`= :combustible,
             `presion_aire`= :presion_aire,
-            `cambio_aceite`= :cambio_aceite,
-            `engrase`= :engrase,
-            `sincronizacion`= :sincronizacion,
-            `filtro_aire`= :filtro_aire,
-            `rotacion_llantas`= :rotacion_llantas,
-            `alineacion_balanceo`= :alineacion_balanceo,
             `llantas_delanteras`= :llantas_delanteras,
             `llantas_traseras`= :llantas_traseras,
             `cortes`= :cortes,
@@ -482,12 +458,6 @@ class ModeloAlistamiento
         $stmt->bindParam(":temperatura", $datos['temperatura'], PDO::PARAM_INT);
         $stmt->bindParam(":combustible", $datos['combustible'], PDO::PARAM_INT);
         $stmt->bindParam(":presion_aire", $datos['presion_aire'], PDO::PARAM_INT);
-        $stmt->bindParam(":cambio_aceite", $datos['cambio_aceite'], PDO::PARAM_STR);
-        $stmt->bindParam(":engrase", $datos['engrase'], PDO::PARAM_STR);
-        $stmt->bindParam(":sincronizacion", $datos['sincronizacion'], PDO::PARAM_STR);
-        $stmt->bindParam(":filtro_aire", $datos['filtro_aire'], PDO::PARAM_STR);
-        $stmt->bindParam(":rotacion_llantas", $datos['rotacion_llantas'], PDO::PARAM_STR);
-        $stmt->bindParam(":alineacion_balanceo", $datos['alineacion_balanceo'], PDO::PARAM_STR);
         $stmt->bindParam(":llantas_delanteras", $datos['llantas_delanteras'], PDO::PARAM_INT);
         $stmt->bindParam(":llantas_traseras", $datos['llantas_traseras'], PDO::PARAM_INT);
         $stmt->bindParam(":cortes", $datos['cortes'], PDO::PARAM_INT);

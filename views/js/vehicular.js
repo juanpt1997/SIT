@@ -184,6 +184,7 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
         $("#titulo-modal-convenios").html("Nuevo Convenio");
         $("#datosconvenio_form").trigger("reset");
         $('.select2-single').val(" ").trigger("change");
+        $(".btn-copy-convenio").addClass("d-none");
 
     });
 
@@ -191,6 +192,8 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
 
     $(document).on("click", ".btnEditarConv", function () {
         $("#titulo-modal-convenios").html("Editar Convenio");
+
+        $(".btn-copy-convenio").removeClass("d-none");
 
         var idconvenio = $(this).attr("idConvenio");
         $("#idConvenio").val(idconvenio);
@@ -231,6 +234,15 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
 
 
 
+    });
+
+
+    //CLICK EN COPIA 
+
+    $(document).on("click", ".btn-copy-convenio", function () {
+        $("#idConvenio").val(""); //reset id cotizacion
+        $("#titulo-modal-convenios").html("Nuevo");
+        $(".btn-copy-convenio").addClass("d-none");
     });
 
     //CAPTURAR DATOS ID VEHICULO
