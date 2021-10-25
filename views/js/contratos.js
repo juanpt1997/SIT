@@ -336,6 +336,73 @@ if (
             $("#titulo_cotizacion").html("Nuevo");
             $(".btn-copy-cotizacion").addClass("d-none");
         });
+
+        /* ===================================================
+          SELECCIÓN DE RUTA EN COTIZACIONES
+        ===================================================*/
+        $(document).on("click", ".btn-ruta", function () {
+            $("#cotizacionmodal").modal("hide");
+            $("#titulo_modal_general").html("Seleccione una ruta");
+            $("#tabla_general_rutas").dataTable().fnDestroy();
+            // Borrar datos
+            $("#tbody_principal").html("");
+
+            $(".btnBorrar").addClass('d-none');
+
+            var datos = new FormData();
+            datos.append("ListarRutas", "ok");
+            $.ajax({
+                type: "POST",
+                url: "ajax/conceptos.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                //dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbody_principal").html(response);
+                    } else {
+                        $("#tbody_principal").html("");
+                    }
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
+                        /* 'copy', 'csv', 'excel', 'pdf', 'print' */
+                    ];
+                    dataTableCustom("#tabla_general_rutas", buttons);
+                },
+            });
+        });
+
+        $(document).on("click", ".btnSeleccionarRuta", function () {
+           
+            $("#cotizacionmodal").modal('show');
+            $("#modal_general").modal('hide');
+
+            var origen = $(this).attr("origen");
+            var destino = $(this).attr("destino");
+            var descripcion = $(this).attr("descripcion");
+            var id = $(this).attr("idregistro");
+
+            $("#idruta").val(id);
+            $("#descrip").val(descripcion);
+            $("#origin").val(origen);
+            $("#destin").val(destino);
+        });
+
+        $(document).on("click", ".btn_cancelar_ruta", function () {
+           
+            $("#cotizacionmodal").modal('show');
+            $("#modal_general").modal('hide');
+            $("#idruta").val("");
+            $("#descrip").val("");
+            $("#origin").val("");
+            $("#destin").val("");
+        });
     });
 }
 /* ===================================================

@@ -556,6 +556,48 @@ $(document).ready(function () {
         }
       });
     });
+
+    /*===================================================
+              INICIALIZAR DATATABLE
+    ===================================================*/
+    let FiltroTablaInventario = () => {
+      /* ===================================================
+                    FILTRAR POR COLUMNA
+      ====================================================*/
+      /* Filtrar por columna */
+      //Clonar el tr del thead
+      $(`#tabla_resumen_inventario thead tr:eq(1)`)
+          .clone(true)
+          .appendTo(`#tabla_resumen_inventario thead`);
+      //Por cada th creado hacer lo siguiente
+      $(`#tabla_resumen_inventario thead tr:eq(2) th`).each(function (i) {
+          //Remover clase sorting y el evento que tiene cuando se hace click
+          $(this).removeClass("sorting").unbind();
+          //Agregar input de busqueda
+          $(this).html(
+              '<input class="form-control" type="text" placeholder="Buscar"/>'
+          );
+          //Evento para detectar cambio en el input y buscar
+          $("input", this).on("keyup change", function () {
+              if (table.column(i).search() !== this.value) {
+                  table.column(i).search(this.value).draw();
+              }
+          });
+      });
+
+      // /* ===================================================
+      //                 INICIALIZAR DATATABLE 
+      // ====================================================*/
+      // var buttons = [
+      //     {
+      //         extend: "excel",
+      //         className: "btn-info",
+      //         text: '<i class="far fa-file-excel"></i> Exportar',
+      //     },
+      // ];
+      // var table = dataTableCustom(`#tabla_resumen_inventario`, buttons);
+  };
+  FiltroTablaInventario();
   }
 
   /* ===================================================

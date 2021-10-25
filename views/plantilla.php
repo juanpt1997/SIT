@@ -34,9 +34,9 @@ if (isset($_GET['pagina'])) {
     <meta name="theme-color" content="#ffffff">
 
     <?php if (isset($ruta)) : ?>
-    <title><?= $ruta ?></title>
+        <title><?= $ruta ?></title>
     <?php else : ?>
-    <title>SIT</title>
+        <title>SIT</title>
     <?php endif ?>
 
     <!-- =================================================== 
@@ -121,24 +121,24 @@ if (isset($_GET['pagina'])) {
 
 <?php if (strpos($_SERVER['REQUEST_URI'], "busqueda-fuec") !== false) : ?>
 
-<body>
-    <?php include('modulos/contratos/busqueda-fuec.php'); ?>
-</body>
+    <body>
+        <?php include('modulos/contratos/busqueda-fuec.php'); ?>
+    </body>
 <?php else : ?>
 
-<body class="hold-transition layout-fixed layout-navbar-fixed sidebar-collapse ">
+    <body class="hold-transition layout-fixed layout-navbar-fixed sidebar-collapse ">
 
-    <?php if (isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == "ok") : ?>
-    <div class="wrapper">
+        <?php if (isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == "ok") : ?>
+            <div class="wrapper">
 
-        <!-- =================================================== NAVBAR (cabecera)=================================================== -->
-        <?php include('includes/cabecera.php'); ?>
+                <!-- =================================================== NAVBAR (cabecera)=================================================== -->
+                <?php include('includes/cabecera.php'); ?>
 
-        <!-- =================================================== MAIN SIDE BAR CONTAINER (menu) =================================================== -->
-        <?php include('includes/menu.php'); ?>
+                <!-- =================================================== MAIN SIDE BAR CONTAINER (menu) =================================================== -->
+                <?php include('includes/menu.php'); ?>
 
-        <!-- =================================================== CONTENT(contenido) =================================================== -->
-        <?php
+                <!-- =================================================== CONTENT(contenido) =================================================== -->
+                <?php
                 if (isset($ruta)/* isset($_GET['pagina']) */) {
                     // $rutaUrl = explode("/", $_GET['pagina']);
 
@@ -216,18 +216,18 @@ if (isset($_GET['pagina'])) {
                 }
                 ?>
 
-        <!-- =================================================== MAIN FOOTER =================================================== -->
-        <?php include('includes/footer.php'); ?>
+                <!-- =================================================== MAIN FOOTER =================================================== -->
+                <?php include('includes/footer.php'); ?>
 
-    </div>
-    <!-- ./wrapper -->
-    <?php else : ?>
-    <div class="login-box">
-        <?php include('modulos/ingreso.php'); ?>
-    </div>
-    <?php endif ?>
+            </div>
+            <!-- ./wrapper -->
+        <?php else : ?>
+            <div class="login-box">
+                <?php include('modulos/ingreso.php'); ?>
+            </div>
+        <?php endif ?>
 
-    <?php
+        <?php
         /* ===================================================
         MODALS
     ===================================================*/
@@ -235,7 +235,7 @@ if (isset($_GET['pagina'])) {
         ?>
 
 
-</body>
+    </body>
 <?php endif ?>
 
 <!-- =================================================== CUSTOM JS =================================================== -->
@@ -250,6 +250,48 @@ if (isset($_GET['pagina'])) {
 <script src="<?= URL_APP ?>views/js/mantenimiento.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/operaciones.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/compras.js?v=<?= time() ?>"></script>
+
+<!-- =================================================================
+     ========MODALS VISUALIZAR - ELIMINAR ==========
+     =================================================================-->
+
+<div class="modal fade" id="modal_general" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header bg-success">
+                <h5 class="modal-title" id="titulo_modal_general"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100" id="tabla_general_rutas">
+                        <thead class="thead-light text-uppercase text-sm text-center">
+                            <tr>
+                                <th style="width:10px;">#</th>
+                                <th>Origen</th>
+                                <th>Destino</th>
+                                <th>Descripción</th>
+                                <th>Selección</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm text-center" id="tbody_principal">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer bg-dark d-flex justify-content-center">
+                <button type="button" class="btn btn-danger btn_cancelar_ruta" data-dismiss="modal">Cancelar</button>
+                <a href="cg-vehicular" target="_blank"><span class='badge badge-info badge-md'>Nueva ruta</span></a>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 
 
