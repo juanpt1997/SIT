@@ -76,7 +76,7 @@ class MYPDF extends TCPDF
 }
 
 
-class OrdenServicioPDF
+class InventarioPDF
 {
 
     /* ===================== 
@@ -95,8 +95,8 @@ class OrdenServicioPDF
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor(PROYECTO);
-        $pdf->SetTitle('Orden de servicio');
-        $pdf->SetSubject('Orden de servicio');
+        $pdf->SetTitle('Inventario');
+        $pdf->SetSubject('Inventario');
         $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 
         // set default header data
@@ -187,12 +187,13 @@ class OrdenServicioPDF
         // $pdf->Image($image_qr, 165, 15, 20, 20,  'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
 
         /* ===================================================
-           TITULO ORDEN DE SERVICIO
+           TITULO INVENTARIO
         ===================================================*/
         $pdf->SetFont('helvetica', 'B', '8');
         //Ancho de texto y de pagina
         $anchoTexto = 130;
         $anchoPaginaMM = $pdf->getPageWidth();
+        $pdf->MultiCell(130, 5, 'INVENTARIO VEHICULAR', 0, 'C', 0, 1, $x, $y, true);
         //Coordenadas
         $x = ($anchoPaginaMM / 2) - ($anchoTexto / 2);
         $y = $pdf->GetY() + 15;
@@ -347,4 +348,4 @@ class OrdenServicioPDF
 }
 
 # SE INSTANCIA LA CLASE PARA LA GENERACION DEL ARCHIVO PDF
-OrdenServicioPDF::makePDF($resultado, $empresa);
+InventarioPDF::makePDF($resultado, $empresa);

@@ -827,7 +827,7 @@ if (
             contentType: false,
             processData: false,
             success: function (response) {
-                $("#ruta").val(response.idruta).trigger("change");
+                $("#idruta").val(response.idruta);
                 $("#placa_roda").val(response.idvehiculo).trigger("change");
                 $("#idcliente").val(response.idcliente).trigger("change");
                 $("#placa_invent").val(response.idvehiculo).trigger("change");
@@ -845,6 +845,10 @@ if (
                 $("#hora_inicio").val(response.h_inicio);
                 $("#hora_final").val(response.h_final);
                 $("#kmrecorridosdatosroda").val(response.kmrecorridos);
+                $("#descrip").val(response.descripcion);
+                $("#origen").val(response.origen);
+                $("#destino").val(response.destino);
+
             },
         });
     });
@@ -886,7 +890,7 @@ if (
 
         $("#id_rodamiento").val("");
         $("#formulario_rodamiento").trigger("reset");
-        $("#ruta").trigger("change");
+        //$("#ruta").trigger("change");
         $("#tipo_servicio").trigger("change");
         $("#idcliente").trigger("change");
         $("#placa_roda").trigger("change");

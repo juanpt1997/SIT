@@ -242,7 +242,7 @@ class ControladorAlistamiento
 }
 
 /* ===================================================
-   * PROTOCOLO DE ALISTAMIENTO
+   * PLAN DE RODAMIENTO
 ===================================================*/
 class ControladorRodamientos
 {
