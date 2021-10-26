@@ -464,7 +464,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                     <?php endforeach ?>
                                 </select> -->
                                     <input type="hidden" id="idruta" name="idruta">
-                                    <input class="form-control" type="text" id="descrip" name="descrip" placeholder="Seleccione una ruta de la lista" maxlength="100">
+                                    <input class="form-control" type="text" id="descrip" name="descrip" placeholder="Seleccione una ruta de la lista" readonly>
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-success btn-md btn-ruta" title="Buscar una ruta existente" data-toggle="modal" data-target="#modal_general"><i class="fas fa-route"></i></button>
                                     </div>

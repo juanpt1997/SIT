@@ -66,7 +66,6 @@ $(document).ready(function () {
 
                 if (placa != "") {
                     //$select.val("");
-
                     // Cargo datos del vehiculo
                     var datos = new FormData();
                     datos.append("DatosVehiculo", "ok");
@@ -103,7 +102,6 @@ $(document).ready(function () {
                                 // if(element.idservicio == 4)$("#filtro_aire").val(element.Ffecha);
                                 // if(element.idservicio == 5)$("#sincronizacion").val(element.Ffecha);
                                 // if(element.idservicio == 6)$("#alineacion_balanceo").val(element.Ffecha);
-
                             });
 
                             /* ===================================================
@@ -493,7 +491,6 @@ $(document).ready(function () {
         $(document).on("click", "#btnGuardarEvidencia", function () {
             var idvehiculo = $("#idvehiculo").val();
             AbiertoxEditar = true; //BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
-
             // Tenga un vehiculo seleccionado
             if (idvehiculo != "") {
                 var fotoEvidencia = $("#foto_evidencia")[0].files;
@@ -838,7 +835,7 @@ if (
             contentType: false,
             processData: false,
             success: function (response) {
-                $("#ruta").val(response.idruta).trigger("change");
+                $("#idruta").val(response.idruta);
                 $("#placa_roda").val(response.idvehiculo).trigger("change");
                 $("#idcliente").val(response.idcliente).trigger("change");
                 $("#placa_invent").val(response.idvehiculo).trigger("change");
@@ -856,6 +853,10 @@ if (
                 $("#hora_inicio").val(response.h_inicio);
                 $("#hora_final").val(response.h_final);
                 $("#kmrecorridosdatosroda").val(response.kmrecorridos);
+                $("#descrip").val(response.descripcion);
+                $("#origen").val(response.origen);
+                $("#destino").val(response.destino);
+
             },
         });
     });
@@ -897,7 +898,7 @@ if (
 
         $("#id_rodamiento").val("");
         $("#formulario_rodamiento").trigger("reset");
-        $("#ruta").trigger("change");
+        //$("#ruta").trigger("change");
         $("#tipo_servicio").trigger("change");
         $("#idcliente").trigger("change");
         $("#placa_roda").trigger("change");

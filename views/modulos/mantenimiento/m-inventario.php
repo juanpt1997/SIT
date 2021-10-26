@@ -10,8 +10,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 $ListaInventario = ControladorInventario::ctrListaInventario();
 ?>
 <!-- ===================== 
-  MODELO PARA LA IMPLEMENTARCION EN EL DISEÑO DE LOS MODULOS
-  ESTRUCTURA 
+    INVENTARIO VEHICULAR
 ========================= -->
 
 <!-- Content Wrapper. Contains page content -->
@@ -110,13 +109,13 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
 
                                                             <hr class="my-5">
 
-                                                            <div class="col">
+                                                            <!-- <div class="col">
                                                                 <div class="form-group">
                                                                     <div class="input-group">
                                                                         <h4><b><i>Código: GH-FR-04 </i></b><small><b>Versión: 2</b></small></h4>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
 
                                                             <form method="post" enctype="multipart/form-data" id="formulario_inventario">
 
@@ -2752,9 +2751,9 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                 ?>
                                 <tr>
                                     <td>
-                                        <button type="button" class="btn btn-success btn-sm btn-editarInventario" id_inventario="<?= $value['id'] ?>"><i class="fas fa-edit"></i></button>
-                                        <button type="button" class="btn btn-danger btn-sm btn-eliminar" id_inventario="<?= $value['id'] ?>"><i class="fas fa-trash"></i></button>
-
+                                        <button type="button" title="PDF inventario" data-toggle="tooltip" data-placement="top" class="btn btn-info btn-sm btn-verInventario" id_inventario="<?= $value['id'] ?>"><i class="fas fa-book"></i></button>
+                                        <button type="button" title="Editar inventario actual" data-toggle="tooltip" data-placement="top" class="btn btn-success btn-sm btn-editarInventario" id_inventario="<?= $value['id'] ?>"><i class="fas fa-edit"></i></button>
+                                        <button type="button" title="Eliminar registro" data-toggle="tooltip" data-placement="top" class="btn btn-danger btn-sm btn-eliminar" id_inventario="<?= $value['id'] ?>"><i class="fas fa-trash"></i></button>
                                     </td>
                                     <td><?= $value['id'] ?></td>
                                     <td><?= $value['fecha_inventario'] ?></td>

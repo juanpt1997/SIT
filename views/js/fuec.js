@@ -591,9 +591,10 @@ $(document).ready(function () {
                         $("#anotObjetoContrato").val(
                             response.anotObjetoContrato
                         );
-                        $("#idruta").val(response.idruta).trigger("change");
+                        $("#idruta").val(response.idruta);
                         $("#origen").val(response.origen);
                         $("#destino").val(response.destino);
+                        $("#descrip").val(response.observaciones);
                         $("#observacionescontr").val(response.observaciones);
                         $("#precio").val(response.precio);
                         $("#valorneto").val(response.valor_neto);

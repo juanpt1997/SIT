@@ -231,7 +231,7 @@ class ModeloCotizaciones
       $stmt->bindParam(":idsucursal", $datos["sucursalcot"], PDO::PARAM_INT);
       $stmt->bindParam(":origen", $datos["origin"], PDO::PARAM_STR);
       $stmt->bindParam(":destino", $datos["destin"], PDO::PARAM_STR);
-      $stmt->bindParam(":descripcion", $datos["des_sol"], PDO::PARAM_STR);
+      $stmt->bindParam(":descripcion", $datos["descrip"], PDO::PARAM_STR);
       $stmt->bindParam(":fecha_solicitud", $datos["f_sol"], PDO::PARAM_STR);
       $stmt->bindParam(":fecha_solucion", $datos["f_resuelve"], PDO::PARAM_STR);
       $stmt->bindParam(":fecha_inicio", $datos["f_inicio"], PDO::PARAM_STR);
@@ -366,7 +366,7 @@ class ModeloCotizaciones
       $stmt->bindParam(":idsucursal", $datos["sucursalcot"], PDO::PARAM_INT);
       $stmt->bindParam(":origen", $datos["origin"], PDO::PARAM_STR);
       $stmt->bindParam(":destino", $datos["destin"], PDO::PARAM_STR);
-      $stmt->bindParam(":descripcion", $datos["des_sol"], PDO::PARAM_STR);
+      $stmt->bindParam(":descripcion", $datos["descrip"], PDO::PARAM_STR);
       $stmt->bindParam(":fecha_solicitud", $datos["f_sol"], PDO::PARAM_STR);
       $stmt->bindParam(":fecha_solucion", $datos["f_resuelve"], PDO::PARAM_STR);
       $stmt->bindParam(":fecha_inicio", $datos["f_inicio"], PDO::PARAM_STR);
