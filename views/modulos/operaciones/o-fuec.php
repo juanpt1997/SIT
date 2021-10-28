@@ -76,9 +76,9 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                         <th>Documento conductor 3</th>
                                         <th>Cliente ocasional</th>
                                         <th>Cliente fijo</th>
+                                        <th>Sucursal</th>
                                         <th>Fecha de creación</th>
                                         <th style="min-width:90px;">Usuario</th>
-                                        <th>Sucursal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -107,9 +107,9 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                             <td><?= $value['docConductor3'] ?></td>
                                             <td><?= $value['nomContratante'] ?></td>
                                             <td><?= $value['ClienteFijo'] ?></td>
+                                            <td><?= $value['sucursal'] ?></td>
                                             <td><?= $value['fecha_creacion'] ?></td>
                                             <td><?= $value['usuarioCreacion'] ?></td>
-                                            <td><?= $value['sucursal'] ?></td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>
