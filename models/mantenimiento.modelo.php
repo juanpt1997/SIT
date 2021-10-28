@@ -527,11 +527,13 @@ class ModeloInventario
     {
         if ($valor != null) {
 
-            $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.numinterno, p.Nombre AS conductor, i.*
-                                                FROM m_inventario i
-                                                INNER JOIN v_vehiculos v ON v.idvehiculo = i.idvehiculo
-                                                LEFT JOIN gh_personal p ON p.idPersonal = i.idconductor
-                                                WHERE i.id = :id");
+            $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.numinterno, v.modelo, v.fechamatricula, t.tipovehiculo, m.marca, p.Nombre AS conductor, i.*
+                                                    FROM m_inventario i
+                                                    INNER JOIN v_vehiculos v ON v.idvehiculo = i.idvehiculo
+                                                    INNER JOIN v_marcas m ON m.idmarca = v.idmarca
+                                                    INNER JOIN v_tipovehiculos t ON t.idtipovehiculo = v.idtipovehiculo
+                                                    LEFT JOIN gh_personal p ON p.idPersonal = i.idconductor
+                                                    WHERE i.id = :id");
 
             $stmt->bindParam(":id", $valor, PDO::PARAM_INT);
             $stmt->execute();
