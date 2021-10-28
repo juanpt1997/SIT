@@ -243,9 +243,9 @@ class ControladorCotizaciones
                         'durac' => $_POST['durac'],
                         'tipovehiculocot' => $_POST['tipovehiculocot'],
                         'valor_vel' => $_POST['valor_vel'],
-                        'clasi_cot' => $_POST['clasi_cot'],             
+                        'clasi_cot' => $_POST['clasi_cot'],
                         'sucursalcot' => $_POST['sucursalcot'],
-                        'des_sol' => $_POST['des_sol'],
+                        'descrip' => $_POST['descrip'],
                         'f_inicio' => $_POST['f_inicio'],
                         'f_fin' => $_POST['f_fin'],
                         'n_vehiculos' => $_POST['n_vehiculos'],
@@ -266,47 +266,85 @@ class ControladorCotizaciones
                     if ($_POST['id_cot'] != "" && is_array($CotizacionExistente)) {
 
                         $responseModel = ModeloCotizaciones::mdlEditarCotizacion($datos);
+
+                        if ($responseModel == "ok") {
+
+                            echo "
+                         <script>
+                         Swal.fire({
+                            icon: 'success',
+                            title: 'Cotización actualizada correctamente!',						
+                            showConfirmButton: true,
+                            confirmButtonText: 'Cerrar',
+                            
+                         }).then((result)=>{
+                            
+                            if(result.value){
+                               window.location = 'contratos-cotizaciones';
+                            }
+                            
+                         })
+                         </script>
+                         ";
+                        } else {
+                            echo "
+                         <script>
+                         Swal.fire({
+                            icon: 'warning',
+                            title: '¡Problema al actualizar la cotización!',						
+                            showConfirmButton: true,
+                            confirmButtonText: 'Cerrar',
+                            
+                         }).then((result)=>{
+                            
+                            if(result.value){
+                               window.location = 'contratos-cotizaciones';
+                            }
+                            
+                         })
+                         </script>
+                         ";
+                        }
                     } else {
                         $responseModel = ModeloCotizaciones::mdlAgregarCotizacion($datos);
-                    }
-
-                    if ($responseModel == "ok") {
-
-                        echo "
-                     <script>
-                     Swal.fire({
-                        icon: 'success',
-                        title: 'Cotización añadida correctamente!',						
-                        showConfirmButton: true,
-                        confirmButtonText: 'Cerrar',
-                        
-                     }).then((result)=>{
-                        
-                        if(result.value){
-                           window.location = 'contratos-cotizaciones';
+                        if ($responseModel == "ok") {
+    
+                            echo "
+                         <script>
+                         Swal.fire({
+                            icon: 'success',
+                            title: 'Cotización añadida correctamente!',						
+                            showConfirmButton: true,
+                            confirmButtonText: 'Cerrar',
+                            
+                         }).then((result)=>{
+                            
+                            if(result.value){
+                               window.location = 'contratos-cotizaciones';
+                            }
+                            
+                         })
+                         </script>
+                         ";
+                        } else {
+                            echo "
+                         <script>
+                         Swal.fire({
+                            icon: 'warning',
+                            title: '¡Problema al añadir la cotización!',						
+                            showConfirmButton: true,
+                            confirmButtonText: 'Cerrar',
+                            
+                         }).then((result)=>{
+                            
+                            if(result.value){
+                               window.location = 'contratos-cotizaciones';
+                            }
+                            
+                         })
+                         </script>
+                         ";
                         }
-                        
-                     })
-                     </script>
-                     ";
-                    } else {
-                        echo "
-                     <script>
-                     Swal.fire({
-                        icon: 'warning',
-                        title: '¡Problema al añadir la cotización!',						
-                        showConfirmButton: true,
-                        confirmButtonText: 'Cerrar',
-                        
-                     }).then((result)=>{
-                        
-                        if(result.value){
-                           window.location = 'contratos-cotizaciones';
-                        }
-                        
-                     })
-                     </script>
-                     ";
                     }
                 }
             }
@@ -362,7 +400,7 @@ class ControladorFijos
                     mkdir($directorio, 0755);
                 }
 
-                
+
                 $GuardarArchivo = new FilesController();
                 $GuardarArchivo->file = $_FILES['documento_es'];
                 $aleatorio = mt_rand(100, 999);

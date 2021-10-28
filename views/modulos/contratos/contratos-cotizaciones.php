@@ -358,7 +358,7 @@ $Rutas = ControladorRutas::ctrListarRutas();
                                     </select> -->
                                     <input type="hidden" id="idruta" name="idruta">
 
-                                    <input class="form-control" type="text" id="descrip" name="descrip" placeholder="Seleccione una ruta de la lista" maxlength="100">
+                                    <input class="form-control" type="text" id="descrip" name="descrip" placeholder="Seleccione una ruta de la lista" readonly>
 
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-success btn-md btn-ruta" title="Buscar una ruta existente" data-toggle="modal" data-target="#modal_general"><i class="fas fa-route"></i></button>
@@ -371,7 +371,7 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Origen</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="text" id="origin" name="origin" maxlength="100">
+                                    <input class="form-control" type="text" id="origin" name="origin" maxlength="100" readonly>
                                 </div>
                             </div>
                         </div>
@@ -380,7 +380,7 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Destino</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control" type="text" id="destin" name="destin" maxlength="100">
+                                    <input class="form-control" type="text" id="destin" name="destin" maxlength="100" readonly>
                                 </div>
                             </div>
                         </div>

@@ -76,9 +76,9 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                         <th>Documento conductor 3</th>
                                         <th>Cliente ocasional</th>
                                         <th>Cliente fijo</th>
+                                        <th>Sucursal</th>
                                         <th>Fecha de creación</th>
                                         <th style="min-width:90px;">Usuario</th>
-                                        <th>Sucursal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -107,9 +107,9 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                             <td><?= $value['docConductor3'] ?></td>
                                             <td><?= $value['nomContratante'] ?></td>
                                             <td><?= $value['ClienteFijo'] ?></td>
+                                            <td><?= $value['sucursal'] ?></td>
                                             <td><?= $value['fecha_creacion'] ?></td>
                                             <td><?= $value['usuarioCreacion'] ?></td>
-                                            <td><?= $value['sucursal'] ?></td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>
@@ -464,7 +464,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                     <?php endforeach ?>
                                 </select> -->
                                     <input type="hidden" id="idruta" name="idruta">
-                                    <input class="form-control" type="text" id="descrip" name="descrip" placeholder="Seleccione una ruta de la lista" maxlength="100">
+                                    <input class="form-control" type="text" id="descrip" name="descrip" placeholder="Seleccione una ruta de la lista" readonly>
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-success btn-md btn-ruta" title="Buscar una ruta existente" data-toggle="modal" data-target="#modal_general"><i class="fas fa-route"></i></button>
                                     </div>

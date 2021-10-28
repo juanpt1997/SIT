@@ -94,6 +94,10 @@ if (isset($_GET['pagina'])) {
     <script src="<?= URL_APP ?>views/plugins/jszip/jszip.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/pdfmake/pdfmake.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/pdfmake/vfs_fonts.js"></script>
+    <!-- Momentjs -->
+    <!-- <script src="<?= URL_APP ?>views/plugins/moment/moment.min.js"></script> -->
+    <script src="<?= URL_APP ?>views/plugins/moment/moment-with-locales.min.js"></script>
+    <script src="<?= URL_APP ?>views/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
     <!-- date-range-picker -->
     <script src="<?= URL_APP ?>views/plugins/daterangepicker/daterangepicker.js"></script>
     <!-- ChartJS -->
@@ -101,12 +105,8 @@ if (isset($_GET['pagina'])) {
     <script src="<?= URL_APP ?>views/plugins/chart.js/Charjs-plugin-datalabels.min.js"></script>
     <!-- Sweet Alert -->
     <script src="<?= URL_APP ?>views/plugins/sweetalert2/sweetalert2.all.min.js"></script>
-    <!-- Momentjs -->
-    <!-- <script src="<?= URL_APP ?>views/plugins/moment/moment.min.js"></script> -->
-    <script src="<?= URL_APP ?>views/plugins/moment/moment-with-locales.min.js"></script>
-    <script src="<?= URL_APP ?>views/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
     <!-- Select2 -->
-    <script src="<?= URL_APP ?>views/select2/js/select2.full.min.js"></script>
+    <script src="<?= URL_APP ?>views/plugins/select2/js/select2.full.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/select2/js/select2.min.js"></script>
     <!-- Bootstrap Switch -->
     <script src="<?= URL_APP ?>views/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>

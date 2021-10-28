@@ -649,7 +649,10 @@ class ModeloRodamiento
                                                         m.marca AS marca,
                                                         p.Nombre AS conductor,
                                                         c.nombre AS cliente,
-                                                        CONCAT(mu.municipio, '-', mu2.municipio) AS ruta
+                                                        CONCAT(mu.municipio, '-', mu2.municipio) AS ruta,
+                                                        mu.municipio AS origen,
+                                                        mu2.municipio AS destino,
+                                                        ru.nombreruta AS descripcion 
                                                     FROM o_rodamiento r
                                                     INNER JOIN v_vehiculos v ON v.idvehiculo = r.idvehiculo
                                                     LEFT JOIN v_marcas m ON m.idmarca = v.idmarca
@@ -670,7 +673,10 @@ class ModeloRodamiento
                                                         m.marca AS marca,
                                                         p.Nombre AS conductor,
                                                         c.nombre AS cliente, 
-                                                        CONCAT(mu.municipio, '-', mu2.municipio) AS ruta
+                                                        CONCAT(mu.municipio, '-', mu2.municipio) AS ruta,
+                                                        mu.municipio AS origen,
+                                                        mu2.municipio AS destino,
+                                                        ru.nombreruta AS descripcion 
                                                     FROM o_rodamiento r
                                                     INNER JOIN v_vehiculos v ON v.idvehiculo = r.idvehiculo
                                                     LEFT JOIN v_marcas m ON m.idmarca = v.idmarca

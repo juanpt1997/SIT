@@ -58,7 +58,7 @@ $Plan_r = ControladorRodamientos::ctrListarRodamientos();
                             <div class="card-body">
                                 <!--|||TABLA PLAN DE RODAMIENTO|||-->
                                 <div class="table-responsive">
-                                    <table id="tblplanrodamiento" class="table table-bordered table-striped text-center text-nowrap">
+                                    <table id="tblplanrodamiento" class="table table-sm table-bordered table-striped text-center text-nowrap">
                                         <thead>
                                             <tr>
                                                 <th>...</th>
@@ -160,7 +160,7 @@ $Plan_r = ControladorRodamientos::ctrListarRodamientos();
                                         <?php endforeach ?>
                                     </select> -->
                                     <input type="hidden" id="idruta" name="idruta">
-                                    <input class="form-control" type="text" id="descrip" name="descrip" placeholder="Seleccione una ruta de la lista" maxlength="100">
+                                    <input class="form-control" type="text" id="descrip" name="descrip" placeholder="Seleccione una ruta de la lista" readonly>
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-success btn-md btn-ruta" title="Buscar una ruta existente" data-toggle="modal" data-target="#modal_general"><i class="fas fa-route"></i></button>
                                     </div>
@@ -179,7 +179,7 @@ $Plan_r = ControladorRodamientos::ctrListarRodamientos();
                                             <i class="fas fa-route"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control" type="text" id="origen" name="origen">
+                                    <input class="form-control" type="text" id="origen" name="origen" readonly>
                                 </div>
                             </div>
 
@@ -195,7 +195,7 @@ $Plan_r = ControladorRodamientos::ctrListarRodamientos();
                                             <i class="fas fa-route"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control" type="text" id="destino" name="destino">
+                                    <input class="form-control" type="text" id="destino" name="destino" readonly>
                                 </div>
                             </div>
                         </div><!-- /.col -->
