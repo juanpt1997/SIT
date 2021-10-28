@@ -4,6 +4,15 @@ select[readonly]{
   /* color: #828282; */ /* If you also want the disabled input color. */
 }
 
+.truncate{
+  display: -webkit-box;
+  -webkit-line-clamp: var(--line-clamp, 3);
+  -webkit-box-orient: vertical;
+  word-break: var(--word-break, 'none');
+  overflow: hidden;
+}
+
+
 /* .sidebar-collapse .main-sidebar:hover .nav-sidebar.nav-child-indent .nav-treeview {
     padding-left: 1rem;
 } */
