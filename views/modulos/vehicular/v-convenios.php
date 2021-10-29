@@ -103,14 +103,13 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                                                     <div class="btn-group" role="group" aria-label="Button group">
                                                                         <button class="btn btn-sm btn-info btnEditarEmpresa" nit="<?= $value['nit'] ?>" data-toggle="modal" data-target="#EmpresasModal"><i class="fas fa-edit"></i></button>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-md-6">
                                                                     <?php if (validarPermiso('M_VEHICULAR', 'D')) : ?>
                                                                         <div class="btn-group" role="group" aria-label="Button group">
                                                                             <button class="btn btn-sm btn-danger btnBorrarEmpresa" idxc="<?= $value['idxc'] ?>" nit="<?= $value['nit'] ?>"> <i class="fas fa-trash"></i> </button>
                                                                         </div>
                                                                     <?php endif ?>
                                                                 </div>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 <?php endforeach ?>
@@ -440,7 +439,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                 <div class="input-group input-group-sm">
                                     <select id="placa" class="select2-primary form-control select2-multiple input-sm" data-placeholder="-Lista de placas-" multiple="multiple" style="width: 99%" name="idvehiculo[]">
                                         <?php foreach ($Placas as $key => $value) : ?>
-                                            <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno']?></option>
+                                            <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?></option>
                                         <?php endforeach ?>
                                     </select>
                                 </div>
