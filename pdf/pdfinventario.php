@@ -115,7 +115,7 @@ class InventarioPDF
     $conduzco = $avconduzco . ' - ' . ControladorInventario::TraducirEstadoInventario($info['Av_Como_conduzco']);
     $placa = $info['placa'];
     $documentos = ControladorVehiculos::ctrDocumentosxVehiculoSinRepetir($info['idvehiculo']);
-    $fechamatricula = date("d/m/Y",strtotime($info['fechamatricula']));
+    $fechamatricula = $info['fechamatricula'] == null ? "" : date("d/m/Y",strtotime($info['fechamatricula']));
 
     foreach ($documentos as $key => $value) {
       if ($value['tipodocumento'] == 'Tarjeta de Operacion') {
@@ -138,6 +138,12 @@ class InventarioPDF
         $fechaP = $value['Ffechafin'];
       }
     }
+
+    $fechaTO = isset($fechaTO) ? $fechaTO : "";
+    $fechaRM = isset($fechaRM) ? $fechaRM : "";
+    $fechaE = isset($fechaE) ? $fechaE : "";
+    $fechaS = isset($fechaS) ? $fechaS : "";
+    $fechaP = isset($fechaP) ? $fechaP : "";
     /* ===================== 
             UTILIZANDO LA VERSION DE TCPDF PARA GENERAR EL ARCHIVO 
         ========================= */

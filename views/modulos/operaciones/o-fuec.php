@@ -139,7 +139,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
 
             <div class="modal-header bg-info">
                 <h5 class="modal-title font-weight-bold" id="titulo-modal-fuec"></h5>
-                <button class="btn btn-secondary ml-2 d-none btn-copy-fuec" type="button"><i class="far fa-copy"></i> Copia</button>
+                <button class="btn btn-app bg-success ml-2 d-none btn-copy-fuec" type="button"><i class="fas fa-copy"></i> Copia</button>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

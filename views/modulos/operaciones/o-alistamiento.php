@@ -344,13 +344,8 @@ $ServiciosMenores = ControladorVehiculos::ctrServiciosMenoresRecientes();
                                             </td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['extintor']) ?>
                                             </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['kilometraje_total']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['observaciones']) ?>
-                                            </td>
-
-
-
+                                            <td><?= $value['kilometraje_total']?></td>
+                                            <td><?= $value['observaciones'] ?></td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>
@@ -2379,7 +2374,7 @@ $ServiciosMenores = ControladorVehiculos::ctrServiciosMenoresRecientes();
 
             <div class="modal-footer justify-content-center bg-info">
                 <?php if (validarPermiso('M_OPERACIONES', 'U')) : ?>
-                    <button type="submit" form="alistamiento_form" class="btn btn-success"><i class="fas fa-print"></i> Guardar</button>
+                    <button type="submit" form="alistamiento_form" class="btn btn-success btn-alistamientoguardar"><i class="fas fa-print"></i> Guardar</button>
                 <?php endif ?>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
             </div>

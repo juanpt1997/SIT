@@ -880,7 +880,7 @@ if (
             title: "Dato copiado",
             text: "Guarde los nuevos cambios",
             showConfirmButton: true,
-            confirmButtonText: "Cerrar",
+            timer:1500,
             closeOnConfirm: false,
         });
         $("#id_rodamiento").val("");

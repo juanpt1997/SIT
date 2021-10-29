@@ -546,7 +546,7 @@ class ControladorRevision
 							<script>
 								Swal.fire({
 									icon: 'success',
-									title: '¡Inventario guardado correctamente!',						
+									title: '¡Revisión guardada correctamente!',						
 									showConfirmButton: true,
 									confirmButtonText: 'Cerrar',
 									
@@ -565,7 +565,7 @@ class ControladorRevision
 							<script>
 								Swal.fire({
 									icon: 'success',
-									title: '¡Problema al actualizar le inventario!',						
+									title: '¡Problema al actualizar al revisión!',						
 									showConfirmButton: true,
 									confirmButtonText: 'Cerrar',
 									

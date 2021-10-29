@@ -16,8 +16,10 @@ if (window.location.href == `${urlPagina}usuarios/` ||
             $(".input-usuario").val("");
             $(".previsualizar").attr("src", `${urlPagina}views/img/fotosUsuarios/default/anonymous.png`);
 
-            // Capturar la cédula
+            // Capturar la cédula e id usuario
             var cedula = $(this).attr("cedula");
+            var idUsuario = $(this).attr("idUsuario");
+            $("#idUsuario").val(idUsuario);
 
             // AJAX para cargar los datos del usuario
             var datos = new FormData();
@@ -57,6 +59,8 @@ if (window.location.href == `${urlPagina}usuarios/` ||
           BOTON NUEVO USUARIO PARA BORRAR DATOS DEL FORMULARIO
         ===================================================*/
         $(document).on("click", ".btn-agregarUsuario", function () {
+            // Reset id
+            $("#idUsuario").val("");
             // Reset valores del formulario
             $(".input-usuario").val("");
             $(".previsualizar").attr("src", `${urlPagina}views/img/fotosUsuarios/default/anonymous.png`);
@@ -184,7 +188,6 @@ if (window.location.href == `${urlPagina}roles-usuarios/` ||
             dataType: "json",
             success: function (response) {
                 if (response!=""){
-                    
                     $("#Perfil").val(response.perfil);
                     $("#Descripcion").val(response.descripcion);
                     $("#activo").val(response.activo);
@@ -356,7 +359,7 @@ if (window.location.href == `${urlPagina}roles-usuarios/` ||
                     if(element.Leer == 1)$(`input[name='Ver[]'][value='${element.idOpcion}']`).iCheck('check');
                     if(element.Crear == 1)$(`input[name='Crear[]'][value='${element.idOpcion}']`).iCheck('check');
                     if(element.Actualizar == 1)$(`input[name='Actualizar[]'][value='${element.idOpcion}']`).iCheck('check');
-                    if(element.Borrar)$(`input[name='Eliminar[]'][value='${element.idOpcion}']`).iCheck('check');
+                    if(element.Borrar == 1)$(`input[name='Eliminar[]'][value='${element.idOpcion}']`).iCheck('check');
                     
                     
                 });
