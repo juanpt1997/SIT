@@ -429,6 +429,7 @@ $(document).ready(function () {
         }
     });
 
+    $('.select2-multiple').select2();
     /* ===================================================
           INICIALIZAR tooltip titulos de los botones
     ===================================================*/    

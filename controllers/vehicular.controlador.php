@@ -115,12 +115,20 @@ class ControladorPropietarios
 class ControladorConvenios
 {
 
+	/* ===================================================
+	    LISTADO DE EMPRESAS 
+	===================================================*/
+
 	static public function ctrMostrar()
 	{
 
 		$respuesta = ModeloConvenios::mdlMostrar(null);
 		return $respuesta;
 	}
+
+	/* ===================================================
+	   AGREGAR Y EDITAR EMPRESA 
+	===================================================*/
 
 	public function ctrAgregarEditar()
 	{
@@ -187,11 +195,37 @@ class ControladorConvenios
 	}
 
 
+	/* ===================================================
+	    LISTADO DE CONVENIOS
+	===================================================*/
+
 	static public function ctrMostrarConvenios()
 	{
-		$respuesta = ModeloConvenios::mdlMostrarConvenios();
+		$Convenios = ModeloConvenios::mdlMostrarConvenios();
+
+		$respuesta = array();
+		$placas = "";
+		for ($i=0; $i < count($Convenios); $i++) { 
+			if ($i < count($Convenios) - 1 && $Convenios[$i]['idconvenio'] == $Convenios[$i + 1]['idconvenio']){
+				$placas .= $Convenios[$i]['placa'] . ", <br>";
+			}
+			else{
+				$placas .= $Convenios[$i]['placa'];
+				$Convenios[$i]['vehiculos'] = $placas;
+				$respuesta[] = $Convenios[$i];
+				$placas = "";
+			}
+		}
+
 		return $respuesta;
 	}
+
+
+
+	
+	/* ===================================================
+	    DATOS DEL CONVENIO
+	===================================================*/
 
 	static public function ctrDatosConvenios($idconvenio)
 	{
@@ -199,19 +233,56 @@ class ControladorConvenios
 		return $respuesta;
 	}
 
-	static public function ctrAgregarEditarConvenios()
+
+	/* ===================================================
+	   VEHICULOS POR CONVENIO
+	===================================================*/
+	static public function ctrVehiculosxConvenios($idconvenio)
 	{
-		
+		$respuesta = ModeloConvenios::mdlDatosVehiculosxConvenios($idconvenio);
+		return $respuesta;
+	}
+
+
+	/* ===================================================
+		AGREGAR Y EDITAR CONVENIOS
+	===================================================*/
+
+	static public function ctrAgregarEditarConvenios()
+	{	
 		if(isset($_POST['idConvenio'])){
 			$datos = $_POST;
-			if($_POST['idConvenio'] == ""){
+			var_dump($datos);
+			if($_POST['idConvenio'] == ""){				
+
+				 
+				//AGREGA EL CONVENIO Y RETORNA EL ID DEL CONVENIO INSERTADO				
 				$addConv = ModeloConvenios::mdlAgregarConvenio($datos);
+				
+
+				//RECORRE LOS VEHICULOS SELECCIONADOS Y LOS GUARDA EN EL MISMO ID CONVENIO
+				foreach ($_POST['idvehiculo'] as $key => $value) { 
+					$addVeh = ModeloConvenios::mdlAgregarVehiculos($addConv, $value);
+				}
+				
+				$addConv = ModeloConvenios::mdlEditarConvenio($datos);
+
+
 			}else{
+				//ELIMINA LOS VEHICULOS QUE TIENE ASOCIADO UN CONVENIO
+				$eliminar = ModeloConvenios::mdlEliminarVehiculos($_POST['idConvenio']);
+				
+				//RECORRE LOS VEHICULOS SELECCIONADOS Y LOS GUARDA EN EL MISMO ID CONVENIO
+				foreach ($_POST['idvehiculo'] as $key => $value) {
+					
+					$addVeh = ModeloConvenios::mdlAgregarVehiculos($datos['idConvenio'], $value);
+				}
+				
 				$addConv = ModeloConvenios::mdlEditarConvenio($datos);
 			}
 			
 			// alerta
-			if($addConv == "ok")
+			if($addConv != "")
 			{
 				echo "
 					<script>
@@ -254,6 +325,10 @@ class ControladorConvenios
 			
 		}
 	}
+
+	/* ===================================================
+	 	ELIMINAR CONVENIO
+	===================================================*/
 
 	static public function ctrBorradoConvenios($idConvenio)
 	{
