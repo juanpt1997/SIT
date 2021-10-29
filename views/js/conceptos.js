@@ -259,7 +259,7 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                             <label class="text-sm">Dirección territorial</label>
                             <input class="form-control" id="dir" name="dir" type="text" value="${response.dir_territorial}" required>
                             <label class="text-sm">Foto firma</label>
-                            <input class="form-control" id="firma" name="firma" type="file" accept="image/png, image/jpeg">
+                            <input class="form-control" id="firma" name="firma" type="file" accept="image/png, image/jpeg" value="${response.ruta_firma}">
                             <label class="text-sm">Sitio WEB</label>
                             <input class="form-control" id="sitio" name="sitio" type="text" value="${response.sitio_web}" required>
                             <label><br></label>

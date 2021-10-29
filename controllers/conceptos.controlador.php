@@ -14,6 +14,7 @@ class ControladorEmpresa
 	#Agregar/ Editar una empresa (la opcion de agregar se encuentra inhabilitada)
 	static public function ctrAgregarEditarEmpresa($POST, $imagen)
 	{
+		$empresa = ControladorEmpresa::ctrVerEmpresa();
 		$response = "";
 		# Verificar Directorio imagenes de firma en empresa
         $directorio = DIR_APP . "views/img/plantilla/fuec/fotosFirmaEmpresa";
@@ -39,9 +40,10 @@ class ControladorEmpresa
 		# Actualizar el campo de la base de datos donde queda la ruta del archivo
         if ($response != "") {
             $rutaDoc = str_replace(DIR_APP, "", $response);
-		} else {
-			echo "error";
+		} 	else {
+			$rutaDoc = $empresa['ruta_firma'];
 		}
+		var_dump($empresa['ruta_firma']);
 
 		if (isset($POST['id_empresa'])) {
 
