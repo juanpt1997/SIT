@@ -671,9 +671,10 @@ $(document).ready(function () {
               response.idconductor
             );
 
-
-
-
+            $("#observacion").val(response.observacion);
+            $("#cant_externos").val(response.cant_externos)
+            $("#cant_internos").val(response.cant_internos);
+            $("#cant_martillos").val(response.cant_martillos);
             $("#kilometraje").val(response.kilometraje);
 
           }

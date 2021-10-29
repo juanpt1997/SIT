@@ -188,7 +188,6 @@ if (window.location.href == `${urlPagina}roles-usuarios/` ||
             dataType: "json",
             success: function (response) {
                 if (response!=""){
-                    
                     $("#Perfil").val(response.perfil);
                     $("#Descripcion").val(response.descripcion);
                     $("#activo").val(response.activo);
@@ -360,7 +359,7 @@ if (window.location.href == `${urlPagina}roles-usuarios/` ||
                     if(element.Leer == 1)$(`input[name='Ver[]'][value='${element.idOpcion}']`).iCheck('check');
                     if(element.Crear == 1)$(`input[name='Crear[]'][value='${element.idOpcion}']`).iCheck('check');
                     if(element.Actualizar == 1)$(`input[name='Actualizar[]'][value='${element.idOpcion}']`).iCheck('check');
-                    if(element.Borrar)$(`input[name='Eliminar[]'][value='${element.idOpcion}']`).iCheck('check');
+                    if(element.Borrar == 1)$(`input[name='Eliminar[]'][value='${element.idOpcion}']`).iCheck('check');
                     
                     
                 });
