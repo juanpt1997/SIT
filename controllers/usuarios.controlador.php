@@ -220,6 +220,7 @@ class ControladorUsuarios
 			$encriptar = crypt($_POST['Identificacion'], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 
 			$datos = array(
+				'idUsuario' => $_POST['idUsuario'],
 				'Identificacion' => $_POST['Identificacion'],
 				'Nombre' => $_POST['Nombre'],
 				'Email' => $_POST['Email'],
@@ -249,12 +250,33 @@ class ControladorUsuarios
 			$GuardarImagen->ruta = "views/img/fotosUsuarios/" . $_POST['Identificacion'] . "/" . $aleatorio;
 			$ruta = $GuardarImagen->ctrImages(500, 500);
 
-			if (is_array($usuarioExistente)) {
-				//UPDATE DEL USUARIO
-				$AddEditUsuario = ModeloUsuarios::mdlEditarUsuario($datos);
-			} else {
-				//INSERT DEL USUARIO
-				$AddEditUsuario = ModeloUsuarios::mdlAgregarUsuario($datos);
+			// if (is_array($usuarioExistente)) {
+			// 	//UPDATE DEL USUARIO
+			// 	$AddEditUsuario = ModeloUsuarios::mdlEditarUsuario($datos);
+			// } else {
+			// 	//INSERT DEL USUARIO
+			// 	$AddEditUsuario = ModeloUsuarios::mdlAgregarUsuario($datos);
+			// }
+
+			# INSERT
+			if ($datos['idUsuario'] == "") {
+				if (is_array($usuarioExistente)) {
+					# mensaje al usuario
+					$AddEditUsuario = "existe";
+				} else {
+					# INSERT
+					$AddEditUsuario = ModeloUsuarios::mdlAgregarUsuario($datos);
+				}
+			}
+			# UPDATE
+			else {
+				if (is_array($usuarioExistente) && $usuarioExistente['UsuariosID'] != $datos['idUsuario']) {
+					# mensaje al usuario
+					$AddEditUsuario = "existe";
+				} else {
+					# UPDATE
+					$AddEditUsuario = ModeloUsuarios::mdlEditarUsuario($datos);
+				}
 			}
 
 			if ($AddEditUsuario == "ok") {
@@ -285,6 +307,18 @@ class ControladorUsuarios
 									window.location = 'usuarios';
 								}
 
+							})
+						</script>
+					";
+			} elseif ($AddEditUsuario == "existe") {
+				echo "
+						<script>
+							Swal.fire({
+								icon: 'warning',
+								title: 'Ya existe un usuario con el mismo número de cédula',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								closeOnConfirm: false								
 							})
 						</script>
 					";
@@ -568,18 +602,11 @@ class ControladorUsuarios
 				$datos['idOpcion'] = $idOpcion;
 
 
-
 				if ($datos['Crear'] == 0 && $datos['Ver'] == 0 && $datos['Actualizar'] == 0 && $datos['Borrar'] == 0) {
 					echo "no hay cambios";
 				} else {
 
-					echo '<pre>';
-					var_dump($datos);
-					echo '</pre>';
-
 					$respuesta = ModeloUsuarios::mdlAgregarPermisosRol($datos);
-
-					//ALERTA
 					if ($respuesta == "ok") {
 						echo "
 						<script>
