@@ -473,6 +473,7 @@ if (
         var AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         $(document).on("click", ".btn-agregarfijo", function () {
             $("#titulo_fijos").html("Nuevo contrato fijo");
+            $(".select2-single").val("").trigger("change");
             $("#visualizDocumento").text("");
             if (AbiertoxEditar) {
                 // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO

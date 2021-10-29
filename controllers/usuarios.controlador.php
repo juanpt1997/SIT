@@ -513,17 +513,17 @@ class ControladorUsuarios
 		if (isset($_POST['Ver']) || isset($_POST['Crear']) || isset($_POST['Actualizar']) || isset($_POST['Eliminar'])) {
 			ModeloUsuarios::mdlEliminarPermisosRol($_POST['idpermisos']);
 
-			
+
 			// Arreglo de opciones
 			$arrayop = ModeloUsuarios::mdlListadoOpciones();
-			
+
 
 			// Recorrer el arreglo y realizar la busqueda por cada posicion
 			foreach ($arrayop as $key => $value) {
 				$idOpcion = $value['idOpcion'];
 
-				if(isset($_POST['Ver'])){
-					if(self::BuscarOpcionPermiso($_POST['Ver'], $idOpcion)){
+				if (isset($_POST['Ver'])) {
+					if (self::BuscarOpcionPermiso($_POST['Ver'], $idOpcion)) {
 						$datos = array(
 							'idPerfil' => $_POST['idpermisos'],
 							'idOpcion' => $idOpcion,
@@ -533,47 +533,54 @@ class ControladorUsuarios
 							'Borrar' => 0
 						);
 					}
-				}else{
+				} else {
 					$datos['Ver'] = 0;
 				}
 
-				if(isset($_POST['Crear'])){
-					if(self::BuscarOpcionPermiso($_POST['Crear'],$idOpcion)){
+				if (isset($_POST['Crear'])) {
+					if (self::BuscarOpcionPermiso($_POST['Crear'], $idOpcion)) {
 						$datos['Crear'] = 1;
 					}
-				}else{
+				} else {
 					$datos['Crear'] = 0;
 				}
 
 
-				if(isset($_POST['Actualizar'])){
-					if(self::BuscarOpcionPermiso($_POST['Actualizar'],$idOpcion)){
+				if (isset($_POST['Actualizar'])) {
+					if (self::BuscarOpcionPermiso($_POST['Actualizar'], $idOpcion)) {
 						$datos['Actualizar'] = 1;
 					}
-				}else{
+				} else {
 					$datos['Actualizar'] = 0;
 				}
 
 
-				if(isset($_POST['Eliminar'])){
-					if(self::BuscarOpcionPermiso($_POST['Eliminar'], $idOpcion)){
+				if (isset($_POST['Eliminar'])) {
+					if (self::BuscarOpcionPermiso($_POST['Eliminar'], $idOpcion)) {
 						$datos['Borrar'] = 1;
 					}
-				}else{
+				} else {
 					$datos['Borrar'] = 0;
 				}
 
 				$idPerfil = $_POST['idpermisos'];
 				$datos['idPerfil'] = $idPerfil;
 				$datos['idOpcion'] = $idOpcion;
-		
 
-				if($datos['Crear'] == 0 && $datos['Ver'] == 0 && $datos['Actualizar'] == 0 && $datos['Borrar'] == 0){
+
+
+				if ($datos['Crear'] == 0 && $datos['Ver'] == 0 && $datos['Actualizar'] == 0 && $datos['Borrar'] == 0) {
 					echo "no hay cambios";
-				}else{
-					
+				} else {
+
+					echo '<pre>';
+					var_dump($datos);
+					echo '</pre>';
+
 					$respuesta = ModeloUsuarios::mdlAgregarPermisosRol($datos);
-					if($respuesta == "ok"){
+
+					//ALERTA
+					if ($respuesta == "ok") {
 						echo "
 						<script>
 							Swal.fire({
@@ -591,7 +598,7 @@ class ControladorUsuarios
 							})
 						</script>
 					";
-					}else{
+					} else {
 						echo "
 						<script>
 							Swal.fire({
@@ -619,10 +626,8 @@ class ControladorUsuarios
 				$datos['Ver'] = 0;
 				$datos['Actualizar'] = 0;
 				$datos['Borrar'] = 0;
-
 			}
 		}
-	
 	}
 
 	/* =============================
@@ -633,10 +638,8 @@ class ControladorUsuarios
 		$key = array_search($opcion, $arreglo);
 		if (false === $key) {
 			return false;
-			
 		} else {
 			return true;
-			
 		}
 	}
 
@@ -650,7 +653,4 @@ class ControladorUsuarios
 		$respuesta = ModeloUsuarios::mdlDatosPermisosRol($idPerfil);
 		return $respuesta;
 	}
-
-
-
 }

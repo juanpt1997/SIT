@@ -360,7 +360,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
 
             <div class="modal-header bg-info">
                 <h5 class="modal-title" id="titulo-modal-convenios"></h5>
-                <button class="btn btn-secondary ml-3 btn-copy-convenio d-none"><i class="far fa-copy"></i>Copia</button>
+                <button class="btn btn-app bg-success btn-copy-convenio d-none"><i class="fas fa-copy"></i>Copiar</button>
                 <!-- <button class="btn btn-secondary ml-2 d-none btn-copy-" type="button"><i class="far fa-copy"></i> Copia
                 </button> -->
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
