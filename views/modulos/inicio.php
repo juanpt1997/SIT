@@ -305,6 +305,8 @@
                                           </div>
                                           <!-- /.info-box -->
                                           <div class="dropdown-menu" aria-labelledby="dropdownMenuMantenimiento">
+                                          <a class="dropdown-item font-weight-bold"
+                                              href="m-mantenimientos"><u>Mantenimientos</u></a>
                                               <a class="dropdown-item font-weight-bold" href="m-inventario"><u>Inventario</u></a>
                                               <a class="dropdown-item font-weight-bold" href="m-revision-tm"><u>Revisión
                                                       tecnicomecánica</u></a>

@@ -184,8 +184,59 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
         $("#titulo-modal-convenios").html("Nuevo Convenio");
         $("#datosconvenio_form").trigger("reset");
         $('.select2-single').val(" ").trigger("change");
+        $('.select2-multiple').val(" ").trigger("change");
         $(".btn-copy-convenio").addClass("d-none");
 
+    });
+
+    //LISTA DE PLACAS 
+    $(document).on("click",".btnPlacas",function(){
+
+        var idconvenio = $(this).attr("idConvenio");
+        $("#idConvenio").val(idconvenio);
+
+        var datos = new FormData();
+        datos.append("DatosVehiculoxConvenio", "ok");
+        datos.append("idconvenio", idconvenio);
+
+        $.ajax({
+            type: "POST",
+            url: "ajax/vehicular.ajax.php",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (response) {
+
+                var vehiculos = [];
+
+                response.forEach(element => {
+                    vehiculos.push(element.placa);
+                });
+                
+                let placas = `<ul>`;
+                vehiculos.forEach(element => {
+                    placas += `<li>${element}</li>`;
+                });
+                placas += `</ul>`;
+
+                Swal.fire({
+                    icon: 'info',
+                    html: `<div class="text-left">
+                                                    <p class="font-weight-bold">Este convenio cuenta con los siguientes vehículos:</p>
+                                                        ${placas}
+                                                </div>`,
+                    showConfirmButton: true,
+                    confirmButtonText: 'Cerrar',
+                    closeOnConfirm: false
+                });
+
+            }
+        });
+
+
+        
     });
 
     //EDITAR CONVENIO
@@ -225,11 +276,36 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
                 $('#fecha_radicado').val(response.fecha_radicado);
                 $('#num_radicado').val(response.num_radicado);
                 $('#observacion').val(response.observacion);
-                $('#placa').val(response.idvehiculo).trigger("change");
-
 
             }
         });
+
+
+        var datos = new FormData();
+        datos.append("DatosVehiculoxConvenio", "ok");
+        datos.append("idconvenio", idconvenio);
+
+        $.ajax({
+            type: "POST",
+            url: "ajax/vehicular.ajax.php",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (response) {
+
+                var vehiculos = [];
+
+                response.forEach(element => {
+                    vehiculos.push(element.idvehiculo);
+                });
+                
+                $('#placa').val(vehiculos).trigger("change");
+
+            }
+        });
+
 
 
 
@@ -248,7 +324,6 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
     //CAPTURAR DATOS ID VEHICULO
     $(document).on("change", '#placa', function () {
         let idvehiculo = $(this).val();
-        console.log(idvehiculo);
         var datos = new FormData();
         datos.append("DatosVehiculo", "ok");
         datos.append("item", "idvehiculo");

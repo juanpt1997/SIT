@@ -414,7 +414,7 @@
                                     Mantenimientos
                                 =================================================== -->
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="m-mantenimientos" class="nav-link">
                                 <i class="fas fa-cogs nav-icon"></i>
                                 <p>Mantenimientos</p>
                             </a>
