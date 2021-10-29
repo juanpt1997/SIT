@@ -484,6 +484,8 @@ $(document).ready(function () {
         var $inputs = $(this);
         var table = $inputs.closest("table").attr("nombre");
 
+        if(table == undefined) table = "Datos inventario"
+
         if(!tables.includes(table)) tables.push(table);
       });
 

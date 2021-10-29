@@ -147,15 +147,14 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
                 dataType: "json",
                 success: function (response) {
 
+                    $("#idxc").val(response.idxc);
                     $("#nit").val(response.nit);
                     $("#nit").attr("readonly", "readonly");
-
                     $("#nombre").val(response.nombre);
                     $("#dirco").val(response.direccion);
                     $("#telco").val(response.telefono1);
                     $("#telco2").val(response.telefono2);
                     $("#ciudadcon").val(response.idciudad);
-
                     $('.select2-single').trigger('change');
                     $("#titulo-modal-convenios").html("Convenio - " + response.nit);
                 }
@@ -164,6 +163,7 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
 
         var AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         $(document).on("click", ".btn-agregarEmpresa", function () {
+            $("#idxc").val("");
             // Remover atributo readonly del formulario puesto que va a agregar uno nuevo
             $("#nit").removeAttr("readonly");
             $("#titulo-modal-empresas").html("Nueva empresa");

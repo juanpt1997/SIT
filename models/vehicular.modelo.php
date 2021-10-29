@@ -186,8 +186,9 @@ class ModeloConvenios
 
         $stmt = Conexion::conectar()->prepare("UPDATE v_empresas_convenios set nit=:nit,nombre=:nombre,direccion=:direccion,
                                                       telefono1=:telefono1,telefono2=:telefono2,idciudad=:idciudad
-                                               WHERE nit = :nit");
+                                               WHERE idxc = :idxc");
 
+        $stmt->bindParam(":idxc", $datos["idxc"], PDO::PARAM_INT);
         $stmt->bindParam(":nit", $datos["nit"], PDO::PARAM_STR);
         $stmt->bindParam(":nombre", $datos["nombre"], PDO::PARAM_STR);
         $stmt->bindParam(":direccion", $datos["dirco"], PDO::PARAM_STR);

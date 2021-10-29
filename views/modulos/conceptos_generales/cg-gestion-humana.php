@@ -4,7 +4,7 @@ if (!validarPermiso('M_GESTION_HUMANA', 'U')) {
     echo "<script> window.location = 'inicio'; </script>";
 }
 
-$empresa = ControladorEmpresa::ctrVerEmpresa();
+//$empresa = ControladorEmpresa::ctrListaEmpresa();
 $departamentos = ControladorCiudades::ctrListaDepar();
 ?>
 <!-- ===================== 
@@ -362,7 +362,7 @@ $departamentos = ControladorCiudades::ctrListaDepar();
 
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100" id="tabla_empresa">
+                    <table class="table table-sm table-striped table-bordered table-hover tablasBtnExport w-100" id="tabla_empresa">
                         <thead class="thead-light text-sm text-center text-nowrap">
                             <tr>
                                 <th style="width:10px;">#</th>

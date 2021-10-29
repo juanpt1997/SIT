@@ -4,7 +4,7 @@
 //     echo "<script> window.location = 'inicio'; </script>";
 // }
 
-$empresa = ControladorEmpresa::ctrVerEmpresa();
+$empresa = ControladorEmpresa::ctrListaEmpresa();
 $proveedores = ControladorProveedores::ctrListarProveedores();
 $vehiculos = ControladorVehiculos::ctrListaVehiculos();
 ?>
