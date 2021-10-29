@@ -108,13 +108,14 @@ class InventarioPDF
     }
 
     $equiposonido = $usb_cd . ' - ' . ControladorInventario::TraducirEstadoInventario($info['Equipo_Sonido']);
-    $parlantes = '# ' . $info['num_parlantes'] . ' - ' . ControladorInventario::TraducirEstadoInventario($info['Parlantes']);
+    $parlantes = ' # ' . $info['num_parlantes'] . ' - ' . ControladorInventario::TraducirEstadoInventario($info['Parlantes']);
     $escolar = ControladorInventario::TraducirEstadoInventario($info['escolar']) . ' - ' . $escolar_;
-    $luces = '#' . $info['numero_luces_internas'] . ' - ' . ControladorInventario::TraducirEstadoInventario($info['Luces_internas']);
-    $salidas = '#' . $info['Nsalidas_martillos'] . ' - ' . ControladorInventario::TraducirEstadoInventario($info['Salidas_emergencia_martillos']);
+    $luces = ' # ' . $info['numero_luces_internas'] . ' - ' . ControladorInventario::TraducirEstadoInventario($info['Luces_internas']);
+    $salidas = ' # ' . $info['Nsalidas_martillos'] . ' - ' . ControladorInventario::TraducirEstadoInventario($info['Salidas_emergencia_martillos']);
     $conduzco = $avconduzco . ' - ' . ControladorInventario::TraducirEstadoInventario($info['Av_Como_conduzco']);
     $placa = $info['placa'];
     $documentos = ControladorVehiculos::ctrDocumentosxVehiculoSinRepetir($info['idvehiculo']);
+    $fechamatricula = date("d/m/Y",strtotime($info['fechamatricula']));
 
     foreach ($documentos as $key => $value) {
       if ($value['tipodocumento'] == 'Tarjeta de Operacion') {
@@ -142,62 +143,46 @@ class InventarioPDF
         ========================= */
     # orientacion => p || unidade medida => cm
     $pdf = new MYPDF(PDF_PAGE_ORIENTATION, 'mm', PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
-
     // set document information
     $pdf->SetCreator(PDF_CREATOR);
     $pdf->SetAuthor(PROYECTO);
     $pdf->SetTitle('Inventario');
     $pdf->SetSubject('Inventario');
     $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
-
     // set default header data
     $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
     /* $pdf->setFooterData(array(0, 64, 0), array(0, 64, 128)); */
-
     // set header and footer fonts
     // $pdf->setHeaderFont(array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
     // $pdf->setFooterFont(array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
-
     // set default monospaced font
     $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
-
     // set margins
     $pdf->SetMargins(PDF_MARGIN_LEFT, 25, PDF_MARGIN_RIGHT);
     $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
     $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-
     // set auto page breaks
     $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-
     // set image scale factor
     $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
     // set some language-dependent strings (optional)
     if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
       require_once(dirname(__FILE__) . '/lang/eng.php');
       $pdf->setLanguageArray($l);
     }
-
     // ---------------------------------------------------------
-
     // set default font subsetting mode
     $pdf->setFontSubsetting(true);
-
     // Set font
     // dejavusans is a UTF-8 Unicode font, if you only need to
     // print standard ASCII chars, you can use core fonts like
     // helvetica or times to reduce file size.
     $pdf->SetFont('dejavusans', '', 14, '', true);
-
     // Add a page
     // This method has several options, check the source code documentation for more information.
     $pdf->AddPage();
-
     // set text shadow effect
     // $pdf->setTextShadow(array('enabled' => true, 'depth_w' => 0.2, 'depth_h' => 0.2, 'color' => array(196, 196, 196), 'opacity' => 1, 'blend_mode' => 'Normal'));
-
-
     // Set some content to print
     /* ===================================================
            * CONTENIDO
@@ -210,15 +195,12 @@ class InventarioPDF
       'B' => array('width' => 0.4, 'color' => array(0, 0, 0), 'dash' => 0, 'cap' => 'butt'),
       /* 'L' => array('width' => 0, 'color' => array(255, 255, 255), 'dash' => 0, 'cap' => 'butt'), */
     );
-
     $complex_cell_border_top = array(
       'T' => array('width' => 0.4, 'color' => array(0, 0, 0), 'dash' => 0, 'cap' => 'butt'),
       /* 'R' => array('width' => 0, 'color' => array(255, 255, 255), 'dash' => 0, 'cap' => 'butt'), */
       /* 'B' => array('width' => 0, 'color' => array(0, 0, 0), 'dash' => 0, 'cap' => 'butt'), */
       /* 'L' => array('width' => 0, 'color' => array(255, 255, 255), 'dash' => 0, 'cap' => 'butt'), */
     );
-
-
     /* ===================================================
            LOGOS CABECERA
         ===================================================*/
@@ -263,43 +245,43 @@ class InventarioPDF
     //DATOS DEL VEHICULO
     #Placa
     $pdf->SetFont('helvetica', 'B', '8');
-    $pdf->MultiCell(25, 5, "Placa:", 0, 'L', 0, 0, '', '', true);
+    $pdf->MultiCell(30, 5, "Placa:", 0, 'L', 0, 0, '', '', true);
     $pdf->SetFont('helvetica', '', '8');
-    $pdf->MultiCell(120, 5, $info['placa'], 0, 'L', 0, 0, '', '', true);
+    $pdf->MultiCell(100, 5, $info['placa'], 0, 'L', 0, 0, '', '', true);
     # Marca
     $pdf->SetFont('helvetica', 'B', '8');
-    $pdf->MultiCell(8, 5, "Marca:", 0, 'L', 0, 0, '', '', true);
+    $pdf->MultiCell(20, 5, "Marca:", 0, 'L', 0, 0, '', '', true);
     $pdf->SetFont('helvetica', '', '8');
     $pdf->MultiCell(40, 5, $info['marca'], 0, 'L', 0, 0, '', '', true);
     $pdf->Ln();
 
     #Numero interno
     $pdf->SetFont('helvetica', 'B', '8');
-    $pdf->MultiCell(25, 5, "Número interno:", 0, 'L', 0, 0, '', '', true);
+    $pdf->MultiCell(30, 5, "Número interno:", 0, 'L', 0, 0, '', '', true);
     $pdf->SetFont('helvetica', '', '8');
-    $pdf->MultiCell(120, 5, $info['numinterno'], 0, 'L', 0, 0, '', '', true);
+    $pdf->MultiCell(100, 5, $info['numinterno'], 0, 'L', 0, 0, '', '', true);
     # Modelo
     $pdf->SetFont('helvetica', 'B', '8');
-    $pdf->MultiCell(8, 5, "Modelo:", 0, 'L', 0, 0, '', '', true);
+    $pdf->MultiCell(20, 5, "Modelo:", 0, 'L', 0, 0, '', '', true);
     $pdf->SetFont('helvetica', '', '8');
     $pdf->MultiCell(40, 5, $info['modelo'], 0, 'L', 0, 0, '', '', true);
     $pdf->Ln();
 
     #clase de vehiculo
     $pdf->SetFont('helvetica', 'B', '8');
-    $pdf->MultiCell(25, 5, "Clase de vehículo:", 0, 'L', 0, 0, '', '', true);
+    $pdf->MultiCell(30, 5, "Clase de vehículo:", 0, 'L', 0, 0, '', '', true);
     $pdf->SetFont('helvetica', '', '8');
-    $pdf->MultiCell(120, 5, $info['tipovehiculo'], 0, 'L', 0, 0, '', '', true);
+    $pdf->MultiCell(100, 5, $info['tipovehiculo'], 0, 'L', 0, 0, '', '', true);
     # kilometraje
     $pdf->SetFont('helvetica', 'B', '8');
-    $pdf->MultiCell(8, 5, "Kilometraje:", 0, 'L', 0, 0, '', '', true);
+    $pdf->MultiCell(20, 5, "Kilometraje:", 0, 'L', 0, 0, '', '', true);
     $pdf->SetFont('helvetica', '', '8');
-    $pdf->MultiCell(50, 5, $info['kilometraje'], 0, 'L', 0, 0, '', '', true);
+    $pdf->MultiCell(40, 5, $info['kilometraje'], 0, 'L', 0, 0, '', '', true);
     $pdf->Ln();
 
-    #clase de vehiculo
+    #Fecha inventario
     $pdf->SetFont('helvetica', 'B', '8');
-    $pdf->MultiCell(25, 5, "Fecha:", 0, 'L', 0, 0, '', '', true);
+    $pdf->MultiCell(30, 5, "Fecha:", 0, 'L', 0, 0, '', '', true);
     $pdf->SetFont('helvetica', '', '8');
     $pdf->MultiCell(120, 5, $info['fecha_inventario'], 0, 'L', 0, 0, '', '', true);
     $pdf->Ln(4);
@@ -331,7 +313,7 @@ class InventarioPDF
         <td colspan="6">Techo Exterior</td>
         <td colspan="5" style="text-align: center;">' . ControladorInventario::TraducirEstadoInventario($info['Techo_exterior']) . '</td>
         <td colspan="6">Tarjeta de propiedad</td>
-        <td colspan="4" style="text-align: center;">'. $info['fechamatricula'] .'</td>
+        <td colspan="4" style="text-align: center;">'. $fechamatricula .'</td>
         </tr>
 
         <tr>
