@@ -71,7 +71,7 @@
           <div class="container-fluid pt-4">
               <!--MÓDULOS DE ENTRADA-->
               <div class="card">
-                  <div class="parallax1">
+                  <div class="parallax2">
                       <div class="card-body">
                           <div class="row">
                               <!-- ===================================================
@@ -486,8 +486,8 @@
               </div>
               <!--MODULO #2-->
               <div style="height:100px;font-size:60px;"></div>
-              <div class="card bg-dark">
-                  <div class="parallax1">
+              <div class="card bg-dark d-none">
+                  <div class="parallax2">
                       <div class="card-body">
                           <div class="row">
                               <div class="card bg-success">

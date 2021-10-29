@@ -18,7 +18,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark ">Inventario <i class="fas fa-pallet"></i></h1>
+                    <h1 class="m-0 text-dark "><strong><i>Inventario</i></strong> <i class="fas fa-pallet"></i></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -38,80 +38,87 @@
             <!-- ===================== 
               AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
             ========================= -->
-            <div class="row mt-2 d-flex justify-content-center">
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-warning">
-                        <div class="inner">
-                            <h3>###</h3>
+            <div class="card">
+                <div class="card-header bg-success"></div>
+                <div class="card-body">
+                    <hr class="my-4">
 
-                            <p>Productos</p>
+                    <div class="row mt-2 d-flex justify-content-center">
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3><i class="fas fa-ellipsis-h"></i></h3>
+
+                                    <p><i>Productos</i></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-shopping-basket"></i>
+                                </div>
+                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-productos">Ver <i class="far fa-eye"></i></a>
+                            </div>
                         </div>
-                        <div class="icon">
-                            <i class="fas fa-shopping-basket"></i>
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-info">
+                                <div class="inner">
+                                    <h3><i class="fas fa-ellipsis-h"></i></h3>
+                                    <p><i>Proveedores</i></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-user-tag"></i>
+                                </div>
+                                <a href="http://localhost/sit/elsaman/c-proveedores" target="_blank" class="small-box-footer btn">Agregar <i class="fas fa-plus-circle"></i></a>
+                            </div>
                         </div>
-                        <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-productos">Ver <i class="fas fa-arrow-circle-right"></i></a>
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-success">
+                                <div class="inner">
+                                    <h3><i class="fas fa-ellipsis-h"></i></h3>
+
+                                    <p><i>Órdenes de Compras</i></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-cart-arrow-down"></i>
+                                </div>
+                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-ordencompra">Agregar <i class="fas fa-plus-circle"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-danger">
+                                <div class="inner">
+                                    <h3><i class="fas fa-ellipsis-h"></i></h3>
+                                    <p><i>Autorizaciones de compras</i></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-receipt"></i>
+                                </div>
+                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-autorizaciones">Ver <i class="far fa-eye"></i></a>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-6">
+                            <!-- small box -->
+                            <div class="small-box bg-gray">
+                                <div class="inner">
+                                    <h3><i class="fas fa-ellipsis-h"></i></h3>
+                                    <p><i>Inventario</i></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-box-open"></i>
+                                </div>
+                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-inventario">Agregar <i class="fas fa-plus-circle"></i></a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-info">
-                        <div class="inner">
-                            <h3>###</h3>
-
-                            <p>Proveedores</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-user-tag"></i>
-                        </div>
-                        <a href="http://localhost/sit/elsaman/c-proveedores" target="_blank" class="small-box-footer btn">Agregar <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-success">
-                        <div class="inner">
-                            <h3>###</h3>
-
-                            <p>Ordenes de Compras</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-cart-arrow-down"></i>
-                        </div>
-                        <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-ordencompra">Agregar <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-            </div> <!-- /.row -->
-
-            <div class="row d-flex justify-content-center">
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-danger">
-                        <div class="inner">
-                            <h3>###</h3>
-
-                            <p>Autorizaciones de compras</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-receipt"></i>
-                        </div>
-                        <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-autorizaciones">ver <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-6">
-                    <!-- small box -->
-                    <div class="small-box bg-gray">
-                        <div class="inner">
-                            <h3>###</h3>
-
-                            <p>Inventario</p>
-                        </div>
-                        <div class="icon">
-                            <i class="fas fa-box-open"></i>
-                        </div>
-                        <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-inventario">Agregar <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
+                <div class="card-footer bg-dark"></div>
             </div>
         </div><!-- /.container-fluid -->
     </div>
@@ -125,13 +132,12 @@
 <div class="modal fade show" id="modal-productos" style="display: none; padding-right: 17px;" aria-modal="true" role="dialog">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header bg-warning">
+            <div class="modal-header bg-success">
                 <h4 class="modal-title">Ingreso del producto</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-
             <div class="modal-body">
                 <div class="card-body">
                     <div class="row">
@@ -231,27 +237,27 @@
 
                         <!--|||TABLA RESUMEN DE PRODUCTOS|||-->
                         <div class="col-12">
-                                <div class="card card-outline card-warning">
-                                    <div class="card-body">
-                                        <h5 class="text-center"><i>Tabla resumen de compras</i></h5>
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered table-striped text-center text-nowrap tablas">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Descripcion del producto</th>
-                                                        <th>Referencia - Marca</th>
-                                                        <th>Marca del producto</th>
-                                                        <th>Medida</th>
-                                                        <th>Tipo de repuesto</th>
-                                                        <th>Proovedor</th>
-                                                        <th>Ciudad</th>
-                                                        <th>Cantidad</th>
-                                                        <th>Ultimo valor comprado</th>
-                                                        <th>% de IVA</th>
-                                                    </tr>
-                                                </thead>
+                            <div class="card card-outline card-dark">
+                                <div class="card-body">
+                                    <h5 class="text-center"><i>Tabla resumen de compras</i></h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped text-center text-nowrap tablas">
+                                            <thead>
+                                                <tr>
+                                                    <th>Descripcion del producto</th>
+                                                    <th>Referencia - Marca</th>
+                                                    <th>Marca del producto</th>
+                                                    <th>Medida</th>
+                                                    <th>Tipo de repuesto</th>
+                                                    <th>Proovedor</th>
+                                                    <th>Ciudad</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Ultimo valor comprado</th>
+                                                    <th>% de IVA</th>
+                                                </tr>
+                                            </thead>
 
-                                                <!-- <tbody>
+                                            <!-- <tbody>
                                                     <?php foreach ($inventario_almacen as $key => $value) : ?>
                                                     <tr>
                                                         <td><?= $value['descriprodcuto'] ?></td>
@@ -267,16 +273,15 @@
                                                     </tr>
                                                     <?php endforeach ?>
                                                 </tbody> -->
-                                            </table>
-                                        </div>
+                                        </table>
                                     </div>
                                 </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="modal-footer justify-content-center bg-warning">
+            <div class="modal-footer justify-content-center bg-dark">
                 <a class="btn btn-app bg-success">
                     <i class="fas fa-plus"></i> Guardar
                 </a>
@@ -555,18 +560,15 @@
                     </div>
                 </div>
             </div>
-        </div>
+            <div class="modal-footer justify-content-center bg-dark">
+                <a class="btn btn-app bg-success">
+                    <i class="fas fa-plus"></i> Guardar
+                </a>
 
-        <div class="modal-footer justify-content-center bg-success">
-            <a class="btn btn-app bg-success">
-                <i class="fas fa-plus"></i> Guardar
-            </a>
-
-            <a class="btn btn-app bg-danger" data-dismiss="modal-ordencompra">
-                <i class="fas fa-ban"></i> Cancelar
-            </a>
+                <a class="btn btn-app bg-danger" data-dismiss="modal">
+                    <i class="fas fa-ban"></i> Cancelar
+                </a>
+            </div>
         </div>
     </div>
-    <!-- /.modal-content -->
-</div>
 </div>
