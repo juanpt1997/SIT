@@ -101,7 +101,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                                             <div class="row d-flex flex-nowrap justify-content-center">
                                                                 <div class="col-md-6">
                                                                     <div class="btn-group" role="group" aria-label="Button group">
-                                                                        <button class="btn btn-sm btn-info btnEditarEmpresa" nit="<?= $value['nit'] ?>" data-toggle="modal" data-target="#EmpresasModal"><i class="fas fa-edit"></i></button>
+                                                                        <button class="btn btn-sm btn-info btnEditarEmpresa" idxc="<?= $value['idxc'] ?>" nit="<?= $value['nit'] ?>" data-toggle="modal" data-target="#EmpresasModal"><i class="fas fa-edit"></i></button>
                                                                     </div>
                                                                     <?php if (validarPermiso('M_VEHICULAR', 'D')) : ?>
                                                                         <div class="btn-group" role="group" aria-label="Button group">
@@ -251,6 +251,8 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                 </div>
 
                 <div class="modal-body">
+
+                    <input type="hidden" id="idxc" name="idxc">
 
                     <!--nit-->
                     <div class="form-group">

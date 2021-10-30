@@ -119,6 +119,26 @@
                                     <!-- /.info-box -->
                                 </div>
 
+                                <div class="col-12 col-sm-12 col-md-6 text-nowrap">
+                                    <div class="info-box border border-secondary">
+                                        <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-hand-holding"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text"><i>Servicios menores</i></span>
+                                            <span class="info-box-number" concepto="Servicios menores"></span>
+                                        </div>
+                                        <!-- /.info-box-content -->
+                                        <div class="d-flex flex-column">
+                                            <button concepto="Servicios menores" type="button" class="btn-toolbar btn-ver-servicio btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarS"><i class="far fa-eye"></i></button>
+                                            <button concepto="Servicios menores" type="button" class="btn-toolbar btn-nuevo-servicio btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarSM"><i class="fas fa-plus-circle"></i></button>
+                                        </div>
+
+                                        <div class="overlay d-none" concepto="Servicios menores">
+                                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                        </div>
+                                    </div>
+                                    <!-- /.info-box -->
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -205,6 +225,119 @@
                             </tr>
                         </thead>
                         <tbody class="text-sm text-center" id="tbody_ver_concepto">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer bg-dark">
+                <button type="button" class="btn btn-danger btn-cancelar" data-dismiss="modal">Cerrar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- =================================================================
+     ========MODALS CREAR / EDTIAR (SERVICIOS MENORES) ==========
+     =================================================================-->
+<div class="modal fade" id="AgregarEditarSM" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header bg-success">
+                <h5 class="modal-title" id="titulo_modalS"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="post" enctype="multipart/form-data" id="formularioS">
+
+                <div class="modal-body">
+
+                    <input type="hidden" id="idGH" name="idGH" value="">
+
+                    <div class="form-group">
+                        <label>Servicio</label>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fas fa-hand-holding"></i>
+                                </span>
+                            </div>
+                            <input class="form-control" type="text" id="servicio" name="servicio" placeholder="Agregue un nuevo servicio" maxlength="100" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Kilometraje para cambio</label>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                </span>
+                            </div>
+                            <input class="form-control" type="text" id="Kilometraje_cambio" name="Kilometraje_cambio" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Días de cambio</label>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="far fa-calendar-alt"></i>
+                                </span>
+                            </div>
+                            <input class="form-control" type="text" id="dias_cambio" name="dias_cambio" placeholder="Número de días de cambio" maxlength="999" required>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer bg-dark">
+                    <button type="button" class="btn btn-danger btn-cancelar" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-save"></i>
+                        Guardar
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<!-- =================================================================
+     ========MODALS VISUALIZAR SERVICIO - ELIMINAR ===================
+     =================================================================-->
+
+<div class="modal fade" id="VisualizarS" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header bg-success">
+                <h5 class="modal-title" id="titulo_modalVerS"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100" id="ver_conceptoS">
+                        <thead class="thead-light text-uppercase text-sm text-center">
+                            <tr>
+                                <th style="width:10px;">#</th>
+                                <th id="tipo">Servicio</th>
+                                <th>Kilometraje para cambio</th>
+                                <th>Días para cambio</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm text-center" id="tbody_ver_conceptoS">
                         </tbody>
                     </table>
                 </div>

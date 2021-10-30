@@ -136,7 +136,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                 </span>
                             </div>
                             <select class="form-control input-lg input-propietario" type="text" id="tdocumento" name="tdocumento" required>
-                                <option>-Seleccione un documento-</option>
+                                <option value="">-Seleccione un documento-</option>
                                 <option>NIT</option>
                                 <option>CC</option>
                                 <option>CE</option>

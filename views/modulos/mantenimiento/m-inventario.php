@@ -363,7 +363,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                                             </tr>
 
                                                                                                             <tr>
-                                                                                                                <td nombre="techo">Techo exterior</td>
+                                                                                                                <td>Techo exterior</td>
                                                                                                                 <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" class="form-control inventario" required id="Techo_exterior1" name="Techo_exterior" value="1">
