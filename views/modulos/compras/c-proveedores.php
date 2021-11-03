@@ -25,7 +25,7 @@ $Proveedores = ControladorProveedores::ctrListarProveedores();
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="inicio">Inicio</a></li>
-                        <li class="breadcrumb-item active">Plantilla</li>
+                        <li class="breadcrumb-item active">Proveedores</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->

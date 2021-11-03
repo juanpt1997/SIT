@@ -466,3 +466,17 @@ class ModeloConceptosGH
 
 
 }
+
+class ModeloRepuestos
+{
+    static public function mdlListarRepuestos()
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("SELECT r.* FROM m_repuestos r WHERE estado = 1");
+
+        $stmt->execute();
+        $respuesta =  $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
+}

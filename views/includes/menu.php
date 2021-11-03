@@ -464,6 +464,7 @@
                                 <p>Inventario</p>
                             </a>
                         </li>
+
                     </ul>
                 </li>
                 <?php endif ?>
@@ -481,21 +482,21 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <!-- ===================================================
-                                    Proveedores
-                                =================================================== -->
-                        <li class="nav-item">
-                            <a href="c-proveedores" class="nav-link" target="_blank">
-                                <i class="fas fa-truck-moving nav-icon"></i>
-                                <p>Proveedores</p>
-                            </a>
-                        </li>
-                        <!-- ===================================================
                                     ORDEN DE COMPRA
-                                =================================================== -->
+                        =================================================== -->
                         <li class="nav-item">
                             <a href="c-orden-compra" class="nav-link" target="_blank">
                                 <i class="fas fa-dollar-sign nav-icon"></i>
                                 <p>Orden de compra</p>
+                            </a>
+                        </li>
+                        <!-- ===================================================
+                                    Proveedores
+                        =================================================== -->
+                        <li class="nav-item">
+                            <a href="c-proveedores" class="nav-link" target="_blank">
+                                <i class="fas fa-truck-moving nav-icon"></i>
+                                <p>Proveedores</p>
                             </a>
                         </li>
 

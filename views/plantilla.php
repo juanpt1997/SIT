@@ -256,7 +256,7 @@ if (isset($_GET['pagina'])) {
      ========MODALS VISUALIZAR - ELIMINAR ==========
      =================================================================-->
 
-<div class="modal fade" id="modal_general" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal_general" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow-y: scroll;">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
 
