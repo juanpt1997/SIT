@@ -44,37 +44,54 @@
                         <div class="card-header p-0 pt-1">
                             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                                 <li class="nav-item">
+                                    <!-- TABS HORIZONTALES-->
                                     <a class="nav-link active" id="custom-tabs-one-ordenserv_mante-tab" data-toggle="pill" href="#custom-tabs-one-ordenserv_mante" role="tab" aria-controls="custom-tabs-one-ordenserv_mante" aria-selected="true">Orden de servicio / Mantenimiento</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-one-solicitudserv_exter_repues-tab" data-toggle="pill" href="#custom-tabs-one-solicitudserv_exter_repues" role="tab" aria-controls="custom-tabs-one-solicitudserv_exter_repues" aria-selected="false">Solicitud de servicio / Repuestos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="custom-tabs-one-programacion-tab" data-toggle="pill" href="#custom-tabs-one-programacion" role="tab" aria-controls="custom-tabs-one-programacion" aria-selected="false">Programación</a>
                                 </li>
                             </ul>
                         </div>
 
                         <div class="card-body">
                             <div class="tab-content" id="custom-tabs-one-tabContent">
+                                <!-- ==============================================
+                                    TAB ORDEN SERVICIO 
+                                ==================================================-->
                                 <div class="tab-pane fade active show" id="custom-tabs-one-ordenserv_mante" role="tabpanel" aria-labelledby="custom-tabs-one-ordenserv_mante-tab">
-
-
-                                    <!-- ===================================================
-                                      MENU COLAPSABLES ORDEN DE SERVICIO
-                                      =================================================== -->
-
-
                                     <div class="row">
-                                        <div class="col-3">
-                                            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                                <a class="nav-link active" id="v-pills-general-tab" data-toggle="pill" href="#v-pills-general" role="tab" aria-controls="v-pills-general" aria-selected="true">Datos generales</a>
-                                                <a class="nav-link" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="false">Diagnóstico</a>
-                                                <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">Repuestos</a>
-                                                <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">Mano de obra</a>
-                                                <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">Observaciones</a>
-                                                <a class="nav-link" id="v-pills-firmas-tab" data-toggle="pill" href="#v-pills-firmas" role="tab" aria-controls="v-pills-firmas" aria-selected="false">Nombres y firmas</a>
-                                            </div>
+                                        <div class="col-lg-3 col-sm-6">
+                                            <!-- ================================================
+                                                    NAVBAR VERTICAL
+                                                =============================================== -->
+
+
+                                            <nav class="navbar navbar-expand-lg">
+                                                <button class="navbar-toggler navbar-light bg-light" type="button" data-toggle="collapse" data-target="#ContenidoOrdenServicio" aria-controls="ContenidoOrdenServicio" aria-expanded="false" aria-label="Toggle navigation">
+                                                    <span class="navbar-toggler-icon "></span>
+                                                </button>
+
+                                                <div class="collapse navbar-collapse" id="ContenidoOrdenServicio">
+                                                    <div class=" nav navbar-expand-lg flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                                        <a class="nav-link active" id="v-pills-general-tab" data-toggle="pill" href="#v-pills-general" role="tab" aria-controls="v-pills-general" aria-selected="true">Datos generales</a>
+                                                        <a class="nav-link" id="v-pills-diagnostico-tab" data-toggle="pill" href="#v-pills-diagnostico" role="tab" aria-controls="v-pills-diagnostico" aria-selected="false">Diagnóstico</a>
+                                                        <a class="nav-link" id="v-pills-repuestos-tab" data-toggle="pill" href="#v-pills-repuestos" role="tab" aria-controls="v-pills-repuestos" aria-selected="false">Repuestos</a>
+                                                        <a class="nav-link" id="v-pills-manoObra-tab" data-toggle="pill" href="#v-pills-manoObra" role="tab" aria-controls="v-pills-manoObra" aria-selected="false">Mano de obra</a>
+                                                        <a class="nav-link" id="v-pills-observaciones-tab" data-toggle="pill" href="#v-pills-observaciones" role="tab" aria-controls="v-pills-observaciones" aria-selected="false">Observaciones</a>
+                                                        <a class="nav-link" id="v-pills-firmas-tab" data-toggle="pill" href="#v-pills-firmas" role="tab" aria-controls="v-pills-firmas" aria-selected="false">Nombres y firmas</a>
+                                                    </div>
+                                                </div>
+                                            </nav>
+
+
+
                                         </div>
-                                        <div class="col-9">
+                                        <div class="col-lg-9 col-sm-12">
                                             <div class="tab-content" id="v-pills-tabContent">
+                                                <!-- DATOS GENERALES -->
                                                 <div class="tab-pane fade show active " id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab">
                                                     <div class="row">
                                                         <div class="col-12 col-sm-6 col-lg-4">
@@ -178,32 +195,32 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                                                    <div class="card-body">
-                                                        <div class="callout callout-info">
-                                                            <div class="row">
-                                                                <div class="col-sm-9 text-center">
-                                                                    <div class="form-group">
-                                                                        <label>Descripción</label>
-                                                                        <textarea class="form-control" rows="5" placeholder="Digite una leve descripción ..."></textarea>
-                                                                    </div>
+                                                <!-- DIAGNÓSTICO -->
+                                                <div class="tab-pane fade" id="v-pills-diagnostico" role="tabpanel" aria-labelledby="v-pills-diagnostico-tab">
+                                                    <div class="callout callout-info col-md-12 col-sm-8">
+                                                        <div class="row">
+                                                            <div class="col-sm-9 text-center">
+                                                                <div class="form-group">
+                                                                    <label>Descripción</label>
+                                                                    <textarea class="form-control" rows="5" placeholder="Digite una leve descripción ..."></textarea>
                                                                 </div>
+                                                            </div>
 
-                                                                <div class="row d-flex justify-content-center">
-                                                                    <div class="col-sm-8">
-                                                                        <div class="form-group text-center">
-                                                                            <label><i># Orden externa</i></label>
-                                                                            <input type="text" class="form-control" id="tipo_man" name="tipo_man" required>
-                                                                        </div>
+                                                            <div class="row d-flex justify-content-center">
+                                                                <div class="col-sm-8">
+                                                                    <div class="form-group text-center">
+                                                                        <label><i># Orden externa</i></label>
+                                                                        <input type="text" class="form-control" id="tipo_man" name="tipo_man" required>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-                                                    <div class="card-body">
-                                                        <table class="table table-bordered text-center">
+                                                <!-- REPUESTOS -->
+                                                <div class="tab-pane fade" id="v-pills-repuestos" role="tabpanel" aria-labelledby="v-pills-repuestos-tab">
+                                                    <div class="table-responsive">
+                                                        <table class="table table table-responsive table-bordered table-striped text-center">
                                                             <thead>
                                                                 <tr>
                                                                     <th style="width: 600px">Descripción</th>
@@ -213,70 +230,47 @@
                                                                     <th>Proveedor</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td style="width: 200px"> <input type="text" class="form-control" id="descripcion1" name="descripcion1"></td>
-                                                                    <td><input type="text" class="form-control" id="descripcion2" name="descripcion2"></td>
-                                                                    <td><input type="text" class="form-control" id="descripcion3" name="descripcion3"></td>
-                                                                    <td><input type="text" class="form-control" id="descripcion4" name="descripcion4"></td>
-                                                                    <td><input type="text" class="form-control" id="descripcion5" name="descripcion5"></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="width: 200px"> <input type="text" class="form-control" id="cantidad1" name="cantidad1"></td>
-                                                                    <td><input type="text" class="form-control" id="cantidad2" name="cantidad2"></td>
-                                                                    <td><input type="text" class="form-control" id="cantidad3" name="cantidad3"></td>
-                                                                    <td><input type="text" class="form-control" id="cantidad4" name="cantidad4"></td>
-                                                                    <td><input type="text" class="form-control" id="cantidad5" name="cantidad5"></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="width: 200px"> <input type="text" class="form-control" id="precio1" name="precio1"></td>
-                                                                    <td><input type="text" class="form-control" id="precio2" name="precio2"></td>
-                                                                    <td><input type="text" class="form-control" id="precio3" name="precio3"></td>
-                                                                    <td><input type="text" class="form-control" id="precio4" name="precio4"></td>
-                                                                    <td><input type="text" class="form-control" id="precio5" name="precio5"></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="width: 200px"> <input type="text" class="form-control" id="proveedor1" name="proveedor1"></td>
-                                                                    <td><input type="text" class="form-control" id="proveedor2" name="proveedor2"></td>
-                                                                    <td><input type="text" class="form-control" id="proveedor3" name="proveedor3"></td>
-                                                                    <td><input type="text" class="form-control" id="proveedor4" name="proveedor4"></td>
-                                                                    <td><input type="text" class="form-control" id="proveedor5" name="proveedor5"></td>
+                                                            <tbody id="filas_tabla_repuesto">
+                                                                <tr id="contenido_filas_repuesto">
+                                                                    <td style="width: 200px"> <input type="text" class="form-control" id="descripcion" name="descripcion1"></td>
+                                                                    <td><input type="text" class="form-control" id="cantidad" name="cantidad"></td>
+                                                                    <td><input type="text" class="form-control" id="precio" name="precio"></td>
+                                                                    <td><input type="text" class="form-control" id="referencia" name="referencia"></td>
+                                                                    <td><input type="text" class="form-control" id="proveedor" name="proveedor"></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
+                                                    <button type="button" class="btn btn-primary btn-md btn-agregarRepuesto mb-3" data-toggle="modal" data-target="#EmpresasModal">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
                                                 </div>
-                                                <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                                <!-- MANO DE OBRA  -->
+                                                <div class="tab-pane fade" id="v-pills-manoObra" role="tabpanel" aria-labelledby="v-pills-manoObra-tab">
                                                     <div class="card-body">
-                                                        <table class="table table-bordered text-center">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th style="width: 600px">Descripción de la actividad</th>
-                                                                    <th>Proveedor</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td style="width: 200px"> <input type="text" class="form-control" id="descrip_mano1" name="descrip_mano1"></td>
-                                                                    <td><input type="text" class="form-control" id="descrip_mano2" name="descrip_mano2"></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="width: 200px"> <input type="text" class="form-control" id="cantidad_mano1" name="cantidad_mano1"></td>
-                                                                    <td><input type="text" class="form-control" id="cantidad_mano2" name="cantidad_mano2"></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="width: 200px"> <input type="text" class="form-control" id="precio_mano1" name="precio_mano1"></td>
-                                                                    <td><input type="text" class="form-control" id="precio_mano2" name="precio_mano2"></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="width: 200px"> <input type="text" class="form-control" id="proveedor_mano1" name="proveedor_mano1"></td>
-                                                                    <td><input type="text" class="form-control" id="proveedor_mano2" name="proveedor_mano2"></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
+                                                        <div class="table-responsive">
+                                                            <table class="table table table-responsive table-bordered table-striped text-center">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th style="width: 600px">Descripción de la actividad</th>
+                                                                        <th>Proveedor</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody id="filas_tabla_manoObra">
+                                                                    <tr id="Contenido_tabla_manoObra">
+                                                                        <td style="width: 200px"> <input type="text" class="form-control" id="descrip_mano" name="descrip_mano"></td>
+                                                                        <td><input type="text" class="form-control" id="descrip_mano" name="descrip_mano"></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
+                                                    <button type="button" class="btn btn-primary btn-md btn-agregarManoObra mb-3" data-toggle="modal" data-target="#EmpresasModal">
+                                                        <i class="fas fa-plus"></i>
+                                                    </button>
                                                 </div>
-                                                <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                                                <!-- OBSERVACIONES -->
+                                                <div class="tab-pane fade" id="v-pills-observaciones" role="tabpanel" aria-labelledby="v-pills-observaciones-tab">
                                                     <div class="card-body">
                                                         <div class="callout callout-info">
                                                             <h5>Digite su observación</h5>
@@ -284,6 +278,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <!-- NOMBRES Y FIRMAS -->
                                                 <div class="tab-pane fade" id="v-pills-firmas" role="tabpanel" aria-labelledby="v-pills-firmas-tab">
                                                     <div class="callout callout-info">
                                                         <h5 class="text-center"><i>Nombres</i></h5>
@@ -322,6 +317,23 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row d-flex justify-content-center">
+                                        <div class="col-md-6">
+                                            <div class="btn-group w-100">
+                                                <span class="btn btn-success col fileinput-button dz-clickable">
+                                                    <i class="fas fa-plus"></i>
+                                                    <span>Guardar</span>
+                                                </span>
+
+                                                <button type="reset" class="btn btn-danger col cancel">
+                                                    <i class="fas fa-times-circle"></i>
+                                                    <span>Cancelar</span>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -621,12 +633,12 @@
                                     </div>
                                     <hr class="my-4">
 
-                                    <div class="row">
-                                        <div class="col-2 text-center">
+                                    <div class="row ">
+                                        <div class="col-lg-2 col-sm-12 text-center">
                                             <h4><i><b>Servicios:</b></i></h4>
                                         </div>
 
-                                        <div class="col-2">
+                                        <div class="col-lg-2 col-sm-12 ">
                                             <div class="custom-control custom-checkbox">
                                                 <input class="custom-control-input" type="checkbox" id="check_externo">
                                                 <label for="check_externo" class="custom-control-label">Externo</label>
@@ -639,28 +651,28 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-7 justify-content-center">
+                                        <div class="col-lg-7 col-sm-12 justify-content-center">
                                             <div class="card card-outline card-info">
                                                 <div class="card-body">
                                                     <div class="row">
                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                             <div class="custom-control custom-checkbox">
                                                                 <input class="custom-control-input" type="checkbox" id="check_montallant">
-                                                                <label for="check_montallant" class="custom-control-label">Monta llantas</label>
+                                                                <label for="check_montallant" class="custom-control-label">Montallantas</label>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                             <div class="custom-control custom-checkbox">
                                                                 <input class="custom-control-input" type="checkbox" id="check_lubricacion">
-                                                                <label for="check_lubricacion" class="custom-control-label">Lubricacion</label>
+                                                                <label for="check_lubricacion" class="custom-control-label">Lubricación</label>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                             <div class="custom-control custom-checkbox">
                                                                 <input class="custom-control-input" type="checkbox" id="check_lampintu">
-                                                                <label for="check_lampintu" class="custom-control-label">Lamina y pintura</label>
+                                                                <label for="check_lampintu" class="custom-control-label">Lámina y pintura</label>
                                                             </div>
                                                         </div>
 
@@ -688,7 +700,7 @@
                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                             <div class="custom-control custom-checkbox">
                                                                 <input class="custom-control-input" type="checkbox" id="check_muellsuspen">
-                                                                <label for="check_muellsuspen" class="custom-control-label">Muelles y suspencion</label>
+                                                                <label for="check_muellsuspen" class="custom-control-label">Muelles y suspensión</label>
                                                             </div>
                                                         </div>
 
@@ -721,7 +733,7 @@
                                     <hr class="my-4">
 
                                     <div class="row">
-                                        <div class="col-3">
+                                        <div class="col-lg-3 col-sm-12">
                                             <div id="accordion">
                                                 <div class="card card-info">
                                                     <div class="card-header text-center">
@@ -744,7 +756,7 @@
                                             </div> <!-- /.row -->
                                         </div>
 
-                                        <div class="col-9">
+                                        <div class="col-lg-9 col-sm-12">
                                             <div id="accordion">
                                                 <div class="card card-info">
                                                     <div class="card-header text-center">
@@ -757,42 +769,27 @@
 
                                                     <div id="collapserepuestos" class="collapse" data-parent="#accordion">
                                                         <div class="card-body">
-                                                            <table class="table table-bordered text-center">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th style="width: 500px">DESCRIPCIÓN</th>
-                                                                        <th>REFERENCIA</th>
-                                                                        <th>CANTIDAD</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <td style="width: 300px"> <input type="text" class="form-control" id="descripcion_repuestos1" name="descripcion_repuestos1"></td>
-                                                                        <td><input type="text" class="form-control" id="descripcion_repuestos2" name="descripcion_repuestos2"></td>
-                                                                        <td><input type="text" class="form-control" id="descripcion_repuestos3" name="descripcion_repuestos3"></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td style="width: 300px"> <input type="text" class="form-control" id="referencia_repuestos1" name="referencia_repuestos1"></td>
-                                                                        <td><input type="text" class="form-control" id="referencia_repuestos2" name="referencia_repuestos2"></td>
-                                                                        <td><input type="text" class="form-control" id="referencia_repuestos3" name="referencia_repuestos3"></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td style="width: 300px"> <input type="text" class="form-control" id="cantidad_repuestos2" name="cantidad_repuestos2"></td>
-                                                                        <td><input type="text" class="form-control" id="precio2" name="precio2"></td>
-                                                                        <td><input type="text" class="form-control" id="precio3" name="precio3"></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td style="width: 300px"> <input type="text" class="form-control" id="proveedor1" name="proveedor1"></td>
-                                                                        <td><input type="text" class="form-control" id="proveedor2" name="proveedor2"></td>
-                                                                        <td><input type="text" class="form-control" id="proveedor3" name="proveedor3"></td>
-                                                                    </tr>
-                                                                    <tr>
-                                                                        <td style="width: 300px"> <input type="text" class="form-control" id="proveedor1" name="proveedor1"></td>
-                                                                        <td><input type="text" class="form-control" id="proveedor2" name="proveedor2"></td>
-                                                                        <td><input type="text" class="form-control" id="proveedor3" name="proveedor3"></td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
+                                                            <div class="table-responsive">
+                                                                <table class="table table table-responsive table-bordered table-striped text-center">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th style="width: 500px">DESCRIPCIÓN</th>
+                                                                            <th>REFERENCIA</th>
+                                                                            <th>CANTIDAD</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody id="filas_tabla_repuestoSolicitud">
+                                                                        <tr id="contenido_filas_repuestoSolicitud">
+                                                                            <td style="width: 300px"> <input type="text" class="form-control" id="descripcion_repuestos1" name="descripcion_repuestos1"></td>
+                                                                            <td style="width: 300px"> <input type="text" class="form-control" id="referencia_repuestos1" name="referencia_repuestos1"></td>
+                                                                            <td style="width: 300px"> <input type="text" class="form-control" id="proveedor1" name="proveedor1"></td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <button type="button" class="btn btn-primary btn-md btn-agregarRepuestoSolicitud mb-3" data-toggle="modal" data-target="#EmpresasModal">
+                                                                <i class="fas fa-plus"></i>
+                                                            </button>
                                                         </div>
                                                         <!-- /.card -->
                                                     </div>
@@ -804,7 +801,7 @@
                                     <hr class="my-4 bg-dark">
 
                                     <div class="row d-flex justify-content-center">
-                                        <div class="col-6">
+                                        <div class="col-lg-6 col-sm-12">
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">Recibido por:</span>
@@ -832,10 +829,205 @@
                                         </div>
                                     </div>
                                 </div><!-- /.container-fluid -->
+
+                                <!-- PROGRAMACIÓN -->
+                                <div class="tab-pane fade" id="custom-tabs-one-programacion" role="tabpanel" aria-labelledby="custom-tabs-one-programacion-tab">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-sm-6">
+
+                                            <nav class="navbar navbar-expand-lg">
+                                                <button class="navbar-toggler navbar-light bg-light" type="button" data-toggle="collapse" data-target="#ContenidoProgramacion" aria-controls="ContenidoProgramacion" aria-expanded="false" aria-label="Toggle navigation">
+                                                    <span class="navbar-toggler-icon "></span>
+                                                </button>
+
+                                                <div class="collapse navbar-collapse" id="ContenidoProgramacion">
+                                                    <div class=" nav navbar-expand-lg flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                                        <a class="nav-link active" id="v-pills-Ingreso-tab" data-toggle="pill" href="#v-pills-Ingreso" role="tab" aria-controls="v-pills-Ingreso" aria-selected="true">Datos generales</a>
+                                                        <a class="nav-link" id="v-pills-10000km-tab" data-toggle="pill" href="#v-pills-10000km" role="tab" aria-controls="v-pills-10000km" aria-selected="false">0 - 10.000 KM</a>
+                                                        <a class="nav-link" id="v-pills-20000km-tab" data-toggle="pill" href="#v-pills-20000km" role="tab" aria-controls="v-pills-20000km" aria-selected="false">11.000 - 20.000 KM</a>
+                                                        <a class="nav-link" id="v-pills-45000km-tab" data-toggle="pill" href="#v-pills-45000km" role="tab" aria-controls="v-pills-45000km" aria-selected="false">45.000 - 50.000 KM</a>
+                                                        <a class="nav-link" id="v-pills-60000km-tab" data-toggle="pill" href="#v-pills-60000km" role="tab" aria-controls="v-pills-60000km" aria-selected="false">60.000 - 120.000 KM</a>
+                                                    </div>
+                                                </div>
+                                            </nav>
+
+
+
+                                        </div>
+                                        <div class="col-lg-9 col-sm-12">
+                                            <div class="tab-content" id="v-pills-tabContent">
+
+                                                <!-- INGRESO -->
+                                                <div class="tab-pane fade show active " id="v-pills-Ingreso" role="tabpanel" aria-labelledby="v-pills-Ingreso-tab">
+                                                    <div class="row">
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group text-center">
+                                                                <label><i>Placa</i></label>
+                                                                <select id="placa" name="idvehiculo" class="form-control select2-single" type="number" style="width: 99%">
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group text-center">
+                                                                <label><i>Kilometraje actual</i></label>
+                                                                <input type="text" class="form-control" id="kilometraje" name="kilometraje">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group text-center">
+                                                                <label><i>Próximo baterias / KM</i></label>
+                                                                <input type="text" class="form-control" id="bateriaskm" name="bateriaskm">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group text-center">
+                                                                <label><i>Próximo baterias / Fecha</i></label>
+                                                                <input type="date" class="form-control" id="bateriasFecha" name="bateriasFecha">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group text-center">
+                                                                <label><i>Servicio</i></label>
+                                                                <input type="text" class="form-control" id="servicio" name="servicio">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group text-center">
+                                                                <label><i>Fecha de realización</i></label>
+                                                                <input type="date" class="form-control" id="fecha" name="fecha">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group text-center">
+                                                                <label><i>Próxima revisión preventiva bimestral</i></label>
+                                                                <input type="date" class="form-control" id="bimestral" name="bimestral">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group text-center">
+                                                                <label><i>Próxima revisión tecnicomecánica y gases</i></label>
+                                                                <input type="date" class="form-control" id="gases" name="gases">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+
+                                                </div>
+                                                <!-- 10.000 KM -->
+                                                <div class="tab-pane fade " id="v-pills-10000km" role="tabpanel" aria-labelledby="v-pills-10000km-tab">
+                                                    <div class="row">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100" nombre="Sistema potencia">
+                                                                <thead class="text-nowrap">
+                                                                    <tr>
+                                                                        <th>Mantenimietno</th>
+                                                                        <th>Mantenimiento de frenos</th>
+                                                                        <th>Mantenimiento rueda rodamientos</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody class="text-nowrap">
+                                                                    <tr>
+                                                                        <td>Test</td>
+                                                                        <td>Test</td>
+                                                                        <td>test</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- 20.000 KM -->
+                                                <div class="tab-pane fade " id="v-pills-20000km" role="tabpanel" aria-labelledby="v-pills-20000km-tab">
+                                                    <div class="row">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100" nombre="Sistema potencia">
+                                                                <thead class="text-nowrap">
+                                                                    <tr>
+                                                                        <th>Mantenimiento llantas rotación</th>
+                                                                        <th>Mantenimiento alineación</th>
+                                                                        <th>Mantenimiento aire acondicionado</th>
+                                                                        <th>Mantenimiento balanceo</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody class="text-nowrap">
+                                                                    <tr>
+                                                                        <td>Test</td>
+                                                                        <td>Test</td>
+                                                                        <td>Test</td>
+                                                                        <td>Test</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- 45.000 KM -->
+                                                <div class="tab-pane fade " id="v-pills-45000km" role="tabpanel" aria-labelledby="v-pills-45000km-tab">
+                                                    <div class="row">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100" nombre="Sistema potencia">
+                                                                <thead class="text-nowrap">
+                                                                    <tr>
+                                                                        <th>Mantenimiento llantas cambio</th>
+                                                                        <th>Mantenimiento cambio aceite transmisión y diferencial</th>
+                                                                        <th>Sincronización de motor</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody class="text-nowrap">
+                                                                    <tr>
+                                                                        <td>Test</td>
+                                                                        <td>Test</td>
+                                                                        <td>test</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- 60.000 KM -->
+                                                <div class="tab-pane fade " id="v-pills-60000km" role="tabpanel" aria-labelledby="v-pills-60000km-tab">
+                                                    <div class="row">
+                                                        <div class="table-responsive">
+                                                            <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100" nombre="Sistema potencia">
+                                                                <thead class="text-nowrap">
+                                                                    <tr>
+                                                                       <th>Mantenimiento suspensión</th>
+                                                                       <th>Mantenimiento dirección</th>
+                                                                       <th>Cambio correas de motor</th>
+                                                                       <th>Cambio kit embrague</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody class="text-nowrap">
+                                                                    <tr>
+                                                                        <td>Test</td>
+                                                                        <td>Test</td>
+                                                                        <td>test</td>
+                                                                        <td>test</td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- /.content -->
                             </div>
-                            <!-- /.content -->
+                            <!-- /.content-wrapper -->
                         </div>
-                        <!-- /.content-wrapper -->
                     </div>
                 </div>
             </div>

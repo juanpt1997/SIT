@@ -7,7 +7,7 @@ if (!validarPermiso('M_OPERACIONES', 'R')) {
 $Alistamientos = ControladorAlistamiento::ctrListaAlistamientos();
 $Vehiculos = ControladorVehiculos::ctrListaVehiculos();
 $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
-$ServiciosMenores = ControladorVehiculos::ctrServiciosMenoresRecientes();
+$ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
 
 ?>
 <!-- ===================== 

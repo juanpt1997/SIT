@@ -464,8 +464,8 @@ class ControladorVehiculos
 		return ModeloVehiculos::mdlFotosVehiculo($datos);
 	}
 
-	/*==================================================
-		SERVICIOS DEL VEHÍCULO 
+	/* ===================================================
+		SERVICIOS MENORES MÁS RECIENTES PARA UN ID VEHICULO
 	===================================================*/
 
 	static public function ctrServiciosVehiculo($item, $valor)
@@ -500,25 +500,17 @@ class ControladorVehiculos
 	}
 
 	/* ===================================================
-		SERVICIOS MENORES MÁS RECIENTES
+	 	LISTADO DE SERVICIOS
 	===================================================*/
 
-	static public function ctrServiciosMenoresRecientes()
+	static public function ctrListadoServicios()
 	{
-		$TodosServicios = ModeloVehiculos::mdlHistoricoServiciosMenores();
-
-		$ServiciosSinRepetir = array();
-		$Servicios = array();
-
-		foreach ($TodosServicios as $key => $Servicio) {
-			if (!in_array($Servicio['idservicio'], $ServiciosSinRepetir)) {
-				$ServiciosSinRepetir[] = $Servicio['idservicio'];
-				$Servicios[] = $Servicio;
-			}
-		}
-
-		return $Servicios;
+		$respuesta = ModeloVehiculos::mdlListadoServicios();
+		return $respuesta;
 	}
+
+
+	
 
 	/* ===================================================
 	   MOSTRAR TIPO DE VEHICULOS

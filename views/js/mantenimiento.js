@@ -484,16 +484,16 @@ $(document).ready(function () {
         var $inputs = $(this);
         var table = $inputs.closest("table").attr("nombre");
 
-        if(table == undefined) table = "Datos inventario"
+        if (table == undefined) table = "Datos inventario"
 
-        if(!tables.includes(table)) tables.push(table);
+        if (!tables.includes(table)) tables.push(table);
       });
 
       if (Requeridos.length > 0) {
 
         let InputRequeridos = `<ul>`;
         tables.forEach(element => {
-            InputRequeridos += `<li>${element}</li>`;
+          InputRequeridos += `<li>${element}</li>`;
         })
         InputRequeridos += `</ul>`;
 
@@ -507,7 +507,7 @@ $(document).ready(function () {
           showConfirmButton: true,
           confirmButtonText: 'Cerrar',
           closeOnConfirm: false
-      });
+        });
       }
     });
 
@@ -563,14 +563,14 @@ $(document).ready(function () {
     /* ===================================================
            VISUALIZAR PDF DEL INVENTARIO
     ===================================================*/
-      $(document).on("click", ".btn-verInventario", function () {
-        var id_inventario = $(this).attr("id_inventario");
-          window.open(
-              `./pdf/pdfinventario.php?id_inventario=${id_inventario}`,
-              "",
-              "width=1280,height=720,left=50,top=50,toolbar=yes"
-          );
-      });    
+    $(document).on("click", ".btn-verInventario", function () {
+      var id_inventario = $(this).attr("id_inventario");
+      window.open(
+        `./pdf/pdfinventario.php?id_inventario=${id_inventario}`,
+        "",
+        "width=1280,height=720,left=50,top=50,toolbar=yes"
+      );
+    });
 
     /*===================================================
               INICIALIZAR DATATABLE
@@ -582,22 +582,22 @@ $(document).ready(function () {
       /* Filtrar por columna */
       //Clonar el tr del thead
       $(`#tabla_resumen_inventario thead tr:eq(1)`)
-          .clone(true)
-          .appendTo(`#tabla_resumen_inventario thead`);
+        .clone(true)
+        .appendTo(`#tabla_resumen_inventario thead`);
       //Por cada th creado hacer lo siguiente
       $(`#tabla_resumen_inventario thead tr:eq(2) th`).each(function (i) {
-          //Remover clase sorting y el evento que tiene cuando se hace click
-          $(this).removeClass("sorting").unbind();
-          //Agregar input de busqueda
-          $(this).html(
-              '<input class="form-control" type="text" placeholder="Buscar"/>'
-          );
-          //Evento para detectar cambio en el input y buscar
-          $("input", this).on("keyup change", function () {
-              if (table.column(i).search() !== this.value) {
-                  table.column(i).search(this.value).draw();
-              }
-          });
+        //Remover clase sorting y el evento que tiene cuando se hace click
+        $(this).removeClass("sorting").unbind();
+        //Agregar input de busqueda
+        $(this).html(
+          '<input class="form-control" type="text" placeholder="Buscar"/>'
+        );
+        //Evento para detectar cambio en el input y buscar
+        $("input", this).on("keyup change", function () {
+          if (table.column(i).search() !== this.value) {
+            table.column(i).search(this.value).draw();
+          }
+        });
       });
 
       // /* ===================================================
@@ -611,8 +611,8 @@ $(document).ready(function () {
       //     },
       // ];
       // var table = dataTableCustom(`#tabla_resumen_inventario`, buttons);
-  };
-  FiltroTablaInventario();
+    };
+    FiltroTablaInventario();
   }
 
   /* ===================================================
@@ -993,90 +993,118 @@ $(document).ready(function () {
 
 
     });
+
+    //GUARDAR REVISIÓN 
+    $(document).on("click", ".btn-guardarRev", function () {
+      Areas = [];
+      Requeridos = [];
+      Elementos = [];
+
+      //Validación de inputs
+
+      $("input:invalid").each(function (index, element) {
+        var $input = $(this);
+        console.log($input);
+
+        var idform = $input.closest("form").attr("id");
+
+        if (idform == "datosrevision_form") {
+          Requeridos.push($input);
+        }
+      });
+
+
+
+      //Validación textarea
+
+      $('textarea:invalid').each(function (index, element) {
+        var $area = $(this);
+
+        var idform = $area.closest("form").attr("id");
+        console.log(idform);
+        if (idform == "datosrevision_form") {
+          Areas.push($area);
+        }
+      });
+
+
+      var tab = [];
+
+      //Se trae los tabs 
+      $('input:invalid').each(function (index, element) {
+        var $tabs = $(this);
+        var idtab = $tabs.closest("table").attr("nombre");
+        if (idtab == undefined) idtab = "Documentos";
+        if (!tab.includes(idtab)) tab.push(idtab);
+      });
+
+
+
+
+      $('textarea:invalid').each(function (index, element) {
+        var $tabs = $(this);
+        var idtab = $tabs.closest("table").attr("nombre");
+        if (!tab.includes(idtab)) tab.push(idtab);
+      });
+
+
+      if (Requeridos.length > 0 || Areas.length > 0) {
+
+        let inputsRequeridosHtml = `<ul>`;
+        tab.forEach(element => {
+          inputsRequeridosHtml += `<li>${element}</li>`;
+        });
+        inputsRequeridosHtml += `</ul>`;
+
+        Swal.fire({
+          icon: 'warning',
+          html: `<div class="text-left">
+                                              <p class="font-weight-bold">Hace falta diligenciar campos en los siguientes apartados:</p>
+                                                  ${inputsRequeridosHtml}
+                                          </div>`,
+          showConfirmButton: true,
+          confirmButtonText: 'Cerrar',
+          closeOnConfirm: false
+        });
+      }
+
+
+    });
   }
 
 
 
+  /*========================================================
+    *MANTENIMIENTOS
+    ========================================================*/
 
-  $(document).on("click", ".btn-guardarRev", function () {
-    Areas = [];
-    Requeridos = [];
-    Elementos = [];
+  if (
+    window.location.href == `${urlPagina}m-mantenimientos/` ||
+    window.location.href == `${urlPagina}m-mantenimientos`
+  ) {
+    
 
-    //Validación de inputs
-
-    $("input:invalid").each(function (index, element) {
-      var $input = $(this);
-      console.log($input);
-
-      var idform = $input.closest("form").attr("id");
-
-      if (idform == "datosrevision_form") {
-        Requeridos.push($input);
-      }
+    //CLICK EN AÑADIR CAMPO REPUESTO EN ORDEN DE SERVICIO
+    $(document).on("click", ".btn-agregarRepuesto", function () {
+      $("#contenido_filas_repuesto").clone().appendTo("#filas_tabla_repuesto");
     });
-
-
-
-    //Validación textarea
-
-    $('textarea:invalid').each(function (index, element) {
-      var $area = $(this);
-
-      var idform = $area.closest("form").attr("id");
-      console.log(idform);
-      if (idform == "datosrevision_form") {
-        Areas.push($area);
-      }
+    
+    
+    //CLICK EN AÑADIR CAMPO MANO DE OBRA
+    
+    $(document).on("click", ".btn-agregarManoObra", function () {
+      $("#Contenido_tabla_manoObra").clone().appendTo("#filas_tabla_manoObra");
     });
-
-
-    var tab = [];
-
-    //Se trae los tabs 
-    $('input:invalid').each(function (index, element) {
-      var $tabs = $(this);
-      var idtab = $tabs.closest("table").attr("nombre");
-      if (idtab == undefined) idtab = "Documentos";
-      if (!tab.includes(idtab)) tab.push(idtab);
+    
+  }
+  
+  //CLICK EN AÑADIR CAMPO A REPUESTO EN SOLICITU DE SERVICIO
+  
+  $(document).on("click", ".btn-agregarRepuestoSolicitud", function(){
+    $("#contenido_filas_repuestoSolicitud").clone().appendTo("#filas_tabla_repuestoSolicitud");
     });
-
-
-
-
-    $('textarea:invalid').each(function (index, element) {
-      var $tabs = $(this);
-      var idtab = $tabs.closest("table").attr("nombre");
-      if (!tab.includes(idtab)) tab.push(idtab);
-    });
-
-
-    if (Requeridos.length > 0 || Areas.length > 0) {
-
-      let inputsRequeridosHtml = `<ul>`;
-      tab.forEach(element => {
-        inputsRequeridosHtml += `<li>${element}</li>`;
-      });
-      inputsRequeridosHtml += `</ul>`;
-
-      Swal.fire({
-        icon: 'warning',
-        html: `<div class="text-left">
-                                            <p class="font-weight-bold">Hace falta diligenciar campos en los siguientes apartados:</p>
-                                                ${inputsRequeridosHtml}
-                                        </div>`,
-        showConfirmButton: true,
-        confirmButtonText: 'Cerrar',
-        closeOnConfirm: false
-      });
-    }
-
-
-  });
-
-
-
-
 
 
 });
+
+
