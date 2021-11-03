@@ -108,3 +108,16 @@ class ControladorRutas
 		return $respuesta;
 	}
 }
+
+/* ===================================================
+	* REPUESTOS
+===================================================*/
+
+class ControladorRepuestos
+{
+	static public function ctrListarRepuestos()
+	{
+		$repuesta = ModeloRepuestos::mdlListarRepuestos();
+		return $repuesta;
+	}
+}
