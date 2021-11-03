@@ -621,7 +621,7 @@ class ModeloVehiculos
     }
 
     /* ==================================================
-        CARGAR SERVICIOS 
+        CARGAR SERVICIOS MENORES POR IDVEHICULO
     ====================================================*/
     static public function mdlServiciosVehiculo($datos)
     {
@@ -639,7 +639,7 @@ class ModeloVehiculos
     }
 
     /*====================================================
-        LISTADO DE SERVICIOS MENORES
+        HISTORICO DE SERVICIOS MENORES
     =====================================================*/
 
     static public function mdlHistoricoServiciosMenores()
@@ -654,6 +654,18 @@ class ModeloVehiculos
         return $retorno;
     }
 
+    /* ===================================================
+        LISTADO DE SERVICOS MENORES
+    ===================================================*/
+
+    static public function mdlListadoServicios()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM m_serviciosmenores");
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
 
     /* ===================================================
        AGREGAR VEHICULO

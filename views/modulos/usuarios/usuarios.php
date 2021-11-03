@@ -48,64 +48,65 @@ $Sucursales = ControladorGH::ctrSucursales();
             ========================= -->
             <div class="row mt-3">
                 <div class="col-sm-12">
-                    <table class="table table-sm table-striped table-bordered table-hover tablasBtnExport dt-responsive w-100">
-                        <thead class="thead-light text-capitalize">
-                            <tr>
-                                <th style="width:10px;">#</th>
-                                <th>Nombre</th>
-                                <th>email</th>
-                                <th>Foto</th>
-                                <th>Perfil</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($Usuarios as $key => $value) : ?>
-                                <?php
-
-                                # Estado
-                                if ($value['estado'] == 0) {
-                                    /* Permiso de usuario */
-                                    if (validarPermiso('M_USUARIOS', 'U')) {
-                                        $estado = '<button class="btn btn-sm btn-danger btnActivar" idUsuario="' . $value["UsuariosID"] . '" estadoUsuario="1">Inactivo</button>';
-                                    } else {
-                                        $estado = '<button class="btn btn-sm btn-danger">Inactivo</button>';
-                                    }
-                                } else {
-                                    /* Permiso de usuario */
-                                    if (validarPermiso('M_USUARIOS', 'U')) {
-                                        $estado = '<button class="btn btn-sm btn-success btnActivar" idUsuario="' . $value["UsuariosID"] . '" estadoUsuario="0">Activo</button>';
-                                    } else {
-                                        $estado = '<button class="btn btn-sm btn-success">Activo</button>';
-                                    }
-                                }
-
-                                # Foto
-                                if ($value['foto'] != '') {
-                                    $foto = '<img src="' . $value['foto'] . '" class="img-fluid" width="35"></td>';
-                                } else {
-                                    $foto = '<img src="views/img/fotosUsuarios/default/anonymous.png" class="img-fluid" width="35">';
-                                }
-                                ?>
+                    <div class="table-responsive">
+                        <table class="table table-sm table-striped table-bordered table-hover tablasBtnExport dt-responsive w-100">
+                            <thead class="thead-light text-capitalize">
                                 <tr>
-                                    <td><?= $value['UsuariosID'] ?></td>
-                                    <td><?= $value['Nombre'] ?></td>
-                                    <td><?= $value['Email'] ?></td>
-                                    <td><?= $foto ?></td>
-                                    <td><?= $value['perfil'] ?></td>
-                                    <td><?= $estado ?></td>
-                                    <td>
-                                        <div class="btn-group" role="group" aria-label="Button group">
-                                            <button class="btn btn-sm btn-info btnEditarUsuario" cedula="<?= $value['Cedula'] ?>" idUsuario="<?= $value['UsuariosID'] ?>" data-toggle="modal" data-target="#UsuarioModal"><i class="fas fa-edit"></i></button>
-                                        </div>
-                                    </td>
+                                    <th style="width:10px;">#</th>
+                                    <th>Nombre</th>
+                                    <th>email</th>
+                                    <th>Foto</th>
+                                    <th>Perfil</th>
+                                    <th>Estado</th>
+                                    <th>Acciones</th>
                                 </tr>
-                            <?php endforeach ?>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($Usuarios as $key => $value) : ?>
+                                    <?php
 
-                        </tbody>
-                    </table>
+                                    # Estado
+                                    if ($value['estado'] == 0) {
+                                        /* Permiso de usuario */
+                                        if (validarPermiso('M_USUARIOS', 'U')) {
+                                            $estado = '<button class="btn btn-sm btn-danger btnActivar" idUsuario="' . $value["UsuariosID"] . '" estadoUsuario="1">Inactivo</button>';
+                                        } else {
+                                            $estado = '<button class="btn btn-sm btn-danger">Inactivo</button>';
+                                        }
+                                    } else {
+                                        /* Permiso de usuario */
+                                        if (validarPermiso('M_USUARIOS', 'U')) {
+                                            $estado = '<button class="btn btn-sm btn-success btnActivar" idUsuario="' . $value["UsuariosID"] . '" estadoUsuario="0">Activo</button>';
+                                        } else {
+                                            $estado = '<button class="btn btn-sm btn-success">Activo</button>';
+                                        }
+                                    }
 
+                                    # Foto
+                                    if ($value['foto'] != '') {
+                                        $foto = '<img src="' . $value['foto'] . '" class="img-fluid" width="35"></td>';
+                                    } else {
+                                        $foto = '<img src="views/img/fotosUsuarios/default/anonymous.png" class="img-fluid" width="35">';
+                                    }
+                                    ?>
+                                    <tr>
+                                        <td><?= $value['UsuariosID'] ?></td>
+                                        <td><?= $value['Nombre'] ?></td>
+                                        <td><?= $value['Email'] ?></td>
+                                        <td><?= $foto ?></td>
+                                        <td><?= $value['perfil'] ?></td>
+                                        <td><?= $estado ?></td>
+                                        <td>
+                                            <div class="btn-group" role="group" aria-label="Button group">
+                                                <button class="btn btn-sm btn-info btnEditarUsuario" cedula="<?= $value['Cedula'] ?>" idUsuario="<?= $value['UsuariosID'] ?>" data-toggle="modal" data-target="#UsuarioModal"><i class="fas fa-edit"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach ?>
+
+                            </tbody>
+                        </table>
+                    </div>
 
                 </div><!-- col-sm-12 -->
 
