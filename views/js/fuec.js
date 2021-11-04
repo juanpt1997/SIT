@@ -594,8 +594,10 @@ $(document).ready(function () {
                         $("#idruta").val(response.idruta);
                         $("#origen").val(response.origen);
                         $("#destino").val(response.destino);
-                        $("#descrip").val(response.observaciones);
-                        $("#observacionescontr").val(response.observaciones);
+                        //$("#descrip").val(response.observaciones);
+                        setTimeout(() => {
+                            $("#observacionescontr").val(response.observaciones);
+                        }, 1000);
                         $("#precio").val(response.precio);
                         $("#valorneto").val(response.valor_neto);
                         $(
@@ -695,7 +697,7 @@ $(document).ready(function () {
         });
 
         $(document).on("click", ".btnSeleccionarRuta", function () {
-           
+
             $("#NuevoFuecModal").modal('show');
             $("#modal_general").modal('hide');
 
@@ -705,18 +707,18 @@ $(document).ready(function () {
             var id = $(this).attr("idregistro");
 
             $("#idruta").val(id);
-            $("#descrip").val(descripcion);
+            $("#observacionescontr").val(descripcion);
             $("#origen").val(origen);
             $("#destino").val(destino);
         });
 
         $(document).on("click", ".btn_cancelar_ruta", function () {
-           
+
             $("#NuevoFuecModal").modal('show');
             $("#modal_general").modal('hide');
 
             $("#idruta").val("");
-            $("#descrip").val("");
+            $("#observacionescontr").val("");
             $("#origen").val("");
             $("#destino").val("");
         });
