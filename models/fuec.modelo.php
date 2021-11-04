@@ -329,17 +329,29 @@ class ModeloFuec
     ===================================================*/
     static public function mdlDocumentosVencidos($idvehiculo)
     {
-        // $sql = "SELECT t.tipodocumento, IF(MAX(d.fechafin) >= CURDATE(), MAX(d.fechafin), NULL) AS fechafin FROM v_tipodocumento t
-        //                                         LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
-        //                                         WHERE d.idvehiculo = :idvehiculo OR d.idvehiculo IS NULL
-        //                                         GROUP BY t.idtipo";
-        $sql = "SELECT t.tipodocumento, IF(MAX(d.fechafin) >= CURDATE(), MAX(d.fechafin), NULL) AS fechafin
+        // $sql = "SELECT t.tipodocumento, IF(MAX(d.fechafin) >= CURDATE(), MAX(d.fechafin), NULL) AS fechafin
+        //         FROM v_tipodocumento t
+        //         LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
+        //         WHERE d.idvehiculo = :idvehiculo
+        //         GROUP BY t.idtipo
+        //         UNION ALL
+        //         SELECT t.tipodocumento, NULL AS fechafin
+        //         FROM v_tipodocumento t
+        //         LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
+        //         WHERE t.tipodocumento NOT IN (
+        //                                     SELECT t.tipodocumento
+        //                                     FROM v_tipodocumento t
+        //                                     LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
+        //                                     WHERE d.idvehiculo = :idvehiculo
+        //                                     GROUP BY t.idtipo)
+        //         GROUP BY t.idtipo;";
+        $sql = "SELECT t.tipodocumento, MAX(d.fechafin) AS fechafin, IF(MAX(d.fechafin) >= CURDATE(), 'bien', 'vencido') AS estado
                 FROM v_tipodocumento t
                 LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
                 WHERE d.idvehiculo = :idvehiculo
                 GROUP BY t.idtipo
                 UNION ALL
-                SELECT t.tipodocumento, NULL AS fechafin
+                SELECT t.tipodocumento, NULL AS fechafin, 'vencido' AS estado
                 FROM v_tipodocumento t
                 LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
                 WHERE t.tipodocumento NOT IN (

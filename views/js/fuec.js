@@ -128,7 +128,8 @@ $(document).ready(function () {
                                     let listaVencidosHtml = `<ul>`;
                                     response.DocumentosVencidos.forEach(
                                         (element) => {
-                                            listaVencidosHtml += `<li>${element.tipodocumento}</li>`;
+                                            let fechaVencido = element.fechafin == null ? "Sin fecha" : element.fechafin;
+                                            listaVencidosHtml += `<li>${element.tipodocumento} -> ${fechaVencido}</li>`;
                                         }
                                     );
                                     listaVencidosHtml += `</ul>`;
@@ -383,7 +384,8 @@ $(document).ready(function () {
                         if (response.DocumentosxVencer != "") {
                             let listaVencidosHtml = `<ul>`;
                             response.DocumentosxVencer.forEach((element) => {
-                                listaVencidosHtml += `<li>${element.tipodocumento}</li>`;
+                                let fechaVencido = element.fechafin == null ? "Sin fecha" : element.fechafin;
+                                listaVencidosHtml += `<li>${element.tipodocumento} -> ${fechaVencido}</li>`;
                             });
                             listaVencidosHtml += `</ul>`;
 
