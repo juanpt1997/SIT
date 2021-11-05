@@ -173,7 +173,21 @@ class ControladorAlistamiento
                 $retorno = ModeloAlistamiento::mdlEditarAlistamiento($datos);
             }
         }
+        
+        /* ===================================================
+            GUARDAR KILOMETRAJE VEHICULO
+        ===================================================*/
+        $tabla = "v_vehiculos";
 
+        $datoskm = array(
+            'tabla' => $tabla,
+            'item1' => 'kilometraje',
+            'valor1' => $datos['kilometraje_total'],
+            'item2' => 'idvehiculo',
+            'valor2' => $datos['idvehiculo']
+        );
+
+        $respuestakm = ModeloVehiculos::mdlActualizarVehiculo($datoskm);
 
 
         /* ===================================================
@@ -206,21 +220,32 @@ class ControladorAlistamiento
         $msg = $msg . "<b>Fecha: </b>" . date("d") . "/" . date("m") . "/" . date("y") . "\n";
         $msg = $msg . "<b>Hora: </b>" . date("H") . ":" . date("i") . ":" . date("s") . "\n";
 
+        $notificacion = false;
 
         foreach ($datos as $key => $value) {
-            if ($key == 'nivel_refrigerante' && $value == 0) $msg = $msg . "<b>Nivel refrigerante:</b> Bajo \n";
-            if ($key == 'nivel_combustible' && $value == 0) $msg = $msg . "<b>Nivel de combustible:</b> Bajo \n";
-            if ($key == 'liquido_hidraulico' && $value == 0) $msg = $msg . "<b>Nivel de líquido hidráulico:</b> Bajo \n";
-            if ($key == 'nivel_liquido_frenos' && $value == 0) $msg = $msg . "<b>Nivel de líquido de frenos:</b> Bajo \n";
-            if ($key == 'nivel_aceite' && $value == 0) $msg = $msg . "<b>Nivel de aceite:</b> Bajo \n";
+            if ($key == 'nivel_refrigerante' && $value == 0) {
+                $msg = $msg . "<b>Nivel refrigerante:</b> Bajo \n";
+                $notificacion = True;
+            }
+            if ($key == 'nivel_combustible' && $value == 0) 
+            {
+                $msg = $msg . "<b>Nivel de combustible:</b> Bajo \n";
+                $notificacion = True;
+            }
+            if ($key == 'liquido_hidraulico' && $value == 0){
+                $msg = $msg . "<b>Nivel de líquido hidráulico:</b> Bajo \n";
+                $notificacion = True;
+            }
+            if ($key == 'nivel_liquido_frenos' && $value == 0){
+                $msg = $msg . "<b>Nivel de líquido de frenos:</b> Bajo \n";
+                $notificacion = True;
+            }
+            if ($key == 'nivel_aceite' && $value == 0){
+                $msg = $msg . "<b>Nivel de aceite:</b> Bajo \n";
+                $notificacion = True;
+            }
         }
-
-
-
-
-
-        ControladorTelegram::ctrNotificaciones($msg);
-
+        if($notificacion != false) ControladorTelegram::ctrNotificaciones($msg);
         return $retorno;
     }
 

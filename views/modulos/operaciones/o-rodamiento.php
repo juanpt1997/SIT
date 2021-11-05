@@ -126,7 +126,7 @@ $Plan_r = ControladorRodamientos::ctrListarRodamientos();
   MODAL DE INGRESO NUEVO PLAN DE RODAMIENTO
  ============================== -->
 
-<div class="modal fade show" id="modal-nuevoplanrodamiento" style="display: none; padding-right: 17px;" aria-modal="true" role="dialog" style="overflow-y: scroll;">
+<div class="modal fade show" id="modal-nuevoplanrodamiento" style=" overflow-y: scroll; display: none; padding-right: 17px;" aria-modal="true" role="dialog" style="overflow-y: scroll;">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header bg-info">

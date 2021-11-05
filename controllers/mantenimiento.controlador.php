@@ -128,6 +128,22 @@ class ControladorInventario
 
 				$responseModel = ModeloInventario::mdlAgregarInventario($datos);
 
+				/* ===================================================
+            		GUARDAR KILOMETRAJE VEHICULO
+        		===================================================*/
+				$tabla = "v_vehiculos";
+
+				$datoskm = array(
+					'tabla' => $tabla,
+					'item1' => 'kilometraje',
+					'valor1' => $datos['kilometraje'],
+					'item2' => 'idvehiculo',
+					'valor2' => $datos['idvehiculo']
+				);
+
+				$respuestakm = ModeloVehiculos::mdlActualizarVehiculo($datoskm);
+
+
 				echo $responseModel;
 
 				if ($responseModel == "ok") {
@@ -170,6 +186,23 @@ class ControladorInventario
 			} else {
 
 				$responseModel = ModeloInventario::mdlEditarInventario($datos);
+				
+
+				/* ===================================================
+            		GUARDAR KILOMETRAJE VEHICULO
+        		===================================================*/
+				$tabla = "v_vehiculos";
+
+				$datoskm = array(
+					'tabla' => $tabla,
+					'item1' => 'kilometraje',
+					'valor1' => $datos['kilometraje'],
+					'item2' => 'idvehiculo',
+					'valor2' => $datos['idvehiculo']
+				);
+
+				$respuestakm = ModeloVehiculos::mdlActualizarVehiculo($datoskm);
+
 
 				echo $responseModel;
 
@@ -513,9 +546,9 @@ class ControladorRevision
 			$datos['martillo_emergencia'] = isset($datos['martillo_emergencia']) ? $datos['martillo_emergencia'] : "null";
 			$datos['cant_martillos'] = isset($datos['cant_martillos']) ? $datos['cant_martillos'] : "null";
 			$datos['dispositivo_velocidad'] = isset($datos['dispositivo_velocidad']) ? $datos['dispositivo_velocidad'] : "null";
-			$datos['avisos'] = isset($datos['avisos']) ? $datos['avisos'] : "null"; 
-			$datos['cant_internos'] = isset($datos['cant_internos']) ? $datos['cant_internos'] : "null"; 
-			$datos['cant_externos'] = isset($datos['cant_externos']) ? $datos['cant_externos'] : "null"; 
+			$datos['avisos'] = isset($datos['avisos']) ? $datos['avisos'] : "null";
+			$datos['cant_internos'] = isset($datos['cant_internos']) ? $datos['cant_internos'] : "null";
+			$datos['cant_externos'] = isset($datos['cant_externos']) ? $datos['cant_externos'] : "null";
 			$datos['placa_trasera'] = isset($datos['placa_trasera']) ? $datos['placa_trasera'] : "null";
 			$datos['placa_delantera'] = isset($datos['placa_delantera']) ? $datos['placa_delantera'] : "null";
 			$datos['placa_lateral_derecha'] = isset($datos['placa_lateral_derecha']) ? $datos['placa_lateral_derecha'] : "null";
@@ -537,11 +570,26 @@ class ControladorRevision
 
 			if ($_POST['idrevision'] == "") {
 				$respuesta = ModeloRevision::mdlAgregarRevision($datos);
-			}else{
+			} else {
 				$respuesta = ModeloRevision::mdlEditarRevision($datos);
 			}
+			
+			/* ===================================================
+            		GUARDAR KILOMETRAJE VEHICULO
+        		===================================================*/
+				$tabla = "v_vehiculos";
 
-			if($respuesta == "ok"){
+				$datoskm = array(
+					'tabla' => $tabla,
+					'item1' => 'kilometraje',
+					'valor1' => $datos['kilometraje'],
+					'item2' => 'idvehiculo',
+					'valor2' => $datos['idvehiculo']
+				);
+
+				$respuestakm = ModeloVehiculos::mdlActualizarVehiculo($datoskm);
+
+			if ($respuesta == "ok") {
 				echo "
 							<script>
 								Swal.fire({
@@ -559,12 +607,12 @@ class ControladorRevision
 								})
 							</script>
 						";
-			}else{
+			} else {
 
 				echo "
 							<script>
 								Swal.fire({
-									icon: 'success',
+									icon: 'error',
 									title: '¡Problema al actualizar al revisión!',						
 									showConfirmButton: true,
 									confirmButtonText: 'Cerrar',
@@ -578,7 +626,6 @@ class ControladorRevision
 								})
 							</script>
 						";
-
 			}
 		}
 	}
@@ -589,8 +636,92 @@ class ControladorRevision
 
 	static public function ctrEliminarRevision($idrevision)
 	{
-		
+
 		$respuesta = ModeloRevision::mdlEliminarRevision($idrevision);
 		return $respuesta;
+	}
+}
+
+class ControladorMantenimientos
+{
+
+	/* ===================================================
+		SE TRAE TODOS  LOS SERVICIOS QUE TIENE EL VEHÍCULO
+	===================================================*/
+	static public function ctrServiciosRecientes($idservicio)
+	{
+		$respuesta = ModeloMantenimientos::mdlServiciosRecientes($idservicio);
+
+		return $respuesta;
+	}
+
+	/* ===================================================
+		GUARDAR PROGRAMACIÓN SERVICIO
+	===================================================*/
+
+	static public function ctrGuardarServicio()
+	{
+		$datos = $_POST;
+
+		if (isset($_POST['idserviciovehiculo']) && $_POST['idserviciovehiculo'] == "") {
+			$respuesta = ModeloMantenimientos::mdlAgregarServicio($datos);
+
+			
+			/* ===================================================
+            		GUARDAR KILOMETRAJE VEHICULO
+        		===================================================*/
+				$tabla = "v_vehiculos";
+
+				$datoskm = array(
+					'tabla' => $tabla,
+					'item1' => 'kilometraje',
+					'valor1' => $datos['kilometraje'],
+					'item2' => 'idvehiculo',
+					'valor2' => $datos['idvehiculo']
+				);
+
+				$respuestakm = ModeloVehiculos::mdlActualizarVehiculo($datoskm);
+
+
+			//alerta
+			if ($respuesta == "ok") {
+				echo "
+							<script>
+								Swal.fire({
+									icon: 'success',
+									title: '¡Datos guardados correctamente!',						
+									showConfirmButton: true,
+									confirmButtonText: 'Cerrar',
+									
+								}).then((result)=>{
+	
+									if(result.value){
+										window.location = 'm-mantenimientos';
+									}
+	
+								})
+							</script>
+						";
+			} else {
+
+				echo "
+							<script>
+								Swal.fire({
+									icon: 'error',
+									title: '¡Problema al guardar los datos!',						
+									showConfirmButton: true,
+									confirmButtonText: 'Cerrar',
+									
+								}).then((result)=>{
+	
+									if(result.value){
+										window.location = 'm-mantenimientos';
+									}
+	
+								})
+							</script>
+						";
+			}
+		}
 	}
 }
