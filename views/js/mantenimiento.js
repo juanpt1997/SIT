@@ -1082,27 +1082,166 @@ $(document).ready(function () {
     window.location.href == `${urlPagina}m-mantenimientos/` ||
     window.location.href == `${urlPagina}m-mantenimientos`
   ) {
-    
+
 
     //CLICK EN AÑADIR CAMPO REPUESTO EN ORDEN DE SERVICIO
     $(document).on("click", ".btn-agregarRepuesto", function () {
       $("#contenido_filas_repuesto").clone().appendTo("#filas_tabla_repuesto");
+
+
+      // var fila = '<tr>' + '<td style="width: 300px">' + '<input type="text" class="form-control" id="descripcion_repuestos1" name="descripcion_repuestos1">' + '</td>' + 
+      // '<td style="width: 300px">' +  '<input type="text" class="form-control" id="referencia_repuestos1" name="referencia_repuestos1">' + '</td>' + 
+      // '<td style="width: 300px">' + '<input type="text" class="form-control" id="proveedor1" name="proveedor1">' + '</td>' +
+      // '</tr>';
+      // $("#contenido_filas_repuesto tbody").append(fila).appendTo("#filas_tabla_repuesto");
+
+
+
     });
-    
-    
+
+
     //CLICK EN AÑADIR CAMPO MANO DE OBRA
-    
+
     $(document).on("click", ".btn-agregarManoObra", function () {
       $("#Contenido_tabla_manoObra").clone().appendTo("#filas_tabla_manoObra");
     });
-    
-  }
-  
-  //CLICK EN AÑADIR CAMPO A REPUESTO EN SOLICITU DE SERVICIO
-  
-  $(document).on("click", ".btn-agregarRepuestoSolicitud", function(){
-    $("#contenido_filas_repuestoSolicitud").clone().appendTo("#filas_tabla_repuestoSolicitud");
+
+    //CLICK EN AÑADIR CAMPO A REPUESTO EN SOLICITU DE SERVICIO
+
+    $(document).on("click", ".btn-agregarRepuestoSolicitud", function () {
+      $("#contenido_filas_repuestoSolicitud").clone().appendTo("#filas_tabla_repuestoSolicitud");
     });
+
+    // CARGAR DATOS EN LA TABLA DEPENDIENDO DEL SERVICIO SELECCIONADO
+
+    $(document).on("change", "#servicio", function () {
+
+      let idservicio = $(this).val()
+      let test = ""
+
+      var datos = new FormData();
+      datos.append("Servicios", "ok");
+      datos.append("idservicio", idservicio);
+
+      $.ajax({
+        type: "post",
+        url: "ajax/mantenimiento.ajax.php",
+        data: datos,
+        dataType: "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+
+          response.forEach(element => {
+
+            test += '<tr>' +
+              '<td>' + '<div class="row d-flex flex-nowrap justify-content-center">' +
+              '<div class="col-md-6">' +
+              '<div class="btn-group" role="group" aria-label="Button group">' +
+              '<button class="btn btn-xs btn-danger btnBorrarProgramacion" idserviciovehiculo="' + element.idserviciovehiculo + '"> <i class="fas fa-trash"></i> </button>' +
+              '</div>' +
+              '</div>' +
+              '</div>' +
+              '</td>' +
+              '<td>' + element.placa + '</td>' +
+              '<td>' + element.servicio + '</td>' +
+              '<td id="idserviciovehiculok_' + element.idserviciovehiculo + '">' + element.kilometraje_cambio + '</td>' +
+              '<td id="idserviciovehiculof_' + element.idserviciovehiculo + '">' + element.fecha_cambio + '</td>'
+
+              + '</tr>';
+          });
+
+          $('#tabla').html(test);
+
+          response.forEach(element => {
+            console.log(element.fecha_cambio , ">=", moment().format("DD-MM-YYYY"));
+            var bg =
+              element.fecha_cambio >=
+                moment().format("DD-MM-YYYY")
+                ? "bg-success"
+                : "bg-danger";
+
+
+            $(`#idserviciovehiculof_${element.idserviciovehiculo}`).addClass(bg);
+
+            var bgk =
+              element.kilometraje_actual <= element.kilometraje_cambio
+                ? "bg-success"
+                : "bg-danger";
+
+
+            $(`#idserviciovehiculok_${element.idserviciovehiculo}`).addClass(bgk);
+
+
+          });
+
+
+
+        },
+      });
+
+    });
+
+
+    // BORRAR SERVICIO PROGRAMACIÓN
+    $(document).on("click", ".btnBorrarProgramacion", function () {
+      let idserviciovehiculo = $(this).attr("idserviciovehiculo");
+
+
+      Swal.fire({
+        icon: "warning",
+        showConfirmButton: true,
+        showCancelButton: true,
+        title: "¿Seguro que de sea borrar este registro?",
+        confirmButtonText: "Si, borrar",
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#ff0000",
+        cancelButtonColor: "#0080ff",
+        allowOutsideClick: false,
+      }).then((result) => {
+
+        if (result.value == true) {
+
+          var datos = new FormData();
+          datos.append("EliminarProgramacion", "ok");
+          datos.append("idserviciovehiculo", idserviciovehiculo);
+
+          $.ajax({
+            type: "POST",
+            url: "ajax/mantenimiento.ajax.php",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            //dataType: "json",
+            success: function (response) {
+              console.log(response);
+              if (response == "ok") {
+                Swal.fire({
+                  icon: "success",
+                  showConfirmButton: true,
+                  title: "¡El registro ha sido borrado correctamente!",
+                  confirmButtonText: "¡Cerrar!",
+                  allowOutsideClick: false,
+                }).then((result) => {
+                  window.location = "m-mantenimientos";
+                });
+              }
+            },
+          });
+        }
+      });
+
+
+
+
+
+    });
+
+
+  }
+
 
 
 });
