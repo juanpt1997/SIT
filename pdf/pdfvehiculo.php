@@ -25,17 +25,14 @@ require '../vendor/autoload.php';
 require '../controllers/vehicular.controlador.php';
 require '../models/vehicular.modelo.php';
 
-
 $resultado = ControladorVehiculos::ctrDatosVehiculo("idvehiculo", $idvehiculo);
 
 /* ===================== 
   SI LA INFORMACIÓN VIENE FALSA SE REDIRECCIONA A LAS ORDERS
 ========================= */
-
 if ($resultado === false) {
     header("Location: " . URL_APP);
 }
-
 /* ===================== 
   CONFIGURACIÓN DEL HEADER Y FOOTER EN EL ARCHIVO PDF 
 ========================= */
@@ -91,10 +88,8 @@ class MYPDF extends TCPDF
     }
 }
 
-
 class PdfVehiculo
 {
-
     /* ===================== 
       GENERACION DE ARCHIVOS PDF DE LA PETICION DE OFERTA 
     ========================= */
@@ -355,13 +350,14 @@ class PdfVehiculo
             'ruta_documento' => "",
             'Ffechafin' => ''
         );
-        // var_dump($SOAT);
-        // var_dump($CDA);
-        // var_dump($TarjetaOperacion);
-        // var_dump($RevisionPreventiva);
-        // var_dump($RCC);
-        // var_dump($Extintor);
 
+        var_dump($SOAT);
+        var_dump($CDA);
+        var_dump($TarjetaOperacion);
+        var_dump($RevisionPreventiva);
+        var_dump($RCC);
+
+         $pdf->Ln();
          $pdf->SetFont('helvetica', 'B', '12');
          $pdf->Cell(0, 0, "VENCIMIENTO DE DOCUMENTOS", 0, 0, 'C', 0, '', 0);
          $pdf->Ln();
@@ -480,59 +476,58 @@ class PdfVehiculo
 
         // TABLA CON LOS DOCUMENTOS MATRICULA SOAT Y TECNO        
         $tabla = '
-        <table cellspacing="2" cellpadding="3">
+        <table cellpadding="3">
             <tbody>
-            <tr style="text-align: center; font-weight:bold;">
-            <th colspan="2" border="2" width="625">MATRÍCULA</th>
-           </tr>
+                <tr style="text-align: center; font-weight:bold;">
+                    <th colspan="2" border="1"><i>MATRÍCULA</i></th>
+                </tr>
+                <tr style="text-align: center;">
+                    <td colspan="2" border="1" height="190"><img src="' . $tarjetaPropiedad['ruta_documento'] . '" height="190"></td>
+                </tr>
 
-           <tr style="text-align: center;">
-              <td colspan="2" border="1" height="150"><img src="' . $tarjetaPropiedad['ruta_documento'] . '"></td>
-           </tr>
+                <tr style="text-align: center; font-weight:bold;">
+                    <th colspan="2" border="1"><i>TARJETA DE OPERACIÓN</i></th>
+                </tr>
+                <tr style="text-align: center;">
+                    <td colspan="2" border="1" height="190"><img src="' . $TarjetaOperacion['ruta_documento'] . '" height="190"></td>
+                </tr>
+            </tbody>
+        </table>
+        ';
+        $pdf->Ln();
+        $pdf->SetFont('helvetica', '', '8');
+        $pdf->writeHTML($tabla);
+        // ---------------------------------------------------------
+        $pdf->AddPage();
 
-           <tr style="text-align: center; font-weight:bold;">
-           <th colspan="2" border="2">TARJETA DE OPERACIÓN</th>
-        </tr>
+        $tabla = '
+        <table cellpadding="3">
+            <tbody>
+                <tr style="text-align: center; font-weight:bold;">
+                    <th colspan="2" border="1"><i>PÓLIZA RC - RCE</i></th>
+                </tr>
+                <tr style="text-align: center;">
+                    <td colspan="2" border="1" height="190"><img src="' . $RCC['ruta_documento'] . '" height="190"></td>
+                </tr>
 
-        <tr style="text-align: center;">
-          <td colspan="2" border="1" height="200"><img src="' . $TarjetaOperacion['ruta_documento'] . '"></td>
-        </tr>
+                <tr style="text-align: center; font-weight:bold;">
+                    <th colspan="2" border="1"><i>SOAT</i></th>
+                </tr>
+                <tr style="text-align: center;">
+                    <td colspan="2" border="1" height="190"><img src="' . $SOAT['ruta_documento'] . '" height="190" style="margin: 25px 50px 75px 100px;"></td>
+                </tr>
+
+                <tr style="text-align: center; font-weight:bold;">
+                    <th colspan="2" border="1"><i>REVISIÓN TECNO-MECÁNICA Y DE GASES</i></th>
+                </tr>
+                <tr style="text-align: center;">
+                    <td colspan="2" border="1" height="190"><img src="' . $CDA['ruta_documento'] . '" height="190"></td>
+                </tr>
             </tbody>
         </table>
         ';
         $pdf->SetFont('helvetica', '', '8');
         $pdf->writeHTML($tabla);
-
-
-        // TABLA CON LOS DOCUMENTOS TARJETA DE OPERACION, PÓLIZA EXTRACTUAL, PÓLIZA CONTRACTUAL
-        $pdf->AddPage();
-        $tabla = '
-        <table cellspacing="2" cellpadding="3">
-               <tbody>
-                  <tr style="text-align: center; font-weight:bold;">
-                  <td border="2">SOAT</td>
-                  <td border="2">REVISIÓN TECNO-MECÁNICA Y DE GASES</td>
-                </tr>
-  
-                <tr>
-                  <td border="1" height="200"><img src="' . $SOAT['ruta_documento'] . '"></td>
-                  <td border="1" height="200"><img src="' . $CDA['ruta_documento'] . '"></td>
-                </tr>
-
-                  <tr style="text-align: center; font-weight:bold;">
-                     <th colspan="2" border="2">PÓLIZA RC - RCE</th>
-                  </tr>
-
-                  <tr style="text-align: center;">
-                    <td colspan="2" border="1" height="200"><img src="' . $RCC['ruta_documento'] . '"></td>
-                  </tr>
-              </tbody>
-        </table>
-        ';
-        $pdf->SetFont('helvetica', '', '8');
-        $pdf->writeHTML($tabla);
-
-        // ---------------------------------------------------------
 
         // Close and output PDF document
         // This method has several options, check the source code documentation for more information.

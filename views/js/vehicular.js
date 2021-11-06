@@ -209,28 +209,39 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
             dataType: "json",
             success: function (response) {
 
-                var vehiculos = [];
+                if(response == ''){
+                    Swal.fire({
+                        icon: 'warning',
+                        html: `<div class="font-weight-bold">Este convenio no cuenta con vehículos.</div>`,
+                        showConfirmButton: true,
+                        confirmButtonText: 'Cerrar',
+                        closeOnConfirm: false
+                    });
+                }else{
+                    var vehiculos = [];
+    
+                    response.forEach(element => {
+                        vehiculos.push(element.placa);
+                    });
+                    
+                    let placas = `<ul>`;
+                    vehiculos.forEach(element => {
+                        placas += `<li>${element}</li>`;
+                    });
+                    placas += `</ul>`;
+    
+                    Swal.fire({
+                        icon: 'info',
+                        html: `<div class="text-left">
+                                                        <p class="font-weight-bold">Este convenio cuenta con los siguientes vehículos:</p>
+                                                            ${placas}
+                                                    </div>`,
+                        showConfirmButton: true,
+                        confirmButtonText: 'Cerrar',
+                        closeOnConfirm: false
+                    });
+                }
 
-                response.forEach(element => {
-                    vehiculos.push(element.placa);
-                });
-                
-                let placas = `<ul>`;
-                vehiculos.forEach(element => {
-                    placas += `<li>${element}</li>`;
-                });
-                placas += `</ul>`;
-
-                Swal.fire({
-                    icon: 'info',
-                    html: `<div class="text-left">
-                                                    <p class="font-weight-bold">Este convenio cuenta con los siguientes vehículos:</p>
-                                                        ${placas}
-                                                </div>`,
-                    showConfirmButton: true,
-                    confirmButtonText: 'Cerrar',
-                    closeOnConfirm: false
-                });
 
             }
         });
