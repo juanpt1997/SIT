@@ -101,6 +101,8 @@ class ControladorUsuarios
                             });
                         </script>";
 			}
+		}else{
+			//echo '<br><div class="alert alert-danger">Página en mantenimiento ☹, vuelva a intentar más tarde</div>';
 		}
 	}
 

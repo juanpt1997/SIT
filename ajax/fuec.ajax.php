@@ -41,7 +41,7 @@ class AjaxFuec
         $documentosVencidos = ControladorFuec::ctrDocumentosVencidos($idvehiculo);
         $arrayVencidos = array();
         foreach ($documentosVencidos as $key => $documento) {
-            if ($documento['fechafin'] == null){
+            if ($documento['estado'] == 'vencido'){
                 $arrayVencidos[] = $documento;
             }
         }

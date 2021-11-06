@@ -358,7 +358,7 @@ $Rutas = ControladorRutas::ctrListarRutas();
                                     </select> -->
                                     <input type="hidden" id="idruta" name="idruta">
 
-                                    <input class="form-control" type="text" id="descrip" name="descrip" placeholder="Seleccione una ruta de la lista" readonly>
+                                    <input class="form-control" type="text" id="descrip" name="descrip" placeholder="Seleccione una ruta de la lista" required>
 
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-success btn-md btn-ruta" title="Buscar una ruta existente" data-toggle="modal" data-target="#modal_general"><i class="fas fa-route"></i></button>
@@ -693,7 +693,7 @@ $Rutas = ControladorRutas::ctrListarRutas();
                 <div class="modal-footer bg-dark d-flex justify-content-center">
                     <button type="button" class="btn btn-danger btn-cancelar" data-dismiss="modal">Cancelar</button>
                     <?php if (validarPermiso('M_CONTRATOS', 'U')) : ?>
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" class="btn btn-success btn-guardar-cotizacion">
                         <i class="fas fa-save"></i>
                         Guardar
                     </button>

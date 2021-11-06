@@ -172,6 +172,28 @@ class AjaxRevision
         echo $respuesta;
     }
 }
+
+class AjaxMantenimientos{
+
+    /* ===================================================
+        LISTADO DE LOS SERVICIOS RECIENTES POR ID SERVICIO    
+    ===================================================*/
+    static public function ajaxServiciosMenores($idservicio)
+    {
+        $respuesta = ModeloMantenimientos::mdlServiciosRecientes($idservicio);
+        echo json_encode($respuesta);
+    }
+
+    /* ===================================================
+        ELIMINAR PROGRAMACIÓN SERVICIO    
+    ===================================================*/
+
+    static public function ajaxEliminarProgramacion($idserviciovehiculo)
+    {
+        $respuesta = ModeloMantenimientos::mdlEliminarProgramacion($idserviciovehiculo);
+        echo $respuesta;
+    }
+}
 /* ===================================================
             LLAMADOS AJAX INVENTARIO
 ====================================================*/
@@ -213,3 +235,9 @@ if(isset($_POST['DatosRevision']) && $_POST['DatosRevision'] == "ok") AjaxRevisi
 
 #Llamado a borrar revision tecnicomecánica
 if(isset($_POST['EliminarRevision']) && $_POST['EliminarRevision'] == "ok") AjaxRevision::ajaxEliminarRevision($_POST['idrevision']);
+
+#LLAMADO A SERVICIOS MENORES MÁS RECIENTES
+if(isset($_POST['Servicios']) && $_POST['Servicios'] == "ok") AjaxMantenimientos::ajaxServiciosMenores($_POST['idservicio']);
+
+#LLAMADO A ELIMINAR PROGRAMACIÓN 
+if(isset($_POST['EliminarProgramacion']) && $_POST['EliminarProgramacion'] == "ok") AjaxMantenimientos::ajaxEliminarProgramacion($_POST['idserviciovehiculo']);

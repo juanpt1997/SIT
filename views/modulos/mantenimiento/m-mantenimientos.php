@@ -4,6 +4,8 @@
 //     echo "<script> window.location = 'inicio'; </script>";
 // }
 
+$Placas = ControladorVehiculos::ctrListaVehiculos();
+$Servicios = ControladorVehiculos::ctrListadoServicios();
 
 ?>
 <!-- ===================== 
@@ -244,6 +246,9 @@
                                                     <button type="button" class="btn btn-primary btn-md btn-agregarRepuesto mb-3" data-toggle="modal" data-target="#EmpresasModal">
                                                         <i class="fas fa-plus"></i>
                                                     </button>
+                                                    <button type="button" class="btn btn-danger btn-md btn-EliminarRepuesto mb-3" data-toggle="modal" data-target="#EmpresasModal">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
                                                 </div>
                                                 <!-- MANO DE OBRA  -->
                                                 <div class="tab-pane fade" id="v-pills-manoObra" role="tabpanel" aria-labelledby="v-pills-manoObra-tab">
@@ -337,230 +342,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-
-
-
-                                    <!-- <div class="card card-outline card-success">
-                                          <div class="card-body">
-                                              <div id="accordion">
-                                                  <div class="card card-info">
-                                                      <div class="card-header text-center">
-                                                          <h4 class="card-title w-100">
-                                                              <a class="d-block w-100" data-toggle="collapse" href="#collapseOne">
-                                                                  Diagnóstico
-                                                              </a>
-                                                          </h4>
-                                                      </div>
-  
-                                                      <div id="collapseOne" class="collapse" data-parent="#accordion">
-                                                          <div class="card-body">
-                                                              <div class="callout callout-info">
-                                                                  <div class="row">
-                                                                      <div class="col-sm-9 text-center">
-                                                                           textarea 
-                                                                          <div class="form-group">
-                                                                              <label>Descripción</label>
-                                                                              <textarea class="form-control" rows="5" placeholder="Digite una leve descripción ..."></textarea>
-                                                                          </div>
-                                                                      </div>
-  
-                                                                      <div class="row d-flex justify-content-center">
-                                                                          <div class="col-sm-8">
-                                                                              <div class="form-group text-center">
-                                                                                  <label><i># Orden externa</i></label>
-                                                                                  <input type="text" class="form-control" id="tipo_man" name="tipo_man" required>
-                                                                              </div>
-                                                                          </div>
-                                                                      </div>
-                                                                  </div>
-                                                              </div>
-                                                          </div>
-                                                      </div>
-                                                  </div>
-  
-                                                  <div class="card card-info">
-                                                      <div class="card-header text-center">
-                                                          <h4 class="card-title w-100">
-                                                              <a class="d-block w-100" data-toggle="collapse" href="#collapseTwo">
-                                                                  Repuestos
-                                                              </a>
-                                                          </h4>
-                                                      </div>
-  
-                                                      <div id="collapseTwo" class="collapse" data-parent="#accordion">
-                                                          <div class="card-body">
-                                                              <table class="table table-bordered text-center">
-                                                                  <thead>
-                                                                      <tr>
-                                                                          <th style="width: 600px">Descripción</th>
-                                                                          <th>Cantidad</th>
-                                                                          <th>Precio</th>
-                                                                          <th>Referencia</th>
-                                                                          <th>Proveedor</th>
-                                                                      </tr>
-                                                                  </thead>
-                                                                  <tbody>
-                                                                      <tr>
-                                                                          <td style="width: 200px"> <input type="text" class="form-control" id="descripcion1" name="descripcion1"></td>
-                                                                          <td><input type="text" class="form-control" id="descripcion2" name="descripcion2"></td>
-                                                                          <td><input type="text" class="form-control" id="descripcion3" name="descripcion3"></td>
-                                                                          <td><input type="text" class="form-control" id="descripcion4" name="descripcion4"></td>
-                                                                          <td><input type="text" class="form-control" id="descripcion5" name="descripcion5"></td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                          <td style="width: 200px"> <input type="text" class="form-control" id="cantidad1" name="cantidad1"></td>
-                                                                          <td><input type="text" class="form-control" id="cantidad2" name="cantidad2"></td>
-                                                                          <td><input type="text" class="form-control" id="cantidad3" name="cantidad3"></td>
-                                                                          <td><input type="text" class="form-control" id="cantidad4" name="cantidad4"></td>
-                                                                          <td><input type="text" class="form-control" id="cantidad5" name="cantidad5"></td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                          <td style="width: 200px"> <input type="text" class="form-control" id="precio1" name="precio1"></td>
-                                                                          <td><input type="text" class="form-control" id="precio2" name="precio2"></td>
-                                                                          <td><input type="text" class="form-control" id="precio3" name="precio3"></td>
-                                                                          <td><input type="text" class="form-control" id="precio4" name="precio4"></td>
-                                                                          <td><input type="text" class="form-control" id="precio5" name="precio5"></td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                          <td style="width: 200px"> <input type="text" class="form-control" id="proveedor1" name="proveedor1"></td>
-                                                                          <td><input type="text" class="form-control" id="proveedor2" name="proveedor2"></td>
-                                                                          <td><input type="text" class="form-control" id="proveedor3" name="proveedor3"></td>
-                                                                          <td><input type="text" class="form-control" id="proveedor4" name="proveedor4"></td>
-                                                                          <td><input type="text" class="form-control" id="proveedor5" name="proveedor5"></td>
-                                                                      </tr>
-                                                                  </tbody>
-                                                              </table>
-                                                          </div>
-                                                      </div>
-                                                  </div>
-  
-                                                  <div class="card card-info">
-                                                      <div class="card-header text-center">
-                                                          <h4 class="card-title w-100">
-                                                              <a class="d-block w-100" data-toggle="collapse" href="#collapseThree">
-                                                                  Mano de obra
-                                                              </a>
-                                                          </h4>
-                                                      </div>
-                                                      <div id="collapseThree" class="collapse" data-parent="#accordion">
-                                                          <div class="card-body">
-                                                              <table class="table table-bordered text-center">
-                                                                  <thead>
-                                                                      <tr>
-                                                                          <th style="width: 600px">Descripción de la actividad</th>
-                                                                          <th>Proveedor</th>
-                                                                      </tr>
-                                                                  </thead>
-                                                                  <tbody>
-                                                                      <tr>
-                                                                          <td style="width: 200px"> <input type="text" class="form-control" id="descrip_mano1" name="descrip_mano1"></td>
-                                                                          <td><input type="text" class="form-control" id="descrip_mano2" name="descrip_mano2"></td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                          <td style="width: 200px"> <input type="text" class="form-control" id="cantidad_mano1" name="cantidad_mano1"></td>
-                                                                          <td><input type="text" class="form-control" id="cantidad_mano2" name="cantidad_mano2"></td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                          <td style="width: 200px"> <input type="text" class="form-control" id="precio_mano1" name="precio_mano1"></td>
-                                                                          <td><input type="text" class="form-control" id="precio_mano2" name="precio_mano2"></td>
-                                                                      </tr>
-                                                                      <tr>
-                                                                          <td style="width: 200px"> <input type="text" class="form-control" id="proveedor_mano1" name="proveedor_mano1"></td>
-                                                                          <td><input type="text" class="form-control" id="proveedor_mano2" name="proveedor_mano2"></td>
-                                                                      </tr>
-                                                                  </tbody>
-                                                              </table>
-                                                          </div>
-                                                      </div>
-                                                  </div>
-  
-                                                  <div class="card card-info">
-                                                      <div class="card-header text-center">
-                                                          <h4 class="card-title w-100">
-                                                              <a class="d-block w-100" data-toggle="collapse" href="#collapsefour">
-                                                                  Observaciones
-                                                              </a>
-                                                          </h4>
-                                                      </div>
-                                                      <div id="collapsefour" class="collapse" data-parent="#accordion">
-                                                          <div class="card-body">
-                                                              <div class="callout callout-warning">
-                                                                  <h5>Digite su observación</h5>
-                                                                  <textarea class="form-control" rows="5" id="oberser_observ" name="oberser_observ"></textarea>
-                                                              </div>
-                                                          </div>
-                                                      </div>
-                                                  </div>
-  
-                                                  <div class="card card-info">
-                                                      <div class="card-header text-center">
-                                                          <h4 class="card-title w-100">
-                                                              <a class="d-block w-100" data-toggle="collapse" href="#collapsefive">
-                                                                  Nombres y Firmas
-                                                              </a>
-                                                          </h4>
-                                                      </div>
-                                                      <div id="collapsefive" class="collapse" data-parent="#accordion">
-                                                          <div class="callout callout-info">
-                                                              <h5 class="text-center"><i>Nombre</i></h5>
-                                                              <hr class="my-4">
-                                                              <div class="row">
-                                                                  <div class="col-12 col-sm-6 col-lg-4 text-center">
-                                                                      <label><i>Conductor</i></label>
-                                                                      <input type="text" class="form-control" id="nom_conductor" name="nom_conductor" required>
-                                                                  </div>
-  
-                                                                  <div class="col-12 col-sm-6 col-lg-4 text-center">
-                                                                      <label><i>Mecánico</i></label>
-                                                                      <input type="text" class="form-control" id="nom_mecanico" name="nom_mecanico" required>
-                                                                  </div>
-  
-                                                                  <div class="col-12 col-sm-6 col-lg-4 text-center">
-                                                                      <label><i>Coordinador mecánico</i></label>
-                                                                      <input type="text" class="form-control" id="nom_coormecani" name="nom_coormecani" required>
-                                                                  </div>
-                                                              </div>
-                                                              <br>
-                                                              <h5 class="text-center"><i>Firma</i></h5>
-                                                              <hr class="my-4">
-                                                              <div class="row">
-                                                                  <div class="col-12 col-sm-6 col-lg-4 text-center">
-                                                                      <textarea class="form-control" rows="2" placeholder="Firme aqui conductor ..."></textarea>
-                                                                  </div>
-  
-                                                                  <div class="col-12 col-sm-6 col-lg-4 text-center">
-                                                                      <textarea class="form-control" rows="2" placeholder="Firme aqui Mecánico ..."></textarea>
-                                                                  </div>
-  
-                                                                  <div class="col-12 col-sm-6 col-lg-4 text-center">
-                                                                      <textarea class="form-control" rows="2" placeholder="Firme aqui Coordinador mecánico ..."></textarea>
-                                                                  </div>
-                                                              </div>
-                                                          </div>
-                                                      </div>
-                                                  </div>
-  
-                                                  <div class="row d-flex justify-content-center">
-                                                      <div class="col-md-6">
-                                                          <div class="btn-group w-100">
-                                                              <span class="btn btn-success col fileinput-button dz-clickable">
-                                                                  <i class="fas fa-plus"></i>
-                                                                  <span>Guardar</span>
-                                                              </span>
-  
-                                                              <button type="reset" class="btn btn-danger col cancel">
-                                                                  <i class="fas fa-times-circle"></i>
-                                                                  <span>Cancelar</span>
-                                                              </button>
-                                                          </div>
-                                                      </div>
-                                                  </div>
-  
-                                              </div>
-                                          </div>
-                                      </div> -->
                                 </div>
 
                                 <!-- ===================================================
@@ -832,205 +613,119 @@
 
                                 <!-- PROGRAMACIÓN -->
                                 <div class="tab-pane fade" id="custom-tabs-one-programacion" role="tabpanel" aria-labelledby="custom-tabs-one-programacion-tab">
-                                    <div class="row">
-                                        <div class="col-lg-3 col-sm-6">
+                                    <form id="programacion_form" method="post" enctype="multipart/form-data">
+                                        <input type="hidden" id="idserviciovehiculo" name="idserviciovehiculo" value="">
 
-                                            <nav class="navbar navbar-expand-lg">
-                                                <button class="navbar-toggler navbar-light bg-light" type="button" data-toggle="collapse" data-target="#ContenidoProgramacion" aria-controls="ContenidoProgramacion" aria-expanded="false" aria-label="Toggle navigation">
-                                                    <span class="navbar-toggler-icon "></span>
-                                                </button>
+                                        <div class="row">
+                                            <div class="col-12 col-sm-6 col-lg-12">
 
-                                                <div class="collapse navbar-collapse" id="ContenidoProgramacion">
-                                                    <div class=" nav navbar-expand-lg flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                                        <a class="nav-link active" id="v-pills-Ingreso-tab" data-toggle="pill" href="#v-pills-Ingreso" role="tab" aria-controls="v-pills-Ingreso" aria-selected="true">Datos generales</a>
-                                                        <a class="nav-link" id="v-pills-10000km-tab" data-toggle="pill" href="#v-pills-10000km" role="tab" aria-controls="v-pills-10000km" aria-selected="false">0 - 10.000 KM</a>
-                                                        <a class="nav-link" id="v-pills-20000km-tab" data-toggle="pill" href="#v-pills-20000km" role="tab" aria-controls="v-pills-20000km" aria-selected="false">11.000 - 20.000 KM</a>
-                                                        <a class="nav-link" id="v-pills-45000km-tab" data-toggle="pill" href="#v-pills-45000km" role="tab" aria-controls="v-pills-45000km" aria-selected="false">45.000 - 50.000 KM</a>
-                                                        <a class="nav-link" id="v-pills-60000km-tab" data-toggle="pill" href="#v-pills-60000km" role="tab" aria-controls="v-pills-60000km" aria-selected="false">60.000 - 120.000 KM</a>
-                                                    </div>
-                                                </div>
-                                            </nav>
-
-
-
-                                        </div>
-                                        <div class="col-lg-9 col-sm-12">
-                                            <div class="tab-content" id="v-pills-tabContent">
 
                                                 <!-- INGRESO -->
                                                 <div class="tab-pane fade show active " id="v-pills-Ingreso" role="tabpanel" aria-labelledby="v-pills-Ingreso-tab">
                                                     <div class="row">
+                                                        <div class="col">
 
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="form-group text-center">
+                                                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                                                <label><i>Servicio</i></label>
+                                                                <select type="text" class="form-control select2-single" id="servicio" name="idservicio" required>
+                                                                    <option value="" selected>Seleccione un servicio</option>
+                                                                    <?php foreach ($Servicios as $key => $value) : ?>
+                                                                        <option value="<?= $value['idservicio'] ?>"><?= $value['servicio'] ?></option>
+                                                                    <?php endforeach ?>
+                                                                </select>
+                                                            </div>
+                                                            <p class="text-sm font-italic font-weight-bold">
+                                                                NOTA: Para añadir o editar un servicio debe realizarse desde la opción de
+                                                                <a href="cg-mantenimiento" target="_blank">servicios menores</a>
+                                                                y volver a abrir esta ventana.
+                                                            </p>
+                                                        </div>
+
+                                                        <div class="col">
+                                                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
                                                                 <label><i>Placa</i></label>
-                                                                <select id="placa" name="idvehiculo" class="form-control select2-single" type="number" style="width: 99%">
+                                                                <select id="placa" name="idvehiculo" class="form-control select2-single" type="number" style="width: 99%" required>
+                                                                    <option selected value="">Seleccione un vehículo</option>
+                                                                    <?php foreach ($Placas as $key => $value) : ?>
+                                                                        <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> </option>
+                                                                    <?php endforeach ?>
                                                                 </select>
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="form-group text-center">
+                                                        <div class="col">
+                                                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
                                                                 <label><i>Kilometraje actual</i></label>
-                                                                <input type="text" class="form-control" id="kilometraje" name="kilometraje">
+                                                                <input type="text" class="form-control" id="kilometraje" name="kilometraje" required>
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="form-group text-center">
-                                                                <label><i>Próximo baterias / KM</i></label>
-                                                                <input type="text" class="form-control" id="bateriaskm" name="bateriaskm">
-                                                            </div>
-                                                        </div>
 
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="form-group text-center">
-                                                                <label><i>Próximo baterias / Fecha</i></label>
-                                                                <input type="date" class="form-control" id="bateriasFecha" name="bateriasFecha">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="form-group text-center">
-                                                                <label><i>Servicio</i></label>
-                                                                <input type="text" class="form-control" id="servicio" name="servicio">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="form-group text-center">
+                                                        <div class="col">
+                                                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
                                                                 <label><i>Fecha de realización</i></label>
-                                                                <input type="date" class="form-control" id="fecha" name="fecha">
+                                                                <input type="date" class="form-control" id="fecha" name="fecha" required>
                                                             </div>
                                                         </div>
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="form-group text-center">
-                                                                <label><i>Próxima revisión preventiva bimestral</i></label>
-                                                                <input type="date" class="form-control" id="bimestral" name="bimestral">
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="form-group text-center">
-                                                                <label><i>Próxima revisión tecnicomecánica y gases</i></label>
-                                                                <input type="date" class="form-control" id="gases" name="gases">
-                                                            </div>
-                                                        </div>
+
                                                     </div>
-
-
-
-
-                                                </div>
-                                                <!-- 10.000 KM -->
-                                                <div class="tab-pane fade " id="v-pills-10000km" role="tabpanel" aria-labelledby="v-pills-10000km-tab">
-                                                    <div class="row">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100" nombre="Sistema potencia">
-                                                                <thead class="text-nowrap">
-                                                                    <tr>
-                                                                        <th>Mantenimietno</th>
-                                                                        <th>Mantenimiento de frenos</th>
-                                                                        <th>Mantenimiento rueda rodamientos</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody class="text-nowrap">
-                                                                    <tr>
-                                                                        <td>Test</td>
-                                                                        <td>Test</td>
-                                                                        <td>test</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
+                                                    <?php if (validarPermiso('M_OPCIONES', 'U')) : ?>
+                                                        <div class="col-12 mb-1">
+                                                            <button type="submit" form="programacion_form" class="btn btn-sm btn-success float-center">
+                                                                <i class="fas fa-print"></i>
+                                                                Guardar
+                                                            </button>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <!-- 20.000 KM -->
-                                                <div class="tab-pane fade " id="v-pills-20000km" role="tabpanel" aria-labelledby="v-pills-20000km-tab">
-                                                    <div class="row">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100" nombre="Sistema potencia">
-                                                                <thead class="text-nowrap">
-                                                                    <tr>
-                                                                        <th>Mantenimiento llantas rotación</th>
-                                                                        <th>Mantenimiento alineación</th>
-                                                                        <th>Mantenimiento aire acondicionado</th>
-                                                                        <th>Mantenimiento balanceo</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody class="text-nowrap">
-                                                                    <tr>
-                                                                        <td>Test</td>
-                                                                        <td>Test</td>
-                                                                        <td>Test</td>
-                                                                        <td>Test</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <!-- 45.000 KM -->
-                                                <div class="tab-pane fade " id="v-pills-45000km" role="tabpanel" aria-labelledby="v-pills-45000km-tab">
-                                                    <div class="row">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100" nombre="Sistema potencia">
-                                                                <thead class="text-nowrap">
-                                                                    <tr>
-                                                                        <th>Mantenimiento llantas cambio</th>
-                                                                        <th>Mantenimiento cambio aceite transmisión y diferencial</th>
-                                                                        <th>Sincronización de motor</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody class="text-nowrap">
-                                                                    <tr>
-                                                                        <td>Test</td>
-                                                                        <td>Test</td>
-                                                                        <td>test</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
 
-                                                <!-- 60.000 KM -->
-                                                <div class="tab-pane fade " id="v-pills-60000km" role="tabpanel" aria-labelledby="v-pills-60000km-tab">
-                                                    <div class="row">
-                                                        <div class="table-responsive">
-                                                            <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100" nombre="Sistema potencia">
-                                                                <thead class="text-nowrap">
-                                                                    <tr>
-                                                                       <th>Mantenimiento suspensión</th>
-                                                                       <th>Mantenimiento dirección</th>
-                                                                       <th>Cambio correas de motor</th>
-                                                                       <th>Cambio kit embrague</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody class="text-nowrap">
-                                                                    <tr>
-                                                                        <td>Test</td>
-                                                                        <td>Test</td>
-                                                                        <td>test</td>
-                                                                        <td>test</td>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                    <?php endif ?>
 
+
+                                                    <?php
+
+                                                    $addser = new ControladorMantenimientos();
+                                                    $addser->ctrGuardarServicio();
+
+                                                    ?>
+                                                </div>
                                             </div>
                                         </div>
 
+                                    </form>
+                                    <!-- TABLA -->
+                                    <div class="col-12">
+                                        <div class="card card-outline card-success">
+                                            <div class="card-body">
+                                                <h5 class="text-center"><i>Vehiculos</i></h5>
+                                                <div class="table-responsive">
+                                                    <table class="table table-sm table-striped table-bordered dt-responsive text-center table-hover tablasBtnExport w-100" nombre="Sistema potencia">
+                                                        <thead class="text-nowrap">
+                                                            <th>...</th>
+                                                            <th>Placa</th>
+                                                            <th>Servicio</th>
+                                                            <th>Kilometraje para cambio</th>
+                                                            <th>Fecha para cambio</th>
+                                                        </thead>
+                                                        <tbody id="tabla" class="text-nowrap">
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <!-- /.content -->
                             </div>
-                            <!-- /.content-wrapper -->
+
+
                         </div>
+
                     </div>
                 </div>
+
             </div>
         </div>
+        <!-- /.content -->
     </div>
+    <!-- /.content-wrapper -->
 </div>

@@ -43,7 +43,8 @@ class ModeloFuec
                                                 -- des.municipio AS destino,
                                                 IF (f.idruta IS NULL, f.destino, des.municipio) AS destino,
                                                 -- rt.nombreruta AS observaciones,
-                                                IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
+                                                -- IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
+                                                IF (f.observaciones = '', rt.nombreruta, f.observaciones) AS observaciones,
                                                 f.precio, f.listado_pasajeros, f.estado_pago, f.valor_neto, f.estado_fuec, f.ruta_contrato, f.usuario_creacion, f.fecha_creacion, f.nro_contrato, f.idruta,
                                                 cl.nombre AS nomContratante, cl.Documento AS docContratante, cl.direccion AS direccion, cl.telefono AS telContratante, cl.nombrerespons, cl.Documentorespons, cl.telefono2 AS telrespons, 
                                                 v.placa, v.numinterno, v.tipovinculacion, 
@@ -120,7 +121,8 @@ class ModeloFuec
                         -- des.municipio AS destino,
                         IF (f.idruta IS NULL, f.destino, des.municipio) AS destino,
                         -- rt.nombreruta AS observaciones,
-                        IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
+                        -- IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
+                        IF (f.observaciones = '', rt.nombreruta, f.observaciones) AS observaciones,
                         f.precio, f.listado_pasajeros, f.estado_pago, f.valor_neto, f.estado_fuec, f.ruta_contrato, f.usuario_creacion, f.fecha_creacion, f.nro_contrato, f.idruta,
                         c.nombre_con AS nomContratante, c.documento_con AS docContratante, c.direccion_con AS direccion, c.tel_1 AS telContratante, c.nombre_respo AS nombrerespons, c.documento_res AS Documentorespons, c.tel_2 AS telrespons, 
                         v.placa, v.numinterno, v.tipovinculacion, v.modelo, 
@@ -177,7 +179,8 @@ class ModeloFuec
                         -- des.municipio AS destino,
                         IF (f.idruta IS NULL, f.destino, des.municipio) AS destino,
                         -- rt.nombreruta AS observaciones,
-                        IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
+                        -- IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
+                        IF (f.observaciones = '', rt.nombreruta, f.observaciones) AS observaciones,
                         f.precio, f.listado_pasajeros, f.estado_pago, f.valor_neto, f.estado_fuec, f.ruta_contrato, f.usuario_creacion, f.fecha_creacion, f.nro_contrato, f.idruta,
                         cl.nombre AS nomContratante, cl.Documento AS docContratante, cl.direccion AS direccion, cl.telefono AS telContratante, cl.nombrerespons, cl.Documentorespons, cl.telefono2 AS telrespons, 
                         v.placa, v.numinterno, v.tipovinculacion, v.modelo, 
@@ -326,17 +329,29 @@ class ModeloFuec
     ===================================================*/
     static public function mdlDocumentosVencidos($idvehiculo)
     {
-        // $sql = "SELECT t.tipodocumento, IF(MAX(d.fechafin) >= CURDATE(), MAX(d.fechafin), NULL) AS fechafin FROM v_tipodocumento t
-        //                                         LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
-        //                                         WHERE d.idvehiculo = :idvehiculo OR d.idvehiculo IS NULL
-        //                                         GROUP BY t.idtipo";
-        $sql = "SELECT t.tipodocumento, IF(MAX(d.fechafin) >= CURDATE(), MAX(d.fechafin), NULL) AS fechafin
+        // $sql = "SELECT t.tipodocumento, IF(MAX(d.fechafin) >= CURDATE(), MAX(d.fechafin), NULL) AS fechafin
+        //         FROM v_tipodocumento t
+        //         LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
+        //         WHERE d.idvehiculo = :idvehiculo
+        //         GROUP BY t.idtipo
+        //         UNION ALL
+        //         SELECT t.tipodocumento, NULL AS fechafin
+        //         FROM v_tipodocumento t
+        //         LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
+        //         WHERE t.tipodocumento NOT IN (
+        //                                     SELECT t.tipodocumento
+        //                                     FROM v_tipodocumento t
+        //                                     LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
+        //                                     WHERE d.idvehiculo = :idvehiculo
+        //                                     GROUP BY t.idtipo)
+        //         GROUP BY t.idtipo;";
+        $sql = "SELECT t.tipodocumento, MAX(d.fechafin) AS fechafin, IF(MAX(d.fechafin) >= CURDATE(), 'bien', 'vencido') AS estado
                 FROM v_tipodocumento t
                 LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
                 WHERE d.idvehiculo = :idvehiculo
                 GROUP BY t.idtipo
                 UNION ALL
-                SELECT t.tipodocumento, NULL AS fechafin
+                SELECT t.tipodocumento, NULL AS fechafin, 'vencido' AS estado
                 FROM v_tipodocumento t
                 LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
                 WHERE t.tipodocumento NOT IN (

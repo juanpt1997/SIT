@@ -252,48 +252,5 @@ if (isset($_GET['pagina'])) {
 <script src="<?= URL_APP ?>views/js/operaciones.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/compras.js?v=<?= time() ?>"></script>
 
-<!-- =================================================================
-     ========MODALS VISUALIZAR - ELIMINAR ==========
-     =================================================================-->
-
-<div class="modal fade" id="modal_general" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow-y: scroll;">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-
-            <div class="modal-header bg-success">
-                <h5 class="modal-title" id="titulo_modal_general"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-                <div class="table-responsive">
-                    <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100" id="tabla_general_rutas">
-                        <thead class="thead-light text-uppercase text-sm text-center">
-                            <tr>
-                                <th style="width:10px;">#</th>
-                                <th>Origen</th>
-                                <th>Destino</th>
-                                <th>Descripción</th>
-                                <th>Selección</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-sm text-center" id="tbody_principal">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="modal-footer bg-dark d-flex justify-content-center">
-                <button type="button" class="btn btn-danger btn_cancelar_ruta" data-dismiss="modal">Cancelar</button>
-                <a href="cg-vehicular" target="_blank"><span class='badge badge-info badge-md'>Nueva ruta</span></a>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-
 
 </html>
