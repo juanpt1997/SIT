@@ -351,11 +351,11 @@ class PdfVehiculo
             'Ffechafin' => ''
         );
 
-        var_dump($SOAT);
-        var_dump($CDA);
-        var_dump($TarjetaOperacion);
-        var_dump($RevisionPreventiva);
-        var_dump($RCC);
+        // var_dump($SOAT);
+        // var_dump($CDA);
+        // var_dump($TarjetaOperacion);
+        // var_dump($RevisionPreventiva);
+        // var_dump($RCC);
 
          $pdf->Ln();
          $pdf->SetFont('helvetica', 'B', '12');
