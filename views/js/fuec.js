@@ -430,67 +430,77 @@ $(document).ready(function () {
             var files = $("#contratoadjunto")[0].files;
             datosAjax.append("documento", files[0]);
 
-            $.ajax({
-                type: "post",
-                url: `${urlPagina}ajax/fuec.ajax.php`,
-                data: datosAjax,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    switch (response) {
-                        case "error":
-                            Swal.fire({
-                                icon: "error",
-                                title: "Ha ocurrido un error, por favor intente de nuevo",
-                                showConfirmButton: true,
-                                confirmButtonText: "Cerrar",
-                                closeOnConfirm: false,
-                            }).then((result) => {
-                                if (result.value) {
-                                    window.location = "o-fuec";
-                                }
-                            });
-                            break;
-                        default:
-                            var idfuec = response;
+            if ($("#idruta").val() == ""){
+                Swal.fire({
+                        icon: "warning",
+                        title: "¡Debe seleccionar una ruta antes de guardar!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+            }else{
+                $.ajax({
+                    type: "post",
+                    url: `${urlPagina}ajax/fuec.ajax.php`,
+                    data: datosAjax,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        switch (response) {
+                            case "error":
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Ha ocurrido un error, por favor intente de nuevo",
+                                    showConfirmButton: true,
+                                    confirmButtonText: "Cerrar",
+                                    closeOnConfirm: false,
+                                }).then((result) => {
+                                    if (result.value) {
+                                        window.location = "o-fuec";
+                                    }
+                                });
+                                break;
+                            default:
+                                var idfuec = response;
 
-                            // Mensaje de éxito al usuario
-                            Swal.fire({
-                                icon: "success",
-                                title: "¡Datos guardados correctamente!",
-                                showConfirmButton: true,
-                                showCancelButton: true,
-                                confirmButtonText: "Ver PDF",
-                                cancelButtonText: "Cerrar",
-                            }).then((result) => {
-                                if (result.value) {
-                                    window.open(
-                                        `./pdf/pdffuec.php?cod=${idfuec}`,
-                                        "",
-                                        "width=1280,height=720,left=50,top=50,toolbar=yes"
-                                    );
-                                }
-                            });
+                                // Mensaje de éxito al usuario
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "¡Datos guardados correctamente!",
+                                    showConfirmButton: true,
+                                    showCancelButton: true,
+                                    confirmButtonText: "Ver PDF",
+                                    cancelButtonText: "Cerrar",
+                                }).then((result) => {
+                                    if (result.value) {
+                                        window.open(
+                                            `./pdf/pdffuec.php?cod=${idfuec}`,
+                                            "",
+                                            "width=1280,height=720,left=50,top=50,toolbar=yes"
+                                        );
+                                    }
+                                });
 
-                            // Id fuec
-                            $("#idfuec").val(idfuec);
+                                // Id fuec
+                                $("#idfuec").val(idfuec);
 
-                            // Titulo modal
-                            $("#titulo-modal-fuec").html(idfuec);
-                            $(".btn-copy-fuec").removeClass("d-none");
+                                // Titulo modal
+                                $("#titulo-modal-fuec").html(idfuec);
+                                $(".btn-copy-fuec").removeClass("d-none");
 
-                            // Evento para refrescar la pagina cuando sale de la modal
-                            $("#NuevoFuecModal").on(
-                                "hidden.bs.modal",
-                                function () {
-                                    window.location = "o-fuec";
-                                }
-                            );
-                            break;
-                    }
-                },
-            });
+                                // Evento para refrescar la pagina cuando sale de la modal
+                                $("#NuevoFuecModal").on(
+                                    "hidden.bs.modal",
+                                    function () {
+                                        window.location = "o-fuec";
+                                    }
+                                );
+                                break;
+                        }
+                    },
+                });
+            }
+
         });
 
         /* ===================================================
@@ -714,15 +724,24 @@ $(document).ready(function () {
             $("#destino").val(destino);
         });
 
-        $(document).on("click", ".btn_cancelar_ruta", function () {
+        // $(document).on("click", ".btn_cancelar_ruta", function () {
 
+        //     $("#NuevoFuecModal").modal('show');
+        //     $("#modal_general").modal('hide');
+
+        //     $("#idruta").val("");
+        //     $("#observacionescontr").val("");
+        //     $("#origen").val("");
+        //     $("#destino").val("");
+        // });
+        $("#modal_general").on('hidden.bs.modal', function () {
             $("#NuevoFuecModal").modal('show');
             $("#modal_general").modal('hide');
 
-            $("#idruta").val("");
-            $("#observacionescontr").val("");
-            $("#origen").val("");
-            $("#destino").val("");
+            // $("#idruta").val("");
+            // $("#observacionescontr").val("");
+            // $("#origen").val("");
+            // $("#destino").val("");
         });
     }
 
