@@ -147,15 +147,14 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
                 dataType: "json",
                 success: function (response) {
 
+                    $("#idxc").val(response.idxc);
                     $("#nit").val(response.nit);
                     $("#nit").attr("readonly", "readonly");
-
                     $("#nombre").val(response.nombre);
                     $("#dirco").val(response.direccion);
                     $("#telco").val(response.telefono1);
                     $("#telco2").val(response.telefono2);
                     $("#ciudadcon").val(response.idciudad);
-
                     $('.select2-single').trigger('change');
                     $("#titulo-modal-convenios").html("Convenio - " + response.nit);
                 }
@@ -164,6 +163,7 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
 
         var AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         $(document).on("click", ".btn-agregarEmpresa", function () {
+            $("#idxc").val("");
             // Remover atributo readonly del formulario puesto que va a agregar uno nuevo
             $("#nit").removeAttr("readonly");
             $("#titulo-modal-empresas").html("Nueva empresa");
@@ -184,13 +184,67 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
         $("#titulo-modal-convenios").html("Nuevo Convenio");
         $("#datosconvenio_form").trigger("reset");
         $('.select2-single').val(" ").trigger("change");
+        $('.select2-multiple').val(" ").trigger("change");
+        $(".btn-copy-convenio").addClass("d-none");
 
+    });
+
+    //LISTA DE PLACAS 
+    $(document).on("click",".btnPlacas",function(){
+
+        var idconvenio = $(this).attr("idConvenio");
+        $("#idConvenio").val(idconvenio);
+
+        var datos = new FormData();
+        datos.append("DatosVehiculoxConvenio", "ok");
+        datos.append("idconvenio", idconvenio);
+
+        $.ajax({
+            type: "POST",
+            url: "ajax/vehicular.ajax.php",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (response) {
+
+                var vehiculos = [];
+
+                response.forEach(element => {
+                    vehiculos.push(element.placa);
+                });
+                
+                let placas = `<ul>`;
+                vehiculos.forEach(element => {
+                    placas += `<li>${element}</li>`;
+                });
+                placas += `</ul>`;
+
+                Swal.fire({
+                    icon: 'info',
+                    html: `<div class="text-left">
+                                                    <p class="font-weight-bold">Este convenio cuenta con los siguientes vehículos:</p>
+                                                        ${placas}
+                                                </div>`,
+                    showConfirmButton: true,
+                    confirmButtonText: 'Cerrar',
+                    closeOnConfirm: false
+                });
+
+            }
+        });
+
+
+        
     });
 
     //EDITAR CONVENIO
 
     $(document).on("click", ".btnEditarConv", function () {
         $("#titulo-modal-convenios").html("Editar Convenio");
+
+        $(".btn-copy-convenio").removeClass("d-none");
 
         var idconvenio = $(this).attr("idConvenio");
         $("#idConvenio").val(idconvenio);
@@ -222,8 +276,32 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
                 $('#fecha_radicado').val(response.fecha_radicado);
                 $('#num_radicado').val(response.num_radicado);
                 $('#observacion').val(response.observacion);
-                $('#placa').val(response.idvehiculo).trigger("change");
 
+            }
+        });
+
+
+        var datos = new FormData();
+        datos.append("DatosVehiculoxConvenio", "ok");
+        datos.append("idconvenio", idconvenio);
+
+        $.ajax({
+            type: "POST",
+            url: "ajax/vehicular.ajax.php",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (response) {
+
+                var vehiculos = [];
+
+                response.forEach(element => {
+                    vehiculos.push(element.idvehiculo);
+                });
+                
+                $('#placa').val(vehiculos).trigger("change");
 
             }
         });
@@ -231,12 +309,21 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
 
 
 
+
+    });
+
+
+    //CLICK EN COPIA 
+
+    $(document).on("click", ".btn-copy-convenio", function () {
+        $("#idConvenio").val(""); //reset id cotizacion
+        $("#titulo-modal-convenios").html("Nuevo");
+        $(".btn-copy-convenio").addClass("d-none");
     });
 
     //CAPTURAR DATOS ID VEHICULO
     $(document).on("change", '#placa', function () {
         let idvehiculo = $(this).val();
-        console.log(idvehiculo);
         var datos = new FormData();
         datos.append("DatosVehiculo", "ok");
         datos.append("item", "idvehiculo");

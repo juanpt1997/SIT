@@ -25,7 +25,7 @@ $Proveedores = ControladorProveedores::ctrListarProveedores();
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="inicio">Inicio</a></li>
-                        <li class="breadcrumb-item active">Plantilla</li>
+                        <li class="breadcrumb-item active">Proveedores</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -36,23 +36,22 @@ $Proveedores = ControladorProveedores::ctrListarProveedores();
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
+            
             <hr class="my-4">
+
+            <div class="row d-flex justify-content-center mb">
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 text-center">
+                    <button type="button" class="btn btn-block bg-gradient-success btn_nuevo" data-toggle="modal" data-target="#modal-nuevo"><i class="fas fa-plus-circle"></i> Agregar proveedor</button>
+                </div>
+            </div>
             <!-- ===================== 
               AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
             ========================= -->
-            <div class="row">
+            <div class="row mt-2">
                 <div class="col-12">
                     <div class="card card-outline card-success">
                         <div class="card-body">
                             <div class="col-sm-12">
-
-                                <div class="row d-flex justify-content-center mb">
-                                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 text-center">
-                                        <button type="button" class="btn btn-block bg-gradient-success btn_nuevo" data-toggle="modal" data-target="#modal-nuevo"><i class="fas fa-dolly"></i> Nuevo proveedor</button>
-                                    </div>
-                                </div>
-
-                                <hr class="my-4">
 
                                 <div class="table-responsive">
                                     <table id="tabla_proveedores" class="table table-sm table-bordered table-striped text-center tablasBtnExport">
@@ -91,6 +90,7 @@ $Proveedores = ControladorProveedores::ctrListarProveedores();
                                 </div>
                             </div>
                         </div>
+                        <div class="card-footer bg-dark"></div>
                     </div>
                 </div>
             </div>

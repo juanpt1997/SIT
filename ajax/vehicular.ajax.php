@@ -59,6 +59,12 @@ class AjaxConvenios
         $respuesta = ModeloConvenios::mdlEliminarEmpresa($idxc);
         echo $respuesta;
     }
+
+    static public function AjaxVehiculosxConvenios($idconvenio)
+    {
+        $respuesta = ControladorConvenios::ctrVehiculosxConvenios($idconvenio);
+        echo json_encode($respuesta);
+    }
 }
 
 /* ===================================================
@@ -172,11 +178,13 @@ class AjaxVehiculos
     ===================================================*/
     static public function ajaxDatosVehiculo($item, $valor)
     {
+        $serviciosVehiculo = ControladorVehiculos::ctrServiciosVehiculo($item, $valor);
         $datosVehiculo = ControladorVehiculos::ctrDatosVehiculo($item, $valor);
         $fotosVehiculo = ControladorVehiculos::ctrFotosVehiculo($item, $valor);
         $datos = [
             'datosVehiculo' => $datosVehiculo,
-            'fotosVehiculo' => $fotosVehiculo
+            'fotosVehiculo' => $fotosVehiculo,
+            'serviciosVehiculo' => $serviciosVehiculo
         ];
         echo json_encode($datos);
     }
@@ -1155,3 +1163,7 @@ if(isset($_POST['EliminarPropietario']) && $_POST['EliminarPropietario'] == "ok"
 #LLAMADO A BORRAR EMPRESA
 
 if(isset($_POST['EliminarEmpresa']) && $_POST['EliminarEmpresa'] == "ok") AjaxConvenios::AjaxEliminarEmpresa($_POST['idxc']);
+
+#LLAMADO A VEHICULOS X CONVENIO 
+
+if(isset($_POST['DatosVehiculoxConvenio']) && $_POST['DatosVehiculoxConvenio'] == "ok") AjaxConvenios::AjaxVehiculosxConvenios($_POST['idconvenio']);

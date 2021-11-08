@@ -43,7 +43,8 @@ class ModeloFuec
                                                 -- des.municipio AS destino,
                                                 IF (f.idruta IS NULL, f.destino, des.municipio) AS destino,
                                                 -- rt.nombreruta AS observaciones,
-                                                IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
+                                                -- IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
+                                                IF (f.observaciones = '', rt.nombreruta, f.observaciones) AS observaciones,
                                                 f.precio, f.listado_pasajeros, f.estado_pago, f.valor_neto, f.estado_fuec, f.ruta_contrato, f.usuario_creacion, f.fecha_creacion, f.nro_contrato, f.idruta,
                                                 cl.nombre AS nomContratante, cl.Documento AS docContratante, cl.direccion AS direccion, cl.telefono AS telContratante, cl.nombrerespons, cl.Documentorespons, cl.telefono2 AS telrespons, 
                                                 v.placa, v.numinterno, v.tipovinculacion, 
@@ -120,7 +121,8 @@ class ModeloFuec
                         -- des.municipio AS destino,
                         IF (f.idruta IS NULL, f.destino, des.municipio) AS destino,
                         -- rt.nombreruta AS observaciones,
-                        IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
+                        -- IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
+                        IF (f.observaciones = '', rt.nombreruta, f.observaciones) AS observaciones,
                         f.precio, f.listado_pasajeros, f.estado_pago, f.valor_neto, f.estado_fuec, f.ruta_contrato, f.usuario_creacion, f.fecha_creacion, f.nro_contrato, f.idruta,
                         c.nombre_con AS nomContratante, c.documento_con AS docContratante, c.direccion_con AS direccion, c.tel_1 AS telContratante, c.nombre_respo AS nombrerespons, c.documento_res AS Documentorespons, c.tel_2 AS telrespons, 
                         v.placa, v.numinterno, v.tipovinculacion, v.modelo, 
@@ -128,13 +130,21 @@ class ModeloFuec
                         tv.tipovehiculo,
                         (SELECT dv.nrodocumento FROM v_re_documentosvehiculos dv WHERE dv.idvehiculo = v.idvehiculo AND dv.idtipodocumento = 3 ORDER BY dv.fechacreacion DESC, dv.fechafin DESC LIMIT 1) AS tarjetaOperacion,
                         oc.objetocontrato, 
-                        -- IF(cnv.idxc = 0, '', cnv.nombre) AS nomconvenio,
-                        (SELECT ecn.nombre
-                            FROM v_convenios cnv
-                            INNER JOIN v_empresas_convenios ecn ON ecn.idxc = cnv.idcontratista
-                            WHERE cnv.idvehiculo = v.idvehiculo
-                            ORDER BY cnv.fecha_terminacion DESC
+                        -- (SELECT ecn.nombre
+                        --    FROM v_convenios cnv
+                        --    INNER JOIN v_empresas_convenios ecn ON ecn.idxc = cnv.idcontratista
+                        --    WHERE cnv.idvehiculo = v.idvehiculo
+                        --    ORDER BY cnv.fecha_terminacion DESC
+                        --    LIMIT 1) AS nomconvenio,
+
+                        (SELECT emv.nombre FROM v_convenios cv
+                            INNER JOIN v_re_convenios rec ON cv.idconvenio = rec.idconvenio
+                            INNER JOIN v_empresas_convenios emv ON cv.idcontratista = emv.idxc
+                            WHERE rec.idvehiculo = v.idvehiculo
+                            ORDER BY cv.fecha_terminacion DESC 
                             LIMIT 1) AS nomconvenio,
+
+
                         c1.Nombre AS conductor1, c1.Documento AS docConductor1, 
                         lic1.nro_licencia AS licencia1, MAX(lic1.fecha_vencimiento) AS vigenciaLic1,
                         c2.Nombre AS conductor2, c2.Documento AS docConductor2, 
@@ -147,7 +157,6 @@ class ModeloFuec
                     LEFT JOIN v_tipovehiculos tv ON tv.idtipovehiculo = v.idtipovehiculo
                     LEFT JOIN v_marcas vm ON vm.idmarca = v.idmarca
                     INNER JOIN v_objetocontrato oc ON oc.idobjeto = f.idobjeto_contrato
-                    -- LEFT JOIN v_empresas_convenios cnv ON cnv.idxc = v.idconvenio
                     LEFT JOIN gh_personal c1 ON c1.idPersonal = f.idconductor1
                     LEFT JOIN gh_re_personallicencias lic1 ON lic1.idPersonal = c1.idPersonal
                     LEFT JOIN gh_personal c2 ON c2.idPersonal = f.idconductor2
@@ -170,7 +179,8 @@ class ModeloFuec
                         -- des.municipio AS destino,
                         IF (f.idruta IS NULL, f.destino, des.municipio) AS destino,
                         -- rt.nombreruta AS observaciones,
-                        IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
+                        -- IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
+                        IF (f.observaciones = '', rt.nombreruta, f.observaciones) AS observaciones,
                         f.precio, f.listado_pasajeros, f.estado_pago, f.valor_neto, f.estado_fuec, f.ruta_contrato, f.usuario_creacion, f.fecha_creacion, f.nro_contrato, f.idruta,
                         cl.nombre AS nomContratante, cl.Documento AS docContratante, cl.direccion AS direccion, cl.telefono AS telContratante, cl.nombrerespons, cl.Documentorespons, cl.telefono2 AS telrespons, 
                         v.placa, v.numinterno, v.tipovinculacion, v.modelo, 
@@ -178,13 +188,18 @@ class ModeloFuec
                         tv.tipovehiculo,
                         (SELECT dv.nrodocumento FROM v_re_documentosvehiculos dv WHERE dv.idvehiculo = v.idvehiculo AND dv.idtipodocumento = 3 ORDER BY dv.fechacreacion DESC, dv.fechafin DESC LIMIT 1) AS tarjetaOperacion,
                         oc.objetocontrato, 
-                        -- IF(cnv.idxc = 0, '', cnv.nombre) AS nomconvenio,   
-                        (SELECT ecn.nombre
-                            FROM v_convenios cnv
-                            INNER JOIN v_empresas_convenios ecn ON ecn.idxc = cnv.idcontratista
-                            WHERE cnv.idvehiculo = v.idvehiculo
-                            ORDER BY cnv.fecha_terminacion DESC
-                            LIMIT 1) AS nomconvenio,                    
+                        -- (SELECT ecn.nombre
+                        --    FROM v_convenios cnv
+                        --    INNER JOIN v_empresas_convenios ecn ON ecn.idxc = cnv.idcontratista
+                        --    WHERE cnv.idvehiculo = v.idvehiculo
+                        --    ORDER BY cnv.fecha_terminacion DESC
+                        --    LIMIT 1) AS nomconvenio,                    
+                        (SELECT emv.nombre FROM v_convenios cv
+                            INNER JOIN v_re_convenios rec ON cv.idconvenio = rec.idconvenio
+                            INNER JOIN v_empresas_convenios emv ON cv.idcontratista = emv.idxc
+                            WHERE rec.idvehiculo = v.idvehiculo
+                            ORDER BY cv.fecha_terminacion DESC 
+                            LIMIT 1) AS nomconvenio,
                         c1.Nombre AS conductor1, c1.Documento AS docConductor1, 
                         lic1.nro_licencia AS licencia1, MAX(lic1.fecha_vencimiento) AS vigenciaLic1,
                         c2.Nombre AS conductor2, c2.Documento AS docConductor2, 
@@ -197,7 +212,6 @@ class ModeloFuec
                     LEFT JOIN v_tipovehiculos tv ON tv.idtipovehiculo = v.idtipovehiculo
                     LEFT JOIN v_marcas vm ON vm.idmarca = v.idmarca
                     INNER JOIN v_objetocontrato oc ON oc.idobjeto = f.idobjeto_contrato
-                    -- LEFT JOIN v_empresas_convenios cnv ON cnv.idxc = v.idconvenio
                     LEFT JOIN gh_personal c1 ON c1.idPersonal = f.idconductor1
                     LEFT JOIN gh_re_personallicencias lic1 ON lic1.idPersonal = c1.idPersonal
                     LEFT JOIN gh_personal c2 ON c2.idPersonal = f.idconductor2
@@ -315,17 +329,29 @@ class ModeloFuec
     ===================================================*/
     static public function mdlDocumentosVencidos($idvehiculo)
     {
-        // $sql = "SELECT t.tipodocumento, IF(MAX(d.fechafin) >= CURDATE(), MAX(d.fechafin), NULL) AS fechafin FROM v_tipodocumento t
-        //                                         LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
-        //                                         WHERE d.idvehiculo = :idvehiculo OR d.idvehiculo IS NULL
-        //                                         GROUP BY t.idtipo";
-        $sql = "SELECT t.tipodocumento, IF(MAX(d.fechafin) >= CURDATE(), MAX(d.fechafin), NULL) AS fechafin
+        // $sql = "SELECT t.tipodocumento, IF(MAX(d.fechafin) >= CURDATE(), MAX(d.fechafin), NULL) AS fechafin
+        //         FROM v_tipodocumento t
+        //         LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
+        //         WHERE d.idvehiculo = :idvehiculo
+        //         GROUP BY t.idtipo
+        //         UNION ALL
+        //         SELECT t.tipodocumento, NULL AS fechafin
+        //         FROM v_tipodocumento t
+        //         LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
+        //         WHERE t.tipodocumento NOT IN (
+        //                                     SELECT t.tipodocumento
+        //                                     FROM v_tipodocumento t
+        //                                     LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
+        //                                     WHERE d.idvehiculo = :idvehiculo
+        //                                     GROUP BY t.idtipo)
+        //         GROUP BY t.idtipo;";
+        $sql = "SELECT t.tipodocumento, MAX(d.fechafin) AS fechafin, IF(MAX(d.fechafin) >= CURDATE(), 'bien', 'vencido') AS estado
                 FROM v_tipodocumento t
                 LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
                 WHERE d.idvehiculo = :idvehiculo
                 GROUP BY t.idtipo
                 UNION ALL
-                SELECT t.tipodocumento, NULL AS fechafin
+                SELECT t.tipodocumento, NULL AS fechafin, 'vencido' AS estado
                 FROM v_tipodocumento t
                 LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
                 WHERE t.tipodocumento NOT IN (

@@ -60,50 +60,89 @@ class ControladorPropietarios
 
 
 					$responseModel = ModeloPropietarios::mdlAgregar($datos);
+
+					if ($responseModel == "ok") {
+
+						echo "
+								<script>
+									Swal.fire({
+										icon: 'success',
+										title: '¡Propietario añadido correctamente!',						
+										showConfirmButton: true,
+										confirmButtonText: 'Cerrar',
+										
+									}).then((result)=>{
+		
+										if(result.value){
+											window.location = 'v-propietarios';
+										}
+		
+									})
+								</script>
+							";
+					} else {
+						echo "
+								<script>
+									Swal.fire({
+										icon: 'warning',
+										title: '¡Problema al añadir el propietario!',						
+										showConfirmButton: true,
+										confirmButtonText: 'Cerrar',
+										
+									}).then((result)=>{
+		
+										if(result.value){
+											window.location = 'v-propietarios';
+										}
+		
+									})
+								</script>
+							";
+					}
 				} else {
 
 
 					$responseModel = ModeloPropietarios::mdlEditar($datos);
+
+					if ($responseModel == "ok") {
+
+						echo "
+								<script>
+									Swal.fire({
+										icon: 'success',
+										title: '¡Propietario actualizado correctamente!',						
+										showConfirmButton: true,
+										confirmButtonText: 'Cerrar',
+										
+									}).then((result)=>{
+		
+										if(result.value){
+											window.location = 'v-propietarios';
+										}
+		
+									})
+								</script>
+							";
+					} else {
+						echo "
+								<script>
+									Swal.fire({
+										icon: 'warning',
+										title: '¡Problema al editar el propietario!',						
+										showConfirmButton: true,
+										confirmButtonText: 'Cerrar',
+										
+									}).then((result)=>{
+		
+										if(result.value){
+											window.location = 'v-propietarios';
+										}
+		
+									})
+								</script>
+							";
+					}
 				}
-			}
-
-			if ($responseModel == "ok") {
-
-				echo "
-						<script>
-							Swal.fire({
-								icon: 'success',
-								title: '¡Propietario añadido correctamente!',						
-								showConfirmButton: true,
-								confirmButtonText: 'Cerrar',
-								
-							}).then((result)=>{
-
-								if(result.value){
-									window.location = 'v-propietarios';
-								}
-
-							})
-						</script>
-					";
-			} else {
-				echo "
-						<script>
-							Swal.fire({
-								icon: 'warning',
-								title: '¡Problema al añadir el propietario!',						
-								showConfirmButton: true,
-								confirmButtonText: 'Cerrar',
-								
-							}).then((result)=>{
-
-								if(result.value){
-									window.location = 'v-propietarios';
-								}
-
-							})
-						</script>
-					";
 			}
 		}
 	}
@@ -115,6 +154,10 @@ class ControladorPropietarios
 class ControladorConvenios
 {
 
+	/* ===================================================
+	    LISTADO DE EMPRESAS 
+	===================================================*/
+
 	static public function ctrMostrar()
 	{
 
@@ -122,14 +165,18 @@ class ControladorConvenios
 		return $respuesta;
 	}
 
+	/* ===================================================
+	   AGREGAR Y EDITAR EMPRESA 
+	===================================================*/
+
 	public function ctrAgregarEditar()
 	{
-
 		if (isset($_POST['nit'])) {
 			// Ver si ya existe una empresa con ese nit
 			$empresaExistente = ModeloConvenios::mdlMostrar($_POST['nit']);
 
 			$datos = array(
+				'idxc' => $_POST['idxc'],
 				'nit' => $_POST['nit'],
 				'nombre' => $_POST['nombre'],
 				'dirco' => $_POST['dirco'],
@@ -138,60 +185,142 @@ class ControladorConvenios
 				'ciudadcon' => $_POST['ciudadcon']
 			);
 
-			if (is_array($empresaExistente)) {
+			if (is_array($empresaExistente) && $empresaExistente['idxc'] != $_POST['idxc']) {
 
-				$responseModel = ModeloConvenios::mdlEditar($datos);
+				echo "
+							<script>
+								Swal.fire({
+									icon: 'warning',
+									title: 'Convenio ya existe!',						
+									showConfirmButton: true,
+									confirmButtonText: 'Cerrar',
+									
+								}).then((result)=>{
+
+									if(result.value){
+										window.location = 'v-convenios';
+									}
+
+								})
+							</script>
+						";
+				return;
 			} else {
 
-				$responseModel = ModeloConvenios::mdlAgregar($datos);
-			}
+				if ($_POST['nit'] == "") {
 
-			if ($responseModel == "ok") {
-				echo "
-						<script>
-							Swal.fire({
-								icon: 'success',
-								title: 'Empresa guardada correctamente!',						
-								showConfirmButton: true,
-								confirmButtonText: 'Cerrar',
-								
-							}).then((result)=>{
+					$responseModel = ModeloConvenios::mdlAgregar($datos);
+					if ($responseModel == "ok") {
+						echo "
+							<script>
+								Swal.fire({
+									icon: 'success',
+									title: 'Empresa guardada correctamente!',						
+									showConfirmButton: true,
+									confirmButtonText: 'Cerrar',
+									
+								}).then((result)=>{
+	
+									if(result.value){
+										window.location = 'v-convenios';
+									}
+	
+								})
+							</script>
+						";
+					} else {
+						echo "
+							<script>
+								Swal.fire({
+									icon: 'success',
+									title: '¡Problema al guardar la empresa!',						
+									showConfirmButton: true,
+									confirmButtonText: 'Cerrar',
+									
+								}).then((result)=>{
+	
+									if(result.value){
+										window.location = 'v-convenios';
+									}
+	
+								})
+							</script>
+						";
+					}
+				} else {
 
-								if(result.value){
-									window.location = 'v-convenios';
-								}
-
-							})
-						</script>
-					";
-			} else {
-				echo "
-						<script>
-							Swal.fire({
-								icon: 'success',
-								title: '¡Problema al guardar la empresa!',						
-								showConfirmButton: true,
-								confirmButtonText: 'Cerrar',
-								
-							}).then((result)=>{
-
-								if(result.value){
-									window.location = 'v-convenios';
-								}
-
-							})
-						</script>
-					";
+					$responseModel = ModeloConvenios::mdlEditar($datos);
+					if ($responseModel == "ok") {
+						echo "
+							<script>
+								Swal.fire({
+									icon: 'success',
+									title: 'Empresa actualizada correctamente!',						
+									showConfirmButton: true,
+									confirmButtonText: 'Cerrar',
+									
+								}).then((result)=>{
+	
+									if(result.value){
+										window.location = 'v-convenios';
+									}
+	
+								})
+							</script>
+						";
+					} else {
+						echo "
+							<script>
+								Swal.fire({
+									icon: 'success',
+									title: '¡Problema al actualizar la empresa!',						
+									showConfirmButton: true,
+									confirmButtonText: 'Cerrar',
+									
+								}).then((result)=>{
+	
+									if(result.value){
+										window.location = 'v-convenios';
+									}
+	
+								})
+							</script>
+						";
+					}
+				}
 			}
 		}
 	}
-
+	/* ===================================================
+	    LISTADO DE CONVENIOS
+	===================================================*/
 
 	static public function ctrMostrarConvenios()
 	{
-		$respuesta = ModeloConvenios::mdlMostrarConvenios();
+		$Convenios = ModeloConvenios::mdlMostrarConvenios();
+
+		$respuesta = array();
+		$placas = "";
+		for ($i = 0; $i < count($Convenios); $i++) {
+			if ($i < count($Convenios) - 1 && $Convenios[$i]['idconvenio'] == $Convenios[$i + 1]['idconvenio']) {
+				$placas .= $Convenios[$i]['placa'] . ", <br>";
+			} else {
+				$placas .= $Convenios[$i]['placa'];
+				$Convenios[$i]['vehiculos'] = $placas;
+				$respuesta[] = $Convenios[$i];
+				$placas = "";
+			}
+		}
+
 		return $respuesta;
 	}
+
+
+
+
+	/* ===================================================
+	    DATOS DEL CONVENIO
+	===================================================*/
 
 	static public function ctrDatosConvenios($idconvenio)
 	{
@@ -199,20 +328,53 @@ class ControladorConvenios
 		return $respuesta;
 	}
 
+
+	/* ===================================================
+	   VEHICULOS POR CONVENIO
+	===================================================*/
+	static public function ctrVehiculosxConvenios($idconvenio)
+	{
+		$respuesta = ModeloConvenios::mdlDatosVehiculosxConvenios($idconvenio);
+		return $respuesta;
+	}
+
+
+	/* ===================================================
+		AGREGAR Y EDITAR CONVENIOS
+	===================================================*/
+
 	static public function ctrAgregarEditarConvenios()
 	{
-		
-		if(isset($_POST['idConvenio'])){
+		if (isset($_POST['idConvenio'])) {
 			$datos = $_POST;
-			if($_POST['idConvenio'] == ""){
+			if ($_POST['idConvenio'] == "") {
+
+
+				//AGREGA EL CONVENIO Y RETORNA EL ID DEL CONVENIO INSERTADO				
 				$addConv = ModeloConvenios::mdlAgregarConvenio($datos);
-			}else{
+
+
+				//RECORRE LOS VEHICULOS SELECCIONADOS Y LOS GUARDA EN EL MISMO ID CONVENIO
+				foreach ($_POST['idvehiculo'] as $key => $value) {
+					$addVeh = ModeloConvenios::mdlAgregarVehiculos($addConv, $value);
+				}
+
+				$addConv = ModeloConvenios::mdlEditarConvenio($datos);
+			} else {
+				//ELIMINA LOS VEHICULOS QUE TIENE ASOCIADO UN CONVENIO
+				$eliminar = ModeloConvenios::mdlEliminarVehiculos($_POST['idConvenio']);
+
+				//RECORRE LOS VEHICULOS SELECCIONADOS Y LOS GUARDA EN EL MISMO ID CONVENIO
+				foreach ($_POST['idvehiculo'] as $key => $value) {
+
+					$addVeh = ModeloConvenios::mdlAgregarVehiculos($datos['idConvenio'], $value);
+				}
+
 				$addConv = ModeloConvenios::mdlEditarConvenio($datos);
 			}
-			
+
 			// alerta
-			if($addConv == "ok")
-			{
+			if ($addConv != "") {
 				echo "
 					<script>
 						Swal.fire({
@@ -230,7 +392,7 @@ class ControladorConvenios
 						})
 					</script>
 				";
-			}else{
+			} else {
 				echo "
 					<script>
 						Swal.fire({
@@ -249,20 +411,18 @@ class ControladorConvenios
 					</script>
 				";
 			}
-
-				
-			
 		}
 	}
+
+	/* ===================================================
+	 	ELIMINAR CONVENIO
+	===================================================*/
 
 	static public function ctrBorradoConvenios($idConvenio)
 	{
 		$respuesta = ModeloConvenios::mdlBorradoConvenios($idConvenio);
 		return $respuesta;
 	}
-
-
-
 }
 
 /* ===================================================
@@ -303,6 +463,54 @@ class ControladorVehiculos
 		);
 		return ModeloVehiculos::mdlFotosVehiculo($datos);
 	}
+
+	/* ===================================================
+		SERVICIOS MENORES MÁS RECIENTES PARA UN ID VEHICULO
+	===================================================*/
+
+	static public function ctrServiciosVehiculo($item, $valor)
+	{
+		$datos = array(
+			'item' => $item,
+			'valor' => $valor
+		);
+		$TodosServicios = ModeloVehiculos::mdlServiciosVehiculo($datos);
+
+		$ServiciosSinRepetir = array();
+		$Servicios = array();
+
+		foreach ($TodosServicios as $key => $Servicio) {
+			if (!in_array($Servicio['idservicio'], $ServiciosSinRepetir)) {
+				$ServiciosSinRepetir[] = $Servicio['idservicio'];
+				$Servicios[] = $Servicio;
+			}
+		}
+
+		return $Servicios;
+	}
+
+	/* ===================================================
+		HISTORICO DE SERVICIOS MENORES
+	===================================================*/
+
+	static public function ctrHistoricoServiciosMenores()
+	{
+		$respuesta = ModeloVehiculos::mdlHistoricoServiciosMenores();
+		return $respuesta;
+	}
+
+	/* ===================================================
+	 	LISTADO DE SERVICIOS
+	===================================================*/
+
+	static public function ctrListadoServicios()
+	{
+		$respuesta = ModeloVehiculos::mdlListadoServicios();
+		return $respuesta;
+	}
+
+
+	
 
 	/* ===================================================
 	   MOSTRAR TIPO DE VEHICULOS
@@ -485,14 +693,14 @@ class ControladorVehiculos
 		$DocumentosTodos = ModeloVehiculos::mdlDocumentosxVehiculo($idvehiculo);
 		// Lista que almacena los documentos que se han mostrado, con esto se Verifica que se muestre unicamente el mas reciente
 		$ListaDocumentosSinRepetir = array();
-        $Documentos = array();
-        // Guardar documentos del vehiculo (Sin repetir)
-        foreach ($DocumentosTodos as $key => $documento) {
-            if (!in_array($documento['tipodocumento'], $ListaDocumentosSinRepetir)) {
-                $ListaDocumentosSinRepetir[] = $documento['tipodocumento'];
-                $Documentos[] = $documento;
-            }
-        }
+		$Documentos = array();
+		// Guardar documentos del vehiculo (Sin repetir)
+		foreach ($DocumentosTodos as $key => $documento) {
+			if (!in_array($documento['tipodocumento'], $ListaDocumentosSinRepetir)) {
+				$ListaDocumentosSinRepetir[] = $documento['tipodocumento'];
+				$Documentos[] = $documento;
+			}
+		}
 
 		return $Documentos;
 	}

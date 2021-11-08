@@ -7,6 +7,7 @@ if (!validarPermiso('M_OPERACIONES', 'R')) {
 $Alistamientos = ControladorAlistamiento::ctrListaAlistamientos();
 $Vehiculos = ControladorVehiculos::ctrListaVehiculos();
 $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
+$ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
 
 ?>
 <!-- ===================== 
@@ -343,13 +344,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                             </td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['extintor']) ?>
                                             </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['kilometraje_total']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['observaciones']) ?>
-                                            </td>
-
-
-
+                                            <td><?= $value['kilometraje_total']?></td>
+                                            <td><?= $value['observaciones'] ?></td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>
@@ -1760,56 +1756,23 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <div class="tab-pane fade table-responsive" id="custom-tabs-two-mantenimiento" role="tabpanel" aria-labelledby="custom-tabs-two-mantenimiento-tab">
                                             <div class="table table-responsive">
                                                 <table class="table table-bordered text-center" nombre="Mantenimiento">
-                                                    <thead class="text-nowrap">
-                                                        <tr>
-                                                            <th style="width: 278px">Cambio de Aceite</th>
-                                                            <th style="width: 278px;">Engrase</th>
-                                                            <th style="width: 278px;">Rotación de Llantas</th>
-                                                        </tr>
-                                                    </thead>
-
                                                     <tbody class="text-nowrap">
                                                         <tr>
-                                                            <td>
-                                                                <div class="input-group date" data-target-input="nearest">
-                                                                    <input type="date" class="form-control" id="cambio_aceite" name="cambio_aceite" required>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="input-group date" data-target-input="nearest">
-                                                                    <input type="date" class="form-control" id="engrase" name="engrase" required>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="input-group date" data-target-input="nearest">
-                                                                    <input type="date" class="form-control" id="rotacion_llantas" name="rotacion_llantas" required>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
 
-                                                        <tr>
-                                                            <td><b>Filtro de Aire</b></td>
-                                                            <td><b>Sincronización</b></td>
-                                                            <td><b>Alineación y Balanceo</b></td>
-                                                        </tr>
+                                                    <?php foreach ($ServiciosMenores as $key => $value) : ?>
+                                                        <?php if ($key % 3 == 0) : ?>
+                                                            <tr>
 
-                                                        <tr>
-                                                            <td>
-                                                                <div class="input-group date" data-target-input="nearest">
-                                                                    <input type="date" class="form-control" id="filtro_aire" name="filtro_aire" required>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="input-group date" data-target-input="nearest">
-                                                                    <input type="date" class="form-control" id="sincronizacion" name="sincronizacion" required>
-                                                                </div>
-                                                            </td>
-                                                            <td>
-                                                                <div class="input-group date" data-target-input="nearest">
-                                                                    <input type="date" class="form-control" id="alineacion_balanceo" name="alineacion_balanceo" required>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+                                                            </tr>
+                                                        <?php endif ?>
+                                                    <td>
+                                                        <div class="form-group">
+                                                            <label for="servicio_<?= $value['idservicio'] ?>"> <?= $value['servicio'] ?></label>
+                                                            <input type="date" class="form-control" id="servicio_<?= $value['idservicio'] ?>" readonly>
+                                                        </div>
+                                                    </td>
+                                                <?php endforeach ?>
+                                                </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -2411,7 +2374,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
             <div class="modal-footer justify-content-center bg-info">
                 <?php if (validarPermiso('M_OPERACIONES', 'U')) : ?>
-                    <button type="submit" form="alistamiento_form" class="btn btn-success"><i class="fas fa-print"></i> Guardar</button>
+                    <button type="submit" form="alistamiento_form" class="btn btn-success btn-alistamientoguardar"><i class="fas fa-print"></i> Guardar</button>
                 <?php endif ?>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
             </div>

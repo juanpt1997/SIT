@@ -259,7 +259,7 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                             <label class="text-sm">Dirección territorial</label>
                             <input class="form-control" id="dir" name="dir" type="text" value="${response.dir_territorial}" required>
                             <label class="text-sm">Foto firma</label>
-                            <input class="form-control" id="firma" name="firma" type="file" accept="image/png, image/jpeg">
+                            <input class="form-control" id="firma" name="firma" type="file" accept="image/png, image/jpeg" value="${response.ruta_firma}">
                             <label class="text-sm">Sitio WEB</label>
                             <input class="form-control" id="sitio" name="sitio" type="text" value="${response.sitio_web}" required>
                             <label><br></label>
@@ -506,7 +506,7 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                 icon: 'warning',
                 showConfirmButton: true,
                 showCancelButton: true,
-                title: "¿Seguro que de sea borrar este registro?",
+                title: "¿Seguro que desea borrar este registro?",
                 confirmButtonText: "SI, borrar",
                 cancelButtonText: "Cancelar",
                 confirmButtonColor: "#ff0000",
@@ -645,7 +645,7 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
             });
         });
         //BOTON CANCELAR AL AGREGAR===========================
-        $('#AgregarEditarM, #VisualizarM').on('hidden.bs.modal', function (e) {
+        $('#AgregarEditarM, #VisualizarM, #AgregarEditarSM, #VisualizarS').on('hidden.bs.modal', function (e) {
             $(".overlay").each(function () { //Al cancelar se agrega la clase d-none para que no se vea el reload
                 $(this).addClass("d-none");
             });
@@ -740,7 +740,7 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
                 icon: 'warning',
                 showConfirmButton: true,
                 showCancelButton: true,
-                title: "¿Seguro que de sea borrar este registro?",
+                title: "¿Seguro que desea borrar este registro?",
                 confirmButtonText: "SI, borrar",
                 cancelButtonText: "Cancelar",
                 confirmButtonColor: "#ff0000",
@@ -771,6 +771,161 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
                                     icon: 'success',
                                     showConfirmButton: true,
                                     title: "¡El registro ha sido borrado correctamente!",
+                                    confirmButtonText: "¡Cerrar!",
+                                    allowOutsideClick: false
+                                }).then((result) => { window.location = 'cg-mantenimiento'; })
+                            }
+                        }
+
+                    });
+                }
+            })
+        });
+
+        //BOTON NUEVO CONCEPTO EN MANTENIMIENTO============
+        $(document).on("click", ".btn-nuevo-servicio", function () {
+
+            var concepto = $(this).attr("concepto");
+            //Removemos d-none del info-box de cada concepto
+            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
+            //Envio de concepto al titulo del modal
+            $("#titulo_modalS").html(concepto);
+        });
+
+        //SUBMIT DEL FORMULARIO DE MANTENIMIENTO
+        $("#formularioS").submit(function (e) {
+
+            e.preventDefault();//Previene la accion por defecto del boton
+            var datos = new FormData();
+
+            datos.append("nuevoServicio", "ok");
+            datos.append("dato1", $("#servicio").val());
+            datos.append("dato2", $("#Kilometraje_cambio").val());
+            datos.append("dato3", $("#dias_cambio").val());
+
+            $.ajax({
+                url: "ajax/conceptos.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: 'success',
+                            showConfirmButton: true,
+                            title: "El nuevo servicio ha sido agregado",
+                            confirmButtonText: "¡Cerrar!",
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location = 'cg-mantenimiento';
+                            }
+                        })
+                    }
+                }
+            });
+        });
+
+         //BOTON VER SERVICIO
+         $(document).on("click", ".btn-ver-servicio", function () {
+
+            var concepto = $(this).attr("concepto");
+            //Removemos d-none del info-box de cada concepto
+            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
+            //Agregamos el titulo a cada modal de cada concepto
+            $("#titulo_modalVerS").html("Visualizar servicios menores");
+            // Quitar datatable
+            $("#ver_conceptoS").dataTable().fnDestroy();
+            // Borrar datos
+            $("#tbody_ver_conceptoS").html("");
+            
+            var datos = new FormData();
+            datos.append("ajaxVerServicios", "ok");
+            $.ajax({
+                type: "POST",
+                url: "ajax/conceptos.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                //dataType: "json",
+                success: function (response) {
+
+                    if (response != '' || response != null) {
+
+                        $("#tbody_ver_conceptoS").html(response);
+
+                    } else {
+
+                        $("#tbody_ver_conceptoS").html('');
+                    }
+
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#ver_conceptoS`, buttons);
+                }
+            });
+        });
+
+        //BOTON EDITAR SERVICIO
+        $(document).on("click", ".btnEditarS", function () {
+
+            //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
+            var concepto = $(this).attr("concepto");
+            var id = $(this).attr("idregistro");
+            var dato1 = $(this).attr("dato1");
+            var dato2 = $(this).attr("dato2");
+            var dato3 = $(this).attr("dato3");
+
+
+            Swal.fire({
+                title: `Editar Servicio`,
+                html:
+                    `
+                <hr>
+                <label>Servicio</label>
+                <input class="form-control" id="input-edit1" type="text" value="${dato1}">
+                <label for="">Kilometraje para cambio</label>
+                <input class="form-control" id="input-edit2" type="number" value="${dato2}">
+                <label for="">Días para cambio</label>
+                <input class="form-control" id="input-edit3" type="number" value="${dato3}">`
+
+                ,
+                showCancelButton: true,
+                confirmButtonColor: '#5cb85c',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Continuar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+
+                if (result.value) {
+                    var dato_edit1 = $("#input-edit1").val();
+                    var dato_edit2 = $("#input-edit2").val();
+                    var dato_edit3 = $("#input-edit3").val();
+                    var datos = new FormData();
+                    datos.append("ajaxEditarServicio", "ok");
+                    datos.append("id", id);
+                    datos.append("dato1", dato_edit1);
+                    datos.append("dato2", dato_edit2);
+                    datos.append("dato3", dato_edit3);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/conceptos.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        //dataType: "json",
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: 'success',
+                                    showConfirmButton: true,
+                                    title: "¡El servicio ha sido actualizado!",
                                     confirmButtonText: "¡Cerrar!",
                                     allowOutsideClick: false
                                 }).then((result) => { window.location = 'cg-mantenimiento'; })
@@ -1528,7 +1683,7 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                 icon: 'warning',
                 showConfirmButton: true,
                 showCancelButton: true,
-                title: "¿Seguro que de sea borrar este registro?",
+                title: "¿Seguro que desea borrar este registro?",
                 confirmButtonText: "SI, borrar",
                 cancelButtonText: "Cancelar",
                 confirmButtonColor: "#ff0000",

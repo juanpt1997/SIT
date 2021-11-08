@@ -6,7 +6,7 @@
 class ControladorEmpresa
 {
 	#Ver datos de una empresa
-	static public function ctrVerEmpresa()
+	static public function ctrListaEmpresa()
 	{
 		$respuesta = ModeloConceptosGH::mdlListaEmpresa();
 		return $respuesta;
@@ -14,6 +14,7 @@ class ControladorEmpresa
 	#Agregar/ Editar una empresa (la opcion de agregar se encuentra inhabilitada)
 	static public function ctrAgregarEditarEmpresa($POST, $imagen)
 	{
+		$empresa = ModeloConceptosGH::mdlVerEmpresa();
 		$response = "";
 		# Verificar Directorio imagenes de firma en empresa
         $directorio = DIR_APP . "views/img/plantilla/fuec/fotosFirmaEmpresa";
@@ -32,15 +33,13 @@ class ControladorEmpresa
         $aleatorio = mt_rand(100, 999);
         $GuardarArchivo->ruta = $directorio . "/{$aleatorio}_{$fecha}_{$hora}";
 
-		if ($imagen['type'] == "image/jpeg" || $imagen['type'] == "image/png") {
-			$response = $GuardarArchivo->ctrImages(null, null);
-		}
+		$response = $GuardarArchivo->ctrImages(null, null);
 
 		# Actualizar el campo de la base de datos donde queda la ruta del archivo
         if ($response != "") {
             $rutaDoc = str_replace(DIR_APP, "", $response);
-		} else {
-			echo "error";
+		} 	else {
+			$rutaDoc = $empresa['ruta_firma'];
 		}
 
 		if (isset($POST['id_empresa'])) {
@@ -107,5 +106,18 @@ class ControladorRutas
 	{
 		$respuesta = ModeloConceptosGH::mdlListarRutas();
 		return $respuesta;
+	}
+}
+
+/* ===================================================
+	* REPUESTOS
+===================================================*/
+
+class ControladorRepuestos
+{
+	static public function ctrListarRepuestos()
+	{
+		$repuesta = ModeloRepuestos::mdlListarRepuestos();
+		return $repuesta;
 	}
 }

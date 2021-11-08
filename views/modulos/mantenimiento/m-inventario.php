@@ -10,8 +10,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 $ListaInventario = ControladorInventario::ctrListaInventario();
 ?>
 <!-- ===================== 
-  MODELO PARA LA IMPLEMENTARCION EN EL DISEÑO DE LOS MODULOS
-  ESTRUCTURA 
+    INVENTARIO VEHICULAR
 ========================= -->
 
 <!-- Content Wrapper. Contains page content -->
@@ -110,13 +109,13 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
 
                                                             <hr class="my-5">
 
-                                                            <div class="col">
+                                                            <!-- <div class="col">
                                                                 <div class="form-group">
                                                                     <div class="input-group">
                                                                         <h4><b><i>Código: GH-FR-04 </i></b><small><b>Versión: 2</b></small></h4>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
 
                                                             <form method="post" enctype="multipart/form-data" id="formulario_inventario">
 
@@ -364,7 +363,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                                             </tr>
 
                                                                                                             <tr>
-                                                                                                                <td nombre="techo">Techo exterior</td>
+                                                                                                                <td>Techo exterior</td>
                                                                                                                 <td>
                                                                                                                     <div class="icheck-success d-inline">
                                                                                                                         <input type="radio" class="form-control inventario" required id="Techo_exterior1" name="Techo_exterior" value="1">
@@ -783,7 +782,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                                                 </td>
                                                                                                                 <td>
                                                                                                                     <div class="icheck-danger d-inline">
-                                                                                                                        <input type="radio" class="form-control inventario" required id="Direccional_izquierda4" name="Direccional_delantera_izquierda" value=" 0">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Direccional_izquierda4" name="Direccional_delantera_izquierda" value="0">
                                                                                                                         <label for="Direccional_izquierda4">
                                                                                                                         </label>
                                                                                                                     </div>
@@ -808,7 +807,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                                                 </td>
                                                                                                                 <td>
                                                                                                                     <div class="icheck-danger d-inline">
-                                                                                                                        <input type="radio" class="form-control inventario" required id="Direccional_derecha4" name="Direccional_delantera_derecha" value=" 0">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Direccional_derecha4" name="Direccional_delantera_derecha" value="0">
                                                                                                                         <label for="Direccional_derecha4">
                                                                                                                         </label>
                                                                                                                     </div>
@@ -833,7 +832,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                                                 </td>
                                                                                                                 <td>
                                                                                                                     <div class="icheck-danger d-inline">
-                                                                                                                        <input type="radio" class="form-control inventario" required id="Stop_trasero_derecho4" name="Stop_trasero_derecho" value=" 0">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Stop_trasero_derecho4" name="Stop_trasero_derecho" value="0">
                                                                                                                         <label for="Stop_trasero_derecho4">
                                                                                                                         </label>
                                                                                                                     </div>
@@ -858,7 +857,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                                                 </td>
                                                                                                                 <td>
                                                                                                                     <div class="icheck-danger d-inline">
-                                                                                                                        <input type="radio" class="form-control inventario" required id="Stop_trasero_izquierdo4" name="Stop_trasero_izquierdo" value=" 0">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Stop_trasero_izquierdo4" name="Stop_trasero_izquierdo" value="0">
                                                                                                                         <label for="Stop_trasero_izquierdo4">
                                                                                                                         </label>
                                                                                                                     </div>
@@ -883,7 +882,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                                                 </td>
                                                                                                                 <td>
                                                                                                                     <div class="icheck-danger d-inline">
-                                                                                                                        <input type="radio" class="form-control inventario" required id="Cucuyo_lateral_derecho4" name="Cucuyo_lateral_derecho" value=" 0">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Cucuyo_lateral_derecho4" name="Cucuyo_lateral_derecho" value="0">
                                                                                                                         <label for="Cucuyo_lateral_derecho4">
                                                                                                                         </label>
                                                                                                                     </div>
@@ -908,7 +907,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                                                 </td>
                                                                                                                 <td>
                                                                                                                     <div class="icheck-danger d-inline">
-                                                                                                                        <input type="radio" class="form-control inventario" required id="Cucuyo_lateral_izquierdo4" name="Cucuyo_lateral_izquierdo" value=" 0">
+                                                                                                                        <input type="radio" class="form-control inventario" required id="Cucuyo_lateral_izquierdo4" name="Cucuyo_lateral_izquierdo" value="0">
                                                                                                                         <label for="Cucuyo_lateral_izquierdo4">
                                                                                                                         </label>
                                                                                                                     </div>
@@ -1384,7 +1383,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                         <div class="row">
                                                                                             <div class="col">
                                                                                                 <div class="p-3 table-responsive">
-                                                                                                    <table class="table table-bordered text-center text-nowrap" nombre="Accesorios"> 
+                                                                                                    <table class="table table-bordered text-center text-nowrap" nombre="Accesorios">
                                                                                                         <tbody>
                                                                                                             <tr>
                                                                                                                 <td colspan="1"><b>ACCESORIOS</b></td>
@@ -2576,7 +2575,6 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                     <!-- /.card -->
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -2752,9 +2750,9 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                 ?>
                                 <tr>
                                     <td>
-                                        <button type="button" class="btn btn-success btn-sm btn-editarInventario" id_inventario="<?= $value['id'] ?>"><i class="fas fa-edit"></i></button>
-                                        <button type="button" class="btn btn-danger btn-sm btn-eliminar" id_inventario="<?= $value['id'] ?>"><i class="fas fa-trash"></i></button>
-
+                                        <button type="button" title="PDF inventario" data-toggle="tooltip" data-placement="top" class="btn btn-info btn-sm btn-verInventario" id_inventario="<?= $value['id'] ?>"><i class="fas fa-book"></i></button>
+                                        <button type="button" title="Editar inventario actual" data-toggle="tooltip" data-placement="top" class="btn btn-success btn-sm btn-editarInventario" id_inventario="<?= $value['id'] ?>"><i class="fas fa-edit"></i></button>
+                                        <button type="button" title="Eliminar registro" data-toggle="tooltip" data-placement="top" class="btn btn-danger btn-sm btn-eliminar" id_inventario="<?= $value['id'] ?>"><i class="fas fa-trash"></i></button>
                                     </td>
                                     <td><?= $value['id'] ?></td>
                                     <td><?= $value['fecha_inventario'] ?></td>

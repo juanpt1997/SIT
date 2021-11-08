@@ -190,6 +190,7 @@ if (
                 processData: false,
                 dataType: "json",
                 success: function (response) {
+                    //console.log(response);
                     $("#listaclientes").val(response.idcliente);
                     $("#titulo_cotizacion").html(
                         "Editar cotización ( " + response.nombre + " )"
@@ -223,6 +224,7 @@ if (
                     $("#clasi_cot").val(response.clasificacion);
                     $("#sucursalcot").val(response.idsucursal);
                     $("#des_sol").val(response.descripcion);
+                    //console.log(response.descripcion);
                     $("#f_inicio").val(response.fecha_inicio);
                     $("#f_fin").val(response.fecha_fin);
                     $("#n_vehiculos").val(response.nro_vehiculos);
@@ -238,7 +240,8 @@ if (
                     $("#porque").val(response.porque);
                     $(".select-ciudad").trigger("change");
                     $("#listaclientes").trigger("change");
-                    $("#idruta").val(response.idruta).trigger("change");
+                    $("#idruta").val(response.idruta);
+                    $("#descrip").val(response.descripcion);
                 },
             });
         });
@@ -336,6 +339,105 @@ if (
             $("#titulo_cotizacion").html("Nuevo");
             $(".btn-copy-cotizacion").addClass("d-none");
         });
+
+        /* ===================================================
+          SELECCIÓN DE RUTA EN COTIZACIONES
+        ===================================================*/
+        $(document).on("click", ".btn-ruta", function () {
+            $("#cotizacionmodal").modal("hide");
+            $("#titulo_modal_general").html("Seleccione una ruta");
+            $("#tabla_general_rutas").dataTable().fnDestroy();
+            // Borrar datos
+            $("#tbody_principal").html("");
+
+            $(".btnBorrar").addClass('d-none');
+
+            var datos = new FormData();
+            datos.append("ListarRutas", "ok");
+            $.ajax({
+                type: "POST",
+                url: "ajax/conceptos.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                //dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbody_principal").html(response);
+                    } else {
+                        $("#tbody_principal").html("");
+                    }
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
+                        /* 'copy', 'csv', 'excel', 'pdf', 'print' */
+                    ];
+                    dataTableCustom("#tabla_general_rutas", buttons);
+                },
+            });
+        });
+
+        $(document).on("click", ".btnSeleccionarRuta", function () {
+
+            $("#cotizacionmodal").modal('show');
+            $("#modal_general").modal('hide');
+
+            var origen = $(this).attr("origen");
+            var destino = $(this).attr("destino");
+            var descripcion = $(this).attr("descripcion");
+            var id = $(this).attr("idregistro");
+
+            $("#idruta").val(id);
+            $("#descrip").val(descripcion);
+            $("#origin").val(origen);
+            $("#destin").val(destino);
+        });
+
+        // $(document).on("click", ".btn_cancelar_ruta", function () {
+
+        //     $("#cotizacionmodal").modal('show');
+        //     $("#modal_general").modal('hide');
+        //     $("#idruta").val("");
+        //     $("#descrip").val("");
+        //     $("#origin").val("");
+        //     $("#destin").val("");
+        // });
+        $("#modal_general").on('hidden.bs.modal', function () {
+            $("#cotizacionmodal").modal('show');
+            $("#modal_general").modal('hide');
+
+            // $("#idruta").val("");
+            // $("#observacionescontr").val("");
+            // $("#origen").val("");
+            // $("#destino").val("");
+        });
+
+        /* ===================================================
+          VALIDAR CAMPO VACIO DE RUTA
+        ===================================================*/
+        var guardoCotizacion = false;
+        $("#formulariocotizacion").submit(function (e) {
+            if(!guardoCotizacion){
+                e.preventDefault();
+                if ($("#idruta").val() == ""){
+                    Swal.fire({
+                                icon: "warning",
+                                title: "¡Debe seleccionar una ruta antes de guardar!",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                    guardoCotizacion = false;
+                }else{
+                    guardoCotizacion = true;
+                    $("#formulariocotizacion").submit();
+                    //$(".btn-guardar-cotizacion").click();
+                }
+            }
+        });
     });
 }
 /* ===================================================
@@ -372,10 +474,10 @@ if (
 
                     $("#titulo_fijos").html(
                         "Editar (Contrato # " +
-                            response.numcontrato +
-                            " - " +
-                            response.nombre_cliente +
-                            ")"
+                        response.numcontrato +
+                        " - " +
+                        response.nombre_cliente +
+                        ")"
                     );
                     $("#nom_clien").val(response.idcliente);
                     //$("#num_contrato").val(response.numcontrato);
@@ -403,6 +505,7 @@ if (
         var AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         $(document).on("click", ".btn-agregarfijo", function () {
             $("#titulo_fijos").html("Nuevo contrato fijo");
+            $(".select2-single").val("").trigger("change");
             $("#visualizDocumento").text("");
             if (AbiertoxEditar) {
                 // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
@@ -483,10 +586,10 @@ if (
             success: function (response) {
                 $("#titulo_orden").html(
                     "Editar órden (# " +
-                        response.nro_contrato +
-                        " - " +
-                        response.nombre_con +
-                        ")"
+                    response.nro_contrato +
+                    " - " +
+                    response.nombre_con +
+                    ")"
                 );
                 $("#listacotizaciones").val(response.idcotizacion);
                 $("#numcontrato").val(response.nro_contrato);

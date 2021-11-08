@@ -76,9 +76,9 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                         <th>Documento conductor 3</th>
                                         <th>Cliente ocasional</th>
                                         <th>Cliente fijo</th>
+                                        <th>Sucursal</th>
                                         <th>Fecha de creación</th>
                                         <th style="min-width:90px;">Usuario</th>
-                                        <th>Sucursal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -107,9 +107,9 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                             <td><?= $value['docConductor3'] ?></td>
                                             <td><?= $value['nomContratante'] ?></td>
                                             <td><?= $value['ClienteFijo'] ?></td>
+                                            <td><?= $value['sucursal'] ?></td>
                                             <td><?= $value['fecha_creacion'] ?></td>
                                             <td><?= $value['usuarioCreacion'] ?></td>
-                                            <td><?= $value['sucursal'] ?></td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>
@@ -133,13 +133,13 @@ $FUEC = ControladorFuec::ctrListaFUEC();
 
 <!--MODAL AGREGAR FUEC-->
 
-<div class="modal fade" id="NuevoFuecModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="NuevoFuecModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="overflow-y: scroll;">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
 
             <div class="modal-header bg-info">
                 <h5 class="modal-title font-weight-bold" id="titulo-modal-fuec"></h5>
-                <button class="btn btn-secondary ml-2 d-none btn-copy-fuec" type="button"><i class="far fa-copy"></i> Copia</button>
+                <button class="btn btn-app bg-success ml-2 d-none btn-copy-fuec" type="button"><i class="fas fa-copy"></i> Copia</button>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -453,19 +453,28 @@ $FUEC = ControladorFuec::ctrListaFUEC();
 
                         <!-- Ruta -->
                         <div class="col-12">
+                            <hr class="my-4 bg-dark">
                             <div class="form-group">
-                                <label for="my-input">Ruta</label>
-                                <select class="form-control select2-single input-fuec input-ordenservicio" style="width: 99%" id="idruta" name="idruta" required>
+                                <label for="idruta" class="d-flex justify-content-center"><i>RUTA</i></label>
+                                <div class="input-group">
+                                    <!-- <select class="form-control select2-single input-fuec input-ordenservicio" style="width: 99%" id="idruta" name="idruta" required>
                                     <option selected value="">-Seleccione una ruta-</option>
                                     <?php foreach ($Rutas as $key => $value) : ?>
                                         <option value="<?= $value['id'] ?>"><?= $value['origendestino'] ?></option>
                                     <?php endforeach ?>
-                                </select>
+                                </select> -->
+                                    <input type="hidden" id="idruta" name="idruta">
+                                    <input class="form-control" type="text" id="observacionescontr" name="observacionescontr" placeholder="Seleccione una ruta de la lista" required>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-success btn-md btn-ruta" title="Buscar una ruta existente" data-toggle="modal" data-target="#modal_general"><i class="fas fa-route"></i></button>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
                         <!-- Origen -->
-                        <div class="col-12 col-md-6 d-none">
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Origen</label>
                                 <div class="input-group">
@@ -474,14 +483,14 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                             <i class="fas fa-route"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec input-ordenservicio" type="text" id="origen" name="origen" readonly>
+                                    <input class="form-control input-fuec" type="text" id="origen" name="origen" readonly>
                                 </div>
                             </div>
 
                         </div><!-- /.col -->
 
                         <!-- Destino -->
-                        <div class="col-12 col-md-6 d-none">
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Destino</label>
                                 <div class="input-group">
@@ -490,7 +499,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                             <i class="fas fa-route"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec input-ordenservicio" type="text" id="destino" name="destino" readonly>
+                                    <input class="form-control input-fuec" type="text" id="destino" name="destino" readonly>
                                 </div>
                             </div>
                         </div><!-- /.col -->
@@ -505,7 +514,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                             <i class="fas fa-comment-dots"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec input-ordenservicio" type="text" id="observacionescontr" name="observacionescontr" readonly>
+                                    <input class="form-control input-fuec input-ordenservicio" type="text" id="" name="" readonly>
                                 </div>
                             </div>
                         </div><!-- /.col -->

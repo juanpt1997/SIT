@@ -527,6 +527,10 @@ class AjaxConceptosGH
 				$tabla = "gh_municipios";
 				$item = "municipio";
 				break;
+			case 'Servicios menores':
+				$tabla = "m_serviciosmenores";
+				$item = "servicio";
+				break;	
 
 			default:
 				// code...
@@ -769,6 +773,33 @@ class AjaxConceptosGH
 
 		echo $tr;
 	}
+
+	//Ajax para visualizar y seleccionar las rutas en otra vista diferente a conceptos generales
+	 static public function ajaxTablaRutasGeneral()
+	 {
+ 
+		 $respuesta = ControladorRutas::ctrListarRutas();
+		 $tr = "";
+ 
+		 foreach ($respuesta as $key => $value) {
+			 $tr .= "
+			 <tr>
+			 <td>{$value["id"]}</td>
+			 <td>{$value["orig"]}</td>
+			 <td>{$value["dest"]}</td>
+			 <td>{$value["nombreruta"]}</td>
+			 <td> 
+			 <div class='btn-group' role='group' aria-label='Button group'>
+			 <button data-toggle='tooltip' data-placement='top' title='Seleccionar ruta' idregistro = '{$value["id"]}' origen='{$value["orig"]}' destino='{$value["dest"]}' descripcion='{$value["nombreruta"]}' class='btn btn-sm btn-success btnSeleccionarRuta '><i class='fas fa-check'></i></button>
+			 </div>
+			 </td>
+			 </tr>
+			 ";
+		 }
+ 
+		 echo $tr;
+	 }
+	 
 	//CIUDADES
 	//Ajax apra agregar una nueva ciudad
 	static public function AgregarCiudad($dato1, $dato2)
@@ -923,6 +954,10 @@ class AjaxConceptosGH
 				$tabla = "documentosidentificacion";
 				$id_tabla = "iddocumento";
 				break;
+			case 'Servicios menores':
+				$tabla = "m_serviciosmenores";
+				$id_tabla = "idservicio";
+				break;	
 			default:
 				// code...
 				break;
@@ -957,6 +992,7 @@ class AjaxConceptoEmpresa
 	{
 		$respuesta = ControladorEmpresa::ctrAgregarEditarEmpresa($formData,$imagen);
 		echo $respuesta;
+		//echo json_encode($respuesta);
 	}
 	//Ajax para listar todas las empresas en la tabla (Limitado a una empresa)
 	static public function ajaxVerEmpresa()
@@ -991,6 +1027,66 @@ class AjaxConceptoEmpresa
 		}
 		echo $tr;
 	}
+}
+
+class AjaxConceptoServicios
+{
+	//Ajax para agregar un nuevo servicio
+	static public function ajaxNuevoServicio($servicio,$kilometraje,$dias)
+	{
+		$datos = array(
+			"servicio" => $servicio,
+			"kilometraje_cambio" => $kilometraje,
+			"dias_cambio" => $dias
+		);
+
+		$respuesta = ModeloConceptosGH::mdlAgregarServicio($datos);
+		echo $respuesta;
+	}
+
+	//AJAX para listar todos los servicios
+	static public function ajaxVerServicios()
+	{
+		$respuesta = ModeloConceptosGH::mdlVerServicios(null);
+		$tr = "";
+	
+		foreach ($respuesta as $key => $value) {
+			$tr .= "
+			<tr>
+			<td>{$value["idservicio"]}</td>
+			<td>{$value["servicio"]}</td>
+			<td>{$value["kilometraje_cambio"]}</td>
+			<td>{$value["dias_cambio"]}</td>
+			<td> 
+			<div class='btn-group' role='group' aria-label='Button group'>
+			<button idregistro = '{$value["idservicio"]}' concepto = 'Servicios menores' dato1 = '{$value["servicio"]}' dato2 = '{$value["kilometraje_cambio"]}' dato3 = '{$value["dias_cambio"]}' class='btn btn-sm btn-warning btnEditarS'><i class='fas fa-edit'></i></button>
+			</div>
+			<div class='btn-group' role='group' aria-label='Button group'>
+			<button idregistro = '{$value["idservicio"]}' concepto = 'Servicios menores' class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button>
+			</div>
+			</td>
+			</tr>
+			";
+		}
+		echo $tr;
+	}
+
+	//Ajax editar datos de un concepto segun su id
+	static public function ajaxEditarServicio($id, $dato1, $dato2, $dato3)
+	{
+		$datos = array(
+			"idservicio" => $id,
+			"servicio" => $dato1,
+			"kilometraje_cambio" => $dato2,
+			"dias_cambio" => $dato3,
+		);
+
+		$respuesta = ModeloConceptosGH::mdlEditarServicio($datos);
+
+		echo $respuesta;
+	}
+
+
 }
 
 /*=============================================================
@@ -1046,13 +1142,18 @@ if (isset($_POST['EditarRuta']) && $_POST['EditarRuta'] == "ok") {
 	AjaxConceptosGH::EditarRuta($_POST['dato3'], $_POST['id']);
 }
 
+if (isset($_POST['ListarRutas']) && $_POST['ListarRutas'] == "ok") {
+	AjaxConceptosGH::ajaxTablaRutasGeneral();
+}
+
 //AJAX EMPRESA
 if (isset($_POST['DatosEmpresa']) && $_POST['DatosEmpresa'] == "ok") {
 	AjaxConceptoEmpresa::ajaxDatosEmpresa($_POST['id']);
 }
 
 if (isset($_POST['EditarEmpresa']) && $_POST['EditarEmpresa'] == "ok") {
-	AjaxConceptoEmpresa::ajaxEditarEmpresa($_POST, $_FILES['imagen']);
+	$imagen = isset($_FILES['imagen']) ? $_FILES['imagen'] : "";
+	AjaxConceptoEmpresa::ajaxEditarEmpresa($_POST, $imagen);
 }
 
 if (isset($_POST['VerEmpresa']) && $_POST['VerEmpresa'] == "ok") {
@@ -1074,6 +1175,19 @@ if (isset($_POST['AgregarCiudad']) && $_POST['AgregarCiudad'] == "ok") {
 
 if (isset($_POST['DatosCiudad']) && $_POST['DatosCiudad'] == "ok") {
 	AjaxConceptosGH::DatosCiudad($_POST['id']);
+}
+
+//AJAX SERVICIOS
+if (isset($_POST['nuevoServicio']) && $_POST['nuevoServicio'] == "ok") {
+	AjaxConceptoServicios::ajaxNuevoServicio($_POST['dato1'], $_POST['dato2'], $_POST['dato3']);
+}
+
+if (isset($_POST['ajaxVerServicios']) && $_POST['ajaxVerServicios'] == "ok") {
+	AjaxConceptoServicios::ajaxVerServicios();
+}
+
+if (isset($_POST['ajaxEditarServicio']) && $_POST['ajaxEditarServicio'] == "ok") {
+	AjaxConceptoServicios::ajaxEditarServicio($_POST['id'], $_POST['dato1'], $_POST['dato2'],$_POST['dato3']);
 }
 
 //ajax ELIMINAR (Borrado logico)

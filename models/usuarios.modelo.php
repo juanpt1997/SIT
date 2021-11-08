@@ -309,6 +309,7 @@ class ModeloUsuarios
 
     static public function mdlAgregarPermisosRol($datos)
     {
+        
        $stmt = Conexion::conectar()->prepare("INSERT INTO l_re_permisos (idPerfil, idOpcion, Crear, Leer, Actualizar, Borrar) 
                                             VALUES(:idPerfil, :idOpcion, :Crear, :Leer, :Actualizar, :Borrar )");
 

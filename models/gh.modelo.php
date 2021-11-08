@@ -618,11 +618,10 @@ class ModeloGH
     static public function mdlContratosVencer()
     {
         $stmt = Conexion::conectar()->prepare("SELECT p.Documento, p.Nombre, pr.contrato, pr.fecha_fin, DATEDIFF(pr.fecha_fin, CURRENT_DATE) AS diferencia
-                                                FROM gh_re_personalprorrogas pr
-                                                INNER JOIN gh_personal p ON p.idPersonal = pr.idPersonal
-                                                -- WHERE fecha_fin BETWEEN CURRENT_DATE AND DATE_SUB(CURRENT_DATE, INTERVAL -44 DAY)
-                                                WHERE MONTH(fecha_fin) BETWEEN MONTH(CURDATE()) AND (MONTH(CURDATE()) + 2)
-                                                ");
+        FROM gh_re_personalprorrogas pr
+        INNER JOIN gh_personal p ON p.idPersonal = pr.idPersonal
+        WHERE  YEAR(fecha_fin) = YEAR(CURRENT_DATE())  AND  MONTH(fecha_fin) BETWEEN MONTH(CURRENT_DATE()) AND (MONTH(CURRENT_DATE()) + 2)
+        ");
 
         $stmt->execute();
         $retorno = $stmt->fetchAll();

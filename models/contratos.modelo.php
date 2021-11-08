@@ -231,7 +231,7 @@ class ModeloCotizaciones
       $stmt->bindParam(":idsucursal", $datos["sucursalcot"], PDO::PARAM_INT);
       $stmt->bindParam(":origen", $datos["origin"], PDO::PARAM_STR);
       $stmt->bindParam(":destino", $datos["destin"], PDO::PARAM_STR);
-      $stmt->bindParam(":descripcion", $datos["des_sol"], PDO::PARAM_STR);
+      $stmt->bindParam(":descripcion", $datos["descrip"], PDO::PARAM_STR);
       $stmt->bindParam(":fecha_solicitud", $datos["f_sol"], PDO::PARAM_STR);
       $stmt->bindParam(":fecha_solucion", $datos["f_resuelve"], PDO::PARAM_STR);
       $stmt->bindParam(":fecha_inicio", $datos["f_inicio"], PDO::PARAM_STR);
@@ -281,7 +281,8 @@ class ModeloCotizaciones
          $stmt = Conexion::conectar()->prepare("SELECT C.idcotizacion, C.idcliente, C.empresa, C.idsucursal, 
                                                 ori.municipio AS origen,
                                                 des.municipio AS destino,
-                                                rt.nombreruta AS descripcion,
+                                                -- rt.nombreruta AS descripcion,
+                                                IF (C.descripcion = '', rt.nombreruta, C.descripcion) AS descripcion,
                                                 C.fecha_solicitud, C.fecha_solucion, C.fecha_inicio, C.fecha_fin, C.duracion, C.hora_salida, C.hora_recogida, C.idtipovehiculo, C.nro_vehiculos, C.capacidad, C.valorxvehiculo, C.valortotal, C.cotizacion, C.clasificacion, C.musica, C.aire, C.wifi, C.silleriareclinable, C.bano, C.bodega, C.otro, C.realiza_viaje, C.porque, C.nombre_con, C.documento_con, C.tipo_doc_con, C.tel_1, C.direccion_con, C.nombre_respo, C.tipo_doc_respo, C.cedula_expedicion, C.documento_res, C.ciudad_con, C.ciudad_res, C.tel_2, C.otro_v, C.idruta, 
                                                 S.sucursal AS sucursal, 
                                                 V.tipovehiculo AS tipo, 
@@ -315,7 +316,8 @@ class ModeloCotizaciones
                                                 -- des.municipio AS destino,
                                                 IF (C.idruta IS NULL, C.destino, des.municipio) AS destino,
                                                 -- rt.nombreruta AS descripcion,
-                                                IF (C.idruta IS NULL, C.descripcion, rt.nombreruta) AS descripcion,
+                                                -- IF (C.idruta IS NULL, C.descripcion, rt.nombreruta) AS descripcion,
+                                                IF (C.descripcion = '', rt.nombreruta, C.descripcion) AS descripcion,
                                                 C.fecha_solicitud, C.fecha_solucion, C.fecha_inicio, C.fecha_fin, C.duracion, C.hora_salida, C.hora_recogida, C.idtipovehiculo, C.nro_vehiculos, C.capacidad, C.valorxvehiculo, C.valortotal, C.cotizacion, C.clasificacion, C.musica, C.aire, C.wifi, C.silleriareclinable, C.bano, C.bodega, C.otro, C.realiza_viaje, C.porque, C.nombre_con, C.documento_con, C.tipo_doc_con, C.tel_1, C.direccion_con, C.nombre_respo, C.tipo_doc_respo, C.cedula_expedicion, C.documento_res, C.ciudad_con, C.ciudad_res, C.tel_2, C.otro_v, C.idruta, 
                                                 S.sucursal AS sucursal, V.tipovehiculo AS tipov, Cl.*, CONCAT('ID: ',C.idcotizacion, ' - ',C.nombre_con) AS clientexist, m1.municipio AS ciudadcon, m2.municipio AS ciudadres, m3.municipio AS cedulaexpe
                                                 FROM cont_cotizaciones C
@@ -366,7 +368,7 @@ class ModeloCotizaciones
       $stmt->bindParam(":idsucursal", $datos["sucursalcot"], PDO::PARAM_INT);
       $stmt->bindParam(":origen", $datos["origin"], PDO::PARAM_STR);
       $stmt->bindParam(":destino", $datos["destin"], PDO::PARAM_STR);
-      $stmt->bindParam(":descripcion", $datos["des_sol"], PDO::PARAM_STR);
+      $stmt->bindParam(":descripcion", $datos["descrip"], PDO::PARAM_STR);
       $stmt->bindParam(":fecha_solicitud", $datos["f_sol"], PDO::PARAM_STR);
       $stmt->bindParam(":fecha_solucion", $datos["f_resuelve"], PDO::PARAM_STR);
       $stmt->bindParam(":fecha_inicio", $datos["f_inicio"], PDO::PARAM_STR);
@@ -531,7 +533,8 @@ class ModeloOrdenServicio
                                              -- des.municipio AS destino,
                                              IF (C.idruta IS NULL, C.destino, des.municipio) AS destino,
                                              -- rt.nombreruta AS descripcion,
-                                             IF (C.idruta IS NULL, C.descripcion, rt.nombreruta) AS descripcion,
+                                             -- IF (C.idruta IS NULL, C.descripcion, rt.nombreruta) AS descripcion,
+                                             IF (C.descripcion = '', rt.nombreruta, C.descripcion) AS descripcion,
                                              C.fecha_solicitud, C.fecha_solucion, C.fecha_inicio, C.fecha_fin, C.duracion, C.hora_salida, C.hora_recogida, C.idtipovehiculo, C.nro_vehiculos, C.capacidad, C.valorxvehiculo, C.valortotal, C.cotizacion, C.clasificacion, C.musica, C.aire, C.wifi, C.silleriareclinable, C.bano, C.bodega, C.otro, C.realiza_viaje, C.porque, C.nombre_con, C.documento_con, C.tipo_doc_con, C.tel_1, C.direccion_con, C.nombre_respo, C.tipo_doc_respo, C.cedula_expedicion, C.documento_res, C.ciudad_con, C.ciudad_res, C.tel_2, C.otro_v, C.idruta, 
                                              O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, 
                                              -- C.nombre_con, C.documento_con, C.direccion_con, C.tel_1, C.tel_2, C.nombre_respo, C.documento_res, C.cedula_expedicion, 

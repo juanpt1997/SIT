@@ -66,7 +66,6 @@ $(document).ready(function () {
 
                 if (placa != "") {
                     //$select.val("");
-
                     // Cargo datos del vehiculo
                     var datos = new FormData();
                     datos.append("DatosVehiculo", "ok");
@@ -81,6 +80,7 @@ $(document).ready(function () {
                         contentType: false,
                         processData: false,
                         success: function (response) {
+
                             var Vehiculo = response.datosVehiculo;
 
                             $("#idvehiculo").val(Vehiculo.idvehiculo);
@@ -88,6 +88,95 @@ $(document).ready(function () {
                             $("#modelo").val(Vehiculo.modelo);
                             $("#numinterno").val(Vehiculo.numinterno);
                             $("#sucursal").val(Vehiculo.sucursal);
+
+                            var Servicios = response.serviciosVehiculo;
+
+
+                            Servicios.forEach(element => {
+                                $(`#servicio_${element.idservicio}`).val(element.Ffecha);
+
+
+                                // if(element.idservicio == 1)$("#cambio_aceite").val(element.Ffecha);
+                                // if(element.idservicio == 2)$("#engrase").val(element.Ffecha);
+                                // if(element.idservicio == 3)$("#rotacion_llantas").val(element.Ffecha);
+                                // if(element.idservicio == 4)$("#filtro_aire").val(element.Ffecha);
+                                // if(element.idservicio == 5)$("#sincronizacion").val(element.Ffecha);
+                                // if(element.idservicio == 6)$("#alineacion_balanceo").val(element.Ffecha);
+                            });
+
+                            /* ===================================================
+                                                            Cargar fechas de vencimiento del vehículo
+                                                        ===================================================*/
+                            var datos = new FormData();
+                            datos.append("DocumentosxVehiculo", "ok");
+                            datos.append("idvehiculo", Vehiculo.idvehiculo);
+                            $.ajax({
+                                type: "post",
+                                url: `${urlPagina}ajax/vehicular.ajax.php`,
+                                data: datos,
+                                dataType: "json",
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                success: function (response) {
+                                    response.forEach((element) => {
+                                        // Asigno valor fecha
+                                        $(
+                                            `#documento_${element.idtipodocumento}`
+                                        ).val(element.fechafin);
+
+                                        // Color del fondo segun la fecha
+                                        var bg =
+                                            element.fechafin >=
+                                                moment().format("YYYY-MM-DD")
+                                                ? "bg-success"
+                                                : "bg-danger";
+                                        $(
+                                            `#documento_${element.idtipodocumento}`
+                                        ).addClass(bg);
+                                    });
+                                },
+                            });
+
+                            /* ===================================================
+                                                            CARGAR LISTA CONDUCTORES
+                                                        ===================================================*/
+                            var datos = new FormData();
+                            datos.append("ListaConductores", "ok");
+                            datos.append("idvehiculo", Vehiculo.idvehiculo);
+                            $.ajax({
+                                type: "post",
+                                url: `${urlPagina}ajax/fuec.ajax.php`,
+                                data: datos,
+                                dataType: "json",
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                success: function (response) {
+                                    $(".overlay-conductores").addClass(
+                                        "d-none"
+                                    );
+                                    let htmlSelect = `<option value="" selected>-Seleccione un conductor</option>`;
+                                    if (response != "") {
+                                        response.forEach((element) => {
+                                            htmlSelect += `<option value="${element.idconductor}">${element.Documento} - ${element.conductor}</option>`;
+                                        });
+                                    }
+                                    $("#idconductor").html(htmlSelect);
+
+                                    // Accionar el observador
+                                    $(
+                                        "#observador_conductoresAlistamiento"
+                                    ).trigger("change");
+                                },
+                            });
+
+
+
+
+
+
+
 
                             /* ===================================================
                                                             Cargar fechas de vencimiento del vehículo
@@ -119,6 +208,11 @@ $(document).ready(function () {
                                     });
                                 },
                             });
+
+
+
+
+
 
                             /* ===================================================
                                                             CARGAR LISTA CONDUCTORES
@@ -335,12 +429,12 @@ $(document).ready(function () {
                         //     $("#idconductor").val(response.idconductor);
                         // }, 1000);
 
-                        $("#cambio_aceite").val(response.cambio_aceite);
-                        $("#engrase").val(response.engrase);
-                        $("#rotacion_llantas").val(response.rotacion_llantas);
-                        $("#filtro_aire").val(response.filtro_aire);
-                        $("#sincronizacion").val(response.sincronizacion);
-                        $("#alineacion_balanceo").val(response.alineacion_balanceo);
+                        // $("#cambio_aceite").val(response.cambio_aceite);
+                        // $("#engrase").val(response.engrase);
+                        // $("#rotacion_llantas").val(response.rotacion_llantas);
+                        // $("#filtro_aire").val(response.filtro_aire);
+                        // $("#sincronizacion").val(response.sincronizacion);
+                        // $("#alineacion_balanceo").val(response.alineacion_balanceo);
 
                         $("#kmtotal").val(response.kilometraje_total);
                         $("#observaciones").val(response.observaciones);
@@ -397,7 +491,6 @@ $(document).ready(function () {
         $(document).on("click", "#btnGuardarEvidencia", function () {
             var idvehiculo = $("#idvehiculo").val();
             AbiertoxEditar = true; //BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
-
             // Tenga un vehiculo seleccionado
             if (idvehiculo != "") {
                 var fotoEvidencia = $("#foto_evidencia")[0].files;
@@ -575,72 +668,72 @@ $(document).ready(function () {
 
             //Validación textarea
 
-            
 
-                //Validación textarea
 
-                $('textarea:invalid').each(function (index, element) {
-                    var $area = $(this);
+            //Validación textarea
 
-                    var idform = $area.closest("form").attr("id");
-                    console.log(idform);
-                    if (idform == "alistamiento_form") {
-                        Areas.push($area);
-                    }
+            $('textarea:invalid').each(function (index, element) {
+                var $area = $(this);
+
+                var idform = $area.closest("form").attr("id");
+                console.log(idform);
+                if (idform == "alistamiento_form") {
+                    Areas.push($area);
+                }
+            });
+
+
+            var tab = [];
+
+            //Se trae los tabs 
+            $('input:invalid').each(function (index, element) {
+                var $tabs = $(this);
+                var idtab = $tabs.closest("table").attr("nombre");
+                if (!tab.includes(idtab)) tab.push(idtab);
+            });
+
+            $('select:invalid').each(function (index, element) {
+                var $tabs = $(this);
+                var idtab = $tabs.closest("table").attr("nombre");
+                if (idtab == undefined) idtab = "Documentos";
+                if (!tab.includes(idtab)) {
+                    tab.push(idtab);
+                    Requeridos.push($tabs);
+                }
+            });
+
+
+            $('textarea:invalid').each(function (index, element) {
+                var $tabs = $(this);
+                var idtab = $tabs.closest("table").attr("nombre");
+                if (!tab.includes(idtab)) tab.push(idtab);
+            });
+
+
+
+
+            if (Requeridos.length > 0 || Areas.length > 0) {
+
+                let inputsRequeridosHtml = `<ul>`;
+                tab.forEach(element => {
+                    inputsRequeridosHtml += `<li>${element}</li>`;
                 });
+                inputsRequeridosHtml += `</ul>`;
 
-
-                var tab = [];
-
-                //Se trae los tabs 
-                $('input:invalid').each(function (index, element) {
-                    var $tabs = $(this);
-                    var idtab = $tabs.closest("table").attr("nombre");
-                    if (!tab.includes(idtab)) tab.push(idtab);
-                });
-
-                $('select:invalid').each(function (index, element) {
-                    var $tabs = $(this);
-                    var idtab = $tabs.closest("table").attr("nombre");
-                    if( idtab == undefined) idtab = "Documentos";
-                    if (!tab.includes(idtab)) {
-                        tab.push(idtab);
-                        Requeridos.push($tabs);
-                    }
-                });
-                
-
-                $('textarea:invalid').each(function(index,element){
-                    var $tabs = $(this);
-                    var idtab = $tabs.closest("table").attr("nombre");
-                    if (!tab.includes(idtab)) tab.push(idtab);
-                });
-                
-
-
-
-                if (Requeridos.length > 0 || Areas.length > 0) {
-
-                    let inputsRequeridosHtml = `<ul>`;
-                    tab.forEach(element => {
-                        inputsRequeridosHtml += `<li>${element}</li>`;
-                    });
-                    inputsRequeridosHtml += `</ul>`;
-
-                    Swal.fire({
-                        icon: 'warning',
-                        html: `<div class="text-left">
+                Swal.fire({
+                    icon: 'warning',
+                    html: `<div class="text-left">
                                                     <p class="font-weight-bold">Hace falta diligenciar campos en los siguientes apartados:</p>
                                                         ${inputsRequeridosHtml}
                                                 </div>`,
-                        showConfirmButton: true,
-                        confirmButtonText: 'Cerrar',
-                        closeOnConfirm: false
-                    });
-                    
-                }
-            
-            
+                    showConfirmButton: true,
+                    confirmButtonText: 'Cerrar',
+                    closeOnConfirm: false
+                });
+
+            }
+
+
         });
     }
 });
@@ -672,7 +765,9 @@ if (
             contentType: false,
             processData: false,
             success: function (Vehiculo) {
-                $("#tipo_vinculacion").val(Vehiculo.datosVehiculo.tipovinculacion);
+                $("#tipo_vinculacion").val(
+                    Vehiculo.datosVehiculo.tipovinculacion
+                );
                 $("#numinterno").val(Vehiculo.datosVehiculo.numinterno);
                 $("#marca").val(Vehiculo.datosVehiculo.marca);
                 $("#modelo").val(Vehiculo.datosVehiculo.modelo);
@@ -740,7 +835,7 @@ if (
             contentType: false,
             processData: false,
             success: function (response) {
-                $("#ruta").val(response.idruta).trigger("change");
+                $("#idruta").val(response.idruta);
                 $("#placa_roda").val(response.idvehiculo).trigger("change");
                 $("#idcliente").val(response.idcliente).trigger("change");
                 $("#placa_invent").val(response.idvehiculo).trigger("change");
@@ -749,11 +844,19 @@ if (
                     response.idconductor
                 );
                 $("#fecha_servicio").val(response.fecha_servicio);
-                $("#tipo_servicio").val(response.tipo_servicio).trigger("change");
-                $("#cantidadpasajerosdatosroda").val(response.cantidad_pasajeros);
+                $("#tipo_servicio")
+                    .val(response.tipo_servicio)
+                    .trigger("change");
+                $("#cantidadpasajerosdatosroda").val(
+                    response.cantidad_pasajeros
+                );
                 $("#hora_inicio").val(response.h_inicio);
                 $("#hora_final").val(response.h_final);
                 $("#kmrecorridosdatosroda").val(response.kmrecorridos);
+                $("#descrip").val(response.descripcion);
+                $("#origen").val(response.origen);
+                $("#destino").val(response.destino);
+
             },
         });
     });
@@ -777,7 +880,7 @@ if (
             title: "Dato copiado",
             text: "Guarde los nuevos cambios",
             showConfirmButton: true,
-            confirmButtonText: "Cerrar",
+            timer: 1500,
             closeOnConfirm: false,
         });
         $("#id_rodamiento").val("");
@@ -795,7 +898,7 @@ if (
 
         $("#id_rodamiento").val("");
         $("#formulario_rodamiento").trigger("reset");
-        $("#ruta").trigger("change");
+        //$("#ruta").trigger("change");
         $("#tipo_servicio").trigger("change");
         $("#idcliente").trigger("change");
         $("#placa_roda").trigger("change");
@@ -891,4 +994,101 @@ if (
         var table = dataTableCustom(`#tblplanrodamiento`, buttons);
     };
     FiltroTablaRodamiento();
+
+    /* ===================================================
+          SELECCIÓN DE RUTA EN RODAMIENTO
+    ===================================================*/
+    $(document).on("click", ".btn-ruta", function () {
+        $("#modal-nuevoplanrodamiento").modal("hide");
+        $("#titulo_modal_general").html("Seleccione una ruta");
+        $("#tabla_general_rutas").dataTable().fnDestroy();
+        // Borrar datos
+        $("#tbody_principal").html("");
+
+        $(".btnBorrar").addClass("d-none");
+
+        var datos = new FormData();
+        datos.append("ListarRutas", "ok");
+        $.ajax({
+            type: "POST",
+            url: "ajax/conceptos.ajax.php",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            //dataType: "json",
+            success: function (response) {
+                if (response != "" || response != null) {
+                    $("#tbody_principal").html(response);
+                } else {
+                    $("#tbody_principal").html("");
+                }
+                var buttons = [
+                    {
+                        extend: "excel",
+                        className: "btn-info",
+                        text: '<i class="far fa-file-excel"></i> Exportar',
+                    },
+                    /* 'copy', 'csv', 'excel', 'pdf', 'print' */
+                ];
+                dataTableCustom("#tabla_general_rutas", buttons);
+            },
+        });
+    });
+
+    $(document).on("click", ".btnSeleccionarRuta", function () {
+        $("#modal-nuevoplanrodamiento").modal("show");
+        $("#modal_general").modal("hide");
+
+        var origen = $(this).attr("origen");
+        var destino = $(this).attr("destino");
+        var descripcion = $(this).attr("descripcion");
+        var id = $(this).attr("idregistro");
+
+        $("#idruta").val(id);
+        $("#descrip").val(descripcion);
+        $("#origen").val(origen);
+        $("#destino").val(destino);
+    });
+
+    // $(document).on("click", ".btn_cancelar_ruta", function () {
+    //     $("#modal-nuevoplanrodamiento").modal("show");
+    //     $("#modal_general").modal("hide");
+
+    //     $("#idruta").val("");
+    //     $("#descrip").val("");
+    //     $("#origen").val("");
+    //     $("#destino").val("");
+    // });
+    $("#modal_general").on('hidden.bs.modal', function () {
+        $("#modal-nuevoplanrodamiento").modal('show');
+        $("#modal_general").modal('hide');
+
+        // $("#idruta").val("");
+        // $("#observacionescontr").val("");
+        // $("#origen").val("");
+        // $("#destino").val("");
+    });
+
+    /* ===================================================
+         VALIDAR CAMPO VACIO DE RUTA
+       ===================================================*/
+    var guardoRodamiento = false;
+    $("#formulario_rodamiento").submit(function (e) {
+        if (!guardoRodamiento) {
+            e.preventDefault();
+            if ($("#idruta").val() == "") {
+                Swal.fire({
+                    icon: "warning",
+                    title: "¡Debe seleccionar una ruta antes de guardar!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                guardoRodamiento = false;
+            } else {
+                guardoRodamiento = true;
+                $("#formulario_rodamiento").submit();
+            }
+        }
+    });
 }

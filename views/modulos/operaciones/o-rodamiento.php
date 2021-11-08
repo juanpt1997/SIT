@@ -58,7 +58,7 @@ $Plan_r = ControladorRodamientos::ctrListarRodamientos();
                             <div class="card-body">
                                 <!--|||TABLA PLAN DE RODAMIENTO|||-->
                                 <div class="table-responsive">
-                                    <table id="tblplanrodamiento" class="table table-bordered table-striped text-center text-nowrap">
+                                    <table id="tblplanrodamiento" class="table table-sm table-bordered table-striped text-center text-nowrap">
                                         <thead>
                                             <tr>
                                                 <th>...</th>
@@ -126,7 +126,7 @@ $Plan_r = ControladorRodamientos::ctrListarRodamientos();
   MODAL DE INGRESO NUEVO PLAN DE RODAMIENTO
  ============================== -->
 
-<div class="modal fade show" id="modal-nuevoplanrodamiento" style="display: none; padding-right: 17px;" aria-modal="true" role="dialog">
+<div class="modal fade show" id="modal-nuevoplanrodamiento" style=" overflow-y: scroll; display: none; padding-right: 17px;" aria-modal="true" role="dialog" style="overflow-y: scroll;">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header bg-info">
@@ -151,14 +151,54 @@ $Plan_r = ControladorRodamientos::ctrListarRodamientos();
 
                         <div class="col-md text-center">
                             <div class="form-group">
-                                <label><i>RUTA (origen y destino)</i></label>
-                                <select id="ruta" name="idruta" class="form-control select2-single" type="number" style="width: 99%;border:1px solid #ff0000" required>
-                                    <option value="" selected>Seleccione una ruta</option>
-                                    <?php foreach ($Rutas as $key => $value) : ?>
-                                        <option value="<?= $value['id'] ?>"><?= $value['origendestino'] ?></option>
-                                    <?php endforeach ?>
-                                </select>
+                                <label><i>RUTA</i></label>
+                                <div class="input-group">
+                                    <!-- <select id="idruta" name="idruta" class="form-control select2-single" type="number" style="width: 99%;border:1px solid #ff0000" required>
+                                        <option value="" selected>Seleccione una ruta</option>
+                                        <?php foreach ($Rutas as $key => $value) : ?>
+                                            <option value="<?= $value['id'] ?>"><?= $value['origendestino'] ?></option>
+                                        <?php endforeach ?>
+                                    </select> -->
+                                    <input type="hidden" id="idruta" name="idruta">
+                                    <input class="form-control" type="text" id="descrip" name="descrip" placeholder="Seleccione una ruta de la lista" readonly>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-success btn-md btn-ruta" title="Buscar una ruta existente" data-toggle="modal" data-target="#modal_general"><i class="fas fa-route"></i></button>
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Origen -->
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label>Origen</label>
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-route"></i>
+                                        </span>
+                                    </div>
+                                    <input class="form-control" type="text" id="origen" name="origen" readonly>
+                                </div>
+                            </div>
+
+                        </div><!-- /.col -->
+
+                        <!-- Destino -->
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label>Destino</label>
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-route"></i>
+                                        </span>
+                                    </div>
+                                    <input class="form-control" type="text" id="destino" name="destino" readonly>
+                                </div>
+                            </div>
+                        </div><!-- /.col -->
                         </div>
 
 

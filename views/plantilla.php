@@ -34,9 +34,9 @@ if (isset($_GET['pagina'])) {
     <meta name="theme-color" content="#ffffff">
 
     <?php if (isset($ruta)) : ?>
-    <title><?= $ruta ?></title>
+        <title><?= $ruta ?></title>
     <?php else : ?>
-    <title>SIT</title>
+        <title>SIT</title>
     <?php endif ?>
 
     <!-- =================================================== 
@@ -94,6 +94,10 @@ if (isset($_GET['pagina'])) {
     <script src="<?= URL_APP ?>views/plugins/jszip/jszip.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/pdfmake/pdfmake.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/pdfmake/vfs_fonts.js"></script>
+    <!-- Momentjs -->
+    <!-- <script src="<?= URL_APP ?>views/plugins/moment/moment.min.js"></script> -->
+    <script src="<?= URL_APP ?>views/plugins/moment/moment-with-locales.min.js"></script>
+    <script src="<?= URL_APP ?>views/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
     <!-- date-range-picker -->
     <script src="<?= URL_APP ?>views/plugins/daterangepicker/daterangepicker.js"></script>
     <!-- ChartJS -->
@@ -101,12 +105,8 @@ if (isset($_GET['pagina'])) {
     <script src="<?= URL_APP ?>views/plugins/chart.js/Charjs-plugin-datalabels.min.js"></script>
     <!-- Sweet Alert -->
     <script src="<?= URL_APP ?>views/plugins/sweetalert2/sweetalert2.all.min.js"></script>
-    <!-- Momentjs -->
-    <!-- <script src="<?= URL_APP ?>views/plugins/moment/moment.min.js"></script> -->
-    <script src="<?= URL_APP ?>views/plugins/moment/moment-with-locales.min.js"></script>
-    <script src="<?= URL_APP ?>views/plugins/inputmask/min/jquery.inputmask.bundle.min.js"></script>
     <!-- Select2 -->
-    <script src="<?= URL_APP ?>views/select2/js/select2.full.min.js"></script>
+    <script src="<?= URL_APP ?>views/plugins/select2/js/select2.full.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/select2/js/select2.min.js"></script>
     <!-- Bootstrap Switch -->
     <script src="<?= URL_APP ?>views/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
@@ -121,24 +121,24 @@ if (isset($_GET['pagina'])) {
 
 <?php if (strpos($_SERVER['REQUEST_URI'], "busqueda-fuec") !== false) : ?>
 
-<body>
-    <?php include('modulos/contratos/busqueda-fuec.php'); ?>
-</body>
+    <body>
+        <?php include('modulos/contratos/busqueda-fuec.php'); ?>
+    </body>
 <?php else : ?>
 
-<body class="hold-transition layout-fixed layout-navbar-fixed sidebar-collapse ">
+    <body class="hold-transition layout-fixed layout-navbar-fixed sidebar-collapse ">
 
-    <?php if (isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == "ok") : ?>
-    <div class="wrapper">
+        <?php if (isset($_SESSION['iniciarSesion']) && $_SESSION['iniciarSesion'] == "ok") : ?>
+            <div class="wrapper">
 
-        <!-- =================================================== NAVBAR (cabecera)=================================================== -->
-        <?php include('includes/cabecera.php'); ?>
+                <!-- =================================================== NAVBAR (cabecera)=================================================== -->
+                <?php include('includes/cabecera.php'); ?>
 
-        <!-- =================================================== MAIN SIDE BAR CONTAINER (menu) =================================================== -->
-        <?php include('includes/menu.php'); ?>
+                <!-- =================================================== MAIN SIDE BAR CONTAINER (menu) =================================================== -->
+                <?php include('includes/menu.php'); ?>
 
-        <!-- =================================================== CONTENT(contenido) =================================================== -->
-        <?php
+                <!-- =================================================== CONTENT(contenido) =================================================== -->
+                <?php
                 if (isset($ruta)/* isset($_GET['pagina']) */) {
                     // $rutaUrl = explode("/", $_GET['pagina']);
 
@@ -217,18 +217,18 @@ if (isset($_GET['pagina'])) {
                 }
                 ?>
 
-        <!-- =================================================== MAIN FOOTER =================================================== -->
-        <?php include('includes/footer.php'); ?>
+                <!-- =================================================== MAIN FOOTER =================================================== -->
+                <?php include('includes/footer.php'); ?>
 
-    </div>
-    <!-- ./wrapper -->
-    <?php else : ?>
-    <div class="login-box">
-        <?php include('modulos/ingreso.php'); ?>
-    </div>
-    <?php endif ?>
+            </div>
+            <!-- ./wrapper -->
+        <?php else : ?>
+            <div class="login-box">
+                <?php include('modulos/ingreso.php'); ?>
+            </div>
+        <?php endif ?>
 
-    <?php
+        <?php
         /* ===================================================
         MODALS
     ===================================================*/
@@ -236,7 +236,7 @@ if (isset($_GET['pagina'])) {
         ?>
 
 
-</body>
+    </body>
 <?php endif ?>
 
 <!-- =================================================== CUSTOM JS =================================================== -->
@@ -251,7 +251,6 @@ if (isset($_GET['pagina'])) {
 <script src="<?= URL_APP ?>views/js/mantenimiento.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/operaciones.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/compras.js?v=<?= time() ?>"></script>
-
 
 
 </html>

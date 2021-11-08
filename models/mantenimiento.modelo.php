@@ -527,11 +527,13 @@ class ModeloInventario
     {
         if ($valor != null) {
 
-            $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.numinterno, p.Nombre AS conductor, i.*
-                                                FROM m_inventario i
-                                                INNER JOIN v_vehiculos v ON v.idvehiculo = i.idvehiculo
-                                                LEFT JOIN gh_personal p ON p.idPersonal = i.idconductor
-                                                WHERE i.id = :id");
+            $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.numinterno, v.modelo, v.fechamatricula, t.tipovehiculo, m.marca, p.Nombre AS conductor, i.*
+                                                    FROM m_inventario i
+                                                    INNER JOIN v_vehiculos v ON v.idvehiculo = i.idvehiculo
+                                                    INNER JOIN v_marcas m ON m.idmarca = v.idmarca
+                                                    INNER JOIN v_tipovehiculos t ON t.idtipovehiculo = v.idtipovehiculo
+                                                    LEFT JOIN gh_personal p ON p.idPersonal = i.idconductor
+                                                    WHERE i.id = :id");
 
             $stmt->bindParam(":id", $valor, PDO::PARAM_INT);
             $stmt->execute();
@@ -1612,5 +1614,76 @@ class ModeloRevision
         $stmt = null;
 
         return $retorno;
+    }
+}
+
+class ModeloMantenimientos
+{
+    /* ===================================================
+        LISTADO DE SERVICIOS RECIENTES POR SERVICIO    
+    ===================================================*/
+
+    static public function mdlServiciosRecientes($idservicio)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.kilometraje AS kilometraje_actual, MAX(sm.idserviciovehiculo) AS idserviciovehiculo, sm.idvehiculo, sm.idservicio, (s.kilometraje_cambio + v.kilometraje) AS kilometraje_cambio,
+        MAX(sm.fecha) AS fecha, DATE_FORMAT(MAX(sm.fecha), '%d/%m/%y') AS Ffecha, s.servicio, DATE_FORMAT(date_add(sm.fecha, INTERVAL s.dias_cambio DAY), '%d/%m/%Y') AS fecha_cambio 
+        FROM m_re_serviciosvehiculos sm
+        INNER JOIN m_serviciosmenores s ON sm.idservicio = s.idservicio
+        INNER JOIN v_vehiculos v ON sm.idvehiculo = v.idvehiculo
+        WHERE sm.idservicio = :idservicio
+        GROUP BY sm.idvehiculo, sm.idservicio
+        ORDER BY sm.fecha DESC");
+
+        $stmt->bindParam(":idservicio", $idservicio, PDO::PARAM_INT);
+        $stmt->execute();
+        $respuesta = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
+
+    /* ===================================================
+        AGREGAR PROGRAMACION SERVICIO
+    ===================================================*/
+    static public function mdlAgregarServicio($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_serviciosvehiculos(idvehiculo,idservicio,kilometraje,fecha) 
+                                                VALUES (:idvehiculo, :idservicio, :kilometraje, :fecha)");
+        $stmt->bindParam(":idvehiculo", $datos["idvehiculo"], PDO::PARAM_INT);
+        $stmt->bindParam(":idservicio", $datos["idservicio"], PDO::PARAM_INT);
+        $stmt->bindParam(":kilometraje", $datos["kilometraje"], PDO::PARAM_INT);
+        $stmt->bindParam(":fecha", $datos["fecha"], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        ELIMINAR SERVICIO PROGRAMACIÓN
+    ===================================================*/
+
+    static public function mdlEliminarProgramacion($idserviciovehiculo)
+    {
+        $stmt = Conexion::conectar()->prepare("DELETE s.* from  m_re_serviciosvehiculos s WHERE s.idserviciovehiculo = :idserviciovehiculo");
+        $stmt->bindParam(":idserviciovehiculo", $idserviciovehiculo, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+
     }
 }

@@ -393,5 +393,90 @@ class ModeloConceptosGH
         return $retorno;
     }
 
+    #Servicios menores
 
+    //Agregar un servicio menor
+    static public function mdlAgregarServicio($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_serviciosmenores(servicio,kilometraje_cambio,dias_cambio)
+                                                VALUES(:servicio,:kilometraje_cambio,:dias_cambio)");
+
+        $stmt->bindParam(":servicio", $datos["servicio"], PDO::PARAM_STR);
+        $stmt->bindParam(":kilometraje_cambio", $datos["kilometraje_cambio"], PDO::PARAM_INT);
+        $stmt->bindParam(":dias_cambio", $datos["dias_cambio"], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    #Editar un servicio
+    static public function mdlEditarServicio($datos)
+    {
+
+        $stmt = Conexion::conectar()->prepare("UPDATE m_serviciosmenores set servicio = :servicio, kilometraje_cambio=:kilometraje_cambio, dias_cambio = :dias_cambio
+                                               WHERE idservicio = :idservicio");
+
+        $stmt->bindParam(":idservicio", $datos["idservicio"], PDO::PARAM_INT);
+        $stmt->bindParam(":servicio", $datos["servicio"], PDO::PARAM_STR);
+        $stmt->bindParam(":kilometraje_cambio", $datos["kilometraje_cambio"], PDO::PARAM_INT);
+        $stmt->bindParam(":dias_cambio", $datos["dias_cambio"], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+    
+    #Visualizar servicios o servicio
+    static public function mdlVerServicios($datos)
+    {
+        if ($datos != null) {
+
+            $stmt = Conexion::conectar()->prepare("SELECT ms.* FROM m_serviciosmenores ms
+                                                    WHERE ms.idservicio = :idservicio ");
+
+            $stmt->bindParam(":idservicio",  $datos, PDO::PARAM_STR);
+            $stmt->execute();
+            $retorno =  $stmt->fetch();
+        } else {
+
+            $stmt = Conexion::conectar()->prepare("SELECT ms.* FROM m_serviciosmenores ms
+                                                    WHERE ms.estado = 1");
+            $stmt->execute();
+            $retorno =  $stmt->fetchAll();
+        }
+
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+
+}
+
+class ModeloRepuestos
+{
+    static public function mdlListarRepuestos()
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("SELECT r.* FROM m_repuestos r WHERE estado = 1");
+
+        $stmt->execute();
+        $respuesta =  $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
 }
