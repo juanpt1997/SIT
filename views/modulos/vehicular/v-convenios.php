@@ -78,6 +78,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                             <thead class="thead-light text-sm text-center">
                                                 <tr>
                                                     <th style="width:10px;">#</th>
+                                                    <th>Documento</th>
                                                     <th>NIT</th>
                                                     <th>Nombre</th>
                                                     <th>Direccion</th>
@@ -89,8 +90,19 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                             </thead>
                                             <tbody class="text-sm">
                                                 <?php foreach ($Empresas as $key => $value) : ?>
+                                                    <?php
+                                                    if ($value['ruta_documento'] != null) {
+
+                                                        $btnDoc = "<a href='" . URL_APP . $value['ruta_documento'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-contract'></i></a>";
+                                                    } else {
+
+                                                        $btnDoc = "<span class='badge badge-secondary'>sin documento</span>";
+                                                    }
+
+                                                    ?>
                                                     <tr>
                                                         <td><?= $value['idxc'] ?></td>
+                                                        <td class='text-center'><?= $btnDoc ?></td>
                                                         <td><?= $value['nit'] ?></td>
                                                         <td><?= $value['nombre'] ?></td>
                                                         <td><?= $value['direccion'] ?></td>
@@ -148,6 +160,8 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                                     <th>...</th>
                                                     <th style="width:10px;">#</th>
                                                     <th>Vehículos</th>
+                                                    <th>Documento</th>
+                                                    <th>Placa</th>
                                                     <th>NIT</th>
                                                     <th>Empresa contratante</th>
                                                     <th>NIT</th>
@@ -165,6 +179,16 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
 
                                             <tbody class="text-sm">
                                                 <?php foreach ($Convenios as $key => $value) : ?>
+                                                    <?php
+                                                    if ($value['ruta_documento'] != null) {
+
+                                                        $btnDoc = "<a href='" . URL_APP . $value['ruta_documento'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-contract'></i></a>";
+                                                    } else {
+
+                                                        $btnDoc = "<span class='badge badge-secondary'>sin documento</span>";
+                                                    }
+
+                                                    ?>
                                                     <tr>
                                                         <td>
                                                             <div class="row d-flex flex-nowrap justify-content-center">
@@ -180,7 +204,6 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                                                         </div>
                                                                     <?php endif ?>
                                                                 </div>
-
                                                             </div>
                                                         </td>
 
@@ -189,14 +212,15 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                                                 <div class="col-md-6">
                                                                     <?= $value['idconvenio'] ?>
                                                                 </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="btn-group mr-2" role="group" aria-label="Button group">
-                                                                        <button class="btn btn-xs btn-success btnPlacas" idConvenio="<?= $value['idconvenio'] ?>"><i class="fas fa-bus"></i></button>
-                                                                    </div>
-                                                                </div>
                                                             </div>
                                                         </td>
-                                                        <td class="truncate"><?= $value['vehiculos'] ?></td>
+                                                        <td class="text-center">
+                                                            <div class="btn-group mr-2" role="group" aria-label="Button group">
+                                                                <button class="btn btn-xs btn-success btnPlacas" idConvenio="<?= $value['idconvenio'] ?>"><i class="fas fa-bus"></i></button>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-center"><?= $btnDoc ?></td>
+                                                        <td><?= $value['placa'] ?></td>
                                                         <td><?= $value['nitContratante'] ?></td>
                                                         <td><?= $value['nomContratante'] ?></td>
                                                         <td><?= $value['nitContratista'] ?></td>
@@ -240,7 +264,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
     <div class="modal-dialog" role="document">
         <div class="modal-content">
 
-            <form method="post" enctype="multipart/form-data">
+            <form method="post" enctype="multipart/form-data" id="formulario_empresa">
                 <!-- INICIO DEL FORMULARIO -->
 
                 <div class="modal-header bg-info">
@@ -262,7 +286,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                     <i class="fas fa-address-card"></i>
                                 </span>
                             </div>
-                            <input class="form-control input-convenio" type="text" min="0" id="nit" name="nit" placeholder="Ingresar NIT" required>
+                            <input class="form-control input-convenio" type="text" min="0" id="nit" name="nit" placeholder="NIT de la empresa" required>
                         </div>
                     </div>
 
@@ -274,7 +298,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                     <i class="fas fa-user"></i>
                                 </span>
                             </div>
-                            <input class="form-control input-convenio" type="text" id="nombre" name="nombre" placeholder="Ingresar nombre de convenio" maxlength="70" required>
+                            <input class="form-control input-convenio" type="text" id="nombre" name="nombre" placeholder="Nombre del convenio" maxlength="70" required>
                         </div>
                     </div>
 
@@ -286,7 +310,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                     <i class="fas fa-map-marker-alt"></i>
                                 </span>
                             </div>
-                            <input class="form-control input-convenio" type="text" id="dirco" name="dirco" placeholder="Ingresar direccion" maxlength="80" required>
+                            <input class="form-control input-convenio" type="text" id="dirco" name="dirco" placeholder="Dirección" maxlength="80" required>
                         </div>
                     </div>
 
@@ -298,7 +322,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                     <i class="fas fa-phone-square-alt"></i>
                                 </span>
                             </div>
-                            <input class="form-control input-convenio" type="text" id="telco" name="telco" placeholder="Ingresar telefono" maxlength="16" required>
+                            <input class="form-control input-convenio" type="text" id="telco" name="telco" placeholder="Teléfono 1" maxlength="16" required>
                         </div>
                     </div>
 
@@ -310,7 +334,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                     <i class="fas fa-phone-square-alt"></i>
                                 </span>
                             </div>
-                            <input class="form-control input-convenio" type="text" id="telco2" name="telco2" placeholder="telefono 2 / Opcional" maxlength="16">
+                            <input class="form-control input-convenio" type="text" id="telco2" name="telco2" placeholder="Teléfono 2 (opcional)" maxlength="16">
                         </div>
                     </div>
 
@@ -322,12 +346,23 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                                     <i class="fas fa-map-marker-alt"></i>
                                 </span>
                             </div>
-                            <select class="form-control input-convenio select2-single" style="width: 92%" type="text" id="ciudadcon" name="ciudadcon" required>
-                                <option selected value="">-Seleccione una ciudad-</option>
+                            <select class="form-control input-convenio select2-single" style="width: 92%" type="text" id="ciudadcon" name="ciudadcon" data-placeholder="Seleccione una ciudad" required>
                                 <?php foreach ($DeparMunicipios as $key => $value) : ?>
                                     <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
                                 <?php endforeach ?>
                             </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Subir documento escaneado (1 Foto a la vez)</label>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fas fa-file-alt"></i>
+                                </span>
+                            </div>
+                            <input type="file" class="form-control input-sm" name="foto_documento_empresa" id="foto_documento_empresa" accept="image/png, image/jpeg, application/pdf">
                         </div>
                     </div>
                 </div>
@@ -371,7 +406,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
             </div>
 
             <div class="modal-body">
-                <form method="post" id="datosconvenio_form">
+                <form method="post" enctype="multipart/form-data" id="datosconvenio_form">
                     <!-- INICIO DEL FORMULARIO -->
                     <input type="hidden" id="idConvenio" name="idConvenio">
                     <div class="row">
@@ -432,6 +467,18 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label>Subir documento escaneado (1 Foto a la vez)</label>
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text">
+                                    <i class="fas fa-file-alt"></i>
+                                </span>
+                            </div>
+                            <input type="file" class="form-control input-sm" name="foto_documento_convenio" id="foto_documento_convenio" accept="image/png, image/jpeg, application/pdf">
+                        </div>
+                    </div>
+
                     <hr class="my-4 bg-dark">
 
                     <div class="row">
@@ -439,7 +486,7 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                             <div class="form-group">
                                 <label class="text-sm">Vehiculos</label>
                                 <div class="input-group input-group-sm">
-                                    <select id="placa" class="select2-primary form-control select2-multiple input-sm" data-placeholder="-Lista de placas-" multiple="multiple" style="width: 99%" name="idvehiculo[]">
+                                    <select id="placa" class="select2-primary form-control select2-multiple input-sm" data-placeholder="-Lista de placas-" multiple="multiple" style="width: 99%" name="idvehiculo[]" required>
                                         <?php foreach ($Placas as $key => $value) : ?>
                                             <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?></option>
                                         <?php endforeach ?>

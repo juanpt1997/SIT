@@ -159,7 +159,8 @@ class ModeloConvenios
     static public function mdlAgregar($datos)
     {
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO v_empresas_convenios(nit,nombre,direccion,telefono1,telefono2,idciudad)
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO v_empresas_convenios(nit,nombre,direccion,telefono1,telefono2,idciudad)
                                                VALUES(:nit,:nombre,:direccion,:telefono1,:telefono2,:idciudad)");
 
         $stmt->bindParam(":nit", $datos["nit"], PDO::PARAM_STR);
@@ -170,21 +171,22 @@ class ModeloConvenios
         $stmt->bindParam(":idciudad", $datos["ciudadcon"], PDO::PARAM_INT);
 
         if ($stmt->execute()) {
-            $retorno = "ok";
+            $id = $conexion->lastInsertId();
         } else {
-            $retorno = "error";
+            $id = "error";
         }
 
         $stmt->closeCursor();
         $stmt = null;
 
-        return $retorno;
+        return $id;
     }
 
     static public function mdlEditar($datos)
     {
 
-        $stmt = Conexion::conectar()->prepare("UPDATE v_empresas_convenios set nit=:nit,nombre=:nombre,direccion=:direccion,
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("UPDATE v_empresas_convenios set nit=:nit,nombre=:nombre,direccion=:direccion,
                                                       telefono1=:telefono1,telefono2=:telefono2,idciudad=:idciudad
                                                WHERE idxc = :idxc");
 
@@ -197,15 +199,15 @@ class ModeloConvenios
         $stmt->bindParam(":idciudad", $datos["ciudadcon"], PDO::PARAM_INT);
 
         if ($stmt->execute()) {
-            $retorno = "ok";
+            $id = $datos["idxc"];
         } else {
-            $retorno = "error";
+            $id = "error";
         }
 
         $stmt->closeCursor();
         $stmt = null;
 
-        return $retorno;
+        return $id;
     }
 
     /*===================================
@@ -255,9 +257,6 @@ class ModeloConvenios
     /* ===================================================
         LISTADO DE PLACAS POR CONVENIO
     ===================================================*/
-
-    
-
 
     /*===================================
         Listado convenios por Id 
@@ -380,7 +379,6 @@ class ModeloConvenios
         } else {
             $retorno = "error";
         }
-
         $stmt->closeCursor();
         $stmt = null;
 
@@ -392,7 +390,8 @@ class ModeloConvenios
         ==================================== */
     static public function mdlEditarConvenio($datos)
     {
-        $stmt = Conexion::conectar()->prepare("UPDATE v_convenios SET idcontratante = :idcontratante, idcontratista = :idcontratista, contrato = :contrato, idsucursal = :idsucursal, idvehiculo =:idvehiculo, 
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("UPDATE v_convenios SET idcontratante = :idcontratante, idcontratista = :idcontratista, contrato = :contrato, idsucursal = :idsucursal, idvehiculo =:idvehiculo, 
                                                                     estado = :estado, num_radicado = :num_radicado, observacion = :observacion, fecha_inicio = :fecha_inicio, 
                                                                     fecha_terminacion = :fecha_terminacion, fecha_radicado = :fecha_radicado WHERE idConvenio = :idConvenio");
 
@@ -410,15 +409,14 @@ class ModeloConvenios
         $stmt->bindParam(":fecha_radicado", $datos['fecha_radicado'], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
-            $retorno = "ok";
+            $id = $datos['idConvenio'];
         } else {
-            $retorno = "error";
+            $id = "error";
         }
-
         $stmt->closeCursor();
         $stmt = null;
 
-        return $retorno;
+        return $id;
     }
 
     /* =======================================

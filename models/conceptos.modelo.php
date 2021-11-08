@@ -464,6 +464,19 @@ class ModeloConceptosGH
         return $retorno;
     }
 
+    static public function mdlVerificarExistencia($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("SELECT * FROM {$datos['tabla']} WHERE {$datos['item']} = :{$datos['valor']}");
+
+        $stmt->bindParam(":" . $datos['valor'], $datos["valor"], PDO::PARAM_STR);
+
+        $stmt->execute();
+        $respuesta =  $stmt->fetch();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
+
 
 }
 

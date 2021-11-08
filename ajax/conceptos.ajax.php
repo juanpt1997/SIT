@@ -107,9 +107,21 @@ class AjaxConceptosGH
 			"valor" => $dato
 		);
 
-		$respuesta = ModeloConceptosGH::mdlNuevo($datos);
+		$validar = self::ValidarExistencia($datos);
 
-		echo $respuesta;
+
+		if($validar === false){
+
+			$respuesta = ModeloConceptosGH::mdlNuevo($datos);
+			echo $respuesta;
+
+		}else if($validar == 'true'){
+
+			$respuesta = 'existe';
+			echo $respuesta;
+			
+		}
+		
 	}
 	//AJAX para listar todos los registros de un concepto
 	static public function ajaxVerConcepto($concepto)
@@ -974,6 +986,21 @@ class AjaxConceptosGH
 		$respuesta = ModeloConceptosGH::mdlEliminar($datos);
 
 		echo $respuesta;
+	}
+
+	static public function ValidarExistencia($datos)
+	{
+		$respuesta = ModeloConceptosGH::mdlVerificarExistencia($datos);
+
+		if(is_array($respuesta)){
+			$retorno = true;
+			return $retorno;
+
+		}else if($respuesta === false){ 
+			$retorno = false;
+			return $retorno;
+
+		}
 	}
 }
 /*=============================================================

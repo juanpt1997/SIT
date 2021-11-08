@@ -33,11 +33,32 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    if (response == "ok") {
+                    if (response == "existe") {
+                        Swal.fire({
+                            icon: 'warning',
+                            showConfirmButton: true,
+                            title: "El dato ya existe",
+                            confirmButtonText: "¡Cerrar!",
+                            allowOutsideClick: false
+                        })
+                    } else  if(response == 'ok'){
                         Swal.fire({
                             icon: 'success',
                             showConfirmButton: true,
-                            title: "El nuevo dato ha sido agregado",
+                            title: "El dato ha sido creado correctamente",
+                            confirmButtonText: "¡Cerrar!",
+                            allowOutsideClick: false
+                        }).then((result) => {
+
+                            if (result.value) {
+                                window.location = 'cg-gestion-humana';
+                            }
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            showConfirmButton: true,
+                            title: "Error al agregar el dato",
                             confirmButtonText: "¡Cerrar!",
                             allowOutsideClick: false
                         }).then((result) => {
