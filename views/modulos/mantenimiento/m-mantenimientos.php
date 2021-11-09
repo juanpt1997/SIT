@@ -680,12 +680,7 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                     <?php endif ?>
 
 
-                                                    <?php
-
-                                                    $addser = new ControladorMantenimientos();
-                                                    $addser->ctrGuardarServicio();
-
-                                                    ?>
+                                                  
                                                 </div>
                                             </div>
                                         </div>
@@ -697,15 +692,16 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                             <div class="card-body">
                                                 <h5 class="text-center"><i>Vehiculos</i></h5>
                                                 <div class="table-responsive">
-                                                    <table class="table table-sm table-striped table-bordered dt-responsive text-center table-hover tablasBtnExport w-100" nombre="Sistema potencia">
+                                                    <table id="tablaProgramacion" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover tablasBtnExport w-100" nombre="Sistema potencia">
                                                         <thead class="text-nowrap">
                                                             <th>...</th>
                                                             <th>Placa</th>
                                                             <th>Servicio</th>
+                                                            <th>Kilometraje actual</th>
                                                             <th>Kilometraje para cambio</th>
                                                             <th>Fecha para cambio</th>
                                                         </thead>
-                                                        <tbody id="tabla" class="text-nowrap">
+                                                        <tbody id="tbodyProgramacion" class="text-nowrap">
 
 
                                                         </tbody>

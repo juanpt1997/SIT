@@ -632,7 +632,7 @@ $(document).ready(function () {
       var datos = new FormData();
       datos.append("DatosRevision", "ok");
       datos.append("idrevision", idrevision);
-      console.log(idrevision);
+      
 
       $.ajax({
         type: "POST",
@@ -743,7 +743,7 @@ $(document).ready(function () {
           $(".bg-success").removeClass("bg-success");
           $(".bg-danger").removeClass("bg-danger");
 
-          console.log(Vehiculo.idtipovehiculo);
+          
 
 
           //DESACTIVAR INPUTS DEPENDIENDO DEL TIPO DE VEHICULO
@@ -973,9 +973,9 @@ $(document).ready(function () {
             processData: false,
             //dataType: "json",
             success: function (response) {
-              console.log(response);
+              
               if (response == "ok") {
-                console.log("entré");
+                
                 Swal.fire({
                   icon: "success",
                   showConfirmButton: true,
@@ -1004,7 +1004,7 @@ $(document).ready(function () {
 
       $("input:invalid").each(function (index, element) {
         var $input = $(this);
-        console.log($input);
+        
 
         var idform = $input.closest("form").attr("id");
 
@@ -1021,7 +1021,7 @@ $(document).ready(function () {
         var $area = $(this);
 
         var idform = $area.closest("form").attr("id");
-        console.log(idform);
+        
         if (idform == "datosrevision_form") {
           Areas.push($area);
         }
@@ -1114,72 +1114,52 @@ $(document).ready(function () {
 
     // CARGAR DATOS EN LA TABLA DEPENDIENDO DEL SERVICIO SELECCIONADO
 
-    $(document).on("change", "#servicio", function () {
-
-      let idservicio = $(this).val()
-      let test = ""
+    let AjaxTablaProgramacion = (idservicio) => {
+      // Quitar datatable
+      $("#tablaProgramacion").dataTable().fnDestroy();
+      // Borrar datos
+      $("#tbodyProgramacion").html("");
 
       var datos = new FormData();
       datos.append("Servicios", "ok");
       datos.append("idservicio", idservicio);
-
       $.ajax({
         type: "post",
         url: "ajax/mantenimiento.ajax.php",
         data: datos,
-        dataType: "JSON",
+        // dataType: "JSON",
         cache: false,
         contentType: false,
         processData: false,
         success: function (response) {
 
-          response.forEach(element => {
+          if (response != '' || response != null) {
+            $("#tbodyProgramacion").html(response);
+          } else {
+            $("#tbodyProgramacion").html('');
+          }
 
-            test += '<tr>' +
-              '<td>' + '<div class="row d-flex flex-nowrap justify-content-center">' +
-              '<div class="col-md-6">' +
-              '<div class="btn-group" role="group" aria-label="Button group">' +
-              '<button class="btn btn-xs btn-danger btnBorrarProgramacion" idserviciovehiculo="' + element.idserviciovehiculo + '"> <i class="fas fa-trash"></i> </button>' +
-              '</div>' +
-              '</div>' +
-              '</div>' +
-              '</td>' +
-              '<td>' + element.placa + '</td>' +
-              '<td>' + element.servicio + '</td>' +
-              '<td id="idserviciovehiculok_' + element.idserviciovehiculo + '">' + element.kilometraje_cambio + '</td>' +
-              '<td id="idserviciovehiculof_' + element.idserviciovehiculo + '">' + element.fecha_cambio + '</td>'
+          /* ===================================================
+                   INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                   ===================================================*/
+          var buttons = [
+            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+          ];
+          var table = dataTableCustom(`#tablaProgramacion`, buttons);
 
-              + '</tr>';
-          });
-
-          $('#tabla').html(test);
-
-          response.forEach(element => {
-            console.log(element.fecha_cambio , ">=", moment().format("DD-MM-YYYY"));
-            var bg =
-              element.fecha_cambio >=
-                moment().format("DD-MM-YYYY")
-                ? "bg-success"
-                : "bg-danger";
-
-
-            $(`#idserviciovehiculof_${element.idserviciovehiculo}`).addClass(bg);
-
-            var bgk =
-              element.kilometraje_actual <= element.kilometraje_cambio
-                ? "bg-success"
-                : "bg-danger";
-
-
-            $(`#idserviciovehiculok_${element.idserviciovehiculo}`).addClass(bgk);
-
-
-          });
-
-
-
-        },
+        }
       });
+
+
+
+    }
+
+    //SELECCION SERVICIO
+    $(document).on("change", "#servicio", function () {
+
+      //CARGA TABLA POR AJAX 
+      let idservicio = $(this).val()
+      AjaxTablaProgramacion(idservicio);
 
     });
 
@@ -1187,6 +1167,7 @@ $(document).ready(function () {
     // BORRAR SERVICIO PROGRAMACIÓN
     $(document).on("click", ".btnBorrarProgramacion", function () {
       let idserviciovehiculo = $(this).attr("idserviciovehiculo");
+      let idservicio = $(this).attr("idservicio");
 
 
       Swal.fire({
@@ -1216,8 +1197,9 @@ $(document).ready(function () {
             processData: false,
             //dataType: "json",
             success: function (response) {
-              console.log(response);
+              
               if (response == "ok") {
+                AjaxTablaProgramacion(idservicio);
                 Swal.fire({
                   icon: "success",
                   showConfirmButton: true,
@@ -1232,6 +1214,65 @@ $(document).ready(function () {
           });
         }
       });
+
+
+
+
+
+    });
+
+    // GUARDAR SERVICIO
+    $('#programacion_form').submit(function (e) {
+      e.preventDefault();
+
+      var datosAjax = new FormData();
+      datosAjax.append('GuardarProgramacion', "ok")
+
+      var datosFrm = $(this).serializeArray();
+      datosFrm.forEach(element => {
+        datosAjax.append(element.name, element.value);
+      });
+
+      $.ajax({
+        type: 'post',
+        url: "ajax/mantenimiento.ajax.php",
+        data: datosAjax,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+          
+
+          if (response == "ok") {
+            // Cargar de nuevo la tabla hijos
+            AjaxTablaProgramacion(1);
+            // Reset del formulario
+            $("#programacion_form").trigger("reset");
+            // Mensaje de éxito al usuario
+            Swal.fire({
+              icon: 'success',
+              title: '¡Datos guardados correctamente!',
+              showConfirmButton: true,
+              confirmButtonText: 'Cerrar',
+            })
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Ha ocurrido un error, por favor intente de nuevo',
+              showConfirmButton: true,
+              confirmButtonText: 'Cerrar',
+              closeOnConfirm: false
+            }).then((result) => {
+
+              if (result.value) {
+                window.location = 'm-mantenimientos';
+              }
+
+            })
+          }
+        }
+      });
+
 
 
 

@@ -659,69 +659,69 @@ class ControladorMantenimientos
 		GUARDAR PROGRAMACIÓN SERVICIO
 	===================================================*/
 
-	static public function ctrGuardarServicio()
-	{
-		$datos = $_POST;
+	// static public function ctrGuardarServicio()
+	// {
+	// 	$datos = $_POST;
 
-		if (isset($_POST['idserviciovehiculo']) && $_POST['idserviciovehiculo'] == "") {
-			$respuesta = ModeloMantenimientos::mdlAgregarServicio($datos);
+	// 	if (isset($_POST['idserviciovehiculo']) && $_POST['idserviciovehiculo'] == "") {
+	// 		$respuesta = ModeloMantenimientos::mdlAgregarServicio($datos);
 
 			
-			/* ===================================================
-            		GUARDAR KILOMETRAJE VEHICULO
-        		===================================================*/
-				$tabla = "v_vehiculos";
+	// 		/* ===================================================
+    //         		GUARDAR KILOMETRAJE VEHICULO
+    //     		===================================================*/
+	// 			// $tabla = "v_vehiculos";
 
-				$datoskm = array(
-					'tabla' => $tabla,
-					'item1' => 'kilometraje',
-					'valor1' => $datos['kilometraje'],
-					'item2' => 'idvehiculo',
-					'valor2' => $datos['idvehiculo']
-				);
+	// 			// $datoskm = array(
+	// 			// 	'tabla' => $tabla,
+	// 			// 	'item1' => 'kilometraje',
+	// 			// 	'valor1' => $datos['kilometraje'],
+	// 			// 	'item2' => 'idvehiculo',
+	// 			// 	'valor2' => $datos['idvehiculo']
+	// 			// );
 
-				$respuestakm = ModeloVehiculos::mdlActualizarVehiculo($datoskm);
+	// 			// $respuestakm = ModeloVehiculos::mdlActualizarVehiculo($datoskm);
 
 
-			//alerta
-			if ($respuesta == "ok") {
-				echo "
-							<script>
-								Swal.fire({
-									icon: 'success',
-									title: '¡Datos guardados correctamente!',						
-									showConfirmButton: true,
-									confirmButtonText: 'Cerrar',
+	// 		//alerta
+	// 		if ($respuesta == "ok") {
+	// 			echo "
+	// 						<script>
+	// 							Swal.fire({
+	// 								icon: 'success',
+	// 								title: '¡Datos guardados correctamente!',						
+	// 								showConfirmButton: true,
+	// 								confirmButtonText: 'Cerrar',
 									
-								}).then((result)=>{
+	// 							}).then((result)=>{
 	
-									if(result.value){
-										window.location = 'm-mantenimientos';
-									}
+	// 								if(result.value){
+	// 									window.location = 'm-mantenimientos';
+	// 								}
 	
-								})
-							</script>
-						";
-			} else {
+	// 							})
+	// 						</script>
+	// 					";
+	// 		} else {
 
-				echo "
-							<script>
-								Swal.fire({
-									icon: 'error',
-									title: '¡Problema al guardar los datos!',						
-									showConfirmButton: true,
-									confirmButtonText: 'Cerrar',
+	// 			echo "
+	// 						<script>
+	// 							Swal.fire({
+	// 								icon: 'error',
+	// 								title: '¡Problema al guardar los datos!',						
+	// 								showConfirmButton: true,
+	// 								confirmButtonText: 'Cerrar',
 									
-								}).then((result)=>{
+	// 							}).then((result)=>{
 	
-									if(result.value){
-										window.location = 'm-mantenimientos';
-									}
+	// 								if(result.value){
+	// 									window.location = 'm-mantenimientos';
+	// 								}
 	
-								})
-							</script>
-						";
-			}
-		}
-	}
+	// 							})
+	// 						</script>
+	// 					";
+	// 		}
+	// 	}
+	// }
 }
