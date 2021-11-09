@@ -382,7 +382,7 @@ if (
         });
 
         $(document).on("click", ".btnSeleccionarRuta", function () {
-           
+
             $("#cotizacionmodal").modal('show');
             $("#modal_general").modal('hide');
 
@@ -397,14 +397,46 @@ if (
             $("#destin").val(destino);
         });
 
-        $(document).on("click", ".btn_cancelar_ruta", function () {
-           
+        // $(document).on("click", ".btn_cancelar_ruta", function () {
+
+        //     $("#cotizacionmodal").modal('show');
+        //     $("#modal_general").modal('hide');
+        //     $("#idruta").val("");
+        //     $("#descrip").val("");
+        //     $("#origin").val("");
+        //     $("#destin").val("");
+        // });
+        $("#modal_general").on('hidden.bs.modal', function () {
             $("#cotizacionmodal").modal('show');
             $("#modal_general").modal('hide');
-            $("#idruta").val("");
-            $("#descrip").val("");
-            $("#origin").val("");
-            $("#destin").val("");
+
+            // $("#idruta").val("");
+            // $("#observacionescontr").val("");
+            // $("#origen").val("");
+            // $("#destino").val("");
+        });
+
+        /* ===================================================
+          VALIDAR CAMPO VACIO DE RUTA
+        ===================================================*/
+        var guardoCotizacion = false;
+        $("#formulariocotizacion").submit(function (e) {
+            if(!guardoCotizacion){
+                e.preventDefault();
+                if ($("#idruta").val() == ""){
+                    Swal.fire({
+                                icon: "warning",
+                                title: "¡Debe seleccionar una ruta antes de guardar!",
+                                showConfirmButton: false,
+                                timer: 1500
+                            });
+                    guardoCotizacion = false;
+                }else{
+                    guardoCotizacion = true;
+                    $("#formulariocotizacion").submit();
+                    //$(".btn-guardar-cotizacion").click();
+                }
+            }
         });
     });
 }
@@ -442,10 +474,10 @@ if (
 
                     $("#titulo_fijos").html(
                         "Editar (Contrato # " +
-                            response.numcontrato +
-                            " - " +
-                            response.nombre_cliente +
-                            ")"
+                        response.numcontrato +
+                        " - " +
+                        response.nombre_cliente +
+                        ")"
                     );
                     $("#nom_clien").val(response.idcliente);
                     //$("#num_contrato").val(response.numcontrato);
@@ -554,10 +586,10 @@ if (
             success: function (response) {
                 $("#titulo_orden").html(
                     "Editar órden (# " +
-                        response.nro_contrato +
-                        " - " +
-                        response.nombre_con +
-                        ")"
+                    response.nro_contrato +
+                    " - " +
+                    response.nombre_con +
+                    ")"
                 );
                 $("#listacotizaciones").val(response.idcotizacion);
                 $("#numcontrato").val(response.nro_contrato);

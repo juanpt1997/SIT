@@ -880,7 +880,7 @@ if (
             title: "Dato copiado",
             text: "Guarde los nuevos cambios",
             showConfirmButton: true,
-            timer:1500,
+            timer: 1500,
             closeOnConfirm: false,
         });
         $("#id_rodamiento").val("");
@@ -1051,13 +1051,44 @@ if (
         $("#destino").val(destino);
     });
 
-    $(document).on("click", ".btn_cancelar_ruta", function () {
-        $("#modal-nuevoplanrodamiento").modal("show");
-        $("#modal_general").modal("hide");
+    // $(document).on("click", ".btn_cancelar_ruta", function () {
+    //     $("#modal-nuevoplanrodamiento").modal("show");
+    //     $("#modal_general").modal("hide");
 
-        $("#idruta").val("");
-        $("#descrip").val("");
-        $("#origen").val("");
-        $("#destino").val("");
+    //     $("#idruta").val("");
+    //     $("#descrip").val("");
+    //     $("#origen").val("");
+    //     $("#destino").val("");
+    // });
+    $("#modal_general").on('hidden.bs.modal', function () {
+        $("#modal-nuevoplanrodamiento").modal('show');
+        $("#modal_general").modal('hide');
+
+        // $("#idruta").val("");
+        // $("#observacionescontr").val("");
+        // $("#origen").val("");
+        // $("#destino").val("");
+    });
+
+    /* ===================================================
+         VALIDAR CAMPO VACIO DE RUTA
+       ===================================================*/
+    var guardoRodamiento = false;
+    $("#formulario_rodamiento").submit(function (e) {
+        if (!guardoRodamiento) {
+            e.preventDefault();
+            if ($("#idruta").val() == "") {
+                Swal.fire({
+                    icon: "warning",
+                    title: "¡Debe seleccionar una ruta antes de guardar!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                guardoRodamiento = false;
+            } else {
+                guardoRodamiento = true;
+                $("#formulario_rodamiento").submit();
+            }
+        }
     });
 }

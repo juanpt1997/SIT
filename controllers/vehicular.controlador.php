@@ -191,7 +191,7 @@ class ControladorConvenios
 							<script>
 								Swal.fire({
 									icon: 'warning',
-									title: 'Convenio ya existe!',						
+									title: 'Empresa ya existe!',						
 									showConfirmButton: true,
 									confirmButtonText: 'Cerrar',
 									
@@ -207,86 +207,102 @@ class ControladorConvenios
 				return;
 			} else {
 
-				if ($_POST['nit'] == "") {
+				if ($_POST['idxc'] == "") {
 
-					$responseModel = ModeloConvenios::mdlAgregar($datos);
-					if ($responseModel == "ok") {
-						echo "
-							<script>
-								Swal.fire({
-									icon: 'success',
-									title: 'Empresa guardada correctamente!',						
-									showConfirmButton: true,
-									confirmButtonText: 'Cerrar',
-									
-								}).then((result)=>{
-	
-									if(result.value){
-										window.location = 'v-convenios';
-									}
-	
-								})
-							</script>
-						";
-					} else {
-						echo "
-							<script>
-								Swal.fire({
-									icon: 'success',
-									title: '¡Problema al guardar la empresa!',						
-									showConfirmButton: true,
-									confirmButtonText: 'Cerrar',
-									
-								}).then((result)=>{
-	
-									if(result.value){
-										window.location = 'v-convenios';
-									}
-	
-								})
-							</script>
-						";
-					}
+					$id = ModeloConvenios::mdlAgregar($datos);
+					
 				} else {
 
-					$responseModel = ModeloConvenios::mdlEditar($datos);
-					if ($responseModel == "ok") {
-						echo "
-							<script>
-								Swal.fire({
-									icon: 'success',
-									title: 'Empresa actualizada correctamente!',						
-									showConfirmButton: true,
-									confirmButtonText: 'Cerrar',
-									
-								}).then((result)=>{
-	
-									if(result.value){
-										window.location = 'v-convenios';
-									}
-	
-								})
-							</script>
-						";
-					} else {
-						echo "
-							<script>
-								Swal.fire({
-									icon: 'success',
-									title: '¡Problema al actualizar la empresa!',						
-									showConfirmButton: true,
-									confirmButtonText: 'Cerrar',
-									
-								}).then((result)=>{
-	
-									if(result.value){
-										window.location = 'v-convenios';
-									}
-	
-								})
-							</script>
-						";
+					$id = ModeloConvenios::mdlEditar($datos);
+				}
+
+				if ($id != "error") {
+
+					//AÑADIR LA IMAGEN DEL DOCUMENTO
+					$response = "";
+					$imagen = $_FILES['foto_documento_empresa'];
+
+					/* ===================== 
+	        		CREAMOS DIRECTORIO DE GUARDADO
+	    			========================= */
+
+					# Verificar Directrio documentos convenioso
+					$directorio = DIR_APP . "views/docs/docsEmpresa";
+					if (!is_dir($directorio)) {
+						mkdir($directorio, 0755);
 					}
+
+					/* ===================================================
+	        		GUARDAMOS EL ARCHIVO
+	    			===================================================*/
+					$GuardarArchivo = new FilesController();
+					$GuardarArchivo->file = $imagen;
+					$aleatorio = mt_rand(100, 999);
+					$GuardarArchivo->ruta = $directorio . "/{$aleatorio}";
+
+					# Si es pdf
+					if ($imagen['type'] == "application/pdf") {
+						$response = $GuardarArchivo->ctrPDFFiles();
+					} else {
+						# Si es una imagen
+						if ($imagen['type'] == "image/jpeg" || $imagen['type'] == "image/png") {
+							$response = $GuardarArchivo->ctrImages(null, null);
+						}
+					}
+
+					# Actualizar el campo de la base de datos donde queda la ruta del archivo
+					if ($response != "") {
+						$rutaDoc = str_replace(DIR_APP, "", $response);
+
+						$datos2 = array(
+							'tabla' => 'v_empresas_convenios',
+							'item1' => 'ruta_documento',
+							'item2' => 'idxc',
+							'valor1' => $rutaDoc,
+							'valor2' => $id
+						);
+
+						$guardarArchivo = ModeloVehiculos::mdlActualizarVehiculo($datos2);
+						echo $guardarArchivo;
+					} else {
+
+						echo "error";
+					}
+					echo "
+						<script>
+							Swal.fire({
+								icon: 'success',
+								title: 'Empresa actualizada correctamente!',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								
+							}).then((result)=>{
+
+								if(result.value){
+									window.location = 'v-convenios';
+								}
+
+							})
+						</script>
+					";
+				} else {
+					echo "
+						<script>
+							Swal.fire({
+								icon: 'success',
+								title: '¡Problema al actualizar la empresa!',						
+								showConfirmButton: true,
+								confirmButtonText: 'Cerrar',
+								
+							}).then((result)=>{
+
+								if(result.value){
+									window.location = 'v-convenios';
+								}
+
+							})
+						</script>
+					";
 				}
 			}
 		}
@@ -297,26 +313,22 @@ class ControladorConvenios
 
 	static public function ctrMostrarConvenios()
 	{
-		$Convenios = ModeloConvenios::mdlMostrarConvenios();
-
-		$respuesta = array();
-		$placas = "";
-		for ($i = 0; $i < count($Convenios); $i++) {
-			if ($i < count($Convenios) - 1 && $Convenios[$i]['idconvenio'] == $Convenios[$i + 1]['idconvenio']) {
-				$placas .= $Convenios[$i]['placa'] . ", <br>";
-			} else {
-				$placas .= $Convenios[$i]['placa'];
-				$Convenios[$i]['vehiculos'] = $placas;
-				$respuesta[] = $Convenios[$i];
-				$placas = "";
-			}
-		}
-
+		$respuesta = ModeloConvenios::mdlMostrarConvenios();
+		// $Convenios = ModeloConvenios::mdlMostrarConvenios();
+		// $respuesta = array();
+		// $placas = "";
+		// for ($i = 0; $i < count($Convenios); $i++) {
+		// 	if ($i < count($Convenios) - 1 && $Convenios[$i]['idconvenio'] == $Convenios[$i + 1]['idconvenio']) {
+		// 		$placas .= $Convenios[$i]['placa'] . ", <br>";
+		// 	} else {
+		// 		$placas .= $Convenios[$i]['placa'];
+		// 		$Convenios[$i]['vehiculos'] = $placas;
+		// 		$respuesta[] = $Convenios[$i];
+		// 		$placas = "";
+		// 	}
+		// }
 		return $respuesta;
 	}
-
-
-
 
 	/* ===================================================
 	    DATOS DEL CONVENIO
@@ -328,7 +340,6 @@ class ControladorConvenios
 		return $respuesta;
 	}
 
-
 	/* ===================================================
 	   VEHICULOS POR CONVENIO
 	===================================================*/
@@ -338,12 +349,130 @@ class ControladorConvenios
 		return $respuesta;
 	}
 
-
 	/* ===================================================
 		AGREGAR Y EDITAR CONVENIOS
 	===================================================*/
 
 	static public function ctrAgregarEditarConvenios()
+	{
+		if (isset($_POST['idConvenio'])) {
+			//GUARDAMOS LOS DATOS POR POST
+			$datos = $_POST;
+
+			// NUEVO CONVENIO
+			if ($_POST['idConvenio'] == "") {
+				//AGREGA EL CONVENIO Y RETORNA EL ID DEL CONVENIO INSERTADO				
+				$addConv = ModeloConvenios::mdlAgregarConvenio($datos);
+
+				//RECORRE LOS VEHICULOS SELECCIONADOS Y LOS GUARDA EN EL MISMO ID CONVENIO
+				foreach ($_POST['idvehiculo'] as $key => $value) {
+					$addVeh = ModeloConvenios::mdlAgregarVehiculos($addConv, $value);
+				}
+			}
+			// EDITAR CONVENIO
+			else {
+
+				//ELIMINA LOS VEHICULOS QUE TIENE ASOCIADO UN CONVENIO
+				$eliminar = ModeloConvenios::mdlEliminarVehiculos($_POST['idConvenio']);
+				//RECORRE LOS VEHICULOS SELECCIONADOS Y LOS GUARDA EN EL MISMO ID CONVENIO
+				foreach ($_POST['idvehiculo'] as $key => $value) {
+					$addVeh = ModeloConvenios::mdlAgregarVehiculos($datos['idConvenio'], $value);
+				}
+				//EDITAR EL CONVENIO EXISTENTE RETORNA EL ID DEL CONVENIO
+				$addConv = ModeloConvenios::mdlEditarConvenio($datos);
+			}
+			//SI EL MODELO DE EDITAR O AGREGAR NOS RETORNA UN ID
+			if ($addConv != "") {
+
+				//AÑADIR LA IMAGEN DEL DOCUMENTO
+				$response = "";
+				$imagen = $_FILES['foto_documento_convenio'];
+
+				/* ===================== 
+	        	CREAMOS DIRECTORIO DE GUARDADO
+	    		========================= */
+
+				# Verificar Directrio documentos convenioso
+				$directorio = DIR_APP . "views/docs/docsConvenios";
+				if (!is_dir($directorio)) {
+					mkdir($directorio, 0755);
+				}
+
+				/* ===================================================
+	        	GUARDAMOS EL ARCHIVO
+	    		===================================================*/
+				$GuardarArchivo = new FilesController();
+				$GuardarArchivo->file = $imagen;
+				$aleatorio = mt_rand(100, 999);
+				$GuardarArchivo->ruta = $directorio . "/{$aleatorio}";
+
+				# Si es pdf
+				if ($imagen['type'] == "application/pdf") {
+					$response = $GuardarArchivo->ctrPDFFiles();
+				} else {
+					# Si es una imagen
+					if ($imagen['type'] == "image/jpeg" || $imagen['type'] == "image/png") {
+						$response = $GuardarArchivo->ctrImages(null, null);
+					}
+				}
+
+				# Actualizar el campo de la base de datos donde queda la ruta del archivo
+				if ($response != "") {
+					$rutaDoc = str_replace(DIR_APP, "", $response);
+
+					$datos2 = array(
+						'tabla' => 'v_convenios',
+						'item1' => 'ruta_documento',
+						'item2' => 'idconvenio',
+						'valor1' => $rutaDoc,
+						'valor2' => $addConv
+					);
+
+					$guardarArchivo = ModeloVehiculos::mdlActualizarVehiculo($datos2);
+					echo $guardarArchivo;
+				} else {
+					echo "error";
+				}
+
+				echo "
+					<script>
+						Swal.fire({
+							icon: 'success',
+							title: '¡Datos actualizados correctamente!',						
+							showConfirmButton: true,
+							confirmButtonText: 'Cerrar',
+
+						}).then((result)=>{
+
+							if(result.value){
+								window.location = 'v-convenios';
+							}
+
+						})
+					</script>
+				";
+			} else {
+				echo "
+					<script>
+						Swal.fire({
+							icon: 'error',
+							title: 'Los datos no pudieron ser actualizados',						
+							showConfirmButton: true,
+							confirmButtonText: 'Cerrar',
+
+						}).then((result)=>{
+
+							if(result.value){
+								window.location = 'v-convenios';
+							}
+
+						})
+					</script>
+				";
+			}
+		}
+	}
+	static public function ctrAgregarEditarConvenios2()
 	{
 		if (isset($_POST['idConvenio'])) {
 			$datos = $_POST;
@@ -510,7 +639,7 @@ class ControladorVehiculos
 	}
 
 
-	
+
 
 	/* ===================================================
 	   MOSTRAR TIPO DE VEHICULOS

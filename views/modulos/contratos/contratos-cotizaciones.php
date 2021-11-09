@@ -693,7 +693,7 @@ $Rutas = ControladorRutas::ctrListarRutas();
                 <div class="modal-footer bg-dark d-flex justify-content-center">
                     <button type="button" class="btn btn-danger btn-cancelar" data-dismiss="modal">Cancelar</button>
                     <?php if (validarPermiso('M_CONTRATOS', 'U')) : ?>
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" class="btn btn-success btn-guardar-cotizacion">
                         <i class="fas fa-save"></i>
                         Guardar
                     </button>
