@@ -181,8 +181,13 @@ class AjaxMantenimientos
         TABLA SERVICIOS PROGRAMACIÓN     
     ===================================================*/
     static public function ajaxServiciosMenores($idservicio)
-    {
-        $respuesta = ModeloMantenimientos::mdlServiciosRecientes($idservicio);
+    {   
+
+        if($idservicio != 'todo'){
+            $respuesta = ModeloMantenimientos::mdlServiciosRecientes($idservicio);
+        }else{
+            $respuesta = ModeloMantenimientos::mdlServicios();
+        }
 
         $tr = "";
         foreach ($respuesta as $key => $value) {
@@ -190,14 +195,14 @@ class AjaxMantenimientos
                 $btnEliminarProgra = "<button type='button' class='btn btn-xs btn-danger btnBorrarProgramacion' idservicio='{$value['idservicio']}' idserviciovehiculo='{$value['idserviciovehiculo']}'><i class='fas fa-trash-alt'></i></button>";
             }
 
-            $fecha_Actual = date("d/m/y");
+            $fecha_Actual = date('Y-m-d'); 
             
 
-            if($fecha_Actual >= $value['fecha_cambio']){
-               $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
+            if($fecha_Actual < $value['fecha_comparar'] ){
+               $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
             }
             else{
-                $fecha = "<td class='bg-success' > " . $value['fecha_cambio'] .  "</td>";
+                $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
             }
 
             if($value['kilometraje_actual'] >= $value['kilometraje_cambio']){
@@ -225,7 +230,7 @@ class AjaxMantenimientos
     }
 
     /* ===================================================
-        ELIMINAR PROGRAMACIÓN SERVICIO    
+        ELIMINAR SERVICIO [PROGRAMACIÓN]
     ===================================================*/
 
     static public function ajaxEliminarProgramacion($idserviciovehiculo)
@@ -235,11 +240,11 @@ class AjaxMantenimientos
     }
 
     /* ===================================================
-        GUARDAR PROGRAMACIÓN    
+        GUARDAR SERVICIO [PROGRAMACIÓN]    
     ===================================================*/
     static public function ajaxGuardarProgramacion($datos)
     {
-        $respuesta = ModeloMantenimientos::mdlAgregarServicio($datos);
+        $respuesta = ControladorMantenimientos::ctrAgregarProgramacion($datos);
         echo $respuesta;
     }
 }
@@ -284,6 +289,13 @@ if (isset($_POST['DatosRevision']) && $_POST['DatosRevision'] == "ok") AjaxRevis
 
 #Llamado a borrar revision tecnicomecánica
 if (isset($_POST['EliminarRevision']) && $_POST['EliminarRevision'] == "ok") AjaxRevision::ajaxEliminarRevision($_POST['idrevision']);
+
+
+
+/* ===================================================
+    PROGRAMACIÓN
+===================================================*/
+
 
 #LLAMADO A SERVICIOS MENORES MÁS RECIENTES
 if (isset($_POST['Servicios']) && $_POST['Servicios'] == "ok") AjaxMantenimientos::ajaxServiciosMenores($_POST['idservicio']);

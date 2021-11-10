@@ -286,71 +286,174 @@ $(document).ready(function () {
             var datosAjax = new FormData();
             datosAjax.append("GuardarAlistamiento", "ok");
 
+
+            let idvehiculo = 0;
+            let kilometrajeFrm = 0;
+
             // DATOS FORMULARIO
             var datosFrm = $(this).serializeArray();
             datosFrm.forEach((element) => {
-                datosAjax.append(element.name, element.value);
+                if (element.name == 'idvehiculo') idvehiculo = element.value;
+                if (element.name == 'kilometraje_total') kilometrajeFrm = element.value;
             });
+
+
+            var datos = new FormData();
+            datos.append("DatosVehiculo", "ok");
+            datos.append("item", "idvehiculo");
+            datos.append("valor", idvehiculo);
 
             $.ajax({
                 type: "post",
-                url: `${urlPagina}ajax/operaciones.ajax.php`,
-                data: datosAjax,
+                url: `${urlPagina}ajax/vehicular.ajax.php`,
+                data: datos,
+                dataType: "JSON",
                 cache: false,
-                // dataType: 'json',
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    console.log(response);
-                    switch (response) {
-                        case "existe":
-                            Swal.fire({
-                                icon: "warning",
-                                title: "Ya existe dicho vehículo registrado para este día",
-                                showConfirmButton: true,
-                                confirmButtonText: "Cerrar",
-                                closeOnConfirm: false,
-                            });
-                            break;
 
-                        case "error":
-                            Swal.fire({
-                                icon: "error",
-                                title: "Ha ocurrido un error, por favor intente de nuevo",
-                                showConfirmButton: true,
-                                confirmButtonText: "Cerrar",
-                                closeOnConfirm: false,
-                            }).then((result) => {
-                                if (result.value) {
-                                    window.location = "o-alistamiento";
+                    var Vehiculo = response.datosVehiculo;
+
+                    //VALIDAMOS QUE EL KILOMETRAJE NO SEA MENOR AL QUE TIENE EL VEHÍCULO
+                    if (kilometrajeFrm >= Vehiculo.kilometraje) {
+                        $.ajax({
+                            type: "post",
+                            url: `${urlPagina}ajax/operaciones.ajax.php`,
+                            data: datosAjax,
+                            cache: false,
+                            // dataType: 'json',
+                            contentType: false,
+                            processData: false,
+                            success: function (response) {
+                                console.log(response);
+                                switch (response) {
+                                    case "existe":
+                                        Swal.fire({
+                                            icon: "warning",
+                                            title: "Ya existe dicho vehículo registrado para este día",
+                                            showConfirmButton: true,
+                                            confirmButtonText: "Cerrar",
+                                            closeOnConfirm: false,
+                                        });
+                                        break;
+
+                                    case "error":
+                                        Swal.fire({
+                                            icon: "error",
+                                            title: "Ha ocurrido un error, por favor intente de nuevo",
+                                            showConfirmButton: true,
+                                            confirmButtonText: "Cerrar",
+                                            closeOnConfirm: false,
+                                        }).then((result) => {
+                                            if (result.value) {
+                                                window.location = "o-alistamiento";
+                                            }
+                                        });
+                                        break;
+                                    default:
+                                        var idalistamiento = response;
+
+                                        // Mensaje de éxito al usuario
+                                        Swal.fire({
+                                            icon: "success",
+                                            title: "¡Datos guardados correctamente!",
+                                            showConfirmButton: true,
+                                            confirmButtonText: "Cerrar",
+                                        });
+
+                                        // Id fuec
+                                        $("#idalistamiento").val(idalistamiento);
+
+                                        // Titulo modal
+                                        $("#TituloModal").val($("#placa").val());
+
+                                        // Evento para refrescar la pagina cuando sale de la modal
+                                        $("#modal-nuevoAlistamiento").on("hidden.bs.modal", function () {
+                                            window.location = "o-alistamiento";
+                                        });
+                                        break;
                                 }
-                            });
-                            break;
-                        default:
-                            var idalistamiento = response;
-
-                            // Mensaje de éxito al usuario
-                            Swal.fire({
-                                icon: "success",
-                                title: "¡Datos guardados correctamente!",
-                                showConfirmButton: true,
-                                confirmButtonText: "Cerrar",
-                            });
-
-                            // Id fuec
-                            $("#idalistamiento").val(idalistamiento);
-
-                            // Titulo modal
-                            $("#TituloModal").val($("#placa").val());
-
-                            // Evento para refrescar la pagina cuando sale de la modal
-                            $("#modal-nuevoAlistamiento").on("hidden.bs.modal", function () {
-                                window.location = "o-alistamiento";
-                            });
-                            break;
+                            },
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'El kilometraje anterior es ' + Vehiculo.kilometraje + ' verifique el kilometraje del vehículo y vuelva a intentarlo',
+                            showConfirmButton: false,
+                            confirmButtonText: 'Cerrar',
+                            closeOnConfirm: false,
+                            timer:2000
+                          })
                     }
+
+
                 },
             });
+
+
+
+
+
+            // $.ajax({
+            //     type: "post",
+            //     url: `${urlPagina}ajax/operaciones.ajax.php`,
+            //     data: datosAjax,
+            //     cache: false,
+            //     // dataType: 'json',
+            //     contentType: false,
+            //     processData: false,
+            //     success: function (response) {
+            //         console.log(response);
+            //         switch (response) {
+            //             case "existe":
+            //                 Swal.fire({
+            //                     icon: "warning",
+            //                     title: "Ya existe dicho vehículo registrado para este día",
+            //                     showConfirmButton: true,
+            //                     confirmButtonText: "Cerrar",
+            //                     closeOnConfirm: false,
+            //                 });
+            //                 break;
+
+            //             case "error":
+            //                 Swal.fire({
+            //                     icon: "error",
+            //                     title: "Ha ocurrido un error, por favor intente de nuevo",
+            //                     showConfirmButton: true,
+            //                     confirmButtonText: "Cerrar",
+            //                     closeOnConfirm: false,
+            //                 }).then((result) => {
+            //                     if (result.value) {
+            //                         window.location = "o-alistamiento";
+            //                     }
+            //                 });
+            //                 break;
+            //             default:
+            //                 var idalistamiento = response;
+
+            //                 // Mensaje de éxito al usuario
+            //                 Swal.fire({
+            //                     icon: "success",
+            //                     title: "¡Datos guardados correctamente!",
+            //                     showConfirmButton: true,
+            //                     confirmButtonText: "Cerrar",
+            //                 });
+
+            //                 // Id fuec
+            //                 $("#idalistamiento").val(idalistamiento);
+
+            //                 // Titulo modal
+            //                 $("#TituloModal").val($("#placa").val());
+
+            //                 // Evento para refrescar la pagina cuando sale de la modal
+            //                 $("#modal-nuevoAlistamiento").on("hidden.bs.modal", function () {
+            //                     window.location = "o-alistamiento";
+            //                 });
+            //                 break;
+            //         }
+            //     },
+            // });
         });
 
         /* ===================================================

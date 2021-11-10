@@ -1619,14 +1619,37 @@ class ModeloRevision
 
 class ModeloMantenimientos
 {
+
     /* ===================================================
-        LISTADO DE SERVICIOS RECIENTES POR SERVICIO    
+        LISTADO DE SERVICIOS     
+    ===================================================*/
+
+    static public function mdlServicios()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.kilometraje AS kilometraje_actual, MAX(sm.idserviciovehiculo) AS idserviciovehiculo, sm.idvehiculo, sm.idservicio, (s.kilometraje_cambio + MAX(sm.kilometraje)) AS kilometraje_cambio,
+        MAX(sm.fecha) AS fecha, DATE_FORMAT(MAX(sm.fecha), '%d/%m/%y') AS Ffecha, s.servicio, DATE_FORMAT(date_add(sm.fecha, INTERVAL s.dias_cambio DAY), '%d/%m/%Y') AS fecha_cambio, date_add(sm.fecha, INTERVAL s.dias_cambio DAY) AS fecha_comparar 
+        FROM m_re_serviciosvehiculos sm
+        INNER JOIN m_serviciosmenores s ON sm.idservicio = s.idservicio
+        INNER JOIN v_vehiculos v ON sm.idvehiculo = v.idvehiculo
+        GROUP BY sm.idvehiculo, sm.idservicio
+        ORDER BY sm.fecha DESC");
+
+        $stmt->execute();
+        $respuesta = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
+
+
+
+    /* ===================================================
+    LISTADO DE SERVICIOS RECIENTES POR ID DEL SERVICIO    
     ===================================================*/
 
     static public function mdlServiciosRecientes($idservicio)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.kilometraje AS kilometraje_actual, MAX(sm.idserviciovehiculo) AS idserviciovehiculo, sm.idvehiculo, sm.idservicio, (s.kilometraje_cambio + MAX(sm.kilometraje)) AS kilometraje_cambio,
-        MAX(sm.fecha) AS fecha, DATE_FORMAT(MAX(sm.fecha), '%d/%m/%y') AS Ffecha, s.servicio, DATE_FORMAT(date_add(sm.fecha, INTERVAL s.dias_cambio DAY), '%d/%m/%Y') AS fecha_cambio 
+        $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.kilometraje AS kilometraje_actual, MAX(sm.idserviciovehiculo) AS idserviciovehiculo, sm.idvehiculo, sm.idservicio, (s.kilometraje_cambio + MAX(v.kilometraje)) AS kilometraje_cambio,
+        MAX(sm.fecha) AS fecha, DATE_FORMAT(MAX(sm.fecha), '%d/%m/%y') AS Ffecha, s.servicio, DATE_FORMAT(date_add(sm.fecha, INTERVAL s.dias_cambio DAY), '%d/%m/%Y') AS fecha_cambio, date_add(sm.fecha, INTERVAL s.dias_cambio DAY) AS fecha_comparar 
         FROM m_re_serviciosvehiculos sm
         INNER JOIN m_serviciosmenores s ON sm.idservicio = s.idservicio
         INNER JOIN v_vehiculos v ON sm.idvehiculo = v.idvehiculo
@@ -1642,7 +1665,7 @@ class ModeloMantenimientos
     }
 
     /* ===================================================
-        AGREGAR PROGRAMACION SERVICIO
+        AGREGAR SERVICIO [PROGRAMACIÓN]
     ===================================================*/
     static public function mdlAgregarServicio($datos)
     {
@@ -1666,7 +1689,7 @@ class ModeloMantenimientos
     }
 
     /* ===================================================
-        ELIMINAR SERVICIO PROGRAMACIÓN
+        ELIMINAR SERVICIO [PROGRAMACIÓN]
     ===================================================*/
 
     static public function mdlEliminarProgramacion($idserviciovehiculo)
@@ -1684,6 +1707,5 @@ class ModeloMantenimientos
         $stmt = null;
 
         return $retorno;
-
     }
 }
