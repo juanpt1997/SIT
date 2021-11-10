@@ -493,8 +493,8 @@ class ModeloOrdenServicio
 {
    static public function mdlAgregarOrden($datos)
    {
-      $stmt = Conexion::conectar()->prepare("INSERT INTO cont_ordenservicio(idcotizacion,nro_contrato,nro_factura,fecha_facturacion,cancelada,cod_autoriz)
-      VALUES(:idcotizacion,:nro_contrato,:nro_factura,:fecha_facturacion,:cancelada,:cod_autoriz)");
+      $stmt = Conexion::conectar()->prepare("INSERT INTO cont_ordenservicio(idcotizacion,nro_contrato,nro_factura,fecha_facturacion,cancelada,cod_autoriz,viaje_ocasional)
+      VALUES(:idcotizacion,:nro_contrato,:nro_factura,:fecha_facturacion,:cancelada,:cod_autoriz,:viaje_ocasional)");
 
       $stmt->bindParam(":idcotizacion", $datos["idcotizacion"], PDO::PARAM_INT);
       $stmt->bindParam(":nro_contrato", $datos["nro_contrato"], PDO::PARAM_INT);
@@ -502,6 +502,7 @@ class ModeloOrdenServicio
       $stmt->bindParam(":fecha_facturacion", $datos["fecha_facturacion"], PDO::PARAM_STR);
       $stmt->bindParam(":cancelada", $datos["cancelada"], PDO::PARAM_STR);
       $stmt->bindParam(":cod_autoriz", $datos["cod_autoriz"], PDO::PARAM_STR);
+      $stmt->bindParam(":viaje_ocasional", $datos["viaje_ocasional"], PDO::PARAM_STR);
 
       if ($stmt->execute()) {
          $retorno = "ok";
@@ -536,7 +537,7 @@ class ModeloOrdenServicio
                                              -- IF (C.idruta IS NULL, C.descripcion, rt.nombreruta) AS descripcion,
                                              IF (C.descripcion = '', rt.nombreruta, C.descripcion) AS descripcion,
                                              C.fecha_solicitud, C.fecha_solucion, C.fecha_inicio, C.fecha_fin, C.duracion, C.hora_salida, C.hora_recogida, C.idtipovehiculo, C.nro_vehiculos, C.capacidad, C.valorxvehiculo, C.valortotal, C.cotizacion, C.clasificacion, C.musica, C.aire, C.wifi, C.silleriareclinable, C.bano, C.bodega, C.otro, C.realiza_viaje, C.porque, C.nombre_con, C.documento_con, C.tipo_doc_con, C.tel_1, C.direccion_con, C.nombre_respo, C.tipo_doc_respo, C.cedula_expedicion, C.documento_res, C.ciudad_con, C.ciudad_res, C.tel_2, C.otro_v, C.idruta, 
-                                             O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, 
+                                             O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, O.viaje_ocasional, 
                                              -- C.nombre_con, C.documento_con, C.direccion_con, C.tel_1, C.tel_2, C.nombre_respo, C.documento_res, C.cedula_expedicion, 
                                              cr.municipio
                                              AS ciudadrespons, 
@@ -575,7 +576,7 @@ class ModeloOrdenServicio
                                              -- rt.nombreruta AS descripcion,
                                              IF (C.idruta IS NULL, C.descripcion, rt.nombreruta) AS descripcion,
                                              C.fecha_solicitud, C.fecha_solucion, C.fecha_inicio, C.fecha_fin, C.duracion, C.hora_salida, C.hora_recogida, C.idtipovehiculo, C.nro_vehiculos, C.capacidad, C.valorxvehiculo, C.valortotal, C.cotizacion, C.clasificacion, C.musica, C.aire, C.wifi, C.silleriareclinable, C.bano, C.bodega, C.otro, C.realiza_viaje, C.porque, C.nombre_con, C.documento_con, C.tipo_doc_con, C.tel_1, C.direccion_con, C.nombre_respo, C.tipo_doc_respo, C.cedula_expedicion, C.documento_res, C.ciudad_con, C.ciudad_res, C.tel_2, C.otro_v, C.idruta, 
-                                             O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, 
+                                             O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, O.viaje_ocasional,
                                              C.nombre_con AS nomContrata, C.documento_con AS doContrata
                                              -- C.direccion_con, C.tel_1, C.tel_2, C.nombre_respo
                                              FROM cont_ordenservicio O
@@ -593,7 +594,7 @@ class ModeloOrdenServicio
 
    static public function mdlEditarOrden($datos)
    {
-      $stmt = Conexion::conectar()->prepare("UPDATE cont_ordenservicio set idcotizacion=:idcotizacion, nro_contrato=:nro_contrato, nro_factura=:nro_factura, fecha_facturacion=:fecha_facturacion, cancelada=:cancelada, cod_autoriz=:cod_autoriz
+      $stmt = Conexion::conectar()->prepare("UPDATE cont_ordenservicio set idcotizacion=:idcotizacion, nro_contrato=:nro_contrato, nro_factura=:nro_factura, fecha_facturacion=:fecha_facturacion, cancelada=:cancelada, cod_autoriz=:cod_autoriz, viaje_ocasional=:viaje_ocasional
 											            WHERE idorden = :idorden");
 
       $stmt->bindParam(":idorden", $datos["idorden"], PDO::PARAM_INT);
@@ -603,6 +604,7 @@ class ModeloOrdenServicio
       $stmt->bindParam(":fecha_facturacion", $datos["fecha_facturacion"], PDO::PARAM_STR);
       $stmt->bindParam(":cancelada", $datos["cancelada"], PDO::PARAM_STR);
       $stmt->bindParam(":cod_autoriz", $datos["cod_autoriz"], PDO::PARAM_STR);
+      $stmt->bindParam(":viaje_ocasional", $datos["viaje_ocasional"], PDO::PARAM_STR);
 
       if ($stmt->execute()) {
          $retorno = "ok";
