@@ -104,10 +104,7 @@ $(document).ready(function () {
               timer: 1600,
             });
             //RESET DE VALOR
-            $(".documentos").val("").removeClass("bg-danger bg-success");
             $("#conductor_invent").empty();
-            $(".inventario").val("");
-            $(".inventario").prop("checked", false);
           }
         },
       });
@@ -215,18 +212,12 @@ $(document).ready(function () {
     });
 
     /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    CANCELAR AGREGAR/EDITAR
+    RESTABLECER INVENTARIO
     ==========================================================================*/
-    $(".cancelar").click(function (e) {
-      e.preventDefault();
-      //$(".documentos").val("").removeClass("bg-danger bg-success");
-      //$("#formulario_inventario")[0].reset(); //reset formulario
-      //$("#formulario_inventario").trigger("reset"); //reset formulario
-      //$("#conductor_invent").empty();
-      //$(".select2-single").trigger("change");
-      //$("#placa_invent").val("");
-      //$(".inventario").val("");
-      //$('input:checkbox').removeAttr('checked');
+    $("#restablecer").click(function (e) {
+
+      $("#placa_invent").val("").trigger("change");
+
     });
 
     /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
@@ -312,7 +303,9 @@ $(document).ready(function () {
     /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
     GUARDAR IMAGENES DE EVIDENCIA
     ==========================================================================*/
-    $(document).on("click", ".btn_evidencias_inventario", function () {
+    $("#formulario_evidencias").submit(function (e) {
+      e.preventDefault();
+
       let idvehiculo = $("#placa_invent").val();
 
       if (idvehiculo != "") {
@@ -320,7 +313,6 @@ $(document).ready(function () {
         var observaciones = $("#observaciones").val();
 
         if (fotoInventario.length > 0 && observaciones != "") {
-          //$("#overlayBtnGuardarEvidencia").removeClass("d-none");
 
           var datos = new FormData();
           datos.append("GuardarEvidencia", "ok");
@@ -559,7 +551,6 @@ $(document).ready(function () {
       });
     });
 
-
     /* ===================================================
            VISUALIZAR PDF DEL INVENTARIO
     ===================================================*/
@@ -600,17 +591,17 @@ $(document).ready(function () {
         });
       });
 
-      // /* ===================================================
-      //                 INICIALIZAR DATATABLE 
-      // ====================================================*/
-      // var buttons = [
-      //     {
-      //         extend: "excel",
-      //         className: "btn-info",
-      //         text: '<i class="far fa-file-excel"></i> Exportar',
-      //     },
-      // ];
-      // var table = dataTableCustom(`#tabla_resumen_inventario`, buttons);
+      /* ===================================================
+                      INICIALIZAR DATATABLE 
+      ====================================================*/
+      var buttons = [
+          {
+              extend: "excel",
+              className: "btn-info",
+              text: '<i class="far fa-file-excel"></i> Exportar',
+          },
+      ];
+      var table = dataTableCustom(`#tabla_resumen_inventario`, buttons);
     };
     FiltroTablaInventario();
   }
