@@ -24,7 +24,7 @@ class AjaxClientes
 			'item' => $item,
 			'valor' => $valor
 		);
-      $respuesta = ModeloClientes::mdlVerCliente($datos);
+      $respuesta = ModeloClientes::mdlVerClienteid($datos);
       echo json_encode($respuesta);
    }
 

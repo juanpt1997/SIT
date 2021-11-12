@@ -13,8 +13,8 @@ class ModeloClientes
    {
       $conexion = Conexion::conectar();
       $stmt = $conexion->prepare("INSERT INTO cont_clientes(nombre,tipo_doc,Documento,telefono,direccion,idciudad,tipo_docrespons,Documentorespons,
-      cedula_expedidaen,nombrerespons,idciudadrespons,tipo,telefono2)
-      VALUES(:nombre,:tipo_doc,:Documento,:telefono,:direccion,:idciudad,:tipo_docrespons,:Documentorespons,:cedula_expedidaen,:nombrerespons,:idciudadrespons,:tipo,:telefono2)");
+      cedula_expedidaen,nombrerespons,idciudadrespons,tipo,telefono2, correo)
+      VALUES(:nombre,:tipo_doc,:Documento,:telefono,:direccion,:idciudad,:tipo_docrespons,:Documentorespons,:cedula_expedidaen,:nombrerespons,:idciudadrespons,:tipo,:telefono2, :correo)");
 
       $stmt->bindParam(":tipo", $datos["tipo"], PDO::PARAM_STR);
       $stmt->bindParam(":nombre", $datos["nom_empre"], PDO::PARAM_STR);
@@ -29,6 +29,7 @@ class ModeloClientes
       $stmt->bindParam(":cedula_expedidaen", $datos["expedicion"], PDO::PARAM_INT);
       $stmt->bindParam(":nombrerespons", $datos["nom_respo"], PDO::PARAM_STR);
       $stmt->bindParam(":idciudadrespons", $datos["ciudadresponsable"], PDO::PARAM_INT);
+      $stmt->bindParam(":correo", $datos["correo"], PDO::PARAM_STR);
 
       if ($stmt->execute()) {
          $id = $conexion->lastInsertId();
@@ -40,6 +41,24 @@ class ModeloClientes
       return $id;
    }
 
+   static public function mdlVerClienteid($datos)
+   {
+      $stmt = Conexion::conectar()->prepare("SELECT C.*,  M.municipio AS ciudad, Mr.municipio AS ciudadres, Mc.municipio AS expedida
+                                                FROM cont_clientes C
+                                                LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio
+                                                LEFT JOIN gh_municipios Mr ON C.idciudadrespons = Mr.idmunicipio
+                                                LEFT JOIN gh_municipios Mc ON C.cedula_expedidaen = Mc.idmunicipio
+                                                LEFT JOIN cont_cotizaciones Co ON C.idcliente = Co.idcliente
+                                                WHERE C.Documento = :docum_empre");
+
+
+      $stmt->bindParam(":docum_empre", $datos['valor']); 
+      $stmt->execute();
+      $retorno = $stmt->fetch();
+      $stmt->closeCursor();
+      return $retorno;
+   }
+
    static public function mdlVerCliente($datos, $tipo = "todos")
    {
       if ($tipo == "clientes") {
@@ -49,32 +68,31 @@ class ModeloClientes
       }
 
       # VER DATOS DE UN SOLO CLIENTE
-      if ($datos != null) {
-         $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad, Mr.municipio AS ciudadres, Mc.municipio AS expedida, Co.*
-                                                FROM cont_clientes C
-                                                LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio
-                                                LEFT JOIN gh_municipios Mr ON C.idciudadrespons = Mr.idmunicipio
-                                                LEFT JOIN gh_municipios Mc ON C.cedula_expedidaen = Mc.idmunicipio
-                                                LEFT JOIN cont_cotizaciones Co ON C.idcliente = Co.idcliente
-                                                WHERE C.{$datos['item']} = :{$datos['valor']}");
+      // if ($datos != null) {
+      //    $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad, Mr.municipio AS ciudadres, Mc.municipio AS expedida, Co.*
+      //                                           FROM cont_clientes C
+      //                                           LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio
+      //                                           LEFT JOIN gh_municipios Mr ON C.idciudadrespons = Mr.idmunicipio
+      //                                           LEFT JOIN gh_municipios Mc ON C.cedula_expedidaen = Mc.idmunicipio
+      //                                           LEFT JOIN cont_cotizaciones Co ON C.idcliente = Co.idcliente
+      //                                           WHERE C.{$datos['item']} = :{$datos['valor']}");
 
 
-         $stmt->bindParam(":{$datos['valor']}", $datos['valor']); 
-         $stmt->execute();
-         $retorno = $stmt->fetch();
-      }
+      //    $stmt->bindParam(":{$datos['valor']}", $datos['valor']); 
+      //    $stmt->execute();
+      //    $retorno = $stmt->fetch();
+      // }
       # VER LISTA DE CLIENTES
-      else {
-         $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad, Mr.municipio AS ciudadres, Mc.municipio AS expedida, CONCAT(C.nombre, ' - ', C.Documento) AS clientexist
+
+      $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad, Mr.municipio AS ciudadres, Mc.municipio AS expedida, CONCAT(C.nombre, ' - ', C.Documento) AS clientexist
                                                 FROM cont_clientes C
                                                 LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio
                                                 LEFT JOIN gh_municipios Mr ON C.idciudadrespons = Mr.idmunicipio
                                                 LEFT JOIN gh_municipios Mc ON C.cedula_expedidaen = Mc.idmunicipio
                                                 $sqlExtra");
 
-         $stmt->execute();
-         $retorno =  $stmt->fetchAll();
-      }
+      $stmt->execute();
+      $retorno =  $stmt->fetchAll();
       $stmt->closeCursor();
       return $retorno;
    }
