@@ -56,16 +56,15 @@ class ModeloClientes
                                                 LEFT JOIN gh_municipios Mr ON C.idciudadrespons = Mr.idmunicipio
                                                 LEFT JOIN gh_municipios Mc ON C.cedula_expedidaen = Mc.idmunicipio
                                                 LEFT JOIN cont_cotizaciones Co ON C.idcliente = Co.idcliente
-                                                WHERE C.{$datos['item']} = :{$datos['item']};");
+                                                WHERE C.{$datos['item']} = :{$datos['valor']}");
 
 
-         $stmt->bindParam(":{$datos['item']}",  $datos['valor']);
+         $stmt->bindParam(":{$datos['valor']}", $datos['valor']); 
          $stmt->execute();
-         $retorno =  $stmt->fetch();
+         $retorno = $stmt->fetch();
       }
       # VER LISTA DE CLIENTES
       else {
-
          $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad, Mr.municipio AS ciudadres, Mc.municipio AS expedida, CONCAT(C.nombre, ' - ', C.Documento) AS clientexist
                                                 FROM cont_clientes C
                                                 LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio
@@ -146,34 +145,34 @@ class ModeloClientes
       return $id;
    }
 
-   static public function mdlVerClienteExistente($valor)
-   {
-      if ($valor != null) {
-         $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad, Mr.municipio AS ciudadres, Mc.municipio AS expedida
-                                                FROM cont_clientes C
-                                                LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio
-                                                LEFT JOIN gh_municipios Mr ON C.idciudadrespons = Mr.idmunicipio
-                                                LEFT JOIN gh_municipios Mc ON C.cedula_expedidaen = Mc.idmunicipio
-                                                WHERE C.idcliente = :id");
+   // static public function mdlVerClienteExistente($valor)
+   // {
+   //    if ($valor != null) {
+   //       $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad, Mr.municipio AS ciudadres, Mc.municipio AS expedida
+   //                                              FROM cont_clientes C
+   //                                              LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio
+   //                                              LEFT JOIN gh_municipios Mr ON C.idciudadrespons = Mr.idmunicipio
+   //                                              LEFT JOIN gh_municipios Mc ON C.cedula_expedidaen = Mc.idmunicipio
+   //                                              WHERE C.idcliente = :id");
 
 
-         $stmt->bindParam(":id",  $valor, PDO::PARAM_STR);
-         $stmt->execute();
-         $retorno =  $stmt->fetch();
-      } else {
+   //       $stmt->bindParam(":id",  $valor, PDO::PARAM_STR);
+   //       $stmt->execute();
+   //       $retorno =  $stmt->fetch();
+   //    } else {
 
-         $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad, Mr.municipio AS ciudadres, Mc.municipio AS expedida, CONCAT(C.nombre, ' - ', C.Documento) AS clientexist
-                                                FROM cont_clientes C
-                                                LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio
-                                                LEFT JOIN gh_municipios Mr ON C.idciudadrespons = Mr.idmunicipio
-                                                LEFT JOIN gh_municipios Mc ON C.cedula_expedidaen = Mc.idmunicipio");
+   //       $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad, Mr.municipio AS ciudadres, Mc.municipio AS expedida, CONCAT(C.nombre, ' - ', C.Documento) AS clientexist
+   //                                              FROM cont_clientes C
+   //                                              LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio
+   //                                              LEFT JOIN gh_municipios Mr ON C.idciudadrespons = Mr.idmunicipio
+   //                                              LEFT JOIN gh_municipios Mc ON C.cedula_expedidaen = Mc.idmunicipio");
 
-         $stmt->execute();
-         $retorno =  $stmt->fetchAll();
-      }
-      $stmt->closeCursor();
-      return $retorno;
-   }
+   //       $stmt->execute();
+   //       $retorno =  $stmt->fetchAll();
+   //    }
+   //    $stmt->closeCursor();
+   //    return $retorno;
+   // }
 
 
    static public function mdlActualizarCampo($datos)
