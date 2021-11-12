@@ -109,6 +109,15 @@
                                     </a>
                                 </li>
                             <?php endif ?>
+                                <!-- ===================================================
+                                    Seguridad
+                                =================================================== -->
+                                <li class="nav-item">
+                                    <a href="cg-almacen" class="nav-link" target="_blank">
+                                        <i class="fas fa-warehouse nav-icon"></i>
+                                        <p>Almacen</p>
+                                    </a>
+                                </li>
                         </ul>
                     </li>
                 <?php endif ?>
@@ -398,25 +407,25 @@
                     ** Mantenimiento
                 =================================================== -->
                 <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-cogs"></i>
-                        <p>
-                            Mantenimiento
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <!-- ===================================================
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-cogs"></i>
+                            <p>
+                                Mantenimiento
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <!-- ===================================================
                                     Mantenimientos
                                 =================================================== -->
-                        <li class="nav-item">
-                            <a href="m-mantenimientos" class="nav-link" target="_blank">
-                                <i class="fas fa-cogs nav-icon"></i>
-                                <p>Mantenimientos</p>
-                            </a>
-                        </li>
-                        <!-- ===================================================
+                            <li class="nav-item">
+                                <a href="m-mantenimientos" class="nav-link" target="_blank">
+                                    <i class="fas fa-cogs nav-icon"></i>
+                                    <p>Mantenimientos</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
                                     Inventario
                                 =================================================== -->
                             <li class="nav-item">
@@ -464,47 +473,47 @@
                             <!-- ===================================================
                                     Inventario
                         =================================================== -->
-                        <li class="nav-item">
-                            <a href="a-inventario" class="nav-link">
-                                <i class="fas fa-pallet nav-icon"></i>
-                                <p>Inventario</p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="a-inventario" class="nav-link">
+                                    <i class="fas fa-pallet nav-icon"></i>
+                                    <p>Inventario</p>
+                                </a>
+                            </li>
 
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
                 <?php endif ?>
 
                 <!-- ===================================================
                     ** COMPRAS
                 =================================================== -->
                 <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
-                <li class="nav-item has-treeview d-none">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-shopping-cart"></i>
-                        <p>Compras
-                            <i class="fas fa-angle-left right"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <!-- ===================================================
+                    <li class="nav-item has-treeview d-none">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-shopping-cart"></i>
+                            <p>Compras
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <!-- ===================================================
                                     ORDEN DE COMPRA
                         =================================================== -->
-                        <li class="nav-item">
-                            <a href="c-orden-compra" class="nav-link" target="_blank">
-                                <i class="fas fa-dollar-sign nav-icon"></i>
-                                <p>Orden de compra</p>
-                            </a>
-                        </li>
-                        <!-- ===================================================
+                            <li class="nav-item">
+                                <a href="c-orden-compra" class="nav-link" target="_blank">
+                                    <i class="fas fa-dollar-sign nav-icon"></i>
+                                    <p>Orden de compra</p>
+                                </a>
+                            </li>
+                            <!-- ===================================================
                                     Proveedores
                         =================================================== -->
-                        <li class="nav-item">
-                            <a href="c-proveedores" class="nav-link" target="_blank">
-                                <i class="fas fa-truck-moving nav-icon"></i>
-                                <p>Proveedores</p>
-                            </a>
-                        </li>
+                            <li class="nav-item">
+                                <a href="c-proveedores" class="nav-link" target="_blank">
+                                    <i class="fas fa-truck-moving nav-icon"></i>
+                                    <p>Proveedores</p>
+                                </a>
+                            </li>
 
 
                         </ul>

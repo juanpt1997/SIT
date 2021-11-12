@@ -139,10 +139,18 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
             <div class="modal-body">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label><i>Descripción del producto</i></label>
                                 <input type="text" class="form-control" id="descriprodcuto" name="descriprodcuto" required>
+                            </div>
+                        </div>
+
+                        
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label><i>Referencia</i></label>
+                                <input type="text" class="form-control" id="referencia" name="referencia" placeholder="Código / Referencia" required>
                             </div>
                         </div>
 
@@ -155,13 +163,6 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
-                                <label><i>Referencia</i></label>
-                                <input type="text" class="form-control" id="referencia" name="referencia" placeholder="número-tipo-ref" required>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
                                 <label><i>Marca</i></label>
                                 <input type="text" class="form-control" id="marca-producto" name="marca-producto" placeholder="Marca del producto" required>
                             </div>
@@ -169,29 +170,21 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
-                                <label><i>Medida</i></label>
-                                <select class="custom-select rounded-0" id="medida" name="medida" required>
-                                    <option value="" selected>Seleccione medida</option>
-                                    <option>1 / 2</option>
-                                    <option>1 / 4</option>
-                                    <option>3 / 4</option>
-                                    <option>Bandeja</option>
-                                    <option>Caja</option>
-                                    <option>Examen</option>
-                                    <option>Galon</option>
-                                    <option>Paca</option>
-                                    <option>Paquete</option>
-                                    <option>Talonario</option>
-                                    <option>Unidad</option>
+                                <label><i>Sucursal - bodega</i></label>
+                                <select class="form-control input-sm select2-single input-ciudad" style="width: 99%" type="number" id="sucursal-producto" name="sucursal-producto" required>
+                                    <option selected value="">Seleccione una ciudad</option>
+                                    <?php foreach ($Municipios as $key => $value) : ?>
+                                        <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
+                                    <?php endforeach ?>
                                 </select>
                             </div>
                         </div>
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
-                                <label><i>Tipo de repuesto</i></label>
+                                <label><i>Categoria</i></label>
                                 <select class="custom-select rounded-0" id="tiporepuesto" name="tiporepuesto" required>
-                                    <option value="" selected>Seleccione un repuesto</option>
+                                    <option value="" selected>Seleccione una categoria</option>
                                     <?php foreach ($Repuestos as $key => $value) : ?>
                                         <option value="<?= $value['idrepuesto'] ?>"><?= $value['repuesto'] ?></option>
                                     <?php endforeach ?>
@@ -213,12 +206,20 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
-                                <label><i>Sucursal bodega</i></label>
-                                <select class="form-control input-sm select2-single input-ciudad" style="width: 99%" type="number" id="sucursal-producto" name="sucursal-producto" required>
-                                    <option selected value="">Seleccione una ciudad</option>
-                                    <?php foreach ($Municipios as $key => $value) : ?>
-                                        <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
-                                    <?php endforeach ?>
+                                <label><i>Medida</i></label>
+                                <select class="custom-select rounded-0" id="medida" name="medida" required>
+                                    <option value="" selected>Seleccione medida</option>
+                                    <option>1 / 2</option>
+                                    <option>1 / 4</option>
+                                    <option>3 / 4</option>
+                                    <option>Bandeja</option>
+                                    <option>Caja</option>
+                                    <option>Examen</option>
+                                    <option>Galon</option>
+                                    <option>Paca</option>
+                                    <option>Paquete</option>
+                                    <option>Talonario</option>
+                                    <option>Unidad</option>
                                 </select>
                             </div>
                         </div>
