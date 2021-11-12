@@ -246,10 +246,10 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                    <button type="button" class="btn btn-primary btn-md btn-agregarRepuesto mb-3" data-toggle="modal" data-target="#EmpresasModal">
+                                                    <button type="button" class="btn btn-primary btn-md btn-agregarRepuesto mb-3" >
                                                         <i class="fas fa-plus"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-danger btn-md btn-EliminarRepuesto mb-3" data-toggle="modal" data-target="#EmpresasModal">
+                                                    <button type="button" class="btn btn-danger btn-md btn-EliminarRepuesto mb-3" >
                                                         <i class="fas fa-times"></i>
                                                     </button>
                                                 </div>
@@ -273,10 +273,10 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                             </table>
                                                         </div>
                                                     </div>
-                                                    <button type="button" class="btn btn-primary btn-md btn-agregarManoObra mb-3" data-toggle="modal" data-target="#EmpresasModal">
+                                                    <button type="button" class="btn btn-primary btn-md btn-agregarManoObra mb-3" ">
                                                         <i class="fas fa-plus"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-danger btn-md btn-EliminarManoObra mb-3" data-toggle="modal" data-target="#EmpresasModal">
+                                                    <button type="button" class="btn btn-danger btn-md btn-EliminarManoObra mb-3" ">
                                                         <i class="fas fa-times"></i>
                                                     </button>
                                                 </div>
@@ -389,7 +389,7 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                         <div class="col">
                                                             <div class="form-group text-center col-12 col-sm-6 col-lg-12">
                                                                 <label><i>Placa</i></label>
-                                                                <select id="placa" name="idvehiculo" class="form-control select2-single" type="number" style="width: 99%" required>
+                                                                <select id="placa_repuestos" name="idvehiculo_repuestos" class="form-control select2-single" type="number" style="width: 99%" required>
                                                                     <option selected value="">Seleccione un vehículo</option>
                                                                     <?php foreach ($Placas as $key => $value) : ?>
                                                                         <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> </option>
@@ -460,70 +460,70 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                                     <div class="row">
                                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                                             <div class="custom-control custom-checkbox">
-                                                                                <input class="custom-control-input" type="checkbox" id="check_montallant">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_montallant" name="montallantas_repuestos">
                                                                                 <label for="check_montallant" class="custom-control-label">Montallantas</label>
                                                                             </div>
                                                                         </div>
 
                                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                                             <div class="custom-control custom-checkbox">
-                                                                                <input class="custom-control-input" type="checkbox" id="check_lubricacion">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_lubricacion" name="lubricacion_repuestos">
                                                                                 <label for="check_lubricacion" class="custom-control-label">Lubricación</label>
                                                                             </div>
                                                                         </div>
 
                                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                                             <div class="custom-control custom-checkbox">
-                                                                                <input class="custom-control-input" type="checkbox" id="check_lampintu">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_lampintu" name="lamina_repuestos">
                                                                                 <label for="check_lampintu" class="custom-control-label">Lámina y pintura</label>
                                                                             </div>
                                                                         </div>
 
                                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                                             <div class="custom-control custom-checkbox">
-                                                                                <input class="custom-control-input" type="checkbox" id="check_elec">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_elec" name="electrico_repuestos">
                                                                                 <label for="check_elec" class="custom-control-label">Eléctrico</label>
                                                                             </div>
                                                                         </div>
 
                                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                                             <div class="custom-control custom-checkbox">
-                                                                                <input class="custom-control-input" type="checkbox" id="check_alinbalan">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_alinbalan" name="alineacion_repuestos">
                                                                                 <label for="check_alinbalan" class="custom-control-label">Alineación y balanceo</label>
                                                                             </div>
                                                                         </div>
 
                                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                                             <div class="custom-control custom-checkbox">
-                                                                                <input class="custom-control-input" type="checkbox" id="check_frenos">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_frenos" name="frenos_repuestos">
                                                                                 <label for="check_frenos" class="custom-control-label">Frenos</label>
                                                                             </div>
                                                                         </div>
 
                                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                                             <div class="custom-control custom-checkbox">
-                                                                                <input class="custom-control-input" type="checkbox" id="check_muellsuspen">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_muellsuspen" name="muelles_repuestos">
                                                                                 <label for="check_muellsuspen" class="custom-control-label">Muelles y suspensión</label>
                                                                             </div>
                                                                         </div>
 
                                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                                             <div class="custom-control custom-checkbox">
-                                                                                <input class="custom-control-input" type="checkbox" id="check_vidrios">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_vidrios" name="vidrios_repuestos">
                                                                                 <label for="check_vidrios" class="custom-control-label">Vidrios</label>
                                                                             </div>
                                                                         </div>
 
                                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                                             <div class="custom-control custom-checkbox">
-                                                                                <input class="custom-control-input" type="checkbox" id="check_radio">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_radio" name="radio_repuestos">
                                                                                 <label for="check_radio" class="custom-control-label">Radio</label>
                                                                             </div>
                                                                         </div>
 
                                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                                             <div class="custom-control custom-checkbox">
-                                                                                <input class="custom-control-input" type="checkbox" id="check_otro">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_otro" name="otro_repuestos">
                                                                                 <label for="check_otro" class="custom-control-label">Otro</label>
                                                                             </div>
                                                                         </div>
@@ -593,7 +593,7 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                 </div>
                                                 <div class="card-body" style="display: none;">
                                                     <div class="form-group">
-                                                        <textarea class="form-control" rows="5" placeholder="Digite su diagnostico ..."></textarea>
+                                                        <textarea class="form-control" rows="5" placeholder="Digite su diagnostico ..." name="observacion_repuesto"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -661,7 +661,7 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                         <div class="col">
                                                             <div class="form-group text-center col-12 col-sm-6 col-lg-12">
                                                                 <label><i>Placa</i></label>
-                                                                <select id="placa" name="idvehiculo" class="form-control select2-single" type="number" style="width: 99%" required>
+                                                                <select id="placa" name="idvehiculo_serv" class="form-control select2-single" type="number" style="width: 99%" required>
                                                                     <option selected value="">Seleccione un vehículo</option>
                                                                     <?php foreach ($Placas as $key => $value) : ?>
                                                                         <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> </option>
@@ -673,7 +673,7 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                         <div class="col">
                                                             <div class="form-group text-center col-12 col-sm-6 col-lg-12">
                                                                 <label><i>Kilometraje actual</i></label>
-                                                                <input type="text" class="form-control" id="kilometraje" name="kilometraje" required>
+                                                                <input type="text" class="form-control" id="kilometraje_serv" name="kilometraje_serv" required>
                                                             </div>
                                                         </div>
 

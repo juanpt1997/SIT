@@ -56,12 +56,12 @@ class ModeloClientes
                                                 LEFT JOIN gh_municipios Mr ON C.idciudadrespons = Mr.idmunicipio
                                                 LEFT JOIN gh_municipios Mc ON C.cedula_expedidaen = Mc.idmunicipio
                                                 LEFT JOIN cont_cotizaciones Co ON C.idcliente = Co.idcliente
-                                                WHERE C.{$datos['item']} = :{$datos['item']};");
+                                                WHERE C.{$datos['item']} = :{$datos['item']}");
 
 
-         $stmt->bindParam(":{$datos['item']}",  $datos['valor']);
+         $stmt->bindParam(":{$datos['item']}", $datos['valor']); 
          $stmt->execute();
-         $retorno =  $stmt->fetch();
+         $retorno = $stmt->fetch();
       }
       # VER LISTA DE CLIENTES
       else {
