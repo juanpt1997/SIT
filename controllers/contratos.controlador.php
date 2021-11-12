@@ -20,7 +20,6 @@ class ControladorClientes
                 'item' => 'Documento',
                 'valor' => $_POST['docum_empre']
             );
-            $ClienteExistente = ModeloClientes::mdlVerCliente($datosBusqueda);
 
             $datos = array(
                 'idcliente' => $_POST['idcliente'],
@@ -38,6 +37,8 @@ class ControladorClientes
                 'ciudadresponsable' => $_POST['ciudadresponsable'],
                 'tipo' => "CLIENTE"
             );
+
+            $ClienteExistente = ModeloClientes::mdlVerCliente($datosBusqueda);
 
             if (is_array($ClienteExistente) && $ClienteExistente['idcliente'] != $_POST['idcliente']) {
                 echo "
@@ -104,6 +105,11 @@ class ControladorClientes
 					";
             }
         }
+
+
+
+
+
     }
 
     static public function ctrActualizarCampo($id)
