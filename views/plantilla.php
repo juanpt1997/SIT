@@ -176,7 +176,8 @@ if (isset($_GET['pagina'])) {
                         $ruta == "cg-gestion-humana" ||
                         $ruta == "cg-vehicular" ||
                         $ruta == "cg-mantenimiento" ||
-                        $ruta == "cg-seguridad"
+                        $ruta == "cg-seguridad" ||
+                        $ruta == "cg-almacen"
                     ) {
                         include "modulos/conceptos_generales/{$ruta}.php";
                     } else if (
