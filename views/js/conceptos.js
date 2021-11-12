@@ -1753,3 +1753,244 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
 
     });
 }
+
+/*=============================================================
+=====================ALMACEN=================================
+============================================================?*/
+if (window.location.href == `${urlPagina}cg-almacen/` ||
+    window.location.href == `${urlPagina}cg-almacen`
+) {
+
+    $(document).ready(function () {
+
+         //BOTON NUEVO CONCEPTO EN ALMACEN
+         $(document).on("click", ".btn-nuevo", function () {
+
+            var concepto = $(this).attr("concepto");
+            //Removemos d-none del info-box de cada concepto
+            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
+            //Envio de concepto al titulo del modal
+            $("#titulo_modalA").html(concepto);
+        });
+
+        //SUBMIT DEL FORMULARIO DE ALMACEN
+        $("#formularioAlmacen").submit(function (e) {
+
+            e.preventDefault();//Previene la accion por defecto del boton
+            var concepto = $("#titulo_modalA").html();
+            var datos = new FormData();
+
+            datos.append("NuevoGH", "ok");
+            datos.append("concepto", concepto);
+            datos.append("dato", $("#entrada1").val());
+
+            $.ajax({
+                url: "ajax/conceptos.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: 'success',
+                            showConfirmButton: true,
+                            title: "El nuevo dato ha sido agregado",
+                            confirmButtonText: "¡Cerrar!",
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location = 'cg-almacen';
+                            }
+                        })
+                    }
+                }
+            });
+        });
+
+        //BOTON VER CONCEPTO EN ALMACEN
+        $(document).on("click", ".btn-ver", function () {
+
+            var concepto = $(this).attr("concepto");
+            //Removemos d-none del info-box de cada concepto
+            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
+            //Agregamos el titulo a cada modal de cada concepto
+            $("#titulo_modalVerA").html(concepto);
+            // Quitar datatable
+            $("#ver_concepto_a").dataTable().fnDestroy();
+            // Borrar datos
+            $("#tbody_ver_concepto_a").html("");
+            //Nombre de la cabecera de la tabla segun el concepto 
+            $("#tipo").html(concepto);
+
+            var datos = new FormData();
+            datos.append("ajaxVerConcepto", "ok");
+            datos.append("concepto", concepto);
+            $.ajax({
+                type: "POST",
+                url: "ajax/conceptos.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                //dataType: "json",
+                success: function (response) {
+
+                    if (response != '' || response != null) {
+
+                        $("#tbody_ver_concepto_a").html(response);
+
+                    } else {
+
+                        $("#tbody_ver_concepto_a").html('');
+                    }
+
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#ver_concepto_a`, buttons);
+                }
+            });
+        });
+
+        //BOTON CANCELAR AL AGREGAR
+        $('#AgregarEditarA, #VisualizarA').on('hidden.bs.modal', function (e) {
+            $(".overlay").each(function () { //Al cancelar se agrega la clase d-none para que no se vea el reload
+                $(this).addClass("d-none");
+            });
+        });
+
+        //BOTON EDITAR CONCEPTO EN ALMACEN
+        $(document).on("click", ".btnEditar", function () {
+
+            //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
+            var concepto = $(this).attr("concepto");
+            var id = $(this).attr("idregistro");
+            var dato = $(this).attr("dato");
+
+            Swal.fire({
+                title: `Editar (${concepto})`,
+                html:
+                    `
+                <hr>
+                <label for="">${concepto}</label>
+                <input class="form-control" id="input-edit" type="text" value="${dato}">`
+                ,
+                showCancelButton: true,
+                confirmButtonColor: '#5cb85c',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Continuar!',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+
+                if (result.value) {
+                    var dato_edit = $("#input-edit").val();
+                    var datos = new FormData();
+                    datos.append("ajaxEditarConcepto", "ok");
+                    datos.append("concepto", concepto);
+                    datos.append("id", id);
+                    datos.append("dato", dato_edit);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/conceptos.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        //dataType: "json",
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: 'success',
+                                    showConfirmButton: true,
+                                    title: "¡El dato ha sido actualizado!",
+                                    confirmButtonText: "¡Cerrar!",
+                                    allowOutsideClick: false
+                                }).then((result) => { window.location = 'cg-almacen'; })
+                            }
+                        }
+
+                    });
+                }
+            })
+        });
+
+        // funcion para el contador de los info box
+        $(".info-box-number").each(function () {
+            var $infobox = $(this);
+            var concepto = $infobox.attr("concepto");
+            var datos = new FormData();
+
+            datos.append("ajaxContarRegistro", "ok");
+            datos.append("concepto", concepto);
+            $.ajax({
+                url: "ajax/conceptos.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                dataType: "json", //
+                processData: false,
+                success: function (response) {
+                    $infobox.text(response.contador + " registros");
+                }
+            });
+        });
+
+        //ELIMINAR
+        $(document).on("click", ".btnBorrar", function () {
+
+            //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
+            var id = $(this).attr("idregistro");
+            var valor_cambio = $(this).attr("valor-cambio");
+            var concepto = $(this).attr("concepto");
+
+            Swal.fire({
+                icon: 'warning',
+                showConfirmButton: true,
+                showCancelButton: true,
+                title: "¿Seguro que desea borrar este registro?",
+                confirmButtonText: "SI, borrar",
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: "#ff0000",
+                cancelButtonColor: "#66ff99",
+                allowOutsideClick: false
+            }).then((result) => {
+
+                if (result.value) {
+
+                    var datos = new FormData();
+                    datos.append("EliminarRegistro", "ok");
+                    datos.append("id", id);
+                    datos.append("valor", valor_cambio);
+                    datos.append("concepto", concepto);
+
+
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/conceptos.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        //dataType: "json",
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: 'success',
+                                    showConfirmButton: true,
+                                    title: "¡El registro ha sido borrado correctamente!",
+                                    confirmButtonText: "¡Cerrar!",
+                                    allowOutsideClick: false
+                                }).then((result) => { window.location = 'cg-almacen'; })
+                            }
+                        }
+
+                    });
+                }
+            })
+        });
+    });
+}
