@@ -141,8 +141,8 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
                     <div class="row">
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
-                                <label><i>Descripción del producto</i></label>
-                                <input type="text" class="form-control" id="descriprodcuto" name="descriprodcuto" required>
+                                <label><i>Código del producto</i></label>
+                                <input type="text" class="form-control" id="cod_producto" name="cod_producto" readonly>
                             </div>
                         </div>
 
@@ -150,36 +150,17 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label><i>Referencia</i></label>
-                                <input type="text" class="form-control" id="referencia" name="referencia" placeholder="Código / Referencia" required>
+                                <input type="text" class="form-control" id="referencia" name="referencia" placeholder="Referencia" required>
                             </div>
                         </div>
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
-                                <label><i>Número de factura</i></label>
-                                <input type="text" class="form-control" id="numfact-producto" name="numfact-producto" placeholder="Número de factura de compra" required>
+                                <label><i>Descripción</i></label>
+                                <input type="text" class="form-control" id="descripcion_prod" name="descripcion_prod" placeholder="Descripción del producto" required>
                             </div>
                         </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Marca</i></label>
-                                <input type="text" class="form-control" id="marca-producto" name="marca-producto" placeholder="Marca del producto" required>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Sucursal - bodega</i></label>
-                                <select class="form-control input-sm select2-single input-ciudad" style="width: 99%" type="number" id="sucursal-producto" name="sucursal-producto" required>
-                                    <option selected value="">Seleccione una ciudad</option>
-                                    <?php foreach ($Municipios as $key => $value) : ?>
-                                        <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
-                                    <?php endforeach ?>
-                                </select>
-                            </div>
-                        </div>
-
+                        
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label><i>Categoria</i></label>
@@ -194,13 +175,15 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
-                                <label><i>Proovedor</i></label>
-                                <select class="custom-select rounded-0" id="proovedorproductos" name="proovedorproductos" required>
-                                    <option value="" selected>Seleccione un proovedor</option>
-                                    <?php foreach ($ListaProovedores as $key => $value) : ?>
-                                        <option value="<?= $value['id'] ?>"><?= $value['razon_social'] ?></option>
-                                    <?php endforeach ?>
-                                </select>
+                                <label><i>Marca</i></label>
+                                <input type="text" class="form-control" id="marca-producto" name="marca-producto" placeholder="Marca del producto" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label><i>Cantidad (unidades)</i></label>
+                                <input type="text" class="form-control" id="cantidad" name="cantidad" required>
                             </div>
                         </div>
 
@@ -226,10 +209,33 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
-                                <label><i>Cantidad (unidades)</i></label>
-                                <input type="text" class="form-control" id="cantidad" name="cantidad" required>
+                                <label><i>Sucursal - bodega</i></label>
+                                <select class="form-control input-sm select2-single input-ciudad" style="width: 99%" type="number" id="sucursal-producto" name="sucursal-producto" required>
+                                    <option selected value="">Seleccione una ciudad</option>
+                                    <?php foreach ($Municipios as $key => $value) : ?>
+                                        <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
                             </div>
                         </div>
+
+                        
+
+                        <!-- <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label><i>Proovedor</i></label>
+                                <select class="custom-select rounded-0" id="proovedorproductos" name="proovedorproductos" required>
+                                    <option value="" selected>Seleccione un proovedor</option>
+                                    <?php foreach ($ListaProovedores as $key => $value) : ?>
+                                        <option value="<?= $value['id'] ?>"><?= $value['razon_social'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                        </div> -->
+
+                        
+
+                        
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">

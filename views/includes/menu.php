@@ -462,25 +462,13 @@
                 =================================================== -->
                 <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
+                        <a href="a-inventario"" class="nav-link">
                             <i class="fas fa-warehouse nav-icon"></i>
                             <p>
                                 Almacen
-                                <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
-                        <ul class="nav nav-treeview">
-                            <!-- ===================================================
-                                    Inventario
-                        =================================================== -->
-                            <li class="nav-item">
-                                <a href="a-inventario" class="nav-link">
-                                    <i class="fas fa-pallet nav-icon"></i>
-                                    <p>Inventario</p>
-                                </a>
-                            </li>
-
-                        </ul>
+                     
                     </li>
                 <?php endif ?>
 
