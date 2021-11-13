@@ -100,6 +100,16 @@
                                 </li>
 
                                 <!-- ===================================================
+                                    Almacen
+                                =================================================== -->
+                                <li class="nav-item">
+                                    <a href="cg-almacen" class="nav-link" target="_blank">
+                                        <i class="fas fa-warehouse nav-icon"></i>
+                                        <p>Almacen</p>
+                                    </a>
+                                </li>
+
+                                <!-- ===================================================
                                     Seguridad
                                 =================================================== -->
                                 <li class="nav-item">
@@ -109,15 +119,6 @@
                                     </a>
                                 </li>
                             <?php endif ?>
-                                <!-- ===================================================
-                                    Seguridad
-                                =================================================== -->
-                                <li class="nav-item">
-                                    <a href="cg-almacen" class="nav-link" target="_blank">
-                                        <i class="fas fa-warehouse nav-icon"></i>
-                                        <p>Almacen</p>
-                                    </a>
-                                </li>
                         </ul>
                     </li>
                 <?php endif ?>

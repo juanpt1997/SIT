@@ -261,7 +261,7 @@
                             =================================================== -->
                               <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                                   <div class="col-12 col-sm-6 col-md-4 col-xl-3 d-none">
-                                      <a href="#" class="d-none">
+                                      <a href="a-inventario">
                                           <div class="info-box border border-dark">
                                               <span class="info-box-icon bg-dark elevation-1"><i class="fas fa-warehouse"></i>
                                                   <div class="info-box-content">
@@ -274,19 +274,19 @@
                                   </div>
                                   <!-- /.col -->
                                   <div class="col-12 col-sm-6 col-md-4 col-xl-3">
-                                      <div class="dropdown" style="cursor: pointer;">
-                                          <div class="info-box border border-dark" id="dropdownMenuAlmacen" data-toggle="dropdown">
+                                      <a href="a-inventario">
+                                          <div class="info-box border border-dark">
                                               <span class="info-box-icon bg-dark elevation-1"><i class="fas fa-warehouse"></i></span>
                                               <div class="info-box-content">
                                                   <span class="info-box-text font-weight-bold text-dark">Almacen</span>
                                               </div>
                                               <!-- /.info-box-content -->
                                           </div>
-                                          <!-- /.info-box -->
-                                          <div class="dropdown-menu" aria-labelledby="dropdownMenuAlmacen">
+                                      </a>
+                                      <!-- /.info-box -->
+                                      <!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuAlmacen">
                                               <a class="dropdown-item font-weight-bold" href="a-inventario"><u>Inventario</u></a>
-                                          </div>
-                                      </div>
+                                          </div> -->
                                   </div>
                                   <!-- /.col -->
                               <?php endif ?>
