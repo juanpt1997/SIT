@@ -14,6 +14,10 @@ class ControladorClientes
 
     static public function ctrAgregarEditar()
     {
+
+        
+
+
         if (isset($_POST['docum_empre'])) {
 
             $datosBusqueda = array(
@@ -35,10 +39,12 @@ class ControladorClientes
                 'expedicion' => $_POST['expedicion'],
                 'nom_respo' => $_POST['nom_respo'],
                 'ciudadresponsable' => $_POST['ciudadresponsable'],
+                'correo' => $_POST['correo'],
                 'tipo' => "CLIENTE"
             );
 
-            $ClienteExistente = ModeloClientes::mdlVerCliente($datosBusqueda);
+            $ClienteExistente = ModeloClientes::mdlVerClienteid($datosBusqueda);
+            
 
             if (is_array($ClienteExistente) && $ClienteExistente['idcliente'] != $_POST['idcliente']) {
                 echo "
@@ -61,6 +67,7 @@ class ControladorClientes
                 return;
             } else {
                 if ($_POST['idcliente'] == '') {
+                    
                     $responseModel = ModeloClientes::mdlAgregarCliente($datos);
                 } else {
                     $responseModel = ModeloClientes::mdlEditarCliente($datos);

@@ -41,6 +41,7 @@ if (
                     $("#ciudadcliente").val(response.idciudad);
                     $("#expedicion").val(response.cedula_expedidaen);
                     $("#docum_respo").val(response.Documentorespons);
+                    $("#correo").val(response.correo);
                     $(".select2-single").trigger("change"); //MUESTRA EL VALOR DEL SELECT
                 },
             });
