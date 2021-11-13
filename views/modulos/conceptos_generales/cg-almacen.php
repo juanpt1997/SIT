@@ -41,15 +41,15 @@
                                         <span class="info-box-icon bg-primary elevation-1"><i class="fas fa-bezier-curve"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text"><i>Categorias</i></span>
-                                            <span class="info-box-number" concepto="categorias"></span>
+                                            <span class="info-box-number" concepto="Categorias"></span>
                                         </div>
                                         <!-- /.info-box-content -->
                                         <div class="d-flex flex-column">
-                                            <button concepto="categorias" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarA"><i class="far fa-eye"></i></button>
-                                            <button concepto="categorias" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarA"><i class="fas fa-plus-circle"></i></button>
+                                            <button concepto="Categorias" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarA"><i class="far fa-eye"></i></button>
+                                            <button concepto="Categorias" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarA"><i class="fas fa-plus-circle"></i></button>
                                         </div>
 
-                                        <div class="overlay d-none" concepto="categorias">
+                                        <div class="overlay d-none" concepto="Categorias">
                                             <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                                         </div>
                                     </div>
@@ -61,15 +61,35 @@
                                         <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-tags"></i></span>
                                         <div class="info-box-content">
                                             <span class="info-box-text"><i>Marcas productos</i></span>
-                                            <span class="info-box-number" concepto="marcas-p"></span>
+                                            <span class="info-box-number" concepto="Marcas productos"></span>
                                         </div>
                                         <!-- /.info-box-content -->
                                         <div class="d-flex flex-column">
-                                            <button concepto="marcas-p" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarA"><i class="far fa-eye"></i></button>
-                                            <button concepto="marcas-p" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarA"><i class="fas fa-plus-circle"></i></button>
+                                            <button concepto="Marcas productos" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarA"><i class="far fa-eye"></i></button>
+                                            <button concepto="Marcas productos" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarA"><i class="fas fa-plus-circle"></i></button>
                                         </div>
 
-                                        <div class="overlay d-none" concepto="marcas-p">
+                                        <div class="overlay d-none" concepto="Marcas productos">
+                                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                        </div>
+                                    </div>
+                                    <!-- /.info-box -->
+                                </div>
+
+                                <div class="col-12 col-sm-12 col-md-6 text-nowrap">
+                                    <div class="info-box border border-secondary">
+                                        <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-ruler"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text"><i>Medidas</i></span>
+                                            <span class="info-box-number" concepto="Medidas"></span>
+                                        </div>
+                                        <!-- /.info-box-content -->
+                                        <div class="d-flex flex-column">
+                                            <button concepto="Medidas" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarA"><i class="far fa-eye"></i></button>
+                                            <button concepto="Medidas" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarA"><i class="fas fa-plus-circle"></i></button>
+                                        </div>
+
+                                        <div class="overlay d-none" concepto="Medidas">
                                             <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                                         </div>
                                     </div>
@@ -88,7 +108,7 @@
 <!-- /.content-wrapper -->
 
 <!-- =================================================================
-     ========MODALS CREAR / EDTIAR (MAESTRA ALMACEN) ==========
+     ========MODALS CREAR (MAESTRA ALMACEN) ==========
      =================================================================-->
 
 <div class="modal fade" id="AgregarEditarA" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -102,21 +122,21 @@
                 </button>
             </div>
 
-            <form method="post" enctype="multipart/form-data" id="formularioA">
+            <form method="post" enctype="multipart/form-data" id="formularioAlmacen">
 
                 <div class="modal-body">
 
                     <input type="hidden" id="id" name="id" value="">
 
                     <div class="form-group">
-                        <label>Nuevo registro</label>
+                        <label>Agregar registro</label>
                         <div class="input-group">
                             <div class="input-group-append">
                                 <span class="input-group-text">
-                                    <i class="fas fa-address-card"></i>
+                                    <i class="fas fa-plus-circle"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" id="entrada1" name="entrada1" placeholder="" required>
+                            <input class="form-control" type="text" id="entrada1" name="entrada1" required>
                         </div>
                     </div>
 

@@ -97,6 +97,21 @@ class AjaxConceptosGH
 				$item = "repuesto";
 				break;
 
+			case 'Medidas':
+				$tabla = "a_medidas";
+				$item = "medida";
+				break;
+					
+			case 'Marcas productos':
+				$tabla = "a_marcas";
+				$item = "marca";
+				break;
+
+			case 'Categorias':
+				$tabla = "a_categorias";
+				$item = "categoria";
+				break;
+
 			default:
 				// code...
 				break;
@@ -107,20 +122,24 @@ class AjaxConceptosGH
 			"valor" => $dato
 		);
 
-		$validar = self::ValidarExistencia($datos);
+		$respuesta = ModeloConceptosGH::mdlNuevo($datos);
+
+		echo $respuesta;
+
+		// $validar = self::ValidarExistencia($datos);
 
 
-		if($validar === false){
+		// if($validar === false){
 
-			$respuesta = ModeloConceptosGH::mdlNuevo($datos);
-			echo $respuesta;
+		// 	$respuesta = ModeloConceptosGH::mdlNuevo($datos);
+		// 	echo $respuesta;
 
-		}else if($validar == 'true'){
+		// }else if($validar == 'true'){
 
-			$respuesta = 'existe';
-			echo $respuesta;
+		// 	$respuesta = 'existe';
+		// 	echo $respuesta;
 			
-		}
+		// }
 		
 	}
 	//AJAX para listar todos los registros de un concepto
@@ -215,6 +234,24 @@ class AjaxConceptosGH
 				$item = "repuesto";
 				$id = "idrepuesto";
 				break;
+
+			case 'Medidas':
+				$tabla = "a_medidas";
+				$item = "medida";
+				$id = "idmedidas";
+				break;
+					
+			case 'Marcas productos':
+				$tabla = "a_marcas";
+				$item = "marca";
+				$id = "idmarca";
+				break;
+
+			case 'Categorias':
+				$tabla = "a_categorias";
+				$item = "categoria";
+				$id = "idcategorias";
+				break;		
 
 			default:
 				// code...
@@ -339,6 +376,24 @@ class AjaxConceptosGH
 				$idtabla = "idrepuesto";
 				break;
 
+			case 'Medidas':
+				$tabla = "a_medidas";
+				$item = "medida";
+				$idtabla = "idmedidas";
+				break;
+					
+			case 'Marcas productos':
+				$tabla = "a_marcas";
+				$item = "marca";
+				$idtabla = "idmarca";
+				break;
+
+			case 'Categorias':
+				$tabla = "a_categorias";
+				$item = "categoria";
+				$idtabla = "idcategorias";
+				break;	
+				
 			default:
 				// code...
 				break;
@@ -429,6 +484,21 @@ class AjaxConceptosGH
 				$tabla = "m_repuestos";
 				$item = "repuesto";
 				break;
+
+			case 'Medidas':
+				$tabla = "a_medidas";
+				$item = "medida";
+				break;
+					
+			case 'Marcas productos':
+				$tabla = "a_marcas";
+				$item = "marca";
+				break;
+
+			case 'Categorias':
+				$tabla = "a_categorias";
+				$item = "categoria";
+				break;		
 
 			default:
 				// code...
@@ -535,13 +605,30 @@ class AjaxConceptosGH
 				$tabla = "v_rutas";
 				$item = "id";
 				break;
+
 			case 'Ciudades':
 				$tabla = "gh_municipios";
 				$item = "municipio";
 				break;
+
 			case 'Servicios menores':
 				$tabla = "m_serviciosmenores";
 				$item = "servicio";
+				break;
+			
+			case 'Medidas':
+				$tabla = "a_medidas";
+				$item = "medida";
+				break;
+					
+			case 'Marcas productos':
+				$tabla = "a_marcas";
+				$item = "marca";
+				break;
+
+			case 'Categorias':
+				$tabla = "a_categorias";
+				$item = "categoria";
 				break;	
 
 			default:
@@ -966,10 +1053,27 @@ class AjaxConceptosGH
 				$tabla = "documentosidentificacion";
 				$id_tabla = "iddocumento";
 				break;
+
 			case 'Servicios menores':
 				$tabla = "m_serviciosmenores";
 				$id_tabla = "idservicio";
+				break;
+
+			case 'Medidas':
+				$tabla = "a_medidas";
+				$id_tabla = "idmedidas";
+				break;
+					
+			case 'Marcas productos':
+				$tabla = "a_marcas";
+				$id_tabla = "idmarca";
+				break;
+
+			case 'Categorias':
+				$tabla = "a_categorias";
+				$id_tabla = "idcategorias";
 				break;	
+
 			default:
 				// code...
 				break;
