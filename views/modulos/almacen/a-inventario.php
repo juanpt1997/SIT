@@ -7,6 +7,9 @@
 $ListaProovedores = ControladorProveedores::ctrListarProveedores();
 $Municipios = ControladorGH::ctrDeparMunicipios();
 $Repuestos = ControladorRepuestos::ctrListarRepuestos();
+$Medidas = ControladorAlmacen::ctrListarMedidas();
+$Marcas = ControladorAlmacen::ctrListarMarcas();
+$Categorias = ControladorAlmacen::ctrListarCategorias();
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -36,7 +39,7 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
 
             <div class="card card-outline card-success">
                 <div class="card-body">
-                    <hr class="my-4">
+                    <hr class="my-4 bg-dark">
 
                     <div class="row mt-2 d-flex justify-content-center">
 
@@ -50,7 +53,7 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
                                 <div class="icon">
                                     <i class="fas fa-user-plus"></i>
                                 </div>
-                                <a href="c-proveedores" target="_blank" class="small-box-footer btn">Crear <i class="fas fa-plus-circle"></i></a>
+                                <a href="c-proveedores" target="_blank" class="small-box-footer btn">Crear <i class="fas fa-arrow-right"></i></a>
                             </div>
                         </div>
 
@@ -64,7 +67,7 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
                                 <div class="icon">
                                     <i class="fas fa-cubes"></i>
                                 </div>
-                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-productos">Nuevo <i class="far fa-eye"></i></a>
+                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-productos">Nuevo <i class="fas fa-plus-circle"></i></a>
                             </div>
                         </div>
 
@@ -97,7 +100,7 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
                                 <div class="icon">
                                     <i class="fas fa-file-invoice-dollar"></i>
                                 </div>
-                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-autorizaciones">Verificar <i class="far fa-eye"></i></a>
+                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-autorizaciones">Verificar <i class="fas fa-check"></i></a>
                             </div>
                         </div>
                         <!--INVENTARIO-->
@@ -141,7 +144,7 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
                     <div class="row">
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
-                                <label><i>Código del producto</i></label>
+                                <label><i>Código del producto</i> <i class="fas fa-barcode"></i></label>
                                 <input type="text" class="form-control" id="cod_producto" name="cod_producto" readonly>
                             </div>
                         </div>
@@ -157,17 +160,17 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label><i>Descripción</i></label>
-                                <input type="text" class="form-control" id="descripcion_prod" name="descripcion_prod" placeholder="Descripción del producto" required>
+                                <input type="text" class="form-control" id="descripcion_prod" name="descripcion_prod" placeholder="Descripción del producto / Nombre del producto" required>
                             </div>
                         </div>
                         
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label><i>Categoria</i></label>
-                                <select class="custom-select rounded-0" id="tiporepuesto" name="tiporepuesto" required>
+                                <select class="custom-select rounded-0" id="categoria" name="categoria" required>
                                     <option value="" selected>Seleccione una categoria</option>
-                                    <?php foreach ($Repuestos as $key => $value) : ?>
-                                        <option value="<?= $value['idrepuesto'] ?>"><?= $value['repuesto'] ?></option>
+                                    <?php foreach ($Categorias as $key => $value) : ?>
+                                        <option value="<?= $value['idcategorias'] ?>"><?= $value['categoria'] ?></option>
                                     <?php endforeach ?>
                                 </select>
                             </div>
@@ -175,8 +178,13 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
-                                <label><i>Marca</i></label>
-                                <input type="text" class="form-control" id="marca-producto" name="marca-producto" placeholder="Marca del producto" required>
+                                <label><i>Marca</i> <i class="fas fa-copyright"></i></label>
+                                <select class="custom-select rounded-0" id="marca_producto" name="marca_producto" required>
+                                    <option value="" selected>Seleccione una marca</option>
+                                    <?php foreach ($Marcas as $key => $value) : ?>
+                                        <option value="<?= $value['idmarca'] ?>"><?= $value['marca'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
                             </div>
                         </div>
 
@@ -191,18 +199,10 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
                             <div class="form-group text-center">
                                 <label><i>Medida</i></label>
                                 <select class="custom-select rounded-0" id="medida" name="medida" required>
-                                    <option value="" selected>Seleccione medida</option>
-                                    <option>1 / 2</option>
-                                    <option>1 / 4</option>
-                                    <option>3 / 4</option>
-                                    <option>Bandeja</option>
-                                    <option>Caja</option>
-                                    <option>Examen</option>
-                                    <option>Galon</option>
-                                    <option>Paca</option>
-                                    <option>Paquete</option>
-                                    <option>Talonario</option>
-                                    <option>Unidad</option>
+                                    <option value="" selected>Seleccione una medida</option>
+                                    <?php foreach ($Medidas as $key => $value) : ?>
+                                        <option value="<?= $value['idmedidas'] ?>"><?= $value['medida'] ?></option>
+                                    <?php endforeach ?>
                                 </select>
                             </div>
                         </div>
@@ -219,8 +219,6 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
                             </div>
                         </div>
 
-                        
-
                         <!-- <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label><i>Proovedor</i></label>
@@ -234,34 +232,35 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
                         </div> -->
 
                         
-
-                        
-
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
-                                <label><i>Precio de compra</i></label>
-                                <input type="text" class="form-control" id="precio-compra-producto" name="precio-compra-producto" required>
+                                <label><i>Precio de compra</i> <i class="fas fa-dollar-sign"></i></label>
+                                <input type="text" class="form-control" id="precio-compra-producto" name="precio-compra-producto" placeholder="$" required>
                             </div>
                         </div>
 
                         <!--|||TABLA RESUMEN DE PRODUCTOS|||-->
                         <div class="col-12">
+
+                        <hr class="my-4 bg-dark">
+
                             <div class="card card-outline card-dark">
                                 <div class="card-body">
-                                    <h5 class="text-center"><i>Productos en existencia</i></h5>
+                                    <h5 class="card-title"><i><strong>Entrada productos</strong> </i></h5>
+                                    <hr class="my-4">
                                     <div class="table-responsive">
                                         <table class="table table-bordered table-striped text-center text-nowrap tablas">
                                             <thead>
                                                 <tr>
-                                                    <th>Descripción del producto</th>
+                                                    <th>Código</th>
                                                     <th>Referencia</th>
+                                                    <th>Descripción</th>
+                                                    <th>Categoria</th>
                                                     <th>Marca</th>
+                                                    <th>Cantidad (u)</th>
                                                     <th>Medida</th>
-                                                    <th>Tipo de repuesto</th>
-                                                    <th>Proovedor</th>
-                                                    <th>Ciudad</th>
-                                                    <th>Cantidad</th>
-                                                    <th>Precio de compra</th>
+                                                    <th>Sucursal</th>
+                                                    <th>Precio</th>
                                                 </tr>
                                             </thead>
 

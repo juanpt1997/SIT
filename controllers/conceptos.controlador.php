@@ -121,3 +121,45 @@ class ControladorRepuestos
 		return $repuesta;
 	}
 }
+
+/* ===================================================
+	* ALMACEN
+===================================================*/
+class ControladorAlmacen
+{
+	static public function ctrListarMedidas()
+	{
+		$datos = array(
+			'tabla' => 'a_medidas',
+			'item'  => 'medida',
+			'id' => 'idmedidas'
+		);
+
+		$respuesta = ModeloConceptosGH::mdlVer($datos);
+		return $respuesta;
+	}
+
+	static public function ctrListarMarcas()
+	{
+		$datos = array(
+			'tabla' => 'a_marcas',
+			'item'  => 'marca',
+			'id' => 'idmarca'
+		);
+
+		$respuesta = ModeloConceptosGH::mdlVer($datos);
+		return $respuesta;
+	}
+
+	static public function ctrListarCategorias()
+	{
+		$datos = array(
+			'tabla' => 'a_categorias',
+			'item'  => 'categoria',
+			'id' => 'idcategorias'
+		);
+
+		$respuesta = ModeloConceptosGH::mdlVer($datos);
+		return $respuesta;
+	}
+}
