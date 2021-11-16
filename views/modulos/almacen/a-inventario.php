@@ -263,23 +263,19 @@ $Categorias = ControladorAlmacen::ctrListarCategorias();
                                                     <th>Precio</th>
                                                 </tr>
                                             </thead>
-
-                                            <!-- <tbody>
-                                                    <?php foreach ($Productos as $key => $value) : ?>
-                                                    <tr>
-                                                        <td><?= $value['descriprodcuto'] ?></td>
-                                                        <td><?= $value['refmarca'] ?></td>
-                                                        <td><?= $value['marcaproducto'] ?></td>
-                                                        <td><?= $value['medida'] ?></td>
-                                                        <td><?= $value['tiporepuesto'] ?></td>
-                                                        <td><?= $value['proovedor'] ?></td>
-                                                        <td><?= $value['ciudad'] ?></td>
-                                                        <td><?= $value['cantidad'] ?></td>
-                                                        <td><?= $value['ultimovalor'] ?></td>
-                                                        <td><?= $value['iva'] ?></td>
-                                                    </tr>
-                                                    <?php endforeach ?>
-                                                </tbody> -->
+                                            <tbody>
+                                                <tr>
+                                                    <td>12314</td>
+                                                    <td>optyui-12367</td>
+                                                    <td>MANUBRIO</td>
+                                                    <td>TALLER</td>
+                                                    <td>NISAN</td>
+                                                    <td>2 -  <button class="btn btn-sm btn-success" title="Actualizar inventario" data-toggle="tooltip" data-placement="top"><i class="fas fa-redo-alt"></i></button></td>
+                                                    <td>centimetros</td>
+                                                    <td>Dosquebradas</td>
+                                                    <td>200.000</td>
+                                                </tr>
+                                            </tbody>
                                         </table>
                                     </div>
                                 </div>
