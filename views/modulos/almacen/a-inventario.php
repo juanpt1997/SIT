@@ -6,10 +6,10 @@
 
 $ListaProovedores = ControladorProveedores::ctrListarProveedores();
 $Municipios = ControladorGH::ctrDeparMunicipios();
-$Repuestos = ControladorRepuestos::ctrListarRepuestos();
-$Medidas = ControladorAlmacen::ctrListarMedidas();
-$Marcas = ControladorAlmacen::ctrListarMarcas();
-$Categorias = ControladorAlmacen::ctrListarCategorias();
+// $Repuestos = ControladorRepuestos::ctrListarRepuestos();
+// $Medidas = ControladorAlmacen::ctrListarMedidas();
+// $Marcas = ControladorAlmacen::ctrListarMarcas();
+// $Categorias = ControladorAlmacen::ctrListarCategorias();
 ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -149,7 +149,7 @@ $Categorias = ControladorAlmacen::ctrListarCategorias();
                             </div>
                         </div>
 
-                        
+
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label><i>Referencia</i></label>
@@ -163,15 +163,11 @@ $Categorias = ControladorAlmacen::ctrListarCategorias();
                                 <input type="text" class="form-control" id="descripcion_prod" name="descripcion_prod" placeholder="Descripción del producto / Nombre del producto" required>
                             </div>
                         </div>
-                        
+
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label><i>Categoria</i></label>
                                 <select class="custom-select rounded-0" id="categoria" name="categoria" required>
-                                    <option value="" selected>Seleccione una categoria</option>
-                                    <?php foreach ($Categorias as $key => $value) : ?>
-                                        <option value="<?= $value['idcategorias'] ?>"><?= $value['categoria'] ?></option>
-                                    <?php endforeach ?>
                                 </select>
                             </div>
                         </div>
@@ -179,11 +175,7 @@ $Categorias = ControladorAlmacen::ctrListarCategorias();
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label><i>Marca</i> <i class="fas fa-copyright"></i></label>
-                                <select class="custom-select rounded-0" id="marca_producto" name="marca_producto" required>
-                                    <option value="" selected>Seleccione una marca</option>
-                                    <?php foreach ($Marcas as $key => $value) : ?>
-                                        <option value="<?= $value['idmarca'] ?>"><?= $value['marca'] ?></option>
-                                    <?php endforeach ?>
+                                <select class="custom-select rounded-0" id="marca" name="marca" required>
                                 </select>
                             </div>
                         </div>
@@ -199,10 +191,6 @@ $Categorias = ControladorAlmacen::ctrListarCategorias();
                             <div class="form-group text-center">
                                 <label><i>Medida</i></label>
                                 <select class="custom-select rounded-0" id="medida" name="medida" required>
-                                    <option value="" selected>Seleccione una medida</option>
-                                    <?php foreach ($Medidas as $key => $value) : ?>
-                                        <option value="<?= $value['idmedidas'] ?>"><?= $value['medida'] ?></option>
-                                    <?php endforeach ?>
                                 </select>
                             </div>
                         </div>
@@ -231,7 +219,7 @@ $Categorias = ControladorAlmacen::ctrListarCategorias();
                             </div>
                         </div> -->
 
-                        
+
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label><i>Precio de compra</i> <i class="fas fa-dollar-sign"></i></label>
@@ -242,7 +230,7 @@ $Categorias = ControladorAlmacen::ctrListarCategorias();
                         <!--|||TABLA RESUMEN DE PRODUCTOS|||-->
                         <div class="col-12">
 
-                        <hr class="my-4 bg-dark">
+                            <hr class="my-4 bg-dark">
 
                             <div class="card card-outline card-dark">
                                 <div class="card-body">
@@ -270,7 +258,7 @@ $Categorias = ControladorAlmacen::ctrListarCategorias();
                                                     <td>MANUBRIO</td>
                                                     <td>TALLER</td>
                                                     <td>NISAN</td>
-                                                    <td>2 -  <button class="btn btn-sm btn-success" title="Actualizar inventario" data-toggle="tooltip" data-placement="top"><i class="fas fa-redo-alt"></i></button></td>
+                                                    <td>2 - <button class="btn btn-sm btn-success" title="Actualizar inventario" data-toggle="tooltip" data-placement="top"><i class="fas fa-redo-alt"></i></button></td>
                                                     <td>centimetros</td>
                                                     <td>Dosquebradas</td>
                                                     <td>200.000</td>
@@ -310,9 +298,17 @@ $Categorias = ControladorAlmacen::ctrListarCategorias();
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
+
             <div class="modal-body">
                 <div class="card-body">
                     <div class="row">
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label><i>Fecha de elaboración</i></label>
+                                <input type="date" class="form-control" id="fechaelaboracion" name="fechaelaboracion">
+                            </div>
+                        </div>
+
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label><i>Proovedor</i></label>
@@ -324,26 +320,8 @@ $Categorias = ControladorAlmacen::ctrListarCategorias();
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
-                                <label><i>CC - NIT</i></label>
-                                <select class="custom-select rounded-0" id="cconit" name="cconit" required>
-                                    <option value="" selected>Seleccione una opción</option>
-                                    <option value="">CC</option>
-                                    <option value="">NIT</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Número de documento</i></label>
-                                <input type="text" class="form-control" id="numdocumento" name="numdocumento" placeholder="Digite numero de documento" required>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Teléfono o celular</i></label>
-                                <input type="text" class="form-control" id="telocel" name="telocel" placeholder="Digite numero de contacto" required>
+                                <label><i>Número de cotizacion</i></label>
+                                <input type="text" class="form-control" id="numcotizacion" name="numcotizacion" required>
                             </div>
                         </div>
 
@@ -367,10 +345,17 @@ $Categorias = ControladorAlmacen::ctrListarCategorias();
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
-                                <label><i>Número de cotizacion</i></label>
-                                <input type="text" class="form-control" id="numcotizacion" name="numcotizacion" required>
+                                <label><i>Tipo de compra</i></label>
+                                <select class="custom-select rounded-0" id="cconit" name="cconit" required>
+                                    <option value="" selected>Seleccione una opción</option>
+                                    <option value="">Servicio</option>
+                                    <option value="">Producto</option>
+                                </select>
                             </div>
                         </div>
+
+
+                        
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
@@ -378,135 +363,16 @@ $Categorias = ControladorAlmacen::ctrListarCategorias();
                                 <input type="text" class="form-control" id="elaboradopor" name="elaboradopor" required>
                             </div>
                         </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Placa</i></label>
-                                <select class="custom-select rounded-0" id="placaorden" name="placaorden" required>
-                                    <option value="" selected>Seleccione una placa</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Número interno</i></label>
-                                <input type="text" class="form-control" id="numinternoorden" name="numinternoorden" required readonly>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Propietario</i></label>
-                                <input type="text" class="form-control" id="propietarioorden" name="propietarioorden" required readonly>
-                            </div>
-                        </div>
                     </div>
 
                     <hr class="my-4 bg-dark">
 
-                    <div class="row">
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Estado</i></label>
-                                <select class="custom-select rounded-0" id="estadoorden" name="estadoorden">
-                                    <option value="" selected>Seleccione una opción</option>
-                                    <option value="">Anulada</option>
-                                    <option value="">Pendiente por pagar</option>
-                                    <option value="">Cancelada</option>
-                                    <option value="">Abierta</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Número factura proveedor</i></label>
-                                <input type="text" class="form-control" id="numfacproveedor" name="numfacproveedor">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Fecha de elaboración</i></label>
-                                <input type="date" class="form-control" id="fechaelaboracion" name="fechaelaboracion">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Fecha de vencimiento</i></label>
-                                <input type="date" class="form-control" id="fechavencimiento" name="fechavencimiento">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Fecha de cancelación</i></label>
-                                <input type="date" class="form-control" id="fechacancelacion" name="fechacancelacion">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Número comprobante de caja</i></label>
-                                <input type="text" class="form-control" id="numcomprobantecaja" name="numcomprobantecaja">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Valor total bruto</i></label>
-                                <input type="text" class="form-control" id="totalbruto" name="totalbruto">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Valor de descuento</i></label>
-                                <input type="text" class="form-control" id="valordescuento" name="valordescuento">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Valor subtotal</i></label>
-                                <input type="text" class="form-control" id="valorsubtotal" name="valorsubtotal">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>% de IVA</i></label>
-                                <input type="text" class="form-control" id="ivaorden" name="ivaorden">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Valor RTE - FTE</i></label>
-                                <input type="text" class="form-control" id="rtefte" name="rtefte">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Valor neto</i></label>
-                                <input type="text" class="form-control" id="valorneto" name="valorneto">
-                            </div>
-                        </div>
+                    <div class="form-group text-center">
+                        <label for="observaciones"><i>Observaciones</i></label>
+                        <textarea class="form-control" name="observaciones" id="observaciones" rows="2"></textarea>
                     </div>
 
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Valor de abono</i></label>
-                                <input type="text" class="form-control" id="abono" name="abono">
-                            </div>
-                        </div>
-                    </div>
+                    <hr class="my-4 bg-dark">
 
                     <!--|||TABLA RESUMEN DE ORDENES DE PRODUCTOS|||-->
                     <div class="col-12">
@@ -517,21 +383,17 @@ $Categorias = ControladorAlmacen::ctrListarCategorias();
                                     <table class="table table-bordered table-striped text-center text-nowrap tablas">
                                         <thead>
                                             <tr>
+                                                <th>Estado</th>
                                                 <th>Proveedor</th>
-                                                <th>CC - NIT</th>
                                                 <th>Número de documento</th>
                                                 <th>Teléfono o Celular</th>
                                                 <th>Dirección</th>
                                                 <th>Forma de pago</th>
                                                 <th>Número de cotización</th>
                                                 <th>Elaborado por</th>
-                                                <th>Placa</th>
-                                                <th>Número interno</th>
-                                                <th>Propietario</th>
-                                                <th>Estado</th>
-                                                <th>Número factura de proveedor</th>
-                                                <th>Fecha de elaboracióx|n</th>
-                                                <th>Valor neto</th>
+                                                <th>Fecha de elaboración</th>
+                                                <th>Tipo de compra</th>
+                                                <th>Observaciones</th>
                                             </tr>
                                         </thead>
 
@@ -561,8 +423,10 @@ $Categorias = ControladorAlmacen::ctrListarCategorias();
                             </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
+
             <div class="modal-footer justify-content-center bg-dark">
                 <a class="btn btn-app bg-success">
                     <i class="fas fa-plus"></i> Guardar
@@ -590,7 +454,7 @@ $Categorias = ControladorAlmacen::ctrListarCategorias();
             </div>
             <div class="modal-body">
                 <div class="card-body">
-                   
+
                 </div>
             </div>
             <div class="modal-footer justify-content-center bg-dark">
