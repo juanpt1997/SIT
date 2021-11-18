@@ -424,6 +424,13 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
 
                                                 <div class="col-12 col-sm-6 col-lg-4">
                                                     <div class="form-group">
+                                                        <label>Fecha</label>
+                                                        <input id="fechaAlistamiento" name="fechaAlistamiento" type="date" class="form-control">
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12 col-sm-6 col-lg-4">
+                                                    <div class="form-group">
                                                         <label>ID</label>
                                                         <input id="idvehiculo" name="idvehiculo" type="text" class="form-control datosVehiculo" readonly>
                                                     </div>

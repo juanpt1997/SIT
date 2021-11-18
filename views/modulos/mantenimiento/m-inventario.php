@@ -230,7 +230,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                             <div class="input-group-prepend">
                                                                                 <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
                                                                             </div>
-                                                                            <input class="form-control inventario" type="number" id="kilo_invent" max="9999999999" name="kilometraje" required>
+                                                                            <input class="form-control inventario" type="number" id="kilo_invent" max="9999" name="kilometraje" required>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -923,7 +923,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                                                         <div class="input-group-prepend">
                                                                                                                             <span class="input-group-text">Luces internas</span>
                                                                                                                         </div>
-                                                                                                                        <input class="form-control" type="number" id="numero_luces" name="numero_luces_internas" placeholder="# Digite el número de luces">
+                                                                                                                        <input class="form-control" type="number" id="numero_luces" name="numero_luces_internas" max="9999" placeholder="Digite el número de luces">
                                                                                                                     </div>
                                                                                                                 </div>
                                                                                                             </div>
@@ -1984,7 +1984,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                                                         <div class="input-group-prepend">
                                                                                                                             <span class="input-group-text">Salidas de emergencia y martillos</span>
                                                                                                                         </div>
-                                                                                                                        <input class="form-control inventario camioneta" type="number" id="numsalimarti" name="Nsalidas_martillos" placeholder="# Digite el número de salidas">
+                                                                                                                        <input class="form-control inventario camioneta" type="number" max="999" id="numsalimarti" name="Nsalidas_martillos" placeholder="Digite el número de salidas">
                                                                                                                     </div>
                                                                                                                 </div>
                                                                                                             </div>

@@ -252,6 +252,7 @@ if (isset($_GET['pagina'])) {
 <script src="<?= URL_APP ?>views/js/mantenimiento.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/operaciones.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/compras.js?v=<?= time() ?>"></script>
+<script src="<?= URL_APP ?>views/js/almacen.js?v=<?= time() ?>"></script>
 
 
 </html>

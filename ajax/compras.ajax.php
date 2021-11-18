@@ -35,6 +35,18 @@ class AjaxProveedores
         $respuesta = ModeloConceptosGH::mdlEliminar($datos);
         echo $respuesta;
     }
+
+    static public function cargarSelectProveedor()
+    {
+        
+        $respuesta = ModeloProveedores::mdlListarProveedores(null);
+        $option = "<option value='' selected>Seleccione un proveedor </option>";
+
+        foreach ($respuesta as $key => $value) {
+            $option .= "<option value='{$value["id"]}'>{$value["razon_social"]} - {$value["documento"]}</option>";
+        }
+        echo $option;
+    }
 }
 
 /* ===================================================
@@ -46,4 +58,8 @@ if (isset($_POST['DatosProveedor']) && $_POST['DatosProveedor'] == "ok") {
 
 if (isset($_POST['EliminarProveedor']) && $_POST['EliminarProveedor'] == "ok") {
     AjaxProveedores::ajaxEliminarProveedor($_POST['id']);
+}
+
+if (isset($_POST['cargarselectProveedor']) && $_POST['cargarselectProveedor'] == "ok") {
+    AjaxProveedores::cargarSelectProveedor();
 }
