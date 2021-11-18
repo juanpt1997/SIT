@@ -4,8 +4,8 @@
 //     echo "<script> window.location = 'inicio'; </script>";
 // }
 
-$ListaProovedores = ControladorProveedores::ctrListarProveedores();
-$Municipios = ControladorGH::ctrDeparMunicipios();
+///$ListaProovedores = ControladorProveedores::ctrListarProveedores();
+//$Municipios = ControladorGH::ctrDeparMunicipios();
 // $Repuestos = ControladorRepuestos::ctrListarRepuestos();
 // $Medidas = ControladorAlmacen::ctrListarMedidas();
 // $Marcas = ControladorAlmacen::ctrListarMarcas();
@@ -87,8 +87,6 @@ $Municipios = ControladorGH::ctrDeparMunicipios();
 
                     </div>
 
-                    <hr class="my-4 bg-dark">
-
                     <div class="row d-flex justify-content-center">
                         <div class="col-lg-3 col-6">
                             <!--AUTORIZACION DE COMPRA-->
@@ -141,145 +139,189 @@ $Municipios = ControladorGH::ctrDeparMunicipios();
             </div>
             <div class="modal-body">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Código del producto</i> <i class="fas fa-barcode"></i></label>
-                                <input type="text" class="form-control" id="cod_producto" name="cod_producto" readonly>
-                            </div>
-                        </div>
-
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Referencia</i></label>
-                                <input type="text" class="form-control" id="referencia" name="referencia" placeholder="Referencia" required>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Descripción</i></label>
-                                <input type="text" class="form-control" id="descripcion_prod" name="descripcion_prod" placeholder="Descripción del producto / Nombre del producto" required>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Categoria</i></label>
-                                <select class="custom-select rounded-0" id="categoria" name="categoria" required>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Marca</i> <i class="fas fa-copyright"></i></label>
-                                <select class="custom-select rounded-0" id="marca" name="marca" required>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Cantidad (unidades)</i></label>
-                                <input type="text" class="form-control" id="cantidad" name="cantidad" required>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Medida</i></label>
-                                <select class="custom-select rounded-0" id="medida" name="medida" required>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Sucursal - bodega</i></label>
-                                <select class="form-control input-sm select2-single input-ciudad" style="width: 99%" type="number" id="sucursal-producto" name="sucursal-producto" required>
-                                    <option selected value="">Seleccione una ciudad</option>
-                                    <?php foreach ($Municipios as $key => $value) : ?>
-                                        <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
-                                    <?php endforeach ?>
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Proovedor</i></label>
-                                <select class="custom-select rounded-0" id="proovedorproductos" name="proovedorproductos" required>
-                                    <option value="" selected>Seleccione un proovedor</option>
-                                    <?php foreach ($ListaProovedores as $key => $value) : ?>
-                                        <option value="<?= $value['id'] ?>"><?= $value['razon_social'] ?></option>
-                                    <?php endforeach ?>
-                                </select>
-                            </div>
-                        </div> -->
-
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Precio de compra</i> <i class="fas fa-dollar-sign"></i></label>
-                                <input type="text" class="form-control" id="precio-compra-producto" name="precio-compra-producto" placeholder="$" required>
-                            </div>
-                        </div>
-
-                        <!--|||TABLA RESUMEN DE PRODUCTOS|||-->
-                        <div class="col-12">
-
-                            <hr class="my-4 bg-dark">
-
-                            <div class="card card-outline card-dark">
-                                <div class="card-body">
-                                    <h5 class="card-title"><i><strong>Entrada productos</strong> </i></h5>
-                                    <hr class="my-4">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped text-center text-nowrap tablas">
-                                            <thead>
-                                                <tr>
-                                                    <th>Código</th>
-                                                    <th>Referencia</th>
-                                                    <th>Descripción</th>
-                                                    <th>Categoria</th>
-                                                    <th>Marca</th>
-                                                    <th>Cantidad (u)</th>
-                                                    <th>Medida</th>
-                                                    <th>Sucursal</th>
-                                                    <th>Precio</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>12314</td>
-                                                    <td>optyui-12367</td>
-                                                    <td>MANUBRIO</td>
-                                                    <td>TALLER</td>
-                                                    <td>NISAN</td>
-                                                    <td>2 - <button class="btn btn-sm btn-success" title="Actualizar inventario" data-toggle="tooltip" data-placement="top"><i class="fas fa-redo-alt"></i></button></td>
-                                                    <td>centimetros</td>
-                                                    <td>Dosquebradas</td>
-                                                    <td>200.000</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                    <form id="formulario_producto" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Código del producto</i> <i class="fas fa-barcode"></i></label>
+                                    <input type="text" class="form-control" id="cod_producto" name="cod_producto" required>
                                 </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Referencia</i></label>
+                                    <input type="text" class="form-control" id="referencia" name="referencia" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Descripción</i></label>
+                                    <input type="text" class="form-control" id="descripcion_prod" name="descripcion_prod" placeholder="Nombre del producto / Descripción del producto" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Categoria</i></label>
+                                    <select class="custom-select rounded-0" id="categoria" name="categoria" required>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Marca</i> <i class="fas fa-copyright"></i></label>
+                                    <select class="custom-select rounded-0" id="marca" name="marca" required>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Medida</i> <i class="fas fa-tachometer-alt"></i></label>
+                                    <select class="custom-select rounded-0" id="medida" name="medida" required>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="d-flex justify-content-center">
+                        <div class="form-group">
+                            <a class="btn btn-sm bg-success btn_agregar_producto">
+                                <i class="fas fa-plus"></i> Crear producto
+                            </a>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <form id="formulario_movimiento" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Proveedor</i></label>
+                                    <select class="custom-select rounded-0 input-proveedor" id="proveedor" name="proveedor" required>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Número de factura</i></label>
+                                    <input type="text" class="form-control" id="num_factura" name="num_factura" required readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Cantidad (unidades)</i></label>
+                                    <input type="text" class="form-control" id="cantidad" name="cantidad" required readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Sucursal - bodega</i></label>
+                                    <select class="form-control input-sm select2-single input-sucursal" style="width: 99%" type="number" id="sucursal" name="sucursal" required readonly>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Precio de compra (valor unitario)</i> <i class="fas fa-dollar-sign"></i></label>
+                                    <input type="text" class="form-control" id="precio-compra-producto" name="precio-compra-producto" placeholder="$" required readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="d-flex justify-content-center">
+                        <div class="form-group">
+                            <a class="btn btn-sm bg-info btn_actualizar">
+                                <i class="fas fa-plus"></i> Agregar al inventario
+                            </a>
+                        </div>
+                    </div>
+                    <!--|||TABLA RESUMEN DE PRODUCTOS|||-->
+
+                    <hr class="my-4 bg-success">
+
+                    <div class="card card-outline card-success">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <strong><i>Inventario</i> </strong>
+                                <button type="button" class="btn btn-tool" title="Ver inventario pantalla completa" data-toggle="tooltip" data-placement="top" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped text-center text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="8">PRODUCTOS</th>
+                                            <th colspan="4">ENTRADAS</th>
+                                            <th colspan="4">SALIDAS</th>
+                                            <th colspan="3">SALDO</th>
+                                            <th colspan='1'>SUCURSALES</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Código</th>
+                                            <th>Referencia</th>
+                                            <th>Descripción</th>
+                                            <th>Categoria</th>
+                                            <th>Marca</th>
+                                            <th>Medida</th>
+                                            <th>Sucursal</th>
+                                            <th>Precio</th>
+                                            <th>Fecha de entrada</th>
+                                            <th>Cantidad (u)</th>
+                                            <th>Valor unitario</th>
+                                            <th>Valor total</th>
+                                            <th>Fecha de salida</th>
+                                            <th>Cantidad (u)</th>
+                                            <th>Valor unitario</th>
+                                            <th>Valor total</th>
+                                            <th>Cantidad (u)</th>
+                                            <th>Valor unitario</th>
+                                            <th>Total</th>
+                                            <th>Sucursal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>12314</td>
+                                            <td>optyui-12367</td>
+                                            <td>MANUBRIO</td>
+                                            <td>TALLER</td>
+                                            <td>NISAN</td>
+                                            <td>2</td>
+                                            <td>centimetros</td>
+                                            <td>Dosquebradas</td>
+                                            <td>2/02/2021</td>
+                                            <td><button class="btn btn-sm btn-success" title="Actualizar inventario" data-toggle="tooltip" data-placement="top"><i class="fas fa-redo-alt"></i></button></td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>2/02/2021</td>
+                                            <td><button class="btn btn-sm btn-success" title="Actualizar inventario" data-toggle="tooltip" data-placement="top"><i class="fas fa-redo-alt"></i></button></td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td><button class="btn btn-sm btn-primary" title="Ver sucursales" data-toggle="tooltip" data-placement="top"><i class="fas fa-map-marker-alt"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer justify-content-center bg-dark">
-                <a class="btn btn-app bg-success">
-                    <i class="fas fa-plus"></i> Guardar
-                </a>
 
-                <a class="btn btn-app bg-danger" data-dismiss="modal">
-                    <i class="fas fa-ban"></i> Cancelar
-                </a>
             </div>
             <!-- /.modal-content -->
         </div>
@@ -311,27 +353,11 @@ $Municipios = ControladorGH::ctrDeparMunicipios();
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
-                                <label><i>Proovedor</i></label>
-                                <select class="custom-select rounded-0" id="proovedorcompras" name="proovedorcompras" required>
-                                    <option value="" selected>Seleccione un proovedor</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
                                 <label><i>Número de cotizacion</i></label>
                                 <input type="text" class="form-control" id="numcotizacion" name="numcotizacion" required>
                             </div>
                         </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Dirección</i></label>
-                                <input type="text" class="form-control" id="direccionproveedores" name="direccionproveedores" placeholder="Digite direccion" required>
-                            </div>
-                        </div>
-
+                        
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label><i>Forma de pago</i></label>
@@ -345,6 +371,31 @@ $Municipios = ControladorGH::ctrDeparMunicipios();
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
+                                <label><i>Proovedor</i></label>
+                                <select class="custom-select rounded-0" id="proovedorcompras" name="proovedorcompras" required>
+                                    <option value="" selected>Seleccione un proovedor</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label><i>Teléfono proveedor</i></label>
+                                <input type="text" class="form-control" id="numcotizacion" name="numcotizacion" required>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label><i>Dirección de entrega</i></label>
+                                <input type="text" class="form-control" id="direccionproveedores" name="direccionproveedores" placeholder="Digite direccion" required>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
                                 <label><i>Tipo de compra</i></label>
                                 <select class="custom-select rounded-0" id="cconit" name="cconit" required>
                                     <option value="" selected>Seleccione una opción</option>
@@ -353,19 +404,7 @@ $Municipios = ControladorGH::ctrDeparMunicipios();
                                 </select>
                             </div>
                         </div>
-
-
-                        
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Elaborado por</i></label>
-                                <input type="text" class="form-control" id="elaboradopor" name="elaboradopor" required>
-                            </div>
-                        </div>
                     </div>
-
-                    <hr class="my-4 bg-dark">
 
                     <div class="form-group text-center">
                         <label for="observaciones"><i>Observaciones</i></label>
@@ -423,7 +462,7 @@ $Municipios = ControladorGH::ctrDeparMunicipios();
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
 

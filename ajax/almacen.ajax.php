@@ -39,6 +39,13 @@ class AjaxAlmacen
                 $id = "idmarca";
                 break;
 
+            case 'sucursal':
+
+                $tabla = "gh_sucursales";
+                $item = "sucursal";
+                $id = "ids";
+                break;
+
             default:
                 # code...
                 break;
