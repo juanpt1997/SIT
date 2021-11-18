@@ -104,10 +104,7 @@ $(document).ready(function () {
               timer: 1600,
             });
             //RESET DE VALOR
-            $(".documentos").val("").removeClass("bg-danger bg-success");
             $("#conductor_invent").empty();
-            $(".inventario").val("");
-            $(".inventario").prop("checked", false);
           }
         },
       });
@@ -215,18 +212,12 @@ $(document).ready(function () {
     });
 
     /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    CANCELAR AGREGAR/EDITAR
+    RESTABLECER INVENTARIO
     ==========================================================================*/
-    $(".cancelar").click(function (e) {
-      e.preventDefault();
-      //$(".documentos").val("").removeClass("bg-danger bg-success");
-      //$("#formulario_inventario")[0].reset(); //reset formulario
-      //$("#formulario_inventario").trigger("reset"); //reset formulario
-      //$("#conductor_invent").empty();
-      //$(".select2-single").trigger("change");
-      //$("#placa_invent").val("");
-      //$(".inventario").val("");
-      //$('input:checkbox').removeAttr('checked');
+    $("#restablecer").click(function (e) {
+
+      $("#placa_invent").val("").trigger("change");
+
     });
 
     /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
@@ -312,7 +303,9 @@ $(document).ready(function () {
     /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
     GUARDAR IMAGENES DE EVIDENCIA
     ==========================================================================*/
-    $(document).on("click", ".btn_evidencias_inventario", function () {
+    $("#formulario_evidencias").submit(function (e) {
+      e.preventDefault();
+
       let idvehiculo = $("#placa_invent").val();
 
       if (idvehiculo != "") {
@@ -320,7 +313,6 @@ $(document).ready(function () {
         var observaciones = $("#observaciones").val();
 
         if (fotoInventario.length > 0 && observaciones != "") {
-          //$("#overlayBtnGuardarEvidencia").removeClass("d-none");
 
           var datos = new FormData();
           datos.append("GuardarEvidencia", "ok");
@@ -559,7 +551,6 @@ $(document).ready(function () {
       });
     });
 
-
     /* ===================================================
            VISUALIZAR PDF DEL INVENTARIO
     ===================================================*/
@@ -600,17 +591,17 @@ $(document).ready(function () {
         });
       });
 
-      // /* ===================================================
-      //                 INICIALIZAR DATATABLE 
-      // ====================================================*/
-      // var buttons = [
-      //     {
-      //         extend: "excel",
-      //         className: "btn-info",
-      //         text: '<i class="far fa-file-excel"></i> Exportar',
-      //     },
-      // ];
-      // var table = dataTableCustom(`#tabla_resumen_inventario`, buttons);
+      /* ===================================================
+                      INICIALIZAR DATATABLE 
+      ====================================================*/
+      var buttons = [
+          {
+              extend: "excel",
+              className: "btn-info",
+              text: '<i class="far fa-file-excel"></i> Exportar',
+          },
+      ];
+      var table = dataTableCustom(`#tabla_resumen_inventario`, buttons);
     };
     FiltroTablaInventario();
   }
@@ -632,7 +623,7 @@ $(document).ready(function () {
       var datos = new FormData();
       datos.append("DatosRevision", "ok");
       datos.append("idrevision", idrevision);
-      console.log(idrevision);
+
 
       $.ajax({
         type: "POST",
@@ -743,7 +734,7 @@ $(document).ready(function () {
           $(".bg-success").removeClass("bg-success");
           $(".bg-danger").removeClass("bg-danger");
 
-          console.log(Vehiculo.idtipovehiculo);
+
 
 
           //DESACTIVAR INPUTS DEPENDIENDO DEL TIPO DE VEHICULO
@@ -973,9 +964,9 @@ $(document).ready(function () {
             processData: false,
             //dataType: "json",
             success: function (response) {
-              console.log(response);
+
               if (response == "ok") {
-                console.log("entré");
+
                 Swal.fire({
                   icon: "success",
                   showConfirmButton: true,
@@ -1004,7 +995,7 @@ $(document).ready(function () {
 
       $("input:invalid").each(function (index, element) {
         var $input = $(this);
-        console.log($input);
+
 
         var idform = $input.closest("form").attr("id");
 
@@ -1021,7 +1012,7 @@ $(document).ready(function () {
         var $area = $(this);
 
         var idform = $area.closest("form").attr("id");
-        console.log(idform);
+
         if (idform == "datosrevision_form") {
           Areas.push($area);
         }
@@ -1083,103 +1074,128 @@ $(document).ready(function () {
     window.location.href == `${urlPagina}m-mantenimientos`
   ) {
 
+    /*===================================================
+     **********ORDEN DE SERVICIO/MANTENIMIENTO*********
+    ====================================================*/
 
     //CLICK EN AÑADIR CAMPO REPUESTO EN ORDEN DE SERVICIO
     $(document).on("click", ".btn-agregarRepuesto", function () {
-      $("#contenido_filas_repuesto").clone().appendTo("#filas_tabla_repuesto");
+      // $("#contenido_filas_repuesto").clone().appendTo("#filas_tabla_repuesto");
 
 
-      // var fila = '<tr>' + '<td style="width: 300px">' + '<input type="text" class="form-control" id="descripcion_repuestos1" name="descripcion_repuestos1">' + '</td>' + 
-      // '<td style="width: 300px">' +  '<input type="text" class="form-control" id="referencia_repuestos1" name="referencia_repuestos1">' + '</td>' + 
-      // '<td style="width: 300px">' + '<input type="text" class="form-control" id="proveedor1" name="proveedor1">' + '</td>' +
-      // '</tr>';
-      // $("#contenido_filas_repuesto tbody").append(fila).appendTo("#filas_tabla_repuesto");
+      var fila = '<tr>' +
+        '<td style="width: 300px">' + '<input type="text" class="form-control" id="descripcion_repuestos1" name="descripcion_repuestos1">' + '</td>' +
+        '<td style="width: 300px">' + '<input type="text" class="form-control" id="cantidad1" name="cantidad1">' + '</td>' +
+        '<td style="width: 300px">' + '<input type="text" class="form-control" id="precio1" name="precio1">' + '</td>' +
+        '<td style="width: 300px">' + '<input type="text" class="form-control" id="referencia_repuestos1" name="referencia_repuestos1">' + '</td>' +
+        '<td style="width: 300px">' + '<input type="text" class="form-control" id="proveedor1" name="proveedor1">' + '</td>' +
+        '</tr>'
+        ;
+
+      $("#tbody_repuesto").append(fila);
 
 
 
+    });
+
+    //CLICK EN ELIMINAR FILA DE REPUESTO EN ORDEN DE SERVICIO
+    $(document).on("click", ".btn-EliminarRepuesto", function () {
+      $('#tbody_repuesto tr:last').remove();
     });
 
 
     //CLICK EN AÑADIR CAMPO MANO DE OBRA
-
     $(document).on("click", ".btn-agregarManoObra", function () {
-      $("#Contenido_tabla_manoObra").clone().appendTo("#filas_tabla_manoObra");
+
+      var fila = '<tr>' +
+        '<td style="width: 300px">' + '<input type="text" class="form-control" id="descripcion_manoObra1" name="descripcion_repuestos1">' + '</td>' +
+        '<td style="width: 300px">' + '<input type="text" class="form-control" id="proveedor" name="proveedor">' + '</td>' +
+        '</tr>'
+        ;
+      $("#filas_tabla_manoObra").append(fila);
     });
 
-    //CLICK EN AÑADIR CAMPO A REPUESTO EN SOLICITU DE SERVICIO
+    //CLICK EN ELIMINAR FILA DE MANO DE OBRA EN ORDEN DE SERVICIO
+    $(document).on("click", ".btn-EliminarManoObra", function () {
+      $('#filas_tabla_manoObra tr:last').remove();
+    });
 
+
+    //CLICK EN AÑADIR FILA A REPUESTO EN SOLICITUD DE SERVICIO
     $(document).on("click", ".btn-agregarRepuestoSolicitud", function () {
-      $("#contenido_filas_repuestoSolicitud").clone().appendTo("#filas_tabla_repuestoSolicitud");
+
+      var fila = '<tr>' +
+        '<td style="width: 300px">' + '<input type="text" class="form-control" id="descripcion_repuestos1" name="descripcion_repuestos1">' + '</td>' +
+        '<td style="width: 300px">' + '<input type="text" class="form-control" id="referencia_repuestos1" name="referencia_repuestos1">' + '</td>' +
+        '<td style="width: 300px">' + '<input type="text" class="form-control" id="cantidad1" name="cantidad1">' + '</td>' +
+        '</tr>'
+        ;
+      $("#filas_tabla_repuestoSolicitud").append(fila);
     });
+
+    //CLICK EN ELIMINAR FLA A RESPUESTO EN SOLICITUD DE SERVICIO
+    $(document).on("click", ".btn-EliminarRepuestoSolicitud", function () {
+      $('#filas_tabla_repuestoSolicitud tr:last').remove();
+    });
+
+
+    /*========================================
+  ***************PROGRAMACION*****************
+    ===========================================*/
+
 
     // CARGAR DATOS EN LA TABLA DEPENDIENDO DEL SERVICIO SELECCIONADO
 
-    $(document).on("change", "#servicio", function () {
-
-      let idservicio = $(this).val()
-      let test = ""
+    let AjaxTablaProgramacion = (idservicio) => {
+      // Quitar datatable
+      $("#tablaProgramacion").dataTable().fnDestroy();
+      // Borrar datos
+      $("#tbodyProgramacion").html("");
 
       var datos = new FormData();
       datos.append("Servicios", "ok");
       datos.append("idservicio", idservicio);
-
       $.ajax({
         type: "post",
         url: "ajax/mantenimiento.ajax.php",
         data: datos,
-        dataType: "JSON",
+        // dataType: "JSON",
         cache: false,
         contentType: false,
         processData: false,
         success: function (response) {
 
-          response.forEach(element => {
+          if (response != '' || response != null) {
+            $("#tbodyProgramacion").html(response);
+          } else {
+            $("#tbodyProgramacion").html('');
+          }
 
-            test += '<tr>' +
-              '<td>' + '<div class="row d-flex flex-nowrap justify-content-center">' +
-              '<div class="col-md-6">' +
-              '<div class="btn-group" role="group" aria-label="Button group">' +
-              '<button class="btn btn-xs btn-danger btnBorrarProgramacion" idserviciovehiculo="' + element.idserviciovehiculo + '"> <i class="fas fa-trash"></i> </button>' +
-              '</div>' +
-              '</div>' +
-              '</div>' +
-              '</td>' +
-              '<td>' + element.placa + '</td>' +
-              '<td>' + element.servicio + '</td>' +
-              '<td id="idserviciovehiculok_' + element.idserviciovehiculo + '">' + element.kilometraje_cambio + '</td>' +
-              '<td id="idserviciovehiculof_' + element.idserviciovehiculo + '">' + element.fecha_cambio + '</td>'
+          /* ===================================================
+                   INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                   ===================================================*/
+          var buttons = [
+            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+          ];
+          var table = dataTableCustom(`#tablaProgramacion`, buttons);
 
-              + '</tr>';
-          });
-
-          $('#tabla').html(test);
-
-          response.forEach(element => {
-            console.log(element.fecha_cambio , ">=", moment().format("DD-MM-YYYY"));
-            var bg =
-              element.fecha_cambio >=
-                moment().format("DD-MM-YYYY")
-                ? "bg-success"
-                : "bg-danger";
-
-
-            $(`#idserviciovehiculof_${element.idserviciovehiculo}`).addClass(bg);
-
-            var bgk =
-              element.kilometraje_actual <= element.kilometraje_cambio
-                ? "bg-success"
-                : "bg-danger";
-
-
-            $(`#idserviciovehiculok_${element.idserviciovehiculo}`).addClass(bgk);
-
-
-          });
-
-
-
-        },
+        }
       });
+
+
+
+    }
+
+    //SELECCION SERVICIO
+    $(document).on("change", "#servicio", function () {
+
+      //CARGA TABLA POR AJAX 
+      let idservicio = $(this).val()
+
+      if (idservicio == 'todo') $('#btn-guardarProgra').hide();
+      else $('#btn-guardarProgra').show();
+
+      AjaxTablaProgramacion(idservicio);
 
     });
 
@@ -1187,6 +1203,7 @@ $(document).ready(function () {
     // BORRAR SERVICIO PROGRAMACIÓN
     $(document).on("click", ".btnBorrarProgramacion", function () {
       let idserviciovehiculo = $(this).attr("idserviciovehiculo");
+      let idservicio = $(this).attr("idservicio");
 
 
       Swal.fire({
@@ -1216,8 +1233,9 @@ $(document).ready(function () {
             processData: false,
             //dataType: "json",
             success: function (response) {
-              console.log(response);
+
               if (response == "ok") {
+                AjaxTablaProgramacion(idservicio);
                 Swal.fire({
                   icon: "success",
                   showConfirmButton: true,
@@ -1239,6 +1257,206 @@ $(document).ready(function () {
 
     });
 
+
+
+    // GUARDAR SERVICIO
+    $('#programacion_form').submit(function (e) {
+      e.preventDefault();
+
+      let idvehiculo = 0;
+      let kilometrajeFrm = 0;
+
+
+
+      var datosFrm = $(this).serializeArray();
+
+      datosFrm.forEach(element => {
+        if (element.name == 'idvehiculo') idvehiculo = element.value;
+        if (element.name == 'kilometraje') kilometrajeFrm = element.value;
+      });
+
+      var datos = new FormData();
+      datos.append("DatosVehiculo", "ok");
+      datos.append("item", "idvehiculo");
+      datos.append("valor", idvehiculo);
+
+      $.ajax({
+        type: "post",
+        url: `${urlPagina}ajax/vehicular.ajax.php`,
+        data: datos,
+        dataType: "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+
+          var Vehiculo = response.datosVehiculo;
+
+          //Validamos si el kilometraje ingresado en el formulario es mayor o igual al que tiene el vehículo, de ser así puede guardar, de lo contrario no puede guardar
+          if (kilometrajeFrm >= Vehiculo.kilometraje) {
+
+            //AJAX PARA GUARDAR PROGRAMACIÓN
+            var datosAjax = new FormData();
+            datosAjax.append('GuardarProgramacion', "ok")
+
+            datosFrm.forEach(element => {
+              datosAjax.append(element.name, element.value);
+            });
+
+
+            $.ajax({
+              type: 'post',
+              url: "ajax/mantenimiento.ajax.php",
+              data: datosAjax,
+              cache: false,
+              contentType: false,
+              processData: false,
+              success: function (response) {
+
+
+                if (response == "ok") {
+                  // Cargar de nuevo la tabla de servicios
+                  AjaxTablaProgramacion(1);
+                  // Reset del formulario
+                  $("#programacion_form").trigger("reset");
+                  $("#servicio").val("").trigger("change");
+                  $("#placa").val("").trigger("change");
+                  // Mensaje de éxito al usuario
+                  Swal.fire({
+                    icon: 'success',
+                    title: '¡Datos guardados correctamente!',
+                    showConfirmButton: true,
+                    confirmButtonText: 'Cerrar',
+                  })
+                } else {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Ha ocurrido un error, por favor intente de nuevo',
+                    showConfirmButton: true,
+                    confirmButtonText: 'Cerrar',
+                    closeOnConfirm: false
+                  }).then((result) => {
+
+                    if (result.value) {
+                      window.location = 'm-mantenimientos';
+                    }
+
+                  })
+                }
+              }
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Verifique el kilometraje del vehículo y vuelva a intentarlo',
+              showConfirmButton: true,
+              confirmButtonText: 'Cerrar',
+              closeOnConfirm: false
+            }).then((result) => {
+
+              if (result.value) {
+                window.location = 'm-mantenimientos';
+              }
+
+            })
+          }
+
+
+
+
+        },
+      });
+
+
+
+
+
+      datosFrm.forEach(element => {
+        if (element.name == 'kilometraje') element.value = kilometrajeFrm;
+
+      });
+
+      $.ajax({
+        type: 'post',
+        url: "ajax/mantenimiento.ajax.php",
+        data: datosAjax,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+
+
+          if (response == "ok") {
+            // Cargar de nuevo la tabla de servicios
+            AjaxTablaProgramacion(1);
+            // Reset del formulario
+            $("#programacion_form").trigger("reset");
+            // Mensaje de éxito al usuario
+            Swal.fire({
+              icon: 'success',
+              title: '¡Datos guardados correctamente!',
+              showConfirmButton: true,
+              confirmButtonText: 'Cerrar',
+            })
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Ha ocurrido un error, por favor intente de nuevo',
+              showConfirmButton: true,
+              confirmButtonText: 'Cerrar',
+              closeOnConfirm: false
+            }).then((result) => {
+
+              if (result.value) {
+                window.location = 'm-mantenimientos';
+              }
+
+            })
+          }
+        }
+      });
+
+
+
+
+
+
+    });
+
+
+
+    // CARGAR DATOS DEL VEHICULO
+    $(document).on('change', "#placa", function () {
+
+
+      let idvehiculo = $(this).val();
+
+      var datos = new FormData();
+      datos.append("DatosVehiculo", "ok");
+      datos.append("item", "idvehiculo");
+      datos.append("valor", idvehiculo);
+
+      $.ajax({
+        type: "post",
+        url: `${urlPagina}ajax/vehicular.ajax.php`,
+        data: datos,
+        dataType: "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+
+          var Vehiculo = response.datosVehiculo;
+          $('#km_repuestos').val(Vehiculo.kilometraje);
+          $('#numinterno_repuestos').val(Vehiculo.numinterno);
+          $('#modelo_repuestos').val(Vehiculo.modelo);
+          $("#clasevehiculo_repuestos").val(Vehiculo.tipovehiculo).trigger("change");
+          $('#marca_repuestos').val(Vehiculo.marca);
+        },
+      });
+
+
+    });
 
   }
 

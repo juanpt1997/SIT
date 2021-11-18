@@ -4,36 +4,13 @@
 //     echo "<script> window.location = 'inicio'; </script>";
 // }
 
-$ListaProovedores = ControladorProveedores::ctrListarProveedores();
-$Municipios = ControladorGH::ctrDeparMunicipios();
-$Repuestos = ControladorRepuestos::ctrListarRepuestos();
+///$ListaProovedores = ControladorProveedores::ctrListarProveedores();
+//$Municipios = ControladorGH::ctrDeparMunicipios();
+// $Repuestos = ControladorRepuestos::ctrListarRepuestos();
+// $Medidas = ControladorAlmacen::ctrListarMedidas();
+// $Marcas = ControladorAlmacen::ctrListarMarcas();
+// $Categorias = ControladorAlmacen::ctrListarCategorias();
 ?>
-<!-- ===================== 
- ESTILOS PARA BOTONES
-========================= -->
-<style>
-
-    .btnm {
-        width: 180px;
-        height: 60px;
-        cursor: pointer;
-        background: transparent;
-        border: 1px solid #00cc00;
-        outline: none;
-        transition: 1s ease-in-out;
-    }
-
-    .btnm:hover {
-        transition: 1s ease-in-out;
-        background: #00cc00;
-    }
-
-    .btnm span {
-        color: #66ff33;
-        font-size: 18px;
-        font-weight: 100;
-    }
-</style>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -62,22 +39,9 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
 
             <div class="card card-outline card-success">
                 <div class="card-body">
-                    <hr class="my-4">
+                    <hr class="my-4 bg-dark">
 
                     <div class="row mt-2 d-flex justify-content-center">
-                        <div class="col-lg-3 col-6">
-                            <!--PRODUCTOS-->
-                            <div class="small-box bg-warning">
-                                <div class="inner">
-                                    <h3><i class="fas fa-ellipsis-h"></i></h3>
-                                    <p><i>Productos</i></p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-shopping-basket"></i>
-                                </div>
-                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-productos">Ver <i class="far fa-eye"></i></a>
-                            </div>
-                        </div>
 
                         <div class="col-lg-3 col-6">
                             <!--PROVEEDORES-->
@@ -87,9 +51,23 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
                                     <p><i>Proveedores</i></p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fas fa-user-tag"></i>
+                                    <i class="fas fa-user-plus"></i>
                                 </div>
-                                <a href="c-proveedores" target="_blank" class="small-box-footer btn">Crear <i class="fas fa-plus-circle"></i></a>
+                                <a href="c-proveedores" target="_blank" class="small-box-footer btn">Crear <i class="fas fa-arrow-right"></i></a>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-6">
+                            <!--PRODUCTOS-->
+                            <div class="small-box bg-warning">
+                                <div class="inner">
+                                    <h3><i class="fas fa-ellipsis-h"></i></h3>
+                                    <p><i>Productos</i></p>
+                                </div>
+                                <div class="icon">
+                                    <i class="fas fa-cubes"></i>
+                                </div>
+                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-productos">Nuevo <i class="fas fa-plus-circle"></i></a>
                             </div>
                         </div>
 
@@ -101,15 +79,13 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
                                     <p><i>Órdenes de Compras</i></p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fas fa-cart-arrow-down"></i>
+                                    <i class="fas fa-shopping-cart"></i>
                                 </div>
-                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-ordencompra">Agregar <i class="fas fa-plus-circle"></i></a>
+                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-ordencompra">Nuevo <i class="fas fa-plus-circle"></i></a>
                             </div>
                         </div>
 
                     </div>
-
-                    <hr class="my-4">
 
                     <div class="row d-flex justify-content-center">
                         <div class="col-lg-3 col-6">
@@ -120,9 +96,9 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
                                     <p><i>Autorizaciones de compras</i></p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fas fa-receipt"></i>
+                                    <i class="fas fa-file-invoice-dollar"></i>
                                 </div>
-                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-autorizaciones">Ver <i class="far fa-eye"></i></a>
+                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-autorizaciones">Verificar <i class="fas fa-check"></i></a>
                             </div>
                         </div>
                         <!--INVENTARIO-->
@@ -133,9 +109,9 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
                                     <p><i>Inventario</i></p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fas fa-box-open"></i>
+                                    <i class="fas fa-clipboard-list"></i>
                                 </div>
-                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-inventario">Agregar <i class="fas fa-plus-circle"></i></a>
+                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-inventario">Modificar <i class="fas fa-plus-circle"></i></a>
                             </div>
                         </div>
 
@@ -163,161 +139,189 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
             </div>
             <div class="modal-body">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="form-group text-center">
-                                <label><i>Descripción del producto</i></label>
-                                <input type="text" class="form-control" id="descriprodcuto" name="descriprodcuto" required>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Referencia</i></label>
-                                <input type="text" class="form-control" id="refmarca" name="refmarca" required>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Marca del producto</i></label>
-                                <select class="custom-select rounded-0" id="marcaproducto" name="marcaproducto" required>
-                                    <option value="" selected>Seleccione una marca</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Medida</i></label>
-                                <select class="custom-select rounded-0" id="medida" name="medida" required>
-                                    <option value="" selected>Seleccione medida</option>
-                                    <option>1 / 2</option>
-                                    <option>1 / 4</option>
-                                    <option>3 / 4</option>
-                                    <option>Bandeja</option>
-                                    <option>Caja</option>
-                                    <option>Examen</option>
-                                    <option>Galon</option>
-                                    <option>Paca</option>
-                                    <option>Paquete</option>
-                                    <option>Talonario</option>
-                                    <option>Unidad</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Tipo de repuesto</i></label>
-                                <select class="custom-select rounded-0" id="tiporepuesto" name="tiporepuesto" required>
-                                    <option value="" selected>Seleccione un repuesto</option>
-                                    <?php foreach ($Repuestos as $key => $value) : ?>
-                                        <option value="<?= $value['idrepuesto'] ?>"><?= $value['repuesto'] ?></option>
-                                    <?php endforeach ?>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Proovedor</i></label>
-                                <select class="custom-select rounded-0" id="proovedorproductos" name="proovedorproductos" required>
-                                    <option value="" selected>Seleccione un proovedor</option>
-                                    <?php foreach ($ListaProovedores as $key => $value) : ?>
-                                        <option value="<?= $value['id'] ?>"><?= $value['razon_social'] ?></option>
-                                    <?php endforeach ?>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Ciudad</i></label>
-                                <select class="form-control input-sm select2-single input-ciudad" style="width: 99%" type="number" id="ciudad" name="ciudad" required>
-                                    <option selected value="">Seleccione una ciudad</option>
-                                    <?php foreach ($Municipios as $key => $value) : ?>
-                                        <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
-                                    <?php endforeach ?>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Cantidad</i></label>
-                                <input type="text" class="form-control" id="cantidad" name="cantidad" required>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Ultimo valor comprado</i></label>
-                                <input type="text" class="form-control" id="ultimovalor" name="ultimovalor" required>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>% de IVA</i></label>
-                                <input type="text" class="form-control" id="iva" name="iva" required>
-                            </div>
-                        </div>
-
-                        <!--|||TABLA RESUMEN DE PRODUCTOS|||-->
-                        <div class="col-12">
-                            <div class="card card-outline card-dark">
-                                <div class="card-body">
-                                    <h5 class="text-center"><i>Productos en existencia</i></h5>
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-striped text-center text-nowrap tablas">
-                                            <thead>
-                                                <tr>
-                                                    <th>Descripción del producto</th>
-                                                    <th>Referencia - Marca</th>
-                                                    <th>Marca del producto</th>
-                                                    <th>Medida</th>
-                                                    <th>Tipo de repuesto</th>
-                                                    <th>Proovedor</th>
-                                                    <th>Ciudad</th>
-                                                    <th>Cantidad</th>
-                                                    <th>Ultimo valor comprado</th>
-                                                    <th>% de IVA</th>
-                                                </tr>
-                                            </thead>
-
-                                            <!-- <tbody>
-                                                    <?php foreach ($Productos as $key => $value) : ?>
-                                                    <tr>
-                                                        <td><?= $value['descriprodcuto'] ?></td>
-                                                        <td><?= $value['refmarca'] ?></td>
-                                                        <td><?= $value['marcaproducto'] ?></td>
-                                                        <td><?= $value['medida'] ?></td>
-                                                        <td><?= $value['tiporepuesto'] ?></td>
-                                                        <td><?= $value['proovedor'] ?></td>
-                                                        <td><?= $value['ciudad'] ?></td>
-                                                        <td><?= $value['cantidad'] ?></td>
-                                                        <td><?= $value['ultimovalor'] ?></td>
-                                                        <td><?= $value['iva'] ?></td>
-                                                    </tr>
-                                                    <?php endforeach ?>
-                                                </tbody> -->
-                                        </table>
-                                    </div>
+                    <form id="formulario_producto" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Código del producto</i> <i class="fas fa-barcode"></i></label>
+                                    <input type="text" class="form-control" id="cod_producto" name="cod_producto" required>
                                 </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Referencia</i></label>
+                                    <input type="text" class="form-control" id="referencia" name="referencia" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Descripción</i></label>
+                                    <input type="text" class="form-control" id="descripcion_prod" name="descripcion_prod" placeholder="Nombre del producto / Descripción del producto" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Categoria</i></label>
+                                    <select class="custom-select rounded-0" id="categoria" name="categoria" required>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Marca</i> <i class="fas fa-copyright"></i></label>
+                                    <select class="custom-select rounded-0" id="marca" name="marca" required>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Medida</i> <i class="fas fa-tachometer-alt"></i></label>
+                                    <select class="custom-select rounded-0" id="medida" name="medida" required>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="d-flex justify-content-center">
+                        <div class="form-group">
+                            <a class="btn btn-sm bg-success btn_agregar_producto">
+                                <i class="fas fa-plus"></i> Crear producto
+                            </a>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <form id="formulario_movimiento" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Proveedor</i></label>
+                                    <select class="custom-select rounded-0 input-proveedor" id="proveedor" name="proveedor" required>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Número de factura</i></label>
+                                    <input type="text" class="form-control" id="num_factura" name="num_factura" required readonly>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Cantidad (unidades)</i></label>
+                                    <input type="text" class="form-control" id="cantidad" name="cantidad" required readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Sucursal - bodega</i></label>
+                                    <select class="form-control input-sm select2-single input-sucursal" style="width: 99%" type="number" id="sucursal" name="sucursal" required readonly>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Precio de compra (valor unitario)</i> <i class="fas fa-dollar-sign"></i></label>
+                                    <input type="text" class="form-control" id="precio-compra-producto" name="precio-compra-producto" placeholder="$" required readonly>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="d-flex justify-content-center">
+                        <div class="form-group">
+                            <a class="btn btn-sm bg-info btn_actualizar">
+                                <i class="fas fa-plus"></i> Agregar al inventario
+                            </a>
+                        </div>
+                    </div>
+                    <!--|||TABLA RESUMEN DE PRODUCTOS|||-->
+
+                    <hr class="my-4 bg-success">
+
+                    <div class="card card-outline card-success">
+                        <div class="card-header">
+                            <h5 class="mb-0">
+                                <strong><i>Inventario</i> </strong>
+                                <button type="button" class="btn btn-tool" title="Ver inventario pantalla completa" data-toggle="tooltip" data-placement="top" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped text-center text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="8">PRODUCTOS</th>
+                                            <th colspan="4">ENTRADAS</th>
+                                            <th colspan="4">SALIDAS</th>
+                                            <th colspan="3">SALDO</th>
+                                            <th colspan='1'>SUCURSALES</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Código</th>
+                                            <th>Referencia</th>
+                                            <th>Descripción</th>
+                                            <th>Categoria</th>
+                                            <th>Marca</th>
+                                            <th>Medida</th>
+                                            <th>Sucursal</th>
+                                            <th>Precio</th>
+                                            <th>Fecha de entrada</th>
+                                            <th>Cantidad (u)</th>
+                                            <th>Valor unitario</th>
+                                            <th>Valor total</th>
+                                            <th>Fecha de salida</th>
+                                            <th>Cantidad (u)</th>
+                                            <th>Valor unitario</th>
+                                            <th>Valor total</th>
+                                            <th>Cantidad (u)</th>
+                                            <th>Valor unitario</th>
+                                            <th>Total</th>
+                                            <th>Sucursal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>12314</td>
+                                            <td>optyui-12367</td>
+                                            <td>MANUBRIO</td>
+                                            <td>TALLER</td>
+                                            <td>NISAN</td>
+                                            <td>2</td>
+                                            <td>centimetros</td>
+                                            <td>Dosquebradas</td>
+                                            <td>2/02/2021</td>
+                                            <td><button class="btn btn-sm btn-success" title="Actualizar inventario" data-toggle="tooltip" data-placement="top"><i class="fas fa-redo-alt"></i></button></td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>2/02/2021</td>
+                                            <td><button class="btn btn-sm btn-success" title="Actualizar inventario" data-toggle="tooltip" data-placement="top"><i class="fas fa-redo-alt"></i></button></td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td>1</td>
+                                            <td><button class="btn btn-sm btn-primary" title="Ver sucursales" data-toggle="tooltip" data-placement="top"><i class="fas fa-map-marker-alt"></i></button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="modal-footer justify-content-center bg-dark">
-                <a class="btn btn-app bg-success">
-                    <i class="fas fa-plus"></i> Guardar
-                </a>
 
-                <a class="btn btn-app bg-danger" data-dismiss="modal">
-                    <i class="fas fa-ban"></i> Cancelar
-                </a>
             </div>
             <!-- /.modal-content -->
         </div>
@@ -336,50 +340,24 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
+
             <div class="modal-body">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
-                                <label><i>Proovedor</i></label>
-                                <select class="custom-select rounded-0" id="proovedorcompras" name="proovedorcompras" required>
-                                    <option value="" selected>Seleccione un proovedor</option>
-                                </select>
+                                <label><i>Fecha de elaboración</i></label>
+                                <input type="date" class="form-control" id="fechaelaboracion" name="fechaelaboracion">
                             </div>
                         </div>
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
-                                <label><i>CC - NIT</i></label>
-                                <select class="custom-select rounded-0" id="cconit" name="cconit" required>
-                                    <option value="" selected>Seleccione una opción</option>
-                                    <option value="">CC</option>
-                                    <option value="">NIT</option>
-                                </select>
+                                <label><i>Número de cotizacion</i></label>
+                                <input type="text" class="form-control" id="numcotizacion" name="numcotizacion" required>
                             </div>
                         </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Número de documento</i></label>
-                                <input type="text" class="form-control" id="numdocumento" name="numdocumento" placeholder="Digite numero de documento" required>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Teléfono o celular</i></label>
-                                <input type="text" class="form-control" id="telocel" name="telocel" placeholder="Digite numero de contacto" required>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Dirección</i></label>
-                                <input type="text" class="form-control" id="direccionproveedores" name="direccionproveedores" placeholder="Digite direccion" required>
-                            </div>
-                        </div>
-
+                        
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label><i>Forma de pago</i></label>
@@ -393,171 +371,68 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
-                                <label><i>Número de cotizacion</i></label>
+                                <label><i>Proovedor</i></label>
+                                <select class="custom-select rounded-0" id="proovedorcompras" name="proovedorcompras" required>
+                                    <option value="" selected>Seleccione un proovedor</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label><i>Teléfono proveedor</i></label>
                                 <input type="text" class="form-control" id="numcotizacion" name="numcotizacion" required>
                             </div>
                         </div>
 
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Elaborado por</i></label>
-                                <input type="text" class="form-control" id="elaboradopor" name="elaboradopor" required>
-                            </div>
-                        </div>
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
-                                <label><i>Placa</i></label>
-                                <select class="custom-select rounded-0" id="placaorden" name="placaorden" required>
-                                    <option value="" selected>Seleccione una placa</option>
+                                <label><i>Dirección de entrega</i></label>
+                                <input type="text" class="form-control" id="direccionproveedores" name="direccionproveedores" placeholder="Digite direccion" required>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label><i>Tipo de compra</i></label>
+                                <select class="custom-select rounded-0" id="cconit" name="cconit" required>
+                                    <option value="" selected>Seleccione una opción</option>
+                                    <option value="">Servicio</option>
+                                    <option value="">Producto</option>
                                 </select>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Número interno</i></label>
-                                <input type="text" class="form-control" id="numinternoorden" name="numinternoorden" required readonly>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Propietario</i></label>
-                                <input type="text" class="form-control" id="propietarioorden" name="propietarioorden" required readonly>
-                            </div>
-                        </div>
+                    <div class="form-group text-center">
+                        <label for="observaciones"><i>Observaciones</i></label>
+                        <textarea class="form-control" name="observaciones" id="observaciones" rows="2"></textarea>
                     </div>
 
                     <hr class="my-4 bg-dark">
-
-                    <div class="row">
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Estado</i></label>
-                                <select class="custom-select rounded-0" id="estadoorden" name="estadoorden">
-                                    <option value="" selected>Seleccione una opción</option>
-                                    <option value="">Anulada</option>
-                                    <option value="">Pendiente por pagar</option>
-                                    <option value="">Cancelada</option>
-                                    <option value="">Abierta</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Número factura proveedor</i></label>
-                                <input type="text" class="form-control" id="numfacproveedor" name="numfacproveedor">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Fecha de elaboración</i></label>
-                                <input type="date" class="form-control" id="fechaelaboracion" name="fechaelaboracion">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Fecha de vencimiento</i></label>
-                                <input type="date" class="form-control" id="fechavencimiento" name="fechavencimiento">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Fecha de cancelación</i></label>
-                                <input type="date" class="form-control" id="fechacancelacion" name="fechacancelacion">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Número comprobante de caja</i></label>
-                                <input type="text" class="form-control" id="numcomprobantecaja" name="numcomprobantecaja">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Valor total bruto</i></label>
-                                <input type="text" class="form-control" id="totalbruto" name="totalbruto">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Valor de descuento</i></label>
-                                <input type="text" class="form-control" id="valordescuento" name="valordescuento">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Valor subtotal</i></label>
-                                <input type="text" class="form-control" id="valorsubtotal" name="valorsubtotal">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>% de IVA</i></label>
-                                <input type="text" class="form-control" id="ivaorden" name="ivaorden">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Valor RTE - FTE</i></label>
-                                <input type="text" class="form-control" id="rtefte" name="rtefte">
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Valor neto</i></label>
-                                <input type="text" class="form-control" id="valorneto" name="valorneto">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row d-flex justify-content-center">
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Valor de abono</i></label>
-                                <input type="text" class="form-control" id="abono" name="abono">
-                            </div>
-                        </div>
-                    </div>
 
                     <!--|||TABLA RESUMEN DE ORDENES DE PRODUCTOS|||-->
                     <div class="col-12">
                         <div class="card card-outline card-success">
                             <div class="card-body">
-                                <h5 class="text-center"><i>Tabla resumen de Órdenes de compras</i></h5>
+                                <h5 class="text-center"><i>Órdenes de compras</i></h5>
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped text-center text-nowrap tablas">
                                         <thead>
                                             <tr>
+                                                <th>Estado</th>
                                                 <th>Proveedor</th>
-                                                <th>CC - NIT</th>
                                                 <th>Número de documento</th>
                                                 <th>Teléfono o Celular</th>
                                                 <th>Dirección</th>
                                                 <th>Forma de pago</th>
                                                 <th>Número de cotización</th>
                                                 <th>Elaborado por</th>
-                                                <th>Placa</th>
-                                                <th>Número interno</th>
-                                                <th>Propietario</th>
-                                                <th>Estado</th>
-                                                <th>Número factura de proveedor</th>
-                                                <th>Fecha de elaboracióx|n</th>
-                                                <th>Valor neto</th>
+                                                <th>Fecha de elaboración</th>
+                                                <th>Tipo de compra</th>
+                                                <th>Observaciones</th>
                                             </tr>
                                         </thead>
 
@@ -587,8 +462,10 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
+
             <div class="modal-footer justify-content-center bg-dark">
                 <a class="btn btn-app bg-success">
                     <i class="fas fa-plus"></i> Guardar
@@ -616,11 +493,7 @@ $Repuestos = ControladorRepuestos::ctrListarRepuestos();
             </div>
             <div class="modal-body">
                 <div class="card-body">
-                    <div class="row">
-                                <button class="btnm">
-                                    <span>Agregar</span>
-                                </button>
-                    </div>
+
                 </div>
             </div>
             <div class="modal-footer justify-content-center bg-dark">

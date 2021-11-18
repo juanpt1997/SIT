@@ -20,16 +20,12 @@ date_default_timezone_set('America/Bogota');
 
 # SE REQUIERE EL AUTOLOAD
 require '../vendor/autoload.php';
-
 # REQUERIMOS EL CONTROLADOR Y EL MODELO PARA HACER USO DE LA INFORMACIÓN
 require '../controllers/mantenimiento.controlador.php';
 require '../models/mantenimiento.modelo.php';
 require '../models/conceptos.modelo.php';
 require '../controllers/vehicular.controlador.php';
 require '../models/vehicular.modelo.php';
-
-
-
 $resultado = ModeloInventario::mdlListarInventario($id_inventario);
 $empresa = ModeloConceptosGH::mdlVerEmpresa();
 /* ===================== 
@@ -45,7 +41,6 @@ if ($resultado === false) {
 // Extend the TCPDF class to create custom Header and Footer
 class MYPDF extends TCPDF
 {
-
   //Page header
   public function Header()
   {
@@ -76,10 +71,8 @@ class MYPDF extends TCPDF
   }
 }
 
-
 class InventarioPDF
 {
-
   /* ===================== 
       GENERACION DE ARCHIVOS PDF DE LA PETICION DE OFERTA 
     ========================= */
@@ -107,6 +100,7 @@ class InventarioPDF
       $avconduzco = "Interno";
     }
 
+    //LLAMADOS PRINCIPALES
     $equiposonido = $usb_cd . ' - ' . ControladorInventario::TraducirEstadoInventario($info['Equipo_Sonido']);
     $parlantes = ' # ' . $info['num_parlantes'] . ' - ' . ControladorInventario::TraducirEstadoInventario($info['Parlantes']);
     $escolar = ControladorInventario::TraducirEstadoInventario($info['escolar']) . ' - ' . $escolar_;
@@ -115,8 +109,11 @@ class InventarioPDF
     $conduzco = $avconduzco . ' - ' . ControladorInventario::TraducirEstadoInventario($info['Av_Como_conduzco']);
     $placa = $info['placa'];
     $documentos = ControladorVehiculos::ctrDocumentosxVehiculoSinRepetir($info['idvehiculo']);
-    $fechamatricula = $info['fechamatricula'] == null ? "" : date("d/m/Y",strtotime($info['fechamatricula']));
+    $fechamatricula = $info['fechamatricula'] == null ? "" : date("d/m/Y", strtotime($info['fechamatricula']));
+    $evidencias = ControladorInventario::ctrListaEvidencias($info['idvehiculo']);
+    $tr = "";
 
+    //VALIDAR TIPO DE DOCUMENTOS 
     foreach ($documentos as $key => $value) {
       if ($value['tipodocumento'] == 'Tarjeta de Operacion') {
 
@@ -139,6 +136,27 @@ class InventarioPDF
       }
     }
 
+    //VALIDAR EVIDENCIAS Y LISTARLAS EN EL CUERPO DE LA TABLA 
+    foreach ($evidencias as $key => $value) {
+      //var_dump($evidencias);
+      if ($value['estado'] == 'RESUELTO') {
+
+        
+      } else {
+        $evidencia = '<img src="../' . $value['ruta_foto'] . '">';
+        $observaciones = $value['observaciones'];
+        $fecha_evidencia = $value['fecha'];
+        $estado = $value['estado'];
+        $tr .= "
+      <tr>
+        <td colspan='2' height='150'>" . $evidencia . "</td>
+        <td>" . $observaciones . "</td>
+        <td>" . $fecha_evidencia . "</td>
+        <td>" . $estado . "</td>
+      </tr>";
+      }
+    }
+    //FECHAS DE VENCIMIENTO DE LOS DOCUMENTOS
     $fechaTO = isset($fechaTO) ? $fechaTO : "";
     $fechaRM = isset($fechaRM) ? $fechaRM : "";
     $fechaE = isset($fechaE) ? $fechaE : "";
@@ -207,9 +225,9 @@ class InventarioPDF
       /* 'B' => array('width' => 0, 'color' => array(0, 0, 0), 'dash' => 0, 'cap' => 'butt'), */
       /* 'L' => array('width' => 0, 'color' => array(255, 255, 255), 'dash' => 0, 'cap' => 'butt'), */
     );
-    /* ===================================================
+    /* ==================================================
            LOGOS CABECERA
-        ===================================================*/
+    ===================================================*/
     // $image_vigilado = '../views/img/plantilla/fuec/img_vigilado.png';
     // $image_todos = '../views/img/plantilla/fuec/img_todos.png';
     // $image_ponal = '../views/img/plantilla/fuec/img_ponal.png';
@@ -292,20 +310,26 @@ class InventarioPDF
     $pdf->MultiCell(120, 5, $info['fecha_inventario'], 0, 'L', 0, 0, '', '', true);
     $pdf->Ln(4);
     $pdf->Ln(4);
-    /* ===================================================
-           DOCUMENTOS
-    ===================================================*/
-    // $documentos = '';
-    // $pdf->SetFont('helvetica', '', '8');
-    // $pdf->writeHTML($documentos);
 
+    //CONDUCTOR / SITUACION 
+    $pdf->SetFont('helvetica', 'B', '8');
+    $pdf->MultiCell(30, 5, "Conductor:", 0, 'L', 0, 0, '', '', true);
+    $pdf->SetFont('helvetica', '', '8');
+    $pdf->MultiCell(100, 5, $info['conductor'], 0, 'L', 0, 0, '', '', true);
+    //$pdf->Ln();
+    $pdf->SetFont('helvetica', 'B', '8');
+    $pdf->MultiCell(20, 5, "Situación:", 0, 'L', 0, 0, '', '', true);
+    $pdf->SetFont('helvetica', '', '8');
+    $pdf->MultiCell(40, 5,  ControladorInventario::TraducirEstadoInventario($info['recepcion_entrega_vehiculo']), 0, 'L', 0, 0, '', '', true);
+    $pdf->Ln();
+    $pdf->Ln();
 
     /* ===================================================
            INVENTARIO PRINCIPAL
     ===================================================*/
     //TABLA
     $tabla =
-    '<table cellspacing="0" cellpadding="5" border="1">
+      '<table cellspacing="0" cellpadding="5" border="1">
       <tbody>
 
         <tr>
@@ -319,42 +343,42 @@ class InventarioPDF
         <td colspan="6">Techo Exterior</td>
         <td colspan="5" style="text-align: center;">' . ControladorInventario::TraducirEstadoInventario($info['Techo_exterior']) . '</td>
         <td colspan="6">Tarjeta de propiedad</td>
-        <td colspan="4" style="text-align: center;">'. $fechamatricula .'</td>
+        <td colspan="4" style="text-align: center;">' . $fechamatricula . '</td>
         </tr>
 
         <tr>
         <td colspan="6">Techo interior</td>
         <td colspan="5" style="text-align: center;">' . ControladorInventario::TraducirEstadoInventario($info['Techo_interior']) . '</td>
         <td colspan="6">Tarjeta de operación</td>
-        <td colspan="4" style="text-align: center;">'. $fechaTO .'</td>
+        <td colspan="4" style="text-align: center;">' . $fechaTO . '</td>
         </tr>
 
         <tr>
         <td colspan="6">Frente</td>
         <td colspan="5" style="text-align: center;">' . ControladorInventario::TraducirEstadoInventario($info['Frente']) . '</td>
         <td colspan="6">Seguro Obligatorio (SOAT)</td>
-        <td colspan="4" style="text-align: center;">'. $fechaS .'</td>
+        <td colspan="4" style="text-align: center;">' . $fechaS . '</td>
         </tr>
 
         <tr>
         <td colspan="6">Bomper delantero</td>
         <td colspan="5" style="text-align: center;">' . ControladorInventario::TraducirEstadoInventario($info['Bomper_delantero']) . '</td>
         <td colspan="6">Revisión técnico mecánica</td>
-        <td colspan="4" style="text-align: center;">'. $fechaRM .'</td>
+        <td colspan="4" style="text-align: center;">' . $fechaRM . '</td>
         </tr>
 
         <tr>
         <td colspan="6">Bomper trasero</td>
         <td colspan="5" style="text-align: center;">' . ControladorInventario::TraducirEstadoInventario($info['Bomper_trasero']) . '</td>
         <td colspan="6">Póliza contractual</td>
-        <td colspan="4" style="text-align: center;">'. $fechaP .'</td>
+        <td colspan="4" style="text-align: center;">' . $fechaP . '</td>
         </tr>
 
         <tr>
         <td colspan="6">Lateral derecho</td>
         <td colspan="5" style="text-align: center;">' . ControladorInventario::TraducirEstadoInventario($info['Lateral_derecho']) . '</td>
         <td colspan="6">Póliza extracontractual</td>
-        <td colspan="4" style="text-align: center;">'. $fechaP .'</td>
+        <td colspan="4" style="text-align: center;">' . $fechaP . '</td>
         </tr>
 
         <tr>
@@ -368,7 +392,7 @@ class InventarioPDF
         <td colspan="6">Puerta derecha</td>
         <td colspan="5" style="text-align: center;">' . ControladorInventario::TraducirEstadoInventario($info['puerta_derecha']) . '</td>
         <td colspan="6">Extintor Tipo: ABC</td>
-        <td colspan="4" style="text-align: center;">'. $fechaE .'</td>
+        <td colspan="4" style="text-align: center;">' . $fechaE . '</td>
         </tr>
 
         <tr>
@@ -655,38 +679,35 @@ class InventarioPDF
     $pdf->SetFont('helvetica', '', '8');
     $pdf->writeHTML($tabla);
     /* ---------------------------------------------------------
-    | | | | CONDUCTOR E/R OBSERVACIONES
+    | | | | EVIDENCIAS
     ==========================================================*/
-    #conductor recibe 
-    $conductor_r_e =
-      $pdf->SetFont('helvetica', 'B', '8');
-    $pdf->MultiCell(25, 5, "Conductor:", 0, 'L', 0, 0, '', '', true);
-    $pdf->SetFont('helvetica', '', '8');
-    $pdf->MultiCell(120, 5, $info['conductor'], 0, 'L', 0, 0, '', '', true);
+    $pdf->SetFont('helvetica', 'B', '12');
+    $pdf->Cell(0, 0, "EVIDENCIAS", 0, 0, 'C', 0, '', 0);
+    $pdf->Ln();
     $pdf->Ln();
 
-    $pdf->SetFont('helvetica', 'B', '8');
-    $pdf->MultiCell(25, 5, "Situación:", 0, 'L', 0, 0, '', '', true);
-    $pdf->SetFont('helvetica', '', '8');
-    $pdf->MultiCell(120, 5,  ControladorInventario::TraducirEstadoInventario($info['recepcion_entrega_vehiculo']), 0, 'L', 0, 0, '', '', true);
-    $pdf->Ln();
-    #Observaciones
-    $pdf->SetFont('helvetica', 'B', '8');
-    $pdf->MultiCell(25, 5, "Observaciones:", 0, 'L', 0, 0, '', '', true);
-    $pdf->SetFont('helvetica', '', '8');
-    $pdf->MultiCell(120, 5, '', 0, 'L', 0, 0, '', '', true);
-    $pdf->Ln();
+    $tabla2 = '<table cellspacing="0" cellpadding="5" border="1" class="table text-center">
+                <thead>
+                  <tr>
+                    <th style="text-align: center;"><strong>Evidencias</strong></th>
+                    <th style="text-align: center;"><strong>Observaciones</strong></th>
+                    <th style="text-align: center;"><strong>Fecha</strong></th>
+                    <th style="text-align: center;"><strong>Estado</strong></th>
+                  </tr>
+                </thead>
+                <tbody> ' . $tr . ' </tbody>          
+              </table>';
 
+    $pdf->SetFont('helvetica', '', '8');
+    $pdf->writeHTML($tabla2);
 
     // Close and output PDF document
     // This method has several options, check the source code documentation for more information.
-    $pdf->Output('Inventario'.$placa , 'I');
-
+    $pdf->Output('Inventario' . $placa, 'I');
     //============================================================+
     // END OF FILE
     //============================================================+
   }
 }
-
 # SE INSTANCIA LA CLASE PARA LA GENERACION DEL ARCHIVO PDF
 InventarioPDF::makePDF($resultado, $empresa);

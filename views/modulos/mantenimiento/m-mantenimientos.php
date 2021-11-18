@@ -92,6 +92,9 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
 
                                         </div>
                                         <div class="col-lg-9 col-sm-12">
+                                            <!-- ==============================================================================================
+                                                *********************************** ORDEN DE SERVICIO MANTENIMIENTO ***************************
+                                            ==================================================================================================== -->
                                             <div class="tab-content" id="v-pills-tabContent">
                                                 <!-- DATOS GENERALES -->
                                                 <div class="tab-pane fade show active " id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab">
@@ -232,7 +235,7 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                                     <th>Proveedor</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody id="filas_tabla_repuesto">
+                                                            <tbody id="tbody_repuesto">
                                                                 <tr id="contenido_filas_repuesto">
                                                                     <td style="width: 200px"> <input type="text" class="form-control" id="descripcion" name="descripcion1"></td>
                                                                     <td><input type="text" class="form-control" id="cantidad" name="cantidad"></td>
@@ -243,10 +246,10 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                    <button type="button" class="btn btn-primary btn-md btn-agregarRepuesto mb-3" data-toggle="modal" data-target="#EmpresasModal">
+                                                    <button type="button" class="btn btn-primary btn-md btn-agregarRepuesto mb-3" >
                                                         <i class="fas fa-plus"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-danger btn-md btn-EliminarRepuesto mb-3" data-toggle="modal" data-target="#EmpresasModal">
+                                                    <button type="button" class="btn btn-danger btn-md btn-EliminarRepuesto mb-3" >
                                                         <i class="fas fa-times"></i>
                                                     </button>
                                                 </div>
@@ -270,8 +273,11 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                             </table>
                                                         </div>
                                                     </div>
-                                                    <button type="button" class="btn btn-primary btn-md btn-agregarManoObra mb-3" data-toggle="modal" data-target="#EmpresasModal">
+                                                    <button type="button" class="btn btn-primary btn-md btn-agregarManoObra mb-3" ">
                                                         <i class="fas fa-plus"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-danger btn-md btn-EliminarManoObra mb-3" ">
+                                                        <i class="fas fa-times"></i>
                                                     </button>
                                                 </div>
                                                 <!-- OBSERVACIONES -->
@@ -327,6 +333,9 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                         </div>
 
                                     </div>
+                                    <!-- =====================================
+                                        ************BOTONES *****************
+                                    ========================================== -->
                                     <div class="row d-flex justify-content-center">
                                         <div class="col-md-6">
                                             <div class="btn-group w-100">
@@ -345,244 +354,249 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                 </div>
 
                                 <!-- ===================================================
-                                      MENU COLAPSABLES SOLICITUD DE SERVICIOS
+                                      SOLICITUD DE SERVICIO REPUESTOS 
                                     =================================================== -->
                                 <div class="tab-pane fade" id="custom-tabs-one-solicitudserv_exter_repues" role="tabpanel" aria-labelledby="custom-tabs-one-solicitudserv_exter_repues-tab">
                                     <div class="row">
-                                        <div class="col-12 col-sm-6 col-lg-4">
-                                            <div class="form-group text-center">
-                                                <label><i>Número interno</i></label>
-                                                <input type="text" class="form-control" id="numinterno_repuestos" name="numinterno_repuestos" required>
-                                            </div>
-                                        </div>
+                                        <div class="col-lg-3 col-sm-6">
+                                            <nav class="navbar navbar-expand-lg">
+                                                <button class="navbar-toggler navbar-light bg-light" type="button" data-toggle="collapse" data-target="#ContenidoOrdenServicio" aria-controls="ContenidoOrdenServicio" aria-expanded="false" aria-label="Toggle navigation">
+                                                    <span class="navbar-toggler-icon "></span>
+                                                </button>
 
-                                        <div class="col-12 col-sm-6 col-lg-4">
-                                            <div class="form-group text-center">
-                                                <label><i>Marca</i></label>
-                                                <input type="text" class="form-control" id="marca_repuestos" name="marca_repuestos" required readonly>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 col-sm-6 col-lg-4">
-                                            <div class="form-group text-center">
-                                                <label><i>Clase de vehículo</i></label>
-                                                <input type="text" class="form-control" id="clasevehiculo_repuestos" name="clasevehiculo_repuestos" required readonly>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 col-sm-6 col-lg-4">
-                                            <div class="form-group text-center">
-                                                <label><i>Número de orden</i></label>
-                                                <input type="text" class="form-control" id="numorden_repuestos" name="numorden_repuestos" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 col-sm-6 col-lg-4">
-                                            <div class="form-group text-center">
-                                                <label><i>Placa</i></label>
-                                                <input type="text" class="form-control" id="placa_repuestos" name="placa_repuestos" required readonly>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 col-sm-6 col-lg-4">
-                                            <div class="form-group text-center">
-                                                <label><i>Modelo</i></label>
-                                                <input type="text" class="form-control" id="modelo_repuestos" name="modelo_repuestos" required readonly>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 col-sm-6 col-lg-4">
-                                            <div class="form-group text-center">
-                                                <label><i>Kilometraje</i></label>
-                                                <input type="text" class="form-control" id="km_repuestos" name="km_repuestos" required readonly>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 col-sm-6 col-lg-4">
-                                            <div class="form-group text-center">
-                                                <label><i>Fecha</i></label>
-                                                <input type="date" class="form-control" id="fecha_repuestos" name="fecha_repuestos" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12 col-sm-6 col-lg-4">
-                                            <div class="form-group text-center">
-                                                <label><i>Solicitado por</i></label>
-                                                <input type="text" class="form-control" id="solicitud_repuestos" name="solicitud_repuestos" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr class="my-4">
-
-                                    <div class="row ">
-                                        <div class="col-lg-2 col-sm-12 text-center">
-                                            <h4><i><b>Servicios:</b></i></h4>
-                                        </div>
-
-                                        <div class="col-lg-2 col-sm-12 ">
-                                            <div class="custom-control custom-checkbox">
-                                                <input class="custom-control-input" type="checkbox" id="check_externo">
-                                                <label for="check_externo" class="custom-control-label">Externo</label>
-                                            </div>
-
-
-                                            <div class="custom-control custom-checkbox">
-                                                <input class="custom-control-input" type="checkbox" id="check_repuestos">
-                                                <label for="check_repuestos" class="custom-control-label">Repuestos</label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-lg-7 col-sm-12 justify-content-center">
-                                            <div class="card card-outline card-info">
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input class="custom-control-input" type="checkbox" id="check_montallant">
-                                                                <label for="check_montallant" class="custom-control-label">Montallantas</label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input class="custom-control-input" type="checkbox" id="check_lubricacion">
-                                                                <label for="check_lubricacion" class="custom-control-label">Lubricación</label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input class="custom-control-input" type="checkbox" id="check_lampintu">
-                                                                <label for="check_lampintu" class="custom-control-label">Lámina y pintura</label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input class="custom-control-input" type="checkbox" id="check_elec">
-                                                                <label for="check_elec" class="custom-control-label">Eléctrico</label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input class="custom-control-input" type="checkbox" id="check_alinbalan">
-                                                                <label for="check_alinbalan" class="custom-control-label">Alineación y balanceo</label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input class="custom-control-input" type="checkbox" id="check_frenos">
-                                                                <label for="check_frenos" class="custom-control-label">Frenos</label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input class="custom-control-input" type="checkbox" id="check_muellsuspen">
-                                                                <label for="check_muellsuspen" class="custom-control-label">Muelles y suspensión</label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input class="custom-control-input" type="checkbox" id="check_vidrios">
-                                                                <label for="check_vidrios" class="custom-control-label">Vidrios</label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input class="custom-control-input" type="checkbox" id="check_radio">
-                                                                <label for="check_radio" class="custom-control-label">Radio</label>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input class="custom-control-input" type="checkbox" id="check_otro">
-                                                                <label for="check_otro" class="custom-control-label">Otro</label>
-                                                            </div>
-                                                        </div>
+                                                <div class="collapse navbar-collapse" id="ContenidoOrdenServicio">
+                                                    <div class=" nav navbar-expand-lg flex-column nav-pills " id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                                        <a class="nav-link active" id="v-pills-generalSolicitud-tab" data-toggle="pill" href="#v-pills-generalSolicitud" role="tab" aria-controls="v-pills-generalSolicitud" aria-selected="true">Datos generales</a>
+                                                        <a class="nav-link" id="v-pills-Externo-tab" data-toggle="pill" href="#v-pills-Externo" role="tab" aria-controls="v-pills-Externo" aria-selected="false">Servicio externo</a>
+                                                        <a class="nav-link" id="v-pills-repuestoSolicitud-tab" data-toggle="pill" href="#v-pills-repuestoSolicitud" role="tab" aria-controls="v-pills-repuestoSolicitud" aria-selected="false">Repuestos</a>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <hr class="my-4">
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-sm-12">
-                                            <div id="accordion">
-                                                <div class="card card-info">
-                                                    <div class="card-header text-center">
-                                                        <h4 class="card-title w-100">
-                                                            <a class="d-block w-100" data-toggle="collapse" href="#collapsediagonostico">
-                                                                Diagnóstico
-                                                            </a>
-                                                        </h4>
-                                                    </div>
-
-                                                    <div id="collapsediagonostico" class="collapse" data-parent="#accordion">
-                                                        <div class="card-body">
-                                                            <div class="form-group">
-                                                                <textarea class="form-control" rows="10" placeholder="Digite su diagnostico ..."></textarea>
-                                                            </div>
-                                                        </div>
-                                                        <!-- /.card -->
-                                                    </div>
-                                                </div>
-                                            </div> <!-- /.row -->
+                                            </nav>
                                         </div>
 
                                         <div class="col-lg-9 col-sm-12">
-                                            <div id="accordion">
-                                                <div class="card card-info">
-                                                    <div class="card-header text-center">
-                                                        <h4 class="card-title w-100">
-                                                            <a class="d-block w-100" data-toggle="collapse" href="#collapserepuestos">
-                                                                Repuestos
-                                                            </a>
-                                                        </h4>
-                                                    </div>
-
-                                                    <div id="collapserepuestos" class="collapse" data-parent="#accordion">
-                                                        <div class="card-body">
-                                                            <div class="table-responsive">
-                                                                <table class="table table table-responsive table-bordered table-striped text-center">
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th style="width: 500px">DESCRIPCIÓN</th>
-                                                                            <th>REFERENCIA</th>
-                                                                            <th>CANTIDAD</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody id="filas_tabla_repuestoSolicitud">
-                                                                        <tr id="contenido_filas_repuestoSolicitud">
-                                                                            <td style="width: 300px"> <input type="text" class="form-control" id="descripcion_repuestos1" name="descripcion_repuestos1"></td>
-                                                                            <td style="width: 300px"> <input type="text" class="form-control" id="referencia_repuestos1" name="referencia_repuestos1"></td>
-                                                                            <td style="width: 300px"> <input type="text" class="form-control" id="proveedor1" name="proveedor1"></td>
-                                                                        </tr>
-                                                                    </tbody>
-                                                                </table>
+                                            <div class="tab-content" id="v-pills-tabContent">
+                                                <!-- DATOS GENERALES -->
+                                                <div class="tab-pane fade show active " id="v-pills-generalSolicitud" role="tabpanel" aria-labelledby="v-pills-generalSolicitud-tab">
+                                                    <div class="row">
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group text-center">
+                                                                <label><i>Número de orden</i></label>
+                                                                <input type="text" class="form-control" id="num_orden" name="num_orden" required>
                                                             </div>
-                                                            <button type="button" class="btn btn-primary btn-md btn-agregarRepuestoSolicitud mb-3" data-toggle="modal" data-target="#EmpresasModal">
-                                                                <i class="fas fa-plus"></i>
-                                                            </button>
                                                         </div>
-                                                        <!-- /.card -->
+
+                                                        <div class="col">
+                                                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                                                <label><i>Placa</i></label>
+                                                                <select id="placa_repuestos" name="idvehiculo_repuestos" class="form-control select2-single" type="number" style="width: 99%" required>
+                                                                    <option selected value="">Seleccione un vehículo</option>
+                                                                    <?php foreach ($Placas as $key => $value) : ?>
+                                                                        <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> </option>
+                                                                    <?php endforeach ?>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group text-center">
+                                                                <label><i>Número interno</i></label>
+                                                                <input type="text" class="form-control" id="numinterno_repuestos" name="numinterno_repuestos" required readonly>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group text-center">
+                                                                <label><i>Marca</i></label>
+                                                                <input type="text" class="form-control" id="marca_repuestos" name="marca_repuestos" required readonly>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group text-center">
+                                                                <label><i>Clase de vehículo</i></label>
+                                                                <input type="text" class="form-control" id="clasevehiculo_repuestos" name="clasevehiculo_repuestos" required readonly>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group text-center">
+                                                                <label><i>Modelo</i></label>
+                                                                <input type="text" class="form-control" id="modelo_repuestos" name="modelo_repuestos" required readonly>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group text-center">
+                                                                <label><i>Kilometraje</i></label>
+                                                                <input type="text" class="form-control" id="km_repuestos" name="km_repuestos" required readonly>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group text-center">
+                                                                <label><i>Fecha</i></label>
+                                                                <input type="date" class="form-control" id="fecha_repuestos" name="fecha_repuestos" required>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                            <div class="form-group text-center">
+                                                                <label><i>Solicitado por</i></label>
+                                                                <input type="text" class="form-control" id="solicitud_repuestos" name="solicitud_repuestos" required>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div> <!-- /.row -->
+
+                                                <!-- EXTERNO -->
+                                                <div class="tab-pane fade" id="v-pills-Externo" role="tabpanel" aria-labelledby="v-pills-Externo-tab">
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-sm-12 justify-content-center">
+                                                            <div class="card card-outline card-info">
+                                                                <div class="card-body">
+                                                                    <div class="row">
+                                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                                            <div class="custom-control custom-checkbox">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_montallant" name="montallantas_repuestos">
+                                                                                <label for="check_montallant" class="custom-control-label">Montallantas</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                                            <div class="custom-control custom-checkbox">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_lubricacion" name="lubricacion_repuestos">
+                                                                                <label for="check_lubricacion" class="custom-control-label">Lubricación</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                                            <div class="custom-control custom-checkbox">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_lampintu" name="lamina_repuestos">
+                                                                                <label for="check_lampintu" class="custom-control-label">Lámina y pintura</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                                            <div class="custom-control custom-checkbox">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_elec" name="electrico_repuestos">
+                                                                                <label for="check_elec" class="custom-control-label">Eléctrico</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                                            <div class="custom-control custom-checkbox">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_alinbalan" name="alineacion_repuestos">
+                                                                                <label for="check_alinbalan" class="custom-control-label">Alineación y balanceo</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                                            <div class="custom-control custom-checkbox">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_frenos" name="frenos_repuestos">
+                                                                                <label for="check_frenos" class="custom-control-label">Frenos</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                                            <div class="custom-control custom-checkbox">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_muellsuspen" name="muelles_repuestos">
+                                                                                <label for="check_muellsuspen" class="custom-control-label">Muelles y suspensión</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                                            <div class="custom-control custom-checkbox">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_vidrios" name="vidrios_repuestos">
+                                                                                <label for="check_vidrios" class="custom-control-label">Vidrios</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                                            <div class="custom-control custom-checkbox">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_radio" name="radio_repuestos">
+                                                                                <label for="check_radio" class="custom-control-label">Radio</label>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-12 col-sm-6 col-lg-4">
+                                                                            <div class="custom-control custom-checkbox">
+                                                                                <input class="custom-control-input" type="checkbox" id="check_otro" name="otro_repuestos">
+                                                                                <label for="check_otro" class="custom-control-label">Otro</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- REPUESTO -->
+                                                <div class="tab-pane fade" id="v-pills-repuestoSolicitud" role="tabpanel" aria-labelledby="v-pills-repuestoSolicitud-tab">
+                                                    <div class="row d-flex justify-content-center">
+                                                        <div class="card card-info" id="">
+                                                            <div class="card-header">
+                                                                <h3 class="card-title"><b><i>Repuesto</i></b>
+                                                                    <i class="fas fa-car-alt"></i>
+                                                                </h3>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <div class="table-responsive">
+                                                                    <table class="table table table-responsive table-bordered table-striped text-center">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th style="width: 500px">DESCRIPCIÓN</th>
+                                                                                <th>REFERENCIA</th>
+                                                                                <th>CANTIDAD</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody id="filas_tabla_repuestoSolicitud">
+                                                                            <tr id="contenido_filas_repuestoSolicitud">
+                                                                                <td style="width: 300px"> <input type="text" class="form-control" id="descripcion_repuestos1" name="descripcion_repuestos1"></td>
+                                                                                <td style="width: 300px"> <input type="text" class="form-control" id="referencia_repuestos1" name="referencia_repuestos1"></td>
+                                                                                <td style="width: 300px"> <input type="text" class="form-control" id="proveedor1" name="proveedor1"></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                                <button type="button" class="btn btn-primary btn-md btn-agregarRepuestoSolicitud mb-3" data-toggle="modal" data-target="#EmpresasModal">
+                                                                    <i class="fas fa-plus"></i>
+                                                                </button>
+                                                                <button type="button" class="btn btn-danger btn-md btn-EliminarRepuestoSolicitud mb-3" data-toggle="modal" data-target="#EmpresasModal">
+                                                                    <i class="fas fa-times"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
+                                    <hr class="my-4">
 
-                                    <hr class="my-4 bg-dark">
-
+                            
                                     <div class="row d-flex justify-content-center">
                                         <div class="col-lg-6 col-sm-12">
+                                            <div class="card card-info collapsed-card" id="card-servicio">
+                                                <div class="card-header">
+                                                    <h3 class="card-title"><b><i>Diagnóstico</i></b>
+                                                        <i class="fas fa-search"></i>
+                                                    </h3>
+                                                    <div class="card-tools">
+                                                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                            <i class="fas fa-plus"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body" style="display: none;">
+                                                    <div class="form-group">
+                                                        <textarea class="form-control" rows="5" placeholder="Digite su diagnostico ..." name="observacion_repuesto"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
                                                     <span class="input-group-text">Recibido por:</span>
@@ -611,7 +625,9 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                     </div>
                                 </div><!-- /.container-fluid -->
 
-                                <!-- PROGRAMACIÓN -->
+                                <!-- ====================================================
+                                            PROGRAMACIÓN
+                                    =====================================================-->
                                 <div class="tab-pane fade" id="custom-tabs-one-programacion" role="tabpanel" aria-labelledby="custom-tabs-one-programacion-tab">
                                     <form id="programacion_form" method="post" enctype="multipart/form-data">
                                         <input type="hidden" id="idserviciovehiculo" name="idserviciovehiculo" value="">
@@ -629,6 +645,7 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                                 <label><i>Servicio</i></label>
                                                                 <select type="text" class="form-control select2-single" id="servicio" name="idservicio" required>
                                                                     <option value="" selected>Seleccione un servicio</option>
+                                                                    <option value="todo">Todos los servicios</option>
                                                                     <?php foreach ($Servicios as $key => $value) : ?>
                                                                         <option value="<?= $value['idservicio'] ?>"><?= $value['servicio'] ?></option>
                                                                     <?php endforeach ?>
@@ -644,7 +661,7 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                         <div class="col">
                                                             <div class="form-group text-center col-12 col-sm-6 col-lg-12">
                                                                 <label><i>Placa</i></label>
-                                                                <select id="placa" name="idvehiculo" class="form-control select2-single" type="number" style="width: 99%" required>
+                                                                <select id="placa" name="idvehiculo_serv" class="form-control select2-single" type="number" style="width: 99%" required>
                                                                     <option selected value="">Seleccione un vehículo</option>
                                                                     <?php foreach ($Placas as $key => $value) : ?>
                                                                         <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> </option>
@@ -656,7 +673,7 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                         <div class="col">
                                                             <div class="form-group text-center col-12 col-sm-6 col-lg-12">
                                                                 <label><i>Kilometraje actual</i></label>
-                                                                <input type="text" class="form-control" id="kilometraje" name="kilometraje" required>
+                                                                <input type="text" class="form-control" id="kilometraje_serv" name="kilometraje_serv" required>
                                                             </div>
                                                         </div>
 
@@ -671,7 +688,7 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                     </div>
                                                     <?php if (validarPermiso('M_OPCIONES', 'U')) : ?>
                                                         <div class="col-12 mb-1">
-                                                            <button type="submit" form="programacion_form" class="btn btn-sm btn-success float-center">
+                                                            <button type="submit" form="programacion_form" id="btn-guardarProgra" class="btn btn-sm btn-success float-center">
                                                                 <i class="fas fa-print"></i>
                                                                 Guardar
                                                             </button>
@@ -680,12 +697,7 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                     <?php endif ?>
 
 
-                                                    <?php
 
-                                                    $addser = new ControladorMantenimientos();
-                                                    $addser->ctrGuardarServicio();
-
-                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -697,15 +709,16 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                             <div class="card-body">
                                                 <h5 class="text-center"><i>Vehiculos</i></h5>
                                                 <div class="table-responsive">
-                                                    <table class="table table-sm table-striped table-bordered dt-responsive text-center table-hover tablasBtnExport w-100" nombre="Sistema potencia">
+                                                    <table id="tablaProgramacion" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
                                                         <thead class="text-nowrap">
                                                             <th>...</th>
                                                             <th>Placa</th>
                                                             <th>Servicio</th>
+                                                            <th>Kilometraje actual</th>
                                                             <th>Kilometraje para cambio</th>
                                                             <th>Fecha para cambio</th>
                                                         </thead>
-                                                        <tbody id="tabla" class="text-nowrap">
+                                                        <tbody id="tbodyProgramacion" class="text-nowrap">
 
 
                                                         </tbody>

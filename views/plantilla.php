@@ -176,7 +176,8 @@ if (isset($_GET['pagina'])) {
                         $ruta == "cg-gestion-humana" ||
                         $ruta == "cg-vehicular" ||
                         $ruta == "cg-mantenimiento" ||
-                        $ruta == "cg-seguridad"
+                        $ruta == "cg-seguridad" ||
+                        $ruta == "cg-almacen"
                     ) {
                         include "modulos/conceptos_generales/{$ruta}.php";
                     } else if (
@@ -251,6 +252,7 @@ if (isset($_GET['pagina'])) {
 <script src="<?= URL_APP ?>views/js/mantenimiento.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/operaciones.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/compras.js?v=<?= time() ?>"></script>
+<script src="<?= URL_APP ?>views/js/almacen.js?v=<?= time() ?>"></script>
 
 
 </html>

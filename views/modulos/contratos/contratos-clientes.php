@@ -62,6 +62,7 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                                             <th>Teléfono</th>
                                             <th>Tipo</th>
                                             <th>Nombre del responsable</th>
+                                            <th>Correo</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-sm text-center">
@@ -97,6 +98,7 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                                                 <td><?= $value['telefono2'] ?></td>
                                                 <td><?= $value['tipo_docrespons'] ?></td>
                                                 <td><?= $value['nombrerespons'] ?></td>
+                                                <td><?= $value['correo'] ?></td>
                                             </tr>
                                         <?php endforeach ?>
                                     </tbody>
@@ -200,9 +202,10 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                             <div class="form-group">
                                 <label class="text-sm">Teléfono 2</label>
                                 <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" id="telclient2" name="telclient2" placeholder="Ingrese un segundo teléfono" maxlength="10" required>
+                                    <input class="form-control input-clientes" type="text" id="telclient2" name="telclient2" placeholder="Ingrese un segundo teléfono" maxlength="10">
                                 </div>
                             </div>
+
                         </div><!-- col-2-->
                     </div><!-- row-->
 
@@ -264,7 +267,15 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                                     <input class="form-control input-clientes" type="text" id="docum_respo" name="docum_respo" placeholder="Documento del responsable" maxlength="15" required>
                                 </div>
                             </div>
+
+
                         </div><!-- col-2-->
+                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                            <label class="text-sm">Correo electrónico</label>
+                            <div class="input-group input-group-sm">
+                                <input class="form-control input-clientes" type="email" id="correo" name="correo" placeholder="Ejemplo@gmail.com" maxlength="100" required>
+                            </div>
+                        </div>
                     </div><!-- row-2-->
                 </div><!-- fin modal-body-->
 

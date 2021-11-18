@@ -120,13 +120,13 @@ class AjaxInventario
 
             /* Permiso de usuario */
             //if (validarPermiso('M_OPERACIONES', 'U')) {
-                $estado = '<button class="btn btn-sm btn-estado btn-' . $colorEstado . ' font-weight-bold" idevidencia="' . $value["idevidencia"] . '" idvehiculo="' . $idvehiculo . '" estado="' . $value["estado"] . '"><i class="' . $iconoEstado . '"></i> ' . $value["estado"] . '</button>';
+            $estado = '<button class="btn btn-sm btn-estado btn-' . $colorEstado . ' font-weight-bold" idevidencia="' . $value["idevidencia"] . '" idvehiculo="' . $idvehiculo . '" estado="' . $value["estado"] . '"><i class="' . $iconoEstado . '"></i> ' . $value["estado"] . '</button>';
             //} else {
             //    $estado = '<button class="btn btn-sm btn-' . $colorEstado . ' font-weight-bold"><i class="' . $iconoEstado . '"></i> ' . $value["estado"] . '</button>';
             //}
 
             //<td>" . $value['autor'] . "</td>
-            
+
             $tr .= "
             <tr>
             <td>" . $value['fecha'] . "</td>
@@ -167,30 +167,84 @@ class AjaxRevision
         echo json_encode($respuesta);
     }
 
-    static public function ajaxEliminarRevision($idrevision){
+    static public function ajaxEliminarRevision($idrevision)
+    {
         $respuesta = ControladorRevision::ctrEliminarRevision($idrevision);
         echo $respuesta;
     }
 }
 
-class AjaxMantenimientos{
+class AjaxMantenimientos
+{
 
     /* ===================================================
-        LISTADO DE LOS SERVICIOS RECIENTES POR ID SERVICIO    
+        TABLA SERVICIOS PROGRAMACIÓN     
     ===================================================*/
     static public function ajaxServiciosMenores($idservicio)
-    {
-        $respuesta = ModeloMantenimientos::mdlServiciosRecientes($idservicio);
-        echo json_encode($respuesta);
+    {   
+
+        if($idservicio != 'todo'){
+            $respuesta = ModeloMantenimientos::mdlServiciosRecientes($idservicio);
+        }else{
+            $respuesta = ModeloMantenimientos::mdlServicios();
+        }
+
+        $tr = "";
+        foreach ($respuesta as $key => $value) {
+            if (validarPermiso('M_OPCIONES', 'D')) {
+                $btnEliminarProgra = "<button type='button' class='btn btn-xs btn-danger btnBorrarProgramacion' idservicio='{$value['idservicio']}' idserviciovehiculo='{$value['idserviciovehiculo']}'><i class='fas fa-trash-alt'></i></button>";
+            }
+
+            $fecha_Actual = date('Y-m-d'); 
+            
+
+            if($fecha_Actual < $value['fecha_comparar'] ){
+               $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
+            }
+            else{
+                $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
+            }
+
+            if($value['kilometraje_actual'] >= $value['kilometraje_cambio']){
+                $kilometraje = "<td class='bg-danger'>". $value['kilometraje_cambio'] .  "</td>";
+            }
+            else{
+                $kilometraje = "<td class='bg-success'>". $value['kilometraje_cambio'] .  "</td>";
+            }
+
+            $tr .= "
+            <tr>
+                <td>$btnEliminarProgra</td>
+                <td>" . $value['placa'] . "</td>
+                <td>" . $value['servicio']. " </td>
+                <td>". $value['kilometraje_actual'] ."</td>
+                $kilometraje
+                $fecha
+                    
+            </tr>
+            ";
+        }
+
+
+        echo $tr;
     }
 
     /* ===================================================
-        ELIMINAR PROGRAMACIÓN SERVICIO    
+        ELIMINAR SERVICIO [PROGRAMACIÓN]
     ===================================================*/
 
     static public function ajaxEliminarProgramacion($idserviciovehiculo)
     {
         $respuesta = ModeloMantenimientos::mdlEliminarProgramacion($idserviciovehiculo);
+        echo $respuesta;
+    }
+
+    /* ===================================================
+        GUARDAR SERVICIO [PROGRAMACIÓN]    
+    ===================================================*/
+    static public function ajaxGuardarProgramacion($datos)
+    {
+        $respuesta = ControladorMantenimientos::ctrAgregarProgramacion($datos);
         echo $respuesta;
     }
 }
@@ -218,7 +272,7 @@ if (isset($_POST['FotosVehiculos']) && $_POST['FotosVehiculos'] == "ok") {
 }
 
 if (isset($_POST['EliminarInventario']) && $_POST['EliminarInventario'] == "ok") {
-	AjaxInventario::ajaxEliminarInventario($_POST['idvehiculo']);
+    AjaxInventario::ajaxEliminarInventario($_POST['idvehiculo']);
 }
 
 
@@ -228,16 +282,26 @@ if (isset($_POST['EliminarInventario']) && $_POST['EliminarInventario'] == "ok")
 
 #Llamo a datos vehiculos para tecnomecánica
 
-if(isset($_POST['DatosVehiculo']) && $_POST['DatosVehiculo'] == "ok") AjaxRevision::ajaxDatosVehiculo($_POST['idvehiculo']);
+if (isset($_POST['DatosVehiculo']) && $_POST['DatosVehiculo'] == "ok") AjaxRevision::ajaxDatosVehiculo($_POST['idvehiculo']);
 
 #Llamado de los datos de la revison tecnicomecánica
-if(isset($_POST['DatosRevision']) && $_POST['DatosRevision'] == "ok") AjaxRevision::ajaxDatosRevision($_POST['idrevision']);
+if (isset($_POST['DatosRevision']) && $_POST['DatosRevision'] == "ok") AjaxRevision::ajaxDatosRevision($_POST['idrevision']);
 
 #Llamado a borrar revision tecnicomecánica
-if(isset($_POST['EliminarRevision']) && $_POST['EliminarRevision'] == "ok") AjaxRevision::ajaxEliminarRevision($_POST['idrevision']);
+if (isset($_POST['EliminarRevision']) && $_POST['EliminarRevision'] == "ok") AjaxRevision::ajaxEliminarRevision($_POST['idrevision']);
+
+
+
+/* ===================================================
+    PROGRAMACIÓN
+===================================================*/
+
 
 #LLAMADO A SERVICIOS MENORES MÁS RECIENTES
-if(isset($_POST['Servicios']) && $_POST['Servicios'] == "ok") AjaxMantenimientos::ajaxServiciosMenores($_POST['idservicio']);
+if (isset($_POST['Servicios']) && $_POST['Servicios'] == "ok") AjaxMantenimientos::ajaxServiciosMenores($_POST['idservicio']);
 
 #LLAMADO A ELIMINAR PROGRAMACIÓN 
-if(isset($_POST['EliminarProgramacion']) && $_POST['EliminarProgramacion'] == "ok") AjaxMantenimientos::ajaxEliminarProgramacion($_POST['idserviciovehiculo']);
+if (isset($_POST['EliminarProgramacion']) && $_POST['EliminarProgramacion'] == "ok") AjaxMantenimientos::ajaxEliminarProgramacion($_POST['idserviciovehiculo']);
+
+#LLAMADO A GUARDAR PROGRAMACIÓN 
+if (isset($_POST['GuardarProgramacion']) && $_POST['GuardarProgramacion'] == "ok") AjaxMantenimientos::ajaxGuardarProgramacion($_POST);

@@ -54,7 +54,28 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                             <th>Dirección</th>
                                             <th>Teléfono 1</th>
                                             <th>Teléfono 2</th>
-                                            <th>Orden de servicio</th>
+                                            <th>Nombre del contacto</th>
+                                            <th>Número del contrato</th>
+                                            <th>Número de la factura</th>
+                                            <th>Fecha de facturación</th>
+                                            <th>Código de autorización</th>
+                                            <th>Fecha de inicio</th>
+                                            <th>Fecha final</th>
+                                            <th>Origen</th>
+                                            <th>Destino</th>
+                                            <th>Hora inicio</th>
+                                            <th>Hora final</th>
+                                            <th>Valor a facturar</th>
+                                            <th>Ruta</th>
+                                            <th>Música</th>
+                                            <th>Bodega</th>
+                                            <th>Baño</th>
+                                            <th>Wi-fi</th>
+                                            <th>Aire acondicionado</th>
+                                            <th>Silleteria reclinable</th>
+                                            <th>Viaje ocasional</th>
+                                            <th>Cancelada</th>
+                                            <th>PDF orden de servicio</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-sm">
@@ -71,6 +92,27 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                                 <td><?= $value['direccion_con'] ?></td>
                                                 <td><?= $value['tel_1'] ?></td>
                                                 <td><?= $value['tel_2'] ?></td>
+                                                <td><?= $value['nombre_respo'] ?></td>
+                                                <td><?= $value['nro_contrato'] ?></td>
+                                                <td><?= $value['nro_factura'] ?></td>
+                                                <td><?= $value['fecha_facturacion'] ?></td>
+                                                <td><?= $value['cod_autoriz'] ?></td>
+                                                <td><?= $value['fecha_inicio'] ?></td>
+                                                <td><?= $value['fecha_fin'] ?></td>
+                                                <td><?= $value['origen'] ?></td>
+                                                <td><?= $value['destino'] ?></td>
+                                                <td><?= $value['hora_salida'] ?></td>
+                                                <td><?= $value['hora_recogida'] ?></td>
+                                                <td><?= $value['valortotal'] ?></td>
+                                                <td><?= $value['descripcion'] ?></td>
+                                                <td><?= $value['musica'] ?></td>
+                                                <td><?= $value['bodega'] ?></td>
+                                                <td><?= $value['bano'] ?></td>
+                                                <td><?= $value['wifi'] ?></td>
+                                                <td><?= $value['aire'] ?></td>
+                                                <td><?= $value['silleriareclinable'] ?></td>
+                                                <td><?= $value['viaje_ocasional'] ?></td>
+                                                <td><?= $value['cancelada'] ?></td>
                                                 <td class="text-center">
                                                     <div class="btn-group" role="group" aria-label="Button group">
                                                         <button class="btn btn-toolbar btn-sm btn-secondary btn-verorden float-right" idorden="<?= $value['idorden'] ?>"><i class="fas fa-book"></i></button>
@@ -195,6 +237,20 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                     <hr class="my-4 bg-dark">
 
                     <div class="row">
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="text-sm">Viaje ocasional</label>
+                                <div class="input-group input-group-sm">
+                                    <select class="form-control" id="viaje_ocasional" name="viaje_ocasional">                                        
+                                        <option value="" selected><strong>Seleccione un tipo de viaje</strong></option>
+                                        <option value="Propio">Propio</option>
+                                        <option value="Afiliado">Afiliado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="text-sm">Fecha de inicio</label>

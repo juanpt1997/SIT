@@ -41,6 +41,7 @@ if (
                     $("#ciudadcliente").val(response.idciudad);
                     $("#expedicion").val(response.cedula_expedidaen);
                     $("#docum_respo").val(response.Documentorespons);
+                    $("#correo").val(response.correo);
                     $(".select2-single").trigger("change"); //MUESTRA EL VALOR DEL SELECT
                 },
             });
@@ -597,6 +598,7 @@ if (
                 $("#f_facturacion").val(response.fecha_facturacion);
                 $("#cancelacion").val(response.cancelada);
                 $("#cod_autorizacion").val(response.cod_autoriz);
+                $("#viaje_ocasional").val(response.viaje_ocasional);
                 $(".select2-single").trigger("change"); //MUESTRA EL VALOR DEL SELECT
             },
         });

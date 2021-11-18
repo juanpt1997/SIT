@@ -14,13 +14,16 @@ class ControladorClientes
 
     static public function ctrAgregarEditar()
     {
+
+        
+
+
         if (isset($_POST['docum_empre'])) {
 
             $datosBusqueda = array(
                 'item' => 'Documento',
                 'valor' => $_POST['docum_empre']
             );
-            $ClienteExistente = ModeloClientes::mdlVerCliente($datosBusqueda);
 
             $datos = array(
                 'idcliente' => $_POST['idcliente'],
@@ -36,8 +39,12 @@ class ControladorClientes
                 'expedicion' => $_POST['expedicion'],
                 'nom_respo' => $_POST['nom_respo'],
                 'ciudadresponsable' => $_POST['ciudadresponsable'],
+                'correo' => $_POST['correo'],
                 'tipo' => "CLIENTE"
             );
+
+            $ClienteExistente = ModeloClientes::mdlVerClienteid($datosBusqueda);
+            
 
             if (is_array($ClienteExistente) && $ClienteExistente['idcliente'] != $_POST['idcliente']) {
                 echo "
@@ -60,6 +67,7 @@ class ControladorClientes
                 return;
             } else {
                 if ($_POST['idcliente'] == '') {
+                    
                     $responseModel = ModeloClientes::mdlAgregarCliente($datos);
                 } else {
                     $responseModel = ModeloClientes::mdlEditarCliente($datos);
@@ -104,6 +112,11 @@ class ControladorClientes
 					";
             }
         }
+
+
+
+
+
     }
 
     static public function ctrActualizarCampo($id)
@@ -496,7 +509,8 @@ class ControladorOrdenServicio
                 'nro_factura' => $_POST['numfacturaorden'],
                 'fecha_facturacion' => $_POST['f_facturacion'],
                 'cancelada' => $_POST['cancelacion'],
-                'cod_autoriz' => $_POST['cod_autorizacion']
+                'cod_autoriz' => $_POST['cod_autorizacion'],
+                'viaje_ocasional' => $_POST['viaje_ocasional']
             );
 
             if ($_POST['idorden'] == '') {

@@ -34,7 +34,7 @@ class ModeloAlistamiento
             $parametro = "AND DATE_FORMAT(fechaalista, '%Y-%m-%d') = CURDATE()";
         }
 
-        $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.numinterno, a.* FROM o_alistamiento a
+        $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.numinterno, a.*, DATE_FORMAT(a.fechaalista, '%Y-%m-%d') as Ffechaalista FROM o_alistamiento a
                                                 INNER JOIN v_vehiculos v ON v.idvehiculo = a.idvehiculo
                                                 LEFT JOIN gh_personal p ON p.idPersonal = a.idconductor
                                                 WHERE a.{$datos['item']} = :{$datos['item']} $parametro;");
@@ -54,7 +54,7 @@ class ModeloAlistamiento
         $stmt = $conexion->prepare("INSERT INTO `o_alistamiento`(
                                     `idvehiculo`,
                                     `idconductor`,
-                                    /* `fechaalista`, */
+                                    `fechaalista`,
                                     `lucesbajas`,
                                     `lucesaltas`,
                                     `lucesreversa`,
@@ -137,7 +137,7 @@ class ModeloAlistamiento
                                     VALUES (
                                     :idvehiculo,
                                     :idconductor,
-                                    /* curdate(), */
+                                    :fechaalista,
                                     :lucesbajas,
                                     :lucesaltas,
                                     :lucesreversa,
@@ -221,6 +221,7 @@ class ModeloAlistamiento
 
         $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
         $stmt->bindParam(":idconductor", $datos['idconductor'], PDO::PARAM_INT);
+        $stmt->bindParam(":fechaalista", $datos['fechaAlistamiento'], PDO::PARAM_STR);
         $stmt->bindParam(":lucesbajas", $datos['lucesbajas'], PDO::PARAM_INT);
         $stmt->bindParam(":lucesaltas", $datos['lucesaltas'], PDO::PARAM_INT);
         $stmt->bindParam(":lucesreversa", $datos['lucesreversa'], PDO::PARAM_INT);
@@ -321,6 +322,7 @@ class ModeloAlistamiento
         $stmt = $conexion->prepare("UPDATE `o_alistamiento` SET 
             `idvehiculo`=:idvehiculo,
             `idconductor`=:idconductor,
+            `fechaalista`=:fechaalista,
             `lucesbajas`=:lucesbajas,
             `lucesaltas`=:lucesaltas,
             `lucesreversa`=:lucesreversa,
@@ -405,6 +407,7 @@ class ModeloAlistamiento
         $stmt->bindParam(":id", $datos['id'], PDO::PARAM_INT);
         $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
         $stmt->bindParam(":idconductor", $datos['idconductor'], PDO::PARAM_INT);
+        $stmt->bindParam(":fechaalista", $datos['fechaAlistamiento'], PDO::PARAM_STR);
         $stmt->bindParam(":lucesbajas", $datos['lucesbajas'], PDO::PARAM_INT);
         $stmt->bindParam(":lucesaltas", $datos['lucesaltas'], PDO::PARAM_INT);
         $stmt->bindParam(":lucesreversa", $datos['lucesreversa'], PDO::PARAM_INT);

@@ -99,7 +99,7 @@
                                     <!-- /.info-box -->
                                 </div>
 
-                                <div class="col-12 col-sm-12 col-md-6 text-nowrap">
+                                <!-- <div class="col-12 col-sm-12 col-md-6 text-nowrap">
                                     <div class="info-box border border-secondary">
                                         <span class="info-box-icon bg-success elevation-1"><i class="fas fa-dolly-flatbed"></i></span>
                                         <div class="info-box-content">
@@ -107,7 +107,7 @@
                                             <span class="info-box-number" concepto="Repuestos"></span>
                                         </div>
                                         <!-- /.info-box-content -->
-                                        <div class="d-flex flex-column">
+                                        <!-- <div class="d-flex flex-column">
                                             <button concepto="Repuestos" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarM"><i class="far fa-eye"></i></button>
                                             <button concepto="Repuestos" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarM"><i class="fas fa-plus-circle"></i></button>
                                         </div>
@@ -115,9 +115,9 @@
                                         <div class="overlay d-none" concepto="Repuestos">
                                             <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <!-- /.info-box -->
-                                </div>
+                                <!-- </div> --> 
 
                                 <div class="col-12 col-sm-12 col-md-6 text-nowrap">
                                     <div class="info-box border border-secondary">
