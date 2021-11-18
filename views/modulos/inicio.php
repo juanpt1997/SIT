@@ -27,7 +27,6 @@
           background-repeat: no-repeat;
           background-size: cover;
           display: grid;
-          place-items: center;
       }
 
       .parallax2 {
@@ -40,7 +39,6 @@
           background-repeat: no-repeat;
           background-size: cover;
           display: grid;
-          place-items: center;
       }
 
       .parallax3 {
@@ -53,7 +51,6 @@
           background-repeat: no-repeat;
           background-size: cover;
           display: grid;
-          place-items: center;
       }
   </style>
   <!-- =================================================== CONTENT =================================================== -->
