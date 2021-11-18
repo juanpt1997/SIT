@@ -644,12 +644,25 @@ class ControladorRevision
 
 class ControladorMantenimientos
 {
+
+	/* ===================================================
+		LISTADO DE PRODUCTOS
+	===================================================*/
+	
+	static public function ctrListadoProductos()
+	{
+		$respuesta = ModeloMantenimientos::mdlListadoProductos();
+		return $respuesta;
+	}
+
+
 	/* ===================================================
 		AGREGAR SERVICIO PROGRAMACIÓN 
 	===================================================*/
 
 	static public function ctrAgregarProgramacion($datos)
 	{
+		
 		$respuesta = ModeloMantenimientos::mdlAgregarServicio($datos);
 
 		/* ===================================================
@@ -660,9 +673,9 @@ class ControladorMantenimientos
         $datoskm = array(
             'tabla' => $tabla,
             'item1' => 'kilometraje',
-            'valor1' => $datos['kilometraje'],
+            'valor1' => $datos['kilometraje_serv'],
             'item2' => 'idvehiculo',
-            'valor2' => $datos['idvehiculo']
+            'valor2' => $datos['idvehiculo_serv']
         );
 
         $respuestakm = ModeloVehiculos::mdlActualizarVehiculo($datoskm);

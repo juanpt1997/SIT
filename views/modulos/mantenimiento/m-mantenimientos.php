@@ -6,7 +6,7 @@
 
 $Placas = ControladorVehiculos::ctrListaVehiculos();
 $Servicios = ControladorVehiculos::ctrListadoServicios();
-
+$Productos = ControladorMantenimientos::ctrListadoProductos();
 ?>
 <!-- ===================== 
   MODELO PARA LA IMPLEMENTARCION EN EL DISEÑO DE LOS MODULOS
@@ -46,11 +46,11 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                         <div class="card-header p-0 pt-1">
                             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                                 <li class="nav-item">
-                                    <!-- TABS HORIZONTALES-->
-                                    <a class="nav-link active" id="custom-tabs-one-ordenserv_mante-tab" data-toggle="pill" href="#custom-tabs-one-ordenserv_mante" role="tab" aria-controls="custom-tabs-one-ordenserv_mante" aria-selected="true">Orden de servicio / Mantenimiento</a>
+                                    <a class="nav-link active" id="custom-tabs-one-solicitudserv_exter_repues-tab" data-toggle="pill" href="#custom-tabs-one-solicitudserv_exter_repues" role="tab" aria-controls="custom-tabs-one-solicitudserv_exter_repues" aria-selected="false">Solicitud de servicio / Repuestos</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" id="custom-tabs-one-solicitudserv_exter_repues-tab" data-toggle="pill" href="#custom-tabs-one-solicitudserv_exter_repues" role="tab" aria-controls="custom-tabs-one-solicitudserv_exter_repues" aria-selected="false">Solicitud de servicio / Repuestos</a>
+                                    <!-- TABS HORIZONTALES-->
+                                    <a class="nav-link " id="custom-tabs-one-ordenserv_mante-tab" data-toggle="pill" href="#custom-tabs-one-ordenserv_mante" role="tab" aria-controls="custom-tabs-one-ordenserv_mante" aria-selected="true">Orden de servicio / Mantenimiento</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-one-programacion-tab" data-toggle="pill" href="#custom-tabs-one-programacion" role="tab" aria-controls="custom-tabs-one-programacion" aria-selected="false">Programación</a>
@@ -63,7 +63,7 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                 <!-- ==============================================
                                     TAB ORDEN SERVICIO 
                                 ==================================================-->
-                                <div class="tab-pane fade active show" id="custom-tabs-one-ordenserv_mante" role="tabpanel" aria-labelledby="custom-tabs-one-ordenserv_mante-tab">
+                                <div class="tab-pane fade" id="custom-tabs-one-ordenserv_mante" role="tabpanel" aria-labelledby="custom-tabs-one-ordenserv_mante-tab">
                                     <div class="row">
                                         <div class="col-lg-3 col-sm-6">
                                             <!-- ================================================
@@ -246,10 +246,10 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                    <button type="button" class="btn btn-primary btn-md btn-agregarRepuesto mb-3" >
+                                                    <button type="button" class="btn btn-primary btn-md btn-agregarRepuesto mb-3">
                                                         <i class="fas fa-plus"></i>
                                                     </button>
-                                                    <button type="button" class="btn btn-danger btn-md btn-EliminarRepuesto mb-3" >
+                                                    <button type="button" class="btn btn-danger btn-md btn-EliminarRepuesto mb-3">
                                                         <i class="fas fa-times"></i>
                                                     </button>
                                                 </div>
@@ -274,10 +274,10 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                         </div>
                                                     </div>
                                                     <button type="button" class="btn btn-primary btn-md btn-agregarManoObra mb-3" ">
-                                                        <i class="fas fa-plus"></i>
+                                                        <i class=" fas fa-plus"></i>
                                                     </button>
                                                     <button type="button" class="btn btn-danger btn-md btn-EliminarManoObra mb-3" ">
-                                                        <i class="fas fa-times"></i>
+                                                        <i class=" fas fa-times"></i>
                                                     </button>
                                                 </div>
                                                 <!-- OBSERVACIONES -->
@@ -356,7 +356,7 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                 <!-- ===================================================
                                       SOLICITUD DE SERVICIO REPUESTOS 
                                     =================================================== -->
-                                <div class="tab-pane fade" id="custom-tabs-one-solicitudserv_exter_repues" role="tabpanel" aria-labelledby="custom-tabs-one-solicitudserv_exter_repues-tab">
+                                <div class="tab-pane fade active show" id="custom-tabs-one-solicitudserv_exter_repues" role="tabpanel" aria-labelledby="custom-tabs-one-solicitudserv_exter_repues-tab">
                                     <div class="row">
                                         <div class="col-lg-3 col-sm-6">
                                             <nav class="navbar navbar-expand-lg">
@@ -382,7 +382,7 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                             <div class="form-group text-center">
                                                                 <label><i>Número de orden</i></label>
-                                                                <input type="text" class="form-control" id="num_orden" name="num_orden" required>
+                                                                <input type="text" class="form-control" id="num_orden" name="num_orden" readonly required>
                                                             </div>
                                                         </div>
 
@@ -442,12 +442,7 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-12 col-sm-6 col-lg-4">
-                                                            <div class="form-group text-center">
-                                                                <label><i>Solicitado por</i></label>
-                                                                <input type="text" class="form-control" id="solicitud_repuestos" name="solicitud_repuestos" required>
-                                                            </div>
-                                                        </div>
+                                                        
                                                     </div>
                                                 </div>
 
@@ -548,24 +543,35 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                                                     <table class="table table table-responsive table-bordered table-striped text-center">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th style="width: 500px">DESCRIPCIÓN</th>
+                                                                                <th style="width: 500px">REPUESTO</th>
                                                                                 <th>REFERENCIA</th>
+                                                                                <th>CÓDIGO</th>
                                                                                 <th>CANTIDAD</th>
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody id="filas_tabla_repuestoSolicitud">
                                                                             <tr id="contenido_filas_repuestoSolicitud">
-                                                                                <td style="width: 300px"> <input type="text" class="form-control" id="descripcion_repuestos1" name="descripcion_repuestos1"></td>
-                                                                                <td style="width: 300px"> <input type="text" class="form-control" id="referencia_repuestos1" name="referencia_repuestos1"></td>
-                                                                                <td style="width: 300px"> <input type="text" class="form-control" id="proveedor1" name="proveedor1"></td>
+                                                                                <td style="width: 300px">
+
+                                                                                    <div class="input-group">
+                                                                                        <input class="form-control" type="text" id="repuesto_1" name="repuesto[]" placeholder="Seleccione un repuesto" readonly>
+                                                                                        <div class="input-group-append">
+                                                                                            <button type="button" class="btn btn-success btn-md btn-repuestos" consecutivo="1" title="lista repuestos" data-toggle="modal" data-target="#modal-repuestos"><i class="fas fa-business-time"></i></button>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </td>
+                                                                                <td style="width: 300px"> <input type="text" class="form-control" id="refrepuestos_1" name="referencia_repuesto[]" readonly></td>
+                                                                                <td style="width: 300px"> <input type="text" class="form-control" id="codrepuestos_1" name="codigo_repuesto[]" readonly></td>
+                                                                                <td style="width: 300px"> <input type="text" class="form-control" id="cantrepuestos_1" name="cantidad_repuesto[]"></td>
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
-                                                                <button type="button" class="btn btn-primary btn-md btn-agregarRepuestoSolicitud mb-3" data-toggle="modal" data-target="#EmpresasModal">
+                                                                <button type="button" class="btn btn-primary btn-md btn-agregarRepuestoSolicitud mb-3">
                                                                     <i class="fas fa-plus"></i>
                                                                 </button>
-                                                                <button type="button" class="btn btn-danger btn-md btn-EliminarRepuestoSolicitud mb-3" data-toggle="modal" data-target="#EmpresasModal">
+                                                                <button type="button" class="btn btn-danger btn-md btn-EliminarRepuestoSolicitud mb-3">
                                                                     <i class="fas fa-times"></i>
                                                                 </button>
                                                             </div>
@@ -577,7 +583,7 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                     </div>
                                     <hr class="my-4">
 
-                            
+
                                     <div class="row d-flex justify-content-center">
                                         <div class="col-lg-6 col-sm-12">
                                             <div class="card card-info collapsed-card" id="card-servicio">
@@ -599,7 +605,7 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
                                             </div>
                                             <div class="input-group">
                                                 <div class="input-group-prepend">
-                                                    <span class="input-group-text">Recibido por:</span>
+                                                    <span class="input-group-text">Solicitado por:</span>
                                                 </div>
                                                 <input type="text" class="form-control">
                                             </div>
@@ -741,4 +747,49 @@ $Servicios = ControladorVehiculos::ctrListadoServicios();
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+</div>
+
+
+<!-- ==============================
+    Modal para selecionar repuesto 
+==================================-->
+
+<div class="modal fade show" id="modal-repuestos" aria-modal="true" role="dialog">
+
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h4 class="modal-title">Lista de repuestos</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="card card-outline ">
+                <div class="card-body">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table id="tablaRepuesto" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                                <thead class="text-nowrap">
+                                    <th>Código</th>
+                                    <th>Referencia</th>
+                                    <th>Descripción</th>
+                                    <th>Categoría</th>
+                                    <th>Marca</th>
+                                    <th>Medida</th>
+                                    <th>Selección</th>
+                                </thead>
+                                <tbody id="tBodyRepuesto" class="text-nowrap">
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+
 </div>
