@@ -293,10 +293,10 @@ $(document).ready(function () {
             // DATOS FORMULARIO
             var datosFrm = $(this).serializeArray();
             datosFrm.forEach((element) => {
+                datosAjax.append(element.name, element.value);
                 if (element.name == 'idvehiculo') idvehiculo = element.value;
                 if (element.name == 'kilometraje_total') kilometrajeFrm = element.value;
             });
-
 
             var datos = new FormData();
             datos.append("DatosVehiculo", "ok");
@@ -539,6 +539,7 @@ $(document).ready(function () {
                         // $("#sincronizacion").val(response.sincronizacion);
                         // $("#alineacion_balanceo").val(response.alineacion_balanceo);
 
+                        $("#fechaAlistamiento").val(response.Ffechaalista);
                         $("#kmtotal").val(response.kilometraje_total);
                         $("#observaciones").val(response.observaciones);
                     }
