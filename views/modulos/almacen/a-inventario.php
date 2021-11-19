@@ -141,6 +141,9 @@
                 <div class="card-body">
                     <form id="formulario_producto" method="post" enctype="multipart/form-data">
                         <div class="row">
+
+                            <input type="hidden" id="id_producto" name="id_producto" value="">
+
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label><i>Código del producto</i> <i class="fas fa-barcode"></i></label>
@@ -151,38 +154,54 @@
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label><i>Referencia</i></label>
-                                    <input type="text" class="form-control" id="referencia" name="referencia" required>
+                                    <input type="number" class="form-control input_producto" id="referencia" name="referencia" required>
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label><i>Descripción</i></label>
-                                    <input type="text" class="form-control" id="descripcion_prod" name="descripcion_prod" placeholder="Nombre del producto / Descripción del producto" required>
+                                    <input type="text" class="form-control input_producto" id="descripcion_prod" name="descripcion_prod" placeholder="Nombre del producto / Descripción del producto" required>
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label><i>Categoria</i></label>
-                                    <select class="custom-select rounded-0" id="categoria" name="categoria" required>
-                                    </select>
+                                    <div class="input-group">
+                                        <select class="custom-select rounded-0 input_producto" id="categoria" name="categoria" required>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-warning btn-md btn-ruta" title="Crear nueva categoria" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label><i>Marca</i> <i class="fas fa-copyright"></i></label>
-                                    <select class="custom-select rounded-0" id="marca" name="marca" required>
-                                    </select>
+                                    <div class="input-group">
+                                        <select class="custom-select rounded-0 input_producto" id="marca" name="marca" required>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-warning btn-md btn-ruta" title="Crear nueva marca" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label><i>Medida</i> <i class="fas fa-tachometer-alt"></i></label>
-                                    <select class="custom-select rounded-0" id="medida" name="medida" required>
-                                    </select>
+                                    <div class="input-group">
+                                        <select class="custom-select rounded-0 input_producto" id="medida" name="medida" required>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-warning btn-md btn-ruta" title="Crear nueva medida" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -190,41 +209,54 @@
 
                     <div class="d-flex justify-content-center">
                         <div class="form-group">
-                            <a class="btn btn-sm bg-success btn_agregar_producto">
-                                <i class="fas fa-plus"></i> Crear producto
-                            </a>
+                            <button type="submit" class="btn btn-sm btn-success btn-block btn_agregarProducto" form="formulario_producto"><i class="fas fa-plus"></i> Crear producto</button>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="button" class="btn btn-sm btn-info btn-block btn_actualizarProducto mb-2 mr-2 d-none" form="formulario_producto"><i class="fas fa-sync-alt"></i> Actualizar producto</button>
+
+                            <button type="button" class="btn btn-sm btn-success btn-block btn_nuevaReferencia mb-2 mr-2 d-none" form="formulario_producto"><i class="fas fa-plus"></i> Crear nueva referencia</button>
                         </div>
                     </div>
 
                     <hr>
 
-                    <form id="formulario_movimiento" method="post" enctype="multipart/form-data">
+                    <form id="formulario_addInventario" method="post" enctype="multipart/form-data">
                         <div class="row">
+
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
-                                    <label><i>Proveedor</i></label>
-                                    <select class="custom-select rounded-0 input-proveedor" id="proveedor" name="proveedor" required>
+                                    <label><i>Productos</i></label>
+                                    <select class="form-control input-sm select2-single" style="width: 99%" type="text" id="producto" name="producto" required>
                                     </select>
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
-                                    <label><i>Número de factura</i></label>
-                                    <input type="text" class="form-control" id="num_factura" name="num_factura" required readonly>
+                                    <label><i>Proveedor</i></label>
+                                    <select class="custom-select rounded-0" id="proveedor" name="proveedor" required>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Número de factura producto</i></label>
+                                    <input type="text" class="form-control input_inventario" id="num_factura" name="num_factura" required readonly>
                                 </div>
                             </div>
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label><i>Cantidad (unidades)</i></label>
-                                    <input type="text" class="form-control" id="cantidad" name="cantidad" required readonly>
+                                    <input type="text" class="form-control input_inventario" id="cantidad" name="cantidad" required readonly>
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label><i>Sucursal - bodega</i></label>
-                                    <select class="form-control input-sm select2-single input-sucursal" style="width: 99%" type="number" id="sucursal" name="sucursal" required readonly>
+                                    <select class="form-control input-sm select2-single" style="width: 99%" type="number" id="sucursal" name="sucursal" required>
                                     </select>
                                 </div>
                             </div>
@@ -232,7 +264,7 @@
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label><i>Precio de compra (valor unitario)</i> <i class="fas fa-dollar-sign"></i></label>
-                                    <input type="text" class="form-control" id="precio-compra-producto" name="precio-compra-producto" placeholder="$" required readonly>
+                                    <input type="text" class="form-control input_inventario" id="precio-compra-producto" name="precio-compra-producto" placeholder="$" required readonly>
                                 </div>
                             </div>
                         </div>
@@ -240,9 +272,7 @@
 
                     <div class="d-flex justify-content-center">
                         <div class="form-group">
-                            <a class="btn btn-sm bg-info btn_actualizar">
-                                <i class="fas fa-plus"></i> Agregar al inventario
-                            </a>
+                            <button type="submit" class="btn btn-sm btn-info btn-block" form="formulario_addInventario"><i class="fas fa-plus"></i> Agregar al inventario</button>
                         </div>
                     </div>
                     <!--|||TABLA RESUMEN DE PRODUCTOS|||-->
@@ -357,7 +387,7 @@
                                 <input type="text" class="form-control" id="numcotizacion" name="numcotizacion" required>
                             </div>
                         </div>
-                        
+
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label><i>Forma de pago</i></label>
