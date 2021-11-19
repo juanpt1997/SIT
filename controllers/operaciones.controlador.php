@@ -116,12 +116,12 @@ class ControladorAlistamiento
         $datos['temperatura'] = isset($datos['temperatura']) ? $datos['temperatura'] : null;
         $datos['combustible'] = isset($datos['combustible']) ? $datos['combustible'] : null;
         $datos['presion_aire'] = isset($datos['presion_aire']) ? $datos['presion_aire'] : null;
-        $datos['cambio_aceite'] = $datos['cambio_aceite'] != "" ? $datos['cambio_aceite'] : null;
-        $datos['engrase'] = $datos['engrase'] != "" ? $datos['engrase'] : null;
-        $datos['sincronizacion'] = $datos['sincronizacion'] != "" ? $datos['sincronizacion'] : null;
-        $datos['filtro_aire'] = $datos['filtro_aire'] != "" ? $datos['filtro_aire'] : null;
-        $datos['rotacion_llantas'] = $datos['rotacion_llantas'] != "" ? $datos['rotacion_llantas'] : null;
-        $datos['alineacion_balanceo'] = $datos['alineacion_balanceo'] != "" ? $datos['alineacion_balanceo'] : null;
+        // $datos['cambio_aceite'] = $datos['cambio_aceite'] != "" ? $datos['cambio_aceite'] : null;
+        // $datos['engrase'] = $datos['engrase'] != "" ? $datos['engrase'] : null;
+        // $datos['sincronizacion'] = $datos['sincronizacion'] != "" ? $datos['sincronizacion'] : null;
+        // $datos['filtro_aire'] = $datos['filtro_aire'] != "" ? $datos['filtro_aire'] : null;
+        // $datos['rotacion_llantas'] = $datos['rotacion_llantas'] != "" ? $datos['rotacion_llantas'] : null;
+        // $datos['alineacion_balanceo'] = $datos['alineacion_balanceo'] != "" ? $datos['alineacion_balanceo'] : null;
         $datos['llantas_delanteras'] = isset($datos['llantas_delanteras']) ? $datos['llantas_delanteras'] : null;
         $datos['llantas_traseras'] = isset($datos['llantas_traseras']) ? $datos['llantas_traseras'] : null;
         $datos['cortes'] = isset($datos['cortes']) ? $datos['cortes'] : null;

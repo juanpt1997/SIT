@@ -57,7 +57,7 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                                             <th>Telefono</th>
                                             <th>Dirección</th>
                                             <th>Ciudad</th>
-                                            <th>Estado</th>
+                                            <th style="width:120px;">Estado</th>
                                             <th>Documento del responsable</th>
                                             <th>Teléfono</th>
                                             <th>Tipo</th>
@@ -65,7 +65,7 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                                             <th>Correo</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="text-sm">
+                                    <tbody class="text-sm text-center">
                                         <?php foreach ($ListarClientes as $key => $value) : ?>
 
                                             <?php
