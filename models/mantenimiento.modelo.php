@@ -1621,6 +1621,44 @@ class ModeloMantenimientos
 {
 
     /* ===================================================
+        AGREGAR SOLICITUD DE SERVICIO    
+    ===================================================*/
+
+    static public function mdlAgregarSolicitud($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_solicitudservicio(idvehiculo,fecha,idservicio_externo, idrepuesto, cantidad) VALUES(:idvehiculo,:fecha,:idservicio_externo, :idrepuesto, :cantidad)");
+        $stmt->bindParam(":idvehiculo", $datos['idvehiculo_repuestos'], PDO::PARAM_INT);
+        $stmt->bindParam(":fecha", $datos['fecha_repuestos'], PDO::PARAM_STR);
+        $stmt->bindParam(":idservicio_externo", $datos['servicioexterno_1'], PDO::PARAM_STR); 
+        $stmt->bindParam(":idrepuesto", $datos['repuesto'], PDO::PARAM_INT);
+        $stmt->bindParam(":cantidad", $datos['cantidad_repuesto'], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        LISTADO SERVICIOS EXTERNOS
+    ===================================================*/
+
+    static public function mdlListadoServiciosExternos()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT s.* FROM m_serviciosexternos s");
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /* ===================================================
         LISTADO PRODUCTOS
     ===================================================*/
     static public function mdlListadoProductos(){

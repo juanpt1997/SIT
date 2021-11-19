@@ -1129,7 +1129,6 @@ $(document).ready(function () {
     //CLICK EN AÑADIR FILA A REPUESTO SOLICITUD DE SERVICIO
     var dinamico = 2;
     $(document).on("click", ".btn-agregarRepuestoSolicitud", function () {
-      console.log(dinamico);
       var fila = `<tr>
       <td style="width: 300px">` +
       `<div class="input-group">` +
@@ -1296,6 +1295,8 @@ $(document).ready(function () {
       processData: false,
       success: function (response) {
 
+        
+
         if (response != '' || response != null) {
           $("#tbodyProgramacion").html(response);
         } else {
@@ -1320,12 +1321,14 @@ $(document).ready(function () {
   //SELECCION SERVICIO
   $(document).on("change", "#servicio", function () {
 
+    
     //CARGA TABLA POR AJAX 
     let idservicio = $(this).val()
-
+    
     if (idservicio == 'todo') $('#btn-guardarProgra').hide();
     else $('#btn-guardarProgra').show();
-
+    
+    
     AjaxTablaProgramacion(idservicio);
 
   });

@@ -197,7 +197,7 @@ class AjaxMantenimientos
                 <td>" . $value['medida'] . "</td>
                 <td>
                 <div class='btn-group' role='group' aria-label='Button group'>
-			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' idproducto='{$value["idproducto"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
+			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' idproducto='{$value["idproducto"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
 			    </div>
                 </td>
             </tr>

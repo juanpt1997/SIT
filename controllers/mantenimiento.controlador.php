@@ -646,6 +646,16 @@ class ControladorMantenimientos
 {
 
 	/* ===================================================
+		LISTADO SERVICIOS EXTERNOS 
+	===================================================*/
+
+	static public function ctrListadoServiciosExternos(){
+		$respuesta = ModeloMantenimientos::mdlListadoServiciosExternos();
+		return $respuesta;
+	}
+
+
+	/* ===================================================
 		LISTADO DE PRODUCTOS
 	===================================================*/
 	
@@ -655,6 +665,31 @@ class ControladorMantenimientos
 		return $respuesta;
 	}
 
+	/* ===================================================
+		AGREGAR SOLICITUD DE SERVICIO	
+	===================================================*/
+
+	static public function ctrAgregarSolicitud($datos){
+
+		//Array de servicios
+		$arrayserv = ModeloMantenimientos::mdlListadoServiciosExternos();
+
+
+		foreach ($arrayserv as $key => $value) {
+			if(isset($_POST['servicioexterno_' . $value['idservicio_externo']])&& $_POST['servicioexterno_' . $value['idservicio_externo']] == "on"){
+				$datos['servicioexterno_'. $value['idservicio_externo']] = 1;
+			}
+			else{
+				$datos['servicioexterno_'. $value['idservicio_externo']] = 0;
+			}
+		}
+
+		// var_dump($datos);
+
+		// $respuesta = ModeloMantenimientos::mdlAgregarSolicitud($datos);
+		// return $respuesta;
+
+	}
 
 	/* ===================================================
 		AGREGAR SERVICIO PROGRAMACIÓN 
