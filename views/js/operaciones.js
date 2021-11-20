@@ -283,6 +283,8 @@ $(document).ready(function () {
             e.preventDefault();
             AbiertoxEditar = true; //BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
 
+            $(".overlayBtnGuardarAlistamiento").removeClass("d-none");
+
             var datosAjax = new FormData();
             datosAjax.append("GuardarAlistamiento", "ok");
 
@@ -326,7 +328,7 @@ $(document).ready(function () {
                             contentType: false,
                             processData: false,
                             success: function (response) {
-                                console.log(response);
+                                $(".overlayBtnGuardarAlistamiento").addClass("d-none");
                                 switch (response) {
                                     case "existe":
                                         Swal.fire({
@@ -358,8 +360,9 @@ $(document).ready(function () {
                                         Swal.fire({
                                             icon: "success",
                                             title: "¡Datos guardados correctamente!",
-                                            showConfirmButton: true,
+                                            showConfirmButton: false,
                                             confirmButtonText: "Cerrar",
+                                            timer: 2000
                                         });
 
                                         // Id fuec
@@ -377,6 +380,7 @@ $(document).ready(function () {
                             },
                         });
                     } else {
+                        $(".overlayBtnGuardarAlistamiento").addClass("d-none");
                         Swal.fire({
                             icon: 'warning',
                             title: 'El kilometraje anterior es ' + Vehiculo.kilometraje + ' verifique el kilometraje del vehículo y vuelva a intentarlo',

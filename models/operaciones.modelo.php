@@ -31,7 +31,7 @@ class ModeloAlistamiento
     static public function mdlDatosAlistamiento($datos, $parametro = "")
     {
         if ($parametro == "fecha") {
-            $parametro = "AND DATE_FORMAT(fechaalista, '%Y-%m-%d') = CURDATE()";
+            $parametro = "AND DATE_FORMAT(fechaalista, '%Y-%m-%d') = DATE_FORMAT('{$datos['fechaalista']}', '%Y-%m-%d')";
         }
 
         $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.numinterno, a.*, DATE_FORMAT(a.fechaalista, '%Y-%m-%d') as Ffechaalista FROM o_alistamiento a
