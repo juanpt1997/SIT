@@ -595,11 +595,11 @@ $(document).ready(function () {
                       INICIALIZAR DATATABLE 
       ====================================================*/
       var buttons = [
-          {
-              extend: "excel",
-              className: "btn-info",
-              text: '<i class="far fa-file-excel"></i> Exportar',
-          },
+        {
+          extend: "excel",
+          className: "btn-info",
+          text: '<i class="far fa-file-excel"></i> Exportar',
+        },
       ];
       var table = dataTableCustom(`#tabla_resumen_inventario`, buttons);
     };
@@ -1121,16 +1121,34 @@ $(document).ready(function () {
     });
 
 
-    //CLICK EN AÑADIR FILA A REPUESTO EN SOLICITUD DE SERVICIO
-    $(document).on("click", ".btn-agregarRepuestoSolicitud", function () {
 
-      var fila = '<tr>' +
-        '<td style="width: 300px">' + '<input type="text" class="form-control" id="descripcion_repuestos1" name="descripcion_repuestos1">' + '</td>' +
-        '<td style="width: 300px">' + '<input type="text" class="form-control" id="referencia_repuestos1" name="referencia_repuestos1">' + '</td>' +
-        '<td style="width: 300px">' + '<input type="text" class="form-control" id="cantidad1" name="cantidad1">' + '</td>' +
-        '</tr>'
-        ;
-      $("#filas_tabla_repuestoSolicitud").append(fila);
+    /*==============================
+        SOLICITUD DE SERVICIO/REPUESTOS
+    ================================*/
+
+    //CLICK EN AÑADIR FILA A REPUESTO SOLICITUD DE SERVICIO
+    var dinamico = 2;
+    $(document).on("click", ".btn-agregarRepuestoSolicitud", function () {
+      var fila = `<tr>
+      <td style="width: 300px">` +
+      `<div class="input-group">` +
+      `<input class="form-control" type="text" id="repuesto_${dinamico}" name="repuesto[] "placeholder="Seleccione un repuesto" readonly>` +
+      `<div class="input-group-append">` +
+      `<button type="button" class="btn btn-success btn-md btn-repuestos" consecutivo="${dinamico}" title="lista repuestos" data-toggle="modal" data-target="#modal-repuestos"><i class="fas fa-business-time"></i></button>` +
+
+      `</div>` +
+      `</div>` +
+      `</td>` +
+      `<td style="width: 300px">` + `<input type="text" class="form-control" id="refrepuestos_${dinamico}" name="referencia_repuesto[]" readonly>` + `</td>` +
+      `<td style="width: 300px">` + `<input type="text" class="form-control" id="codrepuestos_${dinamico}" name="codigo_repuesto[]" readonly>` + `</td>` +
+      `<td style="width: 300px">` + `<input type="text" class="form-control" id="cantrepuestos_${dinamico}" name="cantidad_repuesto[]">` + `</td>` +
+      `</tr>`
+      ;
+      
+      dinamico = dinamico + 1;
+      
+      
+      $("#filas_tabla_repuestoSolicitud").append(fila); 
     });
 
     //CLICK EN ELIMINAR FLA A RESPUESTO EN SOLICITUD DE SERVICIO
@@ -1139,294 +1157,8 @@ $(document).ready(function () {
     });
 
 
-    /*========================================
-  ***************PROGRAMACION*****************
-    ===========================================*/
-
-
-    // CARGAR DATOS EN LA TABLA DEPENDIENDO DEL SERVICIO SELECCIONADO
-
-    let AjaxTablaProgramacion = (idservicio) => {
-      // Quitar datatable
-      $("#tablaProgramacion").dataTable().fnDestroy();
-      // Borrar datos
-      $("#tbodyProgramacion").html("");
-
-      var datos = new FormData();
-      datos.append("Servicios", "ok");
-      datos.append("idservicio", idservicio);
-      $.ajax({
-        type: "post",
-        url: "ajax/mantenimiento.ajax.php",
-        data: datos,
-        // dataType: "JSON",
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function (response) {
-
-          if (response != '' || response != null) {
-            $("#tbodyProgramacion").html(response);
-          } else {
-            $("#tbodyProgramacion").html('');
-          }
-
-          /* ===================================================
-                   INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-                   ===================================================*/
-          var buttons = [
-            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
-          ];
-          var table = dataTableCustom(`#tablaProgramacion`, buttons);
-
-        }
-      });
-
-
-
-    }
-
-    //SELECCION SERVICIO
-    $(document).on("change", "#servicio", function () {
-
-      //CARGA TABLA POR AJAX 
-      let idservicio = $(this).val()
-
-      if (idservicio == 'todo') $('#btn-guardarProgra').hide();
-      else $('#btn-guardarProgra').show();
-
-      AjaxTablaProgramacion(idservicio);
-
-    });
-
-
-    // BORRAR SERVICIO PROGRAMACIÓN
-    $(document).on("click", ".btnBorrarProgramacion", function () {
-      let idserviciovehiculo = $(this).attr("idserviciovehiculo");
-      let idservicio = $(this).attr("idservicio");
-
-
-      Swal.fire({
-        icon: "warning",
-        showConfirmButton: true,
-        showCancelButton: true,
-        title: "¿Seguro que de sea borrar este registro?",
-        confirmButtonText: "Si, borrar",
-        cancelButtonText: "Cancelar",
-        confirmButtonColor: "#ff0000",
-        cancelButtonColor: "#0080ff",
-        allowOutsideClick: false,
-      }).then((result) => {
-
-        if (result.value == true) {
-
-          var datos = new FormData();
-          datos.append("EliminarProgramacion", "ok");
-          datos.append("idserviciovehiculo", idserviciovehiculo);
-
-          $.ajax({
-            type: "POST",
-            url: "ajax/mantenimiento.ajax.php",
-            data: datos,
-            cache: false,
-            contentType: false,
-            processData: false,
-            //dataType: "json",
-            success: function (response) {
-
-              if (response == "ok") {
-                AjaxTablaProgramacion(idservicio);
-                Swal.fire({
-                  icon: "success",
-                  showConfirmButton: true,
-                  title: "¡El registro ha sido borrado correctamente!",
-                  confirmButtonText: "¡Cerrar!",
-                  allowOutsideClick: false,
-                }).then((result) => {
-                  window.location = "m-mantenimientos";
-                });
-              }
-            },
-          });
-        }
-      });
-
-
-
-
-
-    });
-
-
-
-    // GUARDAR SERVICIO
-    $('#programacion_form').submit(function (e) {
-      e.preventDefault();
-
-      let idvehiculo = 0;
-      let kilometrajeFrm = 0;
-
-
-
-      var datosFrm = $(this).serializeArray();
-
-      datosFrm.forEach(element => {
-        if (element.name == 'idvehiculo') idvehiculo = element.value;
-        if (element.name == 'kilometraje') kilometrajeFrm = element.value;
-      });
-
-      var datos = new FormData();
-      datos.append("DatosVehiculo", "ok");
-      datos.append("item", "idvehiculo");
-      datos.append("valor", idvehiculo);
-
-      $.ajax({
-        type: "post",
-        url: `${urlPagina}ajax/vehicular.ajax.php`,
-        data: datos,
-        dataType: "JSON",
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function (response) {
-
-          var Vehiculo = response.datosVehiculo;
-
-          //Validamos si el kilometraje ingresado en el formulario es mayor o igual al que tiene el vehículo, de ser así puede guardar, de lo contrario no puede guardar
-          if (kilometrajeFrm >= Vehiculo.kilometraje) {
-
-            //AJAX PARA GUARDAR PROGRAMACIÓN
-            var datosAjax = new FormData();
-            datosAjax.append('GuardarProgramacion', "ok")
-
-            datosFrm.forEach(element => {
-              datosAjax.append(element.name, element.value);
-            });
-
-
-            $.ajax({
-              type: 'post',
-              url: "ajax/mantenimiento.ajax.php",
-              data: datosAjax,
-              cache: false,
-              contentType: false,
-              processData: false,
-              success: function (response) {
-
-
-                if (response == "ok") {
-                  // Cargar de nuevo la tabla de servicios
-                  AjaxTablaProgramacion(1);
-                  // Reset del formulario
-                  $("#programacion_form").trigger("reset");
-                  $("#servicio").val("").trigger("change");
-                  $("#placa").val("").trigger("change");
-                  // Mensaje de éxito al usuario
-                  Swal.fire({
-                    icon: 'success',
-                    title: '¡Datos guardados correctamente!',
-                    showConfirmButton: true,
-                    confirmButtonText: 'Cerrar',
-                  })
-                } else {
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'Ha ocurrido un error, por favor intente de nuevo',
-                    showConfirmButton: true,
-                    confirmButtonText: 'Cerrar',
-                    closeOnConfirm: false
-                  }).then((result) => {
-
-                    if (result.value) {
-                      window.location = 'm-mantenimientos';
-                    }
-
-                  })
-                }
-              }
-            });
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: 'Verifique el kilometraje del vehículo y vuelva a intentarlo',
-              showConfirmButton: true,
-              confirmButtonText: 'Cerrar',
-              closeOnConfirm: false
-            }).then((result) => {
-
-              if (result.value) {
-                window.location = 'm-mantenimientos';
-              }
-
-            })
-          }
-
-
-
-
-        },
-      });
-
-
-
-
-
-      datosFrm.forEach(element => {
-        if (element.name == 'kilometraje') element.value = kilometrajeFrm;
-
-      });
-
-      $.ajax({
-        type: 'post',
-        url: "ajax/mantenimiento.ajax.php",
-        data: datosAjax,
-        cache: false,
-        contentType: false,
-        processData: false,
-        success: function (response) {
-
-
-          if (response == "ok") {
-            // Cargar de nuevo la tabla de servicios
-            AjaxTablaProgramacion(1);
-            // Reset del formulario
-            $("#programacion_form").trigger("reset");
-            // Mensaje de éxito al usuario
-            Swal.fire({
-              icon: 'success',
-              title: '¡Datos guardados correctamente!',
-              showConfirmButton: true,
-              confirmButtonText: 'Cerrar',
-            })
-          } else {
-            Swal.fire({
-              icon: 'error',
-              title: 'Ha ocurrido un error, por favor intente de nuevo',
-              showConfirmButton: true,
-              confirmButtonText: 'Cerrar',
-              closeOnConfirm: false
-            }).then((result) => {
-
-              if (result.value) {
-                window.location = 'm-mantenimientos';
-              }
-
-            })
-          }
-        }
-      });
-
-
-
-
-
-
-    });
-
-
-
     // CARGAR DATOS DEL VEHICULO
-    $(document).on('change', "#placa", function () {
+    $(document).on('change', "#placa_repuestos", function () {
 
 
       let idvehiculo = $(this).val();
@@ -1459,6 +1191,370 @@ $(document).ready(function () {
     });
 
   }
+
+
+  //CARGAR TABLA DE PRODUCTOS
+  let AjaxTablaProductos = (consecutivo) => {
+
+    // Quitar datatable
+    $("#tablaRepuesto").dataTable().fnDestroy();
+    // Borrar datos
+    $("#tBodyRepuesto").html("");
+
+    var datos = new FormData();
+    datos.append("ListaProductos", "ok");
+    datos.append("consecutivo",consecutivo);
+    $.ajax({
+      type: "post",
+      url: `ajax/mantenimiento.ajax.php`,
+      data: datos,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+
+        if (response != '' || response != null) {
+          $("#tBodyRepuesto").html(response);
+        } else {
+          $("#tBodyRepuesto").html('');
+        }
+        /* ===================================================
+            INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+          ===================================================*/
+        var buttons = [
+          { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+        ];
+        var table = dataTableCustom(`#tablaRepuesto`, buttons);
+      },
+    });
+  }
+
+
+  /* =====================================================
+      CLICK EN CAMPO REPUESTO TABLA SOLICITUD DE SERVICIO
+  =======================================================*/
+
+  $(document).on("click", ".btn-repuestos", function () {
+    //Mando el consecutivo para luego saber a que fila poner el repuesto seleccionado
+    var consecutivo = $(this).attr("consecutivo")
+    //FUNCION CARGAR TABLA PRODUCTOS
+    AjaxTablaProductos(consecutivo);
+    
+
+  });
+
+
+  /*==============================
+    ClICK EN SELECCIONAR PRODUCTO
+  ================================*/
+
+  $(document).on("click", ".btnSeleccionarProducto", function () {
+
+    $("#modal-repuestos").modal("hide");
+
+    var descripcion = $(this).attr("descripcion");
+    var consecutivo = $(this).attr("consecutivo");
+    var codigo = $(this).attr("codigo");
+    var referencia = $(this).attr("referencia");
+    
+
+    $(`#repuesto_${consecutivo}`).val(descripcion);
+    $(`#refrepuestos_${consecutivo}`).val(referencia);
+    $(`#codrepuestos_${consecutivo}`).val(codigo);
+
+    
+  });
+
+
+
+
+  /*========================================
+***************PROGRAMACION*****************
+  ===========================================*/
+
+
+
+  // CARGAR DATOS EN LA TABLA DEPENDIENDO DEL SERVICIO SELECCIONADO
+
+  let AjaxTablaProgramacion = (idservicio) => {
+    // Quitar datatable
+    $("#tablaProgramacion").dataTable().fnDestroy();
+    // Borrar datos
+    $("#tbodyProgramacion").html("");
+
+    var datos = new FormData();
+    datos.append("Servicios", "ok");
+    datos.append("idservicio", idservicio);
+    $.ajax({
+      type: "post",
+      url: "ajax/mantenimiento.ajax.php",
+      data: datos,
+      // dataType: "JSON",
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+
+        
+
+        if (response != '' || response != null) {
+          $("#tbodyProgramacion").html(response);
+        } else {
+          $("#tbodyProgramacion").html('');
+        }
+
+        /* ===================================================
+                 INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                 ===================================================*/
+        var buttons = [
+          { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+        ];
+        var table = dataTableCustom(`#tablaProgramacion`, buttons);
+
+      }
+    });
+
+
+
+  }
+
+  //SELECCION SERVICIO
+  $(document).on("change", "#servicio", function () {
+
+    
+    //CARGA TABLA POR AJAX 
+    let idservicio = $(this).val()
+    
+    if (idservicio == 'todo') $('#btn-guardarProgra').hide();
+    else $('#btn-guardarProgra').show();
+    
+    
+    AjaxTablaProgramacion(idservicio);
+
+  });
+
+
+  // BORRAR SERVICIO PROGRAMACIÓN
+  $(document).on("click", ".btnBorrarProgramacion", function () {
+    let idserviciovehiculo = $(this).attr("idserviciovehiculo");
+    let idservicio = $(this).attr("idservicio");
+
+
+    Swal.fire({
+      icon: "warning",
+      showConfirmButton: true,
+      showCancelButton: true,
+      title: "¿Seguro que de sea borrar este registro?",
+      confirmButtonText: "Si, borrar",
+      cancelButtonText: "Cancelar",
+      confirmButtonColor: "#ff0000",
+      cancelButtonColor: "#0080ff",
+      allowOutsideClick: false,
+    }).then((result) => {
+
+      if (result.value == true) {
+
+        var datos = new FormData();
+        datos.append("EliminarProgramacion", "ok");
+        datos.append("idserviciovehiculo", idserviciovehiculo);
+
+        $.ajax({
+          type: "POST",
+          url: "ajax/mantenimiento.ajax.php",
+          data: datos,
+          cache: false,
+          contentType: false,
+          processData: false,
+          //dataType: "json",
+          success: function (response) {
+
+            if (response == "ok") {
+              AjaxTablaProgramacion(idservicio);
+              Swal.fire({
+                icon: "success",
+                showConfirmButton: true,
+                title: "¡El registro ha sido borrado correctamente!",
+                confirmButtonText: "¡Cerrar!",
+                allowOutsideClick: false,
+              }).then((result) => {
+                window.location = "m-mantenimientos";
+              });
+            }
+          },
+        });
+      }
+    });
+
+
+
+
+
+  });
+
+
+
+  // GUARDAR SERVICIO
+  $('#programacion_form').submit(function (e) {
+    e.preventDefault();
+
+    let idvehiculo = 0;
+    let kilometrajeFrm = 0;
+
+
+
+    var datosFrm = $(this).serializeArray();
+
+    datosFrm.forEach(element => {
+      if (element.name == 'idvehiculo_serv') idvehiculo = element.value;
+      if (element.name == 'kilometraje_serv') kilometrajeFrm = element.value;
+    });
+
+    var datos = new FormData();
+    datos.append("DatosVehiculo", "ok");
+    datos.append("item", "idvehiculo");
+    datos.append("valor", idvehiculo);
+    
+
+    $.ajax({
+      type: "post",
+      url: `${urlPagina}ajax/vehicular.ajax.php`,
+      data: datos,
+      dataType: "JSON",
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+
+        var Vehiculo = response.datosVehiculo;
+    
+      
+        //Validamos si el kilometraje ingresado en el formulario es mayor o igual al que tiene el vehículo, de ser así puede guardar, de lo contrario no puede guardar
+        if (kilometrajeFrm >= Vehiculo.kilometraje) {
+
+          //AJAX PARA GUARDAR PROGRAMACIÓN
+          var datosAjax = new FormData();
+          datosAjax.append('GuardarProgramacion', "ok")
+
+          datosFrm.forEach(element => {
+            datosAjax.append(element.name, element.value);
+          });
+
+
+          $.ajax({
+            type: 'post',
+            url: "ajax/mantenimiento.ajax.php",
+            data: datosAjax,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+
+              if (response == "ok") {
+                // Cargar de nuevo la tabla de servicios
+                AjaxTablaProgramacion(1);
+                // Reset del formulario
+                $("#programacion_form").trigger("reset");
+                $("#servicio").val("").trigger("change");
+                $("#placa").val("").trigger("change");
+                // Mensaje de éxito al usuario
+                Swal.fire({
+                  icon: 'success',
+                  title: '¡Datos guardados correctamente!',
+                  showConfirmButton: true,
+                  confirmButtonText: 'Cerrar',
+                })
+              } else {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Ha ocurrido un error, por favor intente de nuevo',
+                  showConfirmButton: true,
+                  confirmButtonText: 'Cerrar',
+                  closeOnConfirm: false
+                }).then((result) => {
+
+                  if (result.value) {
+                    window.location = 'm-mantenimientos';
+                  }
+
+                })
+              }
+            }
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Verifique el kilometraje del vehículo y vuelva a intentarlo',
+            showConfirmButton: true,
+            confirmButtonText: 'Cerrar',
+            closeOnConfirm: false
+          })
+        }
+
+
+
+
+      },
+    });
+
+
+
+
+
+    // datosFrm.forEach(element => {
+    //   datosAjax.append(element.name, element.value);
+    // });
+
+    // console.log(datosFrm);
+
+    // $.ajax({
+    //   type: 'post',
+    //   url: "ajax/mantenimiento.ajax.php",
+    //   data: datosAjax,
+    //   cache: false,
+    //   contentType: false,
+    //   processData: false,
+    //   success: function (response) {
+
+    //     console.log(response);
+    //     if (response == "ok") {
+    //       // Cargar de nuevo la tabla de servicios
+    //       AjaxTablaProgramacion(1);
+    //       // Reset del formulario
+    //       $("#programacion_form").trigger("reset");
+    //       // Mensaje de éxito al usuario
+    //       Swal.fire({
+    //         icon: 'success',
+    //         title: '¡Datos guardados correctamente!',
+    //         showConfirmButton: true,
+    //         confirmButtonText: 'Cerrar',
+    //       })
+    //     } else {
+    //       Swal.fire({
+    //         icon: 'error',
+    //         title: 'Ha ocurrido un error, por favor intente de nuevo',
+    //         showConfirmButton: true,
+    //         confirmButtonText: 'Cerrar',
+    //         closeOnConfirm: false
+    //       }).then((result) => {
+
+    //         if (result.value) {
+    //           window.location = 'm-mantenimientos';
+    //         }
+
+    //       })
+    //     }
+    //   }
+    // });
+
+
+
+
+
+
+  });
+
+
+
 
 
 
