@@ -552,6 +552,15 @@ class ControladorConvenios
 		$respuesta = ModeloConvenios::mdlBorradoConvenios($idConvenio);
 		return $respuesta;
 	}
+
+	/* ===================================================
+	   VENCIMIENTO CONVENIOS
+	===================================================*/
+	static public function ctrVencimientosConvenios()
+	{
+		$respuesta = ModeloConvenios::mdlVencimientosConvenios();
+		return $respuesta;
+	}
 }
 
 /* ===================================================
