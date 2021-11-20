@@ -422,17 +422,17 @@ if (
         ===================================================*/
         var guardoCotizacion = false;
         $("#formulariocotizacion").submit(function (e) {
-            if(!guardoCotizacion){
+            if (!guardoCotizacion) {
                 e.preventDefault();
-                if ($("#idruta").val() == ""){
+                if ($("#idruta").val() == "") {
                     Swal.fire({
-                                icon: "warning",
-                                title: "¡Debe seleccionar una ruta antes de guardar!",
-                                showConfirmButton: false,
-                                timer: 1500
-                            });
+                        icon: "warning",
+                        title: "¡Debe seleccionar una ruta antes de guardar!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                     guardoCotizacion = false;
-                }else{
+                } else {
                     guardoCotizacion = true;
                     $("#formulariocotizacion").submit();
                     //$(".btn-guardar-cotizacion").click();
@@ -523,110 +523,156 @@ if (
     window.location.href == `${urlPagina}contratos-ordenservicio/` ||
     window.location.href == `${urlPagina}contratos-ordenservicio`
 ) {
-    //SELECCIONAR UNA COTIZACION PARA TRAER LOS DATOS DE ESA COTIZACION Y DEL CLIENTE
-    $(document).on("change", "#listacotizaciones", function () {
-        var idcotizacion = $(this).val();
-
-        var datos = new FormData();
-        datos.append("DatosCotizaciones", "ok");
-        datos.append("value", idcotizacion);
-        $.ajax({
-            type: "POST",
-            url: "ajax/contratos.ajax.php",
-            data: datos,
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType: "json",
-            success: function (response) {
-                $("#nomcontrataorden").val(response.nombre_con);
-                $("#documentorden").val(response.documento_con);
-                $("#direcciorden").val(response.direccion_con);
-                $("#telefono1").val(response.tel_1);
-                $("#telefono2").val(response.tel_2);
-                $("#nomcontacto").val(response.nombre_respo);
-                //$("#numcontrato").val(response.tipo_docrespons);
-                $("#h_incio_orden").val(response.hora_salida);
-                $("#h_final_orden").val(response.hora_recogida);
-                $("#f_inicio_orden").val(response.fecha_inicio);
-                $("#f_fin_orden").val(response.fecha_fin);
-                $("#valor_facturar").val(response.valortotal);
-                $("#origen_orden").val(response.origen);
-                $("#destino_orden").val(response.destino);
-                $("#ruta_orden").val(response.descripcion);
-                $("#musica_orden").val(response.musica);
-                $("#bodega_orden").val(response.bodega);
-                $("#aire").val(response.aire);
-                $("#otro_orden").val(response.otro);
-                $("#baño").val(response.bano);
-                $("#wi_fi").val(response.wifi);
-                $("#silleteria_orden").val(response.silleriareclinable);
-                //$(".select2-single").trigger("change"); //MUESTRA EL VALOR DEL SELECT ***Por favor no
-            },
-        });
-    });
-
-    //BOTON EDITAR ORDEN DE SERVICIO
-    $(document).on("click", ".btn-editarorden", function () {
-        AbiertoxEditar = true; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
-
-        var idorden = $(this).attr("idorden");
-        $("#idorden").val(idorden);
-
-        var datos = new FormData();
-        datos.append("DatosOrden", "ok");
-        datos.append("value", idorden);
-        $.ajax({
-            type: "POST",
-            url: "ajax/contratos.ajax.php",
-            data: datos,
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType: "json",
-            success: function (response) {
-                $("#titulo_orden").html(
-                    "Editar órden (# " +
-                    response.nro_contrato +
-                    " - " +
-                    response.nombre_con +
-                    ")"
+    $(document).ready(function () {
+        /* ===================================================
+              INICIALIZAR DATATABLE CON FILTRO AVANZADO
+            ===================================================*/
+        let TablaOrdenServicio = () => {
+            /* ===================================================
+              FILTRAR POR COLUMNA
+            ===================================================*/
+            /* Filtrar por columna */
+            //Clonar el tr del thead
+            $(`#tblOrdenServicio thead tr`)
+                .clone(true)
+                .appendTo(`#tblOrdenServicio thead`);
+            //Por cada th creado hacer lo siguiente
+            $(`#tblOrdenServicio thead tr:eq(1) th`).each(function (i) {
+                //Remover clase sorting y el evento que tiene cuando se hace click
+                $(this).removeClass("sorting").unbind();
+                //Agregar input de busqueda
+                $(this).html(
+                    '<input class="form-control" type="text" placeholder="Buscar"/>'
                 );
-                $("#listacotizaciones").val(response.idcotizacion);
-                $("#numcontrato").val(response.nro_contrato);
-                $("#numfacturaorden").val(response.nro_factura);
-                $("#f_facturacion").val(response.fecha_facturacion);
-                $("#cancelacion").val(response.cancelada);
-                $("#cod_autorizacion").val(response.cod_autoriz);
-                $("#viaje_ocasional").val(response.viaje_ocasional);
-                $(".select2-single").trigger("change"); //MUESTRA EL VALOR DEL SELECT
-            },
+                //Evento para detectar cambio en el input y buscar
+                $("input", this).on("keyup change", function () {
+                    if (table.column(i).search() !== this.value) {
+                        table.column(i).search(this.value).draw();
+                    }
+                });
+            });
+
+            /* ===================================================
+            INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+            ===================================================*/
+            var buttons = [
+                {
+                    extend: "excel",
+                    className: "btn-info",
+                    text: '<i class="far fa-file-excel"></i> Exportar',
+                },
+            ];
+            var table = dataTableCustom(`#tblOrdenServicio`, buttons);
+        };
+        TablaOrdenServicio();
+
+
+        //SELECCIONAR UNA COTIZACION PARA TRAER LOS DATOS DE ESA COTIZACION Y DEL CLIENTE
+        $(document).on("change", "#listacotizaciones", function () {
+            var idcotizacion = $(this).val();
+
+            var datos = new FormData();
+            datos.append("DatosCotizaciones", "ok");
+            datos.append("value", idcotizacion);
+            $.ajax({
+                type: "POST",
+                url: "ajax/contratos.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    $("#nomcontrataorden").val(response.nombre_con);
+                    $("#documentorden").val(response.documento_con);
+                    $("#direcciorden").val(response.direccion_con);
+                    $("#telefono1").val(response.tel_1);
+                    $("#telefono2").val(response.tel_2);
+                    $("#nomcontacto").val(response.nombre_respo);
+                    //$("#numcontrato").val(response.tipo_docrespons);
+                    $("#h_incio_orden").val(response.hora_salida);
+                    $("#h_final_orden").val(response.hora_recogida);
+                    $("#f_inicio_orden").val(response.fecha_inicio);
+                    $("#f_fin_orden").val(response.fecha_fin);
+                    $("#valor_facturar").val(response.valortotal);
+                    $("#origen_orden").val(response.origen);
+                    $("#destino_orden").val(response.destino);
+                    $("#ruta_orden").val(response.descripcion);
+                    $("#musica_orden").val(response.musica);
+                    $("#bodega_orden").val(response.bodega);
+                    $("#aire").val(response.aire);
+                    $("#otro_orden").val(response.otro);
+                    $("#baño").val(response.bano);
+                    $("#wi_fi").val(response.wifi);
+                    $("#silleteria_orden").val(response.silleriareclinable);
+                    //$(".select2-single").trigger("change"); //MUESTRA EL VALOR DEL SELECT ***Por favor no
+                },
+            });
         });
-    });
 
-    //BOTON AGREGAR UNA NUEVA ORDEN DE SERVICIO
-    var AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
-    $(document).on("click", ".btn-agregarorden", function () {
-        // Reset valores del formulario
-        $("#idorden").val("");
-        $("#titulo_orden").html("Nueva órden de servicio");
-        if (AbiertoxEditar) {
-            // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
-            $("#formulario_orden").trigger("reset");
-            $(".select2-single").trigger("change");
-        }
-        AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
-    });
+        //BOTON EDITAR ORDEN DE SERVICIO
+        $(document).on("click", ".btn-editarorden", function () {
+            AbiertoxEditar = true; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
 
-    /* ===================================================
-           VISUALIZAR PDF DE LA ORDEN DE SERVICIO
-         ===================================================*/
-    $(document).on("click", ".btn-verorden", function () {
-        var idorden = $(this).attr("idorden");
-        window.open(
-            `./pdf/pdfordenservicio.php?idorden=${idorden}`,
-            "",
-            "width=1280,height=720,left=50,top=50,toolbar=yes"
-        );
+            var idorden = $(this).attr("idorden");
+            $("#idorden").val(idorden);
+
+            var datos = new FormData();
+            datos.append("DatosOrden", "ok");
+            datos.append("value", idorden);
+            $.ajax({
+                type: "POST",
+                url: "ajax/contratos.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    $("#titulo_orden").html(
+                        "Editar órden (# " +
+                        response.nro_contrato +
+                        " - " +
+                        response.nombre_con +
+                        ")"
+                    );
+                    $("#listacotizaciones").val(response.idcotizacion);
+                    $("#numcontrato").val(response.nro_contrato);
+                    $("#numfacturaorden").val(response.nro_factura);
+                    $("#f_facturacion").val(response.fecha_facturacion);
+                    $("#cancelacion").val(response.cancelada);
+                    $("#cod_autorizacion").val(response.cod_autoriz);
+                    $("#viaje_ocasional").val(response.viaje_ocasional);
+                    $(".select2-single").trigger("change"); //MUESTRA EL VALOR DEL SELECT
+                },
+            });
+        });
+
+        //BOTON AGREGAR UNA NUEVA ORDEN DE SERVICIO
+        var AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
+        $(document).on("click", ".btn-agregarorden", function () {
+            // Reset valores del formulario
+            $("#idorden").val("");
+            $("#titulo_orden").html("Nueva órden de servicio");
+            if (AbiertoxEditar) {
+                // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
+                $("#formulario_orden").trigger("reset");
+                $(".select2-single").trigger("change");
+            }
+            AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
+        });
+
+        /* ===================================================
+               VISUALIZAR PDF DE LA ORDEN DE SERVICIO
+             ===================================================*/
+        $(document).on("click", ".btn-verorden", function () {
+            var idorden = $(this).attr("idorden");
+            window.open(
+                `./pdf/pdfordenservicio.php?idorden=${idorden}`,
+                "",
+                "width=1280,height=720,left=50,top=50,toolbar=yes"
+            );
+        });
+
     });
 }

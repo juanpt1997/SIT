@@ -44,11 +44,12 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                     <div class="card card-outline card-success">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
+                                <table id="tblOrdenServicio" class="table table-sm table-striped table-bordered table-hover w-100">
                                     <thead class="text-sm text-center text-nowrap">
                                         <tr>
                                             <th>...</th>
-                                            <th style="width:10px;">ID</th>
+                                            <th>PDF</th>
+                                            <th style="min-width:90px;">ID</th>
                                             <th>Nombre contratante</th>
                                             <th>NIT/CC</th>
                                             <th>Dirección</th>
@@ -75,7 +76,6 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                             <th>Silleteria reclinable</th>
                                             <th>Viaje ocasional</th>
                                             <th>Cancelada</th>
-                                            <th>PDF orden de servicio</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-sm">
@@ -84,6 +84,11 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                                 <td class="text-center">
                                                     <div class="btn-group" role="group" aria-label="Button group">
                                                         <button class="btn btn-toolbar btn-sm btn-info btn-editarorden" data-toggle="modal" data-target="#ordenserviciomodal" idorden="<?= $value['idorden'] ?>"><i class="fas fa-edit"></i></button>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="btn-group" role="group" aria-label="Button group">
+                                                        <button class="btn btn-toolbar btn-sm btn-secondary btn-verorden float-right" idorden="<?= $value['idorden'] ?>"><i class="fas fa-book"></i></button>
                                                     </div>
                                                 </td>
                                                 <td><?= $value['idorden'] ?></td>
@@ -113,11 +118,6 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                                 <td><?= $value['silleriareclinable'] ?></td>
                                                 <td><?= $value['viaje_ocasional'] ?></td>
                                                 <td><?= $value['cancelada'] ?></td>
-                                                <td class="text-center">
-                                                    <div class="btn-group" role="group" aria-label="Button group">
-                                                        <button class="btn btn-toolbar btn-sm btn-secondary btn-verorden float-right" idorden="<?= $value['idorden'] ?>"><i class="fas fa-book"></i></button>
-                                                    </div>
-                                                </td>
                                             </tr>
                                         <?php endforeach ?>
                                     </tbody>
