@@ -35,6 +35,8 @@ $listaUltimo = ControladorBloqueos::ctrUltimoBloqueo(null);
     <div class="content">
         <div class="container-fluid">
             <hr class="my-4">
+            <div id="ghTabs"></div>
+            
             <div class="row">
                 <div class="col">
                     <!--BOTON NUEVO CONVENIO-->

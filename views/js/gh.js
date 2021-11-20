@@ -42,6 +42,14 @@ let tabsConfigGH = {
             tooltip: 'Control ausentismo',
             tabClass: 'customTabClass',
             spacerClass: 'customSpacerClass',
+        },
+        {
+            id: 'gh-tab6',
+            label: 'Bloqueo de personal',
+            url: 'gh-bloqueo-personal',
+            tooltip: 'Bloqueo de personal',
+            tabClass: 'customTabClass',
+            spacerClass: 'customSpacerClass',
         }
 
         // ...

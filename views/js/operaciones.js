@@ -383,8 +383,8 @@ $(document).ready(function () {
                             showConfirmButton: false,
                             confirmButtonText: 'Cerrar',
                             closeOnConfirm: false,
-                            timer:2000
-                          })
+                            timer: 2000
+                        })
                     }
 
 
@@ -840,359 +840,359 @@ $(document).ready(function () {
 
         });
     }
-});
 
-/* ===================================================
-        * PLAN DE RODAMIENTO
-=====================================================*/
-if (
-    window.location.href == `${urlPagina}o-rodamiento/` ||
-    window.location.href == `${urlPagina}o-rodamiento`
-) {
-    /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-        CONDUCTORES SEGUN LA PLACA DEL VEHICULO
-    ==========================================================================*/
-    $(document).on("change", "#placa_roda", function () {
-        let idvehiculo = $(this).val();
+    /* ===================================================
+            * PLAN DE RODAMIENTO
+    =====================================================*/
+    if (
+        window.location.href == `${urlPagina}o-rodamiento/` ||
+        window.location.href == `${urlPagina}o-rodamiento`
+    ) {
+        /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+            CONDUCTORES SEGUN LA PLACA DEL VEHICULO
+        ==========================================================================*/
+        $(document).on("change", "#placa_roda", function () {
+            let idvehiculo = $(this).val();
 
-        // Datos del vehiculo
-        var datos = new FormData();
-        datos.append("DatosVehiculo", "ok");
-        datos.append("item", "idvehiculo");
-        datos.append("valor", idvehiculo);
-        $.ajax({
-            type: "post",
-            url: `${urlPagina}ajax/vehicular.ajax.php`,
-            data: datos,
-            dataType: "JSON",
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (Vehiculo) {
-                $("#tipo_vinculacion").val(
-                    Vehiculo.datosVehiculo.tipovinculacion
-                );
-                $("#numinterno").val(Vehiculo.datosVehiculo.numinterno);
-                $("#marca").val(Vehiculo.datosVehiculo.marca);
-                $("#modelo").val(Vehiculo.datosVehiculo.modelo);
-                $("#capacidad").val(Vehiculo.datosVehiculo.capacidad);
-            },
-        });
+            // Datos del vehiculo
+            var datos = new FormData();
+            datos.append("DatosVehiculo", "ok");
+            datos.append("item", "idvehiculo");
+            datos.append("valor", idvehiculo);
+            $.ajax({
+                type: "post",
+                url: `${urlPagina}ajax/vehicular.ajax.php`,
+                data: datos,
+                dataType: "JSON",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (Vehiculo) {
+                    $("#tipo_vinculacion").val(
+                        Vehiculo.datosVehiculo.tipovinculacion
+                    );
+                    $("#numinterno").val(Vehiculo.datosVehiculo.numinterno);
+                    $("#marca").val(Vehiculo.datosVehiculo.marca);
+                    $("#modelo").val(Vehiculo.datosVehiculo.modelo);
+                    $("#capacidad").val(Vehiculo.datosVehiculo.capacidad);
+                },
+            });
 
-        // lISTA CONDUCTORES
-        var datos = new FormData();
-        datos.append("ListaConductores", "ok");
-        datos.append("idvehiculo", idvehiculo);
-        $.ajax({
-            type: "post",
-            url: `${urlPagina}ajax/fuec.ajax.php`,
-            data: datos,
-            dataType: "json",
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                if (response != "") {
-                    let htmlSelect = `<option value="" selected>-Seleccione un conductor</option>`;
+            // lISTA CONDUCTORES
+            var datos = new FormData();
+            datos.append("ListaConductores", "ok");
+            datos.append("idvehiculo", idvehiculo);
+            $.ajax({
+                type: "post",
+                url: `${urlPagina}ajax/fuec.ajax.php`,
+                data: datos,
+                dataType: "json",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
                     if (response != "") {
-                        response.forEach((element) => {
-                            htmlSelect += `<option class="inv-conductor" value="${element.idconductor}">${element.Documento} - ${element.conductor}</option>`;
-                        });
-                    }
-                    $(".conductores").html(htmlSelect);
-
-                    // Accionar el observador
-                    $("#observador_conductoresRodamiento").trigger("change");
-                } else if (idvehiculo == "") {
-                } else {
-                    Swal.fire({
-                        icon: "warning",
-                        title: "No se ha encontrado conductor",
-                        text: "Seleccione otra placa",
-                    });
-                }
-            },
-        });
-    });
-
-    /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-        TRAER DATOS DEL PLAN DE RODAMIENTO BOTON - EDITAR
-    ==========================================================================*/
-    $(".btn-editarRodamiento").on("click", function () {
-        let id = $(this).attr("id_rodamiento");
-
-        $("#id_rodamiento").val(id);
-
-        $("#titulo_modal_rodamiento").html("Editando plan de rodamiento");
-
-        $("#btn-copiar").removeClass("d-none");
-
-        var datos = new FormData();
-        datos.append("DatosRodamiento", "ok");
-        datos.append("id", id);
-        $.ajax({
-            type: "post",
-            url: `${urlPagina}ajax/operaciones.ajax.php`,
-            data: datos,
-            dataType: "json",
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                $("#idruta").val(response.idruta);
-                $("#placa_roda").val(response.idvehiculo).trigger("change");
-                $("#idcliente").val(response.idcliente).trigger("change");
-                $("#placa_invent").val(response.idvehiculo).trigger("change");
-                $("#observador_conductoresRodamiento").attr(
-                    "idconductor",
-                    response.idconductor
-                );
-                $("#fecha_servicio").val(response.fecha_servicio);
-                $("#tipo_servicio")
-                    .val(response.tipo_servicio)
-                    .trigger("change");
-                $("#cantidadpasajerosdatosroda").val(
-                    response.cantidad_pasajeros
-                );
-                $("#hora_inicio").val(response.h_inicio);
-                $("#hora_final").val(response.h_final);
-                $("#kmrecorridosdatosroda").val(response.kmrecorridos);
-                $("#descrip").val(response.descripcion);
-                $("#origen").val(response.origen);
-                $("#destino").val(response.destino);
-
-            },
-        });
-    });
-
-    /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-        ELEMENTO OBSERVADOR QUE PONE EL CONDUCTOR CUANDO SE ACTUALIZA EL SELECT 
-    ==========================================================================*/
-    $(document).on("change", "#observador_conductoresRodamiento", function () {
-        let idconductor = $(this).attr("idconductor");
-        setTimeout(() => {
-            $("#idconductor").val(idconductor).trigger("change");
-        }, 1000);
-    });
-
-    /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-        BOTON PARA COPIAR UN REGISTRO
-    ==========================================================================*/
-    $(".btn-copiar-rodamiento").on("click", function () {
-        Swal.fire({
-            icon: "success",
-            title: "Dato copiado",
-            text: "Guarde los nuevos cambios",
-            showConfirmButton: true,
-            timer: 1500,
-            closeOnConfirm: false,
-        });
-        $("#id_rodamiento").val("");
-        $("#titulo_modal_rodamiento").html("Agregar nuevo plan de rodamiento");
-        $("#btn-copiar").addClass("d-none");
-    });
-
-    /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-        RESET VALORES AL AGREGAR
-    ==========================================================================*/
-    $(".btn-nuevoplanrodamiento").on("click", function () {
-        $("#titulo_modal_rodamiento").html("Agregar nuevo plan de rodamiento");
-
-        $("#btn-copiar").addClass("d-none");
-
-        $("#id_rodamiento").val("");
-        $("#formulario_rodamiento").trigger("reset");
-        //$("#ruta").trigger("change");
-        $("#tipo_servicio").trigger("change");
-        $("#idcliente").trigger("change");
-        $("#placa_roda").trigger("change");
-        $("#idconductor").empty();
-    });
-
-    /*==========================================================================
-    BOTON ELIMINAR RODAMIENTO
-    ===========================================================================*/
-    $(".btn-eliminar-rodamiento").on("click", function () {
-        let id = $(this).attr("id_rodamiento");
-
-        Swal.fire({
-            icon: "warning",
-            showConfirmButton: true,
-            showCancelButton: true,
-            title: "¿Seguro que desea borrar este registro?",
-            confirmButtonText: "SI, borrar",
-            cancelButtonText: "Cancelar",
-            confirmButtonColor: "#e60000",
-            cancelButtonColor: "#0066ff",
-            allowOutsideClick: false,
-        }).then((result) => {
-            if (result.value) {
-                var datos = new FormData();
-                datos.append("EliminarRodamiento", "ok");
-                datos.append("id", id);
-
-                $.ajax({
-                    type: "POST",
-                    url: "ajax/operaciones.ajax.php",
-                    data: datos,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    //dataType: "json",
-                    success: function (response) {
-                        if (response == "ok") {
-                            Swal.fire({
-                                icon: "success",
-                                showConfirmButton: true,
-                                title: "¡El registro ha sido borrado correctamente!",
-                                confirmButtonText: "¡Cerrar!",
-                                allowOutsideClick: false,
-                            }).then((result) => {
-                                window.location = "o-rodamiento";
+                        let htmlSelect = `<option value="" selected>-Seleccione un conductor</option>`;
+                        if (response != "") {
+                            response.forEach((element) => {
+                                htmlSelect += `<option class="inv-conductor" value="${element.idconductor}">${element.Documento} - ${element.conductor}</option>`;
                             });
                         }
-                    },
-                });
-            }
-        });
-    });
+                        $(".conductores").html(htmlSelect);
 
-    /*===================================================
-              INICIALIZAR DATATABLE
-    ===================================================*/
-    let FiltroTablaRodamiento = () => {
-        /* ===================================================
-                      FILTRAR POR COLUMNA
-        ====================================================*/
-        /* Filtrar por columna */
-        //Clonar el tr del thead
-        $(`#tblplanrodamiento thead tr:eq(0)`)
-            .clone(true)
-            .appendTo(`#tblplanrodamiento thead`);
-        //Por cada th creado hacer lo siguiente
-        $(`#tblplanrodamiento thead tr:eq(1) th`).each(function (i) {
-            //Remover clase sorting y el evento que tiene cuando se hace click
-            $(this).removeClass("sorting").unbind();
-            //Agregar input de busqueda
-            $(this).html(
-                '<input class="form-control" type="text" placeholder="Buscar"/>'
-            );
-            //Evento para detectar cambio en el input y buscar
-            $("input", this).on("keyup change", function () {
-                if (table.column(i).search() !== this.value) {
-                    table.column(i).search(this.value).draw();
+                        // Accionar el observador
+                        $("#observador_conductoresRodamiento").trigger("change");
+                    } else if (idvehiculo == "") {
+                    } else {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "No se ha encontrado conductor",
+                            text: "Seleccione otra placa",
+                        });
+                    }
+                },
+            });
+        });
+
+        /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+            TRAER DATOS DEL PLAN DE RODAMIENTO BOTON - EDITAR
+        ==========================================================================*/
+        $(".btn-editarRodamiento").on("click", function () {
+            let id = $(this).attr("id_rodamiento");
+
+            $("#id_rodamiento").val(id);
+
+            $("#titulo_modal_rodamiento").html("Editando plan de rodamiento");
+
+            $("#btn-copiar").removeClass("d-none");
+
+            var datos = new FormData();
+            datos.append("DatosRodamiento", "ok");
+            datos.append("id", id);
+            $.ajax({
+                type: "post",
+                url: `${urlPagina}ajax/operaciones.ajax.php`,
+                data: datos,
+                dataType: "json",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $("#idruta").val(response.idruta);
+                    $("#placa_roda").val(response.idvehiculo).trigger("change");
+                    $("#idcliente").val(response.idcliente).trigger("change");
+                    $("#placa_invent").val(response.idvehiculo).trigger("change");
+                    $("#observador_conductoresRodamiento").attr(
+                        "idconductor",
+                        response.idconductor
+                    );
+                    $("#fecha_servicio").val(response.fecha_servicio);
+                    $("#tipo_servicio")
+                        .val(response.tipo_servicio)
+                        .trigger("change");
+                    $("#cantidadpasajerosdatosroda").val(
+                        response.cantidad_pasajeros
+                    );
+                    $("#hora_inicio").val(response.h_inicio);
+                    $("#hora_final").val(response.h_final);
+                    $("#kmrecorridosdatosroda").val(response.kmrecorridos);
+                    $("#descrip").val(response.descripcion);
+                    $("#origen").val(response.origen);
+                    $("#destino").val(response.destino);
+
+                },
+            });
+        });
+
+        /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+            ELEMENTO OBSERVADOR QUE PONE EL CONDUCTOR CUANDO SE ACTUALIZA EL SELECT 
+        ==========================================================================*/
+        $(document).on("change", "#observador_conductoresRodamiento", function () {
+            let idconductor = $(this).attr("idconductor");
+            setTimeout(() => {
+                $("#idconductor").val(idconductor).trigger("change");
+            }, 1000);
+        });
+
+        /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+            BOTON PARA COPIAR UN REGISTRO
+        ==========================================================================*/
+        $(".btn-copiar-rodamiento").on("click", function () {
+            Swal.fire({
+                icon: "success",
+                title: "Dato copiado",
+                text: "Guarde los nuevos cambios",
+                showConfirmButton: true,
+                timer: 1500,
+                closeOnConfirm: false,
+            });
+            $("#id_rodamiento").val("");
+            $("#titulo_modal_rodamiento").html("Agregar nuevo plan de rodamiento");
+            $("#btn-copiar").addClass("d-none");
+        });
+
+        /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+            RESET VALORES AL AGREGAR
+        ==========================================================================*/
+        $(".btn-nuevoplanrodamiento").on("click", function () {
+            $("#titulo_modal_rodamiento").html("Agregar nuevo plan de rodamiento");
+
+            $("#btn-copiar").addClass("d-none");
+
+            $("#id_rodamiento").val("");
+            $("#formulario_rodamiento").trigger("reset");
+            //$("#ruta").trigger("change");
+            $("#tipo_servicio").trigger("change");
+            $("#idcliente").trigger("change");
+            $("#placa_roda").trigger("change");
+            $("#idconductor").empty();
+        });
+
+        /*==========================================================================
+        BOTON ELIMINAR RODAMIENTO
+        ===========================================================================*/
+        $(".btn-eliminar-rodamiento").on("click", function () {
+            let id = $(this).attr("id_rodamiento");
+
+            Swal.fire({
+                icon: "warning",
+                showConfirmButton: true,
+                showCancelButton: true,
+                title: "¿Seguro que desea borrar este registro?",
+                confirmButtonText: "SI, borrar",
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: "#e60000",
+                cancelButtonColor: "#0066ff",
+                allowOutsideClick: false,
+            }).then((result) => {
+                if (result.value) {
+                    var datos = new FormData();
+                    datos.append("EliminarRodamiento", "ok");
+                    datos.append("id", id);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/operaciones.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        //dataType: "json",
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: "success",
+                                    showConfirmButton: true,
+                                    title: "¡El registro ha sido borrado correctamente!",
+                                    confirmButtonText: "¡Cerrar!",
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "o-rodamiento";
+                                });
+                            }
+                        },
+                    });
                 }
             });
         });
 
-        /* ===================================================
-                        INICIALIZAR DATATABLE 
-        ====================================================*/
-        var buttons = [
-            {
-                extend: "excel",
-                className: "btn-info",
-                text: '<i class="far fa-file-excel"></i> Exportar',
-            },
-        ];
-        var table = dataTableCustom(`#tblplanrodamiento`, buttons);
-    };
-    FiltroTablaRodamiento();
-
-    /* ===================================================
-          SELECCIÓN DE RUTA EN RODAMIENTO
-    ===================================================*/
-    $(document).on("click", ".btn-ruta", function () {
-        $("#modal-nuevoplanrodamiento").modal("hide");
-        $("#titulo_modal_general").html("Seleccione una ruta");
-        $("#tabla_general_rutas").dataTable().fnDestroy();
-        // Borrar datos
-        $("#tbody_principal").html("");
-
-        $(".btnBorrar").addClass("d-none");
-
-        var datos = new FormData();
-        datos.append("ListarRutas", "ok");
-        $.ajax({
-            type: "POST",
-            url: "ajax/conceptos.ajax.php",
-            data: datos,
-            cache: false,
-            contentType: false,
-            processData: false,
-            //dataType: "json",
-            success: function (response) {
-                if (response != "" || response != null) {
-                    $("#tbody_principal").html(response);
-                } else {
-                    $("#tbody_principal").html("");
-                }
-                var buttons = [
-                    {
-                        extend: "excel",
-                        className: "btn-info",
-                        text: '<i class="far fa-file-excel"></i> Exportar',
-                    },
-                    /* 'copy', 'csv', 'excel', 'pdf', 'print' */
-                ];
-                dataTableCustom("#tabla_general_rutas", buttons);
-            },
-        });
-    });
-
-    $(document).on("click", ".btnSeleccionarRuta", function () {
-        $("#modal-nuevoplanrodamiento").modal("show");
-        $("#modal_general").modal("hide");
-
-        var origen = $(this).attr("origen");
-        var destino = $(this).attr("destino");
-        var descripcion = $(this).attr("descripcion");
-        var id = $(this).attr("idregistro");
-
-        $("#idruta").val(id);
-        $("#descrip").val(descripcion);
-        $("#origen").val(origen);
-        $("#destino").val(destino);
-    });
-
-    // $(document).on("click", ".btn_cancelar_ruta", function () {
-    //     $("#modal-nuevoplanrodamiento").modal("show");
-    //     $("#modal_general").modal("hide");
-
-    //     $("#idruta").val("");
-    //     $("#descrip").val("");
-    //     $("#origen").val("");
-    //     $("#destino").val("");
-    // });
-    $("#modal_general").on('hidden.bs.modal', function () {
-        $("#modal-nuevoplanrodamiento").modal('show');
-        $("#modal_general").modal('hide');
-
-        // $("#idruta").val("");
-        // $("#observacionescontr").val("");
-        // $("#origen").val("");
-        // $("#destino").val("");
-    });
-
-    /* ===================================================
-         VALIDAR CAMPO VACIO DE RUTA
-       ===================================================*/
-    var guardoRodamiento = false;
-    $("#formulario_rodamiento").submit(function (e) {
-        if (!guardoRodamiento) {
-            e.preventDefault();
-            if ($("#idruta").val() == "") {
-                Swal.fire({
-                    icon: "warning",
-                    title: "¡Debe seleccionar una ruta antes de guardar!",
-                    showConfirmButton: false,
-                    timer: 1500
+        /*===================================================
+                  INICIALIZAR DATATABLE
+        ===================================================*/
+        let FiltroTablaRodamiento = () => {
+            /* ===================================================
+                          FILTRAR POR COLUMNA
+            ====================================================*/
+            /* Filtrar por columna */
+            //Clonar el tr del thead
+            $(`#tblplanrodamiento thead tr:eq(0)`)
+                .clone(true)
+                .appendTo(`#tblplanrodamiento thead`);
+            //Por cada th creado hacer lo siguiente
+            $(`#tblplanrodamiento thead tr:eq(1) th`).each(function (i) {
+                //Remover clase sorting y el evento que tiene cuando se hace click
+                $(this).removeClass("sorting").unbind();
+                //Agregar input de busqueda
+                $(this).html(
+                    '<input class="form-control" type="text" placeholder="Buscar"/>'
+                );
+                //Evento para detectar cambio en el input y buscar
+                $("input", this).on("keyup change", function () {
+                    if (table.column(i).search() !== this.value) {
+                        table.column(i).search(this.value).draw();
+                    }
                 });
-                guardoRodamiento = false;
-            } else {
-                guardoRodamiento = true;
-                $("#formulario_rodamiento").submit();
+            });
+
+            /* ===================================================
+                            INICIALIZAR DATATABLE 
+            ====================================================*/
+            var buttons = [
+                {
+                    extend: "excel",
+                    className: "btn-info",
+                    text: '<i class="far fa-file-excel"></i> Exportar',
+                },
+            ];
+            var table = dataTableCustom(`#tblplanrodamiento`, buttons);
+        };
+        FiltroTablaRodamiento();
+
+        /* ===================================================
+              SELECCIÓN DE RUTA EN RODAMIENTO
+        ===================================================*/
+        $(document).on("click", ".btn-ruta", function () {
+            $("#modal-nuevoplanrodamiento").modal("hide");
+            $("#titulo_modal_general").html("Seleccione una ruta");
+            $("#tabla_general_rutas").dataTable().fnDestroy();
+            // Borrar datos
+            $("#tbody_principal").html("");
+
+            $(".btnBorrar").addClass("d-none");
+
+            var datos = new FormData();
+            datos.append("ListarRutas", "ok");
+            $.ajax({
+                type: "POST",
+                url: "ajax/conceptos.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                //dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbody_principal").html(response);
+                    } else {
+                        $("#tbody_principal").html("");
+                    }
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
+                        /* 'copy', 'csv', 'excel', 'pdf', 'print' */
+                    ];
+                    dataTableCustom("#tabla_general_rutas", buttons);
+                },
+            });
+        });
+
+        $(document).on("click", ".btnSeleccionarRuta", function () {
+            $("#modal-nuevoplanrodamiento").modal("show");
+            $("#modal_general").modal("hide");
+
+            var origen = $(this).attr("origen");
+            var destino = $(this).attr("destino");
+            var descripcion = $(this).attr("descripcion");
+            var id = $(this).attr("idregistro");
+
+            $("#idruta").val(id);
+            $("#descrip").val(descripcion);
+            $("#origen").val(origen);
+            $("#destino").val(destino);
+        });
+
+        // $(document).on("click", ".btn_cancelar_ruta", function () {
+        //     $("#modal-nuevoplanrodamiento").modal("show");
+        //     $("#modal_general").modal("hide");
+
+        //     $("#idruta").val("");
+        //     $("#descrip").val("");
+        //     $("#origen").val("");
+        //     $("#destino").val("");
+        // });
+        $("#modal_general").on('hidden.bs.modal', function () {
+            $("#modal-nuevoplanrodamiento").modal('show');
+            $("#modal_general").modal('hide');
+
+            // $("#idruta").val("");
+            // $("#observacionescontr").val("");
+            // $("#origen").val("");
+            // $("#destino").val("");
+        });
+
+        /* ===================================================
+             VALIDAR CAMPO VACIO DE RUTA
+           ===================================================*/
+        var guardoRodamiento = false;
+        $("#formulario_rodamiento").submit(function (e) {
+            if (!guardoRodamiento) {
+                e.preventDefault();
+                if ($("#idruta").val() == "") {
+                    Swal.fire({
+                        icon: "warning",
+                        title: "¡Debe seleccionar una ruta antes de guardar!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    guardoRodamiento = false;
+                } else {
+                    guardoRodamiento = true;
+                    $("#formulario_rodamiento").submit();
+                }
             }
-        }
-    });
-}
+        });
+    }
+});
