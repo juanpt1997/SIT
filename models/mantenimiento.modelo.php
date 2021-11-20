@@ -1629,7 +1629,7 @@ class ModeloMantenimientos
         $stmt = Conexion::conectar()->prepare("INSERT INTO m_solicitudservicio(idvehiculo,fecha,idservicio_externo, idrepuesto, cantidad) VALUES(:idvehiculo,:fecha,:idservicio_externo, :idrepuesto, :cantidad)");
         $stmt->bindParam(":idvehiculo", $datos['idvehiculo_repuestos'], PDO::PARAM_INT);
         $stmt->bindParam(":fecha", $datos['fecha_repuestos'], PDO::PARAM_STR);
-        $stmt->bindParam(":idservicio_externo", $datos['servicioexterno_1'], PDO::PARAM_STR); 
+        $stmt->bindParam(":idservicio_externo", $datos['servicioexterno_1'], PDO::PARAM_STR);
         $stmt->bindParam(":idrepuesto", $datos['repuesto'], PDO::PARAM_INT);
         $stmt->bindParam(":cantidad", $datos['cantidad_repuesto'], PDO::PARAM_INT);
 
@@ -1661,7 +1661,8 @@ class ModeloMantenimientos
     /* ===================================================
         LISTADO PRODUCTOS
     ===================================================*/
-    static public function mdlListadoProductos(){
+    static public function mdlListadoProductos()
+    {
         $stmt = Conexion::conectar()->prepare("SELECT p.*, m.medida, mc.marca, ct.categoria  
         from a_productos p
         INNER JOIN a_medidas m ON p.idmedida = m.idmedidas
@@ -1680,13 +1681,7 @@ class ModeloMantenimientos
 
     static public function mdlServicios()
     {
-        // $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.kilometraje AS kilometraje_actual, MAX(sm.idserviciovehiculo) AS idserviciovehiculo, sm.idvehiculo, sm.idservicio,s.kilometraje_cambio AS kilometraje_servicio, (s.kilometraje_cambio + MAX(sm.kilometraje)) AS kilometraje_cambio,
-        // MAX(sm.fecha) AS fecha, DATE_FORMAT(MAX(sm.fecha), '%d/%m/%y') AS Ffecha, s.servicio, DATE_FORMAT(date_add(sm.fecha, INTERVAL s.dias_cambio DAY), '%d/%m/%Y') AS fecha_cambio, date_add(sm.fecha, INTERVAL s.dias_cambio DAY) AS fecha_comparar 
-        // FROM m_re_serviciosvehiculos sm
-        // INNER JOIN m_serviciosmenores s ON sm.idservicio = s.idservicio
-        // INNER JOIN v_vehiculos v ON sm.idvehiculo = v.idvehiculo
-        // GROUP BY sm.idvehiculo, sm.idservicio
-        // ORDER BY sm.fecha DESC");
+
         $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.kilometraje AS kilometraje_actual, MAX(sm.idserviciovehiculo) AS idserviciovehiculo, sm.idvehiculo, sm.idservicio,s.kilometraje_cambio AS kilometraje_servicio, (s.kilometraje_cambio + MAX(sm.kilometraje)) AS kilometraje_cambio,
         MAX(sm.fecha) AS fecha, DATE_FORMAT(MAX(sm.fecha), '%d/%m/%y') AS Ffecha, s.servicio, DATE_FORMAT(date_add(sm.fecha, INTERVAL s.dias_cambio DAY), '%d/%m/%Y') AS fecha_cambio, date_add(sm.fecha, INTERVAL s.dias_cambio DAY) AS fecha_comparar 
         FROM m_re_serviciosvehiculos sm
@@ -1701,7 +1696,27 @@ class ModeloMantenimientos
         return $respuesta;
     }
 
+    /* ===================================================
+        LISTADO DE SERVICIOS RECIENTES POR ID VEHICULO
+    ===================================================*/
 
+    static public function mdlServiciosRecientesxVehiculo($idvehiculo)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.kilometraje AS kilometraje_actual, MAX(sm.idserviciovehiculo) AS idserviciovehiculo, sm.idvehiculo, sm.idservicio,s.kilometraje_cambio AS kilometraje_servicio, (s.kilometraje_cambio + MAX(sm.kilometraje)) AS kilometraje_cambio,
+        MAX(sm.fecha) AS fecha, DATE_FORMAT(MAX(sm.fecha), '%d/%m/%y') AS Ffecha, s.servicio, DATE_FORMAT(date_add(sm.fecha, INTERVAL s.dias_cambio DAY), '%d/%m/%Y') AS fecha_cambio, date_add(sm.fecha, INTERVAL s.dias_cambio DAY) AS fecha_comparar 
+        FROM m_re_serviciosvehiculos sm
+        INNER JOIN m_serviciosmenores s ON sm.idservicio = s.idservicio
+        INNER JOIN v_vehiculos v ON sm.idvehiculo = v.idvehiculo
+        WHERE sm.idvehiculo = :idvehiculo
+        GROUP BY sm.idvehiculo, sm.idservicio
+        ORDER BY sm.fecha DESC");
+
+        $stmt->bindParam(":idvehiculo", $idvehiculo, PDO::PARAM_INT);
+        $stmt->execute();
+        $respuesta = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
 
     /* ===================================================
     LISTADO DE SERVICIOS RECIENTES POR ID DEL SERVICIO    

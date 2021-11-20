@@ -209,6 +209,53 @@ class AjaxMantenimientos
     }
 
     /* ===================================================
+        TABLA DE SERVICIOS X VEHICULO
+    ===================================================*/
+    
+    static public function ajaxServiciosxVehiculo($idvehiculo){
+        $respuesta = ModeloMantenimientos::mdlServiciosRecientesxVehiculo($idvehiculo);
+        
+        $tr = "";
+
+        foreach($respuesta as $key => $value){
+
+            $fecha_Actual = date('Y-m-d');
+
+            // VALIDACIÓN SI LA FECHA YA VENCIÓ 
+            if ($fecha_Actual < $value['fecha_comparar']) {
+                $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
+            } else {
+                $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
+            }
+
+            //VALIDACIÓN SI EL KILOMETRAJE YA SE PASÓ
+            if ($value['kilometraje_servicio'] != 0 && $value['kilometraje_actual'] >= $value['kilometraje_cambio']) {
+                $kilometraje = "<td class='bg-danger'>" . $value['kilometraje_cambio'] .  "</td>";
+            } else {
+                $kilometraje = "<td class='bg-success'>" . $value['kilometraje_cambio'] .  "</td>";
+            }
+
+            //SI EL KILOMETRAJE DEL SERVICIO ES 0
+            if($value['kilometraje_servicio'] == 0){
+                $kilometraje = "<td>No aplica</td>";
+            }
+
+            if($value['kilometraje_actual'] == NULL) $value['kilometraje_actual'] = 0;
+
+            $tr .= "
+            <tr>
+            <td>". $value['servicio'] . "</td>
+            <td>". $value['kilometraje_actual'] . "</td>
+            $kilometraje
+            $fecha
+            </tr>
+            ";
+        }
+
+        echo $tr;
+    }
+
+    /* ===================================================
         TABLA SERVICIOS [PROGRAMACIÓN]     
     ===================================================*/
     static public function ajaxServiciosMenores($idservicio)
@@ -349,3 +396,6 @@ if (isset($_POST['GuardarProgramacion']) && $_POST['GuardarProgramacion'] == "ok
 
 #LLAMADO A LISTADO PRODUCTOS
 if (isset($_POST['ListaProductos']) && $_POST['ListaProductos'] == "ok") AjaxMantenimientos::ajaxListadoProductos($_POST['consecutivo']);
+
+#LLAMADO A SERVICIOS POR VEHICULO
+if(isset($_POST['ServiciosxVehiculo']) && $_POST['ServiciosxVehiculo'] == "ok") AjaxMantenimientos::ajaxServiciosxVehiculo($_POST['idvehiculo']);

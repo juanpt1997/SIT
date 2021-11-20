@@ -24,10 +24,10 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                 <div class="col-sm-6">
                     <ul class="nav nav-tabs mb-3" id="pills-tab" role="tablist">
                         <li class="nav-item border border-info rounded ml-2 mb-1 mb-md-0">
-                            <a class="nav-link active h4" id="pills-ordenserv-tab" data-toggle="tab" href="#pills-ordenserv" role="tab" aria-controls="pills-ordenserv" aria-selected="active">Orden de servicio <i class="fas fa-building"></i></a>
+                            <a class="nav-link active h4" id="pills-ordenserv-tab" data-toggle="tab" href="#pills-ordenserv" role="tab" aria-controls="pills-ordenserv" aria-selected="active">Orden de servicio <i class="fas fa-sticky-note"></i></a>
                         </li>
                         <li class="nav-item border border-info rounded ml-2 mb-1 mb-md-0">
-                            <a class="nav-link h4" id="pills-programacion-tab" data-toggle="tab" href="#pills-programacion" role="tab" aria-controls="pills-programacion" aria-selected="false">Programación <i class="fas fa-file-contract"></i></a>
+                            <a class="nav-link h4" id="pills-programacion-tab" data-toggle="tab" href="#pills-programacion" role="tab" aria-controls="pills-programacion" aria-selected="false">Programación <i class="fas fa-calendar-check"></i></a>
                         </li>
                     </ul>
                 </div><!-- /.col -->
@@ -209,13 +209,13 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                                             </div>
 
-                                                            <div class="card card-info collapsed-card" id="card-documentosVehiculo" data-toggle="tooltip" data-placement="top" data-card-widget="collapse">
-                                                                <div class="card-header">
+                                                            <div class="card card-info collapsed-card" id="card-documentosVehiculo"  >
+                                                                <div class="card-header" data-card-widget="collapse" style="cursor:pointer;">
                                                                     <h3 class="card-title"><b><i>Documentos del vehículo</i></b>
                                                                         <i class="fas fa-folder-open"></i>
                                                                     </h3>
                                                                     <div class="card-tools">
-                                                                        <button type="button" title="Abrir documentos del vehículo" class="btn btn-tool">
+                                                                        <button type="button" title="Abrir documentos del vehículo" data-toggle="tooltip" data-placement="top" class="btn btn-tool">
                                                                             <i class="fas fa-plus"></i>
                                                                         </button>
                                                                     </div>
@@ -240,13 +240,13 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                 <!--CARD BODY-->
                                                             </div>
 
-                                                            <div class="card card-info collapsed-card" id="card-programacion" data-toggle="tooltip" data-placement="top" data-card-widget="collapse">
-                                                                <div class="card-header">
+                                                            <div class="card card-info collapsed-card" id="card-programacion"  data-card-widget="collapse">
+                                                                <div class="card-header" data-card-widget="collapse" style="cursor:pointer;">
                                                                     <h3 class="card-title"><b><i>Programación del vehículo</i></b>
                                                                         <i class="far fa-calendar-alt"></i>
                                                                     </h3>
                                                                     <div class="card-tools">
-                                                                        <button type="button" title="Abrir programación del vehículo" class="btn btn-tool">
+                                                                        <button type="button" title="Abrir programación del vehículo" data-toggle="tooltip" data-placement="top" class="btn btn-tool">
                                                                             <i class="fas fa-plus"></i>
                                                                         </button>
                                                                     </div>
@@ -260,8 +260,6 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                             <div class="table-responsive">
                                                                                 <table id="tablaProgramacionServ" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
                                                                                     <thead class="text-nowrap">
-                                                                                        <th>...</th>
-                                                                                        <th>Placa</th>
                                                                                         <th>Servicio</th>
                                                                                         <th>Kilometraje actual</th>
                                                                                         <th>Kilometraje para cambio</th>
@@ -301,13 +299,13 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         <div class="tab-pane fade" id="v-pills-repuestos" role="tabpanel" aria-labelledby="v-pills-repuestos-tab">
 
                                                             <!-- SERVICIOS EXTERNOS COLLAPSE -->
-                                                            <div class="card card-info collapsed-card" id="card-serviciosext" data-toggle="tooltip" data-placement="top" data-card-widget="collapse">
-                                                                <div class="card-header">
+                                                            <div class="card card-info collapsed-card" id="card-serviciosext"  >
+                                                                <div class="card-header" data-card-widget="collapse" style="cursor:pointer;">
                                                                     <h3 class="card-title"><b><i>Servicios externos</i></b>
                                                                         <i class="fas fa-boxes"></i>
                                                                     </h3>
                                                                     <div class="card-tools">
-                                                                        <button type="button" title="Abrir servicios externos" class="btn btn-tool">
+                                                                        <button type="button" title="Abrir servicios externos" data-toggle="tooltip" data-placement="top" class="btn btn-tool">
                                                                             <i class="fas fa-plus"></i>
                                                                         </button>
                                                                     </div>
@@ -333,13 +331,13 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             </div>
 
                                                             <!-- REPUESTO COLLAPSE -->
-                                                            <div class="card card-info collapsed-card" id="card-repuesto" data-toggle="tooltip" data-placement="top" data-card-widget="collapse">
-                                                                <div class="card-header">
+                                                            <div class="card card-info collapsed-card" id="card-repuesto"  >
+                                                                <div class="card-header" data-card-widget="collapse" style="cursor:pointer;">
                                                                     <h3 class="card-title"><b><i>Repuesto</i></b>
                                                                         <i class="fas fa-tools nav-icon"></i>
                                                                     </h3>
                                                                     <div class="card-tools">
-                                                                        <button type="button" title="Abrir repuesto" class="btn btn-tool">
+                                                                        <button type="button" title="Abrir repuesto" data-toggle="tooltip" data-placement="top" class="btn btn-tool"> 
                                                                             <i class="fas fa-plus"></i>
                                                                         </button>
                                                                     </div>
