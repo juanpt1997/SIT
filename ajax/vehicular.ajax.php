@@ -277,9 +277,11 @@ class AjaxVehiculos
             }
             $botonAcciones = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnEditar . $btnEliminar . "</div>";
 
+            $btnFichaTecnicaConductor = "<button type='button' class='btn btn-secondary btn-sm mr-3 btn-FTConductor' idPersonal='{$value['idconductor']}'><i class='fas fa-book'></i></button>";
+            $Conductor = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnFichaTecnicaConductor . $value['conductor'] . "</div>";
             $tr .= "
                 <tr>
-                        <td>" . $value['conductor'] . "</td>
+                        <td>" . $Conductor . "</td>
                         <td>" . $value['observacion'] . "</td>
                         <td>$botonAcciones</td>
                 </tr>
