@@ -644,12 +644,60 @@ class ControladorRevision
 
 class ControladorMantenimientos
 {
+
+	/* ===================================================
+		LISTADO SERVICIOS EXTERNOS 
+	===================================================*/
+
+	static public function ctrListadoServiciosExternos(){
+		$respuesta = ModeloMantenimientos::mdlListadoServiciosExternos();
+		return $respuesta;
+	}
+
+
+	/* ===================================================
+		LISTADO DE PRODUCTOS
+	===================================================*/
+	
+	static public function ctrListadoProductos()
+	{
+		$respuesta = ModeloMantenimientos::mdlListadoProductos();
+		return $respuesta;
+	}
+
+	/* ===================================================
+		AGREGAR SOLICITUD DE SERVICIO	
+	===================================================*/
+
+	static public function ctrAgregarSolicitud($datos){
+
+		//Array de servicios
+		$arrayserv = ModeloMantenimientos::mdlListadoServiciosExternos();
+
+
+		foreach ($arrayserv as $key => $value) {
+			if(isset($_POST['servicioexterno_' . $value['idservicio_externo']])&& $_POST['servicioexterno_' . $value['idservicio_externo']] == "on"){
+				$datos['servicioexterno_'. $value['idservicio_externo']] = 1;
+			}
+			else{
+				$datos['servicioexterno_'. $value['idservicio_externo']] = 0;
+			}
+		}
+
+		// var_dump($datos);
+
+		// $respuesta = ModeloMantenimientos::mdlAgregarSolicitud($datos);
+		// return $respuesta;
+
+	}
+
 	/* ===================================================
 		AGREGAR SERVICIO PROGRAMACIÓN 
 	===================================================*/
 
 	static public function ctrAgregarProgramacion($datos)
 	{
+		
 		$respuesta = ModeloMantenimientos::mdlAgregarServicio($datos);
 
 		/* ===================================================
@@ -660,9 +708,9 @@ class ControladorMantenimientos
         $datoskm = array(
             'tabla' => $tabla,
             'item1' => 'kilometraje',
-            'valor1' => $datos['kilometraje'],
+            'valor1' => $datos['kilometraje_serv'],
             'item2' => 'idvehiculo',
-            'valor2' => $datos['idvehiculo']
+            'valor2' => $datos['idvehiculo_serv']
         );
 
         $respuestakm = ModeloVehiculos::mdlActualizarVehiculo($datoskm);

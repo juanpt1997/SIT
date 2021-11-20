@@ -178,14 +178,45 @@ class AjaxMantenimientos
 {
 
     /* ===================================================
-        TABLA SERVICIOS PROGRAMACIÓN     
+        LISTADO PRODUCTOS [SOLICITUD DE SERVICIO]    
+    ===================================================*/
+
+    static public function ajaxListadoProductos($consecutivo)
+    {
+        $respuesta = ModeloMantenimientos::mdlListadoProductos();
+        $tr = "";
+
+        foreach ($respuesta as $key => $value) {
+            $tr .= "
+            <tr>
+                <td>" . $value['codigo']  . "</td>
+                <td>" . $value['referencia'] . "</td>
+                <td>" . $value['descripcion'] . "</td>
+                <td>" . $value['categoria'] . "</td>
+                <td>" . $value['marca'] . "</td>
+                <td>" . $value['medida'] . "</td>
+                <td>
+                <div class='btn-group' role='group' aria-label='Button group'>
+			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' idproducto='{$value["idproducto"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
+			    </div>
+                </td>
+            </tr>
+            
+            ";
+        }
+
+        echo $tr;
+    }
+
+    /* ===================================================
+        TABLA SERVICIOS [PROGRAMACIÓN]     
     ===================================================*/
     static public function ajaxServiciosMenores($idservicio)
-    {   
-
-        if($idservicio != 'todo'){
+    {
+        
+        if ($idservicio != 'todo') {
             $respuesta = ModeloMantenimientos::mdlServiciosRecientes($idservicio);
-        }else{
+        } else {
             $respuesta = ModeloMantenimientos::mdlServicios();
         }
 
@@ -195,29 +226,35 @@ class AjaxMantenimientos
                 $btnEliminarProgra = "<button type='button' class='btn btn-xs btn-danger btnBorrarProgramacion' idservicio='{$value['idservicio']}' idserviciovehiculo='{$value['idserviciovehiculo']}'><i class='fas fa-trash-alt'></i></button>";
             }
 
-            $fecha_Actual = date('Y-m-d'); 
-            
+            $fecha_Actual = date('Y-m-d');
 
-            if($fecha_Actual < $value['fecha_comparar'] ){
-               $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
-            }
-            else{
+            // VALIDACIÓN SI LA FECHA YA VENCIÓ 
+            if ($fecha_Actual < $value['fecha_comparar']) {
+                $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
+            } else {
                 $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
             }
 
-            if($value['kilometraje_actual'] >= $value['kilometraje_cambio']){
-                $kilometraje = "<td class='bg-danger'>". $value['kilometraje_cambio'] .  "</td>";
+            //VALIDACIÓN SI EL KILOMETRAJE YA SE PASÓ
+            if ($value['kilometraje_servicio'] != 0 && $value['kilometraje_actual'] >= $value['kilometraje_cambio']) {
+                $kilometraje = "<td class='bg-danger'>" . $value['kilometraje_cambio'] .  "</td>";
+            } else {
+                $kilometraje = "<td class='bg-success'>" . $value['kilometraje_cambio'] .  "</td>";
             }
-            else{
-                $kilometraje = "<td class='bg-success'>". $value['kilometraje_cambio'] .  "</td>";
+
+            //SI EL KILOMETRAJE DEL SERVICIO ES 0
+            if($value['kilometraje_servicio'] == 0){
+                $kilometraje = "<td>No aplica</td>";
             }
+
+            if($value['kilometraje_actual'] == NULL) $value['kilometraje_actual'] = 0;
 
             $tr .= "
             <tr>
                 <td>$btnEliminarProgra</td>
                 <td>" . $value['placa'] . "</td>
-                <td>" . $value['servicio']. " </td>
-                <td>". $value['kilometraje_actual'] ."</td>
+                <td>" . $value['servicio'] . " </td>
+                <td>" . $value['kilometraje_actual'] . "</td>
                 $kilometraje
                 $fecha
                     
@@ -305,3 +342,10 @@ if (isset($_POST['EliminarProgramacion']) && $_POST['EliminarProgramacion'] == "
 
 #LLAMADO A GUARDAR PROGRAMACIÓN 
 if (isset($_POST['GuardarProgramacion']) && $_POST['GuardarProgramacion'] == "ok") AjaxMantenimientos::ajaxGuardarProgramacion($_POST);
+
+/* ===================================================
+    ORDEN DE SERVICIO
+===================================================*/
+
+#LLAMADO A LISTADO PRODUCTOS
+if (isset($_POST['ListaProductos']) && $_POST['ListaProductos'] == "ok") AjaxMantenimientos::ajaxListadoProductos($_POST['consecutivo']);

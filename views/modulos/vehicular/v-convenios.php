@@ -10,8 +10,7 @@ $Vehiculos = ControladorVehiculos::ctrMostrarTipoVehiculo();
 $Placas = ControladorVehiculos::ctrListaVehiculos();
 $Sucursales = ControladorGH::ctrSucursales();
 $Convenios = ControladorConvenios::ctrMostrarConvenios();
-
-
+$ConveniosVencer = ControladorConvenios::ctrVencimientosConvenios();
 
 ?>
 <!-- ===================== 
@@ -32,6 +31,10 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
                         </li>
                         <li class="nav-item border border-info rounded ml-2 mb-1 mb-md-0">
                             <a class="nav-link active h4" id="pills-convenios-tab" data-toggle="tab" href="#pills-convenios" role="tab" aria-controls="pills-convenios" aria-selected="true">Convenios <i class="fas fa-file-contract"></i></a>
+                        </li>
+
+                        <li class="nav-item border border-info rounded ml-2 mb-1 mb-md-0">
+                            <a class="nav-link h4" id="pills-vencimientos-tab" data-toggle="tab" href="#pills-vencimientos" role="tab" aria-controls="pills-vencimientos" aria-selected="true">Vencimientos <i class="fas fa-hourglass-end"></i></a>
                         </li>
                     </ul>
                 </div><!-- /.col -->
@@ -248,6 +251,91 @@ $Convenios = ControladorConvenios::ctrMostrarConvenios();
 
 
 
+                </div>
+
+                <div class="tab-pane fade" id="pills-vencimientos" role="tabpanel" aria-labelledby="pills-vencimientos-tab">
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header bg-info"></div>
+                                <div class="card-body">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-striped table-bordered table-hover tablasBtnExport text-nowrap w-100">
+                                            <thead class="thead-light text-sm text-center text-nowrap">
+                                                <tr>
+                                                    <th style="width:10px;">#</th>
+                                                    <th>Fecha inicio</th>
+                                                    <th>Fecha terminación</th>
+                                                    <th>Días para vencer</th>
+                                                    <th>Vehículos</th>
+                                                    <th>Documento</th>
+                                                    <th>Placa</th>
+                                                    <th>NIT</th>
+                                                    <th>Empresa contratante</th>
+                                                    <th>NIT</th>
+                                                    <th>Empresa contratista</th>
+                                                    <th>Contrato a ejecutar</th>
+                                                    <th>Sucursal</th>
+                                                    <th>Estado en empresa</th>
+                                                    <th>Fecha radicado ministerio</th>
+                                                    <th>Número Radicado</th>
+                                                    <th>Observación</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody class="text-sm">
+                                                <?php foreach ($ConveniosVencer as $key => $value) : ?>
+                                                    <?php
+                                                    if ($value['ruta_documento'] != null) {
+
+                                                        $btnDoc = "<a href='" . URL_APP . $value['ruta_documento'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-contract'></i></a>";
+                                                    } else {
+
+                                                        $btnDoc = "<span class='badge badge-secondary'>sin documento</span>";
+                                                    }
+
+                                                    ?>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="row d-flex flex-nowrap justify-content-center">
+                                                                <div class="col-md-6">
+                                                                    <?= $value['idconvenio'] ?>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td><?= $value['fecha_inicio'] ?></td>
+                                                        <td><?= $value['fecha_terminacion'] ?></td>
+                                                        <td><span class="badge badge-danger"><?= $value['diferencia'] ?></span></td>
+                                                        <td class="text-center">
+                                                            <div class="btn-group mr-2" role="group" aria-label="Button group">
+                                                                <button class="btn btn-xs btn-success btnPlacas" idConvenio="<?= $value['idconvenio'] ?>"><i class="fas fa-bus"></i></button>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-center"><?= $btnDoc ?></td>
+                                                        <td><?= $value['placa'] ?></td>
+                                                        <td><?= $value['nitContratante'] ?></td>
+                                                        <td><?= $value['nomContratante'] ?></td>
+                                                        <td><?= $value['nitContratista'] ?></td>
+                                                        <td><?= $value['nomContratista'] ?></td>
+                                                        <td><?= $value['contrato'] ?></td>
+                                                        <td><?= $value['sucursal'] ?></td>
+                                                        <td><?= $value['estado'] ?></td>
+                                                        <td><?= $value['fecha_radicado'] ?></td>
+                                                        <td><?= $value['num_radicado'] ?></td>
+                                                        <td><?= $value['observacion'] ?></td>
+                                                    </tr>
+
+                                                <?php endforeach ?>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="card-footer bg-dark"></div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div><!-- /.container-fluid -->

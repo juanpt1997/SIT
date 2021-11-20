@@ -277,6 +277,14 @@ $('.tablasBtnExport').DataTable({
 
 });
 
+/* ===================================================
+            FICHA TÉCNICA CONDUCTOR - BOTON PARA GENERAR PDF
+        ===================================================*/
+$(document).on("click", ".btn-FTConductor", function () {
+    var idPersonal = $(this).attr("idPersonal");
+    window.open(`./pdf/pdfconductor.php?idPersonal=${idPersonal}`, '', 'width=1280,height=720,left=50,top=50,toolbar=yes')
+});
+
 $(document).ready(function () {
     /* ===================================================
       MOSTRAR O ESCONDER EL MINI MENU DE LA IZQUIERDA SEGUN LA VISTA EN LA QUE SE ENCUENTRE
@@ -296,7 +304,7 @@ $(document).ready(function () {
 
         //     var calendarEl = document.getElementById('calendar');
         //     var calendar = new FullCalendar.Calendar(calendarEl, {
-                
+
         //       //initialView: 'timeGridWeek',
         //       //themeSystem: 'bootstrap'
         //       //aspectRatio: -10
@@ -314,69 +322,69 @@ $(document).ready(function () {
         //   });
         //     calendar.render();
 
-        ocument.addEventListener('DOMContentLoaded', function() {
+        ocument.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
-        
+
             var calendar = new FullCalendar.Calendar(calendarEl, {
-              initialView: 'dayGridMonth',
-              initialDate: '2021-10-07',
-              headerToolbar: {
-                left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
-              },
-              events: [
-                {
-                  title: 'All Day Event',
-                  start: '2021-10-01'
+                initialView: 'dayGridMonth',
+                initialDate: '2021-10-07',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 },
-                {
-                  title: 'Long Event',
-                  start: '2021-10-07',
-                  end: '2021-10-10'
-                },
-                {
-                  groupId: '999',
-                  title: 'Repeating Event',
-                  start: '2021-10-09T16:00:00'
-                },
-                {
-                  groupId: '999',
-                  title: 'Repeating Event',
-                  start: '2021-10-16T16:00:00'
-                },
-                {
-                  title: 'Conference',
-                  start: '2021-10-11',
-                  end: '2021-10-13'
-                },
-                {
-                  title: 'Meeting',
-                  start: '2021-10-12T10:30:00',
-                  end: '2021-10-12T12:30:00'
-                },
-                {
-                  title: 'Lunch',
-                  start: '2021-10-12T12:00:00'
-                },
-                {
-                  title: 'Meeting',
-                  start: '2021-10-12T14:30:00'
-                },
-                {
-                  title: 'Birthday Party',
-                  start: '2021-10-13T07:00:00'
-                },
-                {
-                  title: 'Click for Google',
-                  url: 'http://google.com/',
-                  start: '2021-10-28'
-                }
-              ]
+                events: [
+                    {
+                        title: 'All Day Event',
+                        start: '2021-10-01'
+                    },
+                    {
+                        title: 'Long Event',
+                        start: '2021-10-07',
+                        end: '2021-10-10'
+                    },
+                    {
+                        groupId: '999',
+                        title: 'Repeating Event',
+                        start: '2021-10-09T16:00:00'
+                    },
+                    {
+                        groupId: '999',
+                        title: 'Repeating Event',
+                        start: '2021-10-16T16:00:00'
+                    },
+                    {
+                        title: 'Conference',
+                        start: '2021-10-11',
+                        end: '2021-10-13'
+                    },
+                    {
+                        title: 'Meeting',
+                        start: '2021-10-12T10:30:00',
+                        end: '2021-10-12T12:30:00'
+                    },
+                    {
+                        title: 'Lunch',
+                        start: '2021-10-12T12:00:00'
+                    },
+                    {
+                        title: 'Meeting',
+                        start: '2021-10-12T14:30:00'
+                    },
+                    {
+                        title: 'Birthday Party',
+                        start: '2021-10-13T07:00:00'
+                    },
+                    {
+                        title: 'Click for Google',
+                        url: 'http://google.com/',
+                        start: '2021-10-28'
+                    }
+                ]
             });
-        
+
             calendar.render();
-          });
+        });
 
     } else {
         $("body").addClass("sidebar-mini");
@@ -496,11 +504,11 @@ $(document).ready(function () {
     $('.select2-multiple').select2();
     /* ===================================================
           INICIALIZAR tooltip titulos de los botones
-    ===================================================*/    
+    ===================================================*/
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
-      })
-      
+    })
+
 
     /* ===================================================
       CAMBIAR FOTO

@@ -54,7 +54,8 @@ class ControladorAlistamiento
     {
         $datosBusqueda = array(
             'item' => 'idvehiculo',
-            'valor' => $datos['idvehiculo']
+            'valor' => $datos['idvehiculo'],
+            'fechaalista' => $datos['fechaAlistamiento']
         );
         $alistamiento = ModeloAlistamiento::mdlDatosAlistamiento($datosBusqueda, "fecha");
 
