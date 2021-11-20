@@ -138,6 +138,4 @@ class ModeloProductos
 
         return $retorno;
     }
-
-
 }

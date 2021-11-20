@@ -13,7 +13,6 @@ $(document).ready(function () {
             var datosAjax = new FormData();
             datosAjax.append('AgregarProducto', "ok");
             var datosFrm = $(this).serializeArray();
-            
             datosFrm.forEach(element => {
                 datosAjax.append(element.name, element.value);
             });
@@ -26,12 +25,26 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Se creó el producto exitosamente!',						
-                        showConfirmButton: false,
-                        timer: 1000                       
-                    })
+                    if(response != ""){
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Se creó el producto exitosamente!',						
+                            showConfirmButton: false,
+                            timer: 1500                       
+                        })
+                        //GUARDAR ID para agregar al inventario
+                        $("#id_producto").val(response);
+                        //HABILITAR CAMPOS DE INVENTARIO
+                        $(".input_inventario").attr("readonly", false);
+                    }else{
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Error al crear el producto',						
+                            showConfirmButton: false,
+                            timer: 1500                       
+                        })
+                        $(".input_inventario").attr("readonly", true);
+                    }
                 }
             });
         });
@@ -39,16 +52,14 @@ $(document).ready(function () {
         $("#formulario_addInventario").submit(function (e) {
             e.preventDefault();
 
-            var idproducto = $("#producto").val();
+            var idproducto = $("#id_producto").val();
             var idsucursal = $("#sucursal").val();
             var stock = $("#cantidad").val();
             var proveedor = $("#proveedor").val();
             var precio = $("#precio-compra-producto").val();
             var factura = $("#num_factura").val();
             
-
             if(idproducto != ""){
-
                 var datosAjax = new FormData();
                 datosAjax.append('AgregarInventario', "ok");
                 datosAjax.append('producto',idproducto);
@@ -67,7 +78,7 @@ $(document).ready(function () {
                         if(response != "" && response != null){
                             Swal.fire({
                                 icon: 'success',
-                                title: 'Se agregó el producto correctamente al inventario!',						
+                                title: 'Se agregó correctamente al inventario!',						
                                 showConfirmButton: false,
                                 timer: 2500                       
                             })
@@ -96,10 +107,15 @@ $(document).ready(function () {
                         }
                     }
                 });
+                //REINICIAR VALORES
+                $("#id_producto").val("");
+                $("#formulario_producto").trigger("reset");
+                $("#formulario_addInventario").trigger("reset");
+                $('.select2-single').val("").trigger("change");
                 }else {
                     Swal.fire({
                         icon: 'warning',
-                        title: 'Seleccione un producto',						
+                        title: 'Primero agregue un producto',						
                         showConfirmButton: false,
                         timer: 1000                       
                     })
@@ -111,7 +127,6 @@ $(document).ready(function () {
             cargarSelect('medida');
             cargarSelect('marca');
             cargarSelect('sucursal');
-            cargarSelect('producto');
             cargarSelectProveedor();
             $("#formulario_producto").trigger("reset");
             $("#formulario_addInventario").trigger("reset");
@@ -119,6 +134,7 @@ $(document).ready(function () {
             $(".btn_agregarProducto").show();
             $(".btn_actualizarProducto").addClass("d-none");
             $(".btn_nuevaReferencia").addClass("d-none");
+            $(".input_inventario").attr("readonly", true);
         });
         //EVENTO al salir del input de codigo, busca si ese codigo existe y se trae los datos del producto con ese codigo 
         $(document).on("blur", "#cod_producto", function () {
@@ -150,23 +166,12 @@ $(document).ready(function () {
                                 // $(".btn_agregarProducto").show();
                                 // $(".btn_actualizarProducto").addClass("d-none");
                                 // $(".btn_nuevaReferencia").addClass("d-none");
+                                $("#id_producto").val("");
                             }
                         }
                     });      
                 }
             
-        });
-        //HABILITAR CAMPOS DEL PRODUCTO SI SE SELECCIONA UNO
-        $(document).on("change", "#producto", function () {
-            var idproducto = $(this).val();
-
-            if(idproducto != ""){
-                //$("id_producto").val(idproducto);
-                $(".input_inventario").attr("readonly", false);
-            }else{
-                //$("id_producto").val("");
-                $(".input_inventario").attr("readonly", true);
-            }
         });
         //ACTUALIZAR PRODUCTO EXISTENTE
         $(document).on("click", ".btn_actualizarProducto", function () {
@@ -176,6 +181,53 @@ $(document).ready(function () {
             
 
 
+
+        });
+        //ACTUALIZAR PRODUCTO EXISTENTE
+        $(document).on("click", ".btn_nuevaReferencia", function (e) {
+            e.preventDefault();
+
+           $("#id_producto").val("");
+           
+                var datosAjax = new FormData();
+                datosAjax.append('AgregarProducto', "ok");
+
+                var datosFrm = $(this).serializeArray();
+
+                datosFrm.forEach(element => {
+                    datosAjax.append(element.name, element.value);
+                });
+
+                $.ajax({
+                    type: 'post',
+                    url: `${urlPagina}ajax/almacen.ajax.php`,
+                    data: datosAjax,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if(response != ""){
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Se creó el producto exitosamente!',						
+                                showConfirmButton: false,
+                                timer: 1500                       
+                            })
+                            //GUARDAR ID para agregar al inventario
+                            $("#id_producto").val(response);
+                            //HABILITAR CAMPOS DE INVENTARIO
+                            $(".input_inventario").attr("readonly", false);
+                        }else{
+                            Swal.fire({
+                                icon: 'warning',
+                                title: 'Error al crear el producto',						
+                                showConfirmButton: false,
+                                timer: 1500                       
+                            })
+                            $(".input_inventario").attr("readonly", true);
+                        }
+                    }
+                });
 
         });
         //FUNCION para cargar los datos del select

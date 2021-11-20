@@ -213,9 +213,9 @@
                         </div>
 
                         <div class="form-group">
-                            <button type="button" class="btn btn-sm btn-info btn-block btn_actualizarProducto mb-2 mr-2 d-none" form="formulario_producto"><i class="fas fa-sync-alt"></i> Actualizar producto</button>
+                            <button type="submit" class="btn btn-sm btn-info btn-block btn_actualizarProducto mb-2 mr-2 d-none" form="formulario_producto"><i class="fas fa-sync-alt"></i> Actualizar producto</button>
 
-                            <button type="button" class="btn btn-sm btn-success btn-block btn_nuevaReferencia mb-2 mr-2 d-none" form="formulario_producto"><i class="fas fa-plus"></i> Crear nueva referencia</button>
+                            <button type="submit" class="btn btn-sm btn-success btn-block btn_nuevaReferencia mb-2 mr-2 d-none" form="formulario_producto"><i class="fas fa-plus"></i> Crear nueva referencia</button>
                         </div>
                     </div>
 
@@ -227,7 +227,7 @@
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label><i>Productos</i></label>
-                                    <select class="form-control input-sm select2-single" style="width: 99%" type="text" id="producto" name="producto" required>
+                                    <select class="form-control input-sm select2-single" style="width: 99%" type="text" id="producto" name="producto">
                                     </select>
                                 </div>
                             </div>

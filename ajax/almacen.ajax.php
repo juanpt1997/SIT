@@ -78,7 +78,14 @@ class AjaxAlmacen
     {
         $respuesta = ModeloProductos::mdlAgregarProducto($frmData);
         echo $respuesta;
-    } 
+    }
+    
+    static public function ajaxEditarProducto($frmData,$idproducto)
+    {
+
+        
+
+    }
 
     static public function ajaxDatosProducto($item, $valor)
     {
