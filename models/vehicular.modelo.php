@@ -461,6 +461,36 @@ class ModeloConvenios
 
         return $retorno;
     }
+
+    /* ===================================================
+       VENCIMIENTO CONVENIOS
+    ===================================================*/
+    static public function mdlVencimientosConvenios()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT rec.idVehiculo,v.numinterno,
+                                                v.placa,
+                                                c.*, 
+                                                e.nombre AS nomContratante, e.nit AS nitContratante, 
+                                                e2.nombre AS nomContratista, e2.nit AS nitContratista, 
+                                                s.sucursal AS sucursal,
+                                                DATEDIFF(c.fecha_terminacion, CURRENT_DATE) AS diferencia
+                                                FROM v_convenios c
+                                                INNER JOIN v_empresas_convenios e ON c.idcontratante = e.idxc
+                                                INNER JOIN v_empresas_convenios e2 ON c.idcontratista = e2.idxc
+                                                INNER JOIN gh_sucursales s ON c.idsucursal = s.ids
+                                                LEFT JOIN v_re_convenios rec ON rec.idconvenio = c.idconvenio
+                                                LEFT JOIN v_vehiculos v ON v.idvehiculo = rec.idvehiculo
+                                                WHERE c.activo = 1 AND c.fecha_terminacion BETWEEN CURDATE() AND DATE_SUB(NOW(), INTERVAL -30 DAY)
+                                                ORDER BY c.idconvenio
+        ");
+
+        $stmt->execute();
+        $retorno =  $stmt->fetchAll();
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
 }
 
 /* ===================================================

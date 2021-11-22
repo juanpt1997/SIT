@@ -42,6 +42,14 @@ let tabsConfigGH = {
             tooltip: 'Control ausentismo',
             tabClass: 'customTabClass',
             spacerClass: 'customSpacerClass',
+        },
+        {
+            id: 'gh-tab6',
+            label: 'Bloqueo de personal',
+            url: 'gh-bloqueo-personal',
+            tooltip: 'Bloqueo de personal',
+            tabClass: 'customTabClass',
+            spacerClass: 'customSpacerClass',
         }
 
         // ...
@@ -381,14 +389,6 @@ if (
                 }
             });
 
-        });
-
-        /* ===================================================
-            FICHA TÉCNICA CONDUCTOR - BOTON PARA GENERAR PDF
-        ===================================================*/
-        $(document).on("click", ".btn-FTConductor", function () {
-            var idPersonal = $(this).attr("idPersonal");
-            window.open(`./pdf/pdfconductor.php?idPersonal=${idPersonal}`, '', 'width=1280,height=720,left=50,top=50,toolbar=yes')
         });
 
         /* ===================================================

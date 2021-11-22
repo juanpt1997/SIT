@@ -344,7 +344,7 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
                                             </td>
                                             <td><?= ControladorAlistamiento::FTraducirEstado($value['extintor']) ?>
                                             </td>
-                                            <td><?= $value['kilometraje_total']?></td>
+                                            <td><?= $value['kilometraje_total'] ?></td>
                                             <td><?= $value['observaciones'] ?></td>
                                         </tr>
                                     <?php endforeach ?>
@@ -1766,12 +1766,12 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
                                                     <tbody class="text-nowrap">
                                                         <tr>
 
-                                                    <?php foreach ($ServiciosMenores as $key => $value) : ?>
-                                                        <?php if ($key % 3 == 0) : ?>
-                                                            <tr>
+                                                            <?php foreach ($ServiciosMenores as $key => $value) : ?>
+                                                                <?php if ($key % 3 == 0) : ?>
+                                                        <tr>
 
-                                                            </tr>
-                                                        <?php endif ?>
+                                                        </tr>
+                                                    <?php endif ?>
                                                     <td>
                                                         <div class="form-group">
                                                             <label for="servicio_<?= $value['idservicio'] ?>"> <?= $value['servicio'] ?></label>
@@ -2285,11 +2285,18 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
                                     BOTON GUARDAR
                                 =================================================== -->
                             <?php if (validarPermiso('M_OPERACIONES', 'U')) : ?>
-                                <div class="col-12 mb-1">
-                                    <button type="submit" form="alistamiento_form" class="btn btn-sm btn-success float-center btn-alistamientoguardar">
-                                        <i class="fas fa-print"></i>
-                                        Guardar
-                                    </button>
+                                <div class="col-12">
+                                    <div class="row d-flex justify-content-center justify-content-lg-start">
+                                        <div class="col-8 col-md-4 col-lg-3 col-xl-2 mb-1">
+                                            <button type="submit" form="alistamiento_form" class="btn btn-sm btn-success btn-block float-center btn-alistamientoguardar">
+                                                <i class="fas fa-print"></i>
+                                                Guardar
+                                            </button>
+                                            <div class="overlay d-none overlayBtnGuardarAlistamiento">
+                                                <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
                             <?php endif ?>
@@ -2380,10 +2387,17 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
             </div>
 
             <div class="modal-footer justify-content-center bg-info">
-                <?php if (validarPermiso('M_OPERACIONES', 'U')) : ?>
-                    <button type="submit" form="alistamiento_form" class="btn btn-success btn-alistamientoguardar"><i class="fas fa-print"></i> Guardar</button>
-                <?php endif ?>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
+                    <div class="col-5 col-md-4 col-lg-3 col-xl-2 text-right">
+                        <?php if (validarPermiso('M_OPERACIONES', 'U')) : ?>
+                            <button type="submit" form="alistamiento_form" class="btn btn-block btn-success btn-alistamientoguardar"><i class="fas fa-print"></i> Guardar<div class="overlay d-none overlayBtnGuardarAlistamiento">
+                                <i class="fas fa-3x fa-sync-alt fa-spin"></i>
+                            </div></button>
+                            
+                        <?php endif ?>
+                    </div>
+                <div class="col-5 col-md-4 col-lg-3 col-xl-2 text-left">
+                    <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Volver</button>
+                </div>
             </div>
         </div>
     </div>

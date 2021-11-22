@@ -49,10 +49,11 @@ class ModeloClientes
                                                 LEFT JOIN gh_municipios Mr ON C.idciudadrespons = Mr.idmunicipio
                                                 LEFT JOIN gh_municipios Mc ON C.cedula_expedidaen = Mc.idmunicipio
                                                 LEFT JOIN cont_cotizaciones Co ON C.idcliente = Co.idcliente
-                                                WHERE C.Documento = :docum_empre");
+                                                WHERE C.{$datos['item']} = :{$datos['valor']}");
 
 
-      $stmt->bindParam(":docum_empre", $datos['valor']); 
+      /* $stmt->bindParam(":docum_empre", $datos['valor']);  */
+      $stmt->bindParam(":{$datos['valor']}", $datos['valor']); 
       $stmt->execute();
       $retorno = $stmt->fetch();
       $stmt->closeCursor();

@@ -190,7 +190,7 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
     });
 
     //LISTA DE PLACAS 
-    $(document).on("click",".btnPlacas",function(){
+    $(document).on("click", ".btnPlacas", function () {
 
         var idconvenio = $(this).attr("idConvenio");
         $("#idConvenio").val(idconvenio);
@@ -209,7 +209,7 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
             dataType: "json",
             success: function (response) {
 
-                if(response == ''){
+                if (response == '') {
                     Swal.fire({
                         icon: 'warning',
                         html: `<div class="font-weight-bold">Este convenio no cuenta con vehículos.</div>`,
@@ -217,19 +217,19 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
                         confirmButtonText: 'Cerrar',
                         closeOnConfirm: false
                     });
-                }else{
+                } else {
                     var vehiculos = [];
-    
+
                     response.forEach(element => {
                         vehiculos.push(element.placa);
                     });
-                    
+
                     let placas = `<ul>`;
                     vehiculos.forEach(element => {
                         placas += `<li>${element}</li>`;
                     });
                     placas += `</ul>`;
-    
+
                     Swal.fire({
                         icon: 'info',
                         html: `<div class="text-left">
@@ -247,7 +247,7 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
         });
 
 
-        
+
     });
 
     //EDITAR CONVENIO
@@ -311,7 +311,7 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
                 response.forEach(element => {
                     vehiculos.push(element.idvehiculo);
                 });
-                
+
                 $('#placa').val(vehiculos).trigger("change");
 
             }
@@ -478,6 +478,10 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
 if (window.location.href == `${urlPagina}gh-bloqueo-personal/` ||
     window.location.href == `${urlPagina}gh-bloqueo-personal`
 ) {
+    $(document).ready(function () {
+        // BLOQUEO PERSONAL tab en gestión humana
+        $('#ghTabs').simpleTabs(tabsConfigGH, 'gh-tab6');
+    });
 
     $(document).on("click", ".btnHistorial", function () {
 
