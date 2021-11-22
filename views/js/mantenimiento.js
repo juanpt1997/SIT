@@ -1110,6 +1110,7 @@ $(document).ready(function () {
       var fila = '<tr>' +
         '<td style="width: 300px">' + '<input type="text" class="form-control" id="descripcion_manoObra1" name="descripcion_repuestos1">' + '</td>' +
         '<td style="width: 300px">' + '<input type="text" class="form-control" id="proveedor" name="proveedor">' + '</td>' +
+        '<td style="width: 300px">' + '<input type="text" class="form-control" id="valor" name="valor">' + '</td>' +
         '</tr>'
         ;
       $("#filas_tabla_manoObra").append(fila);

@@ -27,7 +27,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                             <a class="nav-link active h4" id="pills-ordenserv-tab" data-toggle="tab" href="#pills-ordenserv" role="tab" aria-controls="pills-ordenserv" aria-selected="active">Orden de servicio <i class="fas fa-sticky-note"></i></a>
                         </li>
                         <li class="nav-item border border-info rounded ml-2 mb-1 mb-md-0">
-                            <a class="nav-link h4" id="pills-programacion-tab" data-toggle="tab" href="#pills-programacion" role="tab" aria-controls="pills-programacion" aria-selected="false">Programación <i class="fas fa-calendar-check"></i></a>
+                            <a class="nav-link h4" id="pills-programacion-tab" data-toggle="tab" href="#pills-programacion" role="tab" aria-controls="pills-programacion" aria-selected="false">Programación <i class="fas fa-clipboard-check"></i></a>
                         </li>
                     </ul>
                 </div><!-- /.col -->
@@ -63,7 +63,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                             <!-- TABS HORIZONTALES-->
                                             <a class="nav-link active" id="custom-tabs-one-ordenserv_mante-tab" data-toggle="pill" href="#custom-tabs-one-ordenserv_mante" role="tab" aria-controls="custom-tabs-one-ordenserv_mante" aria-selected="true">Orden de servicio / Mantenimiento</a>
                                         </li>
-                                        
+
                                     </ul>
                                 </div>
 
@@ -142,14 +142,6 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                                                 <div class="col-12 col-sm-6 col-lg-4">
                                                                     <div class="form-group text-center">
-                                                                        <label><i>Fecha</i></label>
-                                                                        <input type="date" class="form-control" id="fecha_man" name="fecha_man" required readonly>
-                                                                    </div>
-                                                                </div>
-
-
-                                                                <div class="col-12 col-sm-6 col-lg-4">
-                                                                    <div class="form-group text-center">
                                                                         <label><i>Modelo</i></label>
                                                                         <input type="text" class="form-control" id="modelo_man" name="modelo_man" required readonly>
                                                                     </div>
@@ -158,9 +150,24 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                 <div class="col-12 col-sm-6 col-lg-4">
                                                                     <div class="form-group text-center">
                                                                         <label><i>Kilometraje</i></label>
-                                                                        <input type="text" class="form-control" id="kilome_man" name="kilome_man" required readonly>
+                                                                        <input type="number" class="form-control" id="kilome_man" name="kilome_man" required readonly>
                                                                     </div>
                                                                 </div>
+
+                                                                <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="form-group text-center">
+                                                                        <label><i>Fecha de entrada</i></label>
+                                                                        <input type="date" class="form-control" id="fecha_man" name="fecha_man" required readonly>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="form-group text-center">
+                                                                        <label><i>Hora de entrada</i></label>
+                                                                        <input type="time" class="form-control" id="horaentra_man" name="horaentra_man" required>
+                                                                    </div>
+                                                                </div>
+
 
                                                                 <div class="col-12 col-sm-6 col-lg-4">
                                                                     <div class="form-group text-center">
@@ -171,27 +178,37 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                                                 <div class="col-12 col-sm-6 col-lg-4">
                                                                     <div class="form-group text-center">
-                                                                        <label><i>Fecha de entrada</i></label>
-                                                                        <input type="date" class="form-control" id="fechaentra_man" name="fechaentra_man" required>
+                                                                        <label><i>Fecha de inicio de trabajos</i></label>
+                                                                        <input type="date" class="form-control" id="fechainicio_man" name="fechaentra_man" required>
                                                                     </div>
                                                                 </div>
-
-
 
                                                                 <div class="col-12 col-sm-6 col-lg-4">
                                                                     <div class="form-group text-center">
-                                                                        <label><i>Hora de entrada</i></label>
-                                                                        <input type="time" class="form-control" id="horaentra_man" name="horaentra_man" required>
+                                                                        <label><i>Fecha de aprobación</i></label>
+                                                                        <input type="date" class="form-control" id="fechainicio_man" name="fechaentra_man" required>
                                                                     </div>
                                                                 </div>
+
+
+
 
                                                                 <div class="col-12 col-sm-6 col-lg-4">
                                                                     <div class="form-group text-center">
                                                                         <label><i>Sistema</i></label>
                                                                         <select name="sistema" id="sistema" class="form-control select2-single" type="number" style="width: 99%" required>
                                                                             <option selected value="">Seleccione el sistema</option>
+                                                                            <option>Sistema motor</option>
+                                                                            <option>Sistema transmisión</option>
+                                                                            <option>Sistema de frenos y llantas</option>
                                                                             <option>Sistema eléctrico</option>
-                                                                            <option>Sistema hidráulico</option>
+                                                                            <option>Sistema de suspensión</option>
+                                                                            <option>Sistema de dirección</option>
+                                                                            <option>Carrocería</option>
+                                                                            <option>Sistema diferencial</option>
+                                                                            <option>General vehículo</option>
+                                                                            <option>Logístico</option>
+                                                                            <option>Aire acondicionado</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -203,15 +220,17 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                             <option selected value="">Seleccione un tipo de mantenimiento</option>
                                                                             <option value="">Preventivo</option>
                                                                             <option value="">Correctivo</option>
+                                                                            <option value="">GPS</option>
+                                                                            <option value="">Servicios logísticos</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
 
                                                             </div>
 
-                                                            <div class="card card-info collapsed-card" id="card-documentosVehiculo"  >
+                                                            <div class="card card-info collapsed-card" id="card-documentosVehiculo">
                                                                 <div class="card-header" data-card-widget="collapse" style="cursor:pointer;">
-                                                                    <h3 class="card-title"><b><i>Documentos del vehículo</i></b>
+                                                                    <h3 class="card-title"><b><i>Fechas de vencimiento</i></b>
                                                                         <i class="fas fa-folder-open"></i>
                                                                     </h3>
                                                                     <div class="card-tools">
@@ -240,9 +259,9 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                 <!--CARD BODY-->
                                                             </div>
 
-                                                            <div class="card card-info collapsed-card" id="card-programacion"  data-card-widget="collapse">
+                                                            <div class="card card-info collapsed-card" id="card-programacion" data-card-widget="collapse">
                                                                 <div class="card-header" data-card-widget="collapse" style="cursor:pointer;">
-                                                                    <h3 class="card-title"><b><i>Programación del vehículo</i></b>
+                                                                    <h3 class="card-title"><b><i>Mantenimiento preventivo</i></b>
                                                                         <i class="far fa-calendar-alt"></i>
                                                                     </h3>
                                                                     <div class="card-tools">
@@ -299,7 +318,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         <div class="tab-pane fade" id="v-pills-repuestos" role="tabpanel" aria-labelledby="v-pills-repuestos-tab">
 
                                                             <!-- SERVICIOS EXTERNOS COLLAPSE -->
-                                                            <div class="card card-info collapsed-card" id="card-serviciosext"  >
+                                                            <div class="card card-info collapsed-card" id="card-serviciosext">
                                                                 <div class="card-header" data-card-widget="collapse" style="cursor:pointer;">
                                                                     <h3 class="card-title"><b><i>Servicios externos</i></b>
                                                                         <i class="fas fa-boxes"></i>
@@ -331,13 +350,13 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             </div>
 
                                                             <!-- REPUESTO COLLAPSE -->
-                                                            <div class="card card-info collapsed-card" id="card-repuesto"  >
+                                                            <div class="card card-info collapsed-card" id="card-repuesto">
                                                                 <div class="card-header" data-card-widget="collapse" style="cursor:pointer;">
                                                                     <h3 class="card-title"><b><i>Repuesto</i></b>
                                                                         <i class="fas fa-tools nav-icon"></i>
                                                                     </h3>
                                                                     <div class="card-tools">
-                                                                        <button type="button" title="Abrir repuesto" data-toggle="tooltip" data-placement="top" class="btn btn-tool"> 
+                                                                        <button type="button" title="Abrir repuesto" data-toggle="tooltip" data-placement="top" class="btn btn-tool">
                                                                             <i class="fas fa-plus"></i>
                                                                         </button>
                                                                     </div>
@@ -387,6 +406,14 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                     </div>
                                                                 </div>
                                                                 <!--CARD BODY-->
+
+
+                                                            </div>
+                                                            <div class=" col-md-6 d-md-flex justify-content-md-end mb-3">
+                                                                <button class="btn btn-info col">
+                                                                    <i class="far fa-file-pdf"></i>
+                                                                    <span>Crear solicitud de servicio</span>
+                                                                </button>
                                                             </div>
 
 
@@ -541,10 +568,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             <span>Cancelar</span>
                                                         </button>
 
-                                                        <button class="btn btn-info col">
-                                                            <i class="far fa-file-pdf"></i>
-                                                            <span>Crear solicitud de servicio</span>
-                                                        </button>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -774,8 +798,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                     </div>
                                 </div>  -->
 
-                                       
-                                        
+
+
                                     </div>
 
 
@@ -831,7 +855,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <div class="col">
                                             <div class="form-group text-center col-12 col-sm-6 col-lg-12">
                                                 <label><i>Kilometraje actual</i></label>
-                                                <input type="text" class="form-control" id="kilometraje_serv" name="kilometraje_serv" required>
+                                                <input type="number" class="form-control" id="kilometraje_serv" name="kilometraje_serv" required>
                                             </div>
                                         </div>
 
