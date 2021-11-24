@@ -8,6 +8,7 @@ require_once '../models/mantenimiento.modelo.php';
 require_once '../controllers/vehicular.controlador.php';
 require_once '../models/vehicular.modelo.php';
 require_once '../models/conceptos.modelo.php';
+require_once '../models/compras.modelo.php';
 
 if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok") {
     echo "<script>window.location = 'inicio';</script>";
@@ -195,6 +196,7 @@ class AjaxMantenimientos
                 <td>" . $value['categoria'] . "</td>
                 <td>" . $value['marca'] . "</td>
                 <td>" . $value['medida'] . "</td>
+                <td>" . $value['stock'] . "</td>
                 <td>
                 <div class='btn-group' role='group' aria-label='Button group'>
 			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' idproducto='{$value["idproducto"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
@@ -211,13 +213,14 @@ class AjaxMantenimientos
     /* ===================================================
         TABLA DE SERVICIOS X VEHICULO
     ===================================================*/
-    
-    static public function ajaxServiciosxVehiculo($idvehiculo){
+
+    static public function ajaxServiciosxVehiculo($idvehiculo)
+    {
         $respuesta = ModeloMantenimientos::mdlServiciosRecientesxVehiculo($idvehiculo);
-        
+
         $tr = "";
 
-        foreach($respuesta as $key => $value){
+        foreach ($respuesta as $key => $value) {
 
             $fecha_Actual = date('Y-m-d');
 
@@ -236,16 +239,16 @@ class AjaxMantenimientos
             }
 
             //SI EL KILOMETRAJE DEL SERVICIO ES 0
-            if($value['kilometraje_servicio'] == 0){
+            if ($value['kilometraje_servicio'] == 0) {
                 $kilometraje = "<td>No aplica</td>";
             }
 
-            if($value['kilometraje_actual'] == NULL) $value['kilometraje_actual'] = 0;
+            if ($value['kilometraje_actual'] == NULL) $value['kilometraje_actual'] = 0;
 
             $tr .= "
             <tr>
-            <td>". $value['servicio'] . "</td>
-            <td>". $value['kilometraje_actual'] . "</td>
+            <td>" . $value['servicio'] . "</td>
+            <td>" . $value['kilometraje_actual'] . "</td>
             $kilometraje
             $fecha
             </tr>
@@ -260,7 +263,7 @@ class AjaxMantenimientos
     ===================================================*/
     static public function ajaxServiciosMenores($idservicio)
     {
-        
+
         if ($idservicio != 'todo') {
             $respuesta = ModeloMantenimientos::mdlServiciosRecientes($idservicio);
         } else {
@@ -290,11 +293,11 @@ class AjaxMantenimientos
             }
 
             //SI EL KILOMETRAJE DEL SERVICIO ES 0
-            if($value['kilometraje_servicio'] == 0){
+            if ($value['kilometraje_servicio'] == 0) {
                 $kilometraje = "<td>No aplica</td>";
             }
 
-            if($value['kilometraje_actual'] == NULL) $value['kilometraje_actual'] = 0;
+            if ($value['kilometraje_actual'] == NULL) $value['kilometraje_actual'] = 0;
 
             $tr .= "
             <tr>
@@ -311,6 +314,49 @@ class AjaxMantenimientos
 
 
         echo $tr;
+    }
+
+    /* ===================================================
+        TABLA DE PROVEEDORES
+    ===================================================*/
+
+    static public function ajaxListdoProveedores($consecutivo)
+    {
+        $respuesta =  ModeloProveedores::mdlListarProveedores(null);
+
+        $tr = "";
+
+        foreach ($respuesta as $key => $value) {
+            $tr .= "
+            <tr>
+                <td>" . $value['documento']  . "</td>
+                <td>" . $value['nombre_contacto'] . "</td>
+                <td>" . $value['razon_social'] . "</td>
+                <td>" . $value['direccion'] . "</td>
+                <td>" . $value['telefono'] . "</td>
+                <td>" . $value['correo'] . "</td>
+                <td>
+                <div class='btn-group' role='group' aria-label='Button group'>
+			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' documento = '{$value["documento"]}' nombre='{$value["nombre_contacto"]}' razon='{$value["razon_social"]}' direccion='{$value["direccion"]}'  class='btn btn-sm btn-success btn-SeleccionarProveedor'><i class='fas fa-check'></i></button>
+			    </div>
+                </td>
+            </tr>
+            
+            ";
+        }
+
+        echo $tr;
+    }
+
+    /* ===================================================
+        GUARDAR/EDITAR ORDEN DE SERVICIO
+    ===================================================*/
+
+    static public function ajaxGuardarEditarOrdenServicio($datos)
+    {
+        $respuesta =ControladorMantenimientos::ctrAgregarEditarOrden($datos);
+        echo $respuesta;
+        
     }
 
     /* ===================================================
@@ -331,6 +377,8 @@ class AjaxMantenimientos
         $respuesta = ControladorMantenimientos::ctrAgregarProgramacion($datos);
         echo $respuesta;
     }
+
+
 }
 /* ===================================================
             LLAMADOS AJAX INVENTARIO
@@ -398,4 +446,10 @@ if (isset($_POST['GuardarProgramacion']) && $_POST['GuardarProgramacion'] == "ok
 if (isset($_POST['ListaProductos']) && $_POST['ListaProductos'] == "ok") AjaxMantenimientos::ajaxListadoProductos($_POST['consecutivo']);
 
 #LLAMADO A SERVICIOS POR VEHICULO
-if(isset($_POST['ServiciosxVehiculo']) && $_POST['ServiciosxVehiculo'] == "ok") AjaxMantenimientos::ajaxServiciosxVehiculo($_POST['idvehiculo']);
+if (isset($_POST['ServiciosxVehiculo']) && $_POST['ServiciosxVehiculo'] == "ok") AjaxMantenimientos::ajaxServiciosxVehiculo($_POST['idvehiculo']);
+
+#LLAMADO A LISTA DE PROVEEDORES
+if (isset($_POST['ListaProveedores']) && $_POST['ListaProveedores'] == "ok") AjaxMantenimientos::ajaxListdoProveedores($_POST['consecutivo']);
+
+#LLAMADO A GUARDAR/EDITAR ORDEN DE SERVICIO
+if(isset($_POST['Guardar_OrdenServicio']) && $_POST['Guardar_OrdenServicio'] == "ok") AjaxMantenimientos::ajaxGuardarEditarOrdenServicio($_POST);

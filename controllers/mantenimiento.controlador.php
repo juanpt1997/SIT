@@ -646,6 +646,16 @@ class ControladorMantenimientos
 {
 
 	/* ===================================================
+		AGREGAR ORDEN DE SERVICIO
+	===================================================*/
+
+	static public function ctrAgregarEditarOrden($datos)
+	{	
+		$respuesta = ModeloMantenimientos::mdlAgregarOrdenServicio($datos);
+		return $respuesta;
+	}
+
+	/* ===================================================
 		LISTADO SERVICIOS EXTERNOS 
 	===================================================*/
 
@@ -654,6 +664,29 @@ class ControladorMantenimientos
 		return $respuesta;
 	}
 
+	/* ===================================================
+		LISTADO DE ORDENES DE SERVICIO
+	===================================================*/
+
+	static public function ctrListadoOrdenesServicio()
+	{
+		$respuesta = ModeloMantenimientos::mdlListadoOrdenesServicio();
+		// if($respuesta['sistema'] == 1) $respuesta['sistema'] = "Sistema motor";
+		// if($respuesta['sistema'] == 2) $respuesta['sistema'] = "Sistema transmisión";
+		// if($respuesta['sistema'] == 3) $respuesta['sistema'] = "Sistema de frenos y llantas";
+		// if($respuesta['sistema'] == 4) $respuesta['sistema'] = "Sistema eléctrico";
+		// if($respuesta['sistema'] == 5) $respuesta['sistema'] = "Sistema de suspensión";
+		// if($respuesta['sistema'] == 6) $respuesta['sistema'] = "Sistema de dirección";
+		// if($respuesta['sistema'] == 7) $respuesta['sistema'] = "Carrocería";
+		// if($respuesta['sistema'] == 8) $respuesta['sistema'] = "Sistema diferencial";
+		// if($respuesta['sistema'] == 9) $respuesta['sistema'] = "General vehículo";
+		// if($respuesta['sistema'] == 10) $respuesta['sistema'] = "Logístico";
+		// if($respuesta['sistema'] == 11) $respuesta['sistema'] = "Aire acondicionado";
+		echo '<pre>';
+		var_dump($respuesta['sistema']); 
+		echo '</pre>';
+		return $respuesta;
+	}
 
 	/* ===================================================
 		LISTADO DE PRODUCTOS

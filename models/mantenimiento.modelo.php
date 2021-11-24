@@ -1663,17 +1663,31 @@ class ModeloMantenimientos
     ===================================================*/
     static public function mdlListadoProductos()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT p.*, m.medida, mc.marca, ct.categoria  
+        $stmt = Conexion::conectar()->prepare("SELECT p.*, m.medida, mc.marca, ct.categoria, i.stock  
         from a_productos p
-        INNER JOIN a_medidas m ON p.idmedida = m.idmedidas
-        INNER JOIN a_marcas mc ON p.idmarca = mc.idmarca
-        INNER JOIN a_categorias ct ON p.idcategoria = ct.idcategorias");
+        LEFT JOIN a_medidas m ON p.idmedida = m.idmedidas
+        LEFT JOIN a_marcas mc ON p.idmarca = mc.idmarca
+        LEFT JOIN a_categorias ct ON p.idcategoria = ct.idcategorias
+        INNER JOIN a_re_inventario i ON p.idproducto = i.idproducto");
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();
         return $retorno;
     }
 
+    /* ===================================================
+        LISTADO DE ORDENES DE SERVICIO
+    ===================================================*/
+    static public function mdlListadoOrdenesServicio()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT o.*, v.* FROM m_ordenservicio o 
+        INNER JOIN v_vehiculos v ON o.idvehiculo = v.idvehiculo");
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
 
     /* ===================================================
         LISTADO DE SERVICIOS     
@@ -1738,6 +1752,37 @@ class ModeloMantenimientos
         $respuesta = $stmt->fetchAll();
         $stmt->closeCursor();
         return $respuesta;
+    }
+
+    /* ===================================================
+        AGREGAR ORDEN DE SERVICIO
+    ===================================================*/
+
+    static public function mdlAgregarOrdenServicio($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_ordenservicio(idvehiculo,fecha_entrada,hora_entrada,fecha_trabajos,fecha_aprobacion,sistema,tipo_mantenimiento,diagnostico,observacion)
+                                                VALUES(:idvehiculo_OrdServ, :fechaentrada_OrdSer, :horaentra_ordSer, :fechaInic_ordSer, :fechaApro_ordSer, :sistema, :tipo_mantenimiento, :diagnostico, :observacion)");
+
+        $stmt->bindParam(":idvehiculo_OrdServ", $datos['idvehiculo_OrdServ'], PDO::PARAM_INT);
+        $stmt->bindParam(":fechaentrada_OrdSer", $datos['fechaentrada_OrdSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":horaentra_ordSer", $datos['horaentra_ordSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":fechaInic_ordSer", $datos['fechaInic_ordSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":fechaApro_ordSer", $datos['fechaApro_ordSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":sistema", $datos['sistema'], PDO::PARAM_INT);
+        $stmt->bindParam(":tipo_mantenimiento", $datos['tipo_mantenimiento'], PDO::PARAM_INT);
+        $stmt->bindParam(":diagnostico", $datos['diagnostico'], PDO::PARAM_STR);
+        $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
     }
 
     /* ===================================================
