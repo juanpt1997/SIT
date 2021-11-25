@@ -384,11 +384,11 @@ const graficoBarra = (idGrafico, datosLabel, datosGrafico, totalCantidad, titulo
 
     // REFERENCIA https://www.chartjs.org/docs/latest/samples/bar/stacked.html
     let ctx = document.getElementById(idGrafico).getContext('2d');
-    ctx.imageSmoothingEnabled = false;
-    ctx.webkitImageSmoothingEnabled = false;
+    ctx.imageSmoothingEnabled = true;
+    ctx.webkitImageSmoothingEnabled = true;
     ctx.mozImageSmoothingEnabled = true;
-    ctx.msImageSmoothingEnabled = false;
-    ctx.oImageSmoothingEnabled = false;
+    ctx.msImageSmoothingEnabled = true;
+    ctx.oImageSmoothingEnabled = true;
 
 
     new Chart(ctx, {

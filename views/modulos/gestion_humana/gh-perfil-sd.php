@@ -128,9 +128,13 @@ $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
                             <!-- ===================================================
                                 GRÁFICOS
                             =================================================== -->
-                            <div class="row">
-                                <div class="col-8 card" id="colGrafPerfilSD">
-                                    <canvas id="scGrafPerfilSD" style="height:300px;"></canvas>
+                            <div class="row d-flex justify-content-center">
+                                <div class="col-9 card">
+                                    <div class="card-header bg-info">
+                                    </div>
+                                    <div class="card-body" id="colGrafPerfilSD">
+                                        <canvas id="scGrafPerfilSD" style="height:300px;"></canvas>
+                                    </div>
                                 </div>
                             </div>
                         </div>
