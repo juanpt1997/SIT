@@ -435,15 +435,7 @@
                                     <p>Inventario</p>
                                 </a>
                             </li>
-                            <!-- ===================================================
-                                    Mantenimientos
-                                =================================================== -->
-                            <li class="nav-item">
-                                <a href="m-mantenimientos" class="nav-link">
-                                    <i class="fas fa-tools nav-icon"></i>
-                                    <p>Mantenimientos</p>
-                                </a>
-                            </li>
+                            
                             <!-- ===================================================
                                     Revison tecnomecánica 
                                 =================================================== -->
