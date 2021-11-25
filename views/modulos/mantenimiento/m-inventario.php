@@ -48,7 +48,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                 CARD DE INVENTARIO 
                             ========================-->
                             <div class="card card-success collapsed-card" id="card-inventario">
-                                <div class="card-header">
+                                <div class="card-header" data-card-widget="collapse" style="cursor: pointer;">
                                     <h3 class="card-title"><b><i>Inventario</i></b>
                                         <i class="fas fa-boxes"></i>
                                     </h3>
@@ -2568,7 +2568,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                 CARD DE TABLA RESUMEN
                             ========================-->
                             <div class="card card-success collapsed-card">
-                                <div class="card-header">
+                                <div class="card-header" data-card-widget="collapse" style="cursor: pointer;">
                                     <h3 class="card-title"><b><i>Vehículos</i></b>
                                         <i class="fas fa-car-alt"></i>
                                     </h3>

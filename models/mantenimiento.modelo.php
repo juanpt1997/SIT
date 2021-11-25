@@ -1629,7 +1629,7 @@ class ModeloMantenimientos
         $stmt = Conexion::conectar()->prepare("INSERT INTO m_solicitudservicio(idvehiculo,fecha,idservicio_externo, idrepuesto, cantidad) VALUES(:idvehiculo,:fecha,:idservicio_externo, :idrepuesto, :cantidad)");
         $stmt->bindParam(":idvehiculo", $datos['idvehiculo_repuestos'], PDO::PARAM_INT);
         $stmt->bindParam(":fecha", $datos['fecha_repuestos'], PDO::PARAM_STR);
-        $stmt->bindParam(":idservicio_externo", $datos['servicioexterno_1'], PDO::PARAM_STR); 
+        $stmt->bindParam(":idservicio_externo", $datos['servicioexterno_1'], PDO::PARAM_STR);
         $stmt->bindParam(":idrepuesto", $datos['repuesto'], PDO::PARAM_INT);
         $stmt->bindParam(":cantidad", $datos['cantidad_repuesto'], PDO::PARAM_INT);
 
@@ -1661,18 +1661,33 @@ class ModeloMantenimientos
     /* ===================================================
         LISTADO PRODUCTOS
     ===================================================*/
-    static public function mdlListadoProductos(){
-        $stmt = Conexion::conectar()->prepare("SELECT p.*, m.medida, mc.marca, ct.categoria  
+    static public function mdlListadoProductos()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT p.*, m.medida, mc.marca, ct.categoria, i.stock  
         from a_productos p
-        INNER JOIN a_medidas m ON p.idmedida = m.idmedidas
-        INNER JOIN a_marcas mc ON p.idmarca = mc.idmarca
-        INNER JOIN a_categorias ct ON p.idcategoria = ct.idcategorias");
+        LEFT JOIN a_medidas m ON p.idmedida = m.idmedidas
+        LEFT JOIN a_marcas mc ON p.idmarca = mc.idmarca
+        LEFT JOIN a_categorias ct ON p.idcategoria = ct.idcategorias
+        INNER JOIN a_re_inventario i ON p.idproducto = i.idproducto");
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();
         return $retorno;
     }
 
+    /* ===================================================
+        LISTADO DE ORDENES DE SERVICIO
+    ===================================================*/
+    static public function mdlListadoOrdenesServicio()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT o.*, v.* FROM m_ordenservicio o 
+        INNER JOIN v_vehiculos v ON o.idvehiculo = v.idvehiculo");
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
 
     /* ===================================================
         LISTADO DE SERVICIOS     
@@ -1680,13 +1695,7 @@ class ModeloMantenimientos
 
     static public function mdlServicios()
     {
-        // $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.kilometraje AS kilometraje_actual, MAX(sm.idserviciovehiculo) AS idserviciovehiculo, sm.idvehiculo, sm.idservicio,s.kilometraje_cambio AS kilometraje_servicio, (s.kilometraje_cambio + MAX(sm.kilometraje)) AS kilometraje_cambio,
-        // MAX(sm.fecha) AS fecha, DATE_FORMAT(MAX(sm.fecha), '%d/%m/%y') AS Ffecha, s.servicio, DATE_FORMAT(date_add(sm.fecha, INTERVAL s.dias_cambio DAY), '%d/%m/%Y') AS fecha_cambio, date_add(sm.fecha, INTERVAL s.dias_cambio DAY) AS fecha_comparar 
-        // FROM m_re_serviciosvehiculos sm
-        // INNER JOIN m_serviciosmenores s ON sm.idservicio = s.idservicio
-        // INNER JOIN v_vehiculos v ON sm.idvehiculo = v.idvehiculo
-        // GROUP BY sm.idvehiculo, sm.idservicio
-        // ORDER BY sm.fecha DESC");
+
         $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.kilometraje AS kilometraje_actual, MAX(sm.idserviciovehiculo) AS idserviciovehiculo, sm.idvehiculo, sm.idservicio,s.kilometraje_cambio AS kilometraje_servicio, (s.kilometraje_cambio + MAX(sm.kilometraje)) AS kilometraje_cambio,
         MAX(sm.fecha) AS fecha, DATE_FORMAT(MAX(sm.fecha), '%d/%m/%y') AS Ffecha, s.servicio, DATE_FORMAT(date_add(sm.fecha, INTERVAL s.dias_cambio DAY), '%d/%m/%Y') AS fecha_cambio, date_add(sm.fecha, INTERVAL s.dias_cambio DAY) AS fecha_comparar 
         FROM m_re_serviciosvehiculos sm
@@ -1701,7 +1710,27 @@ class ModeloMantenimientos
         return $respuesta;
     }
 
+    /* ===================================================
+        LISTADO DE SERVICIOS RECIENTES POR ID VEHICULO
+    ===================================================*/
 
+    static public function mdlServiciosRecientesxVehiculo($idvehiculo)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.kilometraje AS kilometraje_actual, MAX(sm.idserviciovehiculo) AS idserviciovehiculo, sm.idvehiculo, sm.idservicio,s.kilometraje_cambio AS kilometraje_servicio, (s.kilometraje_cambio + MAX(sm.kilometraje)) AS kilometraje_cambio,
+        MAX(sm.fecha) AS fecha, DATE_FORMAT(MAX(sm.fecha), '%d/%m/%y') AS Ffecha, s.servicio, DATE_FORMAT(date_add(sm.fecha, INTERVAL s.dias_cambio DAY), '%d/%m/%Y') AS fecha_cambio, date_add(sm.fecha, INTERVAL s.dias_cambio DAY) AS fecha_comparar 
+        FROM m_re_serviciosvehiculos sm
+        INNER JOIN m_serviciosmenores s ON sm.idservicio = s.idservicio
+        INNER JOIN v_vehiculos v ON sm.idvehiculo = v.idvehiculo
+        WHERE sm.idvehiculo = :idvehiculo
+        GROUP BY sm.idvehiculo, sm.idservicio
+        ORDER BY sm.fecha DESC");
+
+        $stmt->bindParam(":idvehiculo", $idvehiculo, PDO::PARAM_INT);
+        $stmt->execute();
+        $respuesta = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
 
     /* ===================================================
     LISTADO DE SERVICIOS RECIENTES POR ID DEL SERVICIO    
@@ -1723,6 +1752,37 @@ class ModeloMantenimientos
         $respuesta = $stmt->fetchAll();
         $stmt->closeCursor();
         return $respuesta;
+    }
+
+    /* ===================================================
+        AGREGAR ORDEN DE SERVICIO
+    ===================================================*/
+
+    static public function mdlAgregarOrdenServicio($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_ordenservicio(idvehiculo,fecha_entrada,hora_entrada,fecha_trabajos,fecha_aprobacion,sistema,tipo_mantenimiento,diagnostico,observacion)
+                                                VALUES(:idvehiculo_OrdServ, :fechaentrada_OrdSer, :horaentra_ordSer, :fechaInic_ordSer, :fechaApro_ordSer, :sistema, :tipo_mantenimiento, :diagnostico, :observacion)");
+
+        $stmt->bindParam(":idvehiculo_OrdServ", $datos['idvehiculo_OrdServ'], PDO::PARAM_INT);
+        $stmt->bindParam(":fechaentrada_OrdSer", $datos['fechaentrada_OrdSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":horaentra_ordSer", $datos['horaentra_ordSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":fechaInic_ordSer", $datos['fechaInic_ordSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":fechaApro_ordSer", $datos['fechaApro_ordSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":sistema", $datos['sistema'], PDO::PARAM_INT);
+        $stmt->bindParam(":tipo_mantenimiento", $datos['tipo_mantenimiento'], PDO::PARAM_INT);
+        $stmt->bindParam(":diagnostico", $datos['diagnostico'], PDO::PARAM_STR);
+        $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
     }
 
     /* ===================================================
