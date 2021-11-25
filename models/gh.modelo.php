@@ -610,6 +610,28 @@ class ModeloGH
     }
 
     /* ===================================================
+       MOSTRAR GRÁFICOS PERFIL SOCIODEMOGRÁFICO
+    ===================================================*/
+    static public function mdlGraficosPerfilSD()
+    {
+        $sql = "SELECT p.nivel_escolaridad, COUNT(p.nivel_escolaridad) AS Cantidad
+                FROM gh_personal p
+                WHERE p.activo = 'S'
+                GROUP BY p.nivel_escolaridad";
+
+        $stmt = Conexion::conectar()->prepare($sql);
+
+        $stmt->execute();
+
+        $retorno = $stmt->fetchAll();
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
        * Alertas de contratos - gh-alertas-contratos
     ===================================================*/
     /* ===================================================

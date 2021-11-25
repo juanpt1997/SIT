@@ -278,6 +278,186 @@ $('.tablasBtnExport').DataTable({
 });
 
 /* ===================================================
+  CHART JS
+===================================================*/
+/* =====================
+    Función que genera colores claros aleatorios
+    Fuente: https://helderesteves.com/generating-random-colors-js/
+ ======================= */
+const generateLightColorHex = () => {
+    let color = "#";
+    for (let i = 0; i < 3; i++)
+        color += ("0" + Math.floor(((1 + Math.random()) * Math.pow(16, 2)) / 2).toString(16)).slice(-2);
+    return color;
+}
+/* =====================
+    Función que retorna un arreglo de colores aleatorios según el arreglo que se le pase como
+    parametro.
+
+    Parametro:
+        [{"name": "Pepe"},{"name": "Larry"}]
+    Respuesta:
+        ["#FEFEFE", "#0E0E0E"]
+ ======================= */
+const getRandomColors = (data) => {
+    let colors = data.map(() => {
+        return generateLightColorHex();
+    });
+
+    return colors;
+}
+/* ===================== 
+  FUNCION PARA GRAFICO BAR 
+  - ID DEL GRAFICO
+  - ARRAY DE LABELS
+  - ARRAY DE DATOS 
+  - TOTAL DE DATOS O CANTIDADES A NIVEL NUMERICO
+  - TITULO DEL GRAFICO
+========================= */
+const graficoBarra0 = (idGrafico, datosLabel, datosGrafico, totalCantidad, tituloGrafico, randomColors = false) => {
+    new Chart(document.getElementById(`${idGrafico}`), {
+        type: "bar",
+        data: {
+            labels: datosLabel,
+            datasets: [
+                {
+                    label: "",
+                    data: datosGrafico,
+                    backgroundColor: (randomColors ? getRandomColors(datosGrafico) : coloresArray)
+                }
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            legend: {
+                display: false,
+                position: "bottom"
+            },
+            title: {
+                display: true,
+                text: tituloGrafico
+            },
+
+            tooltips: {
+                callbacks: {
+                    title: function (tooltipItem, data) {
+                        return data["labels"][tooltipItem[0]["index"]];
+                    },
+
+                    label: function (tooltipItem, data) {
+                        var dato =
+                            data["datasets"][0]["data"][tooltipItem["index"]];
+                        var porcentaje = Math.round((dato * 100) / totalCantidad);
+                        return porcentaje + "%";
+                    }
+                },
+                backgroundColor: "#FFF",
+                titleFontSize: 16,
+                titleFontColor: "#0066ff",
+                bodyFontColor: "#000",
+                bodyFontSize: 14,
+                displayColors: false
+            },
+            plugins: {
+                datalabels: {
+                    align: "center",
+                    anchor: "end",
+                    color: "black",
+                    labels: {
+                        title: {
+                            font: {
+                                weight: "bold"
+                            }
+                        },
+                        value: {
+                            color: "green"
+                        }
+                    }
+                }
+            }
+        }
+    }); //NEW CHAR
+};
+const graficoBarra = (idGrafico, datosLabel, datosGrafico, totalCantidad, tituloGrafico, randomColors = false) => {
+    let coloresFondo = ['#5fb7d4', '#d2d6de', '#ea9e70', '#17a2b8', '#00a65a', '#3c8dbc', '#ce7d78', '#ff0000', '#e01e84', '#c758d0', '#2dcb75', '#52d726', '#1baa2f', '#ffec00', '#007ed6', '#ff7300', '#8399eb'];
+
+    // REFERENCIA https://www.chartjs.org/docs/latest/samples/bar/stacked.html
+    let ctx = document.getElementById(idGrafico).getContext('2d');
+    ctx.imageSmoothingEnabled = false;
+    ctx.webkitImageSmoothingEnabled = false;
+    ctx.mozImageSmoothingEnabled = true;
+    ctx.msImageSmoothingEnabled = false;
+    ctx.oImageSmoothingEnabled = false;
+
+
+    new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: datosLabel,
+            datasets: [
+                {
+                    label: "",
+                    data: datosGrafico,
+                    backgroundColor: (randomColors ? getRandomColors(datosGrafico) : coloresFondo)
+                }
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            legend: {
+                display: false,
+                position: "bottom"
+            },
+            title: {
+                display: true,
+                text: tituloGrafico
+            },
+
+            tooltips: {
+                callbacks: {
+                    title: function (tooltipItem, data) {
+                        return data["labels"][tooltipItem[0]["index"]];
+                    },
+
+                    label: function (tooltipItem, data) {
+                        var dato =
+                            data["datasets"][0]["data"][tooltipItem["index"]];
+                        var porcentaje = Math.round((dato * 100) / totalCantidad);
+                        return porcentaje + "%";
+                    }
+                },
+                backgroundColor: "#FFF",
+                titleFontSize: 16,
+                titleFontColor: "#0066ff",
+                bodyFontColor: "#000",
+                bodyFontSize: 14,
+                displayColors: false
+            },
+            plugins: {
+                datalabels: {
+                    align: "center",
+                    anchor: "end",
+                    color: "black",
+                    labels: {
+                        title: {
+                            font: {
+                                weight: "bold"
+                            }
+                        },
+                        value: {
+                            color: "green"
+                        }
+                    }
+                }
+            }
+        }
+    });
+
+};
+
+/* ===================================================
             FICHA TÉCNICA CONDUCTOR - BOTON PARA GENERAR PDF
         ===================================================*/
 $(document).on("click", ".btn-FTConductor", function () {
@@ -322,7 +502,7 @@ $(document).ready(function () {
         //   });
         //     calendar.render();
 
-        ocument.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
