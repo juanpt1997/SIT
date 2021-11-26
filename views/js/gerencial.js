@@ -91,7 +91,7 @@ $(document).ready(function () {
                             totalCantidad += parseInt(element.Cantidad, 10); //Total
                         });
 
-                        graficoSimple('scTiposVehiculos', datosLabel, datosGrafico, totalCantidad, 'TIPOS - ACTIVOS', 'doughnut', true);
+                        graficoSimple('scTiposVehiculos', datosLabel, datosGrafico, totalCantidad, 'TIPOS - ACTIVOS', 'doughnut', true, true);
                     }
                 }
             });
