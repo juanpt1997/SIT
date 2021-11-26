@@ -68,7 +68,7 @@ class ModeloProductos
             $retorno =  $stmt->fetch();
         } else {
 
-            $stmt = Conexion::conectar()->prepare("SELECT DISTINCT p.*, c.categoria AS categoria, ma.marca AS marca, me.medida AS medida FROM a_productos p
+            $stmt = Conexion::conectar()->prepare("SELECT p.*, c.categoria AS categoria, ma.marca AS marca, me.medida AS medida FROM a_productos p
             INNER JOIN a_categorias c ON p.idcategoria = c.idcategorias
             INNER JOIN a_marcas ma ON p.idmarca = ma.idmarca
             INNER JOIN a_medidas me ON p.idmedida = me.idmedidas");
@@ -91,7 +91,7 @@ class ModeloProductos
 
         $stmt->bindParam(":{$datos['item']}", $datos['valor']);
         $stmt->execute();
-        $retorno =  $stmt->fetch();
+        $retorno =  $stmt->fetchAll();
 
         $stmt->closeCursor();
         return $retorno;
@@ -103,7 +103,7 @@ class ModeloProductos
         $stmt = $conexion->prepare("INSERT INTO a_re_inventario (idproducto,idsucursal,posicion,stock) VALUES (:idproducto,:idsucursal,:posicion,:stock)");
         $stmt->bindParam(":idproducto", $datos["idproducto"], PDO::PARAM_INT);
         $stmt->bindParam(":idsucursal", $datos["sucursal"], PDO::PARAM_INT);
-        $stmt->bindParam(":posicion", $datos["posicion"], PDO::PARAM_INT);
+        $stmt->bindParam(":posicion", $datos["posicion"], PDO::PARAM_STR);
         $stmt->bindParam(":stock", $datos["cantidad"], PDO::PARAM_INT);
 
         if ($stmt->execute()) {
@@ -174,4 +174,52 @@ class ModeloProductos
 
         return $retorno;
     }
+
+    static public function mdlListarInventario()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT p.*, c.categoria, ma.marca, me.medida, SUM(i.stock) AS stock, i.posicion FROM a_re_inventario i
+        INNER JOIN a_productos p ON p.idproducto = i.idproducto
+        INNER JOIN gh_sucursales s ON s.ids = i.idsucursal
+        LEFT JOIN a_categorias c ON c.idcategorias = p.idcategoria
+        LEFT JOIN a_marcas ma ON ma.idmarca = p.idmarca
+        LEFT JOIN a_medidas me ON me.idmedidas = p.idmedida
+        GROUP BY p.idproducto");
+
+        $stmt->execute();
+        $retorno =  $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    static public function mdlSucursalesInventario($idproducto)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT p.*, i.stock, s.sucursal FROM a_productos p
+        INNER JOIN a_re_inventario i ON i.idproducto = p.idproducto
+        INNER JOIN gh_sucursales s ON s.ids = i.idsucursal
+        WHERE p.idproducto = :idproducto");
+
+        $stmt->bindParam(":idproducto", $idproducto, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno =  $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    static public function mdlHistorialMovimientos($idproducto)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT m.* FROM a_re_movimientoinven m
+        INNER JOIN a_re_inventario i ON i.idinventario = m.idinventario
+        INNER JOIN a_productos p ON p.idproducto = i.idproducto
+        WHERE p.idproducto = :idproducto");
+
+        $stmt->bindParam(":idproducto", $idproducto, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno =  $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+
 }
