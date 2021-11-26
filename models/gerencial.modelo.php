@@ -52,4 +52,50 @@ class ModeloGerencial
 
         return $retorno;
     }
+
+    /* ===================================================
+        VIAJES OCASIONALES (por mes)
+    ===================================================*/
+    static public function mdlViajesOcasionales()
+    {
+        $sql = "SELECT COUNT(DISTINCT(o.idorden)) AS Cantidad, MONTH(c.fecha_inicio) AS mes, YEAR(c.fecha_inicio) AS `year`
+                FROM cont_ordenservicio o
+                INNER JOIN cont_cotizaciones c ON c.idcotizacion = o.idcotizacion
+                WHERE YEAR(c.fecha_inicio) = YEAR(NOW())
+                GROUP BY YEAR(c.fecha_inicio), MONTH(c.fecha_inicio);";
+
+        $stmt = Conexion::conectar()->prepare($sql);
+
+        $stmt->execute();
+
+        $retorno = $stmt->fetchAll();
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+    
+    /* ===================================================
+        TIPOS CONTRATO (OCASIONAL O FIJO)
+    ===================================================*/
+    static public function mdlTiposContrato()
+    {
+        $sql = "SELECT 'OCASIONAL' AS tipo, COUNT(f.idfuec) AS Cantidad FROM fuec f
+                WHERE f.tipocontrato = 'OCASIONAL'
+                UNION
+                SELECT 'FIJO' AS tipo, COUNT(f.idfuec) AS Cantidad FROM fuec f
+                WHERE f.tipocontrato = 'FIJO'";
+
+        $stmt = Conexion::conectar()->prepare($sql);
+
+        $stmt->execute();
+
+        $retorno = $stmt->fetchAll();
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
 }

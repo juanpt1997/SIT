@@ -34,6 +34,39 @@ class ControladorGerencial
 
         return $respuestaArray;
     }
+
+    /* ===================================================
+        VIAJES OCASIONALES (por mes)
+    ===================================================*/
+    static public function ctrViajesOcasionales()
+    {
+
+        $respuestaModelo = ModeloGerencial::mdlViajesOcasionales();
+
+        $respuestaArray = array();
+
+        foreach ($respuestaModelo as $key => $value) {
+            $respuestaArray[] = array(
+                "mes" => self::mesNombre($value['mes']),
+                "anio" => $value['year'],
+                "Cantidad" => $value['Cantidad']
+            );
+        }
+
+        return $respuestaArray;
+    }
+
+    /* ===================================================
+        TIPOS CONTRATO (OCASIONAL O FIJO)
+    ===================================================*/
+    static public function ctrTiposContrato()
+    {
+
+        $respuestaArray = ModeloGerencial::mdlTiposContrato();
+
+        return $respuestaArray;
+    }
+
     /* ===================== 
         BUSCAR EL MES Y RETORNARLO EN TEXTO 
     ========================= */

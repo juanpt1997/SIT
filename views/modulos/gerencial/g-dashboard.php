@@ -82,6 +82,9 @@ if (!validarPermiso('M_GERENCIAL', 'R')) {
                         <!-- /.card-header -->
                         <div class="card-body pl-0">
                             <div class="chart">
+                                <div class="spinner-grow float-left spinner-scTiposVehiculos" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>
                                 <!-- Tipos Vehiculos Chart Canvas -->
                                 <canvas id="scTiposVehiculos" style="height: 15rem;"></canvas>
                             </div>
@@ -110,23 +113,26 @@ if (!validarPermiso('M_GERENCIAL', 'R')) {
                             </div>
                         </div>
                         <!-- /.card-header -->
-                        <div class="card-body pl-0">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <p class="text-center">
-                                        <strong class="text-muted">Viajes ocasionales</strong>
-                                    </p>
-                                    <div class="chart">
-                                        <!-- Sales Chart Canvas -->
-                                        <canvas id="scViajesOcasionalesChart" style="height: 15rem;"></canvas>
+                        <div class="card-body px-0">
+                            <div class="row d-flex justify-content-lg-between align-items-center">
+                                <div class="col-md-5 mx-2">
+                                    <div class="spinner-grow float-left spinner-scTiposContrato" role="status">
+                                        <span class="sr-only">Loading...</span>
                                     </div>
-                                    <!-- /.chart-responsive -->
-                                </div>
-                                <!-- /.col -->
-                                <div class="col-md-4">
-                                    <div id='tipos_contratos_progreso_div'>
+                                    <div id='scTiposContrato_progreso'>
 
                                     </div>
+                                </div>
+                                <!-- /.col -->
+                                <div class="col-md-6">
+                                    <div class="chart">
+                                        <div class="spinner-grow float-left spinner-scViajesOcasionales" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                        <!-- Sales Chart Canvas -->
+                                        <canvas id="scViajesOcasionales" style="height: 15rem;"></canvas>
+                                    </div>
+                                    <!-- /.chart-responsive -->
                                 </div>
                                 <!-- /.col -->
                             </div>
