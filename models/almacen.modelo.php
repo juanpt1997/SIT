@@ -208,9 +208,10 @@ class ModeloProductos
 
     static public function mdlHistorialMovimientos($idproducto)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT m.*, s.sucursal FROM a_re_movimientoinven m
+        $stmt = Conexion::conectar()->prepare("SELECT m.*, s.sucursal, pro.razon_social FROM a_re_movimientoinven m
         INNER JOIN a_re_inventario i ON i.idinventario = m.idinventario
         INNER JOIN gh_sucursales s ON s.ids = i.idsucursal
+        INNER JOIN c_proveedores pro ON pro.id = m.idproveedor
         INNER JOIN a_productos p ON p.idproducto = i.idproducto
         WHERE p.idproducto = :idproducto");
 

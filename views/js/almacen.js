@@ -188,6 +188,7 @@ $(document).ready(function () {
                                         ${tr}
                                     </tbody>
                                 </table>`,
+                            width: '800px',
                             confirmButtonColor: '#5cb85c',
                             cancelButtonColor: '#d33',
                             confirmButtonText: 'Continuar!'
@@ -351,6 +352,7 @@ $(document).ready(function () {
                                         ${tr}
                                     </tbody>
                                 </table>`,
+                        width: '800px',
                         confirmButtonColor: '#5cb85c',
                         cancelButtonColor: '#d33',
                         confirmButtonText: 'Continuar!'
@@ -391,6 +393,9 @@ $(document).ready(function () {
                             tr += element.fecha;
                             tr += "</td>";
                             tr += "<td>";
+                            tr += element.razon_social;
+                            tr += "</td>";
+                            tr += "<td>";
                             tr += element.preciocompra; 
                             tr += "</td>";
                             tr += "<td>";
@@ -411,7 +416,8 @@ $(document).ready(function () {
                                         <tr>
                                             <th>Cantidad</th>
                                             <th>Movimiento</th>
-                                            <th>Fecha</th>  
+                                            <th>Fecha</th>
+                                            <th>Proveedor</th>  
                                             <th>Precio c/u</th>
                                             <th>Factura</th>
                                             <th>Sucursal</th>
@@ -422,6 +428,7 @@ $(document).ready(function () {
                                     </tbody>
                                 </table>
                             </div> `,
+                        width: '800px',
                         confirmButtonColor: '#5cb85c',
                         cancelButtonColor: '#d33',
                         confirmButtonText: 'Continuar!'
