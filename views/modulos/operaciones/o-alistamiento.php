@@ -2267,7 +2267,7 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
 
                                                         <tr>
                                                             <td>
-                                                                <textarea class="form-control" id="kmtotal" name="kilometraje_total" rows="2" required placeholder="..."></textarea>
+                                                                <input type="number" class="form-control" id="kmtotal" name="kilometraje_total" rows="2" required placeholder="..."></input>
                                                             </td>
                                                             <td>
                                                                 <textarea class="form-control" id="observaciones" name="observaciones" rows="2" required placeholder="..."></textarea>

@@ -1078,25 +1078,7 @@ $(document).ready(function () {
      **********ORDEN DE SERVICIO/MANTENIMIENTO*********
     ====================================================*/
 
-    //CLICK EN AÑADIR CAMPO REPUESTO EN ORDEN DE SERVICIO
-    $(document).on("click", ".btn-agregarRepuesto", function () {
-      // $("#contenido_filas_repuesto").clone().appendTo("#filas_tabla_repuesto");
 
-
-      var fila = '<tr>' +
-        '<td style="width: 300px">' + '<input type="text" class="form-control" id="descripcion_repuestos1" name="descripcion_repuestos1">' + '</td>' +
-        '<td style="width: 300px">' + '<input type="text" class="form-control" id="cantidad1" name="cantidad1">' + '</td>' +
-        '<td style="width: 300px">' + '<input type="text" class="form-control" id="precio1" name="precio1">' + '</td>' +
-        '<td style="width: 300px">' + '<input type="text" class="form-control" id="referencia_repuestos1" name="referencia_repuestos1">' + '</td>' +
-        '<td style="width: 300px">' + '<input type="text" class="form-control" id="proveedor1" name="proveedor1">' + '</td>' +
-        '</tr>'
-        ;
-
-      $("#tbody_repuesto").append(fila);
-
-
-
-    });
 
     //CLICK EN ELIMINAR FILA DE REPUESTO EN ORDEN DE SERVICIO
     $(document).on("click", ".btn-EliminarRepuesto", function () {
@@ -1105,13 +1087,26 @@ $(document).ready(function () {
 
 
     //CLICK EN AÑADIR CAMPO MANO DE OBRA
+    var dinamico = 2;
     $(document).on("click", ".btn-agregarManoObra", function () {
 
-      var fila = '<tr>' +
-        '<td style="width: 300px">' + '<input type="text" class="form-control" id="descripcion_manoObra1" name="descripcion_repuestos1">' + '</td>' +
-        '<td style="width: 300px">' + '<input type="text" class="form-control" id="proveedor" name="proveedor">' + '</td>' +
-        '</tr>'
+      var fila = `<tr>` +
+        `<td style="width: 300px">` +
+        `<div class="input-group">` +
+        `<input class="form-control" type="text" id="proveedor_${dinamico}" name="repuesto[]" placeholder="Seleccione un repuesto" readonly>` +
+        `<div class="input-group-append">` +
+        `<button type="button" class="btn btn-success btn-md btn-proveedor" consecutivo="${dinamico}" title="lista proveedores" data-toggle="modal" data-target="#modal-proveedores"><i class="fas fa-parachute-box"></i></button>` +
+        `</div>` +
+        `</div>` +
+        `</td>` +
+        `<td style="width: 300px">` + `<input type="text" class="form-control" id="descripcion_manoObra_${dinamico}" name="descripcion_repuestos1">` + `</td>` +
+        `<td style="width: 300px">` + `<input type="text" class="form-control" id="valor_manoObra_${dinamico}" name="valor">` + `</td>` +
+        `</tr>`
         ;
+
+      dinamico = dinamico + 1;
+
+
       $("#filas_tabla_manoObra").append(fila);
     });
 
@@ -1131,24 +1126,24 @@ $(document).ready(function () {
     $(document).on("click", ".btn-agregarRepuestoSolicitud", function () {
       var fila = `<tr>
       <td style="width: 300px">` +
-      `<div class="input-group">` +
-      `<input class="form-control" type="text" id="repuesto_${dinamico}" name="repuesto[] "placeholder="Seleccione un repuesto" readonly>` +
-      `<div class="input-group-append">` +
-      `<button type="button" class="btn btn-success btn-md btn-repuestos" consecutivo="${dinamico}" title="lista repuestos" data-toggle="modal" data-target="#modal-repuestos"><i class="fas fa-business-time"></i></button>` +
+        `<div class="input-group">` +
+        `<input class="form-control" type="text" id="repuesto_${dinamico}" name="repuesto[] "placeholder="Seleccione un repuesto" readonly>` +
+        `<div class="input-group-append">` +
+        `<button type="button" class="btn btn-success btn-md btn-repuestos" consecutivo="${dinamico}" title="lista repuestos" data-toggle="modal" data-target="#modal-repuestos"><i class="fas fa-business-time"></i></button>` +
 
-      `</div>` +
-      `</div>` +
-      `</td>` +
-      `<td style="width: 300px">` + `<input type="text" class="form-control" id="refrepuestos_${dinamico}" name="referencia_repuesto[]" readonly>` + `</td>` +
-      `<td style="width: 300px">` + `<input type="text" class="form-control" id="codrepuestos_${dinamico}" name="codigo_repuesto[]" readonly>` + `</td>` +
-      `<td style="width: 300px">` + `<input type="text" class="form-control" id="cantrepuestos_${dinamico}" name="cantidad_repuesto[]">` + `</td>` +
-      `</tr>`
-      ;
-      
+        `</div>` +
+        `</div>` +
+        `</td>` +
+        `<td style="width: 300px">` + `<input type="text" class="form-control" id="refrepuestos_${dinamico}" name="referencia_repuesto[]" readonly>` + `</td>` +
+        `<td style="width: 300px">` + `<input type="text" class="form-control" id="codrepuestos_${dinamico}" name="codigo_repuesto[]" readonly>` + `</td>` +
+        `<td style="width: 300px">` + `<input type="text" class="form-control" id="cantrepuestos_${dinamico}" name="cantidad_repuesto[]">` + `</td>` +
+        `</tr>`
+        ;
+
       dinamico = dinamico + 1;
-      
-      
-      $("#filas_tabla_repuestoSolicitud").append(fila); 
+
+
+      $("#filas_tabla_repuestoSolicitud").append(fila);
     });
 
     //CLICK EN ELIMINAR FLA A RESPUESTO EN SOLICITUD DE SERVICIO
@@ -1157,11 +1152,59 @@ $(document).ready(function () {
     });
 
 
+    //CARGAR TABLA PROGRAMACION POR VEHICULO
+
+    let AjaxTablaProgramacionxVehiculo = (idvehiculo) => {
+      // Quitar datatable
+      $("#tablaProgramacionServ").dataTable().fnDestroy();
+      // Borrar datos
+      $("#tbodyProgramacionServ").html("");
+
+      var datos = new FormData();
+      datos.append("ServiciosxVehiculo", "ok");
+      datos.append("idvehiculo", idvehiculo);
+      $.ajax({
+        type: "post",
+        url: "ajax/mantenimiento.ajax.php",
+        data: datos,
+        // dataType: "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+
+
+
+          if (response != '' || response != null) {
+            $("#tbodyProgramacionServ").html(response);
+          } else {
+            $("#tbodyProgramacionServ").html('');
+          }
+
+          /* ===================================================
+                   INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                   ===================================================*/
+          // var buttons = [
+          //   { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+          // ];
+          // var table = dataTableCustom(`#tablaProgramacionServ`, buttons);
+
+        }
+      });
+
+
+
+    }
+
+
     // CARGAR DATOS DEL VEHICULO
-    $(document).on('change', "#placa_repuestos", function () {
+    $(document).on('change', "#placa_OrdServ", function () {
 
 
+      let fecha_actual = moment().format("YYYY-MM-DD");
       let idvehiculo = $(this).val();
+
+      AjaxTablaProgramacionxVehiculo(idvehiculo);
 
       var datos = new FormData();
       datos.append("DatosVehiculo", "ok");
@@ -1179,11 +1222,44 @@ $(document).ready(function () {
         success: function (response) {
 
           var Vehiculo = response.datosVehiculo;
-          $('#km_repuestos').val(Vehiculo.kilometraje);
-          $('#numinterno_repuestos').val(Vehiculo.numinterno);
-          $('#modelo_repuestos').val(Vehiculo.modelo);
-          $("#clasevehiculo_repuestos").val(Vehiculo.tipovehiculo).trigger("change");
-          $('#marca_repuestos').val(Vehiculo.marca);
+          $('#kilome_ordSer').val(Vehiculo.kilometraje);
+          $('#numinterno_ordSer').val(Vehiculo.numinterno);
+          $('#modelo_ordSer').val(Vehiculo.modelo);
+          $("#clasevehiculo_ordSer").val(Vehiculo.tipovehiculo).trigger("change");
+          $('#marca_ordSer').val(Vehiculo.marca);
+          $('#fechaentrada_ordSer').val(fecha_actual);
+        },
+      });
+
+      var datos = new FormData();
+      datos.append("DocumentosxVehiculo", "ok");
+      datos.append("idvehiculo", idvehiculo);
+      $.ajax({
+        type: "post",
+        url: `${urlPagina}ajax/vehicular.ajax.php`,
+        data: datos,
+        dataType: "json",
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+
+          response.forEach((element) => {
+            // Asigno valor fecha
+            $(
+              `#documento_${element.idtipodocumento}`
+            ).val(element.fechafin);
+
+            // Color del fondo segun la fecha
+            var bg =
+              element.fechafin >=
+                moment().format("YYYY-MM-DD")
+                ? "bg-success"
+                : "bg-danger";
+            $(
+              `#documento_${element.idtipodocumento}`
+            ).addClass(bg);
+          });
         },
       });
 
@@ -1203,7 +1279,7 @@ $(document).ready(function () {
 
     var datos = new FormData();
     datos.append("ListaProductos", "ok");
-    datos.append("consecutivo",consecutivo);
+    datos.append("consecutivo", consecutivo);
     $.ajax({
       type: "post",
       url: `ajax/mantenimiento.ajax.php`,
@@ -1239,7 +1315,7 @@ $(document).ready(function () {
     var consecutivo = $(this).attr("consecutivo")
     //FUNCION CARGAR TABLA PRODUCTOS
     AjaxTablaProductos(consecutivo);
-    
+
 
   });
 
@@ -1256,13 +1332,13 @@ $(document).ready(function () {
     var consecutivo = $(this).attr("consecutivo");
     var codigo = $(this).attr("codigo");
     var referencia = $(this).attr("referencia");
-    
+
 
     $(`#repuesto_${consecutivo}`).val(descripcion);
     $(`#refrepuestos_${consecutivo}`).val(referencia);
     $(`#codrepuestos_${consecutivo}`).val(codigo);
 
-    
+
   });
 
 
@@ -1295,7 +1371,7 @@ $(document).ready(function () {
       processData: false,
       success: function (response) {
 
-        
+
 
         if (response != '' || response != null) {
           $("#tbodyProgramacion").html(response);
@@ -1321,14 +1397,14 @@ $(document).ready(function () {
   //SELECCION SERVICIO
   $(document).on("change", "#servicio", function () {
 
-    
+
     //CARGA TABLA POR AJAX 
     let idservicio = $(this).val()
-    
+
     if (idservicio == 'todo') $('#btn-guardarProgra').hide();
     else $('#btn-guardarProgra').show();
-    
-    
+
+
     AjaxTablaProgramacion(idservicio);
 
   });
@@ -1413,7 +1489,7 @@ $(document).ready(function () {
     datos.append("DatosVehiculo", "ok");
     datos.append("item", "idvehiculo");
     datos.append("valor", idvehiculo);
-    
+
 
     $.ajax({
       type: "post",
@@ -1426,8 +1502,8 @@ $(document).ready(function () {
       success: function (response) {
 
         var Vehiculo = response.datosVehiculo;
-    
-      
+
+
         //Validamos si el kilometraje ingresado en el formulario es mayor o igual al que tiene el vehículo, de ser así puede guardar, de lo contrario no puede guardar
         if (kilometrajeFrm >= Vehiculo.kilometraje) {
 
@@ -1553,7 +1629,128 @@ $(document).ready(function () {
 
   });
 
+  //GUARDAR ORDEN DE SERVICIO
+  $('#ordenServ_form').submit(function (e) {
+    e.preventDefault();
 
+    var datosFrm = $(this).serializeArray();
+    var datosAjax = new FormData();
+    datosAjax.append('Guardar_OrdenServicio', "ok")
+
+    datosFrm.forEach(element => {
+      datosAjax.append(element.name, element.value);
+    });
+
+    $.ajax({
+      type: 'post',
+      url: "ajax/mantenimiento.ajax.php",
+      data: datosAjax,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+
+        if (response == "ok") {
+          
+          $("#ordenServ_form").trigger("reset");
+          $("#placa_OrdServ").val("").trigger("change");
+          $("#sistema").val("").trigger("change");
+          $("#tipo_mantenimiento").val("").trigger("change");
+          $("#ServPre").val("").trigger("change");
+          $("#correctivo").val("").trigger("change");
+          // Mensaje de éxito al usuario
+          console.log("Hola");
+          Swal.fire({
+            icon: 'success',
+            title: '¡Datos guardados correctamente!',
+            showConfirmButton: true,
+            confirmButtonText: 'Cerrar',
+          })
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Ha ocurrido un error, por favor intente de nuevo',
+            showConfirmButton: true,
+            confirmButtonText: 'Cerrar',
+            closeOnConfirm: false
+          }).then((result) => {
+
+            if (result.value) {
+              window.location = 'm-mantenimientos';
+            }
+
+          })
+        }
+
+      }
+
+
+    });
+
+  });
+
+
+  //TABLA DE PROVEEDORES
+  let AjaxTablaProveedores = (consecutivo) => {
+    // Quitar datatable
+    $("#tablaProveedores").dataTable().fnDestroy();
+    // Borrar datos
+    $("#tBodyProveedores").html("");
+
+    var datos = new FormData();
+    datos.append("ListaProveedores", "ok");
+    datos.append("consecutivo", consecutivo);
+    $.ajax({
+      type: "post",
+      url: `ajax/mantenimiento.ajax.php`,
+      data: datos,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+
+        if (response != '' || response != null) {
+          $("#tBodyProveedores").html(response);
+        } else {
+          $("#tBodyProveedores").html('');
+        }
+        /* ===================================================
+            INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+          ===================================================*/
+        var buttons = [
+          { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+        ];
+        var table = dataTableCustom(`#tablaProveedores`, buttons);
+      },
+    });
+  }
+
+
+  // CLICK EN LISTA DE PROVEEDORES 
+  $(document).on("click", ".btn-proveedor", function () {
+    let consecutivo = $(this).attr("consecutivo");
+    AjaxTablaProveedores(consecutivo);
+  });
+
+  //CLICK EN SELECCIÓN DE PROVEEDORES
+  $(document).on("click", ".btn-SeleccionarProveedor", function () {
+    $("#modal-proveedores").modal("hide");
+
+    var nombre = $(this).attr("nombre");
+    var consecutivo = $(this).attr("consecutivo");
+    // var codigo = $(this).attr("codigo");
+    // var referencia = $(this).attr("referencia");
+
+
+    $(`#proveedor_${consecutivo}`).val(nombre);
+    // $(`#refrepuestos_${consecutivo}`).val(referencia);
+    // $(`#codrepuestos_${consecutivo}`).val(codigo);
+  });
+
+  $(document).on("click", ".btn-nuevoProveedor", function () {
+    $("#modal-proveedores").modal("hide");
+
+  });
 
 
 
