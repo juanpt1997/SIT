@@ -469,10 +469,10 @@
                 =================================================== -->
                 <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <li class="nav-item has-treeview">
-                        <a href="a-inventario"" class="nav-link">
+                        <a href="a-inventario" class="nav-link" target="_blank">
                             <i class="fas fa-warehouse nav-icon"></i>
                             <p>
-                                Almacen
+                                Almacén
                             </p>
                         </a>
                      
