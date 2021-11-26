@@ -75,9 +75,15 @@ class ControladorUsuarios
 
 
 						# Página de inicio
-						echo '<script>
-									window.location = "inicio";
-								</script>';
+						if (!validarPermiso("M_GERENCIAL", "R")){
+							echo '<script>
+										window.location = "inicio";
+									</script>';
+						}else{
+							echo '<script>
+										window.location = "g-dashboard";
+									</script>';
+						}
 					} else {
 						echo '<br><div class="alert alert-danger">El usuario no se encuentra activo</div>';
 					}
