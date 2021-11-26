@@ -121,6 +121,7 @@ $(document).ready(function () {
             cargarSelect('sucursal');
             cargarSelectProveedor();
             cargarTablaProductos();
+            cargarTablaInventario();
             $("#formulario_producto").trigger("reset");
             $("#formulario_addInventario").trigger("reset");
             $("#id_producto").val("");
@@ -128,45 +129,78 @@ $(document).ready(function () {
             $(".btn_actualizarProducto").addClass("d-none");
             $(".btn_nuevaReferencia").addClass("d-none");
             $(".input_inventario").attr("readonly", true);
+            $("#titulo_producto").html("Nuevo producto");
         });
         //EVENTO al salir del input de codigo, busca si ese codigo existe y se trae los datos del producto con ese codigo 
         $(document).on("blur", "#cod_producto", function () {
             
-                if (true/* $("#id_producto").val() == ""  */) {
-                    
-                    var datos = new FormData();
-                    datos.append('DatosProducto', "ok");
-                    datos.append('item', 'codigo');
-                    datos.append('valor', $(this).val());
-    
-                    $.ajax({
-                        type: 'post',
-                        url: `${urlPagina}ajax/almacen.ajax.php`,
-                        data: datos,
-                        dataType: 'json',
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        success: function (response) {
-                            if (response != "") {
-                                $("#titulo_producto").html(response.descripcion + ' - ' + response.categoria + ' - ' + response.referencia);
-                                $("#formulario_producto").trigger("reset");
-                                $(".btn_agregarProducto").hide();
-                                $(".btn_actualizarProducto").removeClass("d-none");
-                                $(".btn_nuevaReferencia").removeClass("d-none");
-                                $(".input_inventario").attr("readonly", false);
-                                cargarDatosProducto(response);
-                            }
-                            else{
-                                // $(".btn_agregarProducto").show();
-                                // $(".btn_actualizarProducto").addClass("d-none");
-                                // $(".btn_nuevaReferencia").addClass("d-none");
-                                $("#id_producto").val("");
-                                $("#titulo_producto").html("Nuevo producto");
-                            }
-                        }
-                    });      
+            var datos = new FormData();
+            datos.append('DatosProducto', "ok");
+            datos.append('item', 'codigo');
+            datos.append('valor', $(this).val());
+
+            $.ajax({
+                type: 'post',
+                url: `${urlPagina}ajax/almacen.ajax.php`,
+                data: datos,
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                  
+                    if(response.length > 1){
+
+                        var tr = "";
+                        response.forEach(element => {
+
+                            tr += "<tr>";
+                            tr += "<td>";
+                            tr += element.idproducto;
+                            tr += "</td>";
+                            tr += "<td>";
+                            tr += element.descripcion;
+                            tr += "</td>";
+                            tr += "<td>";
+                            tr += element.referencia;
+                            tr += "</td>";
+                            tr += "<td>";
+                            tr += "<button idproducto='";
+                            tr += element.idproducto; 
+                            tr += "' class='btn btn-sm btn-info btnSeleccionarRef'><i class='fas fa-check-circle'></i></button>";
+                            tr += "</td>";
+                            tr += "<tr>";
+                        });
+
+                        Swal.fire({
+                            title: `Referencias con el código - ${response[0].codigo}`,
+                            html:
+                                `<table cellspacing="0" cellpadding="8" class"table" border="2">
+                                    <thead border="2">
+                                        <tr>
+                                            <th border="2">ID</th>
+                                            <th border="2">Descripción</th>
+                                            <th border="2">Referencia</th>
+                                            <th border="2">Selección</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${tr}
+                                    </tbody>
+                                </table>`,
+                            confirmButtonColor: '#5cb85c',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Continuar!'
+                        })
+                    }else {
+                        var datosProducto = response[0];
+                        cargarDatosProducto(datosProducto);
+                    }
+                   
                 }
+            });      
+                
+
             
         });
         //ACTUALIZAR PRODUCTO EXISTENTE
@@ -229,6 +263,166 @@ $(document).ready(function () {
                 })
             }
         });
+        //EVENTO que trae los datos de la referencia seleccionada segun el id producto
+        $(document).on("click", ".btnSeleccionarRef", function () {
+
+            let id = $(this).attr("idproducto");
+
+            var datos = new FormData();
+            datos.append('DatosProducto', "ok");
+            datos.append('item', 'idproducto');
+            datos.append('valor', id);
+
+            $.ajax({
+                type: 'post',
+                url: `${urlPagina}ajax/almacen.ajax.php`,
+                data: datos,
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    cargarDatosProducto(response[0]);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Referencia seleccionada.',						
+                        showConfirmButton: false,
+                        timer: 1000                       
+                    })
+                }
+            });      
+        });
+
+        $(document).on("click", ".btnSucursalesInventario", function () {
+
+            let idproducto = $(this).attr("idproducto");
+
+            var datos = new FormData();
+            datos.append('SucursalesInventario', "ok");
+            datos.append('idproducto', idproducto);
+
+            $.ajax({
+                type: 'post',
+                url: `${urlPagina}ajax/almacen.ajax.php`,
+                data: datos,
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+
+                    var tr = "";
+                        response.forEach(element => {
+
+                            tr += "<tr>";
+                            tr += "<td>";
+                            tr += element.descripcion;
+                            tr += "</td>";
+                            tr += "<td>";
+                            tr += element.referencia;
+                            tr += "</td>";
+                            tr += "<td>";
+                            tr += element.stock;
+                            tr += "</td>";
+                            tr += "<td>";
+                            tr += element.sucursal; 
+                            tr += "</td>";
+                            tr += "<tr>";
+                        });
+
+                    Swal.fire({
+                        title: `Sucursales activas - ${response[0].descripcion}`,
+                        html:
+                            `<div class="table-responsive">
+                                <table cellspacing="5" cellpadding="8" class"table" border="2">
+                                    <thead border="2">
+                                        <tr>
+                                            <th border="2">Descripción</th>
+                                            <th border="2">Referencia</th>
+                                            <th border="2">Stock</th>
+                                            <th border="2">Sucursal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${tr}
+                                    </tbody>
+                                </table>
+                            </div> `,
+                        confirmButtonColor: '#5cb85c',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Continuar!'
+                    })
+                }
+            });    
+        });
+
+        $(document).on("click", ".btnHistorialMovimientos", function () {
+
+            let idproducto = $(this).attr("idproducto");
+
+            var datos = new FormData();
+            datos.append('Historial', "ok");
+            datos.append('idproducto', idproducto);
+
+            $.ajax({
+                type: 'post',
+                url: `${urlPagina}ajax/almacen.ajax.php`,
+                data: datos,
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+
+                    var tr = "";
+                        response.forEach(element => {
+
+                            tr += "<tr>";
+                            tr += "<td>";
+                            tr += element.cantidad;
+                            tr += "</td>";
+                            tr += "<td>";
+                            tr += element.tipo_movimiento;
+                            tr += "</td>";
+                            tr += "<td>";
+                            tr += element.fecha;
+                            tr += "</td>";
+                            tr += "<td>";
+                            tr += element.preciocompra; 
+                            tr += "</td>";
+                            tr += "<td>";
+                            tr += element.facturacompra; 
+                            tr += "</td>";
+                            tr += "<tr>";
+                        });
+
+                    Swal.fire({
+                        title: `Historial de movimientos`,
+                        html:
+                            `<div class="table-responsive">
+                                <table cellspacing="5" cellpadding="6" class"table" border="2">
+                                    <thead border="2">
+                                        <tr>
+                                            <th border="2">Cantidad</th>
+                                            <th border="2">Movimiento</th>
+                                            <th border="2">Fecha</th>
+                                            <th border="2">Precio</th>
+                                            <th border="2">Factura</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        ${tr}
+                                    </tbody>
+                                </table>
+                            </div> `,
+                        confirmButtonColor: '#5cb85c',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Continuar!'
+                    })
+                }
+            });    
+        });
+
         //NUEVA REFERENCIA PRODUCTO EXISTENTE
         $(".btn_nuevaReferencia").on("click", function (e) {
                 e.preventDefault();
@@ -273,6 +467,10 @@ $(document).ready(function () {
                         }
                     }
                 });
+        });
+        //btn que hace abrir el collapse de la tabla de productos
+        $(".btn_ver_productos").on('click', function (){
+            $('#card_productos').CardWidget("expand");
         });
         //FUNCION para cargar los datos del select
         const cargarSelect = (nombre) => {
@@ -325,6 +523,13 @@ $(document).ready(function () {
         };
         //FUNCION para cargar los datos del producto
         const cargarDatosProducto = (response) => {
+            $("#titulo_producto").html(response.descripcion + ' - ' + response.categoria + ' - ' + response.referencia);
+            $("#formulario_producto").trigger("reset");
+            $(".btn_agregarProducto").hide();
+            $(".btn_actualizarProducto").removeClass("d-none");
+            $(".btn_nuevaReferencia").removeClass("d-none");
+            $(".input_inventario").attr("readonly", false);
+
             $("#id_producto").val(response.idproducto);
             $("#cod_producto").val(response.codigo);
             $("#referencia").val(response.referencia);
@@ -337,6 +542,10 @@ $(document).ready(function () {
         const cargarTablaProductos = () => {
 
             let datos = new FormData();
+            // Quitar datatable
+            $(`#tabla_productos`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbody_productos`).html("");
             datos.append("CargarTablaProductos", "ok");
             $.ajax({
                 type: "POST",
@@ -348,15 +557,10 @@ $(document).ready(function () {
                 // dataType: "json",
                 success: function (response) {
                     if (response != '' || response != null) {
-
-                        console.log(response);
                         $("#tbody_productos").html(response);
-
                     } else {
-
                         $("#tbody_productos").html('');
                     }
-
                     var buttons = [
                         { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
                     ];
@@ -364,5 +568,36 @@ $(document).ready(function () {
                 },
             });
         };
+        //FUNCION para cargar el body de la tabla inventario
+        const cargarTablaInventario = () => {
+
+            let datos = new FormData();
+            // Quitar datatable
+            $(`#tabla_inventario`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbody_inventario`).html("");
+            datos.append("CargarTablaInventario", "ok");
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/almacen.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != '' || response != null) {
+                        $("#tbody_inventario").html(response);
+                    } else {
+                        $("#tbody_inventario").html('');
+                    }
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#tabla_inventario`, buttons);
+                },
+            });
+        };
+
     }
 });

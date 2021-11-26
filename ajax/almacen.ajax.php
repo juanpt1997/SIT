@@ -16,7 +16,7 @@ require_once '../controllers/almacen.controlador.php';
 
 class AjaxAlmacen
 {
-    static public function cargarSelect($nombre)
+    static public function ajaxCargarSelect($nombre)
     {
         switch ($nombre) {
 
@@ -158,13 +158,53 @@ class AjaxAlmacen
 		}
 		echo $tr;
     }
+
+    static public function ajaxCargarTablaInventario()
+    {
+        $respuesta = ModeloProductos::mdlListarInventario();
+		$tr = "";
+
+		foreach ($respuesta as $key => $value) {
+			$tr .= "
+			<tr>
+				<td>{$value["descripcion"]}</td>
+                <td>{$value["categoria"]}</td>
+				<td>{$value["marca"]}</td>
+                <td>{$value["medida"]}</td>
+				<td>{$value["stock"]}</td>
+                <td>{$value["posicion"]}</td>
+                <td> 
+                    <div class='btn-group' role='group' aria-label='Button group'>
+                    <button title='Ver historial de movimientos' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-success btnHistorialMovimientos'><i class='far fa-clipboard'></i></button>
+                    </div>
+                    <div class='btn-group' role='group' aria-label='Button group'>
+                    <button title='Ver sucursales' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-primary btnSucursalesInventario'><i class='fas fa-map-marker-alt'></i></button>
+                    </div>
+                </td>
+			</tr>
+			";
+		}
+		echo $tr;
+    }
+
+    static public function ajaxSucursalesInventario($idproducto)
+    {
+        $respuesta = ModeloProductos::mdlSucursalesInventario($idproducto);
+        echo json_encode($respuesta);
+    }
+
+    static public function ajaxHitorialMovimientos($idproducto)
+    {
+        $respuesta = ModeloProductos::mdlHistorialMovimientos($idproducto);
+        echo json_encode($respuesta);
+    }
 }
 
 /* ===================================================
             LLAMADOS AJAX EN PRODUCTOS
 ====================================================*/
 if (isset($_POST['cargarselect']) && $_POST['cargarselect'] == "ok") {
-    AjaxAlmacen::cargarSelect($_POST['nombreSelect']);
+    AjaxAlmacen::ajaxCargarSelect($_POST['nombreSelect']);
 }
 
 if (isset($_POST['AgregarProducto']) && $_POST['AgregarProducto'] == "ok") {
@@ -190,4 +230,17 @@ if (isset($_POST['ActualizarProducto']) && $_POST['ActualizarProducto'] == "ok")
 if (isset($_POST['CargarTablaProductos']) && $_POST['CargarTablaProductos'] == "ok") {
 	AjaxAlmacen::ajaxCargarTablaProductos();
 }
+
+if (isset($_POST['CargarTablaInventario']) && $_POST['CargarTablaInventario'] == "ok") {
+	AjaxAlmacen::ajaxCargarTablaInventario();
+}
+
+if (isset($_POST['SucursalesInventario']) && $_POST['SucursalesInventario'] == "ok") {
+	AjaxAlmacen::ajaxSucursalesInventario($_POST['idproducto']);
+}
+
+if (isset($_POST['Historial']) && $_POST['Historial'] == "ok") {
+	AjaxAlmacen::ajaxHitorialMovimientos($_POST['idproducto']);
+}
+
 
