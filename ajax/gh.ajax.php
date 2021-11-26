@@ -762,10 +762,22 @@ class AjaxPerfilSD
 
         echo $tr;
     }
+
+    /* ===================================================
+       GRÁFICOS PERFIL SOCIODEMOGRÁFICO
+    ===================================================*/
+    static public function ajaxGraficosPerfilSD()
+    {
+        $respuesta = ControladorGH::ctrGraficosPerfilSD();
+        echo json_encode($respuesta);
+    }
 }
 
 if (isset($_POST['TablaPerfilSD']) && $_POST['TablaPerfilSD'] == "ok") {
     AjaxPerfilSD::ajaxTablaPerfilSD();
+}
+if (isset($_POST['GraficosPerfilSD']) && $_POST['GraficosPerfilSD'] == "ok") {
+    AjaxPerfilSD::ajaxGraficosPerfilSD();
 }
 
 /* ===================================================

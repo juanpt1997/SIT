@@ -116,6 +116,9 @@ if (isset($_GET['pagina'])) {
     <script src="<?= URL_APP ?>views/plugins/cross-page-tab-navigation/jquery.simpletabs.js"></script>
     <!-- fullCalendar -->
     <script src="<?= URL_APP ?>views/plugins/fullcalendar-5.10.0/lib/main.js"></script>
+    <!-- Charjs -->
+    <script src="<?= URL_APP ?>views/plugins/chart.js/Chart.bundle.min.js"></script>
+    <script src="<?= URL_APP ?>views/plugins/chart.js/Charjs-plugin-datalabels.min.js"></script>
 
 </head>
 
@@ -210,6 +213,10 @@ if (isset($_GET['pagina'])) {
                         $ruta == "a-inventario-desarrollo"
                     ) {
                         include "modulos/almacen/{$ruta}.php";
+                    } else if ( # Gerencial
+                        $ruta == "g-dashboard"
+                    ) {
+                        include "modulos/gerencial/{$ruta}.php";
                     } else { # Página no válida
                         include "includes/error404.php";
                     }
@@ -243,6 +250,7 @@ if (isset($_GET['pagina'])) {
 <!-- =================================================== CUSTOM JS =================================================== -->
 <script src="<?= URL_APP ?>config/config.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/plantilla.js?v=<?= time() ?>"></script>
+<script src="<?= URL_APP ?>views/js/gerencial.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/usuarios.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/gh.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/vehicular.js?v=<?= time() ?>"></script>
