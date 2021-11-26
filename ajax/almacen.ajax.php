@@ -176,10 +176,10 @@ class AjaxAlmacen
 				<td>{$value["stock"]}</td>
                 <td> 
                     <div class='btn-group' role='group' aria-label='Button group'>
-                    <button title='Ver historial de movimientos' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-success btnHistorialMovimientos'><i class='far fa-clipboard'></i></button>
+                    <button title='Ver historial de movimientos' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-info btnHistorialMovimientos'><i class='far fa-clipboard'></i></button>
                     </div>
                     <div class='btn-group' role='group' aria-label='Button group'>
-                    <button title='Ver sucursales' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-primary btnSucursalesInventario'><i class='fas fa-map-marker-alt'></i></button>
+                    <button title='Ver sucursales' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-success btnSucursalesInventario'><i class='fas fa-map-marker-alt'></i></button>
                     </div>
                 </td>
 			</tr>

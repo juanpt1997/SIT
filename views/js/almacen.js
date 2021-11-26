@@ -167,7 +167,7 @@ $(document).ready(function () {
                             tr += "<td>";
                             tr += "<button idproducto='";
                             tr += element.idproducto; 
-                            tr += "' class='btn btn-sm btn-info btnSeleccionarRef'><i class='fas fa-check-circle'></i></button>";
+                            tr += "' class='btn btn-sm btn-info btnSeleccionarRef' title='Seleccionar producto'><i class='fas fa-check-circle'></i></button>";
                             tr += "</td>";
                             tr += "<tr>";
                         });
@@ -191,7 +191,7 @@ $(document).ready(function () {
                             width: '800px',
                             confirmButtonColor: '#5cb85c',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Continuar!'
+                            confirmButtonText: 'Continuar'
                         })
                     }else {
                         var datosProducto = response[0];
