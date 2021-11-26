@@ -235,7 +235,7 @@
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label><i>Posición</i> <i class="fas fa-sitemap"></i></label>
-                                    <input type="text" class="form-control input_inventario" id="posicion" name="posicion" placeholder="-" required readonly>
+                                    <input type="text" class="form-control input_inventario" id="posicion" name="posicion" placeholder="-" readonly>
                                 </div>
                             </div>
 
@@ -257,11 +257,11 @@
 
                     <hr class="my-4 bg-success">
 
-                    <div class="card card-success collapsed-card">
+                    <div class="card card-success collapsed-card" id="card_productos">
                         <div class="card-header" data-card-widget="collapse" style="cursor: pointer;">
                             <h5 class="mb-0">
                                 <strong><i>Productos</i> </strong>
-                                <button type="button" class="btn btn-tool" title="Ver inventario pantalla completa" data-toggle="tooltip" data-placement="top" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                <button type="button" class="btn btn-tool btn_ver_productos" title="Ver productos pantalla completa" data-toggle="tooltip" data-placement="top" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
                             </h5>
                         </div>
                         <div class="card-body">
@@ -291,28 +291,29 @@
                         <div class="card-header" data-card-widget="collapse" style="cursor: pointer;">
                             <h5 class="mb-0">
                                 <strong><i>Inventario</i> </strong>
-                                <button type="button" class="btn btn-tool" title="Ver productos pantalla completa" data-toggle="tooltip" data-placement="top" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
-                            </h5>
+                                <button type="button" class="btn btn-tool" title="Ver inventario pantalla completa" data-toggle="tooltip" data-placement="top" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                </h5>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped text-center text-nowrap">
+                                <table class="table table-bordered table-striped text-center text-nowrap" id="tabla_inventario">
                                     <thead>
-                                        <tr>
+                                        <!-- <tr>
                                             <th colspan="8">PRODUCTOS</th>
                                             <th colspan="4">ENTRADAS</th>
                                             <th colspan="4">SALIDAS</th>
                                             <th colspan="3">SALDO</th>
                                             <th colspan='1'>SUCURSALES</th>
-                                        </tr>
+                                        </tr> -->
                                         <tr>
-                                            <th>Código</th>
-                                            <th>Referencia</th>
                                             <th>Descripción</th>
                                             <th>Categoria</th>
                                             <th>Marca</th>
                                             <th>Medida</th>
-                                            <th>Sucursal</th>
+                                            <th>Stock</th>
+                                            <th>Posición</th>
+                                            <th>Acciones</th>
+                                            <!-- <th>Sucursal</th>
                                             <th>Precio</th>
                                             <th>Fecha de entrada</th>
                                             <th>Cantidad (u)</th>
@@ -325,32 +326,10 @@
                                             <th>Cantidad (u)</th>
                                             <th>Valor unitario</th>
                                             <th>Total</th>
-                                            <th>Sucursal</th>
+                                            <th>Sucursal</th> -->
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>12314</td>
-                                            <td>optyui-12367</td>
-                                            <td>MANUBRIO</td>
-                                            <td>TALLER</td>
-                                            <td>NISAN</td>
-                                            <td>2</td>
-                                            <td>centimetros</td>
-                                            <td>Dosquebradas</td>
-                                            <td>2/02/2021</td>
-                                            <td><button class="btn btn-sm btn-success" title="Actualizar inventario" data-toggle="tooltip" data-placement="top"><i class="fas fa-redo-alt"></i></button></td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>2/02/2021</td>
-                                            <td><button class="btn btn-sm btn-success" title="Actualizar inventario" data-toggle="tooltip" data-placement="top"><i class="fas fa-redo-alt"></i></button></td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td><button class="btn btn-sm btn-primary" title="Ver sucursales" data-toggle="tooltip" data-placement="top"><i class="fas fa-map-marker-alt"></i></button></td>
-                                        </tr>
+                                    <tbody id="tbody_inventario"> 
                                     </tbody>
                                 </table>
                             </div>
