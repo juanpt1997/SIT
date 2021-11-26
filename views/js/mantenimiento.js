@@ -1093,14 +1093,15 @@ $(document).ready(function () {
       var fila = `<tr>` +
         `<td style="width: 300px">` +
         `<div class="input-group">` +
-        `<input class="form-control" type="text" id="proveedor_${dinamico}" name="repuesto[]" placeholder="Seleccione un repuesto" readonly>` +
+        `<input class="form-control" type="text" id="proveedor_${dinamico}" placeholder="Seleccione un repuesto" readonly>` +
         `<div class="input-group-append">` +
         `<button type="button" class="btn btn-success btn-md btn-proveedor" consecutivo="${dinamico}" title="lista proveedores" data-toggle="modal" data-target="#modal-proveedores"><i class="fas fa-parachute-box"></i></button>` +
         `</div>` +
         `</div>` +
         `</td>` +
-        `<td style="width: 300px">` + `<input type="text" class="form-control" id="descripcion_manoObra_${dinamico}" name="descripcion_repuestos1">` + `</td>` +
-        `<td style="width: 300px">` + `<input type="text" class="form-control" id="valor_manoObra_${dinamico}" name="valor">` + `</td>` +
+        `<input type="hidden" id="idproveedor_${dinamico}" name="proveedor[]"> ` +
+        `<td style="width: 300px">` + `<input type="text" class="form-control" id="descrip_${dinamico}" name="descrip_mano[]">` + `</td>` +
+        `<td style="width: 300px">` + `<input type="text" class="form-control" id="valor_${dinamico}" name="valor_mano[]">` + `</td>` +
         `</tr>`
         ;
 
@@ -1134,6 +1135,7 @@ $(document).ready(function () {
         `</div>` +
         `</div>` +
         `</td>` +
+        `<input type="hidden" id="inventario_${dinamico}" name="inventario[]">` +
         `<td style="width: 300px">` + `<input type="text" class="form-control" id="refrepuestos_${dinamico}" name="referencia_repuesto[]" readonly>` + `</td>` +
         `<td style="width: 300px">` + `<input type="text" class="form-control" id="codrepuestos_${dinamico}" name="codigo_repuesto[]" readonly>` + `</td>` +
         `<td style="width: 300px">` + `<input type="text" class="form-control" id="cantrepuestos_${dinamico}" name="cantidad_repuesto[]">` + `</td>` +
@@ -1332,8 +1334,10 @@ $(document).ready(function () {
     var consecutivo = $(this).attr("consecutivo");
     var codigo = $(this).attr("codigo");
     var referencia = $(this).attr("referencia");
+    var inventario = $(this).attr("inventario");
 
 
+    $(`#inventario_${consecutivo}`).val(inventario);
     $(`#repuesto_${consecutivo}`).val(descripcion);
     $(`#refrepuestos_${consecutivo}`).val(referencia);
     $(`#codrepuestos_${consecutivo}`).val(codigo);
@@ -1637,9 +1641,26 @@ $(document).ready(function () {
     var datosAjax = new FormData();
     datosAjax.append('Guardar_OrdenServicio', "ok")
 
+    var serviciosexternos = new Array();
+
+    //CAPTURA EL IDSERVICIOEXTERNO DE LOS SERVICIOS QUE FUERON SELECCIONADOS
+    $('input:checkbox:checked').each(function () {
+      let valido = $(this).attr("idservicioexterno");
+      serviciosexternos.push(valido);
+    });
+
+    //MANDAMOS LOS SERVICIOS SELECCIONADOS
+    serviciosexternos.forEach(element => {
+      datosAjax.append("serviciosexternos[]", element);
+    });
+
+
     datosFrm.forEach(element => {
       datosAjax.append(element.name, element.value);
     });
+
+
+
 
     $.ajax({
       type: 'post',
@@ -1650,8 +1671,8 @@ $(document).ready(function () {
       processData: false,
       success: function (response) {
 
-        if (response == "ok") {
-          
+        if (response != "error") {
+
           $("#ordenServ_form").trigger("reset");
           $("#placa_OrdServ").val("").trigger("change");
           $("#sistema").val("").trigger("change");
@@ -1659,7 +1680,7 @@ $(document).ready(function () {
           $("#ServPre").val("").trigger("change");
           $("#correctivo").val("").trigger("change");
           // Mensaje de éxito al usuario
-          console.log("Hola");
+
           Swal.fire({
             icon: 'success',
             title: '¡Datos guardados correctamente!',
@@ -1736,15 +1757,16 @@ $(document).ready(function () {
   $(document).on("click", ".btn-SeleccionarProveedor", function () {
     $("#modal-proveedores").modal("hide");
 
-    var nombre = $(this).attr("nombre");
+    var nombre_proveedor = $(this).attr("nombre_proveedor");
     var consecutivo = $(this).attr("consecutivo");
+    var idproveedor = $(this).attr("idproveedor")
     // var codigo = $(this).attr("codigo");
     // var referencia = $(this).attr("referencia");
 
 
-    $(`#proveedor_${consecutivo}`).val(nombre);
-    // $(`#refrepuestos_${consecutivo}`).val(referencia);
-    // $(`#codrepuestos_${consecutivo}`).val(codigo);
+    $(`#proveedor_${consecutivo}`).val(nombre_proveedor);
+    $(`#idproveedor_${consecutivo}`).val(idproveedor);
+
   });
 
   $(document).on("click", ".btn-nuevoProveedor", function () {
@@ -1752,7 +1774,49 @@ $(document).ready(function () {
 
   });
 
+  //CAMBIA LOS COLORES DEL ESTADO 
+  $(document).on("change", "#estado", function () {
+    let estado = this.value;
 
+    if (estado == "3") {
+      $("#estado").removeClass("bg-warning");
+      $("#estado").removeClass("bg-success");
+      $("#estado").removeClass("bg-danger");
+    }
+
+
+    if (estado == 0) {
+      $("#estado").removeClass("bg-warning");
+      $("#estado").removeClass("bg-success");
+      $("#estado").addClass("bg-danger");
+    }
+
+    if (estado == 1) {
+      $("#estado").removeClass("bg-danger");
+      $("#estado").removeClass("bg-success");
+      $("#estado").addClass("bg-warning");
+    }
+
+
+    if (estado == 2) {
+      $("#estado").removeClass("bg-warning");
+      $("#estado").removeClass("bg-danger");
+      $("#estado").addClass("bg-success");
+    }
+
+
+  });
+
+
+  $(document).on("click", "#btn-crearSolicitud", function () {
+    $("#servExternosResu").empty();
+    $("#servicios_externos").clone().appendTo("#servExternosResu");
+    $("#RepuestoResu").empty();
+    $("#repuesto_solicitud").clone().appendTo("#RepuestoResu");
+    $("#diagnosticoResu").empty();
+    $("#diagnostico_solicitud").clone().appendTo("#diagnosticoResu");
+    
+  });
 
 
 });

@@ -1663,12 +1663,13 @@ class ModeloMantenimientos
     ===================================================*/
     static public function mdlListadoProductos()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT p.*, m.medida, mc.marca, ct.categoria, i.stock  
-        from a_productos p
+        $stmt = Conexion::conectar()->prepare("SELECT i.*, s.sucursal, p.*, m.medida, mc.marca, ct.categoria FROM a_re_inventario i
+        INNER JOIN gh_sucursales s ON i.idsucursal = s.ids
+        INNER JOIN a_productos p ON i.idproducto = p.idproducto
         LEFT JOIN a_medidas m ON p.idmedida = m.idmedidas
         LEFT JOIN a_marcas mc ON p.idmarca = mc.idmarca
         LEFT JOIN a_categorias ct ON p.idcategoria = ct.idcategorias
-        INNER JOIN a_re_inventario i ON p.idproducto = i.idproducto");
+        ");
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();
@@ -1680,8 +1681,10 @@ class ModeloMantenimientos
     ===================================================*/
     static public function mdlListadoOrdenesServicio()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT o.*, v.* FROM m_ordenservicio o 
-        INNER JOIN v_vehiculos v ON o.idvehiculo = v.idvehiculo");
+        $stmt = Conexion::conectar()->prepare("SELECT o.*, v.*, DATE_FORMAT(o.fecha_entrada, '%d/%m/%Y') AS Ffecha_entrada, DATE_FORMAT(o.fecha_trabajos, '%d/%m/%Y') AS Ffecha_trabajos, 
+        DATE_FORMAT(o.fecha_aprobacion, '%d/%m/%Y') AS Ffecha_aprobacion FROM m_ordenservicio o 
+        INNER JOIN v_vehiculos v ON o.idvehiculo = v.idvehiculo  
+        ");
 
         $stmt->execute();
         $retorno = $stmt->fetchAll();
@@ -1760,18 +1763,140 @@ class ModeloMantenimientos
 
     static public function mdlAgregarOrdenServicio($datos)
     {
-        $stmt = Conexion::conectar()->prepare("INSERT INTO m_ordenservicio(idvehiculo,fecha_entrada,hora_entrada,fecha_trabajos,fecha_aprobacion,sistema,tipo_mantenimiento,diagnostico,observacion)
-                                                VALUES(:idvehiculo_OrdServ, :fechaentrada_OrdSer, :horaentra_ordSer, :fechaInic_ordSer, :fechaApro_ordSer, :sistema, :tipo_mantenimiento, :diagnostico, :observacion)");
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO m_ordenservicio(idvehiculo,fecha_entrada,hora_entrada,fecha_trabajos,fecha_aprobacion,sistema,tipo_mantenimiento,diagnostico,observacion, estado)
+                                                VALUES(:idvehiculo_OrdServ, :fechaentrada_OrdSer, :horaentra_ordSer, :fechaInic_ordSer, :fechaApro_ordSer, :sistema, :tipo_mantenimiento, :diagnostico, :observacion, :estado)");
 
         $stmt->bindParam(":idvehiculo_OrdServ", $datos['idvehiculo_OrdServ'], PDO::PARAM_INT);
         $stmt->bindParam(":fechaentrada_OrdSer", $datos['fechaentrada_OrdSer'], PDO::PARAM_STR);
         $stmt->bindParam(":horaentra_ordSer", $datos['horaentra_ordSer'], PDO::PARAM_STR);
         $stmt->bindParam(":fechaInic_ordSer", $datos['fechaInic_ordSer'], PDO::PARAM_STR);
         $stmt->bindParam(":fechaApro_ordSer", $datos['fechaApro_ordSer'], PDO::PARAM_STR);
-        $stmt->bindParam(":sistema", $datos['sistema'], PDO::PARAM_INT);
-        $stmt->bindParam(":tipo_mantenimiento", $datos['tipo_mantenimiento'], PDO::PARAM_INT);
+        $stmt->bindParam(":sistema", $datos['sistema'], PDO::PARAM_STR);
+        $stmt->bindParam(":tipo_mantenimiento", $datos['tipo_mantenimiento'], PDO::PARAM_STR);
         $stmt->bindParam(":diagnostico", $datos['diagnostico'], PDO::PARAM_STR);
         $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
+        $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $id = $conexion->lastInsertId();
+        } else {
+            $id = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $id;
+    }
+
+    /* ===================================================
+        AGREGAR MANTENIMIENTO PREVENTIVO A ORDEN SERVICIO
+    ===================================================*/
+
+    static public function mdlAgregarPreventivo($idorden, $servicio)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_serviciosmenoresordenservicio(idorden, idservicio)
+                                            VALUES(:idorden, :servicio)");
+
+        $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
+        $stmt->bindParam(":servicio", $servicio, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        AGREGAR MANTENIMIENTO CORRECTIVO A ORDEN DE SERVICIO
+    ===================================================*/
+    static public function mdlAgregarCorrectivo($idorden,$servicio)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_correctivosordenservicio(idorden, idservicio)
+                                            VALUES(:idorden, :servicio)");
+
+        $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
+        $stmt->bindParam(":servicio", $servicio, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+
+    /* ===================================================
+        AGREGAR SERVICIOS EXTERNOS A ORDEN SERVICIO
+    ===================================================*/
+
+    static public function mdlAgregarServiciosExternosOrdenServicio($servicio, $dato)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_serviciosexternosordenservicio(idorden,idservicio_externo)
+                                                VALUES(:idorden, :dato)");
+
+        $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
+        $stmt->bindParam(":dato", $dato, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        AGREGAR REPUESTO EN ORDEN DE SERVICIO
+    ===================================================*/
+
+    static public function mdlAgregarRepuestoOrdenServicio($idorden, $idinventario, $cantidad)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_repuestoordenservicio(idorden,idinventario, cantidad)
+                                                VALUES(:idorden,:idinventario, :cantidad)");
+
+        $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
+        $stmt->bindParam(":idinventario", $idinventario, PDO::PARAM_INT);
+        $stmt->bindParam(":cantidad", $cantidad, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+
+    /* ===================================================
+        AGREGAR MANO DE OBRA / PROVEEDOR
+    ===================================================*/
+
+    static public function mdlAgregarManoObra($idorden, $idproveedor, $descripcion, $valor)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_proveedorordenservicio(idorden,idproveedor,descripcion,cantidad)
+                                            VALUES(:idorden, :idproveedor, :descripcion, :valor )");
+
+        $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
+        $stmt->bindParam(":idproveedor", $idproveedor, PDO::PARAM_INT);
+        $stmt->bindParam(":descripcion", $descripcion, PDO::PARAM_STR);
+        $stmt->bindParam(":valor", $valor, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $retorno = "ok";
