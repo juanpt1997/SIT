@@ -107,7 +107,7 @@ if (!validarPermiso('M_GERENCIAL', 'R')) {
                         <div class="card-header">
                             <h5 class="card-title font-weight-bold text-uppercase">Contratos</h5>
                             <div class="card-tools">
-                                <button type="button" class="btn btn-tool" data-widget="collapse">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
