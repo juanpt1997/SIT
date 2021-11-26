@@ -186,7 +186,7 @@ class ControladorInventario
 			} else {
 
 				$responseModel = ModeloInventario::mdlEditarInventario($datos);
-				
+
 
 				/* ===================================================
             		GUARDAR KILOMETRAJE VEHICULO
@@ -573,21 +573,21 @@ class ControladorRevision
 			} else {
 				$respuesta = ModeloRevision::mdlEditarRevision($datos);
 			}
-			
+
 			/* ===================================================
             		GUARDAR KILOMETRAJE VEHICULO
         		===================================================*/
-				$tabla = "v_vehiculos";
+			$tabla = "v_vehiculos";
 
-				$datoskm = array(
-					'tabla' => $tabla,
-					'item1' => 'kilometraje',
-					'valor1' => $datos['kilometraje'],
-					'item2' => 'idvehiculo',
-					'valor2' => $datos['idvehiculo']
-				);
+			$datoskm = array(
+				'tabla' => $tabla,
+				'item1' => 'kilometraje',
+				'valor1' => $datos['kilometraje'],
+				'item2' => 'idvehiculo',
+				'valor2' => $datos['idvehiculo']
+			);
 
-				$respuestakm = ModeloVehiculos::mdlActualizarVehiculo($datoskm);
+			$respuestakm = ModeloVehiculos::mdlActualizarVehiculo($datoskm);
 
 			if ($respuesta == "ok") {
 				echo "
@@ -650,16 +650,83 @@ class ControladorMantenimientos
 	===================================================*/
 
 	static public function ctrAgregarEditarOrden($datos)
-	{	
-		$respuesta = ModeloMantenimientos::mdlAgregarOrdenServicio($datos);
-		return $respuesta;
+	{
+		var_dump($datos);
+		if (isset($datos['idorden']) && $datos['idorden'] == "") {
+
+			#RETORNA EL ÚLTIMO ID INSERTADO
+			$respuesta = ModeloMantenimientos::mdlAgregarOrdenServicio($datos);
+
+			#GUARDAR MANTENIMIENTOS PREVENTIVOS
+			if (isset($datos['serviciosPrev'])) {
+				foreach ($datos['serviciosPrev'] as $key => $value) {
+					if ($value != "") {
+						$id = intval($respuesta);
+						$servicio = intval($value);
+						$addPreventivo = ModeloMantenimientos::mdlAgregarPreventivo($id, $servicio);
+					}
+				}
+			}
+
+			#GUARDA MANTENIMIENTOS CORRECTIVOS
+			if (isset($datos['correctivo'])) {
+				foreach ($datos['correctivo'] as $key => $value) {
+					if ($value != "") {
+						$id = intval($respuesta);
+						$servicio = intval($value);
+						$addCorrectivo = ModeloMantenimientos::mdlAgregarCorrectivo($id,$servicio);
+					}
+				}
+			}
+
+			#GUARDAR SERVICIOS EXTERNOS
+			if (isset($datos['serviciosexternos'])) {
+				foreach ($datos['serviciosexternos'] as $key => $value) {
+					if ($value != "") {
+						$id = intval($respuesta);
+						$dato = intval($value);
+						$addServicio = ModeloMantenimientos::mdlAgregarServiciosExternosOrdenServicio($id, $dato);
+					}
+				}
+			}
+
+			#GUARDAR REPUESTOS
+
+			if (isset($datos['repuesto'])) {
+				foreach ($datos['inventario'] as $key => $value) {
+					if ($value != "") {
+						$id = intval($respuesta);
+						$idinventario = intval($value);
+						$cantidad = intval($datos['cantidad_repuesto'][$key]);
+						$addRepuesto = ModeloMantenimientos::mdlAgregarRepuestoOrdenServicio($id, $idinventario, $cantidad);
+					}
+				}
+			}
+
+
+
+			#GUARDAR MANO DE OBRA / PROVEEDOR
+			if (isset($datos['proveedor'])) {
+				foreach ($datos['proveedor'] as $key => $value) {
+					if ($value != "") {
+						$id = intval($respuesta);
+						$idproveedor = intval($value);
+						$descripcion = $datos['descrip_mano'][$key];
+						$valor = intval($datos['valor_mano'][$key]);
+						$addManoObra = ModeloMantenimientos::mdlAgregarManoObra($id, $idproveedor, $descripcion, $valor);
+					}
+				}
+			}
+			return $respuesta;
+		}
 	}
 
 	/* ===================================================
 		LISTADO SERVICIOS EXTERNOS 
 	===================================================*/
 
-	static public function ctrListadoServiciosExternos(){
+	static public function ctrListadoServiciosExternos()
+	{
 		$respuesta = ModeloMantenimientos::mdlListadoServiciosExternos();
 		return $respuesta;
 	}
@@ -671,27 +738,13 @@ class ControladorMantenimientos
 	static public function ctrListadoOrdenesServicio()
 	{
 		$respuesta = ModeloMantenimientos::mdlListadoOrdenesServicio();
-		// if($respuesta['sistema'] == 1) $respuesta['sistema'] = "Sistema motor";
-		// if($respuesta['sistema'] == 2) $respuesta['sistema'] = "Sistema transmisión";
-		// if($respuesta['sistema'] == 3) $respuesta['sistema'] = "Sistema de frenos y llantas";
-		// if($respuesta['sistema'] == 4) $respuesta['sistema'] = "Sistema eléctrico";
-		// if($respuesta['sistema'] == 5) $respuesta['sistema'] = "Sistema de suspensión";
-		// if($respuesta['sistema'] == 6) $respuesta['sistema'] = "Sistema de dirección";
-		// if($respuesta['sistema'] == 7) $respuesta['sistema'] = "Carrocería";
-		// if($respuesta['sistema'] == 8) $respuesta['sistema'] = "Sistema diferencial";
-		// if($respuesta['sistema'] == 9) $respuesta['sistema'] = "General vehículo";
-		// if($respuesta['sistema'] == 10) $respuesta['sistema'] = "Logístico";
-		// if($respuesta['sistema'] == 11) $respuesta['sistema'] = "Aire acondicionado";
-		echo '<pre>';
-		var_dump($respuesta['sistema']); 
-		echo '</pre>';
 		return $respuesta;
 	}
 
 	/* ===================================================
 		LISTADO DE PRODUCTOS
 	===================================================*/
-	
+
 	static public function ctrListadoProductos()
 	{
 		$respuesta = ModeloMantenimientos::mdlListadoProductos();
@@ -702,18 +755,18 @@ class ControladorMantenimientos
 		AGREGAR SOLICITUD DE SERVICIO	
 	===================================================*/
 
-	static public function ctrAgregarSolicitud($datos){
+	static public function ctrAgregarSolicitud($datos)
+	{
 
 		//Array de servicios
 		$arrayserv = ModeloMantenimientos::mdlListadoServiciosExternos();
 
 
 		foreach ($arrayserv as $key => $value) {
-			if(isset($_POST['servicioexterno_' . $value['idservicio_externo']])&& $_POST['servicioexterno_' . $value['idservicio_externo']] == "on"){
-				$datos['servicioexterno_'. $value['idservicio_externo']] = 1;
-			}
-			else{
-				$datos['servicioexterno_'. $value['idservicio_externo']] = 0;
+			if (isset($_POST['servicioexterno_' . $value['idservicio_externo']]) && $_POST['servicioexterno_' . $value['idservicio_externo']] == "on") {
+				$datos['servicioexterno_' . $value['idservicio_externo']] = 1;
+			} else {
+				$datos['servicioexterno_' . $value['idservicio_externo']] = 0;
 			}
 		}
 
@@ -730,23 +783,23 @@ class ControladorMantenimientos
 
 	static public function ctrAgregarProgramacion($datos)
 	{
-		
+
 		$respuesta = ModeloMantenimientos::mdlAgregarServicio($datos);
 
 		/* ===================================================
             GUARDAR KILOMETRAJE VEHICULO
         ===================================================*/
-        $tabla = "v_vehiculos";
+		$tabla = "v_vehiculos";
 
-        $datoskm = array(
-            'tabla' => $tabla,
-            'item1' => 'kilometraje',
-            'valor1' => $datos['kilometraje_serv'],
-            'item2' => 'idvehiculo',
-            'valor2' => $datos['idvehiculo_serv']
-        );
+		$datoskm = array(
+			'tabla' => $tabla,
+			'item1' => 'kilometraje',
+			'valor1' => $datos['kilometraje_serv'],
+			'item2' => 'idvehiculo',
+			'valor2' => $datos['idvehiculo_serv']
+		);
 
-        $respuestakm = ModeloVehiculos::mdlActualizarVehiculo($datoskm);
+		$respuestakm = ModeloVehiculos::mdlActualizarVehiculo($datoskm);
 
 
 		return $respuesta;
