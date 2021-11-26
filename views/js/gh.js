@@ -1326,8 +1326,8 @@ if (
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    if (response != "" || response != "error"){
-                    $(".spinner-GrafPerfilSD").addClass("d-none");
+                    if (response != "" || response != "error") {
+                        $(".spinner-GrafPerfilSD").addClass("d-none");
 
                         let datosLabel = [];
                         let datosGrafico = [];
@@ -1339,16 +1339,16 @@ if (
                             totalCantidad += parseInt(element.Cantidad, 10); //Total
                         });
 
-                        graficoBarra('scGrafPerfilSD', datosLabel, datosGrafico, totalCantidad, 'NIVEL DE ESCOLARIDAD', true);
+                        graficoSimple('scGrafPerfilSD', datosLabel, datosGrafico, totalCantidad, '', 'bar', true);
                     }
                 }
             });
 
         }
-        GraficosPerfilSD();
-        setTimeout(() => {
-            //GraficosPerfilSD();
-        }, 15000);
+        // Si carga la tabla primero antes de cambiar de tab, los gráficos no cargan
+        $('#v-pills-profile-tab').on('shown.bs.tab', function (e) {
+            GraficosPerfilSD();
+        });
     });
 }
 

@@ -10,6 +10,7 @@ $Productos = ControladorMantenimientos::ctrListadoProductos();
 $ServExt = ControladorMantenimientos::ctrListadoServiciosExternos();
 $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 $OrdenesServicio = ControladorMantenimientos::ctrListadoOrdenesServicio();
+$Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
 ?>
 <!-- ===================== 
   MODELO PARA LA IMPLEMENTARCION EN EL DISEÑO DE LOS MODULOS
@@ -103,7 +104,12 @@ $OrdenesServicio = ControladorMantenimientos::ctrListadoOrdenesServicio();
 
                                                         </nav>
                                                         <div class="col-9">
-                                                            <a href="#" class="btn btn-warning btn-block">Abierta</a>
+                                                            <select name="estado" id="estado" class="custom-select text-center" data-style="btn-warning">
+                                                                <option selected value="3">Estados de la orden</option>
+                                                                <option value="0">Cancelada</option>
+                                                                <option value="1">Abierta</option>
+                                                                <option value="2">Aprobada</option>
+                                                            </select>
 
                                                         </div>
 
@@ -209,17 +215,17 @@ $OrdenesServicio = ControladorMantenimientos::ctrListadoOrdenesServicio();
                                                                             <label><i>Sistema</i></label>
                                                                             <select name="sistema" id="sistema" class="form-control select2-single" type="number" style="width: 99%" required>
                                                                                 <option selected value="">Seleccione el sistema</option>
-                                                                                <option value="1">Sistema motor</option>
-                                                                                <option value="2">Sistema transmisión</option>
-                                                                                <option value="3">Sistema de frenos y llantas</option>
-                                                                                <option value="4">Sistema eléctrico</option>
-                                                                                <option value="5">Sistema de suspensión</option>
-                                                                                <option value="6">Sistema de dirección</option>
-                                                                                <option value="7">Carrocería</option>
-                                                                                <option value="8">Sistema diferencial</option>
-                                                                                <option value="9">General vehículo</option>
-                                                                                <option value="10">Logístico</option>
-                                                                                <option value="11">Aire acondicionado</option>
+                                                                                <option>Sistema motor</option>
+                                                                                <option>Sistema transmisión</option>
+                                                                                <option>Sistema de frenos y llantas</option>
+                                                                                <option>Sistema eléctrico</option>
+                                                                                <option>Sistema de suspensión</option>
+                                                                                <option>Sistema de dirección</option>
+                                                                                <option>Carrocería</option>
+                                                                                <option>Sistema diferencial</option>
+                                                                                <option>General vehículo</option>
+                                                                                <option">Logístico</option>
+                                                                                    <option">Aire acondicionado</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -229,10 +235,10 @@ $OrdenesServicio = ControladorMantenimientos::ctrListadoOrdenesServicio();
                                                                             <label><i>Tipo de mantenimiento</i></label>
                                                                             <select id="tipo_mantenimiento" name="tipo_mantenimiento" class="form-control select2-single" type="number" style="width: 99%" required>
                                                                                 <option selected value="">Seleccione un tipo de mantenimiento</option>
-                                                                                <option value="1">Preventivo</option>
-                                                                                <option value="2">Correctivo</option>
-                                                                                <option value="3">GPS</option>
-                                                                                <option value="4">Servicios logísticos</option>
+                                                                                <option>Preventivo</option>
+                                                                                <option>Correctivo</option>
+                                                                                <option>GPS</option>
+                                                                                <option>Servicios logísticos</option>
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -315,7 +321,7 @@ $OrdenesServicio = ControladorMantenimientos::ctrListadoOrdenesServicio();
                                                                 <div class="callout callout-info col-md-12 col-sm-8">
                                                                     <div class="row">
                                                                         <div class="col-md-12 col-sm-9 ">
-                                                                            <div class="form-group text-center">
+                                                                            <div class="form-group text-center" id="diagnostico_solicitud">
                                                                                 <label>Descripción</label>
                                                                                 <textarea class="form-control" name="diagnostico" rows="5" placeholder="Digite una leve descripción ..." required></textarea>
                                                                             </div>
@@ -339,7 +345,7 @@ $OrdenesServicio = ControladorMantenimientos::ctrListadoOrdenesServicio();
                                                                                         <div class="input-group input-group-sm">
                                                                                             <select id="correctivo" class="select2-primary form-control select2-multiple input-sm" data-placeholder="Lista de mantenimientos preventivos" multiple="multiple" style="width: 99%" name="correctivo[]">
 
-                                                                                                <?php foreach ($Servicios as $key => $value) : ?>
+                                                                                                <?php foreach ($Correctivos as $key => $value) : ?>
                                                                                                     <option value="<?= $value['idservicio'] ?>"><?= $value['servicio'] ?></option>
                                                                                                 <?php endforeach ?>
                                                                                             </select>
@@ -372,11 +378,11 @@ $OrdenesServicio = ControladorMantenimientos::ctrListadoOrdenesServicio();
                                                                     <div class="card-body" style="display: none;">
                                                                         <div class="row">
                                                                             <div class="col-lg-12 col-sm-12 justify-content-center">
-                                                                                <div class="row">
+                                                                                <div class="row" id="servicios_externos">
                                                                                     <?php foreach ($ServExt as $key => $value) : ?>
                                                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                                                             <div class="custom-control custom-checkbox">
-                                                                                                <input class="custom-control-input" type="checkbox" id="servicioexter_<?= $value['idservicio_externo'] ?>" name="servicioexterno_<?= $value['idservicio_externo'] ?>">
+                                                                                                <input class="custom-control-input" type="checkbox" id="servicioexter_<?= $value['idservicio_externo'] ?>" idservicioexterno="<?= $value['idservicio_externo'] ?>">
                                                                                                 <label for="servicioexter_<?= $value['idservicio_externo'] ?>" class="custom-control-label"><?= $value['nombre'] ?></label>
                                                                                             </div>
                                                                                         </div>
@@ -403,7 +409,7 @@ $OrdenesServicio = ControladorMantenimientos::ctrListadoOrdenesServicio();
 
                                                                     <div class="card-body" style="display: none;">
                                                                         <div class="row d-flex justify-content-center">
-                                                                            <div class="table-responsive">
+                                                                            <div class="table-responsive" id="repuesto_solicitud">
                                                                                 <table class="table table table-responsive table-bordered table-striped text-center">
                                                                                     <thead>
                                                                                         <tr>
@@ -425,6 +431,7 @@ $OrdenesServicio = ControladorMantenimientos::ctrListadoOrdenesServicio();
                                                                                                 </div>
 
                                                                                             </td>
+                                                                                            <input type="hidden" id="inventario_1" name="inventario[]">
                                                                                             <td style="width: 300px"> <input type="text" class="form-control" id="refrepuestos_1" name="referencia_repuesto[]" readonly></td>
                                                                                             <td style="width: 300px"> <input type="text" class="form-control" id="codrepuestos_1" name="codigo_repuesto[]" readonly></td>
                                                                                             <td style="width: 300px"> <input type="text" class="form-control" id="cantrepuestos_1" name="cantidad_repuesto[]"></td>
@@ -449,7 +456,7 @@ $OrdenesServicio = ControladorMantenimientos::ctrListadoOrdenesServicio();
 
                                                                 </div>
                                                                 <div class=" col-md-6 d-md-flex justify-content-md-end mb-3">
-                                                                    <button class="btn btn-secondary col">
+                                                                    <button class="btn btn-secondary col" id="btn-crearSolicitud" data-toggle="modal" data-target="#modal-solicitud">
                                                                         <i class="far fa-file-pdf"></i>
                                                                         <span>Crear solicitud de servicio</span>
                                                                     </button>
@@ -474,15 +481,16 @@ $OrdenesServicio = ControladorMantenimientos::ctrListadoOrdenesServicio();
                                                                                 <tr id="Contenido_tabla_manoObra">
                                                                                     <td style="width: 300px">
                                                                                         <div class="input-group">
-                                                                                            <input class="form-control" type="text" id="proveedor_1" name="repuesto[]" placeholder="Seleccione un repuesto" readonly>
+                                                                                            <input class="form-control" type="text" id="proveedor_1" placeholder="Seleccione un proveedor" readonly>
                                                                                             <div class="input-group-append">
                                                                                                 <button type="button" class="btn btn-success btn-md btn-proveedor" consecutivo="1" title="lista proveedores" data-toggle="modal" data-target="#modal-proveedores"><i class="fas fa-parachute-box"></i></button>
                                                                                             </div>
                                                                                         </div>
 
                                                                                     </td>
-                                                                                    <td style="width: 300px"><input type="text" class="form-control" id="valor_1" name="valor_mano"></td>
-                                                                                    <td style="width: 300px"><input type="text" class="form-control" id="descrip_1" name="descrip_mano"></td>
+                                                                                    <input type="hidden" id="idproveedor_1" name="proveedor[]">
+                                                                                    <td style="width: 300px"><input type="text" class="form-control" id="descrip_1" name="descrip_mano[]"></td>
+                                                                                    <td style="width: 300px"><input type="text" class="form-control" id="valor_1" name="valor_mano[]"></td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -586,7 +594,8 @@ $OrdenesServicio = ControladorMantenimientos::ctrListadoOrdenesServicio();
                                                         <div class="table-responsive">
                                                             <table id="" class="table table-bordered text-center tablasBtnExport">
                                                                 <thead class="text-nowrap">
-                                                                    <th>id Orden</th>
+                                                                    <th>...</th>
+                                                                    <th># Orden</th>
                                                                     <th>Vehículo</th>
                                                                     <th>Fecha entrada</th>
                                                                     <th>Fecha salida</th>
@@ -595,19 +604,30 @@ $OrdenesServicio = ControladorMantenimientos::ctrListadoOrdenesServicio();
                                                                     <th>Sistema</th>
                                                                     <th>Diagnóstico</th>
                                                                     <th>Observación</th>
+                                                                    <th>Estado</th>
                                                                 </thead>
                                                                 <tbody id="" class="text-nowrap">
                                                                     <?php foreach ($OrdenesServicio as $key => $value) : ?>
                                                                         <tr>
+                                                                            <td><button class="btn " type="button"><i class="text-danger far fa-file-pdf"></i></button></td>
                                                                             <td><?= $value['idorden'] ?></td>
                                                                             <td><?= $value['placa'] ?></td>
-                                                                            <td><?= $value['fecha_entrada'] ?></td>
-                                                                            <td><?= $value['fecha_aprobacion'] ?></td>
-                                                                            <td><?= $value['fecha_trabajos'] ?></td>
+                                                                            <td><?= $value['Ffecha_entrada'] ?></td>
+                                                                            <td><?= $value['Ffecha_aprobacion'] ?></td>
+                                                                            <td><?= $value['Ffecha_trabajos'] ?></td>
                                                                             <td><?= $value['tipo_mantenimiento'] ?></td>
                                                                             <td><?= $value['sistema'] ?></td>
                                                                             <td><?= $value['diagnostico'] ?></td>
                                                                             <td><?= $value['observacion'] ?></td>
+                                                                            <?php if ($value['estado'] == 1) : ?>
+                                                                                <td><span class="badge badge-warning">Abierta</span></td>
+                                                                            <?php endif ?>
+                                                                            <?php if ($value['estado'] == 2) : ?>
+                                                                                <td><span class="badge badge-success">Aprobada</span></td>
+                                                                            <?php endif ?>
+                                                                            <?php if ($value['estado'] == 0) : ?>
+                                                                                <td><span class="badge badge-danger">Cancelada</span></td>
+                                                                            <?php endif ?>
                                                                         </tr>
                                                                     <?php endforeach ?>
 
@@ -760,11 +780,13 @@ $OrdenesServicio = ControladorMantenimientos::ctrListadoOrdenesServicio();
                                 <thead class="text-nowrap">
                                     <th>Código</th>
                                     <th>Referencia</th>
+                                    <th>Stock</th>
+                                    <th>Sucursal</th>
+                                    <th>Posición</th>
                                     <th>Descripción</th>
                                     <th>Categoría</th>
                                     <th>Marca</th>
                                     <th>Medida</th>
-                                    <th>Stock</th>
                                     <th>Selección</th>
                                 </thead>
                                 <tbody id="tBodyRepuesto" class="text-nowrap">
@@ -829,4 +851,66 @@ $OrdenesServicio = ControladorMantenimientos::ctrListadoOrdenesServicio();
         </div>
         <!-- /.modal-content -->
     </div>
+</div>
+
+<!-- MODAL SOLICITUD  -->
+<div class="modal fade show" id="modal-solicitud" arial-modal="true" role="dialog">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h4 class="modal-title">Resumen solicitud</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                                <thead class="text-nowrap">
+                                    <th>Placa</th>
+                                    <th>Número interno</th>
+                                    <th>Repuestos</th>
+                                    <th>Servicios externos</th>
+                                    <th>Fecha entrada</th>
+                                    <th>Fecha de la solicitud</th>
+
+                                </thead>
+                                <tbody class="text-nowrap">
+                                    <tr>
+                                        <td>ABC123</td>
+                                        <td>561</td>
+                                        <td>Llanta</td>
+                                        <td>Montallantas - Eléctrico</td>
+                                        <td>23/10/2021</td>
+                                        <td>25/10/2021</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card card-outline" >
+                            <div class="card-body" id="diagnosticoResu">
+                                
+                            </div>
+                        </div>
+
+                        <div class="card card-outline" >
+                            <div class="card-body" id="servExternosResu">
+                                
+                            </div>
+                        </div>
+                        <div class="card card-outline" >
+                            <div class="card-body" id="RepuestoResu">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 </div>

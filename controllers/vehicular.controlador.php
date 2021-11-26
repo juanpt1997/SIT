@@ -603,6 +603,15 @@ class ControladorVehiculos
 	}
 
 	/* ===================================================
+		LISTADO DE SERVICIOS CORRECTIVOS
+	===================================================*/
+	static public function ctrListadoCorrectivos()
+	{
+		$respuesta = ModeloVehiculos::mdlListadoCorrectivos();
+		return $respuesta;
+	}
+
+	/* ===================================================
 		SERVICIOS MENORES MÁS RECIENTES PARA UN ID VEHICULO
 	===================================================*/
 

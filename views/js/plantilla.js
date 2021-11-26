@@ -314,16 +314,35 @@ const getRandomColors = (data) => {
   - TOTAL DE DATOS O CANTIDADES A NIVEL NUMERICO
   - TITULO DEL GRAFICO
 ========================= */
-const graficoBarra0 = (idGrafico, datosLabel, datosGrafico, totalCantidad, tituloGrafico, randomColors = false) => {
-    new Chart(document.getElementById(`${idGrafico}`), {
-        type: "bar",
+const graficoSimple = (idGrafico, datosLabel, datosGrafico, totalCantidad, tituloGrafico, tipo, randomColors, legendDisplay = false) => {
+    /* ===================================================
+      TIPOS:
+      - bar
+      - horizontalBar
+      - pie
+      - doughnut
+    ===================================================*/
+
+    let coloresFondo = ['#5fb7d4', '#d2d6de', '#ea9e70', '#17a2b8', '#00a65a', '#3c8dbc', '#ce7d78', '#ff0000', '#e01e84', '#c758d0', '#2dcb75', '#52d726', '#1baa2f', '#ffec00', '#007ed6', '#ff7300', '#8399eb'];
+
+    // REFERENCIA https://www.chartjs.org/docs/latest/samples/bar/stacked.html
+    let ctx = document.getElementById(idGrafico).getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.webkitImageSmoothingEnabled = true;
+    ctx.mozImageSmoothingEnabled = true;
+    ctx.msImageSmoothingEnabled = true;
+    ctx.oImageSmoothingEnabled = true;
+
+
+    new Chart(ctx, {
+        type: tipo,
         data: {
             labels: datosLabel,
             datasets: [
                 {
                     label: "",
                     data: datosGrafico,
-                    backgroundColor: (randomColors ? getRandomColors(datosGrafico) : coloresArray)
+                    backgroundColor: (randomColors ? getRandomColors(datosGrafico) : coloresFondo)
                 }
             ]
         },
@@ -331,8 +350,8 @@ const graficoBarra0 = (idGrafico, datosLabel, datosGrafico, totalCantidad, titul
             maintainAspectRatio: false,
             responsive: true,
             legend: {
-                display: false,
-                position: "bottom"
+                display: legendDisplay,
+                position: "right"
             },
             title: {
                 display: true,
@@ -377,10 +396,9 @@ const graficoBarra0 = (idGrafico, datosLabel, datosGrafico, totalCantidad, titul
                 }
             }
         }
-    }); //NEW CHAR
+    });
 };
-const graficoBarra = (idGrafico, datosLabel, datosGrafico, totalCantidad, tituloGrafico, randomColors = false) => {
-    let coloresFondo = ['#5fb7d4', '#d2d6de', '#ea9e70', '#17a2b8', '#00a65a', '#3c8dbc', '#ce7d78', '#ff0000', '#e01e84', '#c758d0', '#2dcb75', '#52d726', '#1baa2f', '#ffec00', '#007ed6', '#ff7300', '#8399eb'];
+const graficoLinea = (idGrafico, datosLabel, datosGrafico, totalCantidad, tituloGrafico) => {
 
     // REFERENCIA https://www.chartjs.org/docs/latest/samples/bar/stacked.html
     let ctx = document.getElementById(idGrafico).getContext('2d');
@@ -392,14 +410,17 @@ const graficoBarra = (idGrafico, datosLabel, datosGrafico, totalCantidad, titulo
 
 
     new Chart(ctx, {
-        type: "bar",
+        type: "line",
         data: {
             labels: datosLabel,
             datasets: [
                 {
                     label: "",
                     data: datosGrafico,
-                    backgroundColor: (randomColors ? getRandomColors(datosGrafico) : coloresFondo)
+                    /* backgroundColor: '#ddc8b4',
+                    borderColor: '#ccb495', */
+                    backgroundColor: '#7ea3de',
+                    borderColor: '#f3be94',
                 }
             ]
         },
@@ -454,7 +475,6 @@ const graficoBarra = (idGrafico, datosLabel, datosGrafico, totalCantidad, titulo
             }
         }
     });
-
 };
 
 /* ===================================================
