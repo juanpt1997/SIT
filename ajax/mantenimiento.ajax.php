@@ -192,14 +192,16 @@ class AjaxMantenimientos
             <tr>
                 <td>" . $value['codigo']  . "</td>
                 <td>" . $value['referencia'] . "</td>
+                <td>" . $value['stock'] . "</td>
+                <td>" . $value['sucursal'] . "</td>
+                <td>" . $value['posicion'] . "</td>
                 <td>" . $value['descripcion'] . "</td>
                 <td>" . $value['categoria'] . "</td>
                 <td>" . $value['marca'] . "</td>
                 <td>" . $value['medida'] . "</td>
-                <td>" . $value['stock'] . "</td>
                 <td>
                 <div class='btn-group' role='group' aria-label='Button group'>
-			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' idproducto='{$value["idproducto"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
+			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' idproducto='{$value["idproducto"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' inventario ='{$value["idinventario"]}'  class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
 			    </div>
                 </td>
             </tr>
@@ -337,7 +339,7 @@ class AjaxMantenimientos
                 <td>" . $value['correo'] . "</td>
                 <td>
                 <div class='btn-group' role='group' aria-label='Button group'>
-			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' documento = '{$value["documento"]}' nombre='{$value["nombre_contacto"]}' razon='{$value["razon_social"]}' direccion='{$value["direccion"]}'  class='btn btn-sm btn-success btn-SeleccionarProveedor'><i class='fas fa-check'></i></button>
+			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' documento = '{$value["documento"]}' nombre_proveedor='{$value["nombre_contacto"]}' razon='{$value["razon_social"]}' direccion='{$value["direccion"]}' idproveedor='{$value["id"]}'  class='btn btn-sm btn-success btn-SeleccionarProveedor'><i class='fas fa-check'></i></button>
 			    </div>
                 </td>
             </tr>
@@ -354,7 +356,7 @@ class AjaxMantenimientos
 
     static public function ajaxGuardarEditarOrdenServicio($datos)
     {
-        $respuesta =ControladorMantenimientos::ctrAgregarEditarOrden($datos);
+        $respuesta = ControladorMantenimientos::ctrAgregarEditarOrden($datos);
         echo $respuesta;
         
     }
