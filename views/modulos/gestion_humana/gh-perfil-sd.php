@@ -44,8 +44,8 @@ $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
             <div class="row">
                 <div class="col-12 col-md-3 col-lg-2">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                        <a class="nav-link active font-weight-bold border-bottom rounded text-uppercase" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fas fa-table"></i> Tabla</a>
-                        <a class="nav-link font-weight-bold border-bottom rounded text-uppercase" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i class="fas fa-chart-bar"></i> Gráficos</a>
+                        <a class="nav-link active font-weight-bold border-bottom border-right rounded text-uppercase" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fas fa-table"></i> Tabla</a>
+                        <a class="nav-link font-weight-bold border-bottom border-right rounded text-uppercase" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false"><i class="fas fa-chart-bar"></i> Gráficos</a>
                     </div>
                 </div>
                 <div class="col-12 col-md-9 col-lg-10">
@@ -129,11 +129,13 @@ $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
                                 GRÁFICOS
                             =================================================== -->
                             <div class="row d-flex justify-content-center">
-                                <div class="col-9 card">
-                                    <div class="card-header bg-info">
-                                    </div>
-                                    <div class="card-body" id="colGrafPerfilSD">
-                                        <canvas id="scGrafPerfilSD" style="height:300px;"></canvas>
+                                <div class="col-9">
+                                    <div class="card">
+                                        <div class="card-header bg-info">
+                                        </div>
+                                        <div class="card-body" id="colGrafPerfilSD">
+                                            <canvas id="scGrafPerfilSD" style="height:300px;"></canvas>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

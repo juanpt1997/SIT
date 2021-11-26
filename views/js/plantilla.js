@@ -314,72 +314,15 @@ const getRandomColors = (data) => {
   - TOTAL DE DATOS O CANTIDADES A NIVEL NUMERICO
   - TITULO DEL GRAFICO
 ========================= */
-const graficoBarra0 = (idGrafico, datosLabel, datosGrafico, totalCantidad, tituloGrafico, randomColors = false) => {
-    new Chart(document.getElementById(`${idGrafico}`), {
-        type: "bar",
-        data: {
-            labels: datosLabel,
-            datasets: [
-                {
-                    label: "",
-                    data: datosGrafico,
-                    backgroundColor: (randomColors ? getRandomColors(datosGrafico) : coloresArray)
-                }
-            ]
-        },
-        options: {
-            maintainAspectRatio: false,
-            responsive: true,
-            legend: {
-                display: false,
-                position: "bottom"
-            },
-            title: {
-                display: true,
-                text: tituloGrafico
-            },
+const graficoSimple = (idGrafico, datosLabel, datosGrafico, totalCantidad, tituloGrafico, tipo, randomColors = false) => {
+    /* ===================================================
+      TIPOS:
+      - bar
+      - horizontalBar
+      - pie
+      - doughnut
+    ===================================================*/
 
-            tooltips: {
-                callbacks: {
-                    title: function (tooltipItem, data) {
-                        return data["labels"][tooltipItem[0]["index"]];
-                    },
-
-                    label: function (tooltipItem, data) {
-                        var dato =
-                            data["datasets"][0]["data"][tooltipItem["index"]];
-                        var porcentaje = Math.round((dato * 100) / totalCantidad);
-                        return porcentaje + "%";
-                    }
-                },
-                backgroundColor: "#FFF",
-                titleFontSize: 16,
-                titleFontColor: "#0066ff",
-                bodyFontColor: "#000",
-                bodyFontSize: 14,
-                displayColors: false
-            },
-            plugins: {
-                datalabels: {
-                    align: "center",
-                    anchor: "end",
-                    color: "black",
-                    labels: {
-                        title: {
-                            font: {
-                                weight: "bold"
-                            }
-                        },
-                        value: {
-                            color: "green"
-                        }
-                    }
-                }
-            }
-        }
-    }); //NEW CHAR
-};
-const graficoBarra = (idGrafico, datosLabel, datosGrafico, totalCantidad, tituloGrafico, randomColors = false) => {
     let coloresFondo = ['#5fb7d4', '#d2d6de', '#ea9e70', '#17a2b8', '#00a65a', '#3c8dbc', '#ce7d78', '#ff0000', '#e01e84', '#c758d0', '#2dcb75', '#52d726', '#1baa2f', '#ffec00', '#007ed6', '#ff7300', '#8399eb'];
 
     // REFERENCIA https://www.chartjs.org/docs/latest/samples/bar/stacked.html
@@ -392,7 +335,7 @@ const graficoBarra = (idGrafico, datosLabel, datosGrafico, totalCantidad, titulo
 
 
     new Chart(ctx, {
-        type: "bar",
+        type: tipo,
         data: {
             labels: datosLabel,
             datasets: [
@@ -454,7 +397,84 @@ const graficoBarra = (idGrafico, datosLabel, datosGrafico, totalCantidad, titulo
             }
         }
     });
+};
+const graficoLinea = (idGrafico, datosLabel, datosGrafico, totalCantidad, tituloGrafico) => {
 
+    // REFERENCIA https://www.chartjs.org/docs/latest/samples/bar/stacked.html
+    let ctx = document.getElementById(idGrafico).getContext('2d');
+    ctx.imageSmoothingEnabled = true;
+    ctx.webkitImageSmoothingEnabled = true;
+    ctx.mozImageSmoothingEnabled = true;
+    ctx.msImageSmoothingEnabled = true;
+    ctx.oImageSmoothingEnabled = true;
+
+
+    new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: datosLabel,
+            datasets: [
+                {
+                    label: "",
+                    data: datosGrafico,
+                    /* backgroundColor: '#ddc8b4',
+                    borderColor: '#ccb495', */
+                    backgroundColor: '#7ea3de',
+                    borderColor: '#f3be94',
+                }
+            ]
+        },
+        options: {
+            maintainAspectRatio: false,
+            responsive: true,
+            legend: {
+                display: false,
+                position: "bottom"
+            },
+            title: {
+                display: true,
+                text: tituloGrafico
+            },
+
+            tooltips: {
+                callbacks: {
+                    title: function (tooltipItem, data) {
+                        return data["labels"][tooltipItem[0]["index"]];
+                    },
+
+                    label: function (tooltipItem, data) {
+                        var dato =
+                            data["datasets"][0]["data"][tooltipItem["index"]];
+                        var porcentaje = Math.round((dato * 100) / totalCantidad);
+                        return porcentaje + "%";
+                    }
+                },
+                backgroundColor: "#FFF",
+                titleFontSize: 16,
+                titleFontColor: "#0066ff",
+                bodyFontColor: "#000",
+                bodyFontSize: 14,
+                displayColors: false
+            },
+            plugins: {
+                datalabels: {
+                    align: "center",
+                    anchor: "end",
+                    color: "black",
+                    labels: {
+                        title: {
+                            font: {
+                                weight: "bold"
+                            }
+                        },
+                        value: {
+                            color: "green"
+                        }
+                    }
+                }
+            }
+        }
+    });
 };
 
 /* ===================================================
