@@ -193,7 +193,7 @@ class ModeloProductos
 
     static public function mdlSucursalesInventario($idproducto)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT p.*, i.stock, s.sucursal FROM a_productos p
+        $stmt = Conexion::conectar()->prepare("SELECT p.*, i.stock, i.posicion, s.sucursal FROM a_productos p
         INNER JOIN a_re_inventario i ON i.idproducto = p.idproducto
         INNER JOIN gh_sucursales s ON s.ids = i.idsucursal
         WHERE p.idproducto = :idproducto");
@@ -208,8 +208,9 @@ class ModeloProductos
 
     static public function mdlHistorialMovimientos($idproducto)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT m.* FROM a_re_movimientoinven m
+        $stmt = Conexion::conectar()->prepare("SELECT m.*, s.sucursal FROM a_re_movimientoinven m
         INNER JOIN a_re_inventario i ON i.idinventario = m.idinventario
+        INNER JOIN gh_sucursales s ON s.ids = i.idsucursal
         INNER JOIN a_productos p ON p.idproducto = i.idproducto
         WHERE p.idproducto = :idproducto");
 
