@@ -314,7 +314,7 @@ const getRandomColors = (data) => {
   - TOTAL DE DATOS O CANTIDADES A NIVEL NUMERICO
   - TITULO DEL GRAFICO
 ========================= */
-const graficoSimple = (idGrafico, datosLabel, datosGrafico, totalCantidad, tituloGrafico, tipo, randomColors = false) => {
+const graficoSimple = (idGrafico, datosLabel, datosGrafico, totalCantidad, tituloGrafico, tipo, randomColors, legendDisplay = false) => {
     /* ===================================================
       TIPOS:
       - bar
@@ -350,8 +350,8 @@ const graficoSimple = (idGrafico, datosLabel, datosGrafico, totalCantidad, titul
             maintainAspectRatio: false,
             responsive: true,
             legend: {
-                display: false,
-                position: "bottom"
+                display: legendDisplay,
+                position: "right"
             },
             title: {
                 display: true,

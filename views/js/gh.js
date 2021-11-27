@@ -1339,7 +1339,7 @@ if (
                             totalCantidad += parseInt(element.Cantidad, 10); //Total
                         });
 
-                        graficoSimple('scGrafPerfilSD', datosLabel, datosGrafico, totalCantidad, 'NIVEL DE ESCOLARIDAD', 'bar', true);
+                        graficoSimple('scGrafPerfilSD', datosLabel, datosGrafico, totalCantidad, '', 'bar', true);
                     }
                 }
             });

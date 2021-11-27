@@ -175,19 +175,20 @@ $(document).ready(function () {
                         Swal.fire({
                             title: `Referencias con el código - ${response[0].codigo}`,
                             html:
-                                `<table cellspacing="0" cellpadding="8" class"table" border="2">
-                                    <thead border="2">
+                                `<table border="2" style="width: 100%;" cellpadding="6">
+                                    <thead>
                                         <tr>
-                                            <th border="2">ID</th>
-                                            <th border="2">Descripción</th>
-                                            <th border="2">Referencia</th>
-                                            <th border="2">Selección</th>
+                                            <th>ID</th>
+                                            <th>Descripción</th>
+                                            <th>Referencia</th>
+                                            <th>Selección</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         ${tr}
                                     </tbody>
                                 </table>`,
+                            width: '800px',
                             confirmButtonColor: '#5cb85c',
                             cancelButtonColor: '#d33',
                             confirmButtonText: 'Continuar!'
@@ -325,6 +326,9 @@ $(document).ready(function () {
                             tr += element.stock;
                             tr += "</td>";
                             tr += "<td>";
+                            tr += element.posicion; 
+                            tr += "</td>";
+                            tr += "<td>";
                             tr += element.sucursal; 
                             tr += "</td>";
                             tr += "<tr>";
@@ -333,21 +337,22 @@ $(document).ready(function () {
                     Swal.fire({
                         title: `Sucursales activas - ${response[0].descripcion}`,
                         html:
-                            `<div class="table-responsive">
-                                <table cellspacing="5" cellpadding="8" class"table" border="2">
-                                    <thead border="2">
+                            `
+                                <table border="2" style="width: 100%;" cellpadding="6">
+                                    <thead>
                                         <tr>
-                                            <th border="2">Descripción</th>
-                                            <th border="2">Referencia</th>
-                                            <th border="2">Stock</th>
-                                            <th border="2">Sucursal</th>
+                                            <th>Descripción</th>
+                                            <th>Referencia</th>
+                                            <th>Stock</th>
+                                            <th>Posición</th>
+                                            <th>Sucursal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         ${tr}
                                     </tbody>
-                                </table>
-                            </div> `,
+                                </table>`,
+                        width: '800px',
                         confirmButtonColor: '#5cb85c',
                         cancelButtonColor: '#d33',
                         confirmButtonText: 'Continuar!'
@@ -388,10 +393,16 @@ $(document).ready(function () {
                             tr += element.fecha;
                             tr += "</td>";
                             tr += "<td>";
+                            tr += element.razon_social;
+                            tr += "</td>";
+                            tr += "<td>";
                             tr += element.preciocompra; 
                             tr += "</td>";
                             tr += "<td>";
                             tr += element.facturacompra; 
+                            tr += "</td>";
+                            tr += "<td>";
+                            tr += element.sucursal; 
                             tr += "</td>";
                             tr += "<tr>";
                         });
@@ -400,14 +411,16 @@ $(document).ready(function () {
                         title: `Historial de movimientos`,
                         html:
                             `<div class="table-responsive">
-                                <table cellspacing="5" cellpadding="6" class"table" border="2">
-                                    <thead border="2">
+                                <table border="2" style="width: 100%; font-size: 15px;" cellpadding="6">
+                                    <thead>
                                         <tr>
-                                            <th border="2">Cantidad</th>
-                                            <th border="2">Movimiento</th>
-                                            <th border="2">Fecha</th>
-                                            <th border="2">Precio</th>
-                                            <th border="2">Factura</th>
+                                            <th>Cantidad</th>
+                                            <th>Movimiento</th>
+                                            <th>Fecha</th>
+                                            <th>Proveedor</th>  
+                                            <th>Precio c/u</th>
+                                            <th>Factura</th>
+                                            <th>Sucursal</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -415,6 +428,7 @@ $(document).ready(function () {
                                     </tbody>
                                 </table>
                             </div> `,
+                        width: '800px',
                         confirmButtonColor: '#5cb85c',
                         cancelButtonColor: '#d33',
                         confirmButtonText: 'Continuar!'

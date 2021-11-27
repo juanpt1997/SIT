@@ -18,12 +18,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark "><strong><i>Almacen</i></strong> <i class="fas fa-pallet"></i></h1>
+                    <h1 class="m-0 text-dark "><strong><i>Almacén</i></strong> <i class="fas fa-pallet"></i></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="inicio">Inicio</a></li>
-                        <li class="breadcrumb-item active">Almacen</li>
+                        <li class="breadcrumb-item active">Almacén</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -307,11 +307,12 @@
                                         </tr> -->
                                         <tr>
                                             <th>Descripción</th>
+                                            <th>Código</th>
+                                            <th>Referencia</th>
                                             <th>Categoria</th>
                                             <th>Marca</th>
                                             <th>Medida</th>
                                             <th>Stock</th>
-                                            <th>Posición</th>
                                             <th>Acciones</th>
                                             <!-- <th>Sucursal</th>
                                             <th>Precio</th>

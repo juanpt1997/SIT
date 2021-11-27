@@ -168,11 +168,12 @@ class AjaxAlmacen
 			$tr .= "
 			<tr>
 				<td>{$value["descripcion"]}</td>
+                <td>{$value["codigo"]}</td>
+                <td>{$value["referencia"]}</td>
                 <td>{$value["categoria"]}</td>
 				<td>{$value["marca"]}</td>
                 <td>{$value["medida"]}</td>
 				<td>{$value["stock"]}</td>
-                <td>{$value["posicion"]}</td>
                 <td> 
                     <div class='btn-group' role='group' aria-label='Button group'>
                     <button title='Ver historial de movimientos' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-success btnHistorialMovimientos'><i class='far fa-clipboard'></i></button>

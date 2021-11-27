@@ -39,7 +39,7 @@ if (!validarPermiso('M_GERENCIAL', 'R')) {
             ========================= -->
             <div class="row">
                 <!-- =================================================== GESTION HUMANA (LINEA) =================================================== -->
-                <div class="col-12 col-md-6 col-lg-8">
+                <div class="col-12 col-md-6 col-lg-7">
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title font-weight-bold text-uppercase">Gestión Humana</h5>
@@ -69,7 +69,7 @@ if (!validarPermiso('M_GERENCIAL', 'R')) {
                 <!-- /.col -->
 
                 <!-- =================================================== VEHICULAR  =================================================== -->
-                <div class="col-12 col-md-6 col-lg-4">
+                <div class="col-12 col-md-6 col-lg-5">
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title font-weight-bold text-uppercase">Vehículos</h5>
