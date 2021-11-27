@@ -1138,7 +1138,7 @@ $(document).ready(function () {
         `<input type="hidden" id="inventario_${dinamico}" name="inventario[]">` +
         `<td style="width: 300px">` + `<input type="text" class="form-control" id="refrepuestos_${dinamico}" name="referencia_repuesto[]" readonly>` + `</td>` +
         `<td style="width: 300px">` + `<input type="text" class="form-control" id="codrepuestos_${dinamico}" name="codigo_repuesto[]" readonly>` + `</td>` +
-        `<td style="width: 300px">` + `<input type="text" class="form-control" id="cantrepuestos_${dinamico}" name="cantidad_repuesto[]">` + `</td>` +
+        `<td style="width: 300px">` + `<input type="text" class="form-control input-cantrepuesto" id="cantrepuestos_${dinamico}" name="cantidad_repuesto[]">` + `</td>` +
         `</tr>`
         ;
 
@@ -1673,14 +1673,15 @@ $(document).ready(function () {
 
         if (response != "error") {
 
-          $("#ordenServ_form").trigger("reset");
-          $("#placa_OrdServ").val("").trigger("change");
-          $("#sistema").val("").trigger("change");
-          $("#tipo_mantenimiento").val("").trigger("change");
-          $("#ServPre").val("").trigger("change");
-          $("#correctivo").val("").trigger("change");
+          // $("#ordenServ_form").trigger("reset");
+          // $("#placa_OrdServ").val("").trigger("change");
+          // $("#sistema").val("").trigger("change");
+          // $("#tipo_mantenimiento").val("").trigger("change");
+          // $("#ServPre").val("").trigger("change");
+          // $("#correctivo").val("").trigger("change");
           // Mensaje de éxito al usuario
-
+          $("#btn-crearSolicitud").removeAttr("disabled");  
+          
           Swal.fire({
             icon: 'success',
             title: '¡Datos guardados correctamente!',
@@ -1695,7 +1696,7 @@ $(document).ready(function () {
             confirmButtonText: 'Cerrar',
             closeOnConfirm: false
           }).then((result) => {
-
+            
             if (result.value) {
               window.location = 'm-mantenimientos';
             }
@@ -1815,6 +1816,12 @@ $(document).ready(function () {
     $("#repuesto_solicitud").clone().appendTo("#RepuestoResu");
     $("#diagnosticoResu").empty();
     $("#diagnostico_solicitud").clone().appendTo("#diagnosticoResu");
+    
+    //DESHABILITAR OPCIONES EN LA MODAL
+    $("#modal-solicitud").find(".btn-repuestos").attr("disabled", "disabled");
+    $("#modal-solicitud").find(".input-cantrepuesto").attr("disabled", "disabled");
+    $("#modal-solicitud").find(".custom-control-label").removeAttr("for");
+    
     
   });
 
