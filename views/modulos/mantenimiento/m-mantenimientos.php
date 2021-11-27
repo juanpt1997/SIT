@@ -59,8 +59,8 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                 <div class="card-header p-0 pt-1">
                                     <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                                         <!-- <li class="nav-item">
-                                    <a class="nav-link active" id="custom-tabs-one-solicitudserv_exter_repues-tab" data-toggle="pill" href="#custom-tabs-one-solicitudserv_exter_repues" role="tab" aria-controls="custom-tabs-one-solicitudserv_exter_repues" aria-selected="false">Solicitud de servicio / Repuestos</a>
-                                </li> -->
+                                         <a class="nav-link active" id="custom-tabs-one-solicitudserv_exter_repues-tab" data-toggle="pill" href="#custom-tabs-one-solicitudserv_exter_repues" role="tab" aria-controls="custom-tabs-one-solicitudserv_exter_repues" aria-selected="false">Solicitud de servicio / Repuestos</a>
+                                        </li> -->
                                         <li class="nav-item ">
                                             <!-- TABS HORIZONTALES-->
                                             <a class="nav-link active" id="custom-tabs-one-ordenserv_mante-tab" data-toggle="pill" href="#custom-tabs-one-ordenserv_mante" role="tab" aria-controls="custom-tabs-one-ordenserv_mante" aria-selected="true">Orden de servicio / Mantenimiento</a>
@@ -110,7 +110,6 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                                                 <option value="1">Abierta</option>
                                                                 <option value="2">Aprobada</option>
                                                             </select>
-
                                                         </div>
 
 
@@ -382,8 +381,8 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                                                                     <?php foreach ($ServExt as $key => $value) : ?>
                                                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                                                             <div class="custom-control custom-checkbox">
-                                                                                                <input class="custom-control-input" type="checkbox" id="servicioexter_<?= $value['idservicio_externo'] ?>" idservicioexterno="<?= $value['idservicio_externo'] ?>">
-                                                                                                <label for="servicioexter_<?= $value['idservicio_externo'] ?>" class="custom-control-label"><?= $value['nombre'] ?></label>
+                                                                                                <input class="custom-control-input input-servext" type="checkbox" id="servicioexter_<?= $value['idservicio_externo'] ?>" idservicioexterno="<?= $value['idservicio_externo'] ?>">
+                                                                                                <label for="servicioexter_<?= $value['idservicio_externo'] ?>" class="custom-control-label "><?= $value['nombre'] ?></label>
                                                                                             </div>
                                                                                         </div>
                                                                                     <?php endforeach ?>
@@ -434,7 +433,7 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                                                                             <input type="hidden" id="inventario_1" name="inventario[]">
                                                                                             <td style="width: 300px"> <input type="text" class="form-control" id="refrepuestos_1" name="referencia_repuesto[]" readonly></td>
                                                                                             <td style="width: 300px"> <input type="text" class="form-control" id="codrepuestos_1" name="codigo_repuesto[]" readonly></td>
-                                                                                            <td style="width: 300px"> <input type="text" class="form-control" id="cantrepuestos_1" name="cantidad_repuesto[]"></td>
+                                                                                            <td style="width: 300px"> <input type="text" class="form-control input-cantrepuesto" id="cantrepuestos_1" name="cantidad_repuesto[]"></td>
                                                                                         </tr>
                                                                                     </tbody>
                                                                                 </table>
@@ -456,7 +455,7 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
 
                                                                 </div>
                                                                 <div class=" col-md-6 d-md-flex justify-content-md-end mb-3">
-                                                                    <button class="btn btn-secondary col" id="btn-crearSolicitud" data-toggle="modal" data-target="#modal-solicitud">
+                                                                    <button class="btn btn-secondary col" id="btn-crearSolicitud" data-toggle="modal" data-target="#modal-solicitud" disabled>
                                                                         <i class="far fa-file-pdf"></i>
                                                                         <span>Crear solicitud de servicio</span>
                                                                     </button>
@@ -497,10 +496,10 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                                                     </div>
                                                                 </div>
                                                                 <button type="button" class="btn btn-primary btn-md btn-agregarManoObra mb-3" ">
-                                                                <i class=" fas fa-plus"></i>
+                                                                    <i class=" fas fa-plus"></i>
                                                                 </button>
                                                                 <button type="button" class="btn btn-danger btn-md btn-EliminarManoObra mb-3" ">
-                                                                <i class=" fas fa-times"></i>
+                                                                    <i class=" fas fa-times"></i>
                                                                 </button>
                                                             </div>
 
@@ -514,48 +513,6 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
 
                                                                 </div>
                                                             </div>
-
-
-
-                                                            <!-- NOMBRES Y FIRMAS -->
-                                                            <!-- <div class="tab-pane fade" id="v-pills-firmas" role="tabpanel" aria-labelledby="v-pills-firmas-tab">
-                                                            <div class="callout callout-info">
-                                                                <h5 class="text-center"><i>Nombres</i></h5>
-                                                                <hr class="my-4">
-                                                                <div class="row">
-                                                                    <div class="col-12 col-sm-6 col-lg-4 text-center">
-                                                                        <label><i>Conductor</i></label>
-                                                                        <input type="text" class="form-control" id="nom_conductor" name="nom_conductor" required>
-                                                                    </div>
-
-                                                                    <div class="col-12 col-sm-6 col-lg-4 text-center">
-                                                                        <label><i>Mecánico</i></label>
-                                                                        <input type="text" class="form-control" id="nom_mecanico" name="nom_mecanico" required>
-                                                                    </div>
-
-                                                                    <div class="col-12 col-sm-6 col-lg-4 text-center">
-                                                                        <label><i>Coordinador mecánico</i></label>
-                                                                        <input type="text" class="form-control" id="nom_coormecani" name="nom_coormecani" required>
-                                                                    </div>
-                                                                </div>
-                                                                <br>
-                                                                <h5 class="text-center"><i>Firmas</i></h5>
-                                                                <hr class="my-4">
-                                                                <div class="row">
-                                                                    <div class="col-12 col-sm-6 col-lg-4 text-center">
-                                                                        <textarea class="form-control" rows="2" placeholder="Firme aqui conductor ..."></textarea>
-                                                                    </div>
-
-                                                                    <div class="col-12 col-sm-6 col-lg-4 text-center">
-                                                                        <textarea class="form-control" rows="2" placeholder="Firme aqui Mecánico ..."></textarea>
-                                                                    </div>
-
-                                                                    <div class="col-12 col-sm-6 col-lg-4 text-center">
-                                                                        <textarea class="form-control" rows="2" placeholder="Firme aqui Coordinador mecánico ..."></textarea>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div> -->
 
                                                         </div>
                                                     </div>
@@ -587,174 +544,200 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
 
                                         <!-- HISTORICO DE ORDENES DE SERVICIO -->
                                         <div class="tab-pane fade" id="custom-tabs-one-historial_orden" role="tabpanel" aria-labelledby="custom-tabs-one-historial_orden-tab">
-                                            <div class="card-body"">
-                                                <div class=" col-12">
-                                                <div class="card card-outline card-success">
-                                                    <div class="card-body">
-                                                        <div class="table-responsive">
-                                                            <table id="" class="table table-bordered text-center tablasBtnExport">
-                                                                <thead class="text-nowrap">
-                                                                    <th>...</th>
-                                                                    <th># Orden</th>
-                                                                    <th>Vehículo</th>
-                                                                    <th>Fecha entrada</th>
-                                                                    <th>Fecha salida</th>
-                                                                    <th>Fecha inicios de trabajo</th>
-                                                                    <th>Tipo de mantenimiento</th>
-                                                                    <th>Sistema</th>
-                                                                    <th>Diagnóstico</th>
-                                                                    <th>Observación</th>
-                                                                    <th>Estado</th>
-                                                                </thead>
-                                                                <tbody id="" class="text-nowrap">
-                                                                    <?php foreach ($OrdenesServicio as $key => $value) : ?>
-                                                                        <tr>
-                                                                            <td><button class="btn " type="button"><i class="text-danger far fa-file-pdf"></i></button></td>
-                                                                            <td><?= $value['idorden'] ?></td>
-                                                                            <td><?= $value['placa'] ?></td>
-                                                                            <td><?= $value['Ffecha_entrada'] ?></td>
-                                                                            <td><?= $value['Ffecha_aprobacion'] ?></td>
-                                                                            <td><?= $value['Ffecha_trabajos'] ?></td>
-                                                                            <td><?= $value['tipo_mantenimiento'] ?></td>
-                                                                            <td><?= $value['sistema'] ?></td>
-                                                                            <td><?= $value['diagnostico'] ?></td>
-                                                                            <td><?= $value['observacion'] ?></td>
-                                                                            <?php if ($value['estado'] == 1) : ?>
-                                                                                <td><span class="badge badge-warning">Abierta</span></td>
-                                                                            <?php endif ?>
-                                                                            <?php if ($value['estado'] == 2) : ?>
-                                                                                <td><span class="badge badge-success">Aprobada</span></td>
-                                                                            <?php endif ?>
-                                                                            <?php if ($value['estado'] == 0) : ?>
-                                                                                <td><span class="badge badge-danger">Cancelada</span></td>
-                                                                            <?php endif ?>
-                                                                        </tr>
-                                                                    <?php endforeach ?>
+                                            <div class="card-body">
+                                                <div class="col-12">
+                                                    <div class="card card-outline card-success">
+                                                        <div class="card-body">
 
-                                                                </tbody>
-                                                            </table>
+                                                            <div class="table-responsive">
+                                                                <table class="table table-bordered text-center tablasBtnExport">
+                                                                    <thead class="text-nowrap">
+                                                                        <tr>
+                                                                            <th>...</th>
+                                                                            <th># Orden</th>
+                                                                            <th>Vehículo</th>
+                                                                            <th>Fecha entrada</th>
+                                                                            <th>Fecha salida</th>
+                                                                            <th>Fecha inicios de trabajo</th>
+                                                                            <th>Tipo de mantenimiento</th>
+                                                                            <th>Sistema</th>
+                                                                            <th>Diagnóstico</th>
+                                                                            <th>Observación</th>
+                                                                            <th>Estado</th>
+                                                                        </tr>
+                                                                    </thead>
+
+                                                                    <tbody class="text-nowrap">
+                                                                        <?php foreach ($OrdenesServicio as $key => $value) : ?>
+                                                                            <?php 
+                                                                                if ($value['estado'] == 0){
+                                                                                    $Estado = "<span class='badge badge-danger'>Cancelada</span>";
+                                                                                }elseif ($value['estado'] == 1) {
+                                                                                    $Estado = "<span class='badge badge-warning'>Abierta</span>";
+                                                                                }else{
+                                                                                    $Estado = "<span class='badge badge-success'>Aprobada</span>"; 
+                                                                                }
+                                                                            ?>
+                                                                            <tr>
+                                                                                <td><a><i class="far fa-file-pdf text-danger"></i></a></td>
+                                                                                <td><button class="btn btn-outline-dark" type="button"><?=$value['idorden'] ?></button></td>
+                                                                                <td><?=$value['placa'] ?></td>
+                                                                                <td><?=$value['Ffecha_entrada'] ?></td>
+                                                                                <td><?=$value['Ffecha_aprobacion'] ?></td>
+                                                                                <td><?=$value['Ffecha_trabajos'] ?></td>
+                                                                                <td><?=$value['tipo_mantenimiento'] ?></td>
+                                                                                <td><?=$value['sistema'] ?></td>
+                                                                                <td><?=$value['diagnostico'] ?></td>
+                                                                                <td><?=$value['observacion'] ?></td>
+                                                                                <td><?=$Estado?></td>
+                                                                                
+                                                                                
+                                                                            </tr>
+                                                                        <?php endforeach ?>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+
+
+                                                            <!-- <div class="table-reponsive">
+                                                                <table class="table table-responsive table-bordered table-striped text-center tablasBtnExport w-100">
+                                                                    <thead class="text-nowrap">
+                                                                        <th>...</th>
+                                                                        <th># Orden</th>
+                                                                        <th>Vehículo</th>
+                                                                        <th>Fecha entrada</th>
+                                                                        <th>Fecha salida</th>
+                                                                        <th>Fecha inicios de trabajo</th>
+                                                                        <th>Tipo de mantenimiento</th>
+                                                                        <th>Sistema</th>
+                                                                        <th>Diagnóstico</th>
+                                                                        <th>Observación</th>
+                                                                        <th>Estado</th>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        
+                                                                    </tbody>
+                                                                </table>
+                                                            </div> -->
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+                                        <!--HISTORICO  -->
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="tab-pane fade" id="pills-programacion" role="tabpanel" aria-labelledby="pills-programacion-tab">
+                    <form id="programacion_form" method="post" enctype="multipart/form-data">
+                        <input type="hidden" id="idserviciovehiculo" name="idserviciovehiculo" value="">
+
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-lg-12">
 
 
-            <!-- PROGRAMACIÓN -->
-            <div class="tab-pane fade" id="pills-programacion" role="tabpanel" aria-labelledby="pills-programacion-tab">
-                <form id="programacion_form" method="post" enctype="multipart/form-data">
-                    <input type="hidden" id="idserviciovehiculo" name="idserviciovehiculo" value="">
+                                <!-- INGRESO -->
+                                <div class="tab-pane fade show active " id="v-pills-Ingreso" role="tabpanel" aria-labelledby="v-pills-Ingreso-tab">
+                                    <div class="row">
+                                        <div class="col">
 
-                    <div class="row">
-                        <div class="col-12 col-sm-6 col-lg-12">
-
-
-                            <!-- INGRESO -->
-                            <div class="tab-pane fade show active " id="v-pills-Ingreso" role="tabpanel" aria-labelledby="v-pills-Ingreso-tab">
-                                <div class="row">
-                                    <div class="col">
-
-                                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                                            <label><i>Servicio</i></label>
-                                            <select type="text" class="form-control select2-single" id="servicio" name="idservicio" required>
-                                                <option value="" selected>Seleccione un servicio</option>
-                                                <option value="todo">Todos los servicios</option>
-                                                <?php foreach ($Servicios as $key => $value) : ?>
-                                                    <option value="<?= $value['idservicio'] ?>"><?= $value['servicio'] ?></option>
-                                                <?php endforeach ?>
-                                            </select>
+                                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                                <label><i>Servicio</i></label>
+                                                <select type="text" class="form-control select2-single" id="servicio" name="idservicio" required>
+                                                    <option value="" selected>Seleccione un servicio</option>
+                                                    <option value="todo">Todos los servicios</option>
+                                                    <?php foreach ($Servicios as $key => $value) : ?>
+                                                        <option value="<?= $value['idservicio'] ?>"><?= $value['servicio'] ?></option>
+                                                    <?php endforeach ?>
+                                                </select>
+                                            </div>
+                                            <p class="text-sm font-italic font-weight-bold">
+                                                NOTA: Para añadir o editar un servicio debe realizarse desde la opción de
+                                                <a href="cg-mantenimiento" target="_blank">servicios menores</a>
+                                                y volver a abrir esta ventana.
+                                            </p>
                                         </div>
-                                        <p class="text-sm font-italic font-weight-bold">
-                                            NOTA: Para añadir o editar un servicio debe realizarse desde la opción de
-                                            <a href="cg-mantenimiento" target="_blank">servicios menores</a>
-                                            y volver a abrir esta ventana.
-                                        </p>
-                                    </div>
 
-                                    <div class="col">
-                                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                                            <label><i>Placa</i></label>
-                                            <select id="placa" name="idvehiculo_serv" class="form-control select2-single" type="number" style="width: 99%" required>
-                                                <option selected value="">Seleccione un vehículo</option>
-                                                <?php foreach ($Placas as $key => $value) : ?>
-                                                    <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?></option>
-                                                <?php endforeach ?>
-                                            </select>
+                                        <div class="col">
+                                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                                <label><i>Placa</i></label>
+                                                <select id="placa" name="idvehiculo_serv" class="form-control select2-single" type="number" style="width: 99%" required>
+                                                    <option selected value="">Seleccione un vehículo</option>
+                                                    <?php foreach ($Placas as $key => $value) : ?>
+                                                        <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?></option>
+                                                    <?php endforeach ?>
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col">
-                                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                                            <label><i>Kilometraje actual</i></label>
-                                            <input type="number" class="form-control" id="kilometraje_serv" name="kilometraje_serv" required>
+                                        <div class="col">
+                                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                                <label><i>Kilometraje actual</i></label>
+                                                <input type="number" class="form-control" id="kilometraje_serv" name="kilometraje_serv" required>
+                                            </div>
                                         </div>
-                                    </div>
 
 
-                                    <div class="col">
-                                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                                            <label><i>Fecha de realización</i></label>
-                                            <input type="date" class="form-control" id="fecha" name="fecha" required>
+                                        <div class="col">
+                                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                                <label><i>Fecha de realización</i></label>
+                                                <input type="date" class="form-control" id="fecha" name="fecha" required>
+                                            </div>
                                         </div>
+
                                     </div>
+                                    <?php if (validarPermiso('M_OPCIONES', 'U')) : ?>
+                                        <div class="col-12 mb-1">
+                                            <button type="submit" form="programacion_form" id="btn-guardarProgra" class="btn btn-sm btn-success float-center">
+                                                <i class="fas fa-print"></i>
+                                                Guardar
+                                            </button>
+                                        </div>
+
+                                    <?php endif ?>
+
+
 
                                 </div>
-                                <?php if (validarPermiso('M_OPCIONES', 'U')) : ?>
-                                    <div class="col-12 mb-1">
-                                        <button type="submit" form="programacion_form" id="btn-guardarProgra" class="btn btn-sm btn-success float-center">
-                                            <i class="fas fa-print"></i>
-                                            Guardar
-                                        </button>
-                                    </div>
+                            </div>
+                        </div>
 
-                                <?php endif ?>
+                    </form>
+                    <!-- TABLA -->
+                    <div class="col-12">
+                        <div class="card card-outline card-success">
+                            <div class="card-body">
+                                <h5 class="text-center"><i>Vehiculos</i></h5>
+                                <div class="table-responsive">
+                                    <table id="tablaProgramacion" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                                        <thead class="text-nowrap">
+                                            <th>...</th>
+                                            <th>Placa</th>
+                                            <th>Servicio</th>
+                                            <th>Kilometraje actual</th>
+                                            <th>Kilometraje para cambio</th>
+                                            <th>Fecha para cambio</th>
+                                        </thead>
+                                        <tbody id="tbodyProgramacion" class="text-nowrap">
 
 
-
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                </form>
-                <!-- TABLA -->
-                <div class="col-12">
-                    <div class="card card-outline card-success">
-                        <div class="card-body">
-                            <h5 class="text-center"><i>Vehiculos</i></h5>
-                            <div class="table-responsive">
-                                <table id="tablaProgramacion" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
-                                    <thead class="text-nowrap">
-                                        <th>...</th>
-                                        <th>Placa</th>
-                                        <th>Servicio</th>
-                                        <th>Kilometraje actual</th>
-                                        <th>Kilometraje para cambio</th>
-                                        <th>Fecha para cambio</th>
-                                    </thead>
-                                    <tbody id="tbodyProgramacion" class="text-nowrap">
-
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </div> <!-- Programacion -->
             </div>
         </div>
-
     </div>
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
-</div>
+
 
 
 <!-- ==============================
@@ -890,20 +873,20 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                 </tbody>
                             </table>
                         </div>
-                        <div class="card card-outline" >
+                        <div class="card card-outline">
                             <div class="card-body" id="diagnosticoResu">
-                                
+
                             </div>
                         </div>
 
-                        <div class="card card-outline" >
+                        <div class="card card-outline">
                             <div class="card-body" id="servExternosResu">
-                                
+
                             </div>
                         </div>
-                        <div class="card card-outline" >
+                        <div class="card card-outline">
                             <div class="card-body" id="RepuestoResu">
-                                
+
                             </div>
                         </div>
                     </div>
