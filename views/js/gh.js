@@ -1301,7 +1301,7 @@ if (
         /* ===================================================
           GRÁFICOS
         ===================================================*/
-        function GraficosPerfilSD() {
+        function GraficosPerfilSD(criterio) {
             let htmlSpinner = `<div class="spinner-grow float-left spinner-GrafPerfilSD" role="status">
                                     <span class="sr-only">Loading...</span>
                                 </div>`;
@@ -1316,7 +1316,7 @@ if (
 
             var datos = new FormData();
             datos.append('GraficosPerfilSD', "ok");
-            datos.append('parametro', "test");
+            datos.append('criterio', criterio);
             $.ajax({
                 type: 'post',
                 url: `${urlPagina}ajax/gh.ajax.php`,
@@ -1334,7 +1334,7 @@ if (
 
                         var totalCantidad = 0; //Usado para medir mas adelante el porcentaje
                         response.forEach(element => {
-                            datosLabel.push(element.nivel_escolaridad);
+                            datosLabel.push(element.criterio);
                             datosGrafico.push(element.Cantidad);
                             totalCantidad += parseInt(element.Cantidad, 10); //Total
                         });
@@ -1345,9 +1345,14 @@ if (
             });
 
         }
-        // Si carga la tabla primero antes de cambiar de tab, los gráficos no cargan
-        $('#v-pills-profile-tab').on('shown.bs.tab', function (e) {
-            GraficosPerfilSD();
+        // // Si carga la tabla primero antes de cambiar de tab, los gráficos no cargan
+        // $('#v-pills-profile-tab').on('shown.bs.tab', function (e) {
+        //     GraficosPerfilSD();
+        // });
+
+        $(document).on("change", "#selectGraf", function () {
+            var criterio = $(this).val();
+            GraficosPerfilSD(criterio);
         });
     });
 }

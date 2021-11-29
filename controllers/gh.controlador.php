@@ -307,10 +307,10 @@ class ControladorGH
     /* ===================================================
        MOSTRAR GRÁFICOS PERFIL SOCIODEMOGRÁFICO
     ===================================================*/
-    static public function ctrGraficosPerfilSD()
+    static public function ctrGraficosPerfilSD($criterio)
     {
 
-        $respuestaArray = ModeloGH::mdlGraficosPerfilSD();
+        $respuestaArray = ModeloGH::mdlGraficosPerfilSD($criterio);
 
         return $respuestaArray;
     }

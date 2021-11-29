@@ -654,6 +654,8 @@ class ControladorMantenimientos
 		var_dump($datos);
 		if (isset($datos['idorden']) && $datos['idorden'] == "") {
 
+			if($datos['estado'] == 3) $datos['estado'] = 1;
+
 			#RETORNA EL ÚLTIMO ID INSERTADO
 			$respuesta = ModeloMantenimientos::mdlAgregarOrdenServicio($datos);
 
