@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => 'd029ed28429952448b7fe05583474dd89cc4fc1d',
+    'reference' => '803fa472ad950951192a1167eae35b9ec58b369c',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => 'd029ed28429952448b7fe05583474dd89cc4fc1d',
+      'reference' => '803fa472ad950951192a1167eae35b9ec58b369c',
     ),
     'fpdf/fpdf' => 
     array (
@@ -130,12 +130,12 @@
     ),
     'tecnickcom/tcpdf' => 
     array (
-      'pretty_version' => '6.3.5',
-      'version' => '6.3.5.0',
+      'pretty_version' => '6.4.2',
+      'version' => '6.4.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => '19a535eaa7fb1c1cac499109deeb1a7a201b4549',
+      'reference' => '172540dcbfdf8dc983bc2fe78feff48ff7ec1c76',
     ),
   ),
 );
