@@ -492,7 +492,7 @@ if (
                         { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
                     ];
                     var table = dataTableCustom(`#tblHijos`, buttons);
-                
+
                 }
             });
         }
@@ -1297,6 +1297,63 @@ if (
             /* 'copy', 'csv', 'excel', 'pdf', 'print' */
         ];
         mostrarDatatableGH("PerfilSD", buttons);
+
+        /* ===================================================
+          GRÁFICOS
+        ===================================================*/
+        function GraficosPerfilSD(criterio) {
+            let htmlSpinner = `<div class="spinner-grow float-left spinner-GrafPerfilSD" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                </div>`;
+
+            $("#scGrafPerfilSD").remove();
+            $("#colGrafPerfilSD").html(
+                `
+                ${htmlSpinner}
+                <canvas id="scGrafPerfilSD" style="height:300px;"></canvas>
+            `
+            );
+
+            var datos = new FormData();
+            datos.append('GraficosPerfilSD', "ok");
+            datos.append('criterio', criterio);
+            $.ajax({
+                type: 'post',
+                url: `${urlPagina}ajax/gh.ajax.php`,
+                data: datos,
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response != "" || response != "error") {
+                        $(".spinner-GrafPerfilSD").addClass("d-none");
+
+                        let datosLabel = [];
+                        let datosGrafico = [];
+
+                        var totalCantidad = 0; //Usado para medir mas adelante el porcentaje
+                        response.forEach(element => {
+                            datosLabel.push(element.criterio);
+                            datosGrafico.push(element.Cantidad);
+                            totalCantidad += parseInt(element.Cantidad, 10); //Total
+                        });
+
+                        graficoSimple('scGrafPerfilSD', datosLabel, datosGrafico, totalCantidad, '', 'bar', true);
+                    }
+                }
+            });
+
+        }
+        // // Si carga la tabla primero antes de cambiar de tab, los gráficos no cargan
+        // $('#v-pills-profile-tab').on('shown.bs.tab', function (e) {
+        //     GraficosPerfilSD();
+        // });
+
+        $(document).on("change", "#selectGraf", function () {
+            var criterio = $(this).val();
+            GraficosPerfilSD(criterio);
+        });
     });
 }
 

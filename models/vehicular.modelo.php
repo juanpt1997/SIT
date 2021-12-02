@@ -683,6 +683,18 @@ class ModeloVehiculos
     }
 
     /* ===================================================
+        LISTADO DE MANTENIMIENTOS CORRECTIVOS
+    ===================================================*/
+    static public function mdlListadoCorrectivos()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM m_correctivos");
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    /* ===================================================
         LISTADO DE SERVICOS MENORES
     ===================================================*/
 

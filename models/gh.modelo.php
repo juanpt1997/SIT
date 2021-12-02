@@ -610,6 +610,42 @@ class ModeloGH
     }
 
     /* ===================================================
+       MOSTRAR GRÁFICOS PERFIL SOCIODEMOGRÁFICO
+    ===================================================*/
+    static public function mdlGraficosPerfilSD($criterio)
+    {
+        // CRITERIOS DE CARGUE PARA LOS GRÁFICOS QUE REQUIEREN CONSULTAS DIFERENTES
+        if ($criterio == "cargo"){
+            $sql = "SELECT c.{$criterio} AS criterio, COUNT(p.{$criterio}) AS Cantidad
+                    FROM gh_personal p
+                    INNER JOIN gh_cargos c ON c.idCargo = p.{$criterio}
+                    WHERE p.activo = 'S'
+                    GROUP BY p.{$criterio}
+                    ORDER BY Cantidad DESC
+                    LIMIT 8";
+        }
+        // CONSULTA UNIVERSAL
+        else{
+            $sql = "SELECT p.{$criterio} as criterio, COUNT(p.{$criterio}) AS Cantidad
+                    FROM gh_personal p
+                    WHERE p.activo = 'S'
+                    GROUP BY p.{$criterio}";
+        }
+
+        $stmt = Conexion::conectar()->prepare($sql);
+        //$stmt->bindParam(":criterio", $criterio, PDO::PARAM_STR);
+
+        $stmt->execute();
+
+        $retorno = $stmt->fetchAll();
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
        * Alertas de contratos - gh-alertas-contratos
     ===================================================*/
     /* ===================================================

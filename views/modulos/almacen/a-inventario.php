@@ -18,12 +18,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark "><strong><i>Inventario</i></strong> <i class="fas fa-pallet"></i></h1>
+                    <h1 class="m-0 text-dark "><strong><i>Almacén</i></strong> <i class="fas fa-pallet"></i></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="inicio">Inicio</a></li>
-                        <li class="breadcrumb-item active">Inventario</li>
+                        <li class="breadcrumb-item active">Almacén</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -40,26 +40,10 @@
             <div class="card card-outline card-success">
                 <div class="card-body">
                     <hr class="my-4 bg-dark">
-
                     <div class="row mt-2 d-flex justify-content-center">
-
-                        <div class="col-lg-3 col-6">
-                            <!--PROVEEDORES-->
-                            <div class="small-box bg-info">
-                                <div class="inner">
-                                    <h3><i class="fas fa-ellipsis-h"></i></h3>
-                                    <p><i>Proveedores</i></p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-user-plus"></i>
-                                </div>
-                                <a href="c-proveedores" target="_blank" class="small-box-footer btn">Crear <i class="fas fa-arrow-right"></i></a>
-                            </div>
-                        </div>
-
                         <div class="col-lg-3 col-6">
                             <!--PRODUCTOS-->
-                            <div class="small-box bg-warning">
+                            <div class="small-box bg-success">
                                 <div class="inner">
                                     <h3><i class="fas fa-ellipsis-h"></i></h3>
                                     <p><i>Productos</i></p>
@@ -73,7 +57,7 @@
 
                         <div class="col-lg-3 col-6">
                             <!--ORDENES DE COMPRA-->
-                            <div class="small-box bg-success">
+                            <div class="small-box bg-info">
                                 <div class="inner">
                                     <h3><i class="fas fa-ellipsis-h"></i></h3>
                                     <p><i>Órdenes de Compras</i></p>
@@ -85,12 +69,9 @@
                             </div>
                         </div>
 
-                    </div>
-
-                    <div class="row d-flex justify-content-center">
                         <div class="col-lg-3 col-6">
                             <!--AUTORIZACION DE COMPRA-->
-                            <div class="small-box bg-danger">
+                            <div class="small-box bg-primary">
                                 <div class="inner">
                                     <h3><i class="fas fa-ellipsis-h"></i></h3>
                                     <p><i>Autorizaciones de compras</i></p>
@@ -99,19 +80,6 @@
                                     <i class="fas fa-file-invoice-dollar"></i>
                                 </div>
                                 <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-autorizaciones">Verificar <i class="fas fa-check"></i></a>
-                            </div>
-                        </div>
-                        <!--INVENTARIO-->
-                        <div class="col-lg-3 col-6">
-                            <div class="small-box bg-gray">
-                                <div class="inner">
-                                    <h3><i class="fas fa-ellipsis-h"></i></h3>
-                                    <p><i>Inventario</i></p>
-                                </div>
-                                <div class="icon">
-                                    <i class="fas fa-clipboard-list"></i>
-                                </div>
-                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-inventario">Modificar <i class="fas fa-plus-circle"></i></a>
                             </div>
                         </div>
 
@@ -132,7 +100,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header bg-success">
-                <h4 class="modal-title">Nuevo producto</h4>
+                <h4 class="modal-title" id="titulo_producto">Nuevo producto</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -167,12 +135,12 @@
 
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
-                                    <label><i>Categoria</i></label>
+                                    <label><i>Categoría</i></label>
                                     <div class="input-group">
                                         <select class="custom-select rounded-0 input_producto" id="categoria" name="categoria" required>
                                         </select>
                                         <div class="input-group-append">
-                                            <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-warning btn-md btn-ruta" title="Crear nueva categoria" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                            <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-info btn-md btn-ruta" title="Crear nueva categoria" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
                                         </div>
                                     </div>
 
@@ -186,7 +154,7 @@
                                         <select class="custom-select rounded-0 input_producto" id="marca" name="marca" required>
                                         </select>
                                         <div class="input-group-append">
-                                            <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-warning btn-md btn-ruta" title="Crear nueva marca" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                            <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-info btn-md btn-ruta" title="Crear nueva marca" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -199,7 +167,7 @@
                                         <select class="custom-select rounded-0 input_producto" id="medida" name="medida" required>
                                         </select>
                                         <div class="input-group-append">
-                                            <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-warning btn-md btn-ruta" title="Crear nueva medida" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                            <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-info btn-md btn-ruta" title="Crear nueva medida" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -213,9 +181,9 @@
                         </div>
 
                         <div class="form-group">
-                            <button type="button" class="btn btn-sm btn-info btn-block btn_actualizarProducto mb-2 mr-2 d-none" form="formulario_producto"><i class="fas fa-sync-alt"></i> Actualizar producto</button>
+                            <button type="btn" class="btn btn-sm btn-info btn-block btn_actualizarProducto mb-2 mr-2 d-none"><i class="fas fa-sync-alt"></i> Actualizar producto</button>
 
-                            <button type="button" class="btn btn-sm btn-success btn-block btn_nuevaReferencia mb-2 mr-2 d-none" form="formulario_producto"><i class="fas fa-plus"></i> Crear nueva referencia</button>
+                            <button type="submit" class="btn btn-sm btn-success btn-block btn_nuevaReferencia mb-2 mr-2 d-none" form="formulario_producto"><i class="fas fa-plus"></i> Crear nueva referencia</button>
                         </div>
                     </div>
 
@@ -226,38 +194,48 @@
 
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
-                                    <label><i>Productos</i></label>
-                                    <select class="form-control input-sm select2-single" style="width: 99%" type="text" id="producto" name="producto" required>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-12 col-sm-6 col-lg-4">
-                                <div class="form-group text-center">
                                     <label><i>Proveedor</i></label>
-                                    <select class="custom-select rounded-0" id="proveedor" name="proveedor" required>
-                                    </select>
+                                    <div class="input-group">
+                                        <select class="select2-single rounded-0" id="proveedor" name="proveedor" required>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <a href="c-proveedores" target="_blank"><button type="button" class="btn btn-info btn-md btn-ruta" title="Crear nuevo proveedor" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label><i>Número de factura producto</i></label>
-                                    <input type="text" class="form-control input_inventario" id="num_factura" name="num_factura" required readonly>
+                                    <input type="text" class="form-control input_inventario" id="num_factura" name="num_factura" placeholder="#" required readonly>
                                 </div>
                             </div>
+
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label><i>Cantidad (unidades)</i></label>
-                                    <input type="text" class="form-control input_inventario" id="cantidad" name="cantidad" required readonly>
+                                    <input type="text" class="form-control input_inventario" id="cantidad" name="cantidad" placeholder="-" required readonly>
                                 </div>
                             </div>
 
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label><i>Sucursal - bodega</i></label>
-                                    <select class="form-control input-sm select2-single" style="width: 99%" type="number" id="sucursal" name="sucursal" required>
-                                    </select>
+                                    <div class="input-group">
+                                        <select class="select2-single rounded-0" id="sucursal" name="sucursal" required>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <a href="cg-gestion-humana" target="_blank"><button type="button" class="btn btn-info btn-md btn-ruta" title="Crear nueva sucursal" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Posición</i> <i class="fas fa-sitemap"></i></label>
+                                    <input type="text" class="form-control input_inventario" id="posicion" name="posicion" placeholder="-" readonly>
                                 </div>
                             </div>
 
@@ -279,32 +257,64 @@
 
                     <hr class="my-4 bg-success">
 
-                    <div class="card card-outline card-success">
-                        <div class="card-header">
+                    <div class="card card-success collapsed-card" id="card_productos">
+                        <div class="card-header" data-card-widget="collapse" style="cursor: pointer;">
                             <h5 class="mb-0">
-                                <strong><i>Inventario</i> </strong>
-                                <button type="button" class="btn btn-tool" title="Ver inventario pantalla completa" data-toggle="tooltip" data-placement="top" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                <strong><i>Productos</i> </strong>
+                                <button type="button" class="btn btn-tool btn_ver_productos" title="Ver productos pantalla completa" data-toggle="tooltip" data-placement="top" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
                             </h5>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped text-center text-nowrap">
+                                <table class="table table-bordered table-striped text-center text-nowrap" id="tabla_productos">
                                     <thead>
                                         <tr>
+                                            <th>ID</th>
+                                            <th>Nombre/Descripción</th>
+                                            <th>Código</th>
+                                            <th>Referencia</th>
+                                            <th>Categoria</th>
+                                            <th>Marca</th>
+                                            <th>Medida</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody_productos">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="card card-success collapsed-card">
+                        <div class="card-header" data-card-widget="collapse" style="cursor: pointer;">
+                            <h5 class="mb-0">
+                                <strong><i>Inventario</i> </strong>
+                                <button type="button" class="btn btn-tool" title="Ver inventario pantalla completa" data-toggle="tooltip" data-placement="top" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                                </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped text-center text-nowrap" id="tabla_inventario">
+                                    <thead>
+                                        <!-- <tr>
                                             <th colspan="8">PRODUCTOS</th>
                                             <th colspan="4">ENTRADAS</th>
                                             <th colspan="4">SALIDAS</th>
                                             <th colspan="3">SALDO</th>
                                             <th colspan='1'>SUCURSALES</th>
-                                        </tr>
+                                        </tr> -->
                                         <tr>
+                                            <th>Descripción</th>
                                             <th>Código</th>
                                             <th>Referencia</th>
-                                            <th>Descripción</th>
                                             <th>Categoria</th>
                                             <th>Marca</th>
                                             <th>Medida</th>
-                                            <th>Sucursal</th>
+                                            <th>Stock</th>
+                                            <th>Acciones</th>
+                                            <!-- <th>Sucursal</th>
                                             <th>Precio</th>
                                             <th>Fecha de entrada</th>
                                             <th>Cantidad (u)</th>
@@ -317,32 +327,10 @@
                                             <th>Cantidad (u)</th>
                                             <th>Valor unitario</th>
                                             <th>Total</th>
-                                            <th>Sucursal</th>
+                                            <th>Sucursal</th> -->
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>12314</td>
-                                            <td>optyui-12367</td>
-                                            <td>MANUBRIO</td>
-                                            <td>TALLER</td>
-                                            <td>NISAN</td>
-                                            <td>2</td>
-                                            <td>centimetros</td>
-                                            <td>Dosquebradas</td>
-                                            <td>2/02/2021</td>
-                                            <td><button class="btn btn-sm btn-success" title="Actualizar inventario" data-toggle="tooltip" data-placement="top"><i class="fas fa-redo-alt"></i></button></td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>2/02/2021</td>
-                                            <td><button class="btn btn-sm btn-success" title="Actualizar inventario" data-toggle="tooltip" data-placement="top"><i class="fas fa-redo-alt"></i></button></td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td>1</td>
-                                            <td><button class="btn btn-sm btn-primary" title="Ver sucursales" data-toggle="tooltip" data-placement="top"><i class="fas fa-map-marker-alt"></i></button></td>
-                                        </tr>
+                                    <tbody id="tbody_inventario"> 
                                     </tbody>
                                 </table>
                             </div>

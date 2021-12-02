@@ -304,6 +304,16 @@ class ControladorGH
 
         return $respuestaArray;
     }
+    /* ===================================================
+       MOSTRAR GRÁFICOS PERFIL SOCIODEMOGRÁFICO
+    ===================================================*/
+    static public function ctrGraficosPerfilSD($criterio)
+    {
+
+        $respuestaArray = ModeloGH::mdlGraficosPerfilSD($criterio);
+
+        return $respuestaArray;
+    }
 
     /* ===================================================
         CAPTURA DEL EMPLEADO CON MAYOR CANTIDAD DE HIJOS, usado para saber la cantidad de columnas en el thead de perfil sociodemografico

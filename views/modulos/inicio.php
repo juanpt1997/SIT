@@ -72,6 +72,23 @@
                       <div class="card-body">
                           <div class="row">
                               <!-- ===================================================
+                            ** Gerencial
+                            =================================================== -->
+                              <?php if (validarPermiso('M_GERENCIAL', 'R')) : ?>
+                                  <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+                                      <a href="g-dashboard">
+                                          <div class="info-box border border-dark">
+                                              <span class="info-box-icon bg-dark elevation-1"><i class="fas fa-chalkboard-teacher"></i></span>
+                                              <div class="info-box-content">
+                                                  <span class="info-box-text font-weight-bold text-dark">Gerencial</span>
+                                              </div>
+                                              <!-- /.info-box-content -->
+                                          </div>
+                                      </a>
+                                  </div>
+                                  <!-- /.col -->
+                              <?php endif ?>
+                              <!-- ===================================================
                             * Conceptos generales
                             =================================================== -->
                               <?php if (validarPermiso('M_GESTION_HUMANA', 'U') || validarPermiso('M_VEHICULAR', 'U')) : ?>
@@ -363,26 +380,6 @@
                                               <span class="info-box-icon bg-light elevation-1"><i class="fas fa-school"></i></span>
                                               <div class="info-box-content">
                                                   <span class="info-box-text font-weight-bold text-dark">Escolar</span>
-                                              </div>
-                                              <!-- /.info-box-content -->
-                                          </div>
-                                          <!-- /.info-box -->
-                                      </a>
-                                  </div>
-                                  <!-- /.col -->
-                              <?php endif ?>
-
-                              <!-- ===================================================
-                            ** Contratos Fijos
-                            =================================================== -->
-                              <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
-                                  <div class="col-12 col-sm-6 col-md-4 col-xl-3">
-                                      <a href="#">
-                                          <div class="info-box border border-secondary">
-                                              <span class="info-box-icon bg-secondary elevation-1"><i class="fas fa-file-contract"></i></span>
-                                              <div class="info-box-content">
-                                                  <span class="info-box-text font-weight-bold text-dark">Contratos
-                                                      Fijos</span>
                                               </div>
                                               <!-- /.info-box-content -->
                                           </div>
