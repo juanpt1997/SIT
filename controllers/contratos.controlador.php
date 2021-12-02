@@ -168,7 +168,7 @@ class ControladorCotizaciones
             if ($id == "") {
 
                 $datosBusqueda = array('item' => 'Documento', 'valor' => $_POST['document']);
-                $existecliente = ModeloClientes::mdlVerCliente($datosBusqueda);
+                $existecliente = ModeloClientes::mdlVerClienteid($datosBusqueda);
                 # existe cliente 
                 //var_dump($existecliente);
                 if ($existecliente !== false) {
@@ -273,7 +273,8 @@ class ControladorCotizaciones
                         'silleteriar' => $_POST['silleteriar'],
                         'porque' => $_POST['porque'],
                         'otro_v' => $_POST['otro_v'],
-                        'idruta' => $_POST['idruta'] == "" ? null : $_POST['idruta']
+                        'idruta' => $_POST['idruta'] == "" ? null : $_POST['idruta'],
+                        'viaje_ocasional' => $_POST['viaje_ocasional']
                     );
 
                     if ($_POST['id_cot'] != "" && is_array($CotizacionExistente)) {
@@ -509,8 +510,8 @@ class ControladorOrdenServicio
                 'nro_factura' => $_POST['numfacturaorden'],
                 'fecha_facturacion' => $_POST['f_facturacion'],
                 'cancelada' => $_POST['cancelacion'],
-                'cod_autoriz' => $_POST['cod_autorizacion'],
-                'viaje_ocasional' => $_POST['viaje_ocasional']
+                'cod_autoriz' => $_POST['cod_autorizacion']
+                //'viaje_ocasional' => $_POST['viaje_ocasional']
             );
 
             if ($_POST['idorden'] == '') {

@@ -46,7 +46,7 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                         <div class="card-body">
                             <!--TABLA PARA VISUALIZAR CLIENTES-->
                             <div class="table-responsive">
-                                <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
+                                <table class="table table-sm table-striped table-bordered table-hover tablasBtnExport w-100">
                                     <thead class="text-sm text-center text-nowrap">
                                         <tr>
                                             <th>...</th>

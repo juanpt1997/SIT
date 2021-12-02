@@ -64,6 +64,7 @@ $Rutas = ControladorRutas::ctrListarRutas();
                                         <th>Tipo documento</th>
                                         <th>Documento contacto</th>
                                         <th>Cc. Expedida</th>
+                                        <th style="min-width:90px;">Correo</th>
                                         <th style="min-width:90px;">Ciudad</th>
                                         <th style="min-width:90px;">Empresa</th>
                                         <th>Origen</th>
@@ -93,6 +94,7 @@ $Rutas = ControladorRutas::ctrListarRutas();
                                         <th style="min-width:90px;">Bodega</th>
                                         <th style="min-width:90px;">Otro</th>
                                         <th>Realiza viaje</th>
+                                        <th>Viaje ocasional</th>
                                         <th style="min-width:90px;">Por qué</th>
                                     </tr>
                                 </thead>
@@ -116,6 +118,7 @@ $Rutas = ControladorRutas::ctrListarRutas();
                                             <td><?= $value['tipo_doc_respo'] ?></td>
                                             <td><?= $value['documento_res'] ?></td>
                                             <td><?= $value['cedulaexpe'] ?></td>
+                                            <td><?= $value['correo'] ?></td>
                                             <td><?= $value['ciudadres'] ?></td>
                                             <td><?= $value['empresa'] ?></td>
                                             <td><?= $value['origen'] ?></td>
@@ -145,6 +148,7 @@ $Rutas = ControladorRutas::ctrListarRutas();
                                             <td><?= $value['bodega'] ?></td>
                                             <td><?= $value['otro'] ?></td>
                                             <td><?= $value['realiza_viaje'] ?></td>
+                                            <td><?= $value['viaje_ocasional'] ?></td>
                                             <td><?= $value['porque'] ?></td>
                                         </tr>
                                     <?php endforeach ?>
@@ -399,6 +403,19 @@ $Rutas = ControladorRutas::ctrListarRutas();
                     <hr class="my-4 bg-dark">
 
                     <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="text-sm">Viaje ocasional</label>
+                                <div class="input-group input-group-sm">
+                                    <select class="form-control" id="viaje_ocasional" name="viaje_ocasional">                                        
+                                        <option value="" selected><strong>Seleccione un tipo de viaje</strong></option>
+                                        <option value="Propio">Propio</option>
+                                        <option value="Afiliado">Afiliado</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="text-sm">Empresa</label>
