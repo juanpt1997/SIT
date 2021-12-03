@@ -1673,6 +1673,7 @@ $(document).ready(function () {
 
         if (response != "error") {
 
+
           // $("#ordenServ_form").trigger("reset");
           // $("#placa_OrdServ").val("").trigger("change");
           // $("#sistema").val("").trigger("change");
@@ -1680,14 +1681,17 @@ $(document).ready(function () {
           // $("#ServPre").val("").trigger("change");
           // $("#correctivo").val("").trigger("change");
           // Mensaje de éxito al usuario
-          $("#btn-crearSolicitud").removeAttr("disabled");  
-          
+
+
           Swal.fire({
             icon: 'success',
             title: '¡Datos guardados correctamente!',
             showConfirmButton: true,
             confirmButtonText: 'Cerrar',
           })
+
+          $("#btn-crearSolicitud").removeAttr("disabled");
+
         } else {
           Swal.fire({
             icon: 'error',
@@ -1696,7 +1700,7 @@ $(document).ready(function () {
             confirmButtonText: 'Cerrar',
             closeOnConfirm: false
           }).then((result) => {
-            
+
             if (result.value) {
               window.location = 'm-mantenimientos';
             }
@@ -1808,7 +1812,7 @@ $(document).ready(function () {
 
   });
 
-
+  //CLICK EN CREAR SOLICITUD 
   $(document).on("click", "#btn-crearSolicitud", function () {
     $("#servExternosResu").empty();
     $("#servicios_externos").clone().appendTo("#servExternosResu");
@@ -1816,13 +1820,51 @@ $(document).ready(function () {
     $("#repuesto_solicitud").clone().appendTo("#RepuestoResu");
     $("#diagnosticoResu").empty();
     $("#diagnostico_solicitud").clone().appendTo("#diagnosticoResu");
-    
+
     //DESHABILITAR OPCIONES EN LA MODAL
     $("#modal-solicitud").find(".btn-repuestos").attr("disabled", "disabled");
     $("#modal-solicitud").find(".input-cantrepuesto").attr("disabled", "disabled");
     $("#modal-solicitud").find(".custom-control-label").removeAttr("for");
-    
-    
+    $("#modal-solicitud").find(".diagno-resu").attr("disabled", "disabled");
+
+
+  });
+
+  $(document).on("click", '.btn-editarOrden', function () {
+    $('#custom-tabs-one-historial_orden').removeClass("active show");
+    $('#custom-tabs-one-historial_orden-tab').removeClass("active");
+    $('#custom-tabs-one-ordenserv_mante-tab').addClass("active");
+    $('#custom-tabs-one-ordenserv_mante').addClass("active show");
+
+    let idorden = $(this).attr("idorden");
+
+    var datos = new FormData();
+    datos.append("DatosOrdenServicio", "ok");
+    datos.append("idorden", idorden);
+    $.ajax({
+      type: "post",
+      url: `ajax/mantenimiento.ajax.php`,
+      data: datos,
+      cache: false,
+      dataType: "JSON",
+      contentType: false,
+      processData: false,
+      success: function (response) {
+
+        // let fecha_entrada = (response.fecha_entrada).format("YYYY-MM-DD")
+
+        $('#kilome_ordSer').val(response.kilometraje);
+        // $('#placa_OrdServ').val(response.placa).trigger("change");
+        $('#numinterno_ordSer').val(response.numinterno);
+        $('#modelo_ordSer').val(response.modelo);
+        $("#clasevehiculo_ordSer").val(response.tipovehiculo).trigger("change");
+        $('#marca_ordSer').val(response.marca);
+        $('#fechaentrada_ordSer').val(fecha_entrada);
+        
+        console.log(response);
+      },
+    });
+
   });
 
 

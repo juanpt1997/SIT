@@ -1758,6 +1758,22 @@ class ModeloMantenimientos
     }
 
     /* ===================================================
+        CARGAR DATOS ORDEN DE SERVICIO
+    ===================================================*/
+    static public function mdlCargarOrdenServicio($idorden)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT o.*, DATE_FORMAT(o.fecha_entrada, '%d/%m/%Y') AS Ffecha_entrada, v.* FROM m_ordenservicio o
+        INNER JOIN v_vehiculos v ON o.idvehiculo = v.idvehiculo
+        WHERE o.idorden = :idorden");
+
+        $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
+        $stmt->execute();
+        $respuesta = $stmt->fetch();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
+
+    /* ===================================================
         AGREGAR ORDEN DE SERVICIO
     ===================================================*/
 
@@ -1792,13 +1808,16 @@ class ModeloMantenimientos
         AGREGAR MANTENIMIENTO PREVENTIVO A ORDEN SERVICIO
     ===================================================*/
 
-    static public function mdlAgregarPreventivo($idorden, $servicio)
+    static public function mdlAgregarPreventivo($idorden, $servicio, $kilometraje, $vehiculo, $fecha)
     {
-        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_serviciosmenoresordenservicio(idorden, idservicio)
-                                            VALUES(:idorden, :servicio)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_serviciosvehiculos(idorden, idservicio, kilometraje, idvehiculo, fecha)
+                                            VALUES(:idorden, :servicio, :kilometraje, :vehiculo , :fecha)");
 
         $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
         $stmt->bindParam(":servicio", $servicio, PDO::PARAM_INT);
+        $stmt->bindParam(":kilometraje", $kilometraje, PDO::PARAM_INT);
+        $stmt->bindParam(":vehiculo", $vehiculo, PDO::PARAM_INT);
+        $stmt->bindParam(":fecha", $fecha, PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             $retorno = "ok";
@@ -1815,7 +1834,7 @@ class ModeloMantenimientos
     /* ===================================================
         AGREGAR MANTENIMIENTO CORRECTIVO A ORDEN DE SERVICIO
     ===================================================*/
-    static public function mdlAgregarCorrectivo($idorden,$servicio)
+    static public function mdlAgregarCorrectivo($idorden, $servicio)
     {
         $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_correctivosordenservicio(idorden, idservicio)
                                             VALUES(:idorden, :servicio)");
