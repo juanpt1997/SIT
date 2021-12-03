@@ -37,13 +37,13 @@
 
             <hr class="my-4">
 
-            <div class="card card-outline card-success">
+            <div class="card card-outline card-info">
                 <div class="card-body">
                     <hr class="my-4 bg-dark">
                     <div class="row mt-2 d-flex justify-content-center">
                         <div class="col-lg-3 col-6">
                             <!--PRODUCTOS-->
-                            <div class="small-box bg-success">
+                            <div class="small-box bg-warning">
                                 <div class="inner">
                                     <h3><i class="fas fa-ellipsis-h"></i></h3>
                                     <p><i>Productos</i></p>
@@ -57,13 +57,13 @@
 
                         <div class="col-lg-3 col-6">
                             <!--ORDENES DE COMPRA-->
-                            <div class="small-box bg-info">
+                            <div class="small-box bg-success">
                                 <div class="inner">
                                     <h3><i class="fas fa-ellipsis-h"></i></h3>
                                     <p><i>Órdenes de Compras</i></p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fas fa-shopping-cart"></i>
+                                    <i class="fas fa-file-invoice-dollar"></i>
                                 </div>
                                 <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-ordencompra">Nuevo <i class="fas fa-plus-circle"></i></a>
                             </div>
@@ -71,13 +71,13 @@
 
                         <div class="col-lg-3 col-6">
                             <!--AUTORIZACION DE COMPRA-->
-                            <div class="small-box bg-primary">
+                            <div class="small-box bg-danger">
                                 <div class="inner">
                                     <h3><i class="fas fa-ellipsis-h"></i></h3>
                                     <p><i>Autorizaciones de compras</i></p>
                                 </div>
                                 <div class="icon">
-                                    <i class="fas fa-file-invoice-dollar"></i>
+                                    <i class="fas fa-tasks"></i></i>
                                 </div>
                                 <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-autorizaciones">Verificar <i class="fas fa-check"></i></a>
                             </div>
@@ -96,11 +96,11 @@
 <!-- ===================================================
     MODAL DE PRODUCTOS
 =================================================== -->
-<div class="modal fade show" id="modal-productos" style="display: none; padding-right: 17px;" aria-modal="true" role="dialog">
+<div class="modal fade show" id="modal-productos" style="display: none; padding-right: 17px; overflow-y: scroll;" aria-modal="true" role="dialog">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header bg-success">
-                <h4 class="modal-title" id="titulo_producto">Nuevo producto</h4>
+            <div class="modal-header bg-info">
+                <h2 class="modal-title"><span id="titulo_producto">Nuevo producto</span></h2>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -140,7 +140,7 @@
                                         <select class="custom-select rounded-0 input_producto" id="categoria" name="categoria" required>
                                         </select>
                                         <div class="input-group-append">
-                                            <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-info btn-md btn-ruta" title="Crear nueva categoria" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                            <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nueva categoria" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
                                         </div>
                                     </div>
 
@@ -154,7 +154,7 @@
                                         <select class="custom-select rounded-0 input_producto" id="marca" name="marca" required>
                                         </select>
                                         <div class="input-group-append">
-                                            <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-info btn-md btn-ruta" title="Crear nueva marca" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                            <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nueva marca" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -167,7 +167,7 @@
                                         <select class="custom-select rounded-0 input_producto" id="medida" name="medida" required>
                                         </select>
                                         <div class="input-group-append">
-                                            <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-info btn-md btn-ruta" title="Crear nueva medida" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                            <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nueva medida" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -187,7 +187,7 @@
                         </div>
                     </div>
 
-                    <hr>
+                    <hr class="bg-dark">
 
                     <form id="formulario_addInventario" method="post" enctype="multipart/form-data">
                         <div class="row">
@@ -199,7 +199,7 @@
                                         <select class="select2-single rounded-0" id="proveedor" name="proveedor" required>
                                         </select>
                                         <div class="input-group-append">
-                                            <a href="c-proveedores" target="_blank"><button type="button" class="btn btn-info btn-md btn-ruta" title="Crear nuevo proveedor" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                            <a href="c-proveedores" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nuevo proveedor" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -214,7 +214,7 @@
 
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
-                                    <label><i>Cantidad (unidades)</i></label>
+                                    <label><i>Cantidad a ingresar (unidades)</i></label>
                                     <input type="text" class="form-control input_inventario" id="cantidad" name="cantidad" placeholder="-" required readonly>
                                 </div>
                             </div>
@@ -226,7 +226,7 @@
                                         <select class="select2-single rounded-0" id="sucursal" name="sucursal" required>
                                         </select>
                                         <div class="input-group-append">
-                                            <a href="cg-gestion-humana" target="_blank"><button type="button" class="btn btn-info btn-md btn-ruta" title="Crear nueva sucursal" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                            <a href="cg-gestion-humana" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nueva sucursal" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
                                         </div>
                                     </div>
                                 </div>
@@ -257,7 +257,7 @@
 
                     <hr class="my-4 bg-success">
 
-                    <div class="card card-success collapsed-card" id="card_productos">
+                    <div class="card card-info collapsed-card" id="card_productos">
                         <div class="card-header" data-card-widget="collapse" style="cursor: pointer;">
                             <h5 class="mb-0">
                                 <strong><i>Productos</i> </strong>
@@ -276,6 +276,7 @@
                                             <th>Categoria</th>
                                             <th>Marca</th>
                                             <th>Medida</th>
+                                            <th>...</th>
                                         </tr>
                                     </thead>
                                     <tbody id="tbody_productos">
@@ -287,12 +288,12 @@
 
                     <hr>
 
-                    <div class="card card-success collapsed-card">
+                    <div class="card card-info collapsed-card">
                         <div class="card-header" data-card-widget="collapse" style="cursor: pointer;">
                             <h5 class="mb-0">
                                 <strong><i>Inventario</i> </strong>
                                 <button type="button" class="btn btn-tool" title="Ver inventario pantalla completa" data-toggle="tooltip" data-placement="top" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
-                                </h5>
+                            </h5>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -330,7 +331,7 @@
                                             <th>Sucursal</th> -->
                                         </tr>
                                     </thead>
-                                    <tbody id="tbody_inventario"> 
+                                    <tbody id="tbody_inventario">
                                     </tbody>
                                 </table>
                             </div>
@@ -345,7 +346,89 @@
         </div>
     </div>
 </div>
-
+<!-- ===================================================
+    MODAL DE HISTORIAL DE MOVIMIENTOS
+=================================================== -->
+<div id="modal-historialMovimientos" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="tituloModalHistorial" aria-hidden="true" style="overflow-y: scroll;">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h2 class="modal-title" id="tituloModalHistorial"><span class="badge badge-light"><i class="fas fa-angle-double-right"></i> Historial de movimientos</span></h2>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card" id="card_historial">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tabla_historial">
+                                <thead>
+                                    <tr>
+                                        <th>...</th>
+                                        <th>Cantidad</th>
+                                        <th>Tipo de movimiento</th>
+                                        <th>Fecha</th>
+                                        <th>Proveedor</th>
+                                        <th>Precio de compra</th>
+                                        <th>Factura de compra</th>
+                                        <th>Sucursal</th>
+                                        <th>Observaciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_historial">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center bg-dark">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ===================================================
+    MODAL DE SUCURSALES DE PRODUCTO
+=================================================== -->
+<div id="modal-sucursalesProducto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="tituloSucursales" aria-hidden="true" style="overflow-y: scroll;">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h2 class="modal-title" id="tituloSucursales"><span class="badge badge-light"><i class="fas fa-angle-double-right"></i> Sucursales activas</span></h2>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card card-success" id="card_sucursales">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tabla_sucursales">
+                                <thead>
+                                    <tr>
+                                        <th>...</th>
+                                        <th>Descripción</th>
+                                        <th>Referencia</th>
+                                        <th>Stock</th>
+                                        <th>Posición</th>
+                                        <th>Sucursal</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_sucursales">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-center bg-dark">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- ===================================================
     MODAL DE ORDENES DE COMPRAS
 =================================================== -->
@@ -496,7 +579,6 @@
         </div>
     </div>
 </div>
-
 <!-- ===================================================
     MODAL DE INVENTARIO
 =================================================== -->
