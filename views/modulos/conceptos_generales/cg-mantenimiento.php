@@ -278,7 +278,7 @@
                                     <i class="fas fa-tachometer-alt"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" id="Kilometraje_cambio" name="Kilometraje_cambio" required>
+                            <input class="form-control" type="number" id="Kilometraje_cambio" name="Kilometraje_cambio" step="1" min="0" required>
                         </div>
                     </div>
 
@@ -290,7 +290,7 @@
                                     <i class="far fa-calendar-alt"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" id="dias_cambio" name="dias_cambio" placeholder="Número de días de cambio" maxlength="999" required>
+                            <input class="form-control" type="number" id="dias_cambio" name="dias_cambio" placeholder="Número de días de cambio" maxlength="999" step="1" min="0" required>
                         </div>
                     </div>
 

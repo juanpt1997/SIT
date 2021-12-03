@@ -145,7 +145,7 @@ class AjaxAlmacen
 
 		foreach ($respuesta as $key => $value) {
 			$tr .= "
-			<tr>
+			<tr>  
 				<td>{$value["idproducto"]}</td>
 				<td>{$value["descripcion"]}</td>
 				<td>{$value["codigo"]}</td>
@@ -153,6 +153,11 @@ class AjaxAlmacen
 				<td>{$value["categoria"]}</td>
 				<td>{$value["marca"]}</td>
 				<td>{$value["medida"]}</td>
+                <td>
+                    <div class='btn-group' role='group' aria-label='Button group'>
+                    <button title='Editar producto' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-primary btnEditar'><i class='fas fa-edit'></i></button>
+                    </div>
+                </td>
 			</tr>
 			";
 		}
@@ -176,10 +181,13 @@ class AjaxAlmacen
 				<td>{$value["stock"]}</td>
                 <td> 
                     <div class='btn-group' role='group' aria-label='Button group'>
-                    <button title='Ver historial de movimientos' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-success btnHistorialMovimientos'><i class='far fa-clipboard'></i></button>
+                    <button title='Ver historial de movimientos' data-toggle='modal' data-target='#modal-historialMovimientos' idproducto='{$value["idproducto"]}' class='btn btn-sm btn-info btnHistorialMovimientos'><i class='far fa-clipboard'></i></button>
                     </div>
                     <div class='btn-group' role='group' aria-label='Button group'>
-                    <button title='Ver sucursales' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-primary btnSucursalesInventario'><i class='fas fa-map-marker-alt'></i></button>
+                    <button title='Ver sucursales' data-toggle='modal' data-target='#modal-sucursalesProducto' idproducto='{$value["idproducto"]}' class='btn btn-sm btn-success btnSucursalesInventario'><i class='fas fa-map-marker-alt'></i></button>
+                    </div>
+                    <div class='btn-group' role='group' aria-label='Button group'>
+                    <button title='Editar producto' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-primary btnEditar'><i class='fas fa-edit'></i></button>
                     </div>
                 </td>
 			</tr>
@@ -191,13 +199,87 @@ class AjaxAlmacen
     static public function ajaxSucursalesInventario($idproducto)
     {
         $respuesta = ModeloProductos::mdlSucursalesInventario($idproducto);
+        $tr = "";
+
+		foreach ($respuesta as $key => $value) {
+			$tr .= "
+			<tr>
+                <td> 
+                    <div class='btn-group' role='group' aria-label='Button group'>
+                        <button title='Editar inventario' idproducto='{$value["idproducto"]}' idinventario='{$value["idinventario"]}' class='btn btn-sm btn-primary btnEditarInventario'><i class='fas fa-edit'></i></button>
+                    </div>
+                </td>
+				<td>{$value["descripcion"]}</td>
+                <td>{$value["referencia"]}</td>
+                <td>{$value["stock"]}</td>
+                <td>{$value["posicion"]}</td>
+				<td>{$value["sucursal"]}</td>
+			</tr>
+			";
+		}
+		echo $tr;
+    }
+
+    static public function ajaxHistorialMovimientos($idproducto)
+    {
+        $respuesta = ModeloProductos::mdlHistorialMovimientos($idproducto);
+        $tr = "";
+
+		foreach ($respuesta as $key => $value) {
+			$tr .= "
+			<tr>
+                <td> 
+                    <div class='btn-group' role='group' aria-label='Button group'>
+                        <button title='Editar movimiento' idproducto='{$value["idproducto"]}'  idmovimiento='{$value["idmovimiento"]}' class='btn btn-sm btn-primary btnEditarMovimiento'><i class='fas fa-edit'></i></button>
+                    </div>
+                </td>
+				<td>{$value["cantidad"]}</td>
+                <td>{$value["tipo_movimiento"]}</td>
+                <td>{$value["fecha"]}</td>
+                <td>{$value["razon_social"]}</td>
+				<td>{$value["preciocompra"]}</td>
+				<td>{$value["facturacompra"]}</td>
+                <td>{$value["sucursal"]}</td>
+                <td>{$value["observaciones"]}</td>
+			</tr>
+			";
+		}
+		echo $tr;
+    }
+
+    static public function ajaxUbicarProducto($idproducto,$sucursal)
+    {
+        $datos = array(
+            "idproducto" => $idproducto,
+            "idsucursal"  => $sucursal
+        );
+
+        $respuesta = ModeloProductos::mdlPosicionCantidad($datos);
         echo json_encode($respuesta);
     }
 
-    static public function ajaxHitorialMovimientos($idproducto)
+    static public function ajaxDatosMovimiento($idmovimiento)
     {
-        $respuesta = ModeloProductos::mdlHistorialMovimientos($idproducto);
+        $respuesta = ModeloProductos::mdlDatosMovimiento($idmovimiento);
         echo json_encode($respuesta);
+    }
+
+    static public function ajaxEditarMovimiento($frmData)
+    {
+        $respuesta = ModeloProductos::mdlEditarMovimiento($frmData);
+        echo $respuesta;
+    }
+
+    static public function ajaxDatosInventario($idinventario)
+    {
+        $respuesta = ModeloProductos::mdlDatosInventario($idinventario);
+        echo json_encode($respuesta);
+    }
+
+    static public function ajaxModificarInventario($datos)
+    {
+        $respuesta = ControladorAlmacen::ctrModificarInventario($datos);
+        echo $respuesta;
     }
 }
 
@@ -236,12 +318,32 @@ if (isset($_POST['CargarTablaInventario']) && $_POST['CargarTablaInventario'] ==
 	AjaxAlmacen::ajaxCargarTablaInventario();
 }
 
-if (isset($_POST['SucursalesInventario']) && $_POST['SucursalesInventario'] == "ok") {
+if (isset($_POST['CargarTablaSucursales']) && $_POST['CargarTablaSucursales'] == "ok") {
 	AjaxAlmacen::ajaxSucursalesInventario($_POST['idproducto']);
 }
 
-if (isset($_POST['Historial']) && $_POST['Historial'] == "ok") {
-	AjaxAlmacen::ajaxHitorialMovimientos($_POST['idproducto']);
+if (isset($_POST['CargarTablaHistorial']) && $_POST['CargarTablaHistorial'] == "ok") {
+	AjaxAlmacen::ajaxHistorialMovimientos($_POST['idproducto']);
+}
+
+if (isset($_POST['ubicarProducto']) && $_POST['ubicarProducto'] == "ok") {
+    AjaxAlmacen::ajaxUbicarProducto($_POST['idproducto'],$_POST['idsucursal']);
+}
+
+if (isset($_POST['datosMovimiento']) && $_POST['datosMovimiento'] == "ok") {
+    AjaxAlmacen::ajaxDatosMovimiento($_POST['idmovimiento']);
+}
+
+if (isset($_POST['editarMovimiento']) && $_POST['editarMovimiento'] == "ok") {
+    AjaxAlmacen::ajaxEditarMovimiento($_POST);
+}
+
+if (isset($_POST['datosInventario']) && $_POST['datosInventario'] == "ok") {
+    AjaxAlmacen::ajaxDatosInventario($_POST['idinventario']);
+}
+
+if (isset($_POST['modificarInventario']) && $_POST['modificarInventario'] == "ok") {
+    AjaxAlmacen::ajaxModificarInventario($_POST);
 }
 
 

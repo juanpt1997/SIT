@@ -16,7 +16,8 @@ class ControladorAlmacen
 
             $datos2 = array(
                 'idinventario' => $inventarioExistente['idinventario'],
-                'stock' =>  $nuevoStock
+                'stock' =>  $nuevoStock,
+                'posicion' => $datos['posicion']
             );
 
             ModeloProductos::mdlEditarInventario($datos2);
@@ -32,5 +33,31 @@ class ControladorAlmacen
 
             return 'agregado';
         }
+    }
+
+    static public function ctrModificarInventario($datos)
+    {
+        $inventarioExistente = ModeloProductos::mdlDatosInventario($datos['idinventario']);
+
+        if($datos['stock'] < $inventarioExistente['stock'])
+        {
+            $datos['tipo_movimiento'] = 'SALIDA';
+            $datos['cantidad'] = abs( $datos['stock'] - $inventarioExistente['stock']);
+
+            ModeloProductos::mdlAgregarMovimiento($datos);
+
+        } else if($datos['stock'] > $inventarioExistente['stock']){
+
+            $datos['tipo_movimiento'] = 'ENTRADA';
+            $datos['cantidad'] = abs( $datos['stock'] - $inventarioExistente['stock']);
+
+            ModeloProductos::mdlAgregarMovimiento($datos);
+
+        } else {
+
+        }
+
+        $respuesta = ModeloProductos::mdlEditarInventario($datos);
+        return $respuesta;
     }
 }
