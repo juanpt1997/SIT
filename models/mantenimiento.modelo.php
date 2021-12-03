@@ -1699,6 +1699,26 @@ class ModeloMantenimientos
     static public function mdlServicios()
     {
 
+        /* ===================================================
+           ALTERNATIVA DE CONSULTA, ESTO PARA TRAER AUTOMATICAMENTE EL REGISTRO MÁS RECIENTE (NO BORRAR PORQUE HAY QUE ANALIZAR ESTO PRIMERO)
+           SELECT v.placa, v.kilometraje AS kilometraje_actual, sm.idserviciovehiculo AS idserviciovehiculo, 
+                sm.idvehiculo, 
+                sm.idservicio,s.kilometraje_cambio AS kilometraje_servicio, 
+                (s.kilometraje_cambio + sm.kilometraje) AS kilometraje_cambio, sm.fecha AS fecha, DATE_FORMAT(sm.fecha, '%d/%m/%y') AS Ffecha, 
+                s.servicio, DATE_FORMAT(DATE_ADD(sm.fecha, INTERVAL s.dias_cambio DAY), '%d/%m/%Y') AS fecha_cambio, DATE_ADD(sm.fecha, INTERVAL s.dias_cambio DAY) AS fecha_comparar
+            FROM m_re_serviciosvehiculos sm
+            INNER JOIN m_serviciosmenores s ON sm.idservicio = s.idservicio
+            INNER JOIN v_vehiculos v ON sm.idvehiculo = v.idvehiculo
+            WHERE (sm.idserviciovehiculo, sm.idvehiculo, sm.idservicio) 
+                    IN (
+                        SELECT MAX(sm1.idserviciovehiculo), sm1.idvehiculo, sm1.idservicio
+                        FROM 
+                        m_re_serviciosvehiculos sm1
+                        GROUP BY sm1.idvehiculo, sm1.idservicio
+                        )
+            GROUP BY sm.idvehiculo, sm.idservicio
+            ORDER BY sm.fecha DESC;
+        ===================================================*/
         $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.kilometraje AS kilometraje_actual, MAX(sm.idserviciovehiculo) AS idserviciovehiculo, sm.idvehiculo, sm.idservicio,s.kilometraje_cambio AS kilometraje_servicio, (s.kilometraje_cambio + MAX(sm.kilometraje)) AS kilometraje_cambio,
         MAX(sm.fecha) AS fecha, DATE_FORMAT(MAX(sm.fecha), '%d/%m/%y') AS Ffecha, s.servicio, DATE_FORMAT(date_add(sm.fecha, INTERVAL s.dias_cambio DAY), '%d/%m/%Y') AS fecha_cambio, date_add(sm.fecha, INTERVAL s.dias_cambio DAY) AS fecha_comparar 
         FROM m_re_serviciosvehiculos sm

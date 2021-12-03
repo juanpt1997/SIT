@@ -56,6 +56,7 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                             <th>Teléfono 1</th>
                                             <th>Teléfono 2</th>
                                             <th>Nombre del contacto</th>
+                                            <th>Correo</th>
                                             <th>Número del contrato</th>
                                             <th>Número de la factura</th>
                                             <th>Fecha de facturación</th>
@@ -98,6 +99,7 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                                 <td><?= $value['tel_1'] ?></td>
                                                 <td><?= $value['tel_2'] ?></td>
                                                 <td><?= $value['nombre_respo'] ?></td>
+                                                <td><?= $value['correo'] ?></td>
                                                 <td><?= $value['nro_contrato'] ?></td>
                                                 <td><?= $value['nro_factura'] ?></td>
                                                 <td><?= $value['fecha_facturacion'] ?></td>
@@ -181,7 +183,8 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                     <input class="form-control input-clientes" type="text" id="nomcontrataorden" name="nomcontrataorden" placeholder="Ingrese el nombre del contratante" required readonly>
                                 </div>
                             </div>
-
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="text-sm">NIT/CC</label>
                                 <div class="input-group input-group-sm">
@@ -237,19 +240,6 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                     <hr class="my-4 bg-dark">
 
                     <div class="row">
-
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="text-sm">Viaje ocasional</label>
-                                <div class="input-group input-group-sm">
-                                    <select class="form-control" id="viaje_ocasional" name="viaje_ocasional">                                        
-                                        <option value="" selected><strong>Seleccione un tipo de viaje</strong></option>
-                                        <option value="Propio">Propio</option>
-                                        <option value="Afiliado">Afiliado</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
 
                         <div class="col-md-4">
                             <div class="form-group">
@@ -421,7 +411,7 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                     <div class="form-group">
                         <label class="text-sm">Número de la factura</label>
                         <div class="input-group input-group-sm">
-                            <input class="form-control" type="number" id="numfacturaorden" name="numfacturaorden" placeholder="Ingrese el número de la factura" maxlength="30" required>
+                            <input class="form-control" type="text" id="numfacturaorden" name="numfacturaorden" placeholder="Ingrese el número de la factura" maxlength="30" required>
                         </div>
                     </div>
 

@@ -243,6 +243,7 @@ if (
                     $("#listaclientes").trigger("change");
                     $("#idruta").val(response.idruta);
                     $("#descrip").val(response.descripcion);
+                    $("#viaje_ocasional").val(response.viaje_ocasional);
                 },
             });
         });
@@ -643,7 +644,7 @@ if (
                     $("#f_facturacion").val(response.fecha_facturacion);
                     $("#cancelacion").val(response.cancelada);
                     $("#cod_autorizacion").val(response.cod_autoriz);
-                    $("#viaje_ocasional").val(response.viaje_ocasional);
+                    //$("#viaje_ocasional").val(response.viaje_ocasional);
                     $(".select2-single").trigger("change"); //MUESTRA EL VALOR DEL SELECT
                 },
             });
