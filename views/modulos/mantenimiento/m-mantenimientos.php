@@ -322,7 +322,7 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                                                         <div class="col-md-12 col-sm-9 ">
                                                                             <div class="form-group text-center" id="diagnostico_solicitud">
                                                                                 <label>Descripción</label>
-                                                                                <textarea class="form-control" name="diagnostico" rows="5" placeholder="Digite una leve descripción ..." required></textarea>
+                                                                                <textarea class="form-control diagno-resu" name="diagnostico" rows="5" placeholder="Digite una leve descripción ..." required></textarea>
                                                                             </div>
                                                                             <div class="row">
                                                                                 <div class="col-6">
@@ -580,7 +580,7 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                                                             ?>
                                                                             <tr>
                                                                                 <td><a><i class="far fa-file-pdf text-danger"></i></a></td>
-                                                                                <td><button class="btn btn-outline-dark" type="button"><?=$value['idorden'] ?></button></td>
+                                                                                <td><button class="btn btn-outline-dark btn-editarOrden" idorden="<?=$value['idorden'] ?>"  title="Ir a la orden" data-toggle="tooltip" data-placement="top" type="button"><?=$value['idorden'] ?></button></td>
                                                                                 <td><?=$value['placa'] ?></td>
                                                                                 <td><?=$value['Ffecha_entrada'] ?></td>
                                                                                 <td><?=$value['Ffecha_aprobacion'] ?></td>
@@ -861,14 +861,9 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                     <th>Fecha de la solicitud</th>
 
                                 </thead>
-                                <tbody class="text-nowrap">
+                                <tbody id="tbodyResumen" class="text-nowrap">
                                     <tr>
-                                        <td>ABC123</td>
-                                        <td>561</td>
-                                        <td>Llanta</td>
-                                        <td>Montallantas - Eléctrico</td>
-                                        <td>23/10/2021</td>
-                                        <td>25/10/2021</td>
+                                        
                                     </tr>
                                 </tbody>
                             </table>

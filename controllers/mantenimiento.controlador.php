@@ -665,7 +665,10 @@ class ControladorMantenimientos
 					if ($value != "") {
 						$id = intval($respuesta);
 						$servicio = intval($value);
-						$addPreventivo = ModeloMantenimientos::mdlAgregarPreventivo($id, $servicio);
+						$kilometraje = intval($datos['kilome_ordSer']);
+						$vehiculo = intval($datos['idvehiculo_OrdServ']);
+						$fecha = $datos['fechaInic_ordSer'];
+						$addPreventivo = ModeloMantenimientos::mdlAgregarPreventivo($id, $servicio, $kilometraje, $vehiculo, $fecha);
 					}
 				}
 			}
@@ -721,6 +724,15 @@ class ControladorMantenimientos
 			}
 			return $respuesta;
 		}
+	}
+
+	/* ===================================================
+		CARGAR DATOS DE UNA ORDEN DE SERVICIO
+	===================================================*/
+	static public function ctrCargarOrdenServicio($idorden)
+	{
+		$respuesta = ModeloMantenimientos::mdlCargarOrdenServicio($idorden);
+		return $respuesta;
 	}
 
 	/* ===================================================
