@@ -136,8 +136,14 @@ $CantidadColumnasHijos = ControladorGH::ctrMayorCantidadHijos()['cantidad'];
                                         <div class="card-body">
                                             <div class="row d-flex justify-content-center">
                                                 <div class="col-6">
-                                                    <select id="my-select" class="form-control" name="">
+                                                    <select id="selectGraf" class="form-control" name="">
+                                                        <option value="" selected disabled>-SELECCIONE UNA OPCIÓN-</option>
+                                                        <option value="cargo">CARGO</option>
                                                         <option value="nivel_escolaridad">NIVEL DE ESCOLARIDAD</option>
+                                                        <option value="turno_trabajo">TURNO DE TRABAJO</option>
+                                                        <option value="genero">GÉNERO</option>
+                                                        <option value="tipo_vinculacion">TIPO DE VINCULACIÓN</option>
+                                                        <option value="tipo_contrato">TIPO DE CONTRATO</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-12" id="colGrafPerfilSD">
