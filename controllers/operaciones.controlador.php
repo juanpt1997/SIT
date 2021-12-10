@@ -174,79 +174,83 @@ class ControladorAlistamiento
                 $retorno = ModeloAlistamiento::mdlEditarAlistamiento($datos);
             }
         }
-        
-        /* ===================================================
-            GUARDAR KILOMETRAJE VEHICULO
-        ===================================================*/
-        $tabla = "v_vehiculos";
 
-        $datoskm = array(
-            'tabla' => $tabla,
-            'item1' => 'kilometraje',
-            'valor1' => $datos['kilometraje_total'],
-            'item2' => 'idvehiculo',
-            'valor2' => $datos['idvehiculo']
-        );
+        if (is_numeric($retorno)){
+            /* ===================================================
+                GUARDAR KILOMETRAJE VEHICULO
+            ===================================================*/
+            $tabla = "v_vehiculos";
 
-        $respuestakm = ModeloVehiculos::mdlActualizarVehiculo($datoskm);
+            $datoskm = array(
+                'tabla' => $tabla,
+                'item1' => 'kilometraje',
+                'valor1' => $datos['kilometraje_total'],
+                'item2' => 'idvehiculo',
+                'valor2' => $datos['idvehiculo']
+            );
+
+            $respuestakm = ModeloVehiculos::mdlActualizarVehiculo($datoskm);
 
 
-        /* ===================================================
-        TELEGRAM
-        ===================================================*/
-        # Mensaje de telegram
-        $msg = "";
+            /* ===================================================
+            TELEGRAM
+            ===================================================*/
+            # Mensaje de telegram
+            $msg = "";
 
-        //para buscar el conductor
-        $datosPersonal = array(
-            'item' => 'idPersonal',
-            'valor' => $datos['idconductor']
-        );
+            //para buscar el conductor
+            $datosPersonal = array(
+                'item' => 'idPersonal',
+                'valor' => $datos['idconductor']
+            );
 
-        $respuesta = ModeloGH::mdlDatosEmpleado($datosPersonal);
+            $respuesta = ModeloGH::mdlDatosEmpleado($datosPersonal);
 
-        //Para buscar placa
+            //Para buscar placa
 
-        $datosplaca = array(
-            'item' => 'idvehiculo',
-            'valor' => $datos['idvehiculo']
-        );
+            $datosplaca = array(
+                'item' => 'idvehiculo',
+                'valor' => $datos['idvehiculo']
+            );
 
-        $respuestaPlaca = ModeloVehiculos::mdlDatosVehiculo($datosplaca);
-        date_default_timezone_set('America/Bogota');
-        $fecha = localtime(time(), true);
+            $respuestaPlaca = ModeloVehiculos::mdlDatosVehiculo($datosplaca);
+            date_default_timezone_set('America/Bogota');
+            $fecha = localtime(time(), true);
 
-        $msg = $msg . "<b>Conductor: </b>" . $respuesta['Nombre'] . "\n";
-        $msg = $msg . "<b>Placa: </b>" . $respuestaPlaca['placa'] . "\n";
-        $msg = $msg . "<b>Fecha: </b>" . date("d") . "/" . date("m") . "/" . date("y") . "\n";
-        $msg = $msg . "<b>Hora: </b>" . date("H") . ":" . date("i") . ":" . date("s") . "\n";
+            $msg = $msg . "<b>Conductor: </b>" . $respuesta['Nombre'] . "\n";
+            $msg = $msg . "<b>Placa: </b>" . $respuestaPlaca['placa'] . "\n";
+            $msg = $msg . "<b>Fecha: </b>" . date("d") . "/" . date("m") . "/" . date("y") . "\n";
+            $msg = $msg . "<b>Hora: </b>" . date("H") . ":" . date("i") . ":" . date("s") . "\n";
 
-        $notificacion = false;
+            $notificacion = false;
 
-        foreach ($datos as $key => $value) {
-            if ($key == 'nivel_refrigerante' && $value == 0) {
-                $msg = $msg . "<b>Nivel refrigerante:</b> Bajo \n";
-                $notificacion = True;
+            foreach ($datos as $key => $value) {
+                if ($key == 'nivel_refrigerante' && $value == 0) {
+                    $msg = $msg . "<b>Nivel refrigerante:</b> Bajo \n";
+                    $notificacion = True;
+                }
+                if ($key == 'nivel_combustible' && $value == 0) 
+                {
+                    $msg = $msg . "<b>Nivel de combustible:</b> Bajo \n";
+                    $notificacion = True;
+                }
+                if ($key == 'liquido_hidraulico' && $value == 0){
+                    $msg = $msg . "<b>Nivel de líquido hidráulico:</b> Bajo \n";
+                    $notificacion = True;
+                }
+                if ($key == 'nivel_liquido_frenos' && $value == 0){
+                    $msg = $msg . "<b>Nivel de líquido de frenos:</b> Bajo \n";
+                    $notificacion = True;
+                }
+                if ($key == 'nivel_aceite' && $value == 0){
+                    $msg = $msg . "<b>Nivel de aceite:</b> Bajo \n";
+                    $notificacion = True;
+                }
             }
-            if ($key == 'nivel_combustible' && $value == 0) 
-            {
-                $msg = $msg . "<b>Nivel de combustible:</b> Bajo \n";
-                $notificacion = True;
-            }
-            if ($key == 'liquido_hidraulico' && $value == 0){
-                $msg = $msg . "<b>Nivel de líquido hidráulico:</b> Bajo \n";
-                $notificacion = True;
-            }
-            if ($key == 'nivel_liquido_frenos' && $value == 0){
-                $msg = $msg . "<b>Nivel de líquido de frenos:</b> Bajo \n";
-                $notificacion = True;
-            }
-            if ($key == 'nivel_aceite' && $value == 0){
-                $msg = $msg . "<b>Nivel de aceite:</b> Bajo \n";
-                $notificacion = True;
-            }
+            if($notificacion != false) ControladorTelegram::ctrNotificaciones($msg);
+
         }
-        if($notificacion != false) ControladorTelegram::ctrNotificaciones($msg);
+        
         return $retorno;
     }
 

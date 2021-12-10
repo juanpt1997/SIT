@@ -8,9 +8,9 @@ require_once '../controllers/contratos.controlador.php';
 require_once '../models/contratos.modelo.php';
 
 
-if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok"){
-	echo "<script>window.location = 'inicio';</script>";
-	die();
+if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok") {
+   echo "<script>window.location = 'inicio';</script>";
+   die();
 }
 
 /* ===================================================
@@ -18,12 +18,12 @@ if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok"){
 ===================================================*/
 class AjaxClientes
 {
-   static public function ajaxDatosClientes($item,$valor)
+   static public function ajaxDatosClientes($item, $valor)
    {
       $datos = array(
-			'item' => $item,
-			'valor' => $valor
-		);
+         'item' => $item,
+         'valor' => $valor
+      );
       $respuesta = ModeloClientes::mdlVerClienteid($datos);
       echo json_encode($respuesta);
    }
@@ -34,15 +34,77 @@ class AjaxClientes
       echo $respuesta;
    }
 
+   /* ===================================================
+      GUARDAR RUTA DEL CLIENTE
+   ===================================================*/
+   static public function AjaxGuardarRutaCliente($formdata)
+   {
+      $respuesta = ControladorClientes::ctrGuardarRutaCliente($formdata);
+      echo $respuesta;
+   }
+
+   /* ===================================================
+        TABLA RUTAS X CLIENTE
+    ===================================================*/
+   static public function ajaxRutasxCliente($idcliente)
+   {
+      $Datos = ControladorClientes::ctrRutasxCliente($idcliente);
+      $tr = "";
+      foreach ($Datos as $key => $value) {
+         // /* Permiso de usuario */
+         // if (validarPermiso('M_CONTRATOS', 'D')) {
+         //    $btnEliminar = "<button type='button' class='btn btn-danger eliminarHijo' idhijo='{$value['idhijo']}' idPersonal='{$value['idPersonal']}'><i class='fas fa-trash-alt'></i></button>";
+         // } else {
+         //    $btnEliminar = "";
+         // }
+
+         $btnEditar = "<button type='button' class='btn btn-secondary btn-sm mx-1 editarRuta' idregistro='{$value['idrutacliente']}' title='Editar ruta'><i class='fas fa-edit'></i></button>";
+         $btnEliminar = "<button type='button' class='btn btn-danger btn-sm mx-1 eliminarRuta' idregistro='{$value['idrutacliente']}' title='Eliminar ruta'><i class='fas fa-trash-alt'></i></button>";
+         $btnAcciones = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnEditar . $btnEliminar . "</div>";
+
+
+         $tr .= "
+                <tr>
+                        <td>" . $value['cliente'] . "</td>
+                        <td>" . $value['origen'] . "</td>
+                        <td>" . $value['destino'] . "</td>
+                        <td>" . $value['descripcion'] . "</td>
+                        <td>" . $value['tipovehiculo'] . "</td>
+                        <td>" . $value['valor_recorrido'] . "</td>
+                        <td>$btnAcciones</td>
+                </tr>
+            ";
+      }
+
+      echo $tr;
+   }
+
+   /* ===================================================
+      DATOS DE UNA RUTA ASOCIADA A UN CLIENTE
+   ===================================================*/
+   static public function ajaxDatosRutaCliente($idrutacliente)
+   {
+      $respuesta = ControladorClientes::ctrDatosRutaCliente($idrutacliente);
+      echo json_encode($respuesta);
+   }
 }
 /* ===================================================
    # LLAMADOS A AJAX CLIENTES
 ===================================================*/
 if (isset($_POST['DatosClientes']) && $_POST['DatosClientes'] == "ok") {
-   AjaxClientes::ajaxDatosClientes($_POST['item'],$_POST['valor']);
+   AjaxClientes::ajaxDatosClientes($_POST['item'], $_POST['valor']);
 }
 if (isset($_POST['ConvertirCliente']) && $_POST['ConvertirCliente'] == "ok") {
    AjaxClientes::ajaxConvertirCliente($_POST['value']);
+}
+if (isset($_POST['GuardarRutaCliente']) && $_POST['GuardarRutaCliente'] == "ok") {
+   AjaxClientes::ajaxGuardarRutaCliente($_POST);
+}
+if (isset($_POST['TablaRutasxCliente']) && $_POST['TablaRutasxCliente'] == "ok") {
+   AjaxClientes::ajaxRutasxCliente($_POST['idcliente']);
+}
+if (isset($_POST['DatosRutaCliente']) && $_POST['DatosRutaCliente'] == "ok") {
+   AjaxClientes::ajaxDatosRutaCliente($_POST['idrutacliente']);
 }
 /* ===================================================
    * COTIZACIONES
@@ -88,7 +150,7 @@ class AjaxOrdenServico
    {
       $respuesta = ModeloOrdenServicio::mdlVerOrden($idorden);
       echo json_encode($respuesta);
-   }  
+   }
 }
 /* ===================================================
    # LLAMADOS A AJAX ORDENES DE SERVICIO
@@ -96,4 +158,3 @@ class AjaxOrdenServico
 if (isset($_POST['DatosOrden']) && $_POST['DatosOrden'] == "ok") {
    AjaxOrdenServico::ajaxDatosOrden($_POST['value']);
 }
-

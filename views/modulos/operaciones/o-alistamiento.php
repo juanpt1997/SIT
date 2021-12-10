@@ -425,7 +425,7 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
                                                 <div class="col-12 col-sm-6 col-lg-4">
                                                     <div class="form-group">
                                                         <label>Fecha</label>
-                                                        <input id="fechaAlistamiento" name="fechaAlistamiento" type="date" class="form-control">
+                                                        <input id="fechaAlistamiento" name="fechaAlistamiento" type="date" class="form-control" required>
                                                     </div>
                                                 </div>
 

@@ -53,7 +53,7 @@ class ModeloClientes
 
 
       /* $stmt->bindParam(":docum_empre", $datos['valor']);  */
-      $stmt->bindParam(":{$datos['valor']}", $datos['valor']); 
+      $stmt->bindParam(":{$datos['valor']}", $datos['valor']);
       $stmt->execute();
       $retorno = $stmt->fetch();
       $stmt->closeCursor();
@@ -164,36 +164,6 @@ class ModeloClientes
       return $id;
    }
 
-   // static public function mdlVerClienteExistente($valor)
-   // {
-   //    if ($valor != null) {
-   //       $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad, Mr.municipio AS ciudadres, Mc.municipio AS expedida
-   //                                              FROM cont_clientes C
-   //                                              LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio
-   //                                              LEFT JOIN gh_municipios Mr ON C.idciudadrespons = Mr.idmunicipio
-   //                                              LEFT JOIN gh_municipios Mc ON C.cedula_expedidaen = Mc.idmunicipio
-   //                                              WHERE C.idcliente = :id");
-
-
-   //       $stmt->bindParam(":id",  $valor, PDO::PARAM_STR);
-   //       $stmt->execute();
-   //       $retorno =  $stmt->fetch();
-   //    } else {
-
-   //       $stmt = Conexion::conectar()->prepare("SELECT C.*, M.municipio AS ciudad, Mr.municipio AS ciudadres, Mc.municipio AS expedida, CONCAT(C.nombre, ' - ', C.Documento) AS clientexist
-   //                                              FROM cont_clientes C
-   //                                              LEFT JOIN gh_municipios M ON C.idciudad = M.idmunicipio
-   //                                              LEFT JOIN gh_municipios Mr ON C.idciudadrespons = Mr.idmunicipio
-   //                                              LEFT JOIN gh_municipios Mc ON C.cedula_expedidaen = Mc.idmunicipio");
-
-   //       $stmt->execute();
-   //       $retorno =  $stmt->fetchAll();
-   //    }
-   //    $stmt->closeCursor();
-   //    return $retorno;
-   // }
-
-
    static public function mdlActualizarCampo($datos)
    {
       $conexion = Conexion::conectar();
@@ -212,6 +182,103 @@ class ModeloClientes
       $stmt->closeCursor();
       $stmt = null;
 
+      return $retorno;
+   }
+
+   /* ===================================================
+      DATOS RUTA EXISTENTE
+   ===================================================*/
+   static public function mdlDatosRutaCliente($sql)
+   {
+      $stmt = Conexion::conectar()->prepare("SELECT rc.*, 
+                                             r.idorigen, r.iddestino, r.nombreruta,
+                                             m1.municipio AS origen,
+                                             m2.municipio AS destino
+                                             FROM o_re_rutasclientes rc
+                                             INNER JOIN v_rutas r ON r.id = rc.idruta
+                                             INNER JOIN gh_municipios m1 ON m1.idmunicipio = r.idorigen
+                                             INNER JOIN gh_municipios m2 ON m2.idmunicipio = r.iddestino
+                                                WHERE {$sql}");
+
+      $stmt->execute();
+      $retorno = $stmt->fetch();
+      $stmt->closeCursor();
+      return $retorno;
+   }
+
+   /* ===================================================
+       TABLA RUTAS X CLIENTE
+    ===================================================*/
+   static public function mdlRutasxCliente($idcliente)
+   {
+      $stmt = Conexion::conectar()->prepare("SELECT rc.*, 
+                                                c.nombre AS cliente,
+                                                r.idorigen, r.iddestino, r.nombreruta,
+                                                m1.municipio AS origen,
+                                                m2.municipio AS destino,
+                                                tv.tipovehiculo
+                                                FROM o_re_rutasclientes rc
+                                                INNER JOIN v_rutas r ON r.id = rc.idruta
+                                                INNER JOIN cont_clientes c ON c.idcliente = rc.idcliente
+                                                INNER JOIN gh_municipios m1 ON m1.idmunicipio = r.idorigen
+                                                INNER JOIN gh_municipios m2 ON m2.idmunicipio = r.iddestino
+                                                INNER JOIN v_tipovehiculos tv ON tv.idtipovehiculo = rc.idtipovehiculo
+                                                WHERE rc.idcliente = :idcliente");
+
+      $stmt->bindParam(":idcliente", $idcliente, PDO::PARAM_INT);
+      $stmt->execute();
+      $retorno = $stmt->fetchAll();
+      $stmt->closeCursor();
+      return $retorno;
+   }
+
+   /* ===================================================
+      AGREGAR RUTA CLIENTE
+   ===================================================*/
+   static public function mdlAgregarRutaCliente($datos)
+   {
+      $conexion = Conexion::conectar();
+      $stmt = $conexion->prepare("INSERT INTO o_re_rutasclientes(idcliente,idruta,descripcion,idtipovehiculo, valor_recorrido)
+                                             VALUES(:idcliente,:idruta,:descripcion,:idtipovehiculo, :valor_recorrido)");
+
+      $stmt->bindParam(":idcliente", $datos["idcliente"], PDO::PARAM_INT);
+      $stmt->bindParam(":idruta", $datos["idruta"], PDO::PARAM_INT);
+      $stmt->bindParam(":descripcion", $datos["descripcion"], PDO::PARAM_STR);
+      $stmt->bindParam(":idtipovehiculo", $datos["idtipovehiculo"], PDO::PARAM_INT);
+      $stmt->bindParam(":valor_recorrido", $datos["valor_recorrido"], PDO::PARAM_INT);
+
+      if ($stmt->execute()) {
+         $retorno = $conexion->lastInsertId();
+      } else {
+         $retorno = "error";
+      }
+      $stmt->closeCursor();
+      $stmt = null;
+      return $retorno;
+   }
+   /* ===================================================
+      EDITAR RUTA CLIENTE
+   ===================================================*/
+   static public function mdlEditarRutaCliente($datos)
+   {
+      $conexion = Conexion::conectar();
+      $stmt = $conexion->prepare("UPDATE o_re_rutasclientes SET idruta = :idruta, descripcion = :descripcion, idtipovehiculo = :idtipovehiculo, valor_recorrido = :valor_recorrido
+                                 WHERE idrutacliente = :idrutacliente");
+
+      $stmt->bindParam(":idrutacliente", $datos["idrutacliente"], PDO::PARAM_INT);
+      /* $stmt->bindParam(":idcliente", $datos["idcliente"], PDO::PARAM_INT); */
+      $stmt->bindParam(":idruta", $datos["idruta"], PDO::PARAM_INT);
+      $stmt->bindParam(":descripcion", $datos["descripcion"], PDO::PARAM_STR);
+      $stmt->bindParam(":idtipovehiculo", $datos["idtipovehiculo"], PDO::PARAM_INT);
+      $stmt->bindParam(":valor_recorrido", $datos["valor_recorrido"], PDO::PARAM_INT);
+
+      if ($stmt->execute()) {
+         $retorno = $datos["idrutacliente"];
+      } else {
+         $retorno = "error";
+      }
+      $stmt->closeCursor();
+      $stmt = null;
       return $retorno;
    }
 }

@@ -516,6 +516,259 @@ if (
             }
             AbiertoxEditar = false; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
         });
+
+        /* ===================================================
+          ? RUTAS
+        ===================================================*/
+        /* ===================================================
+          Evento abrir gestión de rutas para el cliente
+        ===================================================*/
+        $(document).on("click", ".btn-verRutas", function () {
+            var idcliente = $(this).attr("idcliente");
+            var nombreCliente = $(this).attr("nombreCliente");
+
+            $("#idclienteRutas").val(idcliente);
+            $("#nombreClienteRutas").html(nombreCliente);
+
+            // Tabla dinámica de rutas
+            AjaxTablaRutasxCliente(idcliente);
+        });
+
+        /* ===================================================
+          Evento para ver rutas disponibles y agregar una
+        ===================================================*/
+        $(document).on("click", ".btn-ruta", function () {
+            $("#modalRutasCliente").modal("hide");
+            $("#titulo_modal_general").html("Seleccione una ruta");
+            $("#tabla_general_rutas").dataTable().fnDestroy();
+            // Borrar datos
+            $("#tbody_principal").html("");
+
+            $(".btnBorrar").addClass('d-none');
+
+            var datos = new FormData();
+            datos.append("ListarRutas", "ok");
+            $.ajax({
+                type: "POST",
+                url: "ajax/conceptos.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                //dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbody_principal").html(response);
+                    } else {
+                        $("#tbody_principal").html("");
+                    }
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
+                        /* 'copy', 'csv', 'excel', 'pdf', 'print' */
+                    ];
+                    dataTableCustom("#tabla_general_rutas", buttons);
+                },
+            });
+        });
+
+        /* ===================================================
+          Seleccionar ruta
+        ===================================================*/
+        $(document).on("click", ".btnSeleccionarRuta", function () {
+
+            //     $("#modalRutasCliente").modal('show');
+            $("#modal_general").modal('hide');
+
+            var origen = $(this).attr("origen");
+            var destino = $(this).attr("destino");
+            var descripcion = $(this).attr("descripcion");
+            var id = $(this).attr("idregistro");
+
+            $("#idruta").val(id);
+            $("#descripcion").val(descripcion);
+            $("#origen").val(origen);
+            $("#destino").val(destino);
+        });
+
+        /* ===================================================
+            Cuando se esconde el modal volver a abrir el anterior      
+        ===================================================*/
+        $("#modal_general").on('hidden.bs.modal', function () {
+            $("#modalRutasCliente").modal('show');
+            //$("#modal_general").modal('hide');
+
+            // $("#idruta").val("");
+            // $("#descripcion").val("");
+            // $("#origen").val("");
+            // $("#destino").val("");
+        });
+
+        /* ===================================================
+          Guardar ruta
+        ===================================================*/
+        $("#formRutasCliente").submit(function (e) {
+            e.preventDefault();
+            var datosAjax = new FormData();
+            datosAjax.append("GuardarRutaCliente", "ok");
+
+            // DATOS FORMULARIO
+            var datosFrm = $(this).serializeArray();
+            datosFrm.forEach((element) => {
+                datosAjax.append(element.name, element.value);
+            });
+
+            // VALIDAR QUE LA RUTA NO ESTÉ VACÍA
+            if ($("#idruta").val() == "") {
+                Swal.fire({
+                    icon: "warning",
+                    title: "¡Debe seleccionar una ruta antes de guardar!",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+                /* Guardar */
+                $.ajax({
+                    type: 'post',
+                    url: "ajax/contratos.ajax.php",
+                    data: datosAjax,
+                    /* dataType: "json", */
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        switch (response) {
+                            case "existe":
+                                Swal.fire({
+                                    icon: "warning",
+                                    title: "Ya existe otra ruta asociada a este cliente con los mismos datos",
+                                    showConfirmButton: true,
+                                    confirmButtonText: "Cerrar",
+                                    closeOnConfirm: false,
+                                });
+                                break;
+
+                            case "error":
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Ha ocurrido un error, por favor intente de nuevo",
+                                    showConfirmButton: true,
+                                    confirmButtonText: "Cerrar",
+                                    closeOnConfirm: false,
+                                }).then((result) => {
+                                    if (result.value) {
+                                        window.location = window.location;
+                                    }
+                                });
+                                break;
+
+                            default:
+                                // Reset formulario
+                                $("#formRutasCliente").trigger("reset");
+                                $("#idrutacliente").val("");
+
+                                // Mensaje de éxito al usuario
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "¡Datos guardados correctamente!",
+                                    showConfirmButton: false,
+                                    timer: 2000,
+                                    timerProgressBar: true
+                                });
+
+                                // Tabla dinámica de rutas
+                                AjaxTablaRutasxCliente($("#idclienteRutas").val());
+                                break;
+                        }
+                    }
+                });
+            }
+        });
+
+        /* ===================================================
+          Cargar datos de la ruta asociada en el formulario
+        ===================================================*/
+        $(document).on("click", ".editarRuta", function () {
+            // Reset formulario
+            $("#formRutasCliente").trigger("reset");
+            $("#idrutacliente").val("");
+
+            var idrutacliente = $(this).attr("idregistro");
+
+            var datos = new FormData();
+            datos.append('DatosRutaCliente', "ok");
+            datos.append('idrutacliente', idrutacliente);
+            $.ajax({
+                type: 'post',
+                url: "ajax/contratos.ajax.php",
+                data: datos,
+                dataType: 'json',
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response != "") {
+                        //llevar el scroll al principio
+                        //$("#idruta").scrollTop(0);
+
+                        // Cargar datos de la ruta
+                        $("#idrutacliente").val(response.idrutacliente);
+                        $("#idruta").val(response.idruta);
+                        $("#descripcion").val(response.descripcion);
+                        $("#origen").val(response.origen);
+                        $("#destino").val(response.destino);
+                        $("#tipoVehiculo").val(response.idtipovehiculo);
+                        $("#valor_recorrido").val(response.valor_recorrido);
+                    }
+                }
+            });
+        });
+
+        /* ===================================================
+          Función para cargar tabla de las rutas que tiene asociadas el cliente
+        ===================================================*/
+        /* ===================================================
+            TABLA RUTAS X CLIENTE
+        ===================================================*/
+        const AjaxTablaRutasxCliente = (idcliente) => {
+            // Quitar datatable
+            $("#tblRutasxCliente").dataTable().fnDestroy();
+            // Borrar datos
+            $("#tbodyRutasxCliente").html("");
+
+            let datos = new FormData();
+            datos.append('TablaRutasxCliente', 'ok');
+            datos.append('idcliente', idcliente);
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/contratos.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != '' || response != null) {
+                        $("#tbodyRutasxCliente").html(response);
+                    } else {
+                        $("#tbodyRutasxCliente").html('');
+                    }
+
+                    /* ===================================================
+                    INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                    ===================================================*/
+                    var buttons = [
+                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#tblRutasxCliente`, buttons);
+
+                }
+            });
+        }
+
     });
 }
 /* ===================================================
