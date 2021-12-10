@@ -380,7 +380,14 @@ class AjaxMantenimientos
         echo $respuesta;
     }
 
-
+    /* ===================================================
+        CARGAR DATOS DE UNA ORDEN DE SERVICIO
+    ===================================================*/
+    static public function ajaxCargarOrden($idorden)
+    {
+        $respuesta = ControladorMantenimientos::ctrCargarOrdenServicio($idorden);
+        echo json_encode($respuesta); 
+    }
 }
 /* ===================================================
             LLAMADOS AJAX INVENTARIO
@@ -453,5 +460,8 @@ if (isset($_POST['ServiciosxVehiculo']) && $_POST['ServiciosxVehiculo'] == "ok")
 #LLAMADO A LISTA DE PROVEEDORES
 if (isset($_POST['ListaProveedores']) && $_POST['ListaProveedores'] == "ok") AjaxMantenimientos::ajaxListdoProveedores($_POST['consecutivo']);
 
-#LLAMADO A GUARDAR/EDITAR ORDEN DE SERVICIO
+#LLAMADO A GUARDAR ORDEN DE SERVICIO
 if(isset($_POST['Guardar_OrdenServicio']) && $_POST['Guardar_OrdenServicio'] == "ok") AjaxMantenimientos::ajaxGuardarEditarOrdenServicio($_POST);
+
+#LLAMADO A CARGAR DATOS ORDEN DE SERVICIO
+if(isset($_POST['DatosOrdenServicio']) && $_POST['DatosOrdenServicio'] == "ok") AjaxMantenimientos::ajaxCargarOrden($_POST['idorden']);
