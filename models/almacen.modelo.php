@@ -281,15 +281,154 @@ class ModeloProductos
 
     static public function mdlDatosInventario($idinventario)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT i.posicion, i.stock, p.referencia, p.descripcion, s.sucursal FROM a_re_inventario i
-        INNER JOIN a_productos p ON p.idproducto = i.idproducto
-        INNER JOIN gh_sucursales s ON s.ids = i.idsucursal
-        WHERE i.idinventario = :idinventario");
 
-        $stmt->bindParam(":idinventario", $idinventario, PDO::PARAM_INT);
+        if ($idinventario != null) {
+
+            $stmt = Conexion::conectar()->prepare("SELECT i.posicion, i.stock, p.referencia, p.descripcion, s.sucursal FROM a_re_inventario i
+            INNER JOIN a_productos p ON p.idproducto = i.idproducto
+            INNER JOIN gh_sucursales s ON s.ids = i.idsucursal
+            WHERE i.idinventario = :idinventario");
+
+            $stmt->bindParam(":idinventario", $idinventario, PDO::PARAM_INT);
+
+            $stmt->execute();
+            $retorno =  $stmt->fetch();
+        } else {
+            $stmt = Conexion::conectar()->prepare("SELECT i.idproducto,i.posicion, i.stock, p.referencia, p.descripcion, s.sucursal
+            FROM a_re_inventario i
+            INNER JOIN a_productos p ON p.idproducto = i.idproducto
+            INNER JOIN gh_sucursales s ON s.ids = i.idsucursal
+            GROUP BY p.descripcion");
+
+            $stmt->execute();
+            $retorno =  $stmt->fetchAll();
+        }
+
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    static public function mdlContarInventario()
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("SELECT COUNT(*) AS cont FROM (SELECT i.idproducto FROM a_re_inventario i GROUP BY i.idproducto) AS contador");
 
         $stmt->execute();
         $retorno =  $stmt->fetch();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+    /*-------------------------------------------------------
+    --------------------MODELO ORDEN DE COMPRA---------------
+    -------------------------------------------------------*/
+
+    static public function mdlAgregarOrden($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO a_orden_compra(idproveedor,num_cotizacion,forma_pago,tipo_compra,direccion_entrega,observaciones,ruta_cotizacion_1,ruta_cotizacion_2,ruta_cotizacion_3)
+                                          VALUES(:idproveedor,:num_cotizacion,:forma_pago,:tipo_compra,:direccion_entrega,:observaciones,:ruta_cotizacion_1,:ruta_cotizacion_2,:ruta_cotizacion_3)");
+
+        $stmt->bindParam(":idproveedor", $datos["idproveedor"], PDO::PARAM_INT);
+        $stmt->bindParam(":num_cotizacion", $datos["num_cotizacion"], PDO::PARAM_INT);
+        $stmt->bindParam(":forma_pago", $datos["forma_pago"], PDO::PARAM_STR);
+        $stmt->bindParam(":tipo_compra", $datos["tipo_compra"], PDO::PARAM_STR);
+        $stmt->bindParam(":direccion_entrega", $datos["direccion_entrega"], PDO::PARAM_STR);
+        $stmt->bindParam(":observaciones", $datos["observaciones"], PDO::PARAM_STR);
+        $stmt->bindParam(":ruta_cotizacion_1", $datos["ruta_cotizacion_1"], PDO::PARAM_STR);
+        $stmt->bindParam(":ruta_cotizacion_2", $datos["ruta_cotizacion_2"], PDO::PARAM_STR);
+        $stmt->bindParam(":ruta_cotizacion_3", $datos["ruta_cotizacion_3"], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $id = $conexion->lastInsertId();
+        } else {
+            $id = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+        return $id;
+    }
+
+    static public function mdlEditarOrden($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE a_orden_compra set 
+                                               WHERE idorden = :idorden");
+
+        $stmt->bindParam(":idproducto", $datos["idproducto"], PDO::PARAM_INT);
+        $stmt->bindParam(":codigo", $datos["codigo"], PDO::PARAM_STR);
+        $stmt->bindParam(":referencia", $datos["referencia"], PDO::PARAM_INT);
+        $stmt->bindParam(":descripcion", $datos["descripcion"], PDO::PARAM_STR);
+        $stmt->bindParam(":idcategoria", $datos["idcategoria"], PDO::PARAM_INT);
+        $stmt->bindParam(":idmarca", $datos["idmarca"], PDO::PARAM_INT);
+        $stmt->bindParam(":idmedida", $datos["idmedida"], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    static public function mdlListarOrdenes($idorden)
+    {
+        if ($idorden != null) {
+
+            $stmt = Conexion::conectar()->prepare("SELECT o.*, p.razon_social FROM a_orden_compra o
+            INNER JOIN c_proveedores p ON p.id = o.idproveedor
+            WHERE o.idorden = :idorden");
+
+            $stmt->bindParam(":idorden",  $idorden, PDO::PARAM_INT);
+            $stmt->execute();
+            $retorno =  $stmt->fetch();
+        } else {
+
+            $stmt = Conexion::conectar()->prepare("SELECT o.*, p.razon_social FROM a_orden_compra o
+            INNER JOIN c_proveedores p ON p.id = o.idproveedor");
+
+            $stmt->execute();
+            $retorno =  $stmt->fetchAll();
+        }
+
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    static public function mdlAgregarRegistroProductos($idorden, $iproducto)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO a_re_productoscompra(idorden,idproducto)
+                                                VALUES(:idorden,:idproducto)");
+
+        $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
+        $stmt->bindParam(":idproducto", $iproducto, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+
+    static public function mdlDatosProductoOrden($idorden)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT p.idproducto, p.descripcion, p.referencia ,p.codigo
+        FROM a_re_productoscompra a 
+        INNER JOIN a_productos p ON p.idproducto = a.idproducto
+        WHERE idorden = :idorden");
+
+        $stmt->bindParam(":idorden",  $idorden, PDO::PARAM_INT);
+        $stmt->execute();
+        $retorno =  $stmt->fetchAll();
         $stmt->closeCursor();
         return $retorno;
     }

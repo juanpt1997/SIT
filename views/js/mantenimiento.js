@@ -1093,7 +1093,7 @@ $(document).ready(function () {
       var fila = `<tr>` +
         `<td style="width: 300px">` +
         `<div class="input-group">` +
-        `<input class="form-control" type="text" id="proveedor_${dinamico}" placeholder="Seleccione un repuesto" readonly>` +
+        `<input class="form-control" type="text" id="proveedor_${dinamico}" placeholder="Seleccione un repuesto"  maxlength="0">` +
         `<div class="input-group-append">` +
         `<button type="button" class="btn btn-success btn-md btn-proveedor" consecutivo="${dinamico}" title="lista proveedores" data-toggle="modal" data-target="#modal-proveedores"><i class="fas fa-parachute-box"></i></button>` +
         `</div>` +
@@ -1102,6 +1102,31 @@ $(document).ready(function () {
         `<input type="hidden" id="idproveedor_${dinamico}" name="proveedor[]"> ` +
         `<td style="width: 300px">` + `<input type="text" class="form-control" id="descrip_${dinamico}" name="descrip_mano[]">` + `</td>` +
         `<td style="width: 300px">` + `<input type="text" class="form-control" id="valor_${dinamico}" name="valor_mano[]">` + `</td>` +
+        `<td style="width: 300px">
+        <input type="hidden" id="servicio_mano_${dinamico}" name="servicio_mano[]">
+        <div class="input-group">
+        <input class="form-control" type="text" id="servmanoObra_${dinamico}" name="servmanoObra[]" placeholder="Seleccione un servicio"  maxlength="0">
+        <div class="input-group-append">
+        <button type="button" class="btn btn-success btn-md btn-servicios" seccion="manoObra" consecutivo="${dinamico}" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
+        </div>
+        </div>
+        </td>` +
+        `<td style="width: 900px;">
+        <div class="input-group">
+        <input class="form-control" type="text" id="sistemanoObra_${dinamico}" name="sistemarepuesto[]" placeholder="Seleccione el tipo de sistema"  maxlength="0">
+        <div class="input-group-append">
+        <button type="button" class="btn btn-success btn-md btn-sistema" seccion="manoObra" consecutivo="${dinamico}" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
+        </div>
+        </div>
+        </td>` +
+        `<td style="width: 900px;">
+        <div class="input-group">
+        <input class="form-control" type="text" id="mantenimientoManoObra_${dinamico}" name="mantenimientorepuesto[]" placeholder="Seleccione un mantenimiento"  maxlength="0">
+        <div class="input-group-append">
+        <button type="button" class="btn btn-success btn-md btn-mantenimiento" seccion="manoObra" consecutivo="${dinamico}" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
+        </div>
+        </div>
+        </td>` +
         `</tr>`
         ;
 
@@ -1119,7 +1144,7 @@ $(document).ready(function () {
 
 
     /*==============================
-        SOLICITUD DE SERVICIO/REPUESTOS
+    SOLICITUD DE SERVICIO/REPUESTOS
     ================================*/
 
     //CLICK EN AÑADIR FILA A REPUESTO SOLICITUD DE SERVICIO
@@ -1128,7 +1153,7 @@ $(document).ready(function () {
       var fila = `<tr>
       <td style="width: 300px">` +
         `<div class="input-group">` +
-        `<input class="form-control" type="text" id="repuesto_${dinamico}" name="repuesto[] "placeholder="Seleccione un repuesto" readonly>` +
+        `<input class="form-control" type="text" id="repuesto_${dinamico}" name="repuesto[] "placeholder="Seleccione un repuesto"  maxlength="0">` +
         `<div class="input-group-append">` +
         `<button type="button" class="btn btn-success btn-md btn-repuestos" consecutivo="${dinamico}" title="lista repuestos" data-toggle="modal" data-target="#modal-repuestos"><i class="fas fa-business-time"></i></button>` +
 
@@ -1136,16 +1161,134 @@ $(document).ready(function () {
         `</div>` +
         `</td>` +
         `<input type="hidden" id="inventario_${dinamico}" name="inventario[]">` +
-        `<td style="width: 300px">` + `<input type="text" class="form-control" id="refrepuestos_${dinamico}" name="referencia_repuesto[]" readonly>` + `</td>` +
-        `<td style="width: 300px">` + `<input type="text" class="form-control" id="codrepuestos_${dinamico}" name="codigo_repuesto[]" readonly>` + `</td>` +
+        `<td style="width: 300px">` + `<input type="text" class="form-control" id="refrepuestos_${dinamico}" name="referencia_repuesto[]"  maxlength="0">` + `</td>` +
+        `<td style="width: 300px">` + `<input type="text" class="form-control" id="codrepuestos_${dinamico}" name="codigo_repuesto[]"  maxlength="0">` + `</td>` +
+        `<td style="width: 300px">` + `<input type="text" class="form-control" id="valorrepuestos_${dinamico}"  maxlength="0">` + `</td>` +
         `<td style="width: 300px">` + `<input type="text" class="form-control input-cantrepuesto" id="cantrepuestos_${dinamico}" name="cantidad_repuesto[]">` + `</td>` +
-        `</tr>`
+        `<td style="width: 900px;">
+        <input type="hidden" id="servicio_repuesto_${dinamico}" name="servicio_repuesto[]">
+        <div class="input-group">
+            <input class="form-control" type="text" id="servrepuesto_${dinamico}" name="servrepuesto[]" placeholder="Seleccione un servicio"  maxlength="0">
+            <div class="input-group-append">
+                <button type="button" class="btn btn-success btn-md btn-servicios" seccion="repuesto" consecutivo="${dinamico}" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
+            </div>
+        </div>
+        </td>` +
+        `<td style="width: 900px;">
+        <div class="input-group">
+            <input class="form-control" type="text" id="sistemarepuesto_${dinamico}" name="sistemarepuesto[]" placeholder="Seleccione el tipo de sistema"  maxlength="0">
+            <div class="input-group-append">
+                <button type="button" class="btn btn-success btn-md btn-sistema" seccion="repuesto" consecutivo="${dinamico}" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
+            </div>
+        </div>
+      </td>` +
+        `<td style="width: 900px;">
+        <div class="input-group">
+            <input class="form-control" type="text" id="mantenimientorepuesto_${dinamico}" name="mantenimientorepuesto[]" placeholder="Seleccione un mantenimiento"  maxlength="0">
+            <div class="input-group-append">
+                <button type="button" class="btn btn-success btn-md btn-mantenimiento" seccion="repuesto" consecutivo="${dinamico}" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
+            </div>
+        </div>
+      </td>` +
+        `</tr> `
         ;
 
       dinamico = dinamico + 1;
 
 
       $("#filas_tabla_repuestoSolicitud").append(fila);
+    });
+
+    //CLICK QUE ABRE MODAL DE SERVICIOS
+    $(document).on("click", ".btn-servicios", function () {
+
+      let consecutivo = $(this).attr("consecutivo");
+      let seccion = $(this).attr("seccion");
+
+
+
+      var datos = new FormData();
+      datos.append("ListaServicios", "ok");
+      datos.append("consecutivo", consecutivo);
+      datos.append("seccion", seccion);
+      $.ajax({
+        type: "post",
+        url: "ajax/mantenimiento.ajax.php",
+        data: datos,
+        // dataType: "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+
+          if (response != '' || response != null) {
+            $("#tBodyServicios").html(response);
+          } else {
+            $("#tBodyServicios").html('');
+          }
+
+
+        }
+      });
+
+
+
+
+    });
+
+    //CLICK EN MODAL QUE CARGA TIPOS DE SISTEMAS 
+    $(document).on("click", ".btn-sistema", function () {
+      let consecutivo = $(this).attr("consecutivo");
+      let seccion = $(this).attr("seccion");
+
+
+      $(".btn-SeleccionarSistema").attr("seccion", seccion);
+      $(".btn-SeleccionarSistema").attr("consecutivo", consecutivo);
+
+    });
+
+    //CLICK EN SELECCIOANR TIPO DE SISTEMA
+    $(document).on("click", ".btn-SeleccionarSistema", function () {
+      let nombre = $(this).attr("nombre");
+      let consecutivo = $(this).attr("consecutivo");
+      let seccion = $(this).attr("seccion");
+
+
+      $("#modal-sistema").modal("hide");
+
+      if (seccion == "repuesto") {
+
+        $(`#sistemarepuesto_${consecutivo}`).val(nombre);
+      } else {
+        $(`#sistemanoObra_${consecutivo}`).val(nombre);
+      }
+
+    });
+
+    //CLICK EN MODAL QUE CARGA TIPOS DE MANTENIMIENTOS
+    $(document).on("click", ".btn-mantenimiento", function () {
+      let consecutivo = $(this).attr("consecutivo");
+      let seccion = $(this).attr("seccion");
+
+
+      $(".btn-SeleccionarMantenimiento").attr("seccion", seccion);
+      $(".btn-SeleccionarMantenimiento").attr("consecutivo", consecutivo);
+    });
+
+    //CLICK EN SELECCIONAR TIPO DE MANTENIMIENTO
+    $(document).on("click", ".btn-SeleccionarMantenimiento", function () {
+      let nombre = $(this).attr("nombre");
+      let consecutivo = $(this).attr("consecutivo");
+      let seccion = $(this).attr("seccion");
+
+      $("#modal-mantenimiento").modal("hide");
+
+      if (seccion == "repuesto") {
+        $(`#mantenimientorepuesto_${consecutivo}`).val(nombre);
+      } else {
+        $(`#mantenimientoManoObra_${consecutivo}`).val(nombre);
+      }
+
     });
 
     //CLICK EN ELIMINAR FLA A RESPUESTO EN SOLICITUD DE SERVICIO
@@ -1249,7 +1392,7 @@ $(document).ready(function () {
           response.forEach((element) => {
             // Asigno valor fecha
             $(
-              `#documento_${element.idtipodocumento}`
+              `#documento_${element.idtipodocumento} `
             ).val(element.fechafin);
 
             // Color del fondo segun la fecha
@@ -1259,7 +1402,7 @@ $(document).ready(function () {
                 ? "bg-success"
                 : "bg-danger";
             $(
-              `#documento_${element.idtipodocumento}`
+              `#documento_${element.idtipodocumento} `
             ).addClass(bg);
           });
         },
@@ -1268,604 +1411,611 @@ $(document).ready(function () {
 
     });
 
-  }
+
+    //CARGAR TABLA DE PRODUCTOS
+    let AjaxTablaProductos = (consecutivo) => {
+
+      // Quitar datatable
+      $("#tablaRepuesto").dataTable().fnDestroy();
+      // Borrar datos
+      $("#tBodyRepuesto").html("");
+
+      var datos = new FormData();
+      datos.append("ListaProductos", "ok");
+      datos.append("consecutivo", consecutivo);
+      $.ajax({
+        type: "post",
+        url: `ajax/mantenimiento.ajax.php`,
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+
+          if (response != '' || response != null) {
+            $("#tBodyRepuesto").html(response);
+          } else {
+            $("#tBodyRepuesto").html('');
+          }
+          /* ===================================================
+              INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+            ===================================================*/
+          var buttons = [
+            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+          ];
+          var table = dataTableCustom(`#tablaRepuesto`, buttons);
+        },
+      });
+    }
 
 
-  //CARGAR TABLA DE PRODUCTOS
-  let AjaxTablaProductos = (consecutivo) => {
+    /* =====================================================
+        CLICK EN CAMPO REPUESTO TABLA SOLICITUD DE SERVICIO
+    =======================================================*/
 
-    // Quitar datatable
-    $("#tablaRepuesto").dataTable().fnDestroy();
-    // Borrar datos
-    $("#tBodyRepuesto").html("");
+    $(document).on("click", ".btn-repuestos", function () {
+      //Mando el consecutivo para luego saber a que fila poner el repuesto seleccionado
+      var consecutivo = $(this).attr("consecutivo")
+      //FUNCION CARGAR TABLA PRODUCTOS
+      AjaxTablaProductos(consecutivo);
 
-    var datos = new FormData();
-    datos.append("ListaProductos", "ok");
-    datos.append("consecutivo", consecutivo);
-    $.ajax({
-      type: "post",
-      url: `ajax/mantenimiento.ajax.php`,
-      data: datos,
-      cache: false,
-      contentType: false,
-      processData: false,
-      success: function (response) {
 
-        if (response != '' || response != null) {
-          $("#tBodyRepuesto").html(response);
-        } else {
-          $("#tBodyRepuesto").html('');
-        }
-        /* ===================================================
-            INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-          ===================================================*/
-        var buttons = [
-          { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
-        ];
-        var table = dataTableCustom(`#tablaRepuesto`, buttons);
-      },
     });
-  }
 
 
-  /* =====================================================
-      CLICK EN CAMPO REPUESTO TABLA SOLICITUD DE SERVICIO
-  =======================================================*/
+    /*==============================
+      ClICK EN SELECCIONAR PRODUCTO
+    ================================*/
 
-  $(document).on("click", ".btn-repuestos", function () {
-    //Mando el consecutivo para luego saber a que fila poner el repuesto seleccionado
-    var consecutivo = $(this).attr("consecutivo")
-    //FUNCION CARGAR TABLA PRODUCTOS
-    AjaxTablaProductos(consecutivo);
+    $(document).on("click", ".btnSeleccionarProducto", function () {
 
-
-  });
-
-
-  /*==============================
-    ClICK EN SELECCIONAR PRODUCTO
-  ================================*/
-
-  $(document).on("click", ".btnSeleccionarProducto", function () {
-
-    $("#modal-repuestos").modal("hide");
-
-    var descripcion = $(this).attr("descripcion");
-    var consecutivo = $(this).attr("consecutivo");
-    var codigo = $(this).attr("codigo");
-    var referencia = $(this).attr("referencia");
-    var inventario = $(this).attr("inventario");
-
-
-    $(`#inventario_${consecutivo}`).val(inventario);
-    $(`#repuesto_${consecutivo}`).val(descripcion);
-    $(`#refrepuestos_${consecutivo}`).val(referencia);
-    $(`#codrepuestos_${consecutivo}`).val(codigo);
-
-
-  });
+      $("#modal-repuestos").modal("hide");
 
 
 
 
-  /*========================================
-***************PROGRAMACION*****************
-  ===========================================*/
+
+      var descripcion = $(this).attr("descripcion");
+      var consecutivo = $(this).attr("consecutivo");
+      var codigo = $(this).attr("codigo");
+      var referencia = $(this).attr("referencia");
+      var inventario = $(this).attr("inventario");
+      var valor = $(this).attr("valor")
+
+      $(`#servrepuesto_${consecutivo}`).attr("required", true);
+      $(`#sistemarepuesto_${consecutivo}`).attr("required", true);
+      $(`#mantenimientorepuesto_${consecutivo}`).attr("required", true);
 
 
-
-  // CARGAR DATOS EN LA TABLA DEPENDIENDO DEL SERVICIO SELECCIONADO
-
-  let AjaxTablaProgramacion = (idservicio) => {
-    // Quitar datatable
-    $("#tablaProgramacion").dataTable().fnDestroy();
-    // Borrar datos
-    $("#tbodyProgramacion").html("");
-
-    var datos = new FormData();
-    datos.append("Servicios", "ok");
-    datos.append("idservicio", idservicio);
-    $.ajax({
-      type: "post",
-      url: "ajax/mantenimiento.ajax.php",
-      data: datos,
-      // dataType: "JSON",
-      cache: false,
-      contentType: false,
-      processData: false,
-      success: function (response) {
+      $(`#inventario_${consecutivo} `).val(inventario);
+      $(`#repuesto_${consecutivo} `).val(descripcion);
+      $(`#refrepuestos_${consecutivo} `).val(referencia);
+      $(`#codrepuestos_${consecutivo} `).val(codigo);
+      $(`#valorrepuestos_${consecutivo} `).val(valor);
 
 
+    });
 
-        if (response != '' || response != null) {
-          $("#tbodyProgramacion").html(response);
-        } else {
-          $("#tbodyProgramacion").html('');
-        }
+    /*==============================
+      CLICK EN SELECCIONAR SERVICIO
+    ================================*/
+    $(document).on("click", ".btn-SeleccionarServicio", function () {
+      $("#modal-servicios").modal("hide");
 
-        /* ===================================================
-                 INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-                 ===================================================*/
-        var buttons = [
-          { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
-        ];
-        var table = dataTableCustom(`#tablaProgramacion`, buttons);
+      let servicio = $(this).attr("servicio");
+      let seccion = $(this).attr("seccion");
+      let consecutivo = $(this).attr("consecutivo");
+      let idservicio = $(this).attr("idservicio")
+     
+
+      if (seccion == "repuesto") {
+        $(`#servrepuesto_${consecutivo} `).val(servicio);
+        $(`#servicio_repuesto_${consecutivo}`).val(idservicio)
+      } else {
+        $(`#servmanoObra_${consecutivo} `).val(servicio);
+        $(`#servicio_mano_${consecutivo}`).val(idservicio)
 
       }
+
+
     });
 
 
-
-  }
-
-  //SELECCION SERVICIO
-  $(document).on("change", "#servicio", function () {
+    /*========================================
+  ***************PROGRAMACION*****************
+    ===========================================*/
 
 
-    //CARGA TABLA POR AJAX 
-    let idservicio = $(this).val()
 
-    if (idservicio == 'todo') $('#btn-guardarProgra').hide();
-    else $('#btn-guardarProgra').show();
+    // CARGAR DATOS EN LA TABLA DEPENDIENDO DEL SERVICIO SELECCIONADO
+
+    let AjaxTablaProgramacion = (idservicio) => {
+      // Quitar datatable
+      $("#tablaProgramacion").dataTable().fnDestroy();
+      // Borrar datos
+      $("#tbodyProgramacion").html("");
+
+      var datos = new FormData();
+      datos.append("Servicios", "ok");
+      datos.append("idservicio", idservicio);
+      $.ajax({
+        type: "post",
+        url: "ajax/mantenimiento.ajax.php",
+        data: datos,
+        // dataType: "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
 
 
-    AjaxTablaProgramacion(idservicio);
 
-  });
+          if (response != '' || response != null) {
+            $("#tbodyProgramacion").html(response);
+          } else {
+            $("#tbodyProgramacion").html('');
+          }
+
+          /* ===================================================
+                   INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                   ===================================================*/
+          var buttons = [
+            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+          ];
+          var table = dataTableCustom(`#tablaProgramacion`, buttons);
+
+        }
+      });
 
 
-  // BORRAR SERVICIO PROGRAMACIÓN
-  $(document).on("click", ".btnBorrarProgramacion", function () {
-    let idserviciovehiculo = $(this).attr("idserviciovehiculo");
-    let idservicio = $(this).attr("idservicio");
+
+    }
+
+    //SELECCION SERVICIO
+    $(document).on("change", "#servicio", function () {
 
 
-    Swal.fire({
-      icon: "warning",
-      showConfirmButton: true,
-      showCancelButton: true,
-      title: "¿Seguro que de sea borrar este registro?",
-      confirmButtonText: "Si, borrar",
-      cancelButtonText: "Cancelar",
-      confirmButtonColor: "#ff0000",
-      cancelButtonColor: "#0080ff",
-      allowOutsideClick: false,
-    }).then((result) => {
 
-      if (result.value == true) {
+      //CARGA TABLA POR AJAX 
+      let idservicio = $(this).val()
 
-        var datos = new FormData();
-        datos.append("EliminarProgramacion", "ok");
-        datos.append("idserviciovehiculo", idserviciovehiculo);
+      if (idservicio == 'todo') $('#btn-guardarProgra').hide();
+      else $('#btn-guardarProgra').show();
 
-        $.ajax({
-          type: "POST",
-          url: "ajax/mantenimiento.ajax.php",
-          data: datos,
-          cache: false,
-          contentType: false,
-          processData: false,
-          //dataType: "json",
-          success: function (response) {
 
-            if (response == "ok") {
-              AjaxTablaProgramacion(idservicio);
-              Swal.fire({
-                icon: "success",
-                showConfirmButton: true,
-                title: "¡El registro ha sido borrado correctamente!",
-                confirmButtonText: "¡Cerrar!",
-                allowOutsideClick: false,
-              }).then((result) => {
-                window.location = "m-mantenimientos";
-              });
-            }
-          },
-        });
-      }
+      AjaxTablaProgramacion(idservicio);
+
     });
 
 
+    // BORRAR SERVICIO PROGRAMACIÓN
+    $(document).on("click", ".btnBorrarProgramacion", function () {
+      let idserviciovehiculo = $(this).attr("idserviciovehiculo");
+      let idservicio = $(this).attr("idservicio");
 
 
+      Swal.fire({
+        icon: "warning",
+        showConfirmButton: true,
+        showCancelButton: true,
+        title: "¿Seguro que de sea borrar este registro?",
+        confirmButtonText: "Si, borrar",
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#ff0000",
+        cancelButtonColor: "#0080ff",
+        allowOutsideClick: false,
+      }).then((result) => {
 
-  });
+        if (result.value == true) {
 
-
-
-  // GUARDAR SERVICIO
-  $('#programacion_form').submit(function (e) {
-    e.preventDefault();
-
-    let idvehiculo = 0;
-    let kilometrajeFrm = 0;
-
-
-
-    var datosFrm = $(this).serializeArray();
-
-    datosFrm.forEach(element => {
-      if (element.name == 'idvehiculo_serv') idvehiculo = element.value;
-      if (element.name == 'kilometraje_serv') kilometrajeFrm = element.value;
-    });
-
-    var datos = new FormData();
-    datos.append("DatosVehiculo", "ok");
-    datos.append("item", "idvehiculo");
-    datos.append("valor", idvehiculo);
-
-
-    $.ajax({
-      type: "post",
-      url: `${urlPagina}ajax/vehicular.ajax.php`,
-      data: datos,
-      dataType: "JSON",
-      cache: false,
-      contentType: false,
-      processData: false,
-      success: function (response) {
-
-        var Vehiculo = response.datosVehiculo;
-
-
-        //Validamos si el kilometraje ingresado en el formulario es mayor o igual al que tiene el vehículo, de ser así puede guardar, de lo contrario no puede guardar
-        if (kilometrajeFrm >= Vehiculo.kilometraje) {
-
-          //AJAX PARA GUARDAR PROGRAMACIÓN
-          var datosAjax = new FormData();
-          datosAjax.append('GuardarProgramacion', "ok")
-
-          datosFrm.forEach(element => {
-            datosAjax.append(element.name, element.value);
-          });
-
+          var datos = new FormData();
+          datos.append("EliminarProgramacion", "ok");
+          datos.append("idserviciovehiculo", idserviciovehiculo);
 
           $.ajax({
-            type: 'post',
+            type: "POST",
             url: "ajax/mantenimiento.ajax.php",
-            data: datosAjax,
+            data: datos,
             cache: false,
             contentType: false,
             processData: false,
+            //dataType: "json",
             success: function (response) {
 
               if (response == "ok") {
-                // Cargar de nuevo la tabla de servicios
-                AjaxTablaProgramacion(1);
-                // Reset del formulario
-                $("#programacion_form").trigger("reset");
-                $("#servicio").val("").trigger("change");
-                $("#placa").val("").trigger("change");
-                // Mensaje de éxito al usuario
+                AjaxTablaProgramacion(idservicio);
                 Swal.fire({
-                  icon: 'success',
-                  title: '¡Datos guardados correctamente!',
+                  icon: "success",
                   showConfirmButton: true,
-                  confirmButtonText: 'Cerrar',
-                })
-              } else {
-                Swal.fire({
-                  icon: 'error',
-                  title: 'Ha ocurrido un error, por favor intente de nuevo',
-                  showConfirmButton: true,
-                  confirmButtonText: 'Cerrar',
-                  closeOnConfirm: false
+                  title: "¡El registro ha sido borrado correctamente!",
+                  confirmButtonText: "¡Cerrar!",
+                  allowOutsideClick: false,
                 }).then((result) => {
-
-                  if (result.value) {
-                    window.location = 'm-mantenimientos';
-                  }
-
-                })
+                  window.location = "m-mantenimientos";
+                });
               }
-            }
+            },
           });
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Verifique el kilometraje del vehículo y vuelva a intentarlo',
-            showConfirmButton: true,
-            confirmButtonText: 'Cerrar',
-            closeOnConfirm: false
-          })
+        }
+      });
+
+
+
+
+
+    });
+
+
+
+    // GUARDAR SERVICIO
+    $('#programacion_form').submit(function (e) {
+      e.preventDefault();
+
+      let idvehiculo = 0;
+      let kilometrajeFrm = 0;
+
+
+
+      var datosFrm = $(this).serializeArray();
+
+      datosFrm.forEach(element => {
+        if (element.name == 'idvehiculo_serv') idvehiculo = element.value;
+        if (element.name == 'kilometraje_serv') kilometrajeFrm = element.value;
+      });
+
+      var datos = new FormData();
+      datos.append("DatosVehiculo", "ok");
+      datos.append("item", "idvehiculo");
+      datos.append("valor", idvehiculo);
+
+
+      $.ajax({
+        type: "post",
+        url: `${urlPagina}ajax/vehicular.ajax.php`,
+        data: datos,
+        dataType: "JSON",
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+
+          var Vehiculo = response.datosVehiculo;
+
+
+          //Validamos si el kilometraje ingresado en el formulario es mayor o igual al que tiene el vehículo, de ser así puede guardar, de lo contrario no puede guardar
+          if (kilometrajeFrm >= Vehiculo.kilometraje) {
+
+            //AJAX PARA GUARDAR PROGRAMACIÓN
+            var datosAjax = new FormData();
+            datosAjax.append('GuardarProgramacion', "ok")
+
+            datosFrm.forEach(element => {
+              datosAjax.append(element.name, element.value);
+            });
+
+
+            $.ajax({
+              type: 'post',
+              url: "ajax/mantenimiento.ajax.php",
+              data: datosAjax,
+              cache: false,
+              contentType: false,
+              processData: false,
+              success: function (response) {
+
+                if (response == "ok") {
+                  // Cargar de nuevo la tabla de servicios
+                  AjaxTablaProgramacion(1);
+                  // Reset del formulario
+                  $("#programacion_form").trigger("reset");
+                  $("#servicio").val("").trigger("change");
+                  $("#placa").val("").trigger("change");
+                  // Mensaje de éxito al usuario
+                  Swal.fire({
+                    icon: 'success',
+                    title: '¡Datos guardados correctamente!',
+                    showConfirmButton: true,
+                    confirmButtonText: 'Cerrar',
+                  })
+                } else {
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'Ha ocurrido un error, por favor intente de nuevo',
+                    showConfirmButton: true,
+                    confirmButtonText: 'Cerrar',
+                    closeOnConfirm: false
+                  }).then((result) => {
+
+                    if (result.value) {
+                      window.location = 'm-mantenimientos';
+                    }
+
+                  })
+                }
+              }
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Verifique el kilometraje del vehículo y vuelva a intentarlo',
+              showConfirmButton: true,
+              confirmButtonText: 'Cerrar',
+              closeOnConfirm: false
+            })
+          }
+
+
+
+
+        },
+      });
+
+
+
+
+
+
+
+
+
+    });
+
+    //GUARDAR ORDEN DE SERVICIO
+    $('#ordenServ_form').submit(function (e) {
+      e.preventDefault();
+
+      var datosFrm = $(this).serializeArray();
+      var datosAjax = new FormData();
+      datosAjax.append('Guardar_OrdenServicio', "ok")
+
+      var serviciosexternos = new Array();
+
+      //CAPTURA EL IDSERVICIOEXTERNO DE LOS SERVICIOS QUE FUERON SELECCIONADOS
+      // $('input:checkbox:checked').each(function () {
+      //   let valido = $(this).attr("idservicioexterno");
+      //   serviciosexternos.push(valido);
+      // });
+
+      //MANDAMOS LOS SERVICIOS SELECCIONADOS
+      // serviciosexternos.forEach(element => {
+      //   datosAjax.append("serviciosexternos[]", element);
+      // });
+
+
+      datosFrm.forEach(element => {
+        datosAjax.append(element.name, element.value);
+      });
+
+
+
+
+      $.ajax({
+        type: 'post',
+        url: "ajax/mantenimiento.ajax.php",
+        data: datosAjax,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+
+          if (response != "error") {
+
+
+            // $("#ordenServ_form").trigger("reset");
+            // $("#placa_OrdServ").val("").trigger("change");
+            // $("#sistema").val("").trigger("change");
+            // $("#tipo_mantenimiento").val("").trigger("change");
+            // $("#ServPre").val("").trigger("change");
+            // $("#correctivo").val("").trigger("change");
+            // Mensaje de éxito al usuario
+
+
+            Swal.fire({
+              icon: 'success',
+              title: '¡Datos guardados correctamente!',
+              showConfirmButton: true,
+              confirmButtonText: 'Cerrar',
+            })
+
+            $("#btn-crearSolicitud").removeAttr("disabled");
+
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Ha ocurrido un error, por favor intente de nuevo',
+              showConfirmButton: true,
+              confirmButtonText: 'Cerrar',
+              closeOnConfirm: false
+            }).then((result) => {
+
+              if (result.value) {
+                window.location = 'm-mantenimientos';
+              }
+
+            })
+          }
+
         }
 
 
+      });
 
-
-      },
     });
 
 
+    //TABLA DE PROVEEDORES
+    let AjaxTablaProveedores = (consecutivo) => {
+      // Quitar datatable
+      $("#tablaProveedores").dataTable().fnDestroy();
+      // Borrar datos
+      $("#tBodyProveedores").html("");
 
+      var datos = new FormData();
+      datos.append("ListaProveedores", "ok");
+      datos.append("consecutivo", consecutivo);
+      $.ajax({
+        type: "post",
+        url: `ajax/mantenimiento.ajax.php`,
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
 
-
-    // datosFrm.forEach(element => {
-    //   datosAjax.append(element.name, element.value);
-    // });
-
-    // console.log(datosFrm);
-
-    // $.ajax({
-    //   type: 'post',
-    //   url: "ajax/mantenimiento.ajax.php",
-    //   data: datosAjax,
-    //   cache: false,
-    //   contentType: false,
-    //   processData: false,
-    //   success: function (response) {
-
-    //     console.log(response);
-    //     if (response == "ok") {
-    //       // Cargar de nuevo la tabla de servicios
-    //       AjaxTablaProgramacion(1);
-    //       // Reset del formulario
-    //       $("#programacion_form").trigger("reset");
-    //       // Mensaje de éxito al usuario
-    //       Swal.fire({
-    //         icon: 'success',
-    //         title: '¡Datos guardados correctamente!',
-    //         showConfirmButton: true,
-    //         confirmButtonText: 'Cerrar',
-    //       })
-    //     } else {
-    //       Swal.fire({
-    //         icon: 'error',
-    //         title: 'Ha ocurrido un error, por favor intente de nuevo',
-    //         showConfirmButton: true,
-    //         confirmButtonText: 'Cerrar',
-    //         closeOnConfirm: false
-    //       }).then((result) => {
-
-    //         if (result.value) {
-    //           window.location = 'm-mantenimientos';
-    //         }
-
-    //       })
-    //     }
-    //   }
-    // });
+          if (response != '' || response != null) {
+            $("#tBodyProveedores").html(response);
+          } else {
+            $("#tBodyProveedores").html('');
+          }
+          /* ===================================================
+              INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+            ===================================================*/
+          var buttons = [
+            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+          ];
+          var table = dataTableCustom(`#tablaProveedores`, buttons);
+        },
+      });
+    }
 
 
 
 
-
-
-  });
-
-  //GUARDAR ORDEN DE SERVICIO
-  $('#ordenServ_form').submit(function (e) {
-    e.preventDefault();
-
-    var datosFrm = $(this).serializeArray();
-    var datosAjax = new FormData();
-    datosAjax.append('Guardar_OrdenServicio', "ok")
-
-    var serviciosexternos = new Array();
-
-    //CAPTURA EL IDSERVICIOEXTERNO DE LOS SERVICIOS QUE FUERON SELECCIONADOS
-    $('input:checkbox:checked').each(function () {
-      let valido = $(this).attr("idservicioexterno");
-      serviciosexternos.push(valido);
+    // CLICK EN LISTA DE PROVEEDORES 
+    $(document).on("click", ".btn-proveedor", function () {
+      let consecutivo = $(this).attr("consecutivo");
+      AjaxTablaProveedores(consecutivo);
     });
 
-    //MANDAMOS LOS SERVICIOS SELECCIONADOS
-    serviciosexternos.forEach(element => {
-      datosAjax.append("serviciosexternos[]", element);
+    //CLICK EN SELECCIÓN DE PROVEEDORES
+    $(document).on("click", ".btn-SeleccionarProveedor", function () {
+      $("#modal-proveedores").modal("hide");
+
+      var nombre_proveedor = $(this).attr("nombre_proveedor");
+      var consecutivo = $(this).attr("consecutivo");
+      var idproveedor = $(this).attr("idproveedor")
+      // var codigo = $(this).attr("codigo");
+      // var referencia = $(this).attr("referencia");
+
+      //SE PONEN REQUIRED LOS CAMPOS DESPUÉS DE SELECCIONAR UN PROVEEDOR
+      $(`#servmanoObra_${consecutivo}`).attr("required", true);
+      $(`#sistemanoObra_${consecutivo}`).attr("required", true);
+      $(`#mantenimientoManoObra_${consecutivo}`).attr("required", true);
+
+
+      // SE CARGAN LOS DATOS SELECCIONADOS POR EL USUARIO
+      $(`#proveedor_${consecutivo} `).val(nombre_proveedor);
+      $(`#idproveedor_${consecutivo} `).val(idproveedor);
+
+    });
+    
+    $(document).on("click", ".btn-nuevoProveedor", function () {
+      $("#modal-proveedores").modal("hide");
+
     });
 
+    //CAMBIA LOS COLORES DEL ESTADO  
+    $(document).on("change", "#estado", function () {
+      let estado = this.value;
 
-    datosFrm.forEach(element => {
-      datosAjax.append(element.name, element.value);
-    });
-
-
-
-
-    $.ajax({
-      type: 'post',
-      url: "ajax/mantenimiento.ajax.php",
-      data: datosAjax,
-      cache: false,
-      contentType: false,
-      processData: false,
-      success: function (response) {
-
-        if (response != "error") {
+      if (estado == "3") {
+        $("#estado").removeClass("bg-warning");
+        $("#estado").removeClass("bg-success");
+        $("#estado").removeClass("bg-danger");
+      }
 
 
-          // $("#ordenServ_form").trigger("reset");
-          // $("#placa_OrdServ").val("").trigger("change");
-          // $("#sistema").val("").trigger("change");
-          // $("#tipo_mantenimiento").val("").trigger("change");
-          // $("#ServPre").val("").trigger("change");
-          // $("#correctivo").val("").trigger("change");
-          // Mensaje de éxito al usuario
+      if (estado == 0) {
+        $("#estado").removeClass("bg-warning");
+        $("#estado").removeClass("bg-success");
+        $("#estado").addClass("bg-danger");
+      }
+
+      if (estado == 1) {
+        $("#estado").removeClass("bg-danger");
+        $("#estado").removeClass("bg-success");
+        $("#estado").addClass("bg-warning");
+      }
 
 
-          Swal.fire({
-            icon: 'success',
-            title: '¡Datos guardados correctamente!',
-            showConfirmButton: true,
-            confirmButtonText: 'Cerrar',
-          })
-
-          $("#btn-crearSolicitud").removeAttr("disabled");
-
-        } else {
-          Swal.fire({
-            icon: 'error',
-            title: 'Ha ocurrido un error, por favor intente de nuevo',
-            showConfirmButton: true,
-            confirmButtonText: 'Cerrar',
-            closeOnConfirm: false
-          }).then((result) => {
-
-            if (result.value) {
-              window.location = 'm-mantenimientos';
-            }
-
-          })
-        }
-
+      if (estado == 2) {
+        $("#estado").removeClass("bg-warning");
+        $("#estado").removeClass("bg-danger");
+        $("#estado").addClass("bg-success");
       }
 
 
     });
 
-  });
+    //CLICK EN CREAR SOLICITUD 
+
+    $(document).on("click", "#btn-crearSolicitud", function () {
+      $("#servExternosResu").empty();
+      $("#servicios_externos").clone().appendTo("#servExternosResu");
+      $("#RepuestoResu").empty();
+      $("#repuesto_solicitud").clone().appendTo("#RepuestoResu");
+      $("#diagnosticoResu").empty();
+      $("#diagnostico_solicitud").clone().appendTo("#diagnosticoResu");
+
+      //DESHABILITAR OPCIONES EN LA MODAL
+      $("#modal-solicitud").find(".btn-repuestos").attr("disabled", "disabled");
+      $("#modal-solicitud").find(".input-cantrepuesto").attr("disabled", "disabled");
+      $("#modal-solicitud").find(".custom-control-label").removeAttr("for");
+      $("#modal-solicitud").find(".diagno-resu").attr("disabled", "disabled");
 
 
-  //TABLA DE PROVEEDORES
-  let AjaxTablaProveedores = (consecutivo) => {
-    // Quitar datatable
-    $("#tablaProveedores").dataTable().fnDestroy();
-    // Borrar datos
-    $("#tBodyProveedores").html("");
-
-    var datos = new FormData();
-    datos.append("ListaProveedores", "ok");
-    datos.append("consecutivo", consecutivo);
-    $.ajax({
-      type: "post",
-      url: `ajax/mantenimiento.ajax.php`,
-      data: datos,
-      cache: false,
-      contentType: false,
-      processData: false,
-      success: function (response) {
-
-        if (response != '' || response != null) {
-          $("#tBodyProveedores").html(response);
-        } else {
-          $("#tBodyProveedores").html('');
-        }
-        /* ===================================================
-            INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-          ===================================================*/
-        var buttons = [
-          { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
-        ];
-        var table = dataTableCustom(`#tablaProveedores`, buttons);
-      },
     });
+
+    $(document).on("click", '.btn-editarOrden', function () {
+
+      //CAMBIA DE TAB
+      $('#custom-tabs-one-historial_orden').removeClass("active show");
+      $('#custom-tabs-one-historial_orden-tab').removeClass("active");
+      $('#custom-tabs-one-ordenserv_mante-tab').addClass("active");
+      $('#custom-tabs-one-ordenserv_mante').addClass("active show");
+
+      let idorden = $(this).attr("idorden");
+
+      //AJAX PARA CARGAR DATOS DE LA ORDEN 
+      var datos = new FormData();
+      datos.append("DatosOrdenServicio", "ok");
+      datos.append("idorden", idorden);
+      $.ajax({
+        type: "post",
+        url: `ajax/mantenimiento.ajax.php`,
+        data: datos,
+        cache: false,
+        dataType: "JSON",
+        contentType: false,
+        processData: false,
+        success: function (response) {
+          console.log(response);
+
+          $("#placa_OrdServ").val(response.idvehiculo).trigger("change");
+
+          // let fecha_entrada = (response.fecha_entrada).format("YYYY-MM-DD")
+
+          //$('#kilome_ordSer').val(response.kilometraje);
+          // $("#placa_OrdServ").val("").trigger("change");
+          // $('#placa_OrdServ').val(response.placa).trigger("change");
+          //$('#numinterno_ordSer').val(response.numinterno);
+          //$('#modelo_ordSer').val(response.modelo);
+          //$("#clasevehiculo_ordSer").val(response.tipovehiculo).trigger("change");
+          //$('#marca_ordSer').val(response.marca);
+          $('#numOrden_ordSer').val(response.idorden);
+          $('#fechaentrada_ordSer').val(response.fecha_entrada);
+
+        },
+      });
+
+    });
+
+
+
+
+
   }
 
-
-  // CLICK EN LISTA DE PROVEEDORES 
-  $(document).on("click", ".btn-proveedor", function () {
-    let consecutivo = $(this).attr("consecutivo");
-    AjaxTablaProveedores(consecutivo);
-  });
-
-  //CLICK EN SELECCIÓN DE PROVEEDORES
-  $(document).on("click", ".btn-SeleccionarProveedor", function () {
-    $("#modal-proveedores").modal("hide");
-
-    var nombre_proveedor = $(this).attr("nombre_proveedor");
-    var consecutivo = $(this).attr("consecutivo");
-    var idproveedor = $(this).attr("idproveedor")
-    // var codigo = $(this).attr("codigo");
-    // var referencia = $(this).attr("referencia");
-
-
-    $(`#proveedor_${consecutivo}`).val(nombre_proveedor);
-    $(`#idproveedor_${consecutivo}`).val(idproveedor);
-
-  });
-
-  $(document).on("click", ".btn-nuevoProveedor", function () {
-    $("#modal-proveedores").modal("hide");
-
-  });
-
-  //CAMBIA LOS COLORES DEL ESTADO 
-  $(document).on("change", "#estado", function () {
-    let estado = this.value;
-
-    if (estado == "3") {
-      $("#estado").removeClass("bg-warning");
-      $("#estado").removeClass("bg-success");
-      $("#estado").removeClass("bg-danger");
-    }
-
-
-    if (estado == 0) {
-      $("#estado").removeClass("bg-warning");
-      $("#estado").removeClass("bg-success");
-      $("#estado").addClass("bg-danger");
-    }
-
-    if (estado == 1) {
-      $("#estado").removeClass("bg-danger");
-      $("#estado").removeClass("bg-success");
-      $("#estado").addClass("bg-warning");
-    }
-
-
-    if (estado == 2) {
-      $("#estado").removeClass("bg-warning");
-      $("#estado").removeClass("bg-danger");
-      $("#estado").addClass("bg-success");
-    }
-
-
-  });
-
-  //CLICK EN CREAR SOLICITUD 
-  $(document).on("click", "#btn-crearSolicitud", function () {
-    $("#servExternosResu").empty();
-    $("#servicios_externos").clone().appendTo("#servExternosResu");
-    $("#RepuestoResu").empty();
-    $("#repuesto_solicitud").clone().appendTo("#RepuestoResu");
-    $("#diagnosticoResu").empty();
-    $("#diagnostico_solicitud").clone().appendTo("#diagnosticoResu");
-
-    //DESHABILITAR OPCIONES EN LA MODAL
-    $("#modal-solicitud").find(".btn-repuestos").attr("disabled", "disabled");
-    $("#modal-solicitud").find(".input-cantrepuesto").attr("disabled", "disabled");
-    $("#modal-solicitud").find(".custom-control-label").removeAttr("for");
-    $("#modal-solicitud").find(".diagno-resu").attr("disabled", "disabled");
-
-
-  });
-
-  $(document).on("click", '.btn-editarOrden', function () {
-    $('#custom-tabs-one-historial_orden').removeClass("active show");
-    $('#custom-tabs-one-historial_orden-tab').removeClass("active");
-    $('#custom-tabs-one-ordenserv_mante-tab').addClass("active");
-    $('#custom-tabs-one-ordenserv_mante').addClass("active show");
-
-    let idorden = $(this).attr("idorden");
-
-    var datos = new FormData();
-    datos.append("DatosOrdenServicio", "ok");
-    datos.append("idorden", idorden);
-    $.ajax({
-      type: "post",
-      url: `ajax/mantenimiento.ajax.php`,
-      data: datos,
-      cache: false,
-      dataType: "JSON",
-      contentType: false,
-      processData: false,
-      success: function (response) {
-
-        // let fecha_entrada = (response.fecha_entrada).format("YYYY-MM-DD")
-
-        $('#kilome_ordSer').val(response.kilometraje);
-        // $('#placa_OrdServ').val(response.placa).trigger("change");
-        $('#numinterno_ordSer').val(response.numinterno);
-        $('#modelo_ordSer').val(response.modelo);
-        $("#clasevehiculo_ordSer").val(response.tipovehiculo).trigger("change");
-        $('#marca_ordSer').val(response.marca);
-        $('#fechaentrada_ordSer').val(fecha_entrada);
-        
-        console.log(response);
-      },
-    });
-
-  });
 
 
 });
