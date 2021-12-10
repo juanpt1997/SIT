@@ -1252,7 +1252,7 @@ $(document).ready(function () {
                 },
             });
         });
-
+        //CARGAR DATOS DE LA ORDEN EN LA TABLA PRINCIPAL
         const cargarTablaOrdenes = () => {
             let datos = new FormData();
             // Quitar datatable
@@ -1285,7 +1285,7 @@ $(document).ready(function () {
                 },
             });
         };
-
+        //CARGAR DATOS DEL PRODUCTO AL TRAER UNA ORDEN ESPECIFICA
         const cargarDatosProductos = (dinamico,element) => {
             var fila =
                 `<tr id="tr_filas">
@@ -1308,7 +1308,7 @@ $(document).ready(function () {
 
             $("#filas_tabla_productosSolicitud").append(fila);
         };
-
+        //RESET TABLA DE PRODUCTOS AL EDITAR UNA ORDEN
         const resetTable = () => {
             $("#filas_tabla_productosSolicitud").html("");
             var fila =
