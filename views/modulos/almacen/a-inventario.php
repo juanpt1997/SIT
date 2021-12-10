@@ -41,12 +41,12 @@
                 <div class="card-body">
                     <hr class="my-4 bg-dark">
                     <div class="row mt-2 d-flex justify-content-center">
-                        <div class="col-lg-3 col-6">
+                        <div class="col-lg-3">
                             <!--PRODUCTOS-->
-                            <div class="small-box bg-warning">
+                            <div class="small-box bg-primary">
                                 <div class="inner">
-                                    <h3><i class="fas fa-ellipsis-h"></i></h3>
-                                    <p><i>Productos</i></p>
+                                    <h3 id="contador_inventario"></h3>
+                                    <p><i>Productos / Inventario</i></p>
                                 </div>
                                 <div class="icon">
                                     <i class="fas fa-cubes"></i>
@@ -55,9 +55,9 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-6">
+                        <div class="col-lg-3">
                             <!--ORDENES DE COMPRA-->
-                            <div class="small-box bg-success">
+                            <div class="small-box bg-info">
                                 <div class="inner">
                                     <h3><i class="fas fa-ellipsis-h"></i></h3>
                                     <p><i>Órdenes de Compras</i></p>
@@ -69,9 +69,9 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-3 col-6">
+                        <div class="col-lg-3">
                             <!--AUTORIZACION DE COMPRA-->
-                            <div class="small-box bg-danger">
+                            <div class="small-box bg-success">
                                 <div class="inner">
                                     <h3><i class="fas fa-ellipsis-h"></i></h3>
                                     <p><i>Autorizaciones de compras</i></p>
@@ -96,7 +96,7 @@
 <!-- ===================================================
     MODAL DE PRODUCTOS
 =================================================== -->
-<div class="modal fade show" id="modal-productos" style="display: none; padding-right: 17px; overflow-y: scroll;" aria-modal="true" role="dialog">
+<div class="modal fade" id="modal-productos" style="display: none; padding-right: 17px; overflow-y: scroll;" aria-modal="true" role="dialog">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header bg-info">
@@ -349,7 +349,7 @@
 <!-- ===================================================
     MODAL DE HISTORIAL DE MOVIMIENTOS
 =================================================== -->
-<div id="modal-historialMovimientos" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="tituloModalHistorial" aria-hidden="true" style="overflow-y: scroll;">
+<div class="modal fade" id="modal-historialMovimientos" tabindex="-1" role="dialog" aria-labelledby="tituloModalHistorial" aria-hidden="true" style="overflow-y: scroll;">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-info">
@@ -392,7 +392,7 @@
 <!-- ===================================================
     MODAL DE SUCURSALES DE PRODUCTO
 =================================================== -->
-<div id="modal-sucursalesProducto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="tituloSucursales" aria-hidden="true" style="overflow-y: scroll;">
+<div class="modal fade" id="modal-sucursalesProducto" tabindex="-1" role="dialog" aria-labelledby="tituloSucursales" aria-hidden="true" style="overflow-y: scroll;">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-info">
@@ -432,11 +432,12 @@
 <!-- ===================================================
     MODAL DE ORDENES DE COMPRAS
 =================================================== -->
-<div class="modal fade show" id="modal-ordencompra" style="display: none; padding-right: 17px;" aria-modal="true" role="dialog">
+<div class="modal fade" id="modal-ordencompra" style="display: none; padding-right: 17px; overflow-y: scroll;" aria-modal="true" role="dialog">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header bg-success">
-                <h4 class="modal-title">Orden de compra</h4>
+
+            <div class="modal-header bg-info">
+                <h4 class="modal-title">Nueva orden de compra</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -444,120 +445,226 @@
 
             <div class="modal-body">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Fecha de elaboración</i></label>
-                                <input type="date" class="form-control" id="fechaelaboracion" name="fechaelaboracion">
+                    <form method="post" enctype="multipart/form-data" id="formularioOrden">
+                        <div class="row">
+
+                            <input type="hidden" id="idorden_compra" name="idorden_compra" value="">
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Número de cotizacion</i></label>
+                                    <input type="text" class="form-control" id="numcotizacion" name="numcotizacion" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Forma de pago</i></label>
+                                    <select class="custom-select rounded-0" id="formadepago" name="formadepago" required>
+                                        <option value="" selected>Seleccione una opción</option>
+                                        <option value="Contado">Contado</option>
+                                        <option value="Credito">Credito</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Proveedor</i></label>
+                                    <div class="input-group">
+                                        <select class="select2-single rounded-0" id="proveedor2" name="proveedor2" required>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <a href="c-proveedores" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nuevo proveedor" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Teléfono proveedor</i></label>
+                                    <input type="text" class="form-control" id="num_proveedor" name="num_proveedor" readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Correo proveedor</i></label>
+                                    <input type="text" class="form-control" id="correo_prov" name="correo_prov" readonly >
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Tipo de compra</i></label>
+                                    <select class="custom-select rounded-0" id="tipo_compra" name="tipo_compra" required>
+                                        <option value="" selected>Seleccione una opción</option>
+                                        <option value="Servicio">Servicio</option>
+                                        <option value="Producto">Producto</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label for="observaciones"><i>Observaciones</i></label>
+                                    <textarea class="form-control" name="observaciones" id="observaciones" rows="2"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Dirección de entrega</i></label>
+                                    <input type="text" class="form-control" id="direccion_entrega" name="direccion_entrega" placeholder="Digite direccion" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group d-none" id="visualizar_estado">
+                                    <label for="actualizar_estado">Actualizar estado de la orden</label>
+                                    <select id="actualizar_estado" class="form-control" name="actualizar_estado">
+                                        <option value="" selected>-Seleccione un estado-</option>
+                                        <option style="background-color: green; color: white;" value="APROBADA">APROBADA</option>
+                                        <option style="background-color: red; color: white;" value="RECHAZADA">RECHAZADA</option>
+                                        <option style="background-color: yellow; color: black;" value="PENDIENTE">PENDIENTE</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Número de cotizacion</i></label>
-                                <input type="text" class="form-control" id="numcotizacion" name="numcotizacion" required>
+                        <hr class="my-4 bg-dark">
+
+                        <h4><b><i>Productos</i></b>
+                            <i class="fas fa-tags"></i></i>
+                        </h4>
+
+                        <div class="table-responsive" id="solicitud_productos">
+                            <table class="table table table-bordered table-striped text-center">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 500px">Producto</th>
+                                        <th>Referencia</th>
+                                        <th>Código</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="filas_tabla_productosSolicitud">
+                                    <tr id="contenido_filas_productosSolicitud">
+                                        <td style="width: 300px">
+                                            <div class="input-group">
+                                                <input class="form-control" type="text" id="producto_1" name="producto[]" placeholder="Seleccione un producto" readonly>
+                                                <div class="input-group-append">
+                                                    <button type="button" class="btn btn-success btn-md btn_ListaProductosOrden" consecutivo="1" title="Lista de productos" data-toggle="modal" data-target="#modalProductos"><i class="fas fa-clipboard-list"></i></button>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <input type="hidden" id="idproducto_1" name="idproducto[]">
+                                        <td style="width: 300px"> <input type="text" class="form-control" id="referencia_1" name="referencia_producto[]" readonly></td>
+                                        <td style="width: 300px"> <input type="text" class="form-control" id="codigo_1" name="codigo_producto[]" readonly></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <button type="button" title="Agregar fila de productos" data-toggle="tooltip" data-placement="top" class="btn btn-success btn-toolbar btnAddProductoSolicitud">
+                                <i class="fas fa-plus"></i>
+                            </button>
+
+                            <button type="button" title="Eliminar fila de productos" data-toggle="tooltip" data-placement="top" class="btn btn-danger btn-toolbar btnEliminarProductoSolicitud">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+
+                        <hr class="my-4 bg-dark">
+
+                        <h4><b><i>Subir cotizaciones</i></b>
+                            <i class="fas fa-file-upload"></i>
+                        </h4>
+
+                        <div class="row">
+                            <!--SUBIR IMAGEN-->
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label></label>
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-file-alt"></i>
+                                            </span>
+                                        </div>
+                                        <input type="file" class="form-control" name="imagen_cotizacion1" id="imagen_cotizacion1" accept="image/png, image/jpeg, application/pdf" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label></label>
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-file-alt"></i>
+                                            </span>
+                                        </div>
+                                        <input type="file" class="form-control" name="imagen_cotizacion2" id="imagen_cotizacion2" accept="image/png, image/jpeg, application/pdf">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label></label>
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-file-alt"></i>
+                                            </span>
+                                        </div>
+                                        <input type="file" class="form-control" name="imagen_cotizacion3" id="imagen_cotizacion3" accept="image/png, image/jpeg, application/pdf">
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Forma de pago</i></label>
-                                <select class="custom-select rounded-0" id="formadepago" name="formadepago" required>
-                                    <option value="" selected>Seleccione una opción</option>
-                                    <option value="">Contado</option>
-                                    <option value="">Credito</option>
-                                </select>
-                            </div>
+                        <hr class="my-4">
+                        <!--BOTON GUARDAR -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-md bg-gradient-success btnCrearOrden" form="formularioOrden"><i class="fas fa-plus"></i><b> Crear Orden</b></button>
                         </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Proovedor</i></label>
-                                <select class="custom-select rounded-0" id="proovedorcompras" name="proovedorcompras" required>
-                                    <option value="" selected>Seleccione un proovedor</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Teléfono proveedor</i></label>
-                                <input type="text" class="form-control" id="numcotizacion" name="numcotizacion" required>
-                            </div>
-                        </div>
-
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Dirección de entrega</i></label>
-                                <input type="text" class="form-control" id="direccionproveedores" name="direccionproveedores" placeholder="Digite direccion" required>
-                            </div>
-                        </div>
-
-
-                        <div class="col-12 col-sm-6 col-lg-4">
-                            <div class="form-group text-center">
-                                <label><i>Tipo de compra</i></label>
-                                <select class="custom-select rounded-0" id="cconit" name="cconit" required>
-                                    <option value="" selected>Seleccione una opción</option>
-                                    <option value="">Servicio</option>
-                                    <option value="">Producto</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group text-center">
-                        <label for="observaciones"><i>Observaciones</i></label>
-                        <textarea class="form-control" name="observaciones" id="observaciones" rows="2"></textarea>
-                    </div>
+                    </form>
 
                     <hr class="my-4 bg-dark">
-
                     <!--|||TABLA RESUMEN DE ORDENES DE PRODUCTOS|||-->
                     <div class="col-12">
                         <div class="card card-outline card-success">
+
+                            <div class="card-header">
+                                <h5 class="card-title"><i><b>Listado de órdenes de compras</b></i></h5>
+                            </div>
+
                             <div class="card-body">
-                                <h5 class="text-center"><i>Órdenes de compras</i></h5>
+
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped text-center text-nowrap tablas">
+                                    <table class="table table-bordered table-striped text-center text-nowrap" id="tablaOrdenes">
                                         <thead>
                                             <tr>
-                                                <th>Estado</th>
-                                                <th>Proveedor</th>
-                                                <th>Número de documento</th>
-                                                <th>Teléfono o Celular</th>
-                                                <th>Dirección</th>
-                                                <th>Forma de pago</th>
+                                                <th>ID</th>
+                                                <th>...</th>
+                                                <th>Estado de orden</th>
                                                 <th>Número de cotización</th>
-                                                <th>Elaborado por</th>
-                                                <th>Fecha de elaboración</th>
-                                                <th>Tipo de compra</th>
+                                                <th>Proveedor</th>
                                                 <th>Observaciones</th>
+                                                <th>Fecha elaboración</th>
+                                                <th>Forma de pago</th>
+                                                <th>Tipo de compra</th>
+                                                <th>Cotizacion 1</th>
+                                                <th>Cotizacion 2</th>
+                                                <th>Cotizacion 3</th>
                                             </tr>
                                         </thead>
-
-                                        <!-- <tbody>
-                                                    <?php foreach ($inventario_almacen as $key => $value) : ?>
-                                                    <tr>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td>></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <?php endforeach ?>
-                                                </tbody> -->
+                                        <tbody id="tbody_tablaOrdenes">
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -568,12 +675,8 @@
             </div>
 
             <div class="modal-footer justify-content-center bg-dark">
-                <a class="btn btn-app bg-success">
-                    <i class="fas fa-plus"></i> Guardar
-                </a>
-
                 <a class="btn btn-app bg-danger" data-dismiss="modal">
-                    <i class="fas fa-ban"></i> Cancelar
+                    <i class="fas fa-ban"></i> Cerrar
                 </a>
             </div>
         </div>
@@ -582,7 +685,7 @@
 <!-- ===================================================
     MODAL DE INVENTARIO
 =================================================== -->
-<div class="modal fade show" id="modal-inventario" style="display: none; padding-right: 17px;" aria-modal="true" role="dialog">
+<div class="modal fade" id="modal-inventario" style="display: none; padding-right: 17px;" aria-modal="true" role="dialog">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header bg-success">
@@ -606,6 +709,44 @@
                 </a>
             </div>
             <!-- /.modal-content -->
+        </div>
+    </div>
+</div>
+<!-- ===================================================
+    MODAL PRODUCTOS A SELECCIONAR EN ORDEN
+=================================================== -->
+<div class="modal fade show" id="modalProductos" aria-modal="true" role="dialog" style="overflow-y: scroll;">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h4 class="modal-title">Lista de productos</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+
+            <div class="card card-outline ">
+                <div class="card-body">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table id="tablaProductosOrden" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover w-100">
+                                <thead class="text-nowrap">
+                                    <th>ID</th>
+                                    <th>Descripción</th>
+                                    <th>Código</th>
+                                    <th>Referencia</th>
+                                    <th>Categoria</th>
+                                    <th>Marca</th>
+                                    <th>Medidad</th>
+                                    <th>Seleccionar</th>
+                                </thead>
+                                <tbody id="tbodyProductosOrden" class="text-nowrap">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

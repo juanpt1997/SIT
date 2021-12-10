@@ -47,6 +47,12 @@ class AjaxProveedores
         }
         echo $option;
     }
+
+    static public function ajaxCargarDatosProveedor($id)
+    {
+        $respuesta = ModeloProveedores::mdlDatosproveedor($id);
+        echo json_encode($respuesta);
+    }
 }
 
 /* ===================================================
@@ -62,4 +68,8 @@ if (isset($_POST['EliminarProveedor']) && $_POST['EliminarProveedor'] == "ok") {
 
 if (isset($_POST['cargarselectProveedor']) && $_POST['cargarselectProveedor'] == "ok") {
     AjaxProveedores::cargarSelectProveedor();
+}
+
+if (isset($_POST['cargarDatosProveedor']) && $_POST['cargarDatosProveedor'] == "ok") {
+    AjaxProveedores::ajaxCargarDatosProveedor($_POST['id']);
 }

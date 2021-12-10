@@ -102,4 +102,18 @@ class ModeloProveedores
 
         return $retorno;
     }
+
+    static public function mdlDatosproveedor($value)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT pro.*, m.municipio AS ciudad
+                                                   FROM c_proveedores pro
+                                                   INNER JOIN gh_municipios m ON pro.idciudad = m.idmunicipio
+                                                   WHERE pro.id = :id");
+
+        $stmt->bindParam(":id",  $value, PDO::PARAM_INT);
+        $stmt->execute();
+        $retorno =  $stmt->fetch();
+        $stmt->closeCursor();
+        return $retorno;
+    }
 }
