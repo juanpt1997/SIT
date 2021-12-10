@@ -62,7 +62,8 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                             <tr>
                                                 <td class="text-center">
                                                     <div class="btn-group" role="group" aria-label="Button group">
-                                                        <button class="btn btn-toolbar btn-sm btn-info btn-editarfijo" idcliente="<?= $value['idcliente'] ?>" idfijos="<?= $value['idfijos'] ?>" data-toggle="modal" data-target="#fijosmodal"><i class="fas fa-edit"></i></button>
+                                                        <button class="btn btn-toolbar btn-sm btn-secondary btn-editarfijo" idcliente="<?= $value['idcliente'] ?>" idfijos="<?= $value['idfijos'] ?>" data-toggle="modal" data-target="#fijosmodal" title="Editar"><i class="fas fa-edit"></i></button>
+                                                        <button class="btn btn-toolbar btn-sm btn-primary btn-verRutas ml-1" idcliente="<?= $value['idcliente'] ?>" data-toggle="modal" data-target="#modalRutasCliente" title="Ver rutas"><i class="fas fa-route"></i></button>
                                                     </div>
                                                 </td>
                                                 <td><?= $value['idfijos'] ?></td>
@@ -189,6 +190,90 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                 $CrearCliente->ctrAgregarEditarFijos();
                 ?>
             </form>
+        </div>
+    </div>
+</div>
+
+<div id="modalRutasCliente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="my-modal-title">Rutas - <span>Cliente 1</span></h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- ===================================================
+                    CAMPOS RUTAS
+                =================================================== -->
+                <div class="row">
+                    <!-- Ruta -->
+                    <div class="col-12">
+                        <hr class="my-4 bg-dark">
+                        <div class="form-group">
+                            <label for="idruta" class="d-flex justify-content-center"><i>RUTA</i></label>
+                            <div class="input-group">
+                                <input type="hidden" id="idruta" name="idruta">
+                                <input class="form-control" type="text" id="observacionescontr" name="observacionescontr" placeholder="Seleccione una ruta de la lista" required>
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-success btn-md btn-ruta" title="Buscar una ruta existente" data-toggle="modal" data-target="#modal_general"><i class="fas fa-route"></i></button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Origen -->
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label>Origen</label>
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-route"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control input-fuec" type="text" id="origen" name="origen" readonly>
+                            </div>
+                        </div>
+
+                    </div><!-- /.col -->
+
+                    <!-- Destino -->
+                    <div class="col-12 col-md-6">
+                        <div class="form-group">
+                            <label>Destino</label>
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-route"></i>
+                                    </span>
+                                </div>
+                                <input class="form-control input-fuec" type="text" id="destino" name="destino" readonly>
+                            </div>
+                        </div>
+                    </div><!-- /.col -->
+                </div>
+
+                <hr class="my-4 bg-secondary">
+
+                <!-- ===================================================
+                    RESUMEN DE RUTAS
+                =================================================== -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                Resumen Rutas
+                            </div>
+                            <div class="card-body">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
