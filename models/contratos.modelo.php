@@ -283,25 +283,27 @@ class ModeloClientes
    }
 
    /* ===================================================
-      EDITAR RUTA CLIENTE
+      ELIMINAR RUTA ASOCIADA
    ===================================================*/
-   // static public function mdlEliminarRutaCliente($idrutacliente)
-   // {
-   //    $conexion = Conexion::conectar();
-   //    $stmt = $conexion->prepare("UPDATE o_re_rutasclientes SET idruta = :idruta, descripcion = :descripcion, idtipovehiculo = :idtipovehiculo, valor_recorrido = :valor_recorrido
-   //                               WHERE idrutacliente = :idrutacliente");
+   static public function mdlEliminarRutaCliente($idrutacliente)
+   {
+      $conexion = Conexion::conectar();
+      $stmt = $conexion->prepare("UPDATE o_re_rutasclientes SET estado = 0
+                                  WHERE idrutacliente = :idrutacliente");
 
-      
+      $stmt->bindParam(":idrutacliente", $idrutacliente, PDO::PARAM_INT);
 
-   //    if ($stmt->execute()) {
-   //       $retorno = "ok";
-   //    } else {
-   //       $retorno = "error";
-   //    }
-   //    $stmt->closeCursor();
-   //    $stmt = null;
-   //    return $retorno;
-   // }
+      if ($stmt->execute()) {
+         $retorno = "ok";
+      } else {
+         $retorno = "error";
+      }
+
+      $stmt->closeCursor();
+      $stmt = null;
+
+      return $retorno;
+   }
 }
 
 /* ===================================================

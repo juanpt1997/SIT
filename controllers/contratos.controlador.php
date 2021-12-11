@@ -190,6 +190,10 @@ class ControladorClientes
     static public function ctrEliminarRutaCliente($idrutacliente)
     {
         $respuesta = ModeloClientes::mdlEliminarRutaCliente($idrutacliente);
+
+        if ($respuesta != "ok"){
+            $respuesta = "error";
+        }
         return $respuesta;
     }
 }

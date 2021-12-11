@@ -717,8 +717,22 @@ if (
                 processData: false,
                 success: function (response) {
                     if (response != "") {
-                        //llevar el scroll al principio
-                        $("#modalRutasCliente").scrollTop(0);
+                        Swal.fire({
+                            icon: "info",
+                            title: "Cargando datos",
+                            showConfirmButton: false,
+                            timer: 1200,
+                            timerProgressBar: true,
+                            allowOutsideClick: false
+                        }).then((result) => {
+                            /* Read more about handling dismissals below */
+                            if (result.dismiss === Swal.DismissReason.timer) {
+                                setTimeout(() => {
+                                    //llevar el scroll al principio
+                                    $("#modalRutasCliente").scrollTop(0);
+                                }, 300);
+                            }
+                        });
 
                         // Cargar datos de la ruta
                         $("#idrutacliente").val(response.idrutacliente);
@@ -761,7 +775,23 @@ if (
                         contentType: false,
                         processData: false,
                         success: function (response) {
-                            console.log(response);
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Datos eliminados con éxito",
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                    timerProgressBar: true,
+                                    allowOutsideClick: false
+                                }).then((result) => {
+                                    /* Read more about handling dismissals below */
+                                    if (result.dismiss === Swal.DismissReason.timer) {
+                                        // Tabla dinámica de rutas
+                                        AjaxTablaRutasxCliente($("#idclienteRutas").val());
+                                    }
+                                });
+
+                            }
                         }
                     });
                 }
