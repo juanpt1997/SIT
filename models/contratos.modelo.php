@@ -223,7 +223,7 @@ class ModeloClientes
                                                 INNER JOIN gh_municipios m1 ON m1.idmunicipio = r.idorigen
                                                 INNER JOIN gh_municipios m2 ON m2.idmunicipio = r.iddestino
                                                 INNER JOIN v_tipovehiculos tv ON tv.idtipovehiculo = rc.idtipovehiculo
-                                                WHERE rc.idcliente = :idcliente");
+                                                WHERE rc.idcliente = :idcliente AND rc.estado = 1");
 
       $stmt->bindParam(":idcliente", $idcliente, PDO::PARAM_INT);
       $stmt->execute();
@@ -262,7 +262,7 @@ class ModeloClientes
    static public function mdlEditarRutaCliente($datos)
    {
       $conexion = Conexion::conectar();
-      $stmt = $conexion->prepare("UPDATE o_re_rutasclientes SET idruta = :idruta, descripcion = :descripcion, idtipovehiculo = :idtipovehiculo, valor_recorrido = :valor_recorrido
+      $stmt = $conexion->prepare("UPDATE o_re_rutasclientes SET idruta = :idruta, descripcion = :descripcion, idtipovehiculo = :idtipovehiculo, valor_recorrido = :valor_recorrido, estado = 1
                                  WHERE idrutacliente = :idrutacliente");
 
       $stmt->bindParam(":idrutacliente", $datos["idrutacliente"], PDO::PARAM_INT);
@@ -281,6 +281,27 @@ class ModeloClientes
       $stmt = null;
       return $retorno;
    }
+
+   /* ===================================================
+      EDITAR RUTA CLIENTE
+   ===================================================*/
+   // static public function mdlEliminarRutaCliente($idrutacliente)
+   // {
+   //    $conexion = Conexion::conectar();
+   //    $stmt = $conexion->prepare("UPDATE o_re_rutasclientes SET idruta = :idruta, descripcion = :descripcion, idtipovehiculo = :idtipovehiculo, valor_recorrido = :valor_recorrido
+   //                               WHERE idrutacliente = :idrutacliente");
+
+      
+
+   //    if ($stmt->execute()) {
+   //       $retorno = "ok";
+   //    } else {
+   //       $retorno = "error";
+   //    }
+   //    $stmt->closeCursor();
+   //    $stmt = null;
+   //    return $retorno;
+   // }
 }
 
 /* ===================================================

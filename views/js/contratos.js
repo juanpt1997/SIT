@@ -64,7 +64,6 @@ if (
 
         $(document).on("click", ".btn-estado", function () {
             var id = $(this).attr("idcliente");
-
             var datos = new FormData();
             datos.append("ConvertirCliente", "ok");
             datos.append("value", id);
@@ -530,6 +529,11 @@ if (
             $("#idclienteRutas").val(idcliente);
             $("#nombreClienteRutas").html(nombreCliente);
 
+            // Reset formulario
+            $("#formRutasCliente").trigger("reset");
+            $("#idrutacliente").val("");
+            $("#idruta").val("");
+
             // Tabla dinámica de rutas
             AjaxTablaRutasxCliente(idcliente);
         });
@@ -669,6 +673,7 @@ if (
                                 // Reset formulario
                                 $("#formRutasCliente").trigger("reset");
                                 $("#idrutacliente").val("");
+                                $("#idruta").val("");
 
                                 // Mensaje de éxito al usuario
                                 Swal.fire({
@@ -695,6 +700,7 @@ if (
             // Reset formulario
             $("#formRutasCliente").trigger("reset");
             $("#idrutacliente").val("");
+            $("#idruta").val("");
 
             var idrutacliente = $(this).attr("idregistro");
 
@@ -712,7 +718,7 @@ if (
                 success: function (response) {
                     if (response != "") {
                         //llevar el scroll al principio
-                        //$("#idruta").scrollTop(0);
+                        $("#modalRutasCliente").scrollTop(0);
 
                         // Cargar datos de la ruta
                         $("#idrutacliente").val(response.idrutacliente);
@@ -723,6 +729,41 @@ if (
                         $("#tipoVehiculo").val(response.idtipovehiculo);
                         $("#valor_recorrido").val(response.valor_recorrido);
                     }
+                }
+            });
+        });
+
+        /* ===================================================
+          Eliminar ruta asociada
+        ===================================================*/
+        $(document).on("click", ".eliminarRuta", function () {
+            var idrutacliente = $(this).attr("idregistro");
+
+            Swal.fire({
+                icon: "warning",
+                title: "¿Está seguro de que desea eliminar esta ruta?",
+                showConfirmButton: true,
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                confirmButtonText: "Borrar!",
+                cancelButtonColor: "#5cb85c",
+                confirmButtonColor: "#d9534f"
+            }).then((result) => {
+                if (result.value) {
+                    var datos = new FormData();
+                    datos.append('EliminarRutaCliente', "ok");
+                    datos.append('idrutacliente', idrutacliente);
+                    $.ajax({
+                        type: 'post',
+                        url: "ajax/contratos.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            console.log(response);
+                        }
+                    });
                 }
             });
         });

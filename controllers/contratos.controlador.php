@@ -183,6 +183,15 @@ class ControladorClientes
         $respuesta = ModeloClientes::mdlDatosRutaCliente($sql);
         return $respuesta;
     }
+
+    /* ===================================================
+       ELIMINAR RUTA ASOCIADA
+    ===================================================*/
+    static public function ctrEliminarRutaCliente($idrutacliente)
+    {
+        $respuesta = ModeloClientes::mdlEliminarRutaCliente($idrutacliente);
+        return $respuesta;
+    }
 }
 /* ===================================================
    * COTIZACIONES

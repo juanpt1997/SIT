@@ -87,6 +87,15 @@ class AjaxClientes
       $respuesta = ControladorClientes::ctrDatosRutaCliente($idrutacliente);
       echo json_encode($respuesta);
    }
+
+   /* ===================================================
+      ELIMINAR RUTA ASOCIADA
+   ===================================================*/
+   static public function ajaxEliminarRutaCliente($idrutacliente)
+   {
+      $respuesta = ControladorClientes::ctrEliminarRutaCliente($idrutacliente);
+      echo json_encode($respuesta);
+   }
 }
 /* ===================================================
    # LLAMADOS A AJAX CLIENTES
