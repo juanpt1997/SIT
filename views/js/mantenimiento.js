@@ -1184,7 +1184,7 @@ $(document).ready(function () {
                 </div>
                 </div>
                 </td>` +
-                        `<td style="width: 900px;">
+                `<td style="width: 900px;">
                 <div class="input-group">
                 <input class="form-control" type="text" id="sistemanoObra_${dinamico}" name="sistemarepuesto[]" placeholder="Seleccione el tipo de sistema"  maxlength="0">
                 <div class="input-group-append">
@@ -1192,7 +1192,7 @@ $(document).ready(function () {
                 </div>
                 </div>
                 </td>` +
-                        `<td style="width: 900px;">
+                `<td style="width: 900px;">
                 <div class="input-group">
                 <input class="form-control" type="text" id="mantenimientoManoObra_${dinamico}" name="mantenimientorepuesto[]" placeholder="Seleccione un mantenimiento"  maxlength="0">
                 <div class="input-group-append">
@@ -1418,7 +1418,6 @@ $(document).ready(function () {
                         .val(Vehiculo.tipovehiculo)
                         .trigger("change");
                     $("#marca_ordSer").val(Vehiculo.marca);
-                   
                 },
             });
 
@@ -1933,6 +1932,62 @@ $(document).ready(function () {
                 .attr("disabled", "disabled");
         });
 
+        //FUNCION PARA CARGAR FILAS DE REPUESTO AL EDITAR ORDEN
+        const filasEditarOrden = (dinamico, element) => {
+            var fila =
+                `<tr>
+      <td style="width: 300px">` +
+                `<div class="input-group">` +
+                `<input class="form-control" type="text" id="repuesto_${dinamico}" name="repuesto[] "placeholder="Seleccione un repuesto" value="${element.descripcion}"  maxlength="0">` +
+                `<div class="input-group-append">` +
+                `<button type="button" class="btn btn-success btn-md btn-repuestos" consecutivo="${dinamico}" title="lista repuestos" data-toggle="modal" data-target="#modal-repuestos"><i class="fas fa-business-time"></i></button>` +
+                `</div>` +
+                `</div>` +
+                `</td>` +
+                `<input type="hidden" id="inventario_${dinamico}" name="inventario[]">` +
+                `<td style="width: 300px">` +
+                `<input type="text" class="form-control" id="refrepuestos_${dinamico}" name="referencia_repuesto[]"  maxlength="0">` +
+                `</td>` +
+                `<td style="width: 300px">` +
+                `<input type="text" class="form-control" id="codrepuestos_${dinamico}" name="codigo_repuesto[]"  maxlength="0">` +
+                `</td>` +
+                `<td style="width: 300px">` +
+                `<input type="text" class="form-control" id="valorrepuestos_${dinamico}"  maxlength="0">` +
+                `</td>` +
+                `<td style="width: 300px">` +
+                `<input type="text" class="form-control input-cantrepuesto" id="cantrepuestos_${dinamico}" name="cantidad_repuesto[]">` +
+                `</td>` +
+                `<td style="width: 900px;">
+        <input type="hidden" id="servicio_repuesto_${dinamico}" name="servicio_repuesto[]">
+        <div class="input-group">
+            <input class="form-control" type="text" id="servrepuesto_${dinamico}" name="servrepuesto[]" placeholder="Seleccione un servicio"  maxlength="0">
+            <div class="input-group-append">
+                <button type="button" class="btn btn-success btn-md btn-servicios" seccion="repuesto" consecutivo="${dinamico}" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
+            </div>
+        </div>
+        </td>` +
+                `<td style="width: 900px;">
+        <div class="input-group">
+            <input class="form-control" type="text" id="sistemarepuesto_${dinamico}" name="sistemarepuesto[]" placeholder="Seleccione el tipo de sistema"  maxlength="0">
+            <div class="input-group-append">
+                <button type="button" class="btn btn-success btn-md btn-sistema" seccion="repuesto" consecutivo="${dinamico}" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
+            </div>
+        </div>
+      </td>` +
+                `<td style="width: 900px;">
+        <div class="input-group">
+            <input class="form-control" type="text" id="mantenimientorepuesto_${dinamico}" name="mantenimientorepuesto[]" placeholder="Seleccione un mantenimiento"  maxlength="0">
+            <div class="input-group-append">
+                <button type="button" class="btn btn-success btn-md btn-mantenimiento" seccion="repuesto" consecutivo="${dinamico}" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
+            </div>
+        </div>
+      </td>` +
+                `</tr> `;
+            
+
+            $("#filas_tabla_repuestoSolicitud").append(fila);
+        };
+
         //CLICK EN EDITAR ORDEN
         $(document).on("click", ".btn-editarOrden", function () {
             //CAMBIA DE TAB
@@ -1956,34 +2011,60 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    
+                    let datosOrden = response.datosOrden;
 
+                    // SE PONEN LOS DATOS GENERALES DE LA ORDEN EN SUS RESPECTIVOS CAMPOS
                     $("#placa_OrdServ")
-                        .val(response.idvehiculo)
+                        .val(datosOrden.idvehiculo)
                         .trigger("change");
 
-                    // SE PONEN LOS DATOS EN SUS RESPECTIVOS CAMPOS
                     $("#placa_OrdServ").attr("disabled", true);
-                    $("#numOrden_ordSer").val(response.idorden);
-                    $("#fechaentrada_ordSer").val(moment(response.fecha_entrada, "YYYY-MM-DD h:mm:ss").format("YYYY-MM-DD"));
-                    $("#horaentra_ordSer").val(response.hora_entrada);
-                    $("#fechainicio_ordSer").val(moment(response.fecha_trabajos, "YYYY-MM-DD h:mm:ss").format("YYYY-MM-DD"));
-                    $("#ciudad_OrdServ").val(response.idmunicipio).trigger("change");
-                    $(".diagno-resu").val(response.diagnostico);
-                    $("#observacion").val(response.observacion);
+                    $("#numOrden_ordSer").val(datosOrden.idorden);
+                    $("#fechaentrada_ordSer").val(
+                        moment(
+                            datosOrden.fecha_entrada,
+                            "YYYY-MM-DD h:mm:ss"
+                        ).format("YYYY-MM-DD")
+                    );
+                    $("#horaentra_ordSer").val(datosOrden.hora_entrada);
+                    $("#fechainicio_ordSer").val(
+                        moment(
+                            datosOrden.fecha_trabajos,
+                            "YYYY-MM-DD h:mm:ss"
+                        ).format("YYYY-MM-DD")
+                    );
+                    $("#ciudad_OrdServ")
+                        .val(datosOrden.idmunicipio)
+                        .trigger("change");
+                    $(".diagno-resu").val(datosOrden.diagnostico);
+                    $("#observacion").val(datosOrden.observacion);
 
+                    //SE PONEN LOS DATOS DE REPUESTOS
 
-                    //AJAX PARA CARGAR REPUESTOS DE LA ORDEN
+                    let repuestos = response.repuestosOrden;
 
+                    console.log(repuestos);
+                    console.log(repuestos.idinventario);
 
+                    let dinamico = 2;
 
-
+                    repuestos.forEach((element, index) => {
+                        if(index == 0){
+                            $("#repuesto_1").val(element.descripcion); 
+                            $("#refrepuestos_1").val(element.referencia); 
+                            $("#codrepuestos_1").val(element.codigo); 
+                            // $("#valorrepuestos_1").val(element.codigo); 
+                        }else{
+                            filasEditarOrden(dinamico, element);
+                            dinamico += 1;
+                        }
+                    });
                 },
             });
         });
 
         //CLICK EN RESTABLECER
-        $(document).on("click", "#btn-restablecer", function(){
+        $(document).on("click", "#btn-restablecer", function () {
             $("#placa_OrdServ").val("").trigger("change");
             $("#placa_OrdServ").removeAttr("disabled");
             $("#ciudad_OrdServ").val("").trigger("change");
