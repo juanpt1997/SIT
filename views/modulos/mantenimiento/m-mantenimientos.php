@@ -11,6 +11,8 @@ $ServExt = ControladorMantenimientos::ctrListadoServiciosExternos();
 $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 $OrdenesServicio = ControladorMantenimientos::ctrListadoOrdenesServicio();
 $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
+$DeparMunicipios = ControladorGH::ctrDeparMunicipios();
+
 ?>
 <!-- ===================== 
   MODELO PARA LA IMPLEMENTARCION EN EL DISEÑO DE LOS MODULOS
@@ -66,7 +68,10 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                             <a class="nav-link active" id="custom-tabs-one-ordenserv_mante-tab" data-toggle="pill" href="#custom-tabs-one-ordenserv_mante" role="tab" aria-controls="custom-tabs-one-ordenserv_mante" aria-selected="true">Orden de servicio / Mantenimiento</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="custom-tabs-one-historial_orden-tab" data-toggle="pill" href="#custom-tabs-one-historial_orden" role="tab" aria-controls="custom-tabs-one-historial_orden" aria-selected="false">Historial de ordenes de servicio</a>
+                                            <a class="nav-link" id="custom-tabs-one-historial_orden-tab" data-toggle="pill" href="#custom-tabs-one-historial_orden" role="tab" aria-controls="custom-tabs-one-historial_orden" aria-selected="false">Historial ordenes de servicio</a>
+                                        </li>
+                                        <li>
+                                            <a class="nav-link" id="custom-tabs-one-control-tab" data-toggle="pill" href="#custom-tabs-one-control" role="tab" aria-controls="custom-tabs-one-control" aria-selected="false">Control de actividades</a>
                                         </li>
 
                                     </ul>
@@ -173,7 +178,11 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                                                     <div class="col-12 col-sm-6 col-lg-4">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Fecha de entrada</i></label>
-                                                                            <input type="date" class="form-control" id="fechaentrada_ordSer" name="fechaentrada_OrdSer" required readonly>
+                                                                            <?php
+                                                                            $fecha = getdate();
+
+                                                                            ?>
+                                                                            <input type="date" class="form-control" id="fechaentrada_ordSer" name="fechaentrada_OrdSer" value="<?= $fecha['year'] . "-" . $fecha['mon'] . "-" . $fecha['mday'] ?>" required readonly>
                                                                         </div>
                                                                     </div>
 
@@ -196,6 +205,19 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                                                         <div class="form-group text-center">
                                                                             <label><i>Fecha de inicio de trabajos</i></label>
                                                                             <input type="date" class="form-control" id="fechainicio_ordSer" name="fechaInic_ordSer">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                        <div class="form-group text-center">
+                                                                            <label><i>Ciudad</i></label>
+                                                                            <select id="ciudad_OrdServ" name="ciudad_OrdServ" class="form-control select2-single" type="number" style="width: 99%" required>
+                                                                                <option selected value="">-Seleccione una ciudad-</option>
+                                                                                <?php foreach ($DeparMunicipios as $key => $value) : ?>
+                                                                                    <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?>
+                                                                                    </option>
+                                                                                <?php endforeach ?>
+                                                                            </select>
                                                                         </div>
                                                                     </div>
 
@@ -388,14 +410,14 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                                                                 <table class="table table-bordered table-striped text-center text-nowrap">
                                                                                     <thead>
                                                                                         <tr>
-                                                                                            <th style="width:990px;">REPUESTO ORDEN SERVICIO</th>
+                                                                                            <th style="min-width:300px;">REPUESTO</th>
                                                                                             <th>REFERENCIA</th>
                                                                                             <th>CÓDIGO</th>
                                                                                             <th>VALOR UNITARIO</th>
                                                                                             <th>CANTIDAD</th>
-                                                                                            <th>DIAGNÓSTICO ORDEN SERVICIO</th>
-                                                                                            <th>TIPO DE SISTEMA ORDEN SERVICIO</th>
-                                                                                            <th>TIPO DE MANTENIMIENTO</th>
+                                                                                            <th style="min-width:300px;">DIAGNÓSTICO</th>
+                                                                                            <th style="min-width:300px;">TIPO DE SISTEMA</th>
+                                                                                            <th style="min-width:300px;">TIPO DE MANTENIMIENTO</th>
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody id="filas_tabla_repuestoSolicitud">
@@ -510,12 +532,13 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                                                                 <table class="table table table-responsive table-bordered table-striped text-center text-nowrap">
                                                                                     <thead>
                                                                                         <tr>
-                                                                                            <th style="width: 900px">PROVEEDOR ORDEN SERVICIO</th>
-                                                                                            <th>DESCRIPCIÓN</th>
-                                                                                            <th>VALOR ORDEN SERVICIO</th>
-                                                                                            <th style="width: 900px">DIAGNÓSTICO ORDEN SERVICIO</th>
-                                                                                            <th>TIPO DE SISTEMA</th>
-                                                                                            <th>TIPO DE MANTENIMIENTO</th>
+                                                                                            <th style="min-width:300px;">PROVEEDOR</th>
+                                                                                            <th  style="min-width:300px;" >ITEM</th>
+                                                                                            <th>VALOR UNITARIO</th>
+                                                                                            <th>CANTIDAD</th>
+                                                                                            <th style=" min-width:300px;">DIAGNÓSTICO</th>
+                                                                                            <th style="min-width:300px;">TIPO DE SISTEMA</th>
+                                                                                            <th style="min-width:300px;">TIPO DE MANTENIMIENTO</th>
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody id="filas_tabla_manoObra">
@@ -530,6 +553,7 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                                                                             <input type="hidden" id="idproveedor_1" name="proveedor[]">
                                                                                             <td style="width: 300px"><input type="text" class="form-control" id="descrip_1" name="descrip_mano[]"></td>
                                                                                             <td style="width: 300px"><input type="text" class="form-control" id="valor_1" name="valor_mano[]"></td>
+                                                                                            <td style="width: 300px"><input type="text" class="form-control" id="cantmanoObra_1" name="cantmanoObra[]"></td>
                                                                                             <td style="width: 300px">
                                                                                                 <input type="hidden" id="servicio_mano_1" name="servicio_mano[]">
                                                                                                 <div class="input-group">
@@ -652,9 +676,9 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                                                 <span>Guardar</span>
                                                             </button>
 
-                                                            <button type="reset" class="btn btn-danger col cancel">
-                                                                <i class="fas fa-times-circle"></i>
-                                                                <span>Cancelar</span>
+                                                            <button type="reset" class="btn btn-warning col cancel" id="btn-restablecer">
+                                                                <i class="fas fa-broom"></i>
+                                                                <span>Restablecer</span>
                                                             </button>
 
 
@@ -682,9 +706,8 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                                                             <th>Fecha entrada</th>
                                                                             <th>Fecha salida</th>
                                                                             <th>Fecha inicios de trabajo</th>
-                                                                            <th>Tipo de mantenimiento</th>
-                                                                            <th>Sistema</th>
                                                                             <th>Diagnóstico</th>
+                                                                            <th>Ciudad</th>
                                                                             <th>Observación</th>
                                                                             <th>Estado</th>
                                                                         </tr>
@@ -708,9 +731,8 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                                                                 <td><?= $value['Ffecha_entrada'] ?></td>
                                                                                 <td><?= $value['Ffecha_aprobacion'] ?></td>
                                                                                 <td><?= $value['Ffecha_trabajos'] ?></td>
-                                                                                <td><?= $value['tipo_mantenimiento'] ?></td>
-                                                                                <td><?= $value['sistema'] ?></td>
                                                                                 <td><?= $value['diagnostico'] ?></td>
+                                                                                <td><?= $value['municipio'] ?></td>
                                                                                 <td><?= $value['observacion'] ?></td>
                                                                                 <td><?= $Estado ?></td>
 
@@ -747,7 +769,95 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                                                 </div>
                                             </div>
                                         </div>
-                                        <!--HISTORICO  -->
+
+                                        <!-- CONTROL DE ACTIVIDADES TAB -->
+                                        <div class="tab-pane fade" id="custom-tabs-one-control" role="tabpanel" aria-labelledby="custom-tabs-one-control-tab">
+                                            <div class="card-body">
+                                                <div class="col-12">
+                                                    <div class="card card-outline card-success">
+                                                        <div class="card-body">
+
+                                                            <div class="table-responsive">
+                                                                <table class="table table-bordered text-center tablasBtnExport">
+                                                                    <thead class="text-nowrap">
+                                                                        <tr>
+
+
+                                                                            <th>Vehículo</th>
+                                                                            <th>Kilometraje</th>
+                                                                            <th>Fecha de solicitud</th>
+                                                                            <th>Fecha ejecución</th>
+                                                                            <th>Fecha entrega</th>
+                                                                            <th>Diagnóstico</th>
+                                                                            <th>Proveedor</th>
+                                                                            <th>Item</th>
+                                                                            <th>Descripción</th>
+                                                                            <th>Sistema</th>
+                                                                            <th>Cantidad</th>
+                                                                            <th>Precio unitario</th>
+                                                                            <th>Precio total</th>
+                                                                            <th>Ciudad</th>
+                                                                            <th>Clasificación</th>
+                                                                            <th>Observación</th>
+                                                                        </tr>
+                                                                    </thead>
+
+                                                                    <tbody class="text-nowrap">
+                                                                        <tr>
+
+                                                                            <td>INI109</td>
+                                                                            <td>65.432</td>
+                                                                            <td>03/12/2021</td>
+                                                                            <td>04/12/2021</td>
+                                                                            <td>08/12/2021</td>
+                                                                            <td>Mantenimiento preventivo cada 5000 km</td>
+                                                                            <td>Proveedor 1</td>
+                                                                            <td>Aceite</td>
+                                                                            <td>Mano de obra</td>
+                                                                            <td>Sistema motor</td>
+                                                                            <td>5</td>
+                                                                            <td>10.000</td>
+                                                                            <td>50.000</td>
+                                                                            <td>Pereira</td>
+                                                                            <td>Preventivo</td>
+                                                                            <td>Test</td>
+                                                                        </tr>
+                                                                        <tr>
+
+                                                                            <td>INI109</td>
+                                                                            <td>65.432</td>
+                                                                            <td>03/12/2021</td>
+                                                                            <td>04/12/2021</td>
+                                                                            <td>08/12/2021</td>
+                                                                            <td>Mantenimiento preventivo cada 5000 km</td>
+                                                                            <td>Proveedor 1</td>
+                                                                            <td>Filtro aire</td>
+                                                                            <td>Mano de obra</td>
+                                                                            <td>Sistema motor</td>
+                                                                            <td>3</td>
+                                                                            <td>15.000</td>
+                                                                            <td>45.000</td>
+                                                                            <td>Armenia</td>
+                                                                            <td>Preventivo</td>
+                                                                            <td>Test</td>
+                                                                        </tr>
+
+
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+
+
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
                                     </div>
                                 </div>
                             </div>
@@ -1263,10 +1373,10 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
                 </div>
             </div>
 
-            <div class="modal-footer">
+            <!-- <div class="modal-footer">
                 <button type="button" class="btn btn-success">Guardar</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
-            </div>
+            </div> -->
 
         </div>
     </div>
