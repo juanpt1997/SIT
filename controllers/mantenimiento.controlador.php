@@ -646,14 +646,14 @@ class ControladorMantenimientos
 {
 
 	/* ===================================================
-		AGREGAR ORDEN DE SERVICIO
+		GUARDAR ORDEN DE SERVICIO
 	===================================================*/
 
 	static public function ctrAgregarEditarOrden($datos)
 	{
 
-	
 		var_dump($datos);
+		
 
 		if (isset($datos['idorden'])) {
 
@@ -692,29 +692,30 @@ class ControladorMantenimientos
 							$idproveedor = intval($value);
 							$descrip = $datos['descrip_mano'][$key];
 							$valor = intval($datos['valor_mano'][$key]);
+							$cantidad = intval($datos['cantmanoObra'][$key]);
 							$idservicio = intval($datos['servicio_mano'][$key]);
 							$sistema = $datos['sistmanoobra'][$key];
 							$mantenimiento = $datos['mantenimientomanobra'][$key];
-							$add = ModeloMantenimientos::mdlAgregarManoObra($idorden,$idproveedor,$descrip,$valor,$idservicio,$sistema,$mantenimiento);
+							$add = ModeloMantenimientos::mdlAgregarManoObra($idorden,$idproveedor,$descrip,$valor,$cantidad,$idservicio,$sistema,$mantenimiento);
 						}
 					}
 				}
 
 
-		
+				#GUARDAR SERVICIOS EXTERNOS
+				if (isset($datos['serviciosexternos'])) {
+					foreach ($datos['serviciosexternos'] as $key => $value) {
+						if ($value != "") {
+							$id = intval($respuesta);
+							$dato = intval($value);
+							var_dump($id);
+							var_dump($respuesta);
+							$addServicio = ModeloMantenimientos::mdlAgregarServiciosExternosOrdenServicio($id, $dato);
+						}
+					}
+				}
 
-		// 		#GUARDAR SERVICIOS EXTERNOS
-		// 		if (isset($datos['serviciosexternos'])) {
-		// 			foreach ($datos['serviciosexternos'] as $key => $value) {
-		// 				if ($value != "") {
-		// 					$id = intval($respuesta);
-		// 					$dato = intval($value);
-		// 					$addServicio = ModeloMantenimientos::mdlAgregarServiciosExternosOrdenServicio($id, $dato);
-		// 				}
-		// 			}
-		// 		}
-
-		// 		
+				
 			
 			return $respuesta;
 			}
