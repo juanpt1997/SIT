@@ -732,6 +732,24 @@ class ControladorMantenimientos
 	}
 
 	/* ===================================================
+		LISTADO DE REPUESTOS ORDEN DE SERVICIO
+	===================================================*/
+	static public function ctrRepuestosOrden($idorden)
+	{
+		$respuesta = ModeloMantenimientos::mdlRepuestosOrden($idorden);
+		return $respuesta;
+	}
+
+	/* ===================================================
+		LISTADO DE MANO DE OBRAS ORDEN DE SERVICIO
+	===================================================*/
+	static public function ctrManoObraOrden($idorden)
+	{
+		$respuesta = ModeloMantenimientos::mdlManoObraOrden($idorden);
+		return $respuesta;
+	}
+
+	/* ===================================================
 		LISTADO SERVICIOS EXTERNOS 
 	===================================================*/
 
