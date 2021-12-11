@@ -1802,6 +1802,37 @@ class ModeloMantenimientos
     }
 
     /* ===================================================
+        LISTADO DE REPUESTOS DE ORDEN DE SERVICIO
+    ===================================================*/
+    static public function mdlRepuestosOrden($idorden)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT r.*, i.idproducto, p.* FROM m_re_repuestoordenservicio r 
+        INNER JOIN a_re_inventario i ON r.idinventario = i.idinventario
+        INNER JOIN a_productos p ON i.idproducto = p.idproducto
+        WHERE r.idorden =  :idorden");
+
+        $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
+        $stmt->execute();
+        $respuesta = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
+
+    /* ===================================================
+        LISTADO DE MANO DE OBRA ORDEN DE SERVICIO
+    ===================================================*/
+    static public function mdlManoObraOrden($idorden)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT m.* FROM m_re_proveedorordenservicio m WHERE m.idorden = :idorden");
+
+        $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
+        $stmt->execute();
+        $respuesta = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
+
+    /* ===================================================
         AGREGAR ORDEN DE SERVICIO
     ===================================================*/
 

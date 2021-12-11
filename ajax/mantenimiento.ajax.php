@@ -387,8 +387,19 @@ class AjaxMantenimientos
     ===================================================*/
     static public function ajaxCargarOrden($idorden)
     {
-        $respuesta = ControladorMantenimientos::ctrCargarOrdenServicio($idorden);
-        echo json_encode($respuesta); 
+        $datosOrden = ControladorMantenimientos::ctrCargarOrdenServicio($idorden);
+        $repuestosOrden = ControladorMantenimientos::ctrRepuestosOrden($idorden);
+        $manoObra = ControladorMantenimientos::ctrManoObraOrden($idorden);
+
+
+        $datos=[
+            'datosOrden' => $datosOrden,
+            'repuestosOrden' => $repuestosOrden,
+            'manoObraOrden' => $manoObra
+        ];
+
+
+        echo json_encode($datos); 
     }
 
     /* ===================================================
