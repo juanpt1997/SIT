@@ -172,7 +172,7 @@ if (isset($_GET['pagina'])) {
                         $ruta == "v-convenios" ||
                         $ruta == "v-propietarios" ||
                         $ruta == "v-bloqueo-vehiculo" ||
-                        $ruta == "v-fuec"
+                        $ruta == "v-comparendos"
                     ) {
                         include "modulos/vehicular/{$ruta}.php";
                     } else if (
