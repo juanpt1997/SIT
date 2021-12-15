@@ -2314,7 +2314,7 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
                                             </li>
 
                                             <li class="nav-item">
-                                                <a class="nav-link active" id="pills-observaimagenes-tab" data-toggle="pill" href="#pills-observaimagenes" role="tab" aria-controls="pills-observaimagenes" aria-selected="true"><u>Registro fotográfico</u></a>
+                                                <a class="nav-link active" id="pills-observaimagenes-tab" data-toggle="pill" href="#pills-observaimagenes" role="tab" aria-controls="pills-observaimagenes" aria-selected="true"><u>Solicitudes</u></a>
                                             </li>
                                         </ul>
                                     </div>
