@@ -646,83 +646,79 @@ class ControladorMantenimientos
 {
 
 	/* ===================================================
-		AGREGAR ORDEN DE SERVICIO
+		GUARDAR ORDEN DE SERVICIO
 	===================================================*/
 
 	static public function ctrAgregarEditarOrden($datos)
 	{
+
 		var_dump($datos);
-		if (isset($datos['idorden']) && $datos['idorden'] == "") {
+		
 
-			if($datos['estado'] == 3) $datos['estado'] = 1;
+		if (isset($datos['idorden'])) {
 
-			#RETORNA EL ÚLTIMO ID INSERTADO
-			$respuesta = ModeloMantenimientos::mdlAgregarOrdenServicio($datos);
+		 	if ($datos['idorden'] == "") {
 
-			#GUARDAR MANTENIMIENTOS PREVENTIVOS
-			if (isset($datos['serviciosPrev'])) {
-				foreach ($datos['serviciosPrev'] as $key => $value) {
-					if ($value != "") {
-						$id = intval($respuesta);
-						$servicio = intval($value);
-						$kilometraje = intval($datos['kilome_ordSer']);
-						$vehiculo = intval($datos['idvehiculo_OrdServ']);
-						$fecha = $datos['fechaInic_ordSer'];
-						$addPreventivo = ModeloMantenimientos::mdlAgregarPreventivo($id, $servicio, $kilometraje, $vehiculo, $fecha);
+				//SI NO SELECCIONAN ESTADO LA PONE ABIERTA 
+				if ($datos['estado'] == 3) $datos['estado'] = 1;
+
+				// Validar campos vacíos
+				$datos['fechaInic_ordSer'] = $datos['fechaInic_ordSer'] == "" ? null : $datos['fechaInic_ordSer'];
+
+		// 		#RETORNA EL ÚLTIMO ID INSERTADO
+		 		$respuesta = ModeloMantenimientos::mdlAgregarOrdenServicio($datos);
+
+
+				#GUARDAR REPUESTO
+				if(isset($datos['inventario'])){
+					foreach ($datos['inventario'] as $key => $value) {
+						if($value != ""){
+							$idorden = intval($respuesta);
+							$idinventario = intval($value);
+							$cantidad = intval($datos['cantidad_repuesto'][$key]);
+							$idservicio = intval($datos['servicio_repuesto'][$key]);
+							$sistema = $datos['sistemarepuesto'][$key];
+							$mantenimiento = $datos['mantenimientorepuesto'][$key];
+							$add = ModeloMantenimientos::mdlAgregarRepuestoOrdenServicio($idorden,$idinventario,$cantidad,$idservicio,$sistema,$mantenimiento);
+						}
 					}
 				}
-			}
 
-			#GUARDA MANTENIMIENTOS CORRECTIVOS
-			if (isset($datos['correctivo'])) {
-				foreach ($datos['correctivo'] as $key => $value) {
-					if ($value != "") {
-						$id = intval($respuesta);
-						$servicio = intval($value);
-						$addCorrectivo = ModeloMantenimientos::mdlAgregarCorrectivo($id,$servicio);
+				#GUARDAR MANO DE OBRA
+				if(isset($datos['proveedor'])){
+					foreach ($datos['proveedor'] as $key => $value) {
+						if($value != ""){
+							$idorden = intval($respuesta);
+							$idproveedor = intval($value);
+							$descrip = $datos['descrip_mano'][$key];
+							$valor = intval($datos['valor_mano'][$key]);
+							$cantidad = intval($datos['cantmanoObra'][$key]);
+							$idservicio = intval($datos['servicio_mano'][$key]);
+							$sistema = $datos['sistmanoobra'][$key];
+							$mantenimiento = $datos['mantenimientomanobra'][$key];
+							$add = ModeloMantenimientos::mdlAgregarManoObra($idorden,$idproveedor,$descrip,$valor,$cantidad,$idservicio,$sistema,$mantenimiento);
+						}
 					}
 				}
-			}
 
-			#GUARDAR SERVICIOS EXTERNOS
-			if (isset($datos['serviciosexternos'])) {
-				foreach ($datos['serviciosexternos'] as $key => $value) {
-					if ($value != "") {
-						$id = intval($respuesta);
-						$dato = intval($value);
-						$addServicio = ModeloMantenimientos::mdlAgregarServiciosExternosOrdenServicio($id, $dato);
+
+				#GUARDAR SERVICIOS EXTERNOS
+				if (isset($datos['serviciosexternos'])) {
+					foreach ($datos['serviciosexternos'] as $key => $value) {
+						if ($value != "") {
+							$id = intval($respuesta);
+							$dato = intval($value);
+							var_dump($id);
+							var_dump($respuesta);
+							$addServicio = ModeloMantenimientos::mdlAgregarServiciosExternosOrdenServicio($id, $dato);
+						}
 					}
 				}
-			}
 
-			#GUARDAR REPUESTOS
-
-			if (isset($datos['repuesto'])) {
-				foreach ($datos['inventario'] as $key => $value) {
-					if ($value != "") {
-						$id = intval($respuesta);
-						$idinventario = intval($value);
-						$cantidad = intval($datos['cantidad_repuesto'][$key]);
-						$addRepuesto = ModeloMantenimientos::mdlAgregarRepuestoOrdenServicio($id, $idinventario, $cantidad);
-					}
-				}
-			}
-
-
-
-			#GUARDAR MANO DE OBRA / PROVEEDOR
-			if (isset($datos['proveedor'])) {
-				foreach ($datos['proveedor'] as $key => $value) {
-					if ($value != "") {
-						$id = intval($respuesta);
-						$idproveedor = intval($value);
-						$descripcion = $datos['descrip_mano'][$key];
-						$valor = intval($datos['valor_mano'][$key]);
-						$addManoObra = ModeloMantenimientos::mdlAgregarManoObra($id, $idproveedor, $descripcion, $valor);
-					}
-				}
-			}
+				
+			
 			return $respuesta;
+			}
 		}
 	}
 
@@ -732,6 +728,24 @@ class ControladorMantenimientos
 	static public function ctrCargarOrdenServicio($idorden)
 	{
 		$respuesta = ModeloMantenimientos::mdlCargarOrdenServicio($idorden);
+		return $respuesta;
+	}
+
+	/* ===================================================
+		LISTADO DE REPUESTOS ORDEN DE SERVICIO
+	===================================================*/
+	static public function ctrRepuestosOrden($idorden)
+	{
+		$respuesta = ModeloMantenimientos::mdlRepuestosOrden($idorden);
+		return $respuesta;
+	}
+
+	/* ===================================================
+		LISTADO DE MANO DE OBRAS ORDEN DE SERVICIO
+	===================================================*/
+	static public function ctrManoObraOrden($idorden)
+	{
+		$respuesta = ModeloMantenimientos::mdlManoObraOrden($idorden);
 		return $respuesta;
 	}
 

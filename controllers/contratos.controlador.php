@@ -15,7 +15,7 @@ class ControladorClientes
     static public function ctrAgregarEditar()
     {
 
-        
+
 
 
         if (isset($_POST['docum_empre'])) {
@@ -44,7 +44,7 @@ class ControladorClientes
             );
 
             $ClienteExistente = ModeloClientes::mdlVerClienteid($datosBusqueda);
-            
+
 
             if (is_array($ClienteExistente) && $ClienteExistente['idcliente'] != $_POST['idcliente']) {
                 echo "
@@ -67,7 +67,7 @@ class ControladorClientes
                 return;
             } else {
                 if ($_POST['idcliente'] == '') {
-                    
+
                     $responseModel = ModeloClientes::mdlAgregarCliente($datos);
                 } else {
                     $responseModel = ModeloClientes::mdlEditarCliente($datos);
@@ -112,11 +112,6 @@ class ControladorClientes
 					";
             }
         }
-
-
-
-
-
     }
 
     static public function ctrActualizarCampo($id)
@@ -125,6 +120,80 @@ class ControladorClientes
 
         $respuesta = ModeloClientes::mdlActualizarCampo($datos);
 
+        return $respuesta;
+    }
+
+    /* ===================================================
+       GUARDAR RUTA DEL CLIENTE
+    ===================================================*/
+    static public function ctrGuardarRutaCliente($formdata)
+    {
+        $sql = "rc.idcliente = {$formdata['idcliente']} AND rc.idruta = {$formdata['idruta']} AND rc.idtipovehiculo = {$formdata['idtipovehiculo']}";
+        $RutaExistente = ModeloClientes::mdlDatosRutaCliente($sql);
+
+        // Existe ruta
+        if ($RutaExistente !== false) {
+            // Vienen vacío el idrutacliente y existe una ruta así
+            if ($formdata['idrutacliente'] == "") {
+                $formdata['idrutacliente'] = $RutaExistente['idrutacliente'];
+                $retorno = ModeloClientes::mdlEditarRutaCliente($formdata);
+            }
+            // Existe ruta y coincide con la que se está editando
+            else if ($formdata['idrutacliente'] == $RutaExistente['idrutacliente']) {
+                $retorno = ModeloClientes::mdlEditarRutaCliente($formdata); // Pero entonces actualizo
+            }
+            // Existe ruta pero no coincide con la que se está editando, por lo tanto hay que mostrar una alerta
+            else {
+                $retorno = "existe";
+            }
+        }
+        // No existe ruta
+        else {
+            if ($formdata['idrutacliente'] == "") {
+                // Insertar
+                $retorno = ModeloClientes::mdlAgregarRutaCliente($formdata);
+            } else {
+                // Update
+                $retorno = ModeloClientes::mdlEditarRutaCliente($formdata);
+            }
+        }
+
+        if ($retorno != "existe" && !is_numeric($retorno)) {
+            $retorno = "error";
+        }
+
+        return $retorno;
+    }
+
+    /* ===================================================
+       TABLA RUTAS X CLIENTE
+    ===================================================*/
+    static public function ctrRutasxCliente($idcliente)
+    {
+        $respuesta = ModeloClientes::mdlRutasxCliente($idcliente);
+        return $respuesta;
+    }
+
+    /* ===================================================
+      DATOS DE UNA RUTA ASOCIADA A UN CLIENTE
+   ===================================================*/
+    static public function ctrDatosRutaCliente($idrutacliente)
+    {
+        $sql = "rc.idrutacliente = {$idrutacliente}";
+        $respuesta = ModeloClientes::mdlDatosRutaCliente($sql);
+        return $respuesta;
+    }
+
+    /* ===================================================
+       ELIMINAR RUTA ASOCIADA
+    ===================================================*/
+    static public function ctrEliminarRutaCliente($idrutacliente)
+    {
+        $respuesta = ModeloClientes::mdlEliminarRutaCliente($idrutacliente);
+
+        if ($respuesta != "ok"){
+            $respuesta = "error";
+        }
         return $respuesta;
     }
 }
@@ -322,7 +391,7 @@ class ControladorCotizaciones
                     } else {
                         $responseModel = ModeloCotizaciones::mdlAgregarCotizacion($datos);
                         if ($responseModel == "ok") {
-    
+
                             echo "
                          <script>
                          Swal.fire({

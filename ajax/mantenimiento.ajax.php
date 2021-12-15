@@ -199,9 +199,10 @@ class AjaxMantenimientos
                 <td>" . $value['categoria'] . "</td>
                 <td>" . $value['marca'] . "</td>
                 <td>" . $value['medida'] . "</td>
+                <td>" . $value['precio_compra'] . "</td>
                 <td>
                 <div class='btn-group' role='group' aria-label='Button group'>
-			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' idproducto='{$value["idproducto"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' inventario ='{$value["idinventario"]}'  class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
+			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' idproducto='{$value["idproducto"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' inventario ='{$value["idinventario"]}' valor='{$value["precio_compra"]}' class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
 			    </div>
                 </td>
             </tr>
@@ -356,6 +357,7 @@ class AjaxMantenimientos
 
     static public function ajaxGuardarEditarOrdenServicio($datos)
     {
+        
         $respuesta = ControladorMantenimientos::ctrAgregarEditarOrden($datos);
         echo $respuesta;
         
@@ -385,8 +387,45 @@ class AjaxMantenimientos
     ===================================================*/
     static public function ajaxCargarOrden($idorden)
     {
-        $respuesta = ControladorMantenimientos::ctrCargarOrdenServicio($idorden);
-        echo json_encode($respuesta); 
+        $datosOrden = ControladorMantenimientos::ctrCargarOrdenServicio($idorden);
+        $repuestosOrden = ControladorMantenimientos::ctrRepuestosOrden($idorden);
+        $manoObra = ControladorMantenimientos::ctrManoObraOrden($idorden);
+
+
+        $datos=[
+            'datosOrden' => $datosOrden,
+            'repuestosOrden' => $repuestosOrden,
+            'manoObraOrden' => $manoObra
+        ];
+
+
+        echo json_encode($datos); 
+    }
+
+    /* ===================================================
+        CARGAR LISTA DE SERVICIOS
+    ===================================================*/
+    static public function ajaxListaServicios($consecutivo, $seccion)
+    {
+        $respuesta = ModeloVehiculos::mdlListadoServicios();
+        $opciones = "";
+        foreach ($respuesta as $key => $value) {
+            
+            $opciones .="
+            <tr>
+            <td> ". $value['servicio'] ." </td>
+            <td>
+                <div class='btn-group' role='group' aria-label='Button group'>
+			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar servicio' value='{$value["idservicio"]}' consecutivo = '{$consecutivo}' servicio='{$value['servicio']}' idservicio = '{$value["idservicio"]}' seccion='{$seccion}'   class='btn btn-sm btn-success btn-SeleccionarServicio'><i class='fas fa-check'></i></button>
+			    </div>
+                </td>
+            </tr>";
+
+            // <option value=" .  $value['idservicio'] . " consecutivo=" . $consecutivo ." nombre=". $nombre ." >" . $value['servicio'] . "</option>"
+        }
+                        
+
+        echo $opciones;
     }
 }
 /* ===================================================
@@ -465,3 +504,6 @@ if(isset($_POST['Guardar_OrdenServicio']) && $_POST['Guardar_OrdenServicio'] == 
 
 #LLAMADO A CARGAR DATOS ORDEN DE SERVICIO
 if(isset($_POST['DatosOrdenServicio']) && $_POST['DatosOrdenServicio'] == "ok") AjaxMantenimientos::ajaxCargarOrden($_POST['idorden']);
+
+#LLAMADO A TABLA SERVICIOS
+if(isset($_POST['ListaServicios']) && $_POST['ListaServicios'] == "ok") AjaxMantenimientos::ajaxListaServicios($_POST['consecutivo'], $_POST['seccion']);
