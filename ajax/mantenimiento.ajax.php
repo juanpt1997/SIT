@@ -200,9 +200,10 @@ class AjaxMantenimientos
                 <td>" . $value['marca'] . "</td>
                 <td>" . $value['medida'] . "</td>
                 <td>" . $value['precio_compra'] . "</td>
+                <td>" . $value['nombre_proveedor'] . "</td>
                 <td>
                 <div class='btn-group' role='group' aria-label='Button group'>
-			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' idproducto='{$value["idproducto"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' inventario ='{$value["idinventario"]}' valor='{$value["precio_compra"]}' class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
+			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' idproducto='{$value["idproducto"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' inventario ='{$value["idinventario"]}' valor='{$value["precio_compra"]}' nombre_proveedor='{$value["nombre_proveedor"]}' idproveedor='{$value["idproveedor"]}' class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
 			    </div>
                 </td>
             </tr>
@@ -390,12 +391,14 @@ class AjaxMantenimientos
         $datosOrden = ControladorMantenimientos::ctrCargarOrdenServicio($idorden);
         $repuestosOrden = ControladorMantenimientos::ctrRepuestosOrden($idorden);
         $manoObra = ControladorMantenimientos::ctrManoObraOrden($idorden);
+        $serviciosExt = ControladorMantenimientos::ctrServiciosExt($idorden);
 
 
         $datos=[
             'datosOrden' => $datosOrden,
             'repuestosOrden' => $repuestosOrden,
-            'manoObraOrden' => $manoObra
+            'manoObraOrden' => $manoObra,
+            'serviciosExt' => $serviciosExt
         ];
 
 
@@ -426,6 +429,34 @@ class AjaxMantenimientos
                         
 
         echo $opciones;
+    }
+
+    /* ===================================================
+        CARGAR LISTA DE CUENTAS CONTABLES
+    ===================================================*/
+    static public function ajaxListaCuentasContables($consecutivo, $seccion)
+    {
+        $respuesta = ModeloMantenimientos::mdlListaCuentasContables();
+        $tr = "" ;
+
+        foreach ($respuesta as $key => $value) {
+            
+            $tr .= "
+            
+            <tr>
+            <td>". $value['num_cuenta'] ."</td>
+            <td>". $value['nombre_cuenta'] ."</td>
+            <td>
+                <div class='btn-group' role='group' aria-label='Button group'>
+			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar cuenta contable' value='{$value["id"]}' idcuenta='{$value["id"]}' consecutivo = '{$consecutivo}' codigo='{$value['num_cuenta']}' nombre = '{$value["nombre_cuenta"]}' seccion='{$seccion}'   class='btn btn-sm btn-success btn-SeleccionarCuentaContable'><i class='fas fa-check'></i></button>
+			    </div>
+            </td>
+            </tr>
+            
+            
+            ";
+        }
+        echo $tr;
     }
 }
 /* ===================================================
@@ -507,3 +538,6 @@ if(isset($_POST['DatosOrdenServicio']) && $_POST['DatosOrdenServicio'] == "ok") 
 
 #LLAMADO A TABLA SERVICIOS
 if(isset($_POST['ListaServicios']) && $_POST['ListaServicios'] == "ok") AjaxMantenimientos::ajaxListaServicios($_POST['consecutivo'], $_POST['seccion']);
+
+#LLAMADO A LISTA DE CONTABLES 
+if(isset($_POST['ListaCuentasContables']) && $_POST['ListaCuentasContables'] == "ok") AjaxMantenimientos::ajaxListaCuentasContables($_POST['consecutivo'], $_POST['seccion']);

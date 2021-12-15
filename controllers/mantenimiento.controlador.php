@@ -652,42 +652,49 @@ class ControladorMantenimientos
 	static public function ctrAgregarEditarOrden($datos)
 	{
 
-		var_dump($datos);
 		
 
-		if (isset($datos['idorden'])) {
 
-		 	if ($datos['idorden'] == "") {
+		if (isset($datos['numOrden_ordSer'])) {
 
+			if ($datos['numOrden_ordSer'] == "") {
+
+				
+				
 				//SI NO SELECCIONAN ESTADO LA PONE ABIERTA 
 				if ($datos['estado'] == 3) $datos['estado'] = 1;
 
 				// Validar campos vacíos
 				$datos['fechaInic_ordSer'] = $datos['fechaInic_ordSer'] == "" ? null : $datos['fechaInic_ordSer'];
 
-		// 		#RETORNA EL ÚLTIMO ID INSERTADO
-		 		$respuesta = ModeloMantenimientos::mdlAgregarOrdenServicio($datos);
+				#RETORNA EL ÚLTIMO ID INSERTADO
+				$respuesta = ModeloMantenimientos::mdlAgregarOrdenServicio($datos);
 
 
 				#GUARDAR REPUESTO
-				if(isset($datos['inventario'])){
+				if (isset($datos['inventario'])) {
 					foreach ($datos['inventario'] as $key => $value) {
-						if($value != ""){
+						if ($value != "") {
 							$idorden = intval($respuesta);
 							$idinventario = intval($value);
 							$cantidad = intval($datos['cantidad_repuesto'][$key]);
 							$idservicio = intval($datos['servicio_repuesto'][$key]);
 							$sistema = $datos['sistemarepuesto'][$key];
 							$mantenimiento = $datos['mantenimientorepuesto'][$key];
-							$add = ModeloMantenimientos::mdlAgregarRepuestoOrdenServicio($idorden,$idinventario,$cantidad,$idservicio,$sistema,$mantenimiento);
+							$iva = intval($datos['iva_repuesto'][$key]);
+							$total = intval($datos['total_repuesto'][$key]);
+							$idproveedor = intval($datos['idproveedor_repuesto'][$key]);
+							$valor = intval($datos['valor_repuesto'][$key]);
+							$idcuenta = intval($datos['idcuenta'][$key]);
+							$add = ModeloMantenimientos::mdlAgregarRepuestoOrdenServicio($idorden, $idinventario, $cantidad, $idservicio, $sistema, $mantenimiento, $iva, $total, $idproveedor, $valor, $idcuenta);
 						}
 					}
 				}
 
 				#GUARDAR MANO DE OBRA
-				if(isset($datos['proveedor'])){
+				if (isset($datos['proveedor'])) {
 					foreach ($datos['proveedor'] as $key => $value) {
-						if($value != ""){
+						if ($value != "") {
 							$idorden = intval($respuesta);
 							$idproveedor = intval($value);
 							$descrip = $datos['descrip_mano'][$key];
@@ -696,7 +703,10 @@ class ControladorMantenimientos
 							$idservicio = intval($datos['servicio_mano'][$key]);
 							$sistema = $datos['sistmanoobra'][$key];
 							$mantenimiento = $datos['mantenimientomanobra'][$key];
-							$add = ModeloMantenimientos::mdlAgregarManoObra($idorden,$idproveedor,$descrip,$valor,$cantidad,$idservicio,$sistema,$mantenimiento);
+							$iva = intval($datos['iva_mano'][$key]);
+							$total = intval($datos['total_mano'][$key]);
+							$idcuenta = intval($datos['idcuenta_mano'][$key]);
+							$add = ModeloMantenimientos::mdlAgregarManoObra($idorden, $idproveedor, $descrip, $valor, $cantidad, $idservicio, $sistema, $mantenimiento, $iva, $total, $idcuenta);
 						}
 					}
 				}
@@ -715,9 +725,79 @@ class ControladorMantenimientos
 					}
 				}
 
+
+
+				return $respuesta;
+			}else{
 				
-			
-			return $respuesta;
+				
+				//SI NO SELECCIONAN ESTADO LA PONE ABIERTA 
+				if ($datos['estado'] == 3) $datos['estado'] = 1;
+
+				// Validar campos vacíos
+				$datos['fechaInic_ordSer'] = $datos['fechaInic_ordSer'] == "" ? null : $datos['fechaInic_ordSer'];
+
+				//ACTUALIZA DATOS GENERALES DE LA ORDEN
+				$respuesta = ModeloMantenimientos::mdlActualizarOrden($datos);
+
+				//ACTUALIZA REPUESTOS DE LA ORDEN
+				if (isset($datos['inventario'])) {
+					$borrar = ModeloMantenimientos::mdlEliminarRepuesto($datos['numOrden_ordSer']);
+					foreach ($datos['inventario'] as $key => $value) {
+						if ($value != "") {
+							$idorden = $datos['numOrden_ordSer'];
+							$idinventario = intval($value);
+							$cantidad = intval($datos['cantidad_repuesto'][$key]);
+							$idservicio = intval($datos['servicio_repuesto'][$key]);
+							$sistema = $datos['sistemarepuesto'][$key];
+							$mantenimiento = $datos['mantenimientorepuesto'][$key];
+							$iva = intval($datos['iva_repuesto'][$key]);
+							$total = intval($datos['total_repuesto'][$key]);
+							$idproveedor = intval($datos['idproveedor_repuesto'][$key]);
+							$valor = intval($datos['valor_repuesto'][$key]);
+							$idcuenta = intval($datos['idcuenta'][$key]);
+							$add = ModeloMantenimientos::mdlAgregarRepuestoOrdenServicio($idorden, $idinventario, $cantidad, $idservicio, $sistema, $mantenimiento, $iva,$total, $idproveedor, $valor, $idcuenta);
+						}
+					}
+				}
+
+				//ACTUALIZA MANO DE OBRA DE LA ORDEN
+				if (isset($datos['proveedor'])) {
+					$borrar = ModeloMantenimientos::mdlEliminarManoObra($datos['numOrden_ordSer']);
+					foreach ($datos['proveedor'] as $key => $value) {
+						if ($value != "") {
+							$idorden = $datos['numOrden_ordSer'];
+							$idproveedor = intval($value);
+							$descrip = $datos['descrip_mano'][$key];
+							$valor = intval($datos['valor_mano'][$key]);
+							$cantidad = intval($datos['cantmanoObra'][$key]);
+							$idservicio = intval($datos['servicio_mano'][$key]);
+							$sistema = $datos['sistmanoobra'][$key];
+							$mantenimiento = $datos['mantenimientomanobra'][$key];
+							$iva = intval($datos['iva_mano'][$key]);
+							$total = intval($datos['total_mano'][$key]);
+							$idcuenta = intval($datos['idcuenta_mano'][$key]);
+							$add = ModeloMantenimientos::mdlAgregarManoObra($idorden, $idproveedor, $descrip, $valor, $cantidad, $idservicio, $sistema, $mantenimiento, $iva, $total, $idcuenta);
+						}
+					}
+				}
+
+				//ACTUALIZA SERVICIOS EXTERNOS DE LA ORDEN
+				if (isset($datos['serviciosexternos'])) {
+					$borrar = ModeloMantenimientos::mdlEliminarServiciosExternosOrden($datos['numOrden_ordSer']);
+					foreach ($datos['serviciosexternos'] as $key => $value) {
+						if ($value != "") {
+							$id = $datos['numOrden_ordSer'];
+							$dato = intval($value);
+							$addServicio = ModeloMantenimientos::mdlAgregarServiciosExternosOrdenServicio($id, $dato);
+						}
+					}
+				}
+
+
+				return $datos['numOrden_ordSer'];
+				
+
 			}
 		}
 	}
@@ -746,6 +826,16 @@ class ControladorMantenimientos
 	static public function ctrManoObraOrden($idorden)
 	{
 		$respuesta = ModeloMantenimientos::mdlManoObraOrden($idorden);
+		return $respuesta;
+	}
+
+	/* ===================================================
+		LISTADO DE SERVICIOS EXTERNOS DE UNA ORDEN DE SERVICIO
+	===================================================*/
+
+	static public function ctrServiciosExt($idorden)
+	{
+		$respuesta = ModeloMantenimientos::mdlServicosExternosOrden($idorden);
 		return $respuesta;
 	}
 
@@ -798,7 +888,7 @@ class ControladorMantenimientos
 			}
 		}
 
-		// var_dump($datos);
+		
 
 		// $respuesta = ModeloMantenimientos::mdlAgregarSolicitud($datos);
 		// return $respuesta;
