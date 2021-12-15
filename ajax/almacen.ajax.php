@@ -310,7 +310,7 @@ class AjaxAlmacen
 
     static public function ajaxGuardarOrden($formData,$imagen,$imagen2,$imagen3)
     {
-        $respuesta = ControladorAlmacen::ctrAgregarEditarOrdenCompra($formData,$imagen,$imagen2,$imagen3);
+        $respuesta = ControladorAlmacen::ctrAgregarEditarOrdenCompra3($formData,$imagen,$imagen2,$imagen3);
 
         echo json_encode($respuesta);
     }
@@ -350,19 +350,19 @@ class AjaxAlmacen
 		foreach ($respuesta as $key => $value) {
             //FOTO 1
             if ($value['ruta_cotizacion_1'] != null) {
-                $btnVerFoto = "<a href='" . URL_APP . $value['ruta_cotizacion_1'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-image'></i></a>";
+                $btnVerFoto = "<a href='" . URL_APP . $value['ruta_cotizacion_1'] . "' target='_blank' class='btn btn-sm btn-secondary m-1' type='button'><i class='fas fa-file-download'></i></a>";
             }else{
                 $btnVerFoto = "";
             }
             //FOTO 2
             if ($value['ruta_cotizacion_2'] != null) {
-                $btnVerFoto2 = "<a href='" . URL_APP . $value['ruta_cotizacion_2'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-image'></i></a>";
+                $btnVerFoto2 = "<a href='" . URL_APP . $value['ruta_cotizacion_2'] . "' target='_blank' class='btn btn-sm btn-secondary m-1' type='button'><i class='fas fa-file-download'></i></a>";
             }else{
                 $btnVerFoto2 = "";
             }
             //FOTO 3
             if ($value['ruta_cotizacion_3'] != null) {
-                $btnVerFoto3 = "<a href='" . URL_APP . $value['ruta_cotizacion_1'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-image'></i></a>";
+                $btnVerFoto3 = "<a href='" . URL_APP . $value['ruta_cotizacion_3'] . "' target='_blank' class='btn btn-sm btn-secondary m-1' type='button'><i class='fas fa-file-download'></i></a>";
             }else{
                 $btnVerFoto3 = "";
             }
@@ -378,6 +378,8 @@ class AjaxAlmacen
             } else if($value['estado_orden'] == "RECHAZADA"){
 
                 $estado = "<span class='badge badge-danger'>RECHAZADA</span>";
+            } else {
+                $estado = "";
             }
 
 			$tr .= "
@@ -385,7 +387,7 @@ class AjaxAlmacen
                 <td>{$value['idorden']}</td>
                 <td> 
                 <div class='btn-group' role='group' aria-label='Button group'>
-                <button idorden = '{$value['idorden']}' class='btn btn-sm btn-primary btnEditarOrden'><i class='fas fa-edit'></i></button>
+                <button idorden = '{$value['idorden']}' class='btn btn-sm btn-info btnEditarOrden'><i class='fas fa-edit'></i></button>
                 </div>
                 </td>
                 <td>$estado</td>
@@ -413,6 +415,12 @@ class AjaxAlmacen
     static public function ajaxDatosProductosOrden($idorden)
     {
         $respuesta = ModeloProductos::mdlDatosProductoOrden($idorden);
+        echo json_encode($respuesta);
+    }
+
+    static public function ajaxContarOrdenes()
+    {
+        $respuesta = ModeloProductos::mdlContarOrdenes();
         echo json_encode($respuesta);
     }
 }
@@ -511,6 +519,10 @@ if (isset($_POST['DatosOrden']) && $_POST['DatosOrden'] == "ok") {
 
 if (isset($_POST['DatosProductoOrden']) && $_POST['DatosProductoOrden'] == "ok") {
     AjaxAlmacen::ajaxDatosProductosOrden($_POST['idorden']);
+}
+
+if (isset($_POST['contarOrdenes']) && $_POST['contarOrdenes'] == "ok") {
+    AjaxAlmacen::ajaxContarOrdenes();
 }
 
 

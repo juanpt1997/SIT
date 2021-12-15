@@ -39,38 +39,38 @@
 
             <div class="card card-outline card-info">
                 <div class="card-body">
-                    <hr class="my-4 bg-dark">
+                    <hr class="my-4">
                     <div class="row mt-2 d-flex justify-content-center">
                         <div class="col-lg-3">
                             <!--PRODUCTOS-->
-                            <div class="small-box bg-primary">
+                            <div class="small-box bg-info">
                                 <div class="inner">
                                     <h3 id="contador_inventario"></h3>
                                     <p><i>Productos / Inventario</i></p>
                                 </div>
-                                <div class="icon">
+                                <div class="icon" style="color: black;">
                                     <i class="fas fa-cubes"></i>
                                 </div>
-                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-productos">Nuevo <i class="fas fa-plus-circle"></i></a>
+                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-productos">Nuevo <i class="fas fa-plus-circle" style="color: white;"></i></a>
                             </div>
                         </div>
 
                         <div class="col-lg-3">
                             <!--ORDENES DE COMPRA-->
-                            <div class="small-box bg-info">
+                            <div class="small-box" style="background-color: #222A68; color: white;">
                                 <div class="inner">
-                                    <h3><i class="fas fa-ellipsis-h"></i></h3>
+                                    <h3 id="contador_ordenes"></h3>
                                     <p><i>Órdenes de Compras</i></p>
                                 </div>
-                                <div class="icon">
+                                <div class="icon" style="color: white;">
                                     <i class="fas fa-file-invoice-dollar"></i>
                                 </div>
-                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-ordencompra">Nuevo <i class="fas fa-plus-circle"></i></a>
+                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-ordencompra">Nuevo <i class="fas fa-plus-circle" style="color: white;"></i></a>
                             </div>
                         </div>
 
-                        <div class="col-lg-3">
-                            <!--AUTORIZACION DE COMPRA-->
+                        <!--AUTORIZACION DE COMPRA-->
+                        <!-- <div class="col-lg-3">
                             <div class="small-box bg-success">
                                 <div class="inner">
                                     <h3><i class="fas fa-ellipsis-h"></i></h3>
@@ -81,7 +81,7 @@
                                 </div>
                                 <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-autorizaciones">Verificar <i class="fas fa-check"></i></a>
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>
@@ -266,7 +266,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped text-center text-nowrap" id="tabla_productos">
+                                <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tabla_productos">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -297,7 +297,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped text-center text-nowrap" id="tabla_inventario">
+                                <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tabla_inventario">
                                     <thead>
                                         <!-- <tr>
                                             <th colspan="8">PRODUCTOS</th>
@@ -437,7 +437,7 @@
         <div class="modal-content">
 
             <div class="modal-header bg-info">
-                <h4 class="modal-title">Nueva orden de compra</h4>
+                <h3 class="modal-title"><span id="titulo_orden_compra"></span></h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -447,8 +447,8 @@
                 <div class="card-body">
                     <form method="post" enctype="multipart/form-data" id="formularioOrden">
                         <div class="row">
-
                             <input type="hidden" id="idorden_compra" name="idorden_compra" value="">
+                            <input type="hidden" id="idregistroproducto" name="idregistroproducto" value="">
 
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
@@ -491,7 +491,7 @@
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label><i>Correo proveedor</i></label>
-                                    <input type="text" class="form-control" id="correo_prov" name="correo_prov" readonly >
+                                    <input type="text" class="form-control" id="correo_prov" name="correo_prov" readonly>
                                 </div>
                             </div>
 
@@ -516,7 +516,7 @@
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label><i>Dirección de entrega</i></label>
-                                    <input type="text" class="form-control" id="direccion_entrega" name="direccion_entrega" placeholder="Digite direccion" required>
+                                    <input type="text" class="form-control" id="direccion_entrega" name="direccion_entrega" placeholder="Digite la dirección" required>
                                 </div>
                             </div>
 
@@ -540,12 +540,13 @@
                         </h4>
 
                         <div class="table-responsive" id="solicitud_productos">
-                            <table class="table table table-bordered table-striped text-center">
+                            <table class="table table table-bordered table-striped text-center" id="tblOrdenProductos"> 
                                 <thead>
                                     <tr>
                                         <th style="width: 500px">Producto</th>
                                         <th>Referencia</th>
                                         <th>Código</th>
+                                        <th>Cantidad</th>
                                     </tr>
                                 </thead>
                                 <tbody id="filas_tabla_productosSolicitud">
@@ -561,6 +562,7 @@
                                         <input type="hidden" id="idproducto_1" name="idproducto[]">
                                         <td style="width: 300px"> <input type="text" class="form-control" id="referencia_1" name="referencia_producto[]" readonly></td>
                                         <td style="width: 300px"> <input type="text" class="form-control" id="codigo_1" name="codigo_producto[]" readonly></td>
+                                        <td style="width: 300px"> <input type="text" class="form-control" id="cantidad_1" name="cantidad_producto[]"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -571,9 +573,18 @@
                                 <i class="fas fa-plus"></i>
                             </button>
 
-                            <button type="button" title="Eliminar fila de productos" data-toggle="tooltip" data-placement="top" class="btn btn-danger btn-toolbar btnEliminarProductoSolicitud">
+                            <button type="button" title="Agregar fila de productos" data-toggle="tooltip" data-placement="top" class="btn btn-success btn-toolbar btnNuevoProductoEditar d-none">
+                                <i class="fas fa-plus"></i>
+                            </button>
+
+                            <button type="button" title="Eliminar fila de productos" data-toggle="tooltip" data-placement="top" class="btn btn-danger btn-toolbar btnEliminarProductoSolicitud" style="margin-left: 10px">
                                 <i class="fas fa-times"></i>
                             </button>
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            
+
                         </div>
 
                         <hr class="my-4 bg-dark">
@@ -630,7 +641,7 @@
                         <hr class="my-4">
                         <!--BOTON GUARDAR -->
                         <div class="text-center">
-                            <button type="submit" class="btn btn-md bg-gradient-success btnCrearOrden" form="formularioOrden"><i class="fas fa-plus"></i><b> Crear Orden</b></button>
+                            <button type="submit" class="btn btn-md bg-gradient-success btnCrearOrden" form="formularioOrden"><i class="fas fa-plus"></i><b id="botonCrear"> Crear Orden</b></button>
                         </div>
                     </form>
 
@@ -646,7 +657,7 @@
                             <div class="card-body">
 
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped text-center text-nowrap" id="tablaOrdenes">
+                                    <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tablaOrdenes">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -658,9 +669,9 @@
                                                 <th>Fecha elaboración</th>
                                                 <th>Forma de pago</th>
                                                 <th>Tipo de compra</th>
-                                                <th>Cotizacion 1</th>
-                                                <th>Cotizacion 2</th>
-                                                <th>Cotizacion 3</th>
+                                                <th>Cotización #1</th>
+                                                <th>Cotización #2</th>
+                                                <th>Cotización #3</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tbody_tablaOrdenes">
