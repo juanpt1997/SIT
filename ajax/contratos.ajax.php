@@ -87,6 +87,15 @@ class AjaxClientes
       $respuesta = ControladorClientes::ctrDatosRutaCliente($idrutacliente);
       echo json_encode($respuesta);
    }
+
+   /* ===================================================
+      ELIMINAR RUTA ASOCIADA
+   ===================================================*/
+   static public function ajaxEliminarRutaCliente($idrutacliente)
+   {
+      $respuesta = ControladorClientes::ctrEliminarRutaCliente($idrutacliente);
+      echo $respuesta;
+   }
 }
 /* ===================================================
    # LLAMADOS A AJAX CLIENTES
@@ -105,6 +114,9 @@ if (isset($_POST['TablaRutasxCliente']) && $_POST['TablaRutasxCliente'] == "ok")
 }
 if (isset($_POST['DatosRutaCliente']) && $_POST['DatosRutaCliente'] == "ok") {
    AjaxClientes::ajaxDatosRutaCliente($_POST['idrutacliente']);
+}
+if (isset($_POST['EliminarRutaCliente']) && $_POST['EliminarRutaCliente'] == "ok") {
+   AjaxClientes::ajaxEliminarRutaCliente($_POST['idrutacliente']);
 }
 /* ===================================================
    * COTIZACIONES
