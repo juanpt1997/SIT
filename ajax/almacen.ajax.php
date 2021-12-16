@@ -8,11 +8,12 @@ include '../config/config.php';
 require_once '../models/conceptos.modelo.php';
 require_once '../models/almacen.modelo.php';
 require_once '../controllers/almacen.controlador.php';
+require_once '../controllers/files.controlador.php';
 
-// if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok") {
-//     echo "<script>window.location = 'inicio';</script>";
-//     die();
-// }
+if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok") {
+    echo "<script>window.location = 'inicio';</script>";
+    die();
+}
 
 class AjaxAlmacen
 {
@@ -47,6 +48,13 @@ class AjaxAlmacen
                 $item = "sucursal";
                 $id = "ids";
                 break;
+
+            case 'producto':
+
+                $tabla = "a_productos";
+                $item = "descripcion";
+                $id = "idproducto";
+                break;    
                   
             default:
                 # code...
@@ -145,7 +153,7 @@ class AjaxAlmacen
 
 		foreach ($respuesta as $key => $value) {
 			$tr .= "
-			<tr>
+			<tr>  
 				<td>{$value["idproducto"]}</td>
 				<td>{$value["descripcion"]}</td>
 				<td>{$value["codigo"]}</td>
@@ -153,6 +161,11 @@ class AjaxAlmacen
 				<td>{$value["categoria"]}</td>
 				<td>{$value["marca"]}</td>
 				<td>{$value["medida"]}</td>
+                <td>
+                    <div class='btn-group' role='group' aria-label='Button group'>
+                    <button title='Editar producto' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-primary btnEditar'><i class='fas fa-edit'></i></button>
+                    </div>
+                </td>
 			</tr>
 			";
 		}
@@ -176,10 +189,13 @@ class AjaxAlmacen
 				<td>{$value["stock"]}</td>
                 <td> 
                     <div class='btn-group' role='group' aria-label='Button group'>
-                    <button title='Ver historial de movimientos' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-success btnHistorialMovimientos'><i class='far fa-clipboard'></i></button>
+                    <button title='Ver historial de movimientos' data-toggle='modal' data-target='#modal-historialMovimientos' idproducto='{$value["idproducto"]}' class='btn btn-sm btn-info btnHistorialMovimientos'><i class='far fa-clipboard'></i></button>
                     </div>
                     <div class='btn-group' role='group' aria-label='Button group'>
-                    <button title='Ver sucursales' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-primary btnSucursalesInventario'><i class='fas fa-map-marker-alt'></i></button>
+                    <button title='Ver sucursales' data-toggle='modal' data-target='#modal-sucursalesProducto' idproducto='{$value["idproducto"]}' class='btn btn-sm btn-success btnSucursalesInventario'><i class='fas fa-map-marker-alt'></i></button>
+                    </div>
+                    <div class='btn-group' role='group' aria-label='Button group'>
+                    <button title='Editar producto' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-primary btnEditar'><i class='fas fa-edit'></i></button>
                     </div>
                 </td>
 			</tr>
@@ -191,16 +207,223 @@ class AjaxAlmacen
     static public function ajaxSucursalesInventario($idproducto)
     {
         $respuesta = ModeloProductos::mdlSucursalesInventario($idproducto);
+        $tr = "";
+
+		foreach ($respuesta as $key => $value) {
+			$tr .= "
+			<tr>
+                <td> 
+                    <div class='btn-group' role='group' aria-label='Button group'>
+                        <button title='Editar inventario' idproducto='{$value["idproducto"]}' idinventario='{$value["idinventario"]}' class='btn btn-sm btn-primary btnEditarInventario'><i class='fas fa-edit'></i></button>
+                    </div>
+                </td>
+				<td>{$value["descripcion"]}</td>
+                <td>{$value["referencia"]}</td>
+                <td>{$value["stock"]}</td>
+                <td>{$value["posicion"]}</td>
+				<td>{$value["sucursal"]}</td>
+			</tr>
+			";
+		}
+		echo $tr;
+    }
+
+    static public function ajaxHistorialMovimientos($idproducto)
+    {
+        $respuesta = ModeloProductos::mdlHistorialMovimientos($idproducto);
+        $tr = "";
+
+		foreach ($respuesta as $key => $value) {
+			$tr .= "
+			<tr>
+                <td> 
+                    <div class='btn-group' role='group' aria-label='Button group'>
+                        <button title='Editar movimiento' idproducto='{$value["idproducto"]}'  idmovimiento='{$value["idmovimiento"]}' class='btn btn-sm btn-primary btnEditarMovimiento'><i class='fas fa-edit'></i></button>
+                    </div>
+                </td>
+				<td>{$value["cantidad"]}</td>
+                <td>{$value["tipo_movimiento"]}</td>
+                <td>{$value["fecha"]}</td>
+                <td>{$value["razon_social"]}</td>
+				<td>{$value["preciocompra"]}</td>
+				<td>{$value["facturacompra"]}</td>
+                <td>{$value["sucursal"]}</td>
+                <td>{$value["observaciones"]}</td>
+			</tr>
+			";
+		}
+		echo $tr;
+    }
+
+    static public function ajaxUbicarProducto($idproducto,$sucursal)
+    {
+        $datos = array(
+            "idproducto" => $idproducto,
+            "idsucursal"  => $sucursal
+        );
+
+        $respuesta = ModeloProductos::mdlPosicionCantidad($datos);
         echo json_encode($respuesta);
     }
 
-    static public function ajaxHitorialMovimientos($idproducto)
+    static public function ajaxDatosMovimiento($idmovimiento)
     {
-        $respuesta = ModeloProductos::mdlHistorialMovimientos($idproducto);
+        $respuesta = ModeloProductos::mdlDatosMovimiento($idmovimiento);
+        echo json_encode($respuesta);
+    }
+
+    static public function ajaxEditarMovimiento($frmData)
+    {
+        $respuesta = ModeloProductos::mdlEditarMovimiento($frmData);
+        echo $respuesta;
+    }
+
+    static public function ajaxDatosInventario($idinventario)
+    {
+        $respuesta = ModeloProductos::mdlDatosInventario($idinventario);
+        echo json_encode($respuesta);
+    }
+
+    static public function ajaxModificarInventario($datos)
+    {
+        $respuesta = ControladorAlmacen::ctrModificarInventario($datos);
+        echo $respuesta;
+    }
+
+    static public function ajaxContarInventario()
+    {
+        $respuesta = ModeloProductos::mdlContarInventario();
+        echo json_encode($respuesta);
+    }
+
+    static public function ajaxCargarSelectProductos()
+    {
+        $respuesta = ModeloProductos::mdlDatosInventario(null);
+        $option = "<option value='' selected>Seleccione un producto </option>";
+
+        foreach ($respuesta as $key => $value) {
+            $option .= "<option value='{$value['idproducto']}'>{$value['descripcion']}</option>";
+        }
+        echo $option;
+
+    }
+
+    static public function ajaxGuardarOrden($formData,$imagen,$imagen2,$imagen3)
+    {
+        $respuesta = ControladorAlmacen::ctrAgregarEditarOrdenCompra3($formData,$imagen,$imagen2,$imagen3);
+
+        echo json_encode($respuesta);
+    }
+
+    static public function ajaxSeleccionarProductoOrden($consecutivo)
+    {
+        $respuesta = ModeloProductos::mdlListarProductos(null);
+		$tr = "";
+
+		foreach ($respuesta as $key => $value) {
+			$tr .= "
+			<tr>  
+				<td>{$value["idproducto"]}</td>
+				<td>{$value["descripcion"]}</td>
+				<td>{$value["codigo"]}</td>
+				<td>{$value["referencia"]}</td>
+				<td>{$value["categoria"]}</td>
+				<td>{$value["marca"]}</td>
+				<td>{$value["medida"]}</td>
+                <td>
+                    <div class='btn-group' role='group' aria-label='Button group'>
+                    <button title='Seleccionar producto' data-toggle='tooltip' data-placement='top' idproducto='{$value["idproducto"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' codigo='{$value["codigo"]}' consecutivo='$consecutivo' class='btn btn-sm btn-primary btnSeleccionarProducto'><i class='fas fa-check'></i></button>
+                    </div>
+                </td>
+			</tr>
+			";
+		}
+		echo $tr;
+
+    }
+
+    static public function ajaxListarOrdenes()
+    {
+        $respuesta = ModeloProductos::mdlListarOrdenes(null);
+		$tr = "";
+
+		foreach ($respuesta as $key => $value) {
+            //FOTO 1
+            if ($value['ruta_cotizacion_1'] != null) {
+                $btnVerFoto = "<a href='" . URL_APP . $value['ruta_cotizacion_1'] . "' target='_blank' class='btn btn-sm btn-secondary m-1' type='button'><i class='fas fa-file-download'></i></a>";
+            }else{
+                $btnVerFoto = "";
+            }
+            //FOTO 2
+            if ($value['ruta_cotizacion_2'] != null) {
+                $btnVerFoto2 = "<a href='" . URL_APP . $value['ruta_cotizacion_2'] . "' target='_blank' class='btn btn-sm btn-secondary m-1' type='button'><i class='fas fa-file-download'></i></a>";
+            }else{
+                $btnVerFoto2 = "";
+            }
+            //FOTO 3
+            if ($value['ruta_cotizacion_3'] != null) {
+                $btnVerFoto3 = "<a href='" . URL_APP . $value['ruta_cotizacion_3'] . "' target='_blank' class='btn btn-sm btn-secondary m-1' type='button'><i class='fas fa-file-download'></i></a>";
+            }else{
+                $btnVerFoto3 = "";
+            }
+            //color de los estados
+            if ($value['estado_orden'] == "PENDIENTE") {
+
+                $estado = "<span class='badge badge-warning'>PENDIENTE</span>";
+
+            } else if($value['estado_orden'] == "APROBADA"){
+
+                $estado = "<span class='badge badge-success'>APROBADA</span>";
+
+            } else if($value['estado_orden'] == "RECHAZADA"){
+
+                $estado = "<span class='badge badge-danger'>RECHAZADA</span>";
+            } else {
+                $estado = "";
+            }
+
+			$tr .= "
+			<tr>
+                <td>{$value['idorden']}</td>
+                <td> 
+                <div class='btn-group' role='group' aria-label='Button group'>
+                <button idorden = '{$value['idorden']}' class='btn btn-sm btn-info btnEditarOrden'><i class='fas fa-edit'></i></button>
+                </div>
+                </td>
+                <td>$estado</td>
+                <td>{$value['num_cotizacion']}</td>
+                <td>{$value['razon_social']}</td>
+                <td>{$value['observaciones']}</td>
+                <td>{$value['fecha_elaboracion']}</td>
+                <td>{$value['forma_pago']}</td>
+                <td>{$value['tipo_compra']}</td>
+                <td>$btnVerFoto</td>
+                <td>$btnVerFoto2</td>
+                <td>$btnVerFoto3</td>
+			</tr>
+			";
+		}
+		echo $tr;
+    }
+
+    static public function ajaxDatosOrden($idorden)
+    {
+        $respuesta = ModeloProductos::mdlListarOrdenes($idorden);
+        echo json_encode($respuesta);
+    }
+
+    static public function ajaxDatosProductosOrden($idorden)
+    {
+        $respuesta = ModeloProductos::mdlDatosProductoOrden($idorden);
+        echo json_encode($respuesta);
+    }
+
+    static public function ajaxContarOrdenes()
+    {
+        $respuesta = ModeloProductos::mdlContarOrdenes();
         echo json_encode($respuesta);
     }
 }
-
 /* ===================================================
             LLAMADOS AJAX EN PRODUCTOS
 ====================================================*/
@@ -236,12 +459,70 @@ if (isset($_POST['CargarTablaInventario']) && $_POST['CargarTablaInventario'] ==
 	AjaxAlmacen::ajaxCargarTablaInventario();
 }
 
-if (isset($_POST['SucursalesInventario']) && $_POST['SucursalesInventario'] == "ok") {
+if (isset($_POST['CargarTablaSucursales']) && $_POST['CargarTablaSucursales'] == "ok") {
 	AjaxAlmacen::ajaxSucursalesInventario($_POST['idproducto']);
 }
 
-if (isset($_POST['Historial']) && $_POST['Historial'] == "ok") {
-	AjaxAlmacen::ajaxHitorialMovimientos($_POST['idproducto']);
+if (isset($_POST['CargarTablaHistorial']) && $_POST['CargarTablaHistorial'] == "ok") {
+	AjaxAlmacen::ajaxHistorialMovimientos($_POST['idproducto']);
+}
+
+if (isset($_POST['ubicarProducto']) && $_POST['ubicarProducto'] == "ok") {
+    AjaxAlmacen::ajaxUbicarProducto($_POST['idproducto'],$_POST['idsucursal']);
+}
+
+if (isset($_POST['datosMovimiento']) && $_POST['datosMovimiento'] == "ok") {
+    AjaxAlmacen::ajaxDatosMovimiento($_POST['idmovimiento']);
+}
+
+if (isset($_POST['editarMovimiento']) && $_POST['editarMovimiento'] == "ok") {
+    AjaxAlmacen::ajaxEditarMovimiento($_POST);
+}
+
+if (isset($_POST['datosInventario']) && $_POST['datosInventario'] == "ok") {
+    AjaxAlmacen::ajaxDatosInventario($_POST['idinventario']);
+}
+
+if (isset($_POST['modificarInventario']) && $_POST['modificarInventario'] == "ok") {
+    AjaxAlmacen::ajaxModificarInventario($_POST);
+}
+
+if (isset($_POST['contarInventario']) && $_POST['contarInventario'] == "ok") {
+    AjaxAlmacen::ajaxContarInventario();
+}
+
+/* ===================================================
+            LLAMADOS AJAX EN ORDEN COMPRA
+====================================================*/
+if (isset($_POST['cargarSelectProductos']) && $_POST['cargarSelectProductos'] == "ok") {
+    AjaxAlmacen::ajaxCargarSelectProductos();
+}
+
+if (isset($_REQUEST['agregarOrden']) && $_REQUEST['agregarOrden'] == "ok") {
+    $imagen_cotizacion1 = isset($_FILES['imagen_cotizacion1']) ? $_FILES['imagen_cotizacion1'] : "";
+    $imagen_cotizacion2 = isset($_FILES['imagen_cotizacion2']) ? $_FILES['imagen_cotizacion2'] : "";
+    $imagen_cotizacion3 = isset($_FILES['imagen_cotizacion3']) ? $_FILES['imagen_cotizacion3'] : "";
+    AjaxAlmacen::ajaxGuardarOrden($_POST, $imagen_cotizacion1,$imagen_cotizacion2,$imagen_cotizacion3);
+}
+
+if (isset($_POST['seleccionarProducto']) && $_POST['seleccionarProducto'] == "ok") {
+    AjaxAlmacen::ajaxSeleccionarProductoOrden($_POST['consecutivo']);
+}
+
+if (isset($_POST['CargarTablaOrdenes']) && $_POST['CargarTablaOrdenes'] == "ok") {
+    AjaxAlmacen::ajaxListarOrdenes();
+}
+
+if (isset($_POST['DatosOrden']) && $_POST['DatosOrden'] == "ok") {
+    AjaxAlmacen::ajaxDatosOrden($_POST['idorden']);
+}
+
+if (isset($_POST['DatosProductoOrden']) && $_POST['DatosProductoOrden'] == "ok") {
+    AjaxAlmacen::ajaxDatosProductosOrden($_POST['idorden']);
+}
+
+if (isset($_POST['contarOrdenes']) && $_POST['contarOrdenes'] == "ok") {
+    AjaxAlmacen::ajaxContarOrdenes();
 }
 
 

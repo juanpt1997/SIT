@@ -199,9 +199,11 @@ class AjaxMantenimientos
                 <td>" . $value['categoria'] . "</td>
                 <td>" . $value['marca'] . "</td>
                 <td>" . $value['medida'] . "</td>
+                <td>" . $value['precio_compra'] . "</td>
+                <td>" . $value['nombre_proveedor'] . "</td>
                 <td>
                 <div class='btn-group' role='group' aria-label='Button group'>
-			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' idproducto='{$value["idproducto"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' inventario ='{$value["idinventario"]}'  class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
+			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' idproducto='{$value["idproducto"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' inventario ='{$value["idinventario"]}' valor='{$value["precio_compra"]}' nombre_proveedor='{$value["nombre_proveedor"]}' idproveedor='{$value["idproveedor"]}' class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
 			    </div>
                 </td>
             </tr>
@@ -356,6 +358,7 @@ class AjaxMantenimientos
 
     static public function ajaxGuardarEditarOrdenServicio($datos)
     {
+        
         $respuesta = ControladorMantenimientos::ctrAgregarEditarOrden($datos);
         echo $respuesta;
         
@@ -380,7 +383,81 @@ class AjaxMantenimientos
         echo $respuesta;
     }
 
+    /* ===================================================
+        CARGAR DATOS DE UNA ORDEN DE SERVICIO
+    ===================================================*/
+    static public function ajaxCargarOrden($idorden)
+    {
+        $datosOrden = ControladorMantenimientos::ctrCargarOrdenServicio($idorden);
+        $repuestosOrden = ControladorMantenimientos::ctrRepuestosOrden($idorden);
+        $manoObra = ControladorMantenimientos::ctrManoObraOrden($idorden);
+        $serviciosExt = ControladorMantenimientos::ctrServiciosExt($idorden);
 
+
+        $datos=[
+            'datosOrden' => $datosOrden,
+            'repuestosOrden' => $repuestosOrden,
+            'manoObraOrden' => $manoObra,
+            'serviciosExt' => $serviciosExt
+        ];
+
+
+        echo json_encode($datos); 
+    }
+
+    /* ===================================================
+        CARGAR LISTA DE SERVICIOS
+    ===================================================*/
+    static public function ajaxListaServicios($consecutivo, $seccion)
+    {
+        $respuesta = ModeloVehiculos::mdlListadoServicios();
+        $opciones = "";
+        foreach ($respuesta as $key => $value) {
+            
+            $opciones .="
+            <tr>
+            <td> ". $value['servicio'] ." </td>
+            <td>
+                <div class='btn-group' role='group' aria-label='Button group'>
+			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar servicio' value='{$value["idservicio"]}' consecutivo = '{$consecutivo}' servicio='{$value['servicio']}' idservicio = '{$value["idservicio"]}' seccion='{$seccion}'   class='btn btn-sm btn-success btn-SeleccionarServicio'><i class='fas fa-check'></i></button>
+			    </div>
+                </td>
+            </tr>";
+
+            // <option value=" .  $value['idservicio'] . " consecutivo=" . $consecutivo ." nombre=". $nombre ." >" . $value['servicio'] . "</option>"
+        }
+                        
+
+        echo $opciones;
+    }
+
+    /* ===================================================
+        CARGAR LISTA DE CUENTAS CONTABLES
+    ===================================================*/
+    static public function ajaxListaCuentasContables($consecutivo, $seccion)
+    {
+        $respuesta = ModeloMantenimientos::mdlListaCuentasContables();
+        $tr = "" ;
+
+        foreach ($respuesta as $key => $value) {
+            
+            $tr .= "
+            
+            <tr>
+            <td>". $value['num_cuenta'] ."</td>
+            <td>". $value['nombre_cuenta'] ."</td>
+            <td>
+                <div class='btn-group' role='group' aria-label='Button group'>
+			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar cuenta contable' value='{$value["id"]}' idcuenta='{$value["id"]}' consecutivo = '{$consecutivo}' codigo='{$value['num_cuenta']}' nombre = '{$value["nombre_cuenta"]}' seccion='{$seccion}'   class='btn btn-sm btn-success btn-SeleccionarCuentaContable'><i class='fas fa-check'></i></button>
+			    </div>
+            </td>
+            </tr>
+            
+            
+            ";
+        }
+        echo $tr;
+    }
 }
 /* ===================================================
             LLAMADOS AJAX INVENTARIO
@@ -453,5 +530,14 @@ if (isset($_POST['ServiciosxVehiculo']) && $_POST['ServiciosxVehiculo'] == "ok")
 #LLAMADO A LISTA DE PROVEEDORES
 if (isset($_POST['ListaProveedores']) && $_POST['ListaProveedores'] == "ok") AjaxMantenimientos::ajaxListdoProveedores($_POST['consecutivo']);
 
-#LLAMADO A GUARDAR/EDITAR ORDEN DE SERVICIO
+#LLAMADO A GUARDAR ORDEN DE SERVICIO
 if(isset($_POST['Guardar_OrdenServicio']) && $_POST['Guardar_OrdenServicio'] == "ok") AjaxMantenimientos::ajaxGuardarEditarOrdenServicio($_POST);
+
+#LLAMADO A CARGAR DATOS ORDEN DE SERVICIO
+if(isset($_POST['DatosOrdenServicio']) && $_POST['DatosOrdenServicio'] == "ok") AjaxMantenimientos::ajaxCargarOrden($_POST['idorden']);
+
+#LLAMADO A TABLA SERVICIOS
+if(isset($_POST['ListaServicios']) && $_POST['ListaServicios'] == "ok") AjaxMantenimientos::ajaxListaServicios($_POST['consecutivo'], $_POST['seccion']);
+
+#LLAMADO A LISTA DE CONTABLES 
+if(isset($_POST['ListaCuentasContables']) && $_POST['ListaCuentasContables'] == "ok") AjaxMantenimientos::ajaxListaCuentasContables($_POST['consecutivo'], $_POST['seccion']);

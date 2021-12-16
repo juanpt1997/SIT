@@ -47,6 +47,29 @@ class AjaxProveedores
         }
         echo $option;
     }
+
+    static public function ajaxCargarDatosProveedor($id)
+    {
+        $respuesta = ModeloProveedores::mdlDatosproveedor($id);
+        echo json_encode($respuesta);
+    }
+
+    // static public function ajaxCargarSelectTipoPro()
+    // {
+    //     $datos = array(
+    //                     'id' => 'id',
+    //                     'item' => 'tipo',
+    //                     'tabla' => 'c_tipo_proveedor'
+    //                 );
+
+    //     $respuesta = ModeloConceptosGH::mdlVer($datos);
+    //     $option = "<option value='' selected>Seleccione un tipo de proveedor</option>";
+
+    //     foreach ($respuesta as $key => $value) {
+    //         $option .= "<option value='{$value["id"]}'>{$value["tipo"]}</option>";
+    //     }
+    //     echo $option;
+    // }
 }
 
 /* ===================================================
@@ -63,3 +86,11 @@ if (isset($_POST['EliminarProveedor']) && $_POST['EliminarProveedor'] == "ok") {
 if (isset($_POST['cargarselectProveedor']) && $_POST['cargarselectProveedor'] == "ok") {
     AjaxProveedores::cargarSelectProveedor();
 }
+
+if (isset($_POST['cargarDatosProveedor']) && $_POST['cargarDatosProveedor'] == "ok") {
+    AjaxProveedores::ajaxCargarDatosProveedor($_POST['id']);
+}
+
+// if (isset($_POST['cargarSelectTipoPro']) && $_POST['cargarSelectTipoPro'] == "ok") {
+//     AjaxProveedores::ajaxCargarSelectTipoPro();
+// }

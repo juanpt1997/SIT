@@ -111,6 +111,16 @@ class AjaxConceptosGH
 				$tabla = "a_categorias";
 				$item = "categoria";
 				break;
+			
+			case 'Tipo de proveedor':
+				$tabla = "c_tipo_proveedor";
+				$item = "tipo";
+				break;
+
+			case 'Servicios externos':
+				$tabla = "m_serviciosexternos";
+				$item = "nombre";
+				break;	
 
 			default:
 				// code...
@@ -251,7 +261,19 @@ class AjaxConceptosGH
 				$tabla = "a_categorias";
 				$item = "categoria";
 				$id = "idcategorias";
-				break;		
+				break;
+				
+			case 'Tipo de proveedor':
+				$tabla = "c_tipo_proveedor";
+				$item = "tipo";
+				$id = "id";
+				break;
+					
+			case 'Servicios externos':
+				$tabla = "m_serviciosexternos";
+				$item = "nombre";
+				$id = "idservicio_externo";
+				break;	
 
 			default:
 				// code...
@@ -393,6 +415,18 @@ class AjaxConceptosGH
 				$item = "categoria";
 				$idtabla = "idcategorias";
 				break;	
+
+			case 'Tipo de proveedor':
+				$tabla = "c_tipo_proveedor";
+				$item = "tipo";
+				$idtabla = "id";
+				break;
+
+			case 'Servicios externos':
+				$tabla = "m_serviciosexternos";
+				$item = "nombre";
+				$idtabla = "idservicio_externo";
+				break;	
 				
 			default:
 				// code...
@@ -498,6 +532,16 @@ class AjaxConceptosGH
 			case 'Categorias':
 				$tabla = "a_categorias";
 				$item = "categoria";
+				break;		
+
+			case 'Tipo de proveedor':
+				$tabla = "c_tipo_proveedor";
+				$item = "tipo";
+				break;
+				
+			case 'Servicios externos':
+				$tabla = "m_serviciosexternos";
+				$item = "nombre";
 				break;		
 
 			default:
@@ -631,6 +675,16 @@ class AjaxConceptosGH
 				$item = "categoria";
 				break;	
 
+			case 'Tipo de proveedor':
+				$tabla = "c_tipo_proveedor";
+				$item = "tipo";
+				break;
+
+			case 'Servicios externos':
+				$tabla = "m_serviciosexternos";
+				$item = "nombre";
+				break;	
+				
 			default:
 				// code...
 				break;
@@ -651,7 +705,7 @@ class AjaxConceptosGH
 			case 'Documento vehicular':
 				$tabla = "v_tipodocumento";
 				$item1 = "tipodocumento";
-				$item2 = "diasalerta";
+				$item2 = "dia salerta";
 				break;
 
 			case 'Categorias de licencias':
@@ -664,6 +718,12 @@ class AjaxConceptosGH
 				$tabla = "documentosidentificacion";
 				$item1 = "tipo";
 				$item2 = "descripcion";
+				break;
+
+			case 'Cuentas contables':
+				$tabla = "li_cuentas_contables";
+				$item1 = "num_cuenta";
+				$item2 = "nombre_cuenta";
 				break;
 
 			default:
@@ -707,6 +767,13 @@ class AjaxConceptosGH
 				$idtabla = "iddocumento";
 				break;
 
+			case 'Cuentas contables':
+				$tabla = "li_cuentas_contables";
+				$item1 = "num_cuenta";
+				$item2 = "nombre_cuenta";
+				$idtabla = "id";
+				break;	
+
 			default:
 				# code...
 				break;
@@ -748,6 +815,12 @@ class AjaxConceptosGH
 				$item2 = "descripcion";
 				break;
 
+			case 'Cuentas contables':
+				$tabla = "li_cuentas_contables";
+				$item1 = "num_cuenta";
+				$item2 = "nombre_cuenta";
+				break;
+
 			default:
 				// code...
 				break;
@@ -785,6 +858,13 @@ class AjaxConceptosGH
 				$item1 = "tipo";
 				$item2 = "descripcion";
 				$id = "iddocumento";
+				break;
+
+			case 'Cuentas contables':
+				$tabla = "li_cuentas_contables";
+				$item1 = "num_cuenta";
+				$item2 = "nombre_cuenta";
+				$id = "id";
 				break;
 
 			default:
@@ -1072,6 +1152,16 @@ class AjaxConceptosGH
 			case 'Categorias':
 				$tabla = "a_categorias";
 				$id_tabla = "idcategorias";
+				break;	
+
+			case 'Tipo de proveedor':
+				$tabla = "c_tipo_proveedor";
+				$id_tabla = "id";
+				break;	
+
+			case 'Servicios externos':
+				$tabla = "m_serviciosexternos";
+				$id_tabla = "idservicio_externo";
 				break;	
 
 			default:

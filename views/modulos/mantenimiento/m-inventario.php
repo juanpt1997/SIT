@@ -2727,9 +2727,9 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                     ?>
                                                     <tr>
                                                         <td>
-                                                            <button type="button" title="PDF inventario" data-toggle="tooltip" data-placement="top" class="btn btn-info btn-sm btn-verInventario" id_inventario="<?= $value['id'] ?>"><i class="fas fa-book"></i></button>
-                                                            <button type="button" title="Editar inventario actual" data-toggle="tooltip" data-placement="top" class="btn btn-success btn-sm btn-editarInventario" id_inventario="<?= $value['id'] ?>"><i class="fas fa-edit"></i></button>
-                                                            <button type="button" title="Eliminar registro" data-toggle="tooltip" data-placement="top" class="btn btn-danger btn-sm btn-eliminar" id_inventario="<?= $value['id'] ?>"><i class="fas fa-trash"></i></button>
+                                                            <button type="button" title="PDF inventario" data-toggle="tooltip" data-placement="top" class="btn btn-danger btn-sm btn-verInventario" id_inventario="<?= $value['id'] ?>"><i class="fas fa-file-pdf"></i></button>
+                                                            <button type="button" title="Editar inventario actual" data-toggle="tooltip" data-placement="top" class="btn btn-info btn-sm btn-editarInventario" id_inventario="<?= $value['id'] ?>"><i class="fas fa-edit"></i></button>
+                                                            <button type="button" title="Eliminar registro" data-toggle="tooltip" data-placement="top" class="btn btn-secondary btn-sm btn-eliminar" id_inventario="<?= $value['id'] ?>"><i class="fas fa-trash"></i></button>
                                                         </td>
                                                         <td><?= $value['id'] ?></td>
                                                         <td><?= $value['fecha_inventario'] ?></td>

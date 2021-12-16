@@ -6,6 +6,9 @@ if (!validarPermiso('M_CONTRATOS', 'R')) {
 
 $ListarFijos = ControladorFijos::ctrVerFijos();
 $clientes = ControladorClientes::ctrVerCliente("clientes");
+$TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
+$Placas = ControladorVehiculos::ctrListaVehiculos();
+
 ?>
 
 
@@ -62,7 +65,9 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                             <tr>
                                                 <td class="text-center">
                                                     <div class="btn-group" role="group" aria-label="Button group">
-                                                        <button class="btn btn-toolbar btn-sm btn-info btn-editarfijo" idcliente="<?= $value['idcliente'] ?>" idfijos="<?= $value['idfijos'] ?>" data-toggle="modal" data-target="#fijosmodal"><i class="fas fa-edit"></i></button>
+                                                        <button class="btn btn-toolbar btn-sm btn-secondary btn-editarfijo" idcliente="<?= $value['idcliente'] ?>" idfijos="<?= $value['idfijos'] ?>" data-toggle="modal" data-target="#fijosmodal" title="Editar"><i class="fas fa-edit"></i></button>
+                                                        <button class="btn btn-toolbar btn-sm btn-primary btn-verRutas ml-1" idcliente="<?= $value['idcliente'] ?>" nombreCliente="<?= $value['nombre_cliente'] ?>" data-toggle="modal" data-target="#modalRutasCliente" title="Ver rutas"><i class="fas fa-route"></i></button>
+                                                        <button class="btn btn-toolbar btn-sm btn-success btn-varVehiculosRutas ml-1" idcliente="<?= $value['idcliente'] ?>" nombreCliente="<?= $value['nombre_cliente'] ?>" data-toggle="modal" data-target="#modalVehiculosRutas" title="Ver vehículo"><i class="fas fa-bus"></i></button>
                                                     </div>
                                                 </td>
                                                 <td><?= $value['idfijos'] ?></td>
@@ -189,6 +194,205 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                 $CrearCliente->ctrAgregarEditarFijos();
                 ?>
             </form>
+        </div>
+    </div>
+</div>
+
+<div id="modalRutasCliente" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-light">
+                <h5 class="modal-title text-uppercase font-weight-bold" id="my-modal-title">Rutas - <span id="nombreClienteRutas" class="badge badge-info"></span></h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formRutasCliente" enctype="multipart/form-data" method="post">
+                    <!-- ===================================================
+                        CAMPOS RUTAS
+                    =================================================== -->
+                    <input type="hidden" id="idrutacliente" name="idrutacliente" value="">
+                    <input type="hidden" id="idclienteRutas" name="idcliente" value="">
+                    <div class="row mt-3">
+                        <!-- Ruta -->
+                        <div class="col-12">
+                            <div class="form-group">
+                                <label for="idruta" class="d-flex justify-content-center"><i>DESCRIPCIÓN RUTA</i></label>
+                                <div class="input-group">
+                                    <input type="hidden" id="idruta" name="idruta">
+                                    <input class="form-control" type="text" id="descripcion" name="descripcion" placeholder="Seleccione una ruta de la lista" required>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-secondary btn-md btn-ruta" title="Buscar una ruta existente" data-toggle="modal" data-target="#modal_general"><i class="fas fa-route"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Origen -->
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label>Origen</label>
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-route"></i>
+                                        </span>
+                                    </div>
+                                    <input class="form-control" type="text" id="origen" name="origen" readonly>
+                                </div>
+                            </div>
+
+                        </div><!-- /.col -->
+
+                        <!-- Destino -->
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label>Destino</label>
+                                <div class="input-group">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="fas fa-route"></i>
+                                        </span>
+                                    </div>
+                                    <input class="form-control" type="text" id="destino" name="destino" readonly>
+                                </div>
+                            </div>
+                        </div><!-- /.col -->
+                    </div>
+
+                    <div class="row">
+                        <!-- ===================================================
+                            Tipo vehículo
+                        =================================================== -->
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="tipoVehiculo">Tipo Vehículo</label>
+                                <select id="tipoVehiculo" class="form-control" name="idtipovehiculo" required>
+                                    <option value="" disabled selected>-Seleccione un tipo de vehículo-</option>
+                                    <?php foreach ($TiposVehiculo as $key => $value) : ?>
+                                        <option value="<?= $value['idtipovehiculo'] ?>"><?= $value['tipovehiculo'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- ===================================================
+                            Valor recorrido
+                        =================================================== -->
+                        <div class="col-12 col-md-6">
+                            <div class="form-group">
+                                <label for="valor_recorrido">Valor Recorrido Día</label>
+                                <input id="valor_recorrido" class="form-control" type="number" name="valor_recorrido" min="1" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 text-right">
+                            <button class="btn btn-success" id="btnGuardarRuta" type="submit"><i class="fas fa-save"></i> Guardar</button>
+                        </div>
+                    </div>
+                </form>
+
+
+
+                <hr class="my-4 bg-secondary">
+
+                <!-- ===================================================
+                    RESUMEN DE RUTAS
+                =================================================== -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header text-uppercase font-weight-bold">
+                                Resumen Rutas
+                            </div>
+                            <div class="card-body table-responsive">
+                                <table id="tblRutasxCliente" class="table-sm table-striped table-bordered table-hover w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>Cliente</th>
+                                            <th>Origen</th>
+                                            <th>Destino</th>
+                                            <th>Descripción</th>
+                                            <th>Tipo vehículo</th>
+                                            <th>Valor recorrido día</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyRutasxCliente" class="tbody-light">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalVehiculosRutas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title text-uppercase font-weight-bold" id="my-modal-title">Vehículos</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- SELECCIÓN DE VEHÍCULO -->
+                <div class="col-12">
+                    <div class="form-group">
+                        <label for="placa_contrutas" class="d-flex justify-content-center"><i>Placa</i></label>
+                        <select id="placa_contrutas" name="placa_contrutas" class="form-control select2-single" type="number" style="width: 99%" required>
+                            <option selected value="">Seleccione un vehículo</option>
+                            <?php foreach ($Placas as $key => $value) : ?>
+                                <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?> </option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+                </div>
+
+                <hr class="my-4 bg-secondary">
+
+                <!-- RESUMEN VEHÍCULOS POR RUTA -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header bg-success text-uppercase font-weight-bold">
+                                Resumen vehículos por ruta
+                            </div>
+                            <div class="card-body table-responsive">
+                                <table class="table-sm table-striped table-bordered table-hover w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>Placa</th>
+                                            <th>Número interno</th>
+                                            <th>Cliente</th>
+                                            <th>Origen</th>
+                                            <th>Destino</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
         </div>
     </div>
 </div>
