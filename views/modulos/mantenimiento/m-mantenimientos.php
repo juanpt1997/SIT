@@ -219,6 +219,8 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                                         </div>
                                                                     </div>
 
+                                                                    <!-- <input type="hidden" id="fecha_aprobacion" name="fecha_aprobacion"> -->
+
                                                                     <div class="col-12 col-sm-6 col-lg-4">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Ciudad</i></label>
@@ -1003,8 +1005,9 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                 <div class="card-body">
                     <div class="col-12">
                         <div class="table-responsive">
-                            <table id="tablaRepuesto" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                            <table id="tablaRepuesto" class="table-sm table-striped table-bordered  text-center table-hover  w-100">
                                 <thead class="text-nowrap">
+                                    <th>Selección</th>
                                     <th>Código</th>
                                     <th>Referencia</th>
                                     <th>Stock</th>
@@ -1016,7 +1019,6 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <th>Medida</th>
                                     <th>Valor (Unitario)</th>
                                     <th>Proveedor</th>
-                                    <th>Selección</th>
                                 </thead>
                                 <tbody id="tBodyRepuesto" class="text-nowrap">
 

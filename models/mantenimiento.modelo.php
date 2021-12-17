@@ -1848,12 +1848,13 @@ class ModeloMantenimientos
     ===================================================*/
     static public function mdlRepuestosOrden($idorden)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT r.*, i.idproducto, p.*, sm.servicio, cp.nombre_contacto, cp.id
+        $stmt = Conexion::conectar()->prepare("SELECT r.*, i.idproducto, p.*, sm.servicio, cp.nombre_contacto, cp.id, cc.num_cuenta, cc.nombre_cuenta
         FROM m_re_repuestoordenservicio r
         INNER JOIN a_re_inventario i ON r.idinventario = i.idinventario
         INNER JOIN a_productos p ON i.idproducto = p.idproducto
         INNER JOIN m_serviciosmenores sm ON r.idservicio = sm.idservicio
         LEFT JOIN c_proveedores cp ON r.idproveedor = cp.id
+        LEFT JOIN li_cuentas_contables cc ON r.idcuenta = cc.id
         WHERE r.idorden = :idorden");
 
         $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
@@ -1868,9 +1869,10 @@ class ModeloMantenimientos
     ===================================================*/
     static public function mdlManoObraOrden($idorden)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT m.*, p.*, sm.* FROM m_re_proveedorordenservicio m
+        $stmt = Conexion::conectar()->prepare("SELECT m.*, p.*, sm.*, cc.num_cuenta, cc.nombre_cuenta FROM m_re_proveedorordenservicio m
         INNER JOIN c_proveedores p ON m.idproveedor = p.id 
         INNER JOIN m_serviciosmenores sm ON m.idservicio = sm.idservicio
+        LEFT JOIN li_cuentas_contables cc ON m.idcuenta = cc.id
         WHERE m.idorden = :idorden");
 
         $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
@@ -1902,19 +1904,20 @@ class ModeloMantenimientos
     static public function mdlAgregarOrdenServicio($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("INSERT INTO m_ordenservicio(idvehiculo,fecha_entrada,hora_entrada,fecha_trabajos,fecha_aprobacion,diagnostico,observacion, estado, ciudad, factura)
-                                                VALUES(:idvehiculo_OrdServ, :fechaentrada_OrdSer, :horaentra_ordSer, :fechaInic_ordSer, :fechaApro_ordSer, :diagnostico, :observacion, :estado, :ciudad, :factura)");
+        $stmt = $conexion->prepare("INSERT INTO m_ordenservicio(idvehiculo,fecha_entrada,hora_entrada,fecha_trabajos,diagnostico,observacion, estado, ciudad, factura, kilometraje_orden, fecha_aprobacion)
+                                                VALUES(:idvehiculo_OrdServ, :fechaentrada_OrdSer, :horaentra_ordSer, :fechaInic_ordSer, :diagnostico, :observacion, :estado, :ciudad, :factura, :kilometraje_orden, :fecha_aprobacion)");
 
         $stmt->bindParam(":idvehiculo_OrdServ", $datos['idvehiculo_OrdServ'], PDO::PARAM_INT);
         $stmt->bindParam(":fechaentrada_OrdSer", $datos['fechaentrada_OrdSer'], PDO::PARAM_STR);
         $stmt->bindParam(":horaentra_ordSer", $datos['horaentra_ordSer'], PDO::PARAM_STR);
         $stmt->bindParam(":fechaInic_ordSer", $datos['fechaInic_ordSer'], PDO::PARAM_STR);
-        $stmt->bindParam(":fechaApro_ordSer", $datos['fechaApro_ordSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_aprobacion", $datos['fecha_aprobacion'], PDO::PARAM_STR);
         $stmt->bindParam(":diagnostico", $datos['diagnostico'], PDO::PARAM_STR);
         $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
         $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_INT);
         $stmt->bindParam(":ciudad", $datos['ciudad_OrdServ'], PDO::PARAM_INT);
         $stmt->bindParam(":factura", $datos['numFactura_ordSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":kilometraje_orden", $datos['kilome_ordSer'], PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $id = $conexion->lastInsertId();
@@ -1944,7 +1947,8 @@ class ModeloMantenimientos
             `observacion` = :observacion,
             `estado` = :estado,
             `ciudad` = :ciudad,
-            `factura` = :factura
+            `factura` = :factura,
+            `kilometraje_orden` = :kilometraje_orden
             WHERE `idorden`= :idorden");
 
         $stmt->bindParam(":idorden", $datos['numOrden_ordSer'], PDO::PARAM_INT);
@@ -1958,6 +1962,7 @@ class ModeloMantenimientos
         $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_INT);
         $stmt->bindParam(":ciudad", $datos['ciudad_OrdServ'], PDO::PARAM_INT);
         $stmt->bindParam(":factura", $datos['numFactura_ordSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":kilometraje_orden", $datos['kilome_ordSer'], PDO::PARAM_INT);
 
 
         if ($stmt->execute()) {

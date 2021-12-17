@@ -582,7 +582,7 @@ $(document).ready(function () {
         let FiltroTablaInventario = () => {
             /* ===================================================
                     FILTRAR POR COLUMNA
-      ====================================================*/
+            ====================================================*/
             /* Filtrar por columna */
             //Clonar el tr del thead
             $(`#tabla_resumen_inventario thead tr:eq(1)`)
@@ -606,7 +606,7 @@ $(document).ready(function () {
 
             /* ===================================================
                       INICIALIZAR DATATABLE 
-      ====================================================*/
+            ====================================================*/
             var buttons = [
                 {
                     extend: "excel",
@@ -1298,7 +1298,7 @@ $(document).ready(function () {
                 <div class="input-group">
                 <input class="form-control" type="text" id="cuenta_repuesto_${dinamico}" name="cuenta_repuesto[]" placeholder="Seleccione una cuenta" maxlength="0">
                 <div class="input-group-append">
-                <button type="button" class="btn btn-success btn-md btn-cuenta" seccion="repuesto" consecutivo="${dinamico}" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-wrench"></i></button>
+                <button type="button" class="btn btn-success btn-md btn-cuenta" seccion="repuesto" consecutivo="${dinamico}" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
                 </div>
                 </div>
                 </td>` +
@@ -1510,6 +1510,31 @@ $(document).ready(function () {
                     } else {
                         $("#tBodyRepuesto").html("");
                     }
+
+                    /* ===================================================
+                    FILTRAR POR COLUMNA
+            ====================================================*/
+                    /* Filtrar por columna */
+                    //Clonar el tr del thead
+                    if($(`#tablaRepuesto thead tr`).length == 1)
+                    $(`#tablaRepuesto thead tr:eq(0)`)
+                        .clone(true)
+                        .appendTo(`#tablaRepuesto thead`);
+                    //Por cada th creado hacer lo siguiente
+                    $(`#tablaRepuesto thead tr:eq(1) th`).each(function (i) {
+                        //Remover clase sorting y el evento que tiene cuando se hace click
+                        $(this).removeClass("sorting").unbind();
+                        //Agregar input de busqueda
+                        $(this).html(
+                            '<input class="form-control" type="text" placeholder="Buscar"/>'
+                        );
+                        //Evento para detectar cambio en el input y buscar
+                        $("input", this).on("keyup change", function () {
+                            if (table.column(i).search() !== this.value) {
+                                table.column(i).search(this.value).draw();
+                            }
+                        });
+                    });
                     /* ===================================================
               INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
             ===================================================*/
@@ -1922,24 +1947,30 @@ $(document).ready(function () {
                 $("#estado").removeClass("bg-warning");
                 $("#estado").removeClass("bg-success");
                 $("#estado").removeClass("bg-danger");
+                $("#fechainicio_ordSer").removeAttr("required");
             }
 
             if (estado == 0) {
                 $("#estado").removeClass("bg-warning");
                 $("#estado").removeClass("bg-success");
                 $("#estado").addClass("bg-danger");
+                $("#fechainicio_ordSer").removeAttr("required");
             }
 
             if (estado == 1) {
                 $("#estado").removeClass("bg-danger");
                 $("#estado").removeClass("bg-success");
                 $("#estado").addClass("bg-warning");
+                $("#fechainicio_ordSer").removeAttr("required");
             }
 
             if (estado == 2) {
                 $("#estado").removeClass("bg-warning");
                 $("#estado").removeClass("bg-danger");
                 $("#estado").addClass("bg-success");
+
+                //PONE REQUIRED FECHA INICIO TRABAJOS
+                $("#fechainicio_ordSer").attr("required", true);
             }
         });
 
@@ -2068,7 +2099,7 @@ $(document).ready(function () {
                 `<td>` +
                 `<input type="text" class="form-control" id="total_repuesto_${dinamico}" name="total_repuesto[]" value="${element.total}" readonly>` +
                 `</td>` +
-                `<input type="hidden" name="idproveedor_repuesto[]" id="idproveedor_repuesto_${dinamico}">` +
+                `<input type="hidden" value="${element.idproveedor}" name="idproveedor_repuesto[]"  id="idproveedor_repuesto_${dinamico}">` +
                 `<td>` +
                 `<input type="text" class="form-control" id="proveedor_repuesto_${dinamico}" value="${element.nombre_contacto}" name="proveedor_repuesto[]" readonly>` +
                 `</td>` +
@@ -2098,11 +2129,11 @@ $(document).ready(function () {
         </div>
       </td>` +
                 `<td>
-                <input type="hidden" id="idcuenta_repuesto_${dinamico}" name="idcuenta[]">
+                <input type="hidden" id="idcuenta_repuesto_${dinamico}" value="${element.idcuenta}" name="idcuenta[]">
       <div class="input-group">
-          <input class="form-control" type="text" id="cuenta_repuesto_${dinamico}" name="cuenta_repuesto[]" placeholder="Seleccione una cuenta" maxlength="0">
+          <input class="form-control" type="text" id="cuenta_repuesto_${dinamico}" value="${element.num_cuenta}" name="cuenta_repuesto[]" placeholder="Seleccione una cuenta" maxlength="0">
           <div class="input-group-append">
-              <button type="button" class="btn btn-success btn-md btn-cuenta" seccion="repuesto" consecutivo="${dinamico}" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-wrench"></i></button>
+              <button type="button" class="btn btn-success btn-md btn-cuenta" seccion="repuesto" consecutivo="${dinamico}" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
           </div>
       </div>
   </td>` +
@@ -2184,8 +2215,8 @@ $(document).ready(function () {
             <td style="width: 300px"><input type="text" class="form-control" id="descrip_${dinamico}" value="${element.descripcion}" name="descrip_mano[]"></td>
             <td style="width: 300px"><input type="text" class="form-control input-valorMano" id="valor_${dinamico}" consecutivo="${dinamico}" value="${element.valor}" name="valor_mano[]"></td>
             <td style="width: 300px"><input type="text" class="form-control input-cantMano" id="cantmanoObra_${dinamico}" consecutivo="${dinamico}" value="${element.cantidad}" name="cantmanoObra[]" ></td>
-            <td><input type="text" class="form-control input-ivaMano" consecutivo="${dinamico}" id="iva_mano_${dinamico}" name="iva_mano[]"></td>
-            <td><input type="text" class="form-control" id="total_mano_${dinamico}" name="total_mano[]" readonly></td>
+            <td><input type="text" class="form-control input-ivaMano" consecutivo="${dinamico}" id="iva_mano_${dinamico}" value="${element.iva}" name="iva_mano[]"></td>
+            <td><input type="text" class="form-control" id="total_mano_${dinamico}" value="${element.total}" name="total_mano[]" readonly></td>
             <td style="width: 300px">
                 <input type="hidden" id="servicio_mano_${dinamico}" value="${element.idservicio}" name="servicio_mano[]">
                 <div class="input-group">
@@ -2212,9 +2243,9 @@ $(document).ready(function () {
                 </div>
             </td>
             <td>
-                <input type="hidden" id="idcuenta_mano_${dinamico}" name="idcuenta_mano[]">
+                <input type="hidden" id="idcuenta_mano_${dinamico}" value="${element.idcuenta}" name="idcuenta_mano[]">
                 <div class="input-group">
-                    <input class="form-control" type="text" id="cuenta_mano_${dinamico}" name="cuenta_mano[]" placeholder="Seleccione una cuenta" maxlength="0">
+                    <input class="form-control" type="text" id="cuenta_mano_${dinamico}" value="${element.num_cuenta}" name="cuenta_mano[]" placeholder="Seleccione una cuenta" maxlength="0">
                     <div class="input-group-append">
                         <button type="button" class="btn btn-success btn-md btn-cuenta" seccion="manoObra" consecutivo="${dinamico}" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
                     </div>
@@ -2349,6 +2380,8 @@ $(document).ready(function () {
                         contentType: false,
                         processData: false,
                         success: function (response) {
+                            console.log(response);
+
                             let datosOrden = response.datosOrden;
 
                             // SE PONEN LOS DATOS GENERALES DE LA ORDEN EN SUS RESPECTIVOS CAMPOS
@@ -2381,6 +2414,10 @@ $(document).ready(function () {
                                 .trigger("change");
 
                             $("#numFactura_ordSer").val(datosOrden.factura);
+                            setTimeout(() => {
+                                console.log(datosOrden.kilometraje);
+                                $("#kilome_ordSer").val(datosOrden.kilometraje_orden);
+                            }, 500);
 
                             //SE PONEN LOS DATOS DE REPUESTOS
                             let repuestos = response.repuestosOrden;
@@ -2426,6 +2463,16 @@ $(document).ready(function () {
                                     $("#proveedor_repuesto_1").val(
                                         element.nombre_contacto
                                     );
+                                    $("#cuenta_repuesto_1").val(
+                                        element.num_cuenta
+                                    );
+                                    $("#idcuenta_repuesto_1").val(
+                                        element.idcuenta
+                                    );
+                                    $("#idproveedor_repuesto_1").val(
+                                        element.idproveedor
+                                    );
+                                    $("#iva_mano_1").val(element.iva);
                                 } else {
                                     filasEditarOrdenRepuesto(dinamico, element);
 
@@ -2436,6 +2483,8 @@ $(document).ready(function () {
                             //SE PONEN LOS DATOS DE MANO DE OBRA
                             let mano = response.manoObraOrden;
                             let dinamico2 = 2;
+
+                            console.log(mano);
 
                             mano.forEach((element, index) => {
                                 //CALCULAMOS EL VALOR TOTAL DE CADA REPUESTO
@@ -2467,9 +2516,11 @@ $(document).ready(function () {
                                     $("#mantenimientoManoObra_1").val(
                                         element.mantenimiento
                                     );
+                                    $("#total_mano_1").val(element.total);
+                                    $("#cuenta_mano_1").val(element.num_cuenta);
+                                    $("#idcuenta_mano_1").val(element.idcuenta);
                                 } else {
                                     filasEditarOrdenMano(dinamico2, element);
-                                    $("#total_mano_" + dinamico).val(total);
 
                                     dinamico2 += 1;
                                 }
@@ -2660,10 +2711,12 @@ $(document).ready(function () {
             if (seccion == "repuesto") {
                 $("#cuenta_repuesto_" + consecutivo).val(codigo);
                 $("#idcuenta_repuesto_" + consecutivo).val(idcuenta);
-            }else{
+            } else {
                 $("#cuenta_mano_" + consecutivo).val(codigo);
                 $("#idcuenta_mano_" + consecutivo).val(idcuenta);
             }
         });
+
+       
     }
 });
