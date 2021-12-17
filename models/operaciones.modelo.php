@@ -34,10 +34,16 @@ class ModeloAlistamiento
             $parametro = "AND DATE_FORMAT(fechaalista, '%Y-%m-%d') = DATE_FORMAT('{$datos['fechaalista']}', '%Y-%m-%d')";
         }
 
-        $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.numinterno, a.*, DATE_FORMAT(a.fechaalista, '%Y-%m-%d') as Ffechaalista FROM o_alistamiento a
+        $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.numinterno, a.*, DATE_FORMAT(a.fechaalista, '%Y-%m-%d') AS Ffechaalista, p.Nombre, m.marca, v.modelo, t.tipovehiculo, v.kilometraje, l.fecha_vencimiento, s.sucursal
+                                                FROM o_alistamiento a
                                                 INNER JOIN v_vehiculos v ON v.idvehiculo = a.idvehiculo
                                                 LEFT JOIN gh_personal p ON p.idPersonal = a.idconductor
-                                                WHERE a.{$datos['item']} = :{$datos['item']} $parametro;");
+                                                LEFT JOIN gh_re_personallicencias l ON l.idPersonal = p.idPersonal
+                                                LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
+                                                LEFT JOIN v_marcas m ON m.idmarca = v.idmarca
+                                                LEFT JOIN v_tipovehiculos t ON t.idtipovehiculo = v.idtipovehiculo
+                                                WHERE a.{$datos['item']} = :{$datos['item']} $parametro
+                                                LIMIT 1;");
         $stmt->bindParam(":{$datos['item']}", $datos['valor']);
         $stmt->execute();
         $retorno = $stmt->fetch();

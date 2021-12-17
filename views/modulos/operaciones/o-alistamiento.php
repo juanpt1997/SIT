@@ -66,8 +66,8 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
                                     </tr>
 
                                     <tr>
-                                        <th>...</th>
-                                        <th style="min-width:70px;">ID</th>
+                                        <th style="min-width:80px;">...</th>
+                                        <th style="min-width:80px;">ID</th>
                                         <th>Fecha - Hora</th>
                                         <th style="min-width:80px;">Placa</th>
                                         <th>Número interno</th>
@@ -165,6 +165,7 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
                                         <tr>
                                             <td>
                                                 <button type="button" class="btn btn-success btn-sm btn-editarAlistamiento" idalistamiento="<?= $value['id'] ?>" placa="<?= $value['placa'] ?>" data-toggle="modal" data-target="#modal-nuevoAlistamiento"><i class="fas fa-edit"></i></button>
+                                                <button type="button" title="PDF Alistamiento" class="btn btn-danger btn-sm btn-verInventario" idalistamiento="<?= $value['id'] ?>"><i class="fas fa-file-pdf"></i></button>
                                             </td>
                                             <td><?= $value['id'] ?></td>
                                             <td><?= $value['fechaalista'] ?></td>
@@ -2314,7 +2315,7 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
                                             </li>
 
                                             <li class="nav-item">
-                                                <a class="nav-link active" id="pills-observaimagenes-tab" data-toggle="pill" href="#pills-observaimagenes" role="tab" aria-controls="pills-observaimagenes" aria-selected="true"><u>Registro fotográfico</u></a>
+                                                <a class="nav-link active" id="pills-observaimagenes-tab" data-toggle="pill" href="#pills-observaimagenes" role="tab" aria-controls="pills-observaimagenes" aria-selected="true"><u>Solicitudes</u></a>
                                             </li>
                                         </ul>
                                     </div>

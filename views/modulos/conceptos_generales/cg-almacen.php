@@ -96,6 +96,26 @@
                                     <!-- /.info-box -->
                                 </div>
 
+                                <div class="col-12 col-sm-12 col-md-6 text-nowrap">
+                                    <div class="info-box border border-secondary">
+                                        <span class="info-box-icon bg-success elevation-1"><i class="fas fa-user-plus"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text"><i>Tipo de proveedor</i></span>
+                                            <span class="info-box-number" concepto="Tipo de proveedor"></span>
+                                        </div>
+                                        <!-- /.info-box-content -->
+                                        <div class="d-flex flex-column">
+                                            <button concepto="Tipo de proveedor" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarA"><i class="far fa-eye"></i></button>
+                                            <button concepto="Tipo de proveedor" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarA"><i class="fas fa-plus-circle"></i></button>
+                                        </div>
+
+                                        <div class="overlay d-none" concepto="Tipo de proveedor">
+                                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                        </div>
+                                    </div>
+                                    <!-- /.info-box -->
+                                </div>
+
                             </div>
                         </div>
                     </div>

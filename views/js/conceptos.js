@@ -1762,11 +1762,6 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                 }
             })
         });
-
-
-
-
-
     });
 }
 

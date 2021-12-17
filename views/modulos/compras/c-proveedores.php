@@ -6,6 +6,7 @@
 
 $Municipios = ControladorGH::ctrDeparMunicipios();
 $Proveedores = ControladorProveedores::ctrListarProveedores();
+$TipoPro = ControladorProveedores::ctrListarTipoProveedor();
 
 ?>
 <!-- ===================== 
@@ -36,7 +37,7 @@ $Proveedores = ControladorProveedores::ctrListarProveedores();
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-            
+
             <hr class="my-4">
 
             <div class="row d-flex justify-content-center mb">
@@ -65,6 +66,7 @@ $Proveedores = ControladorProveedores::ctrListarProveedores();
                                                 <th>Teléfono</th>
                                                 <th>Contacto</th>
                                                 <th>Correo Electrónico</th>
+                                                <th>Tipo</th>
                                             </tr>
                                         </thead>
 
@@ -83,6 +85,7 @@ $Proveedores = ControladorProveedores::ctrListarProveedores();
                                                     <td><?= $value['telefono'] ?></td>
                                                     <td><?= $value['nombre_contacto'] ?></td>
                                                     <td><?= $value['correo'] ?></td>
+                                                    <td><?= $value['tipo'] ?></td>
                                                 </tr>
                                             <?php endforeach ?>
                                         </tbody>
@@ -170,6 +173,18 @@ $Proveedores = ControladorProveedores::ctrListarProveedores();
                                     <?php endforeach ?>
                                 </select>
                             </div>
+
+                            <div class="form-group">
+                                <label><i>Tipo de proveedor</i></label>
+                                <div class="input-group">
+                                    <select class="select2-single rounded-0" id="tipoProveedor" name="tipoProveedor" required>
+                                        <?php foreach ($TipoPro as $key => $value) : ?>
+                                            <option value="<?= $value['id'] ?>"><?= $value['tipo'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>

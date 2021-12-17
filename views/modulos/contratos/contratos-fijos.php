@@ -7,6 +7,8 @@ if (!validarPermiso('M_CONTRATOS', 'R')) {
 $ListarFijos = ControladorFijos::ctrVerFijos();
 $clientes = ControladorClientes::ctrVerCliente("clientes");
 $TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
+$Placas = ControladorVehiculos::ctrListaVehiculos();
+
 ?>
 
 
@@ -64,7 +66,8 @@ $TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
                                                 <td class="text-center">
                                                     <div class="btn-group" role="group" aria-label="Button group">
                                                         <button class="btn btn-toolbar btn-sm btn-secondary btn-editarfijo" idcliente="<?= $value['idcliente'] ?>" idfijos="<?= $value['idfijos'] ?>" data-toggle="modal" data-target="#fijosmodal" title="Editar"><i class="fas fa-edit"></i></button>
-                                                        <button class="btn btn-toolbar btn-sm btn-primary btn-verRutas ml-1" idcliente="<?= $value['idcliente'] ?>" nombreCliente="<?= $value['nombre_cliente'] ?>"  data-toggle="modal" data-target="#modalRutasCliente" title="Ver rutas"><i class="fas fa-route"></i></button>
+                                                        <button class="btn btn-toolbar btn-sm btn-primary btn-verRutas ml-1" idcliente="<?= $value['idcliente'] ?>" nombreCliente="<?= $value['nombre_cliente'] ?>" data-toggle="modal" data-target="#modalRutasCliente" title="Ver rutas"><i class="fas fa-route"></i></button>
+                                                        <button class="btn btn-toolbar btn-sm btn-success btn-varVehiculosRutas ml-1" idcliente="<?= $value['idcliente'] ?>" nombreCliente="<?= $value['nombre_cliente'] ?>" data-toggle="modal" data-target="#modalVehiculosRutas" title="Ver vehículo"><i class="fas fa-bus"></i></button>
                                                     </div>
                                                 </td>
                                                 <td><?= $value['idfijos'] ?></td>
@@ -327,6 +330,105 @@ $TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
                 </div>
             </div>
 
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalVehiculosRutas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title text-uppercase font-weight-bold" id="my-modal-title">Vehículos</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- SELECCIÓN DE VEHÍCULO -->
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="form-group">
+                            <label for="placa_contrutas" class="d-flex justify-content-center"><i>Placa</i></label>
+                            <select id="placa_contrutas" name="placa_contrutas" class="form-control select2-single" type="number" style="width: 99%" required>
+                                <option selected value="">Seleccione un vehículo</option>
+                                <?php foreach ($Placas as $key => $value) : ?>
+                                    <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?> </option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="form-group text-center">
+                            <label><i>Número interno</i></label>
+                            <input type="text" class="form-control" id="num_internocontrutas" name="num_internocontrutas" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="form-group text-center">
+                            <label><i>Marca</i></label>
+                            <input type="text" class="form-control" id="marca_contrutas" name="marca_contrutas" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="form-group text-center">
+                            <label><i>Clase de vehículo</i></label>
+                            <input type="text" class="form-control" id="clase_contrutas" name="clase_contrutas" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="form-group text-center">
+                            <label><i>Modelo</i></label>
+                            <input type="text" class="form-control" id="modelo_contrutas" name="modelo_contrutas" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="form-group text-center">
+                            <label><i>Kilometraje</i></label>
+                            <input type="number" class="form-control" id="kilometraje_contrutas" name="kilometraje_contrutas" required readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-4 bg-secondary">
+
+                <!-- RESUMEN VEHÍCULOS POR RUTA -->
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header bg-success text-uppercase font-weight-bold">
+                                Resumen vehículos por contratos
+                            </div>
+                            <div class="card-body table-responsive">
+                                <table class="table-sm table-striped table-bordered table-hover w-100">
+                                    <thead>
+                                        <tr>
+                                            <th>Placa</th>
+                                            <th>Número interno</th>
+                                            <th>Cliente</th>
+                                            <th>Origen</th>
+                                            <th>Destino</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
             </div>

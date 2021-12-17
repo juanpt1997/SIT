@@ -1663,18 +1663,55 @@ class ModeloMantenimientos
     ===================================================*/
     static public function mdlListadoProductos()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT i.*, s.sucursal, p.*, m.medida, mc.marca, ct.categoria, 
-        (SELECT mi.preciocompra FROM a_re_movimientoinven mi 
-        WHERE mi.idinventario = i.idinventario AND mi.tipo_movimiento = 'ENTRADA' AND mi.preciocompra IS NOT NULL 
-        ORDER BY mi.fecha DESC 
-        LIMIT 1 ) AS precio_compra
-         FROM a_re_inventario i
-                INNER JOIN gh_sucursales s ON i.idsucursal = s.ids
-                INNER JOIN a_productos p ON i.idproducto = p.idproducto
-                LEFT JOIN a_medidas m ON p.idmedida = m.idmedidas
-                LEFT JOIN a_marcas mc ON p.idmarca = mc.idmarca
-                LEFT JOIN a_categorias ct ON p.idcategoria = ct.idcategorias
-        ");
+        //     $stmt = Conexion::conectar()->prepare("SELECT i.*, s.sucursal, p.*, m.medida, mc.marca, ct.categoria, 
+        //     (
+        //    SELECT mi.preciocompra
+        //    FROM a_re_movimientoinven mi
+        //    WHERE mi.idinventario = i.idinventario AND mi.tipo_movimiento = 'ENTRADA' AND mi.preciocompra IS NOT NULL
+        //    ORDER BY mi.fecha DESC
+        //    LIMIT 1) AS precio_compra, 
+        //             (
+        //    SELECT mi.idproveedor
+        //    FROM a_re_movimientoinven mi
+        //    WHERE mi.idinventario = i.idinventario AND mi.tipo_movimiento = 'ENTRADA' AND mi.idproveedor IS NOT NULL
+        //    ORDER BY mi.fecha DESC
+        //    LIMIT 1) AS idproveedor,
+        //     (
+        //    SELECT cp.nombre_contacto
+        //    FROM a_re_movimientoinven mi
+        //    INNER JOIN c_proveedores cp ON mi.idproveedor = cp.id
+        //    WHERE mi.idinventario = i.idinventario AND mi.tipo_movimiento = 'ENTRADA' AND mi.idproveedor IS NOT NULL
+        //    ORDER BY mi.fecha DESC 
+        //    LIMIT 1) AS nombre_proveedor
+        //    FROM a_re_inventario i
+        //    INNER JOIN gh_sucursales s ON i.idsucursal = s.ids
+        //    INNER JOIN a_productos p ON i.idproducto = p.idproducto
+        //    LEFT JOIN a_medidas m ON p.idmedida = m.idmedidas
+        //    LEFT JOIN a_marcas mc ON p.idmarca = mc.idmarca
+        //    LEFT JOIN a_categorias ct ON p.idcategoria = ct.idcategorias
+
+
+        //   ");
+
+        $stmt = Conexion::conectar()->prepare("SELECT i.*, s.sucursal, p.*, m.medida, mc.marca, ct.categoria,
+                                                mi.preciocompra AS precio_compra, mi.idproveedor,
+                                                prov.razon_social AS nombre_proveedor
+                                                FROM a_re_inventario i
+                                                INNER JOIN gh_sucursales s ON i.idsucursal = s.ids
+                                                INNER JOIN a_productos p ON i.idproducto = p.idproducto
+                                                LEFT JOIN a_medidas m ON p.idmedida = m.idmedidas
+                                                LEFT JOIN a_marcas mc ON p.idmarca = mc.idmarca
+                                                LEFT JOIN a_categorias ct ON p.idcategoria = ct.idcategorias
+                                                LEFT JOIN a_re_movimientoinven mi ON mi.idinventario = i.idinventario
+                                                LEFT JOIN c_proveedores prov ON prov.id = mi.idproveedor
+                                                WHERE (mi.idmovimiento, mi.idinventario) 
+                                                        IN (
+                                                            SELECT MAX(mi1.idmovimiento), mi1.idinventario
+                                                            FROM a_re_movimientoinven mi1
+                                                            WHERE mi1.tipo_movimiento = 'ENTRADA' AND mi1.preciocompra IS NOT NULL
+                                                            GROUP BY mi1.idinventario
+                                                            )
+                                                GROUP BY mi.idinventario");
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();
@@ -1707,6 +1744,10 @@ class ModeloMantenimientos
 
         /* ===================================================
            ALTERNATIVA DE CONSULTA, ESTO PARA TRAER AUTOMATICAMENTE EL REGISTRO MÁS RECIENTE (NO BORRAR PORQUE HAY QUE ANALIZAR ESTO PRIMERO)
+           ================================================================
+
+
+           
            SELECT v.placa, v.kilometraje AS kilometraje_actual, sm.idserviciovehiculo AS idserviciovehiculo, 
                 sm.idvehiculo, 
                 sm.idservicio,s.kilometraje_cambio AS kilometraje_servicio, 
@@ -1788,10 +1829,11 @@ class ModeloMantenimientos
     ===================================================*/
     static public function mdlCargarOrdenServicio($idorden)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT o.*, m.marca, c.idmunicipio , DATE_FORMAT(o.fecha_entrada, '%d-%m-%Y') AS Ffecha_entrada, DATE_FORMAT(o.fecha_trabajos, '%d-%m-%Y') as Ffecha_trabajos,  v.* FROM m_ordenservicio o
+        $stmt = Conexion::conectar()->prepare("SELECT o.*, m.marca,tv.tipovehiculo, c.idmunicipio , DATE_FORMAT(o.fecha_entrada, '%d-%m-%Y') AS Ffecha_entrada, DATE_FORMAT(o.fecha_trabajos, '%d-%m-%Y') as Ffecha_trabajos,  v.* FROM m_ordenservicio o
         INNER JOIN v_vehiculos v ON o.idvehiculo = v.idvehiculo
         INNER JOIN v_marcas m ON v.idmarca = m.idmarca
         INNER JOIN gh_municipios c ON o.ciudad = c.idmunicipio
+        LEFT JOIN v_tipovehiculos tv ON v.idtipovehiculo = tv.idtipovehiculo
         WHERE o.idorden = :idorden");
 
         $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
@@ -1802,14 +1844,18 @@ class ModeloMantenimientos
     }
 
     /* ===================================================
-        LISTADO DE REPUESTOS DE ORDEN DE SERVICIO
+        LISTADO DE REPUESTOS DE UNA ORDEN DE SERVICIO
     ===================================================*/
     static public function mdlRepuestosOrden($idorden)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT r.*, i.idproducto, p.* FROM m_re_repuestoordenservicio r 
+        $stmt = Conexion::conectar()->prepare("SELECT r.*, i.idproducto, p.*, sm.servicio, cp.nombre_contacto, cp.id, cc.num_cuenta, cc.nombre_cuenta
+        FROM m_re_repuestoordenservicio r
         INNER JOIN a_re_inventario i ON r.idinventario = i.idinventario
         INNER JOIN a_productos p ON i.idproducto = p.idproducto
-        WHERE r.idorden =  :idorden");
+        INNER JOIN m_serviciosmenores sm ON r.idservicio = sm.idservicio
+        LEFT JOIN c_proveedores cp ON r.idproveedor = cp.id
+        LEFT JOIN li_cuentas_contables cc ON r.idcuenta = cc.id
+        WHERE r.idorden = :idorden");
 
         $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
         $stmt->execute();
@@ -1819,11 +1865,30 @@ class ModeloMantenimientos
     }
 
     /* ===================================================
-        LISTADO DE MANO DE OBRA ORDEN DE SERVICIO
+        LISTADO DE MANO DE OBRA DE UNA ORDEN DE SERVICIO
     ===================================================*/
     static public function mdlManoObraOrden($idorden)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT m.* FROM m_re_proveedorordenservicio m WHERE m.idorden = :idorden");
+        $stmt = Conexion::conectar()->prepare("SELECT m.*, p.*, sm.*, cc.num_cuenta, cc.nombre_cuenta FROM m_re_proveedorordenservicio m
+        INNER JOIN c_proveedores p ON m.idproveedor = p.id 
+        INNER JOIN m_serviciosmenores sm ON m.idservicio = sm.idservicio
+        LEFT JOIN li_cuentas_contables cc ON m.idcuenta = cc.id
+        WHERE m.idorden = :idorden");
+
+        $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
+        $stmt->execute();
+        $respuesta = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
+
+    /* ===================================================
+    LISTADO DE SERVICIOS EXTERNOS DE UNA ORDEN DE SERVICIO
+    ===================================================*/
+    static public function mdlServicosExternosOrden($idorden)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT sm.* FROM m_re_serviciosexternosordenservicio sm 
+         WHERE sm.idorden = :idorden");
 
         $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
         $stmt->execute();
@@ -1839,18 +1904,20 @@ class ModeloMantenimientos
     static public function mdlAgregarOrdenServicio($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("INSERT INTO m_ordenservicio(idvehiculo,fecha_entrada,hora_entrada,fecha_trabajos,fecha_aprobacion,diagnostico,observacion, estado, ciudad)
-                                                VALUES(:idvehiculo_OrdServ, :fechaentrada_OrdSer, :horaentra_ordSer, :fechaInic_ordSer, :fechaApro_ordSer, :diagnostico, :observacion, :estado, :ciudad)");
+        $stmt = $conexion->prepare("INSERT INTO m_ordenservicio(idvehiculo,fecha_entrada,hora_entrada,fecha_trabajos,diagnostico,observacion, estado, ciudad, factura, kilometraje_orden, fecha_aprobacion)
+                                                VALUES(:idvehiculo_OrdServ, :fechaentrada_OrdSer, :horaentra_ordSer, :fechaInic_ordSer, :diagnostico, :observacion, :estado, :ciudad, :factura, :kilometraje_orden, :fecha_aprobacion)");
 
         $stmt->bindParam(":idvehiculo_OrdServ", $datos['idvehiculo_OrdServ'], PDO::PARAM_INT);
         $stmt->bindParam(":fechaentrada_OrdSer", $datos['fechaentrada_OrdSer'], PDO::PARAM_STR);
         $stmt->bindParam(":horaentra_ordSer", $datos['horaentra_ordSer'], PDO::PARAM_STR);
         $stmt->bindParam(":fechaInic_ordSer", $datos['fechaInic_ordSer'], PDO::PARAM_STR);
-        $stmt->bindParam(":fechaApro_ordSer", $datos['fechaApro_ordSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_aprobacion", $datos['fecha_aprobacion'], PDO::PARAM_STR);
         $stmt->bindParam(":diagnostico", $datos['diagnostico'], PDO::PARAM_STR);
         $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
         $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_INT);
         $stmt->bindParam(":ciudad", $datos['ciudad_OrdServ'], PDO::PARAM_INT);
+        $stmt->bindParam(":factura", $datos['numFactura_ordSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":kilometraje_orden", $datos['kilome_ordSer'], PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $id = $conexion->lastInsertId();
@@ -1859,8 +1926,119 @@ class ModeloMantenimientos
         }
         $stmt->closeCursor();
         $conexion = null;
-        
+
         return $id;
+    }
+
+    /* ===================================================
+        ACTUALIZAR ORDEN DE SERVICIO
+    ===================================================*/
+
+    static public function mdlActualizarOrden($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("UPDATE `m_ordenservicio` SET 
+            `idvehiculo` = :idvehiculo,
+            `fecha_entrada` = :fecha_entrada,
+            `hora_entrada` = :hora_entrada,
+            `fecha_trabajos` = :fecha_trabajos,
+            `fecha_aprobacion` = :fecha_aprobacion,
+            `diagnostico` = :diagnostico,
+            `observacion` = :observacion,
+            `estado` = :estado,
+            `ciudad` = :ciudad,
+            `factura` = :factura,
+            `kilometraje_orden` = :kilometraje_orden
+            WHERE `idorden`= :idorden");
+
+        $stmt->bindParam(":idorden", $datos['numOrden_ordSer'], PDO::PARAM_INT);
+        $stmt->bindParam(":idvehiculo", $datos['idvehiculo_OrdServ'], PDO::PARAM_INT);
+        $stmt->bindParam(":fecha_entrada", $datos['fechaentrada_OrdSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":hora_entrada", $datos['horaentra_ordSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_trabajos", $datos['fechaInic_ordSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_aprobacion", $datos['fechaApro_ordSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":diagnostico", $datos['diagnostico'], PDO::PARAM_STR);
+        $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
+        $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_INT);
+        $stmt->bindParam(":ciudad", $datos['ciudad_OrdServ'], PDO::PARAM_INT);
+        $stmt->bindParam(":factura", $datos['numFactura_ordSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":kilometraje_orden", $datos['kilome_ordSer'], PDO::PARAM_INT);
+
+
+        if ($stmt->execute()) {
+            $respuesta = "ok";
+        } else {
+            $respuesta = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $respuesta;
+    }
+
+    /* ===================================================
+        ELIMINAR REPUESTO DE UNA ORDEN DE SERVICIO
+    ===================================================*/
+    static public function mdlEliminarRepuesto($idorden)
+    {
+        $stmt = Conexion::conectar()->prepare("DELETE FROM m_re_repuestoordenservicio
+        WHERE idorden = :idorden ");
+
+        $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        ELIMINAR MANO DE OBRA DE UNA ORDEN DE SERVICIO
+    ===================================================*/
+    static public function mdlEliminarManoObra($idorden)
+    {
+        $stmt = Conexion::conectar()->prepare("DELETE FROM m_re_proveedorordenservicio
+        WHERE idorden = :idorden ");
+
+        $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        ELIMINAR SERVICIOS EXTERNOS DE UNA ORDEN DE SERVICIO
+    ===================================================*/
+    static public function mdlEliminarServiciosExternosOrden($idorden)
+    {
+        $stmt = Conexion::conectar()->prepare("DELETE FROM m_re_serviciosexternosordenservicio
+        WHERE idorden = :idorden ");
+
+        $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
     }
 
     /* ===================================================
@@ -1940,10 +2118,10 @@ class ModeloMantenimientos
         AGREGAR REPUESTO EN ORDEN DE SERVICIO
     ===================================================*/
 
-    static public function mdlAgregarRepuestoOrdenServicio($idorden,$idinventario,$cantidad,$idservicio,$sistema,$mantenimiento)
+    static public function mdlAgregarRepuestoOrdenServicio($idorden, $idinventario, $cantidad, $idservicio, $sistema, $mantenimiento, $iva, $total, $idproveedor, $valor, $idcuenta)
     {
-        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_repuestoordenservicio(idorden,idinventario, cantidad,idservicio,sistema,mantenimiento)
-                                                VALUES(:idorden,:idinventario, :cantidad, :idservicio, :sistema, :mantenimiento)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_repuestoordenservicio(idorden,idinventario, cantidad,idservicio,sistema,mantenimiento,iva,total, idproveedor, valor, idcuenta )
+                                                VALUES(:idorden,:idinventario, :cantidad, :idservicio, :sistema, :mantenimiento,:iva,:total, :idproveedor, :valor, :idcuenta)");
 
         $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
         $stmt->bindParam(":idinventario", $idinventario, PDO::PARAM_INT);
@@ -1951,6 +2129,11 @@ class ModeloMantenimientos
         $stmt->bindParam(":idservicio", $idservicio, PDO::PARAM_INT);
         $stmt->bindParam(":sistema", $sistema, PDO::PARAM_STR);
         $stmt->bindParam(":mantenimiento", $mantenimiento, PDO::PARAM_STR);
+        $stmt->bindParam(":iva", $iva, PDO::PARAM_INT);
+        $stmt->bindParam(":total", $total, PDO::PARAM_INT);
+        $stmt->bindParam(":idproveedor", $idproveedor, PDO::PARAM_INT);
+        $stmt->bindParam(":valor", $valor, PDO::PARAM_INT);
+        $stmt->bindParam(":idcuenta", $idcuenta, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $retorno = "ok";
@@ -1969,10 +2152,10 @@ class ModeloMantenimientos
         AGREGAR MANO DE OBRA / PROVEEDOR
     ===================================================*/
 
-    static public function mdlAgregarManoObra($idorden,$idproveedor,$descrip,$valor,$cantidad,$idservicio,$sistema,$mantenimiento)
+    static public function mdlAgregarManoObra($idorden, $idproveedor, $descrip, $valor, $cantidad, $idservicio, $sistema, $mantenimiento, $iva, $total, $idcuenta)
     {
-        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_proveedorordenservicio(idorden,idproveedor,descripcion,valor, cantidad, idservicio,sistema,mantenimiento)
-                                            VALUES(:idorden, :idproveedor, :descripcion, :valor, :cantidad, :idservicio, :sistema, :mantenimiento )");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_proveedorordenservicio(idorden,idproveedor,descripcion,valor, cantidad, idservicio,sistema,mantenimiento,iva,total, idcuenta)
+                                            VALUES(:idorden, :idproveedor, :descripcion, :valor, :cantidad, :idservicio, :sistema, :mantenimiento,:iva,:total, :idcuenta )");
 
         $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
         $stmt->bindParam(":idproveedor", $idproveedor, PDO::PARAM_INT);
@@ -1982,6 +2165,9 @@ class ModeloMantenimientos
         $stmt->bindParam(":idservicio", $idservicio, PDO::PARAM_INT);
         $stmt->bindParam(":sistema", $sistema, PDO::PARAM_STR);
         $stmt->bindParam(":mantenimiento", $mantenimiento, PDO::PARAM_STR);
+        $stmt->bindParam(":iva", $iva, PDO::PARAM_INT);
+        $stmt->bindParam(":total", $total, PDO::PARAM_INT);
+        $stmt->bindParam(":idcuenta", $idcuenta, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $retorno = "ok";
@@ -2038,5 +2224,20 @@ class ModeloMantenimientos
         $stmt = null;
 
         return $retorno;
+    }
+
+
+    /* ===================================================
+        LISTADO DE CUENTAS CONTABLES
+    ===================================================*/
+    static public function mdlListaCuentasContables()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM li_cuentas_contables");
+
+        $stmt->execute();
+        $respuesta = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $respuesta;
+
     }
 }
