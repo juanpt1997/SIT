@@ -92,9 +92,9 @@ class AjaxPersonal
     /* ===================================================
        GUARDAR DATOS DEL PERSONAL
     ===================================================*/
-    static public function ajaxGuardarPersonal($formData, $foto)
+    static public function ajaxGuardarPersonal($formData, $foto, $documento)
     {
-        $respuesta = ControladorGH::ctrGuardarPersonal($formData, $foto);
+        $respuesta = ControladorGH::ctrGuardarPersonal($formData, $foto, $documento);
         echo $respuesta;
     }
 
@@ -529,7 +529,8 @@ if (isset($_POST['TablaPersonal']) && $_POST['TablaPersonal'] == "ok") {
 
 if (isset($_POST['GuardarPersonal']) && $_POST['GuardarPersonal'] == "ok") {
     $foto = isset($_FILES['foto']) ? $_FILES['foto'] : "";
-    AjaxPersonal::ajaxGuardarPersonal($_POST, $foto);
+    $documento = isset($_FILES['documento']) ? $_FILES['documento'] : "";
+    AjaxPersonal::ajaxGuardarPersonal($_POST, $foto, $documento);
 }
 
 if (isset($_POST['DatosEmpleado']) && $_POST['DatosEmpleado'] == "ok") {
