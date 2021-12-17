@@ -40,3 +40,6 @@ plantilla/
 
 # IGNORAMOS CARPETA CON LOS ICONOS FAVICON
 favicons/
+
+# IGNORAMOS LA CARPETA DE IMAGENES COTIZACION
+imgCotizacionesInventario/

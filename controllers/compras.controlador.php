@@ -22,7 +22,8 @@ class ControladorProveedores
 				'dir' => $_POST['direccion_proveedor'],
 				'correo' => $_POST['correo_proveedor'],
 				'tel' => $_POST['telef_proveedor'],
-				'ciudad' => $_POST['ciudad_proveedor']
+				'ciudad' => $_POST['ciudad_proveedor'],
+				'tipo' => $_POST['tipoProveedor']
 			);
 
 			if (is_array($proveedorexistente) && $proveedorexistente['id'] != $_POST['id_proveedor']) {
@@ -135,5 +136,17 @@ class ControladorProveedores
 				}
 			}
 		}
+	}
+
+	static public function ctrListarTipoProveedor()
+	{
+		$datos = array(
+			'id' => 'id',
+			'item' => 'tipo',
+			'tabla' => 'c_tipo_proveedor'
+		);
+
+		$respuesta = ModeloConceptosGH::mdlVer($datos);
+		return $respuesta;
 	}
 }
