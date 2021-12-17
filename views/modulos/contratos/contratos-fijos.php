@@ -348,15 +348,54 @@ $Placas = ControladorVehiculos::ctrListaVehiculos();
             </div>
             <div class="modal-body">
                 <!-- SELECCIÓN DE VEHÍCULO -->
-                <div class="col-12">
-                    <div class="form-group">
-                        <label for="placa_contrutas" class="d-flex justify-content-center"><i>Placa</i></label>
-                        <select id="placa_contrutas" name="placa_contrutas" class="form-control select2-single" type="number" style="width: 99%" required>
-                            <option selected value="">Seleccione un vehículo</option>
-                            <?php foreach ($Placas as $key => $value) : ?>
-                                <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?> </option>
-                            <?php endforeach ?>
-                        </select>
+                <div class="row">
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="form-group">
+                            <label for="placa_contrutas" class="d-flex justify-content-center"><i>Placa</i></label>
+                            <select id="placa_contrutas" name="placa_contrutas" class="form-control select2-single" type="number" style="width: 99%" required>
+                                <option selected value="">Seleccione un vehículo</option>
+                                <?php foreach ($Placas as $key => $value) : ?>
+                                    <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?> </option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </div>
+
+
+
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="form-group text-center">
+                            <label><i>Número interno</i></label>
+                            <input type="text" class="form-control" id="num_internocontrutas" name="num_internocontrutas" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="form-group text-center">
+                            <label><i>Marca</i></label>
+                            <input type="text" class="form-control" id="marca_contrutas" name="marca_contrutas" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="form-group text-center">
+                            <label><i>Clase de vehículo</i></label>
+                            <input type="text" class="form-control" id="clase_contrutas" name="clase_contrutas" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="form-group text-center">
+                            <label><i>Modelo</i></label>
+                            <input type="text" class="form-control" id="modelo_contrutas" name="modelo_contrutas" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-lg-4">
+                        <div class="form-group text-center">
+                            <label><i>Kilometraje</i></label>
+                            <input type="number" class="form-control" id="kilometraje_contrutas" name="kilometraje_contrutas" required readonly>
+                        </div>
                     </div>
                 </div>
 
@@ -368,7 +407,7 @@ $Placas = ControladorVehiculos::ctrListaVehiculos();
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header bg-success text-uppercase font-weight-bold">
-                                Resumen vehículos por ruta
+                                Resumen vehículos por contratos
                             </div>
                             <div class="card-body table-responsive">
                                 <table class="table-sm table-striped table-bordered table-hover w-100">

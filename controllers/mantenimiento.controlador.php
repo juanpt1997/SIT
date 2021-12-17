@@ -662,11 +662,24 @@ class ControladorMantenimientos
 				
 				
 				//SI NO SELECCIONAN ESTADO LA PONE ABIERTA 
-				if ($datos['estado'] == 3) $datos['estado'] = 1;
+				if ($datos['estado'] == 3){
+					
+					$datos['estado'] = 1;
+				} 
+
+				//SI EL ESTADO ES 2 (APROBADA) PONE LA FECHA ACTUAL EN FECHA DE APROBACION
+				// PERO SI HAY FECHA EN LA BASE DE DATOS, DEJARLA COMO ESTÁ
+				if ($datos['estado'] == 2){
+					$date = date('Y-m-d H:i:s');
+					$datos['fecha_aprobacion'] = $date;
+				}
 
 				// Validar campos vacíos
 				$datos['fechaInic_ordSer'] = $datos['fechaInic_ordSer'] == "" ? null : $datos['fechaInic_ordSer'];
+				$datos['fecha_aprobacion'] = !isset($datos['fecha_aprobacion']) ? null : $datos['fecha_aprobacion'];
 
+
+				
 				#RETORNA EL ÚLTIMO ID INSERTADO
 				$respuesta = ModeloMantenimientos::mdlAgregarOrdenServicio($datos);
 
@@ -718,8 +731,6 @@ class ControladorMantenimientos
 						if ($value != "") {
 							$id = intval($respuesta);
 							$dato = intval($value);
-							var_dump($id);
-							var_dump($respuesta);
 							$addServicio = ModeloMantenimientos::mdlAgregarServiciosExternosOrdenServicio($id, $dato);
 						}
 					}
@@ -729,6 +740,7 @@ class ControladorMantenimientos
 
 				return $respuesta;
 			}else{
+
 				
 				
 				//SI NO SELECCIONAN ESTADO LA PONE ABIERTA 
@@ -756,6 +768,7 @@ class ControladorMantenimientos
 							$idproveedor = intval($datos['idproveedor_repuesto'][$key]);
 							$valor = intval($datos['valor_repuesto'][$key]);
 							$idcuenta = intval($datos['idcuenta'][$key]);
+							
 							$add = ModeloMantenimientos::mdlAgregarRepuestoOrdenServicio($idorden, $idinventario, $cantidad, $idservicio, $sistema, $mantenimiento, $iva,$total, $idproveedor, $valor, $idcuenta);
 						}
 					}

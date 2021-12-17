@@ -190,6 +190,11 @@ class AjaxMantenimientos
         foreach ($respuesta as $key => $value) {
             $tr .= "
             <tr>
+                <td>
+                <div class='btn-group' role='group' aria-label='Button group'>
+                <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' idproducto='{$value["idproducto"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' inventario ='{$value["idinventario"]}' valor='{$value["precio_compra"]}' nombre_proveedor='{$value["nombre_proveedor"]}' idproveedor='{$value["idproveedor"]}' class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
+                </div>
+                </td>
                 <td>" . $value['codigo']  . "</td>
                 <td>" . $value['referencia'] . "</td>
                 <td>" . $value['stock'] . "</td>
@@ -201,11 +206,6 @@ class AjaxMantenimientos
                 <td>" . $value['medida'] . "</td>
                 <td>" . $value['precio_compra'] . "</td>
                 <td>" . $value['nombre_proveedor'] . "</td>
-                <td>
-                <div class='btn-group' role='group' aria-label='Button group'>
-			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' idproducto='{$value["idproducto"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' inventario ='{$value["idinventario"]}' valor='{$value["precio_compra"]}' nombre_proveedor='{$value["nombre_proveedor"]}' idproveedor='{$value["idproveedor"]}' class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
-			    </div>
-                </td>
             </tr>
             
             ";
