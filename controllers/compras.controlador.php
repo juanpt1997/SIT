@@ -146,7 +146,7 @@ class ControladorProveedores
 			'tabla' => 'c_tipo_proveedor'
 		);
 
-		$respuesta = ModeloConceptosGH::mdlVer($datos);
+		$respuesta = ModeloConceptosGenerales::mdlVer($datos);
 		return $respuesta;
 	}
 }

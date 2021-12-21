@@ -28,7 +28,7 @@ require '../models/conceptos.modelo.php';
 
 
 $resultado = ControladorFuec::ctrDatosFUEC("idfuec", $idfuec);
-$empresa = ModeloConceptosGH::mdlVerEmpresa();
+$empresa = ModeloEmpresaRaiz::mdlVerEmpresa();
 
 /* ===================== 
   SI LA INFORMACIÓN VIENE FALSA SE REDIRECCIONA A LAS ORDERS

@@ -32,7 +32,7 @@ class AjaxProveedores
             "id" => $id
         );
 
-        $respuesta = ModeloConceptosGH::mdlEliminar($datos);
+        $respuesta = ModeloConceptosGenerales::mdlEliminar($datos);
         echo $respuesta;
     }
 
@@ -62,7 +62,7 @@ class AjaxProveedores
     //                     'tabla' => 'c_tipo_proveedor'
     //                 );
 
-    //     $respuesta = ModeloConceptosGH::mdlVer($datos);
+    //     $respuesta = ModeloConceptosGenerales::mdlVer($datos);
     //     $option = "<option value='' selected>Seleccione un tipo de proveedor</option>";
 
     //     foreach ($respuesta as $key => $value) {

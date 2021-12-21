@@ -114,6 +114,7 @@
                                               <?php endif ?>
                                               <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                                                   <a class="dropdown-item font-weight-bold" href="cg-mantenimiento"><u>Matenimiento</u></a>
+                                                  <a class="dropdown-item font-weight-bold" href="cg-almacen"><u>Almacén</u></a>
                                                   <a class="dropdown-item font-weight-bold" href="cg-seguridad"><u>Seguridad</u></a>
                                               <?php endif ?>
                                           </div>

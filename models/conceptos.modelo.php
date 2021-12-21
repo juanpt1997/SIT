@@ -3,13 +3,12 @@
 // INCLUIMOS LA CONFIGURACIÓN Y LA CONEXION PARA EL FUNCIONAMIENTO DEL PROYECTO
 include_once DIR_APP . 'config/conexion.php';
 
-/**
- *  GESTION HUMANA,VEHICULAR,MANTENIMIENTO. (Modulo SEGURIDAD está sin implementar en conceptos generales)
- */
-class ModeloConceptosGH
+/*=============================================================
+=====================MODELO GENERAL============================
+============================================================?*/
+class ModeloConceptosGenerales
 {
-    //GESTION HUMANA
-    #Agregar un nuevo concepto general (modelo para dos campos de base de datos)
+    //Agregar 1 campo general
     static public function mdlNuevo($datos)
     {
         $conexion = Conexion::conectar();
@@ -28,7 +27,7 @@ class ModeloConceptosGH
         $conexion = null;
         return $respuesta;
     }
-    #Listar todos los datos de un concepto general para visualizar en la tabla
+    //Listar todos los registros de 1 campo general
     static public function mdlVer($datos)
     {
         $conexion = Conexion::conectar();
@@ -39,7 +38,7 @@ class ModeloConceptosGH
         $stmt->closeCursor();
         return $respuesta;
     }
-    #Editar datos de conceptos generales
+    //Actualizar 1 campo general
     static public function mdlEditar($datos)
     {
         $conexion = Conexion::conectar();
@@ -60,7 +59,7 @@ class ModeloConceptosGH
 
         return $retorno;
     }
-    #Visualizar datos de un solo registro de conceptos generales
+    //Visualizar un solo registro de 1 campo general
     static public function mdlVerUnConcepto($datos)
     {
         $conexion = Conexion::conectar();
@@ -73,7 +72,7 @@ class ModeloConceptosGH
         $stmt->closeCursor();
         return $respuesta;
     }
-    #Cuenta cuantos registros hay de cada maestra de conceptos generales (excluye: empresa, seguridad no implementa, temporalmente)
+    //Cantidad de registros con campo estado en 1 (excluye: empresa, seguridad no implementa temporalmente)
     static public function mdlContarRegistros($datos)
     {
         $conexion = Conexion::conectar();
@@ -84,10 +83,112 @@ class ModeloConceptosGH
         $stmt->closeCursor();
         return $respuesta;
     }
+    //Agregar 2 campos generales
+    static public function mdlNuevoDosCampos($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO {$datos['tabla']} ({$datos['item1']},{$datos['item2']}) 
+                                         VALUES (:{$datos['item1']},:{$datos['item2']})");
 
-    //Empresa
-    //Modelos para el manejo de datos de la maestra EMPRESA en gestion humana
-    #Visualizar los datos de la empresa en el FUEC
+        $stmt->bindParam(":" . $datos['item1'], $datos['valor1'], PDO::PARAM_STR);
+        $stmt->bindParam(":" . $datos['item2'], $datos['valor2'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $respuesta = "ok";
+        } else {
+            $respuesta = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+        return $respuesta;
+    }
+    // Editar 2 campos generales
+    static public function mdlEditarDosCampos($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("UPDATE {$datos['tabla']} SET {$datos['item1']} = :{$datos['item1']}, {$datos['item2']} = :{$datos['item2']}
+                                    WHERE {$datos['idtabla']} = :{$datos['id']}");
+
+        $stmt->bindParam(":" . $datos['item1'], $datos['valor1'], PDO::PARAM_STR);
+        $stmt->bindParam(":" . $datos['item2'], $datos['valor2'], PDO::PARAM_STR);
+        $stmt->bindParam(":" . $datos['id'], $datos["id"], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+    //Listar todos los registros de 2 campos generales
+    static public function mdlListarDosCampos($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("SELECT {$datos['item1']}, {$datos['item2']}, {$datos['id']} FROM {$datos['tabla']} WHERE estado = 1");
+
+        $stmt->execute();
+        $respuesta =  $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
+    //Listar un solo registro de 2 campos generales 
+    static public function mdlListarRegistroDosCampos($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("SELECT {$datos['item1']}, {$datos['item2']} FROM {$datos['tabla']} WHERE {$datos['id']} = :{$datos['id']}");
+
+        $stmt->bindParam(":" . $datos['id'], $datos["id"], PDO::PARAM_INT);
+
+        $stmt->execute();
+        $respuesta =  $stmt->fetch();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
+    //Borrar un registro generar con estado = 1
+    static public function mdlEliminar($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("UPDATE {$datos['tabla']} SET estado = 0
+            WHERE {$datos['id_tabla']} = :{$datos['id']}");
+
+        //$stmt->bindParam(":" . $datos['item'], $datos['valor'], PDO::PARAM_INT);
+        $stmt->bindParam(":" . $datos['id'], $datos["id"], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+    //Modelo Verificar existencia de un registro
+    static public function mdlVerificarExistencia($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("SELECT * FROM {$datos['tabla']} WHERE {$datos['item']} = :{$datos['valor']}");
+
+        $stmt->bindParam(":" . $datos['valor'], $datos["valor"], PDO::PARAM_STR);
+
+        $stmt->execute();
+        $respuesta =  $stmt->fetch();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
+}
+/*=============================================================
+=====================MODELO EMPRESA============================
+============================================================?*/
+class ModeloEmpresaRaiz
+{
+    //Listar empresa
     static public function mdlVerEmpresa()
     {
         $sql = "SELECT * FROM empresa LIMIT 1";
@@ -98,7 +199,7 @@ class ModeloConceptosGH
         $stmt->closeCursor();
         return $retorno;
     }
-    #Visualizar todas las empresas (Limitado a una empresa temporalmente)
+    //Listar todas las empresas (deshabilitado)
     static public function mdlListaEmpresa()
     {
         $sql = "SELECT * FROM empresa";
@@ -109,7 +210,7 @@ class ModeloConceptosGH
         $stmt->closeCursor();
         return $retorno;
     }
-    #Traer datos de una empresa, donde coincida el id
+    //Traer datos de una empresa, donde coincida el id
     static public function mdlUnaEmpresa($id)
     {
         $sql = "SELECT E.* FROM empresa E WHERE E.id = :id";
@@ -121,8 +222,7 @@ class ModeloConceptosGH
         $stmt->closeCursor();
         return $retorno;
     }
-
-    #Agregar una nueva empresa (Programa limitado a una empresa)
+    //Agregar una nueva empresa (Programa limitado a una empresa)
     static public function mdlAgregarEmpresa($datos)
     {
         $sql = "INSERT empresa(razon_social,nit,nro_resolucion,anio_resolucion,dir_territorial,ruta_firma,sitio_web) VALUES(:razon_social,:nit,:nro_resolucion,:anio_resolucion,:dir_territorial,:ruta_firma,:sitio_web)";
@@ -145,7 +245,7 @@ class ModeloConceptosGH
         $stmt = null;
         return $retorno;
     }
-    #Editar los datos de la empresa actual
+    //Editar los datos de la empresa actual
     static public function mdlEditarEmpresa($datos)
     {
         $sql = "UPDATE empresa set razon_social=:razon_social, nit=:nit, nro_resolucion=:nro_resolucion, anio_resolucion=:anio_resolucion, dir_territorial=:dir_territorial,ruta_firma=:ruta_firma, 
@@ -170,78 +270,12 @@ class ModeloConceptosGH
         $stmt = null;
         return $retorno;
     }
- 
-    # VEHICULAR 
-    //Modelo para el manejo de datos de la maestra de Documento vehicular, Categorias de licencias, Tipos de identificación en Vehicular
-    #Agregar nuevo Documento vehicular, Categorias de licencias, Tipos de identificación.
-    static public function mdlAgregarVehicular($datos)
-    {
-        $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("INSERT INTO {$datos['tabla']} ({$datos['item1']},{$datos['item2']}) 
-                                         VALUES (:{$datos['item1']},:{$datos['item2']})");
-
-        $stmt->bindParam(":" . $datos['item1'], $datos['valor1'], PDO::PARAM_STR);
-        $stmt->bindParam(":" . $datos['item2'], $datos['valor2'], PDO::PARAM_STR);
-
-        if ($stmt->execute()) {
-            $respuesta = "ok";
-        } else {
-            $respuesta = "error";
-        }
-        $stmt->closeCursor();
-        $conexion = null;
-        return $respuesta;
-    }
-    # Editar Documento vehicular, Categorias de licencias, Tipos de identificación 
-    static public function mdlEditarVehicular($datos)
-    {
-        $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("UPDATE {$datos['tabla']} SET {$datos['item1']} = :{$datos['item1']}, {$datos['item2']} = :{$datos['item2']}
-                                    WHERE {$datos['idtabla']} = :{$datos['id']}");
-
-        $stmt->bindParam(":" . $datos['item1'], $datos['valor1'], PDO::PARAM_STR);
-        $stmt->bindParam(":" . $datos['item2'], $datos['valor2'], PDO::PARAM_STR);
-        $stmt->bindParam(":" . $datos['id'], $datos["id"], PDO::PARAM_INT);
-
-        if ($stmt->execute()) {
-            $retorno = "ok";
-        } else {
-            $retorno = "error";
-        }
-
-        $stmt->closeCursor();
-        $stmt = null;
-
-        return $retorno;
-    }
-    #Lista todos los datos para la tabla de Documento vehicular, Categorias de licencias, Tipos de identificación 
-    static public function mdlListarVehicular($datos)
-    {
-        $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("SELECT {$datos['item1']}, {$datos['item2']}, {$datos['id']} FROM {$datos['tabla']} WHERE estado = 1");
-
-        $stmt->execute();
-        $respuesta =  $stmt->fetchAll();
-        $stmt->closeCursor();
-        return $respuesta;
-    }
-    #Visualizar datos de un solo registro de Documento vehicular, Categorias de licencias, Tipos de identificación 
-    static public function mdlListarUnConcepto($datos)
-    {
-        $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("SELECT {$datos['item1']}, {$datos['item2']} FROM {$datos['tabla']} WHERE {$datos['id']} = :{$datos['id']}");
-
-        $stmt->bindParam(":" . $datos['id'], $datos["id"], PDO::PARAM_INT);
-
-        $stmt->execute();
-        $respuesta =  $stmt->fetch();
-        $stmt->closeCursor();
-        return $respuesta;
-    }
-
-    #RUTAS
-    //Modelo para el manejo de datos de la maestra de Rutas en vehicular
-    //Agregar ruta nueva
+}
+/*=============================================================
+=====================MODELO RUTAS==============================
+============================================================?*/
+class ModeloRutas
+{
     static public function mdlAgregarRuta($datos)
     {
         $stmt = Conexion::conectar()->prepare("INSERT INTO v_rutas(idorigen,iddestino,nombreruta)
@@ -262,7 +296,7 @@ class ModeloConceptosGH
 
         return $retorno;
     }
-    #Editar datos de una ruta
+    //Editar datos de una ruta
     static public function mdlEditarRuta($datos)
     {
         //print_r($datos);
@@ -271,7 +305,7 @@ class ModeloConceptosGH
 
         $stmt->bindParam(":idruta", $datos["idruta"], PDO::PARAM_INT);
         $stmt->bindParam(":ruta", $datos["ruta"], PDO::PARAM_STR);
-   
+
 
         if ($stmt->execute()) {
             $retorno = "ok";
@@ -284,7 +318,7 @@ class ModeloConceptosGH
 
         return $retorno;
     }
-    #Visualizar todas las rutas en la tabla
+    //Visualizar todas las rutas en la tabla
     static public function mdlListarRutas()
     {
         $conexion = Conexion::conectar();
@@ -300,9 +334,12 @@ class ModeloConceptosGH
         $stmt->closeCursor();
         return $respuesta;
     }
-
-    #CIUDADES
-    //Modelo para el manejo de datos de la maestra de Ciudades en Gestion Humana
+}
+/*=============================================================
+=====================MODELO CIUDADES===========================
+============================================================?*/
+class ModeloCiudades
+{
     static public function mdlAgregarCiudad($datos)
     {
         $stmt = Conexion::conectar()->prepare("INSERT INTO gh_municipios(iddepartamento,municipio)
@@ -322,12 +359,12 @@ class ModeloConceptosGH
 
         return $retorno;
     }
-    #Editar datos de una ciudad
+    //Editar datos de una ciudad
     static public function mdlEditarCiudad($datos)
     {
 
         $stmt = Conexion::conectar()->prepare("UPDATE gh_municipios set iddepartamento = :iddepartamento, municipio=:municipio
-                                               WHERE idmunicipio = :idmunicipio");
+                                                WHERE idmunicipio = :idmunicipio");
 
         $stmt->bindParam(":idmunicipio", $datos["idmunicipio"], PDO::PARAM_INT);
         $stmt->bindParam(":iddepartamento", $datos["iddepartamento"], PDO::PARAM_INT);
@@ -344,7 +381,7 @@ class ModeloConceptosGH
 
         return $retorno;
     }
-    #Visualizar datos de un solo registro de ciudad
+    //Visualizar datos de un solo registro de ciudad
     static public function mdlVerciudad($datos)
     {
         $conexion = Conexion::conectar();
@@ -358,43 +395,27 @@ class ModeloConceptosGH
         $stmt->closeCursor();
         return $respuesta;
     }
-    #Visualizar todos los municipios 
+    //Visualizar todos los municipios 
     static public function mdlDeparMunicipios()
     {
         $stmt = Conexion::conectar()->prepare("SELECT m.idmunicipio, m.municipio, m.iddepartamento AS iddepar, d.nombre AS departamento, CONCAT(d.nombre, ' - ', m.municipio) AS DeparMunic
-                                                FROM gh_municipios m
-                                                INNER JOIN gh_departamentos d ON m.iddepartamento = d.iddepartamento
-                                                ORDER BY d.nombre, m.municipio");
+                                                 FROM gh_municipios m
+                                                 INNER JOIN gh_departamentos d ON m.iddepartamento = d.iddepartamento
+                                                 WHERE m.estado = 1
+                                                 ORDER BY d.nombre, m.municipio
+                                                 ");
 
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();
         return $retorno;
     }
-    //MODELO UTILIZADO PARA EL BORRADO LOGICO, utilizado en todos los modulos de conceptos generales.
-    static public function mdlEliminar($datos)
-    {
-        $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("UPDATE {$datos['tabla']} SET estado = 0
-            WHERE {$datos['id_tabla']} = :{$datos['id']}");
-
-        //$stmt->bindParam(":" . $datos['item'], $datos['valor'], PDO::PARAM_INT);
-        $stmt->bindParam(":" . $datos['id'], $datos["id"], PDO::PARAM_INT);
-
-        if ($stmt->execute()) {
-            $retorno = "ok";
-        } else {
-            $retorno = "error";
-        }
-
-        $stmt->closeCursor();
-        $stmt = null;
-
-        return $retorno;
-    }
-
-    #Servicios menores
-
+}
+/*=============================================================
+=====================MODELO SERVICIOS MENORES==================
+============================================================?*/
+class ModeloServiciosMenores
+{
     //Agregar un servicio menor
     static public function mdlAgregarServicio($datos)
     {
@@ -416,8 +437,7 @@ class ModeloConceptosGH
 
         return $retorno;
     }
-
-    #Editar un servicio
+    //Editar un servicio
     static public function mdlEditarServicio($datos)
     {
 
@@ -440,8 +460,7 @@ class ModeloConceptosGH
 
         return $retorno;
     }
-    
-    #Visualizar servicios o servicio
+    //Visualizar servicios o servicio
     static public function mdlVerServicios($datos)
     {
         if ($datos != null) {
@@ -463,23 +482,10 @@ class ModeloConceptosGH
         $stmt->closeCursor();
         return $retorno;
     }
-
-    static public function mdlVerificarExistencia($datos)
-    {
-        $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("SELECT * FROM {$datos['tabla']} WHERE {$datos['item']} = :{$datos['valor']}");
-
-        $stmt->bindParam(":" . $datos['valor'], $datos["valor"], PDO::PARAM_STR);
-
-        $stmt->execute();
-        $respuesta =  $stmt->fetch();
-        $stmt->closeCursor();
-        return $respuesta;
-    }
-
-
 }
-
+/*=============================================================
+=====================MODELO REPUESTOS==========================
+============================================================?*/
 class ModeloRepuestos
 {
     static public function mdlListarRepuestos()

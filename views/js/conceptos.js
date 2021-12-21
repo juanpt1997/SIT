@@ -1,13 +1,13 @@
 /*=============================================================
 =====================GESTION HUMANA============================
 ============================================================?*/
-if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
+if (
+    window.location.href == `${urlPagina}cg-gestion-humana/` ||
     window.location.href == `${urlPagina}cg-gestion-humana`
 ) {
     $(document).ready(function () {
         //===================BOTON NUEVO CONCEPTO EN GESTION HUMANA
         $(document).on("click", ".btn-nuevo", function () {
-
             var concepto = $(this).attr("concepto");
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
@@ -16,12 +16,11 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
         });
         //SUBMIT DEL FORMULARIO DE GESTION HUMANA
         $("#formularioGH").submit(function (e) {
-
-            e.preventDefault();//Previene la accion por defecto del boton
+            e.preventDefault(); //Previene la accion por defecto del boton
             var concepto = $("#titulo_modalGH").html();
             var datos = new FormData();
 
-            datos.append("NuevoGH", "ok");
+            datos.append("Nuevo", "ok");
             datos.append("concepto", concepto);
             datos.append("dato", $("#inputGH").val());
 
@@ -71,25 +70,22 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
 
                     if (response == "ok") {
                         Swal.fire({
-                            icon: 'success',
+                            icon: "success",
                             showConfirmButton: true,
                             title: "El nuevo dato ha sido agregado",
                             confirmButtonText: "¡Cerrar!",
-                            allowOutsideClick: false
+                            allowOutsideClick: false,
                         }).then((result) => {
                             if (result.value) {
-                                window.location = 'cg-gestion-humana';
+                                window.location = "cg-gestion-humana";
                             }
-                        })
+                        });
                     }
-                    
-                    
-                }
+                },
             });
         });
         //===================BOTON VER CONCEPTO EN GESTION HUMANA
         $(document).on("click", ".btn-ver", function () {
-
             var concepto = $(this).attr("concepto");
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
@@ -99,11 +95,11 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
             $("#ver_concepto").dataTable().fnDestroy();
             //Borrar datos
             $("#tbody_ver_concepto").html("");
-            //Nombre de la cabecera de la tabla segun el concepto 
+            //Nombre de la cabecera de la tabla segun el concepto
             $("#tipo").html(concepto);
 
             var datos = new FormData();
-            datos.append("ajaxVerConcepto", "ok");
+            datos.append("VerTodos", "ok");
             datos.append("concepto", concepto);
             $.ajax({
                 type: "POST",
@@ -114,33 +110,35 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                 processData: false,
                 //dataType: "json",
                 success: function (response) {
-
-                    if (response != '' || response != null) {
-
+                    if (response != "" || response != null) {
                         $("#tbody_ver_concepto").html(response);
-
                     } else {
-
-                        $("#tbody_ver_concepto").html('');
+                        $("#tbody_ver_concepto").html("");
                     }
 
                     var buttons = [
-                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
                     ];
                     var table = dataTableCustom(`#ver_concepto`, buttons);
-                }
+                },
             });
         });
         //=================BOTON CANCELAR AL AGREGAR==================
         //$(document).on("click", ".btn-cancelar", function () {
-        $('#AgregarEditarGH, #AgregarCiudad, #VisualizarCiudades, #VisualizarGH, #VisualizarEmpresa, #EditarCiudad').on('hidden.bs.modal', function (e) {
-            $(".overlay").each(function () { //Al cancelar se agrega la clase d-none para que no se vea el reload
+        $(
+            "#AgregarEditarGH, #AgregarCiudad, #VisualizarCiudades, #VisualizarGH, #VisualizarEmpresa, #EditarCiudad"
+        ).on("hidden.bs.modal", function (e) {
+            $(".overlay").each(function () {
+                //Al cancelar se agrega la clase d-none para que no se vea el reload
                 $(this).addClass("d-none");
             });
         });
         //===================BOTON EDITAR CONCEPTO EN GESTION HUMANA
         $(document).on("click", ".btnEditar", function () {
-
             //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
             var concepto = $(this).attr("concepto");
             var id = $(this).attr("idregistro");
@@ -148,19 +146,16 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
 
             Swal.fire({
                 title: `Editar (${concepto})`,
-                html:
-                    `
+                html: `
                 <hr>
                 <label for="">${concepto}</label>
-                <input class="form-control" id="input-edit" type="text" value="${dato}">`
-                ,
+                <input class="form-control" id="input-edit" type="text" value="${dato}">`,
                 showCancelButton: true,
-                confirmButtonColor: '#5cb85c',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Continuar!',
-                cancelButtonText: 'Cancelar'
+                confirmButtonColor: "#5cb85c",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Continuar!",
+                cancelButtonText: "Cancelar",
             }).then((result) => {
-
                 if (result.value) {
                     var dato_edit = $("#input-edit").val();
                     var datos = new FormData();
@@ -180,18 +175,19 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                         success: function (response) {
                             if (response == "ok") {
                                 Swal.fire({
-                                    icon: 'success',
+                                    icon: "success",
                                     showConfirmButton: true,
                                     title: "¡El dato ha sido actualizado!",
                                     confirmButtonText: "¡Cerrar!",
-                                    allowOutsideClick: false
-                                }).then((result) => { window.location = 'cg-gestion-humana'; })
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "cg-gestion-humana";
+                                });
                             }
-                        }
-
+                        },
                     });
                 }
-            })
+            });
         });
         // funcion para el contador de los info box
         $(".info-box-number").each(function () {
@@ -211,14 +207,13 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                 processData: false,
                 success: function (response) {
                     $infobox.text(response.contador + " registros");
-                }
+                },
             });
         });
         //EMPRESA
         //========
         //BOTON VER EMPRESA EN GESTION HUMANA
         $(document).on("click", ".btn-ver-empresa", function () {
-
             var concepto = $(this).attr("concepto");
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
@@ -238,28 +233,26 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                 processData: false,
                 //dataType: "json",
                 success: function (response) {
-
-                    if (response != '' || response != null) {
-
+                    if (response != "" || response != null) {
                         $("#tbody_tabla_empresa").html(response);
                         $("#titulo_modalEmpresa").html("Empresa");
-
-
                     } else {
-
-                        $("#tbody_tabla_empresa").html('');
+                        $("#tbody_tabla_empresa").html("");
                     }
 
                     var buttons = [
-                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
                     ];
                     var table = dataTableCustom(`#tabla_empresa`, buttons);
-                }
+                },
             });
         });
         //BOTON EDITAR EMPRESA EN GESTION HUMANA
         $(document).on("click", ".btnEditarEmpresa", function () {
-
             //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
             var razon = $(this).attr("razon");
             var id = $(this).attr("id");
@@ -281,8 +274,7 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                         console.log(response);
                         Swal.fire({
                             title: `Editar (${razon})`,
-                            html:
-                                `
+                            html: `
                             <hr>
                             <form id="formulario_editar_empresa" method="post" enctype="multipart/form-data">
                             <label class="text-sm">Razón social</label>
@@ -303,31 +295,33 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                             </form>`,
                             showConfirmButton: true,
                             showCancelButton: true,
-                            confirmButtonText: 'Actualizar',
-                            confirmButtonColor: '#33cc33',
-                            cancelButtonColor: '#d33',
-                            cancelButtonText: 'Cancelar'
+                            confirmButtonText: "Actualizar",
+                            confirmButtonColor: "#33cc33",
+                            cancelButtonColor: "#d33",
+                            cancelButtonText: "Cancelar",
                         }).then((result) => {
-
                             var fotoFirma = $("#firma")[0].files;
                             if (result.value) {
                                 var datosAjax = new FormData();
-                                var datosFrm = $("#formulario_editar_empresa").serializeArray();
-                                datosAjax.append('EditarEmpresa', "ok");
+                                var datosFrm = $(
+                                    "#formulario_editar_empresa"
+                                ).serializeArray();
+                                datosAjax.append("EditarEmpresa", "ok");
                                 datosAjax.append("id_empresa", id);
                                 datosAjax.append("imagen", fotoFirma[0]);
 
                                 var vacio = false;
-                                datosFrm.forEach(element => {
+                                datosFrm.forEach((element) => {
+                                    datosAjax.append(
+                                        element.name,
+                                        element.value
+                                    );
 
-                                    datosAjax.append(element.name, element.value);
-
-                                    if (element.value == '') {
+                                    if (element.value == "") {
                                         vacio = true;
                                     }
                                 });
                                 if (!vacio) {
-
                                     $.ajax({
                                         type: "post",
                                         url: "ajax/conceptos.ajax.php",
@@ -337,38 +331,41 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                                         processData: false,
                                         //dataType: "json",
                                         success: function (response) {
-                                            $('#VisualizarEmpresa').modal('toggle');
-                                            if (response == 'ok') {
+                                            $("#VisualizarEmpresa").modal(
+                                                "toggle"
+                                            );
+                                            if (response == "ok") {
                                                 Swal.fire({
-                                                    icon: 'success',
+                                                    icon: "success",
                                                     showConfirmButton: true,
                                                     title: "La empresa ha sido actualizada",
-                                                    confirmButtonText: "¡Cerrar!",
-                                                    allowOutsideClick: false
-                                                })
+                                                    confirmButtonText:
+                                                        "¡Cerrar!",
+                                                    allowOutsideClick: false,
+                                                });
                                             } else {
                                                 Swal.fire({
-                                                    icon: 'error',
+                                                    icon: "error",
                                                     showConfirmButton: true,
                                                     title: "Problema al actualizar la empresa",
-                                                    confirmButtonText: "¡Cerrar!",
-                                                    allowOutsideClick: false
-                                                })
+                                                    confirmButtonText:
+                                                        "¡Cerrar!",
+                                                    allowOutsideClick: false,
+                                                });
                                             }
-                                        }
+                                        },
                                     });
                                 }
                             }
-                        })
+                        });
                     }
-                }
+                },
             });
         });
         //CIUDADES
         //========
         //BOTON VER CIUDADES
         $(document).on("click", ".btn-ver-ciudad", function () {
-
             var concepto = $(this).attr("concepto");
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
@@ -377,7 +374,7 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
             //Borrar datos
             $("#tbody_ver_ciudad").html("");
             //TITULO
-            $("#titulo_ciudades").html('Lista de ciudades');
+            $("#titulo_ciudades").html("Lista de ciudades");
 
             var datos = new FormData();
             datos.append("VerCiudades", "ok");
@@ -390,29 +387,29 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                 processData: false,
                 //dataType: "json",
                 success: function (response) {
-
-                    if (response != '' || response != null) {
-
+                    if (response != "" || response != null) {
                         $("#tbody_ver_ciudad").html(response);
-
                     } else {
-
-                        $("#tbody_ver_ciudad").html('');
+                        $("#tbody_ver_ciudad").html("");
                     }
 
                     var buttons = [
-                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
                     ];
                     var table = dataTableCustom(`#ver_ciudad`, buttons);
-                }
+                },
             });
         });
         //Cerrar Modal de ver ciudades al abrir el modal de editar ciudades
-        $("#EditarCiudad").on('show.bs.modal', function (e) { $("#VisualizarCiudades").modal("hide"); });
+        $("#EditarCiudad").on("show.bs.modal", function (e) {
+            $("#VisualizarCiudades").modal("hide");
+        });
         //BOTON EDITAR CIUDAD
         $(document).on("click", ".btnEditarCiudad", function () {
-
-
             //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
             var id = $(this).attr("idregistro");
             $("#idmunicipioedit").val(id);
@@ -424,7 +421,6 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
             $("#titulo_ciudad_edit").html("Editar ciudad");
 
             $.ajax({
-
                 type: "POST",
                 url: "ajax/conceptos.ajax.php",
                 data: datos,
@@ -433,16 +429,14 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                 processData: false,
                 dataType: "json",
                 success: function (response) {
-
                     $("#municipioEdit").val(response.municipio);
                     $("#departamentosEdit").val(response.iddepartamento);
-                    $('.select2-single').trigger('change'); //MUESTRA EL VALOR DEL SELECT 
-                }
+                    $(".select2-single").trigger("change"); //MUESTRA EL VALOR DEL SELECT
+                },
             });
         });
         //BOTON AGREGAR CIUDAD
         $(document).on("click", ".btn-nueva-ciudad", function () {
-
             var concepto = $(this).attr("concepto");
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
@@ -454,8 +448,7 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
         ===================================================*/
         //AGREGAR
         $("#formularioCiudades").submit(function (e) {
-
-            e.preventDefault();//Previene la accion por defecto del boton
+            e.preventDefault(); //Previene la accion por defecto del boton
             var datos = new FormData();
 
             var id = $("#idmunicipioedit").val();
@@ -474,25 +467,23 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                 success: function (response) {
                     if (response == "ok") {
                         Swal.fire({
-                            icon: 'success',
+                            icon: "success",
                             showConfirmButton: true,
                             title: "¡La ciudad ha sido creada!",
                             confirmButtonText: "¡Cerrar!",
-                            allowOutsideClick: false
+                            allowOutsideClick: false,
                         }).then((result) => {
-
                             if (result.value) {
-                                window.location = 'cg-gestion-humana';
+                                window.location = "cg-gestion-humana";
                             }
-                        })
+                        });
                     }
-                }
+                },
             });
         });
         //EDITAR
         $("#formularioCiudadesEdit").submit(function (e) {
-
-            e.preventDefault();//Previene la accion por defecto del boton
+            e.preventDefault(); //Previene la accion por defecto del boton
             var datos = new FormData();
 
             var id = $("#idmunicipioedit").val();
@@ -512,19 +503,18 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                 success: function (response) {
                     if (response == "ok") {
                         Swal.fire({
-                            icon: 'success',
+                            icon: "success",
                             showConfirmButton: true,
                             title: "La ciudad ha sido actualizada",
                             confirmButtonText: "¡Cerrar!",
-                            allowOutsideClick: false
+                            allowOutsideClick: false,
                         }).then((result) => {
-
                             if (result.value) {
-                                window.location = 'cg-gestion-humana';
+                                window.location = "cg-gestion-humana";
                             }
-                        })
+                        });
                     }
-                }
+                },
             });
         });
 
@@ -532,15 +522,13 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
             ELIMINAR
         ===================================================*/
         $(document).on("click", ".btnBorrar", function () {
-
-
             //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
             var id = $(this).attr("idregistro");
             var valor_cambio = $(this).attr("valor-cambio");
             var concepto = $(this).attr("concepto");
 
             Swal.fire({
-                icon: 'warning',
+                icon: "warning",
                 showConfirmButton: true,
                 showCancelButton: true,
                 title: "¿Seguro que desea borrar este registro?",
@@ -548,17 +536,14 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                 cancelButtonText: "Cancelar",
                 confirmButtonColor: "#ff0000",
                 cancelButtonColor: "#66ff99",
-                allowOutsideClick: false
+                allowOutsideClick: false,
             }).then((result) => {
-
                 if (result.value) {
-
                     var datos = new FormData();
                     datos.append("EliminarRegistro", "ok");
                     datos.append("id", id);
                     datos.append("valor", valor_cambio);
                     datos.append("concepto", concepto);
-
 
                     $.ajax({
                         type: "POST",
@@ -571,31 +556,32 @@ if (window.location.href == `${urlPagina}cg-gestion-humana/` ||
                         success: function (response) {
                             if (response == "ok") {
                                 Swal.fire({
-                                    icon: 'success',
+                                    icon: "success",
                                     showConfirmButton: true,
                                     title: "¡El registro ha sido borrado correctamente!",
                                     confirmButtonText: "¡Cerrar!",
-                                    allowOutsideClick: false
-                                }).then((result) => { window.location = 'cg-gestion-humana'; })
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "cg-gestion-humana";
+                                });
                             }
-                        }
-
+                        },
                     });
                 }
-            })
+            });
         });
     });
 }
 /*=============================================================
 =====================MANTENIMIENTO============================
 ============================================================?*/
-if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
+if (
+    window.location.href == `${urlPagina}cg-mantenimiento/` ||
     window.location.href == `${urlPagina}cg-mantenimiento`
 ) {
     $(document).ready(function () {
         //BOTON NUEVO CONCEPTO EN MANTENIMIENTO============
         $(document).on("click", ".btn-nuevo", function () {
-
             var concepto = $(this).attr("concepto");
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
@@ -604,12 +590,11 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
         });
         //SUBMIT DEL FORMULARIO DE MANTENIMIENTO
         $("#formularioM").submit(function (e) {
-
-            e.preventDefault();//Previene la accion por defecto del boton
+            e.preventDefault(); //Previene la accion por defecto del boton
             var concepto = $("#titulo_modalM").html();
             var datos = new FormData();
 
-            datos.append("NuevoGH", "ok");
+            datos.append("Nuevo", "ok");
             datos.append("concepto", concepto);
             datos.append("dato", $("#inputGH").val());
 
@@ -623,23 +608,22 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
                 success: function (response) {
                     if (response == "ok") {
                         Swal.fire({
-                            icon: 'success',
+                            icon: "success",
                             showConfirmButton: true,
                             title: "El nuevo dato ha sido agregado",
                             confirmButtonText: "¡Cerrar!",
-                            allowOutsideClick: false
+                            allowOutsideClick: false,
                         }).then((result) => {
                             if (result.value) {
-                                window.location = 'cg-mantenimiento';
+                                window.location = "cg-mantenimiento";
                             }
-                        })
+                        });
                     }
-                }
+                },
             });
         });
         //BOTON VER CONCEPTO EN MANTENIMIENTO============
         $(document).on("click", ".btn-ver", function () {
-
             var concepto = $(this).attr("concepto");
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
@@ -649,11 +633,11 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
             $("#ver_concepto").dataTable().fnDestroy();
             // Borrar datos
             $("#tbody_ver_concepto").html("");
-            //Nombre de la cabecera de la tabla segun el concepto 
+            //Nombre de la cabecera de la tabla segun el concepto
             $("#tipo").html(concepto);
 
             var datos = new FormData();
-            datos.append("ajaxVerConcepto", "ok");
+            datos.append("VerTodos", "ok");
             datos.append("concepto", concepto);
             $.ajax({
                 type: "POST",
@@ -664,32 +648,34 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
                 processData: false,
                 //dataType: "json",
                 success: function (response) {
-
-                    if (response != '' || response != null) {
-
+                    if (response != "" || response != null) {
                         $("#tbody_ver_concepto").html(response);
-
                     } else {
-
-                        $("#tbody_ver_concepto").html('');
+                        $("#tbody_ver_concepto").html("");
                     }
 
                     var buttons = [
-                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
                     ];
                     var table = dataTableCustom(`#ver_concepto`, buttons);
-                }
+                },
             });
         });
         //BOTON CANCELAR AL AGREGAR===========================
-        $('#AgregarEditarM, #VisualizarM, #AgregarEditarSM, #VisualizarS').on('hidden.bs.modal', function (e) {
-            $(".overlay").each(function () { //Al cancelar se agrega la clase d-none para que no se vea el reload
+        $(
+            "#AgregarEditarM, #VisualizarM, #AgregarEditarSM, #VisualizarS, #VisualizarCuentaCont, #AgregarCuentasCont"
+        ).on("hidden.bs.modal", function (e) {
+            $(".overlay").each(function () {
+                //Al cancelar se agrega la clase d-none para que no se vea el reload
                 $(this).addClass("d-none");
             });
         });
         //BOTON EDITAR CONCEPTO EN MANTENIMIENTO===========
         $(document).on("click", ".btnEditar", function () {
-
             //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
             var concepto = $(this).attr("concepto");
             var id = $(this).attr("idregistro");
@@ -697,19 +683,16 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
 
             Swal.fire({
                 title: `Editar (${concepto})`,
-                html:
-                    `
+                html: `
                 <hr>
                 <label for="">${concepto}</label>
-                <input class="form-control" id="input-edit" type="text" value="${dato}">`
-                ,
+                <input class="form-control" id="input-edit" type="text" value="${dato}">`,
                 showCancelButton: true,
-                confirmButtonColor: '#5cb85c',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Continuar!',
-                cancelButtonText: 'Cancelar'
+                confirmButtonColor: "#5cb85c",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Continuar!",
+                cancelButtonText: "Cancelar",
             }).then((result) => {
-
                 if (result.value) {
                     var dato_edit = $("#input-edit").val();
                     var datos = new FormData();
@@ -729,18 +712,19 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
                         success: function (response) {
                             if (response == "ok") {
                                 Swal.fire({
-                                    icon: 'success',
+                                    icon: "success",
                                     showConfirmButton: true,
                                     title: "¡El dato ha sido actualizado!",
                                     confirmButtonText: "¡Cerrar!",
-                                    allowOutsideClick: false
-                                }).then((result) => { window.location = 'cg-mantenimiento'; })
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "cg-mantenimiento";
+                                });
                             }
-                        }
-
+                        },
                     });
                 }
-            })
+            });
         });
         // funcion para el contador de los info box
         $(".info-box-number").each(function () {
@@ -760,21 +744,18 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
                 processData: false,
                 success: function (response) {
                     $infobox.text(response.contador + " registros");
-                }
+                },
             });
         });
-
         //ELIMINAR
         $(document).on("click", ".btnBorrar", function () {
-
-
             //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
             var id = $(this).attr("idregistro");
             var valor_cambio = $(this).attr("valor-cambio");
             var concepto = $(this).attr("concepto");
 
             Swal.fire({
-                icon: 'warning',
+                icon: "warning",
                 showConfirmButton: true,
                 showCancelButton: true,
                 title: "¿Seguro que desea borrar este registro?",
@@ -782,17 +763,14 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
                 cancelButtonText: "Cancelar",
                 confirmButtonColor: "#ff0000",
                 cancelButtonColor: "#66ff99",
-                allowOutsideClick: false
+                allowOutsideClick: false,
             }).then((result) => {
-
                 if (result.value) {
-
                     var datos = new FormData();
                     datos.append("EliminarRegistro", "ok");
                     datos.append("id", id);
                     datos.append("valor", valor_cambio);
                     datos.append("concepto", concepto);
-
 
                     $.ajax({
                         type: "POST",
@@ -805,34 +783,31 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
                         success: function (response) {
                             if (response == "ok") {
                                 Swal.fire({
-                                    icon: 'success',
+                                    icon: "success",
                                     showConfirmButton: true,
                                     title: "¡El registro ha sido borrado correctamente!",
                                     confirmButtonText: "¡Cerrar!",
-                                    allowOutsideClick: false
-                                }).then((result) => { window.location = 'cg-mantenimiento'; })
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "cg-mantenimiento";
+                                });
                             }
-                        }
-
+                        },
                     });
                 }
-            })
+            });
         });
-
         //BOTON NUEVO CONCEPTO EN MANTENIMIENTO============
         $(document).on("click", ".btn-nuevo-servicio", function () {
-
             var concepto = $(this).attr("concepto");
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
             //Envio de concepto al titulo del modal
             $("#titulo_modalS").html(concepto);
         });
-
         //SUBMIT DEL FORMULARIO DE MANTENIMIENTO
         $("#formularioS").submit(function (e) {
-
-            e.preventDefault();//Previene la accion por defecto del boton
+            e.preventDefault(); //Previene la accion por defecto del boton
             var datos = new FormData();
 
             datos.append("nuevoServicio", "ok");
@@ -850,24 +825,22 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
                 success: function (response) {
                     if (response == "ok") {
                         Swal.fire({
-                            icon: 'success',
+                            icon: "success",
                             showConfirmButton: true,
                             title: "El nuevo servicio ha sido agregado",
                             confirmButtonText: "¡Cerrar!",
-                            allowOutsideClick: false
+                            allowOutsideClick: false,
                         }).then((result) => {
                             if (result.value) {
-                                window.location = 'cg-mantenimiento';
+                                window.location = "cg-mantenimiento";
                             }
-                        })
+                        });
                     }
-                }
+                },
             });
         });
-
-         //BOTON VER SERVICIO
-         $(document).on("click", ".btn-ver-servicio", function () {
-
+        //BOTON VER SERVICIO
+        $(document).on("click", ".btn-ver-servicio", function () {
             var concepto = $(this).attr("concepto");
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
@@ -877,7 +850,7 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
             $("#ver_conceptoS").dataTable().fnDestroy();
             // Borrar datos
             $("#tbody_ver_conceptoS").html("");
-            
+
             var datos = new FormData();
             datos.append("ajaxVerServicios", "ok");
             $.ajax({
@@ -889,27 +862,25 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
                 processData: false,
                 //dataType: "json",
                 success: function (response) {
-
-                    if (response != '' || response != null) {
-
+                    if (response != "" || response != null) {
                         $("#tbody_ver_conceptoS").html(response);
-
                     } else {
-
-                        $("#tbody_ver_conceptoS").html('');
+                        $("#tbody_ver_conceptoS").html("");
                     }
 
                     var buttons = [
-                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
                     ];
                     var table = dataTableCustom(`#ver_conceptoS`, buttons);
-                }
+                },
             });
         });
-
         //BOTON EDITAR SERVICIO
         $(document).on("click", ".btnEditarS", function () {
-
             //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
             var concepto = $(this).attr("concepto");
             var id = $(this).attr("idregistro");
@@ -917,27 +888,23 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
             var dato2 = $(this).attr("dato2");
             var dato3 = $(this).attr("dato3");
 
-
             Swal.fire({
                 title: `Editar Servicio`,
-                html:
-                    `
+                html: `
                 <hr>
                 <label>Servicio</label>
                 <input class="form-control" id="input-edit1" type="text" value="${dato1}">
                 <label for="">Kilometraje para cambio</label>
                 <input class="form-control" id="input-edit2" type="number" value="${dato2}">
                 <label for="">Días para cambio</label>
-                <input class="form-control" id="input-edit3" type="number" value="${dato3}">`
+                <input class="form-control" id="input-edit3" type="number" value="${dato3}">`,
 
-                ,
                 showCancelButton: true,
-                confirmButtonColor: '#5cb85c',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Continuar!',
-                cancelButtonText: 'Cancelar'
+                confirmButtonColor: "#5cb85c",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Continuar!",
+                cancelButtonText: "Cancelar",
             }).then((result) => {
-
                 if (result.value) {
                     var dato_edit1 = $("#input-edit1").val();
                     var dato_edit2 = $("#input-edit2").val();
@@ -960,215 +927,39 @@ if (window.location.href == `${urlPagina}cg-mantenimiento/` ||
                         success: function (response) {
                             if (response == "ok") {
                                 Swal.fire({
-                                    icon: 'success',
+                                    icon: "success",
                                     showConfirmButton: true,
                                     title: "¡El servicio ha sido actualizado!",
                                     confirmButtonText: "¡Cerrar!",
-                                    allowOutsideClick: false
-                                }).then((result) => { window.location = 'cg-mantenimiento'; })
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "cg-mantenimiento";
+                                });
                             }
-                        }
-
+                        },
                     });
                 }
-            })
+            });
         });
-    });
-}
-/*=============================================================
-=====================SEGURIDAD=================================
-============================================================?*/
-if (window.location.href == `${urlPagina}cg-seguridad/` ||
-    window.location.href == `${urlPagina}cg-seguridad`
-) {
-    $(document).ready(function () {
-        //========================BOTON NUEVO CONCEPTO EN SEGURIDAD
-        $(document).on("click", ".btn-nuevo", function () {
-
+        //CUENTAS CONTABLES
+        //nueva cuenta contable
+        $(document).on("click", ".btn-nueva-cuenta", function () {
             var concepto = $(this).attr("concepto");
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
             //Envio de concepto al titulo del modal
-            $("#titulo_modalGH").html(concepto);
-
-            $(document).on("click", ":submit", function () {
-
-                var datos = new FormData();
-
-                datos.append("NuevoGH", "ok");
-                datos.append("concepto", concepto);
-                datos.append("dato", $("#inputGH").val());
-
-                $.ajax({
-                    url: "ajax/conceptos.ajax.php",
-                    method: "POST",
-                    data: datos,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        if (response == "ok") {
-                            Swal.fire({
-                                icon: 'success',
-                                showConfirmButton: true,
-                                title: "El nuevo dato ha sido agregado",
-                                confirmButtonText: "¡Cerrar!"
-                            });
-                        } window.location = 'cg-seguridad';
-                    }
-                });
-            });
+            $("#titulo_modalCuentasCont").html(concepto);
         });
-        //========================BOTON VER CONCEPTO EN SEGURIDAD        
-        $(document).on("click", ".btn-ver", function () {
-
-            var concepto = $(this).attr("concepto");
-            //Removemos d-none del info-box de cada concepto
-            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
-            //Agregamos el titulo a cada modal de cada concepto
-            $("#titulo_modalVer").html(concepto);
-            // Quitar datatable
-            $("#ver_concepto").dataTable().fnDestroy();
-            // Borrar datos
-            $("#tbody_ver_concepto").html("");
-            //Nombre de la cabecera de la tabla segun el concepto 
-            $("#tipo").html(concepto);
-
-            var datos = new FormData();
-            datos.append("ajaxVerConcepto", "ok");
-            datos.append("concepto", concepto);
-            $.ajax({
-                type: "POST",
-                url: "ajax/conceptos.ajax.php",
-                data: datos,
-                cache: false,
-                contentType: false,
-                processData: false,
-                //dataType: "json",
-                success: function (response) {
-
-                    if (response != '' || response != null) {
-
-                        $("#tbody_ver_concepto").html(response);
-
-                    } else {
-
-                        $("#tbody_ver_concepto").html('');
-                    }
-
-                    dataTable("#ver_concepto");
-                }
-            });
-        });
-        //=================BOTON CANCELAR AL AGREGAR==================
-        $(document).on("click", ".btn-cancelar", function () {
-            $(".overlay").each(function () { //Al cancelar se agrega la clase d-none para que no se vea el reload
-                $(this).addClass("d-none");
-            });
-        });
-        //===================BOTON EDITAR CONCEPTO EN SEGURIDAD
-        $(document).on("click", ".btnEditar", function () {
-
-            //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
-            var concepto = $(this).attr("concepto");
-            var id = $(this).attr("idregistro");
-            var dato = $(this).attr("dato");
-
-            Swal.fire({
-                title: `Editar (${concepto})`,
-                html:
-                    `
-                <hr>
-                <label for="">${concepto}</label>
-                <input class="form-control" id="input-edit" type="text" value="${dato}">`
-                ,
-                showCancelButton: true,
-                confirmButtonColor: '#5cb85c',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Continuar!',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-
-                if (result.value) {
-                    var dato_edit = $("#input-edit").val();
-                    var datos = new FormData();
-                    datos.append("ajaxEditarConcepto", "ok");
-                    datos.append("concepto", concepto);
-                    datos.append("id", id);
-                    datos.append("dato", dato_edit);
-
-                    $.ajax({
-                        type: "POST",
-                        url: "ajax/conceptos.ajax.php",
-                        data: datos,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        //dataType: "json",
-                        success: function (response) {
-                            if (response == "ok") {
-                                Swal.fire({
-                                    icon: 'success',
-                                    showConfirmButton: true,
-                                    title: "¡El dato ha sido actualizado!",
-                                    confirmButtonText: "¡Cerrar!",
-                                    allowOutsideClick: false
-                                }).then((result) => { window.location = 'cg-matenimiento'; })
-                            }
-                        }
-
-                    });
-                }
-            })
-        });
-        // funcion para el contador de los info box
-        $(".info-box-number").each(function () {
-            var $infobox = $(this);
-            var concepto = $infobox.attr("concepto");
+        //SUBMIT DEL FORMULARIO DE CUENTAS CONTABLES
+        $("#formularioCuentasCont").submit(function (e) {
+            e.preventDefault(); //Previene la accion por defecto del boton
+            var concepto = $("#titulo_modalCuentasCont").html();
             var datos = new FormData();
 
-            datos.append("ajaxContarRegistro", "ok");
+            datos.append("NuevoDos", "ok");
             datos.append("concepto", concepto);
-            $.ajax({
-                url: "ajax/conceptos.ajax.php",
-                method: "POST",
-                data: datos,
-                cache: false,
-                contentType: false,
-                dataType: "json", //
-                processData: false,
-                success: function (response) {
-                    $infobox.text(response.contador + " registros");
-                }
-            });
-        });
-    });
-}
-/*=============================================================
-=====================VEHICULAR=================================
-============================================================?*/
-if (window.location.href == `${urlPagina}cg-vehicular/` ||
-    window.location.href == `${urlPagina}cg-vehicular`
-) {
-    $(document).ready(function () {
-        //BOTON NUEVO CONCEPTO EN VEHICULAR
-        $(document).on("click", ".btn-nuevo", function () {
-
-            var concepto = $(this).attr("concepto");
-            //Removemos d-none del info-box de cada concepto
-            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
-            //Envio de concepto al titulo del modal
-            $("#titulo_modalV").html(concepto);
-        });
-        //SUBMIT DEL FORMULARIO DE VEHICULAR
-        $("#formularioV").submit(function (e) {
-            e.preventDefault();//Previene la accion por defecto del boton
-            var concepto = $("#titulo_modalV").html();
-            var datos = new FormData();
-
-            datos.append("NuevoGH", "ok");
-            datos.append("concepto", concepto);
-            datos.append("dato", $("#inputGH").val());
+            datos.append("dato1", $("#num_cuenta").val());
+            datos.append("dato2", $("#nom_cuenta").val());
 
             $.ajax({
                 url: "ajax/conceptos.ajax.php",
@@ -1180,36 +971,32 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                 success: function (response) {
                     if (response == "ok") {
                         Swal.fire({
-                            icon: 'success',
+                            icon: "success",
                             showConfirmButton: true,
-                            title: "El nuevo dato ha sido agregado",
-                            confirmButtonText: "¡Cerrar!"
+                            title: "La cuenta ha sido agregada.",
+                            confirmButtonText: "¡Cerrar!",
                         }).then((result) => {
                             if (result.value) {
-                                window.location = 'cg-vehicular';
+                                window.location = "cg-mantenimiento";
                             }
-                        })
+                        });
                     }
-                }
+                },
             });
         });
-        //BOTON VER CONCEPTO EN VEHICULAR 
-        $(document).on("click", ".btn-ver", function () {
-
+        $(document).on("click", ".btn-ver-cuentas", function () {
             var concepto = $(this).attr("concepto");
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
             //Agregamos el titulo a cada modal de cada concepto
-            $("#titulo_modalVerV").html(concepto);
+            $("#titulo_modalVerCuentaCont").html(concepto);
             // Quitar datatable
-            $("#ver_conceptoV").dataTable().fnDestroy();
+            $("#ver_cuentascont").dataTable().fnDestroy();
             // Borrar datos
-            $("#tbody_ver_conceptoV").html("");
-            //Nombre de la cabecera de la tabla segun el concepto 
-            $("#tipoV").html(concepto);
+            $("#tbody_cuentacont").html("");
 
             var datos = new FormData();
-            datos.append("ajaxVerConcepto", "ok");
+            datos.append("VerTodosDos", "ok");
             datos.append("concepto", concepto);
             $.ajax({
                 type: "POST",
@@ -1220,317 +1007,50 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                 processData: false,
                 //dataType: "json",
                 success: function (response) {
-
-                    if (response != '' || response != null) {
-
-                        $("#tbody_ver_conceptoV").html(response);
-
+                    if (response != "" || response != null) {
+                        $("#tbody_cuentacont").html(response);
                     } else {
-
-                        $("#tbody_ver_conceptoV").html('');
+                        $("#tbody_cuentacont").html("");
                     }
 
                     var buttons = [
-                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
                     ];
-                    var table = dataTableCustom(`#ver_conceptoV`, buttons);
-                }
-            });
-        });
-        //BOTON CANCELAR AL AGREGAR==================
-        $('#AgregarEditarV, #AgregarEditarV2, #AgregarEditarV3, #AgregarRuta, #VisualizarV, #VisualizarV1, #VisualizarRutas').on('hidden.bs.modal', function (e) {
-            $(".overlay").each(function () { //Al cancelar se agrega la clase d-none para que no se vea el reload
-                $(this).addClass("d-none");
-            });
-        });
-        //BOTON EDITAR CONCEPTO EN VEHICULAR
-        $(document).on("click", ".btnEditar", function () {
-
-            //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
-            var concepto = $(this).attr("concepto");
-            var id = $(this).attr("idregistro");
-            var dato = $(this).attr("dato");
-
-            Swal.fire({
-                title: `Editar (${concepto})`,
-                html:
-                    `
-                <hr>
-                <label for="">${concepto}</label>
-                <input class="form-control" id="input-edit" type="text" value="${dato}">`
-                ,
-                showCancelButton: true,
-                confirmButtonColor: '#5cb85c',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Continuar!',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-
-                if (result.value) {
-                    var dato_edit = $("#input-edit").val();
-                    var datos = new FormData();
-                    datos.append("ajaxEditarConcepto", "ok");
-                    datos.append("concepto", concepto);
-                    datos.append("id", id);
-                    datos.append("dato", dato_edit);
-
-                    $.ajax({
-                        type: "POST",
-                        url: "ajax/conceptos.ajax.php",
-                        data: datos,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        //dataType: "json",
-                        success: function (response) {
-                            if (response == "ok") {
-                                Swal.fire({
-                                    icon: 'success',
-                                    showConfirmButton: true,
-                                    title: "¡El dato ha sido actualizado!",
-                                    confirmButtonText: "¡Cerrar!",
-                                    allowOutsideClick: false
-                                }).then((result) => { window.location = 'cg-vehicular'; })
-                            }
-                        }
-
-                    });
-                }
-            })
-        });
-        // funcion para el contador de los info box
-        $(".info-box-number").each(function () {
-            var $infobox = $(this);
-            var concepto = $infobox.attr("concepto");
-            var datos = new FormData();
-
-            datos.append("ajaxContarRegistro", "ok");
-            datos.append("concepto", concepto);
-            $.ajax({
-                url: "ajax/conceptos.ajax.php",
-                method: "POST",
-                data: datos,
-                cache: false,
-                contentType: false,
-                dataType: "json", //
-                processData: false,
-                success: function (response) {
-                    $infobox.text(response.contador + " registros");
-                }
-            });
-        });
-        //BOTON NUEVO DOCUMENTO VEHICULAR
-        $(document).on("click", ".btn-nuevo-documento", function () {
-
-            var concepto = $(this).attr("concepto");
-            //Removemos d-none del info-box de cada concepto
-            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
-            //Envio de concepto al titulo del modal
-            $("#titulo_modalV3").html(concepto);
-        });
-        //BOTON NUEVA LICENCIA, TIPO IDENTIFICACION
-        $(document).on("click", ".btn-nuevo-2", function () {
-
-            var concepto = $(this).attr("concepto");
-            //Removemos d-none del info-box de cada concepto
-            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
-            //Envio de concepto al titulo del modal
-            $("#titulo_modalV2").html(concepto);
-        });
-        //SUBMIT DEL FORMULARIO DE VEHICULAR - 2
-        $("#formularioV2").submit(function (e) {
-            e.preventDefault();//Previene la accion por defecto del boton
-            var concepto = $("#titulo_modalV2").html();
-            var datos = new FormData();
-
-            datos.append("NuevoVehicular", "ok");
-            datos.append("concepto", concepto);
-            datos.append("dato1", $("#input_campo_uno").val());
-            datos.append("dato2", $("#input_campo_dos").val());
-
-            $.ajax({
-                url: "ajax/conceptos.ajax.php",
-                method: "POST",
-                data: datos,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    if (response == "ok") {
-                        Swal.fire({
-                            icon: 'success',
-                            showConfirmButton: true,
-                            title: "El nuevo dato ha sido agregado",
-                            confirmButtonText: "¡Cerrar!"
-                        }).then((result) => {
-                            if (result.value) {
-                                window.location = 'cg-vehicular';
-                            }
-                        })
-                    }
-                }
-            });
-        });
-        //SUBMIT DEL FORMULARIO DE VEHICULAR - 3
-        $("#formularioV3").submit(function (e) {
-            e.preventDefault();//Previene la accion por defecto del boton
-            var concepto = $("#titulo_modalV3").html();
-            var datos = new FormData();
-
-            datos.append("NuevoVehicular", "ok");
-            datos.append("concepto", concepto);
-            datos.append("dato1", $("#input_tipo").val());
-            datos.append("dato2", $("#input_dias").val());
-
-            var hd = $('#input_dias').val();
-
-
-
-            $.ajax({
-                url: "ajax/conceptos.ajax.php",
-                method: "POST",
-                data: datos,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    if (response == "ok") {
-                        Swal.fire({
-                            icon: 'success',
-                            showConfirmButton: true,
-                            title: "El nuevo dato ha sido agregado",
-                            confirmButtonText: "¡Cerrar!"
-                        }).then((result) => {
-                            if (result.value) {
-                                window.location = 'cg-vehicular';
-                            }
-                        })
-                    }
-                }
-            });
-        });
-        //BOTON VER 2 
-        $(document).on("click", ".btn-ver-2", function () {
-
-            var concepto = $(this).attr("concepto");
-            //Removemos d-none del info-box de cada concepto
-            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
-            //Agregamos el titulo a cada modal de cada concepto
-            $("#titulo_modalVerV2").html(concepto);
-            // Quitar datatable
-            $("#ver_conceptoV2").dataTable().fnDestroy();
-            // Borrar datos
-            $("#tbody_ver_conceptoV2").html("");
-            //Nombre de la cabecera de la tabla segun el concepto 
-            $("#tipoV1").html(concepto);
-            $("#tipoV2").html("Descripción");
-
-            var datos = new FormData();
-            datos.append("VerConcepto2", "ok");
-            datos.append("concepto", concepto);
-            $.ajax({
-                type: "POST",
-                url: "ajax/conceptos.ajax.php",
-                data: datos,
-                cache: false,
-                contentType: false,
-                processData: false,
-                //dataType: "json",
-                success: function (response) {
-
-                    if (response != '' || response != null) {
-
-                        $("#tbody_ver_conceptoV2").html(response);
-
-                    } else {
-
-                        $("#tbody_ver_conceptoV2").html('');
-                    }
-
-                    var buttons = [
-                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
-                    ];
-                    var table = dataTableCustom(`#ver_conceptoV2`, buttons);
-                }
-            });
-        });
-        //BOTON VER DOCUMENTO
-        $(document).on("click", ".btn-ver-documento", function () {
-
-            var concepto = $(this).attr("concepto");
-            //Removemos d-none del info-box de cada concepto
-            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
-            //Agregamos el titulo a cada modal de cada concepto
-            $("#titulo_modalVerV2").html(concepto);
-            // Quitar datatable
-            $("#ver_conceptoV2").dataTable().fnDestroy();
-            // Borrar datos
-            $("#tbody_ver_conceptoV2").html("");
-            //Nombre de la cabecera de la tabla segun el concepto 
-            $("#tipoV1").html(concepto);
-            $("#tipoV2").html("Días (alerta)");
-
-            var datos = new FormData();
-            datos.append("VerConcepto2", "ok");
-            datos.append("concepto", concepto);
-            $.ajax({
-                type: "POST",
-                url: "ajax/conceptos.ajax.php",
-                data: datos,
-                cache: false,
-                contentType: false,
-                processData: false,
-                //dataType: "json",
-                success: function (response) {
-
-                    if (response != '' || response != null) {
-
-                        $("#tbody_ver_conceptoV2").html(response);
-
-                    } else {
-
-                        $("#tbody_ver_conceptoV2").html('');
-                    }
-
-                    var buttons = [
-                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
-                    ];
-                    var table = dataTableCustom(`#ver_conceptoV2`, buttons);
-                }
+                    var table = dataTableCustom(`#ver_cuentascont`, buttons);
+                },
             });
         });
         //BOTON EDITAR 2
         $(document).on("click", ".btnEditarV2", function () {
-
             //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
             var concepto = $(this).attr("concepto");
             var id = $(this).attr("idregistro");
             var dato1 = $(this).attr("dato1");
             var dato2 = $(this).attr("dato2");
 
-
             Swal.fire({
                 title: `Editar (${concepto})`,
-                html:
-                    `
+                html: `
                 <hr>
-                <label for="">${concepto}</label>
+                <label for="">Número de cuenta</label>
                 <input class="form-control" id="input-edit1" type="text" value="${dato1}">
-                <label for="">Descripción</label>
-                <input class="form-control" id="input-edit2" type="text" value="${dato2}">`
-                ,
+                <label for="">Nombre de cuenta</label>
+                <input class="form-control" id="input-edit2" type="text" value="${dato2}">`,
                 showCancelButton: true,
-                confirmButtonColor: '#5cb85c',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Continuar!',
-                cancelButtonText: 'Cancelar'
+                confirmButtonColor: "#5cb85c",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Continuar!",
+                cancelButtonText: "Cancelar",
             }).then((result) => {
-
                 if (result.value) {
                     var dato_edit1 = $("#input-edit1").val();
                     var dato_edit2 = $("#input-edit2").val();
                     var datos = new FormData();
-                    datos.append("EditarVehicular", "ok");
+                    datos.append("EditarDos", "ok");
                     datos.append("concepto", concepto);
                     datos.append("id", id);
                     datos.append("dato1", dato_edit1);
@@ -1547,77 +1067,83 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                         success: function (response) {
                             if (response == "ok") {
                                 Swal.fire({
-                                    icon: 'success',
+                                    icon: "success",
                                     showConfirmButton: true,
                                     title: "¡El dato ha sido actualizado!",
                                     confirmButtonText: "¡Cerrar!",
-                                    allowOutsideClick: false
-                                }).then((result) => { window.location = 'cg-vehicular'; })
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "cg-mantenimiento";
+                                });
                             }
-                        }
-
+                        },
                     });
                 }
-            })
+            });
         });
-        //BOTON NUEVA RUTA
-        $(document).on("click", ".btn-nueva-ruta", function () {
-
+    });
+}
+/*=============================================================
+=====================SEGURIDAD=================================
+============================================================?*/
+if (
+    window.location.href == `${urlPagina}cg-seguridad/` ||
+    window.location.href == `${urlPagina}cg-seguridad`
+) {
+    $(document).ready(function () {
+        //========================BOTON NUEVO CONCEPTO EN SEGURIDAD
+        $(document).on("click", ".btn-nuevo", function () {
             var concepto = $(this).attr("concepto");
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
             //Envio de concepto al titulo del modal
-            $("#titulo_modal_ruta").html(concepto);
-        });
-        //SUBMIT DEL FORMULARIO DE RUTAS
-        $("#formularioRuta").submit(function (e) {
-            e.preventDefault();//Previene la accion por defecto del boton
-            var datos = new FormData();
+            $("#titulo_modalGH").html(concepto);
 
-            datos.append("AgregarRuta", "ok");
-            datos.append("dato1", $("#id_ruta").val());
-            datos.append("dato2", $("#origen").val());
-            datos.append("dato3", $("#id_destino").val());
+            $(document).on("click", ":submit", function () {
+                var datos = new FormData();
 
+                datos.append("Nuevo", "ok");
+                datos.append("concepto", concepto);
+                datos.append("dato", $("#inputGH").val());
 
-            $.ajax({
-                url: "ajax/conceptos.ajax.php",
-                method: "POST",
-                data: datos,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    if (response == "ok") {
-                        Swal.fire({
-                            icon: 'success',
-                            showConfirmButton: true,
-                            title: "¡Nueva ruta agregada!",
-                            confirmButtonText: "¡Cerrar!"
-                        }).then((result) => {
-                            if (result.value) {
-                                window.location = 'cg-vehicular';
-                            }
-                        })
-                    }
-                }
+                $.ajax({
+                    url: "ajax/conceptos.ajax.php",
+                    method: "POST",
+                    data: datos,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response == "ok") {
+                            Swal.fire({
+                                icon: "success",
+                                showConfirmButton: true,
+                                title: "El nuevo dato ha sido agregado",
+                                confirmButtonText: "¡Cerrar!",
+                            });
+                        }
+                        window.location = "cg-seguridad";
+                    },
+                });
             });
         });
-        //BOTON VER RUTAS
-        $(document).on("click", ".btn-ver-ruta", function () {
-
+        //========================BOTON VER CONCEPTO EN SEGURIDAD
+        $(document).on("click", ".btn-ver", function () {
             var concepto = $(this).attr("concepto");
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
             //Agregamos el titulo a cada modal de cada concepto
-            $("#titulo_ver_rutas").html(concepto);
+            $("#titulo_modalVer").html(concepto);
             // Quitar datatable
-            $("#ver_ruta").dataTable().fnDestroy();
+            $("#ver_concepto").dataTable().fnDestroy();
             // Borrar datos
-            $("#tbody_ver_ruta").html("");
+            $("#tbody_ver_concepto").html("");
+            //Nombre de la cabecera de la tabla segun el concepto
+            $("#tipo").html(concepto);
 
             var datos = new FormData();
-            datos.append("VerRutas", "ok");
+            datos.append("VerTodos", "ok");
+            datos.append("concepto", concepto);
             $.ajax({
                 type: "POST",
                 url: "ajax/conceptos.ajax.php",
@@ -1627,26 +1153,249 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                 processData: false,
                 //dataType: "json",
                 success: function (response) {
-
-                    if (response != '' || response != null) {
-
-                        $("#tbody_ver_ruta").html(response);
-
+                    if (response != "" || response != null) {
+                        $("#tbody_ver_concepto").html(response);
                     } else {
-
-                        $("#tbody_ver_ruta").html('');
+                        $("#tbody_ver_concepto").html("");
                     }
-                    var buttons = [
-                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
-                        /* 'copy', 'csv', 'excel', 'pdf', 'print' */
-                    ];
-                    dataTableCustom("#ver_ruta", buttons);
+
+                    dataTable("#ver_concepto");
+                },
+            });
+        });
+        //=================BOTON CANCELAR AL AGREGAR==================
+        $(document).on("click", ".btn-cancelar", function () {
+            $(".overlay").each(function () {
+                //Al cancelar se agrega la clase d-none para que no se vea el reload
+                $(this).addClass("d-none");
+            });
+        });
+        //===================BOTON EDITAR CONCEPTO EN SEGURIDAD
+        $(document).on("click", ".btnEditar", function () {
+            //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
+            var concepto = $(this).attr("concepto");
+            var id = $(this).attr("idregistro");
+            var dato = $(this).attr("dato");
+
+            Swal.fire({
+                title: `Editar (${concepto})`,
+                html: `
+                <hr>
+                <label for="">${concepto}</label>
+                <input class="form-control" id="input-edit" type="text" value="${dato}">`,
+                showCancelButton: true,
+                confirmButtonColor: "#5cb85c",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Continuar!",
+                cancelButtonText: "Cancelar",
+            }).then((result) => {
+                if (result.value) {
+                    var dato_edit = $("#input-edit").val();
+                    var datos = new FormData();
+                    datos.append("ajaxEditarConcepto", "ok");
+                    datos.append("concepto", concepto);
+                    datos.append("id", id);
+                    datos.append("dato", dato_edit);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/conceptos.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        //dataType: "json",
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: "success",
+                                    showConfirmButton: true,
+                                    title: "¡El dato ha sido actualizado!",
+                                    confirmButtonText: "¡Cerrar!",
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "cg-matenimiento";
+                                });
+                            }
+                        },
+                    });
+                }
+            });
+        });
+        // funcion para el contador de los info box
+        $(".info-box-number").each(function () {
+            var $infobox = $(this);
+            var concepto = $infobox.attr("concepto");
+            var datos = new FormData();
+
+            datos.append("ajaxContarRegistro", "ok");
+            datos.append("concepto", concepto);
+            $.ajax({
+                url: "ajax/conceptos.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                dataType: "json", //
+                processData: false,
+                success: function (response) {
+                    $infobox.text(response.contador + " registros");
+                },
+            });
+        });
+    });
+}
+/*=============================================================
+=====================VEHICULAR=================================
+============================================================?*/
+if (
+    window.location.href == `${urlPagina}cg-vehicular/` ||
+    window.location.href == `${urlPagina}cg-vehicular`
+) {
+    $(document).ready(function () {
+        //BOTON NUEVO CONCEPTO EN VEHICULAR
+        $(document).on("click", ".btn-nuevo", function () {
+            var concepto = $(this).attr("concepto");
+            //Removemos d-none del info-box de cada concepto
+            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
+            //Envio de concepto al titulo del modal
+            $("#titulo_modalV").html(concepto);
+        });
+        //BOTON NUEVO DOCUMENTO VEHICULAR
+        $(document).on("click", ".btn-nuevo-documento", function () {
+            var concepto = $(this).attr("concepto");
+            //Removemos d-none del info-box de cada concepto
+            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
+            //Envio de concepto al titulo del modal
+            $("#titulo_modalV3").html(concepto);
+        });
+        //BOTON NUEVA LICENCIA, TIPO IDENTIFICACION
+        $(document).on("click", ".btn-nuevo-2", function () {
+            var concepto = $(this).attr("concepto");
+            //Removemos d-none del info-box de cada concepto
+            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
+            //Envio de concepto al titulo del modal
+            $("#titulo_modalV2").html(concepto);
+        });
+        //BOTON NUEVA RUTA
+        $(document).on("click", ".btn-nueva-ruta", function () {
+            var concepto = $(this).attr("concepto");
+            //Removemos d-none del info-box de cada concepto
+            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
+            //Envio de concepto al titulo del modal
+            $("#titulo_modal_ruta").html(concepto);
+        });
+        //BOTON EDITAR CONCEPTO EN VEHICULAR
+        $(document).on("click", ".btnEditar", function () {
+            //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
+            var concepto = $(this).attr("concepto");
+            var id = $(this).attr("idregistro");
+            var dato = $(this).attr("dato");
+
+            Swal.fire({
+                title: `Editar (${concepto})`,
+                html: `
+                        <hr>
+                        <label for="">${concepto}</label>
+                        <input class="form-control" id="input-edit" type="text" value="${dato}">`,
+                showCancelButton: true,
+                confirmButtonColor: "#5cb85c",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Continuar!",
+                cancelButtonText: "Cancelar",
+            }).then((result) => {
+                if (result.value) {
+                    var dato_edit = $("#input-edit").val();
+                    var datos = new FormData();
+                    datos.append("ajaxEditarConcepto", "ok");
+                    datos.append("concepto", concepto);
+                    datos.append("id", id);
+                    datos.append("dato", dato_edit);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/conceptos.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        //dataType: "json",
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: "success",
+                                    showConfirmButton: true,
+                                    title: "¡El dato ha sido actualizado!",
+                                    confirmButtonText: "¡Cerrar!",
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "cg-vehicular";
+                                });
+                            }
+                        },
+                    });
+                }
+            });
+        });
+        //BOTON EDITAR 2
+        $(document).on("click", ".btnEditarV2", function () {
+            //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
+            var concepto = $(this).attr("concepto");
+            var id = $(this).attr("idregistro");
+            var dato1 = $(this).attr("dato1");
+            var dato2 = $(this).attr("dato2");
+
+            Swal.fire({
+                title: `Editar (${concepto})`,
+                html: `
+                <hr>
+                <label for="">${concepto}</label>
+                <input class="form-control" id="input-edit1" type="text" value="${dato1}">
+                <label for="">Descripción</label>
+                <input class="form-control" id="input-edit2" type="text" value="${dato2}">`,
+                showCancelButton: true,
+                confirmButtonColor: "#5cb85c",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Continuar!",
+                cancelButtonText: "Cancelar",
+            }).then((result) => {
+                if (result.value) {
+                    var dato_edit1 = $("#input-edit1").val();
+                    var dato_edit2 = $("#input-edit2").val();
+                    var datos = new FormData();
+                    datos.append("EditarDos", "ok");
+                    datos.append("concepto", concepto);
+                    datos.append("id", id);
+                    datos.append("dato1", dato_edit1);
+                    datos.append("dato2", dato_edit2);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/conceptos.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        //dataType: "json",
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: "success",
+                                    showConfirmButton: true,
+                                    title: "¡El dato ha sido actualizado!",
+                                    confirmButtonText: "¡Cerrar!",
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "cg-vehicular";
+                                });
+                            }
+                        },
+                    });
                 }
             });
         });
         //BOTON EDITAR RUTA
         $(document).on("click", ".btnEditarRuta", function () {
-
             //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
             var id = $(this).attr("idregistro");
             var dato1 = $(this).attr("dato1");
@@ -1655,23 +1404,20 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
 
             Swal.fire({
                 title: `Editar (RUTA)`,
-                html:
-                    `
+                html: `
                 <hr>
                 <label>Origen</label>
                 <input class="form-control" id="input-edit1" type="text" value="${dato1}" readonly>
                 <label>Destino</label>
                 <input class="form-control" id="input-edit2" type="text" value="${dato2}" readonly>
                 <label>Ruta</label>
-                <input class="form-control" id="input-edit3" type="text" value="${dato3}"  >`
-                ,
+                <input class="form-control" id="input-edit3" type="text" value="${dato3}"  >`,
                 showCancelButton: true,
-                confirmButtonColor: '#5cb85c',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Continuar!',
-                cancelButtonText: 'Cancelar'
+                confirmButtonColor: "#5cb85c",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Continuar!",
+                cancelButtonText: "Cancelar",
             }).then((result) => {
-
                 if (result.value) {
                     var dato_edit1 = $("#input-edit1").val();
                     var dato_edit2 = $("#input-edit2").val();
@@ -1693,31 +1439,200 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                         success: function (response) {
                             if (response == "ok") {
                                 Swal.fire({
-                                    icon: 'success',
+                                    icon: "success",
                                     showConfirmButton: true,
                                     title: "¡La ruta ha sido actualizada!",
                                     confirmButtonText: "¡Cerrar!",
-                                    allowOutsideClick: false
-                                }).then((result) => { window.location = 'cg-vehicular'; })
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "cg-vehicular";
+                                });
                             }
-                        }
-
+                        },
                     });
                 }
-            })
+            });
         });
+         //BOTON VER CONCEPTO EN VEHICULAR
+         $(document).on("click", ".btn-ver", function () {
+            var concepto = $(this).attr("concepto");
+            //Removemos d-none del info-box de cada concepto
+            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
+            //Agregamos el titulo a cada modal de cada concepto
+            $("#titulo_modalVerV").html(concepto);
+            // Quitar datatable
+            $("#ver_conceptoV").dataTable().fnDestroy();
+            // Borrar datos
+            $("#tbody_ver_conceptoV").html("");
+            //Nombre de la cabecera de la tabla segun el concepto
+            $("#tipoV").html(concepto);
 
+            var datos = new FormData();
+            datos.append("VerTodos", "ok");
+            datos.append("concepto", concepto);
+            $.ajax({
+                type: "POST",
+                url: "ajax/conceptos.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                //dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbody_ver_conceptoV").html(response);
+                    } else {
+                        $("#tbody_ver_conceptoV").html("");
+                    }
+
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(`#ver_conceptoV`, buttons);
+                },
+            });
+        });
+        //BOTON VER 2
+        $(document).on("click", ".btn-ver-2", function () {
+            var concepto = $(this).attr("concepto");
+            //Removemos d-none del info-box de cada concepto
+            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
+            //Agregamos el titulo a cada modal de cada concepto
+            $("#titulo_modalVerV2").html(concepto);
+            // Quitar datatable
+            $("#ver_conceptoV2").dataTable().fnDestroy();
+            // Borrar datos
+            $("#tbody_ver_conceptoV2").html("");
+            //Nombre de la cabecera de la tabla segun el concepto
+            $("#tipoV1").html(concepto);
+            $("#tipoV2").html("Descripción");
+
+            var datos = new FormData();
+            datos.append("VerTodosDos", "ok");
+            datos.append("concepto", concepto);
+            $.ajax({
+                type: "POST",
+                url: "ajax/conceptos.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                //dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbody_ver_conceptoV2").html(response);
+                    } else {
+                        $("#tbody_ver_conceptoV2").html("");
+                    }
+
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(`#ver_conceptoV2`, buttons);
+                },
+            });
+        });
+        //BOTON VER DOCUMENTO
+        $(document).on("click", ".btn-ver-documento", function () {
+            var concepto = $(this).attr("concepto");
+            //Removemos d-none del info-box de cada concepto
+            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
+            //Agregamos el titulo a cada modal de cada concepto
+            $("#titulo_modalVerV2").html(concepto);
+            // Quitar datatable
+            $("#ver_conceptoV2").dataTable().fnDestroy();
+            // Borrar datos
+            $("#tbody_ver_conceptoV2").html("");
+            //Nombre de la cabecera de la tabla segun el concepto
+            $("#tipoV1").html(concepto);
+            $("#tipoV2").html("Días (alerta)");
+
+            var datos = new FormData();
+            datos.append("VerTodosDos", "ok");
+            datos.append("concepto", concepto);
+            $.ajax({
+                type: "POST",
+                url: "ajax/conceptos.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                //dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbody_ver_conceptoV2").html(response);
+                    } else {
+                        $("#tbody_ver_conceptoV2").html("");
+                    }
+
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(`#ver_conceptoV2`, buttons);
+                },
+            });
+        });
+        //BOTON VER RUTAS
+        $(document).on("click", ".btn-ver-ruta", function () {
+            var concepto = $(this).attr("concepto");
+            //Removemos d-none del info-box de cada concepto
+            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
+            //Agregamos el titulo a cada modal de cada concepto
+            $("#titulo_ver_rutas").html(concepto);
+            // Quitar datatable
+            $("#ver_ruta").dataTable().fnDestroy();
+            // Borrar datos
+            $("#tbody_ver_ruta").html("");
+
+            var datos = new FormData();
+            datos.append("VerRutas", "ok");
+            $.ajax({
+                type: "POST",
+                url: "ajax/conceptos.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                //dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbody_ver_ruta").html(response);
+                    } else {
+                        $("#tbody_ver_ruta").html("");
+                    }
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
+                        /* 'copy', 'csv', 'excel', 'pdf', 'print' */
+                    ];
+                    dataTableCustom("#ver_ruta", buttons);
+                },
+            });
+        });
         //ELIMINAR
         $(document).on("click", ".btnBorrar", function () {
-
-
             //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
             var id = $(this).attr("idregistro");
             var valor_cambio = $(this).attr("valor-cambio");
             var concepto = $(this).attr("concepto");
 
             Swal.fire({
-                icon: 'warning',
+                icon: "warning",
                 showConfirmButton: true,
                 showCancelButton: true,
                 title: "¿Seguro que desea borrar este registro?",
@@ -1725,17 +1640,14 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                 cancelButtonText: "Cancelar",
                 confirmButtonColor: "#ff0000",
                 cancelButtonColor: "#66ff99",
-                allowOutsideClick: false
+                allowOutsideClick: false,
             }).then((result) => {
-
                 if (result.value) {
-
                     var datos = new FormData();
                     datos.append("EliminarRegistro", "ok");
                     datos.append("id", id);
                     datos.append("valor", valor_cambio);
                     datos.append("concepto", concepto);
-
 
                     $.ajax({
                         type: "POST",
@@ -1746,52 +1658,212 @@ if (window.location.href == `${urlPagina}cg-vehicular/` ||
                         processData: false,
                         //dataType: "json",
                         success: function (response) {
-                            console.log(response)
+                            console.log(response);
                             if (response == "ok") {
                                 Swal.fire({
-                                    icon: 'success',
+                                    icon: "success",
                                     showConfirmButton: true,
                                     title: "¡El registro ha sido borrado correctamente!",
                                     confirmButtonText: "¡Cerrar!",
-                                    allowOutsideClick: false
-                                }).then((result) => { window.location = 'cg-vehicular'; })
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "cg-vehicular";
+                                });
                             }
-                        }
-
+                        },
                     });
                 }
-            })
+            });
+        });
+        //SUBMIT DEL FORMULARIO DE VEHICULAR
+        $("#formularioV").submit(function (e) {
+            e.preventDefault(); //Previene la accion por defecto del boton
+            var concepto = $("#titulo_modalV").html();
+            var datos = new FormData();
+
+            datos.append("Nuevo", "ok");
+            datos.append("concepto", concepto);
+            datos.append("dato", $("#inputGH").val());
+
+            $.ajax({
+                url: "ajax/conceptos.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: "success",
+                            showConfirmButton: true,
+                            title: "El nuevo dato ha sido agregado",
+                            confirmButtonText: "¡Cerrar!",
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location = "cg-vehicular";
+                            }
+                        });
+                    }
+                },
+            });
+        });
+        //SUBMIT DEL FORMULARIO DE VEHICULAR - 2
+        $("#formularioV2").submit(function (e) {
+            e.preventDefault(); //Previene la accion por defecto del boton
+            var concepto = $("#titulo_modalV2").html();
+            var datos = new FormData();
+
+            datos.append("NuevoDos", "ok");
+            datos.append("concepto", concepto);
+            datos.append("dato1", $("#input_campo_uno").val());
+            datos.append("dato2", $("#input_campo_dos").val());
+
+            $.ajax({
+                url: "ajax/conceptos.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: "success",
+                            showConfirmButton: true,
+                            title: "El nuevo dato ha sido agregado",
+                            confirmButtonText: "¡Cerrar!",
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location = "cg-vehicular";
+                            }
+                        });
+                    }
+                },
+            });
+        });
+        //SUBMIT DEL FORMULARIO DE VEHICULAR - 3
+        $("#formularioV3").submit(function (e) {
+            e.preventDefault(); //Previene la accion por defecto del boton
+            var concepto = $("#titulo_modalV3").html();
+            var datos = new FormData();
+
+            datos.append("NuevoDos", "ok");
+            datos.append("concepto", concepto);
+            datos.append("dato1", $("#input_tipo").val());
+            datos.append("dato2", $("#input_dias").val());
+
+            var hd = $("#input_dias").val();
+
+            $.ajax({
+                url: "ajax/conceptos.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: "success",
+                            showConfirmButton: true,
+                            title: "El nuevo dato ha sido agregado",
+                            confirmButtonText: "¡Cerrar!",
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location = "cg-vehicular";
+                            }
+                        });
+                    }
+                },
+            });
+        });
+        //SUBMIT DEL FORMULARIO DE RUTAS
+        $("#formularioRuta").submit(function (e) {
+            e.preventDefault(); //Previene la accion por defecto del boton
+            var datos = new FormData();
+
+            datos.append("AgregarRuta", "ok");
+            datos.append("dato1", $("#id_ruta").val());
+            datos.append("dato2", $("#origen").val());
+            datos.append("dato3", $("#id_destino").val());
+
+            $.ajax({
+                url: "ajax/conceptos.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: "success",
+                            showConfirmButton: true,
+                            title: "¡Nueva ruta agregada!",
+                            confirmButtonText: "¡Cerrar!",
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location = "cg-vehicular";
+                            }
+                        });
+                    }
+                },
+            });
+        });
+        // funcion para el contador de los info box
+        $(".info-box-number").each(function () {
+            var $infobox = $(this);
+            var concepto = $infobox.attr("concepto");
+            var datos = new FormData();
+
+            datos.append("ajaxContarRegistro", "ok");
+            datos.append("concepto", concepto);
+            $.ajax({
+                url: "ajax/conceptos.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                dataType: "json", //
+                processData: false,
+                success: function (response) {
+                    $infobox.text(response.contador + " registros");
+                },
+            });
+        });
+        //BOTON CANCELAR AL AGREGAR==================
+        $("#AgregarEditarV, #AgregarEditarV2, #AgregarEditarV3, #AgregarRuta, #VisualizarV, #VisualizarV1, #VisualizarRutas").on("hidden.bs.modal", function (e) {
+            $(".overlay").each(function () {
+                //Al cancelar se agrega la clase d-none para que no se vea el reload
+                $(this).addClass("d-none");
+            });
         });
     });
 }
-
 /*=============================================================
 =====================ALMACEN=================================
 ============================================================?*/
-if (window.location.href == `${urlPagina}cg-almacen/` ||
+if (
+    window.location.href == `${urlPagina}cg-almacen/` ||
     window.location.href == `${urlPagina}cg-almacen`
 ) {
-
     $(document).ready(function () {
-
-         //BOTON NUEVO CONCEPTO EN ALMACEN
-         $(document).on("click", ".btn-nuevo", function () {
-
+        //BOTON NUEVO CONCEPTO EN ALMACEN
+        $(document).on("click", ".btn-nuevo", function () {
             var concepto = $(this).attr("concepto");
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
             //Envio de concepto al titulo del modal
             $("#titulo_modalA").html(concepto);
         });
-
         //SUBMIT DEL FORMULARIO DE ALMACEN
         $("#formularioAlmacen").submit(function (e) {
-
-            e.preventDefault();//Previene la accion por defecto del boton
+            e.preventDefault(); //Previene la accion por defecto del boton
             var concepto = $("#titulo_modalA").html();
             var datos = new FormData();
 
-            datos.append("NuevoGH", "ok");
+            datos.append("Nuevo", "ok");
             datos.append("concepto", concepto);
             datos.append("dato", $("#entrada1").val());
 
@@ -1805,24 +1877,22 @@ if (window.location.href == `${urlPagina}cg-almacen/` ||
                 success: function (response) {
                     if (response == "ok") {
                         Swal.fire({
-                            icon: 'success',
+                            icon: "success",
                             showConfirmButton: true,
                             title: "El nuevo dato ha sido agregado",
                             confirmButtonText: "¡Cerrar!",
-                            allowOutsideClick: false
+                            allowOutsideClick: false,
                         }).then((result) => {
                             if (result.value) {
-                                window.location = 'cg-almacen';
+                                window.location = "cg-almacen";
                             }
-                        })
+                        });
                     }
-                }
+                },
             });
         });
-
         //BOTON VER CONCEPTO EN ALMACEN
         $(document).on("click", ".btn-ver", function () {
-
             var concepto = $(this).attr("concepto");
             //Removemos d-none del info-box de cada concepto
             $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
@@ -1832,11 +1902,11 @@ if (window.location.href == `${urlPagina}cg-almacen/` ||
             $("#ver_concepto_a").dataTable().fnDestroy();
             // Borrar datos
             $("#tbody_ver_concepto_a").html("");
-            //Nombre de la cabecera de la tabla segun el concepto 
+            //Nombre de la cabecera de la tabla segun el concepto
             $("#tipo").html(concepto);
 
             var datos = new FormData();
-            datos.append("ajaxVerConcepto", "ok");
+            datos.append("VerTodos", "ok");
             datos.append("concepto", concepto);
             $.ajax({
                 type: "POST",
@@ -1847,34 +1917,32 @@ if (window.location.href == `${urlPagina}cg-almacen/` ||
                 processData: false,
                 //dataType: "json",
                 success: function (response) {
-
-                    if (response != '' || response != null) {
-
+                    if (response != "" || response != null) {
                         $("#tbody_ver_concepto_a").html(response);
-
                     } else {
-
-                        $("#tbody_ver_concepto_a").html('');
+                        $("#tbody_ver_concepto_a").html("");
                     }
 
                     var buttons = [
-                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
                     ];
                     var table = dataTableCustom(`#ver_concepto_a`, buttons);
-                }
+                },
             });
         });
-
         //BOTON CANCELAR AL AGREGAR
-        $('#AgregarEditarA, #VisualizarA').on('hidden.bs.modal', function (e) {
-            $(".overlay").each(function () { //Al cancelar se agrega la clase d-none para que no se vea el reload
+        $("#AgregarEditarA, #VisualizarA").on("hidden.bs.modal", function (e) {
+            $(".overlay").each(function () {
+                //Al cancelar se agrega la clase d-none para que no se vea el reload
                 $(this).addClass("d-none");
             });
         });
-
         //BOTON EDITAR CONCEPTO EN ALMACEN
         $(document).on("click", ".btnEditar", function () {
-
             //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
             var concepto = $(this).attr("concepto");
             var id = $(this).attr("idregistro");
@@ -1882,19 +1950,16 @@ if (window.location.href == `${urlPagina}cg-almacen/` ||
 
             Swal.fire({
                 title: `Editar (${concepto})`,
-                html:
-                    `
+                html: `
                 <hr>
                 <label for="">${concepto}</label>
-                <input class="form-control" id="input-edit" type="text" value="${dato}">`
-                ,
+                <input class="form-control" id="input-edit" type="text" value="${dato}">`,
                 showCancelButton: true,
-                confirmButtonColor: '#5cb85c',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Continuar!',
-                cancelButtonText: 'Cancelar'
+                confirmButtonColor: "#5cb85c",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Continuar!",
+                cancelButtonText: "Cancelar",
             }).then((result) => {
-
                 if (result.value) {
                     var dato_edit = $("#input-edit").val();
                     var datos = new FormData();
@@ -1914,20 +1979,20 @@ if (window.location.href == `${urlPagina}cg-almacen/` ||
                         success: function (response) {
                             if (response == "ok") {
                                 Swal.fire({
-                                    icon: 'success',
+                                    icon: "success",
                                     showConfirmButton: true,
                                     title: "¡El dato ha sido actualizado!",
                                     confirmButtonText: "¡Cerrar!",
-                                    allowOutsideClick: false
-                                }).then((result) => { window.location = 'cg-almacen'; })
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "cg-almacen";
+                                });
                             }
-                        }
-
+                        },
                     });
                 }
-            })
+            });
         });
-
         // funcion para el contador de los info box
         $(".info-box-number").each(function () {
             var $infobox = $(this);
@@ -1946,20 +2011,18 @@ if (window.location.href == `${urlPagina}cg-almacen/` ||
                 processData: false,
                 success: function (response) {
                     $infobox.text(response.contador + " registros");
-                }
+                },
             });
         });
-
         //ELIMINAR
         $(document).on("click", ".btnBorrar", function () {
-
             //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
             var id = $(this).attr("idregistro");
             var valor_cambio = $(this).attr("valor-cambio");
             var concepto = $(this).attr("concepto");
 
             Swal.fire({
-                icon: 'warning',
+                icon: "warning",
                 showConfirmButton: true,
                 showCancelButton: true,
                 title: "¿Seguro que desea borrar este registro?",
@@ -1967,17 +2030,14 @@ if (window.location.href == `${urlPagina}cg-almacen/` ||
                 cancelButtonText: "Cancelar",
                 confirmButtonColor: "#ff0000",
                 cancelButtonColor: "#66ff99",
-                allowOutsideClick: false
+                allowOutsideClick: false,
             }).then((result) => {
-
                 if (result.value) {
-
                     var datos = new FormData();
                     datos.append("EliminarRegistro", "ok");
                     datos.append("id", id);
                     datos.append("valor", valor_cambio);
                     datos.append("concepto", concepto);
-
 
                     $.ajax({
                         type: "POST",
@@ -1990,18 +2050,19 @@ if (window.location.href == `${urlPagina}cg-almacen/` ||
                         success: function (response) {
                             if (response == "ok") {
                                 Swal.fire({
-                                    icon: 'success',
+                                    icon: "success",
                                     showConfirmButton: true,
                                     title: "¡El registro ha sido borrado correctamente!",
                                     confirmButtonText: "¡Cerrar!",
-                                    allowOutsideClick: false
-                                }).then((result) => { window.location = 'cg-almacen'; })
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "cg-almacen";
+                                });
                             }
-                        }
-
+                        },
                     });
                 }
-            })
+            });
         });
     });
 }

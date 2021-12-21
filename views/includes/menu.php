@@ -119,7 +119,7 @@
                                 <li class="nav-item">
                                     <a href="cg-almacen" class="nav-link" target="_blank">
                                         <i class="fas fa-warehouse nav-icon"></i>
-                                        <p>Almacen</p>
+                                        <p>Almacén</p>
                                     </a>
                                 </li>
 
@@ -446,7 +446,7 @@
                                 =================================================== -->
                             <li class="nav-item">
                                 <a href="m-mantenimientos" class="nav-link" target="_blank">
-                                    <i class="fas fa-cogs nav-icon"></i>
+                                    <i class="fas fa-toolbox nav-icon"></i>
                                     <p>Mantenimientos</p>
                                 </a>
                             </li>

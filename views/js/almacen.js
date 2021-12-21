@@ -118,6 +118,112 @@ $(document).ready(function () {
                 });
             }
         });
+        //SUBMIT del formulario que genera una salida
+        $("#formulario_salidaInventario").submit(function (e) {
+            e.preventDefault();
+
+            var idproducto = $("#id_producto").val();
+
+            if(idproducto != ""){
+                var datosAjax = new FormData();
+                var datosFrm = $("#formulario_salidaInventario").serializeArray();
+                datosFrm.forEach((element) => {
+                    datosAjax.append(element.name, element.value);
+                });
+                datosAjax.append("GenerarSalida", "ok");
+                datosAjax.append("idproducto", idproducto);
+
+                $.ajax({
+                    type: "post",
+                    url: `${urlPagina}ajax/almacen.ajax.php`,
+                    data: datosAjax,
+                    cache: false,
+                    //dataType: "json",
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        console.log(response);
+                        if (response <= 0) {
+                            Swal.fire({
+                                icon: "info",
+                                title: response, 
+                                text: 'Fueron extraidos',
+                                showConfirmButton: true,
+                                confirmButtonText: 'continuar.'
+                            });
+                        } else if (response >= 0){
+                            Swal.fire({
+                                icon: "info",
+                                title: response, 
+                                text: 'Fueron extraidos',
+                                showConfirmButton: true,
+                                confirmButtonText: 'continuar.'
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Error al generar la salida.",
+                                showConfirmButton: false,
+                                timer: 2000,
+                            });
+                        }
+                        $("#id_producto").val("");
+                        $("#formulario_producto").trigger("reset");
+                        $("#formulario_addInventario").trigger("reset");
+                        $("#formulario_salidaInventario").trigger("reset");
+                        $(".select2-single").val("").trigger("change");
+                        $(".btn_agregarProducto").show();
+                        $(".btn_actualizarProducto").addClass("d-none");
+                        $(".btn_nuevaReferencia").addClass("d-none");
+                        $("#titulo_producto").html("Nuevo producto");
+                    },
+                });
+            }else{
+                Swal.fire({
+                    icon: "warning",
+                    title: "Debe seleccionar un producto para generar una salida.",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            }
+
+
+            $("#formularioOrden").trigger("reset");
+            $(".select2-single").trigger("change");
+            $("#idorden_compra").val("");
+            $("#idregistroproducto").val("");
+        });
+        //ESTILO DEL BOTON SWITCH TIPO BOOTSTRAP
+        $("#switch-offColor").bootstrapSwitch({
+            size: "large",
+            /* state: true, */
+            onText: "<i class='fas fa-arrow-alt-circle-down'></i> <strong>ENTRADA</strong>",
+            offText: "<i class='fas fa-arrow-alt-circle-up'></i> <strong>SALIDA</strong>",
+            onColor: "primary",
+            offColor: "secondary",
+            /* setState: true, */
+            onSwitchChange: function (e,state) {
+                console.log("entra" , state);
+                if(state){
+                    $("#div_ver_inputs_entradas").addClass("d-none");
+                    $("#div_ver_inputs_salidas").removeClass("d-none");
+                }else{
+                    $("#div_ver_inputs_entradas").removeClass("d-none");
+                    $("#div_ver_inputs_salidas").addClass("d-none");
+                }
+                
+            }
+        });
+        //EVENTO QUE VERIFICA CUANDO CAMBIA EL SWITCH PARA MOSTRAR SALIDAS O ENTRADAS
+        // $("#switch-offColor").on("switchChange.bootstrapSwitch", function (e, state) {
+        //     if(state){
+        //         $("#div_ver_inputs_entradas").addClass("d-none");
+        //         $("#div_ver_inputs_salidas").removeClass("d-none");
+        //     }else{
+        //         $("#div_ver_inputs_entradas").removeClass("d-none");
+        //         $("#div_ver_inputs_salidas").addClass("d-none");
+        //     }
+        // });
         //EVENTO AL ABRIR EL MODAL DE PRODUCTOS CARGA LOS DATOS DE LOS SELECT(proveedor, marca, medida,categoria,sucursales)
         $(document).on("shown.bs.modal", "#modal-productos", function () {
             cargarSelect("categoria");
@@ -127,6 +233,7 @@ $(document).ready(function () {
             cargarSelectProveedor("proveedor");
             cargarTablaProductos();
             cargarTablaInventario();
+            cargarSelect("Sucursal");
             $("#formulario_producto").trigger("reset");
             $("#formulario_addInventario").trigger("reset");
             $("#id_producto").val("");
@@ -135,6 +242,12 @@ $(document).ready(function () {
             $(".btn_nuevaReferencia").addClass("d-none");
             $(".input_inventario").attr("readonly", true);
             $("#titulo_producto").html("Nuevo producto");
+        });
+        //EVENTO QUE BORRA LOS DATOS LUEGO DE CERRAR LA MODAL DE INVENTARIO
+        $(document).on("hidden.bs.modal", "#modal-productos", function () {
+            $("#formulario_producto").trigger("reset");
+            $("#formulario_addInventario").trigger("reset");
+            $("#id_producto").val("");
         });
         //EVENTO al salir del input de codigo, busca si ese codigo existe y se trae los datos del producto con ese codigo
         $(document).on("blur", "#cod_producto", function () {
@@ -386,7 +499,7 @@ $(document).ready(function () {
                         showConfirmButton: false,
                         timer: 1500,
                         timerProgressBar: true,
-                        allowOutsideClick: false
+                        allowOutsideClick: false,
                     }).then((result) => {
                         /* Read more about handling dismissals below */
                         if (result.dismiss === Swal.DismissReason.timer) {
@@ -580,7 +693,7 @@ $(document).ready(function () {
                                         showConfirmButton: false,
                                         timer: 1500,
                                         timerProgressBar: true,
-                                        allowOutsideClick: false
+                                        allowOutsideClick: false,
                                     });
                                 } else {
                                     var datosAjax = new FormData();
@@ -1011,22 +1124,15 @@ $(document).ready(function () {
                             $("#posicion").val(response.posicion);
 
                             Swal.fire({
-                                title:
-                                    "Producto: " +
-                                    response.descripcion +
-                                    " Código: " +
-                                    response.codigo,
+                                title: response.descripcion,
                                 html:
-                                    "<hr><h4>En la sucursal de: <strong>" +
                                     response.sucursal +
-                                    "</strong>" +
-                                    " tiene un stock actual de: <strong>" +
+                                    " - Stock: <strong>" +
                                     response.stock +
-                                    "</strong></h4><hr>",
+                                    "</strong>",
                                 showConfirmButton: false,
-                                timer: 2500,
-                                timerProgressBar: true,
-                                allowOutsideClick: false,
+                                position: "top-right",
+                                allowOutsideClick: true,
                                 didOpen: () => {
                                     Swal.showLoading();
                                 },
@@ -1100,8 +1206,7 @@ $(document).ready(function () {
                     if (response == "agregado") {
                         Swal.fire({
                             icon: "success",
-                            title:
-                                "Se ha generado la orden de compra.",
+                            title: "Se ha generado la orden de compra.",
                             showConfirmButton: false,
                             timer: 1500,
                         });
@@ -1110,23 +1215,29 @@ $(document).ready(function () {
                     } else if (response == "editado") {
                         Swal.fire({
                             icon: "success",
-                            title:
-                                "Se ha actualizado la orden de compra.",
+                            title: "Se ha actualizado la orden de compra.",
                             showConfirmButton: false,
                             timer: 1500,
                         });
                         cargarTablaOrdenes();
                         $("#botonCrear").html(" Crear Orden");
                         $("#visualizar_estado").addClass("d-none");
-                        $("#titulo_orden_compra").html("Nueva orden de compra.");
-                        $("#titulo_orden_compra").removeClass("badge badge-light");
+                        $("#titulo_orden_compra").html(
+                            "Nueva orden de compra."
+                        );
+                        $("#titulo_orden_compra").removeClass(
+                            "badge badge-light"
+                        );
                         $(".btnAddProductoSolicitud").removeClass("d-none");
                         $(".btnNuevoProductoEditar").addClass("d-none");
                         resetTable();
+                        $("#foto_editar1").html("");
+                        $("#foto_editar2").html("");
+                        $("#foto_editar3").html("");
                     } else {
                         Swal.fire({
                             icon: "warning",
-                            title:"Error.",
+                            title: "Error.",
                             showConfirmButton: false,
                             timer: 1500,
                         });
@@ -1149,6 +1260,9 @@ $(document).ready(function () {
             $(".btnAddProductoSolicitud").removeClass("d-none");
             $(".btnNuevoProductoEditar").addClass("d-none");
             resetTable();
+            $("#foto_editar1").html("");
+            $("#foto_editar2").html("");
+            $("#foto_editar3").html("");
         });
         //CLICK EN AÑADIR FILA A PRODUCTOS EN ORDEN DE COMPRA
         var dinamico = 2;
@@ -1156,23 +1270,23 @@ $(document).ready(function () {
             var fila =
                 `<tr>
                     <td style="width: 300px">` +
-                    `<div class="input-group">` +
-                    `<input class="form-control" type="text" id="producto_${dinamico}" name="producto[] "placeholder="Seleccione un producto" readonly>` +
-                    `<div class="input-group-append">` +
-                    `<button type="button" class="btn btn-success btn-md btn_ListaProductosOrden" consecutivo="${dinamico}" title="Lista de productos" data-toggle="modal" data-target="#modalProductos"><i class="fas fa-clipboard-list"></i></button>` +
-                    `</div>` +
-                    `</div>` +
-                    `</td>` +
-                    `<input type="hidden" id="idproducto_${dinamico}" name="idproducto[]">` +
-                    `<td style="width: 300px">` +
-                    `<input type="text" class="form-control" id="referencia_${dinamico}" name="referencia_producto[]" readonly>` +
-                    `</td>` +
-                    `<td style="width: 300px">` +
-                    `<input type="text" class="form-control" id="codigo_${dinamico}" name="codigo_producto[]" readonly>` +
-                    `</td>` +
-                    `<td style="width: 300px">` +
-                    `<input type="text" class="form-control" id="cantidad_${dinamico}" name="cantidad_producto[]">` +
-                    `</td>` +
+                `<div class="input-group">` +
+                `<input class="form-control" type="text" id="producto_${dinamico}" name="producto[] "placeholder="Seleccione un producto" readonly>` +
+                `<div class="input-group-append">` +
+                `<button type="button" class="btn btn-success btn-md btn_ListaProductosOrden" consecutivo="${dinamico}" title="Lista de productos" data-toggle="modal" data-target="#modalProductos"><i class="fas fa-clipboard-list"></i></button>` +
+                `</div>` +
+                `</div>` +
+                `</td>` +
+                `<input type="hidden" id="idproducto_${dinamico}" name="idproducto[]">` +
+                `<td style="width: 300px">` +
+                `<input type="text" class="form-control" id="referencia_${dinamico}" name="referencia_producto[]" readonly>` +
+                `</td>` +
+                `<td style="width: 300px">` +
+                `<input type="text" class="form-control" id="codigo_${dinamico}" name="codigo_producto[]" readonly>` +
+                `</td>` +
+                `<td style="width: 300px">` +
+                `<input type="text" class="form-control" id="cantidad_${dinamico}" name="cantidad_producto[]">` +
+                `</td>` +
                 `</tr>`;
             dinamico = dinamico + 1;
 
@@ -1232,13 +1346,14 @@ $(document).ready(function () {
                 processData: false,
                 success: function (response) {
                     if (response != "") {
+                        console.log(response);
                         Swal.fire({
                             icon: "info",
-                            title: "Cargando orden número: "+response.idorden,
+                            title: "Cargando orden número: " + response.idorden,
                             showConfirmButton: false,
                             timer: 1500,
                             timerProgressBar: true,
-                            allowOutsideClick: false
+                            allowOutsideClick: false,
                         }).then((result) => {
                             /* Read more about handling dismissals below */
                             if (result.dismiss === Swal.DismissReason.timer) {
@@ -1253,9 +1368,58 @@ $(document).ready(function () {
                         $("#tipo_compra").val(response.tipo_compra);
                         $("#direccion_entrega").val(response.direccion_entrega);
                         $("#observaciones").val(response.observaciones);
-                        $("#actualizar_estado").val(response.estado_orden);
+                        if (response.estado_orden == "APROBADA") {
+                            $("#actualizar_estado").removeClass("bg-warning");
+                            $("#actualizar_estado").removeClass("bg-danger");
+                            $("#actualizar_estado").addClass("bg-success");
+                            $("#actualizar_estado").val(response.estado_orden);
+                        } else if (response.estado_orden == "RECHAZADA") {
+                            $("#actualizar_estado").removeClass("bg-warning");
+                            $("#actualizar_estado").removeClass("bg-success");
+                            $("#actualizar_estado").addClass("bg-danger");
+                            $("#actualizar_estado").val(response.estado_orden);
+                        } else if (response.estado_orden == "PENDIENTE") {
+                            $("#actualizar_estado").removeClass("bg-success");
+                            $("#actualizar_estado").removeClass("bg-danger");
+                            $("#actualizar_estado").addClass("bg-warning");
+                            $("#actualizar_estado").val(response.estado_orden);
+                        }
+                        if (
+                            response.ruta_cotizacion_1 != "" &&
+                            response.ruta_cotizacion_1 != null
+                        ) {
+                            $("#foto_editar1").html(
+                                `<a href='${response.ruta_cotizacion_1}' target='_blank'><i class="fas fa-eye"></i> Imagen subida</a>`
+                            );
+                        } else {
+                            $("#foto_editar1").html("");
+                        }
+                        if (
+                            response.ruta_cotizacion_2 != "" &&
+                            response.ruta_cotizacion_2 != null
+                        ) {
+                            $("#foto_editar2").html(
+                                `<a href='${response.ruta_cotizacion_2}' target='_blank'><i class="fas fa-eye"></i> Imagen subida</a>`
+                            );
+                        } else {
+                            $("#foto_editar2").html("");
+                        }
+                        if (
+                            response.ruta_cotizacion_3 != "" &&
+                            response.ruta_cotizacion_3 != null
+                        ) {
+                            $("#foto_editar3").html(
+                                `<a href='${response.ruta_cotizacion_3}' target='_blank'><i class="fas fa-eye"></i> Imagen subida</a>`
+                            );
+                        } else {
+                            $("#foto_editar3").html("");
+                        }
+
                         $(".select2-single").trigger("change");
-                        $("#titulo_orden_compra").html("Visualizando datos de la orden número - "+response.idorden);
+                        $("#titulo_orden_compra").html(
+                            "Visualizando datos de la orden número - " +
+                                response.idorden
+                        );
                         $("#titulo_orden_compra").addClass("badge badge-light");
 
                         var datosAjax2 = new FormData();
@@ -1271,20 +1435,28 @@ $(document).ready(function () {
                             contentType: false,
                             processData: false,
                             success: function (response2) {
-
                                 if (response2 != "") {
-
                                     var dinamico = 2;
-                                    response2.forEach((element,index) => {
-                                        if(index == 0){
-                                        $(`#idproducto_1`).val(element.idproducto);
-                                        $(`#producto_1`).val(element.descripcion);
-                                        $(`#referencia_1`).val(element.referencia);
-                                        $(`#codigo_1`).val(element.codigo);
-                                        $(`#cantidad_1`).val(element.cantidad);
-                                        }
-                                        else {
-                                            cargarDatosProductos(dinamico,element);
+                                    response2.forEach((element, index) => {
+                                        if (index == 0) {
+                                            $(`#idproducto_1`).val(
+                                                element.idproducto
+                                            );
+                                            $(`#producto_1`).val(
+                                                element.descripcion
+                                            );
+                                            $(`#referencia_1`).val(
+                                                element.referencia
+                                            );
+                                            $(`#codigo_1`).val(element.codigo);
+                                            $(`#cantidad_1`).val(
+                                                element.cantidad
+                                            );
+                                        } else {
+                                            cargarDatosProductos(
+                                                dinamico,
+                                                element
+                                            );
                                             dinamico = dinamico + 1;
                                         }
                                     });
@@ -1302,37 +1474,59 @@ $(document).ready(function () {
                 },
             });
         });
+        //CAMBIAR COLOR DE AUTORIZACION DE COMPRA SEGUN EL ESTADO
+        $(document).on("change", "#actualizar_estado", function () {
+            let estado = this.value;
+
+            if (estado == "") {
+                $("#actualizar_estado").removeClass("bg-warning");
+                $("#actualizar_estado").removeClass("bg-success");
+                $("#actualizar_estado").removeClass("bg-danger");
+            } else if (estado == "APROBADA") {
+                $("#actualizar_estado").removeClass("bg-warning");
+                $("#actualizar_estado").removeClass("bg-danger");
+                $("#actualizar_estado").addClass("bg-success");
+            } else if (estado == "RECHAZADA") {
+                $("#actualizar_estado").removeClass("bg-warning");
+                $("#actualizar_estado").removeClass("bg-success");
+                $("#actualizar_estado").addClass("bg-danger");
+            } else if (estado == "PENDIENTE") {
+                $("#actualizar_estado").removeClass("bg-success");
+                $("#actualizar_estado").removeClass("bg-danger");
+                $("#actualizar_estado").addClass("bg-warning");
+            }
+        });
         //BOTON QUE MANTIENE EL CONSECUTIVO AL AGREGAR UN NUEVO PRODUCTO AL EDITAR UNA ORDEN
         $(".btnNuevoProductoEditar").on("click", function () {
-
             let consecutivo;
-            consecutivo = $("#filas_tabla_productosSolicitud tr:last").attr("consecutivo");
-            dinamico = parseInt(consecutivo)+1;
+            consecutivo = $("#filas_tabla_productosSolicitud tr:last").attr(
+                "consecutivo"
+            );
+            dinamico = parseInt(consecutivo) + 1;
 
             var fila =
                 `<tr id="tr_filas" consecutivo="${dinamico}"> 
                     <td style="width: 300px">` +
-                    `<div class="input-group">` +
-                    `<input class="form-control" type="text" id="producto_${dinamico}" name="producto[] "placeholder="Seleccione un producto" readonly>` +
-                    `<div class="input-group-append">` +
-                    `<button type="button" class="btn btn-success btn-md btn_ListaProductosOrden" consecutivo="${dinamico}" title="Lista de productos" data-toggle="modal" data-target="#modalProductos"><i class="fas fa-clipboard-list"></i></button>` +
-                    `</div>` +
-                    `</div>` +
-                    `</td>` +
-                    `<input type="hidden" id="idproducto_${dinamico}" name="idproducto[]">` +
-                    `<td style="width: 300px">` +
-                    `<input type="text" class="form-control" id="referencia_${dinamico}" name="referencia_producto[]" readonly>` +
-                    `</td>` +
-                    `<td style="width: 300px">` +
-                    `<input type="text" class="form-control" id="codigo_${dinamico}" name="codigo_producto[]" readonly>` +
-                    `</td>` +
-                    `<td style="width: 300px">` +
-                    `<input type="text" class="form-control" id="cantidad_${dinamico}" name="cantidad_producto[]">` +
-                    `</td>` +
+                `<div class="input-group">` +
+                `<input class="form-control" type="text" id="producto_${dinamico}" name="producto[] "placeholder="Seleccione un producto" readonly>` +
+                `<div class="input-group-append">` +
+                `<button type="button" class="btn btn-success btn-md btn_ListaProductosOrden" consecutivo="${dinamico}" title="Lista de productos" data-toggle="modal" data-target="#modalProductos"><i class="fas fa-clipboard-list"></i></button>` +
+                `</div>` +
+                `</div>` +
+                `</td>` +
+                `<input type="hidden" id="idproducto_${dinamico}" name="idproducto[]">` +
+                `<td style="width: 300px">` +
+                `<input type="text" class="form-control" id="referencia_${dinamico}" name="referencia_producto[]" readonly>` +
+                `</td>` +
+                `<td style="width: 300px">` +
+                `<input type="text" class="form-control" id="codigo_${dinamico}" name="codigo_producto[]" readonly>` +
+                `</td>` +
+                `<td style="width: 300px">` +
+                `<input type="text" class="form-control" id="cantidad_${dinamico}" name="cantidad_producto[]">` +
+                `</td>` +
                 `</tr>`;
 
             $("#filas_tabla_productosSolicitud").append(fila);
-            
         });
         //CARGAR DATOS DE LA ORDEN EN LA TABLA PRINCIPAL
         const cargarTablaOrdenes = () => {
@@ -1368,27 +1562,27 @@ $(document).ready(function () {
             });
         };
         //CARGAR DATOS DEL PRODUCTO AL TRAER UNA ORDEN ESPECIFICA
-        const cargarDatosProductos = (dinamico,element) => {
+        const cargarDatosProductos = (dinamico, element) => {
             var fila =
                 `<tr id="tr_filas" consecutivo="${dinamico}">
                     <td style="width: 300px">` +
-                    `<div class="input-group">` +
-                    `<input class="form-control" type="text" id="producto_${dinamico}" name="producto[]" placeholder="Seleccione un producto"  value="${element.descripcion}" readonly>` +
-                    `<div class="input-group-append">` +
-                    `<button type="button" class="btn btn-success btn-md btn_ListaProductosOrden" consecutivo="${dinamico}" title="Lista de productos" data-toggle="modal" data-target="#modalProductos"><i class="fas fa-clipboard-list"></i></button>` +
-                    `</div>` +
-                    `</div>` +
-                    `</td>` +
-                    `<input type="hidden" id="idproducto_${dinamico}" name="idproducto[]" value="${element.idproducto}">` +
-                    `<td style="width: 300px">` +
-                    `<input type="text" class="form-control" id="referencia_${dinamico}" name="referencia_producto[]" value="${element.referencia}" readonly>` +
-                    `</td>` +
-                    `<td style="width: 300px">` +
-                    `<input type="text" class="form-control" id="codigo_${dinamico}" name="codigo_producto[]" value="${element.codigo}" readonly>` +
-                    `</td>` +
-                    `<td style="width: 300px">` +
-                    `<input type="text" class="form-control" id="cantidad_${dinamico}" name="cantidad_producto[]" value="${element.cantidad}">` +
-                    `</td>` +
+                `<div class="input-group">` +
+                `<input class="form-control" type="text" id="producto_${dinamico}" name="producto[]" placeholder="Seleccione un producto"  value="${element.descripcion}" readonly>` +
+                `<div class="input-group-append">` +
+                `<button type="button" class="btn btn-success btn-md btn_ListaProductosOrden" consecutivo="${dinamico}" title="Lista de productos" data-toggle="modal" data-target="#modalProductos"><i class="fas fa-clipboard-list"></i></button>` +
+                `</div>` +
+                `</div>` +
+                `</td>` +
+                `<input type="hidden" id="idproducto_${dinamico}" name="idproducto[]" value="${element.idproducto}">` +
+                `<td style="width: 300px">` +
+                `<input type="text" class="form-control" id="referencia_${dinamico}" name="referencia_producto[]" value="${element.referencia}" readonly>` +
+                `</td>` +
+                `<td style="width: 300px">` +
+                `<input type="text" class="form-control" id="codigo_${dinamico}" name="codigo_producto[]" value="${element.codigo}" readonly>` +
+                `</td>` +
+                `<td style="width: 300px">` +
+                `<input type="text" class="form-control" id="cantidad_${dinamico}" name="cantidad_producto[]" value="${element.cantidad}">` +
+                `</td>` +
                 `</tr>`;
 
             $("#filas_tabla_productosSolicitud").append(fila);
@@ -1399,27 +1593,27 @@ $(document).ready(function () {
             var fila =
                 `<tr id="tr_filas">
                     <td style="width: 300px">` +
-                    `<div class="input-group">` +
-                    `<input class="form-control" type="text" id="producto_1" name="producto[]" placeholder="Seleccione un producto" readonly>` +
-                    `<div class="input-group-append">` +
-                    `<button type="button" class="btn btn-success btn-md btn_ListaProductosOrden" consecutivo="1" title="Lista de productos" data-toggle="modal" data-target="#modalProductos"><i class="fas fa-clipboard-list"></i></button>` +
-                    `</div>` +
-                    `</div>` +
-                    `</td>` +
-                    `<input type="hidden" id="idproducto_1" name="idproducto[]">` +
-                    `<td style="width: 300px">` +
-                    `<input type="text" class="form-control" id="referencia_1" name="referencia_producto[]" readonly>` +
-                    `</td>` +
-                    `<td style="width: 300px">` +
-                    `<input type="text" class="form-control" id="codigo_1" name="codigo_producto[]" readonly>` +
-                    `</td>` +
-                    `<td style="width: 300px">` +
-                    `<input type="text" class="form-control" id="cantidad_1" name="cantidad_producto[]">` +
-                    `</td>` +
+                `<div class="input-group">` +
+                `<input class="form-control" type="text" id="producto_1" name="producto[]" placeholder="Seleccione un producto" readonly>` +
+                `<div class="input-group-append">` +
+                `<button type="button" class="btn btn-success btn-md btn_ListaProductosOrden" consecutivo="1" title="Lista de productos" data-toggle="modal" data-target="#modalProductos"><i class="fas fa-clipboard-list"></i></button>` +
+                `</div>` +
+                `</div>` +
+                `</td>` +
+                `<input type="hidden" id="idproducto_1" name="idproducto[]">` +
+                `<td style="width: 300px">` +
+                `<input type="text" class="form-control" id="referencia_1" name="referencia_producto[]" readonly>` +
+                `</td>` +
+                `<td style="width: 300px">` +
+                `<input type="text" class="form-control" id="codigo_1" name="codigo_producto[]" readonly>` +
+                `</td>` +
+                `<td style="width: 300px">` +
+                `<input type="text" class="form-control" id="cantidad_1" name="cantidad_producto[]">` +
+                `</td>` +
                 `</tr>`;
 
             $("#filas_tabla_productosSolicitud").append(fila);
-        }
+        };
         //FUNCION PARA CONTAR LA CANTIDAD DE ORDENES
         const contarOrdenes = () => {
             let datos = new FormData();

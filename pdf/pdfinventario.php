@@ -27,7 +27,7 @@ require '../models/conceptos.modelo.php';
 require '../controllers/vehicular.controlador.php';
 require '../models/vehicular.modelo.php';
 $resultado = ModeloInventario::mdlListarInventario($id_inventario);
-$empresa = ModeloConceptosGH::mdlVerEmpresa();
+$empresa = ModeloEmpresaRaiz::mdlVerEmpresa();
 /* ===================== 
   SI LA INFORMACIÓN VIENE FALSA SE REDIRECCIONA
 ========================= */
