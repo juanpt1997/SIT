@@ -165,7 +165,7 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
                                         <tr>
                                             <td>
                                                 <button type="button" class="btn btn-success btn-sm btn-editarAlistamiento" idalistamiento="<?= $value['id'] ?>" placa="<?= $value['placa'] ?>" data-toggle="modal" data-target="#modal-nuevoAlistamiento"><i class="fas fa-edit"></i></button>
-                                                <button type="button" title="PDF Alistamiento" class="btn btn-danger btn-sm btn-verInventario" idalistamiento="<?= $value['id'] ?>"><i class="fas fa-file-pdf"></i></button>
+                                                <button type="button" title="PDF Alistamiento" class="btn btn-danger btn-sm btn-PdfAlistamiento" idalistamiento="<?= $value['id'] ?>"><i class="fas fa-file-pdf"></i></button>
                                             </td>
                                             <td><?= $value['id'] ?></td>
                                             <td><?= $value['fechaalista'] ?></td>
