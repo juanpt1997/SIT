@@ -652,14 +652,12 @@ class ControladorMantenimientos
 	static public function ctrAgregarEditarOrden($datos)
 	{
 
-		
-
-
 		if (isset($datos['numOrden_ordSer'])) {
 
 			if ($datos['numOrden_ordSer'] == "") {
 
-				
+				//ALMACENAMOS LA CEDULA DE LA PERSONA QUE HACE LA ORDEN 
+				$datos['cedula'] = $_SESSION['cedula'];
 				
 				//SI NO SELECCIONAN ESTADO LA PONE ABIERTA 
 				if ($datos['estado'] == 3){
@@ -741,8 +739,34 @@ class ControladorMantenimientos
 				return $respuesta;
 			}else{
 
+				//OBTENEMOS LOS DATOS DE ESA ORDEN
+				$datosOrden = ModeloMantenimientos::mdlCargarOrdenServicio($datos['numOrden_ordSer']);
 				
+			
+				if($datosOrden['idvehiculo'] != ""){
+					$idvehiculo = intval($datosOrden['idvehiculo']);
+					$datos['idvehiculo_OrdServ'] = $idvehiculo;
+				}
+
 				
+
+				//SI EL ESTADO ES 2 (APROBADA) PONE LA FECHA ACTUAL EN FECHA DE APROBACION
+				// PERO SI HAY FECHA EN LA BASE DE DATOS, Y EL ESTADO ANTERIOR ES APROBADO DEJARLA COMO ESTÁ, SI NO ACTUALIZAR  
+				// $fecha_aprobacion = ModeloMantenimientos::mdlCargarOrdenServicio($datos['numOrden_ordSer']);
+				
+
+				if( $datosOrden['estado'] != 2)
+				{
+					if ($datos['estado'] == 2){
+						$date = date('Y-m-d H:i:s');
+						$datos['fecha_aprobacion'] = $date;
+					}
+				}else{
+					$datos['fecha_aprobacion'] = $datosOrden['fecha_aprobacion'];
+				}
+				
+				 
+
 				//SI NO SELECCIONAN ESTADO LA PONE ABIERTA 
 				if ($datos['estado'] == 3) $datos['estado'] = 1;
 
@@ -933,6 +957,15 @@ class ControladorMantenimientos
 		$respuestakm = ModeloVehiculos::mdlActualizarVehiculo($datoskm);
 
 
+		return $respuesta;
+	}
+
+	/* ===================================================
+		LISTADO CONTROL DE ACTIVIDADES ORDEN DE SERVICIO
+	===================================================*/
+	static public function ctrListadoControlActividades()
+	{
+		$respuesta = ModeloMantenimientos::mdlListadoControlActividades();
 		return $respuesta;
 	}
 }

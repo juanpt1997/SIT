@@ -12,6 +12,10 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 $OrdenesServicio = ControladorMantenimientos::ctrListadoOrdenesServicio();
 $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
 $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
+$Empresas = ControladorConvenios::ctrMostrar();
+$clientes = ControladorClientes::ctrVerCliente("clientes");
+
+
 
 ?>
 <!-- ===================== 
@@ -65,13 +69,13 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                         </li> -->
                                         <li class="nav-item ">
                                             <!-- TABS HORIZONTALES-->
-                                            <a class="nav-link active" id="custom-tabs-one-ordenserv_mante-tab" data-toggle="pill" href="#custom-tabs-one-ordenserv_mante" role="tab" aria-controls="custom-tabs-one-ordenserv_mante" aria-selected="true">Orden de servicio / Mantenimiento</a>
+                                            <a class="nav-link active" id="custom-tabs-one-ordenserv_mante-tab" data-toggle="pill" href="#custom-tabs-one-ordenserv_mante" role="tab" aria-controls="custom-tabs-one-ordenserv_mante" aria-selected="true"><i class="fas fa-envelope-open-text"></i> Orden de servicio / Mantenimiento</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="custom-tabs-one-historial_orden-tab" data-toggle="pill" href="#custom-tabs-one-historial_orden" role="tab" aria-controls="custom-tabs-one-historial_orden" aria-selected="false">Historial ordenes de servicio</a>
+                                            <a class="nav-link" id="custom-tabs-one-historial_orden-tab" data-toggle="pill" href="#custom-tabs-one-historial_orden" role="tab" aria-controls="custom-tabs-one-historial_orden" aria-selected="false"><i class="fas fa-history"></i> Historial ordenes de servicio</a>
                                         </li>
                                         <li>
-                                            <a class="nav-link" id="custom-tabs-one-control-tab" data-toggle="pill" href="#custom-tabs-one-control" role="tab" aria-controls="custom-tabs-one-control" aria-selected="false">Control de actividades</a>
+                                            <a class="nav-link" id="custom-tabs-one-control-tab" data-toggle="pill" href="#custom-tabs-one-control" role="tab" aria-controls="custom-tabs-one-control" aria-selected="false"><i class="fas fa-tasks"></i> Control de actividades</a>
                                         </li>
 
                                     </ul>
@@ -160,6 +164,13 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                                         <div class="form-group text-center">
                                                                             <label><i>Número interno</i></label>
                                                                             <input type="text" class="form-control" id="numinterno_ordSer" name="numinterno_ordSer" required readonly>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                        <div class="form-group text-center">
+                                                                            <label><i>Cliente</i></label>
+                                                                            <input type="text" class="form-control" id="cliente_orderServ" required readonly>
                                                                         </div>
                                                                     </div>
 
@@ -723,6 +734,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                                             <th>Ciudad</th>
                                                                             <th>Observación</th>
                                                                             <th>Estado</th>
+                                                                            <th>Emitida</th>
                                                                         </tr>
                                                                     </thead>
 
@@ -748,6 +760,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                                                 <td><?= $value['municipio'] ?></td>
                                                                                 <td><?= $value['observacion'] ?></td>
                                                                                 <td><?= $Estado ?></td>
+                                                                                <td><?= $value['Nombre'] ?></td>
 
 
                                                                             </tr>
@@ -791,13 +804,15 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                         <div class="card-body">
 
                                                             <div class="table-responsive">
-                                                                <table class="table table-bordered text-center tablasBtnExport">
+                                                                <table id="tableControlActividades" class="table-sm table-striped table-bordered  text-center table-hover  w-100">
                                                                     <thead class="text-nowrap">
                                                                         <tr>
-
                                                                             <th># Orden</th>
                                                                             <th>Vehículo</th>
                                                                             <th>Kilometraje</th>
+                                                                            <th>Cliente</th>
+                                                                            <th># Factura</th>
+                                                                            <th>Ciudad</th>
                                                                             <th>Fecha de solicitud</th>
                                                                             <th>Fecha ejecución</th>
                                                                             <th>Fecha entrega</th>
@@ -808,55 +823,16 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                                             <th>Sistema</th>
                                                                             <th>Cantidad</th>
                                                                             <th>Precio unitario</th>
+                                                                            <th>Iva</th>
                                                                             <th>Precio total</th>
-                                                                            <th>Ciudad</th>
                                                                             <th>Clasificación</th>
-                                                                            <th>Observación</th>
+                                                                            <th>Nombre de cuenta</th>
+                                                                            <th>Código cuenta</th>
+                                                                            <th>Asume</th>
                                                                         </tr>
                                                                     </thead>
 
-                                                                    <tbody class="text-nowrap">
-                                                                        <tr>
-                                                                            <td>1</td>
-                                                                            <td>INI109</td>
-                                                                            <td>65.432</td>
-                                                                            <td>03/12/2021</td>
-                                                                            <td>04/12/2021</td>
-                                                                            <td>08/12/2021</td>
-                                                                            <td>Mantenimiento preventivo cada 5000 km</td>
-                                                                            <td>Proveedor 1</td>
-                                                                            <td>Aceite</td>
-                                                                            <td>Mano de obra</td>
-                                                                            <td>Sistema motor</td>
-                                                                            <td>5</td>
-                                                                            <td>10.000</td>
-                                                                            <td>50.000</td>
-                                                                            <td>Pereira</td>
-                                                                            <td>Preventivo</td>
-                                                                            <td>Test</td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td>2</td>
-                                                                            <td>INI109</td>
-                                                                            <td>65.432</td>
-                                                                            <td>03/12/2021</td>
-                                                                            <td>04/12/2021</td>
-                                                                            <td>08/12/2021</td>
-                                                                            <td>Mantenimiento preventivo cada 5000 km</td>
-                                                                            <td>Proveedor 1</td>
-                                                                            <td>Filtro aire</td>
-                                                                            <td>Mano de obra</td>
-                                                                            <td>Sistema motor</td>
-                                                                            <td>3</td>
-                                                                            <td>15.000</td>
-                                                                            <td>45.000</td>
-                                                                            <td>Armenia</td>
-                                                                            <td>Preventivo</td>
-                                                                            <td>Test</td>
-                                                                        </tr>
-
-
-
+                                                                    <tbody id="tbodyControlActividades" class="text-nowrap">
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -1135,7 +1111,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         </div>
                     </div>
                     <div class="card-footer d-flex ">
-                        <button type="button" class="btn btn-success ml-auto">Exportar <i class="far fa-file-pdf"></i></button>
+                        <button type="button" class="btn btn-success ml-auto btn-exportar-solicitud">Exportar <i class="far fa-file-pdf"></i></button>
                         <button type="button" class="btn btn-danger ml-2" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
@@ -1425,6 +1401,143 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ASUME MODAL -->
+<div id="modalAsume" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title" id="my-modal-title">ASUME</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+
+                    <div class="col">
+                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                            <label><i>Cliente</i></label>
+                            <select id="cliente_asume" name="cliente_asume" class="form-control " type="number" style="width: 99%" readonly>
+                                <?php foreach ($clientes as $key => $value) : ?>
+                                    <option value="<?= $value['idcliente'] ?>"><?= $value['clientexist'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+
+                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                            <label><i>% que asume el cliente</i></label>
+                            <input type="number" class="form-control" id="porcentaje_cliente" name="porcentaje_cliente">
+                        </div>
+                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                            <label><i>Valor que asume el cliente</i></label>
+                            <input type="number" class="form-control" id="valor_cliente" name="valor_cliente" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                            <label><i>Empresa</i></label>
+                            <input id="empresa_asume" name="empresa_asume" class="form-control" type="text" style="width: 99%" readonly>
+                                
+                            </input>
+                        </div>
+
+                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                            <label><i>% que asume la empresa</i></label>
+                            <input type="number" class="form-control" id="porcentaje_empresa" name="porcentaje_empresa">
+                        </div>
+
+                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                            <label><i>Valor que asume la empresa</i></label>
+                            <input type="number" class="form-control" id="valor_empresa" name="valor_empresa" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                            <label><i>Contratista</i></label>
+                            <select id="contratista_asume" name="contratista_asume" class="form-control " type="number" style="width: 99%" readonly>
+                                
+                                <?php foreach ($Empresas as $key => $value) : ?>
+                                    <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                            <label><i>% que asume la empresa contratista</i></label>
+                            <input type="number" class="form-control" id="porcentaje_contratista" name="porcentaje_contratista">
+                        </div>
+
+                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                            <label><i>Valor que asume la empresa contratista</i></label>
+                            <input type="number" class="form-control" id="valor_contratista" name="valor_contratista" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                <div class="row d-flex justify-content-center">
+
+                    <div class="col">
+                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                            <label><i>Cantidad</i></label>
+                            <input type="number" class="form-control" id="cantidad_ctrActividades" readonly>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                            <label><i>Precio (unitario)</i></label>
+                            <input type="number" class="form-control" id="valor_ctrActividades" readonly>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                            <label><i>Iva</i></label>
+                            <input type="number" class="form-control" id="iva_ctrActividades" readonly>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                            <label><i>Total</i></label>
+                            <input type="number" class="form-control" id="total_ctrActividades" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                <div class="row d-flex justify-content-center">
+                    <div class="col">
+                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                            <label><i>Nombre cuenta contable</i></label>
+                            <input type="text" class="form-control" id="nombre_cuenta_ctrActividades" readonly>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                            <label><i>Código cuenta contable</i></label>
+                            <input type="text" class="form-control" id="codigo_cuenta_ctrActividades" readonly>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success">Guardar</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>

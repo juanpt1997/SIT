@@ -597,6 +597,83 @@ class ModeloFijos
       $stmt = null;
       return $retorno;
    }
+
+   /* ===================================================
+      AGREGAR/ASOCIAR VEHICULO A CLIENTES
+   ===================================================*/
+
+   static public function mdlAgregarVehiculoCliente($idcliente, $idvehiculo)
+   {
+      $stmt = Conexion::conectar()->prepare("INSERT INTO cont_clientesvehiculos (idcliente, idvehiculo) VALUES (:idcliente, :idvehiculo)");
+
+      $stmt->bindParam(":idcliente", $idcliente, PDO::PARAM_INT);
+      $stmt->bindParam(":idvehiculo", $idvehiculo, PDO::PARAM_INT);
+
+      if ($stmt->execute()) {
+         $retorno = "ok";
+      } else {
+         $retorno = "error";
+      }
+
+      $stmt->closeCursor();
+      $stmt = null;
+      return $retorno;
+   }
+
+   /* ===================================================
+      CONSULTAR LOS VEHÍCULOS  
+   ===================================================*/
+   static public function mdlConsultarVehiculoCliente($idvehiculo)
+   {
+      $stmt = Conexion::conectar()->prepare("SELECT cv.* FROM cont_clientesvehiculos cv
+      WHERE cv.idvehiculo = :idvehiculo");
+
+      $stmt->bindParam(":idvehiculo", $idvehiculo, PDO::PARAM_INT);
+
+      $stmt->execute();
+      $respuesta = $stmt->fetch();
+      $stmt->closeCursor();
+      return $respuesta;
+   }
+
+   /* ===================================================
+      VEHICULOS PARA UN CLIENTE 
+   ===================================================*/
+   static public function mdlVehiculosxCliente($idcliente){
+      $stmt = Conexion::conectar()->prepare("SELECT vc.*, v.placa, v.numinterno, c.nombre FROM cont_clientesvehiculos vc
+                                             INNER JOIN v_vehiculos v ON vc.idvehiculo = v.idvehiculo
+                                             INNER JOIN cont_clientes c ON vc.idcliente = c.idcliente
+                                             WHERE vc.idcliente = :idcliente");
+
+      $stmt->bindParam(":idcliente", $idcliente, PDO::PARAM_INT);
+      $stmt->execute();
+      $respuesta = $stmt->fetchAll();
+      $stmt->closeCursor();
+      return $respuesta;
+   }
+
+   /* ===================================================
+      ELIMINAR VEHICULO X CLIENTE
+   ===================================================*/
+   static public function mdlEliminarVehiculoxCliente($idcliente, $idvehiculo)
+   {
+      $stmt = Conexion::conectar()->prepare("DELETE FROM cont_clientesvehiculos cv WHERE cv.idcliente = :idcliente AND cv.idvehiculo = :idvehiculo;");
+
+      $stmt->bindParam(":idcliente", $idcliente, PDO::PARAM_INT);
+      $stmt->bindParam(":idvehiculo", $idvehiculo, PDO::PARAM_INT);
+
+      if ($stmt->execute()) {
+         $retorno = "ok";
+      } else {
+         $retorno = "error";
+      }
+
+      $stmt->closeCursor();
+      $stmt = null;
+      return $retorno;
+   }
+
+
 }
 /* ===================================================
    * ORDEN DE SERVICIO

@@ -67,7 +67,7 @@ $Placas = ControladorVehiculos::ctrListaVehiculos();
                                                     <div class="btn-group" role="group" aria-label="Button group">
                                                         <button class="btn btn-toolbar btn-sm btn-secondary btn-editarfijo" idcliente="<?= $value['idcliente'] ?>" idfijos="<?= $value['idfijos'] ?>" data-toggle="modal" data-target="#fijosmodal" title="Editar"><i class="fas fa-edit"></i></button>
                                                         <button class="btn btn-toolbar btn-sm btn-primary btn-verRutas ml-1" idcliente="<?= $value['idcliente'] ?>" nombreCliente="<?= $value['nombre_cliente'] ?>" data-toggle="modal" data-target="#modalRutasCliente" title="Ver rutas"><i class="fas fa-route"></i></button>
-                                                        <button class="btn btn-toolbar btn-sm btn-success btn-varVehiculosRutas ml-1" idcliente="<?= $value['idcliente'] ?>" nombreCliente="<?= $value['nombre_cliente'] ?>" data-toggle="modal" data-target="#modalVehiculosRutas" title="Ver vehículo"><i class="fas fa-bus"></i></button>
+                                                        <button class="btn btn-toolbar btn-sm btn-success btn-verVehiculosRutas ml-1" idcliente="<?= $value['idcliente'] ?>" nombreCliente="<?= $value['nombre_cliente'] ?>" data-toggle="modal" data-target="#modalVehiculosRutas" title="Ver vehículo"><i class="fas fa-bus"></i></button>
                                                     </div>
                                                 </td>
                                                 <td><?= $value['idfijos'] ?></td>
@@ -347,57 +347,69 @@ $Placas = ControladorVehiculos::ctrListaVehiculos();
                 </button>
             </div>
             <div class="modal-body">
-                <!-- SELECCIÓN DE VEHÍCULO -->
-                <div class="row">
-                    <div class="col-12 col-sm-6 col-lg-4">
-                        <div class="form-group">
-                            <label for="placa_contrutas" class="d-flex justify-content-center"><i>Placa</i></label>
-                            <select id="placa_contrutas" name="placa_contrutas" class="form-control select2-single" type="number" style="width: 99%" required>
-                                <option selected value="">Seleccione un vehículo</option>
-                                <?php foreach ($Placas as $key => $value) : ?>
-                                    <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?> </option>
-                                <?php endforeach ?>
-                            </select>
+
+                <form id="form_contrutas" method="post" enctype="multipart/form-data">
+
+                    <!-- SELECCIÓN DE VEHÍCULO -->
+                    <div class="row">
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group">
+                                <label for="placa_contrutas" class="d-flex justify-content-center"><i>Placa</i></label>
+                                <select id="placa_contrutas" name="idvehiculo_contrutas" class="form-control select2-single" type="number" style="width: 99%" required>
+                                    <option selected value="">Seleccione un vehículo</option>
+                                    <?php foreach ($Placas as $key => $value) : ?>
+                                        <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?> </option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label><i>Número interno</i></label>
+                                <input type="text" class="form-control" id="num_internocontrutas" required readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label><i>Marca</i></label>
+                                <input type="text" class="form-control" id="marca_contrutas" required readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label><i>Clase de vehículo</i></label>
+                                <input type="text" class="form-control" id="clase_contrutas" required readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label><i>Modelo</i></label>
+                                <input type="text" class="form-control" id="modelo_contrutas" required readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label><i>Kilometraje</i></label>
+                                <input type="number" class="form-control" id="kilometraje_contrutas" required readonly>
+                            </div>
                         </div>
                     </div>
+                </form>
 
-
-
-                    <div class="col-12 col-sm-6 col-lg-4">
-                        <div class="form-group text-center">
-                            <label><i>Número interno</i></label>
-                            <input type="text" class="form-control" id="num_internocontrutas" name="num_internocontrutas" required readonly>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6 col-lg-4">
-                        <div class="form-group text-center">
-                            <label><i>Marca</i></label>
-                            <input type="text" class="form-control" id="marca_contrutas" name="marca_contrutas" required readonly>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6 col-lg-4">
-                        <div class="form-group text-center">
-                            <label><i>Clase de vehículo</i></label>
-                            <input type="text" class="form-control" id="clase_contrutas" name="clase_contrutas" required readonly>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6 col-lg-4">
-                        <div class="form-group text-center">
-                            <label><i>Modelo</i></label>
-                            <input type="text" class="form-control" id="modelo_contrutas" name="modelo_contrutas" required readonly>
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6 col-lg-4">
-                        <div class="form-group text-center">
-                            <label><i>Kilometraje</i></label>
-                            <input type="number" class="form-control" id="kilometraje_contrutas" name="kilometraje_contrutas" required readonly>
-                        </div>
+                <div class="d-flex justify-content-center">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-sm btn-success btn-block btn-guardarvehiculosclientes" form="form_contrutas"><i class="fas fa-plus"></i> Agregar al vehículo</button>
                     </div>
                 </div>
+
+
 
                 <hr class="my-4 bg-secondary">
 
@@ -411,16 +423,16 @@ $Placas = ControladorVehiculos::ctrListaVehiculos();
                             </div>
                             <div class="card-body table-responsive">
                                 <table class="table-sm table-striped table-bordered table-hover w-100">
-                                    <thead>
+                                    <thead class="text-nowrap text-center" >
                                         <tr>
+                                            <th>...</th>
                                             <th>Placa</th>
                                             <th>Número interno</th>
                                             <th>Cliente</th>
-                                            <th>Origen</th>
-                                            <th>Destino</th>
+                                           
                                         </tr>
                                     </thead>
-                                    <tbody class="">
+                                    <tbody id="tbodyresuRutasContratos" class="text-nowrap text-center">
                                     </tbody>
                                 </table>
                             </div>
