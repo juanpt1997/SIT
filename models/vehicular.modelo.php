@@ -1078,9 +1078,23 @@ class ModeloVehiculos
 	===================================================*/
     static public function mdlReporteDocumentos()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT 
-                                                v.placa, v.numinterno, v.tipovinculacion, v.activo, 
-                                                date_format(d.fechainicio, '%Y/%m/%d') as fechainicio, date_format(MAX(d.fechafin), '%Y/%m/%d') AS fechafin, 
+        // $stmt = Conexion::conectar()->prepare("SELECT 
+        //                                         v.placa, v.numinterno, v.tipovinculacion, v.activo, 
+        //                                         date_format(MAX(d.fechainicio), '%Y/%m/%d') as fechainicio, date_format(MAX(d.fechafin), '%Y/%m/%d') AS fechafin, 
+        //                                         t.tipodocumento, t.idtipo,
+        //                                         s.sucursal,
+        //                                         p.nombre, p.documento, p.telef, p.email
+        //                                         FROM v_vehiculos v
+        //                                         INNER JOIN v_re_documentosvehiculos d ON v.idvehiculo = d.idvehiculo
+        //                                         LEFT JOIN v_tipodocumento t ON t.idtipo = d.idtipodocumento
+        //                                         LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
+        //                                         LEFT JOIN v_re_propietariosvehiculos pv ON pv.idvehiculo = v.idvehiculo
+        //                                         LEFT JOIN propietario p ON p.idxp = pv.idpropietario
+        //                                         GROUP BY d.idtipodocumento, v.idvehiculo
+        //                                         ORDER BY v.placa, t.idtipo");
+        $stmt = Conexion::conectar()->prepare("SELECT
+                                                d.iddocumento, 
+                                                v.placa, v.numinterno, v.tipovinculacion, v.activo, DATE_FORMAT(d.fechainicio, '%Y/%m/%d') AS fechainicio, DATE_FORMAT(d.fechafin, '%Y/%m/%d') AS fechafin, 
                                                 t.tipodocumento, t.idtipo,
                                                 s.sucursal,
                                                 p.nombre, p.documento, p.telef, p.email
@@ -1090,8 +1104,14 @@ class ModeloVehiculos
                                                 LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
                                                 LEFT JOIN v_re_propietariosvehiculos pv ON pv.idvehiculo = v.idvehiculo
                                                 LEFT JOIN propietario p ON p.idxp = pv.idpropietario
+                                                WHERE (d.iddocumento, v.idvehiculo, d.idtipodocumento)
+                                                        IN (SELECT MAX(d1.iddocumento), v1.idvehiculo, d1.idtipodocumento
+                                                            FROM v_re_documentosvehiculos d1
+                                                            LEFT JOIN v_vehiculos v1 ON v1.idvehiculo = d1.idvehiculo
+                                                            GROUP BY d1.idtipodocumento, v1.idvehiculo
+                                                        )
                                                 GROUP BY d.idtipodocumento, v.idvehiculo
-                                                ORDER BY v.placa, t.idtipo");
+                                                ORDER BY v.placa, t.idtipo;");
 
         $stmt->execute();
         $retorno = $stmt->fetchAll();
