@@ -819,6 +819,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                             <th>Diagnóstico</th>
                                                                             <th>Proveedor</th>
                                                                             <th>Item</th>
+                                                                            <th>Descripción</th>
                                                                             <th>Sistema</th>
                                                                             <th>Cantidad</th>
                                                                             <th>Precio unitario</th>
@@ -1110,7 +1111,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                         </div>
                     </div>
                     <div class="card-footer d-flex ">
-                        <button type="button" class="btn btn-success ml-auto">Exportar <i class="far fa-file-pdf"></i></button>
+                        <button type="button" class="btn btn-success ml-auto btn-exportar-solicitud">Exportar <i class="far fa-file-pdf"></i></button>
                         <button type="button" class="btn btn-danger ml-2" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
@@ -1443,9 +1444,9 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                     <div class="col">
                         <div class="form-group text-center col-12 col-sm-6 col-lg-12">
                             <label><i>Empresa</i></label>
-                            <select id="empresa_asume" name="empresa_asume" class="form-control select2-single" type="number" style="width: 99%">
-                                <option selected value="">Se trae de conceptos generales</option>
-                            </select>
+                            <input id="empresa_asume" name="empresa_asume" class="form-control" type="text" style="width: 99%" readonly>
+                                
+                            </input>
                         </div>
 
                         <div class="form-group text-center col-12 col-sm-6 col-lg-12">
@@ -1462,7 +1463,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                     <div class="col">
                         <div class="form-group text-center col-12 col-sm-6 col-lg-12">
                             <label><i>Contratista</i></label>
-                            <select id="" name="" class="form-control " type="number" style="width: 99%" readonly>
+                            <select id="contratista_asume" name="contratista_asume" class="form-control " type="number" style="width: 99%" readonly>
                                 
                                 <?php foreach ($Empresas as $key => $value) : ?>
                                     <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>

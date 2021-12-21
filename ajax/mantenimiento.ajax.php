@@ -483,6 +483,7 @@ class AjaxMantenimientos
             <td>". $value['servicio'] . "</td>
             <td>". $value['nombre_contacto'] . "</td>
             <td>". $value['item'] . "</td>
+            <td>". $value['descripcion'] . "</td>
             <td>". $value['sistema'] . "</td>
             <td>". $value['cantidad'] . "</td>
             <td>". $value['valor'] . "</td>
@@ -498,6 +499,15 @@ class AjaxMantenimientos
             ";
         }
         echo $tr;
+    }
+
+    /* ===================================================
+        VER EMPRESA
+    ===================================================*/
+    static public function ajaxAsumeVerEmpresa()
+    {
+        $respuesta = ModeloConceptosGH::mdlVerEmpresa();
+        echo json_encode( $respuesta);
     }
 }
 /* ===================================================
@@ -585,3 +595,6 @@ if(isset($_POST['ListaCuentasContables']) && $_POST['ListaCuentasContables'] == 
 
 #LLAMADO A CARGAR TABLA DE CONTROL DE ACTIVIDADES 
 if (isset($_POST['TablaControlActividades']) && $_POST['TablaControlActividades'] == "ok") AjaxMantenimientos::ajaxListadoControlActividades();
+
+#LLAMADO A MOSTRAR EMPRESA 
+if (isset($_POST['AsumeVerEmpresa']) && $_POST['AsumeVerEmpresa'] == "ok") AjaxMantenimientos::ajaxAsumeVerEmpresa();

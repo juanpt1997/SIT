@@ -1861,6 +1861,8 @@ $(document).ready(function () {
                     if (response != "error") {
                         $("#numOrden_ordSer").val(response);
                         $("#btn-crearSolicitud").removeAttr("disabled");
+                        $(".btn-exportar-solicitud").attr("idorden", response);
+                        
 
                         // Mensaje de éxito al usuario
                         Swal.fire({
@@ -2345,6 +2347,7 @@ $(document).ready(function () {
 
                     //ELIMINA EL ATRIBUTO DISABLED A CREAR SOLICITUD DE SERVICIO
                     $("#btn-crearSolicitud").removeAttr("disabled");
+                   
 
                     //PERMITE QUE SIEMPRE SE MUESTRE EN EL TAB DE DATOS GENERALES
                     $("#v-pills-general-tab").addClass("active");
@@ -2375,6 +2378,8 @@ $(document).ready(function () {
                     $("#placa_OrdServ").attr("disabled", true);
 
                     let idorden = $(this).attr("idorden");
+
+                    $(".btn-exportar-solicitud").attr("idorden", idorden);
 
                     //AJAX PARA CARGAR DATOS DE LA ORDEN
                     var datos = new FormData();
@@ -2809,7 +2814,7 @@ $(document).ready(function () {
             let idcliente = $(this).attr("idcliente");
             let idvehiculo = $(this).attr("idvehiculo")
 
-            console.log(idcliente);
+            
 
             $("#cantidad_ctrActividades").val(cantidad);
             $("#valor_ctrActividades").val(valor);
@@ -2820,23 +2825,87 @@ $(document).ready(function () {
             $("#cliente_asume").val(idcliente).trigger("change");
 
             var datos = new FormData();
-            datos.append("ConvenioxVehiculo", "ok");
-            datos.append("idvehiculo", idvehiculo);
+            datos.append("DatosVehiculo", "ok");
+            datos.append("item", "idvehiculo");
+            datos.append("valor", idvehiculo);
+            $.ajax({
+                type: "post",
+                url: `${urlPagina}ajax/vehicular.ajax.php`,
+                data: datos,
+                dataType: "JSON",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                   let vehiculo = response.datosVehiculo;
+
+                   $("#contratista_asume").val(vehiculo.idcontratista);
+                },
+            });
+
+            var datos2 = new FormData();
+            datos2.append("AsumeVerEmpresa", "ok");
 
             $.ajax({
                 type: "post",
-                url: `ajax/mantenimiento.ajax.php`,
-                data: datos,
+                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                data: datos2,
+                dataType: "JSON",
                 cache: false,
-                // dataType: "JSON",
                 contentType: false,
                 processData: false,
                 success: function (response) {
                     
+                    $("#empresa_asume").val(response.razon_social);
                 },
             });
 
+            
+
 
         });
+
+        /*============================================
+            VISUALIZAR PDF DE SOLICITUD DE SERVICIO 
+        ==============================================*/
+        $(document).on("click", ".btn-exportar-solicitud", function(){
+            var idorden = $(this).attr("idorden");
+            window.open(
+                `./pdf/pdfmantenimiento.php?idorden=${idorden}`,
+                "",
+                "width=1280,height=720,left=50,top=50,toolbar=yes"
+            );
+        });
+
+        /*============================================
+            CALCULOS PARA EL VALOR QUE ASUME CADA PARTE
+        ==============================================*/
+        $(document).on("blur", "#porcentaje_cliente", function(){
+            let porcentaje = $(this).val();
+            let total = $("#total_ctrActividades").val();
+            let asume = total * (porcentaje / 100);
+
+            $("#valor_cliente").val(asume);
+
+        });
+
+        $(document).on("blur", "#porcentaje_empresa", function(){
+            let porcentaje = $(this).val();
+            let total = $("#total_ctrActividades").val();
+            let asume = total * (porcentaje / 100);
+
+            $("#valor_empresa").val(asume);
+
+        });
+
+        $(document).on("blur", "#porcentaje_contratista", function(){
+            let porcentaje = $(this).val();
+            let total = $("#total_ctrActividades").val();
+            let asume = total * (porcentaje / 100);
+
+            $("#valor_contratista").val(asume);
+
+        });
+
     }
 });
