@@ -140,7 +140,7 @@ if (
         ===================================================*/
             let today = new Date();
             let dateIMin = today.getFullYear() - 1 + "-" + "01" + "-" + "01";
-            let dateIMax = today.getFullYear() + "-" + "12" + "-" + "31";
+            let dateIMax = today.getFullYear() + 1 + "-" + "12" + "-" + "31";
             let dateFMin = today.getFullYear() + "-" + "01" + "-" + "01";
             let dateFMax = today.getFullYear() + 1 + "-" + "12" + "-" + "31";
             $("#f_inicio").attr("min", dateIMin);

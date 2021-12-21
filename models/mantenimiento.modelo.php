@@ -1658,6 +1658,15 @@ class ModeloMantenimientos
         return $retorno;
     }
 
+    static public function mdlServicioExternoxId()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT s.* FROM m_serviciosexternos s");
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
     /* ===================================================
         LISTADO PRODUCTOS
     ===================================================*/
@@ -1888,8 +1897,10 @@ class ModeloMantenimientos
     ===================================================*/
     static public function mdlServicosExternosOrden($idorden)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT sm.* FROM m_re_serviciosexternosordenservicio sm 
-         WHERE sm.idorden = :idorden");
+        $stmt = Conexion::conectar()->prepare("SELECT sm.*, s.nombre
+                                                FROM m_re_serviciosexternosordenservicio sm
+                                                LEFT JOIN m_serviciosexternos s ON s.idservicio_externo = sm.idservicio_externo
+                                                WHERE sm.idorden = :idorden");
 
         $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
         $stmt->execute();

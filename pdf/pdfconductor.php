@@ -288,45 +288,75 @@ class PdfConductor
         $pdf->Ln();
 
         /* ===================================================
+           DOCUMENTACIÓN
+        ===================================================*/
+        // TABLA CON LOS DOCUMENTOS CEDULA Y LICENCIA DE CONDUCCIÓN
+        $documento_escaneado = $info['documento_escaneado'] == "" || $info['documento_escaneado'] == null ? "" : '../' . $info['documento_escaneado'];
+        $licencia_conduccion = $info['ruta_documento'] == "" || $info['ruta_documento'] == null ? "" : '../' . $info['ruta_documento'];
+        $tabla = '
+        <table cellspacing="2" cellpadding="3">
+            <tbody>
+            <tr style="text-align: center; font-weight:bold;">
+            <th colspan="2" border="2" width="625">DOCUMENTO</th>
+           </tr>
+
+           <tr style="text-align: center;">
+              <td colspan="2" border="1" height="190"><img src="' . $documento_escaneado . '" height="190"></td>
+           </tr>
+
+           <tr style="text-align: center; font-weight:bold;">
+           <th colspan="2" border="2">LICENCIA DE CONDUCCIÓN</th>
+        </tr>
+
+        <tr style="text-align: center;">
+          <td colspan="2" border="1" height="190"><img src="' . $licencia_conduccion . '" height="190"></td>
+        </tr>
+            </tbody>
+        </table>
+        ';
+        $pdf->SetFont('helvetica', '', '8');
+        $pdf->writeHTML($tabla);
+
+        /* ===================================================
             PAGINA DOCUMENTACION
         ===================================================*/
         $anchoPaginaMM = $pdf->getPageWidth();
         $altoPaginaMM = $pdf->getPageHeight();
         $conversorPixToMM = 0.264;
         // Si es pdf, no se muestra la imagen del documento
-        if (strpos($info['ruta_documento'], '.pdf') === false && $info['ruta_documento'] != "" && $info['ruta_documento'] != null) {
-            $pdf->AddPage();
-            $pdf->Ln();
+        // if (strpos($info['ruta_documento'], '.pdf') === false && $info['ruta_documento'] != "" && $info['ruta_documento'] != null) {
+        //     $pdf->AddPage();
+        //     $pdf->Ln();
 
-            $posy = $pdf->GetY();
-            $ruta = '../' . $info['ruta_documento']; // Ruta imagen
-            list($widthPix, $heightPix) = getimagesize($ruta); // Dimensiones de la imagen
-            $widthMM = $widthPix * $conversorPixToMM; // Ancho en milimetros
-            $heightMM = $heightPix * $conversorPixToMM; // Altura en milimetros
+        //     $posy = $pdf->GetY();
+        //     $ruta = '../' . $info['ruta_documento']; // Ruta imagen
+        //     list($widthPix, $heightPix) = getimagesize($ruta); // Dimensiones de la imagen
+        //     $widthMM = $widthPix * $conversorPixToMM; // Ancho en milimetros
+        //     $heightMM = $heightPix * $conversorPixToMM; // Altura en milimetros
 
-            // En caso de que la altura sobre salga de la página
-            $posy = $pdf->GetY();
-            $margin = $pdf->getMargins();
-            $altoPaginaMM = $altoPaginaMM - $posy - $margin['bottom'];
-            if ($heightMM > $altoPaginaMM) {
-                $widthMM = $altoPaginaMM * $widthMM / $heightMM; // Calculamos la proporción del ancho de la imagen segun la altura
-                $heightMM = $altoPaginaMM; // Igualamos la altura de la imagen al alto de la página
-            }
+        //     // En caso de que la altura sobre salga de la página
+        //     $posy = $pdf->GetY();
+        //     $margin = $pdf->getMargins();
+        //     $altoPaginaMM = $altoPaginaMM - $posy - $margin['bottom'];
+        //     if ($heightMM > $altoPaginaMM) {
+        //         $widthMM = $altoPaginaMM * $widthMM / $heightMM; // Calculamos la proporción del ancho de la imagen segun la altura
+        //         $heightMM = $altoPaginaMM; // Igualamos la altura de la imagen al alto de la página
+        //     }
 
-            // En caso de que el ancho sobre salga de la página
-            if ($widthMM > $anchoPaginaMM) {
-                $heightMM = $anchoPaginaMM * $heightMM / $widthMM; // Calculamos la proporción de la altura de la imagen segun el ancho
-                $widthMM = $anchoPaginaMM; // Igualamos el ancho de la imagen al ancho de la página
-                $posx = 0; // Se dibuja desde el inicio en x
-            }
-            // Ancho de la imagen menor al ancho de la pagina
-            else {
-                $posx = ($anchoPaginaMM / 2) - ($widthMM / 2); // Dejar centrada la imagen
-            }
+        //     // En caso de que el ancho sobre salga de la página
+        //     if ($widthMM > $anchoPaginaMM) {
+        //         $heightMM = $anchoPaginaMM * $heightMM / $widthMM; // Calculamos la proporción de la altura de la imagen segun el ancho
+        //         $widthMM = $anchoPaginaMM; // Igualamos el ancho de la imagen al ancho de la página
+        //         $posx = 0; // Se dibuja desde el inicio en x
+        //     }
+        //     // Ancho de la imagen menor al ancho de la pagina
+        //     else {
+        //         $posx = ($anchoPaginaMM / 2) - ($widthMM / 2); // Dejar centrada la imagen
+        //     }
 
-            // Dibujar la imagen en el PDF
-            $pdf->Image($ruta, $posx, '', $widthMM, $heightMM, '', '', '', false, 300, '', false, false, 0, false, false, false);
-        }
+        //     // Dibujar la imagen en el PDF
+        //     $pdf->Image($ruta, $posx, '', $widthMM, $heightMM, '', '', '', false, 300, '', false, false, 0, false, false, false);
+        // }
 
         // ---------------------------------------------------------
 

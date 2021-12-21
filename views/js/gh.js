@@ -161,6 +161,10 @@ if (
             var files = $('#nuevaFoto')[0].files;
             datosAjax.append("foto", files[0]);
 
+            // DOCUMENTO ESCANEADO
+            var documento = $("#documento_escaneado")[0].files;
+            datosAjax.append("documento", documento[0]);
+
             $.ajax({
                 type: 'post',
                 url: `${urlPagina}ajax/gh.ajax.php`,
@@ -231,6 +235,8 @@ if (
             $('#PersonalModal').modal('show');
             $("#titulo-modal-personal").html("Nuevo");
 
+            $("#visualizDocumento").text(""); // Reset documento escaneado
+
             $("#idPersonal").val(""); //reset id personal
 
             // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
@@ -261,6 +267,7 @@ if (
             $(".formulario").trigger("reset"); //reset formulario
             $('.select2-single').trigger('change'); //reset select2
             $('.previsualizar').attr('src', 'views/img/fotosUsuarios/default/anonymous.png'); //reset foto
+            $("#visualizDocumento").text(""); // Reset documento escaneado
 
             /* HIJOS */
             AjaxTablaHijos(idPersonal);
@@ -331,11 +338,24 @@ if (
                         $("#fecha_ingreso").val(response.fecha_ingreso);
                         $("#empresa").val(response.empresa);
 
+                        // Foto
                         if (response.foto != "" && response.foto != null) {
                             $(".previsualizar").attr("src", response.foto);
                         }
                         else {
                             $(".previsualizar").attr("src", `${urlPagina}views/img/fotosUsuarios/default/anonymous.png`);
+                        }
+
+                        // Documento 
+                        if (response.documento_escaneado != null) {
+                            let nombre = response.documento_escaneado.split("/");
+                            nombre = nombre[nombre.length - 1];
+                            $("#visualizDocumento")
+                                .attr(
+                                    "href",
+                                    urlPagina + response.documento_escaneado
+                                )
+                                .text(nombre);
                         }
 
                         $('.select2-single').trigger('change'); //change values select2
