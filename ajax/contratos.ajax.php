@@ -146,12 +146,76 @@ class AjaxFijos
       $respuesta = ModeloFijos::mdlVerFijos($idfijos);
       echo json_encode($respuesta);
    }
+
+   /* ===================================================
+      GUARDAR / ASOCIAR VEHICULO A CLIENTE 
+   ===================================================*/
+   static public function ajaxGuardarVehiculoCliente($idcliente, $idvehiculo)
+   {
+      $respuesta = ControladorFijos::ctrAgregarVehiculoCliente($idcliente, $idvehiculo);
+      
+      echo $respuesta;
+   }
+
+   /* ===================================================
+      TABLA / LISTADO DE VEHICULOS POR CLIENTE
+   ===================================================*/
+
+   static public function AjaxCargarTablaVehiculosClientes($idcliente)
+   {
+      $respuesta = ControladorFijos::ctrVehiculosxCliente($idcliente);
+
+      $tr = "";
+
+      foreach ($respuesta as $key => $value) {
+         $tr .= " 
+         <tr>
+         <td> 
+            <div class='btn-group' role='group' aria-label='Button group'>
+               <button class='btn btn-xs btn-danger btnEliminarVehiculoRuta' idcliente='{$value["idcliente"]}' idvehiculo='{$value["idvehiculo"]}' > <i class='fas fa-trash'></i> </button>
+            </div>
+         </td>
+         <td> ". $value['placa']  ."</td>
+         <td> ". $value['numinterno']  ."</td>
+         <td> ". $value['nombre']  ."</td>
+         </tr>
+         ";
+      }
+
+
+
+      echo json_encode($tr);
+   }
+
+   static public function AjaxEliminarVehiculoxCliente($idcliente, $idvehiculo)
+   {
+      $respuesta = ModeloFijos::mdlEliminarVehiculoxCliente($idcliente, $idvehiculo);
+      echo $respuesta;
+   }
 }
 /* ===================================================
    # LLAMADOS A AJAX FIJOS
 ===================================================*/
 if (isset($_POST['DatosFijos']) && $_POST['DatosFijos'] == "ok") {
    AjaxFijos::ajaxDatosFijos($_POST['value']);
+}
+
+#LLAMADO A GUARDAR VEHICULO CLIENTE
+if (isset($_POST['Guardar_VehiculoCliente']) && $_POST['Guardar_VehiculoCliente'] == "ok")
+{
+   AjaxFijos::ajaxGuardarVehiculoCliente($_POST['idcliente'], $_POST['idvehiculo_contrutas']);
+}
+
+#LLAMADO A CARGAR TABLA DE VEHICULOS POR CLIENTE
+if (isset($_POST['CargarTablaVehiculosClientes']) && $_POST['CargarTablaVehiculosClientes'] == "ok")
+{
+   AjaxFijos::AjaxCargarTablaVehiculosClientes($_POST['idcliente']);
+}
+
+#LLAMADO A ELIMINAR VEHICULO DE UN CLIENTE
+if (isset($_POST['EliminarVehiculoCliente']) && $_POST['EliminarVehiculoCliente'] == "ok")
+{
+   AjaxFijos::AjaxEliminarVehiculoxCliente($_POST['idcliente'], $_POST['idvehiculo']);
 }
 /* ===================================================
    * ORDEN DE SERVICIO

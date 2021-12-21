@@ -1651,7 +1651,7 @@ class ModeloMantenimientos
 
     static public function mdlListadoServiciosExternos()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT s.* FROM m_serviciosexternos s");
+        $stmt = Conexion::conectar()->prepare("SELECT s.* FROM m_serviciosexternos s WHERE s.estado = 1");
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();
@@ -1723,10 +1723,11 @@ class ModeloMantenimientos
     ===================================================*/
     static public function mdlListadoOrdenesServicio()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT o.*, v.*, m.municipio, DATE_FORMAT(o.fecha_entrada, '%d/%m/%Y') AS Ffecha_entrada, DATE_FORMAT(o.fecha_trabajos, '%d/%m/%Y') AS Ffecha_trabajos, 
+        $stmt = Conexion::conectar()->prepare("SELECT o.*, v.*, m.municipio,u.Nombre, DATE_FORMAT(o.fecha_entrada, '%d/%m/%Y') AS Ffecha_entrada, DATE_FORMAT(o.fecha_trabajos, '%d/%m/%Y') AS Ffecha_trabajos, 
         DATE_FORMAT(o.fecha_aprobacion, '%d/%m/%Y') AS Ffecha_aprobacion FROM m_ordenservicio o 
         INNER JOIN v_vehiculos v ON o.idvehiculo = v.idvehiculo
         LEFT JOIN gh_municipios m ON o.ciudad = m.idmunicipio 
+        INNER JOIN l_usuarios u ON o.cedula = u.Cedula
         ");
 
         $stmt->execute();
@@ -1904,8 +1905,8 @@ class ModeloMantenimientos
     static public function mdlAgregarOrdenServicio($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("INSERT INTO m_ordenservicio(idvehiculo,fecha_entrada,hora_entrada,fecha_trabajos,diagnostico,observacion, estado, ciudad, factura, kilometraje_orden, fecha_aprobacion)
-                                                VALUES(:idvehiculo_OrdServ, :fechaentrada_OrdSer, :horaentra_ordSer, :fechaInic_ordSer, :diagnostico, :observacion, :estado, :ciudad, :factura, :kilometraje_orden, :fecha_aprobacion)");
+        $stmt = $conexion->prepare("INSERT INTO m_ordenservicio(idvehiculo,fecha_entrada,hora_entrada,fecha_trabajos,diagnostico,observacion, estado, ciudad, factura, kilometraje_orden, fecha_aprobacion, cedula)
+                                                VALUES(:idvehiculo_OrdServ, :fechaentrada_OrdSer, :horaentra_ordSer, :fechaInic_ordSer, :diagnostico, :observacion, :estado, :ciudad, :factura, :kilometraje_orden, :fecha_aprobacion, :cedula)");
 
         $stmt->bindParam(":idvehiculo_OrdServ", $datos['idvehiculo_OrdServ'], PDO::PARAM_INT);
         $stmt->bindParam(":fechaentrada_OrdSer", $datos['fechaentrada_OrdSer'], PDO::PARAM_STR);
@@ -1918,6 +1919,7 @@ class ModeloMantenimientos
         $stmt->bindParam(":ciudad", $datos['ciudad_OrdServ'], PDO::PARAM_INT);
         $stmt->bindParam(":factura", $datos['numFactura_ordSer'], PDO::PARAM_STR);
         $stmt->bindParam(":kilometraje_orden", $datos['kilome_ordSer'], PDO::PARAM_INT);
+        $stmt->bindParam(":cedula", $datos['cedula'], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             $id = $conexion->lastInsertId();
@@ -1956,7 +1958,7 @@ class ModeloMantenimientos
         $stmt->bindParam(":fecha_entrada", $datos['fechaentrada_OrdSer'], PDO::PARAM_STR);
         $stmt->bindParam(":hora_entrada", $datos['horaentra_ordSer'], PDO::PARAM_STR);
         $stmt->bindParam(":fecha_trabajos", $datos['fechaInic_ordSer'], PDO::PARAM_STR);
-        $stmt->bindParam(":fecha_aprobacion", $datos['fechaApro_ordSer'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_aprobacion", $datos['fecha_aprobacion'], PDO::PARAM_STR);
         $stmt->bindParam(":diagnostico", $datos['diagnostico'], PDO::PARAM_STR);
         $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
         $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_INT);
@@ -2238,6 +2240,101 @@ class ModeloMantenimientos
         $respuesta = $stmt->fetchAll();
         $stmt->closeCursor();
         return $respuesta;
+    }
+
+    /* ===================================================
+        ID VEHICULO DE UNA ORDEN DE SERVICIO
+    ===================================================*/
+    static public function mdlVehiculoxOrden($idorden)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT o.idvehiculo FROM m_ordenservicio o
+        WHERE o.idorden = :idorden");
+
+        $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $respuesta = $stmt->fetch();
+        $stmt->closeCursor();
+        return $respuesta;
 
     }
+
+    /* ===================================================
+        LISTADO DE CONTROL DE ACTIVIDADES ORDEN DE SERVICIO
+    ===================================================*/
+    static public function mdlListadoControlActividades()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT r.idorden,
+        o.idvehiculo,o.kilometraje_orden, 
+        cc.num_cuenta, cc.nombre_cuenta, 
+        v.placa,
+        c.idcliente,c.nombre AS cliente, 
+        o.fecha_entrada, o.factura, o.ciudad, 
+        gm.municipio, 
+        o.fecha_trabajos, 
+        o.fecha_aprobacion, 
+        r.mantenimiento, 
+        p.nombre_contacto,         
+        CONCAT(prod.referencia, ' - ', prod.descripcion) AS item,
+        -- prod.descripcion AS item, 
+        r.sistema, r.cantidad, r.valor, r.iva, r.total, 
+        DATE_FORMAT(o.fecha_entrada, '%d/%m/%Y') AS Ffecha_entrada,
+        DATE_FORMAT(o.fecha_trabajos, '%d/%m/%Y') AS Ffecha_trabajos, 
+        DATE_FORMAT(o.fecha_aprobacion, '%d/%m/%Y') AS Ffecha_aprobacion, 
+        sm.servicio,
+        'REPUESTO' AS descripcion
+        FROM m_re_repuestoordenservicio r 
+        LEFT JOIN m_ordenservicio o ON r.idorden = o.idorden
+        LEFT JOIN li_cuentas_contables cc ON r.idcuenta = cc.id
+        INNER JOIN v_vehiculos v ON o.idvehiculo = v.idvehiculo
+        LEFT JOIN cont_clientesvehiculos ccv ON o.idvehiculo = ccv.idvehiculo
+        LEFT JOIN cont_clientes c ON ccv.idcliente = c.idcliente
+        LEFT JOIN gh_municipios gm ON o.ciudad = gm.idmunicipio
+        LEFT JOIN c_proveedores p ON r.idproveedor = p.id
+        LEFT JOIN m_serviciosmenores sm ON r.idservicio = sm.idservicio
+        INNER JOIN a_re_inventario i ON i.idinventario = r.idinventario
+        INNER JOIN a_productos prod ON prod.idproducto = i.idproducto
+        
+        
+        UNION
+        
+        SELECT m.idorden, 
+        o.idvehiculo, o.kilometraje_orden, 
+        cc.num_cuenta, cc.nombre_cuenta, 
+        v.placa,
+        c.idcliente, c.nombre AS cliente, 
+        o.fecha_entrada, o.factura, o.ciudad, 
+        gm.municipio, 
+        o.fecha_trabajos,
+        o.fecha_aprobacion, 
+        m.mantenimiento, 
+        p.nombre_contacto, 
+        m.descripcion AS item, 
+        m.sistema, m.cantidad, m.valor, m.iva, m.total, 
+        DATE_FORMAT(o.fecha_entrada, '%d/%m/%Y') AS Ffecha_entrada, 
+        DATE_FORMAT(o.fecha_trabajos, '%d/%m/%Y') AS Ffecha_trabajos, 
+        DATE_FORMAT(o.fecha_aprobacion, '%d/%m/%Y') AS Ffecha_aprobacion, 
+        sm.servicio,
+        'MANO DE OBRA' AS descripcion
+        FROM m_re_proveedorordenservicio m
+        LEFT JOIN m_ordenservicio o ON m.idorden = o.idorden
+        LEFT JOIN li_cuentas_contables cc ON m.idcuenta = cc.id
+        INNER JOIN v_vehiculos v ON o.idvehiculo = v.idvehiculo
+        LEFT JOIN cont_clientesvehiculos ccv ON o.idvehiculo = ccv.idvehiculo
+        LEFT JOIN cont_clientes c ON ccv.idcliente = c.idcliente
+        LEFT JOIN gh_municipios gm ON o.ciudad = gm.idmunicipio
+        LEFT JOIN c_proveedores p ON m.idproveedor = p.id
+        LEFT JOIN m_serviciosmenores sm ON m.idservicio = sm.idservicio
+        
+        
+        ORDER BY idorden
+        ");
+
+        $stmt->execute();
+        $respuesta = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
+
+    
 }

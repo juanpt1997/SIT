@@ -539,28 +539,32 @@ class ModeloVehiculos
         $sql = "SELECT v.*,t.tipovehiculo,m.marca, s.sucursal,                    
                 (SELECT cv.fecha_terminacion FROM v_convenios cv
                 INNER JOIN v_re_convenios rec ON cv.idconvenio = rec.idconvenio
-                WHERE rec.idvehiculo = v.idvehiculo
-        ORDER BY cv.fecha_terminacion DESC
+                WHERE rec.idvehiculo = v.idvehiculo AND cv.activo = 1
+        -- ORDER BY cv.fecha_terminacion DESC
+        ORDER BY rec.fecha_creacion DESC
         LIMIT 1) AS fecha_terminacion,
         
         (SELECT cv.fecha_inicio FROM v_convenios cv
         INNER JOIN v_re_convenios rec ON cv.idconvenio = rec.idconvenio
-        WHERE rec.idvehiculo = v.idvehiculo
-        ORDER BY cv.fecha_terminacion DESC 
+        WHERE rec.idvehiculo = v.idvehiculo AND cv.activo = 1
+        -- ORDER BY cv.fecha_terminacion DESC 
+        ORDER BY rec.fecha_creacion DESC
         LIMIT 1) AS fecha_inicio,
         
         (SELECT emv.nombre FROM v_convenios cv
         INNER JOIN v_re_convenios rec ON cv.idconvenio = rec.idconvenio
         INNER JOIN v_empresas_convenios emv ON cv.idcontratante = emv.idxc
-        WHERE rec.idvehiculo = v.idvehiculo
-        ORDER BY cv.fecha_terminacion DESC 
+        WHERE rec.idvehiculo = v.idvehiculo AND cv.activo = 1
+        -- ORDER BY cv.fecha_terminacion DESC 
+        ORDER BY rec.fecha_creacion DESC
         LIMIT 1) AS nom_contratante,
         
         (SELECT emv.nombre FROM v_convenios cv
         INNER JOIN v_re_convenios rec ON cv.idconvenio = rec.idconvenio
         INNER JOIN v_empresas_convenios emv ON cv.idcontratista = emv.idxc
-        WHERE rec.idvehiculo = v.idvehiculo
-        ORDER BY cv.fecha_terminacion DESC 
+        WHERE rec.idvehiculo = v.idvehiculo AND cv.activo = 1
+        -- ORDER BY cv.fecha_terminacion DESC 
+        ORDER BY rec.fecha_creacion DESC
         LIMIT 1) AS nom_contratista
  
         FROM v_vehiculos v
@@ -588,37 +592,52 @@ class ModeloVehiculos
         //                                         LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
         //                                         LEFT JOIN v_empresas_convenios c ON c.idxc = v.idconvenio
         //                                         WHERE v.{$datos['item']} = :{$datos['item']};");
-        $stmt = Conexion::conectar()->prepare("SELECT v.*, t.tipovehiculo, m.marca, s.sucursal,
-                                                    (SELECT cv.fecha_terminacion FROM v_convenios cv
-                                                            INNER JOIN v_re_convenios rec ON cv.idconvenio = rec.idconvenio
-                                                            WHERE rec.idvehiculo = v.idvehiculo
-                                                    ORDER BY cv.fecha_terminacion DESC
-                                                    LIMIT 1) AS fecha_terminacion,
+        $stmt = Conexion::conectar()->prepare("SELECT v.*, t.tipovehiculo, m.marca, s.sucursal,ccv.idcliente,cc.nombre AS cliente,
+                                                    (
+                                                SELECT cv.fecha_terminacion
+                                                FROM v_convenios cv
+                                                INNER JOIN v_re_convenios rec ON cv.idconvenio = rec.idconvenio
+                                                WHERE rec.idvehiculo = v.idvehiculo AND cv.activo = 1
+                                                -- ORDER BY cv.fecha_terminacion DESC
+                                                ORDER BY rec.fecha_creacion DESC
+                                                LIMIT 1) AS fecha_terminacion,
                                                     
-                                                    (SELECT cv.fecha_inicio FROM v_convenios cv
-                                                    INNER JOIN v_re_convenios rec ON cv.idconvenio = rec.idconvenio
-                                                    WHERE rec.idvehiculo = v.idvehiculo
-                                                    ORDER BY cv.fecha_terminacion DESC 
-                                                    LIMIT 1) AS fecha_inicio,
+                                                    (
+                                                SELECT cv.fecha_inicio
+                                                FROM v_convenios cv
+                                                INNER JOIN v_re_convenios rec ON cv.idconvenio = rec.idconvenio
+                                                WHERE rec.idvehiculo = v.idvehiculo AND cv.activo = 1
+                                                -- ORDER BY cv.fecha_terminacion DESC
+                                                ORDER BY rec.fecha_creacion DESC
+                                                LIMIT 1) AS fecha_inicio,
                                                     
-                                                    (SELECT emv.idxc FROM v_convenios cv
-                                                    INNER JOIN v_re_convenios rec ON cv.idconvenio = rec.idconvenio
-                                                    INNER JOIN v_empresas_convenios emv ON cv.idcontratante = emv.idxc
-                                                    WHERE rec.idvehiculo = v.idvehiculo
-                                                    ORDER BY cv.fecha_terminacion DESC 
-                                                    LIMIT 1) AS idcontratante,
+                                                    (
+                                                SELECT emv.idxc
+                                                FROM v_convenios cv
+                                                INNER JOIN v_re_convenios rec ON cv.idconvenio = rec.idconvenio
+                                                INNER JOIN v_empresas_convenios emv ON cv.idcontratante = emv.idxc
+                                                WHERE rec.idvehiculo = v.idvehiculo AND cv.activo = 1
+                                                -- ORDER BY cv.fecha_terminacion DESC
+                                                ORDER BY rec.fecha_creacion DESC
+                                                LIMIT 1) AS idcontratante,
                                                     
-                                                    (SELECT emv.idxc FROM v_convenios cv
-                                                    INNER JOIN v_re_convenios rec ON cv.idconvenio = rec.idconvenio
-                                                    INNER JOIN v_empresas_convenios emv ON cv.idcontratista = emv.idxc
-                                                    WHERE rec.idvehiculo = v.idvehiculo
-                                                    ORDER BY cv.fecha_terminacion DESC 
-                                                    LIMIT 1) AS idcontratista
+                                                    (
+                                                SELECT emv.idxc
+                                                FROM v_convenios cv
+                                                INNER JOIN v_re_convenios rec ON cv.idconvenio = rec.idconvenio
+                                                INNER JOIN v_empresas_convenios emv ON cv.idcontratista = emv.idxc
+                                                WHERE rec.idvehiculo = v.idvehiculo AND cv.activo = 1
+                                                -- ORDER BY cv.fecha_terminacion DESC
+                                                ORDER BY rec.fecha_creacion DESC
+                                                LIMIT 1) AS idcontratista
                                                 FROM v_vehiculos v
                                                 LEFT JOIN v_tipovehiculos t ON t.idtipovehiculo = v.idtipovehiculo
                                                 LEFT JOIN v_marcas m ON m.idmarca = v.idmarca
                                                 LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
-                                                WHERE v.{$datos['item']} = :{$datos['item']};");
+                                                LEFT JOIN cont_clientesvehiculos ccv ON v.idvehiculo = ccv.idvehiculo 
+                                                LEFT JOIN cont_clientes cc ON ccv.idcliente = cc.idcliente
+                                                WHERE v.{$datos['item']} = :{$datos['item']}
+                                                LIMIT 1;");
         $stmt->bindParam(":{$datos['item']}", $datos['valor']);
         $stmt->execute();
         $retorno = $stmt->fetch();
@@ -700,7 +719,7 @@ class ModeloVehiculos
 
     static public function mdlListadoServicios()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM m_serviciosmenores");
+        $stmt = Conexion::conectar()->prepare("SELECT sm.* FROM m_serviciosmenores sm WHERE sm.estado = 1");
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();

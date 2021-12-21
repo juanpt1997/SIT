@@ -626,6 +626,9 @@ $(document).ready(function () {
         window.location.href == `${urlPagina}m-revision-tm/` ||
         window.location.href == `${urlPagina}m-revision-tm`
     ) {
+        /*============================================
+            CLICK EN EDITAR REVISIÓN TECNICOMECANICA
+        ==============================================*/
         $(document).on("click", ".btnEditarRev", function () {
             $("#titulo-modal-tecnomecanica").html(
                 "Editar revisión tecnicomecánica"
@@ -942,6 +945,9 @@ $(document).ready(function () {
             });
         });
 
+        /*============================================
+            CLICK EN NUEVA REVISIÓN
+        ==============================================*/
         $(document).on("click", ".btn-nuevaRevision", function () {
             $("#titulo-modal-tecnomecanica").html(
                 "Nueva revisión tecnicomecánica"
@@ -1024,6 +1030,10 @@ $(document).ready(function () {
             });
         });
 
+        /*============================================
+            ELIMINAR REVISIÓN TECNICOMECANICA
+        ==============================================*/
+
         $(document).on("click", ".btnBorrarRev", function () {
             var idrevision = $(this).attr("idrevision");
             $("#idrevision").val(idrevision);
@@ -1070,7 +1080,9 @@ $(document).ready(function () {
             });
         });
 
-        //GUARDAR REVISIÓN
+        /*============================================
+            AGREGAR/GUARDAR REVISIÓN
+        ==============================================*/
         $(document).on("click", ".btn-guardarRev", function () {
             Areas = [];
             Requeridos = [];
@@ -1453,6 +1465,7 @@ $(document).ready(function () {
                         .val(Vehiculo.tipovehiculo)
                         .trigger("change");
                     $("#marca_ordSer").val(Vehiculo.marca);
+                    $("#cliente_orderServ").val(Vehiculo.cliente);
                 },
             });
 
@@ -1513,13 +1526,13 @@ $(document).ready(function () {
 
                     /* ===================================================
                     FILTRAR POR COLUMNA
-            ====================================================*/
+                    ====================================================*/
                     /* Filtrar por columna */
                     //Clonar el tr del thead
-                    if($(`#tablaRepuesto thead tr`).length == 1)
-                    $(`#tablaRepuesto thead tr:eq(0)`)
-                        .clone(true)
-                        .appendTo(`#tablaRepuesto thead`);
+                    if ($(`#tablaRepuesto thead tr`).length == 1)
+                        $(`#tablaRepuesto thead tr:eq(0)`)
+                            .clone(true)
+                            .appendTo(`#tablaRepuesto thead`);
                     //Por cada th creado hacer lo siguiente
                     $(`#tablaRepuesto thead tr:eq(1) th`).each(function (i) {
                         //Remover clase sorting y el evento que tiene cuando se hace click
@@ -1552,7 +1565,7 @@ $(document).ready(function () {
 
         /* =====================================================
         CLICK EN CAMPO REPUESTO TABLA SOLICITUD DE SERVICIO
-    =======================================================*/
+        =======================================================*/
 
         $(document).on("click", ".btn-repuestos", function () {
             //Mando el consecutivo para luego saber a que fila poner el repuesto seleccionado
@@ -1562,8 +1575,8 @@ $(document).ready(function () {
         });
 
         /*==============================
-      ClICK EN SELECCIONAR PRODUCTO
-    ================================*/
+        ClICK EN SELECCIONAR PRODUCTO
+        ================================*/
 
         $(document).on("click", ".btnSeleccionarProducto", function () {
             $("#modal-repuestos").modal("hide");
@@ -1594,8 +1607,8 @@ $(document).ready(function () {
         });
 
         /*==============================
-      CLICK EN SELECCIONAR SERVICIO
-    ================================*/
+        CLICK EN SELECCIONAR SERVICIO
+        ================================*/
         $(document).on("click", ".btn-SeleccionarServicio", function () {
             $("#modal-servicios").modal("hide");
 
@@ -1810,7 +1823,9 @@ $(document).ready(function () {
             });
         });
 
-        //GUARDAR ORDEN DE SERVICIO
+        /*============================================
+            GUARDAR ORDEN DE SERVICIO
+        ==============================================*/
         $("#ordenServ_form").submit(function (e) {
             e.preventDefault();
 
@@ -1895,8 +1910,8 @@ $(document).ready(function () {
                         $("#tBodyProveedores").html("");
                     }
                     /* ===================================================
-              INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-            ===================================================*/
+                        INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                    ===================================================*/
                     var buttons = [
                         {
                             extend: "excel",
@@ -2009,27 +2024,6 @@ $(document).ready(function () {
                 },
             });
 
-            // let placa = $("#placa_OrdServ").val();
-            // let num_interno = $("#numinterno_ordSer").val();
-            // let marca = $("#marca_ordSer").val();
-            // let tipo_veh = $("#clasevehiculo_ordSer").val();
-            // let modelo = $("#modelo_ordSer").val();
-            // let kilometraje = $("#kilome_ordSer").val();
-            // let fecha_solicitud = $("#fechaentrada_ordSer").val();
-
-            // var fila = `<tr>
-            // <td>${orden}</td>
-            // <td>${placa}</td>
-            // <td>${num_interno}</td>
-            // <td>${marca}</td>
-            // <td>${tipo_veh}</td>
-            // <td>${modelo}</td>
-            // <td>${kilometraje}</td>
-            // <td>${fecha_solicitud}</td>
-            // </tr>`;
-
-            // $("#tbodyResumen").append(fila);
-
             $("#servExternosResu").empty();
             $("#servicios_externos").clone().appendTo("#servExternosResu");
             $("#RepuestoResu").empty();
@@ -2064,8 +2058,14 @@ $(document).ready(function () {
                 .attr("disabled", "disabled");
 
             $("#modal-solicitud")
+                .find(".btn-cuenta")
+                .attr("disabled", "disabled");
+
+            $("#modal-solicitud")
                 .find("input-ivarepuesto")
                 .attr("readonly", "readonly");
+
+                $("#modal-solicitud").find("input-servext").removeAttr("idservicioexterno");
         });
 
         //FUNCION PARA CARGAR FILAS DE REPUESTO AL EDITAR ORDEN
@@ -2202,6 +2202,7 @@ $(document).ready(function () {
             $("#filas_tabla_repuestoSolicitud").append(fila);
         };
 
+        //FUNCION QUE CARGA LAS FILAS DE MANO DE OBRA AL DAR CLICK EN EDITAR
         const filasEditarOrdenMano = (dinamico, element) => {
             var fila = `<tr id="Contenido_tabla_manoObra" consecutivo="${dinamico}">
             <td style="width: 600px">
@@ -2337,6 +2338,11 @@ $(document).ready(function () {
                         "active show"
                     );
 
+                    $("#custom-tabs-one-control-tab").removeClass(
+                        "active show"
+                    );
+                    $("#custom-tabs-one-control").removeClass("active");
+
                     //ELIMINA EL ATRIBUTO DISABLED A CREAR SOLICITUD DE SERVICIO
                     $("#btn-crearSolicitud").removeAttr("disabled");
 
@@ -2365,6 +2371,9 @@ $(document).ready(function () {
                     //RESETEA SERVICIOS EXTERNOS
                     $(".input-servext").prop("checked", false);
 
+                    // NO PERMITE CAMBIAR VEHÍCULO
+                    $("#placa_OrdServ").attr("disabled", true);
+
                     let idorden = $(this).attr("idorden");
 
                     //AJAX PARA CARGAR DATOS DE LA ORDEN
@@ -2380,8 +2389,6 @@ $(document).ready(function () {
                         contentType: false,
                         processData: false,
                         success: function (response) {
-                            console.log(response);
-
                             let datosOrden = response.datosOrden;
 
                             // SE PONEN LOS DATOS GENERALES DE LA ORDEN EN SUS RESPECTIVOS CAMPOS
@@ -2416,7 +2423,9 @@ $(document).ready(function () {
                             $("#numFactura_ordSer").val(datosOrden.factura);
                             setTimeout(() => {
                                 console.log(datosOrden.kilometraje);
-                                $("#kilome_ordSer").val(datosOrden.kilometraje_orden);
+                                $("#kilome_ordSer").val(
+                                    datosOrden.kilometraje_orden
+                                );
                             }, 500);
 
                             //SE PONEN LOS DATOS DE REPUESTOS
@@ -2717,6 +2726,117 @@ $(document).ready(function () {
             }
         });
 
-       
+        /*============================================
+            CARGA TABLA CONTROL DE ACTIVIDADES 
+        ==============================================*/
+        $(document).on("click", "#custom-tabs-one-control-tab", function () {
+            // Quitar datatable
+            $("#tableControlActividades").dataTable().fnDestroy();
+            // Borrar datos
+            // $("#tableControlActividades").html("");
+
+            var datos = new FormData();
+            datos.append("TablaControlActividades", "ok");
+
+            $.ajax({
+                type: "post",
+                url: `ajax/mantenimiento.ajax.php`,
+                data: datos,
+                cache: false,
+                // dataType: "JSON",
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response != "")
+                        $("#tbodyControlActividades").html(response);
+                    else $("#tbodyControlActividades").html("");
+
+                    /* ===================================================
+                    FILTRAR POR COLUMNA
+                    ====================================================*/
+                    /* Filtrar por columna */
+                    //Clonar el tr del thead
+                    if ($(`#tableControlActividades thead tr`).length == 1)
+                        $(`#tableControlActividades thead tr:eq(0)`)
+                            .clone(true)
+                            .appendTo(`#tableControlActividades thead`);
+                    //Por cada th creado hacer lo siguiente
+                    $(`#tableControlActividades thead tr:eq(1) th`).each(
+                        function (i) {
+                            //Remover clase sorting y el evento que tiene cuando se hace click
+                            $(this).removeClass("sorting").unbind();
+                            //Agregar input de busqueda
+                            $(this).html(
+                                '<input class="form-control" type="text" placeholder="Buscar"/>'
+                            );
+                            //Evento para detectar cambio en el input y buscar
+                            $("input", this).on("keyup change", function () {
+                                if (table.column(i).search() !== this.value) {
+                                    table.column(i).search(this.value).draw();
+                                }
+                            });
+                        }
+                    );
+                    /* ===================================================
+                    INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                    ===================================================*/
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(
+                        `#tableControlActividades`,
+                        buttons
+                    );
+                },
+            });
+        });
+
+        /*============================================
+            CARGAR DATOS PARA LA MODAL DE QUIÉN ASUME
+        ==============================================*/
+        $(document).on("click", ".btn-asume", function () {
+
+            let cantidad = $(this).attr("cantidad");
+            let valor = $(this).attr("valor");
+            let iva = $(this).attr("iva");
+            let total = $(this).attr("total");
+            let nombre_cuenta = $(this).attr("nombre_cuenta");
+            let num_cuenta = $(this).attr("num_cuenta");
+            let idcliente = $(this).attr("idcliente");
+            let idvehiculo = $(this).attr("idvehiculo")
+
+            console.log(idcliente);
+
+            $("#cantidad_ctrActividades").val(cantidad);
+            $("#valor_ctrActividades").val(valor);
+            $("#iva_ctrActividades").val(iva);
+            $("#total_ctrActividades").val(total);
+            $("#nombre_cuenta_ctrActividades").val(nombre_cuenta);
+            $("#codigo_cuenta_ctrActividades").val(num_cuenta);
+            $("#cliente_asume").val(idcliente).trigger("change");
+
+            var datos = new FormData();
+            datos.append("ConvenioxVehiculo", "ok");
+            datos.append("idvehiculo", idvehiculo);
+
+            $.ajax({
+                type: "post",
+                url: `ajax/mantenimiento.ajax.php`,
+                data: datos,
+                cache: false,
+                // dataType: "JSON",
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    
+                },
+            });
+
+
+        });
     }
 });

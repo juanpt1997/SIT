@@ -458,6 +458,47 @@ class AjaxMantenimientos
         }
         echo $tr;
     }
+
+    /* ===================================================
+        CARGAR LISTADO CONTROL ACTIVIDADES 
+    ===================================================*/
+    static public function ajaxListadoControlActividades()
+    {
+        $respuesta = ControladorMantenimientos::ctrListadoControlActividades();
+        $tr = "";
+
+        foreach ($respuesta as $key => $value) {
+            $tr .="
+            <tr>
+
+            <td> <button class='btn btn-outline-dark btn-editarOrden' title='Ir a la orden' data-toggle='tooltip' data-placement='top' idorden='{$value['idorden']}'>". $value['idorden'] . "</button></td>
+            <td>". $value['placa'] . "</td>
+            <td>". $value['kilometraje_orden'] . "</td>
+            <td>". $value['cliente'] . "</td>
+            <td>". $value['factura'] . "</td>
+            <td>". $value['municipio'] . "</td>
+            <td>". $value['Ffecha_entrada'] . "</td>
+            <td>". $value['Ffecha_trabajos'] . "</td>
+            <td>". $value['Ffecha_aprobacion'] . "</td>
+            <td>". $value['servicio'] . "</td>
+            <td>". $value['nombre_contacto'] . "</td>
+            <td>". $value['item'] . "</td>
+            <td>". $value['sistema'] . "</td>
+            <td>". $value['cantidad'] . "</td>
+            <td>". $value['valor'] . "</td>
+            <td>". $value['iva'] . "%</td>
+            <td>". $value['total'] . "</td>
+            <td>". $value['mantenimiento'] . "</td>
+            <td>". $value['nombre_cuenta'] . "</td>
+            <td>". $value['num_cuenta'] . "</td>
+            <td><button type='button' class='btn btn-success btn-asume' data-toggle='modal' data-target='#modalAsume' idvehiculo='{$value['idvehiculo']}' idcliente='{$value['idcliente']}' num_cuenta='{$value['num_cuenta']}' nombre_cuenta='{$value['nombre_cuenta']}' total='{$value['total']}' iva='{$value['iva']}' valor='{$value['valor']}' cantidad='{$value['cantidad']}' idorden='{$value['idorden']}'><i class='fas fa-wallet'></i></button></td>
+
+
+            </tr>
+            ";
+        }
+        echo $tr;
+    }
 }
 /* ===================================================
             LLAMADOS AJAX INVENTARIO
@@ -541,3 +582,6 @@ if(isset($_POST['ListaServicios']) && $_POST['ListaServicios'] == "ok") AjaxMant
 
 #LLAMADO A LISTA DE CONTABLES 
 if(isset($_POST['ListaCuentasContables']) && $_POST['ListaCuentasContables'] == "ok") AjaxMantenimientos::ajaxListaCuentasContables($_POST['consecutivo'], $_POST['seccion']);
+
+#LLAMADO A CARGAR TABLA DE CONTROL DE ACTIVIDADES 
+if (isset($_POST['TablaControlActividades']) && $_POST['TablaControlActividades'] == "ok") AjaxMantenimientos::ajaxListadoControlActividades();

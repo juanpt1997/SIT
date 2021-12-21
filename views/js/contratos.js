@@ -857,26 +857,165 @@ if (
 
             var datos = new FormData();
             datos.append("DatosVehiculo", "ok");
-            datos.append("idvehiculo", idvehiculo);
+            datos.append("item", "idvehiculo");
+            datos.append("valor", idvehiculo);
 
             $.ajax({
                 type: "POST",
-                url: "ajax/mantenimiento.ajax.php",
+                url: `${urlPagina}ajax/vehicular.ajax.php`,
                 data: datos,
                 cache: false,
                 contentType: false,
                 processData: false,
                 dataType: "json",
                 success: function (response) {
-                    $("#num_internocontrutas").val(response.numinterno);
-                    $("#marca_contrutas").val(response.marca);
-                    $("#clase_contrutas").val(response.tipovehiculo);
-                    $("#modelo_contrutas").val(response.modelo);
-                    $("#kilometraje_contrutas").val(response.kilometraje);
-                   console.log(response);
+                    let datosVehiculo = response.datosVehiculo
+                    $("#num_internocontrutas").val(datosVehiculo.numinterno);
+                    $("#marca_contrutas").val(datosVehiculo.marca);
+                    $("#clase_contrutas").val(datosVehiculo.tipovehiculo);
+                    $("#modelo_contrutas").val(datosVehiculo.modelo);
+                    $("#kilometraje_contrutas").val(datosVehiculo.kilometraje);
                 },
             });
         });
+
+        /*============================================
+        CLICK EN VER VEHÍCULOS CLIENTES / CARGA TABLA
+        ==============================================*/
+        $(document).on("click", ".btn-verVehiculosRutas",function(){
+            let idcliente = $(this).attr("idcliente");
+            $(".btn-guardarvehiculosclientes").attr("idcliente", idcliente);
+
+            var datos = new FormData();
+            datos.append("CargarTablaVehiculosClientes", "ok");
+            datos.append("idcliente", idcliente);
+
+            $.ajax({
+                type: "post",
+                url: "ajax/contratos.ajax.php",
+                data: datos,
+                dataType: "JSON",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if(response != ""){
+                        $("#tbodyresuRutasContratos").html(response);
+                    }else{
+                        $("#tbodyresuRutasContratos").html("");
+                    }
+                },
+            });
+
+
+
+
+        });
+
+        /*==============================================
+            GUARDAR / ASOCIAR VEHÍCULO A CLIENTE
+        ===============================================*/
+        $("#form_contrutas").submit(function (e){
+            e.preventDefault();
+
+            let idcliente = $(".btn-guardarvehiculosclientes").attr("idcliente");
+
+            
+            var datosFrm = $(this).serializeArray();
+            var datosAjax = new FormData();
+            datosAjax.append("Guardar_VehiculoCliente", "ok");
+            datosAjax.append("idcliente", idcliente);
+
+            
+           
+
+            datosFrm.forEach((element) => {
+                datosAjax.append(element.name, element.value);
+            });
+
+
+            $.ajax({
+                type: "post",
+                url: "ajax/contratos.ajax.php",
+                data: datosAjax,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    
+                    if(response != "error"){
+                        Swal.fire({
+                            icon: "success",
+                            title: "¡Datos guardados correctamente!",
+                            showConfirmButton: false,
+                            timer: 2000,
+                        });
+                    }else{
+                        Swal.fire({
+                            icon: "error",
+                            title: "¡Este vehículo ya se encuentra asociado a un cliente!",
+                            showConfirmButton: false
+                        });
+                    }
+                },
+            });
+
+        
+
+        });
+        
+        /*============================================
+            ELIMINAR VEHICULO A UN CLIENTE
+        ==============================================*/
+        $(document).on("click",".btnEliminarVehiculoRuta", function(){
+            let idvehiculo = $(this).attr("idvehiculo");
+            let idcliente = $(this).attr("idcliente");
+
+            Swal.fire({
+                icon: "warning",
+                showConfirmButton: true,
+                showCancelButton: true,
+                title: "¿Seguro que de sea eliminar este vehículo?",
+                confirmButtonText: "Si, eliminar",
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: "#ff0000",
+                cancelButtonColor: "#0080ff",
+                allowOutsideClick: false,
+            }).then((result) => {
+                if (result.value == true) {
+
+                    var datos = new FormData();
+                    datos.append("EliminarVehiculoCliente", "ok");
+                    datos.append("idcliente", idcliente);
+                    datos.append("idvehiculo", idvehiculo);
+                    
+
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/contratos.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        //dataType: "json",
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: "success",
+                                    showConfirmButton: true,
+                                    title: "¡El registro ha sido borrado correctamente!",
+                                    confirmButtonText: "¡Cerrar!",
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "contratos-fijos";
+                                });
+                            }
+                        },
+                    });
+                }
+            });
+        });
+        
     });
 }
 /* ===================================================

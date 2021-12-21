@@ -556,6 +556,36 @@ class ControladorFijos
             }
         }
     }
+    
+    /* ===================================================
+        AGREGAR VEHICULO A UN CLIENTE
+    ===================================================*/
+
+    static public function ctrAgregarVehiculoCliente($idcliente, $idvehiculo)
+    {
+        $datos = ModeloFijos::mdlConsultarVehiculoCliente($idvehiculo);
+
+        
+
+        if($datos['idcliente'] == ""){
+            $respuesta = ModeloFijos::mdlAgregarVehiculoCliente($idcliente, $idvehiculo);
+
+        }else{
+            $respuesta = "error";
+        }
+
+        return $respuesta;
+    }
+
+    /* ===================================================
+        LISTADO DE VEHICULOS POR CLIENTE
+    ===================================================*/
+    static public function ctrVehiculosxCliente($idcliente)
+    {
+        $respuesta = ModeloFijos::mdlVehiculosxCliente($idcliente);
+        return $respuesta;
+    }
+    
 }
 /* ===================================================
    * ORDEN DE SERVICIO
