@@ -152,11 +152,35 @@ $Sucursales = ControladorGH::ctrSucursales();
                     =================================================== -->
                     <div class="tab-pane fade show active" id="personal" role="tabpanel" aria-labelledby="personal-tab">
                         <form class="formulario" id="frmPersonal" method="post" enctype="multipart/form-data">
-                            <div class="row mt-4">
+                            <div class="row d-flex justify-content-center mt-4">
+                                <!-- ===================================================
+                                    FOTO
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
+                                    <div class="form-group">
+                                        <!-- <label for="exampleInput1">Foto</label> -->
+                                        <br>
+                                        <img src="views/img/fotosUsuarios/default/anonymous.png" class="img-fluid previsualizar" width="100">
+                                        <div class="input-group mt-1">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-image"></i>
+                                                </span>
+                                            </div>
+                                            <input type="file" class="form-control" name="nuevaFoto" id="nuevaFoto">
+                                        </div>
+                                        <p>Peso máximo de la foto 2 MB</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <hr class="bg-secondary">
+                            <div class="row">
                                 <!-- ===================================================
                                     ID Empleado
                                 =================================================== -->
                                 <input type="hidden" name="idPersonal" id="idPersonal" value="">
+
 
                                 <!-- ===================================================
                                         Consentimiento Informado
@@ -237,6 +261,24 @@ $Sucursales = ControladorGH::ctrSucursales();
                                         <!-- /.input group -->
                                     </div>
                                 </div>
+
+                                <!-- ===================================================
+                                    DOCUMENTOS ESCANEADO
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label>Adjuntar documento</label>
+                                        <div class="input-group mt-auto">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <i class="fas fa-file-alt"></i>
+                                                </span>
+                                            </div>
+                                            <input type="file" class="form-control" id="documento_escaneado" accept="image/png, image/jpeg">
+                                        </div>
+                                        <a id="visualizDocumento" href="" target="_blank"></a>
+                                    </div>
+                                </div><!-- /.col -->
 
                                 <!-- ===================================================
                                     Lugar de Expedición
@@ -862,26 +904,6 @@ $Sucursales = ControladorGH::ctrSucursales();
                                             <input type="text" class="form-control" name="empresa" id="empresa" maxlength="100">
                                         </div>
                                         <!-- /.input group -->
-                                    </div>
-                                </div>
-
-                                <!-- ===================================================
-                                    FOTO
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Foto</label>
-                                        <br>
-                                        <img src="views/img/fotosUsuarios/default/anonymous.png" class="img-fluid previsualizar" width="100">
-                                        <div class="input-group mt-1">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">
-                                                    <i class="fas fa-image"></i>
-                                                </span>
-                                            </div>
-                                            <input type="file" class="form-control" name="nuevaFoto" id="nuevaFoto">
-                                        </div>
-                                        <p>Peso máximo de la foto 2 MB</p>
                                     </div>
                                 </div>
 

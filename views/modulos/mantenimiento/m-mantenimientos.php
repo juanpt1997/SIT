@@ -84,7 +84,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                         ==================================================-->
                                         <div class="tab-pane fade active show" id="custom-tabs-one-ordenserv_mante" role="tabpanel" aria-labelledby="custom-tabs-one-ordenserv_mante-tab">
                                             <form id="ordenServ_form" method="post" enctype="multipart/form-data">
-                                                <input type="hidden" id="idorden" name="idorden" value="">
+
                                                 <div class="row">
                                                     <div class="col-lg-3 col-sm-6">
 
@@ -129,6 +129,21 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                             <!-- DATOS GENERALES -->
                                                             <div class="tab-pane fade show active " id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab">
                                                                 <div class="row">
+
+                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                        <div class="form-group text-center">
+                                                                            <label><i># Orden de servicio</i></label>
+                                                                            <input type="text" class="form-control" id="numOrden_ordSer" name="numOrden_ordSer" readonly>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                        <div class="form-group text-center">
+                                                                            <label><i># Factura</i></label>
+                                                                            <input type="text" class="form-control" id="numFactura_ordSer" name="numFactura_ordSer">
+                                                                        </div>
+                                                                    </div>
+
                                                                     <div class="col-12 col-sm-6 col-lg-4">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Placa</i></label>
@@ -140,6 +155,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                                             </select>
                                                                         </div>
                                                                     </div>
+
                                                                     <div class="col-12 col-sm-6 col-lg-4">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Número interno</i></label>
@@ -194,12 +210,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                                     </div>
 
 
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                                        <div class="form-group text-center">
-                                                                            <label><i># Orden de servicio</i></label>
-                                                                            <input type="text" class="form-control" id="numOrden_ordSer" name="numOrden_ordSer" readonly>
-                                                                        </div>
-                                                                    </div>
+
 
                                                                     <div class="col-12 col-sm-6 col-lg-4">
                                                                         <div class="form-group text-center">
@@ -207,6 +218,8 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                                             <input type="date" class="form-control" id="fechainicio_ordSer" name="fechaInic_ordSer">
                                                                         </div>
                                                                     </div>
+
+                                                                    <!-- <input type="hidden" id="fecha_aprobacion" name="fecha_aprobacion"> -->
 
                                                                     <div class="col-12 col-sm-6 col-lg-4">
                                                                         <div class="form-group text-center">
@@ -407,7 +420,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                                     <div class="card-body" style="display: none;">
                                                                         <div class="row d-flex justify-content-center">
                                                                             <div class="table-responsive" id="repuesto_solicitud">
-                                                                                <table class="table table-bordered table-striped text-center text-nowrap">
+                                                                                <table class="table table-bordered table-striped text-center text-nowrap" id="tabla_repuesto_orden">
                                                                                     <thead>
                                                                                         <tr>
                                                                                             <th style="min-width:300px;">REPUESTO</th>
@@ -415,13 +428,17 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                                                             <th>CÓDIGO</th>
                                                                                             <th>VALOR UNITARIO</th>
                                                                                             <th>CANTIDAD</th>
-                                                                                            <th style="min-width:300px;">DIAGNÓSTICO</th>
-                                                                                            <th style="min-width:300px;">TIPO DE SISTEMA</th>
-                                                                                            <th style="min-width:300px;">TIPO DE MANTENIMIENTO</th>
+                                                                                            <th style="min-width: 100px;">IVA %</th>
+                                                                                            <th style="min-width: 200px;">TOTAL</th>
+                                                                                            <th style="min-width: 200px;">PROVEEDOR</th>
+                                                                                            <th style="min-width: 300px;">DIAGNÓSTICO</th>
+                                                                                            <th style="min-width: 300px;">TIPO DE SISTEMA</th>
+                                                                                            <th style="min-width: 300px;">TIPO DE MANTENIMIENTO</th>
+                                                                                            <th style="min-width: 300px;">CÓDIGO CUENTA CONTABLE</th>
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody id="filas_tabla_repuestoSolicitud">
-                                                                                        <tr id="contenido_filas_repuestoSolicitud">
+                                                                                        <tr id="contenido_filas_repuestoSolicitud" consecutivo="1">
                                                                                             <td style="width: 900px;">
                                                                                                 <div class="input-group">
                                                                                                     <input class="form-control" type="text" id="repuesto_1" name="repuesto[]" placeholder="Seleccione un repuesto" maxlength="0">
@@ -433,8 +450,12 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                                                             <input type="hidden" id="inventario_1" name="inventario[]">
                                                                                             <td> <input type="text" class="form-control" id="refrepuestos_1" name="referencia_repuesto[]" readonly></td>
                                                                                             <td> <input type="text" class="form-control" id="codrepuestos_1" name="codigo_repuesto[]" readonly></td>
-                                                                                            <td> <input type="text" class="form-control" id="valorrepuestos_1" readonly></td>
-                                                                                            <td> <input type="text" class="form-control input-cantrepuesto" id="cantrepuestos_1" name="cantidad_repuesto[]"></td>
+                                                                                            <td> <input type="text" class="form-control input-valorrepuesto" id="valorrepuestos_1" consecutivo="1" name="valor_repuesto[]" readonly></td>
+                                                                                            <td> <input type="text" class="form-control input-cantrepuesto" consecutivo="1" id="cantrepuestos_1" name="cantidad_repuesto[]" readonly></td>
+                                                                                            <td> <input type="text" class="form-control input-ivarepuesto" id="iva_repuesto_1" consecutivo="1" name="iva_repuesto[]"></td>
+                                                                                            <td><input type="text" class="form-control" id="total_repuesto_1" name="total_repuesto[]" readonly></td>
+                                                                                            <input type="hidden" name="idproveedor_repuesto[]" id="idproveedor_repuesto_1">
+                                                                                            <td><input type="text" class="form-control" id="proveedor_repuesto_1" name="proveedor_repuesto[]" readonly></td>
                                                                                             <td>
                                                                                                 <input type="hidden" id="servicio_repuesto_1" name="servicio_repuesto[]">
                                                                                                 <div class="input-group">
@@ -460,37 +481,15 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </td>
-                                                                                            <!-- <td style="width: 900px">
-                                                                                                <select id="ServPre" class="select2-primary form-control select2-multiple input-sm" data-placeholder="Lista de mantenimientos preventivos" multiple="multiple" style="width: 99%" name="serviciosPrev[]">
-                                                                                                    <?php foreach ($Servicios as $key => $value) : ?>
-                                                                                                        <option value="<?= $value['idservicio'] ?>"><?= $value['servicio'] ?></option>
-                                                                                                    <?php endforeach ?>
-                                                                                                </select>
+                                                                                            <td>
+                                                                                                <input type="hidden" id="idcuenta_repuesto_1" name="idcuenta[]">
+                                                                                                <div class="input-group">
+                                                                                                    <input class="form-control" type="text" id="cuenta_repuesto_1" name="cuenta_repuesto[]" placeholder="Seleccione una cuenta" maxlength="0">
+                                                                                                    <div class="input-group-append">
+                                                                                                        <button type="button" class="btn btn-success btn-md btn-cuenta" seccion="repuesto" consecutivo="1" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
+                                                                                                    </div>
+                                                                                                </div>
                                                                                             </td>
-                                                                                            <td >
-                                                                                                <select name="sistema" id="sistema" class="form-control select2-single" type="number" style="width: 99%" required>
-                                                                                                    <option selected value="">Seleccione el sistema</option>
-                                                                                                    <option>Sistema motor</option>
-                                                                                                    <option>Sistema transmisión</option>
-                                                                                                    <option>Sistema de frenos y llantas</option>
-                                                                                                    <option>Sistema eléctrico</option>
-                                                                                                    <option>Sistema de suspensión</option>
-                                                                                                    <option>Sistema de dirección</option>
-                                                                                                    <option>Carrocería</option>
-                                                                                                    <option>Sistema diferencial</option>
-                                                                                                    <option>General vehículo</option>
-                                                                                                    <option">Logístico</option>
-                                                                                                        <option">Aire acondicionado</option>
-                                                                                                </select>
-                                                                                            </td>
-                                                                                            <td style="width: 300px"> <select id="tipo_mantenimiento" name="tipo_mantenimiento" class="form-control select2-single" type="number" style="width: 99%" required>
-                                                                                                    <option selected value="">Seleccione un tipo de mantenimiento</option>
-                                                                                                    <option>Preventivo</option>
-                                                                                                    <option>Correctivo</option>
-                                                                                                    <option>GPS</option>
-                                                                                                    <option>Servicios logísticos</option>
-                                                                                                </select>
-                                                                                            </td> -->
                                                                                         </tr>
                                                                                     </tbody>
                                                                                 </table>
@@ -533,16 +532,19 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                                                     <thead>
                                                                                         <tr>
                                                                                             <th style="min-width:300px;">PROVEEDOR</th>
-                                                                                            <th  style="min-width:300px;" >ITEM</th>
+                                                                                            <th style="min-width:300px;">ITEM</th>
                                                                                             <th>VALOR UNITARIO</th>
                                                                                             <th>CANTIDAD</th>
+                                                                                            <th style="min-width:100px">IVA %</th>
+                                                                                            <th style="min-width: 200px;">TOTAL</th>
                                                                                             <th style=" min-width:300px;">DIAGNÓSTICO</th>
                                                                                             <th style="min-width:300px;">TIPO DE SISTEMA</th>
                                                                                             <th style="min-width:300px;">TIPO DE MANTENIMIENTO</th>
+                                                                                            <th style="min-width:300px;">CÓDIGO CUENTA CONTABLE</th>
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody id="filas_tabla_manoObra">
-                                                                                        <tr id="Contenido_tabla_manoObra">
+                                                                                        <tr id="Contenido_tabla_manoObra" consecutivo="1">
                                                                                             <td style="width: 600px">
                                                                                                 <div class="input-group">
                                                                                                     <input class="form-control" type="text" id="proveedor_1" placeholder="Seleccione un proveedor" maxlength="0>
@@ -552,8 +554,10 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                                                             </td>
                                                                                             <input type="hidden" id="idproveedor_1" name="proveedor[]">
                                                                                             <td style="width: 300px"><input type="text" class="form-control" id="descrip_1" name="descrip_mano[]"></td>
-                                                                                            <td style="width: 300px"><input type="text" class="form-control" id="valor_1" name="valor_mano[]"></td>
-                                                                                            <td style="width: 300px"><input type="text" class="form-control" id="cantmanoObra_1" name="cantmanoObra[]"></td>
+                                                                                            <td style="width: 300px"><input type="text" class="form-control input-valorMano" consecutivo="1" id="valor_1" name="valor_mano[]"></td>
+                                                                                            <td style="width: 300px"><input type="text" class="form-control input-cantMano" id="cantmanoObra_1" name="cantmanoObra[]" consecutivo="1" readonly></td>
+                                                                                            <td><input type="text" class="form-control input-ivaMano" id="iva_mano_1" name="iva_mano[]" consecutivo="1"></td>
+                                                                                            <td><input type="text" class="form-control" id="total_mano_1" name="total_mano[]" readonly></td>
                                                                                             <td style="width: 300px">
                                                                                                 <input type="hidden" id="servicio_mano_1" name="servicio_mano[]">
                                                                                                 <div class="input-group">
@@ -576,6 +580,15 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                                                                     <input class="form-control" type="text" id="mantenimientoManoObra_1" name="mantenimientomanobra[]" placeholder="Seleccione un mantenimiento" maxlength="0">
                                                                                                     <div class="input-group-append">
                                                                                                         <button type="button" class="btn btn-success btn-md btn-mantenimiento" seccion="manoObra" consecutivo="1" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <input type="hidden" id="idcuenta_mano_1" name="idcuenta_mano[]">
+                                                                                                <div class="input-group">
+                                                                                                    <input class="form-control" type="text" id="cuenta_mano_1" name="cuenta_mano[]" placeholder="Seleccione una cuenta" maxlength="0">
+                                                                                                    <div class="input-group-append">
+                                                                                                        <button type="button" class="btn btn-success btn-md btn-cuenta" seccion="manoObra" consecutivo="1" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </td>
@@ -782,7 +795,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                                     <thead class="text-nowrap">
                                                                         <tr>
 
-
+                                                                            <th># Orden</th>
                                                                             <th>Vehículo</th>
                                                                             <th>Kilometraje</th>
                                                                             <th>Fecha de solicitud</th>
@@ -804,7 +817,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                                                                     <tbody class="text-nowrap">
                                                                         <tr>
-
+                                                                            <td>1</td>
                                                                             <td>INI109</td>
                                                                             <td>65.432</td>
                                                                             <td>03/12/2021</td>
@@ -823,7 +836,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                                             <td>Test</td>
                                                                         </tr>
                                                                         <tr>
-
+                                                                            <td>2</td>
                                                                             <td>INI109</td>
                                                                             <td>65.432</td>
                                                                             <td>03/12/2021</td>
@@ -992,8 +1005,9 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                 <div class="card-body">
                     <div class="col-12">
                         <div class="table-responsive">
-                            <table id="tablaRepuesto" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                            <table id="tablaRepuesto" class="table-sm table-striped table-bordered  text-center table-hover  w-100">
                                 <thead class="text-nowrap">
+                                    <th>Selección</th>
                                     <th>Código</th>
                                     <th>Referencia</th>
                                     <th>Stock</th>
@@ -1004,7 +1018,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <th>Marca</th>
                                     <th>Medida</th>
                                     <th>Valor (Unitario)</th>
-                                    <th>Selección</th>
+                                    <th>Proveedor</th>
                                 </thead>
                                 <tbody id="tBodyRepuesto" class="text-nowrap">
 
@@ -1087,18 +1101,19 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         <div class="table-responsive">
                             <table class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
                                 <thead class="text-nowrap">
+                                    <th># Orden de servicio</th>
                                     <th>Placa</th>
                                     <th>Número interno</th>
-                                    <th>Repuestos</th>
-                                    <th>Servicios externos</th>
+                                    <th>Marca</th>
+                                    <th>Clase de vehículo</th>
+                                    <th>Modelo</th>
+                                    <th>Kilometraje</th>
                                     <th>Fecha entrada</th>
-                                    <th>Fecha de la solicitud</th>
+
 
                                 </thead>
                                 <tbody id="tbodyResumen" class="text-nowrap">
-                                    <tr>
 
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -1118,6 +1133,10 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                             </div>
                         </div>
+                    </div>
+                    <div class="card-footer d-flex ">
+                        <button type="button" class="btn btn-success ml-auto">Exportar <i class="far fa-file-pdf"></i></button>
+                        <button type="button" class="btn btn-danger ml-2" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
@@ -1378,6 +1397,36 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
             </div> -->
 
+        </div>
+    </div>
+</div>
+
+
+<!-- MODAL CUENTAS CONTABLES  -->
+
+<div id="modal-cuentas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title" id="my-modal-title">CUENTAS CONTABLES</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                        <thead>
+                            <th>CÓDIGO CUENTA CONTABLE</th>
+                            <th>NOMBRE CUENTA CONTABLE</th>
+                            <th>SELECCIÓN</th>
+                        </thead>
+                        <tbody id="tbodycuentas">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </div>

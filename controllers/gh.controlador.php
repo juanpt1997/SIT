@@ -32,8 +32,7 @@ class ControladorGH
     static public function ctrDeparMunicipios()
     {
         $respuesta = ModeloGH::mdlDeparMunicipios();
-         return $respuesta;
-
+        return $respuesta;
     }
 
     /* ===================================================
@@ -84,7 +83,7 @@ class ControladorGH
     /* ===================================================
        GUARDAR PERSONAL
     ===================================================*/
-    static public function ctrGuardarPersonal($datos, $foto)
+    static public function ctrGuardarPersonal($datos, $foto, $documento)
     {
         $datosBusqueda = array(
             'item' => 'Documento',
@@ -114,9 +113,15 @@ class ControladorGH
             }
         }
 
-        # FOTO
+        # FOTO Y DOCUMENTO
         if ($retorno != "existe" && $retorno != "error") {
             $idPersonal = $retorno;
+
+            /* ===================================================
+                ==============================================
+               ? FOTO
+               ==============================================
+            ===================================================*/
             /* ===================== 
 				CREAMOS DIRECTORIO DONDE VAMOS A GUARDAR LA FOTO DEL EMPLEADO 
 			========================= */
@@ -143,6 +148,51 @@ class ControladorGH
                 $datosRutaImg = array(
                     'tabla' => 'gh_personal',
                     'item1' => 'foto',
+                    'valor1' => $rutaImg,
+                    'item2' => 'idPersonal',
+                    'valor2' => $idPersonal
+                );
+                $actualizarRutaImg = ModeloGH::mdlActualizarEmpleado($datosRutaImg);
+            }
+
+            /* ===================================================
+                ==============================================
+               ? DOCUMENTOS
+               ==============================================
+            ===================================================*/
+            /* ===================================================
+               CREAMOS DIRECTORIO DONDE VAMOS A GUARDAR EL DOCUMENTO
+            ===================================================*/
+            $directorioRaiz = DIR_APP . "views/docs/personal/documentos";
+            //mkdir($directorio, 0755);
+            if (!is_dir($directorioRaiz)) {
+                mkdir($directorioRaiz, 0755);
+            }
+
+            $directorio = DIR_APP . "views/docs/personal/documentos/" . strval($idPersonal);
+            //mkdir($directorio, 0755);
+            if (!is_dir($directorio)) {
+                mkdir($directorio, 0755);
+            }
+
+            /* ===================================================
+                       GUARDAR LA DOCUMENTO EN EL SERVIDOR
+                    ===================================================*/
+            $GuardarDocumento = new FilesController();
+            $GuardarDocumento->file = $documento;
+            $aleatorio = mt_rand(100, 999);
+            $GuardarDocumento->ruta = $directorio . "/" . $aleatorio;
+            $ruta = $GuardarDocumento->ctrImages(500, 500);
+
+            /* ===================================================
+					ACTUALIZAR RUTA DOCUMENTO EN LA BD
+				===================================================*/
+            if ($ruta != "") {
+                $rutaImg = str_replace(DIR_APP, "", $ruta);
+
+                $datosRutaImg = array(
+                    'tabla' => 'gh_personal',
+                    'item1' => 'documento_escaneado',
                     'valor1' => $rutaImg,
                     'item2' => 'idPersonal',
                     'valor2' => $idPersonal
@@ -452,10 +502,10 @@ class ControladorAusentismo
     static public function ctrGuardarAusentismo()
     {
         if (isset($_POST['idAusentismo'])) {
-            if ($_POST['idAusentismo'] == ""){
+            if ($_POST['idAusentismo'] == "") {
                 //INSERT TABLA
                 $AddEditAusentismo = ModeloAusentismo::mdlAgregarAusentismo($_POST);
-            }else{
+            } else {
                 //UPDATE TABLA
                 $AddEditAusentismo = ModeloAusentismo::mdlEditarAusentismo($_POST);
             }

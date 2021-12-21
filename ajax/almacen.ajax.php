@@ -284,6 +284,9 @@ class AjaxAlmacen
 
     static public function ajaxEditarMovimiento($frmData)
     {
+        $frmData['preciocompra'] = $frmData['preciocompra'] != "" ? $frmData['preciocompra'] : null;
+        $frmData['proveedorMovimiento'] = $frmData['proveedorMovimiento'] != "" ? $frmData['proveedorMovimiento'] : null;
+        $frmData['facturacompra'] = $frmData['facturacompra'] != "" ? $frmData['facturacompra'] : null;
         $respuesta = ModeloProductos::mdlEditarMovimiento($frmData);
         echo $respuesta;
     }

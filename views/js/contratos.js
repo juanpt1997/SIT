@@ -140,7 +140,7 @@ if (
         ===================================================*/
             let today = new Date();
             let dateIMin = today.getFullYear() - 1 + "-" + "01" + "-" + "01";
-            let dateIMax = today.getFullYear() + "-" + "12" + "-" + "31";
+            let dateIMax = today.getFullYear() + 1 + "-" + "12" + "-" + "31";
             let dateFMin = today.getFullYear() + "-" + "01" + "-" + "01";
             let dateFMax = today.getFullYear() + 1 + "-" + "12" + "-" + "31";
             $("#f_inicio").attr("min", dateIMin);
@@ -352,7 +352,7 @@ if (
             // Borrar datos
             $("#tbody_principal").html("");
 
-            $(".btnBorrar").addClass('d-none');
+            $(".btnBorrar").addClass("d-none");
 
             var datos = new FormData();
             datos.append("ListarRutas", "ok");
@@ -384,9 +384,8 @@ if (
         });
 
         $(document).on("click", ".btnSeleccionarRuta", function () {
-
-            $("#cotizacionmodal").modal('show');
-            $("#modal_general").modal('hide');
+            $("#cotizacionmodal").modal("show");
+            $("#modal_general").modal("hide");
 
             var origen = $(this).attr("origen");
             var destino = $(this).attr("destino");
@@ -408,9 +407,9 @@ if (
         //     $("#origin").val("");
         //     $("#destin").val("");
         // });
-        $("#modal_general").on('hidden.bs.modal', function () {
-            $("#cotizacionmodal").modal('show');
-            $("#modal_general").modal('hide');
+        $("#modal_general").on("hidden.bs.modal", function () {
+            $("#cotizacionmodal").modal("show");
+            $("#modal_general").modal("hide");
 
             // $("#idruta").val("");
             // $("#observacionescontr").val("");
@@ -430,7 +429,7 @@ if (
                         icon: "warning",
                         title: "¡Debe seleccionar una ruta antes de guardar!",
                         showConfirmButton: false,
-                        timer: 1500
+                        timer: 1500,
                     });
                     guardoCotizacion = false;
                 } else {
@@ -476,10 +475,10 @@ if (
 
                     $("#titulo_fijos").html(
                         "Editar (Contrato # " +
-                        response.numcontrato +
-                        " - " +
-                        response.nombre_cliente +
-                        ")"
+                            response.numcontrato +
+                            " - " +
+                            response.nombre_cliente +
+                            ")"
                     );
                     $("#nom_clien").val(response.idcliente);
                     //$("#num_contrato").val(response.numcontrato);
@@ -548,7 +547,7 @@ if (
             // Borrar datos
             $("#tbody_principal").html("");
 
-            $(".btnBorrar").addClass('d-none');
+            $(".btnBorrar").addClass("d-none");
 
             var datos = new FormData();
             datos.append("ListarRutas", "ok");
@@ -583,9 +582,8 @@ if (
           Seleccionar ruta
         ===================================================*/
         $(document).on("click", ".btnSeleccionarRuta", function () {
-
             //     $("#modalRutasCliente").modal('show');
-            $("#modal_general").modal('hide');
+            $("#modal_general").modal("hide");
 
             var origen = $(this).attr("origen");
             var destino = $(this).attr("destino");
@@ -601,8 +599,8 @@ if (
         /* ===================================================
             Cuando se esconde el modal volver a abrir el anterior      
         ===================================================*/
-        $("#modal_general").on('hidden.bs.modal', function () {
-            $("#modalRutasCliente").modal('show');
+        $("#modal_general").on("hidden.bs.modal", function () {
+            $("#modalRutasCliente").modal("show");
             //$("#modal_general").modal('hide');
 
             // $("#idruta").val("");
@@ -631,12 +629,12 @@ if (
                     icon: "warning",
                     title: "¡Debe seleccionar una ruta antes de guardar!",
                     showConfirmButton: false,
-                    timer: 1500
+                    timer: 1500,
                 });
             } else {
                 /* Guardar */
                 $.ajax({
-                    type: 'post',
+                    type: "post",
                     url: "ajax/contratos.ajax.php",
                     data: datosAjax,
                     /* dataType: "json", */
@@ -681,14 +679,16 @@ if (
                                     title: "¡Datos guardados correctamente!",
                                     showConfirmButton: false,
                                     timer: 2000,
-                                    timerProgressBar: true
+                                    timerProgressBar: true,
                                 });
 
                                 // Tabla dinámica de rutas
-                                AjaxTablaRutasxCliente($("#idclienteRutas").val());
+                                AjaxTablaRutasxCliente(
+                                    $("#idclienteRutas").val()
+                                );
                                 break;
                         }
-                    }
+                    },
                 });
             }
         });
@@ -705,13 +705,13 @@ if (
             var idrutacliente = $(this).attr("idregistro");
 
             var datos = new FormData();
-            datos.append('DatosRutaCliente', "ok");
-            datos.append('idrutacliente', idrutacliente);
+            datos.append("DatosRutaCliente", "ok");
+            datos.append("idrutacliente", idrutacliente);
             $.ajax({
-                type: 'post',
+                type: "post",
                 url: "ajax/contratos.ajax.php",
                 data: datos,
-                dataType: 'json',
+                dataType: "json",
                 cache: false,
                 contentType: false,
                 processData: false,
@@ -723,7 +723,7 @@ if (
                             showConfirmButton: false,
                             timer: 1200,
                             timerProgressBar: true,
-                            allowOutsideClick: false
+                            allowOutsideClick: false,
                         }).then((result) => {
                             /* Read more about handling dismissals below */
                             if (result.dismiss === Swal.DismissReason.timer) {
@@ -743,7 +743,7 @@ if (
                         $("#tipoVehiculo").val(response.idtipovehiculo);
                         $("#valor_recorrido").val(response.valor_recorrido);
                     }
-                }
+                },
             });
         });
 
@@ -761,14 +761,14 @@ if (
                 cancelButtonText: "Cancelar",
                 confirmButtonText: "Borrar!",
                 cancelButtonColor: "#5cb85c",
-                confirmButtonColor: "#d9534f"
+                confirmButtonColor: "#d9534f",
             }).then((result) => {
                 if (result.value) {
                     var datos = new FormData();
-                    datos.append('EliminarRutaCliente', "ok");
-                    datos.append('idrutacliente', idrutacliente);
+                    datos.append("EliminarRutaCliente", "ok");
+                    datos.append("idrutacliente", idrutacliente);
                     $.ajax({
-                        type: 'post',
+                        type: "post",
                         url: "ajax/contratos.ajax.php",
                         data: datos,
                         cache: false,
@@ -782,17 +782,21 @@ if (
                                     showConfirmButton: false,
                                     timer: 1500,
                                     timerProgressBar: true,
-                                    allowOutsideClick: false
+                                    allowOutsideClick: false,
                                 }).then((result) => {
                                     /* Read more about handling dismissals below */
-                                    if (result.dismiss === Swal.DismissReason.timer) {
+                                    if (
+                                        result.dismiss ===
+                                        Swal.DismissReason.timer
+                                    ) {
                                         // Tabla dinámica de rutas
-                                        AjaxTablaRutasxCliente($("#idclienteRutas").val());
+                                        AjaxTablaRutasxCliente(
+                                            $("#idclienteRutas").val()
+                                        );
                                     }
                                 });
-
                             }
-                        }
+                        },
                     });
                 }
             });
@@ -811,8 +815,8 @@ if (
             $("#tbodyRutasxCliente").html("");
 
             let datos = new FormData();
-            datos.append('TablaRutasxCliente', 'ok');
-            datos.append('idcliente', idcliente);
+            datos.append("TablaRutasxCliente", "ok");
+            datos.append("idcliente", idcliente);
             $.ajax({
                 type: "POST",
                 url: `${urlPagina}ajax/contratos.ajax.php`,
@@ -822,24 +826,57 @@ if (
                 processData: false,
                 // dataType: "json",
                 success: function (response) {
-                    if (response != '' || response != null) {
+                    if (response != "" || response != null) {
                         $("#tbodyRutasxCliente").html(response);
                     } else {
-                        $("#tbodyRutasxCliente").html('');
+                        $("#tbodyRutasxCliente").html("");
                     }
 
                     /* ===================================================
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
                     var buttons = [
-                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
                     ];
                     var table = dataTableCustom(`#tblRutasxCliente`, buttons);
-
-                }
+                },
             });
-        }
+        };
 
+        /*==============================
+            CARGAR DATOS DEL VEHÍCULO
+        ================================*/
+
+        $(document).on("change", "#placa_contrutas", function () {
+
+            let idvehiculo = $(this).val();
+
+            var datos = new FormData();
+            datos.append("DatosVehiculo", "ok");
+            datos.append("idvehiculo", idvehiculo);
+
+            $.ajax({
+                type: "POST",
+                url: "ajax/mantenimiento.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    $("#num_internocontrutas").val(response.numinterno);
+                    $("#marca_contrutas").val(response.marca);
+                    $("#clase_contrutas").val(response.tipovehiculo);
+                    $("#modelo_contrutas").val(response.modelo);
+                    $("#kilometraje_contrutas").val(response.kilometraje);
+                   console.log(response);
+                },
+            });
+        });
     });
 }
 /* ===================================================
@@ -891,7 +928,6 @@ if (
             var table = dataTableCustom(`#tblOrdenServicio`, buttons);
         };
         TablaOrdenServicio();
-
 
         //SELECCIONAR UNA COTIZACION PARA TRAER LOS DATOS DE ESA COTIZACION Y DEL CLIENTE
         $(document).on("change", "#listacotizaciones", function () {
@@ -957,10 +993,10 @@ if (
                 success: function (response) {
                     $("#titulo_orden").html(
                         "Editar órden (# " +
-                        response.nro_contrato +
-                        " - " +
-                        response.nombre_con +
-                        ")"
+                            response.nro_contrato +
+                            " - " +
+                            response.nombre_con +
+                            ")"
                     );
                     $("#listacotizaciones").val(response.idcotizacion);
                     $("#numcontrato").val(response.nro_contrato);
@@ -999,6 +1035,5 @@ if (
                 "width=1280,height=720,left=50,top=50,toolbar=yes"
             );
         });
-
     });
 }
