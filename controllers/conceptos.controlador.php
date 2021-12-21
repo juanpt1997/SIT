@@ -8,13 +8,13 @@ class ControladorEmpresa
 	#Ver datos de una empresa
 	static public function ctrListaEmpresa()
 	{
-		$respuesta = ModeloConceptosGH::mdlListaEmpresa();
+		$respuesta = ModeloEmpresaRaiz::mdlListaEmpresa();
 		return $respuesta;
 	}
 	#Agregar/ Editar una empresa (la opcion de agregar se encuentra inhabilitada)
 	static public function ctrAgregarEditarEmpresa($POST, $imagen)
 	{
-		$empresa = ModeloConceptosGH::mdlVerEmpresa();
+		$empresa = ModeloEmpresaRaiz::mdlVerEmpresa();
 		$response = "";
 		# Verificar Directorio imagenes de firma en empresa
         $directorio = DIR_APP . "views/img/plantilla/fuec/fotosFirmaEmpresa";
@@ -57,10 +57,10 @@ class ControladorEmpresa
 
 			if ($POST['id_empresa'] == '') {
 
-				$responseModel = ModeloConceptosGH::mdlAgregarEmpresa($datos);
+				$responseModel = ModeloEmpresaRaiz::mdlAgregarEmpresa($datos);
 			} else {
 
-				$responseModel = ModeloConceptosGH::mdlEditarEmpresa($datos);
+				$responseModel = ModeloEmpresaRaiz::mdlEditarEmpresa($datos);
 			}
 			return $responseModel;
 		}
@@ -76,7 +76,7 @@ class ControladorCiudades
 	static public function ctrVerCiudad($id)
 	{
 		$datoId = array('id' => $id);
-		$respuesta = ModeloConceptosGH::mdlVerciudad($datoId);
+		$respuesta = ModeloCiudades::mdlVerciudad($datoId);
 		return $respuesta;
 	}
 	#Ver todos los registros de los departamentos
@@ -91,7 +91,7 @@ class ControladorCiudades
 			"id" => $id
 		);
 
-		$respuesta = ModeloConceptosGH::mdlVer($datos);
+		$respuesta = ModeloConceptosGenerales::mdlVer($datos);
 		return $respuesta;
 	}
 
@@ -104,7 +104,7 @@ class ControladorRutas
 {
 	static public function ctrListarRutas()
 	{
-		$respuesta = ModeloConceptosGH::mdlListarRutas();
+		$respuesta = ModeloRutas::mdlListarRutas();
 		return $respuesta;
 	}
 }
@@ -135,7 +135,7 @@ class ControladorAlmacen
 			'id' => 'idmedidas'
 		);
 
-		$respuesta = ModeloConceptosGH::mdlVer($datos);
+		$respuesta = ModeloConceptosGenerales::mdlVer($datos);
 		return $respuesta;
 	}
 
@@ -147,7 +147,7 @@ class ControladorAlmacen
 			'id' => 'idmarca'
 		);
 
-		$respuesta = ModeloConceptosGH::mdlVer($datos);
+		$respuesta = ModeloConceptosGenerales::mdlVer($datos);
 		return $respuesta;
 	}
 
@@ -159,7 +159,7 @@ class ControladorAlmacen
 			'id' => 'idcategorias'
 		);
 
-		$respuesta = ModeloConceptosGH::mdlVer($datos);
+		$respuesta = ModeloConceptosGenerales::mdlVer($datos);
 		return $respuesta;
 	}
 }

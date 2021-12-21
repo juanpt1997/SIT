@@ -350,7 +350,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                         <i class="fas fa-address-card"></i>
                                     </span>
                                 </div>
-                                <input class="form-control" type="number" id="input_dias" name="input_dias" required>
+                                <input class="form-control" type="text" id="input_dias" name="input_dias" required>
                             </div>
                         </div>
                     </div>

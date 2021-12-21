@@ -19,10 +19,10 @@ if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok") {
 /*=============================================================
 =====================AJAX CONCEPTOS GENERALES==================
 ============================================================?*/
-class AjaxConceptosGH
+class AjaxConceptosGenerales
 {
-	//Ajax para agregar un nuevo concepto general (no incluye EMPRESA, RUTAS, Documento vehicular, Categorias de licencias, Tipos de identificación)
-	static public function ajaxNuevoConcepto($concepto, $dato)
+	//Ajax NUEVO registro 1 campo general
+	static public function ajaxNuevo($concepto, $dato)
 	{
 
 		switch ($concepto) {
@@ -101,7 +101,7 @@ class AjaxConceptosGH
 				$tabla = "a_medidas";
 				$item = "medida";
 				break;
-					
+
 			case 'Marcas productos':
 				$tabla = "a_marcas";
 				$item = "marca";
@@ -111,7 +111,7 @@ class AjaxConceptosGH
 				$tabla = "a_categorias";
 				$item = "categoria";
 				break;
-			
+
 			case 'Tipo de proveedor':
 				$tabla = "c_tipo_proveedor";
 				$item = "tipo";
@@ -120,7 +120,7 @@ class AjaxConceptosGH
 			case 'Servicios externos':
 				$tabla = "m_serviciosexternos";
 				$item = "nombre";
-				break;	
+				break;
 
 			default:
 				// code...
@@ -132,7 +132,7 @@ class AjaxConceptosGH
 			"valor" => $dato
 		);
 
-		$respuesta = ModeloConceptosGH::mdlNuevo($datos);
+		$respuesta = ModeloConceptosGenerales::mdlNuevo($datos);
 
 		echo $respuesta;
 
@@ -141,19 +141,19 @@ class AjaxConceptosGH
 
 		// if($validar === false){
 
-		// 	$respuesta = ModeloConceptosGH::mdlNuevo($datos);
+		// 	$respuesta = ModeloConceptosGenerales::mdlNuevo($datos);
 		// 	echo $respuesta;
 
 		// }else if($validar == 'true'){
 
 		// 	$respuesta = 'existe';
 		// 	echo $respuesta;
-			
+
 		// }
-		
+
 	}
-	//AJAX para listar todos los registros de un concepto
-	static public function ajaxVerConcepto($concepto)
+	//AJAX LISTAR todos los registros de 1 campo
+	static public function ajaxVerTodos($concepto)
 	{
 		switch ($concepto) {
 
@@ -250,7 +250,7 @@ class AjaxConceptosGH
 				$item = "medida";
 				$id = "idmedidas";
 				break;
-					
+
 			case 'Marcas productos':
 				$tabla = "a_marcas";
 				$item = "marca";
@@ -262,18 +262,18 @@ class AjaxConceptosGH
 				$item = "categoria";
 				$id = "idcategorias";
 				break;
-				
+
 			case 'Tipo de proveedor':
 				$tabla = "c_tipo_proveedor";
 				$item = "tipo";
 				$id = "id";
 				break;
-					
+
 			case 'Servicios externos':
 				$tabla = "m_serviciosexternos";
 				$item = "nombre";
 				$id = "idservicio_externo";
-				break;	
+				break;
 
 			default:
 				// code...
@@ -286,7 +286,7 @@ class AjaxConceptosGH
 			"id" => $id
 		);
 
-		$respuesta = ModeloConceptosGH::mdlVer($datos);
+		$respuesta = ModeloConceptosGenerales::mdlVer($datos);
 		$tr = "";
 
 		foreach ($respuesta as $key => $value) {
@@ -309,7 +309,7 @@ class AjaxConceptosGH
 		echo $tr;
 	}
 	//Ajax editar datos de un concepto segun su id
-	static public function ajaxEditarConcepto($concepto, $id, $dato)
+	static public function ajaxEditar($concepto, $id, $dato)
 	{
 		switch ($concepto) {
 
@@ -403,7 +403,7 @@ class AjaxConceptosGH
 				$item = "medida";
 				$idtabla = "idmedidas";
 				break;
-					
+
 			case 'Marcas productos':
 				$tabla = "a_marcas";
 				$item = "marca";
@@ -414,7 +414,7 @@ class AjaxConceptosGH
 				$tabla = "a_categorias";
 				$item = "categoria";
 				$idtabla = "idcategorias";
-				break;	
+				break;
 
 			case 'Tipo de proveedor':
 				$tabla = "c_tipo_proveedor";
@@ -426,8 +426,8 @@ class AjaxConceptosGH
 				$tabla = "m_serviciosexternos";
 				$item = "nombre";
 				$idtabla = "idservicio_externo";
-				break;	
-				
+				break;
+
 			default:
 				// code...
 				break;
@@ -439,12 +439,12 @@ class AjaxConceptosGH
 			"id" => $id,
 			"valor" => $dato
 		);
-		$respuesta = ModeloConceptosGH::mdlEditar($datos);
+		$respuesta = ModeloConceptosGenerales::mdlEditar($datos);
 
 		echo $respuesta;
 	}
 	//Ajax para visualizar datos de un concepto por su ID
-	static public function ajaxVerUnConcepto($concepto, $id)
+	static public function ajaxVerRegistro($concepto, $id)
 	{
 		switch ($concepto) {
 
@@ -523,7 +523,7 @@ class AjaxConceptosGH
 				$tabla = "a_medidas";
 				$item = "medida";
 				break;
-					
+
 			case 'Marcas productos':
 				$tabla = "a_marcas";
 				$item = "marca";
@@ -532,17 +532,17 @@ class AjaxConceptosGH
 			case 'Categorias':
 				$tabla = "a_categorias";
 				$item = "categoria";
-				break;		
+				break;
 
 			case 'Tipo de proveedor':
 				$tabla = "c_tipo_proveedor";
 				$item = "tipo";
 				break;
-				
+
 			case 'Servicios externos':
 				$tabla = "m_serviciosexternos";
 				$item = "nombre";
-				break;		
+				break;
 
 			default:
 				// code...
@@ -553,7 +553,7 @@ class AjaxConceptosGH
 			"item" => $item,
 			"id" => $id
 		);
-		$respuesta = ModeloConceptosGH::mdlVerUnConcepto($datos);
+		$respuesta = ModeloConceptosGenerales::mdlVerUnConcepto($datos);
 	}
 	//Ajax para el contador de registros de las maestras
 	static public function ajaxContarRegistro($concepto)
@@ -659,12 +659,12 @@ class AjaxConceptosGH
 				$tabla = "m_serviciosmenores";
 				$item = "servicio";
 				break;
-			
+
 			case 'Medidas':
 				$tabla = "a_medidas";
 				$item = "medida";
 				break;
-					
+
 			case 'Marcas productos':
 				$tabla = "a_marcas";
 				$item = "marca";
@@ -673,7 +673,7 @@ class AjaxConceptosGH
 			case 'Categorias':
 				$tabla = "a_categorias";
 				$item = "categoria";
-				break;	
+				break;
 
 			case 'Tipo de proveedor':
 				$tabla = "c_tipo_proveedor";
@@ -683,8 +683,12 @@ class AjaxConceptosGH
 			case 'Servicios externos':
 				$tabla = "m_serviciosexternos";
 				$item = "nombre";
-				break;	
-				
+				break;
+			case 'Cuentas contables':
+				$tabla = "li_cuentas_contables";
+				$item = "num_cuenta";
+				break;
+
 			default:
 				// code...
 				break;
@@ -694,18 +698,18 @@ class AjaxConceptosGH
 			"item" => $item
 		);
 
-		$respuesta = ModeloConceptosGH::mdlContarRegistros($datos);
+		$respuesta = ModeloConceptosGenerales::mdlContarRegistros($datos);
 
 		echo json_encode($respuesta);
 	}
 	//Agregar nuevo Documento vehicular, Categorias de licencias, Tipos de identificación
-	static public function ajaxNuevoVehicular($concepto, $dato1, $dato2)
+	static public function ajaxNuevoDos($concepto, $dato1, $dato2)
 	{
 		switch ($concepto) {
 			case 'Documento vehicular':
 				$tabla = "v_tipodocumento";
 				$item1 = "tipodocumento";
-				$item2 = "dia salerta";
+				$item2 = "diasalerta";
 				break;
 
 			case 'Categorias de licencias':
@@ -738,12 +742,12 @@ class AjaxConceptosGH
 			"valor2" => $dato2
 		);
 
-		$respuesta = ModeloConceptosGH::mdlAgregarVehicular($datos);
+		$respuesta = ModeloConceptosGenerales::mdlNuevoDosCampos($datos);
 
 		echo $respuesta;
 	}
 	//Ajax Editar datos de Documento vehicular, Categorias de licencias, Tipos de identificación
-	static public function ajaxEditarVehicular($concepto, $id, $dato1, $dato2)
+	static public function ajaxEditarDos($concepto, $id, $dato1, $dato2)
 	{
 		switch ($concepto) {
 			case 'Documento vehicular':
@@ -772,7 +776,7 @@ class AjaxConceptosGH
 				$item1 = "num_cuenta";
 				$item2 = "nombre_cuenta";
 				$idtabla = "id";
-				break;	
+				break;
 
 			default:
 				# code...
@@ -788,12 +792,12 @@ class AjaxConceptosGH
 			"id" => $id
 		);
 
-		$respuesta = ModeloConceptosGH::mdlEditarVehicular($datos);
+		$respuesta = ModeloConceptosGenerales::mdlEditarDosCampos($datos);
 
 		echo $respuesta;
 	}
 	//Ajax Visualizar datos de un registro de Documento vehicular, Categorias de licencias, Tipos de identificación
-	static public function ajaxVerUno($concepto, $id)
+	static public function ajaxVerRegistroDos($concepto, $id)
 	{
 		switch ($concepto) {
 
@@ -832,10 +836,10 @@ class AjaxConceptosGH
 			"id" => $id
 		);
 
-		$respuesta = ModeloConceptosGH::mdlListarUnConcepto($datos);
+		$respuesta = ModeloConceptosGenerales::mdlListarRegistroDosCampos($datos);
 	}
 	//Ajax Listar todos los registros de Documento vehicular, Categorias de licencias, Tipos de identificación
-	static public function ajaxListar($concepto)
+	static public function ajaxVerTodosDos($concepto)
 	{
 		switch ($concepto) {
 
@@ -878,7 +882,7 @@ class AjaxConceptosGH
 			"id" => $id
 		);
 
-		$respuesta = ModeloConceptosGH::mdlListarVehicular($datos);
+		$respuesta = ModeloConceptosGenerales::mdlListarDosCampos($datos);
 		$tr = "";
 
 		foreach ($respuesta as $key => $value) {
@@ -900,139 +904,6 @@ class AjaxConceptosGH
 		}
 
 		echo $tr;
-	}
-	//Ajax Agregar una nueva ruta
-	static public function AgregarRuta($dato1, $dato2, $dato3)
-	{
-		$datos = array(
-			"ruta" => $dato1,
-			"origen" => $dato2,
-			"destino" => $dato3
-		);
-
-		$respuesta = ModeloConceptosGH::mdlAgregarRuta($datos);
-		echo $respuesta;
-	}
-	//Ajax Editar datos de una ruta segun su id
-	static public function EditarRuta( $dato3, $id)
-	{
-		$datos = array(
-			"ruta" => $dato3,
-			"idruta" => $id
-		);
-
-		$respuesta = ModeloConceptosGH::mdlEditarRuta($datos);
-		echo $respuesta;
-	}
-	//Ajax Visualizar todas las rutas en la tabla
-	static public function VerRutas()
-	{
-
-		$respuesta = ControladorRutas::ctrListarRutas();
-		$tr = "";
-
-		foreach ($respuesta as $key => $value) {
-			$tr .= "
-			<tr>
-			<td>{$value["id"]}</td>
-			<td>{$value["orig"]}</td>
-			<td>{$value["dest"]}</td>
-			<td>{$value["nombreruta"]}</td>
-			<td> 
-			<div class='btn-group' role='group' aria-label='Button group'>
-			<button idregistro = '{$value["id"]}' dato1='{$value["orig"]}' dato2='{$value["dest"]}' dato3='{$value["nombreruta"]}' class='btn btn-sm btn-warning btnEditarRuta '><i class='fas fa-edit'></i></button>
-			</div>
-			<div class='btn-group' role='group' aria-label='Button group'>
-			<button idregistro = '{$value["id"]}' valor-cambio = '0' concepto = 'Rutas y recorridos' class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button>
-			</div>
-			</td>
-			</tr>
-			";
-		}
-
-		echo $tr;
-	}
-
-	//Ajax para visualizar y seleccionar las rutas en otra vista diferente a conceptos generales
-	 static public function ajaxTablaRutasGeneral()
-	 {
- 
-		 $respuesta = ControladorRutas::ctrListarRutas();
-		 $tr = "";
- 
-		 foreach ($respuesta as $key => $value) {
-			 $tr .= "
-			 <tr>
-			 <td>{$value["id"]}</td>
-			 <td>{$value["orig"]}</td>
-			 <td>{$value["dest"]}</td>
-			 <td>{$value["nombreruta"]}</td>
-			 <td> 
-			 <div class='btn-group' role='group' aria-label='Button group'>
-			 <button data-toggle='tooltip' data-placement='top' title='Seleccionar ruta' idregistro = '{$value["id"]}' origen='{$value["orig"]}' destino='{$value["dest"]}' descripcion='{$value["nombreruta"]}' class='btn btn-sm btn-success btnSeleccionarRuta '><i class='fas fa-check'></i></button>
-			 </div>
-			 </td>
-			 </tr>
-			 ";
-		 }
- 
-		 echo $tr;
-	 }
-	 
-	//CIUDADES
-	//Ajax apra agregar una nueva ciudad
-	static public function AgregarCiudad($dato1, $dato2)
-	{
-		$datos = array(
-			"iddepartamento" => $dato1,
-			"municipio" => $dato2
-		);
-
-		$respuesta = ModeloConceptosGH::mdlAgregarCiudad($datos);
-		echo $respuesta;
-	}
-	//Ajax para editar los datos de una ciudad segun su ID
-	static public function EditarCiudad($dato1, $dato2, $id)
-	{
-		$datos = array(
-			"iddepartamento" => $dato1,
-			"municipio" => $dato2,
-			"idmunicipio" => $id
-		);
-
-		$respuesta = ModeloConceptosGH::mdlEditarCiudad($datos);
-		echo $respuesta;
-	}
-	//Ajax para listar todas las ciudadas
-	static public function VerCiudades()
-	{
-		$respuesta = ModeloConceptosGH::mdlDeparMunicipios();
-		$tr = "";
-
-		foreach ($respuesta as $key => $value) {
-			$tr .= "
-			<tr>
-			<td>{$value["idmunicipio"]}</td>
-			<td>{$value["departamento"]}</td>
-			<td>{$value["municipio"]}</td>
-			<td> 
-			<div class='btn-group' role='group' aria-label='Button group'>
-			<button idregistro = '{$value["idmunicipio"]}' dato1='{$value["departamento"]}' dato2='{$value["municipio"]}' class='btn btn-sm btn-warning btnEditarCiudad' data-toggle='modal' data-target='#EditarCiudad'><i class='fas fa-edit'></i></button>
-			</div>
-			<div class='btn-group' role='group' aria-label='Button group'>
-			<button idregistro = '{$value["idmunicipio"]}' valor-cambio = '0' concepto = 'Ciudades' class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button>
-			</div>
-			</td>
-			</tr>
-			";
-		}
-		echo $tr;
-	}
-	//Ajax para visualizar los datos de una ciudad segun su ID
-	static public function DatosCiudad($id)
-	{
-		$respuesta = ControladorCiudades::ctrVerCiudad($id);
-		echo json_encode($respuesta);
 	}
 	//Ajax para el borrado logico de los registros de conceptos generales
 	static public function ajaxEliminar($id, /*$valor_cambio,*/ $concepto)
@@ -1143,7 +1014,7 @@ class AjaxConceptosGH
 				$tabla = "a_medidas";
 				$id_tabla = "idmedidas";
 				break;
-					
+
 			case 'Marcas productos':
 				$tabla = "a_marcas";
 				$id_tabla = "idmarca";
@@ -1152,17 +1023,21 @@ class AjaxConceptosGH
 			case 'Categorias':
 				$tabla = "a_categorias";
 				$id_tabla = "idcategorias";
-				break;	
+				break;
 
 			case 'Tipo de proveedor':
 				$tabla = "c_tipo_proveedor";
 				$id_tabla = "id";
-				break;	
+				break;
 
 			case 'Servicios externos':
 				$tabla = "m_serviciosexternos";
 				$id_tabla = "idservicio_externo";
-				break;	
+				break;
+			case 'Cuentas contables':
+				$tabla = "li_cuentas_contables";
+				$id_tabla = "id";
+				break;
 
 			default:
 				// code...
@@ -1177,56 +1052,196 @@ class AjaxConceptosGH
 			"id" => $id
 		);
 
-		$respuesta = ModeloConceptosGH::mdlEliminar($datos);
+		$respuesta = ModeloConceptosGenerales::mdlEliminar($datos);
 
 		echo $respuesta;
 	}
 
 	static public function ValidarExistencia($datos)
 	{
-		$respuesta = ModeloConceptosGH::mdlVerificarExistencia($datos);
+		$respuesta = ModeloConceptosGenerales::mdlVerificarExistencia($datos);
 
-		if(is_array($respuesta)){
+		if (is_array($respuesta)) {
 			$retorno = true;
 			return $retorno;
-
-		}else if($respuesta === false){ 
+		} else if ($respuesta === false) {
 			$retorno = false;
 			return $retorno;
-
 		}
 	}
 }
 /*=============================================================
-=====================AJAX EMPRESA=============================
+=====================AJAX CIUDADES=============================
+============================================================?*/
+class AjaxCiudades
+{
+	//Ajax apra agregar una nueva ciudad
+	static public function AgregarCiudad($dato1, $dato2)
+	{
+		$datos = array(
+			"iddepartamento" => $dato1,
+			"municipio" => $dato2
+		);
+
+		$respuesta = ModeloCiudades::mdlAgregarCiudad($datos);
+		echo $respuesta;
+	}
+	//Ajax para editar los datos de una ciudad segun su ID
+	static public function EditarCiudad($dato1, $dato2, $id)
+	{
+		$datos = array(
+			"iddepartamento" => $dato1,
+			"municipio" => $dato2,
+			"idmunicipio" => $id
+		);
+
+		$respuesta = ModeloCiudades::mdlEditarCiudad($datos);
+		echo $respuesta;
+	}
+	//Ajax para listar todas las ciudadas
+	static public function VerCiudades()
+	{
+		$respuesta = ModeloCiudades::mdlDeparMunicipios();
+		$tr = "";
+
+		foreach ($respuesta as $key => $value) {
+			$tr .= "
+			<tr>
+			<td>{$value["idmunicipio"]}</td>
+			<td>{$value["departamento"]}</td>
+			<td>{$value["municipio"]}</td>
+			<td> 
+			<div class='btn-group' role='group' aria-label='Button group'>
+			<button idregistro = '{$value["idmunicipio"]}' dato1='{$value["departamento"]}' dato2='{$value["municipio"]}' class='btn btn-sm btn-warning btnEditarCiudad' data-toggle='modal' data-target='#EditarCiudad'><i class='fas fa-edit'></i></button>
+			</div>
+			<div class='btn-group' role='group' aria-label='Button group'>
+			<button idregistro = '{$value["idmunicipio"]}' valor-cambio = '0' concepto = 'Ciudades' class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button>
+			</div>
+			</td>
+			</tr>
+			";
+		}
+		echo $tr;
+	}
+	//Ajax para visualizar los datos de una ciudad segun su ID
+	static public function DatosCiudad($id)
+	{
+		$respuesta = ControladorCiudades::ctrVerCiudad($id);
+		echo json_encode($respuesta);
+	}
+}
+/*=============================================================
+=====================AJAX RUTAS================================
+============================================================?*/
+class AjaxRutas
+{
+	//Ajax Agregar una nueva ruta
+	static public function AgregarRuta($dato1, $dato2, $dato3)
+	{
+		$datos = array(
+			"ruta" => $dato1,
+			"origen" => $dato2,
+			"destino" => $dato3
+		);
+
+		$respuesta = ModeloRutas::mdlAgregarRuta($datos);
+		echo $respuesta;
+	}
+	//Ajax Editar datos de una ruta segun su id
+	static public function EditarRuta($dato3, $id)
+	{
+		$datos = array(
+			"ruta" => $dato3,
+			"idruta" => $id
+		);
+
+		$respuesta = ModeloRutas::mdlEditarRuta($datos);
+		echo $respuesta;
+	}
+	//Ajax Visualizar todas las rutas en la tabla
+	static public function VerRutas()
+	{
+
+		$respuesta = ControladorRutas::ctrListarRutas();
+		$tr = "";
+
+		foreach ($respuesta as $key => $value) {
+			$tr .= "
+			<tr>
+			<td>{$value["id"]}</td>
+			<td>{$value["orig"]}</td>
+			<td>{$value["dest"]}</td>
+			<td>{$value["nombreruta"]}</td>
+			<td> 
+			<div class='btn-group' role='group' aria-label='Button group'>
+			<button idregistro = '{$value["id"]}' dato1='{$value["orig"]}' dato2='{$value["dest"]}' dato3='{$value["nombreruta"]}' class='btn btn-sm btn-warning btnEditarRuta '><i class='fas fa-edit'></i></button>
+			</div>
+			<div class='btn-group' role='group' aria-label='Button group'>
+			<button idregistro = '{$value["id"]}' valor-cambio = '0' concepto = 'Rutas y recorridos' class='btn btn-sm btn-danger btnBorrar'><i class='fas fa-trash-alt'></i></button>
+			</div>
+			</td>
+			</tr>
+			";
+		}
+
+		echo $tr;
+	}
+	//Ajax para visualizar y seleccionar las rutas en otra vista diferente a conceptos generales
+	static public function ajaxTablaRutasGeneral()
+	{
+
+		$respuesta = ControladorRutas::ctrListarRutas();
+		$tr = "";
+
+		foreach ($respuesta as $key => $value) {
+			$tr .= "
+			<tr>
+			<td>{$value["id"]}</td>
+			<td>{$value["orig"]}</td>
+			<td>{$value["dest"]}</td>
+			<td>{$value["nombreruta"]}</td>
+			<td> 
+			<div class='btn-group' role='group' aria-label='Button group'>
+			<button data-toggle='tooltip' data-placement='top' title='Seleccionar ruta' idregistro = '{$value["id"]}' origen='{$value["orig"]}' destino='{$value["dest"]}' descripcion='{$value["nombreruta"]}' class='btn btn-sm btn-success btnSeleccionarRuta '><i class='fas fa-check'></i></button>
+			</div>
+			</td>
+			</tr>
+			";
+		}
+
+		echo $tr;
+	}
+}
+/*=============================================================
+=====================AJAX EMPRESA==============================
 ============================================================?*/
 class AjaxConceptoEmpresa
 {
 	//Ajax visualizar datos de una empresa segun su ID
 	static public function ajaxDatosEmpresa($id)
 	{
-		$respuesta = ModeloConceptosGH::mdlUnaEmpresa($id);
+		$respuesta = ModeloEmpresaRaiz::mdlUnaEmpresa($id);
 		echo json_encode($respuesta);
 	}
 	//Ajax editar empresa
-	static public function ajaxEditarEmpresa($formData,$imagen)
+	static public function ajaxEditarEmpresa($formData, $imagen)
 	{
-		$respuesta = ControladorEmpresa::ctrAgregarEditarEmpresa($formData,$imagen);
+		$respuesta = ControladorEmpresa::ctrAgregarEditarEmpresa($formData, $imagen);
 		echo $respuesta;
 		//echo json_encode($respuesta);
 	}
 	//Ajax para listar todas las empresas en la tabla (Limitado a una empresa)
 	static public function ajaxVerEmpresa()
 	{
-		$respuesta = ModeloConceptosGH::mdlListaEmpresa();
+		$respuesta = ModeloEmpresaRaiz::mdlListaEmpresa();
 		$tr = "";
 
 		foreach ($respuesta as $key => $value) {
-            if ($value['ruta_firma'] != null) {
-                $btnVerFoto = "<a href='" . URL_APP . $value['ruta_firma'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a>";
-            }else{
-                $btnVerFoto = "";
-            }
+			if ($value['ruta_firma'] != null) {
+				$btnVerFoto = "<a href='" . URL_APP . $value['ruta_firma'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a>";
+			} else {
+				$btnVerFoto = "";
+			}
 
 			$tr .= "
 			<tr>
@@ -1236,7 +1251,7 @@ class AjaxConceptoEmpresa
 			<td>{$value['nro_resolucion']}</td>
 			<td>{$value['anio_resolucion']}</td>
 			<td>{$value['dir_territorial']}</td>
-			<td>" .$btnVerFoto. "</td>
+			<td>" . $btnVerFoto . "</td>
 			<td>{$value['sitio_web']}</td>
 			<td> 
 			<div class='btn-group' role='group' aria-label='Button group'>
@@ -1249,11 +1264,13 @@ class AjaxConceptoEmpresa
 		echo $tr;
 	}
 }
-
+/*=============================================================
+=====================AJAX SERVICIOS MENORES====================
+============================================================?*/
 class AjaxConceptoServicios
 {
 	//Ajax para agregar un nuevo servicio
-	static public function ajaxNuevoServicio($servicio,$kilometraje,$dias)
+	static public function ajaxNuevoServicio($servicio, $kilometraje, $dias)
 	{
 		$datos = array(
 			"servicio" => $servicio,
@@ -1261,16 +1278,16 @@ class AjaxConceptoServicios
 			"dias_cambio" => $dias
 		);
 
-		$respuesta = ModeloConceptosGH::mdlAgregarServicio($datos);
+		$respuesta = ModeloServiciosMenores::mdlAgregarServicio($datos);
 		echo $respuesta;
 	}
 
 	//AJAX para listar todos los servicios
 	static public function ajaxVerServicios()
 	{
-		$respuesta = ModeloConceptosGH::mdlVerServicios(null);
+		$respuesta = ModeloServiciosMenores::mdlVerServicios(null);
 		$tr = "";
-	
+
 		foreach ($respuesta as $key => $value) {
 			$tr .= "
 			<tr>
@@ -1302,116 +1319,97 @@ class AjaxConceptoServicios
 			"dias_cambio" => $dato3,
 		);
 
-		$respuesta = ModeloConceptosGH::mdlEditarServicio($datos);
+		$respuesta = ModeloServiciosMenores::mdlEditarServicio($datos);
 
 		echo $respuesta;
 	}
-
-
 }
-
 /*=============================================================
-=====================LLAMADOS AJAX=============================
+=====================LLAMADOS conceptos generales==============
 ============================================================?*/
-
-if (isset($_POST['NuevoGH']) && $_POST['NuevoGH'] == "ok") {
-	AjaxConceptosGH::ajaxNuevoConcepto($_POST['concepto'], $_POST['dato']);
+if (isset($_POST['Nuevo']) && $_POST['Nuevo'] == "ok") {
+	AjaxConceptosGenerales::ajaxNuevo($_POST['concepto'], $_POST['dato']);
 }
-
-if (isset($_POST['ajaxVerConcepto']) && $_POST['ajaxVerConcepto'] == "ok") {
-	AjaxConceptosGH::ajaxVerConcepto($_POST['concepto']);
+if (isset($_POST['VerTodos']) && $_POST['VerTodos'] == "ok") {
+	AjaxConceptosGenerales::ajaxVerTodos($_POST['concepto']);
 }
-
 if (isset($_POST['ajaxEditarConcepto']) && $_POST['ajaxEditarConcepto'] == "ok") {
-	AjaxConceptosGH::ajaxEditarConcepto($_POST['concepto'], $_POST['id'], $_POST['dato']);
+	AjaxConceptosGenerales::ajaxEditar($_POST['concepto'], $_POST['id'], $_POST['dato']);
 }
-
 if (isset($_POST['ajaxVerUnConcepto']) && $_POST['ajaxVerUnConcepto'] == "ok") {
-	AjaxConceptosGH::ajaxVerUnConcepto($_POST['concepto'], $_POST['id'], $_POST['id']);
+	AjaxConceptosGenerales::ajaxVerRegistro($_POST['concepto'], $_POST['id'], $_POST['id']);
 }
-
 if (isset($_POST['ajaxContarRegistro']) && $_POST['ajaxContarRegistro'] == "ok") {
-	AjaxConceptosGH::ajaxContarRegistro($_POST['concepto']);
+	AjaxConceptosGenerales::ajaxContarRegistro($_POST['concepto']);
 }
-
-if (isset($_POST['NuevoVehicular']) && $_POST['NuevoVehicular'] == "ok") {
-	AjaxConceptosGH::ajaxNuevoVehicular($_POST['concepto'], $_POST['dato1'], $_POST['dato2']);
+if (isset($_POST['NuevoDos']) && $_POST['NuevoDos'] == "ok") {
+	AjaxConceptosGenerales::ajaxNuevoDos($_POST['concepto'], $_POST['dato1'], $_POST['dato2']);
 }
-
-if (isset($_POST['VerConcepto2']) && $_POST['VerConcepto2'] == "ok") {
-	AjaxConceptosGH::ajaxListar($_POST['concepto']);
+if (isset($_POST['VerTodosDos']) && $_POST['VerTodosDos'] == "ok") {
+	AjaxConceptosGenerales::ajaxVerTodosDos($_POST['concepto']);
 }
-
 if (isset($_POST['VerUno']) && $_POST['VerUno'] == "ok") {
-	AjaxConceptosGH::ajaxVerUno($_POST['concepto'], $_POST['id']);
+	AjaxConceptosGenerales::ajaxVerRegistroDos($_POST['concepto'], $_POST['id']);
 }
-
-if (isset($_POST['EditarVehicular']) && $_POST['EditarVehicular'] == "ok") {
-	AjaxConceptosGH::ajaxEditarVehicular($_POST['concepto'], $_POST['id'], $_POST['dato1'], $_POST['dato2']);
+if (isset($_POST['EditarDos']) && $_POST['EditarDos'] == "ok") {
+	AjaxConceptosGenerales::ajaxEditarDos($_POST['concepto'], $_POST['id'], $_POST['dato1'], $_POST['dato2']);
 }
-
-//AJAX RUTAS
+/*=============================================================
+=====================LLAMADOS RUTAS============================
+============================================================?*/
 if (isset($_POST['AgregarRuta']) && $_POST['AgregarRuta'] == "ok") {
-	AjaxConceptosGH::AgregarRuta($_POST['dato1'], $_POST['dato2'], $_POST['dato3']);
+	AjaxRutas::AgregarRuta($_POST['dato1'], $_POST['dato2'], $_POST['dato3']);
 }
-
 if (isset($_POST['VerRutas']) && $_POST['VerRutas'] == "ok") {
-	AjaxConceptosGH::VerRutas();
+	AjaxRutas::VerRutas();
 }
-
 if (isset($_POST['EditarRuta']) && $_POST['EditarRuta'] == "ok") {
-	AjaxConceptosGH::EditarRuta($_POST['dato3'], $_POST['id']);
+	AjaxRutas::EditarRuta($_POST['dato3'], $_POST['id']);
 }
-
 if (isset($_POST['ListarRutas']) && $_POST['ListarRutas'] == "ok") {
-	AjaxConceptosGH::ajaxTablaRutasGeneral();
+	AjaxRutas::ajaxTablaRutasGeneral();
 }
-
-//AJAX EMPRESA
+/*=============================================================
+=====================LLAMADOS EMPRESA==========================
+============================================================?*/
 if (isset($_POST['DatosEmpresa']) && $_POST['DatosEmpresa'] == "ok") {
 	AjaxConceptoEmpresa::ajaxDatosEmpresa($_POST['id']);
 }
-
 if (isset($_POST['EditarEmpresa']) && $_POST['EditarEmpresa'] == "ok") {
 	$imagen = isset($_FILES['imagen']) ? $_FILES['imagen'] : "";
 	AjaxConceptoEmpresa::ajaxEditarEmpresa($_POST, $imagen);
 }
-
 if (isset($_POST['VerEmpresa']) && $_POST['VerEmpresa'] == "ok") {
 	AjaxConceptoEmpresa::ajaxVerEmpresa();
 }
-
-//AJAX CIUDADES
+/*=============================================================
+=====================LLAMADOS CIUDADES=========================
+============================================================?*/
 if (isset($_POST['VerCiudades']) && $_POST['VerCiudades'] == "ok") {
-	AjaxConceptosGH::VerCiudades();
+	AjaxCiudades::VerCiudades();
 }
-
 if (isset($_POST['EditarCiudad']) && $_POST['EditarCiudad'] == "ok") {
-	AjaxConceptosGH::EditarCiudad($_POST['dato1'], $_POST['dato2'], $_POST['id']);
+	AjaxCiudades::EditarCiudad($_POST['dato1'], $_POST['dato2'], $_POST['id']);
 }
-
 if (isset($_POST['AgregarCiudad']) && $_POST['AgregarCiudad'] == "ok") {
-	AjaxConceptosGH::AgregarCiudad($_POST['dato1'], $_POST['dato2']);
+	AjaxCiudades::AgregarCiudad($_POST['dato1'], $_POST['dato2']);
 }
-
 if (isset($_POST['DatosCiudad']) && $_POST['DatosCiudad'] == "ok") {
-	AjaxConceptosGH::DatosCiudad($_POST['id']);
+	AjaxCiudades::DatosCiudad($_POST['id']);
 }
-
-//AJAX SERVICIOS
+/*=============================================================
+=====================LLAMADOS SERVICIOS========================
+============================================================?*/
 if (isset($_POST['nuevoServicio']) && $_POST['nuevoServicio'] == "ok") {
 	AjaxConceptoServicios::ajaxNuevoServicio($_POST['dato1'], $_POST['dato2'], $_POST['dato3']);
 }
-
 if (isset($_POST['ajaxVerServicios']) && $_POST['ajaxVerServicios'] == "ok") {
 	AjaxConceptoServicios::ajaxVerServicios();
 }
-
 if (isset($_POST['ajaxEditarServicio']) && $_POST['ajaxEditarServicio'] == "ok") {
-	AjaxConceptoServicios::ajaxEditarServicio($_POST['id'], $_POST['dato1'], $_POST['dato2'],$_POST['dato3']);
+	AjaxConceptoServicios::ajaxEditarServicio($_POST['id'], $_POST['dato1'], $_POST['dato2'], $_POST['dato3']);
 }
-
-//ajax ELIMINAR (Borrado logico)
+//AJAX ELIMINAR
 if (isset($_POST['EliminarRegistro']) && $_POST['EliminarRegistro'] == "ok") {
-	AjaxConceptosGH::ajaxEliminar($_POST['id'], /*$_POST['valor'],*/ $_POST['concepto']);
+	AjaxConceptosGenerales::ajaxEliminar($_POST['id'], /*$_POST['valor'],*/ $_POST['concepto']);
 }

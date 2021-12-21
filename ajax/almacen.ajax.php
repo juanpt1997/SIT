@@ -54,7 +54,14 @@ class AjaxAlmacen
                 $tabla = "a_productos";
                 $item = "descripcion";
                 $id = "idproducto";
-                break;    
+                break;
+                
+            case 'Sucursal':
+
+                $tabla = "gh_sucursales";
+                $item = "sucursal";
+                $id = "ids";
+                break; 
                   
             default:
                 # code...
@@ -67,7 +74,7 @@ class AjaxAlmacen
             "id" => $id
         );
 
-        $respuesta = ModeloConceptosGH::mdlVer($datos);
+        $respuesta = ModeloConceptosGenerales::mdlVer($datos);
         $option = "<option value='' selected>Seleccione {$nombre} </option>";
 
         foreach ($respuesta as $key => $value) {
@@ -193,6 +200,9 @@ class AjaxAlmacen
                     </div>
                     <div class='btn-group' role='group' aria-label='Button group'>
                     <button title='Ver sucursales' data-toggle='modal' data-target='#modal-sucursalesProducto' idproducto='{$value["idproducto"]}' class='btn btn-sm btn-success btnSucursalesInventario'><i class='fas fa-map-marker-alt'></i></button>
+                    </div>
+                    <div class='btn-group' role='group' aria-label='Button group'>
+                    <button title='Generar salida' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-warning btnGenerarSalida'><i class='fas fa-sign-out-alt'></i></button>
                     </div>
                     <div class='btn-group' role='group' aria-label='Button group'>
                     <button title='Editar producto' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-primary btnEditar'><i class='fas fa-edit'></i></button>
@@ -397,9 +407,7 @@ class AjaxAlmacen
                 <td>{$value['fecha_elaboracion']}</td>
                 <td>{$value['forma_pago']}</td>
                 <td>{$value['tipo_compra']}</td>
-                <td>$btnVerFoto</td>
-                <td>$btnVerFoto2</td>
-                <td>$btnVerFoto3</td>
+                <td>$btnVerFoto $btnVerFoto2 $btnVerFoto3</td>
 			</tr>
 			";
 		}
@@ -421,6 +429,12 @@ class AjaxAlmacen
     static public function ajaxContarOrdenes()
     {
         $respuesta = ModeloProductos::mdlContarOrdenes();
+        echo json_encode($respuesta);
+    }
+
+    static public function ajaxGenerarSalida($datos)
+    {
+        $respuesta = ControladorAlmacen::ctrGenerarSalidaInventario($datos);
         echo json_encode($respuesta);
     }
 }
@@ -523,6 +537,10 @@ if (isset($_POST['DatosProductoOrden']) && $_POST['DatosProductoOrden'] == "ok")
 
 if (isset($_POST['contarOrdenes']) && $_POST['contarOrdenes'] == "ok") {
     AjaxAlmacen::ajaxContarOrdenes();
+}
+
+if (isset($_POST['GenerarSalida']) && $_POST['GenerarSalida'] == "ok") {
+    AjaxAlmacen::ajaxGenerarSalida($_POST);
 }
 
 

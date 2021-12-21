@@ -56,264 +56,6 @@ class ControladorAlmacen
         return $respuesta;
     }
 
-    // static public function ctrAgregarEditarOrdenCompra($datos, $imagen, $imagen2, $imagen3)
-    // {
-    //     if (isset($datos['idorden_compra']) && $datos['idorden_compra'] == "") {
-
-    //         $response = "";
-
-    //         /* ================================================
-    //         CREAMOS DIRECTORIO DONDE VAMOS A GUARDAR EL ARCHIVO
-    //         ================================================ */
-    //         # Verificar Directorio imagenes mantenimiento
-    //         $directorio = DIR_APP . "views/img/imgCotizacionesInventario";
-    //         if (!is_dir($directorio)) {
-    //             mkdir($directorio, 0755);
-    //         }
-
-    //         $fecha = date('Y-m-d');
-    //         $hora = date('His');
-
-    //         /* ===================================================
-    //         GUARDAMOS EL ARCHIVO 1
-    //         ===================================================*/
-    //         $GuardarArchivo = new FilesController();
-    //         $GuardarArchivo->file = $imagen;
-    //         $aleatorio = mt_rand(100, 999);
-    //         $GuardarArchivo->ruta = $directorio . "/{$aleatorio}_{$fecha}_{$hora}";
-
-    //         if (is_array($imagen)) {
-    //             # Si es pdf
-    //             if ($imagen['type'] == "application/pdf") {
-    //                 $response = $GuardarArchivo->ctrPDFFiles();
-    //             } else {
-    //                 # Si es una imagen
-    //                 if ($imagen['type'] == "image/jpeg" || $imagen['type'] == "image/png") {
-    //                     $response = $GuardarArchivo->ctrImages(null, null);
-    //                 }
-    //             }
-    //         } else {
-    //             $response = "";
-    //         }
-
-    //         /* ===================================================
-    //         GUARDAMOS EL ARCHIVO 2
-    //         ===================================================*/
-    //         $GuardarArchivo2 = new FilesController();
-    //         $GuardarArchivo2->file = $imagen2;
-    //         $aleatorio = mt_rand(100, 999);
-    //         $GuardarArchivo2->ruta = $directorio . "/{$aleatorio}_{$fecha}_{$hora}";
-
-    //         if (is_array($imagen2)) {
-    //             # Si es pdf
-    //             if ($imagen2['type'] == "application/pdf") {
-    //                 $response2 = $GuardarArchivo2->ctrPDFFiles();
-    //             } else {
-    //                 # Si es una imagen
-    //                 if ($imagen2['type'] == "image/jpeg" || $imagen2['type'] == "image/png") {
-    //                     $response2 = $GuardarArchivo2->ctrImages(null, null);
-    //                 }
-    //             }
-    //         } else {
-    //             $response2 = "";
-    //         }
-
-    //         /* ===================================================
-    //         GUARDAMOS EL ARCHIVO 3
-    //         ===================================================*/
-    //         $GuardarArchivo3 = new FilesController();
-    //         $GuardarArchivo3->file = $imagen3;
-    //         $aleatorio = mt_rand(100, 999);
-    //         $GuardarArchivo3->ruta = $directorio . "/{$aleatorio}_{$fecha}_{$hora}";
-
-    //         if (is_array($imagen3)) {
-    //             # Si es pdf
-    //             if ($imagen3['type'] == "application/pdf") {
-    //                 $response3 = $GuardarArchivo3->ctrPDFFiles();
-    //             } else {
-    //                 # Si es una imagen
-    //                 if ($imagen3['type'] == "image/jpeg" || $imagen3['type'] == "image/png") {
-    //                     $response3 = $GuardarArchivo3->ctrImages(null, null);
-    //                 }
-    //             }
-    //         } else {
-    //             $response3 = "";
-    //         }
-
-    //         # Actualizar el campo de la base de datos donde queda la ruta del archivo
-    //         if ($response != "" || $response2 != "" || $response3 != "") {
-
-    //             $rutaDoc = str_replace(DIR_APP, "", $response);
-    //             $rutaDoc2 = str_replace(DIR_APP, "", $response2);
-    //             $rutaDoc3 = str_replace(DIR_APP, "", $response3);
-
-    //             $datosGuardar = array(
-    //                 'num_cotizacion' => $datos['numcotizacion'],
-    //                 'forma_pago' => $datos['formadepago'],
-    //                 'idproveedor' => $datos['proveedor2'],
-    //                 'tipo_compra' => $datos['tipo_compra'],
-    //                 'direccion_entrega' => $datos['direccion_entrega'],
-    //                 'observaciones' => $datos['observaciones'],
-    //                 'ruta_cotizacion_1' => $rutaDoc,
-    //                 'ruta_cotizacion_2' => $rutaDoc2,
-    //                 'ruta_cotizacion_3' => $rutaDoc3
-    //             );
-
-    //             $idorden = ModeloProductos::mdlAgregarOrden($datosGuardar);
-
-    //             if (isset($datos['idproducto'])) {
-    //                 foreach ($datos['idproducto'] as $key => $value) {
-    //                     if ($value != "") {
-    //                         $idproducto = intval($value);
-    //                         ModeloProductos::mdlAgregarRegistroProductos($idorden, $idproducto);
-    //                     }
-    //                 }
-    //             }
-
-    //             return $idorden;
-    //         } else {
-
-    //             return "error";
-    //         }
-    //     }
-    // }
-
-    // static public function ctrAgregarEditarOrdenCompra2($datos, $imagen, $imagen2, $imagen3)
-    // {
-    //     $orden = ModeloProductos::mdlListarOrdenes($datos['idorden_compra']);
-
-    //     $response = "";
-
-    //     /* ================================================
-    //         CREAMOS DIRECTORIO DONDE VAMOS A GUARDAR EL ARCHIVO
-    //         ================================================ */
-    //     # Verificar Directorio imagenes mantenimiento
-    //     $directorio = DIR_APP . "views/img/imgCotizacionesInventario";
-    //     if (!is_dir($directorio)) {
-    //         mkdir($directorio, 0755);
-    //     }
-
-    //     $fecha = date('Y-m-d');
-    //     $hora = date('His');
-
-    //     /* ===================================================
-    //         GUARDAMOS EL ARCHIVO 1
-    //         ===================================================*/
-    //     $GuardarArchivo = new FilesController();
-    //     $GuardarArchivo->file = $imagen;
-    //     $aleatorio = mt_rand(100, 999);
-    //     $GuardarArchivo->ruta = $directorio . "/{$aleatorio}_{$fecha}_{$hora}";
-
-    //     if (is_array($imagen)) {
-    //         # Si es pdf
-    //         if ($imagen['type'] == "application/pdf") {
-    //             $response = $GuardarArchivo->ctrPDFFiles();
-    //         } else {
-    //             # Si es una imagen
-    //             if ($imagen['type'] == "image/jpeg" || $imagen['type'] == "image/png") {
-    //                 $response = $GuardarArchivo->ctrImages(null, null);
-    //             }
-    //         }
-    //     } else {
-    //         $response = "";
-    //     }
-
-    //     /* ===================================================
-    //         GUARDAMOS EL ARCHIVO 2
-    //         ===================================================*/
-    //     $GuardarArchivo2 = new FilesController();
-    //     $GuardarArchivo2->file = $imagen2;
-    //     $aleatorio = mt_rand(100, 999);
-    //     $GuardarArchivo2->ruta = $directorio . "/{$aleatorio}_{$fecha}_{$hora}";
-
-    //     if (is_array($imagen2)) {
-    //         # Si es pdf
-    //         if ($imagen2['type'] == "application/pdf") {
-    //             $response2 = $GuardarArchivo2->ctrPDFFiles();
-    //         } else {
-    //             # Si es una imagen
-    //             if ($imagen2['type'] == "image/jpeg" || $imagen2['type'] == "image/png") {
-    //                 $response2 = $GuardarArchivo2->ctrImages(null, null);
-    //             }
-    //         }
-    //     } else {
-    //         $response2 = "";
-    //     }
-
-    //     /* ===================================================
-    //         GUARDAMOS EL ARCHIVO 3
-    //         ===================================================*/
-    //     $GuardarArchivo3 = new FilesController();
-    //     $GuardarArchivo3->file = $imagen3;
-    //     $aleatorio = mt_rand(100, 999);
-    //     $GuardarArchivo3->ruta = $directorio . "/{$aleatorio}_{$fecha}_{$hora}";
-
-    //     if (is_array($imagen3)) {
-    //         # Si es pdf
-    //         if ($imagen3['type'] == "application/pdf") {
-    //             $response3 = $GuardarArchivo3->ctrPDFFiles();
-    //         } else {
-    //             # Si es una imagen
-    //             if ($imagen3['type'] == "image/jpeg" || $imagen3['type'] == "image/png") {
-    //                 $response3 = $GuardarArchivo3->ctrImages(null, null);
-    //             }
-    //         }
-    //     } else {
-    //         $response3 = "";
-    //     }
-
-    //     # Actualizar el campo de la base de datos donde queda la ruta del archivo
-    //     if ($response != "" || $response2 != "" || $response3 != "") {
-    //         $rutaDoc = str_replace(DIR_APP, "", $response);
-    //         $rutaDoc2 = str_replace(DIR_APP, "", $response2);
-    //         $rutaDoc3 = str_replace(DIR_APP, "", $response3);
-    //     }
-
-    //     if (isset($datos['idorden_compra']) && $datos['idorden_compra'] == "") {
-
-    //         $datosGuardar = array(
-    //             'idorden' => $datos['idorden_compra'],
-    //             'estado_orden' => $datos['actualizar_estado'],
-    //             'num_cotizacion' => $datos['numcotizacion'],
-    //             'forma_pago' => $datos['formadepago'],
-    //             'idproveedor' => $datos['proveedor2'],
-    //             'tipo_compra' => $datos['tipo_compra'],
-    //             'direccion_entrega' => $datos['direccion_entrega'],
-    //             'observaciones' => $datos['observaciones'],
-    //             'ruta_cotizacion_1' => $rutaDoc,
-    //             'ruta_cotizacion_2' => $rutaDoc2,
-    //             'ruta_cotizacion_3' => $rutaDoc3
-    //         );
-
-    //         $idorden = ModeloProductos::mdlAgregarOrden($datosGuardar);
-    //         if (isset($datos['idproducto'])) {
-    //             foreach ($datos['idproducto'] as $key => $value) {
-    //                 if ($value != "") {
-    //                     $idproducto = intval($value);
-    //                     ModeloProductos::mdlAgregarRegistroProductos($idorden, $idproducto);
-    //                 }
-    //             }
-    //         }
-
-    //         return "agregado";
-    //     } else {
-
-    //         $datosGuardar = array(
-    //             'idorden' => $datos['idorden_compra'],
-    //             'estado_orden' => $datos['actualizar_estado'],
-    //             'num_cotizacion' => $datos['numcotizacion'],
-    //             'forma_pago' => $datos['formadepago'],
-    //             'idproveedor' => $datos['proveedor2'],
-    //             'tipo_compra' => $datos['tipo_compra'],
-    //             'direccion_entrega' => $datos['direccion_entrega'],
-    //             'observaciones' => $datos['observaciones'],
-    //             'ruta_cotizacion_1' => $rutaDoc,
-    //             'ruta_cotizacion_2' => $rutaDoc2,
-    //             'ruta_cotizacion_3' => $rutaDoc3
-    //         );
-    //     }
-    // }
-
     static public function ctrAgregarEditarOrdenCompra3($datos, $imagen, $imagen2, $imagen3)
     {
         $datosGuardar = array(
@@ -394,6 +136,68 @@ class ControladorAlmacen
             self::GuardarArchivoCotizacion($idorden, $imagen3, "ruta_cotizacion_3");
         }
         return $retorno;
+    }
+
+    static public function ctrGenerarSalidaInventario($datos)
+    {
+        $datosValidar = array (
+            'sucursal' => $datos['sucursal_salida'],
+            'idproducto' => $datos['idproducto']
+        );
+        $inventarioExistente = ModeloProductos::mdlValidarInventario($datosValidar);
+
+        if(is_array($inventarioExistente)){
+
+            $nuevoStock = $inventarioExistente['stock'] - $datos['cantidad_salida'];
+
+            $datos2 = array(
+                'idinventario' => $inventarioExistente['idinventario'],
+                'stock' =>  $nuevoStock,
+                'posicion' => $inventarioExistente['posicion'],
+                
+            );
+
+            $datos['idinventario'] = $inventarioExistente['idinventario'];
+            $datos['tipo_movimiento'] = 'SALIDA';
+            $datos['cantidad'] = $datos['cantidad_salida'];
+            $datos['observaciones'] = $datos['observaciones_salida'];
+            $datos['idproveedor'] = "";
+            ModeloProductos::mdlEditarInventario($datos2);
+            ModeloProductos::mdlAgregarMovimiento($datos);
+
+            $respuesta = $nuevoStock;
+            
+        } else{
+
+            $datosInventario = array(
+                'cantidad' => 0,
+                'idproducto' => $datos['idproducto'],
+                'sucursal' => $datos['sucursal_salida'],
+                'posicion' => ""
+            );
+
+            $inventario = ModeloProductos::mdlAgregarInventario($datosInventario);
+
+            $datos['idinventario'] = $inventario;
+            $datos['tipo_movimiento'] = 'SALIDA';
+            $datos['cantidad'] = -1 * abs($datos['cantidad_salida']); 
+            $datos['observaciones'] = $datos['observaciones_salida'];
+            $datos['idproveedor'] = "";
+            ModeloProductos::mdlAgregarMovimiento($datos);
+            
+            $respuesta = $datos['cantidad'];
+        }
+
+        return $respuesta;
+        // if($respuesta != 'error' && !is_numeric($respuesta)){
+
+        //     return 'error';
+
+        // } else{
+
+        //     return $respuesta;
+
+        // }
     }
 
     static public function GuardarArchivoCotizacion($idorden, $archivo, $ruta)
