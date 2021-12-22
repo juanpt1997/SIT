@@ -725,6 +725,7 @@ class ControladorMantenimientos
 
 				#GUARDAR SERVICIOS EXTERNOS
 				if (isset($datos['serviciosexternos'])) {
+					// $borrar = ModeloMantenimientos::mdlEliminarServiciosExternosOrden($datos['numOrden_ordSer']);
 					foreach ($datos['serviciosexternos'] as $key => $value) {
 						if ($value != "") {
 							$id = intval($respuesta);
@@ -820,8 +821,9 @@ class ControladorMantenimientos
 				}
 
 				//ACTUALIZA SERVICIOS EXTERNOS DE LA ORDEN
+				
+				$borrar = ModeloMantenimientos::mdlEliminarServiciosExternosOrden($datos['numOrden_ordSer']);
 				if (isset($datos['serviciosexternos'])) {
-					$borrar = ModeloMantenimientos::mdlEliminarServiciosExternosOrden($datos['numOrden_ordSer']);
 					foreach ($datos['serviciosexternos'] as $key => $value) {
 						if ($value != "") {
 							$id = $datos['numOrden_ordSer'];

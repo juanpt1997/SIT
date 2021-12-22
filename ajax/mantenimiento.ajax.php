@@ -506,7 +506,7 @@ class AjaxMantenimientos
     ===================================================*/
     static public function ajaxAsumeVerEmpresa()
     {
-        $respuesta = ModeloConceptosGH::mdlVerEmpresa();
+        $respuesta = ModeloEmpresaRaiz::mdlVerEmpresa();
         echo json_encode( $respuesta);
     }
 }
