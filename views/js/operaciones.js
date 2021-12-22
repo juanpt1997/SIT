@@ -281,10 +281,10 @@ $(document).ready(function () {
              BOTON PDF ALISTAMIENTO
            ===================================================*/
             $(document).on('click','.btn-PdfAlistamiento', function () {
-
+                
                let id = $(this).attr('idalistamiento');
                window.open(
-                `./pdf/pdfmantenimiento.php?idmantenimiento=${id}`,
+                `./pdf/pdfalistamiento.php?idalistamiento=${id}`,
                 "",
                 "width=1280,height=720,left=50,top=50,toolbar=yes"
             );

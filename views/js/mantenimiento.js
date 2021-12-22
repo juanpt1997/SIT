@@ -1838,7 +1838,9 @@ $(document).ready(function () {
             // CAPTURA EL IDSERVICIOEXTERNO DE LOS SERVICIOS QUE FUERON SELECCIONADOS
             $("input:checkbox:checked").each(function () {
                 let valido = $(this).attr("idservicioexterno");
-                serviciosexternos.push(valido);
+                if (!serviciosexternos.includes(valido)) {
+                    serviciosexternos.push(valido);
+                }
             });
 
             // MANDAMOS LOS SERVICIOS SELECCIONADOS
@@ -1862,7 +1864,6 @@ $(document).ready(function () {
                         $("#numOrden_ordSer").val(response);
                         $("#btn-crearSolicitud").removeAttr("disabled");
                         $(".btn-exportar-solicitud").attr("idorden", response);
-                        
 
                         // Mensaje de éxito al usuario
                         Swal.fire({
@@ -2064,10 +2065,8 @@ $(document).ready(function () {
                 .attr("disabled", "disabled");
 
             $("#modal-solicitud")
-                .find("input-ivarepuesto")
+                .find(".input-ivarepuesto")
                 .attr("readonly", "readonly");
-
-                $("#modal-solicitud").find("input-servext").removeAttr("idservicioexterno");
         });
 
         //FUNCION PARA CARGAR FILAS DE REPUESTO AL EDITAR ORDEN
@@ -2347,7 +2346,6 @@ $(document).ready(function () {
 
                     //ELIMINA EL ATRIBUTO DISABLED A CREAR SOLICITUD DE SERVICIO
                     $("#btn-crearSolicitud").removeAttr("disabled");
-                   
 
                     //PERMITE QUE SIEMPRE SE MUESTRE EN EL TAB DE DATOS GENERALES
                     $("#v-pills-general-tab").addClass("active");
@@ -2427,7 +2425,6 @@ $(document).ready(function () {
 
                             $("#numFactura_ordSer").val(datosOrden.factura);
                             setTimeout(() => {
-                                console.log(datosOrden.kilometraje);
                                 $("#kilome_ordSer").val(
                                     datosOrden.kilometraje_orden
                                 );
@@ -2498,8 +2495,6 @@ $(document).ready(function () {
                             let mano = response.manoObraOrden;
                             let dinamico2 = 2;
 
-                            console.log(mano);
-
                             mano.forEach((element, index) => {
                                 //CALCULAMOS EL VALOR TOTAL DE CADA REPUESTO
                                 if (
@@ -2557,20 +2552,39 @@ $(document).ready(function () {
 
         //CLICK EN RESTABLECER
         $(document).on("click", "#btn-restablecer", function () {
-            $("#placa_OrdServ").val("").trigger("change");
-            $("#placa_OrdServ").removeAttr("disabled");
-            $("#ciudad_OrdServ").val("").trigger("change");
+            Swal.fire({
+                icon: "info",
+                title: "Restableciendo formulario",
+                showConfirmButton: false,
+                allowOutsideClick: false,
+                timer: 1000,
+                timerProgressBar: true,
+            }).then((result) => {
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    //CAMBIA DE TAB
+                    $("#v-pills-general").addClass("show active");
+                    $("#v-pills-diagnostico").removeClass("show active");
+                    $("#v-pills-repuestos").removeClass("show active");
+                    $("#v-pills-general-tab").addClass("active");
+                    $("#v-pills-diagnostico-tab").removeClass("active");
+                    $("#v-pills-repuestos-tab").removeClass("active");
 
-            //RESETEA LA TABLA DE REPUESTOS
-            $("#filas_tabla_repuestoSolicitud").html("");
-            resetTableRepuesto();
+                    $("#placa_OrdServ").val("").trigger("change");
+                    $("#placa_OrdServ").removeAttr("disabled");
+                    $("#ciudad_OrdServ").val("").trigger("change");
 
-            //RESETEA LA TABLA DE MANO DE OBRA
-            $("#filas_tabla_manoObra").html("");
-            resetTableMano();
+                    //RESETEA LA TABLA DE REPUESTOS
+                    $("#filas_tabla_repuestoSolicitud").html("");
+                    resetTableRepuesto();
 
-            //RESETEA ESTADO DE LA ORDEN
-            $("#estado").val(3).trigger("change");
+                    //RESETEA LA TABLA DE MANO DE OBRA
+                    $("#filas_tabla_manoObra").html("");
+                    resetTableMano();
+
+                    //RESETEA ESTADO DE LA ORDEN
+                    $("#estado").val(3).trigger("change");
+                }
+            });
         });
 
         //DIGITAN LA CANTIDAD Y CALCULA EL TOTAL DEL REPUESTO
@@ -2804,7 +2818,6 @@ $(document).ready(function () {
             CARGAR DATOS PARA LA MODAL DE QUIÉN ASUME
         ==============================================*/
         $(document).on("click", ".btn-asume", function () {
-
             let cantidad = $(this).attr("cantidad");
             let valor = $(this).attr("valor");
             let iva = $(this).attr("iva");
@@ -2812,9 +2825,7 @@ $(document).ready(function () {
             let nombre_cuenta = $(this).attr("nombre_cuenta");
             let num_cuenta = $(this).attr("num_cuenta");
             let idcliente = $(this).attr("idcliente");
-            let idvehiculo = $(this).attr("idvehiculo")
-
-            
+            let idvehiculo = $(this).attr("idvehiculo");
 
             $("#cantidad_ctrActividades").val(cantidad);
             $("#valor_ctrActividades").val(valor);
@@ -2837,9 +2848,9 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                   let vehiculo = response.datosVehiculo;
+                    let vehiculo = response.datosVehiculo;
 
-                   $("#contratista_asume").val(vehiculo.idcontratista);
+                    $("#contratista_asume").val(vehiculo.idcontratista);
                 },
             });
 
@@ -2855,20 +2866,15 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    
                     $("#empresa_asume").val(response.razon_social);
                 },
             });
-
-            
-
-
         });
 
         /*============================================
             VISUALIZAR PDF DE SOLICITUD DE SERVICIO 
         ==============================================*/
-        $(document).on("click", ".btn-exportar-solicitud", function(){
+        $(document).on("click", ".btn-exportar-solicitud", function () {
             var idorden = $(this).attr("idorden");
             window.open(
                 `./pdf/pdfmantenimiento.php?idorden=${idorden}`,
@@ -2880,32 +2886,37 @@ $(document).ready(function () {
         /*============================================
             CALCULOS PARA EL VALOR QUE ASUME CADA PARTE
         ==============================================*/
-        $(document).on("blur", "#porcentaje_cliente", function(){
+        $(document).on("blur", "#porcentaje_cliente", function () {
             let porcentaje = $(this).val();
             let total = $("#total_ctrActividades").val();
-            let asume = total * (porcentaje / 100);
+            let asume = 0;
+
+            if (porcentaje > 0 && total > 0) asume = total * (porcentaje / 100);
+            else asume = 0;
 
             $("#valor_cliente").val(asume);
-
         });
 
-        $(document).on("blur", "#porcentaje_empresa", function(){
+        $(document).on("blur", "#porcentaje_empresa", function () {
             let porcentaje = $(this).val();
             let total = $("#total_ctrActividades").val();
-            let asume = total * (porcentaje / 100);
+            let asume = 0;
+
+            if (porcentaje > 0 && total > 0) asume = total * (porcentaje / 100);
+            else asume = 0;
 
             $("#valor_empresa").val(asume);
-
         });
 
-        $(document).on("blur", "#porcentaje_contratista", function(){
+        $(document).on("blur", "#porcentaje_contratista", function () {
             let porcentaje = $(this).val();
             let total = $("#total_ctrActividades").val();
-            let asume = total * (porcentaje / 100);
+            let asume = 0;
+
+            if (porcentaje > 0 && total > 0) asume = total * (porcentaje / 100);
+            else asume = 0;
 
             $("#valor_contratista").val(asume);
-
         });
-
     }
 });
