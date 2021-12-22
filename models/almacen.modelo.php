@@ -500,5 +500,22 @@ class ModeloProductos
         $stmt->closeCursor();
         return $retorno;
     }
+
+    /* ===================================================
+        CONSULTAR STOCK
+    ===================================================*/
+    static public function mdlConsultarStock($idinventario)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT i.stock FROM a_re_inventario i
+        WHERE i.idinventario = :idinventario
+        ");
+
+        $stmt->bindParam(":idinventario", $idinventario, PDO::PARAM_INT);
+        $stmt->execute();
+        $retorno =  $stmt->fetch();
+        $stmt->closeCursor();
+        return $retorno;
+
+    }
     
 }
