@@ -90,6 +90,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                             <form id="ordenServ_form" method="post" enctype="multipart/form-data">
 
                                                 <div class="row">
+                                                    <!-- NAV Y BOTOENES DE GUARDAR Y RESTABLECER -->
                                                     <div class="col-lg-3 col-sm-6">
 
                                                         <!-- NAVBAR VERTICAL -->
@@ -139,13 +140,13 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
 
 
                                                     </div>
-                                                    <div class="col-lg-9 col-sm-12">
+                                                    <div class="col-lg-9 col-sm-12" >
                                                                 
-
+                                                    
                                                         <!-- ==============================================================================================
                                                          *********************************** ORDEN DE SERVICIO MANTENIMIENTO ***************************
                                                         ==================================================================================================== -->
-                                                        <div class="tab-content" id="v-pills-tabContent">
+                                                        <div class="tab-content" id="v-pills-tabContent" >
                                                             
                                                             <!-- DATOS GENERALES -->
                                                             <div class="tab-pane fade show active " id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab" nombre="Datos generales">
@@ -374,7 +375,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                 </div>
                                                             </div>
                                                             <!-- REPUESTOS / SOLICITUD SERVICIO -->
-                                                            <div class="tab-pane fade" id="v-pills-repuestos" role="tabpanel" aria-labelledby="v-pills-repuestos-tab">
+                                                            <div class="tab-pane fade" id="v-pills-repuestos" role="tabpanel" aria-labelledby="v-pills-repuestos-tab" style="overflow-y: scroll; height: 300px;" >
 
                                                                 
                                                             

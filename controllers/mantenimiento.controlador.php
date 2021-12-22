@@ -658,18 +658,60 @@ class ControladorMantenimientos
 
 				//ALMACENAMOS LA CEDULA DE LA PERSONA QUE HACE LA ORDEN 
 				$datos['cedula'] = $_SESSION['cedula'];
-				
+
 				//SI NO SELECCIONAN ESTADO LA PONE ABIERTA 
-				if ($datos['estado'] == 3){
-					
+				if ($datos['estado'] == 3) {
+
 					$datos['estado'] = 1;
-				} 
+				}
 
 				//SI EL ESTADO ES 2 (APROBADA) PONE LA FECHA ACTUAL EN FECHA DE APROBACION
 				// PERO SI HAY FECHA EN LA BASE DE DATOS, DEJARLA COMO ESTÁ
-				if ($datos['estado'] == 2){
+				if ($datos['estado'] == 2) {
+					//GUARDAMOS FECHA DE APROBACIÓN COMO LA ACTUAL
 					$date = date('Y-m-d H:i:s');
 					$datos['fecha_aprobacion'] = $date;
+
+					//EDITO INVENTARIO Y GENERO MOVIMIENTO
+					if (isset($datos['inventario'])) {
+						foreach ($datos['inventario'] as $key => $value) {
+							if ($value != "") {
+								$idinventario = intval($value);
+								$cantidad = intval($datos['cantidad_repuesto'][$key]);
+								$datos['tipo_movimiento'] = 'SALIDA';
+								$movimiento = $datos['tipo_movimiento'];
+								$valor = intval($datos['valor_repuesto'][$key]);
+								$idproveedor = intval($datos['idproveedor_repuesto'][$key]);
+								$factura = $datos['numFactura_ordSer'];
+								$observaciones = $datos['observacion'];
+								$datos['posicion'] = "";
+								$posicion = $datos['posicion'];
+								$stock = ModeloProductos::mdlConsultarStock($idinventario);
+								$stock_nuevo = $stock[0] - $cantidad;
+								$datos['stock'] = $stock_nuevo;
+
+								$datos2 = array(
+									'idinventario' => $datos['inventario'][$key],
+									'posicion' => $datos['posicion'],
+									'stock' => $datos['stock']
+								);
+
+								$datos3 = array(
+									'idinventario' => $idinventario,
+									'cantidad' => $cantidad,
+									'tipo_movimiento' => $movimiento,
+									'preciocompra' => $valor,
+									'idproveedor' => $idproveedor,
+									'facturacompra' => $factura,
+									'observaciones' => $datos['observacion']
+								);
+
+								// var_dump($datos['inventario'][$key], $datos['posicion'], $datos['stock']);
+								$respuesta = ModeloProductos::mdlAgregarMovimiento($datos3);
+								$respuesta = ModeloProductos::mdlEditarInventario($datos2);
+							}
+						}
+					}
 				}
 
 				// Validar campos vacíos
@@ -677,7 +719,7 @@ class ControladorMantenimientos
 				$datos['fecha_aprobacion'] = !isset($datos['fecha_aprobacion']) ? null : $datos['fecha_aprobacion'];
 
 
-				
+
 				#RETORNA EL ÚLTIMO ID INSERTADO
 				$respuesta = ModeloMantenimientos::mdlAgregarOrdenServicio($datos);
 
@@ -738,35 +780,76 @@ class ControladorMantenimientos
 
 
 				return $respuesta;
-			}else{
+			} else {
 
 				//OBTENEMOS LOS DATOS DE ESA ORDEN
 				$datosOrden = ModeloMantenimientos::mdlCargarOrdenServicio($datos['numOrden_ordSer']);
-				
-			
-				if($datosOrden['idvehiculo'] != ""){
+
+
+				if ($datosOrden['idvehiculo'] != "") {
 					$idvehiculo = intval($datosOrden['idvehiculo']);
 					$datos['idvehiculo_OrdServ'] = $idvehiculo;
 				}
 
-				
+
 
 				//SI EL ESTADO ES 2 (APROBADA) PONE LA FECHA ACTUAL EN FECHA DE APROBACION
 				// PERO SI HAY FECHA EN LA BASE DE DATOS, Y EL ESTADO ANTERIOR ES APROBADO DEJARLA COMO ESTÁ, SI NO ACTUALIZAR  
 				// $fecha_aprobacion = ModeloMantenimientos::mdlCargarOrdenServicio($datos['numOrden_ordSer']);
-				
 
-				if( $datosOrden['estado'] != 2)
-				{
-					if ($datos['estado'] == 2){
+
+				if ($datosOrden['estado'] != 2) {
+					if ($datos['estado'] == 2) {
 						$date = date('Y-m-d H:i:s');
 						$datos['fecha_aprobacion'] = $date;
 					}
-				}else{
+				} else {
+					//INSERTAMOS LA FECHA DE APROBACION
 					$datos['fecha_aprobacion'] = $datosOrden['fecha_aprobacion'];
+
+					//EDITO INVENTARIO Y GENERAMOS MOVIMIENTO
+					if (isset($datos['inventario'])) {
+						foreach ($datos['inventario'] as $key => $value) {
+							if ($value != "") {
+								$idinventario = intval($value);
+								$cantidad = intval($datos['cantidad_repuesto'][$key]);
+								$datos['tipo_movimiento'] = 'SALIDA';
+								$movimiento = $datos['tipo_movimiento'];
+								$valor = intval($datos['valor_repuesto'][$key]);
+								$idproveedor = intval($datos['idproveedor_repuesto'][$key]);
+								$factura = $datos['numFactura_ordSer'];
+								$observaciones = $datos['observacion'];
+								$datos['posicion'] = "";
+								$posicion = $datos['posicion'];
+								$stock = ModeloProductos::mdlConsultarStock($idinventario);
+								$stock_nuevo = $stock[0] - $cantidad;
+								$datos['stock'] = $stock_nuevo;
+
+								$datos2 = array(
+									'idinventario' => $datos['inventario'][$key],
+									'posicion' => $datos['posicion'],
+									'stock' => $datos['stock']
+								);
+
+								$datos3 = array(
+									'idinventario' => $idinventario,
+									'cantidad' => $cantidad,
+									'tipo_movimiento' => $movimiento,
+									'preciocompra' => $valor,
+									'idproveedor' => $idproveedor,
+									'facturacompra' => $factura,
+									'observaciones' => $datos['observacion']
+								);
+
+								// var_dump($datos['inventario'][$key], $datos['posicion'], $datos['stock']);
+								$respuesta = ModeloProductos::mdlAgregarMovimiento($datos3);
+								$respuesta = ModeloProductos::mdlEditarInventario($datos2);
+							}
+						}
+					}
 				}
-				
-				 
+
+
 
 				//SI NO SELECCIONAN ESTADO LA PONE ABIERTA 
 				if ($datos['estado'] == 3) $datos['estado'] = 1;
@@ -793,8 +876,8 @@ class ControladorMantenimientos
 							$idproveedor = intval($datos['idproveedor_repuesto'][$key]);
 							$valor = intval($datos['valor_repuesto'][$key]);
 							$idcuenta = intval($datos['idcuenta'][$key]);
-							
-							$add = ModeloMantenimientos::mdlAgregarRepuestoOrdenServicio($idorden, $idinventario, $cantidad, $idservicio, $sistema, $mantenimiento, $iva,$total, $idproveedor, $valor, $idcuenta);
+
+							$add = ModeloMantenimientos::mdlAgregarRepuestoOrdenServicio($idorden, $idinventario, $cantidad, $idservicio, $sistema, $mantenimiento, $iva, $total, $idproveedor, $valor, $idcuenta);
 						}
 					}
 				}
@@ -821,7 +904,7 @@ class ControladorMantenimientos
 				}
 
 				//ACTUALIZA SERVICIOS EXTERNOS DE LA ORDEN
-				
+
 				$borrar = ModeloMantenimientos::mdlEliminarServiciosExternosOrden($datos['numOrden_ordSer']);
 				if (isset($datos['serviciosexternos'])) {
 					foreach ($datos['serviciosexternos'] as $key => $value) {
@@ -835,8 +918,6 @@ class ControladorMantenimientos
 
 
 				return $datos['numOrden_ordSer'];
-				
-
 			}
 		}
 	}
@@ -927,7 +1008,7 @@ class ControladorMantenimientos
 			}
 		}
 
-		
+
 
 		// $respuesta = ModeloMantenimientos::mdlAgregarSolicitud($datos);
 		// return $respuesta;
