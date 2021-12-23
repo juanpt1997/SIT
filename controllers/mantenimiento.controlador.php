@@ -656,6 +656,17 @@ class ControladorMantenimientos
 
 			if ($datos['numOrden_ordSer'] == "") {
 
+
+				// Validar campos vacíos
+				$datos['fechaInic_ordSer'] = $datos['fechaInic_ordSer'] == "" ? null : $datos['fechaInic_ordSer'];
+				$datos['fecha_aprobacion'] = !isset($datos['fecha_aprobacion']) ? null : $datos['fecha_aprobacion'];
+
+
+
+				#RETORNA EL ÚLTIMO ID INSERTADO
+				$respuesta = ModeloMantenimientos::mdlAgregarOrdenServicio($datos);
+				$idorden = $respuesta;
+
 				//ALMACENAMOS LA CEDULA DE LA PERSONA QUE HACE LA ORDEN 
 				$datos['cedula'] = $_SESSION['cedula'];
 
@@ -712,16 +723,48 @@ class ControladorMantenimientos
 							}
 						}
 					}
+
+
+					var_dump($datos);
+					//AGREGO LA PROGRAMACIÓN DE REPUESTO
+					if (isset($datos['servicio_repuesto'])) {
+						foreach ($datos['servicio_repuesto'] as $key => $value) {
+
+							if($value != 10 && $datos['servrepuesto'][$key] != "Otros")
+							{
+								$datos2 = array(
+									'idvehiculo_serv' => $datos['idvehiculo_OrdServ'],
+									'idservicio' => $value,
+									'kilometraje_serv' => $datos['kilome_ordSer'],
+									'fecha' => $datos['fechaInic_ordSer'],
+									'idorden' => $idorden
+								);
+
+								$respuesta = ModeloMantenimientos::mdlAgregarServicio($datos2);
+
+							}
+
+						}
+					}
+
+					//AGREGO LA PROGRAMACIÓN DE MANO DE OBRA
+					if(isset($datos['servicio_mano'])){
+						foreach ($datos['servicio_mano'] as $key => $value) {
+							if($value != 10 && $datos['servmanoObra'][$key] != "Otros")
+							{
+								$datos2 = array(
+									'idvehiculo_serv' => $datos['idvehiculo_OrdServ'],
+									'idservicio' => $value,
+									'kilometraje_serv' => $datos['kilome_ordSer'],
+									'fecha' => $datos['fechaInic_ordSer'],
+									'idorden' => $idorden
+								);
+
+								$respuesta = ModeloMantenimientos::mdlAgregarServicio($datos2);
+							}
+						}	
+					}
 				}
-
-				// Validar campos vacíos
-				$datos['fechaInic_ordSer'] = $datos['fechaInic_ordSer'] == "" ? null : $datos['fechaInic_ordSer'];
-				$datos['fecha_aprobacion'] = !isset($datos['fecha_aprobacion']) ? null : $datos['fecha_aprobacion'];
-
-
-
-				#RETORNA EL ÚLTIMO ID INSERTADO
-				$respuesta = ModeloMantenimientos::mdlAgregarOrdenServicio($datos);
 
 
 				#GUARDAR REPUESTO
@@ -846,6 +889,49 @@ class ControladorMantenimientos
 								$respuesta = ModeloProductos::mdlEditarInventario($datos2);
 							}
 						}
+					}
+
+					var_dump($datos);
+					//AGREGO LA PROGRAMACIÓN DE REPUESTO 
+					if (isset($datos['servicio_repuesto'])) {
+						$borrar = ModeloMantenimientos::mdlEliminarServicioxOrden($datos['numOrden_ordSer']);
+						foreach ($datos['servicio_repuesto'] as $key => $value) {
+
+
+							if ($value != 10 && $datos['servrepuesto'][$key] != "Otros") {
+								$datos2 = array(
+									'idvehiculo_serv' => $datos['idvehiculo_OrdServ'],
+									'idservicio' => $value,
+									'kilometraje_serv' => $datos['kilome_ordSer'],
+									'fecha' => $datos['fechaInic_ordSer'],
+									'idorden' => $datos['numOrden_ordSer']
+								);
+
+								$respuesta = ModeloMantenimientos::mdlAgregarServicio($datos2);
+							}
+						}
+					}
+
+
+					//AGREGO LA PROGRMACIÓN DE MANO DE OBRA 
+					if(isset($datos['servicio_mano'])){
+						
+						if ($borrar != "ok") $borrar = ModeloMantenimientos::mdlEliminarServicioxOrden($datos['numOrden_ordSer']);
+						
+						foreach ($datos['servicio_mano'] as $key => $value) {
+							if($value != 10 && $datos['servmanoObra'][$key] != "Otros")
+							{
+								$datos2 = array(
+									'idvehiculo_serv' => $datos['idvehiculo_OrdServ'],
+									'idservicio' => $value,
+									'kilometraje_serv' => $datos['kilome_ordSer'],
+									'fecha' => $datos['fechaInic_ordSer'],
+									'idorden' => $datos['numOrden_ordSer']
+								);
+
+								$respuesta = ModeloMantenimientos::mdlAgregarServicio($datos2);
+							}
+						}	
 					}
 				}
 

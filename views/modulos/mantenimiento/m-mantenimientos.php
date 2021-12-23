@@ -149,7 +149,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                         <div class="tab-content" id="v-pills-tabContent" >
                                                             
                                                             <!-- DATOS GENERALES -->
-                                                            <div class="tab-pane fade show active " id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab" nombre="Datos generales" style="overflow-y: scroll; height: 300px; overflow-x: hidden;">
+                                                            <div class="tab-pane fade show active " id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab" nombre="Datos generales" style="overflow-y: scroll; height: 600px; overflow-x: hidden;">
                                                                 <div class="row">
 
                                                                     <div class="col-3 ">
@@ -375,7 +375,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                 </div>
                                                             </div>
                                                             <!-- REPUESTOS / SOLICITUD SERVICIO -->
-                                                            <div class="tab-pane fade" id="v-pills-repuestos" role="tabpanel" aria-labelledby="v-pills-repuestos-tab" style="overflow-y: scroll; height: 300px;" >
+                                                            <div class="tab-pane fade" id="v-pills-repuestos" role="tabpanel" aria-labelledby="v-pills-repuestos-tab" style="overflow-y: scroll; height: 600px;" >
 
                                                                 
                                                             

@@ -1790,7 +1790,7 @@ class ModeloMantenimientos
         FROM m_re_serviciosvehiculos sm
         INNER JOIN m_serviciosmenores s ON sm.idservicio = s.idservicio
         INNER JOIN v_vehiculos v ON sm.idvehiculo = v.idvehiculo
-        WHERE YEAR(date_add(sm.fecha, INTERVAL s.dias_cambio DAY)) = YEAR(CURRENT_DATE()) AND MONTH(date_add(sm.fecha, INTERVAL s.dias_cambio DAY)) BETWEEN MONTH(CURRENT_DATE()) AND (MONTH(CURRENT_DATE()) + 1) AND (v.kilometraje - kilometraje_cambio) <= 1000 AND sm.estado = 1 
+        WHERE YEAR(date_add(sm.fecha, INTERVAL s.dias_cambio DAY)) = YEAR(CURRENT_DATE()) AND MONTH(date_add(sm.fecha, INTERVAL s.dias_cambio DAY)) BETWEEN MONTH(CURRENT_DATE()) AND (MONTH(CURRENT_DATE()) + 1) AND (v.kilometraje - kilometraje_cambio) <= 1000 AND s.estado = 1 
         GROUP BY sm.idvehiculo, sm.idservicio
         ORDER BY sm.fecha DESC"
         );
@@ -2213,12 +2213,13 @@ class ModeloMantenimientos
     ===================================================*/
     static public function mdlAgregarServicio($datos)
     {
-        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_serviciosvehiculos(idvehiculo,idservicio,kilometraje,fecha) 
-                                                VALUES (:idvehiculo_serv, :idservicio, :kilometraje_serv, :fecha)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_serviciosvehiculos(idvehiculo,idservicio,kilometraje,fecha, idorden) 
+                                                VALUES (:idvehiculo_serv, :idservicio, :kilometraje_serv, :fecha, :idorden)");
         $stmt->bindParam(":idvehiculo_serv", $datos["idvehiculo_serv"], PDO::PARAM_INT);
         $stmt->bindParam(":idservicio", $datos["idservicio"], PDO::PARAM_INT);
         $stmt->bindParam(":kilometraje_serv", $datos["kilometraje_serv"], PDO::PARAM_INT);
         $stmt->bindParam(":fecha", $datos["fecha"], PDO::PARAM_STR);
+        $stmt->bindParam(":idorden", $datos['idorden'], PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $retorno = "ok";
@@ -2253,6 +2254,25 @@ class ModeloMantenimientos
         return $retorno;
     }
 
+    /* ===================================================
+        ELIMINAR SERVICIO DE LA ORDEN [PROGRAMACION]
+    ===================================================*/
+    static public function mdlEliminarServicioxOrden($idorden)
+    {
+        $stmt = Conexion::conectar()->prepare("DELETE s.* from  m_re_serviciosvehiculos s WHERE s.idorden = :idorden");
+        $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
 
     /* ===================================================
         LISTADO DE CUENTAS CONTABLES
