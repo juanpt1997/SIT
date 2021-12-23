@@ -149,7 +149,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                         <div class="tab-content" id="v-pills-tabContent" >
                                                             
                                                             <!-- DATOS GENERALES -->
-                                                            <div class="tab-pane fade show active " id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab" nombre="Datos generales">
+                                                            <div class="tab-pane fade show active " id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab" nombre="Datos generales" style="overflow-y: scroll; height: 300px; overflow-x: hidden;">
                                                                 <div class="row">
 
                                                                     <div class="col-3 ">
@@ -425,7 +425,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
 
                                                                     <div class="card-body" style="display: none;">
                                                                         <div class="row d-flex justify-content-center">
-                                                                            <div class="table-responsive" id="repuesto_solicitud">
+                                                                            <div class="table-responsive" id="repuesto_solicitud" style="font-size: 12px;">
                                                                                 <table class="table table-bordered table-striped text-center text-nowrap" id="tabla_repuesto_orden">
                                                                                     <thead>
                                                                                         <tr>
@@ -533,7 +533,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                     <div class="card-body" style="display: none;">
                                                                         <div class="row d-flex justify-content-center">
 
-                                                                            <div class="table-responsive">
+                                                                            <div class="table-responsive" style="font-size: 12px;">
                                                                                 <table class="table table table-responsive table-bordered table-striped text-center text-nowrap">
                                                                                     <thead>
                                                                                         <tr>
