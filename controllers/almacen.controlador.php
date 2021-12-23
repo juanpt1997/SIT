@@ -78,7 +78,7 @@ class ControladorAlmacen
                     if ($value != "") {
                         $idproducto = intval($value);
                         $cantidad = intval($datos['cantidad_producto'][$key]);
-                        ModeloProductos::mdlAgregarRegistroProductos($idorden,$idproducto,$cantidad);
+                        ModeloProductos::mdlAgregarRegistroProductos($idorden, $idproducto, $cantidad);
                     }
                 }
             }
@@ -111,10 +111,10 @@ class ControladorAlmacen
             if (isset($datos['idproducto']) && $respuesta == "ok") {
                 foreach ($datos['idproducto'] as $key => $value) {
                     if ($value != "") {
-                        
+
                         $idproducto = intval($value);
                         $cantidad = intval($datos['cantidad_producto'][$key]);
-                        ModeloProductos::mdlAgregarRegistroProductos($idorden,$idproducto,$cantidad);
+                        ModeloProductos::mdlAgregarRegistroProductos($idorden, $idproducto, $cantidad);
                     }
                 }
             }
@@ -140,13 +140,13 @@ class ControladorAlmacen
 
     static public function ctrGenerarSalidaInventario($datos)
     {
-        $datosValidar = array (
+        $datosValidar = array(
             'sucursal' => $datos['sucursal_salida'],
             'idproducto' => $datos['idproducto']
         );
         $inventarioExistente = ModeloProductos::mdlValidarInventario($datosValidar);
 
-        if(is_array($inventarioExistente)){
+        if (is_array($inventarioExistente)) {
 
             $nuevoStock = $inventarioExistente['stock'] - $datos['cantidad_salida'];
 
@@ -154,7 +154,7 @@ class ControladorAlmacen
                 'idinventario' => $inventarioExistente['idinventario'],
                 'stock' =>  $nuevoStock,
                 'posicion' => $inventarioExistente['posicion'],
-                
+
             );
 
             $datos['idinventario'] = $inventarioExistente['idinventario'];
@@ -165,9 +165,10 @@ class ControladorAlmacen
             ModeloProductos::mdlEditarInventario($datos2);
             ModeloProductos::mdlAgregarMovimiento($datos);
 
-            $respuesta = $nuevoStock;
-            
-        } else{
+            $respuesta = $datos['cantidad_salida'];
+
+            return intval($respuesta);
+        } else {
 
             $datosInventario = array(
                 'cantidad' => 0,
@@ -180,23 +181,19 @@ class ControladorAlmacen
 
             $datos['idinventario'] = $inventario;
             $datos['tipo_movimiento'] = 'SALIDA';
-            $datos['cantidad'] = -1 * abs($datos['cantidad_salida']); 
+            $datos['cantidad'] = -1 * abs($datos['cantidad_salida']);
             $datos['observaciones'] = $datos['observaciones_salida'];
             $datos['idproveedor'] = "";
             ModeloProductos::mdlAgregarMovimiento($datos);
-            
+
             $respuesta = $datos['cantidad'];
         }
 
-        return $respuesta;
+        return intval($respuesta);
         // if($respuesta != 'error' && !is_numeric($respuesta)){
-
         //     return 'error';
-
         // } else{
-
         //     return $respuesta;
-
         // }
     }
 

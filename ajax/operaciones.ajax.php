@@ -194,6 +194,19 @@ class AjaxRodamientos
         $respuesta = ModeloRodamiento::mdlEliminarRodamiento($idvehiculo);
         echo $respuesta;
     }
+
+    static public function ajaxConsultarValor($idcliente,$idruta,$idtipovel)
+    {
+        $datos = array(
+            'idcliente' => $idcliente,
+            'idruta' => $idruta,
+            'idtipovehiculo' => $idtipovel
+        );
+
+        $respuesta = ModeloRodamiento::mdlValorRecorrido($datos);
+
+        echo json_encode($respuesta);
+    }
 }
 
 #Llamados ajax alistamiento
@@ -217,11 +230,15 @@ if (isset($_POST['CambiarEstadoEvidencia']) && $_POST['CambiarEstadoEvidencia'] 
     AjaxAlistamiento::ajaxActualizaEstado($_POST['idevidencia'], $_POST['estadoActual'], $_POST['observaciones']);
 }
 
-#Llamados ajax alistamiento
+#Llamados ajax rodamiento
 if (isset($_POST['DatosRodamiento']) && $_POST['DatosRodamiento'] == "ok") {
     AjaxRodamientos::ajaxDatosRodamiento($_POST['id']);
 }
 
 if (isset($_POST['EliminarRodamiento']) && $_POST['EliminarRodamiento'] == "ok") {
     AjaxRodamientos::ajaxEliminarRodamiento($_POST['id']);
+}
+
+if (isset($_POST['ConsultarValor']) && $_POST['ConsultarValor'] == "ok") {
+    AjaxRodamientos::ajaxConsultarValor($_POST['idcliente'],$_POST['idruta'],$_POST['idtipove']);
 }
