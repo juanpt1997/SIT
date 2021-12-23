@@ -1776,13 +1776,24 @@ class ModeloMantenimientos
             GROUP BY sm.idvehiculo, sm.idservicio
             ORDER BY sm.fecha DESC;
         ===================================================*/
-        $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.kilometraje AS kilometraje_actual, MAX(sm.idserviciovehiculo) AS idserviciovehiculo, sm.idvehiculo, sm.idservicio,s.kilometraje_cambio AS kilometraje_servicio, (s.kilometraje_cambio + MAX(sm.kilometraje)) AS kilometraje_cambio,
+        $stmt = Conexion::conectar()->prepare(
+        //     "SELECT v.placa, v.kilometraje AS kilometraje_actual, MAX(sm.idserviciovehiculo) AS idserviciovehiculo, sm.idvehiculo, sm.idservicio,s.kilometraje_cambio AS kilometraje_servicio, (s.kilometraje_cambio + MAX(sm.kilometraje)) AS kilometraje_cambio,
+        // MAX(sm.fecha) AS fecha, DATE_FORMAT(MAX(sm.fecha), '%d/%m/%y') AS Ffecha, s.servicio, DATE_FORMAT(date_add(sm.fecha, INTERVAL s.dias_cambio DAY), '%d/%m/%Y') AS fecha_cambio, date_add(sm.fecha, INTERVAL s.dias_cambio DAY) AS fecha_comparar 
+        // FROM m_re_serviciosvehiculos sm
+        // INNER JOIN m_serviciosmenores s ON sm.idservicio = s.idservicio
+        // INNER JOIN v_vehiculos v ON sm.idvehiculo = v.idvehiculo
+        // GROUP BY sm.idvehiculo, sm.idservicio
+        // ORDER BY sm.fecha DESC"
+
+        "SELECT v.placa, v.kilometraje AS kilometraje_actual, MAX(sm.idserviciovehiculo) AS idserviciovehiculo, sm.idvehiculo, sm.idservicio,s.kilometraje_cambio AS kilometraje_servicio, (s.kilometraje_cambio + MAX(sm.kilometraje)) AS kilometraje_cambio,
         MAX(sm.fecha) AS fecha, DATE_FORMAT(MAX(sm.fecha), '%d/%m/%y') AS Ffecha, s.servicio, DATE_FORMAT(date_add(sm.fecha, INTERVAL s.dias_cambio DAY), '%d/%m/%Y') AS fecha_cambio, date_add(sm.fecha, INTERVAL s.dias_cambio DAY) AS fecha_comparar 
         FROM m_re_serviciosvehiculos sm
         INNER JOIN m_serviciosmenores s ON sm.idservicio = s.idservicio
         INNER JOIN v_vehiculos v ON sm.idvehiculo = v.idvehiculo
+        WHERE YEAR(date_add(sm.fecha, INTERVAL s.dias_cambio DAY)) = YEAR(CURRENT_DATE()) AND MONTH(date_add(sm.fecha, INTERVAL s.dias_cambio DAY)) BETWEEN MONTH(CURRENT_DATE()) AND (MONTH(CURRENT_DATE()) + 1) AND (v.kilometraje - kilometraje_cambio) <= 1000 AND sm.estado = 1 
         GROUP BY sm.idvehiculo, sm.idservicio
-        ORDER BY sm.fecha DESC");
+        ORDER BY sm.fecha DESC"
+        );
 
         $stmt->execute();
         $respuesta = $stmt->fetchAll();
@@ -1818,12 +1829,15 @@ class ModeloMantenimientos
 
     static public function mdlServiciosRecientes($idservicio)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.kilometraje AS kilometraje_actual, MAX(sm.idserviciovehiculo) AS idserviciovehiculo, sm.idvehiculo, sm.idservicio,s.kilometraje_cambio AS kilometraje_servicio, (s.kilometraje_cambio + MAX(sm.kilometraje)) AS kilometraje_cambio,
-        MAX(sm.fecha) AS fecha, DATE_FORMAT(MAX(sm.fecha), '%d/%m/%y') AS Ffecha, s.servicio, DATE_FORMAT(date_add(sm.fecha, INTERVAL s.dias_cambio DAY), '%d/%m/%Y') AS fecha_cambio, date_add(sm.fecha, INTERVAL s.dias_cambio DAY) AS fecha_comparar 
+        $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.kilometraje AS kilometraje_actual, 
+		MAX(sm.idserviciovehiculo) AS idserviciovehiculo, sm.idvehiculo, sm.idservicio,
+		s.kilometraje_cambio AS kilometraje_servicio, (s.kilometraje_cambio + MAX(sm.kilometraje)) AS kilometraje_cambio,
+        MAX(sm.fecha) AS fecha, DATE_FORMAT(MAX(sm.fecha), '%d/%m/%y') AS Ffecha, s.servicio, 
+		  DATE_FORMAT(date_add(sm.fecha, INTERVAL s.dias_cambio DAY), '%d/%m/%Y') AS fecha_cambio, date_add(sm.fecha, INTERVAL s.dias_cambio DAY) AS fecha_comparar 
         FROM m_re_serviciosvehiculos sm
         INNER JOIN m_serviciosmenores s ON sm.idservicio = s.idservicio
         INNER JOIN v_vehiculos v ON sm.idvehiculo = v.idvehiculo
-        WHERE sm.idservicio = :idservicio
+        WHERE sm.idservicio = :idservicio AND YEAR(date_add(sm.fecha, INTERVAL s.dias_cambio DAY)) = YEAR(CURRENT_DATE()) AND MONTH(date_add(sm.fecha, INTERVAL s.dias_cambio DAY)) BETWEEN MONTH(CURRENT_DATE()) AND (MONTH(CURRENT_DATE()) + 1) AND (v.kilometraje - kilometraje_cambio) <= 1000   
         GROUP BY sm.idvehiculo, sm.idservicio
         ORDER BY sm.fecha DESC");
 

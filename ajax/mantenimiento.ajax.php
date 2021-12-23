@@ -9,6 +9,7 @@ require_once '../controllers/vehicular.controlador.php';
 require_once '../models/vehicular.modelo.php';
 require_once '../models/conceptos.modelo.php';
 require_once '../models/compras.modelo.php';
+require_once '../models/almacen.modelo.php';
 
 if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok") {
     echo "<script>window.location = 'inicio';</script>";
@@ -410,7 +411,7 @@ class AjaxMantenimientos
     ===================================================*/
     static public function ajaxListaServicios($consecutivo, $seccion)
     {
-        $respuesta = ModeloVehiculos::mdlListadoServicios();
+        $respuesta = ModeloVehiculos::mdlListadoServicios("tipo");
         $opciones = "";
         foreach ($respuesta as $key => $value) {
             
@@ -506,7 +507,7 @@ class AjaxMantenimientos
     ===================================================*/
     static public function ajaxAsumeVerEmpresa()
     {
-        $respuesta = ModeloConceptosGH::mdlVerEmpresa();
+        $respuesta = ModeloEmpresaRaiz::mdlVerEmpresa();
         echo json_encode( $respuesta);
     }
 }

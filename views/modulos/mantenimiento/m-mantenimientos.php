@@ -53,17 +53,18 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-            <hr class="my-4">
+
             <!-- ===================== 
               AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
             ========================= -->
+            
             <div class="tab-content" id="pills-tabcontent">
                 <div class="tab-pane fade show active" id="pills-ordenserv" role="tabpanel" aria-labelledby="pills-ordenserv-tab">
                     <div class="row">
                         <div class="col-12 col-sm-6 col-lg-12">
-                            <div class="card card-info card-tabs">
-                                <div class="card-header p-0 pt-1">
-                                    <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                            <div class="card card-info">
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs card-header-tabs" id="custom-tabs-one-tab" role="tablist">
                                         <!-- <li class="nav-item">
                                          <a class="nav-link active" id="custom-tabs-one-solicitudserv_exter_repues-tab" data-toggle="pill" href="#custom-tabs-one-solicitudserv_exter_repues" role="tab" aria-controls="custom-tabs-one-solicitudserv_exter_repues" aria-selected="false">Solicitud de servicio / Repuestos</a>
                                         </li> -->
@@ -77,7 +78,6 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                         <li>
                                             <a class="nav-link" id="custom-tabs-one-control-tab" data-toggle="pill" href="#custom-tabs-one-control" role="tab" aria-controls="custom-tabs-one-control" aria-selected="false"><i class="fas fa-tasks"></i> Control de actividades</a>
                                         </li>
-
                                     </ul>
                                 </div>
 
@@ -90,6 +90,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                             <form id="ordenServ_form" method="post" enctype="multipart/form-data">
 
                                                 <div class="row">
+                                                    <!-- NAV Y BOTOENES DE GUARDAR Y RESTABLECER -->
                                                     <div class="col-lg-3 col-sm-6">
 
                                                         <!-- NAVBAR VERTICAL -->
@@ -104,7 +105,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                     <a class="nav-link border-bottom rounded" id="v-pills-diagnostico-tab" data-toggle="pill" href="#v-pills-diagnostico" role="tab" aria-controls="v-pills-diagnostico" aria-selected="false"><b><i class="far fa-file-alt"></i> Diagnóstico</b></a>
                                                                     <a class="nav-link border-bottom rounded" id="v-pills-repuestos-tab" data-toggle="pill" href="#v-pills-repuestos" role="tab" aria-controls="v-pills-repuestos" aria-selected="false"><b><i class="fas fa-screwdriver"></i> Repuestos / Mano de obra</b></a>
                                                                     <!-- <a class="nav-link border-bottom rounded" id="v-pills-manoObra-tab" data-toggle="pill" href="#v-pills-manoObra" role="tab" aria-controls="v-pills-manoObra" aria-selected="false"><b><i class="fas fa-fist-raised"></i> Mano de obra</b></a> -->
-                                                                    <a class="nav-link border-bottom rounded" id="v-pills-observaciones-tab" data-toggle="pill" href="#v-pills-observaciones" role="tab" aria-controls="v-pills-observaciones" aria-selected="false"><b><i class="far fa-comment-alt"></i> Observaciones</b></a>
+                                                                    <!-- <a class="nav-link border-bottom rounded" id="v-pills-observaciones-tab" data-toggle="pill" href="#v-pills-observaciones" role="tab" aria-controls="v-pills-observaciones" aria-selected="false"><b><i class="far fa-comment-alt"></i> Observaciones</b></a> -->
                                                                     <!-- <a class="nav-link" id="v-pills-firmas-tab" data-toggle="pill" href="#v-pills-firmas" role="tab" aria-controls="v-pills-firmas" aria-selected="false"><b>Nombres y firmas</b></a> -->
                                                                 </div>
                                                             </div>
@@ -121,37 +122,54 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                             </select>
                                                         </div>
 
+                                                        <div class="col-9 mt-3">
+                                                            <button type="submit" form="ordenServ_form" class="btn btn-success mb-2 col fileinput-button dz-clickable">
+                                                                <i class="fas fa-plus"></i>
+                                                                <span>Guardar</span>
+                                                            </button>
+
+                                                            <button type="reset" class="btn btn-warning col cancel" id="btn-restablecer">
+                                                                <i class="fas fa-broom"></i>
+                                                                <span>Restablecer</span>
+                                                            </button>
+
+                                                        </div>
+
+
+
+
 
                                                     </div>
-                                                    <div class="col-lg-9 col-sm-12">
-
-
+                                                    <div class="col-lg-9 col-sm-12" >
+                                                                
+                                                    
                                                         <!-- ==============================================================================================
                                                          *********************************** ORDEN DE SERVICIO MANTENIMIENTO ***************************
                                                         ==================================================================================================== -->
-                                                        <div class="tab-content" id="v-pills-tabContent">
+                                                        <div class="tab-content" id="v-pills-tabContent" >
+                                                            
                                                             <!-- DATOS GENERALES -->
-                                                            <div class="tab-pane fade show active " id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab">
+                                                            <div class="tab-pane fade show active " id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab" nombre="Datos generales" style="overflow-y: scroll; height: 300px; overflow-x: hidden;">
                                                                 <div class="row">
 
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i># Orden de servicio</i></label>
-                                                                            <input type="text" class="form-control" id="numOrden_ordSer" name="numOrden_ordSer" readonly>
+                                                                            <input type="text" class="form-control form-control-sm" id="numOrden_ordSer" name="numOrden_ordSer" readonly>
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i># Factura</i></label>
-                                                                            <input type="text" class="form-control" id="numFactura_ordSer" name="numFactura_ordSer">
+                                                                            <input type="text" class="form-control form-control-sm" id="numFactura_ordSer" name="numFactura_ordSer">
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Placa</i></label>
-                                                                            <select id="placa_OrdServ" name="idvehiculo_OrdServ" class="form-control select2-single" type="number" style="width: 99%" required>
+                                                                            <select id="placa_OrdServ" name="idvehiculo_OrdServ" class="form-control select2-single" type="number" style="height: 99%" required>
                                                                                 <option selected value="">Seleccione un vehículo</option>
                                                                                 <?php foreach ($Placas as $key => $value) : ?>
                                                                                     <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?> </option>
@@ -160,83 +178,83 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Número interno</i></label>
-                                                                            <input type="text" class="form-control" id="numinterno_ordSer" name="numinterno_ordSer" required readonly>
+                                                                            <input type="text" class="form-control form-control-sm" id="numinterno_ordSer" name="numinterno_ordSer" required readonly>
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Cliente</i></label>
-                                                                            <input type="text" class="form-control" id="cliente_orderServ" required readonly>
+                                                                            <input type="text" class="form-control form-control-sm" id="cliente_orderServ" required readonly>
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Marca</i></label>
-                                                                            <input type="text" class="form-control" id="marca_ordSer" name="marca_ordSer" required readonly>
+                                                                            <input type="text" class="form-control form-control-sm" id="marca_ordSer" name="marca_ordSer" required readonly>
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Clase de vehículo</i></label>
-                                                                            <input type="text" class="form-control" id="clasevehiculo_ordSer" name="clasevehiculo_ordSer" required readonly>
+                                                                            <input type="text" class="form-control form-control-sm" id="clasevehiculo_ordSer" name="clasevehiculo_ordSer" required readonly>
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Modelo</i></label>
-                                                                            <input type="text" class="form-control" id="modelo_ordSer" name="modelo_ordSer" required readonly>
+                                                                            <input type="text" class="form-control form-control-sm" id="modelo_ordSer" name="modelo_ordSer" required readonly>
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Kilometraje</i></label>
-                                                                            <input type="number" class="form-control" id="kilome_ordSer" name="kilome_ordSer" required readonly>
+                                                                            <input type="number" class="form-control form-control-sm" id="kilome_ordSer" name="kilome_ordSer" required readonly>
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Fecha de entrada</i></label>
                                                                             <?php
                                                                             $fecha = getdate();
 
                                                                             ?>
-                                                                            <input type="date" class="form-control" id="fechaentrada_ordSer" name="fechaentrada_OrdSer" value="<?= $fecha['year'] . "-" . $fecha['mon'] . "-" . $fecha['mday'] ?>" required readonly>
+                                                                            <input type="date" class="form-control form-control-sm" id="fechaentrada_ordSer" name="fechaentrada_OrdSer" value="<?= $fecha['year'] . "-" . $fecha['mon'] . "-" . $fecha['mday'] ?>" required readonly>
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Hora de entrada</i></label>
-                                                                            <input type="time" class="form-control" id="horaentra_ordSer" name="horaentra_ordSer" required>
+                                                                            <input type="time" class="form-control form-control-sm" id="horaentra_ordSer" name="horaentra_ordSer" required>
                                                                         </div>
                                                                     </div>
 
 
 
 
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Fecha de inicio de trabajos</i></label>
-                                                                            <input type="date" class="form-control" id="fechainicio_ordSer" name="fechaInic_ordSer">
+                                                                            <input type="date" class="form-control form-control-sm" id="fechainicio_ordSer" name="fechaInic_ordSer">
                                                                         </div>
                                                                     </div>
 
                                                                     <!-- <input type="hidden" id="fecha_aprobacion" name="fecha_aprobacion"> -->
 
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Ciudad</i></label>
-                                                                            <select id="ciudad_OrdServ" name="ciudad_OrdServ" class="form-control select2-single" type="number" style="width: 99%" required>
-                                                                                <option selected value="">-Seleccione una ciudad-</option>
+                                                                            <select id="ciudad_OrdServ" name="ciudad_OrdServ" class="form-control form-control-sm select2-single" type="number" style="width: 99%" required>
+                                                                                <option selected value="">Seleccione una ciudad</option>
                                                                                 <?php foreach ($DeparMunicipios as $key => $value) : ?>
                                                                                     <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?>
                                                                                     </option>
@@ -244,6 +262,8 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                             </select>
                                                                         </div>
                                                                     </div>
+
+                                                                    
 
                                                                     <!-- <div class="col-12 col-sm-6 col-lg-4">
                                                                         <div class="form-group text-center">
@@ -338,59 +358,35 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                 </div>
                                                             </div>
                                                             <!-- DIAGNÓSTICO -->
-                                                            <div class="tab-pane fade" id="v-pills-diagnostico" role="tabpanel" aria-labelledby="v-pills-diagnostico-tab">
+                                                            <div class="tab-pane fade" id="v-pills-diagnostico" role="tabpanel" aria-labelledby="v-pills-diagnostico-tab" nombre="Diagnóstico">
                                                                 <div class="callout callout-info col-md-12 col-sm-8">
                                                                     <div class="row">
                                                                         <div class="col-md-12 col-sm-9 ">
                                                                             <div class="form-group text-center" id="diagnostico_solicitud">
                                                                                 <label>Descripción</label>
-                                                                                <textarea class="form-control diagno-resu" name="diagnostico" rows="5" placeholder="Digite una leve descripción ..." required></textarea>
+                                                                                <textarea class="form-control diagno-resu" name="diagnostico" rows="3" placeholder="Digite una leve descripción ..." required></textarea>
                                                                             </div>
-                                                                            <!-- <div class="row">
-                                                                                <div class="col-6">
-                                                                                    <h5>Mantenimientos preventivos a realizar</h5>
-                                                                                    <div class="form-group">
-                                                                                        <div class="input-group ">
-                                                                                            <select id="ServPre" class="select2-primary form-control select2-multiple input-sm" data-placeholder="Lista de mantenimientos preventivos" multiple="multiple" style="width: 99%" name="serviciosPrev[]">
-
-                                                                                                <?php foreach ($Servicios as $key => $value) : ?>
-                                                                                                    <option value="<?= $value['idservicio'] ?>"><?= $value['servicio'] ?></option>
-                                                                                                <?php endforeach ?>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-6">
-                                                                                    <h5>Mantenimientos correctivos a realizar</h5>
-                                                                                    <div class="form-group">
-                                                                                        <div class="input-group input-group-sm">
-                                                                                            <select id="correctivo" class="select2-primary form-control select2-multiple input-sm" data-placeholder="Lista de mantenimientos preventivos" multiple="multiple" style="width: 99%" name="correctivo[]">
-
-                                                                                                <?php foreach ($Correctivos as $key => $value) : ?>
-                                                                                                    <option value="<?= $value['idservicio'] ?>"><?= $value['servicio'] ?></option>
-                                                                                                <?php endforeach ?>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div> -->
+                                                                            <div class="form-group text-center">
+                                                                                <label>Digite su observación</label>
+                                                                                <textarea class="form-control" rows="3" id="observacion" name="observacion" placeholder="Digite una leve observación"></textarea>
+                                                                            </div>
                                                                         </div>
-
-
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <!-- REPUESTOS / SOLICITUD SERVICIO -->
-                                                            <div class="tab-pane fade" id="v-pills-repuestos" role="tabpanel" aria-labelledby="v-pills-repuestos-tab">
+                                                            <div class="tab-pane fade" id="v-pills-repuestos" role="tabpanel" aria-labelledby="v-pills-repuestos-tab" style="overflow-y: scroll; height: 300px;" >
 
+                                                                
+                                                            
                                                                 <!-- SERVICIOS EXTERNOS COLLAPSE -->
                                                                 <div class="card card-info collapsed-card" id="card-serviciosext">
-                                                                    <div class="card-header" data-card-widget="collapse" style="cursor:pointer;">
+                                                                    <div class="card-header" data-card-widget="collapse" style="cursor:pointer; ">
                                                                         <h3 class="card-title"><b><i>Servicios externos</i></b>
                                                                             <i class="fas fa-boxes"></i>
                                                                         </h3>
                                                                         <div class="card-tools">
-                                                                            <button type="button" title="Abrir servicios externos" data-toggle="tooltip" data-placement="top" class="btn btn-tool">
+                                                                            <button type="button" title="Abrir servicios externos" data-toggle="tooltip" data-placement="top" class="btn btn-tool" data-card-widget="collapse">
                                                                                 <i class="fas fa-plus"></i>
                                                                             </button>
                                                                         </div>
@@ -412,7 +408,6 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <!--CARD BODY-->
                                                                 </div>
 
                                                                 <!-- REPUESTO COLLAPSE -->
@@ -422,7 +417,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                             <i class="fas fa-tools nav-icon"></i>
                                                                         </h3>
                                                                         <div class="card-tools">
-                                                                            <button type="button" title="Abrir repuesto" data-toggle="tooltip" data-placement="top" class="btn btn-tool">
+                                                                            <button type="button" title="Abrir repuesto" data-toggle="tooltip" data-placement="top" class="btn btn-tool" data-card-widget="collapse">
                                                                                 <i class="fas fa-plus"></i>
                                                                             </button>
                                                                         </div>
@@ -430,7 +425,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
 
                                                                     <div class="card-body" style="display: none;">
                                                                         <div class="row d-flex justify-content-center">
-                                                                            <div class="table-responsive" id="repuesto_solicitud">
+                                                                            <div class="table-responsive" id="repuesto_solicitud" style="font-size: 12px;">
                                                                                 <table class="table table-bordered table-striped text-center text-nowrap" id="tabla_repuesto_orden">
                                                                                     <thead>
                                                                                         <tr>
@@ -517,7 +512,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                             </button>
                                                                         </div>
                                                                     </div>
-                                                                    <!--CARD BODY-->
+
 
 
                                                                 </div>
@@ -529,7 +524,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                             <i class="fas fa-fist-raised"></i>
                                                                         </h3>
                                                                         <div class="card-tools">
-                                                                            <button type="button" title="Abrir mano de obra" data-toggle="tooltip" data-placement="top" class="btn btn-tool">
+                                                                            <button type="button" title="Abrir mano de obra" data-toggle="tooltip" data-placement="top" class="btn btn-tool" data-card-widget="collapse">
                                                                                 <i class="fas fa-plus"></i>
                                                                             </button>
                                                                         </div>
@@ -538,7 +533,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                     <div class="card-body" style="display: none;">
                                                                         <div class="row d-flex justify-content-center">
 
-                                                                            <div class="table-responsive">
+                                                                            <div class="table-responsive" style="font-size: 12px;">
                                                                                 <table class="table table table-responsive table-bordered table-striped text-center text-nowrap">
                                                                                     <thead>
                                                                                         <tr>
@@ -612,28 +607,24 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
 
                                                                         </div>
                                                                         <button type="button" class="btn btn-primary btn-md btn-agregarManoObra mb-3" ">
-                                                                        <i class=" fas fa-plus"></i>
+                                                                                        <i class=" fas fa-plus"></i>
                                                                         </button>
                                                                         <button type="button" class="btn btn-danger btn-md btn-EliminarManoObra mb-3" ">
-                                                                        <i class=" fas fa-times"></i>
+                                                                                        <i class=" fas fa-times"></i>
                                                                         </button>
                                                                     </div>
-                                                                    <!--CARD BODY-->
+
 
 
 
                                                                 </div>
-
 
                                                                 <div class=" col-md-6 d-md-flex justify-content-md-end mb-3">
                                                                     <button class="btn btn-secondary col" id="btn-crearSolicitud" data-toggle="modal" data-target="#modal-solicitud" disabled>
-                                                                        <i class="far fa-file-pdf"></i>
+                                                                        <i class="far fa-file-alt"></i>
                                                                         <span>Crear solicitud de servicio</span>
                                                                     </button>
                                                                 </div>
-
-
-
                                                             </div>
                                                             <!-- MANO DE OBRA  -->
                                                             <!-- <div class="tab-pane fade" id="v-pills-manoObra" role="tabpanel" aria-labelledby="v-pills-manoObra-tab">
@@ -675,7 +666,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                             </div> -->
 
                                                             <!-- OBSERVACIONES -->
-                                                            <div class="tab-pane fade" id="v-pills-observaciones" role="tabpanel" aria-labelledby="v-pills-observaciones-tab">
+                                                            <!-- <div class="tab-pane fade" id="v-pills-observaciones" role="tabpanel" aria-labelledby="v-pills-observaciones-tab">
                                                                 <div class="card-body">
                                                                     <div class="callout callout-info">
                                                                         <h5>Digite su observación</h5>
@@ -683,7 +674,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                     </div>
 
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
 
                                                         </div>
                                                     </div>
@@ -692,7 +683,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                 <!-- =====================================
                                                     ************BOTONES *****************
                                                     ========================================== -->
-                                                <div class="row d-flex justify-content-center">
+                                                <!-- <div class="row d-flex justify-content-center">
                                                     <div class="col-md-6">
                                                         <div class="btn-group w-100">
                                                             <button type="submit" form="ordenServ_form" class="btn btn-success col fileinput-button dz-clickable">
@@ -709,7 +700,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
 
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </form>
                                         </div>
 
@@ -750,7 +741,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                             }
                                                                             ?>
                                                                             <tr>
-                                                                                <td><a><i class="far fa-file-pdf text-danger"></i></a></td>
+                                                                                <td><button class="btn btn-outline-dark btn-pdforden" idorden="<?= $value['idorden'] ?>" tipo_mantenimiento="orden"><i class="far fa-file-pdf text-danger"></i></button></td>
                                                                                 <td><button class="btn btn-outline-dark btn-editarOrden" idorden="<?= $value['idorden'] ?>" title="Ir a la orden" data-toggle="tooltip" data-placement="top" type="button"><?= $value['idorden'] ?></button></td>
                                                                                 <td><?= $value['placa'] ?></td>
                                                                                 <td><?= $value['Ffecha_entrada'] ?></td>
@@ -836,17 +827,11 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                     </tbody>
                                                                 </table>
                                                             </div>
-
-
-
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-
-
                                     </div>
                                 </div>
                             </div>
@@ -1002,6 +987,14 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                             </table>
                         </div>
                     </div>
+                    <div class="col-12 mt-2">
+                        <a href="a-inventario" class="mt-5" target="_blank">
+                            <button type="" class="btn btn-sm btn-info float-center">
+                                <i class="fas fa-warehouse"></i>
+                                Ver almacén
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -1111,7 +1104,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                         </div>
                     </div>
                     <div class="card-footer d-flex ">
-                        <button type="button" class="btn btn-success ml-auto btn-exportar-solicitud">Exportar <i class="far fa-file-pdf"></i></button>
+                        <button type="button" class="btn btn-success ml-auto btn-exportar-solicitud" tipo_mantenimiento="solicitud">Exportar <i class="far fa-file-pdf"></i></button>
                         <button type="button" class="btn btn-danger ml-2" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
@@ -1445,7 +1438,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                         <div class="form-group text-center col-12 col-sm-6 col-lg-12">
                             <label><i>Empresa</i></label>
                             <input id="empresa_asume" name="empresa_asume" class="form-control" type="text" style="width: 99%" readonly>
-                                
+
                             </input>
                         </div>
 
@@ -1464,7 +1457,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                         <div class="form-group text-center col-12 col-sm-6 col-lg-12">
                             <label><i>Contratista</i></label>
                             <select id="contratista_asume" name="contratista_asume" class="form-control " type="number" style="width: 99%" readonly>
-                                
+
                                 <?php foreach ($Empresas as $key => $value) : ?>
                                     <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
                                 <?php endforeach ?>

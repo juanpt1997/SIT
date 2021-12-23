@@ -64,7 +64,8 @@ class ModeloUsuarios
     static public function mdlListadoPerfiles()
     {
         $stmt = Conexion::conectar()->prepare("SELECT p.idPerfil, p.perfil, p.estado,  p.activo  as activoPerfil, p.descripcion
-                                                FROM l_perfiles p WHERE p.estado = 1");
+                                                FROM l_perfiles p WHERE p.estado = 1
+                                                ORDER BY p.perfil ASC");
 
         $stmt->execute();
         $retorno =  $stmt->fetchAll();

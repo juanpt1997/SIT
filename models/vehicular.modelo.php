@@ -717,9 +717,15 @@ class ModeloVehiculos
         LISTADO DE SERVICOS MENORES
     ===================================================*/
 
-    static public function mdlListadoServicios()
+    static public function mdlListadoServicios($tipo = NULL)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT sm.* FROM m_serviciosmenores sm WHERE sm.estado = 1");
+        if($tipo == NULL ){
+            $sql = "SELECT sm.* FROM m_serviciosmenores sm WHERE sm.estado = 1 AND sm.tipo = 1";
+        }else{
+            $sql = "SELECT sm.* FROM m_serviciosmenores sm WHERE sm.estado = 1 ";
+        }
+
+        $stmt = Conexion::conectar()->prepare($sql);
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();
