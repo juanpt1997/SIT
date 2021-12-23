@@ -411,7 +411,7 @@ class AjaxMantenimientos
     ===================================================*/
     static public function ajaxListaServicios($consecutivo, $seccion)
     {
-        $respuesta = ModeloVehiculos::mdlListadoServicios();
+        $respuesta = ModeloVehiculos::mdlListadoServicios("tipo");
         $opciones = "";
         foreach ($respuesta as $key => $value) {
             

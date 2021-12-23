@@ -1790,7 +1790,7 @@ class ModeloMantenimientos
         FROM m_re_serviciosvehiculos sm
         INNER JOIN m_serviciosmenores s ON sm.idservicio = s.idservicio
         INNER JOIN v_vehiculos v ON sm.idvehiculo = v.idvehiculo
-        WHERE YEAR(date_add(sm.fecha, INTERVAL s.dias_cambio DAY)) = YEAR(CURRENT_DATE()) AND MONTH(date_add(sm.fecha, INTERVAL s.dias_cambio DAY)) BETWEEN MONTH(CURRENT_DATE()) AND (MONTH(CURRENT_DATE()) + 1) AND (v.kilometraje - kilometraje_cambio) <= 1000   
+        WHERE YEAR(date_add(sm.fecha, INTERVAL s.dias_cambio DAY)) = YEAR(CURRENT_DATE()) AND MONTH(date_add(sm.fecha, INTERVAL s.dias_cambio DAY)) BETWEEN MONTH(CURRENT_DATE()) AND (MONTH(CURRENT_DATE()) + 1) AND (v.kilometraje - kilometraje_cambio) <= 1000 AND sm.estado = 1 
         GROUP BY sm.idvehiculo, sm.idservicio
         ORDER BY sm.fecha DESC"
         );
