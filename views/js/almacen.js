@@ -207,6 +207,7 @@ $(document).ready(function () {
                 if(state){
                     $("#div_ver_inputs_entradas").addClass("d-none");
                     $("#div_ver_inputs_salidas").removeClass("d-none");
+                    $(".select2-single").val("").trigger("change");
                 }else{
                     $("#div_ver_inputs_entradas").removeClass("d-none");
                     $("#div_ver_inputs_salidas").addClass("d-none");

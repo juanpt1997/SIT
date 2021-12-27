@@ -454,7 +454,7 @@
                                     Inventario
                                 =================================================== -->
                             <li class="nav-item">
-                                <a href="m-inventario" class="nav-link">
+                                <a href="m-inventario" class="nav-link" target="_blank">
                                     <i class="fas fa-boxes nav-icon"></i>
                                     <p>Inventario</p>
                                 </a>

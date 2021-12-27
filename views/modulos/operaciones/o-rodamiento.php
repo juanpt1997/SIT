@@ -9,10 +9,9 @@ $Marca = ControladorVehiculos::ctrMostrarMarca();
 $Rutas = ControladorRutas::ctrListarRutas();
 $Clientes = ControladorClientes::ctrVerCliente();
 $Plan_r = ControladorRodamientos::ctrListarRodamientos();
-
-
-
-
+$Ordenes = ControladorOrdenServicio::ctrVerListaOrden();
+$Fijos = ControladorFijos::ctrVerFijos();
+$TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
 ?>
 <!-- ===================== 
   MODELO PARA LA IMPLEMENTARCION EN EL DISEÑO DE LOS MODULOS
@@ -146,61 +145,101 @@ $Plan_r = ControladorRodamientos::ctrListarRodamientos();
                     <div class="card-body">
 
                         <input type="hidden" id="observador_conductoresRodamiento" idconductor="">
+                        <input type="hidden" id="idcliente" name="idcliente">
 
                         <hr class="my-4">
 
-                        <div class="col-md text-center">
-                            <div class="form-group">
-                                <label><i>RUTA</i></label>
-                                <div class="input-group">
-                                    <!-- <select id="idruta" name="idruta" class="form-control select2-single" type="number" style="width: 99%;border:1px solid #ff0000" required>
-                                        <option value="" selected>Seleccione una ruta</option>
-                                        <?php foreach ($Rutas as $key => $value) : ?>
-                                            <option value="<?= $value['id'] ?>"><?= $value['origendestino'] ?></option>
-                                        <?php endforeach ?>
-                                    </select> -->
-                                    <input type="hidden" id="idruta" name="idruta">
-                                    <input class="form-control" type="text" id="descrip" name="descrip" placeholder="Seleccione una ruta de la lista" readonly>
-                                    <div class="input-group-append">
-                                        <button type="button" class="btn btn-success btn-md btn-ruta" title="Buscar una ruta existente" data-toggle="modal" data-target="#modal_general"><i class="fas fa-route"></i></button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="row">
-                            <!-- Origen -->
-                        <div class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label>Origen</label>
-                                <div class="input-group">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-route"></i>
-                                        </span>
+                            <div class="col-md text-center">
+                                <div class="form-group">
+                                    <label><i>Tipo de contrato</i></label>
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="far fa-file-alt"></i>
+                                            </span>
+                                        </div>
+                                        <select class="form-control input-contratos" type="text" id="tipocontrato" name="tipocontrato" required>
+                                            <option selected value="">-Seleccione un tipo de contrato-</option>
+                                            <option value="FIJO">Fijo</option>
+                                            <option value="OCASIONAL">Ocasional</option>
+                                        </select>
                                     </div>
-                                    <input class="form-control" type="text" id="origen" name="origen" readonly>
                                 </div>
-                            </div>
+                            </div><!-- /.col -->
 
-                        </div><!-- /.col -->
-
-                        <!-- Destino -->
-                        <div class="col-12 col-md-6">
-                            <div class="form-group">
-                                <label>Destino</label>
-                                <div class="input-group">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="fas fa-route"></i>
-                                        </span>
+                            <div class="col-12 col-md-10 col-lg-6 d-none" id="selectContFijos">
+                                <div class="form-group">
+                                    <label><i>Contrato fijo</i></label>
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-file-alt"></i>
+                                            </span>
+                                        </div>
+                                        <select id="contratofijo" class="form-control select2-single input-contratos" style="width: 90%" name="contratofijo">
+                                            <option value="" selected>-Seleccione una contrato fijo-</option>
+                                            <?php foreach ($Fijos as $key => $value) : ?>
+                                                <option value="<?= $value['idfijos'] ?>"><?= $value['idfijos'] . " - " . $value['nombre_cliente'] ?></option>
+                                            <?php endforeach ?>
+                                        </select>
                                     </div>
-                                    <input class="form-control" type="text" id="destino" name="destino" readonly>
                                 </div>
-                            </div>
-                        </div><!-- /.col -->
+                            </div><!-- /.col -->
+
+                            <div class="col-12 col-md-10 col-lg-6 d-none" id="selectContOrden">
+                                <div class="form-group">
+                                    <label><i>Contratante</i></label>
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-file-alt"></i>
+                                            </span>
+                                        </div>
+                                        <select id="contratante" class="form-control select2-single input-contratos" style="width: 90%" name="contratante" required>
+                                            <option value="" selected>-Seleccione un contratante-</option>
+                                            <?php foreach ($Ordenes as $key => $value) : ?>
+                                                <option value="<?= $value['idorden'] ?>"><?= $value['idorden'] . " - " . $value['nomContrata'] ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div><!-- /.col -->
                         </div>
 
+                        <hr class="my-4">
+
+                        <div class="row row-cliente">
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group">
+                                    <label><i>Nombre contratante</i></label>
+                                    <input id="nombre_cliente" name="nombre_cliente" class="form-control input-clientes-datos" type="text" readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group">
+                                    <label><i>Documento contratante</i></label>
+                                    <input id="documento_cliente" name="documento_cliente" class="form-control input-clientes-datos" type="text" readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group">
+                                    <label><i>Dirección contratante</i></label>
+                                    <input id="direccion_con" name="direccion_con" class="form-control input-clientes-datos" type="text" readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group">
+                                    <label><i>Teléfono contratante</i></label>
+                                    <input id="telefono_cliente" name="telefono_cliente" class="form-control input-clientes-datos" type="text" readonly>
+                                </div>
+                            </div>
+
+                        </div>
 
                         <hr class="my-4">
 
@@ -228,6 +267,18 @@ $Plan_r = ControladorRodamientos::ctrListarRodamientos();
 
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group">
+                                    <label for="tipoVehiculo">Tipo Vehículo</label>
+                                    <select id="tipoVehiculo" class="form-control" name="idtipovehiculo" required>
+                                        <option value="" disabled selected>-Seleccione un tipo de vehículo-</option>
+                                        <?php foreach ($TiposVehiculo as $key => $value) : ?>
+                                            <option value="<?= $value['idtipovehiculo'] ?>"><?= $value['tipovehiculo'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group">
                                     <label><i>Conductor</i></label>
                                     <select id="idconductor" name="idconductor" class="form-control select2-single conductores" type="number" style="width: 99%" required>
                                         <option value="" selected>Seleccione un conductor</option>
@@ -235,7 +286,7 @@ $Plan_r = ControladorRodamientos::ctrListarRodamientos();
                                 </div>
                             </div>
 
-                            <div class="col-12 col-sm-6 col-lg-4">
+                            <!-- <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group">
                                     <label><i>Cliente</i></label>
                                     <select id="idcliente" name="idcliente" class="form-control select2-single" type="number" style="width: 99%" required>
@@ -245,8 +296,7 @@ $Plan_r = ControladorRodamientos::ctrListarRodamientos();
                                         <?php endforeach ?>
                                     </select>
                                 </div>
-                            </div>
-
+                            </div> -->
 
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group">
@@ -303,8 +353,6 @@ $Plan_r = ControladorRodamientos::ctrListarRodamientos();
                                 </div>
                             </div>
 
-
-
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group">
                                     <label>Cantidad de Pasajeros</label>
@@ -337,6 +385,73 @@ $Plan_r = ControladorRodamientos::ctrListarRodamientos();
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-md text-center">
+                            <div class="form-group">
+                                <label><i>RUTA</i></label>
+                                <div class="input-group">
+                                    <!-- <select id="idruta" name="idruta" class="form-control select2-single" type="number" style="width: 99%;border:1px solid #ff0000" required>
+                                        <option value="" selected>Seleccione una ruta</option>
+                                        <?php foreach ($Rutas as $key => $value) : ?>
+                                            <option value="<?= $value['id'] ?>"><?= $value['origendestino'] ?></option>
+                                        <?php endforeach ?>
+                                    </select> -->
+                                    <input type="hidden" id="idruta" name="idruta" class="input-ruta">
+                                    <input class="form-control input-ruta" type="text" id="descrip" name="descrip" placeholder="Seleccione una ruta de la lista" readonly>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-success btn-md btn-ruta" title="Buscar una ruta existente" data-toggle="modal" data-target="#modal_general"><i class="fas fa-route"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Origen -->
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label>Origen</label>
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-route"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control input-ruta" type="text" id="origen" name="origen" readonly>
+                                    </div>
+                                </div>
+
+                            </div><!-- /.col -->
+
+                            <!-- Destino -->
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label>Destino</label>
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-route"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control input-ruta" type="text" id="destino" name="destino" readonly>
+                                    </div>
+                                </div>
+                            </div><!-- /.col -->
+
+                            <div class="col-12 col-md-6">
+                                <div class="form-group">
+                                    <label><i>Valor total</i></label>
+                                    <div class="input-group">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text">
+                                                <i class="fas fa-dollar-sign"></i>
+                                            </span>
+                                        </div>
+                                        <input class="form-control input-contratos" type="text" id="valor_total" name="valor_total" readonly>
+                                    </div>
+                                </div>
+                            </div><!-- /.col -->
+                        </div>
+
                     </div>
                 </div>
 
