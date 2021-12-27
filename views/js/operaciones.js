@@ -1083,7 +1083,7 @@ $(document).ready(function () {
         });
 
         /*===================================================
-                  INICIALIZAR DATATABLE
+        INICIALIZAR DATATABLE
         ===================================================*/
         let FiltroTablaRodamiento = () => {
             /* ===================================================
@@ -1125,7 +1125,7 @@ $(document).ready(function () {
         FiltroTablaRodamiento();
 
         /*===================================================
-            LISTA DE RUTAS
+        LISTA DE RUTAS
         ===================================================*/
         $(document).on("click", ".btn-ruta", function () {
             $("#modal-nuevoplanrodamiento").modal("hide");
@@ -1165,7 +1165,7 @@ $(document).ready(function () {
             });
         });
         /*===================================================
-            TRAER DATOS DE LA RUTA SELECCIONADA
+        TRAER DATOS DE LA RUTA SELECCIONADA
         ===================================================*/
         $(document).on("click", ".btnSeleccionarRuta", function () {
             $("#modal-nuevoplanrodamiento").modal("show");
@@ -1227,7 +1227,7 @@ $(document).ready(function () {
             }
         });
         /*===================================================
-            CERRAR MODAL, REINICIAR VALORES 
+        CERRAR MODAL, REINICIAR VALORES 
         ===================================================*/
         $("#modal_general").on("hidden.bs.modal", function () {
             $("#modal-nuevoplanrodamiento").modal("show");
@@ -1238,7 +1238,7 @@ $(document).ready(function () {
             // $("#destino").val("");
         });
         /* ==================================================
-            VALIDAR CAMPO VACIO DE RUTA
+        VALIDAR CAMPO VACIO DE RUTA
         ===================================================*/
         var guardoRodamiento = false;
         $("#formulario_rodamiento").submit(function (e) {
@@ -1259,7 +1259,7 @@ $(document).ready(function () {
             }
         });
         /* ===================================================
-            TIPO DE CONTRATO CAMBIO
+        TIPO DE CONTRATO CAMBIO
         ===================================================*/
         $(document).on("change", "#tipocontrato", function () {
             var tipocontrato = $(this).val();
@@ -1270,8 +1270,8 @@ $(document).ready(function () {
                 $("#contratofijo").attr("required", "required"); // Vuelvo obligatorios el select de fijos
                 $("#contratante").val("").removeAttr("required");
                 $(".input-clientes-datos").val("");
-                $(".input-ruta").val("");
-                $("#valor_total").val("");
+                //$(".input-ruta").val("");
+                //$("#valor_total").val("");
             } else if (tipocontrato == "OCASIONAL") {
                 $("#selectContOrden").removeClass("d-none"); // Muestra el select de contratante
                 $("#selectContFijos").addClass("d-none"); // Esconde el select de fijos
@@ -1283,10 +1283,11 @@ $(document).ready(function () {
                 $("#selectContOrden").addClass("d-none");
                 $("#selectContFijos").addClass("d-none");
                 $(".input-contratos").val("");
+                //$("#idconductor").val("");
             }
         });
         /* ===================================================
-            TRAER LOS DATOS DEL CLIENTE SI ES OCASIONAL
+        TRAER LOS DATOS DEL CLIENTE SI ES OCASIONAL
         ===================================================*/
         $(document).on("change", "#contratante", function () {
             var idorden = $(this).val();
@@ -1318,7 +1319,7 @@ $(document).ready(function () {
             }
         });
         /* ===================================================
-            TRAER LOS DATOS DEL CLIENTE SI ES FIJO
+         TRAER LOS DATOS DEL CLIENTE SI ES FIJO
         ===================================================*/
         $(document).on("change", "#contratofijo", function () {
             var idfijo = $(this).val();
