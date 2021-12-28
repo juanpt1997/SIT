@@ -175,7 +175,7 @@ class AlmacenPDF
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(30, 5, "Placa:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(100, 5, $orden['placa'], 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(100, 5, "", 0, 'L', 0, 0, '', '', true);
         # Marca
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(20, 5, "Marca:", 0, 'L', 0, 0, '', '', true);
@@ -187,36 +187,36 @@ class AlmacenPDF
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(30, 5, "Número interno:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(100, 5, $orden['numinterno'], 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(100, 5, "", 0, 'L', 0, 0, '', '', true);
         # Modelo
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(20, 5, "Modelo:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(100, 5, $orden['modelo'], 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(100, 5, "", 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
 
         #clase de vehiculo
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(30, 5, "Clase de vehículo:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(100, 5, $orden['tipovehiculo'], 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(100, 5, "", 0, 'L', 0, 0, '', '', true);
         # kilometraje
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(20, 5, "Kilometraje:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(100, 5, $orden['kilometraje'], 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(100, 5, "", 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
 
         #Fecha entrada
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(30, 5, "Fecha de entrada:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(100, 5, $orden['Ffecha_entrada'], 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(100, 5, "", 0, 'L', 0, 0, '', '', true);
         #Orden de servicio
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(20, 5, "N° Orden:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(100, 5, $orden['idorden'], 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(100, 5, "", 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
         $pdf->Ln();
 
