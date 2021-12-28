@@ -2750,7 +2750,6 @@ $(document).ready(function () {
                 $("#total_mano_" + consecutivo).val(total);
             }
         });
-
         //CUANDO CAMBIA EL VALOR SE BORRA LA CANTIDAD PARA QUE LA DIGITEN Y REALICE EL CALCULO DEL TOTAL
         $(document).on("change", ".input-valorrepuesto", function () {
             let consecutivo = $(this).attr("consecutivo");
@@ -2758,7 +2757,6 @@ $(document).ready(function () {
             $("#total_repuesto_" + consecutivo).val("");
             $("#iva_repuesto_" + consecutivo).val("");
         });
-
         //CARGAR LISTA DE CUENTAS
         $(document).on("click", ".btn-cuenta", function () {
             let consecutivo = $(this).attr("consecutivo");
@@ -2782,7 +2780,6 @@ $(document).ready(function () {
                 },
             });
         });
-
         //CLICK BOTON SELECCIONAR CUENTAS CONTABLES
         $(document).on("click", ".btn-SeleccionarCuentaContable", function () {
             $("#modal-cuentas").modal("hide");
@@ -2801,7 +2798,6 @@ $(document).ready(function () {
                 $("#idcuenta_mano_" + consecutivo).val(idcuenta);
             }
         });
-
         /*============================================
             CARGA TABLA CONTROL DE ACTIVIDADES 
         ==============================================*/
@@ -2870,7 +2866,6 @@ $(document).ready(function () {
                 },
             });
         });
-
         /*============================================
             CARGAR DATOS PARA LA MODAL DE QUIÉN ASUME
         ==============================================*/
@@ -2960,19 +2955,28 @@ $(document).ready(function () {
                 },
             });
         });
-
         /*============================================
             VISUALIZAR PDF DE SOLICITUD DE SERVICIO 
         ==============================================*/
         $(document).on("click", ".btn-exportar-solicitud", function () {
             var idorden = $(this).attr("idorden");
             window.open(
-                `./pdf/pdfmantenimiento.php?idorden=${idorden}`,
+                `./pdf/pdfmantenimiento.php?idorden=${idorden}&tipo_mantenimiento=solicitud`,
                 "",
                 "width=1280,height=720,left=50,top=50,toolbar=yes"
             );
         });
-
+        /*============================================
+            VISUALIZAR PDF DE ORDEN DE SERVICIO 
+        ==============================================*/
+        $(document).on("click", ".btn-pdforden", function () {
+            var idorden = $(this).attr("idorden");
+            window.open(
+                `./pdf/pdfmantenimiento.php?idorden=${idorden}&tipo_mantenimiento=orden`,
+                "",
+                "width=1280,height=720,left=50,top=50,toolbar=yes"
+            );     
+        });
         /*============================================
             CALCULOS PARA EL VALOR QUE ASUME CADA PARTE
         ==============================================*/

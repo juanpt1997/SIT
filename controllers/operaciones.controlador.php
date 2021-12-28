@@ -260,13 +260,26 @@ class ControladorAlistamiento
     static public function ctrActualizarEstado($idevidencia, $estadoActual, $observaciones)
     {
         $nuevoEstado = $estadoActual == "RESUELTO" ? "PENDIENTE" : "RESUELTO";
+        $fecha_actual = date("Y-m-d");
 
-        $datos = array(
-            'idevidencia' => $idevidencia,
-            'observaciones' => $observaciones,
-            'estado' => $nuevoEstado
-        );
-        $respuesta = ModeloAlistamiento::mdlActualizarEstado($datos);
+        if($nuevoEstado == "RESUELTO"){
+            $datos = array(
+                'idevidencia' => $idevidencia,
+                'observaciones' => $observaciones,
+                'estado' => $nuevoEstado,
+                'fecha_actual' => $fecha_actual
+            );
+            $respuesta = ModeloAlistamiento::mdlActualizarEstado($datos);
+        }else{
+            $datos = array(
+                'idevidencia' => $idevidencia,
+                'observaciones' => $observaciones,
+                'estado' => $nuevoEstado,
+                'fecha_actual' => null
+            );
+            $respuesta = ModeloAlistamiento::mdlActualizarEstado($datos);
+        }
+
         return $respuesta;
     }
 }
