@@ -18,7 +18,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark "><strong><i>Almacén</i></strong> <i class="fas fa-pallet"></i></h1>
+                    <h1 class="m-0 text-dark "><strong><i>Almacén</i></strong> <i class="fas fa-warehouse"></i></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -51,7 +51,7 @@
                                 <div class="icon" style="color: black;">
                                     <i class="fas fa-cubes"></i>
                                 </div>
-                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-productos">Nuevo <i class="fas fa-plus-circle" style="color: white;"></i></a>
+                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-productos">Nuevo <i class="fas fa-plus-circle" style="color: white;"></i> / Consultar <i class="fas fa-eye" style="color: white;"></i></a>
                             </div>
                         </div>
 
@@ -65,7 +65,7 @@
                                 <div class="icon" style="color: white;">
                                     <i class="fas fa-file-invoice-dollar"></i>
                                 </div>
-                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-ordencompra">Nuevo <i class="fas fa-plus-circle" style="color: white;"></i></a>
+                                <a href="#" class="small-box-footer btn" data-toggle="modal" data-target="#modal-ordencompra">Nuevo <i class="fas fa-plus-circle" style="color: white;"></i>/ Consultar <i class="fas fa-eye" style="color: white;"></i></a>
                             </div>
                         </div>
 

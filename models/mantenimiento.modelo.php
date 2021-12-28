@@ -1872,7 +1872,7 @@ class ModeloMantenimientos
     ===================================================*/
     static public function mdlRepuestosOrden($idorden)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT r.*, i.idproducto, p.*, sm.servicio, cp.nombre_contacto, cp.id, cc.num_cuenta, cc.nombre_cuenta
+        $stmt = Conexion::conectar()->prepare("SELECT r.*, i.idproducto, p.*, sm.servicio, cp.nombre_contacto, cp.id, cp.razon_social, cc.num_cuenta, cc.nombre_cuenta
         FROM m_re_repuestoordenservicio r
         INNER JOIN a_re_inventario i ON r.idinventario = i.idinventario
         INNER JOIN a_productos p ON i.idproducto = p.idproducto

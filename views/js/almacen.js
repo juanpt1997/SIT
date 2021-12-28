@@ -200,7 +200,7 @@ $(document).ready(function () {
             onText: "<i class='fas fa-arrow-alt-circle-down'></i> <strong>ENTRADA</strong>",
             offText: "<i class='fas fa-arrow-alt-circle-up'></i> <strong>SALIDA</strong>",
             onColor: "primary",
-            offColor: "secondary",
+            offColor: "info",
             /* setState: true, */
             onSwitchChange: function (e,state) {
                 console.log("entra" , state);

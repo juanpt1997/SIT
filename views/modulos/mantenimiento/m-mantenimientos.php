@@ -741,7 +741,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                             }
                                                                             ?>
                                                                             <tr>
-                                                                                <td><button class="btn btn-outline-dark btn-pdforden" idorden="<?= $value['idorden'] ?>" tipo_mantenimiento="orden"><i class="far fa-file-pdf text-danger"></i></button></td>
+                                                                                <td><button class="btn btn-outline-dark btn-pdforden bg-danger" idorden="<?= $value['idorden'] ?>" tipo_mantenimiento="orden"><i class="far fa-file-pdf"></i></button></td>
                                                                                 <td><button class="btn btn-outline-dark btn-editarOrden" idorden="<?= $value['idorden'] ?>" title="Ir a la orden" data-toggle="tooltip" data-placement="top" type="button"><?= $value['idorden'] ?></button></td>
                                                                                 <td><?= $value['placa'] ?></td>
                                                                                 <td><?= $value['Ffecha_entrada'] ?></td>

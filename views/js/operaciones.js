@@ -855,9 +855,9 @@ $(document).ready(function () {
         window.location.href == `${urlPagina}o-rodamiento/` ||
         window.location.href == `${urlPagina}o-rodamiento`
     ) {
-        /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-            CONDUCTORES SEGUN LA PLACA DEL VEHICULO
-        ==========================================================================*/
+        /*==========================================================================
+        CONDUCTORES SEGUN LA PLACA
+        ===========================================================================*/
         $(document).on("change", "#placa_roda", function () {
             let idvehiculo = $(this).val();
 
@@ -884,8 +884,7 @@ $(document).ready(function () {
                     $("#capacidad").val(Vehiculo.datosVehiculo.capacidad);
                     $("#tipoVehiculo").val(
                         Vehiculo.datosVehiculo.idtipovehiculo
-                    );
-                    //tipovehiculo
+                    ).trigger("change");
                 },
             });
 
@@ -926,10 +925,9 @@ $(document).ready(function () {
                 },
             });
         });
-
-        /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-            TRAER DATOS DEL PLAN DE RODAMIENTO BOTON - EDITAR
-        ==========================================================================*/
+        /*==========================================================================
+        TRAER DATOS DEL RODAMIENTO BOTON EDITAR
+        ===========================================================================*/
         $(".btn-editarRodamiento").on("click", function () {
             let id = $(this).attr("id_rodamiento");
 
@@ -954,37 +952,38 @@ $(document).ready(function () {
                     $("#idruta").val(response.idruta);
                     $("#placa_roda").val(response.idvehiculo).trigger("change");
                     $("#idcliente").val(response.idcliente);
-                    $("#placa_invent")
-                        .val(response.idvehiculo)
-                        .trigger("change");
-                    $("#observador_conductoresRodamiento").attr(
-                        "idconductor",
-                        response.idconductor
-                    );
+                    $("#placa_invent").val(response.idvehiculo).trigger("change");
+                    $("#observador_conductoresRodamiento").attr("idconductor",response.idconductor);
                     $("#fecha_servicio").val(response.fecha_servicio);
-                    $("#tipo_servicio")
-                        .val(response.tipo_servicio)
-                        .trigger("change");
-                    $("#cantidadpasajerosdatosroda").val(
-                        response.cantidad_pasajeros
-                    );
+                    $("#tipo_servicio").val(response.tipo_servicio).trigger("change");
+                    $("#cantidadpasajerosdatosroda").val(response.cantidad_pasajeros);
                     $("#hora_inicio").val(response.h_inicio);
                     $("#hora_final").val(response.h_final);
                     $("#kmrecorridosdatosroda").val(response.kmrecorridos);
                     $("#descrip").val(response.descripcion);
                     $("#origen").val(response.origen);
                     $("#destino").val(response.destino);
-                    $("#valor_total").val(response.valortotal);
-                    $("#tipocontrato").val(response.tipo_contrato).trigger("change");
+                    $("#valor_total").val(response.valortotal).removeAttr("readonly");
+                    if(response.contratante == null){
+                        $("#selectContFijos").removeClass("d-none"); // Muestra el select de fijos
+                        $("#selectContOrden").addClass("d-none");
+                        $("#contratofijo").attr("required", "required"); // SE VUELVE REQUERIDO EL SELECT DE FIJOS
+                        $("#contratante").val("").removeAttr("required");
+                    } else if (response.contratofijo == null){
+                        $("#selectContOrden").removeClass("d-none"); // Muestra el select de contratante
+                        $("#selectContFijos").addClass("d-none");
+                        $("#contratofijo").val("").removeAttr("required"); // Reset valor de fijos y lo vuelvo obligatorio
+                        $("#contratante").attr("required", "required");
+                    }
+                    $("#tipocontrato").val(response.tipo_contrato).attr("actualizo", "NO").trigger("change");
                     $("#contratante").val(response.contratante).trigger("change");
                     $("#contratofijo").val(response.contratofijo).trigger("change");
                 },
             });
         });
-
-        /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-            ELEMENTO OBSERVADOR QUE PONE EL CONDUCTOR CUANDO SE ACTUALIZA EL SELECT 
-        ==========================================================================*/
+        /*==========================================================================
+        ELEMENTO OBSERVADOR QUE PONE EL CONDUCTOR CUANDO SE ACTUALIZA EL SELECT
+        ===========================================================================*/
         $(document).on(
             "change",
             "#observador_conductoresRodamiento",
@@ -995,10 +994,9 @@ $(document).ready(function () {
                 }, 1000);
             }
         );
-
-        /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-            BOTON PARA COPIAR UN REGISTRO
-        ==========================================================================*/
+        /*==========================================================================
+        HABILITAR BOTON PARA COPIAR UN RODAMIENTO
+        ===========================================================================*/
         $(".btn-copiar-rodamiento").on("click", function () {
             Swal.fire({
                 icon: "success",
@@ -1014,26 +1012,32 @@ $(document).ready(function () {
             );
             $("#btn-copiar").addClass("d-none");
         });
-
-        /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-            RESET VALORES AL AGREGAR
-        ==========================================================================*/
+        /*==========================================================================
+        RESET VALORES AL AGREGAR
+        ===========================================================================*/
         $(".btn-nuevoplanrodamiento").on("click", function () {
             $("#titulo_modal_rodamiento").html(
                 "Agregar nuevo plan de rodamiento"
             );
 
             $("#btn-copiar").addClass("d-none");
-
             $("#id_rodamiento").val("");
             $("#formulario_rodamiento").trigger("reset");
             //$("#ruta").trigger("change");
             $("#tipo_servicio").trigger("change");
-            $("#idcliente").trigger("change");
-            $("#placa_roda").trigger("change");
+            $("#idcliente").val("");
+            $("#placa_roda").val("").trigger("change");
             $("#idconductor").empty();
+            $("#selectContOrden").addClass("d-none");//OCULTA EL SELECT DE OCASIONAL
+            $("#selectContFijos").addClass("d-none");//OCULTA EL SELECT DE FIJOS
+            $("#contratofijo").val("").removeAttr("required");
+            $("#contratante").val("").removeAttr("required");
+            $("#contratante").trigger("change");
+            $("#contratofijo").trigger("change");
+            $(".input-clientes-datos").val("");
+            $(".input-ruta").val("");
+            $("#valor_total").val("").attr("required",true);
         });
-
         /*==========================================================================
         BOTON ELIMINAR RODAMIENTO
         ===========================================================================*/
@@ -1081,10 +1085,9 @@ $(document).ready(function () {
                 }
             });
         });
-
-        /*===================================================
-        INICIALIZAR DATATABLE
-        ===================================================*/
+        /*==========================================================================
+        CREAR DATATABLE DEL RODAMIENTO
+        ===========================================================================*/
         let FiltroTablaRodamiento = () => {
             /* ===================================================
                           FILTRAR POR COLUMNA
@@ -1122,11 +1125,13 @@ $(document).ready(function () {
             ];
             var table = dataTableCustom(`#tblplanrodamiento`, buttons);
         };
+        /*==========================================================================
+        INICIALIZAR DATATABLE
+        ===========================================================================*/
         FiltroTablaRodamiento();
-
-        /*===================================================
+        /*==========================================================================
         LISTA DE RUTAS
-        ===================================================*/
+        ===========================================================================*/
         $(document).on("click", ".btn-ruta", function () {
             $("#modal-nuevoplanrodamiento").modal("hide");
             $("#titulo_modal_general").html("Seleccione una ruta");
@@ -1164,9 +1169,9 @@ $(document).ready(function () {
                 },
             });
         });
-        /*===================================================
+        /*==========================================================================
         TRAER DATOS DE LA RUTA SELECCIONADA
-        ===================================================*/
+        ===========================================================================*/
         $(document).on("click", ".btnSeleccionarRuta", function () {
             $("#modal-nuevoplanrodamiento").modal("show");
             $("#modal_general").modal("hide");
@@ -1180,16 +1185,30 @@ $(document).ready(function () {
             $("#descrip").val(descripcion);
             $("#origen").val(origen);
             $("#destino").val(destino);
+
             let contratofijo = $("#contratofijo").val();
+            let contratante = $("#contratante").val();
 
             if (contratofijo != "") {
+
                 let idcliente = $("#idcliente").val();
                 let idruta = $("#idruta").val();
                 let idtipo = $("#tipoVehiculo").val();
 
-                if (idcliente != "" && idruta != "" && idtipo != "") {
+                if(idtipo == ""){
+                    Swal.fire({
+                        icon: "warning",
+                        title: "Seleccione una vehículo.",
+                        showConfirmButton: true,
+                        confirmButtonText: "continuar."
+                    });
 
-                    //console.log(idcliente,idruta,idtipo);
+                    $("#idruta").val("");
+                    $("#descrip").val("");
+                    $("#origen").val("");
+                    $("#destino").val("");
+
+                } else if (idcliente != "" && idruta != "" && idtipo != "") {
                     var datos = new FormData();
                     datos.append("ConsultarValor", "ok");
                     datos.append("idcliente", idcliente);
@@ -1204,9 +1223,7 @@ $(document).ready(function () {
                         contentType: false,
                         processData: false,
                         success: function (response) {
-                           
                             if(response.valor_recorrido == undefined){
-
                                 Swal.fire({
                                     icon: "info",
                                     title: "No se encontró ruta con ese cliente",
@@ -1214,32 +1231,37 @@ $(document).ready(function () {
                                     showConfirmButton: true,
                                     confirmButtonText: "continuar."
                                 });
-
                                 $("#valor_total").removeAttr("readonly");
-
                             }else{
                                 $("#valor_total").val(response.valor_recorrido);
-                                $("#valor_total").attr("readonly");
+                                $("#valor_total").attr("readonly",true);
                             }
                         },
                     });
                 }
+            } else {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Debe seleccionar un contrato fijo",
+                    showConfirmButton: true,
+                    confirmButtonText: "continuar."
+                });
+                $("#idruta").val("");
+                $("#descrip").val("");
+                $("#origen").val("");
+                $("#destino").val("");
             }
         });
-        /*===================================================
+        /*==========================================================================
         CERRAR MODAL, REINICIAR VALORES 
-        ===================================================*/
+        ===========================================================================*/
         $("#modal_general").on("hidden.bs.modal", function () {
             $("#modal-nuevoplanrodamiento").modal("show");
             $("#modal_general").modal("hide");
-            // $("#idruta").val("");
-            // $("#observacionescontr").val("");
-            // $("#origen").val("");
-            // $("#destino").val("");
         });
-        /* ==================================================
+        /*==========================================================================
         VALIDAR CAMPO VACIO DE RUTA
-        ===================================================*/
+        ===========================================================================*/
         var guardoRodamiento = false;
         $("#formulario_rodamiento").submit(function (e) {
             if (!guardoRodamiento) {
@@ -1258,92 +1280,134 @@ $(document).ready(function () {
                 }
             }
         });
-        /* ===================================================
-        TIPO DE CONTRATO CAMBIO
-        ===================================================*/
+        /*==========================================================================
+        TIPO DE CONTRATO
+        ===========================================================================*/
         $(document).on("change", "#tipocontrato", function () {
-            var tipocontrato = $(this).val();
-            // Si el tipo contrato es igual a fijo, oculta los campos contratante
-            if (tipocontrato == "FIJO") {
-                $("#selectContFijos").removeClass("d-none"); // Muestra el select de fijos
-                $("#selectContOrden").addClass("d-none"); // Esconde el select de contratante
-                $("#contratofijo").attr("required", "required"); // Vuelvo obligatorios el select de fijos
-                $("#contratante").val("").removeAttr("required");
-                $(".input-clientes-datos").val("");
-                //$(".input-ruta").val("");
-                //$("#valor_total").val("");
-            } else if (tipocontrato == "OCASIONAL") {
-                $("#selectContOrden").removeClass("d-none"); // Muestra el select de contratante
-                $("#selectContFijos").addClass("d-none"); // Esconde el select de fijos
-                $("#contratofijo").val("").removeAttr("required"); // Reset valor de fijos y lo vuelvo obligatorio
-                $("#contratante").attr("required", "required"); // Vuelvo obligatorios el select de contratante
-                $("#valor_total").attr("readonly");
-                $(".input-clientes-datos").val("");
-            } else if (tipocontrato == "") {
-                $("#selectContOrden").addClass("d-none");
-                $("#selectContFijos").addClass("d-none");
-                $(".input-contratos").val("");
-                //$("#idconductor").val("");
+
+            var actualizoTipoContrato = $(this).attr("actualizo");
+            if(actualizoTipoContrato == "SI"){
+
+                var tipocontrato = $(this).val();
+                if (tipocontrato == "FIJO") {
+                    $("#selectContFijos").removeClass("d-none"); // Muestra el select de fijos
+                    $("#selectContOrden").addClass("d-none"); // Esconde el select de contratante
+                    $("#contratofijo").attr("required", "required"); // SE VUELVE REQUERIDO EL SELECT DE FIJOS
+                    $("#contratante").val("").removeAttr("required");//REMUEVE EL ATRIBUTO REQUERIDO DE CONTRATANTE
+                    $("#contratante").trigger("change"); //CHANGE QUE RESETEA EL SELECT DE CONTRATANTE
+                    $(".input-clientes-datos").val("");//RESET VALORES DEL CLIENTE AL CAMBIAR DE TIPO DE CONTRATO
+                    $(".input-ruta").val("");
+                    $("#valor_total").val("");
+                    $(".btn-ruta").attr("disabled", true);
+                } else if (tipocontrato == "OCASIONAL") {
+                    $("#selectContOrden").removeClass("d-none"); // Muestra el select de contratante
+                    $("#selectContFijos").addClass("d-none"); // Esconde el select de fijos
+                    $("#contratofijo").val("").removeAttr("required"); // Reset valor de fijos y lo vuelvo obligatorio
+                    $("#contratante").attr("required", "required"); // Vuelvo obligatorios el select de contratante
+                    $("#contratofijo").trigger("change");//CHANGE QUE RESETEA EL SELECT DE FIJOS
+                    $(".input-clientes-datos").val("");//RESET VALORES DEL CLIENTE AL CAMBIAR DE TIPO DE CONTRATO
+                    $("#valor_total").val("").attr("readonly",true);
+                    $(".btn-ruta").attr("disabled", true);
+                } else if (tipocontrato == "") {
+                    $("#selectContOrden").addClass("d-none");//OCULTA EL SELECT DE OCASIONAL
+                    $("#selectContFijos").addClass("d-none");//OCULTA EL SELECT DE FIJOS
+                    $("#contratofijo").val("").removeAttr("required");
+                    $("#contratante").val("").removeAttr("required");
+                    $("#contratante").trigger("change");
+                    $("#contratofijo").trigger("change");
+                    $(".input-clientes-datos").val("");
+                    $(".input-ruta").val("");
+                    $("#valor_total").val("");
+                    $(".btn-ruta").attr("disabled", true);
+                }
+            }else {
+                $(this).attr("actualizo", "SI");
             }
         });
-        /* ===================================================
+        /*==========================================================================
         TRAER LOS DATOS DEL CLIENTE SI ES OCASIONAL
-        ===================================================*/
+        ===========================================================================*/
         $(document).on("change", "#contratante", function () {
-            var idorden = $(this).val();
-            if (idorden != "") {
-                var datos = new FormData();
-                datos.append("DatosOrden", "ok");
-                datos.append("value", idorden);
-                $.ajax({
-                    type: "POST",
-                    url: `${urlPagina}ajax/contratos.ajax.php`,
-                    data: datos,
-                    dataType: "json",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        $("#nombre_cliente").val(response.nombre_con);
-                        $("#documento_cliente").val(response.documento_con);
-                        $("#direccion_con").val(response.direccion_con);
-                        $("#telefono_cliente").val(response.tel_1);
-                        $("#idruta").val(response.idruta);
-                        $("#descrip").val(response.descripcion);
-                        $("#origen").val(response.origen);
-                        $("#destino").val(response.destino);
-                        $("#valor_total").val(response.valortotal);
-                        $("#idcliente").val(response.idcliente);
-                    },
-                });
+
+            var actualizoDatosclienteOca = $(this).attr("actualizo");
+            if(actualizoDatosclienteOca == "SI"){
+
+                var idorden = $(this).val();
+                if (idorden != "") {
+                    var datos = new FormData();
+                    datos.append("DatosOrden", "ok");
+                    datos.append("value", idorden);
+                    $.ajax({
+                        type: "POST",
+                        url: `${urlPagina}ajax/contratos.ajax.php`,
+                        data: datos,
+                        dataType: "json",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            $("#nombre_cliente").val(response.nombre_con);
+                            $("#documento_cliente").val(response.documento_con);
+                            $("#direccion_con").val(response.direccion_con);
+                            $("#telefono_cliente").val(response.tel_1);
+                            $("#idruta").val(response.idruta);
+                            $("#descrip").val(response.descripcion);
+                            $("#origen").val(response.origen);
+                            $("#destino").val(response.destino);
+                            $("#valor_total").val(response.valortotal);
+                            $("#idcliente").val(response.idcliente);
+                        },
+                    });
+                }
+            }else{
+                $(this).attr("actualizo", "SI");
             }
         });
-        /* ===================================================
-         TRAER LOS DATOS DEL CLIENTE SI ES FIJO
-        ===================================================*/
+        /*==========================================================================
+        TRAER LOS DATOS DEL CLIENTE SI ES FIJO
+        ===========================================================================*/
         $(document).on("change", "#contratofijo", function () {
-            var idfijo = $(this).val();
-            if (idfijo != "") {
-                var datos = new FormData();
-                datos.append("DatosFijos", "ok");
-                datos.append("value", idfijo);
-                $.ajax({
-                    type: "POST",
-                    url: `${urlPagina}ajax/contratos.ajax.php`,
-                    data: datos,
-                    dataType: "json",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function (response) {
-                        // Datos cliente
-                        $("#nombre_cliente").val(response.nombre_cliente);
-                        $("#documento_cliente").val(response.Documento);
-                        $("#direccion_con").val(response.direccion);
-                        $("#telefono_cliente").val(response.telefono);
-                        $("#idcliente").val(response.idcliente);
-                    },
-                });
+
+            var actualizoDatosclienteFijo = $(this).attr("actualizo");
+            if(actualizoDatosclienteFijo == "SI"){
+
+                var idfijo = $(this).val();
+                if (idfijo != "") {
+                    var datos = new FormData();
+                    datos.append("DatosFijos", "ok");
+                    datos.append("value", idfijo);
+                    $.ajax({
+                        type: "POST",
+                        url: `${urlPagina}ajax/contratos.ajax.php`,
+                        data: datos,
+                        dataType: "json",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            // Datos cliente
+                            $("#nombre_cliente").val(response.nombre_cliente);
+                            $("#documento_cliente").val(response.Documento);
+                            $("#direccion_con").val(response.direccion);
+                            $("#telefono_cliente").val(response.telefono);
+                            $("#idcliente").val(response.idcliente);
+                        },
+                    });
+                }
+            } else {
+                $(this).attr("actualizo", "SI");
+            }
+        });
+        /*=======================================================================================================
+        VALIDA SI UN CONTRATO FIJO Y UN TIPO DE VEHICULO HA SIDO SELECCIONADO (PARA HABILITAR EL BOTON DE LA RUTA)
+        ========================================================================================================*/
+        $(document).on("change", ".validacion", function () {
+
+            let tipo = $("#tipoVehiculo").val();
+            let fijo = $("#contratofijo").val();
+            console.log(tipo,fijo);
+            if(tipo != "" && tipo != null && fijo != ""){
+                $(".btn-ruta").removeAttr("disabled");
             }
         });
     }
