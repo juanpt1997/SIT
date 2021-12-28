@@ -660,12 +660,7 @@ class ControladorMantenimientos
 				// Validar campos vacíos
 				$datos['fechaInic_ordSer'] = $datos['fechaInic_ordSer'] == "" ? null : $datos['fechaInic_ordSer'];
 				$datos['fecha_aprobacion'] = !isset($datos['fecha_aprobacion']) ? null : $datos['fecha_aprobacion'];
-
-
-
-				#RETORNA EL ÚLTIMO ID INSERTADO
-				$respuesta = ModeloMantenimientos::mdlAgregarOrdenServicio($datos);
-				$idorden = $respuesta;
+				$datos['valor_repuesto'] = $datos['valor_repuesto'] == "" ? null : $datos['valor_repuesto'];
 
 				//ALMACENAMOS LA CEDULA DE LA PERSONA QUE HACE LA ORDEN 
 				$datos['cedula'] = $_SESSION['cedula'];
@@ -675,6 +670,11 @@ class ControladorMantenimientos
 
 					$datos['estado'] = 1;
 				}
+
+				#RETORNA EL ÚLTIMO ID INSERTADO
+				$respuesta = ModeloMantenimientos::mdlAgregarOrdenServicio($datos);
+				$idorden = $respuesta;
+
 
 				//SI EL ESTADO ES 2 (APROBADA) PONE LA FECHA ACTUAL EN FECHA DE APROBACION
 				// PERO SI HAY FECHA EN LA BASE DE DATOS, DEJARLA COMO ESTÁ
@@ -725,7 +725,7 @@ class ControladorMantenimientos
 					}
 
 
-					var_dump($datos);
+					
 					//AGREGO LA PROGRAMACIÓN DE REPUESTO
 					if (isset($datos['servicio_repuesto'])) {
 						foreach ($datos['servicio_repuesto'] as $key => $value) {
@@ -891,7 +891,7 @@ class ControladorMantenimientos
 						}
 					}
 
-					var_dump($datos);
+					
 					//AGREGO LA PROGRAMACIÓN DE REPUESTO 
 					if (isset($datos['servicio_repuesto'])) {
 						$borrar = ModeloMantenimientos::mdlEliminarServicioxOrden($datos['numOrden_ordSer']);
@@ -1135,6 +1135,42 @@ class ControladorMantenimientos
 	static public function ctrListadoControlActividades()
 	{
 		$respuesta = ModeloMantenimientos::mdlListadoControlActividades();
+		return $respuesta;
+	}
+
+	/* ===================================================
+		LISTADO DE CUENTAS CONTABLES
+	===================================================*/
+	static public function ctrListaCuentasContables()
+	{
+		$respuesta = ModeloMantenimientos::mdlListaCuentasContables();
+
+		return $respuesta;
+	}
+
+	/* ===================================================
+		GUARDA QUIEN ASUME 
+	===================================================*/
+	static public function ctrGuardaAsume($datos){
+
+		//VALIDAMOS SI ES UN REPUESTO O UNA MANO DE OBRA 
+		if($datos['descripcion'] == "REPUESTO")
+		{
+			$respuesta = ModeloMantenimientos::mdlGuardaAsumeRepuesto($datos);
+		}else{
+			$respuesta = ModeloMantenimientos::mdlGuardaAsumeManoObra($datos);
+		}
+
+
+		return $respuesta;
+	}
+
+	/* ===================================================
+		LISTADO DE PROGRAMACIÓN 
+	===================================================*/
+	static public function ctrListaProgramacion()
+	{
+		$respuesta = ModeloMantenimientos::mdlListaProgramacion();
 		return $respuesta;
 	}
 }

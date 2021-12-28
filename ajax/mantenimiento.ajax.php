@@ -185,28 +185,30 @@ class AjaxMantenimientos
 
     static public function ajaxListadoProductos($consecutivo)
     {
-        $respuesta = ModeloMantenimientos::mdlListadoProductos();
+        $respuesta = ModeloProductos::mdlListarInventario();
         $tr = "";
 
         foreach ($respuesta as $key => $value) {
+            // <td>
+            //     <div class='btn-group' role='group' aria-label='Button group'>
+            //     <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' c referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' inventario ='{$value["idinventario"]}' valor='{$value["precio_compra"]}' nombre_proveedor='{$value["nombre_proveedor"]}' idproveedor='{$value["idproveedor"]}' class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
+            //     </div>
+            //     </td>
             $tr .= "
             <tr>
                 <td>
                 <div class='btn-group' role='group' aria-label='Button group'>
-                <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' idproducto='{$value["idproducto"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' inventario ='{$value["idinventario"]}' valor='{$value["precio_compra"]}' nombre_proveedor='{$value["nombre_proveedor"]}' idproveedor='{$value["idproveedor"]}' class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
+                <button type='button' class='btn btn-success btn-md btn-SucursalesProducto' idproducto='{$value["idproducto"]}' consecutivo='{$consecutivo}' title='lista repuestos' data-toggle='modal' data-target='#sucursalesProductos'><i class='fas fa-map-marker-alt'></i></button>
                 </div>
                 </td>
+                <td>" . $value['descripcion'] . "</td>
                 <td>" . $value['codigo']  . "</td>
                 <td>" . $value['referencia'] . "</td>
                 <td>" . $value['stock'] . "</td>
-                <td>" . $value['sucursal'] . "</td>
                 <td>" . $value['posicion'] . "</td>
-                <td>" . $value['descripcion'] . "</td>
                 <td>" . $value['categoria'] . "</td>
                 <td>" . $value['marca'] . "</td>
                 <td>" . $value['medida'] . "</td>
-                <td>" . $value['precio_compra'] . "</td>
-                <td>" . $value['nombre_proveedor'] . "</td>
             </tr>
             
             ";
@@ -402,6 +404,7 @@ class AjaxMantenimientos
             'serviciosExt' => $serviciosExt
         ];
 
+        
 
         echo json_encode($datos); 
     }
@@ -489,11 +492,17 @@ class AjaxMantenimientos
             <td>". $value['cantidad'] . "</td>
             <td>". $value['valor'] . "</td>
             <td>". $value['iva'] . "%</td>
+            <td>". $value['cliente_asume'] ."</td>
+            <td>". $value['porcentaje_cliente']."%</td>
+            <td>". $value['empresa_asume']."</td>
+            <td>". $value['porcentaje_empresa']."%</td>
+            <td>". $value['contratista_asume']."</td>
+            <td>". $value['porcentaje_contratista']."%</td>
             <td>". $value['total'] . "</td>
             <td>". $value['mantenimiento'] . "</td>
             <td>". $value['nombre_cuenta'] . "</td>
             <td>". $value['num_cuenta'] . "</td>
-            <td><button type='button' class='btn btn-success btn-asume' data-toggle='modal' data-target='#modalAsume' idvehiculo='{$value['idvehiculo']}' idcliente='{$value['idcliente']}' num_cuenta='{$value['num_cuenta']}' nombre_cuenta='{$value['nombre_cuenta']}' total='{$value['total']}' iva='{$value['iva']}' valor='{$value['valor']}' cantidad='{$value['cantidad']}' idorden='{$value['idorden']}'><i class='fas fa-wallet'></i></button></td>
+            <td><button type='button' class='btn btn-success btn-asume' data-toggle='modal' data-target='#modalAsume' idvehiculo='{$value['idvehiculo']}' idcliente='{$value['idcliente']}' idcuenta='{$value['idcuenta']}' cliente='{$value['cliente']}' num_cuenta='{$value['num_cuenta']}' nombre_cuenta='{$value['nombre_cuenta']}' total='{$value['total']}' iva='{$value['iva']}' valor='{$value['valor']}' cantidad='{$value['cantidad']}' idorden='{$value['idorden']}' id='{$value['id']}' descripcion='{$value['descripcion']}' ><i class='fas fa-wallet'></i></button></td>
 
 
             </tr>
@@ -510,6 +519,67 @@ class AjaxMantenimientos
         $respuesta = ModeloEmpresaRaiz::mdlVerEmpresa();
         echo json_encode( $respuesta);
     }
+
+    /* ===================================================
+        LISTA DE SUCURSALES PARA EL PRODUCTO
+    ===================================================*/
+    static public function ajaxListaSucursalesProductos($idproducto, $consecutivo)
+    {
+        $respuesta = ModeloProductos::mdlSucursalesInventario($idproducto);
+        $tr = "";
+
+        foreach ($respuesta as $key => $value) {
+            $tr .= "
+            <tr>
+            <td>
+            <div class='btn-group' role='group' aria-label='Button group'>
+            <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' inventario ='{$value["idinventario"]}' valor='{$value["precio_compra"]}' nombre_proveedor='{$value["nombre_proveedor"]}' idproveedor='{$value["idproveedor"]}' class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
+            </div>
+            </td>
+            <td>". $value['descripcion'] ."</td>
+            <td>". $value['referencia'] ."</td>
+            <td>". $value['stock'] ."</td>
+            <td>". $value['posicion'] ."</td>
+            <td>". $value['sucursal'] ."</td>
+            <td>". $value['precio_compra'] ."</td>
+            </tr>
+            
+            ";
+        }
+
+        echo $tr;
+    }
+
+
+    /* ===================================================
+        GUARDAR QUIEN ASUME
+    ===================================================*/
+    static public function ajaxGuardarAsume($datos)
+    {   
+       
+        $respuesta = ControladorMantenimientos::ctrGuardaAsume($datos);
+        echo $respuesta;
+    }
+
+    /* ===================================================
+        CARGAR DATOS DE QUIÉN ASUME
+    ===================================================*/
+    static public function ajaxCargarAsume($idcontrol)
+    {
+        $respuesta = ModeloMantenimientos::mdlDatosAsume($idcontrol);
+        echo json_encode($respuesta) ;
+    }
+
+
+    /* ===================================================
+        DATOS DE UNA CUENTA CONTABLE
+    ===================================================*/
+    static public function ajaxCargarDatosCuenta($idcuenta)
+    {
+        $respuesta = ModeloMantenimientos::mdlDatosCuenta($idcuenta);
+        echo json_encode($respuesta);
+    }
+
 }
 /* ===================================================
             LLAMADOS AJAX INVENTARIO
@@ -599,3 +669,16 @@ if (isset($_POST['TablaControlActividades']) && $_POST['TablaControlActividades'
 
 #LLAMADO A MOSTRAR EMPRESA 
 if (isset($_POST['AsumeVerEmpresa']) && $_POST['AsumeVerEmpresa'] == "ok") AjaxMantenimientos::ajaxAsumeVerEmpresa();
+
+#LLAMADO A LISTA DE SUCURSALES PRODUCTOS
+if(isset($_POST['SucursalesProductos']) && $_POST['SucursalesProductos'] == "ok") AjaxMantenimientos::ajaxListaSucursalesProductos($_POST['idproducto'], $_POST['consecutivo']);
+
+#LLAMADO A GUARDAR QUIEN ASUME 
+if(isset($_POST['GuardarAsume']) && $_POST['GuardarAsume'] == "ok") AjaxMantenimientos::ajaxGuardarAsume($_POST);
+
+#LLAMADO A CARGAR DATOS ASUME 
+if(isset($_POST['DatosAsume']) && $_POST['DatosAsume'] == "ok") AjaxMantenimientos::ajaxCargarAsume($_POST['idcontrol']);
+
+#LLAMADO A CARGAR DATOS DE UNA CUENTA CONTABLE 
+if(isset($_POST['datosCuenta']) && $_POST['datosCuenta'] == "ok")AjaxMantenimientos::ajaxCargarDatosCuenta($_POST['idcuenta']);
+

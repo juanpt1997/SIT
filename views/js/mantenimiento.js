@@ -1179,57 +1179,57 @@ $(document).ready(function () {
                 `<tr consecutivo="${dinamico}">` +
                 `<td style="width: 300px">` +
                 `<div class="input-group">` +
-                `<input class="form-control" type="text" id="proveedor_${dinamico}" placeholder="Seleccione un repuesto"  maxlength="0">` +
+                `<input class="form-control form-control-sm" type="text" id="proveedor_${dinamico}" placeholder="Seleccione un repuesto"  maxlength="0">` +
                 `<div class="input-group-append">` +
-                `<button type="button" class="btn btn-success btn-md btn-proveedor" consecutivo="${dinamico}" title="lista proveedores" data-toggle="modal" data-target="#modal-proveedores"><i class="fas fa-parachute-box"></i></button>` +
+                `<button type="button" class="btn btn-sm btn-success btn-md btn-proveedor" consecutivo="${dinamico}" title="lista proveedores" data-toggle="modal" data-target="#modal-proveedores"><i class="fas fa-parachute-box"></i></button>` +
                 `</div>` +
                 `</div>` +
                 `</td>` +
                 `<input type="hidden" id="idproveedor_${dinamico}" name="proveedor[]"> ` +
                 `<td style="width: 300px">` +
-                `<input type="text" class="form-control" id="descrip_${dinamico}" name="descrip_mano[]">` +
+                `<input type="text" class="form-control form-control-sm" id="descrip_${dinamico}" name="descrip_mano[]">` +
                 `</td>` +
                 `<td style="width: 300px">` +
-                `<input type="text" class="form-control input-valorMano" id="valor_${dinamico}" consecutivo="${dinamico}" name="valor_mano[]">` +
+                `<input type="text" class="form-control form-control-sm input-valorMano" id="valor_${dinamico}" consecutivo="${dinamico}" name="valor_mano[]">` +
                 `</td>` +
-                `<td style="width: 300px"><input type="text" class="form-control input-cantMano" consecutivo="${dinamico}" id="cantmanoObra_${dinamico}" name="cantmanoObra[]" readonly></td>` +
+                `<td style="width: 300px"><input type="text" class="form-control form-control-sm input-cantMano" consecutivo="${dinamico}" id="cantmanoObra_${dinamico}" name="cantmanoObra[]" readonly></td>` +
                 `<td>` +
-                `<input type="text" class="form-control input-ivaMano" id="iva_mano_${dinamico}" name="iva_mano[]" consecutivo="${dinamico}">` +
+                `<input type="text" class="form-control form-control-sm input-ivaMano" id="iva_mano_${dinamico}" name="iva_mano[]" consecutivo="${dinamico}">` +
                 `</td>` +
                 `<td>` +
-                `<input type="text" class="form-control" id="total_mano_${dinamico}" name="total_mano[]" readonly>` +
+                `<input type="text" class="form-control form-control-sm" id="total_mano_${dinamico}" name="total_mano[]" readonly>` +
                 `</td>` +
                 `<td style="width: 300px">
                 <input type="hidden" id="servicio_mano_${dinamico}" name="servicio_mano[]">
                 <div class="input-group">
-                <input class="form-control" type="text" id="servmanoObra_${dinamico}" name="servmanoObra[]" placeholder="Seleccione un servicio"  maxlength="0">
+                <input class="form-control form-control-sm" type="text" id="servmanoObra_${dinamico}" name="servmanoObra[]" placeholder="Seleccione un servicio"  maxlength="0">
                 <div class="input-group-append">
-                <button type="button" class="btn btn-success btn-md btn-servicios" seccion="manoObra" consecutivo="${dinamico}" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
+                <button type="button" class="btn btn-success btn-sm btn-md btn-servicios" seccion="manoObra" consecutivo="${dinamico}" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
                 </div>
                 </div>
                 </td>` +
                 `<td style="width: 900px;">
                 <div class="input-group">
-                <input class="form-control" type="text" id="sistemanoObra_${dinamico}" name="sistemarepuesto[]" placeholder="Seleccione el tipo de sistema"  maxlength="0">
+                <input class="form-control form-control-sm" type="text" id="sistemanoObra_${dinamico}" name="sistemarepuesto[]" placeholder="Seleccione el tipo de sistema"  maxlength="0">
                 <div class="input-group-append">
-                <button type="button" class="btn btn-success btn-md btn-sistema" seccion="manoObra" consecutivo="${dinamico}" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
+                <button type="button" class="btn btn-sm btn-success btn-md btn-sistema" seccion="manoObra" consecutivo="${dinamico}" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
                 </div>
                 </div>
                 </td>` +
                 `<td style="width: 900px;">
                 <div class="input-group">
-                <input class="form-control" type="text" id="mantenimientoManoObra_${dinamico}" name="mantenimientorepuesto[]" placeholder="Seleccione un mantenimiento"  maxlength="0">
+                <input class="form-control form-control-sm" type="text" id="mantenimientoManoObra_${dinamico}" name="mantenimientorepuesto[]" placeholder="Seleccione un mantenimiento"  maxlength="0">
                 <div class="input-group-append">
-                <button type="button" class="btn btn-success btn-md btn-mantenimiento" seccion="manoObra" consecutivo="${dinamico}" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
+                <button type="button" class="btn btn-sm btn-success btn-md btn-mantenimiento" seccion="manoObra" consecutivo="${dinamico}" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
                 </div>
                 </div>
                 </td>` +
                 `<td>
                 <input type="hidden" id="idcuenta_mano_${dinamico}" name="idcuenta_mano[]">
                 <div class="input-group">
-                    <input class="form-control" type="text" id="cuenta_mano_${dinamico}" name="cuenta_mano[]" placeholder="Seleccione una cuenta" maxlength="0">
+                    <input class="form-control form-control-sm" type="text" id="cuenta_mano_${dinamico}" name="cuenta_mano[]" placeholder="Seleccione una cuenta" maxlength="0">
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-success btn-md btn-cuenta" seccion="manoObra" consecutivo="${dinamico}" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
+                        <button type="button" class="btn btn-sm btn-success btn-md btn-cuenta" seccion="manoObra" consecutivo="${dinamico}" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
                     </div>
                 </div>
                 </td>` +
@@ -1255,62 +1255,62 @@ $(document).ready(function () {
                 `<tr consecutivo="${dinamico}">
                 <td style="width: 300px">` +
                 `<div class="input-group">` +
-                `<input class="form-control" type="text" id="repuesto_${dinamico}" name="repuesto[] "placeholder="Seleccione un repuesto"  maxlength="0">` +
+                `<input class="form-control form-control-sm" type="text" id="repuesto_${dinamico}" name="repuesto[] "placeholder="Seleccione un repuesto"  maxlength="0">` +
                 `<div class="input-group-append">` +
-                `<button type="button" class="btn btn-success btn-md btn-repuestos" consecutivo="${dinamico}" title="lista repuestos" data-toggle="modal" data-target="#modal-repuestos"><i class="fas fa-business-time"></i></button>` +
+                `<button type="button" class="btn btn-success btn-sm btn-md btn-repuestos" consecutivo="${dinamico}" title="lista repuestos" data-toggle="modal" data-target="#modal-repuestos"><i class="fas fa-business-time"></i></button>` +
                 `</div>` +
                 `</div>` +
                 `</td>` +
                 `<input type="hidden" id="inventario_${dinamico}" name="inventario[]">` +
                 `<td style="width: 300px">` +
-                `<input type="text" class="form-control" id="refrepuestos_${dinamico}" name="referencia_repuesto[]"  maxlength="0" readonly>` +
+                `<input type="text" class="form-control form-control-sm" id="refrepuestos_${dinamico}" name="referencia_repuesto[]"  maxlength="0" readonly>` +
                 `</td>` +
                 `<td style="width: 300px">` +
-                `<input type="text" class="form-control" id="codrepuestos_${dinamico}" name="codigo_repuesto[]"  maxlength="0" readonly>` +
+                `<input type="text" class="form-control form-control-sm" id="codrepuestos_${dinamico}" name="codigo_repuesto[]"  maxlength="0" readonly>` +
                 `</td>` +
                 `<td style="width: 300px">` +
-                `<input type="text" class="form-control input-valorrepuesto" id="valorrepuestos_${dinamico}" consecutivo="${dinamico}" name="valor_repuesto[]" maxlength="0" readonly>` +
+                `<input type="text" class="form-control form-control-sm input-valorrepuesto" id="valorrepuestos_${dinamico}" consecutivo="${dinamico}" name="valor_repuesto[]" maxlength="0" >` +
                 `</td>` +
                 `<td style="width: 300px">` +
-                `<input type="text" class="form-control input-cantrepuesto" consecutivo="${dinamico}" id="cantrepuestos_${dinamico}" name="cantidad_repuesto[]" readonly>` +
+                `<input type="text" class="form-control form-control-sm input-cantrepuesto" consecutivo="${dinamico}" id="cantrepuestos_${dinamico}" name="cantidad_repuesto[]" readonly>` +
                 `</td>` +
                 `<td>` +
-                `<input type="text" class="form-control input-ivarepuesto" id="iva_repuesto_${dinamico}" consecutivo="${dinamico}" name="iva_repuesto[]">` +
+                `<input type="text" class="form-control form-control-sm input-ivarepuesto" id="iva_repuesto_${dinamico}" consecutivo="${dinamico}" name="iva_repuesto[]">` +
                 `</td>` +
-                `<td><input type="text" class="form-control" id="total_repuesto_${dinamico}" name="total_repuesto[]" readonly></td>` +
+                `<td><input type="text" class="form-control form-control-sm" id="total_repuesto_${dinamico}" name="total_repuesto[]" readonly></td>` +
                 `<input type="hidden" name="idproveedor_repuesto[]" id="idproveedor_repuesto_${dinamico}">` +
-                `<td><input type="text" class="form-control" id="proveedor_repuesto_${dinamico}" name="proveedor_repuesto[]" readonly></td>` +
+                `<td><input type="text" class="form-control form-control-sm" id="proveedor_repuesto_${dinamico}" name="proveedor_repuesto[]" readonly></td>` +
                 `<td style="width: 900px;">
                 <input type="hidden" id="servicio_repuesto_${dinamico}" name="servicio_repuesto[]">
                 <div class="input-group">
-                <input class="form-control" type="text" id="servrepuesto_${dinamico}" name="servrepuesto[]" placeholder="Seleccione un servicio"  maxlength="0">
+                <input class="form-control form-control-sm" type="text" id="servrepuesto_${dinamico}" name="servrepuesto[]" placeholder="Seleccione un servicio"  maxlength="0">
                 <div class="input-group-append">
-                <button type="button" class="btn btn-success btn-md btn-servicios" seccion="repuesto" consecutivo="${dinamico}" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
+                <button type="button" class="btn btn-sm btn-success btn-md btn-servicios" seccion="repuesto" consecutivo="${dinamico}" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
                 </div>
                 </div>
                 </td>` +
                 `<td style="width: 900px;">
                 <div class="input-group">
-                <input class="form-control" type="text" id="sistemarepuesto_${dinamico}" name="sistemarepuesto[]" placeholder="Seleccione el tipo de sistema"  maxlength="0">
+                <input class="form-control form-control-sm" type="text" id="sistemarepuesto_${dinamico}" name="sistemarepuesto[]" placeholder="Seleccione el tipo de sistema"  maxlength="0">
                 <div class="input-group-append">
-                <button type="button" class="btn btn-success btn-md btn-sistema" seccion="repuesto" consecutivo="${dinamico}" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
+                <button type="button" class="btn btn-sm btn-success btn-md btn-sistema" seccion="repuesto" consecutivo="${dinamico}" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
                 </div>
                 </div>
                 </td>` +
                 `<td style="width: 900px;">
                 <div class="input-group">
-                <input class="form-control" type="text" id="mantenimientorepuesto_${dinamico}" name="mantenimientorepuesto[]" placeholder="Seleccione un mantenimiento"  maxlength="0">
+                <input class="form-control form-control-sm" type="text" id="mantenimientorepuesto_${dinamico}" name="mantenimientorepuesto[]" placeholder="Seleccione un mantenimiento"  maxlength="0">
                 <div class="input-group-append">
-                <button type="button" class="btn btn-success btn-md btn-mantenimiento" seccion="repuesto" consecutivo="${dinamico}" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
+                <button type="button" class="btn btn-sm btn-success btn-md btn-mantenimiento" seccion="repuesto" consecutivo="${dinamico}" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
                 </div>
                 </div>
                 </td>` +
                 `<td>
                 <input type="hidden" id="idcuenta_repuesto_${dinamico}" name="idcuenta[]">
                 <div class="input-group">
-                <input class="form-control" type="text" id="cuenta_repuesto_${dinamico}" name="cuenta_repuesto[]" placeholder="Seleccione una cuenta" maxlength="0">
+                <input class="form-control form-control-sm" type="text" id="cuenta_repuesto_${dinamico}" name="cuenta_repuesto[]" placeholder="Seleccione una cuenta" maxlength="0">
                 <div class="input-group-append">
-                <button type="button" class="btn btn-success btn-md btn-cuenta" seccion="repuesto" consecutivo="${dinamico}" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
+                <button type="button" class="btn btn-sm btn-success btn-md btn-cuenta" seccion="repuesto" consecutivo="${dinamico}" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
                 </div>
                 </div>
                 </td>` +
@@ -1436,12 +1436,60 @@ $(document).ready(function () {
             });
         };
 
+
+        /*=========================================================================
+            FUNCION PARA CARGAR EVIDENCIAS DEL VEHICULO EN ORDEN DE SERVICIO
+        ========================================================================*/
+        const AjaxTablaEvidenciasOrden = (idvehiculo) => {
+            // Quitar datatable
+            $(`#tablaEvidenciasServ`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbodyEvidenciaServ`).html("");
+
+            let datos = new FormData();
+            datos.append(`TablaEvidencias`, "ok");
+            datos.append("idvehiculo", idvehiculo);
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/operaciones.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $(`#tbodyEvidenciaServ`).html(response);
+                    } else {
+                        $(`#tbodyEvidenciaServ`).html("");
+                    }
+
+                    /* ===================================================
+                                        INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                                        ===================================================*/
+                    // var buttons = [
+                    //     {
+                    //         extend: "excel",
+                    //         className: "btn-info",
+                    //         text: '<i class="far fa-file-excel"></i> Exportar',
+                    //     },
+                    // ];
+                    // var table = dataTableCustom(`#tablaEvidenciasServ`, buttons);
+                },
+            });
+        };
+
+
         // CARGAR DATOS DEL VEHICULO
         $(document).on("change", "#placa_OrdServ", function () {
             let fecha_actual = moment().format("YYYY-MM-DD");
             let idvehiculo = $(this).val();
 
             AjaxTablaProgramacionxVehiculo(idvehiculo);
+            AjaxTablaEvidenciasOrden(idvehiculo);
+
+
+
 
             var datos = new FormData();
             datos.append("DatosVehiculo", "ok");
@@ -1579,7 +1627,7 @@ $(document).ready(function () {
         ================================*/
 
         $(document).on("click", ".btnSeleccionarProducto", function () {
-            $("#modal-repuestos").modal("hide");
+            $("#sucursalesProductos").modal("hide");
 
             var descripcion = $(this).attr("descripcion");
             var consecutivo = $(this).attr("consecutivo");
@@ -1957,7 +2005,7 @@ $(document).ready(function () {
             $("#modal-proveedores").modal("hide");
         });
 
-        //CAMBIA LOS COLORES DEL ESTADO
+        //ESTADOS DE LA ORDEN
         $(document).on("change", "#estado", function () {
             let estado = this.value;
 
@@ -1968,6 +2016,7 @@ $(document).ready(function () {
                 $("#fechainicio_ordSer").removeAttr("required");
             }
 
+            //CANCELADA
             if (estado == 0) {
                 $("#estado").removeClass("bg-warning");
                 $("#estado").removeClass("bg-success");
@@ -1975,6 +2024,7 @@ $(document).ready(function () {
                 $("#fechainicio_ordSer").removeAttr("required");
             }
 
+            //ABIERTA
             if (estado == 1) {
                 $("#estado").removeClass("bg-danger");
                 $("#estado").removeClass("bg-success");
@@ -1982,6 +2032,7 @@ $(document).ready(function () {
                 $("#fechainicio_ordSer").removeAttr("required");
             }
 
+            // APROBADA
             if (estado == 2) {
                 $("#estado").removeClass("bg-warning");
                 $("#estado").removeClass("bg-danger");
@@ -2075,66 +2126,66 @@ $(document).ready(function () {
                 `<tr id="contenido_filas_repuestoSolicitud" consecutivo="${dinamico}">
       <td style="width: 300px">` +
                 `<div class="input-group">` +
-                `<input class="form-control" type="text" id="repuesto_${dinamico}" name="repuesto[] "placeholder="Seleccione un repuesto" value="${element.descripcion}"  maxlength="0">` +
+                `<input class="form-control form-control-sm" type="text" id="repuesto_${dinamico}" name="repuesto[] "placeholder="Seleccione un repuesto" value="${element.descripcion}"  maxlength="0">` +
                 `<div class="input-group-append">` +
-                `<button type="button" class="btn btn-success btn-md btn-repuestos" consecutivo="${dinamico}" title="lista repuestos" data-toggle="modal" data-target="#modal-repuestos"><i class="fas fa-business-time"></i></button>` +
+                `<button type="button" class="btn btn-sm btn-success btn-md btn-repuestos" consecutivo="${dinamico}" title="lista repuestos" data-toggle="modal" data-target="#modal-repuestos"><i class="fas fa-business-time"></i></button>` +
                 `</div>` +
                 `</div>` +
                 `</td>` +
                 `<input type="hidden" id="inventario_${dinamico}" value="${element.idinventario}" name="inventario[]">` +
                 `<td style="width: 300px">` +
-                `<input type="text" class="form-control" id="refrepuestos_${dinamico}" value="${element.descripcion}" name="referencia_repuesto[]"  maxlength="0" readonly>` +
+                `<input type="text" class="form-control form-control-sm" id="refrepuestos_${dinamico}" value="${element.descripcion}" name="referencia_repuesto[]"  maxlength="0" readonly>` +
                 `</td>` +
                 `<td style="width: 300px">` +
-                `<input type="text" class="form-control" id="codrepuestos_${dinamico}" value="${element.codigo}" name="codigo_repuesto[]"  maxlength="0" readonly>` +
+                `<input type="text" class="form-control form-control-sm" id="codrepuestos_${dinamico}" value="${element.codigo}" name="codigo_repuesto[]"  maxlength="0" readonly>` +
                 `</td>` +
                 `<td style="width: 300px">` +
-                `<input type="text" class="form-control input-valorrepuesto" id="valorrepuestos_${dinamico}" consecutivo="${dinamico}" name="valor_repuesto[]" value="${element.valor}"  maxlength="0" readonly>` +
+                `<input type="text" class="form-control form-control-sm input-valorrepuesto" id="valorrepuestos_${dinamico}" consecutivo="${dinamico}" name="valor_repuesto[]" value="${element.valor}"  maxlength="0" >` +
                 `</td>` +
                 `<td style="width: 300px">` +
-                `<input type="text" class="form-control input-cantrepuesto" id="cantrepuestos_${dinamico}" consecutivo="${dinamico}" value="${element.cantidad}" name="cantidad_repuesto[]">` +
+                `<input type="text" class="form-control form-control-sm input-cantrepuesto" id="cantrepuestos_${dinamico}" consecutivo="${dinamico}" value="${element.cantidad}" name="cantidad_repuesto[]">` +
                 `</td>` +
                 `<td>` +
-                `<input type="text" class="form-control input-ivarepuesto" id="iva_repuesto_${dinamico}" consecutivo="${dinamico}" name="iva_repuesto[]" value="${element.iva}">` +
+                `<input type="text" class="form-control form-control-sm input-ivarepuesto" id="iva_repuesto_${dinamico}" consecutivo="${dinamico}" name="iva_repuesto[]" value="${element.iva}">` +
                 `</td>` +
                 `<td>` +
-                `<input type="text" class="form-control" id="total_repuesto_${dinamico}" name="total_repuesto[]" value="${element.total}" readonly>` +
+                `<input type="text" class="form-control form-control-sm" id="total_repuesto_${dinamico}" name="total_repuesto[]" value="${element.total}" readonly>` +
                 `</td>` +
                 `<input type="hidden" value="${element.idproveedor}" name="idproveedor_repuesto[]"  id="idproveedor_repuesto_${dinamico}">` +
                 `<td>` +
-                `<input type="text" class="form-control" id="proveedor_repuesto_${dinamico}" value="${element.nombre_contacto}" name="proveedor_repuesto[]" readonly>` +
+                `<input type="text" class="form-control form-control-sm" id="proveedor_repuesto_${dinamico}" value="${element.nombre_contacto}" name="proveedor_repuesto[]" readonly>` +
                 `</td>` +
                 `<td style="width: 900px;">
                 <input type="hidden" id="servicio_repuesto_${dinamico}" value="${element.idservicio}"  name="servicio_repuesto[]">
         <div class="input-group">
-            <input class="form-control" type="text" id="servrepuesto_${dinamico}" value="${element.servicio}" name="servrepuesto[]" placeholder="Seleccione un servicio"  maxlength="0">
+            <input class="form-control form-control-sm" type="text" id="servrepuesto_${dinamico}" value="${element.servicio}" name="servrepuesto[]" placeholder="Seleccione un servicio"  maxlength="0">
             <div class="input-group-append">
-                <button type="button" class="btn btn-success btn-md btn-servicios" seccion="repuesto" consecutivo="${dinamico}" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
+                <button type="button" class="btn btn-sm btn-success btn-md btn-servicios" seccion="repuesto" consecutivo="${dinamico}" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
             </div>
         </div>
         </td>` +
                 `<td style="width: 900px;">
         <div class="input-group">
-            <input class="form-control" type="text" id="sistemarepuesto_${dinamico}" value="${element.sistema}" name="sistemarepuesto[]" placeholder="Seleccione el tipo de sistema"  maxlength="0">
+            <input class="form-control form-control-sm" type="text" id="sistemarepuesto_${dinamico}" value="${element.sistema}" name="sistemarepuesto[]" placeholder="Seleccione el tipo de sistema"  maxlength="0">
             <div class="input-group-append">
-                <button type="button" class="btn btn-success btn-md btn-sistema" seccion="repuesto" consecutivo="${dinamico}" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
+                <button type="button" class="btn btn-sm btn-success btn-md btn-sistema" seccion="repuesto" consecutivo="${dinamico}" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
             </div>
         </div>
       </td>` +
                 `<td style="width: 900px;">
         <div class="input-group">
-            <input class="form-control" type="text" id="mantenimientorepuesto_${dinamico}" value="${element.mantenimiento}" name="mantenimientorepuesto[]" placeholder="Seleccione un mantenimiento"  maxlength="0">
+            <input class="form-control form-control-sm" type="text" id="mantenimientorepuesto_${dinamico}" value="${element.mantenimiento}" name="mantenimientorepuesto[]" placeholder="Seleccione un mantenimiento"  maxlength="0">
             <div class="input-group-append">
-                <button type="button" class="btn btn-success btn-md btn-mantenimiento" seccion="repuesto" consecutivo="${dinamico}" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
+                <button type="button" class="btn btn-sm btn-success btn-md btn-mantenimiento" seccion="repuesto" consecutivo="${dinamico}" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
             </div>
         </div>
       </td>` +
                 `<td>
                 <input type="hidden" id="idcuenta_repuesto_${dinamico}" value="${element.idcuenta}" name="idcuenta[]">
       <div class="input-group">
-          <input class="form-control" type="text" id="cuenta_repuesto_${dinamico}" value="${element.num_cuenta}" name="cuenta_repuesto[]" placeholder="Seleccione una cuenta" maxlength="0">
+          <input class="form-control form-control-sm" type="text" id="cuenta_repuesto_${dinamico}" value="${element.num_cuenta}" name="cuenta_repuesto[]" placeholder="Seleccione una cuenta" maxlength="0">
           <div class="input-group-append">
-              <button type="button" class="btn btn-success btn-md btn-cuenta" seccion="repuesto" consecutivo="${dinamico}" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
+              <button type="button" class="btn btn-sm btn-success btn-md btn-cuenta" seccion="repuesto" consecutivo="${dinamico}" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
           </div>
       </div>
   </td>` +
@@ -2148,52 +2199,52 @@ $(document).ready(function () {
             var fila = ` <tr id="contenido_filas_repuestoSolicitud" consecutivo="1">
             <td style="width: 900px;">
                 <div class="input-group">
-                    <input class="form-control" type="text" id="repuesto_1" name="repuesto[]" placeholder="Seleccione un repuesto" maxlength="0">
+                    <input class="form-control form-control-sm" type="text" id="repuesto_1" name="repuesto[]" placeholder="Seleccione un repuesto" maxlength="0">
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-success btn-md btn-repuestos" consecutivo="1" title="lista repuestos" data-toggle="modal" data-target="#modal-repuestos"><i class="fas fa-business-time"></i></button>
+                        <button type="button" class="btn btn-sm btn-success btn-md btn-repuestos" consecutivo="1" title="lista repuestos" data-toggle="modal" data-target="#modal-repuestos"><i class="fas fa-business-time"></i></button>
                     </div>
                 </div>
             </td>
             <input type="hidden" id="inventario_1" name="inventario[]">
-            <td> <input type="text" class="form-control" id="refrepuestos_1" name="referencia_repuesto[]" readonly></td>
-            <td> <input type="text" class="form-control" id="codrepuestos_1" name="codigo_repuesto[]" readonly></td>
-            <td> <input type="text" class="form-control input-valorrepuesto" id="valorrepuestos_1" consecutivo="1" name="valor_repuesto[]" readonly></td>
-            <td> <input type="text" class="form-control input-cantrepuesto" consecutivo="1" id="cantrepuestos_1" name="cantidad_repuesto[]" readonly></td>
-            <td><input type="text" class="form-control input-ivarepuesto" id="iva_repuesto_1" consecutivo="1" name="iva_repuesto[]"></td>
-            <td><input type="text" class="form-control" id="total_repuesto_1" name="total_repuesto[]" readonly></td>
+            <td> <input type="text" class="form-control form-control-sm" id="refrepuestos_1" name="referencia_repuesto[]" readonly></td>
+            <td> <input type="text" class="form-control form-control-sm" id="codrepuestos_1" name="codigo_repuesto[]" readonly></td>
+            <td> <input type="text" class="form-control form-control-sm input-valorrepuesto" id="valorrepuestos_1" consecutivo="1" name="valor_repuesto[]" ></td>
+            <td> <input type="text" class="form-control form-control-sm input-cantrepuesto" consecutivo="1" id="cantrepuestos_1" name="cantidad_repuesto[]" readonly></td>
+            <td> <input type="text" class="form-control form-control-sm input-ivarepuesto" id="iva_repuesto_1" consecutivo="1" name="iva_repuesto[]"></td>
+            <td> <input type="text" class="form-control form-control-sm" id="total_repuesto_1" name="total_repuesto[]" readonly></td>
             <input type="hidden" name="idproveedor_repuesto[]" id="idproveedor_repuesto_1">
-            <td><input type="text" class="form-control" id="proveedor_repuesto_1" name="proveedor_repuesto[]" readonly></td>
+            <td><input type="text" class="form-control form-control-sm" id="proveedor_repuesto_1" name="proveedor_repuesto[]" readonly></td>
             <td>
                 <input type="hidden" id="servicio_repuesto_1" name="servicio_repuesto[]">
                 <div class="input-group">
-                    <input class="form-control" type="text" id="servrepuesto_1" name="servrepuesto[]" placeholder="Seleccione un servicio" maxlength="0">
+                    <input class="form-control form-control-sm" type="text" id="servrepuesto_1" name="servrepuesto[]" placeholder="Seleccione un servicio" maxlength="0">
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-success btn-md btn-servicios" seccion="repuesto" consecutivo="1" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
+                        <button type="button" class="btn btn-sm btn-success btn-md btn-servicios" seccion="repuesto" consecutivo="1" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
                     </div>
                 </div>
             </td>
             <td style="width: 900px;">
                 <div class="input-group">
-                    <input class="form-control" type="text" id="sistemarepuesto_1" name="sistemarepuesto[]" placeholder="Seleccione el tipo de sistema" maxlength="0">
+                    <input class="form-control form-control-sm" type="text" id="sistemarepuesto_1" name="sistemarepuesto[]" placeholder="Seleccione el tipo de sistema" maxlength="0">
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-success btn-md btn-sistema" seccion="repuesto" consecutivo="1" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
+                        <button type="button" class="btn btn-sm btn-success btn-md btn-sistema" seccion="repuesto" consecutivo="1" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
                     </div>
                 </div>
             </td>
             <td style="width: 900px;">
                 <div class="input-group">
-                    <input class="form-control" type="text" id="mantenimientorepuesto_1" name="mantenimientorepuesto[]" placeholder="Seleccione un mantenimiento" maxlength="0">
+                    <input class="form-control form-control-sm" type="text" id="mantenimientorepuesto_1" name="mantenimientorepuesto[]" placeholder="Seleccione un mantenimiento" maxlength="0">
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-success btn-md btn-mantenimiento" seccion="repuesto" consecutivo="1" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
+                        <button type="button" class="btn btn-sm btn-success btn-md btn-mantenimiento" seccion="repuesto" consecutivo="1" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
                     </div>
                 </div>
             </td>
             <td>
                 <input type="hidden" id="idcuenta_repuesto_1" name="idcuenta[]">
                 <div class="input-group">
-                    <input class="form-control" type="text" id="cuenta_repuesto_1" name="cuenta_repuesto[]" placeholder="Seleccione una cuenta" maxlength="0">
+                    <input class="form-control form-control-sm" type="text" id="cuenta_repuesto_1" name="cuenta_repuesto[]" placeholder="Seleccione una cuenta" maxlength="0">
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-success btn-md btn-cuenta" seccion="repuesto" consecutivo="1" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
+                        <button type="button" class="btn btn-sm btn-success btn-md btn-cuenta" seccion="repuesto" consecutivo="1" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
                     </div>
                 </div>
             </td>
@@ -2208,48 +2259,51 @@ $(document).ready(function () {
             var fila = `<tr id="Contenido_tabla_manoObra" consecutivo="${dinamico}">
             <td style="width: 600px">
                 <div class="input-group">
-                    <input class="form-control" type="text" id="proveedor_${dinamico}" value="${element.nombre_contacto}" placeholder="Seleccione un proveedor" maxlength="0>
+                    <input class="form-control form-control-sm" type="text" id="proveedor_${dinamico}" value="${element.nombre_contacto}" placeholder="Seleccione un proveedor" maxlength="0">
                     <div class=" input-group-append">
-                    <button type="button" class="btn btn-success btn-md btn-proveedor" consecutivo="${dinamico}" title="lista proveedores" data-toggle="modal" data-target="#modal-proveedores"><i class="fas fa-parachute-box"></i></button>
+                    <button type="button" class="btn btn-sm btn-success btn-md btn-proveedor" consecutivo="${dinamico}" title="lista proveedores" data-toggle="modal" data-target="#modal-proveedores"><i class="fas fa-parachute-box"></i></button>
+                    </div>
                 </div>
             </td>
             <input type="hidden" id="idproveedor_${dinamico}" value="${element.id}" name="proveedor[]">
-            <td style="width: 300px"><input type="text" class="form-control" id="descrip_${dinamico}" value="${element.descripcion}" name="descrip_mano[]"></td>
-            <td style="width: 300px"><input type="text" class="form-control input-valorMano" id="valor_${dinamico}" consecutivo="${dinamico}" value="${element.valor}" name="valor_mano[]"></td>
-            <td style="width: 300px"><input type="text" class="form-control input-cantMano" id="cantmanoObra_${dinamico}" consecutivo="${dinamico}" value="${element.cantidad}" name="cantmanoObra[]" ></td>
-            <td><input type="text" class="form-control input-ivaMano" consecutivo="${dinamico}" id="iva_mano_${dinamico}" value="${element.iva}" name="iva_mano[]"></td>
-            <td><input type="text" class="form-control" id="total_mano_${dinamico}" value="${element.total}" name="total_mano[]" readonly></td>
+            <td style="width: 300px"><input type="text" class="form-control form-control-sm" id="descrip_${dinamico}" value="${element.descripcion}" name="descrip_mano[]"></td>
+            <td style="width: 300px"><input type="text" class="form-control form-control-sm input-valorMano" id="valor_${dinamico}" consecutivo="${dinamico}" value="${element.valor}" name="valor_mano[]"></td>
+            <td style="width: 300px"><input type="text" class="form-control form-control-sm input-cantMano" id="cantmanoObra_${dinamico}" consecutivo="${dinamico}" value="${element.cantidad}" name="cantmanoObra[]" ></td>
+            <td><input type="text" class="form-control form-control-sm input-ivaMano" consecutivo="${dinamico}" id="iva_mano_${dinamico}" value="${element.iva}" name="iva_mano[]"></td>
+            <td><input type="text" class="form-control form-control-sm" id="total_mano_${dinamico}" value="${element.total}" name="total_mano[]" readonly></td>
             <td style="width: 300px">
                 <input type="hidden" id="servicio_mano_${dinamico}" value="${element.idservicio}" name="servicio_mano[]">
                 <div class="input-group">
-                    <input class="form-control" type="text" id="servmanoObra_${dinamico}" value="${element.servicio}" name="servmanoObra[]" placeholder="Seleccione un servicio" maxlength="0>
+                    <input class="form-control form-control-sm" type="text" id="servmanoObra_${dinamico}" value="${element.servicio}" name="servmanoObra[]" placeholder="Seleccione un servicio" maxlength="0">
                     <div class=" input-group-append">
-                    <button type="button" class="btn btn-success btn-md btn-servicios" seccion="manoObra" consecutivo="${dinamico}" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
+                    <button type="button" class="btn btn-sm btn-success btn-md btn-servicios" seccion="manoObra" consecutivo="${dinamico}" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
+                    </div>                
                 </div>
 
             </td>
             <td style="width: 900px;">
                 <div class="input-group">
-                    <input class="form-control" type="text" id="sistemanoObra_${dinamico}" value="${element.sistema}" name="sistmanoobra[]" placeholder="Seleccione el tipo de sistema" maxlength="0>
+                    <input class="form-control form-control-sm" type="text" id="sistemanoObra_${dinamico}" value="${element.sistema}" name="sistmanoobra[]" placeholder="Seleccione el tipo de sistema" maxlength="0">
                     <div class=" input-group-append">
-                    <button type="button" class="btn btn-success btn-md btn-sistema" seccion="manoObra" consecutivo="${dinamico}" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
+                    <button type="button" class="btn btn-sm btn-success btn-md btn-sistema" seccion="manoObra" consecutivo="${dinamico}" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
+                    </div>
                 </div>
 
             </td>
             <td style="width: 900px;">
                 <div class="input-group">
-                    <input class="form-control" type="text" id="mantenimientoManoObra_${dinamico}" value="${element.mantenimiento}" name="mantenimientomanobra[]" placeholder="Seleccione un mantenimiento" maxlength="0">
+                    <input class="form-control form-control-sm" type="text" id="mantenimientoManoObra_${dinamico}" value="${element.mantenimiento}" name="mantenimientomanobra[]" placeholder="Seleccione un mantenimiento" maxlength="0">
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-success btn-md btn-mantenimiento" seccion="manoObra" consecutivo="${dinamico}" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
+                        <button type="button" class="btn btn-sm btn-success btn-md btn-mantenimiento" seccion="manoObra" consecutivo="${dinamico}" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
                     </div>
                 </div>
             </td>
             <td>
                 <input type="hidden" id="idcuenta_mano_${dinamico}" value="${element.idcuenta}" name="idcuenta_mano[]">
                 <div class="input-group">
-                    <input class="form-control" type="text" id="cuenta_mano_${dinamico}" value="${element.num_cuenta}" name="cuenta_mano[]" placeholder="Seleccione una cuenta" maxlength="0">
+                    <input class="form-control form-control-sm" type="text" id="cuenta_mano_${dinamico}" value="${element.num_cuenta}" name="cuenta_mano[]" placeholder="Seleccione una cuenta" maxlength="0">
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-success btn-md btn-cuenta" seccion="manoObra" consecutivo="${dinamico}" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
+                        <button type="button" class="btn btn-sm btn-success btn-md btn-cuenta" seccion="manoObra" consecutivo="${dinamico}" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
                     </div>
                 </div>
             </td>
@@ -2264,48 +2318,51 @@ $(document).ready(function () {
             var fila = `<tr id="Contenido_tabla_manoObra" consecutivo="1">
             <td style="width: 600px">
                 <div class="input-group">
-                    <input class="form-control" type="text" id="proveedor_1" placeholder="Seleccione un proveedor" maxlength="0>
+                    <input class="form-control form-control-sm" type="text" id="proveedor_1" placeholder="Seleccione un proveedor" maxlength="0">
                     <div class=" input-group-append">
-                    <button type="button" class="btn btn-success btn-md btn-proveedor" consecutivo="1" title="lista proveedores" data-toggle="modal" data-target="#modal-proveedores"><i class="fas fa-parachute-box"></i></button>
+                    <button type="button" class="btn btn-sm btn-success btn-md btn-proveedor" consecutivo="1" title="lista proveedores" data-toggle="modal" data-target="#modal-proveedores"><i class="fas fa-parachute-box"></i></button>
+                    </div>
                 </div>
             </td>
             <input type="hidden" id="idproveedor_1" name="proveedor[]">
-            <td style="width: 300px"><input type="text" class="form-control" id="descrip_1" name="descrip_mano[]"></td>
-            <td style="width: 300px"><input type="text" class="form-control input-valorMano" consecutivo="1" id="valor_1" name="valor_mano[]"></td>
-            <td style="width: 300px"><input type="text" class="form-control input-cantMano" id="cantmanoObra_1" consecutivo="1" name="cantmanoObra[]" readonly></td>
-            <td><input type="text" class="form-control input-ivaMano" id="iva_mano_1" name="iva_mano[]" consecutivo="1"></td>
-            <td><input type="text" class="form-control" id="total_mano_1" name="total_mano[]"  readonly></td>
+            <td style="width: 300px"><input type="text" class="form-control form-control-sm" id="descrip_1" name="descrip_mano[]"></td>
+            <td style="width: 300px"><input type="text" class="form-control form-control-sm input-valorMano" consecutivo="1" id="valor_1" name="valor_mano[]"></td>
+            <td style="width: 300px"><input type="text" class="form-control form-control-sm input-cantMano" id="cantmanoObra_1" consecutivo="1" name="cantmanoObra[]" readonly></td>
+            <td><input type="text" class="form-control form-control-sm input-ivaMano" id="iva_mano_1" name="iva_mano[]" consecutivo="1"></td>
+            <td><input type="text" class="form-control form-control-sm" id="total_mano_1" name="total_mano[]"  readonly></td>
             <td style="width: 300px">
                 <input type="hidden" id="servicio_mano_1" name="servicio_mano[]">
                 <div class="input-group">
-                    <input class="form-control" type="text" id="servmanoObra_1" name="servmanoObra[]" placeholder="Seleccione un servicio" maxlength="0>
+                    <input class="form-control form-control-sm" type="text" id="servmanoObra_1" name="servmanoObra[]" placeholder="Seleccione un servicio" maxlength="0">
                     <div class=" input-group-append">
-                    <button type="button" class="btn btn-success btn-md btn-servicios" seccion="manoObra" consecutivo="1" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
+                    <button type="button" class="btn btn-sm btn-success btn-md btn-servicios" seccion="manoObra" consecutivo="1" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
+                    </div>
                 </div>
 
             </td>
             <td style="width: 900px;">
                 <div class="input-group">
-                    <input class="form-control" type="text" id="sistemanoObra_1" name="sistmanoobra[]" placeholder="Seleccione el tipo de sistema" maxlength="0>
+                    <input class="form-control form-control-sm" type="text" id="sistemanoObra_1" name="sistmanoobra[]" placeholder="Seleccione el tipo de sistema" maxlength="0">
                     <div class=" input-group-append">
-                    <button type="button" class="btn btn-success btn-md btn-sistema" seccion="manoObra" consecutivo="1" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
+                    <button type="button" class="btn btn-sm btn-success btn-md btn-sistema" seccion="manoObra" consecutivo="1" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
+                    </div>
                 </div>
 
             </td>
             <td style="width: 900px;">
                 <div class="input-group">
-                    <input class="form-control" type="text" id="mantenimientoManoObra_1" name="mantenimientomanobra[]" placeholder="Seleccione un mantenimiento" maxlength="0">
+                    <input class="form-control form-control-sm" type="text" id="mantenimientoManoObra_1" name="mantenimientomanobra[]" placeholder="Seleccione un mantenimiento" maxlength="0">
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-success btn-md btn-mantenimiento" seccion="manoObra" consecutivo="1" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
+                        <button type="button" class="btn btn-sm btn-success btn-md btn-mantenimiento" seccion="manoObra" consecutivo="1" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
                     </div>
                 </div>
             </td>
             <td>
                 <input type="hidden" id="idcuenta_mano_1" name="idcuenta_mano[]">
                 <div class="input-group">
-                    <input class="form-control" type="text" id="cuenta_mano_1" name="cuenta_mano[]" placeholder="Seleccione una cuenta" maxlength="0">
+                    <input class="form-control form-control-sm" type="text" id="cuenta_mano_1" name="cuenta_mano[]" placeholder="Seleccione una cuenta" maxlength="0">
                     <div class="input-group-append">
-                        <button type="button" class="btn btn-success btn-md btn-cuenta" seccion="manoObra" consecutivo="1" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
+                        <button type="button" class="btn btn-sm btn-success btn-md btn-cuenta" seccion="manoObra" consecutivo="1" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
                     </div>
                 </div>
             </td>
@@ -2818,23 +2875,29 @@ $(document).ready(function () {
             CARGAR DATOS PARA LA MODAL DE QUIÉN ASUME
         ==============================================*/
         $(document).on("click", ".btn-asume", function () {
+            let id = $(this).attr("id");
             let cantidad = $(this).attr("cantidad");
             let valor = $(this).attr("valor");
             let iva = $(this).attr("iva");
             let total = $(this).attr("total");
             let nombre_cuenta = $(this).attr("nombre_cuenta");
             let num_cuenta = $(this).attr("num_cuenta");
-            let idcliente = $(this).attr("idcliente");
+            let cliente = $(this).attr("cliente");
             let idvehiculo = $(this).attr("idvehiculo");
+            let idcuenta = $(this).attr("idcuenta");
+            let descripcion = $(this).attr("descripcion");
 
+            $("#idcontrol").val(id);
             $("#cantidad_ctrActividades").val(cantidad);
             $("#valor_ctrActividades").val(valor);
             $("#iva_ctrActividades").val(iva);
             $("#total_ctrActividades").val(total);
-            $("#nombre_cuenta_ctrActividades").val(nombre_cuenta);
-            $("#codigo_cuenta_ctrActividades").val(num_cuenta);
-            $("#cliente_asume").val(idcliente).trigger("change");
+            $("#nombre_cuenta_ctrActividades").val(idcuenta)
+            $("#codigo_cuenta_ctrActividades").val(idcuenta).trigger("change");
+            $("#cliente_asume").val(cliente).trigger("change");
+            $("#descripcion").val(descripcion);
 
+            //AJAX PARA CARGAR EL CLIENTE Y CONTRATISTA A TRAVÉS DEL VEHÍCULO
             var datos = new FormData();
             datos.append("DatosVehiculo", "ok");
             datos.append("item", "idvehiculo");
@@ -2850,10 +2913,11 @@ $(document).ready(function () {
                 success: function (response) {
                     let vehiculo = response.datosVehiculo;
 
-                    $("#contratista_asume").val(vehiculo.idcontratista);
+                    $("#contratista_asume").val(vehiculo.contratista);
                 },
             });
 
+            //AJAX PARA CARGAR LA EMPRESA
             var datos2 = new FormData();
             datos2.append("AsumeVerEmpresa", "ok");
 
@@ -2867,6 +2931,32 @@ $(document).ready(function () {
                 processData: false,
                 success: function (response) {
                     $("#empresa_asume").val(response.razon_social);
+                },
+            });
+
+            //AJAX PARA CARGAR LOS DATOS DE CUANTO ESTÁN ASUMIENDO LAS EMPRESAS
+            var datos3 = new FormData();
+            datos3.append("DatosAsume", "ok");
+            datos3.append("idcontrol", id);
+
+            $.ajax({
+                type: "post",
+                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                data: datos3,
+                dataType: "JSON",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $("#porcentaje_cliente")
+                        .val(response.porcentaje_cliente)
+                        .trigger("blur");
+                    $("#porcentaje_empresa")
+                        .val(response.porcentaje_empresa)
+                        .trigger("blur");
+                    $("#porcentaje_contratista")
+                        .val(response.porcentaje_contratista)
+                        .trigger("blur");
                 },
             });
         });
@@ -2918,5 +3008,225 @@ $(document).ready(function () {
 
             $("#valor_contratista").val(asume);
         });
+
+        /*============================================
+            CLICK PARA ABRIR LA SUCURSAL PRODUCTO
+        ==============================================*/
+        $(document).on("click", ".btn-SucursalesProducto", function () {
+            $("#modal-repuestos").modal("hide");
+            let idproducto = $(this).attr("idproducto");
+            let consecutivo = $(this).attr("consecutivo");
+
+            var datos = new FormData();
+            datos.append("SucursalesProductos", "ok");
+            datos.append("idproducto", idproducto);
+            datos.append("consecutivo", consecutivo);
+
+            $.ajax({
+                type: "post",
+                url: `ajax/mantenimiento.ajax.php`,
+                data: datos,
+                cache: false,
+                // dataType: "JSON",
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response != "")
+                        $("#tBodySucursalesProductos").html(response);
+                    else $("#tBodySucursalesProductos").html("");
+                },
+            });
+        });
+
+        /*============================================
+            GUARDAR QUIÉN ASUME
+        ==============================================*/
+        $("#asume_form").submit(function (e) {
+            e.preventDefault();
+            var datosFrm = $(this).serializeArray();
+
+            var datos = new FormData();
+            datos.append("GuardarAsume", "ok");
+
+            datosFrm.forEach((element) => {
+                datos.append(element.name, element.value);
+            });
+
+            $.ajax({
+                type: "post",
+                url: `ajax/mantenimiento.ajax.php`,
+                data: datos,
+                cache: false,
+                // dataType: "JSON",
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "¡Datos guardados correctamente!",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                        });
+                    }
+                },
+            });
+        });
+
+        /*============================================
+            DATOS DE LA CUENTA 
+        ==============================================*/
+        $(document).on("change", "#codigo_cuenta_ctrActividades", function () {
+            let idcuenta = $(this).val();
+
+            var datos = new FormData();
+            datos.append("datosCuenta", "ok");
+            datos.append("idcuenta", idcuenta);
+
+            $.ajax({
+                type: "post",
+                url: `ajax/mantenimiento.ajax.php`,
+                data: datos,
+                cache: false,
+                dataType: "JSON",
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    
+                    $("#nombre_cuenta_ctrActividades").val(response.id).trigger("change");
+                },
+            });
+        });
+
+
+        /*============================================
+            PROGRAMACIÓN
+        ==============================================*/
+
+
+        /*============================================
+            FUNCION PARA CARGAR TABLA DE EVIDENCIAS DEL VEHÍCULO
+        ==============================================*/
+        const AjaxTablaEvidencias = (idvehiculo) => {
+            // Quitar datatable
+            $(`#table-evidenciasprogramacion`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbodyevidenciasprogramacion`).html("");
+
+            let datos = new FormData();
+            datos.append(`TablaEvidencias`, "ok");
+            datos.append("idvehiculo", idvehiculo);
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/operaciones.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $(`#tbodyevidenciasprogramacion`).html(response);
+                    } else {
+                        $(`#tbodyevidenciasprogramacion`).html("");
+                    }
+
+                    /* ===================================================
+                                        INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                                        ===================================================*/
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(`#table-evidenciasprogramacion`, buttons);
+                },
+            });
+        };
+
+
+        /*============================================
+            CARGA PROGRAMACIÓN VEHÍCULO 
+        ==============================================*/
+        $(document).on("click", ".btn-programacionxvehiculo", function(){
+
+            let idvehiculo = $(this).attr("idvehiculo");
+
+            
+
+            var datos = new FormData();
+            datos.append("ServiciosxVehiculo", "ok");
+            datos.append("idvehiculo", idvehiculo);
+
+            $.ajax({
+                type: "post",
+                url: "ajax/mantenimiento.ajax.php",
+                data: datos,
+                // dataType: "JSON",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbodyserviciosxvehiculoprogramacion").html(response);
+                    } else {
+                        $("#tbodyserviciosxvehiculoprogramacion").html("");
+                    }
+
+                    /* ===================================================
+                   INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                   ===================================================*/
+                    // var buttons = [
+                    //   { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    // ];
+                    // var table = dataTableCustom(`#tablaProgramacionServ`, buttons);
+                },
+            });            
+        });
+
+        /*============================================
+            CARGAR SOLICITUDES
+        ==============================================*/
+        $(document).on("click", ".btn-solicitudesvehiculo", function(){
+            let idvehiculo = $(this).attr("idvehiculo");
+
+            AjaxTablaEvidencias(idvehiculo);
+        });
+
+        $(document).on("change", "#placa_programacion", function(){
+            let idvehiculo = $(this).val();
+
+            // Datos del vehiculo
+            var datos = new FormData();
+            datos.append("DatosVehiculo", "ok");
+            datos.append("item", "idvehiculo");
+            datos.append("valor", idvehiculo);
+            $.ajax({
+                type: "post",
+                url: `${urlPagina}ajax/vehicular.ajax.php`,
+                data: datos,
+                dataType: "JSON",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log(response);
+
+                    let vehiculo = response.datosVehiculo;
+
+
+                    $("#num_interno_progra").val(vehiculo.numinterno);
+                    $("#marca_progra").val(vehiculo.marca);
+                    $("#tipo_vehiculo_progra").val(vehiculo.tipovehiculo);
+                    $("#modelo_progra").val(vehiculo.modelo);
+                    $("#kilometraje_progra").val(vehiculo.kilometraje);
+                },
+            });
+            
+        });
+
+
     }
 });
