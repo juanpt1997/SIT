@@ -553,7 +553,7 @@ class ModeloFijos
    static public function mdlVerFijos($valor)
    {
       if ($valor != null) {
-         $stmt = Conexion::conectar()->prepare("SELECT F.*, C.nombre as nombre_cliente  FROM cont_fijos F
+         $stmt = Conexion::conectar()->prepare("SELECT F.*, C.nombre as nombre_cliente, C.Documento, C.telefono, C.direccion  FROM cont_fijos F
          INNER JOIN cont_clientes C ON F.idcliente = C.idcliente
          WHERE  F.idfijos = :idfjos");
 
@@ -726,7 +726,7 @@ class ModeloOrdenServicio
                                              -- IF (C.idruta IS NULL, C.descripcion, rt.nombreruta) AS descripcion,
                                              IF (C.descripcion = '', rt.nombreruta, C.descripcion) AS descripcion,
                                              C.fecha_solicitud, C.fecha_solucion, C.fecha_inicio, C.fecha_fin, C.duracion, C.hora_salida, C.hora_recogida, C.idtipovehiculo, C.nro_vehiculos, C.capacidad, C.valorxvehiculo, C.valortotal, C.cotizacion, C.clasificacion, C.musica, C.aire, C.wifi, C.silleriareclinable, C.bano, C.bodega, C.otro, C.realiza_viaje, C.porque, C.nombre_con, C.documento_con, C.tipo_doc_con, C.tel_1, C.direccion_con, C.nombre_respo, C.tipo_doc_respo, C.cedula_expedicion, C.documento_res, C.ciudad_con, C.ciudad_res, C.tel_2, C.otro_v, C.idruta, 
-                                             O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, C.viaje_ocasional, 
+                                             O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, C.viaje_ocasional, C.idcliente,
                                              -- C.nombre_con, C.documento_con, C.direccion_con, C.tel_1, C.tel_2, C.nombre_respo, C.documento_res, C.cedula_expedicion, 
                                              cr.municipio
                                              AS ciudadrespons, 
