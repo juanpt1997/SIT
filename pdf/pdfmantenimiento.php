@@ -29,23 +29,15 @@ require '../controllers/operaciones.controlador.php';
 require '../models/vehicular.modelo.php';
 require '../models/operaciones.modelo.php';
 $empresa = ModeloEmpresaRaiz::mdlVerEmpresa();
-
 $ServiciosExternos = ControladorMantenimientos::ctrServiciosExt($idorden);
 $Repuestos = ControladorMantenimientos::ctrRepuestosOrden($idorden);
 $OrdenServicios = ControladorMantenimientos::ctrCargarOrdenServicio($idorden);
+$ManoObra = ControladorMantenimientos::ctrManoObraOrden($idorden);
 
-
-
-/* ===================== 
-  SI LA INFORMACIÓN VIENE FALSA SE REDIRECCIONA
-========================= */
-
-// if ($resultado === false) {
-//   header("Location: " . URL_APP);
-// }
 /* ===================== 
   CONFIGURACIÓN DEL HEADER Y FOOTER EN EL ARCHIVO PDF 
 ========================= */
+
 // Extend the TCPDF class to create custom Header and Footer
 class MYPDF extends TCPDF
 {
@@ -84,7 +76,7 @@ class mantenimientoPDF
     /* ===================== 
       GENERACION DE ARCHIVOS PDF DE LA SOLICITUD 
     ========================= */
-    static public function solicitudPDF($orden, $servicios,$repuestos, $empresa)
+    static public function solicitudPDF($orden,$servicios,$repuestos,$empresa)
     {
        
         // echo "<pre>";
@@ -118,8 +110,8 @@ class mantenimientoPDF
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor(PROYECTO);
-        $pdf->SetTitle('Inventario');
-        $pdf->SetSubject('Inventario');
+        $pdf->SetTitle('SolicitudOrden');
+        $pdf->SetSubject('SolicitudOrden');
         $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
         // set default header data
         $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
@@ -246,7 +238,7 @@ class mantenimientoPDF
         $pdf->MultiCell(100, 5, $orden['Ffecha_entrada'], 0, 'L', 0, 0, '', '', true);
         #Orden de servicio
         $pdf->SetFont('helvetica', 'B', '8');
-        $pdf->MultiCell(20, 5, "# Orden:", 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(20, 5, "N° Orden:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
         $pdf->MultiCell(100, 5, $orden['idorden'], 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
@@ -260,7 +252,7 @@ class mantenimientoPDF
             '<table cellspacing="0" cellpadding="5" border="1">
             <tbody>
             <tr>
-            <td colspan="6" style="text-align: center;"><strong>DESCRIPCION</strong></td>
+            <td colspan="6" style="text-align: center;"><strong>DESCRIPCIÓN</strong></td>
             <td colspan="6" class="text-center" style="text-align: center;"><strong>SERVICIOS EXTERNOS</strong></td>
             </tr>
 
@@ -287,7 +279,7 @@ class mantenimientoPDF
             <tr>
                 <th style="text-align: center;">NOMBRE</th>
                 <th style="text-align: center;">REFERENCIA</th>
-                <th style="text-align: center;">CODIGO</th>
+                <th style="text-align: center;">CÓDIGO</th>
                 <th style="text-align: center;">VALOR</th>
             </tr>
 
@@ -307,7 +299,7 @@ class mantenimientoPDF
 
         // Close and output PDF document
         // This method has several options, check the source code documentation for more information.
-        $pdf->Output('Inventario', 'I');
+        $pdf->Output('SolicitudOrden', 'I');
         //============================================================+
         // END OF FILE
         //============================================================+
@@ -316,15 +308,15 @@ class mantenimientoPDF
     /* ===================== 
       GENERACION DE ARCHIVOS PDF DE LA ORDEN DE SERVICIO
     ========================= */
-    static public function ordenServicioPDF($orden, $servicios,$repuestos, $empresa)
+    static public function ordenServicioPDF($orden,$servicios,$mano_obra,$repuestos,$empresa)
     {
-        $p="<ul>";
-        //VALIDAR TIPO DE SERVICIOS 
-        foreach ($servicios as $key => $value) {
+        // $p="<ul>";
+        // //VALIDAR TIPO DE SERVICIOS 
+        // foreach ($servicios as $key => $value) {
 
-            $p .= "<li>" . $value['nombre'] ."</li>";
-        }
-        $p.="</ul>";
+        //     $p .= "<li>" . $value['nombre'] ."</li>";
+        // }
+        // $p.="</ul>";
 
         $tr="";
         foreach ($repuestos as $key => $value) {
@@ -333,10 +325,42 @@ class mantenimientoPDF
                 <td style='text-align: center;'>".$value['descripcion']."</td>
                 <td style='text-align: center;'>".$value['referencia']."</td>
                 <td style='text-align: center;'>".$value['codigo']."</td>
-                <td style='text-align: center;'>".$value['valor']."</td>
+                <td style='text-align: center;'>".$value['cantidad']."</td>
+                <td style='text-align: center;'>$".$value['valor']."</td>
+                <td style='text-align: center;'>".$value['razon_social']."</td>
             </tr>
             ";
         }
+
+        $tr2="";
+        foreach ($mano_obra as $key => $value) {
+            $tr2 .= "
+            <tr>
+                <td style='text-align: center;'>".$value['sistema']."</td>
+                <td style='text-align: center;'>".$value['mantenimiento']."</td>
+            </tr>
+            ";
+        }
+
+        $tr3="";
+        foreach ($mano_obra as $key => $value) {
+            $tr3 .= "
+            <tr>
+                <td style='text-align: center;'>".$value['descripcion']."</td>
+                <td style='text-align: center;'>".$value['razon_social']."</td>
+            </tr>
+            ";
+        }
+
+        // $tr4="";
+        // foreach ($orden as $key => $value) {
+        //     $tr4 .= "
+        //     <tr>
+        //         <td style='text-align: center;'>".$value['diagnostico']."</td>
+        //         <td style='text-align: center;'>".$value['observacion']."</td>
+        //     </tr>
+        //     ";
+        // }
 
         /* ===================== 
             UTILIZANDO LA VERSION DE TCPDF PARA GENERAR EL ARCHIVO 
@@ -346,8 +370,8 @@ class mantenimientoPDF
         // set document information
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor(PROYECTO);
-        $pdf->SetTitle('Inventario');
-        $pdf->SetSubject('Inventario');
+        $pdf->SetTitle('OrdenServicio');
+        $pdf->SetSubject('OrdenServicio');
         $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
         // set default header data
         $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE, PDF_HEADER_STRING);
@@ -419,7 +443,7 @@ class mantenimientoPDF
         $x = ($anchoPaginaMM / 2) - ($anchoTexto / 2);
         $y = $pdf->GetY() + 15;
         //Titulo principal
-        $pdf->MultiCell(130, 5, 'SOLICITUD DE SERVICIO', 0, 'C', 0, 1, $x, $y, true);
+        $pdf->MultiCell(130, 5, 'ORDEN DE SERVICIO', 0, 'C', 0, 1, $x, $y, true);
         $pdf->MultiCell(130, 5, $empresa['razon_social'], 0, 'C', 0, 1, $x, '', true);
         $pdf->SetFont('helvetica', '', '8');
         $pdf->Ln(3);
@@ -429,6 +453,8 @@ class mantenimientoPDF
         $pdf->SetFont('helvetica', 'I', '8');
         $pdf->MultiCell(130, 5, $empresa['nit'], 0, 'C', 0, 1, $x, '', true);
         $pdf->Ln(3);
+
+        $pdf->writeHTML("<hr>");
 
         //DATOS DEL VEHICULO
         #Placa
@@ -474,11 +500,13 @@ class mantenimientoPDF
         $pdf->MultiCell(100, 5, $orden['Ffecha_entrada'], 0, 'L', 0, 0, '', '', true);
         #Orden de servicio
         $pdf->SetFont('helvetica', 'B', '8');
-        $pdf->MultiCell(20, 5, "# Orden:", 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(20, 5, "N° Orden:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
         $pdf->MultiCell(100, 5, $orden['idorden'], 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
         $pdf->Ln();
+
+        $pdf->writeHTML("<hr>");
 
         /* ===================================================
            ORDEN SERVICIO PRINCIPAL
@@ -486,63 +514,133 @@ class mantenimientoPDF
         //TABLA
         $tabla =
             '<table cellspacing="0" cellpadding="5" border="1">
-            <tbody>
-            <tr>
-            <td colspan="6" style="text-align: center;"><strong>DESCRIPCION</strong></td>
-            <td colspan="6" class="text-center" style="text-align: center;"><strong>SERVICIOS EXTERNOS</strong></td>
-            </tr>
-
-            <tr>
-            <td colspan="6" style="text-align: center;">' . $orden['diagnostico'] . '</td>
-            <td colspan="6" class="text-center" style="text-align: center;">'.$p.'</td>
-            </tr>
-            </tbody>  
-        </table>
+                <thead>
+                    <tr>
+                        <td class="text-center" style="text-align: center;"><strong>Fecha de entrada</strong></td>
+                        <td class="text-center" style="text-align: center;"><strong>Hora de entrada</strong></td>
+                        <td class="text-center" style="text-align: center;"><strong>Fecha de aprobación</strong></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-center" style="text-align: center;">'.$orden['fecha_entrada'].'</td>
+                        <td class="text-center" style="text-align: center;">'.$orden['hora_entrada'].'</td>
+                        <td class="text-center" style="text-align: center;">'.$orden['fecha_aprobacion'].'</td>
+                    </tr>
+                </tbody>  
+            </table>
         ';
 
-        $pdf->SetFont('helvetica', '', '8');
+        $pdf->SetFont('helvetica', '', '7');
         $pdf->writeHTML($tabla);
 
-        $pdf->SetFont('helvetica', 'B', '10');
+        $sistema =
+            '<table cellspacing="0" cellpadding="5" border="1">
+                <thead>
+                    <tr>
+                        <th style="text-align: center;"><strong>Sistema</strong></th>
+                        <th style="text-align: center;"><strong>Tipo de mantenimiento</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                        '.$tr2.'
+                </tbody>  
+            </table>
+        ';
+
+        $pdf->SetFont('helvetica', '', '7');
+        $pdf->writeHTML($sistema);
+
+        $pdf->writeHTML("<hr>");
+
+        $pdf->SetFont('helvetica', 'B', '7');
         $pdf->Cell(0, 0, "REPUESTOS", 0, 0, 'C', 0, '', 0);
         $pdf->Ln();
         $pdf->Ln();
 
         $tabla2 =
             '<table cellspacing="0" cellpadding="5" border="1">
-            <thead>
-
-            <tr>
-                <th style="text-align: center;">NOMBRE</th>
-                <th style="text-align: center;">REFERENCIA</th>
-                <th style="text-align: center;">CODIGO</th>
-                <th style="text-align: center;">VALOR</th>
-            </tr>
-
-            </thead>
-
-            <tbody>
-                '.$tr.'
-            </tbody>  
-        </table>
+                <thead>
+                    <tr>
+                        <th style="text-align: center;"><strong>Descripción</strong></th>
+                        <th style="text-align: center;"><strong>Referencia</strong></th>
+                        <th style="text-align: center;"><strong>Código</strong></th>
+                        <th style="text-align: center;"><strong>Cantidad</strong></th>
+                        <th style="text-align: center;"><strong>Valor</strong></th>
+                        <th style="text-align: center;"><strong>Proveedor</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    '.$tr.'
+                </tbody>  
+            </table>
         ';
-
-        $pdf->SetFont('helvetica', '', '8');
+        $pdf->SetFont('helvetica', '', '7');
         $pdf->writeHTML($tabla2);
-        /* ---------------------------------------------------------
-        | | | | EVIDENCIAS
-        ==========================================================*/
 
-        // Close and output PDF document
-        // This method has several options, check the source code documentation for more information.
-        $pdf->Output('Inventario', 'I');
-        //============================================================+
-        // END OF FILE
-        //============================================================+
+        $pdf->writeHTML("<hr>");
+
+        $pdf->SetFont('helvetica', 'B', '7');
+        $pdf->Cell(0, 0, "MANO DE OBRA", 0, 0, 'C', 0, '', 0);
+        $pdf->Ln();
+        $pdf->Ln();
+
+        $tabla3 =
+            '<table cellspacing="0" cellpadding="5" border="1">
+                <thead>
+                    <tr>
+                        <th style="text-align: center;"><strong>Descripción de la actividad</strong></th>
+                        <th style="text-align: center;"><strong>Proveedor</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    '.$tr3.'
+                </tbody>  
+            </table>
+        ';
+        $pdf->SetFont('helvetica', '', '7');
+        $pdf->writeHTML($tabla3);
+
+        // $pdf->SetFont('helvetica', 'B', '7');
+        // $pdf->Cell(0, 0, "Diagnostico", 0, 0, 'C', 0, '', 0);
+        // $pdf->Ln();
+        // $pdf->Ln();
+
+        $tabla4 =
+            '<table cellspacing="0" cellpadding="5" border="1">
+            <thead>
+                <tr>
+                    <th class="text-center" style="text-align: center;"><strong>Diagnóstico</strong></th>
+                    <th class="text-center" style="text-align: center;"><strong>Observaciones</strong></th>
+                </tr>
+            </thead>
+                <tbody>
+                    <tr>
+                        <td style="text-align: center;">'.$orden['diagnostico'].'</td>
+                        <td style="text-align: center;">'.$orden['observacion'].'</td>
+                    </tr>  
+                </tbody>  
+            </table>
+        ';
+        $pdf->SetFont('helvetica', '', '7');
+        $pdf->writeHTML($tabla4);
+        
+        $pdf->Output('OrdenServicio', 'I');
     }
-
-
 }
 
-# SE INSTANCIA LA CLASE PARA LA GENERACION DEL ARCHIVO PDF
-mantenimientoPDF::ordenServicioPDF($OrdenServicios, $ServiciosExternos, $Repuestos, $empresa);
+if(isset($_REQUEST['tipo_mantenimiento'])){
+    
+    $mantenimiento = $_REQUEST['tipo_mantenimiento'];
+
+    if($mantenimiento == 'orden'){
+
+        mantenimientoPDF::ordenServicioPDF($OrdenServicios,$ServiciosExternos,$ManoObra,$Repuestos,$empresa);
+        
+    } else if($mantenimiento == 'solicitud'){
+
+        mantenimientoPDF::solicitudPDF($OrdenServicios,$ServiciosExternos,$Repuestos,$empresa);
+
+    }
+}
+

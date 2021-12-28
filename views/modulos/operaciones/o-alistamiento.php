@@ -41,7 +41,7 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
             <hr class="my-4">
             <div class="row">
                 <div class="col-12">
-                    <button type="button" class="btn bg-gradient-success btn-nuevoAlistamiento" data-toggle="modal" data-target="#modal-nuevoAlistamiento"><i class="fas fa-bus"></i> Nuevo</button>
+                    <button type="button" class="btn bg-gradient-success btn-nuevoAlistamiento" data-toggle="modal" data-target="#modal-nuevoAlistamiento"><i class="fas fa-bus"></i> Nuevo alistamiento</button>
                 </div>
             </div>
             <!-- ===================== 
@@ -52,7 +52,7 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
                     <div class="card card-outline card-success">
                         <div class="card-body">
                             <!--|||TABLA PROTOCOLO DE ALISTAMIENTO|||-->
-                            <table id="tblAlistamientos" class="table table-responsive table-bordered table-striped text-center w-100">
+                            <table id="tblAlistamientos" class="table table-sm table-bordered table-striped text-center text-nowrap">
                                 <thead class="text-nowrap text-sm">
                                     <tr>
                                         <th colspan="7">INFORMACIÓN GENERAL</th>

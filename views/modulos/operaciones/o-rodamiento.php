@@ -62,15 +62,17 @@ $TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
                                             <tr>
                                                 <th>...</th>
                                                 <th>ID</th>
+                                                <th>Cliente</th>
                                                 <th>Conductor</th>
                                                 <th>Placa</th>
-                                                <th>Cliente</th>
                                                 <th>Num. Interno afiliado</th>
                                                 <th>Marca</th>
                                                 <th>Modelo</th>
                                                 <th>Capacidad</th>
                                                 <th>Tipo de vinculación</th>
                                                 <th>Ruta (origen y destino)</th>
+                                                <th>Tipo de contrato</th>
+                                                <th>Valor total</th>
                                                 <th>Fecha del servicio</th>
                                                 <th>Tipo de servicio</th>
                                                 <th>Cantidad de Pasajeros</th>
@@ -90,15 +92,17 @@ $TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
                                                         <?php endif ?>
                                                     </td>
                                                     <td><?= $value['id'] ?></td>
+                                                    <td><?= $value['cliente'] ?></td>
                                                     <td><?= $value['conductor'] ?></td>
                                                     <td><?= $value['placa'] ?></td>
-                                                    <td><?= $value['cliente'] ?></td>
                                                     <td><?= $value['numinterno'] ?></td>
                                                     <td><?= $value['marca'] ?></td>
                                                     <td><?= $value['modelo'] ?></td>
                                                     <td><?= $value['capacidad'] ?></td>
                                                     <td><?= $value['tipovinculacion'] ?></td>
                                                     <td><?= $value['ruta'] ?></td>
+                                                    <td><?= $value['tipo_contrato'] ?></td>
+                                                    <td><?= $value['valortotal'] ?></td>
                                                     <td><?= $value['fecha_servicio'] ?></td>
                                                     <td><?= $value['tipo_servicio'] ?></td>
                                                     <td><?= $value['cantidad_pasajeros'] ?></td>
@@ -124,7 +128,6 @@ $TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
 <!-- ==============================
   MODAL DE INGRESO NUEVO PLAN DE RODAMIENTO
  ============================== -->
-
 <div class="modal fade show" id="modal-nuevoplanrodamiento" style=" overflow-y: scroll; display: none; padding-right: 17px;" aria-modal="true" role="dialog" style="overflow-y: scroll;">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -159,7 +162,7 @@ $TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
                                                 <i class="far fa-file-alt"></i>
                                             </span>
                                         </div>
-                                        <select class="form-control input-contratos" type="text" id="tipocontrato" name="tipocontrato" required>
+                                        <select class="form-control input-contratos" type="text" id="tipocontrato" name="tipocontrato" actualizo="SI" required>
                                             <option selected value="">-Seleccione un tipo de contrato-</option>
                                             <option value="FIJO">Fijo</option>
                                             <option value="OCASIONAL">Ocasional</option>
@@ -177,7 +180,7 @@ $TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
                                                 <i class="fas fa-file-alt"></i>
                                             </span>
                                         </div>
-                                        <select id="contratofijo" class="form-control select2-single input-contratos" style="width: 90%" name="contratofijo">
+                                        <select id="contratofijo" class="form-control select2-single input-contratos validacion" style="width: 90%" name="contratofijo" actualizo="SI">
                                             <option value="" selected>-Seleccione una contrato fijo-</option>
                                             <?php foreach ($Fijos as $key => $value) : ?>
                                                 <option value="<?= $value['idfijos'] ?>"><?= $value['idfijos'] . " - " . $value['nombre_cliente'] ?></option>
@@ -196,7 +199,7 @@ $TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
                                                 <i class="fas fa-file-alt"></i>
                                             </span>
                                         </div>
-                                        <select id="contratante" class="form-control select2-single input-contratos" style="width: 90%" name="contratante" required>
+                                        <select id="contratante" class="form-control select2-single input-contratos" style="width: 90%" name="contratante" actualizo="SI">
                                             <option value="" selected>-Seleccione un contratante-</option>
                                             <?php foreach ($Ordenes as $key => $value) : ?>
                                                 <option value="<?= $value['idorden'] ?>"><?= $value['idorden'] . " - " . $value['nomContrata'] ?></option>
@@ -268,8 +271,8 @@ $TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group">
                                     <label for="tipoVehiculo">Tipo Vehículo</label>
-                                    <select id="tipoVehiculo" class="form-control" name="idtipovehiculo" required>
-                                        <option value="" disabled selected>-Seleccione un tipo de vehículo-</option>
+                                    <select id="tipoVehiculo" class="form-control validacion" name="idtipovehiculo" readonly required>
+                                        <option value="" disabled selected>-Seleccione una placa-</option>
                                         <?php foreach ($TiposVehiculo as $key => $value) : ?>
                                             <option value="<?= $value['idtipovehiculo'] ?>"><?= $value['tipovehiculo'] ?></option>
                                         <?php endforeach ?>
@@ -285,18 +288,6 @@ $TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
                                     </select>
                                 </div>
                             </div>
-
-                            <!-- <div class="col-12 col-sm-6 col-lg-4">
-                                <div class="form-group">
-                                    <label><i>Cliente</i></label>
-                                    <select id="idcliente" name="idcliente" class="form-control select2-single" type="number" style="width: 99%" required>
-                                        <option value="" selected>Seleccione un cliente</option>
-                                        <?php foreach ($Clientes as $key => $value) : ?>
-                                            <option value="<?= $value['idcliente'] ?>"><?= $value['clientexist'] ?></option>
-                                        <?php endforeach ?>
-                                    </select>
-                                </div>
-                            </div> -->
 
                             <div class="col-12 col-sm-6 col-lg-4">
                                 <div class="form-group">
@@ -396,10 +387,10 @@ $TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
                                             <option value="<?= $value['id'] ?>"><?= $value['origendestino'] ?></option>
                                         <?php endforeach ?>
                                     </select> -->
-                                    <input type="hidden" id="idruta" name="idruta" class="input-ruta">
+                                    <input type="hidden" id="idruta" name="idruta" class="form-control input-ruta">
                                     <input class="form-control input-ruta" type="text" id="descrip" name="descrip" placeholder="Seleccione una ruta de la lista" readonly>
                                     <div class="input-group-append">
-                                        <button type="button" class="btn btn-success btn-md btn-ruta" title="Buscar una ruta existente" data-toggle="modal" data-target="#modal_general"><i class="fas fa-route"></i></button>
+                                        <button type="button" class="btn btn-success btn-md btn-ruta" title="Buscar una ruta existente" data-toggle="modal" data-target="#modal_general" disabled><i class="fas fa-route"></i></button>
                                     </div>
                                 </div>
                             </div>

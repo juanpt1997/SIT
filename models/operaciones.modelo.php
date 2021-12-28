@@ -568,13 +568,15 @@ class ModeloAlistamiento
         $conexion = Conexion::conectar();
         $stmt = $conexion->prepare("UPDATE `o_re_alistamientoevidencias` SET 
             `estado` = :estado,
-            `observaciones` = :observaciones
+            `observaciones` = :observaciones,
+            `fecha_solucion` = :fecha_solucion
+
             WHERE `idevidencia`=:idevidencia");
 
         $stmt->bindParam(":idevidencia", $datos['idevidencia'], PDO::PARAM_INT);
         $stmt->bindParam(":observaciones", $datos['observaciones'], PDO::PARAM_STR);
         $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_STR);
-
+        $stmt->bindParam(":fecha_solucion", $datos['fecha_actual'], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             $respuesta = "ok";
