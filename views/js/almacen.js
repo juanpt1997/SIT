@@ -1502,7 +1502,7 @@ $(document).ready(function () {
                 
             let id = $(this).attr('idorden');
             window.open(
-             `./pdf/pdfordencompra?idorden=${id}`,
+             `./pdf/pdfordencompra.php?idorden=${id}`,
              "",
              "width=1280,height=720,left=50,top=50,toolbar=yes"
          );
