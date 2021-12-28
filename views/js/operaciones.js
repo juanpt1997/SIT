@@ -686,7 +686,7 @@ $(document).ready(function () {
                 estado == "PENDIENTE" ? "Resuelto!" : "Aún pendiente";
             var colorBoton = estado == "PENDIENTE" ? "#5cb85c" : "#d33";
             Swal.fire({
-                title: `Esto se encuentra ${estado}`,
+                title: `Estado de evidencia: ${estado}`,
                 html: `
                                         <hr>
                                         <label for="">Observaciones</label>
@@ -725,8 +725,8 @@ $(document).ready(function () {
                                         showConfirmButton: false,
                                     });
                                     /* ===================================================
-                                                                            TABLA DE EVIDENCIAS
-                                                                        ===================================================*/
+                                    TABLA DE EVIDENCIAS
+                                    ===================================================*/
                                     AjaxTablaEvidencias(idvehiculo);
                                     // if (estado == 'RESUELTO') {
                                     //     $boton.removeClass("btn-success");
@@ -741,7 +741,7 @@ $(document).ready(function () {
                                     // }
                                 }
                                 // Mensaje de error
-                                else
+                                else {
                                     Swal.fire({
                                         icon: "error",
                                         title: "Ha ocurrido un error, por favor intente de nuevo",
@@ -753,6 +753,7 @@ $(document).ready(function () {
                                             window.location = "o-alistamiento";
                                         }
                                     });
+                                }
                             },
                         });
                     } else {

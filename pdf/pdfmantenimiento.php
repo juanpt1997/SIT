@@ -238,7 +238,7 @@ class mantenimientoPDF
         $pdf->MultiCell(100, 5, $orden['Ffecha_entrada'], 0, 'L', 0, 0, '', '', true);
         #Orden de servicio
         $pdf->SetFont('helvetica', 'B', '8');
-        $pdf->MultiCell(20, 5, "# Orden:", 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(20, 5, "N° Orden:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
         $pdf->MultiCell(100, 5, $orden['idorden'], 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
@@ -252,7 +252,7 @@ class mantenimientoPDF
             '<table cellspacing="0" cellpadding="5" border="1">
             <tbody>
             <tr>
-            <td colspan="6" style="text-align: center;"><strong>DESCRIPCION</strong></td>
+            <td colspan="6" style="text-align: center;"><strong>DESCRIPCIÓN</strong></td>
             <td colspan="6" class="text-center" style="text-align: center;"><strong>SERVICIOS EXTERNOS</strong></td>
             </tr>
 
@@ -279,7 +279,7 @@ class mantenimientoPDF
             <tr>
                 <th style="text-align: center;">NOMBRE</th>
                 <th style="text-align: center;">REFERENCIA</th>
-                <th style="text-align: center;">CODIGO</th>
+                <th style="text-align: center;">CÓDIGO</th>
                 <th style="text-align: center;">VALOR</th>
             </tr>
 

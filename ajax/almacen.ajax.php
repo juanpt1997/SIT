@@ -402,6 +402,9 @@ class AjaxAlmacen
                 <div class='btn-group' role='group' aria-label='Button group'>
                 <button idorden = '{$value['idorden']}' class='btn btn-sm btn-info btnEditarOrden'><i class='fas fa-edit'></i></button>
                 </div>
+                <div class='btn-group' role='group' aria-label='Button group'>
+                <button idorden = '{$value['idorden']}' class='btn btn-sm btn-danger btn_pdf_orden'><i class='fas fa-file-pdf'></i></button>
+                </div>
                 </td>
                 <td>$estado</td>
                 <td>{$value['num_cotizacion']}</td>
