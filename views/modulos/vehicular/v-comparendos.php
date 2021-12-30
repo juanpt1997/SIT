@@ -122,7 +122,7 @@ if (!validarPermiso('M_VEHICULAR', 'R')) {
                             <!-- CONSULTAS GENERALES  -->
                             <div class="col-12 justify-content-end">
 
-                                <div class="dropdown " style="cursor: pointer;">
+                                <div class="dropdown col-lg-12 col-md-6 col-sm-3" style="cursor: pointer;">
                                     <div class="info-box border border-warning" id="ConsultasGenerales" data-toggle="dropdown">
                                         <span class="info-box-icon bg-warning"><i class="fas fa-search"></i></span>
                                         <div class="info-box-content">
@@ -154,7 +154,7 @@ if (!validarPermiso('M_VEHICULAR', 'R')) {
                             <!-- TRANSPORTE Y TRANSITO NACIONAL -->
                             <div class="col-12 justify-content-end">
                                 
-                                <div class="dropdown " style="cursor: pointer;">
+                                <div class="dropdown col-lg-12 col-md-6 col-sm-3" style="cursor: pointer;">
                                     <div class="info-box border border-primary" id="ConsultasGenerales" data-toggle="dropdown">
                                         <span class="info-box-icon bg-primary"><i class="fas fa-directions"></i></span>
                                         <div class="info-box-content">
@@ -182,7 +182,7 @@ if (!validarPermiso('M_VEHICULAR', 'R')) {
 
                             <!-- TRANSPORTE Y TRANSITO INTERNACIONAL -->
                             <div class="col-12 justify-content-end">
-                                <div class="dropdown " style="cursor: pointer;">
+                                <div class="dropdown col-lg-12 col-md-6 col-sm-3" style="cursor: pointer;">
                                     <div class="info-box border border-danger" id="ConsultasGenerales" data-toggle="dropdown">
                                         <span class="info-box-icon bg-danger"><i class="fas fa-truck"></i></span>
                                         <div class="info-box-content">
