@@ -133,9 +133,13 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                 <span>Guardar</span>
                                                             </button>
 
-                                                            <button type="reset" class="btn btn-warning col cancel" id="btn-restablecer">
+                                                            <button type="reset" class="btn btn-warning col cancel mb-2" id="btn-restablecer">
                                                                 <i class="fas fa-broom"></i>
                                                                 <span>Restablecer</span>
+                                                            </button>
+                                                            <button class="btn btn-secondary col invisible " id="btn-crearSolicitud" data-toggle="modal" data-target="#modal-solicitud" disabled>
+                                                                <i class="far fa-file-alt"></i>
+                                                                <span> Crear solicitud de servicio</span>
                                                             </button>
 
                                                         </div>
@@ -341,28 +345,27 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                     <div class="card-body" style="display: none;">
                                                                         <div class="row">
                                                                             <div class="col-lg-12 col-sm-12 justify-content-center">
-                                                                                <div class="card card-outline card-success">
-                                                                                    <div class="table-responsive">
-                                                                                        <table id="tablaProgramacionServ" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
-                                                                                            <thead class="text-nowrap">
-                                                                                                <th>Servicio</th>
-                                                                                                <th>Kilometraje actual</th>
-                                                                                                <th>Kilometraje para cambio</th>
-                                                                                                <th>Fecha para cambio</th>
-                                                                                            </thead>
-                                                                                            <tbody id="tbodyProgramacionServ" class="text-nowrap">
+                                                                                <div class="table-responsive">
+                                                                                    <table id="tablaProgramacionServ" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                                                                                        <thead class="text-nowrap">
+                                                                                            <th>Kilometraje</th>
+                                                                                            <th>Actividad</th>
+                                                                                            <th>Kilometraje para cambio</th>
+                                                                                            <th>Fecha para cambio</th>
+                                                                                            <th>Fecha de programación</th>
+                                                                                        </thead>
+                                                                                        <tbody id="tbodyProgramacionServ" class="text-nowrap">
 
 
-                                                                                            </tbody>
-                                                                                        </table>
-                                                                                    </div>
+                                                                                        </tbody>
+                                                                                    </table>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
 
 
-                                                                    <div class="card-body" style="display: none;">
+                                                                    <!-- <div class="card-body" style="display: none;">
                                                                         <div class="row">
                                                                             <div class="col-lg-12 col-sm-12 justify-content-center">
                                                                                 <div class="card card-outline card-success">
@@ -384,7 +387,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
                                                                     <!--CARD BODY-->
                                                                 </div>
                                                             </div>
@@ -653,12 +656,12 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
 
                                                                 </div>
 
-                                                                <div class=" col-md-6 d-md-flex justify-content-md-end mb-3">
+                                                                <!-- <div class=" col-md-6 d-md-flex justify-content-md-end mb-3">
                                                                     <button class="btn btn-secondary col" id="btn-crearSolicitud" data-toggle="modal" data-target="#modal-solicitud" disabled>
                                                                         <i class="far fa-file-alt"></i>
                                                                         <span>Crear solicitud de servicio</span>
                                                                     </button>
-                                                                </div>
+                                                                </div> -->
                                                             </div>
                                                             <!-- MANO DE OBRA  -->
                                                             <!-- <div class="tab-pane fade" id="v-pills-manoObra" role="tabpanel" aria-labelledby="v-pills-manoObra-tab">
@@ -994,7 +997,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                         </li> -->
                                         <li class="nav-item ">
                                             <!-- TABS HORIZONTALES-->
-                                            <a class="nav-link active" id="v-pills-vehiculos-tab" data-toggle="pill" href="#v-pills-vehiculos" role="tab" aria-controls="v-pills-vehiculos" aria-selected="true"><i class="fas fa-car"></i> Vehículos y solicitudes</a>
+                                            <a class="nav-link active" id="v-pills-vehiculos-tab" data-toggle="pill" href="#v-pills-vehiculos" role="tab" aria-controls="v-pills-vehiculos" aria-selected="true"><i class="fas fa-car"></i> Mantenimientos pendientes</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="custom-tabs-one-historial_orden-tab" data-toggle="pill" href="#custom-tabs-one-historial_orden" role="tab" aria-controls="custom-tabs-one-historial_orden" aria-selected="false"><i class="fas fa-history"></i> Historial de programaciones</a>
@@ -1006,7 +1009,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                 <div class="card-body">
                                     <div class="tab-content" id="custom-tabs-one-tabContent">
 
-                                        <div class="card card-outline card-info">
+                                        <!-- <div class="card card-outline card-info">
 
                                             <div class="card-header">
                                                 <h3 class="card-title"><b><i>ACTUALIZAR</i></b>
@@ -1084,13 +1087,12 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
 
                                                 </div>
 
-                                                <hr class="my-4 bg-dark">
 
 
 
 
                                             </div>
-                                        </div>
+                                        </div> -->
 
 
                                         <!-- VEHÍCULOS Y RUTINAS  -->
@@ -1108,118 +1110,15 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                 <th>Número interno</th>
                                                                 <th>Kilometraje</th>
                                                                 <th>Fecha de solicitud</th>
+                                                                <th>Fecha de programación</th>
                                                                 <th>Actividad</th>
+                                                                <th>Tiempo mantenimiento</th>
                                                                 <th>Observaciones</th>
                                                             </tr>
                                                         </thead>
 
-                                                        <tbody id="" class="text-nowrap">
+                                                        <tbody id="tbodyprogramacion" class="text-nowrap">
 
-                                                            <?php
-
-                                                            //GENERA UN ARRAY DE PLACAS 
-                                                            $placas = array();
-                                                            foreach ($Programacion as $key => $value) {
-
-                                                                array_push($placas, $value['placa']);
-                                                            }
-
-                                                            //GENERA UN ARRRAY CON LA CANTIDAD DE VECES QUE HAY UNA PLACA 
-                                                            foreach ($placas as $key => $value) {
-                                                                $rowspan = array_count_values($placas);
-                                                            }
-
-
-
-
-                                                            $repetidas = array();
-                                                            foreach ($Programacion as $key => $value) {
-
-
-                                                                $tr = "";
-
-                                                                // if (!in_array($value['placa'], $repetidas)) {
-                                                                //     array_push($repetidas, $value['placa']);
-                                                                //     $item = "1,2,3,4,5,,6,7,,8,,,dsfsd";
-                                                                //     $tr .= "
-                                                                //                  <tr>
-                                                                //                      <td >
-                                                                //                          <button type='button' class='btn btn-success btn-md btn-serviciosprogramacion' data-toggle='modal' data-target='#servicios'> <i class='fas fa-clipboard-list'></i></button>
-                                                                //                      </td>
-                                                                //                      <td rowspan='{$rowspan[$value['placa']]}'>" . $value['placa'] . "</td>
-                                                                //                      <td rowspan='{$rowspan[$value['placa']]}'>" . $value['numinterno'] . "</td>
-                                                                //                      <td rowspan='{$rowspan[$value['placa']]}'>" . $value['kilometraje_actual'] . "</td>
-                                                                //                      <td rowspan='{$rowspan[$value['placa']]}'></td>
-                                                                //                      <td rowspan='{$rowspan[$value['placa']]}'>" . $item . "</td>
-                                                                //                      <td rowspan='{$rowspan[$value['placa']]}'></td>
-                                                                //                      <td rowspan='{$rowspan[$value['placa']]}'></td>
-                                                                //                  </tr>
-                                                                            
-                                                                            
-                                                                //              ";
-                                                                // }
-
-
-                                                                // if(in_array($value['placa'], $repetidas))
-                                                                // {
-
-                                                                    // }else{
-                                                                    $tr .= "
-                                                                        <tr>
-                                                                            <td >
-                                                                                <button type='button' class='btn btn-success btn-md btn-serviciosprogramacion' data-toggle='modal' data-target='#servicios'> <i class='fas fa-clipboard-list'></i></button>
-                                                                            </td>
-                                                                            <td>". $value['placa'] ."</td>
-                                                                            <td>". $value['numinterno'] ."</td>
-                                                                            <td>". $value['kilometraje_actual'] ."</td>
-                                                                            <td></td>
-                                                                            <td>". $value['item'] ."</td>
-                                                                            <td></td>
-                                                                            <td></td>
-                                                                        </tr>
-
-
-                                                                    ";
-
-                                                                // }
-
-
-
-                                                                echo $tr;
-                                                            }
-                                                            // <tr>
-                                                            // <td>ac</td>
-
-                                                            // </tr>
-
-
-                                                            ?>
-
-
-
-
-                                                            <!-- <?php foreach ($Programacion as $key => $value) : ?>
-
-                                                                
-                                                                <tr>
-
-                                                                    <td>
-
-                                                                        <button type='button' class='btn btn-success btn-md btn-serviciosprogramacion' data-toggle="modal" data-target="#servicios"> <i class="fas fa-clipboard-list"></i></button>
-
-                                                                    </td>
-
-                                                                    <td><?= $value['placa'] ?></td>
-                                                                    <td><?= $value['numinterno'] ?></td>
-                                                                    <td><?= $value['kilometraje_actual'] ?></td>
-                                                                    <td></td>
-                                                                    <td >
-                                                                        <?= $value['item'] ?>
-                                                                    </td>
-                                                                    <td></td>
-
-                                                                </tr>
-                                                            <?php endforeach ?> -->
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -1965,7 +1864,8 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
     </div>
 </div>
 
-<div id="solicitudessxvehiculo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+<!-- MODAL QUE CARGA SOLICITUDES POR VEHÍCULO  -->
+<!-- <div id="solicitudessxvehiculo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-success">
@@ -1993,6 +1893,205 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- MODAL PARA GUARDAR PROGRAMACIÓN -->
+<!-- <div id="Programacion" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <Title class="modal-title"><b><i>Actualizar</i></b>
+                    <i class="far fa-edit"></i>
+                    </h5>
+                    <button class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+
+                    <div class="col-3 ">
+                        <div class="form-group text-center">
+                            <label><i>Placa</i></label>
+                            <select id="placa_programacion" name="" class="form-control select2-single" type="number" style="height: 99%" required>
+                                <option selected value="">Seleccione un vehículo</option>
+                                <?php foreach ($Placas as $key => $value) : ?>
+                                    <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?> </option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-3 ">
+                        <div class="form-group text-center">
+                            <label><i>Número interno</i></label>
+                            <input type="text" class="form-control form-control-sm" id="num_interno_progra" name="num_interno_progra" required readonly>
+                        </div>
+                    </div>
+
+
+                    <div class="col-3 ">
+                        <div class="form-group text-center">
+                            <label><i>Marca</i></label>
+                            <input type="text" class="form-control form-control-sm" id="marca_progra" name="marca_progra" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-3 ">
+                        <div class="form-group text-center">
+                            <label><i>Clase de vehículo</i></label>
+                            <input type="text" class="form-control form-control-sm" id="tipo_vehiculo_progra" name="tipo_vehiculo_progra" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-3 ">
+                        <div class="form-group text-center">
+                            <label><i>Modelo</i></label>
+                            <input type="text" class="form-control form-control-sm" id="modelo_progra" name="modelo_progra" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-3 ">
+                        <div class="form-group text-center">
+                            <label><i>Kilometraje</i></label>
+                            <input type="number" class="form-control form-control-sm" id="kilometraje_progra" name="kilometraje_progra" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-3 ">
+                        <div class="form-group text-center">
+                            <label><i>Fecha programación</i></label>
+                            <input type="date" class="form-control form-control-sm" id="fecha_progra" name="fecha_progra">
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <div class="form-group text-center">
+                            <label>Tiempo mantenimiento</label>
+                            <input type="number" class="form-control form-control-sm" id="tiempo_progra" name="tiempo_progra">
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div id="Programacion" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title"><b><i>Actualizar</i></b>
+                    <i class="far fa-edit"></i>
+                </h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="card-body">
+                <form id="Guardarprogramacion_form" method="post" enctype="multipart/form-data">
+                <div class="row">
+
+                        <div class="col-3 ">
+                            <div class="form-group text-center">
+                                <label><i>Placa</i></label>
+                                <select id="placa_programacion" name="placa_programacion" class="form-control" type="number" style="height: 99%" readonly required>
+                                    <option selected value="">Seleccione un vehículo</option>
+                                    <?php foreach ($Placas as $key => $value) : ?>
+                                        <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?> </option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-3 ">
+                            <div class="form-group text-center">
+                                <label><i>Número interno</i></label>
+                                <input type="text" class="form-control form-control-sm" id="num_interno_progra" name="num_interno_progra"  readonly>
+                            </div>
+                        </div>
+
+
+                        <div class="col-3 ">
+                            <div class="form-group text-center">
+                                <label><i>Marca</i></label>
+                                <input type="text" class="form-control form-control-sm" id="marca_progra" name="marca_progra"  readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-3 ">
+                            <div class="form-group text-center">
+                                <label><i>Clase de vehículo</i></label>
+                                <input type="text" class="form-control form-control-sm" id="tipo_vehiculo_progra" name="tipo_vehiculo_progra"  readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-3 ">
+                            <div class="form-group text-center">
+                                <label><i>Modelo</i></label>
+                                <input type="text" class="form-control form-control-sm" id="modelo_progra" name="modelo_progra"  readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-3 ">
+                            <div class="form-group text-center">
+                                <label><i>Kilometraje</i></label>
+                                <input type="number" class="form-control form-control-sm" id="kilometraje_progra" name="kilometraje_progra" required  readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-3 ">
+                            <div class="form-group text-center">
+                                <label><i>Fecha programación</i></label>
+                                <input type="date" class="form-control form-control-sm" id="fecha_progra" name="fecha_progra">
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-group text-center">
+                                <label>Tiempo mantenimiento</label>
+                                <input type="number" class="form-control form-control-sm" id="tiempo_progra" name="tiempo_progra">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group text-center">
+                                <label>Descripción</label>
+                                <input type="text" class="form-control form-control-sm" id="descripcion_progra" name="descripcion_progra" readonly>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group text-center">
+                                <label>Observación</label>
+                                <textarea rows="3" cols="3" class="form-control form-control-sm" id="observacion_progra" name="observacion_progra"> </textarea>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </form>
+
+
+
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" form="Guardarprogramacion_form" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+
         </div>
     </div>
 </div>

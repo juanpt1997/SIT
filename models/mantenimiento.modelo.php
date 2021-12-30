@@ -2582,44 +2582,43 @@ class ModeloMantenimientos
     ===================================================*/
     static public function mdlListaProgramacion()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT T2.* FROM
-                        (
-                        SELECT T1.*, NULL AS idevidencia, NULL AS ruta_foto, NULL AS estado, NULL AS autor, NULL AS fecha_solucion, NULL AS idorden FROM
-                        (SELECT v.placa,v.numinterno, v.kilometraje AS kilometraje_actual, sm.idserviciovehiculo, 
-                        sm.idvehiculo, 
-                        sm.idservicio,s.kilometraje_cambio AS kilometraje_servicio, 
-                        (s.kilometraje_cambio + sm.kilometraje) AS kilometraje_cambio, sm.fecha AS fecha, DATE_FORMAT(sm.fecha, '%d/%m/%y') AS Ffecha, 
-                        s.servicio AS item, s.dias_cambio,
-                        DATE_FORMAT(DATE_ADD(sm.fecha, INTERVAL s.dias_cambio DAY), '%d/%m/%Y') AS fecha_cambio, DATE_ADD(sm.fecha, INTERVAL s.dias_cambio DAY) AS fecha_comparar
-                        FROM m_re_serviciosvehiculos sm
-                        INNER JOIN m_serviciosmenores s ON sm.idservicio = s.idservicio
-                        INNER JOIN v_vehiculos v ON sm.idvehiculo = v.idvehiculo
-                        WHERE (sm.idserviciovehiculo, sm.idvehiculo, sm.idservicio) 
-                                IN (
-                                    SELECT MAX(sm1.idserviciovehiculo), sm1.idvehiculo, sm1.idservicio
-                                    FROM 
-                                    m_re_serviciosvehiculos sm1
-                                    GROUP BY sm1.idvehiculo, sm1.idservicio
-                                    ) AND (s.estado = 1 AND s.tipo = 1)
-                        GROUP BY sm.idvehiculo, sm.idservicio
-                        ORDER BY v.placa ASC, sm.fecha DESC) T1
-                        WHERE (T1.fecha_comparar  <= DATE_ADD(NOW(),INTERVAL 30 DAY) AND (T1.dias_cambio != 0 AND T1.dias_cambio IS NOT NULL)) OR (T1.kilometraje_cambio - T1.kilometraje_actual) <= 3000
-                        
-                        UNION ALL
-                        
-                        SELECT v.placa, v.numinterno,  v.kilometraje AS kilometraje_actual, 
-                        NULL AS idserviciovehiculo, a.idvehiculo, NULL AS idservicio, NULL AS kilometraje_servicio, NULL AS kilometraje_cambio,
-                        a.fecha, DATE_FORMAT(a.fecha, '%d/%m/%y') AS Ffecha, 
-                        a.observaciones AS servicio, NULL AS dias_cambio, NULL AS fecha_cambio, NULL AS fecha_comparar, 
-                        a.idevidencia, a.ruta_foto, a.estado, a.autor, a.fecha_solucion, a.idorden
-                        FROM o_re_alistamientoevidencias a
-                        INNER JOIN v_vehiculos v ON v.idvehiculo = a.idvehiculo
-                        WHERE a.estado = 'PENDIENTE') T2
-                        ORDER BY T2.placa ASC, T2.fecha_comparar DESC");
+        $stmt = Conexion::conectar()->prepare("SELECT v.*, sv.idsolicitud, sv.fecha_programacion, sv.tiempo_mantenimiento, sv.estado AS estadoSolicitud FROM view_m_programacionvehiculos v
+        LEFT JOIN m_re_solicitudesvehiculo sv ON sv.idvehiculo = v.idvehiculo
+        WHERE (sv.idsolicitud, v.idvehiculo, v.item)
+                IN (select MAX(sv1.idsolicitud), v1.idvehiculo, v1.item FROM
+                view_m_programacionvehiculos v1
+                LEFT JOIN m_re_solicitudesvehiculo sv1 ON sv1.idvehiculo = v1.idvehiculo
+                GROUP BY v1.idvehiculo, v1.item
+                ) OR sv.idsolicitud IS NULL
+        ORDER BY v.placa ASC, v.fecha_comparar DESC;");
 
         $stmt->execute();
         $respuesta = $stmt->fetchAll();
         $stmt->closeCursor();
         return $respuesta;
+    }
+
+    /* ===================================================
+        LISTADO DE PROGRAMACIONES PENDIENTES POR IDVEHICULO
+    ===================================================*/
+    static public function mdlProgramacionxVehiculo($idvehiculo)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT v.*, sv.idsolicitud, sv.fecha_programacion, sv.tiempo_mantenimiento, sv.estado AS estadoSolicitud FROM view_m_programacionvehiculos v
+        LEFT JOIN m_re_solicitudesvehiculo sv ON sv.idvehiculo = v.idvehiculo
+        WHERE (sv.idsolicitud, v.idvehiculo, v.item)
+                IN (select MAX(sv1.idsolicitud), v1.idvehiculo, v1.item FROM
+                view_m_programacionvehiculos v1
+                LEFT JOIN m_re_solicitudesvehiculo sv1 ON sv1.idvehiculo = v1.idvehiculo
+                WHERE v.idvehiculo = :idvehiculo
+                GROUP BY v1.idvehiculo, v1.item
+                ) OR (sv.idsolicitud IS NULL AND v.idvehiculo = :idvehiculo)
+        ORDER BY v.placa ASC, v.fecha_comparar DESC;");
+
+        $stmt->bindParam(":idvehiculo", $idvehiculo, PDO::PARAM_INT);
+        $stmt->execute();
+        $respuesta = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $respuesta;
+
     }
 }
