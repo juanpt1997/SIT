@@ -14,7 +14,8 @@ $Correctivos = ControladorVehiculos::ctrListadoCorrectivos();
 $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 $Empresas = ControladorConvenios::ctrMostrar();
 $clientes = ControladorClientes::ctrVerCliente("clientes");
-
+$cuentas = ControladorMantenimientos::ctrListaCuentasContables();
+$Programacion = ControladorMantenimientos::ctrListaProgramacion();
 
 
 ?>
@@ -34,8 +35,12 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                         <li class="nav-item border border-info rounded ml-2 mb-1 mb-md-0">
                             <a class="nav-link active h4" id="pills-ordenserv-tab" data-toggle="tab" href="#pills-ordenserv" role="tab" aria-controls="pills-ordenserv" aria-selected="active">Orden de servicio <i class="fas fa-sticky-note"></i></a>
                         </li>
+                        <!-- <li class="nav-item border border-info rounded ml-2 mb-1 mb-md-0">
+                            <a class="nav-link h4" id="pills-rutinas-tab" data-toggle="tab" href="#pills-rutinas" role="tab" aria-controls="pills-rutinas" aria-selected="false">Rutinas <i class="fas fa-clipboard-check"></i></a>
+                        </li> -->
+
                         <li class="nav-item border border-info rounded ml-2 mb-1 mb-md-0">
-                            <a class="nav-link h4" id="pills-programacion-tab" data-toggle="tab" href="#pills-programacion" role="tab" aria-controls="pills-programacion" aria-selected="false">Rutinas <i class="fas fa-clipboard-check"></i></a>
+                            <a class="nav-link h4" id="pills-programacion-tab" data-toggle="tab" href="#pills-programacion" role="tab" aria-controls="pills-programacion" aria-selected="false">Programación <i class="far fa-calendar-alt"></i></a>
                         </li>
                     </ul>
                 </div><!-- /.col -->
@@ -53,17 +58,18 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
     <!-- Main content -->
     <div class="content">
         <div class="container-fluid">
-            <hr class="my-4">
+
             <!-- ===================== 
               AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
             ========================= -->
+
             <div class="tab-content" id="pills-tabcontent">
                 <div class="tab-pane fade show active" id="pills-ordenserv" role="tabpanel" aria-labelledby="pills-ordenserv-tab">
                     <div class="row">
                         <div class="col-12 col-sm-6 col-lg-12">
-                            <div class="card card-info card-tabs">
-                                <div class="card-header p-0 pt-1">
-                                    <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
+                            <div class="card card-info">
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs card-header-tabs" id="custom-tabs-one-tab" role="tablist">
                                         <!-- <li class="nav-item">
                                          <a class="nav-link active" id="custom-tabs-one-solicitudserv_exter_repues-tab" data-toggle="pill" href="#custom-tabs-one-solicitudserv_exter_repues" role="tab" aria-controls="custom-tabs-one-solicitudserv_exter_repues" aria-selected="false">Solicitud de servicio / Repuestos</a>
                                         </li> -->
@@ -77,7 +83,6 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                         <li>
                                             <a class="nav-link" id="custom-tabs-one-control-tab" data-toggle="pill" href="#custom-tabs-one-control" role="tab" aria-controls="custom-tabs-one-control" aria-selected="false"><i class="fas fa-tasks"></i> Control de actividades</a>
                                         </li>
-
                                     </ul>
                                 </div>
 
@@ -90,6 +95,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                             <form id="ordenServ_form" method="post" enctype="multipart/form-data">
 
                                                 <div class="row">
+                                                    <!-- NAV Y BOTOENES DE GUARDAR Y RESTABLECER -->
                                                     <div class="col-lg-3 col-sm-6">
 
                                                         <!-- NAVBAR VERTICAL -->
@@ -104,7 +110,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                     <a class="nav-link border-bottom rounded" id="v-pills-diagnostico-tab" data-toggle="pill" href="#v-pills-diagnostico" role="tab" aria-controls="v-pills-diagnostico" aria-selected="false"><b><i class="far fa-file-alt"></i> Diagnóstico</b></a>
                                                                     <a class="nav-link border-bottom rounded" id="v-pills-repuestos-tab" data-toggle="pill" href="#v-pills-repuestos" role="tab" aria-controls="v-pills-repuestos" aria-selected="false"><b><i class="fas fa-screwdriver"></i> Repuestos / Mano de obra</b></a>
                                                                     <!-- <a class="nav-link border-bottom rounded" id="v-pills-manoObra-tab" data-toggle="pill" href="#v-pills-manoObra" role="tab" aria-controls="v-pills-manoObra" aria-selected="false"><b><i class="fas fa-fist-raised"></i> Mano de obra</b></a> -->
-                                                                    <a class="nav-link border-bottom rounded" id="v-pills-observaciones-tab" data-toggle="pill" href="#v-pills-observaciones" role="tab" aria-controls="v-pills-observaciones" aria-selected="false"><b><i class="far fa-comment-alt"></i> Observaciones</b></a>
+                                                                    <!-- <a class="nav-link border-bottom rounded" id="v-pills-observaciones-tab" data-toggle="pill" href="#v-pills-observaciones" role="tab" aria-controls="v-pills-observaciones" aria-selected="false"><b><i class="far fa-comment-alt"></i> Observaciones</b></a> -->
                                                                     <!-- <a class="nav-link" id="v-pills-firmas-tab" data-toggle="pill" href="#v-pills-firmas" role="tab" aria-controls="v-pills-firmas" aria-selected="false"><b>Nombres y firmas</b></a> -->
                                                                 </div>
                                                             </div>
@@ -121,6 +127,26 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                             </select>
                                                         </div>
 
+                                                        <div class="col-9 mt-3">
+                                                            <button type="submit" form="ordenServ_form" class="btn btn-success mb-2 col fileinput-button dz-clickable">
+                                                                <i class="fas fa-plus"></i>
+                                                                <span>Guardar</span>
+                                                            </button>
+
+                                                            <button type="reset" class="btn btn-warning col cancel mb-2" id="btn-restablecer">
+                                                                <i class="fas fa-broom"></i>
+                                                                <span>Restablecer</span>
+                                                            </button>
+                                                            <button class="btn btn-secondary col invisible " id="btn-crearSolicitud" data-toggle="modal" data-target="#modal-solicitud" disabled>
+                                                                <i class="far fa-file-alt"></i>
+                                                                <span> Crear solicitud de servicio</span>
+                                                            </button>
+
+                                                        </div>
+
+
+
+
 
                                                     </div>
                                                     <div class="col-lg-9 col-sm-12">
@@ -130,28 +156,22 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                          *********************************** ORDEN DE SERVICIO MANTENIMIENTO ***************************
                                                         ==================================================================================================== -->
                                                         <div class="tab-content" id="v-pills-tabContent">
+
                                                             <!-- DATOS GENERALES -->
-                                                            <div class="tab-pane fade show active " id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab">
+                                                            <div class="tab-pane fade show active " id="v-pills-general" role="tabpanel" aria-labelledby="v-pills-general-tab" nombre="Datos generales" style="overflow-y: scroll; height: 600px; overflow-x: hidden;">
                                                                 <div class="row">
 
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i># Orden de servicio</i></label>
-                                                                            <input type="text" class="form-control" id="numOrden_ordSer" name="numOrden_ordSer" readonly>
+                                                                            <input type="text" class="form-control form-control-sm" id="numOrden_ordSer" name="numOrden_ordSer" readonly>
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                                        <div class="form-group text-center">
-                                                                            <label><i># Factura</i></label>
-                                                                            <input type="text" class="form-control" id="numFactura_ordSer" name="numFactura_ordSer">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Placa</i></label>
-                                                                            <select id="placa_OrdServ" name="idvehiculo_OrdServ" class="form-control select2-single" type="number" style="width: 99%" required>
+                                                                            <select id="placa_OrdServ" name="idvehiculo_OrdServ" class="form-control select2-single" type="number" style="height: 99%" required>
                                                                                 <option selected value="">Seleccione un vehículo</option>
                                                                                 <?php foreach ($Placas as $key => $value) : ?>
                                                                                     <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?> </option>
@@ -160,83 +180,18 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="col-3 ">
                                                                         <div class="form-group text-center">
-                                                                            <label><i>Número interno</i></label>
-                                                                            <input type="text" class="form-control" id="numinterno_ordSer" name="numinterno_ordSer" required readonly>
+                                                                            <label><i># Factura</i></label>
+                                                                            <input type="text" class="form-control form-control-sm" id="numFactura_ordSer" name="numFactura_ordSer">
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                                        <div class="form-group text-center">
-                                                                            <label><i>Cliente</i></label>
-                                                                            <input type="text" class="form-control" id="cliente_orderServ" required readonly>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                                        <div class="form-group text-center">
-                                                                            <label><i>Marca</i></label>
-                                                                            <input type="text" class="form-control" id="marca_ordSer" name="marca_ordSer" required readonly>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                                        <div class="form-group text-center">
-                                                                            <label><i>Clase de vehículo</i></label>
-                                                                            <input type="text" class="form-control" id="clasevehiculo_ordSer" name="clasevehiculo_ordSer" required readonly>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                                        <div class="form-group text-center">
-                                                                            <label><i>Modelo</i></label>
-                                                                            <input type="text" class="form-control" id="modelo_ordSer" name="modelo_ordSer" required readonly>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                                        <div class="form-group text-center">
-                                                                            <label><i>Kilometraje</i></label>
-                                                                            <input type="number" class="form-control" id="kilome_ordSer" name="kilome_ordSer" required readonly>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                                        <div class="form-group text-center">
-                                                                            <label><i>Fecha de entrada</i></label>
-                                                                            <?php
-                                                                            $fecha = getdate();
-
-                                                                            ?>
-                                                                            <input type="date" class="form-control" id="fechaentrada_ordSer" name="fechaentrada_OrdSer" value="<?= $fecha['year'] . "-" . $fecha['mon'] . "-" . $fecha['mday'] ?>" required readonly>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                                        <div class="form-group text-center">
-                                                                            <label><i>Hora de entrada</i></label>
-                                                                            <input type="time" class="form-control" id="horaentra_ordSer" name="horaentra_ordSer" required>
-                                                                        </div>
-                                                                    </div>
-
-
-
-
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
-                                                                        <div class="form-group text-center">
-                                                                            <label><i>Fecha de inicio de trabajos</i></label>
-                                                                            <input type="date" class="form-control" id="fechainicio_ordSer" name="fechaInic_ordSer">
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <!-- <input type="hidden" id="fecha_aprobacion" name="fecha_aprobacion"> -->
-
-                                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                                    <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Ciudad</i></label>
-                                                                            <select id="ciudad_OrdServ" name="ciudad_OrdServ" class="form-control select2-single" type="number" style="width: 99%" required>
-                                                                                <option selected value="">-Seleccione una ciudad-</option>
+                                                                            <select id="ciudad_OrdServ" name="ciudad_OrdServ" class="form-control form-control-sm select2-single" type="number" style="width: 99%" required>
+                                                                                <option selected value="">Seleccione una ciudad</option>
                                                                                 <?php foreach ($DeparMunicipios as $key => $value) : ?>
                                                                                     <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?>
                                                                                     </option>
@@ -244,6 +199,81 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                             </select>
                                                                         </div>
                                                                     </div>
+
+                                                                    <div class="col-3 ">
+                                                                        <div class="form-group text-center">
+                                                                            <label><i>Número interno</i></label>
+                                                                            <input type="text" class="form-control form-control-sm" id="numinterno_ordSer" name="numinterno_ordSer" required readonly>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-3 ">
+                                                                        <div class="form-group text-center">
+                                                                            <label><i>Cliente</i></label>
+                                                                            <input type="text" class="form-control form-control-sm" id="cliente_orderServ" required readonly>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-3 ">
+                                                                        <div class="form-group text-center">
+                                                                            <label><i>Marca</i></label>
+                                                                            <input type="text" class="form-control form-control-sm" id="marca_ordSer" name="marca_ordSer" required readonly>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-3 ">
+                                                                        <div class="form-group text-center">
+                                                                            <label><i>Clase de vehículo</i></label>
+                                                                            <input type="text" class="form-control form-control-sm" id="clasevehiculo_ordSer" name="clasevehiculo_ordSer" required readonly>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-3 ">
+                                                                        <div class="form-group text-center">
+                                                                            <label><i>Modelo</i></label>
+                                                                            <input type="text" class="form-control form-control-sm" id="modelo_ordSer" name="modelo_ordSer" required readonly>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-3 ">
+                                                                        <div class="form-group text-center">
+                                                                            <label><i>Kilometraje</i></label>
+                                                                            <input type="number" class="form-control form-control-sm" id="kilome_ordSer" name="kilome_ordSer" required readonly>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-3 ">
+                                                                        <div class="form-group text-center">
+                                                                            <label><i>Fecha de entrada</i></label>
+                                                                            <?php
+                                                                            $fecha = getdate();
+
+                                                                            ?>
+                                                                            <input type="date" class="form-control form-control-sm" id="fechaentrada_ordSer" name="fechaentrada_OrdSer" value="<?= $fecha['year'] . "-" . $fecha['mon'] . "-" . $fecha['mday'] ?>" required readonly>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="col-3 ">
+                                                                        <div class="form-group text-center">
+                                                                            <label><i>Hora de entrada</i></label>
+                                                                            <input type="time" class="form-control form-control-sm" id="horaentra_ordSer" name="horaentra_ordSer" required>
+                                                                        </div>
+                                                                    </div>
+
+
+
+
+                                                                    <div class="col-3 ">
+                                                                        <div class="form-group text-center">
+                                                                            <label><i>Fecha de inicio de trabajos</i></label>
+                                                                            <input type="date" class="form-control form-control-sm" id="fechainicio_ordSer" name="fechaInic_ordSer">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <!-- <input type="hidden" id="fecha_aprobacion" name="fecha_aprobacion"> -->
+
+
+
 
                                                                     <!-- <div class="col-12 col-sm-6 col-lg-4">
                                                                         <div class="form-group text-center">
@@ -302,11 +332,11 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
 
                                                                 <div class="card card-info collapsed-card" id="card-programacion">
                                                                     <div class="card-header" data-card-widget="collapse" style="cursor:pointer;">
-                                                                        <h3 class="card-title"><b><i>Mantenimiento preventivo</i></b>
+                                                                        <h3 class="card-title"><b><i>Programación</i></b>
                                                                             <i class="far fa-calendar-alt"></i>
                                                                         </h3>
                                                                         <div class="card-tools">
-                                                                            <button type="button" title="Abrir programación del vehículo" data-toggle="tooltip" data-placement="top" class="btn btn-tool">
+                                                                            <button type="button" title="Abrir programación del vehículo" data-toggle="tooltip" data-placement="top" class="btn btn-tool" data-card-widget="collapse">
                                                                                 <i class="fas fa-plus"></i>
                                                                             </button>
                                                                         </div>
@@ -315,16 +345,40 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                     <div class="card-body" style="display: none;">
                                                                         <div class="row">
                                                                             <div class="col-lg-12 col-sm-12 justify-content-center">
+                                                                                <div class="table-responsive">
+                                                                                    <table id="tablaProgramacionServ" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                                                                                        <thead class="text-nowrap">
+                                                                                            <th>Kilometraje</th>
+                                                                                            <th>Actividad</th>
+                                                                                            <th>Kilometraje para cambio</th>
+                                                                                            <th>Fecha para cambio</th>
+                                                                                            <th>Fecha de programación</th>
+                                                                                        </thead>
+                                                                                        <tbody id="tbodyProgramacionServ" class="text-nowrap">
+
+
+                                                                                        </tbody>
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                    <!-- <div class="card-body" style="display: none;">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-12 col-sm-12 justify-content-center">
                                                                                 <div class="card card-outline card-success">
                                                                                     <div class="table-responsive">
-                                                                                        <table id="tablaProgramacionServ" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                                                                                        <table id="tablaEvidenciasServ" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
                                                                                             <thead class="text-nowrap">
-                                                                                                <th>Servicio</th>
-                                                                                                <th>Kilometraje actual</th>
-                                                                                                <th>Kilometraje para cambio</th>
-                                                                                                <th>Fecha para cambio</th>
+                                                                                                <th>Fecha</th>
+                                                                                                <th>Imágenes de evidencia</th>
+                                                                                                <th>Observaciones</th>
+                                                                                                <th>Estado</th>
+                                                                                                <th>Autor</th>
                                                                                             </thead>
-                                                                                            <tbody id="tbodyProgramacionServ" class="text-nowrap">
+                                                                                            <tbody id="tbodyEvidenciaServ" class="text-nowrap">
 
 
                                                                                             </tbody>
@@ -333,64 +387,40 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
+                                                                    </div> -->
                                                                     <!--CARD BODY-->
                                                                 </div>
                                                             </div>
                                                             <!-- DIAGNÓSTICO -->
-                                                            <div class="tab-pane fade" id="v-pills-diagnostico" role="tabpanel" aria-labelledby="v-pills-diagnostico-tab">
+                                                            <div class="tab-pane fade" id="v-pills-diagnostico" role="tabpanel" aria-labelledby="v-pills-diagnostico-tab" nombre="Diagnóstico">
                                                                 <div class="callout callout-info col-md-12 col-sm-8">
                                                                     <div class="row">
                                                                         <div class="col-md-12 col-sm-9 ">
                                                                             <div class="form-group text-center" id="diagnostico_solicitud">
-                                                                                <label>Descripción</label>
-                                                                                <textarea class="form-control diagno-resu" name="diagnostico" rows="5" placeholder="Digite una leve descripción ..." required></textarea>
+                                                                                <label>Diágnostico</label>
+                                                                                <textarea class="form-control diagno-resu" name="diagnostico" rows="3" placeholder="Digite una leve diágnostico ..." required></textarea>
                                                                             </div>
-                                                                            <!-- <div class="row">
-                                                                                <div class="col-6">
-                                                                                    <h5>Mantenimientos preventivos a realizar</h5>
-                                                                                    <div class="form-group">
-                                                                                        <div class="input-group ">
-                                                                                            <select id="ServPre" class="select2-primary form-control select2-multiple input-sm" data-placeholder="Lista de mantenimientos preventivos" multiple="multiple" style="width: 99%" name="serviciosPrev[]">
-
-                                                                                                <?php foreach ($Servicios as $key => $value) : ?>
-                                                                                                    <option value="<?= $value['idservicio'] ?>"><?= $value['servicio'] ?></option>
-                                                                                                <?php endforeach ?>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-6">
-                                                                                    <h5>Mantenimientos correctivos a realizar</h5>
-                                                                                    <div class="form-group">
-                                                                                        <div class="input-group input-group-sm">
-                                                                                            <select id="correctivo" class="select2-primary form-control select2-multiple input-sm" data-placeholder="Lista de mantenimientos preventivos" multiple="multiple" style="width: 99%" name="correctivo[]">
-
-                                                                                                <?php foreach ($Correctivos as $key => $value) : ?>
-                                                                                                    <option value="<?= $value['idservicio'] ?>"><?= $value['servicio'] ?></option>
-                                                                                                <?php endforeach ?>
-                                                                                            </select>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div> -->
+                                                                            <div class="form-group text-center">
+                                                                                <label>Digite su observación</label>
+                                                                                <textarea class="form-control" rows="3" id="observacion" name="observacion" placeholder="Digite una leve observación"></textarea>
+                                                                            </div>
                                                                         </div>
-
-
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <!-- REPUESTOS / SOLICITUD SERVICIO -->
-                                                            <div class="tab-pane fade" id="v-pills-repuestos" role="tabpanel" aria-labelledby="v-pills-repuestos-tab">
+                                                            <div class="tab-pane fade" id="v-pills-repuestos" role="tabpanel" aria-labelledby="v-pills-repuestos-tab" style="overflow-y: scroll; height: 600px;">
+
+
 
                                                                 <!-- SERVICIOS EXTERNOS COLLAPSE -->
                                                                 <div class="card card-info collapsed-card" id="card-serviciosext">
-                                                                    <div class="card-header" data-card-widget="collapse" style="cursor:pointer;">
+                                                                    <div class="card-header" data-card-widget="collapse" style="cursor:pointer; ">
                                                                         <h3 class="card-title"><b><i>Servicios externos</i></b>
                                                                             <i class="fas fa-boxes"></i>
                                                                         </h3>
                                                                         <div class="card-tools">
-                                                                            <button type="button" title="Abrir servicios externos" data-toggle="tooltip" data-placement="top" class="btn btn-tool">
+                                                                            <button type="button" title="Abrir servicios externos" data-toggle="tooltip" data-placement="top" class="btn btn-tool" data-card-widget="collapse">
                                                                                 <i class="fas fa-plus"></i>
                                                                             </button>
                                                                         </div>
@@ -412,7 +442,6 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <!--CARD BODY-->
                                                                 </div>
 
                                                                 <!-- REPUESTO COLLAPSE -->
@@ -422,7 +451,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                             <i class="fas fa-tools nav-icon"></i>
                                                                         </h3>
                                                                         <div class="card-tools">
-                                                                            <button type="button" title="Abrir repuesto" data-toggle="tooltip" data-placement="top" class="btn btn-tool">
+                                                                            <button type="button" title="Abrir repuesto" data-toggle="tooltip" data-placement="top" class="btn btn-tool" data-card-widget="collapse">
                                                                                 <i class="fas fa-plus"></i>
                                                                             </button>
                                                                         </div>
@@ -430,7 +459,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
 
                                                                     <div class="card-body" style="display: none;">
                                                                         <div class="row d-flex justify-content-center">
-                                                                            <div class="table-responsive" id="repuesto_solicitud">
+                                                                            <div class="table-responsive" id="repuesto_solicitud" style="font-size: 12px;">
                                                                                 <table class="table table-bordered table-striped text-center text-nowrap" id="tabla_repuesto_orden">
                                                                                     <thead>
                                                                                         <tr>
@@ -452,52 +481,52 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                                         <tr id="contenido_filas_repuestoSolicitud" consecutivo="1">
                                                                                             <td style="width: 900px;">
                                                                                                 <div class="input-group">
-                                                                                                    <input class="form-control" type="text" id="repuesto_1" name="repuesto[]" placeholder="Seleccione un repuesto" maxlength="0">
+                                                                                                    <input class="form-control form-control-sm" type="text" id="repuesto_1" name="repuesto[]" placeholder="Seleccione un repuesto" maxlength="0">
                                                                                                     <div class="input-group-append">
-                                                                                                        <button type="button" class="btn btn-success btn-md btn-repuestos" consecutivo="1" title="lista repuestos" data-toggle="modal" data-target="#modal-repuestos"><i class="fas fa-business-time"></i></button>
+                                                                                                        <button type="button" class="btn btn-success btn-sm btn-md btn-repuestos" consecutivo="1" title="lista repuestos" data-toggle="modal" data-target="#modal-repuestos"><i class="fas fa-business-time"></i></button>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </td>
                                                                                             <input type="hidden" id="inventario_1" name="inventario[]">
-                                                                                            <td> <input type="text" class="form-control" id="refrepuestos_1" name="referencia_repuesto[]" readonly></td>
-                                                                                            <td> <input type="text" class="form-control" id="codrepuestos_1" name="codigo_repuesto[]" readonly></td>
-                                                                                            <td> <input type="text" class="form-control input-valorrepuesto" id="valorrepuestos_1" consecutivo="1" name="valor_repuesto[]" readonly></td>
-                                                                                            <td> <input type="text" class="form-control input-cantrepuesto" consecutivo="1" id="cantrepuestos_1" name="cantidad_repuesto[]" readonly></td>
-                                                                                            <td> <input type="text" class="form-control input-ivarepuesto" id="iva_repuesto_1" consecutivo="1" name="iva_repuesto[]"></td>
-                                                                                            <td><input type="text" class="form-control" id="total_repuesto_1" name="total_repuesto[]" readonly></td>
+                                                                                            <td> <input type="text" class="form-control form-control-sm" id="refrepuestos_1" name="referencia_repuesto[]" readonly></td>
+                                                                                            <td> <input type="text" class="form-control form-control-sm" id="codrepuestos_1" name="codigo_repuesto[]" readonly></td>
+                                                                                            <td> <input type="text" class="form-control form-control-sm input-valorrepuesto" id="valorrepuestos_1" consecutivo="1" name="valor_repuesto[]"></td>
+                                                                                            <td> <input type="text" class="form-control form-control-sm input-cantrepuesto" consecutivo="1" id="cantrepuestos_1" name="cantidad_repuesto[]" readonly></td>
+                                                                                            <td> <input type="text" class="form-control form-control-sm input-ivarepuesto" id="iva_repuesto_1" consecutivo="1" name="iva_repuesto[]"></td>
+                                                                                            <td> <input type="text" class="form-control form-control-sm" id="total_repuesto_1" name="total_repuesto[]" readonly></td>
                                                                                             <input type="hidden" name="idproveedor_repuesto[]" id="idproveedor_repuesto_1">
-                                                                                            <td><input type="text" class="form-control" id="proveedor_repuesto_1" name="proveedor_repuesto[]" readonly></td>
+                                                                                            <td><input type="text" class="form-control form-control-sm" id="proveedor_repuesto_1" name="proveedor_repuesto[]" readonly></td>
                                                                                             <td>
                                                                                                 <input type="hidden" id="servicio_repuesto_1" name="servicio_repuesto[]">
                                                                                                 <div class="input-group">
-                                                                                                    <input class="form-control" type="text" id="servrepuesto_1" name="servrepuesto[]" placeholder="Seleccione un servicio" maxlength="0">
+                                                                                                    <input class="form-control form-control-sm" type="text" id="servrepuesto_1" name="servrepuesto[]" placeholder="Seleccione un servicio" maxlength="0">
                                                                                                     <div class="input-group-append">
-                                                                                                        <button type="button" class="btn btn-success btn-md btn-servicios" seccion="repuesto" consecutivo="1" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
+                                                                                                        <button type="button" class="btn btn-sm btn-success btn-md btn-servicios" seccion="repuesto" consecutivo="1" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </td>
                                                                                             <td style="width: 900px;">
                                                                                                 <div class="input-group">
-                                                                                                    <input class="form-control" type="text" id="sistemarepuesto_1" name="sistemarepuesto[]" placeholder="Seleccione el tipo de sistema" maxlength="0">
+                                                                                                    <input class="form-control form-control-sm" type="text" id="sistemarepuesto_1" name="sistemarepuesto[]" placeholder="Seleccione el tipo de sistema" maxlength="0">
                                                                                                     <div class="input-group-append">
-                                                                                                        <button type="button" class="btn btn-success btn-md btn-sistema" seccion="repuesto" consecutivo="1" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
+                                                                                                        <button type="button" class="btn btn-sm btn-success btn-md btn-sistema" seccion="repuesto" consecutivo="1" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </td>
                                                                                             <td style="width: 900px;">
                                                                                                 <div class="input-group">
-                                                                                                    <input class="form-control" type="text" id="mantenimientorepuesto_1" name="mantenimientorepuesto[]" placeholder="Seleccione un mantenimiento" maxlength="0">
+                                                                                                    <input class="form-control form-control-sm" type="text" id="mantenimientorepuesto_1" name="mantenimientorepuesto[]" placeholder="Seleccione un mantenimiento" maxlength="0">
                                                                                                     <div class="input-group-append">
-                                                                                                        <button type="button" class="btn btn-success btn-md btn-mantenimiento" seccion="repuesto" consecutivo="1" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
+                                                                                                        <button type="button" class="btn btn-success btn-sm btn-md btn-mantenimiento" seccion="repuesto" consecutivo="1" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </td>
                                                                                             <td>
                                                                                                 <input type="hidden" id="idcuenta_repuesto_1" name="idcuenta[]">
                                                                                                 <div class="input-group">
-                                                                                                    <input class="form-control" type="text" id="cuenta_repuesto_1" name="cuenta_repuesto[]" placeholder="Seleccione una cuenta" maxlength="0">
+                                                                                                    <input class="form-control form-control-sm" type="text" id="cuenta_repuesto_1" name="cuenta_repuesto[]" placeholder="Seleccione una cuenta" maxlength="0">
                                                                                                     <div class="input-group-append">
-                                                                                                        <button type="button" class="btn btn-success btn-md btn-cuenta" seccion="repuesto" consecutivo="1" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
+                                                                                                        <button type="button" class="btn btn-success btn-sm btn-md btn-cuenta" seccion="repuesto" consecutivo="1" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </td>
@@ -517,7 +546,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                             </button>
                                                                         </div>
                                                                     </div>
-                                                                    <!--CARD BODY-->
+
 
 
                                                                 </div>
@@ -529,7 +558,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                             <i class="fas fa-fist-raised"></i>
                                                                         </h3>
                                                                         <div class="card-tools">
-                                                                            <button type="button" title="Abrir mano de obra" data-toggle="tooltip" data-placement="top" class="btn btn-tool">
+                                                                            <button type="button" title="Abrir mano de obra" data-toggle="tooltip" data-placement="top" class="btn btn-tool" data-card-widget="collapse">
                                                                                 <i class="fas fa-plus"></i>
                                                                             </button>
                                                                         </div>
@@ -538,7 +567,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                     <div class="card-body" style="display: none;">
                                                                         <div class="row d-flex justify-content-center">
 
-                                                                            <div class="table-responsive">
+                                                                            <div class="table-responsive" style="font-size: 12px;">
                                                                                 <table class="table table table-responsive table-bordered table-striped text-center text-nowrap">
                                                                                     <thead>
                                                                                         <tr>
@@ -558,48 +587,51 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                                         <tr id="Contenido_tabla_manoObra" consecutivo="1">
                                                                                             <td style="width: 600px">
                                                                                                 <div class="input-group">
-                                                                                                    <input class="form-control" type="text" id="proveedor_1" placeholder="Seleccione un proveedor" maxlength="0>
+                                                                                                    <input class="form-control form-control-sm" type="text" id="proveedor_1" placeholder="Seleccione un proveedor" maxlength="0">
                                                                                                     <div class=" input-group-append">
-                                                                                                    <button type="button" class="btn btn-success btn-md btn-proveedor" consecutivo="1" title="lista proveedores" data-toggle="modal" data-target="#modal-proveedores"><i class="fas fa-parachute-box"></i></button>
+                                                                                                        <button type="button" class="btn btn-sm btn-success btn-md btn-proveedor" consecutivo="1" title="lista proveedores" data-toggle="modal" data-target="#modal-proveedores"><i class="fas fa-parachute-box"></i></button>
+                                                                                                    </div>
                                                                                                 </div>
                                                                                             </td>
                                                                                             <input type="hidden" id="idproveedor_1" name="proveedor[]">
-                                                                                            <td style="width: 300px"><input type="text" class="form-control" id="descrip_1" name="descrip_mano[]"></td>
-                                                                                            <td style="width: 300px"><input type="text" class="form-control input-valorMano" consecutivo="1" id="valor_1" name="valor_mano[]"></td>
-                                                                                            <td style="width: 300px"><input type="text" class="form-control input-cantMano" id="cantmanoObra_1" name="cantmanoObra[]" consecutivo="1" readonly></td>
-                                                                                            <td><input type="text" class="form-control input-ivaMano" id="iva_mano_1" name="iva_mano[]" consecutivo="1"></td>
-                                                                                            <td><input type="text" class="form-control" id="total_mano_1" name="total_mano[]" readonly></td>
+                                                                                            <td style="width: 300px"><input type="text" class="form-control form-control-sm" id="descrip_1" name="descrip_mano[]"></td>
+                                                                                            <td style="width: 300px"><input type="text" class="form-control form-control-sm input-valorMano" consecutivo="1" id="valor_1" name="valor_mano[]"></td>
+                                                                                            <td style="width: 300px"><input type="text" class="form-control form-control-sm input-cantMano" id="cantmanoObra_1" name="cantmanoObra[]" consecutivo="1" readonly></td>
+                                                                                            <td><input type="text" class="form-control form-control-sm input-ivaMano" id="iva_mano_1" name="iva_mano[]" consecutivo="1"></td>
+                                                                                            <td><input type="text" class="form-control form-control-sm" id="total_mano_1" name="total_mano[]" readonly></td>
                                                                                             <td style="width: 300px">
                                                                                                 <input type="hidden" id="servicio_mano_1" name="servicio_mano[]">
                                                                                                 <div class="input-group">
-                                                                                                    <input class="form-control" type="text" id="servmanoObra_1" name="servmanoObra[]" placeholder="Seleccione un servicio" maxlength="0>
+                                                                                                    <input class="form-control form-control-sm" type="text" id="servmanoObra_1" name="servmanoObra[]" placeholder="Seleccione un servicio" maxlength="0">
                                                                                                     <div class=" input-group-append">
-                                                                                                    <button type="button" class="btn btn-success btn-md btn-servicios" seccion="manoObra" consecutivo="1" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
+                                                                                                        <button type="button" class="btn btn-sm btn-success btn-md btn-servicios" seccion="manoObra" consecutivo="1" title="lista de servicios" data-toggle="modal" data-target="#modal-servicios"><i class="fab fa-cloudsmith"></i></button>
+                                                                                                    </div>
                                                                                                 </div>
 
                                                                                             </td>
                                                                                             <td style="width: 900px;">
                                                                                                 <div class="input-group">
-                                                                                                    <input class="form-control" type="text" id="sistemanoObra_1" name="sistmanoobra[]" placeholder="Seleccione el tipo de sistema" maxlength="0>
+                                                                                                    <input class="form-control form-control-sm" type="text" id="sistemanoObra_1" name="sistmanoobra[]" placeholder="Seleccione el tipo de sistema" maxlength="0">
                                                                                                     <div class=" input-group-append">
-                                                                                                    <button type="button" class="btn btn-success btn-md btn-sistema" seccion="manoObra" consecutivo="1" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
+                                                                                                        <button type="button" class="btn btn-sm btn-success btn-md btn-sistema" seccion="manoObra" consecutivo="1" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
+                                                                                                    </div>
                                                                                                 </div>
 
                                                                                             </td>
                                                                                             <td style="width: 900px;">
                                                                                                 <div class="input-group">
-                                                                                                    <input class="form-control" type="text" id="mantenimientoManoObra_1" name="mantenimientomanobra[]" placeholder="Seleccione un mantenimiento" maxlength="0">
+                                                                                                    <input class="form-control form-control-sm" type="text" id="mantenimientoManoObra_1" name="mantenimientomanobra[]" placeholder="Seleccione un mantenimiento" maxlength="0">
                                                                                                     <div class="input-group-append">
-                                                                                                        <button type="button" class="btn btn-success btn-md btn-mantenimiento" seccion="manoObra" consecutivo="1" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
+                                                                                                        <button type="button" class="btn btn-sm btn-success btn-md btn-mantenimiento" seccion="manoObra" consecutivo="1" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </td>
                                                                                             <td>
                                                                                                 <input type="hidden" id="idcuenta_mano_1" name="idcuenta_mano[]">
                                                                                                 <div class="input-group">
-                                                                                                    <input class="form-control" type="text" id="cuenta_mano_1" name="cuenta_mano[]" placeholder="Seleccione una cuenta" maxlength="0">
+                                                                                                    <input class="form-control form-control-sm" type="text" id="cuenta_mano_1" name="cuenta_mano[]" placeholder="Seleccione una cuenta" maxlength="0">
                                                                                                     <div class="input-group-append">
-                                                                                                        <button type="button" class="btn btn-success btn-md btn-cuenta" seccion="manoObra" consecutivo="1" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
+                                                                                                        <button type="button" class="btn btn-sm btn-success btn-md btn-cuenta" seccion="manoObra" consecutivo="1" title="lista de cuentas" data-toggle="modal" data-target="#modal-cuentas"><i class="fas fa-money-check-alt"></i></button>
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </td>
@@ -612,28 +644,24 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
 
                                                                         </div>
                                                                         <button type="button" class="btn btn-primary btn-md btn-agregarManoObra mb-3" ">
-                                                                        <i class=" fas fa-plus"></i>
+                                                                                        <i class=" fas fa-plus"></i>
                                                                         </button>
                                                                         <button type="button" class="btn btn-danger btn-md btn-EliminarManoObra mb-3" ">
-                                                                        <i class=" fas fa-times"></i>
+                                                                                        <i class=" fas fa-times"></i>
                                                                         </button>
                                                                     </div>
-                                                                    <!--CARD BODY-->
+
 
 
 
                                                                 </div>
 
-
-                                                                <div class=" col-md-6 d-md-flex justify-content-md-end mb-3">
+                                                                <!-- <div class=" col-md-6 d-md-flex justify-content-md-end mb-3">
                                                                     <button class="btn btn-secondary col" id="btn-crearSolicitud" data-toggle="modal" data-target="#modal-solicitud" disabled>
-                                                                        <i class="far fa-file-pdf"></i>
+                                                                        <i class="far fa-file-alt"></i>
                                                                         <span>Crear solicitud de servicio</span>
                                                                     </button>
-                                                                </div>
-
-
-
+                                                                </div> -->
                                                             </div>
                                                             <!-- MANO DE OBRA  -->
                                                             <!-- <div class="tab-pane fade" id="v-pills-manoObra" role="tabpanel" aria-labelledby="v-pills-manoObra-tab">
@@ -675,7 +703,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                             </div> -->
 
                                                             <!-- OBSERVACIONES -->
-                                                            <div class="tab-pane fade" id="v-pills-observaciones" role="tabpanel" aria-labelledby="v-pills-observaciones-tab">
+                                                            <!-- <div class="tab-pane fade" id="v-pills-observaciones" role="tabpanel" aria-labelledby="v-pills-observaciones-tab">
                                                                 <div class="card-body">
                                                                     <div class="callout callout-info">
                                                                         <h5>Digite su observación</h5>
@@ -683,7 +711,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                     </div>
 
                                                                 </div>
-                                                            </div>
+                                                            </div> -->
 
                                                         </div>
                                                     </div>
@@ -692,7 +720,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                 <!-- =====================================
                                                     ************BOTONES *****************
                                                     ========================================== -->
-                                                <div class="row d-flex justify-content-center">
+                                                <!-- <div class="row d-flex justify-content-center">
                                                     <div class="col-md-6">
                                                         <div class="btn-group w-100">
                                                             <button type="submit" form="ordenServ_form" class="btn btn-success col fileinput-button dz-clickable">
@@ -709,7 +737,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
 
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                             </form>
                                         </div>
 
@@ -720,7 +748,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                     <div class="card card-outline card-success">
                                                         <div class="card-body">
 
-                                                            <div class="table-responsive">
+                                                            <div class="table-responsive" style="font-size: 14px;">
                                                                 <table class="table table-bordered text-center tablasBtnExport">
                                                                     <thead class="text-nowrap">
                                                                         <tr>
@@ -750,7 +778,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                             }
                                                                             ?>
                                                                             <tr>
-                                                                                <td><a><i class="far fa-file-pdf text-danger"></i></a></td>
+                                                                                <td><button class="btn btn-outline-dark btn-pdforden bg-danger" idorden="<?= $value['idorden'] ?>" tipo_mantenimiento="orden"><i class="far fa-file-pdf"></i></button></td>
                                                                                 <td><button class="btn btn-outline-dark btn-editarOrden" idorden="<?= $value['idorden'] ?>" title="Ir a la orden" data-toggle="tooltip" data-placement="top" type="button"><?= $value['idorden'] ?></button></td>
                                                                                 <td><?= $value['placa'] ?></td>
                                                                                 <td><?= $value['Ffecha_entrada'] ?></td>
@@ -803,7 +831,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                     <div class="card card-outline card-success">
                                                         <div class="card-body">
 
-                                                            <div class="table-responsive">
+                                                            <div class="table-responsive" style="font-size: 14px;">
                                                                 <table id="tableControlActividades" class="table-sm table-striped table-bordered  text-center table-hover  w-100">
                                                                     <thead class="text-nowrap">
                                                                         <tr>
@@ -824,6 +852,12 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                             <th>Cantidad</th>
                                                                             <th>Precio unitario</th>
                                                                             <th>Iva</th>
+                                                                            <th>Cliente</th>
+                                                                            <th>% que asume</th>
+                                                                            <th>Empresa</th>
+                                                                            <th>% que asume</th>
+                                                                            <th>Contratista</th>
+                                                                            <th>% que asume</th>
                                                                             <th>Precio total</th>
                                                                             <th>Clasificación</th>
                                                                             <th>Nombre de cuenta</th>
@@ -836,24 +870,19 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                                                                     </tbody>
                                                                 </table>
                                                             </div>
-
-
-
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-
-
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="pills-programacion" role="tabpanel" aria-labelledby="pills-programacion-tab">
+
+                <div class="tab-pane fade" id="pills-rutinas" role="tabpanel" aria-labelledby="pills-rutinas-tab">
                     <form id="programacion_form" method="post" enctype="multipart/form-data">
                         <input type="hidden" id="idserviciovehiculo" name="idserviciovehiculo" value="">
 
@@ -952,7 +981,177 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                             </div>
                         </div>
                     </div>
-                </div> <!-- Programacion -->
+                </div> <!-- RUTINAS -->
+
+
+
+                <!-- PROGRAMACIÓN -->
+                <div class="tab-pane fade" id="pills-programacion" role="tabpanel" aria-labelledby="pills-programacion-tab">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 col-lg-12">
+                            <div class="card card-info">
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs card-header-tabs" id="custom-tabs-one-tab" role="tablist">
+                                        <!-- <li class="nav-item">
+                                         <a class="nav-link active" id="custom-tabs-one-solicitudserv_exter_repues-tab" data-toggle="pill" href="#custom-tabs-one-solicitudserv_exter_repues" role="tab" aria-controls="custom-tabs-one-solicitudserv_exter_repues" aria-selected="false">Solicitud de servicio / Repuestos</a>
+                                        </li> -->
+                                        <li class="nav-item ">
+                                            <!-- TABS HORIZONTALES-->
+                                            <a class="nav-link active" id="v-pills-vehiculos-tab" data-toggle="pill" href="#v-pills-vehiculos" role="tab" aria-controls="v-pills-vehiculos" aria-selected="true"><i class="fas fa-car"></i> Mantenimientos pendientes</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="custom-tabs-one-historial_orden-tab" data-toggle="pill" href="#custom-tabs-one-historial_orden" role="tab" aria-controls="custom-tabs-one-historial_orden" aria-selected="false"><i class="fas fa-history"></i> Historial de programaciones</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="tab-content" id="custom-tabs-one-tabContent">
+
+                                        <!-- <div class="card card-outline card-info">
+
+                                            <div class="card-header">
+                                                <h3 class="card-title"><b><i>ACTUALIZAR</i></b>
+                                                    <i class="far fa-edit"></i>
+                                                </h3>
+                                            </div>
+
+
+                                            <div class="card-body">
+                                                <div class="row">
+
+                                                    <div class="col-3 ">
+                                                        <div class="form-group text-center">
+                                                            <label><i>Placa</i></label>
+                                                            <select id="placa_programacion" name="" class="form-control select2-single" type="number" style="height: 99%" required>
+                                                                <option selected value="">Seleccione un vehículo</option>
+                                                                <?php foreach ($Placas as $key => $value) : ?>
+                                                                    <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?> </option>
+                                                                <?php endforeach ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-3 ">
+                                                        <div class="form-group text-center">
+                                                            <label><i>Número interno</i></label>
+                                                            <input type="text" class="form-control form-control-sm" id="num_interno_progra" name="num_interno_progra" required readonly>
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div class="col-3 ">
+                                                        <div class="form-group text-center">
+                                                            <label><i>Marca</i></label>
+                                                            <input type="text" class="form-control form-control-sm" id="marca_progra" name="marca_progra" required readonly>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-3 ">
+                                                        <div class="form-group text-center">
+                                                            <label><i>Clase de vehículo</i></label>
+                                                            <input type="text" class="form-control form-control-sm" id="tipo_vehiculo_progra" name="tipo_vehiculo_progra" required readonly>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-3 ">
+                                                        <div class="form-group text-center">
+                                                            <label><i>Modelo</i></label>
+                                                            <input type="text" class="form-control form-control-sm" id="modelo_progra" name="modelo_progra" required readonly>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-3 ">
+                                                        <div class="form-group text-center">
+                                                            <label><i>Kilometraje</i></label>
+                                                            <input type="number" class="form-control form-control-sm" id="kilometraje_progra" name="kilometraje_progra" required readonly>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-3 ">
+                                                        <div class="form-group text-center">
+                                                            <label><i>Fecha programación</i></label>
+                                                            <input type="date" class="form-control form-control-sm" id="fecha_progra" name="fecha_progra">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-3">
+                                                        <div class="form-group text-center">
+                                                            <label>Tiempo mantenimiento</label>
+                                                            <input type="number" class="form-control form-control-sm" id="tiempo_progra" name="tiempo_progra">
+                                                        </div>
+                                                    </div>
+
+
+
+                                                </div>
+
+
+
+
+
+                                            </div>
+                                        </div> -->
+
+
+                                        <!-- VEHÍCULOS Y RUTINAS  -->
+                                        <div class="tab-pane fade show active " id="v-pills-vehiculos" role="tabpanel" aria-labelledby="v-pills-vehiculos-tab">
+                                            <div class="row m-2">
+
+
+                                                <!-- TABLA VEHICULOS -->
+                                                <div class="table-responsive">
+                                                    <table id="" class=" table table-sm table-striped table-hover table-bordered text-center w-100 tablasBtnExport">
+                                                        <thead class="text-nowrap">
+                                                            <tr>
+                                                                <th>...</th>
+                                                                <th>Placa</th>
+                                                                <th>Número interno</th>
+                                                                <th>Kilometraje</th>
+                                                                <th>Fecha de solicitud</th>
+                                                                <th>Fecha de programación</th>
+                                                                <th>Actividad</th>
+                                                                <th>Tiempo mantenimiento</th>
+                                                                <th>Observaciones</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody id="tbodyprogramacion" class="text-nowrap">
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                </div> <!-- PROGRAMACIÓN-->
             </div>
         </div>
     </div>
@@ -983,24 +1182,29 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                         <div class="table-responsive">
                             <table id="tablaRepuesto" class="table-sm table-striped table-bordered  text-center table-hover  w-100">
                                 <thead class="text-nowrap">
-                                    <th>Selección</th>
+                                    <th>Sucursales</th>
+                                    <th>Descripción</th>
                                     <th>Código</th>
                                     <th>Referencia</th>
                                     <th>Stock</th>
-                                    <th>Sucursal</th>
                                     <th>Posición</th>
-                                    <th>Descripción</th>
                                     <th>Categoría</th>
                                     <th>Marca</th>
                                     <th>Medida</th>
-                                    <th>Valor (Unitario)</th>
-                                    <th>Proveedor</th>
                                 </thead>
                                 <tbody id="tBodyRepuesto" class="text-nowrap">
 
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+                    <div class="col-12 mt-2">
+                        <a href="a-inventario" class="mt-5" target="_blank">
+                            <button type="" class="btn btn-sm btn-info float-center">
+                                <i class="fas fa-warehouse"></i>
+                                Ver almacén
+                            </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -1111,7 +1315,7 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                         </div>
                     </div>
                     <div class="card-footer d-flex ">
-                        <button type="button" class="btn btn-success ml-auto btn-exportar-solicitud">Exportar <i class="far fa-file-pdf"></i></button>
+                        <button type="button" class="btn btn-success ml-auto btn-exportar-solicitud" tipo_mantenimiento="solicitud">Exportar <i class="far fa-file-pdf"></i></button>
                         <button type="button" class="btn btn-danger ml-2" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
@@ -1379,7 +1583,6 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
 
 
 <!-- MODAL CUENTAS CONTABLES  -->
-
 <div id="modal-cuentas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
@@ -1417,129 +1620,478 @@ $clientes = ControladorClientes::ctrVerCliente("clientes");
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <form id="asume_form" method="post" enctype="multipart/form-data">
+                <input type="hidden" id="idcontrol" name="idcontrol">
+                <input type="hidden" id="descripcion" name="descripcion">
+                <div class="modal-body">
+                    <div class="row">
 
-                <div class="row">
+                        <div class="col">
+                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                <label><i>Cliente</i></label>
+                                <input type="text" class="form-control" id="cliente_asume" name="cliente_asume" readonly>
+                                <!-- <select id="" name="cliente_asume" class="form-control " type="number" style="width: 99%" readonly>
+                                    <?php foreach ($clientes as $key => $value) : ?>
+                                        <option value="<?= $value['idcliente'] ?>"><?= $value['clientexist'] ?></option>
+                                    <?php endforeach ?>
+                                </select> -->
+                            </div>
 
-                    <div class="col">
-                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                            <label><i>Cliente</i></label>
-                            <select id="cliente_asume" name="cliente_asume" class="form-control " type="number" style="width: 99%" readonly>
-                                <?php foreach ($clientes as $key => $value) : ?>
-                                    <option value="<?= $value['idcliente'] ?>"><?= $value['clientexist'] ?></option>
-                                <?php endforeach ?>
-                            </select>
+                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                <label><i>% que asume el cliente</i></label>
+                                <input type="number" class="form-control" id="porcentaje_cliente" name="porcentaje_cliente" required>
+                            </div>
+                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                <label><i>Valor que asume el cliente</i></label>
+                                <input type="number" class="form-control" id="valor_cliente" name="valor_cliente" readonly>
+                            </div>
                         </div>
 
-                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                            <label><i>% que asume el cliente</i></label>
-                            <input type="number" class="form-control" id="porcentaje_cliente" name="porcentaje_cliente">
+                        <div class="col">
+                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                <label><i>Empresa</i></label>
+                                <input id="empresa_asume" name="empresa_asume" class="form-control" type="text" style="width: 99%" readonly>
+
+                                </input>
+                            </div>
+
+                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                <label><i>% que asume la empresa</i></label>
+                                <input type="number" class="form-control" id="porcentaje_empresa" name="porcentaje_empresa" required>
+                            </div>
+
+                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                <label><i>Valor que asume la empresa</i></label>
+                                <input type="number" class="form-control" id="valor_empresa" name="valor_empresa" readonly>
+                            </div>
                         </div>
-                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                            <label><i>Valor que asume el cliente</i></label>
-                            <input type="number" class="form-control" id="valor_cliente" name="valor_cliente" readonly>
+
+                        <div class="col">
+                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                <label><i>Contratista</i></label>
+                                <input type="text" class="form-control" id="contratista_asume" name="contratista_asume" readonly>
+                                <!--  -->
+                            </div>
+
+
+                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                <label><i>% que asume la empresa contratista</i></label>
+                                <input type="number" class="form-control" id="porcentaje_contratista" name="porcentaje_contratista" required>
+                            </div>
+
+                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                <label><i>Valor que asume la empresa contratista</i></label>
+                                <input type="number" class="form-control" id="valor_contratista" name="valor_contratista" readonly>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col">
-                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                            <label><i>Empresa</i></label>
-                            <input id="empresa_asume" name="empresa_asume" class="form-control" type="text" style="width: 99%" readonly>
-                                
-                            </input>
+                    <hr class="my-4">
+
+                    <div class="row d-flex justify-content-center">
+
+                        <div class="col">
+                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                <label><i>Cantidad</i></label>
+                                <input type="number" class="form-control" id="cantidad_ctrActividades" readonly>
+                            </div>
                         </div>
 
-                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                            <label><i>% que asume la empresa</i></label>
-                            <input type="number" class="form-control" id="porcentaje_empresa" name="porcentaje_empresa">
+                        <div class="col">
+                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                <label><i>Precio (unitario)</i></label>
+                                <input type="number" class="form-control" id="valor_ctrActividades" readonly>
+                            </div>
                         </div>
-
-                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                            <label><i>Valor que asume la empresa</i></label>
-                            <input type="number" class="form-control" id="valor_empresa" name="valor_empresa" readonly>
+                        <div class="col">
+                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                <label><i>Iva</i></label>
+                                <input type="number" class="form-control" id="iva_ctrActividades" readonly>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                <label><i>Total</i></label>
+                                <input type="number" class="form-control" id="total_ctrActividades" readonly>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col">
-                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                            <label><i>Contratista</i></label>
-                            <select id="contratista_asume" name="contratista_asume" class="form-control " type="number" style="width: 99%" readonly>
-                                
-                                <?php foreach ($Empresas as $key => $value) : ?>
-                                    <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
-                                <?php endforeach ?>
-                            </select>
+                    <hr class="my-4">
+
+                    <div class="row d-flex justify-content-center">
+                        <div class="col">
+                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                <label><i>Nombre cuenta contable</i></label>
+                                <select id="nombre_cuenta_ctrActividades" name="nombre_cuenta" class="form-control select2-single" type="number" style="width: 99%" disabled>
+                                    <?php foreach ($cuentas as $key => $value) : ?>
+                                        <option value="<?= $value['id'] ?>"><?= $value['nombre_cuenta'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
                         </div>
+                        <div class="col">
+                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                <label><i>Código cuenta contable</i></label>
+                                <select id="codigo_cuenta_ctrActividades" name="codigo_cuenta" class="form-control select2-single" type="number" style="width: 99%">
+                                    <?php foreach ($cuentas as $key => $value) : ?>
+                                        <option value="<?= $value['id'] ?>"><?= $value['num_cuenta'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
 
 
-                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                            <label><i>% que asume la empresa contratista</i></label>
-                            <input type="number" class="form-control" id="porcentaje_contratista" name="porcentaje_contratista">
-                        </div>
 
-                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                            <label><i>Valor que asume la empresa contratista</i></label>
-                            <input type="number" class="form-control" id="valor_contratista" name="valor_contratista" readonly>
-                        </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" form="asume_form" class="btn btn-success">Guardar</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
+            </form>
+        </div>
+    </div>
+</div>
 
-                <hr class="my-4">
+<!-- MODAL SUCURSALES PRODUCTOS -->
+<div id="sucursalesProductos" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title" id="my-modal-title">Sucursales</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="card card-outline ">
+                <div class="card-body">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table id="tablaProveedores" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                                <thead class="text-nowrap">
+                                    <th>Selección</th>
+                                    <th>Descripción</th>
+                                    <th>Referencia</th>
+                                    <th>Stock</th>
+                                    <th>Posición</th>
+                                    <th>Sucursal</th>
+                                    <th>Valor (Unitario)</th>
+                                </thead>
+                                <tbody id="tBodySucursalesProductos" class="text-nowrap">
 
-                <div class="row d-flex justify-content-center">
-
-                    <div class="col">
-                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                            <label><i>Cantidad</i></label>
-                            <input type="number" class="form-control" id="cantidad_ctrActividades" readonly>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
-
-                    <div class="col">
-                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                            <label><i>Precio (unitario)</i></label>
-                            <input type="number" class="form-control" id="valor_ctrActividades" readonly>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                            <label><i>Iva</i></label>
-                            <input type="number" class="form-control" id="iva_ctrActividades" readonly>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                            <label><i>Total</i></label>
-                            <input type="number" class="form-control" id="total_ctrActividades" readonly>
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="my-4">
-
-                <div class="row d-flex justify-content-center">
-                    <div class="col">
-                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                            <label><i>Nombre cuenta contable</i></label>
-                            <input type="text" class="form-control" id="nombre_cuenta_ctrActividades" readonly>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="form-group text-center col-12 col-sm-6 col-lg-12">
-                            <label><i>Código cuenta contable</i></label>
-                            <input type="text" class="form-control" id="codigo_cuenta_ctrActividades" readonly>
-                        </div>
-                    </div>
-                </div>
-
-
-
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-success">Guardar</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- MODAL CON LISTA DE SERVICIOS -->
+
+<div id="servicios" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title ">Lista de rutinas</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+
+            <div class="card-body">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table id="" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                            <thead class="text-nowrap">
+                                <th>Rutina</th>
+                                <th>Días para cambio </th>
+                                <th>Kilometraje para cambio</th>
+                            </thead>
+                            <tbody id="" class="text-nowrap">
+                                <?php foreach ($Servicios as $key => $value) : ?>
+                                    <tr>
+                                        <td><?= $value['servicio'] ?></td>
+                                        <td><?= $value['dias_cambio'] ?></td>
+                                        <td><?= $value['kilometraje_cambio'] ?></td>
+                                    </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MODAL CON LISTA DE SERVICIOS X VEHICULO -->
+<div id="serviciosxvehiculo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title ">Rutinas realizadas</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+
+            <div class="card-body">
+                <div class="col-12">
+                    <div class="table-responsive">
+                        <table id="" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                            <thead class="text-nowrap">
+                                <th>Rutina</th>
+                                <th>Kilometraje actual</th>
+                                <th>Kilometraje para cambio</th>
+                                <th>Fecha para cambio</th>
+                            </thead>
+                            <tbody id="tbodyserviciosxvehiculoprogramacion" class="text-nowrap">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL QUE CARGA SOLICITUDES POR VEHÍCULO  -->
+<!-- <div id="solicitudessxvehiculo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title ">Solicitudes</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+
+            <div class="card-body">
+                <div class="col-12">
+                    <div class="table-responsive" id="">
+                        <table id="table-evidenciasprogramacion" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                            <thead class="text-nowrap">
+                                <th>Fecha</th>
+                                <th>Imágenes de evidencia</th>
+                                <th>Observaciones</th>
+                                <th>Estado</th>
+                                <th>Autor</th>
+                            </thead>
+                            <tbody id="tbodyevidenciasprogramacion" class="text-nowrap">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- MODAL PARA GUARDAR PROGRAMACIÓN -->
+<!-- <div id="Programacion" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <Title class="modal-title"><b><i>Actualizar</i></b>
+                    <i class="far fa-edit"></i>
+                    </h5>
+                    <button class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="card-body">
+                <div class="row">
+
+                    <div class="col-3 ">
+                        <div class="form-group text-center">
+                            <label><i>Placa</i></label>
+                            <select id="placa_programacion" name="" class="form-control select2-single" type="number" style="height: 99%" required>
+                                <option selected value="">Seleccione un vehículo</option>
+                                <?php foreach ($Placas as $key => $value) : ?>
+                                    <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?> </option>
+                                <?php endforeach ?>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-3 ">
+                        <div class="form-group text-center">
+                            <label><i>Número interno</i></label>
+                            <input type="text" class="form-control form-control-sm" id="num_interno_progra" name="num_interno_progra" required readonly>
+                        </div>
+                    </div>
+
+
+                    <div class="col-3 ">
+                        <div class="form-group text-center">
+                            <label><i>Marca</i></label>
+                            <input type="text" class="form-control form-control-sm" id="marca_progra" name="marca_progra" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-3 ">
+                        <div class="form-group text-center">
+                            <label><i>Clase de vehículo</i></label>
+                            <input type="text" class="form-control form-control-sm" id="tipo_vehiculo_progra" name="tipo_vehiculo_progra" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-3 ">
+                        <div class="form-group text-center">
+                            <label><i>Modelo</i></label>
+                            <input type="text" class="form-control form-control-sm" id="modelo_progra" name="modelo_progra" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-3 ">
+                        <div class="form-group text-center">
+                            <label><i>Kilometraje</i></label>
+                            <input type="number" class="form-control form-control-sm" id="kilometraje_progra" name="kilometraje_progra" required readonly>
+                        </div>
+                    </div>
+
+                    <div class="col-3 ">
+                        <div class="form-group text-center">
+                            <label><i>Fecha programación</i></label>
+                            <input type="date" class="form-control form-control-sm" id="fecha_progra" name="fecha_progra">
+                        </div>
+                    </div>
+
+                    <div class="col-3">
+                        <div class="form-group text-center">
+                            <label>Tiempo mantenimiento</label>
+                            <input type="number" class="form-control form-control-sm" id="tiempo_progra" name="tiempo_progra">
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<div id="Programacion" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title"><b><i>Actualizar</i></b>
+                    <i class="far fa-edit"></i>
+                </h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="card-body">
+                <form id="Guardarprogramacion_form" method="post" enctype="multipart/form-data">
+                <div class="row">
+
+                        <div class="col-3 ">
+                            <div class="form-group text-center">
+                                <label><i>Placa</i></label>
+                                <select id="placa_programacion" name="placa_programacion" class="form-control" type="number" style="height: 99%" readonly required>
+                                    <option selected value="">Seleccione un vehículo</option>
+                                    <?php foreach ($Placas as $key => $value) : ?>
+                                        <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?> </option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-3 ">
+                            <div class="form-group text-center">
+                                <label><i>Número interno</i></label>
+                                <input type="text" class="form-control form-control-sm" id="num_interno_progra" name="num_interno_progra"  readonly>
+                            </div>
+                        </div>
+
+
+                        <div class="col-3 ">
+                            <div class="form-group text-center">
+                                <label><i>Marca</i></label>
+                                <input type="text" class="form-control form-control-sm" id="marca_progra" name="marca_progra"  readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-3 ">
+                            <div class="form-group text-center">
+                                <label><i>Clase de vehículo</i></label>
+                                <input type="text" class="form-control form-control-sm" id="tipo_vehiculo_progra" name="tipo_vehiculo_progra"  readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-3 ">
+                            <div class="form-group text-center">
+                                <label><i>Modelo</i></label>
+                                <input type="text" class="form-control form-control-sm" id="modelo_progra" name="modelo_progra"  readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-3 ">
+                            <div class="form-group text-center">
+                                <label><i>Kilometraje</i></label>
+                                <input type="number" class="form-control form-control-sm" id="kilometraje_progra" name="kilometraje_progra" required  readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-3 ">
+                            <div class="form-group text-center">
+                                <label><i>Fecha programación</i></label>
+                                <input type="date" class="form-control form-control-sm" id="fecha_progra" name="fecha_progra">
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-group text-center">
+                                <label>Tiempo mantenimiento</label>
+                                <input type="number" class="form-control form-control-sm" id="tiempo_progra" name="tiempo_progra">
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group text-center">
+                                <label>Descripción</label>
+                                <input type="text" class="form-control form-control-sm" id="descripcion_progra" name="descripcion_progra" readonly>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group text-center">
+                                <label>Observación</label>
+                                <textarea rows="3" cols="3" class="form-control form-control-sm" id="observacion_progra" name="observacion_progra"> </textarea>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </form>
+
+
+
+
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" form="Guardarprogramacion_form" class="btn btn-success">Guardar</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+
         </div>
     </div>
 </div>

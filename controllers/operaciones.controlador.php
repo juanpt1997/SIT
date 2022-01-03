@@ -260,13 +260,26 @@ class ControladorAlistamiento
     static public function ctrActualizarEstado($idevidencia, $estadoActual, $observaciones)
     {
         $nuevoEstado = $estadoActual == "RESUELTO" ? "PENDIENTE" : "RESUELTO";
+        $fecha_actual = date("Y-m-d");
 
-        $datos = array(
-            'idevidencia' => $idevidencia,
-            'observaciones' => $observaciones,
-            'estado' => $nuevoEstado
-        );
-        $respuesta = ModeloAlistamiento::mdlActualizarEstado($datos);
+        if($nuevoEstado == "RESUELTO"){
+            $datos = array(
+                'idevidencia' => $idevidencia,
+                'observaciones' => $observaciones,
+                'estado' => $nuevoEstado,
+                'fecha_actual' => $fecha_actual
+            );
+            $respuesta = ModeloAlistamiento::mdlActualizarEstado($datos);
+        }else{
+            $datos = array(
+                'idevidencia' => $idevidencia,
+                'observaciones' => $observaciones,
+                'estado' => $nuevoEstado,
+                'fecha_actual' => null
+            );
+            $respuesta = ModeloAlistamiento::mdlActualizarEstado($datos);
+        }
+
         return $respuesta;
     }
 }
@@ -289,6 +302,11 @@ class ControladorRodamientos
     {
         if (isset($_POST['id_rodamiento'])) {
 
+            $contratofijo = $_POST["contratofijo"] == "" ? null : $_POST["contratofijo"];
+		    $contratante = $_POST["contratante"] == "" ? null : $_POST["contratante"];
+
+            var_dump($_POST);
+            
             $datos = array(
                 'id_rodamiento' => $_POST['id_rodamiento'],
                 'ruta' => $_POST['idruta'],
@@ -306,6 +324,11 @@ class ControladorRodamientos
                 'h_inicio' => $_POST['h_inicio'],
                 'h_final' => $_POST['h_final'],
                 'kmrecorrido' => $_POST['kmrecorrido'],
+
+                'contratofijo' => $contratofijo,
+                'contratante' => $contratante,
+                'tipocontrato' => $_POST['tipocontrato'],
+                'valortotal' => $_POST['valor_total']
             );
 
             if ($_POST['id_rodamiento'] == "") {

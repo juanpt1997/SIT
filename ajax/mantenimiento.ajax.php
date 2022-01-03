@@ -9,6 +9,7 @@ require_once '../controllers/vehicular.controlador.php';
 require_once '../models/vehicular.modelo.php';
 require_once '../models/conceptos.modelo.php';
 require_once '../models/compras.modelo.php';
+require_once '../models/almacen.modelo.php';
 
 if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok") {
     echo "<script>window.location = 'inicio';</script>";
@@ -184,28 +185,30 @@ class AjaxMantenimientos
 
     static public function ajaxListadoProductos($consecutivo)
     {
-        $respuesta = ModeloMantenimientos::mdlListadoProductos();
+        $respuesta = ModeloProductos::mdlListarInventario();
         $tr = "";
 
         foreach ($respuesta as $key => $value) {
+            // <td>
+            //     <div class='btn-group' role='group' aria-label='Button group'>
+            //     <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' c referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' inventario ='{$value["idinventario"]}' valor='{$value["precio_compra"]}' nombre_proveedor='{$value["nombre_proveedor"]}' idproveedor='{$value["idproveedor"]}' class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
+            //     </div>
+            //     </td>
             $tr .= "
             <tr>
                 <td>
                 <div class='btn-group' role='group' aria-label='Button group'>
-                <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' idproducto='{$value["idproducto"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' inventario ='{$value["idinventario"]}' valor='{$value["precio_compra"]}' nombre_proveedor='{$value["nombre_proveedor"]}' idproveedor='{$value["idproveedor"]}' class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
+                <button type='button' class='btn btn-success btn-md btn-SucursalesProducto' idproducto='{$value["idproducto"]}' consecutivo='{$consecutivo}' title='lista repuestos' data-toggle='modal' data-target='#sucursalesProductos'><i class='fas fa-map-marker-alt'></i></button>
                 </div>
                 </td>
+                <td>" . $value['descripcion'] . "</td>
                 <td>" . $value['codigo']  . "</td>
                 <td>" . $value['referencia'] . "</td>
                 <td>" . $value['stock'] . "</td>
-                <td>" . $value['sucursal'] . "</td>
                 <td>" . $value['posicion'] . "</td>
-                <td>" . $value['descripcion'] . "</td>
                 <td>" . $value['categoria'] . "</td>
                 <td>" . $value['marca'] . "</td>
                 <td>" . $value['medida'] . "</td>
-                <td>" . $value['precio_compra'] . "</td>
-                <td>" . $value['nombre_proveedor'] . "</td>
             </tr>
             
             ";
@@ -358,10 +361,9 @@ class AjaxMantenimientos
 
     static public function ajaxGuardarEditarOrdenServicio($datos)
     {
-        
+
         $respuesta = ControladorMantenimientos::ctrAgregarEditarOrden($datos);
         echo $respuesta;
-        
     }
 
     /* ===================================================
@@ -394,7 +396,7 @@ class AjaxMantenimientos
         $serviciosExt = ControladorMantenimientos::ctrServiciosExt($idorden);
 
 
-        $datos=[
+        $datos = [
             'datosOrden' => $datosOrden,
             'repuestosOrden' => $repuestosOrden,
             'manoObraOrden' => $manoObra,
@@ -402,7 +404,8 @@ class AjaxMantenimientos
         ];
 
 
-        echo json_encode($datos); 
+
+        echo json_encode($datos);
     }
 
     /* ===================================================
@@ -410,13 +413,13 @@ class AjaxMantenimientos
     ===================================================*/
     static public function ajaxListaServicios($consecutivo, $seccion)
     {
-        $respuesta = ModeloVehiculos::mdlListadoServicios();
+        $respuesta = ModeloVehiculos::mdlListadoServicios("tipo");
         $opciones = "";
         foreach ($respuesta as $key => $value) {
-            
-            $opciones .="
+
+            $opciones .= "
             <tr>
-            <td> ". $value['servicio'] ." </td>
+            <td> " . $value['servicio'] . " </td>
             <td>
                 <div class='btn-group' role='group' aria-label='Button group'>
 			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar servicio' value='{$value["idservicio"]}' consecutivo = '{$consecutivo}' servicio='{$value['servicio']}' idservicio = '{$value["idservicio"]}' seccion='{$seccion}'   class='btn btn-sm btn-success btn-SeleccionarServicio'><i class='fas fa-check'></i></button>
@@ -426,7 +429,7 @@ class AjaxMantenimientos
 
             // <option value=" .  $value['idservicio'] . " consecutivo=" . $consecutivo ." nombre=". $nombre ." >" . $value['servicio'] . "</option>"
         }
-                        
+
 
         echo $opciones;
     }
@@ -437,15 +440,15 @@ class AjaxMantenimientos
     static public function ajaxListaCuentasContables($consecutivo, $seccion)
     {
         $respuesta = ModeloMantenimientos::mdlListaCuentasContables();
-        $tr = "" ;
+        $tr = "";
 
         foreach ($respuesta as $key => $value) {
-            
+
             $tr .= "
             
             <tr>
-            <td>". $value['num_cuenta'] ."</td>
-            <td>". $value['nombre_cuenta'] ."</td>
+            <td>" . $value['num_cuenta'] . "</td>
+            <td>" . $value['nombre_cuenta'] . "</td>
             <td>
                 <div class='btn-group' role='group' aria-label='Button group'>
 			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar cuenta contable' value='{$value["id"]}' idcuenta='{$value["id"]}' consecutivo = '{$consecutivo}' codigo='{$value['num_cuenta']}' nombre = '{$value["nombre_cuenta"]}' seccion='{$seccion}'   class='btn btn-sm btn-success btn-SeleccionarCuentaContable'><i class='fas fa-check'></i></button>
@@ -468,31 +471,37 @@ class AjaxMantenimientos
         $tr = "";
 
         foreach ($respuesta as $key => $value) {
-            $tr .="
+            $tr .= "
             <tr>
 
-            <td> <button class='btn btn-outline-dark btn-editarOrden' title='Ir a la orden' data-toggle='tooltip' data-placement='top' idorden='{$value['idorden']}'>". $value['idorden'] . "</button></td>
-            <td>". $value['placa'] . "</td>
-            <td>". $value['kilometraje_orden'] . "</td>
-            <td>". $value['cliente'] . "</td>
-            <td>". $value['factura'] . "</td>
-            <td>". $value['municipio'] . "</td>
-            <td>". $value['Ffecha_entrada'] . "</td>
-            <td>". $value['Ffecha_trabajos'] . "</td>
-            <td>". $value['Ffecha_aprobacion'] . "</td>
-            <td>". $value['servicio'] . "</td>
-            <td>". $value['nombre_contacto'] . "</td>
-            <td>". $value['item'] . "</td>
-            <td>". $value['descripcion'] . "</td>
-            <td>". $value['sistema'] . "</td>
-            <td>". $value['cantidad'] . "</td>
-            <td>". $value['valor'] . "</td>
-            <td>". $value['iva'] . "%</td>
-            <td>". $value['total'] . "</td>
-            <td>". $value['mantenimiento'] . "</td>
-            <td>". $value['nombre_cuenta'] . "</td>
-            <td>". $value['num_cuenta'] . "</td>
-            <td><button type='button' class='btn btn-success btn-asume' data-toggle='modal' data-target='#modalAsume' idvehiculo='{$value['idvehiculo']}' idcliente='{$value['idcliente']}' num_cuenta='{$value['num_cuenta']}' nombre_cuenta='{$value['nombre_cuenta']}' total='{$value['total']}' iva='{$value['iva']}' valor='{$value['valor']}' cantidad='{$value['cantidad']}' idorden='{$value['idorden']}'><i class='fas fa-wallet'></i></button></td>
+            <td> <button class='btn btn-outline-dark btn-editarOrden' title='Ir a la orden' data-toggle='tooltip' data-placement='top' idorden='{$value['idorden']}'>" . $value['idorden'] . "</button></td>
+            <td>" . $value['placa'] . "</td>
+            <td>" . $value['kilometraje_orden'] . "</td>
+            <td>" . $value['cliente'] . "</td>
+            <td>" . $value['factura'] . "</td>
+            <td>" . $value['municipio'] . "</td>
+            <td>" . $value['Ffecha_entrada'] . "</td>
+            <td>" . $value['Ffecha_trabajos'] . "</td>
+            <td>" . $value['Ffecha_aprobacion'] . "</td>
+            <td>" . $value['servicio'] . "</td>
+            <td>" . $value['nombre_contacto'] . "</td>
+            <td>" . $value['item'] . "</td>
+            <td>" . $value['descripcion'] . "</td>
+            <td>" . $value['sistema'] . "</td>
+            <td>" . $value['cantidad'] . "</td>
+            <td>" . $value['valor'] . "</td>
+            <td>" . $value['iva'] . "%</td>
+            <td>" . $value['cliente_asume'] . "</td>
+            <td>" . $value['porcentaje_cliente'] . "%</td>
+            <td>" . $value['empresa_asume'] . "</td>
+            <td>" . $value['porcentaje_empresa'] . "%</td>
+            <td>" . $value['contratista_asume'] . "</td>
+            <td>" . $value['porcentaje_contratista'] . "%</td>
+            <td>" . $value['total'] . "</td>
+            <td>" . $value['mantenimiento'] . "</td>
+            <td>" . $value['nombre_cuenta'] . "</td>
+            <td>" . $value['num_cuenta'] . "</td>
+            <td><button type='button' class='btn btn-success btn-asume' data-toggle='modal' data-target='#modalAsume' idvehiculo='{$value['idvehiculo']}' idcliente='{$value['idcliente']}' idcuenta='{$value['idcuenta']}' cliente='{$value['cliente']}' num_cuenta='{$value['num_cuenta']}' nombre_cuenta='{$value['nombre_cuenta']}' total='{$value['total']}' iva='{$value['iva']}' valor='{$value['valor']}' cantidad='{$value['cantidad']}' idorden='{$value['idorden']}' id='{$value['id']}' descripcion='{$value['descripcion']}' ><i class='fas fa-wallet'></i></button></td>
 
 
             </tr>
@@ -506,8 +515,243 @@ class AjaxMantenimientos
     ===================================================*/
     static public function ajaxAsumeVerEmpresa()
     {
-        $respuesta = ModeloConceptosGH::mdlVerEmpresa();
-        echo json_encode( $respuesta);
+        $respuesta = ModeloEmpresaRaiz::mdlVerEmpresa();
+        echo json_encode($respuesta);
+    }
+
+    /* ===================================================
+        LISTA DE SUCURSALES PARA EL PRODUCTO
+    ===================================================*/
+    static public function ajaxListaSucursalesProductos($idproducto, $consecutivo)
+    {
+        $respuesta = ModeloProductos::mdlSucursalesInventario($idproducto);
+        $tr = "";
+
+        foreach ($respuesta as $key => $value) {
+            $tr .= "
+            <tr>
+            <td>
+            <div class='btn-group' role='group' aria-label='Button group'>
+            <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' codigo = '{$value["codigo"]}' referencia='{$value["referencia"]}' descripcion='{$value["descripcion"]}' value='{$value["idproducto"]}' inventario ='{$value["idinventario"]}' valor='{$value["precio_compra"]}' nombre_proveedor='{$value["nombre_proveedor"]}' idproveedor='{$value["idproveedor"]}' class='btn btn-sm btn-success btnSeleccionarProducto'><i class='fas fa-check'></i></button>
+            </div>
+            </td>
+            <td>" . $value['descripcion'] . "</td>
+            <td>" . $value['referencia'] . "</td>
+            <td>" . $value['stock'] . "</td>
+            <td>" . $value['posicion'] . "</td>
+            <td>" . $value['sucursal'] . "</td>
+            <td>" . $value['precio_compra'] . "</td>
+            </tr>
+            
+            ";
+        }
+
+        echo $tr;
+    }
+
+
+    /* ===================================================
+        GUARDAR QUIEN ASUME
+    ===================================================*/
+    static public function ajaxGuardarAsume($datos)
+    {
+
+        $respuesta = ControladorMantenimientos::ctrGuardaAsume($datos);
+        echo $respuesta;
+    }
+
+    /* ===================================================
+        CARGAR DATOS DE QUIÉN ASUME
+    ===================================================*/
+    static public function ajaxCargarAsume($idcontrol)
+    {
+        $respuesta = ModeloMantenimientos::mdlDatosAsume($idcontrol);
+        echo json_encode($respuesta);
+    }
+
+
+    /* ===================================================
+        DATOS DE UNA CUENTA CONTABLE
+    ===================================================*/
+    static public function ajaxCargarDatosCuenta($idcuenta)
+    {
+        $respuesta = ModeloMantenimientos::mdlDatosCuenta($idcuenta);
+        echo json_encode($respuesta);
+    }
+
+    /* ===================================================
+        TABLA PROGRAMACIÓN
+    ===================================================*/
+    static public function ajaxTablaProgramacion()
+    {
+        $respuesta = ControladorMantenimientos::ctrListaProgramacion();
+
+        $placas = array();
+        foreach ($respuesta as $key => $value) {
+            array_push($placas, $value['placa']);
+        }
+
+        //GENERA UN ARRRAY CON LA CANTIDAD DE VECES QUE HAY UNA PLACA 
+        foreach ($placas as $key => $value) {
+            $rowspan = array_count_values($placas);
+        }
+
+        //Array que nos guarda las placas que ya se pusieron en la tabla para así juntar los itemas
+        $repetidas = array();
+        foreach ($respuesta as $key => $value) {
+
+            $tr = "";
+            //Si la placa está en el array es porque ya se hizo una fila de sus datos en la tabla
+            //Entonces se añaden los items a la misma fila, si no hay fila de esa placa
+            //Se crea una nueva fila con todo
+            if (in_array($value['placa'], $repetidas)) {
+                $tr .= "
+                <tr>
+                <td>" . $value['item'] . "</td>
+                </tr>
+                ";
+            } else {
+                array_push($repetidas, $value['placa']);
+                //El $rowspan[$value['placa']]' me devuelve la cantidad de veces que está la misma
+                //Placa en la programación, de ese modo sabemos cuantas filas combinar
+                $tr .= "
+                    <tr>
+                        <td rowspan='{$rowspan[$value['placa']]}'>
+                            <button type='button' class='btn btn-info btn-md btn-serviciosprogramacion' data-toggle='modal' data-target='#servicios'> <i class='fas fa-clipboard-list'></i></button>
+                            <button type='button' class='btn btn-warning btn-md btn-programacionxvehiculo' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#serviciosxvehiculo'> <i class='far fa-calendar-alt'></i> </button>
+                            <button type='button' class='btn btn-success btn-md btn-programacion' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#Programacion'> <i class='far fa-clock'></i></button>
+                            
+                        </td>
+                        <td rowspan='{$rowspan[$value['placa']]}'>" . $value['placa'] . "</td>
+                        <td rowspan='{$rowspan[$value['placa']]}'>" . $value['numinterno'] . "</td>
+                        <td rowspan='{$rowspan[$value['placa']]}'>" . $value['kilometraje_actual'] . "</td>
+                        <td rowspan='{$rowspan[$value['placa']]}'></td>
+                        <td rowspan='{$rowspan[$value['placa']]}'>" . $value['fecha_programacion'] . "</td>
+                        <td>" . $value['item'] . "</td>
+                        <td rowspan='{$rowspan[$value['placa']]}'>" . $value['tiempo_mantenimiento'] . "</td>
+                        <td rowspan='{$rowspan[$value['placa']]}'></td>
+                    </tr>
+
+
+                ";
+            }
+            echo $tr;
+        }
+    }
+
+
+    /* ===================================================
+        TABLA PROGRAMACIÓN POR VEHÍCULO
+    ===================================================*/
+    static public function ajaxTablaProgramacionxVehiculo($idvehiculo)
+    {
+        $respuesta = ModeloMantenimientos::mdlProgramacionxVehiculo($idvehiculo);
+
+        $placas = array();
+        foreach ($respuesta as $key => $value) {
+            array_push($placas, $value['placa']);
+        }
+
+        //GENERA UN ARRRAY CON LA CANTIDAD DE VECES QUE HAY UNA PLACA 
+        foreach ($placas as $key => $value) {
+            $rowspan = array_count_values($placas);
+        }
+
+        //Array que nos guarda las placas que ya se pusieron en la tabla para así juntar los itemas
+        $repetidas = array();
+        foreach ($respuesta as $key => $value) {
+
+
+            
+            $tr = "";
+            //Si la placa está en el array es porque ya se hizo una fila de sus datos en la tabla
+            //Entonces se añaden los items a la misma fila, si no hay fila de esa placa
+            //Se crea una nueva fila con todo
+            if (in_array($value['placa'], $repetidas)) {
+                $fecha_Actual = date('Y-m-d');
+    
+                // VALIDACIÓN SI LA FECHA YA VENCIÓ 
+                if ($fecha_Actual < $value['fecha_comparar']) {
+                    $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
+                } else {
+                    $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
+                }
+    
+                //VALIDACIÓN SI EL KILOMETRAJE YA SE PASÓ
+                if ($value['kilometraje_servicio'] != 0 && $value['kilometraje_actual'] >= $value['kilometraje_cambio']) {
+                    $kilometraje = "<td class='bg-danger'>" . $value['kilometraje_cambio'] .  "</td>";
+                } else {
+                    $kilometraje = "<td class='bg-success'>" . $value['kilometraje_cambio'] .  "</td>";
+                }
+                
+                $tr .= "
+                <tr>
+                <td>" . $value['item'] . "</td>
+                <td>" . $kilometraje . " </td>
+                <td>" . $fecha . " </td>
+                
+                </tr>
+                ";
+            } else {
+                $fecha_Actual = date('Y-m-d');
+    
+                // VALIDACIÓN SI LA FECHA YA VENCIÓ 
+                if ($fecha_Actual < $value['fecha_comparar']) {
+                    $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
+                } else {
+                    $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
+                }
+    
+                //VALIDACIÓN SI EL KILOMETRAJE YA SE PASÓ
+                if ($value['kilometraje_servicio'] != 0 && $value['kilometraje_actual'] >= $value['kilometraje_cambio']) {
+                    $kilometraje = "<td class='bg-danger'>" . $value['kilometraje_cambio'] .  "</td>";
+                } else {
+                    $kilometraje = "<td class='bg-success'>" . $value['kilometraje_cambio'] .  "</td>";
+                }
+
+                array_push($repetidas, $value['placa']);
+                //El $rowspan[$value['placa']]' me devuelve la cantidad de veces que está la misma
+                //Placa en la programación, de ese modo sabemos cuantas filas combinar
+
+
+
+
+                $tr .= "
+                    <tr>
+                        
+                        <td rowspan='{$rowspan[$value['placa']]}'>" . $value['kilometraje_actual'] . "</td>
+                        <td>" . $value['item'] . "</td>
+                        <td>" . $kilometraje . " </td>
+                        <td>" . $fecha . " </td>
+                        <td rowspan='{$rowspan[$value['placa']]}'>" . $value['fecha_programacion'] . " </td>
+                    </tr>
+
+
+                ";
+            }
+            echo $tr;
+        }
+    }
+
+    /* ===================================================
+        DATOS PROGRAMACIÓN POR VEHÍCULO    
+    ===================================================*/
+    static public function ajaxItemsProgramacionxVehiculo($idvehiculo)
+    {
+        $respuesta = ModeloMantenimientos::mdlProgramacionxVehiculo($idvehiculo);
+
+        $str = "";
+
+        foreach ($respuesta as $key => $value) {
+            $str .= "
+            " . $value['item'] . " 
+            ";
+        }
+
+        //ELIMINAMOS SALTOS DE LINEA 
+        $str = trim(preg_replace('/\s+/', ' ', $str));
+
+        echo $str;
     }
 }
 /* ===================================================
@@ -582,19 +826,40 @@ if (isset($_POST['ServiciosxVehiculo']) && $_POST['ServiciosxVehiculo'] == "ok")
 if (isset($_POST['ListaProveedores']) && $_POST['ListaProveedores'] == "ok") AjaxMantenimientos::ajaxListdoProveedores($_POST['consecutivo']);
 
 #LLAMADO A GUARDAR ORDEN DE SERVICIO
-if(isset($_POST['Guardar_OrdenServicio']) && $_POST['Guardar_OrdenServicio'] == "ok") AjaxMantenimientos::ajaxGuardarEditarOrdenServicio($_POST);
+if (isset($_POST['Guardar_OrdenServicio']) && $_POST['Guardar_OrdenServicio'] == "ok") AjaxMantenimientos::ajaxGuardarEditarOrdenServicio($_POST);
 
 #LLAMADO A CARGAR DATOS ORDEN DE SERVICIO
-if(isset($_POST['DatosOrdenServicio']) && $_POST['DatosOrdenServicio'] == "ok") AjaxMantenimientos::ajaxCargarOrden($_POST['idorden']);
+if (isset($_POST['DatosOrdenServicio']) && $_POST['DatosOrdenServicio'] == "ok") AjaxMantenimientos::ajaxCargarOrden($_POST['idorden']);
 
 #LLAMADO A TABLA SERVICIOS
-if(isset($_POST['ListaServicios']) && $_POST['ListaServicios'] == "ok") AjaxMantenimientos::ajaxListaServicios($_POST['consecutivo'], $_POST['seccion']);
+if (isset($_POST['ListaServicios']) && $_POST['ListaServicios'] == "ok") AjaxMantenimientos::ajaxListaServicios($_POST['consecutivo'], $_POST['seccion']);
 
 #LLAMADO A LISTA DE CONTABLES 
-if(isset($_POST['ListaCuentasContables']) && $_POST['ListaCuentasContables'] == "ok") AjaxMantenimientos::ajaxListaCuentasContables($_POST['consecutivo'], $_POST['seccion']);
+if (isset($_POST['ListaCuentasContables']) && $_POST['ListaCuentasContables'] == "ok") AjaxMantenimientos::ajaxListaCuentasContables($_POST['consecutivo'], $_POST['seccion']);
 
 #LLAMADO A CARGAR TABLA DE CONTROL DE ACTIVIDADES 
 if (isset($_POST['TablaControlActividades']) && $_POST['TablaControlActividades'] == "ok") AjaxMantenimientos::ajaxListadoControlActividades();
 
 #LLAMADO A MOSTRAR EMPRESA 
 if (isset($_POST['AsumeVerEmpresa']) && $_POST['AsumeVerEmpresa'] == "ok") AjaxMantenimientos::ajaxAsumeVerEmpresa();
+
+#LLAMADO A LISTA DE SUCURSALES PRODUCTOS
+if (isset($_POST['SucursalesProductos']) && $_POST['SucursalesProductos'] == "ok") AjaxMantenimientos::ajaxListaSucursalesProductos($_POST['idproducto'], $_POST['consecutivo']);
+
+#LLAMADO A GUARDAR QUIEN ASUME 
+if (isset($_POST['GuardarAsume']) && $_POST['GuardarAsume'] == "ok") AjaxMantenimientos::ajaxGuardarAsume($_POST);
+
+#LLAMADO A CARGAR DATOS ASUME 
+if (isset($_POST['DatosAsume']) && $_POST['DatosAsume'] == "ok") AjaxMantenimientos::ajaxCargarAsume($_POST['idcontrol']);
+
+#LLAMADO A CARGAR DATOS DE UNA CUENTA CONTABLE 
+if (isset($_POST['datosCuenta']) && $_POST['datosCuenta'] == "ok") AjaxMantenimientos::ajaxCargarDatosCuenta($_POST['idcuenta']);
+
+#LLAMADO A CARGAR TABLA PROGRAMACIÓN 
+if (isset($_POST['TablaProgramacion']) && $_POST['TablaProgramacion'] == "ok") AjaxMantenimientos::ajaxTablaProgramacion();
+
+#LLAMADO A CARGAR TABLA DE PROGRAMACIÓN POR VEHÍCULO 
+if (isset($_POST['TablaProgramacionxVehiculo']) && $_POST['TablaProgramacionxVehiculo'] == "ok") AjaxMantenimientos::ajaxTablaProgramacionxVehiculo($_POST['idvehiculo']);
+
+#LLAMADO A ITEMS PROGRAMACIÓN POR VEHÍCULO
+if (isset($_POST['ItemsProgramacionxVehiculo']) && $_POST['ItemsProgramacionxVehiculo'] == "ok") AjaxMantenimientos::ajaxItemsProgramacionxVehiculo($_POST['idvehiculo']);

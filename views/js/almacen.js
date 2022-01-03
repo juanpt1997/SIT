@@ -200,13 +200,14 @@ $(document).ready(function () {
             onText: "<i class='fas fa-arrow-alt-circle-down'></i> <strong>ENTRADA</strong>",
             offText: "<i class='fas fa-arrow-alt-circle-up'></i> <strong>SALIDA</strong>",
             onColor: "primary",
-            offColor: "secondary",
+            offColor: "info",
             /* setState: true, */
             onSwitchChange: function (e,state) {
                 console.log("entra" , state);
                 if(state){
                     $("#div_ver_inputs_entradas").addClass("d-none");
                     $("#div_ver_inputs_salidas").removeClass("d-none");
+                    $(".select2-single").val("").trigger("change");
                 }else{
                     $("#div_ver_inputs_entradas").removeClass("d-none");
                     $("#div_ver_inputs_salidas").addClass("d-none");
@@ -1495,6 +1496,16 @@ $(document).ready(function () {
                 $("#actualizar_estado").removeClass("bg-danger");
                 $("#actualizar_estado").addClass("bg-warning");
             }
+        });
+        //BOTON GENERAR PDF ORDEN DE COMPRA 
+        $(document).on('click','.btn_pdf_orden', function () {
+                
+            let id = $(this).attr('idorden');
+            window.open(
+             `./pdf/pdfordencompra?idorden=${id}`,
+             "",
+             "width=1280,height=720,left=50,top=50,toolbar=yes"
+         );
         });
         //BOTON QUE MANTIENE EL CONSECUTIVO AL AGREGAR UN NUEVO PRODUCTO AL EDITAR UNA ORDEN
         $(".btnNuevoProductoEditar").on("click", function () {

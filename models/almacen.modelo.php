@@ -195,10 +195,31 @@ class ModeloProductos
 
     static public function mdlSucursalesInventario($idproducto)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT p.*, i.stock, i.posicion, i.idinventario, s.sucursal FROM a_productos p
-        INNER JOIN a_re_inventario i ON i.idproducto = p.idproducto
-        INNER JOIN gh_sucursales s ON s.ids = i.idsucursal
-        WHERE p.idproducto = :idproducto");
+        // $stmt = Conexion::conectar()->prepare("SELECT p.*, i.stock, i.posicion, i.idinventario, s.sucursal FROM a_productos p
+        // INNER JOIN a_re_inventario i ON i.idproducto = p.idproducto
+        // INNER JOIN gh_sucursales s ON s.ids = i.idsucursal
+        // WHERE p.idproducto = :idproducto");
+
+        $stmt = Conexion::conectar()->prepare("SELECT i.stock, i.posicion, i.idinventario, s.sucursal, p.*, m.medida, mc.marca, ct.categoria,
+                                                mi.preciocompra AS precio_compra, mi.idproveedor,
+                                                prov.razon_social AS nombre_proveedor
+                                                FROM a_re_inventario i
+                                                INNER JOIN gh_sucursales s ON i.idsucursal = s.ids
+                                                INNER JOIN a_productos p ON i.idproducto = p.idproducto
+                                                LEFT JOIN a_medidas m ON p.idmedida = m.idmedidas
+                                                LEFT JOIN a_marcas mc ON p.idmarca = mc.idmarca
+                                                LEFT JOIN a_categorias ct ON p.idcategoria = ct.idcategorias
+                                                LEFT JOIN a_re_movimientoinven mi ON mi.idinventario = i.idinventario
+                                                LEFT JOIN c_proveedores prov ON prov.id = mi.idproveedor
+                                                WHERE (mi.idmovimiento, mi.idinventario) 
+                                                        IN (
+                                                            SELECT MAX(mi1.idmovimiento), mi1.idinventario
+                                                            FROM a_re_movimientoinven mi1
+                                                            WHERE mi1.tipo_movimiento = 'ENTRADA' AND mi1.preciocompra IS NOT NULL
+                                                            GROUP BY mi1.idinventario
+                                                            )
+                                                            AND p.idproducto = :idproducto
+                                                GROUP BY mi.idinventario");
 
         $stmt->bindParam(":idproducto", $idproducto, PDO::PARAM_INT);
 
@@ -499,6 +520,23 @@ class ModeloProductos
         $retorno =  $stmt->fetch();
         $stmt->closeCursor();
         return $retorno;
+    }
+
+    /* ===================================================
+        CONSULTAR STOCK
+    ===================================================*/
+    static public function mdlConsultarStock($idinventario)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT i.stock FROM a_re_inventario i
+        WHERE i.idinventario = :idinventario
+        ");
+
+        $stmt->bindParam(":idinventario", $idinventario, PDO::PARAM_INT);
+        $stmt->execute();
+        $retorno =  $stmt->fetch();
+        $stmt->closeCursor();
+        return $retorno;
+
     }
     
 }

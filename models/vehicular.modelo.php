@@ -629,7 +629,18 @@ class ModeloVehiculos
                                                 WHERE rec.idvehiculo = v.idvehiculo AND cv.activo = 1
                                                 -- ORDER BY cv.fecha_terminacion DESC
                                                 ORDER BY rec.fecha_creacion DESC
-                                                LIMIT 1) AS idcontratista
+                                                LIMIT 1) AS idcontratista,
+                                                
+                                                (
+                                                SELECT emv.nombre
+                                                FROM v_convenios cv
+                                                INNER JOIN v_re_convenios rec ON cv.idconvenio = rec.idconvenio
+                                                INNER JOIN v_empresas_convenios emv ON cv.idcontratista = emv.idxc
+                                                WHERE rec.idvehiculo = v.idvehiculo AND cv.activo = 1
+                                                -- ORDER BY cv.fecha_terminacion DESC
+                                                ORDER BY rec.fecha_creacion DESC
+                                                LIMIT 1) AS contratista
+                                                
                                                 FROM v_vehiculos v
                                                 LEFT JOIN v_tipovehiculos t ON t.idtipovehiculo = v.idtipovehiculo
                                                 LEFT JOIN v_marcas m ON m.idmarca = v.idmarca
@@ -717,9 +728,15 @@ class ModeloVehiculos
         LISTADO DE SERVICOS MENORES
     ===================================================*/
 
-    static public function mdlListadoServicios()
+    static public function mdlListadoServicios($tipo = NULL)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT sm.* FROM m_serviciosmenores sm WHERE sm.estado = 1");
+        if($tipo == NULL ){
+            $sql = "SELECT sm.* FROM m_serviciosmenores sm WHERE sm.estado = 1 AND sm.tipo = 1";
+        }else{
+            $sql = "SELECT sm.* FROM m_serviciosmenores sm WHERE sm.estado = 1 ";
+        }
+
+        $stmt = Conexion::conectar()->prepare($sql);
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();

@@ -568,13 +568,15 @@ class ModeloAlistamiento
         $conexion = Conexion::conectar();
         $stmt = $conexion->prepare("UPDATE `o_re_alistamientoevidencias` SET 
             `estado` = :estado,
-            `observaciones` = :observaciones
+            `observaciones` = :observaciones,
+            `fecha_solucion` = :fecha_solucion
+
             WHERE `idevidencia`=:idevidencia");
 
         $stmt->bindParam(":idevidencia", $datos['idevidencia'], PDO::PARAM_INT);
         $stmt->bindParam(":observaciones", $datos['observaciones'], PDO::PARAM_STR);
         $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_STR);
-
+        $stmt->bindParam(":fecha_solucion", $datos['fecha_actual'], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             $respuesta = "ok";
@@ -591,8 +593,8 @@ class ModeloRodamiento
 {
     static public function mdlAgregarRodamiento($datos)
     {
-        $stmt = Conexion::conectar()->prepare("INSERT INTO o_rodamiento(idvehiculo,idconductor,idcliente,idruta,h_inicio,h_final,kmrecorridos,cantidad_pasajeros,tipo_servicio,fecha_servicio)
-                                                VALUES(:idvehiculo,:idconductor,:idcliente,:idruta,:h_inicio,:h_final,:kmrecorridos,:cantidad_pasajeros,:tipo_servicio,:fecha_servicio)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO o_rodamiento(idvehiculo,idconductor,idcliente,idruta,h_inicio,h_final,kmrecorridos,cantidad_pasajeros,tipo_servicio,fecha_servicio,tipo_contrato,contratante,contratofijo,valortotal)
+                                                VALUES(:idvehiculo,:idconductor,:idcliente,:idruta,:h_inicio,:h_final,:kmrecorridos,:cantidad_pasajeros,:tipo_servicio,:fecha_servicio,:tipo_contrato,:contratante,:contratofijo,:valortotal)");
 
         $stmt->bindParam(":idvehiculo", $datos["vehiculo"], PDO::PARAM_INT);
         $stmt->bindParam(":idconductor", $datos["conductor"], PDO::PARAM_INT);
@@ -604,6 +606,11 @@ class ModeloRodamiento
         $stmt->bindParam(":cantidad_pasajeros", $datos["cantidad_pasa"], PDO::PARAM_INT);
         $stmt->bindParam(":tipo_servicio", $datos["tipo_serv"], PDO::PARAM_STR);
         $stmt->bindParam(":fecha_servicio", $datos["fecha_serv"], PDO::PARAM_STR);
+
+        $stmt->bindParam(":tipo_contrato", $datos["tipocontrato"], PDO::PARAM_STR);
+        $stmt->bindParam(":contratante", $datos["contratante"], PDO::PARAM_INT);
+        $stmt->bindParam(":contratofijo", $datos["contratofijo"], PDO::PARAM_INT);
+        $stmt->bindParam(":valortotal", $datos["valortotal"], PDO::PARAM_INT);
 
 
         if ($stmt->execute()) {
@@ -621,7 +628,7 @@ class ModeloRodamiento
     static public function mdlEditarRodamiento($datos)
     {
 
-        $stmt = Conexion::conectar()->prepare("UPDATE o_rodamiento set idvehiculo = :idvehiculo, idconductor = :idconductor, idcliente = :idcliente, idruta = :idruta, h_inicio = :h_inicio, h_final = :h_final, kmrecorridos = :kmrecorridos, cantidad_pasajeros = :cantidad_pasajeros, tipo_servicio = :tipo_servicio, fecha_servicio = :fecha_servicio
+        $stmt = Conexion::conectar()->prepare("UPDATE o_rodamiento set idvehiculo = :idvehiculo, idconductor = :idconductor, idcliente = :idcliente, idruta = :idruta, h_inicio = :h_inicio, h_final = :h_final, kmrecorridos = :kmrecorridos, cantidad_pasajeros = :cantidad_pasajeros, tipo_servicio = :tipo_servicio, fecha_servicio = :fecha_servicio,tipo_contrato=:tipo_contrato,contratante=:contratante,contratofijo=:contratofijo,valortotal=:valortotal
                                                WHERE id = :id");
 
         $stmt->bindParam(":id", $datos["id_rodamiento"], PDO::PARAM_INT);
@@ -635,6 +642,11 @@ class ModeloRodamiento
         $stmt->bindParam(":cantidad_pasajeros", $datos["cantidad_pasa"], PDO::PARAM_INT);
         $stmt->bindParam(":tipo_servicio", $datos["tipo_serv"], PDO::PARAM_STR);
         $stmt->bindParam(":fecha_servicio", $datos["fecha_serv"], PDO::PARAM_STR);
+
+        $stmt->bindParam(":tipo_contrato", $datos["tipocontrato"], PDO::PARAM_STR);
+        $stmt->bindParam(":contratante", $datos["contratante"], PDO::PARAM_INT);
+        $stmt->bindParam(":contratofijo", $datos["contratofijo"], PDO::PARAM_INT);
+        $stmt->bindParam(":valortotal", $datos["valortotal"], PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $retorno = "ok";
@@ -719,6 +731,22 @@ class ModeloRodamiento
         $stmt->closeCursor();
         $stmt = null;
 
+        return $retorno;
+    }
+
+    static public function mdlValorRecorrido($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT rc.valor_recorrido from o_re_rutasclientes rc
+                                                WHERE rc.idcliente = :idcliente AND rc.idruta = :idruta AND rc.idtipovehiculo = :idtipovehiculo");
+
+        $stmt->bindParam(":idcliente", $datos['idcliente'], PDO::PARAM_INT);
+        $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
+        $stmt->bindParam(":idtipovehiculo", $datos['idtipovehiculo'], PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno =  $stmt->fetch();
+
+        $stmt->closeCursor();
         return $retorno;
     }
 }
