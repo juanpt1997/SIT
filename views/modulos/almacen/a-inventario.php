@@ -320,7 +320,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tabla_productos">
+                                <table class="table table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_productos">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
@@ -350,7 +350,7 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tabla_inventario">
+                                <table class="table table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_inventario">
                                     <thead>
                                         <!-- <tr>
                                             <th colspan="8">PRODUCTOS</th>
@@ -418,7 +418,7 @@
                 <div class="card" id="card_historial">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tabla_historial">
+                            <table class="table table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_historial">
                                 <thead>
                                     <tr>
                                         <th>...</th>
@@ -461,7 +461,7 @@
                 <div class="card card-success" id="card_sucursales">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tabla_sucursales">
+                            <table class="table table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_sucursales">
                                 <thead>
                                     <tr>
                                         <th>...</th>
@@ -733,6 +733,8 @@
                                                 <th>Forma de pago</th>
                                                 <th>Tipo de compra</th>
                                                 <th>Cotizaciones</th>
+                                                <th>Persona que aprueba</th>
+                                                <th>Fecha de aprobación</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tbody_tablaOrdenes">

@@ -280,7 +280,7 @@
                                           <div class="info-box border border-dark">
                                               <span class="info-box-icon bg-dark elevation-1"><i class="fas fa-warehouse"></i>
                                                   <div class="info-box-content">
-                                                      <span class="info-box-text font-weight-bold text-dark">Almacen</span>
+                                                      <span class="info-box-text font-weight-bold text-dark">Almacén</span>
                                                   </div>
                                                   <!-- /.info-box-content -->
                                           </div>
@@ -293,7 +293,7 @@
                                           <div class="info-box border border-dark">
                                               <span class="info-box-icon bg-dark elevation-1"><i class="fas fa-warehouse"></i></span>
                                               <div class="info-box-content">
-                                                  <span class="info-box-text font-weight-bold text-dark">Almacen</span>
+                                                  <span class="info-box-text font-weight-bold text-dark">Almacén</span>
                                               </div>
                                               <!-- /.info-box-content -->
                                           </div>

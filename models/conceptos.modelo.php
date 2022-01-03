@@ -42,11 +42,11 @@ class ModeloConceptosGenerales
     static public function mdlEditar($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("UPDATE {$datos['tabla']} SET {$datos['item']} = :{$datos['item']}
-            WHERE {$datos['idtabla']} = :{$datos['id']}");
+        $stmt = $conexion->prepare("UPDATE {$datos['tabla']} SET {$datos['item']} = :{$datos ['item']}
+            WHERE {$datos['idtabla']} = :{$datos['idtabla']}");
 
         $stmt->bindParam(":" . $datos['item'], $datos['valor'], PDO::PARAM_STR);
-        $stmt->bindParam(":" . $datos['id'], $datos["id"], PDO::PARAM_INT);
+        $stmt->bindParam(":" . $datos['idtabla'], $datos["id"], PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $retorno = "ok";
@@ -172,15 +172,36 @@ class ModeloConceptosGenerales
     //Modelo Verificar existencia de un registro
     static public function mdlVerificarExistencia($datos)
     {
-        $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("SELECT * FROM {$datos['tabla']} WHERE {$datos['item']} = :{$datos['valor']}");
 
-        $stmt->bindParam(":" . $datos['valor'], $datos["valor"], PDO::PARAM_STR);
+        $sql = "SELECT * FROM {$datos['tabla']} WHERE {$datos['item']} = :{$datos['item']}";
+        $stmt = Conexion::conectar()->prepare($sql);
+
+        $stmt->bindParam(":" . $datos['item'], $datos["valor"], PDO::PARAM_STR);
 
         $stmt->execute();
         $respuesta =  $stmt->fetch();
         $stmt->closeCursor();
         return $respuesta;
+    }
+
+    static public function mdlActivarExistencia($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("UPDATE {$datos['tabla']} SET estado = 1
+            WHERE {$datos['item']} = :{$datos['item']}");
+
+        $stmt->bindParam(":" . $datos['item'], $datos['valor'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
     }
 }
 /*=============================================================

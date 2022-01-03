@@ -368,7 +368,7 @@ class ModeloProductos
 
     static public function mdlEditarOrden($datos)
     {
-        $stmt = Conexion::conectar()->prepare("UPDATE a_orden_compra set idproveedor=:idproveedor, num_cotizacion=:num_cotizacion, forma_pago=:forma_pago, tipo_compra=:tipo_compra, direccion_entrega=:direccion_entrega, observaciones=:observaciones, estado_orden=:estado_orden
+        $stmt = Conexion::conectar()->prepare("UPDATE a_orden_compra set idproveedor=:idproveedor, num_cotizacion=:num_cotizacion, forma_pago=:forma_pago, tipo_compra=:tipo_compra, direccion_entrega=:direccion_entrega, observaciones=:observaciones, estado_orden=:estado_orden, usuario_aprueba=:usuario_aprueba, fecha_aprobacion=:fecha_aprobacion
                                                WHERE idorden = :idorden");
 
         $stmt->bindParam(":idorden", $datos["idorden"], PDO::PARAM_INT);
@@ -379,6 +379,8 @@ class ModeloProductos
         $stmt->bindParam(":direccion_entrega", $datos["direccion_entrega"], PDO::PARAM_STR);
         $stmt->bindParam(":observaciones", $datos["observaciones"], PDO::PARAM_STR);
         $stmt->bindParam(":estado_orden", $datos["estado_orden"], PDO::PARAM_STR);
+        $stmt->bindParam(":usuario_aprueba", $datos["usuario_aprueba"], PDO::PARAM_INT);
+        $stmt->bindParam(":fecha_aprobacion", $datos["fecha_aprobacion"], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             $id = $datos["idorden"];
@@ -396,8 +398,10 @@ class ModeloProductos
     {
         if ($idorden != null) {
 
-            $stmt = Conexion::conectar()->prepare("SELECT o.*, p.razon_social FROM a_orden_compra o
+            $stmt = Conexion::conectar()->prepare("SELECT o.*, p.razon_social, p.documento, p.nombre_contacto, p.direccion, p.telefono, m.municipio
+            FROM a_orden_compra o
             INNER JOIN c_proveedores p ON p.id = o.idproveedor
+            INNER JOIN gh_municipios m ON m.idmunicipio = p.idciudad
             WHERE o.idorden = :idorden");
 
             $stmt->bindParam(":idorden",  $idorden, PDO::PARAM_INT);
@@ -405,8 +409,10 @@ class ModeloProductos
             $retorno =  $stmt->fetch();
         } else {
 
-            $stmt = Conexion::conectar()->prepare("SELECT o.*, p.razon_social FROM a_orden_compra o
-            INNER JOIN c_proveedores p ON p.id = o.idproveedor ORDER BY o.fecha_elaboracion DESC");
+            $stmt = Conexion::conectar()->prepare("SELECT o.*, p.razon_social, u.Nombre as usuario FROM a_orden_compra o
+            INNER JOIN c_proveedores p ON p.id = o.idproveedor 
+            LEFT JOIN l_usuarios u ON u.Cedula = o.usuario_aprueba
+            ORDER BY o.fecha_elaboracion DESC");
 
             $stmt->execute();
             $retorno =  $stmt->fetchAll();

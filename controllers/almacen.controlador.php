@@ -68,7 +68,7 @@ class ControladorAlmacen
             'observaciones' => $datos['observaciones'],
             'estado_orden' => $datos['actualizar_estado']
         );
-
+        
         if (isset($datos['idorden_compra']) && $datos['idorden_compra'] == "") {
 
             $idorden = ModeloProductos::mdlAgregarOrden($datosGuardar);
@@ -86,8 +86,18 @@ class ControladorAlmacen
             $retorno = "agregado";
         } else {
 
-            $idorden = ModeloProductos::mdlEditarOrden($datosGuardar);
-
+            if($datosGuardar['estado_orden'] == "APROBADA"){
+                $fecha_actual = date("Y-m-d");
+                $datosGuardar['fecha_aprobacion'] = $fecha_actual;
+                $datosGuardar['usuario_aprueba'] = $_SESSION['cedula'];
+                //EDITAR ORDEN APROBADA CON SU FECHA ACTUAL DE APROBACION Y USUARIO QUE APRUEBA
+                $idorden = ModeloProductos::mdlEditarOrden($datosGuardar);
+            }else{
+                $datosGuardar['usuario_aprueba'] = null;
+                $datosGuardar['fecha_aprobacion'] = null;
+                //EDITAR ORDEN QUE NO ES DE ESTADO APROBADA
+                $idorden = ModeloProductos::mdlEditarOrden($datosGuardar);
+            }
             // if ($_POST['idregistroproducto'] == "") {
             //     if (isset($datos['idproducto'])) {
             //         foreach ($datos['idproducto'] as $key => $value) {
@@ -204,7 +214,19 @@ class ControladorAlmacen
         CREAMOS DIRECTORIO DONDE VAMOS A GUARDAR EL ARCHIVO
         ================================================ */
         # Verificar Directorio imagenes inventario cotizaciones
-        $directorio = DIR_APP . "views/img/imgCotizacionesInventario";
+        $directorio = DIR_APP . "views/img/imgAlmacen";
+        if (!is_dir($directorio)) {
+            mkdir($directorio, 0755);
+        }
+
+        # Verificar Directorio Evidencias
+        $directorio .= "/CotizacionesInventario";
+        if (!is_dir($directorio)) {
+            mkdir($directorio, 0755);
+        }
+
+        # Verificar Directorio vehículo
+        $directorio .= "/orden{$idorden}";
         if (!is_dir($directorio)) {
             mkdir($directorio, 0755);
         }
