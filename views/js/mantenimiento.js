@@ -1424,9 +1424,9 @@ $(document).ready(function () {
             $("#filas_tabla_repuestoSolicitud tr:last").remove();
         });
 
-        //CARGAR TABLA PROGRAMACION POR VEHICULO
+        //CARGAR TABLA SERVICIOS POR VEHICULO
 
-        let AjaxTablaProgramacionxVehiculo = (idvehiculo) => {
+        let AjaxTablaServiciosxVehiculo = (idvehiculo) => {
             // Quitar datatable
             $("#tablaProgramacionServ").dataTable().fnDestroy();
             // Borrar datos
@@ -1504,14 +1504,54 @@ $(document).ready(function () {
             });
         };
 
+        /*===================================================
+         FUNCION PARA CARGAR TABLA PROGRAMACION POR VEHÍCULO
+        =====================================================*/
+        const AjaxTablaProgramacionxVehiculo = (idvehiculo) => {
+
+
+             // Quitar datatable
+             $("#tablaProgramacionServ").dataTable().fnDestroy();
+             // Borrar datos
+             $("#tbodyProgramacionServ").html("");
+ 
+            var datos = new FormData();
+             datos.append("TablaProgramacionxVehiculo", "ok");
+             datos.append("idvehiculo", idvehiculo);
+             $.ajax({
+                 type: "post",
+                 url: "ajax/mantenimiento.ajax.php",
+                 data: datos,
+                 // dataType: "JSON",
+                 cache: false,
+                 contentType: false,
+                 processData: false,
+                 success: function (response) {
+                     if (response != "" || response != null) {
+                         $("#tbodyProgramacionServ").html(response);
+                     } else {
+                         $("#tbodyProgramacionServ").html("");
+                     }
+ 
+                     /* ===================================================
+                    INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                    ===================================================*/
+                     // var buttons = [
+                     //   { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                     // ];
+                     // var table = dataTableCustom(`#tablaProgramacionServ`, buttons);
+                 },
+             });
+        };
 
         // CARGAR DATOS DEL VEHICULO
         $(document).on("change", "#placa_OrdServ", function () {
             let fecha_actual = moment().format("YYYY-MM-DD");
             let idvehiculo = $(this).val();
 
+            //CARGAR TABLA DE PROGRAMACIÓN POR VEHÍCULO 
             AjaxTablaProgramacionxVehiculo(idvehiculo);
-            AjaxTablaEvidenciasOrden(idvehiculo);
+            // AjaxTablaEvidenciasOrden(idvehiculo);
 
 
 
@@ -3128,6 +3168,28 @@ $(document).ready(function () {
         });
 
 
+        /*===================================================================
+             MUESTRA EL BOTON DE CREAR SOLICITUD SOLO CUANDO ESTÁ EN EL TAB
+        =====================================================================*/
+        $(document).on("click","#v-pills-repuestos-tab", function (){
+            $("#btn-crearSolicitud").removeClass("invisible");
+            $("#btn-crearSolicitud").addClass("visible");
+        });
+
+        $(document).on("click", "#v-pills-diagnostico-tab", function(){
+            $("#btn-crearSolicitud").addClass("invisible");
+            $("#btn-crearSolicitud").RemoveClass("visible");
+        });
+
+
+        $(document).on("click", "#v-pills-general-tab", function(){
+            $("#btn-crearSolicitud").addClass("invisible");
+            $("#btn-crearSolicitud").RemoveClass("visible");
+        });
+
+
+
+
         /*============================================
             PROGRAMACIÓN
         ==============================================*/
@@ -3160,9 +3222,9 @@ $(document).ready(function () {
                         $(`#tbodyevidenciasprogramacion`).html("");
                     }
 
-                    /* ===================================================
-                                        INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-                                        ===================================================*/
+                        /* ===================================================
+                            INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                        ===================================================*/
                     var buttons = [
                         {
                             extend: "excel",
@@ -3224,6 +3286,9 @@ $(document).ready(function () {
             AjaxTablaEvidencias(idvehiculo);
         });
 
+        /*============================================
+            CARGAR DATOS DEL VEHÍCULO
+        ==============================================*/
         $(document).on("change", "#placa_programacion", function(){
             let idvehiculo = $(this).val();
 
@@ -3241,7 +3306,6 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    console.log(response);
 
                     let vehiculo = response.datosVehiculo;
 
@@ -3255,7 +3319,102 @@ $(document).ready(function () {
             });
             
         });
+        
+        /*============================================
+         CARGAR TABLA DE PROGRAMACIÓN 
+        ==============================================*/
+        $(document).on("click","#pills-programacion-tab", function (){
+
+            var datos = new FormData();
+            datos.append("TablaProgramacion", "ok");
+
+                
+            $.ajax({
+                type: "post",
+                url: "ajax/mantenimiento.ajax.php",
+                data: datos,
+                // dataType: "JSON",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbodyprogramacion").html(response);
+                    } else {
+                        $("#tbodyprogramacion").html("");
+                    }
+
+                    /* ===================================================
+                   INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                   ===================================================*/
+                    // var buttons = [
+                    //   { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    // ];
+                    // var table = dataTableCustom(`#tablaProgramacionServ`, buttons);
+                },
+            });  
+
+        });
+
+        /*=============================================================
+            CARGAR DATOS DEL VEHÍCULO CUANDO ABRAN MODAL DE PROGRAMACION
+        ==============================================================*/
+        $(document).on("click", ".btn-programacion", function(){
+            let idvehiculo = $(this).attr("idvehiculo");
+
+            $("#placa_programacion").val(idvehiculo).trigger("change");
+
+            var datos = new FormData();
+             datos.append("ItemsProgramacionxVehiculo", "ok");
+             datos.append("idvehiculo", idvehiculo);
+             $.ajax({
+                 type: "post",
+                 url: "ajax/mantenimiento.ajax.php",
+                 data: datos,
+                 // dataType: "JSON",
+                 cache: false,
+                 contentType: false,
+                 processData: false,
+                 success: function (response) {
+                     $("#descripcion_progra").val(response);
+                 },
+             });
+
+        });
+
+        /*============================================
+            GUARDAR PROGRAMACIÓN 
+        ==============================================*/
+        $("#Guardarprogramacion_form").submit(function (e) {
+            e.preventDefault();
+
+            var datosFrm = $(this).serializeArray();
+
+            var datos = new FormData();
+            datos.append("GuardarProgramacion", "ok");
+
+            datosFrm.forEach((element) => {
+                datos.append(element.name, element.value);
+            });
+
+            
 
 
+            // $.ajax({
+            //     type: "post",
+            //     url: "ajax/mantenimiento.ajax.php",
+            //     data: datos,
+            //     // dataType: "JSON",
+            //     cache: false,
+            //     contentType: false,
+            //     processData: false,
+            //     success: function (response) {
+                   
+            //     },
+            // }); 
+
+
+            
+        });
     }
 });
