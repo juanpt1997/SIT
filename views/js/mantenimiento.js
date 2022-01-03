@@ -7,8 +7,8 @@ $(document).ready(function () {
         window.location.href == `${urlPagina}m-inventario`
     ) {
         /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    CONDUCTORES SEGUN LA PLACA DEL VEHICULO
-    ==========================================================================*/
+        CONDUCTORES SEGUN LA PLACA DEL VEHICULO
+        ==========================================================================*/
         $(document).on("change", "#placa_invent", function () {
             $(".documentos").val("").removeClass("bg-danger bg-success");
             let idvehiculo = $(this).val();
@@ -43,6 +43,31 @@ $(document).ready(function () {
                     cargarFotosVehiculo(Vehiculo.fotosVehiculo);
                     //CAMBIAR INVENTARIO SEGUN EL TIPO DE VEHICULO
                     inventario_tipo_vel(Vehiculo.datosVehiculo.tipovehiculo);
+                    //FOTO DE LLANTAS SEGUN EL TIPO DE VEHICULO QUE VENGA
+                    if(Vehiculo.datosVehiculo.tipovehiculo == "Camioneta" || Vehiculo.datosVehiculo.tipovehiculo == "Campero" || Vehiculo.datosVehiculo.tipovehiculo == "Camioneta Doble Cabina" || Vehiculo.datosVehiculo.tipovehiculo == "Automovil")
+                    {
+                        $("#llantas_camioneta").removeClass("d-none");
+                        $("#llantas_bus").addClass("d-none");
+                        $("#llantas_buseta").addClass("d-none");
+                        $("#llantas_micro").addClass("d-none");
+                    } else if(Vehiculo.datosVehiculo.tipovehiculo == "Bus" || Vehiculo.datosVehiculo.tipovehiculo == "Buseton"){
+                        $("#llantas_bus").removeClass("d-none");
+                        $("#llantas_camioneta").addClass("d-none");
+                        $("#llantas_buseta").addClass("d-none");
+                        $("#llantas_micro").addClass("d-none");
+
+                    } else if(Vehiculo.datosVehiculo.tipovehiculo == "Buseta"){
+                        $("#llantas_buseta").removeClass("d-none");
+                        $("#llantas_bus").addClass("d-none");
+                        $("#llantas_camioneta").addClass("d-none");
+                        $("#llantas_micro").addClass("d-none");
+                        
+                    } else if(Vehiculo.datosVehiculo.tipovehiculo == "Microbus"){
+                        $("#llantas_micro").removeClass("d-none");
+                        $("#llantas_bus").addClass("d-none");
+                        $("#llantas_buseta").addClass("d-none");
+                        $("#llantas_camioneta").addClass("d-none");
+                    }
                 },
             });
 
@@ -1634,8 +1659,8 @@ $(document).ready(function () {
                         });
                     });
                     /* ===================================================
-              INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-            ===================================================*/
+                    INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                    ===================================================*/
                     var buttons = [
                         {
                             extend: "excel",

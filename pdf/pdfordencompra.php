@@ -21,19 +21,13 @@ date_default_timezone_set('America/Bogota');
 # SE REQUIERE EL AUTOLOAD
 require '../vendor/autoload.php';
 # REQUERIMOS EL CONTROLADOR Y EL MODELO PARA HACER USO DE LA INFORMACIÓN
-require '../controllers/mantenimiento.controlador.php';
-require '../models/mantenimiento.modelo.php';
+require '../models/almacen.modelo.php';
 require '../models/conceptos.modelo.php';
-require '../controllers/vehicular.controlador.php';
-require '../controllers/operaciones.controlador.php';
-require '../models/vehicular.modelo.php';
-require '../models/operaciones.modelo.php';
 $empresa = ModeloEmpresaRaiz::mdlVerEmpresa();
-$ServiciosExternos = ControladorMantenimientos::ctrServiciosExt($idorden);
-$Repuestos = ControladorMantenimientos::ctrRepuestosOrden($idorden);
-$OrdenServicios = ControladorMantenimientos::ctrCargarOrdenServicio($idorden);
-$ManoObra = ControladorMantenimientos::ctrManoObraOrden($idorden);
+$ordencompra = ModeloProductos::mdlListarOrdenes($idorden);
+$productos = ModeloProductos::mdlDatosProductoOrden($idorden);
 
+//var_dump($productos);
 /* ===================== 
   CONFIGURACIÓN DEL HEADER Y FOOTER EN EL ARCHIVO PDF 
 ========================= */
@@ -76,8 +70,22 @@ class AlmacenPDF
     /* ===========================================
       GENERACION DE ARCHIVOS PDF DE LA ORDEN
     ============================================*/
-    static public function ordenCompra()
+    static public function ordenCompra($empresa, $orden, $productos)
     {
+        /*====================================================
+            LISTADO DE PRODUCTOS A INSERTAR EN UNA TABLA HTML 
+        ====================================================*/
+        $tr="";
+        foreach ($productos as $key => $value) {
+            $tr .= "
+            <tr>
+                <td style='text-align: center;'>".$value['descripcion']."</td>
+                <td style='text-align: center;'>".$value['referencia']."</td>
+                <td style='text-align: center;'>".$value['codigo']."</td>
+                <td style='text-align: center;'>".$value['cantidad']."</td>
+            </tr>
+            ";
+        }
         /* ===================== 
             UTILIZANDO LA VERSION DE TCPDF PARA GENERAR EL ARCHIVO 
         ========================= */
@@ -151,7 +159,7 @@ class AlmacenPDF
         /* ===================================================
            TITULO ALISTAMIENTO
         ===================================================*/
-        $pdf->SetFont('helvetica', 'B', '8');
+        $pdf->SetFont('Times', 'B', '8');
         //Ancho de texto y de pagina
         $anchoTexto = 130;
         $anchoPaginaMM = $pdf->getPageWidth();
@@ -159,116 +167,123 @@ class AlmacenPDF
         $x = ($anchoPaginaMM / 2) - ($anchoTexto / 2);
         $y = $pdf->GetY() + 15;
         //Titulo principal
-        $pdf->MultiCell(130, 5, 'SOLICITUD DE SERVICIO', 0, 'C', 0, 1, $x, $y, true);
+        $pdf->MultiCell(130, 5, 'ORDEN DE COMPRA', 0, 'C', 0, 1, $x, $y, true);
         $pdf->MultiCell(130, 5, $empresa['razon_social'], 0, 'C', 0, 1, $x, '', true);
-        $pdf->SetFont('helvetica', '', '8');
+        $pdf->SetFont('Times', '', '8');
         $pdf->Ln(3);
         //NIT
-        $pdf->SetFont('helvetica', 'B', '8');
-        $pdf->MultiCell(130, 5, "NIT:", 0, 'C', 0, 1, $x, '', true);
-        $pdf->SetFont('helvetica', 'I', '8');
+        $pdf->SetFont('Times', 'B', '8');
+        $pdf->MultiCell(130, 5, "NIT", 0, 'C', 0, 1, $x, '', true);
+        $pdf->SetFont('Times', 'I', '8');
         $pdf->MultiCell(130, 5, $empresa['nit'], 0, 'C', 0, 1, $x, '', true);
         $pdf->Ln(3);
+        //NUMERO DE ORDEN
+        $pdf->SetFont('Times', 'B', '8');
+        $pdf->MultiCell(130, 5, "N° Orden", 0, 'C', 0, 1, $x, '', true);
+        $pdf->SetFont('Times', 'I', '8');
+        $pdf->MultiCell(130, 5, $orden['idorden'], 0, 'C', 0, 1, $x, '', true);
+        $pdf->Ln(3);
+        //DIRECCION
+        $pdf->SetFont('Times', 'B', '8');
+        $pdf->MultiCell(130, 5, "Dirección de entrega", 0, 'C', 0, 1, $x, '', true);
+        $pdf->SetFont('Times', 'I', '8');
+        $pdf->MultiCell(130, 5, $orden['direccion_entrega'], 0, 'C', 0, 1, $x, '', true);
+        $pdf->Ln(3);
 
-        //DATOS DEL VEHICULO
-        #Placa
+        $pdf->writeHTML("<hr>");
+
+        //DATOS DE LA ORDEN
         $pdf->SetFont('helvetica', 'B', '8');
-        $pdf->MultiCell(30, 5, "Placa:", 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(30, 5, "Tipo de compra:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(100, 5, $orden['placa'], 0, 'L', 0, 0, '', '', true);
-        # Marca
+        $pdf->MultiCell(80, 5, $orden['tipo_compra'], 0, 'L', 0, 0, '', '', true);
+
         $pdf->SetFont('helvetica', 'B', '8');
-        $pdf->MultiCell(20, 5, "Marca:", 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(35, 5, "Fecha de elaboración:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(100, 5, $orden['marca'], 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(45, 5, $orden['fecha_elaboracion'], 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
 
-        #Numero interno
         $pdf->SetFont('helvetica', 'B', '8');
-        $pdf->MultiCell(30, 5, "Número interno:", 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(30, 5, "Forma de pago:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(100, 5, $orden['numinterno'], 0, 'L', 0, 0, '', '', true);
-        # Modelo
-        $pdf->SetFont('helvetica', 'B', '8');
-        $pdf->MultiCell(20, 5, "Modelo:", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(100, 5, $orden['modelo'], 0, 'L', 0, 0, '', '', true);
-        $pdf->Ln();
+        $pdf->MultiCell(80, 5, $orden['forma_pago'], 0, 'L', 0, 0, '', '', true);
 
-        #clase de vehiculo
         $pdf->SetFont('helvetica', 'B', '8');
-        $pdf->MultiCell(30, 5, "Clase de vehículo:", 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(35, 5, "Observaciones:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(100, 5, $orden['tipovehiculo'], 0, 'L', 0, 0, '', '', true);
-        # kilometraje
-        $pdf->SetFont('helvetica', 'B', '8');
-        $pdf->MultiCell(20, 5, "Kilometraje:", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(100, 5, $orden['kilometraje'], 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(45, 5, $orden['observaciones'], 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
-
-        #Fecha entrada
-        $pdf->SetFont('helvetica', 'B', '8');
-        $pdf->MultiCell(30, 5, "Fecha de entrada:", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(100, 5, $orden['Ffecha_entrada'], 0, 'L', 0, 0, '', '', true);
-        #Orden de servicio
-        $pdf->SetFont('helvetica', 'B', '8');
-        $pdf->MultiCell(20, 5, "N° Orden:", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(100, 5, $orden['idorden'], 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
         $pdf->Ln();
 
-        /* ===================================================
-           ORDEN SERVICIO PRINCIPAL
-        ===================================================*/
-        //TABLA
-        // $tabla =
-        //     '<table cellspacing="0" cellpadding="5" border="1">
-        //     <tbody>
-        //     <tr>
-        //     <td colspan="6" style="text-align: center;"><strong>DESCRIPCIÓN</strong></td>
-        //     <td colspan="6" class="text-center" style="text-align: center;"><strong>SERVICIOS EXTERNOS</strong></td>
-        //     </tr>
+        $pdf->writeHTML("<hr>");
 
-        //     <tr>
-        //     <td colspan="6" style="text-align: center;">' . $orden['diagnostico'] . '</td>
-        //     <td colspan="6" class="text-center" style="text-align: center;">'.$p.'</td>
-        //     </tr>
-        //     </tbody>  
-        // </table>
-        // ';
+        $pdf->SetFont('Times', 'B', '9');
+        $pdf->MultiCell(30, 5, "Vendedor:", 0, 'L', 0, 0, '', '', true);
+        $pdf->Ln();
+        $pdf->Ln();
 
-        // $pdf->SetFont('helvetica', '', '8');
-        // $pdf->writeHTML($tabla);
+        $pdf->SetFont('helvetica', 'B', '8');
+        $pdf->MultiCell(30, 5, "Razón social:", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '8');
+        $pdf->MultiCell(80, 5, $orden['razon_social'], 0, 'L', 0, 0, '', '', true);
 
-        // $pdf->SetFont('helvetica', 'B', '10');
-        // $pdf->Cell(0, 0, "REPUESTOS", 0, 0, 'C', 0, '', 0);
-        // $pdf->Ln();
-        // $pdf->Ln();
+        $pdf->SetFont('helvetica', 'B', '8');
+        $pdf->MultiCell(35, 5, "Dirección:", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '8');
+        $pdf->MultiCell(45, 5, $orden['direccion'], 0, 'L', 0, 0, '', '', true);
+        $pdf->Ln();
 
-        // $tabla2 =
-        //     '<table cellspacing="0" cellpadding="5" border="1">
-        //     <thead>
+        $pdf->SetFont('helvetica', 'B', '8');
+        $pdf->MultiCell(30, 5, "Contacto:", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '8');
+        $pdf->MultiCell(80, 5, $orden['nombre_contacto'], 0, 'L', 0, 0, '', '', true);
 
-        //     <tr>
-        //         <th style="text-align: center;">NOMBRE</th>
-        //         <th style="text-align: center;">REFERENCIA</th>
-        //         <th style="text-align: center;">CÓDIGO</th>
-        //         <th style="text-align: center;">VALOR</th>
-        //     </tr>
+        $pdf->SetFont('helvetica', 'B', '8');
+        $pdf->MultiCell(35, 5, "Documento:", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '8');
+        $pdf->MultiCell(45, 5, $orden['documento'], 0, 'L', 0, 0, '', '', true);
+        $pdf->Ln();
 
-        //     </thead>
+        $pdf->SetFont('helvetica', 'B', '8');
+        $pdf->MultiCell(30, 5, "Teléfono:", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '8');
+        $pdf->MultiCell(80, 5, $orden['telefono'], 0, 'L', 0, 0, '', '', true);
 
-        //     <tbody>
-        //         '.$tr.'
-        //     </tbody>  
-        // </table>
-        // ';
+        $pdf->SetFont('helvetica', 'B', '8');
+        $pdf->MultiCell(35, 5, "Ubicación:", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '8');
+        $pdf->MultiCell(45, 5, $orden['municipio'], 0, 'L', 0, 0, '', '', true);
+        $pdf->Ln();
+        $pdf->Ln();
+        $pdf->Ln();
 
-        // $pdf->SetFont('helvetica', '', '8');
-        // $pdf->writeHTML($tabla2);
+        $pdf->writeHTML("<hr>");
+
+        $pdf->SetFont('Times', 'B', '9');
+        $pdf->MultiCell(30, 5, "Productos:", 0, 'L', 0, 0, '', '', true);
+        $pdf->Ln();
+        $pdf->Ln();
+
+
+        $tabla_productos =
+            '<table cellspacing="0" cellpadding="5" border="1">
+                <thead>
+                    <tr>
+                        <th style="text-align: center;"><strong>NOMBRE</strong></th>
+                        <th style="text-align: center;"><strong>REFERENCIA</strong></th>
+                        <th style="text-align: center;"><strong>CÓDIGO</strong></th>
+                        <th style="text-align: center;"><strong>CANTIDAD</strong></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    '.$tr.'
+                </tbody>  
+            </table>';
+
+        $pdf->SetFont('Times', '', '8');
+        $pdf->writeHTML($tabla_productos);
         // Close and output PDF document
         // This method has several options, check the source code documentation for more information.
         $pdf->Output('OrdenCompra', 'I');
@@ -277,7 +292,4 @@ class AlmacenPDF
         //============================================================+
     }
 }
-
-AlmacenPDF::ordenCompra();
-
-
+AlmacenPDF::ordenCompra($empresa, $ordencompra, $productos);
