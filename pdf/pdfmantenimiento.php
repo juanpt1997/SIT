@@ -28,7 +28,7 @@ require '../controllers/vehicular.controlador.php';
 require '../controllers/operaciones.controlador.php';
 require '../models/vehicular.modelo.php';
 require '../models/operaciones.modelo.php';
-$empresa = ModeloConceptosGH::mdlVerEmpresa();
+$empresa = ModeloEmpresaRaiz::mdlVerEmpresa();
 
 $ServiciosExternos = ControladorMantenimientos::ctrServiciosExt($idorden);
 $Repuestos = ControladorMantenimientos::ctrRepuestosOrden($idorden);
