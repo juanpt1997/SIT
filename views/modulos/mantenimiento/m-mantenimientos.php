@@ -346,12 +346,13 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                         <div class="row">
                                                                             <div class="col-lg-12 col-sm-12 justify-content-center">
                                                                                 <div class="table-responsive">
-                                                                                    <table id="tablaProgramacionServ" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                                                                                    <table id="tablaProgramacionServ" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover">
                                                                                         <thead class="text-nowrap">
                                                                                             <th>Kilometraje</th>
                                                                                             <th>Actividad</th>
                                                                                             <th>Kilometraje para cambio</th>
                                                                                             <th>Fecha para cambio</th>
+                                                                                            <th>Evidencia</th>
                                                                                             <th>Fecha de programación</th>
                                                                                         </thead>
                                                                                         <tbody id="tbodyProgramacionServ" class="text-nowrap">
@@ -1798,7 +1799,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-success">
-                <h5 class="modal-title ">Lista de rutinas</h5>
+                <h5 class="modal-title ">Lista de rutinas <i class="far fa-list-alt"></i></h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -1853,6 +1854,8 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                 <th>Kilometraje actual</th>
                                 <th>Kilometraje para cambio</th>
                                 <th>Fecha para cambio</th>
+                                <th>Evidencia</th>
+                                <th>Fecha programación</th>
                             </thead>
                             <tbody id="tbodyserviciosxvehiculoprogramacion" class="text-nowrap">
                             </tbody>
@@ -1991,7 +1994,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-success">
-                <h5 class="modal-title"><b><i>Actualizar</i></b>
+                <h5 class="modal-title"><b><i>Solicitud de mantenimiento</i></b>
                     <i class="far fa-edit"></i>
                 </h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
@@ -2001,7 +2004,8 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
 
             <div class="card-body">
                 <form id="Guardarprogramacion_form" method="post" enctype="multipart/form-data">
-                <div class="row">
+                    <input type="hidden" id="idsolicitud" name="idsolicitud">
+                    <div class="row">
 
                         <div class="col-3 ">
                             <div class="form-group text-center">
@@ -2018,7 +2022,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                         <div class="col-3 ">
                             <div class="form-group text-center">
                                 <label><i>Número interno</i></label>
-                                <input type="text" class="form-control form-control-sm" id="num_interno_progra" name="num_interno_progra"  readonly>
+                                <input type="text" class="form-control form-control-sm" id="num_interno_progra" name="num_interno_progra" readonly>
                             </div>
                         </div>
 
@@ -2026,50 +2030,57 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                         <div class="col-3 ">
                             <div class="form-group text-center">
                                 <label><i>Marca</i></label>
-                                <input type="text" class="form-control form-control-sm" id="marca_progra" name="marca_progra"  readonly>
+                                <input type="text" class="form-control form-control-sm" id="marca_progra" name="marca_progra" readonly>
                             </div>
                         </div>
 
                         <div class="col-3 ">
                             <div class="form-group text-center">
                                 <label><i>Clase de vehículo</i></label>
-                                <input type="text" class="form-control form-control-sm" id="tipo_vehiculo_progra" name="tipo_vehiculo_progra"  readonly>
+                                <input type="text" class="form-control form-control-sm" id="tipo_vehiculo_progra" name="tipo_vehiculo_progra" readonly>
                             </div>
                         </div>
 
                         <div class="col-3 ">
                             <div class="form-group text-center">
                                 <label><i>Modelo</i></label>
-                                <input type="text" class="form-control form-control-sm" id="modelo_progra" name="modelo_progra"  readonly>
+                                <input type="text" class="form-control form-control-sm" id="modelo_progra" name="modelo_progra" readonly>
                             </div>
                         </div>
 
                         <div class="col-3 ">
                             <div class="form-group text-center">
                                 <label><i>Kilometraje</i></label>
-                                <input type="number" class="form-control form-control-sm" id="kilometraje_progra" name="kilometraje_progra" required  readonly>
+                                <input type="number" class="form-control form-control-sm" id="kilometraje_progra" name="kilometraje_progra" required readonly>
                             </div>
                         </div>
 
                         <div class="col-3 ">
                             <div class="form-group text-center">
                                 <label><i>Fecha programación</i></label>
-                                <input type="date" class="form-control form-control-sm" id="fecha_progra" name="fecha_progra">
+                                <input type="date" class="form-control form-control-sm" id="fecha_progra" name="fecha_progra" required>
                             </div>
                         </div>
 
                         <div class="col-3">
                             <div class="form-group text-center">
-                                <label>Tiempo mantenimiento</label>
+                                <label>Tiempo mantenimiento (Días)</label>
                                 <input type="number" class="form-control form-control-sm" id="tiempo_progra" name="tiempo_progra">
                             </div>
                         </div>
-                        <div class="col-3">
+                        <input type="hidden" class="form-control form-control-sm" id="descripcion_progra" name="descripcion_progra" readonly>
+
+                        <div class="col-3 ">
                             <div class="form-group text-center">
-                                <label>Descripción</label>
-                                <input type="text" class="form-control form-control-sm" id="descripcion_progra" name="descripcion_progra" readonly>
+                                <label><i>Estado</i></label>
+                                <select id="estado_programacion" name="estado_programacion" class="form-control" type="number" style="height: 99%" required>
+                                    <option></option>
+                                    <option>NUEVO</option>
+                                    <option>REPROGRAMADO</option>
+                                </select>
                             </div>
                         </div>
+
                         <div class="col-3">
                             <div class="form-group text-center">
                                 <label>Observación</label>
@@ -2081,7 +2092,28 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                     </div>
                 </form>
 
+                <hr class="my-4 bg-dark">
 
+                <div class="row">
+                    <div class="col-lg-12 col-sm-12 justify-content-center">
+                        <div class="table-responsive">
+                            <table id="tablaProgramacionSolicitud" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover">
+                                <thead class="text-nowrap">
+                                    <th>Kilometraje</th>
+                                    <th>Actividad</th>
+                                    <th>Kilometraje para cambio</th>
+                                    <th>Fecha para cambio</th>
+                                    <th>Evidencia</th>
+                                    <th>Fecha de programación</th>
+                                </thead>
+                                <tbody id="tbodyProgramacionSolicitud" class="text-nowrap">
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
 
 

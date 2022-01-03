@@ -2582,7 +2582,7 @@ class ModeloMantenimientos
     ===================================================*/
     static public function mdlListaProgramacion()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT v.*, sv.idsolicitud, sv.fecha_programacion, sv.tiempo_mantenimiento, sv.estado AS estadoSolicitud FROM view_m_programacionvehiculos v
+        $stmt = Conexion::conectar()->prepare("SELECT v.*, sv.idsolicitud, sv.fecha_programacion, sv.tiempo_mantenimiento, sv.estado AS estadoSolicitud, sv.fecha_solicitud, sv.observacion FROM view_m_programacionvehiculos v
         LEFT JOIN m_re_solicitudesvehiculo sv ON sv.idvehiculo = v.idvehiculo
         WHERE (sv.idsolicitud, v.idvehiculo, v.item)
                 IN (select MAX(sv1.idsolicitud), v1.idvehiculo, v1.item FROM
@@ -2590,7 +2590,7 @@ class ModeloMantenimientos
                 LEFT JOIN m_re_solicitudesvehiculo sv1 ON sv1.idvehiculo = v1.idvehiculo
                 GROUP BY v1.idvehiculo, v1.item
                 ) OR sv.idsolicitud IS NULL
-        ORDER BY v.placa ASC, v.fecha_comparar DESC;");
+        ORDER BY v.placa ASC, v.fecha_comparar DESC");
 
         $stmt->execute();
         $respuesta = $stmt->fetchAll();
@@ -2603,7 +2603,7 @@ class ModeloMantenimientos
     ===================================================*/
     static public function mdlProgramacionxVehiculo($idvehiculo)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT v.*, sv.idsolicitud, sv.fecha_programacion, sv.tiempo_mantenimiento, sv.estado AS estadoSolicitud FROM view_m_programacionvehiculos v
+        $stmt = Conexion::conectar()->prepare("SELECT v.*, sv.idsolicitud, sv.fecha_programacion, sv.tiempo_mantenimiento, sv.estado AS estadoSolicitud, sv.fecha_solicitud, sv.observacion FROM view_m_programacionvehiculos v
         LEFT JOIN m_re_solicitudesvehiculo sv ON sv.idvehiculo = v.idvehiculo
         WHERE (sv.idsolicitud, v.idvehiculo, v.item)
                 IN (select MAX(sv1.idsolicitud), v1.idvehiculo, v1.item FROM
@@ -2612,13 +2612,77 @@ class ModeloMantenimientos
                 WHERE v.idvehiculo = :idvehiculo
                 GROUP BY v1.idvehiculo, v1.item
                 ) OR (sv.idsolicitud IS NULL AND v.idvehiculo = :idvehiculo)
-        ORDER BY v.placa ASC, v.fecha_comparar DESC;");
+        ORDER BY v.placa ASC, v.fecha_comparar DESC");
 
         $stmt->bindParam(":idvehiculo", $idvehiculo, PDO::PARAM_INT);
         $stmt->execute();
         $respuesta = $stmt->fetchAll();
         $stmt->closeCursor();
         return $respuesta;
+    }
 
+    /* ===================================================
+        GUARDAR SOLICITUD DE PROGRAMACIÓN
+    ===================================================*/
+    static public function mdlGuardarSolicitudProgramacion($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_solicitudesvehiculo(idvehiculo,descripcion,fecha_programacion,tiempo_mantenimiento,estado,observacion )
+        VALUES(:idvehiculo,:descripcion, :fecha_programacion, :tiempo_mantenimiento, :estado, :observacion)");
+
+        $stmt->bindParam(":idvehiculo", $datos['placa_programacion'], PDO::PARAM_INT);
+        $stmt->bindParam(":descripcion", $datos['descripcion_progra'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_programacion", $datos['fecha_progra'], PDO::PARAM_STR);
+        $stmt->bindParam(":tiempo_mantenimiento", $datos['tiempo_progra'], PDO::PARAM_INT);
+        $stmt->bindParam(":estado", $datos['estado_programacion'], PDO::PARAM_STR);
+        $stmt->bindParam(":observacion", $datos['observacion_progra'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        DATOS DE SOLICITUD DE PROGRAMACION POR ID SOLICITUD
+    ===================================================*/
+    static public function mdlDatosSolicitudProgramacion($idsolicitud)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM m_re_solicitudesvehiculo WHERE idsolicitud = :idsolicitud");
+
+        $stmt->bindParam(":idsolicitud", $idsolicitud, PDO::PARAM_INT);
+        $stmt->execute();
+        $respuesta = $stmt->fetch();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
+
+    /* ===================================================
+        ACTUALIZAR ESTADO SOLICITUD PROGRAMACION
+    ===================================================*/
+    static public function mdlActualizarEstadoSolicitudProgramacion($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE m_re_solicitudesvehiculo SET 
+        estado = :estado
+        WHERE idsolicitud =:idsolicitud");
+
+        $stmt->bindParam(":idsolicitud", $datos['idsolicitud'], PDO::PARAM_INT);
+        $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+        
+        return $retorno;
     }
 }

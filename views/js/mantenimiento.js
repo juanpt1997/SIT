@@ -1436,7 +1436,6 @@ $(document).ready(function () {
             });
         };
 
-
         /*=========================================================================
             FUNCION PARA CARGAR EVIDENCIAS DEL VEHICULO EN ORDEN DE SERVICIO
         ========================================================================*/
@@ -1482,41 +1481,39 @@ $(document).ready(function () {
         /*===================================================
          FUNCION PARA CARGAR TABLA PROGRAMACION POR VEHÍCULO
         =====================================================*/
-        const AjaxTablaProgramacionxVehiculo = (idvehiculo) => {
+        const AjaxTablaProgramacionxVehiculo = (idvehiculo, tbody) => {
+            // Quitar datatable
+            //  $("#tablaProgramacionServ").dataTable().fnDestroy();
+            // Borrar datos
+            $("#tbodyProgramacionServ").html("");
 
-
-             // Quitar datatable
-             $("#tablaProgramacionServ").dataTable().fnDestroy();
-             // Borrar datos
-             $("#tbodyProgramacionServ").html("");
- 
             var datos = new FormData();
-             datos.append("TablaProgramacionxVehiculo", "ok");
-             datos.append("idvehiculo", idvehiculo);
-             $.ajax({
-                 type: "post",
-                 url: "ajax/mantenimiento.ajax.php",
-                 data: datos,
-                 // dataType: "JSON",
-                 cache: false,
-                 contentType: false,
-                 processData: false,
-                 success: function (response) {
-                     if (response != "" || response != null) {
-                         $("#tbodyProgramacionServ").html(response);
-                     } else {
-                         $("#tbodyProgramacionServ").html("");
-                     }
- 
-                     /* ===================================================
+            datos.append("TablaProgramacionxVehiculo", "ok");
+            datos.append("idvehiculo", idvehiculo);
+            $.ajax({
+                type: "post",
+                url: "ajax/mantenimiento.ajax.php",
+                data: datos,
+                // dataType: "JSON",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $(tbody).html(response);
+                    } else {
+                        $(tbody).html("");
+                    }
+
+                    /* ===================================================
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
-                     // var buttons = [
-                     //   { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
-                     // ];
-                     // var table = dataTableCustom(`#tablaProgramacionServ`, buttons);
-                 },
-             });
+                    // var buttons = [
+                    //   { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    // ];
+                    // var table = dataTableCustom(`#tablaProgramacionServ`, buttons);
+                },
+            });
         };
 
         // CARGAR DATOS DEL VEHICULO
@@ -1524,12 +1521,12 @@ $(document).ready(function () {
             let fecha_actual = moment().format("YYYY-MM-DD");
             let idvehiculo = $(this).val();
 
-            //CARGAR TABLA DE PROGRAMACIÓN POR VEHÍCULO 
-            AjaxTablaProgramacionxVehiculo(idvehiculo);
+            //CARGAR TABLA DE PROGRAMACIÓN POR VEHÍCULO
+            AjaxTablaProgramacionxVehiculo(
+                idvehiculo,
+                "#tbodyProgramacionServ"
+            );
             // AjaxTablaEvidenciasOrden(idvehiculo);
-
-
-
 
             var datos = new FormData();
             datos.append("DatosVehiculo", "ok");
@@ -2927,7 +2924,7 @@ $(document).ready(function () {
             $("#valor_ctrActividades").val(valor);
             $("#iva_ctrActividades").val(iva);
             $("#total_ctrActividades").val(total);
-            $("#nombre_cuenta_ctrActividades").val(idcuenta)
+            $("#nombre_cuenta_ctrActividades").val(idcuenta);
             $("#codigo_cuenta_ctrActividades").val(idcuenta).trigger("change");
             $("#cliente_asume").val(cliente).trigger("change");
             $("#descripcion").val(descripcion);
@@ -3015,7 +3012,7 @@ $(document).ready(function () {
                 `./pdf/pdfmantenimiento.php?idorden=${idorden}&tipo_mantenimiento=orden`,
                 "",
                 "width=1280,height=720,left=50,top=50,toolbar=yes"
-            );     
+            );
         });
         /*============================================
             CALCULOS PARA EL VALOR QUE ASUME CADA PARTE
@@ -3136,39 +3133,34 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    
-                    $("#nombre_cuenta_ctrActividades").val(response.id).trigger("change");
+                    $("#nombre_cuenta_ctrActividades")
+                        .val(response.id)
+                        .trigger("change");
                 },
             });
         });
 
-
         /*===================================================================
              MUESTRA EL BOTON DE CREAR SOLICITUD SOLO CUANDO ESTÁ EN EL TAB
         =====================================================================*/
-        $(document).on("click","#v-pills-repuestos-tab", function (){
+        $(document).on("click", "#v-pills-repuestos-tab", function () {
             $("#btn-crearSolicitud").removeClass("invisible");
             $("#btn-crearSolicitud").addClass("visible");
         });
 
-        $(document).on("click", "#v-pills-diagnostico-tab", function(){
+        $(document).on("click", "#v-pills-diagnostico-tab", function () {
             $("#btn-crearSolicitud").addClass("invisible");
             $("#btn-crearSolicitud").RemoveClass("visible");
         });
 
-
-        $(document).on("click", "#v-pills-general-tab", function(){
+        $(document).on("click", "#v-pills-general-tab", function () {
             $("#btn-crearSolicitud").addClass("invisible");
             $("#btn-crearSolicitud").RemoveClass("visible");
         });
-
-
-
 
         /*============================================
             PROGRAMACIÓN
         ==============================================*/
-
 
         /*============================================
             FUNCION PARA CARGAR TABLA DE EVIDENCIAS DEL VEHÍCULO
@@ -3197,7 +3189,7 @@ $(document).ready(function () {
                         $(`#tbodyevidenciasprogramacion`).html("");
                     }
 
-                        /* ===================================================
+                    /* ===================================================
                             INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                         ===================================================*/
                     var buttons = [
@@ -3207,55 +3199,35 @@ $(document).ready(function () {
                             text: '<i class="far fa-file-excel"></i> Exportar',
                         },
                     ];
-                    var table = dataTableCustom(`#table-evidenciasprogramacion`, buttons);
+                    var table = dataTableCustom(
+                        `#table-evidenciasprogramacion`,
+                        buttons
+                    );
                 },
             });
         };
 
-
         /*============================================
-            CARGA PROGRAMACIÓN VEHÍCULO 
+            CARGA DATOS SOLICITUD PROGRAMACIÓN X VEHÍCULO 
         ==============================================*/
-        $(document).on("click", ".btn-programacionxvehiculo", function(){
-
+        $(document).on("click", ".btn-programacionxvehiculo", function () {
             let idvehiculo = $(this).attr("idvehiculo");
 
-            
+            AjaxTablaProgramacionxVehiculo(
+                idvehiculo,
+                "#tbodyserviciosxvehiculoprogramacion"
+            );
 
-            var datos = new FormData();
-            datos.append("ServiciosxVehiculo", "ok");
-            datos.append("idvehiculo", idvehiculo);
+            let idsolicitud = $(this).attr("idsolicitud");
 
-            $.ajax({
-                type: "post",
-                url: "ajax/mantenimiento.ajax.php",
-                data: datos,
-                // dataType: "JSON",
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    if (response != "" || response != null) {
-                        $("#tbodyserviciosxvehiculoprogramacion").html(response);
-                    } else {
-                        $("#tbodyserviciosxvehiculoprogramacion").html("");
-                    }
+           
 
-                    /* ===================================================
-                   INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-                   ===================================================*/
-                    // var buttons = [
-                    //   { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
-                    // ];
-                    // var table = dataTableCustom(`#tablaProgramacionServ`, buttons);
-                },
-            });            
         });
 
         /*============================================
             CARGAR SOLICITUDES
         ==============================================*/
-        $(document).on("click", ".btn-solicitudesvehiculo", function(){
+        $(document).on("click", ".btn-solicitudesvehiculo", function () {
             let idvehiculo = $(this).attr("idvehiculo");
 
             AjaxTablaEvidencias(idvehiculo);
@@ -3264,7 +3236,7 @@ $(document).ready(function () {
         /*============================================
             CARGAR DATOS DEL VEHÍCULO
         ==============================================*/
-        $(document).on("change", "#placa_programacion", function(){
+        $(document).on("change", "#placa_programacion", function () {
             let idvehiculo = $(this).val();
 
             // Datos del vehiculo
@@ -3281,9 +3253,7 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-
                     let vehiculo = response.datosVehiculo;
-
 
                     $("#num_interno_progra").val(vehiculo.numinterno);
                     $("#marca_progra").val(vehiculo.marca);
@@ -3292,18 +3262,15 @@ $(document).ready(function () {
                     $("#kilometraje_progra").val(vehiculo.kilometraje);
                 },
             });
-            
         });
-        
+
         /*============================================
          CARGAR TABLA DE PROGRAMACIÓN 
         ==============================================*/
-        $(document).on("click","#pills-programacion-tab", function (){
-
+        $(document).on("click", "#pills-programacion-tab", function () {
             var datos = new FormData();
             datos.append("TablaProgramacion", "ok");
 
-                
             $.ajax({
                 type: "post",
                 url: "ajax/mantenimiento.ajax.php",
@@ -3327,69 +3294,91 @@ $(document).ready(function () {
                     // ];
                     // var table = dataTableCustom(`#tablaProgramacionServ`, buttons);
                 },
-            });  
-
+            });
         });
 
-        /*=============================================================
-            CARGAR DATOS DEL VEHÍCULO CUANDO ABRAN MODAL DE PROGRAMACION
-        ==============================================================*/
-        $(document).on("click", ".btn-programacion", function(){
+        /*====================================================================
+        CARGAR DATOS DEL VEHÍCULO CUANDO ABRAN MODAL DE SOLICITUD PROGRAMACION
+        ======================================================================*/
+        $(document).on("click", ".btn-programacion", function () {
             let idvehiculo = $(this).attr("idvehiculo");
+            let idsolicitud = $(this).attr("idsolicitud");
+
+            
+            if(idsolicitud == '' || idsolicitud == null || idsolicitud == undefined)
+            {
+                $("#estado_programacion").val("NUEVO");
+                $("#estado_programacion").attr("readonly", true);
+
+
+                
+            }
+            
+            AjaxTablaProgramacionxVehiculo(idvehiculo,"#tbodyProgramacionSolicitud");
 
             $("#placa_programacion").val(idvehiculo).trigger("change");
 
             var datos = new FormData();
-             datos.append("ItemsProgramacionxVehiculo", "ok");
-             datos.append("idvehiculo", idvehiculo);
-             $.ajax({
-                 type: "post",
-                 url: "ajax/mantenimiento.ajax.php",
-                 data: datos,
-                 // dataType: "JSON",
-                 cache: false,
-                 contentType: false,
-                 processData: false,
-                 success: function (response) {
-                     $("#descripcion_progra").val(response);
-                 },
-             });
-
+            datos.append("ItemsProgramacionxVehiculo", "ok");
+            datos.append("idvehiculo", idvehiculo);
+            $.ajax({
+                type: "post",
+                url: "ajax/mantenimiento.ajax.php",
+                data: datos,
+                // dataType: "JSON",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    $("#descripcion_progra").val(response);
+                },
+            });
         });
 
         /*============================================
-            GUARDAR PROGRAMACIÓN 
+            GUARDAR SOLICITUD PROGRAMACIÓN 
         ==============================================*/
         $("#Guardarprogramacion_form").submit(function (e) {
             e.preventDefault();
 
+            
+
             var datosFrm = $(this).serializeArray();
 
             var datos = new FormData();
-            datos.append("GuardarProgramacion", "ok");
+            datos.append("GuardarSolicitudProgramacion", "ok");
 
             datosFrm.forEach((element) => {
                 datos.append(element.name, element.value);
             });
 
-            
-
-
-            // $.ajax({
-            //     type: "post",
-            //     url: "ajax/mantenimiento.ajax.php",
-            //     data: datos,
-            //     // dataType: "JSON",
-            //     cache: false,
-            //     contentType: false,
-            //     processData: false,
-            //     success: function (response) {
-                   
-            //     },
-            // }); 
-
-
-            
+            $.ajax({
+                type: "post",
+                url: "ajax/mantenimiento.ajax.php",
+                data: datos,
+                // dataType: "JSON",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log(response);
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: "success",
+                            timer: 1500,
+                            title: "Solicitud creada correctamente!",
+                            showConfirmButton: false,
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "¡Ha ocurrido un error, por favor intente de nuevo más tarde!",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                        });
+                    }
+                },
+            });
         });
     }
 });
