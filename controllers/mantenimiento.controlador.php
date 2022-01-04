@@ -725,13 +725,12 @@ class ControladorMantenimientos
 					}
 
 
-					
+
 					//AGREGO LA PROGRAMACIÓN DE REPUESTO
 					if (isset($datos['servicio_repuesto'])) {
 						foreach ($datos['servicio_repuesto'] as $key => $value) {
 
-							if($value != 10 && $datos['servrepuesto'][$key] != "Otros")
-							{
+							if ($value != 10 && $datos['servrepuesto'][$key] != "Otros") {
 								$datos2 = array(
 									'idvehiculo_serv' => $datos['idvehiculo_OrdServ'],
 									'idservicio' => $value,
@@ -741,17 +740,14 @@ class ControladorMantenimientos
 								);
 
 								$respuesta = ModeloMantenimientos::mdlAgregarServicio($datos2);
-
 							}
-
 						}
 					}
 
 					//AGREGO LA PROGRAMACIÓN DE MANO DE OBRA
-					if(isset($datos['servicio_mano'])){
+					if (isset($datos['servicio_mano'])) {
 						foreach ($datos['servicio_mano'] as $key => $value) {
-							if($value != 10 && $datos['servmanoObra'][$key] != "Otros")
-							{
+							if ($value != 10 && $datos['servmanoObra'][$key] != "Otros") {
 								$datos2 = array(
 									'idvehiculo_serv' => $datos['idvehiculo_OrdServ'],
 									'idservicio' => $value,
@@ -762,7 +758,7 @@ class ControladorMantenimientos
 
 								$respuesta = ModeloMantenimientos::mdlAgregarServicio($datos2);
 							}
-						}	
+						}
 					}
 				}
 
@@ -891,7 +887,7 @@ class ControladorMantenimientos
 						}
 					}
 
-					
+
 					//AGREGO LA PROGRAMACIÓN DE REPUESTO 
 					if (isset($datos['servicio_repuesto'])) {
 						$borrar = ModeloMantenimientos::mdlEliminarServicioxOrden($datos['numOrden_ordSer']);
@@ -914,13 +910,12 @@ class ControladorMantenimientos
 
 
 					//AGREGO LA PROGRMACIÓN DE MANO DE OBRA 
-					if(isset($datos['servicio_mano'])){
-						
+					if (isset($datos['servicio_mano'])) {
+
 						if ($borrar != "ok") $borrar = ModeloMantenimientos::mdlEliminarServicioxOrden($datos['numOrden_ordSer']);
-						
+
 						foreach ($datos['servicio_mano'] as $key => $value) {
-							if($value != 10 && $datos['servmanoObra'][$key] != "Otros")
-							{
+							if ($value != 10 && $datos['servmanoObra'][$key] != "Otros") {
 								$datos2 = array(
 									'idvehiculo_serv' => $datos['idvehiculo_OrdServ'],
 									'idservicio' => $value,
@@ -931,7 +926,7 @@ class ControladorMantenimientos
 
 								$respuesta = ModeloMantenimientos::mdlAgregarServicio($datos2);
 							}
-						}	
+						}
 					}
 				}
 
@@ -1151,13 +1146,13 @@ class ControladorMantenimientos
 	/* ===================================================
 		GUARDA QUIEN ASUME 
 	===================================================*/
-	static public function ctrGuardaAsume($datos){
+	static public function ctrGuardaAsume($datos)
+	{
 
 		//VALIDAMOS SI ES UN REPUESTO O UNA MANO DE OBRA 
-		if($datos['descripcion'] == "REPUESTO")
-		{
+		if ($datos['descripcion'] == "REPUESTO") {
 			$respuesta = ModeloMantenimientos::mdlGuardaAsumeRepuesto($datos);
-		}else{
+		} else {
 			$respuesta = ModeloMantenimientos::mdlGuardaAsumeManoObra($datos);
 		}
 
@@ -1172,5 +1167,50 @@ class ControladorMantenimientos
 	{
 		$respuesta = ModeloMantenimientos::mdlListaProgramacion();
 		return $respuesta;
+	}
+
+	/* ===================================================
+		GUARDAR SOLICITUD
+	===================================================*/
+	static public function ctrGuardarSolicitudProgramacion($datos)
+	{
+		//Validar campos nulos 
+		$datos['fecha_progra'] = $datos['fecha_progra'] == "" ? null : $datos['fecha_progra'];
+
+
+		//Validamos si es una solicitud nueva o si es una que ya está 
+		if (isset($datos['idsolicitud'])) {
+			if ($datos['idsolicitud'] == '' || $datos['idsolicitud'] == NULL) {
+				//Añadimos la nueva solicitud 
+				$respuesta = ModeloMantenimientos::mdlGuardarSolicitudProgramacion($datos);
+				return $respuesta;
+			} else {
+				//Consultamos datos de esa solicitud
+				$DatosSolicitud = ModeloMantenimientos::mdlDatosSolicitudProgramacion($datos['idsolicitud']);
+
+				//Validamos que estado nuevo viene para actualizar el estado de la solicitud anterior de ese vehículo 
+				if ($datos['estado_programacion'] == "NUEVO") {
+					//PONEMOS EL ESTADO DE LA ANTERIOR SOLICITUD EN FINALIZADO
+					$DatosSolicitud['estado'] = "FINALIZADO";
+					$respuesta = ModeloMantenimientos::mdlActualizarEstadoSolicitudProgramacion($DatosSolicitud);
+					//PONEMOS EL ESTADO DE LA NUEVA SOLICITUD EN PENDIENTE Y GUARDAMOS LOS DATOS
+					$datos['estado_programacion'] = "PENDIENTE";
+					$respuesta = ModeloMantenimientos::mdlGuardarSolicitudProgramacion($datos);
+				}
+				if ($datos['estado_programacion'] == "REPROGRAMADO"){
+					//PONEMOS EL ESTADO DE LA ANTERIOR SOLICITUD EN REPROGRAMADO
+					$DatosSolicitud['estado'] = "REPROGRAMADO";
+					$respuesta = ModeloMantenimientos::mdlActualizarEstadoSolicitudProgramacion($DatosSolicitud);
+					//PONEMOS EL ESTADO DE LA NUEVA SOLICITUD EN PENDIENTE Y GUARDAMOS LOS DATOS 
+					$datos['estado_programacion'] = "PENDIENTE";
+					$respuesta = ModeloMantenimientos::mdlGuardarSolicitudProgramacion($datos);
+
+				}
+					
+
+
+				return $respuesta;
+			}
+		}
 	}
 }
