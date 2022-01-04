@@ -949,6 +949,32 @@ $(document).ready(function () {
                     } else {
                         $("#tbody_productos").html("");
                     }
+
+                    /*===================================================
+                    FILTRAR POR COLUMNA
+                    ====================================================*/
+                    /* Filtrar por columna */
+                    //Clonar el tr del thead
+                    if ($(`#tabla_productos thead tr`).length == 1)
+                        $(`#tabla_productos thead tr:eq(0)`)
+                            .clone(true)
+                            .appendTo(`#tabla_productos thead`);
+                    //Por cada th creado hacer lo siguiente
+                    $(`#tabla_productos thead tr:eq(1) th`).each(function (i) {
+                        //Remover clase sorting y el evento que tiene cuando se hace click
+                        $(this).removeClass("sorting").unbind();
+                        //Agregar input de busqueda
+                        $(this).html(
+                            '<input class="form-control" type="text" placeholder="Buscar"/>'
+                        );
+                        //Evento para detectar cambio en el input y buscar
+                        $("input", this).on("keyup change", function () {
+                            if (table.column(i).search() !== this.value) {
+                                table.column(i).search(this.value).draw();
+                            }
+                        });
+                    });
+
                     var buttons = [
                         {
                             extend: "excel",
@@ -982,6 +1008,32 @@ $(document).ready(function () {
                     } else {
                         $("#tbody_inventario").html("");
                     }
+
+                    /*===================================================
+                    FILTRAR POR COLUMNA
+                    ====================================================*/
+                    /* Filtrar por columna */
+                    //Clonar el tr del thead
+                    if ($(`#tabla_inventario thead tr`).length == 1)
+                        $(`#tabla_inventario thead tr:eq(0)`)
+                            .clone(true)
+                            .appendTo(`#tabla_inventario thead`);
+                    //Por cada th creado hacer lo siguiente
+                    $(`#tabla_inventario thead tr:eq(1) th`).each(function (i) {
+                        //Remover clase sorting y el evento que tiene cuando se hace click
+                        $(this).removeClass("sorting").unbind();
+                        //Agregar input de busqueda
+                        $(this).html(
+                            '<input class="form-control" type="text" placeholder="Buscar"/>'
+                        );
+                        //Evento para detectar cambio en el input y buscar
+                        $("input", this).on("keyup change", function () {
+                            if (table.column(i).search() !== this.value) {
+                                table.column(i).search(this.value).draw();
+                            }
+                        });
+                    });
+
                     var buttons = [
                         {
                             extend: "excel",
@@ -1016,6 +1068,33 @@ $(document).ready(function () {
                     } else {
                         $("#tbody_historial").html("");
                     }
+
+                    /* ===================================================
+                    FILTRAR POR COLUMNA
+                    ====================================================*/
+                    /* Filtrar por columna */
+                    //Clonar el tr del thead
+                    if ($(`#tabla_historial thead tr`).length == 1)
+                        $(`#tabla_historial thead tr:eq(0)`)
+                            .clone(true)
+                            .appendTo(`#tabla_historial thead`);
+                    //Por cada th creado hacer lo siguiente
+                    $(`#tabla_historial thead tr:eq(1) th`).each(function (i) {
+                        //Remover clase sorting y el evento que tiene cuando se hace click
+                        $(this).removeClass("sorting").unbind();
+                        //Agregar input de busqueda
+                        $(this).html(
+                            '<input class="form-control" type="text" placeholder="Buscar"/>'
+                        );
+                        //Evento para detectar cambio en el input y buscar
+                        $("input", this).on("keyup change", function () {
+                            if (table.column(i).search() !== this.value) {
+                                table.column(i).search(this.value).draw();
+                            }
+                        });
+                    });
+
+
                     var buttons = [
                         {
                             extend: "excel",
@@ -1050,6 +1129,33 @@ $(document).ready(function () {
                     } else {
                         $("#tbody_sucursales").html("");
                     }
+
+                    /*===================================================
+                    FILTRAR POR COLUMNA
+                    ====================================================*/
+                    /* Filtrar por columna */
+                    //Clonar el tr del thead
+                    if ($(`#tabla_sucursales thead tr`).length == 1)
+                        $(`#tabla_sucursales thead tr:eq(0)`)
+                            .clone(true)
+                            .appendTo(`#tabla_sucursales thead`);
+                    //Por cada th creado hacer lo siguiente
+                    $(`#tabla_sucursales thead tr:eq(1) th`).each(function (i) {
+                        //Remover clase sorting y el evento que tiene cuando se hace click
+                        $(this).removeClass("sorting").unbind();
+                        //Agregar input de busqueda
+                        $(this).html(
+                            '<input class="form-control" type="text" placeholder="Buscar"/>'
+                        );
+                        //Evento para detectar cambio en el input y buscar
+                        $("input", this).on("keyup change", function () {
+                            if (table.column(i).search() !== this.value) {
+                                table.column(i).search(this.value).draw();
+                            }
+                        });
+                    });
+
+
                     var buttons = [
                         {
                             extend: "excel",
@@ -1502,7 +1608,7 @@ $(document).ready(function () {
                 
             let id = $(this).attr('idorden');
             window.open(
-             `./pdf/pdfordencompra?idorden=${id}`,
+             `./pdf/pdfordencompra.php?idorden=${id}`,
              "",
              "width=1280,height=720,left=50,top=50,toolbar=yes"
          );
@@ -1561,6 +1667,32 @@ $(document).ready(function () {
                     } else {
                         $("#tbody_tablaOrdenes").html("");
                     }
+                    
+                    /* ===================================================
+                    FILTRAR POR COLUMNA
+                    ====================================================*/
+                    /* Filtrar por columna */
+                    //Clonar el tr del thead
+                    if ($(`#tablaOrdenes thead tr`).length == 1)
+                        $(`#tablaOrdenes thead tr:eq(0)`)
+                            .clone(true)
+                            .appendTo(`#tablaOrdenes thead`);
+                    //Por cada th creado hacer lo siguiente
+                    $(`#tablaOrdenes thead tr:eq(1) th`).each(function (i) {
+                        //Remover clase sorting y el evento que tiene cuando se hace click
+                        $(this).removeClass("sorting").unbind();
+                        //Agregar input de busqueda
+                        $(this).html(
+                            '<input class="form-control" type="text" placeholder="Buscar"/>'
+                        );
+                        //Evento para detectar cambio en el input y buscar
+                        $("input", this).on("keyup change", function () {
+                            if (table.column(i).search() !== this.value) {
+                                table.column(i).search(this.value).draw();
+                            }
+                        });
+                    });
+                    
                     var buttons = [
                         {
                             extend: "excel",

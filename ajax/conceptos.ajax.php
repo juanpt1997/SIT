@@ -129,28 +129,27 @@ class AjaxConceptosGenerales
 		$datos = array(
 			"tabla" => $tabla,
 			"item" => $item,
-			"valor" => $dato
-		);
+			"valor" => $dato);
 
-		$respuesta = ModeloConceptosGenerales::mdlNuevo($datos);
+		$validacion = ControladorExistencia::ctrValidarExistencia($datos);
 
-		echo $respuesta;
+		if ($validacion == 'ok') {
 
-		// $validar = self::ValidarExistencia($datos);
+			$respuesta = 'ok';
+			echo $respuesta;
+			
+		} else if ($validacion == 'existe') {
 
+			$respuesta = 'existe';
+			echo $respuesta;
 
-		// if($validar === false){
+		} else if ($validacion == 'no_existe') {
+ 
+			$respuesta = ModeloConceptosGenerales::mdlNuevo($datos);
+			echo $respuesta;
+		}
 
-		// 	$respuesta = ModeloConceptosGenerales::mdlNuevo($datos);
-		// 	echo $respuesta;
-
-		// }else if($validar == 'true'){
-
-		// 	$respuesta = 'existe';
-		// 	echo $respuesta;
-
-		// }
-
+		//echo $respuesta;
 	}
 	//AJAX LISTAR todos los registros de 1 campo
 	static public function ajaxVerTodos($concepto)

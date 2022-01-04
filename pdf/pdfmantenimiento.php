@@ -333,7 +333,7 @@ class mantenimientoPDF
         }
 
         $tr2="";
-        foreach ($mano_obra as $key => $value) {
+        foreach ($repuestos as $key => $value) {
             $tr2 .= "
             <tr>
                 <td style='text-align: center;'>".$value['sistema']."</td>
@@ -347,6 +347,8 @@ class mantenimientoPDF
             $tr3 .= "
             <tr>
                 <td style='text-align: center;'>".$value['descripcion']."</td>
+                <td style='text-align: center;'>".$value['cantidad']."</td>
+                <td style='text-align: center;'>".$value['valor']."</td>
                 <td style='text-align: center;'>".$value['razon_social']."</td>
             </tr>
             ";
@@ -435,7 +437,7 @@ class mantenimientoPDF
         /* ===================================================
            TITULO ALISTAMIENTO
         ===================================================*/
-        $pdf->SetFont('helvetica', 'B', '8');
+        $pdf->SetFont('Times', 'B', '8');
         //Ancho de texto y de pagina
         $anchoTexto = 130;
         $anchoPaginaMM = $pdf->getPageWidth();
@@ -445,12 +447,12 @@ class mantenimientoPDF
         //Titulo principal
         $pdf->MultiCell(130, 5, 'ORDEN DE SERVICIO', 0, 'C', 0, 1, $x, $y, true);
         $pdf->MultiCell(130, 5, $empresa['razon_social'], 0, 'C', 0, 1, $x, '', true);
-        $pdf->SetFont('helvetica', '', '8');
+        $pdf->SetFont('Times', '', '8');
         $pdf->Ln(3);
         //NIT
-        $pdf->SetFont('helvetica', 'B', '8');
+        $pdf->SetFont('Times', 'B', '8');
         $pdf->MultiCell(130, 5, "NIT:", 0, 'C', 0, 1, $x, '', true);
-        $pdf->SetFont('helvetica', 'I', '8');
+        $pdf->SetFont('Times', 'I', '8');
         $pdf->MultiCell(130, 5, $empresa['nit'], 0, 'C', 0, 1, $x, '', true);
         $pdf->Ln(3);
 
@@ -566,7 +568,7 @@ class mantenimientoPDF
                         <th style="text-align: center;"><strong>Referencia</strong></th>
                         <th style="text-align: center;"><strong>Código</strong></th>
                         <th style="text-align: center;"><strong>Cantidad</strong></th>
-                        <th style="text-align: center;"><strong>Valor</strong></th>
+                        <th style="text-align: center;"><strong>Valor unitario</strong></th>
                         <th style="text-align: center;"><strong>Proveedor</strong></th>
                     </tr>
                 </thead>
@@ -590,6 +592,8 @@ class mantenimientoPDF
                 <thead>
                     <tr>
                         <th style="text-align: center;"><strong>Descripción de la actividad</strong></th>
+                        <th style="text-align: center;"><strong>Cantidad</strong></th>
+                        <th style="text-align: center;"><strong>Valor unitario</strong></th>
                         <th style="text-align: center;"><strong>Proveedor</strong></th>
                     </tr>
                 </thead>

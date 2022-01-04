@@ -17,28 +17,28 @@ class ControladorEmpresa
 		$empresa = ModeloEmpresaRaiz::mdlVerEmpresa();
 		$response = "";
 		# Verificar Directorio imagenes de firma en empresa
-        $directorio = DIR_APP . "views/img/plantilla/fuec/fotosFirmaEmpresa";
-        if (!is_dir($directorio)) {
-            mkdir($directorio, 0755);
-        }
+		$directorio = DIR_APP . "views/img/plantilla/fuec/fotosFirmaEmpresa";
+		if (!is_dir($directorio)) {
+			mkdir($directorio, 0755);
+		}
 
 		$fecha = date('Y-m-d');
-        $hora = date('His');
+		$hora = date('His');
 
 		/* ===================================================
             GUARDAMOS EL ARCHIVO
         ===================================================*/
-        $GuardarArchivo = new FilesController();
-        $GuardarArchivo->file = $imagen;
-        $aleatorio = mt_rand(100, 999);
-        $GuardarArchivo->ruta = $directorio . "/{$aleatorio}_{$fecha}_{$hora}";
+		$GuardarArchivo = new FilesController();
+		$GuardarArchivo->file = $imagen;
+		$aleatorio = mt_rand(100, 999);
+		$GuardarArchivo->ruta = $directorio . "/{$aleatorio}_{$fecha}_{$hora}";
 
 		$response = $GuardarArchivo->ctrImages(null, null);
 
 		# Actualizar el campo de la base de datos donde queda la ruta del archivo
-        if ($response != "") {
-            $rutaDoc = str_replace(DIR_APP, "", $response);
-		} 	else {
+		if ($response != "") {
+			$rutaDoc = str_replace(DIR_APP, "", $response);
+		} else {
 			$rutaDoc = $empresa['ruta_firma'];
 		}
 
@@ -94,7 +94,6 @@ class ControladorCiudades
 		$respuesta = ModeloConceptosGenerales::mdlVer($datos);
 		return $respuesta;
 	}
-
 }
 
 /* ===================================================
@@ -161,5 +160,35 @@ class ControladorAlmacen
 
 		$respuesta = ModeloConceptosGenerales::mdlVer($datos);
 		return $respuesta;
+	}
+}
+/* ===================================================
+	* VALIDACION DE EXISTENCIA
+===================================================*/
+class ControladorExistencia
+{
+	static public function ctrValidarExistencia($datos)
+	{
+		$validar = ModeloConceptosGenerales::mdlVerificarExistencia($datos);
+
+		if (is_array($validar)) {
+			if ($validar['estado'] == 0) {
+				$actualizar = array(
+					'tabla' => $datos['tabla'],
+					'item' => $datos['item'],
+					'valor' => $datos['valor']
+				);
+				$respuesta = ModeloConceptosGenerales::mdlActivarExistencia($actualizar);
+				return $respuesta;
+			} else if ($validar['estado'] == 1) {
+
+				$respuesta = 'existe';
+				return $respuesta;
+			}
+		 } else {
+				$respuesta = "no_existe";
+				return $respuesta;
+		}
+		//echo $respuesta;
 	}
 }
