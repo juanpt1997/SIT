@@ -66,3 +66,7 @@ select[readonly]{
 center {
   font-size: 2rem;
 }
+
+.hide{
+  display:none;
+}

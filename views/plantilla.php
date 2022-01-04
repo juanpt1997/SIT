@@ -119,6 +119,8 @@ if (isset($_GET['pagina'])) {
     <!-- Charjs -->
     <script src="<?= URL_APP ?>views/plugins/chart.js/Chart.bundle.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/chart.js/Charjs-plugin-datalabels.min.js"></script>
+    <!-- Lodash 4.17.15 -->
+    <script src="<?= URL_APP ?>views/plugins/lodash-4.17.15/lodash.min.js"></script>
 
 </head>
 
