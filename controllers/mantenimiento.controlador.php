@@ -1178,7 +1178,6 @@ class ControladorMantenimientos
 		$datos['fecha_progra'] = $datos['fecha_progra'] == "" ? null : $datos['fecha_progra'];
 
 
-
 		//Validamos si es una solicitud nueva o si es una que ya está 
 		if (isset($datos['idsolicitud'])) {
 			if ($datos['idsolicitud'] == '' || $datos['idsolicitud'] == NULL) {
@@ -1191,14 +1190,21 @@ class ControladorMantenimientos
 
 				//Validamos que estado nuevo viene para actualizar el estado de la solicitud anterior de ese vehículo 
 				if ($datos['estado_programacion'] == "NUEVO") {
+					//PONEMOS EL ESTADO DE LA ANTERIOR SOLICITUD EN FINALIZADO
 					$DatosSolicitud['estado'] = "FINALIZADO";
 					$respuesta = ModeloMantenimientos::mdlActualizarEstadoSolicitudProgramacion($DatosSolicitud);
+					//PONEMOS EL ESTADO DE LA NUEVA SOLICITUD EN PENDIENTE Y GUARDAMOS LOS DATOS
 					$datos['estado_programacion'] = "PENDIENTE";
 					$respuesta = ModeloMantenimientos::mdlGuardarSolicitudProgramacion($datos);
 				}
 				if ($datos['estado_programacion'] == "REPROGRAMADO"){
-					$DatosSolicitud['estado'] = "PENDIENTE";
+					//PONEMOS EL ESTADO DE LA ANTERIOR SOLICITUD EN REPROGRAMADO
+					$DatosSolicitud['estado'] = "REPROGRAMADO";
 					$respuesta = ModeloMantenimientos::mdlActualizarEstadoSolicitudProgramacion($DatosSolicitud);
+					//PONEMOS EL ESTADO DE LA NUEVA SOLICITUD EN PENDIENTE Y GUARDAMOS LOS DATOS 
+					$datos['estado_programacion'] = "PENDIENTE";
+					$respuesta = ModeloMantenimientos::mdlGuardarSolicitudProgramacion($datos);
+
 				}
 					
 

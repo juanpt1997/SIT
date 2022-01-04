@@ -607,7 +607,7 @@ class AjaxMantenimientos
             if (in_array($value['placa'], $repetidas)) {
                 $tr .= "
                 <tr>
-                <td>" . $value['item'] . "</td>
+                <td class='hide'>" . $value['item'] . "</td>
                 </tr>
                 ";
             } else {
@@ -618,7 +618,7 @@ class AjaxMantenimientos
                     <tr>
                         <td rowspan='{$rowspan[$value['placa']]}'>
                             <button type='button' class='btn btn-info btn-md btn-serviciosprogramacion' idsolicitud='{$value['idsolicitud']}' data-toggle='modal' data-target='#servicios'> <i class='fas fa-clipboard-list'></i></button>
-                            <button type='button' class='btn btn-warning btn-md btn-programacionxvehiculo' idsolicitud='{$value['idsolicitud']}' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#serviciosxvehiculo'> <i class='far fa-calendar-alt'></i> </button>
+                            <button type='button' class='btn btn-warning btn-md btn-programacionxvehiculo' idsolicitud='{$value['idsolicitud']}' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#serviciosxvehiculo' style='display:none;'> <i class='far fa-calendar-alt'></i> </button>
                             <button type='button' class='btn btn-success btn-md btn-programacion' idsolicitud='{$value['idsolicitud']}' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#Programacion'> <i class='far fa-clock'></i></button>
                             
                         </td>
@@ -635,8 +635,55 @@ class AjaxMantenimientos
 
                 ";
             }
-            echo $tr;
+            //echo $tr;
         }
+
+        echo "
+            <tr>
+                <td rowspan='3'>Jhojan</td>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+                <td>7</td>
+                <td>8</td>
+            </tr>
+            <tr>
+                <td class='hide'>Jhojan</td>
+                <td>9</td>
+                <td>10</td>
+                <td>11</td>
+                <td>12</td>
+                <td>13</td>
+                <td>14</td>
+                <td>15</td>
+                <td>16</td>
+            </tr>
+            <tr>
+                <td class='hide'>Jhojan</td>
+                <td>17</td>
+                <td>18</td>
+                <td>19</td>
+                <td>20</td>
+                <td>21</td>
+                <td>22</td>
+                <td>23</td>
+                <td>24</td>
+            </tr>
+            <tr>
+                <td>Steven</td>
+                <td>17</td>
+                <td>18</td>
+                <td>19</td>
+                <td>20</td>
+                <td>21</td>
+                <td>22</td>
+                <td>23</td>
+                <td>24</td>
+            </tr>
+            ";
     }
 
 
@@ -809,6 +856,33 @@ class AjaxMantenimientos
         $respuesta = ControladorMantenimientos::ctrGuardarSolicitudProgramacion($datos);
         echo $respuesta;
     }
+
+    /* ===================================================
+        TABLA HISTORIAL SOLICITUDES PROGRAMACIÓN
+    ===================================================*/
+    static public function ajaxHistorialSolicitudesProgramacion()
+    {
+        $respuesta = ModeloMantenimientos::mdlHistorialSolicitudesProgramacion();
+        $tr = "";
+
+        foreach ($respuesta as $key => $value) {
+            $tr .= "
+            <tr>
+            <td>".$value['idsolicitud']."</td>
+            <td>".$value['placa']."</td>
+            <td>".$value['descripcion']."</td>
+            <td>".$value['fecha_solicitud']."</td>
+            <td>".$value['fecha_programacion']."</td>
+            <td>".$value['tiempo_mantenimiento']."</td>
+            <td>".$value['estado']."</td>
+            <td>".$value['observacion']."</td>
+            </tr>
+            ";
+        }
+
+
+        echo $tr;
+    }
 }
 /* ===================================================
             LLAMADOS AJAX INVENTARIO
@@ -922,3 +996,6 @@ if (isset($_POST['ItemsProgramacionxVehiculo']) && $_POST['ItemsProgramacionxVeh
 
 #LLAMADO A GUARDAR SOLICITUD 
 if (isset($_POST['GuardarSolicitudProgramacion']) && $_POST['GuardarSolicitudProgramacion'] == "ok") AjaxMantenimientos::ajaxGuardarSolicitudProgramacion($_POST);
+
+#LLAMADO A CARGAR TABLA HISTORIAL SOLICITUDES DE PROGRAMACIÓN
+if (isset($_POST['TablaHistorialSolicitudesProgramacion']) && $_POST['TablaHistorialSolicitudesProgramacion'] == "ok") AjaxMantenimientos::ajaxHistorialSolicitudesProgramacion();

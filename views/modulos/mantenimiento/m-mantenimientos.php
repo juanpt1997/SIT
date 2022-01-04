@@ -1001,7 +1001,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                             <a class="nav-link active" id="v-pills-vehiculos-tab" data-toggle="pill" href="#v-pills-vehiculos" role="tab" aria-controls="v-pills-vehiculos" aria-selected="true"><i class="fas fa-car"></i> Mantenimientos pendientes</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="custom-tabs-one-historial_orden-tab" data-toggle="pill" href="#custom-tabs-one-historial_orden" role="tab" aria-controls="custom-tabs-one-historial_orden" aria-selected="false"><i class="fas fa-history"></i> Historial de programaciones</a>
+                                            <a class="nav-link" id="historialSolicitudesProgramacion-tab" data-toggle="pill" href="#historialSolicitudesProgramacion" role="tab" aria-controls="custom-tabs-one-historial_orden" aria-selected="false"><i class="fas fa-history"></i> Historial de programaciones</a>
                                         </li>
 
                                     </ul>
@@ -1096,14 +1096,14 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                         </div> -->
 
 
-                                        <!-- VEHÍCULOS Y RUTINAS  -->
+                                        <!-- MANTENIMIENTOS PENDIENTES  -->
                                         <div class="tab-pane fade show active " id="v-pills-vehiculos" role="tabpanel" aria-labelledby="v-pills-vehiculos-tab">
                                             <div class="row m-2">
 
 
                                                 <!-- TABLA VEHICULOS -->
                                                 <div class="table-responsive">
-                                                    <table id="" class=" table table-sm table-striped table-hover table-bordered text-center w-100 tablasBtnExport">
+                                                    <table id="tablaSolicitudesProgramacion" class="table table-sm table-striped table-hover table-bordered text-center w-100">
                                                         <thead class="text-nowrap">
                                                             <tr>
                                                                 <th>...</th>
@@ -1119,18 +1119,47 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                         </thead>
 
                                                         <tbody id="tbodyprogramacion" class="text-nowrap">
-
+                                                                    
                                                         </tbody>
                                                     </table>
                                                 </div>
+                                                
                                             </div>
                                         </div>
 
+                                        <div class="tab-pane fade show" id="historialSolicitudesProgramacion" role="tabpanel" aria-labelledby="historialSolicitudesProgramacion-tab">
+                                            <!-- HISTORICO DE SOLICITUDES DE SERVICIO  -->
+                                            <div class="row m-2">
+
+
+                                                <!-- TABLA -->
+                                                <div class="table-responsive">
+                                                    <table id="tablaHistorialSolicitudesProgramacion" class=" table table-sm table-striped table-hover table-bordered text-center w-100 tablasBtnExport">
+                                                        <thead class="text-nowrap">
+                                                            <tr>
+                                                                <th># Solicitud</th>
+                                                                <th>Placa</th>
+                                                                <th>Actividades</th>
+                                                                <th>Fecha de la solicitud</th>
+                                                                <th>Fecha de programación</th>
+                                                                <th>Tiempo de mantenimiento</th>
+                                                                <th>Estado</th>
+                                                                <th>Observaciones</th>
+                                                            </tr>
+                                                        </thead>
+
+                                                        <tbody id="tbodyHistorialSolicitudesProgramacion" class="text-nowrap">
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                     </div>
 
 
@@ -1827,6 +1856,13 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                         </table>
                     </div>
                 </div>
+                <div class="col-12 mt-2">
+                    <a href="cg-mantenimiento" target="_blank">
+                        <button class="btn btn-sm btn-warning float-center"><i class="fas fa-plus-circle"></i>
+                        Crear nueva rutina 
+                    </button>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -1862,6 +1898,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                         </table>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -2083,7 +2120,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
 
                         <div class="col-3">
                             <div class="form-group text-center">
-                                <label>Observación</label>
+                                <label id="label_observacion">Observación</label>
                                 <textarea rows="3" cols="3" class="form-control form-control-sm" id="observacion_progra" name="observacion_progra"> </textarea>
                             </div>
                         </div>

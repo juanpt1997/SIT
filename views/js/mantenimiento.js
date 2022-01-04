@@ -44,25 +44,35 @@ $(document).ready(function () {
                     //CAMBIAR INVENTARIO SEGUN EL TIPO DE VEHICULO
                     inventario_tipo_vel(Vehiculo.datosVehiculo.tipovehiculo);
                     //FOTO DE LLANTAS SEGUN EL TIPO DE VEHICULO QUE VENGA
-                    if(Vehiculo.datosVehiculo.tipovehiculo == "Camioneta" || Vehiculo.datosVehiculo.tipovehiculo == "Campero" || Vehiculo.datosVehiculo.tipovehiculo == "Camioneta Doble Cabina" || Vehiculo.datosVehiculo.tipovehiculo == "Automovil")
-                    {
+                    if (
+                        Vehiculo.datosVehiculo.tipovehiculo == "Camioneta" ||
+                        Vehiculo.datosVehiculo.tipovehiculo == "Campero" ||
+                        Vehiculo.datosVehiculo.tipovehiculo ==
+                            "Camioneta Doble Cabina" ||
+                        Vehiculo.datosVehiculo.tipovehiculo == "Automovil"
+                    ) {
                         $("#llantas_camioneta").removeClass("d-none");
                         $("#llantas_bus").addClass("d-none");
                         $("#llantas_buseta").addClass("d-none");
                         $("#llantas_micro").addClass("d-none");
-                    } else if(Vehiculo.datosVehiculo.tipovehiculo == "Bus" || Vehiculo.datosVehiculo.tipovehiculo == "Buseton"){
+                    } else if (
+                        Vehiculo.datosVehiculo.tipovehiculo == "Bus" ||
+                        Vehiculo.datosVehiculo.tipovehiculo == "Buseton"
+                    ) {
                         $("#llantas_bus").removeClass("d-none");
                         $("#llantas_camioneta").addClass("d-none");
                         $("#llantas_buseta").addClass("d-none");
                         $("#llantas_micro").addClass("d-none");
-
-                    } else if(Vehiculo.datosVehiculo.tipovehiculo == "Buseta"){
+                    } else if (
+                        Vehiculo.datosVehiculo.tipovehiculo == "Buseta"
+                    ) {
                         $("#llantas_buseta").removeClass("d-none");
                         $("#llantas_bus").addClass("d-none");
                         $("#llantas_camioneta").addClass("d-none");
                         $("#llantas_micro").addClass("d-none");
-                        
-                    } else if(Vehiculo.datosVehiculo.tipovehiculo == "Microbus"){
+                    } else if (
+                        Vehiculo.datosVehiculo.tipovehiculo == "Microbus"
+                    ) {
                         $("#llantas_micro").removeClass("d-none");
                         $("#llantas_bus").addClass("d-none");
                         $("#llantas_buseta").addClass("d-none");
@@ -1510,7 +1520,7 @@ $(document).ready(function () {
             // Quitar datatable
             //  $("#tablaProgramacionServ").dataTable().fnDestroy();
             // Borrar datos
-            $("#tbodyProgramacionServ").html("");
+            $(tbody).html("");
 
             var datos = new FormData();
             datos.append("TablaProgramacionxVehiculo", "ok");
@@ -2465,6 +2475,7 @@ $(document).ready(function () {
 
                     //ELIMINA EL ATRIBUTO DISABLED A CREAR SOLICITUD DE SERVICIO
                     $("#btn-crearSolicitud").removeAttr("disabled");
+                    $("#btn-crearSolicitud").addClass("invisible");
 
                     //PERMITE QUE SIEMPRE SE MUESTRE EN EL TAB DE DATOS GENERALES
                     $("#v-pills-general-tab").addClass("active");
@@ -3134,6 +3145,87 @@ $(document).ready(function () {
                             showConfirmButton: true,
                             confirmButtonText: "Cerrar",
                         });
+
+                        //SE CARGA LA TABLA
+                        // Quitar datatable
+                        $("#tableControlActividades").dataTable().fnDestroy();
+                        // Borrar datos
+                        $("#tbodyControlActividades").html("");
+
+                        var datos = new FormData();
+                        datos.append("TablaControlActividades", "ok");
+
+                        $.ajax({
+                            type: "post",
+                            url: `ajax/mantenimiento.ajax.php`,
+                            data: datos,
+                            cache: false,
+                            // dataType: "JSON",
+                            contentType: false,
+                            processData: false,
+                            success: function (response) {
+                                if (response != "")
+                                    $("#tbodyControlActividades").html(
+                                        response
+                                    );
+                                else $("#tbodyControlActividades").html("");
+
+                                /* ===================================================
+                    FILTRAR POR COLUMNA
+                    ====================================================*/
+                                /* Filtrar por columna */
+                                //Clonar el tr del thead
+                                if (
+                                    $(`#tableControlActividades thead tr`)
+                                        .length == 1
+                                )
+                                    $(`#tableControlActividades thead tr:eq(0)`)
+                                        .clone(true)
+                                        .appendTo(
+                                            `#tableControlActividades thead`
+                                        );
+                                //Por cada th creado hacer lo siguiente
+                                $(
+                                    `#tableControlActividades thead tr:eq(1) th`
+                                ).each(function (i) {
+                                    //Remover clase sorting y el evento que tiene cuando se hace click
+                                    $(this).removeClass("sorting").unbind();
+                                    //Agregar input de busqueda
+                                    $(this).html(
+                                        '<input class="form-control" type="text" placeholder="Buscar"/>'
+                                    );
+                                    //Evento para detectar cambio en el input y buscar
+                                    $("input", this).on(
+                                        "keyup change",
+                                        function () {
+                                            if (
+                                                table.column(i).search() !==
+                                                this.value
+                                            ) {
+                                                table
+                                                    .column(i)
+                                                    .search(this.value)
+                                                    .draw();
+                                            }
+                                        }
+                                    );
+                                });
+                                /* ===================================================
+                    INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                    ===================================================*/
+                                var buttons = [
+                                    {
+                                        extend: "excel",
+                                        className: "btn-info",
+                                        text: '<i class="far fa-file-excel"></i> Exportar',
+                                    },
+                                ];
+                                var table = dataTableCustom(
+                                    `#tableControlActividades`,
+                                    buttons
+                                );
+                            },
+                        });
                     }
                 },
             });
@@ -3244,9 +3336,6 @@ $(document).ready(function () {
             );
 
             let idsolicitud = $(this).attr("idsolicitud");
-
-           
-
         });
 
         /*============================================
@@ -3289,10 +3378,12 @@ $(document).ready(function () {
             });
         });
 
-        /*============================================
-         CARGAR TABLA DE PROGRAMACIÓN 
-        ==============================================*/
-        $(document).on("click", "#pills-programacion-tab", function () {
+        function TablaSolicitudesProgramacion() {
+            // // Quitar datatable
+            $(`#tablaSolicitudesProgramacion`).dataTable().fnDestroy();
+            // // Borrar datos
+            $(`#tbodyprogramacion`).html("");
+
             var datos = new FormData();
             datos.append("TablaProgramacion", "ok");
 
@@ -3314,12 +3405,58 @@ $(document).ready(function () {
                     /* ===================================================
                    INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                    ===================================================*/
-                    // var buttons = [
-                    //   { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
-                    // ];
-                    // var table = dataTableCustom(`#tablaProgramacionServ`, buttons);
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(
+                        `#tablaSolicitudesProgramacion`,
+                        buttons
+                    );
+
+                    var data = [];
+                    $("#tablaSolicitudesProgramacion td").each(function () {
+                        var $this = $(this);
+                        var index = $this.index();
+                        var txt = $this.text();
+                        //console.log(this);
+                        //console.log(index);
+                        
+                        if (index == 0) {
+                            var item = _.find(data, function (o) {
+                                //return o.v == txt;
+                                return txt.indexOf(o.v) != -1;
+                            });
+
+                            if (item) {
+                                item.t = item.t + 1;
+                                item.o
+                                    .attr("rowspan", item.t)
+                                    .removeClass("hide");
+                                $this.addClass("hide");
+                            } else {
+                                data.push({
+                                    i: index,
+                                    t: 1,
+                                    o: $this,
+                                    v: txt,
+                                });
+                                //$this.addClass('hide');
+                            }
+                        }
+                    });
                 },
             });
+        }
+
+        /*============================================
+         CARGAR TABLA DE SOLICITUDES PROGRAMACIÓN 
+        ==============================================*/
+        $(document).on("click", "#pills-programacion-tab", function () {
+            TablaSolicitudesProgramacion();
         });
 
         /*====================================================================
@@ -3329,17 +3466,22 @@ $(document).ready(function () {
             let idvehiculo = $(this).attr("idvehiculo");
             let idsolicitud = $(this).attr("idsolicitud");
 
-            
-            if(idsolicitud == '' || idsolicitud == null || idsolicitud == undefined)
-            {
+            if (
+                idsolicitud == "" ||
+                idsolicitud == null ||
+                idsolicitud == undefined
+            ) {
                 $("#estado_programacion").val("NUEVO");
                 $("#estado_programacion").attr("readonly", true);
-
-
-                
+            } else {
+                $("#estado_programacion").attr("readonly", false);
+                $("#idsolicitud").val(idsolicitud);
             }
-            
-            AjaxTablaProgramacionxVehiculo(idvehiculo,"#tbodyProgramacionSolicitud");
+
+            AjaxTablaProgramacionxVehiculo(
+                idvehiculo,
+                "#tbodyProgramacionSolicitud"
+            );
 
             $("#placa_programacion").val(idvehiculo).trigger("change");
 
@@ -3366,8 +3508,6 @@ $(document).ready(function () {
         $("#Guardarprogramacion_form").submit(function (e) {
             e.preventDefault();
 
-            
-
             var datosFrm = $(this).serializeArray();
 
             var datos = new FormData();
@@ -3386,7 +3526,6 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    console.log(response);
                     if (response == "ok") {
                         Swal.fire({
                             icon: "success",
@@ -3394,6 +3533,9 @@ $(document).ready(function () {
                             title: "Solicitud creada correctamente!",
                             showConfirmButton: false,
                         });
+
+                        //CARGA LA TABLA
+                        TablaSolicitudesProgramacion();
                     } else {
                         Swal.fire({
                             icon: "error",
@@ -3405,5 +3547,71 @@ $(document).ready(function () {
                 },
             });
         });
+
+        /*============================================
+        OCULTAR/MOSTRAR OBSERVACIÓN DE REPROGRAMACIÓN
+        ==============================================*/
+        $(document).on("change", "#estado_programacion", function () {
+            let option = $(this).val();
+
+            if (option == "REPROGRAMADO") {
+                $("#label_observacion").html("Observación de reprogramación");
+                $("#observacion_progra").attr("required", true);
+            } else {
+                $("#label_observacion").html("Observación");
+                $("#observacion_progra").attr("required", false);
+            }
+        });
     }
+
+    /*============================================
+        CARGAR HISTORIAL DE SOLICITUDES 
+    ==============================================*/
+    $(document).on(
+        "click",
+        "#historialSolicitudesProgramacion-tab",
+        function () {
+            // Quitar datatable
+            $(`#tablaHistorialSolicitudesProgramacion`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbodyHistorialSolicitudesProgramacion`).html("");
+
+            var datos = new FormData();
+            datos.append("TablaHistorialSolicitudesProgramacion", "ok");
+
+            $.ajax({
+                type: "post",
+                url: "ajax/mantenimiento.ajax.php",
+                data: datos,
+                // dataType: "JSON",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbodyHistorialSolicitudesProgramacion").html(
+                            response
+                        );
+                    } else {
+                        $("#tbodyHistorialSolicitudesProgramacion").html("");
+                    }
+
+                    /* ===================================================
+               INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+               ===================================================*/
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(
+                        `#tablaHistorialSolicitudesProgramacion`,
+                        buttons
+                    );
+                },
+            });
+        }
+    );
 });

@@ -2682,7 +2682,21 @@ class ModeloMantenimientos
 
         $stmt->closeCursor();
         $stmt = null;
-        
+
         return $retorno;
+    }
+
+    /* ===================================================
+        HISTORIAL DE SOLICITUDES PROGRAMACIÓN 
+    ===================================================*/
+    static public function mdlHistorialSolicitudesProgramacion()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT s.*, v.* FROM m_re_solicitudesvehiculo s
+                                              INNER JOIN v_vehiculos v ON s.idvehiculo = v.idvehiculo");
+
+        $stmt->execute();
+        $respuesta = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $respuesta;
     }
 }
