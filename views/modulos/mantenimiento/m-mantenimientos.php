@@ -24,6 +24,25 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
   ESTRUCTURA 
 ========================= -->
 
+<style>
+    .wrapper {
+        margin: 20px;
+        font-family: sans-serif;
+    }
+
+    td,
+    th {
+        vertical-align: top;
+        border: 1px solid #ddd;
+    }
+
+    ul,
+    li {
+        padding-left: 5px;
+        margin-left: 5px;
+    }
+</style>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -1103,7 +1122,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
 
                                                 <!-- TABLA VEHICULOS -->
                                                 <div class="table-responsive">
-                                                    <table id="tablaSolicitudesProgramacion" class="table table-sm table-striped table-hover table-bordered text-center w-100">
+                                                    <table id="tablaSolicitudesProgramacion" class="datatable-multi-row table table-sm table-striped table-hover table-bordered text-center w-100">
                                                         <thead class="text-nowrap">
                                                             <tr>
                                                                 <th>...</th>
@@ -1122,8 +1141,22 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                     
                                                         </tbody>
                                                     </table>
+                                                    <!-- <table id="tablaSolicitudesProgramacion" class="datatable-multi-row w-100">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Contact Date</th>
+                                                                <th>City</th>
+                                                                <th>Family Members</th>
+                                                                <th>Est. Value</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tbodyprogramacion" class="text-nowrap">
+                                                            
+                                                            </tbody>
+                                                    </table> -->
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
 
@@ -1152,14 +1185,14 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     </div>
 
 
@@ -1859,8 +1892,8 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                 <div class="col-12 mt-2">
                     <a href="cg-mantenimiento" target="_blank">
                         <button class="btn btn-sm btn-warning float-center"><i class="fas fa-plus-circle"></i>
-                        Crear nueva rutina 
-                    </button>
+                            Crear nueva rutina
+                        </button>
                     </a>
                 </div>
             </div>

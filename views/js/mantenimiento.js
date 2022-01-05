@@ -78,10 +78,10 @@ $(document).ready(function () {
                     //     $("#llantas_buseta").addClass("d-none");
                     //     $("#llantas_camioneta").addClass("d-none");
                     // }
-                    if(Vehiculo.datosVehiculo.categoria == "BUS-BUSETA"){
+                    if (Vehiculo.datosVehiculo.categoria == "BUS-BUSETA") {
                         $("#llantas_bus_buseta").removeClass("d-none");
                         $("#llantas_camioneta_micro").addClass("d-none");
-                    } else if(Vehiculo.datosVehiculo.categoria == "CAMIONETA-MICRO"){
+                    } else if (Vehiculo.datosVehiculo.categoria == "CAMIONETA-MICRO") {
                         $("#llantas_camioneta_micro").removeClass("d-none");
                         $("#llantas_bus_buseta").addClass("d-none");
                     }
@@ -117,7 +117,7 @@ $(document).ready(function () {
 
                         $(
                             `#documento_${element.idtipodocumento}`
-                        ).addClass("bg-"+bg);
+                        ).addClass("bg-" + bg);
                     });
                 },
             });
@@ -166,7 +166,7 @@ $(document).ready(function () {
         });
 
 
-        
+
 
         /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
         LICENCIA DEL CONDUCTOR SELECCIONADO
@@ -360,7 +360,7 @@ $(document).ready(function () {
                 $(".input-camioneta").addClass("d-none");
                 $(".camioneta").removeAttr("required");
                 $(".camioneta").val(0);
-            } else if(response == "BUS-BUSETA") {
+            } else if (response == "BUS-BUSETA") {
                 $(".input-camioneta").removeClass("d-none");
                 $(".camioneta").prop("required", true);
             }
@@ -443,8 +443,8 @@ $(document).ready(function () {
                                       <hr>
                                       <label for="">Observaciones</label>
                                       <input class="form-control" id="swal-evidencia-obs" type="text" value="${$(
-                                          "#obs_" + idevidencia
-                                      ).text()}">
+                    "#obs_" + idevidencia
+                ).text()}">
                                       `,
                 showCancelButton: true,
                 confirmButtonColor: colorBoton,
@@ -864,34 +864,34 @@ $(document).ready(function () {
                         );
                         $("input[name='balizas']").attr("disabled", true);
 
-                    } else if(Vehiculo.categoria == "BUS-BUSETA") {
+                    } else if (Vehiculo.categoria == "BUS-BUSETA") {
                         $("input[name='freno_ahogo']").attr("disabled", false);
                         $("input[name='compresor']").attr("disabled", false);
                         $("input[name='fuga_aire']").attr("disabled", false);
-                        $("input[name='banda_delantera_derecha']").attr("disabled",false);
-                        $("input[name='banda_delantera_izquierda']").attr("disabled",false);
+                        $("input[name='banda_delantera_derecha']").attr("disabled", false);
+                        $("input[name='banda_delantera_izquierda']").attr("disabled", false);
                         $("input[name='rachets']").attr("disabled", false);
                         $("input[name='llantar5']").attr("disabled", false);
                         $("input[name='llantar6']").attr("disabled", false);
                         $("input[name='tanques_aire']").attr("disabled", false);
-                        $("input[name='luces_delimitadoras']").attr("disabled",false);
+                        $("input[name='luces_delimitadoras']").attr("disabled", false);
                         $("input[name='rutero']").attr("disabled", false);
-                        $("input[name='estribos_puerta']").attr("disabled",false);
-                        $("input[name='brazo_limpiaparabrisas_derecho']").attr("disabled",false);
-                        $("input[name='parabrisas_izquierdo']").attr("disabled",false);
+                        $("input[name='estribos_puerta']").attr("disabled", false);
+                        $("input[name='brazo_limpiaparabrisas_derecho']").attr("disabled", false);
+                        $("input[name='parabrisas_izquierdo']").attr("disabled", false);
                         $("input[name='brazo_limpiaparabrisas_izquierdo']").attr("disabled", false);
-                        $("input[name='vidrio_puerta_principal']").attr("disabled",false);
-                        $("input[name='vidrio_segunda_puerta']").attr("disabled",false);
+                        $("input[name='vidrio_puerta_principal']").attr("disabled", false);
+                        $("input[name='vidrio_segunda_puerta']").attr("disabled", false);
                         $("input[name='claraboyas']").attr("disabled", false);
                         $("input[name='parales']").attr("disabled", false);
-                        $("input[name='booster_puertas']").attr("disabled",false);
+                        $("input[name='booster_puertas']").attr("disabled", false);
                         $("input[name='reloj_vigia']").attr("disabled", false);
-                        $("input[name='vigia_delantera_derecha']").attr("disabled",false);
-                        $("input[name='vigia_delantera_izquierda']").attr("disabled",false);
-                        $("input[name='vigia_trasera_derecha']").attr("disabled",false);
-                        $("input[name='vigia_trasera_izquierda']").attr("disabled",false);
-                        $("input[name='martillo_emergencia']").attr("disabled",false);
-                        $("input[name='dispositivo_velocidad']").attr("disabled",false);
+                        $("input[name='vigia_delantera_derecha']").attr("disabled", false);
+                        $("input[name='vigia_delantera_izquierda']").attr("disabled", false);
+                        $("input[name='vigia_trasera_derecha']").attr("disabled", false);
+                        $("input[name='vigia_trasera_izquierda']").attr("disabled", false);
+                        $("input[name='martillo_emergencia']").attr("disabled", false);
+                        $("input[name='dispositivo_velocidad']").attr("disabled", false);
                         $("input[name='balizas']").attr("disabled", false);
                     }
 
@@ -937,9 +937,9 @@ $(document).ready(function () {
                                 //         : "bg-danger";
 
                                 bg = semaforo_tipo1(element.fechafin, moment().format("YYYY-MM-DD"));
-                                        $(
-                                            `#documento_${element.idtipodocumento}`
-                                        ).addClass("bg-"+bg);
+                                $(
+                                    `#documento_${element.idtipodocumento}`
+                                ).addClass("bg-" + bg);
                             });
                         },
                     });
@@ -947,7 +947,7 @@ $(document).ready(function () {
             });
         });
 
-        
+
 
 
         /*============================================
@@ -1021,7 +1021,7 @@ $(document).ready(function () {
                                     // Color del fondo segun la fecha
                                     var bg =
                                         element.fechafin >=
-                                        moment().format("YYYY-MM-DD")
+                                            moment().format("YYYY-MM-DD")
                                             ? "bg-success"
                                             : "bg-danger";
                                     $(
@@ -1156,10 +1156,10 @@ $(document).ready(function () {
             FUNCION QUE RECIBE UNA CATEGORIA DE VEHICULO Y CAMBIA LAS IMAGENES DE LAS LLANTAS
         ====================================================================================*/
         let imagenesLlantas = (categoria) => {
-            if(categoria == "BUS-BUSETA"){
+            if (categoria == "BUS-BUSETA") {
                 $("#llantas_bus_buseta").removeClass("d-none");
                 $("#llantas_camioneta_micro").addClass("d-none");
-            } else if(categoria == "CAMIONETA-MICRO"){
+            } else if (categoria == "CAMIONETA-MICRO") {
                 $("#llantas_camioneta_micro").removeClass("d-none");
                 $("#llantas_bus_buseta").addClass("d-none");
             }
@@ -1602,9 +1602,9 @@ $(document).ready(function () {
 
                         bg = semaforo_tipo1(element.fechafin, moment().format("YYYY-MM-DD"));
 
-                                        $(
-                                            `#documento_${element.idtipodocumento}`
-                                        ).addClass("bg-"+bg);
+                        $(
+                            `#documento_${element.idtipodocumento}`
+                        ).addClass("bg-" + bg);
                     });
                 },
             });
@@ -2689,7 +2689,7 @@ $(document).ready(function () {
                             servicios.forEach((element) => {
                                 $(
                                     `#servicioexter_` +
-                                        element.idservicio_externo
+                                    element.idservicio_externo
                                 ).prop("checked", true);
                             });
                         },
@@ -3430,43 +3430,88 @@ $(document).ready(function () {
                             text: '<i class="far fa-file-excel"></i> Exportar',
                         },
                     ];
-                    var table = dataTableCustom(
+                    /* var table = dataTableCustom(
                         `#tablaSolicitudesProgramacion`,
                         buttons
-                    );
-                    var data = [];
-                    $("#tablaSolicitudesProgramacion2 td").each(function () {
-                        console.log("entra aca");
-                        var $this = $(this);
-                        var index = $this.index();
-                        var txt = $this.text();
-                        //console.log(this);
-                        //console.log(index);
+                    ); */
 
-                        if (index == 0) {
-                            var item = _.find(data, function (o) {
-                                //return o.v == txt;
-                                return txt.indexOf(o.v) != -1;
-                            });
+                    var table = $('#tablaSolicitudesProgramacion').DataTable({
+                        dom:
+                            "<'row'<'col-12 text-right'B>>" +
+                            "<'row mt-1'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+                            "<'row'<'col-sm-12'tr>>" +
+                            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                        buttons: buttons,
+                        orderCellsTop: true,
+                        fixedHeader: true,
+                        order: [],
+                        language: {
+                            sProcessing: "Procesando...",
+                            sLengthMenu: "Mostrar _MENU_ registros",
+                            sZeroRecords: "No se encontraron resultados",
+                            sEmptyTable: "Ningún dato disponible en esta tabla",
+                            sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                            sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0",
+                            sInfoFiltered:
+                                "<div class='small'>(filtrado de un total de _MAX_ registros)</div>",
+                            sInfoPostFix: "",
+                            sSearch: "Buscar:",
+                            sUrl: "",
+                            sInfoThousands: ",",
+                            sLoadingRecords: "Cargando...",
+                            oPaginate: {
+                                sFirst: "Primero",
+                                sLast: "Último",
+                                sNext: "Siguiente",
+                                sPrevious: "Anterior",
+                            },
+                            oAria: {
+                                sSortAscending:
+                                    ": Activar para ordenar la columna de manera ascendente",
+                                sSortDescending:
+                                    ": Activar para ordenar la columna de manera descendente",
+                            },
+                        },
+                        lengthMenu: [
+                            [10, 25, 50, 75, -1],
+                            [10, 25, 50, 75, "Todo"],
+                        ],
+                        "fnDrawCallback": function () {
 
-                            if (item) {
-                                item.t = item.t + 1;
-                                item.o
-                                    .attr("rowspan", item.t)
-                                    .removeClass("hide");
-                                $this.addClass("hide");
-                            } else {
-                                data.push({
-                                    i: index,
-                                    t: 1,
-                                    o: $this,
-                                    v: txt,
+                            $table = $(this);
+
+                            // only apply this to specific tables
+                            if ($table.closest(".datatable-multi-row").length) {
+
+                                // for each row in the table body...
+                                $table.find("tbody>tr").each(function () {
+                                    var $tr = $(this);
+
+                                    // get the "extra row" content from the <script> tag.
+                                    // note, this could be any DOM object in the row.
+                                    var extra_row = $tr.find(".extra-row-content").html();
+
+                                    // in case draw() fires multiple times, 
+                                    // we only want to add new rows once.
+                                    if (!$tr.next().hasClass('dt-added')) {
+                                        $tr.after(extra_row);
+                                        $tr.find("td").each(function () {
+
+                                            // for each cell in the top row,
+                                            // set the "rowspan" according to the data value.
+                                            var $td = $(this);
+                                            var rowspan = parseInt($td.data("datatable-multi-row-rowspan"), 10);
+                                            if (rowspan) {
+                                                $td.attr('rowspan', rowspan);
+                                            }
+                                        });
+                                    }
+
                                 });
-                                //$this.addClass('hide');
-                            }
-                        }
-                    });
 
+                            } // end if the table has the proper class
+                        } // end fnDrawCallback()
+                    });
                 },
             });
         }
