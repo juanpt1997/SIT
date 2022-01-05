@@ -964,7 +964,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                             <div class="card-body">
                                 <h5 class="text-center"><i>Vehiculos</i></h5>
                                 <div class="table-responsive">
-                                    <table id="tablaProgramacion" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                                    <table id="tablaProgramacion" class="table table-sm table-striped table-bordered text-center table-hover  w-100">
                                         <thead class="text-nowrap">
                                             <th>...</th>
                                             <th>Placa</th>
@@ -2134,7 +2134,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                 <div class="row">
                     <div class="col-lg-12 col-sm-12 justify-content-center">
                         <div class="table-responsive">
-                            <table id="tablaProgramacionSolicitud" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover">
+                            <table id="tablaProgramacionSolicitud" class="table table-sm table-striped table-bordered text-center table-hover">
                                 <thead class="text-nowrap">
                                     <th>Kilometraje</th>
                                     <th>Actividad</th>

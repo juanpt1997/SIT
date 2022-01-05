@@ -1166,9 +1166,9 @@ $(document).ready(function () {
         }
     }
 
-    /*========================================================
-    *MANTENIMIENTOS
-    ========================================================*/
+    /* ===================================================
+    * MANTENIMIENTOS
+  ====================================================== */
     if (
         window.location.href == `${urlPagina}m-mantenimientos/` ||
         window.location.href == `${urlPagina}m-mantenimientos`
@@ -3434,38 +3434,39 @@ $(document).ready(function () {
                         `#tablaSolicitudesProgramacion`,
                         buttons
                     );
+                    var data = [];
+                    $("#tablaSolicitudesProgramacion2 td").each(function () {
+                        console.log("entra aca");
+                        var $this = $(this);
+                        var index = $this.index();
+                        var txt = $this.text();
+                        //console.log(this);
+                        //console.log(index);
 
-                    // var data = [];
-                    // $("#tablaSolicitudesProgramacion1 td").each(function () {
-                    //     var $this = $(this);
-                    //     var index = $this.index();
-                    //     var txt = $this.text();
-                    //     //console.log(this);
-                    //     //console.log(index);
+                        if (index == 0) {
+                            var item = _.find(data, function (o) {
+                                //return o.v == txt;
+                                return txt.indexOf(o.v) != -1;
+                            });
 
-                    //     if (index == 0) {
-                    //         var item = _.find(data, function (o) {
-                    //             //return o.v == txt;
-                    //             return txt.indexOf(o.v) != -1;
-                    //         });
+                            if (item) {
+                                item.t = item.t + 1;
+                                item.o
+                                    .attr("rowspan", item.t)
+                                    .removeClass("hide");
+                                $this.addClass("hide");
+                            } else {
+                                data.push({
+                                    i: index,
+                                    t: 1,
+                                    o: $this,
+                                    v: txt,
+                                });
+                                //$this.addClass('hide');
+                            }
+                        }
+                    });
 
-                    //         if (item) {
-                    //             item.t = item.t + 1;
-                    //             item.o
-                    //                 .attr("rowspan", item.t)
-                    //                 .removeClass("hide");
-                    //             $this.addClass("hide");
-                    //         } else {
-                    //             data.push({
-                    //                 i: index,
-                    //                 t: 1,
-                    //                 o: $this,
-                    //                 v: txt,
-                    //             });
-                    //             //$this.addClass('hide');
-                    //         }
-                    //     }
-                    // });
                 },
             });
         }
