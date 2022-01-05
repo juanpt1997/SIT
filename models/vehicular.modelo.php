@@ -592,7 +592,7 @@ class ModeloVehiculos
         //                                         LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
         //                                         LEFT JOIN v_empresas_convenios c ON c.idxc = v.idconvenio
         //                                         WHERE v.{$datos['item']} = :{$datos['item']};");
-        $stmt = Conexion::conectar()->prepare("SELECT v.*, t.tipovehiculo, m.marca, s.sucursal,ccv.idcliente,cc.nombre AS cliente,
+        $stmt = Conexion::conectar()->prepare("SELECT v.*, t.tipovehiculo, t.categoria, m.marca, s.sucursal,ccv.idcliente,cc.nombre AS cliente,
                                                     (
                                                 SELECT cv.fecha_terminacion
                                                 FROM v_convenios cv

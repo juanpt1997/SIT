@@ -42,41 +42,48 @@ $(document).ready(function () {
                     //Funcion para cargar las fotos del vehiculo segun ese id
                     cargarFotosVehiculo(Vehiculo.fotosVehiculo);
                     //CAMBIAR INVENTARIO SEGUN EL TIPO DE VEHICULO
-                    inventario_tipo_vel(Vehiculo.datosVehiculo.tipovehiculo);
+                    inventario_tipo_vel(Vehiculo.datosVehiculo.categoria);
                     //FOTO DE LLANTAS SEGUN EL TIPO DE VEHICULO QUE VENGA
-                    if (
-                        Vehiculo.datosVehiculo.tipovehiculo == "Camioneta" ||
-                        Vehiculo.datosVehiculo.tipovehiculo == "Campero" ||
-                        Vehiculo.datosVehiculo.tipovehiculo ==
-                            "Camioneta Doble Cabina" ||
-                        Vehiculo.datosVehiculo.tipovehiculo == "Automovil"
-                    ) {
-                        $("#llantas_camioneta").removeClass("d-none");
-                        $("#llantas_bus").addClass("d-none");
-                        $("#llantas_buseta").addClass("d-none");
-                        $("#llantas_micro").addClass("d-none");
-                    } else if (
-                        Vehiculo.datosVehiculo.tipovehiculo == "Bus" ||
-                        Vehiculo.datosVehiculo.tipovehiculo == "Buseton"
-                    ) {
-                        $("#llantas_bus").removeClass("d-none");
-                        $("#llantas_camioneta").addClass("d-none");
-                        $("#llantas_buseta").addClass("d-none");
-                        $("#llantas_micro").addClass("d-none");
-                    } else if (
-                        Vehiculo.datosVehiculo.tipovehiculo == "Buseta"
-                    ) {
-                        $("#llantas_buseta").removeClass("d-none");
-                        $("#llantas_bus").addClass("d-none");
-                        $("#llantas_camioneta").addClass("d-none");
-                        $("#llantas_micro").addClass("d-none");
-                    } else if (
-                        Vehiculo.datosVehiculo.tipovehiculo == "Microbus"
-                    ) {
-                        $("#llantas_micro").removeClass("d-none");
-                        $("#llantas_bus").addClass("d-none");
-                        $("#llantas_buseta").addClass("d-none");
-                        $("#llantas_camioneta").addClass("d-none");
+                    // if (
+                    //     Vehiculo.datosVehiculo.tipovehiculo == "Camioneta" ||
+                    //     Vehiculo.datosVehiculo.tipovehiculo == "Campero" ||
+                    //     Vehiculo.datosVehiculo.tipovehiculo ==
+                    //         "Camioneta Doble Cabina" ||
+                    //     Vehiculo.datosVehiculo.tipovehiculo == "Automovil"
+                    // ) {
+                    //     $("#llantas_camioneta").removeClass("d-none");
+                    //     $("#llantas_bus").addClass("d-none");
+                    //     $("#llantas_buseta").addClass("d-none");
+                    //     $("#llantas_micro").addClass("d-none");
+                    // } else if (
+                    //     Vehiculo.datosVehiculo.tipovehiculo == "Bus" ||
+                    //     Vehiculo.datosVehiculo.tipovehiculo == "Buseton"
+                    // ) {
+                    //     $("#llantas_bus").removeClass("d-none");
+                    //     $("#llantas_camioneta").addClass("d-none");
+                    //     $("#llantas_buseta").addClass("d-none");
+                    //     $("#llantas_micro").addClass("d-none");
+                    // } else if (
+                    //     Vehiculo.datosVehiculo.tipovehiculo == "Buseta"
+                    // ) {
+                    //     $("#llantas_buseta").removeClass("d-none");
+                    //     $("#llantas_bus").addClass("d-none");
+                    //     $("#llantas_camioneta").addClass("d-none");
+                    //     $("#llantas_micro").addClass("d-none");
+                    // } else if (
+                    //     Vehiculo.datosVehiculo.tipovehiculo == "Microbus"
+                    // ) {
+                    //     $("#llantas_micro").removeClass("d-none");
+                    //     $("#llantas_bus").addClass("d-none");
+                    //     $("#llantas_buseta").addClass("d-none");
+                    //     $("#llantas_camioneta").addClass("d-none");
+                    // }
+                    if(Vehiculo.datosVehiculo.categoria == "BUS-BUSETA"){
+                        $("#llantas_bus_buseta").removeClass("d-none");
+                        $("#llantas_camioneta_micro").addClass("d-none");
+                    } else if(Vehiculo.datosVehiculo.categoria == "CAMIONETA-MICRO"){
+                        $("#llantas_camioneta_micro").removeClass("d-none");
+                        $("#llantas_bus_buseta").addClass("d-none");
                     }
                 },
             });
@@ -152,8 +159,8 @@ $(document).ready(function () {
         });
 
         /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    LICENCIA DEL CONDUCTOR SELECCIONADO
-    ==========================================================================*/
+        LICENCIA DEL CONDUCTOR SELECCIONADO
+        ==========================================================================*/
         $(document).on("change", "#conductor_invent", function () {
             let idconductor = $(this).val();
             var datos = new FormData();
@@ -179,8 +186,8 @@ $(document).ready(function () {
         });
 
         /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    ELEMENTO OBSERVADOR QUE PONE EL CONDUCTOR CUANDO SE ACTUALIZA EL SELECT 
-    ==========================================================================*/
+        ELEMENTO OBSERVADOR QUE PONE EL CONDUCTOR CUANDO SE ACTUALIZA EL SELECT 
+        ==========================================================================*/
         $(document).on(
             "change",
             "#observador_conductoresInventario",
@@ -193,8 +200,8 @@ $(document).ready(function () {
         );
 
         /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    EDITAR INVENTARIO
-    ==========================================================================*/
+        EDITAR INVENTARIO
+        ==========================================================================*/
         $(".btn-editarInventario").on("click", function () {
             //Capturamos el id del inventario del boton
             let id = $(this).attr("id_inventario");
@@ -261,15 +268,15 @@ $(document).ready(function () {
         });
 
         /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    RESTABLECER INVENTARIO
-    ==========================================================================*/
+        RESTABLECER INVENTARIO
+        ==========================================================================*/
         $("#restablecer").click(function (e) {
             $("#placa_invent").val("").trigger("change");
         });
 
         /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    FUNCION PARA LISTAR LAS IMAGENES DE EVIDENCIA
-    ==========================================================================*/
+        FUNCION PARA LISTAR LAS IMAGENES DE EVIDENCIA
+        ==========================================================================*/
         const AjaxTablaEvidencias = (idvehiculo) => {
             // Quitar datatable
             $(`#tabla_fotos`).dataTable().fnDestroy();
@@ -298,8 +305,8 @@ $(document).ready(function () {
         };
 
         /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    FUNCION PARA CARGAR LAS FOTOS DE LOS VEHICULOS EN COMPUTADOR Y CELULAR
-    ==========================================================================*/
+        FUNCION PARA CARGAR LAS FOTOS DE LOS VEHICULOS EN COMPUTADOR Y CELULAR
+        ==========================================================================*/
         let cargarFotosVehiculo = (response) => {
             let htmljumbo = ``;
             let htmlcarouselindicators = ``;
@@ -334,26 +341,24 @@ $(document).ready(function () {
         };
 
         /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    FUNCION PARA CAMBIAR EL INVENTARIO SEGUN EL TIPO DE VEHICULO
-    ==========================================================================*/
+        FUNCION PARA CAMBIAR EL INVENTARIO SEGUN EL TIPO DE VEHICULO
+        ==========================================================================*/
         let inventario_tipo_vel = (response) => {
             if (
-                response == "Camioneta" ||
-                response == "Camioneta Doble Cabina" ||
-                response == "Microbus"
+                response == "CAMIONETA-MICRO"
             ) {
                 $(".input-camioneta").addClass("d-none");
                 $(".camioneta").removeAttr("required");
                 $(".camioneta").val(0);
-            } else {
+            } else if(response == "BUS-BUSETA") {
                 $(".input-camioneta").removeClass("d-none");
                 $(".camioneta").prop("required", true);
             }
         };
 
         /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-    GUARDAR IMAGENES DE EVIDENCIA
-    ==========================================================================*/
+        GUARDAR IMAGENES DE EVIDENCIA
+        ==========================================================================*/
         $("#formulario_evidencias").submit(function (e) {
             e.preventDefault();
 
@@ -411,8 +416,8 @@ $(document).ready(function () {
         });
 
         /*==========================================================================
-    BOTON CAMBIAR ESTADO EVIDENCIA
-    ==========================================================================*/
+        BOTON CAMBIAR ESTADO EVIDENCIA
+        ==========================================================================*/
         $(document).on("click", ".btn-estado", function () {
             var $boton = $(this);
             var idevidencia = $(this).attr("idevidencia");
@@ -505,8 +510,8 @@ $(document).ready(function () {
         });
 
         /*==========================================================================
-    BOTON VALIDAR INPUTS REQUERIDOS
-    ==========================================================================*/
+        BOTON VALIDAR INPUTS REQUERIDOS
+        ==========================================================================*/
         $(document).on("click", ".btn-agregar-inventario", function () {
             Requeridos = [];
 
@@ -552,8 +557,8 @@ $(document).ready(function () {
         });
 
         /*==========================================================================
-    BOTON ELIMINAR INVENTARIO
-    ===========================================================================*/
+        BOTON ELIMINAR INVENTARIO
+        ===========================================================================*/
         $(".btn-eliminar").on("click", function () {
             let id = $(this).attr("id_inventario");
 
@@ -601,7 +606,7 @@ $(document).ready(function () {
 
         /* ===================================================
            VISUALIZAR PDF DEL INVENTARIO
-    ===================================================*/
+        ===================================================*/
         $(document).on("click", ".btn-verInventario", function () {
             var id_inventario = $(this).attr("id_inventario");
             window.open(
@@ -613,7 +618,7 @@ $(document).ready(function () {
 
         /*===================================================
               INICIALIZAR DATATABLE
-    ===================================================*/
+        ===================================================*/
         let FiltroTablaInventario = () => {
             /* ===================================================
                     FILTRAR POR COLUMNA
@@ -745,10 +750,9 @@ $(document).ready(function () {
             });
         });
 
-        /* ==========================================
+        /*==========================================
           CARGAR DATOS POR PLACA
-          ========================================= */
-
+        =========================================*/
         $(document).on("change", "#placa", function () {
             let idvehiculo = $(this).val();
 
@@ -945,6 +949,8 @@ $(document).ready(function () {
                         .trigger("change");
                     $("#num_interno").attr("disabled", "disabled");
 
+                    //CAMBIAR IMAGENES DE LLANTAS SEGUN LA CATEGORIA
+                    imagenesLlantas(Vehiculo.categoria);
                     // CARGA LOS DOCUMENTOS DEL VEHICULO
                     var datos = new FormData();
                     datos.append("DocumentosxVehiculo", "ok");
@@ -1068,7 +1074,6 @@ $(document).ready(function () {
         /*============================================
             ELIMINAR REVISIÓN TECNICOMECANICA
         ==============================================*/
-
         $(document).on("click", ".btnBorrarRev", function () {
             var idrevision = $(this).attr("idrevision");
             $("#idrevision").val(idrevision);
@@ -1182,12 +1187,24 @@ $(document).ready(function () {
                 });
             }
         });
+
+        /*====================================================================================
+            FUNCION QUE RECIBE UNA CATEGORIA DE VEHICULO Y CAMBIA LAS IMAGENES DE LAS LLANTAS
+        ====================================================================================*/
+        let imagenesLlantas = (categoria) => {
+            if(categoria == "BUS-BUSETA"){
+                $("#llantas_bus_buseta").removeClass("d-none");
+                $("#llantas_camioneta_micro").addClass("d-none");
+            } else if(categoria == "CAMIONETA-MICRO"){
+                $("#llantas_camioneta_micro").removeClass("d-none");
+                $("#llantas_bus_buseta").addClass("d-none");
+            }
+        }
     }
 
     /*========================================================
     *MANTENIMIENTOS
     ========================================================*/
-
     if (
         window.location.href == `${urlPagina}m-mantenimientos/` ||
         window.location.href == `${urlPagina}m-mantenimientos`
