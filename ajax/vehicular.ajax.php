@@ -329,15 +329,18 @@ class AjaxVehiculos
                 $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnSubirDoc . "</div>";
             }
             # Badge que indica si el documento está vencido o activo
-            if ($value['fechafin'] > date("Y-m-d")) {
-                $badgecolor = "success";
-            } else {
-                if ($value['fechafin'] == date("Y-m-d")) {
-                    $badgecolor = "warning";
-                } else {
-                    $badgecolor = "danger";
-                }
-            }
+            // if ($value['fechafin'] > date("Y-m-d")) {
+            //     $badgecolor = "success";
+            // } else {
+            //     if ($value['fechafin'] == date("Y-m-d")) {
+            //         $badgecolor = "warning";
+            //     } else {
+            //         $badgecolor = "danger";
+            //     }
+            // }
+
+            $badgecolor = ControladorVehiculos::Semaforo_tipo1($value['fechafin'], date("Y-m-d"));
+
             $tipodocumento = "<span class='badge badge-{$badgecolor}'>{$value['tipodocumento']}</span>";
             $fechafin = "<span class='badge badge-{$badgecolor}'>{$value['fechafin']}</span>";
             $tr .= "
@@ -368,15 +371,18 @@ class AjaxVehiculos
                 $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'><span class='badge badge-secondary'>sin documento</span></div>";
             }
             # Badge que indica si el documento está vencido o activo
-            if ($value['fechafin'] > date("Y-m-d")) {
-                $badgecolor = "success";
-            } else {
-                if ($value['fechafin'] == date("Y-m-d")) {
-                    $badgecolor = "warning";
-                } else {
-                    $badgecolor = "danger";
-                }
-            }
+            // if ($value['fechafin'] > date("Y-m-d")) {
+            //     $badgecolor = "success";
+            // } else {
+            //     if ($value['fechafin'] == date("Y-m-d")) {
+            //         $badgecolor = "warning";
+            //     } else {
+            //         $badgecolor = "danger";
+            //     }
+            // }
+            
+            $badgecolor = ControladorVehiculos::Semaforo_tipo1($value['fechafin'], date("Y-m-d"));
+
             $tipodocumento = "<span class='badge badge-{$badgecolor}'>{$value['tipodocumento']}</span>";
             $fechafin = "<span class='badge badge-{$badgecolor}'>{$value['fechafin']}</span>";
             $tr .= "
@@ -936,15 +942,18 @@ class AjaxVehiculos
 
         for ($i = 0; $i < count($Arreglo); $i++) {
             # Badge que indica si el documento está vencido o activo
-            if ($Arreglo[$i]['fechafin'] > date("Y-m-d")) {
-                $badgecolor = "success";
-            } else {
-                if ($Arreglo[$i]['fechafin'] == date("Y-m-d")) {
-                    $badgecolor = "warning";
-                } else {
-                    $badgecolor = "danger";
-                }
-            }
+            // if ($Arreglo[$i]['fechafin'] > date("Y-m-d")) {
+            //     $badgecolor = "success";
+            // } else {
+            //     if ($Arreglo[$i]['fechafin'] == date("Y-m-d")) {
+            //         $badgecolor = "warning";
+            //     } else {
+            //         $badgecolor = "danger";
+            //     }
+            // }
+
+            $badgecolor = ControladorVehiculos::Semaforo_tipo1($Arreglo[$i]['fechafin'], date("Y-m-d"));
+
             $fechavencimiento = "<span class='badge badge-{$badgecolor}'>{$Arreglo[$i]['fechafin']}</span>";
             $tipodocumento = "<span class='badge badge-{$badgecolor} text-uppercase'>{$Arreglo[$i]['tipodocumento']}</span>";
 
