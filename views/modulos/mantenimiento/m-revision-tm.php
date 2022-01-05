@@ -1827,7 +1827,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!-- TAB SISTEMA DE FRENOS Y LLANTAS  -->
                                         <div class="tab-pane fade show" id="custom-tabs-two-sistema-frenos" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-frenos">
                                             <div class="table-responsive">
-                                                <table class="table table-sm table-bordered text-center border-danger" nombre="Sistema de frenos y llantas">
+                                                <table class="table table-bordered text-center border-danger" nombre="Sistema de frenos y llantas">
                                                     <thead class="text-nowrap">
                                                         <tr class="font-weight-bold">
                                                             <th>Nivel de fluido <small><i>(Fugas)</i></small></th>

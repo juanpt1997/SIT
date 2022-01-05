@@ -777,11 +777,7 @@ $(document).ready(function () {
                     $(".bg-danger").removeClass("bg-danger");
 
                     //DESACTIVAR INPUTS DEPENDIENDO DEL TIPO DE VEHICULO
-
-                    if (
-                        Vehiculo.idtipovehiculo == 9 ||
-                        Vehiculo.idtipovehiculo == 2
-                    ) {
+                    if (Vehiculo.categoria == "CAMIONETA-MICRO") {
                         $("input[name='freno_ahogo']").attr("disabled", true);
                         $("input[name='compresor']").attr("disabled", true);
                         $("input[name='fuga_aire']").attr("disabled", true);
@@ -857,81 +853,35 @@ $(document).ready(function () {
                             true
                         );
                         $("input[name='balizas']").attr("disabled", true);
-                    } else {
+
+                    } else if(Vehiculo.categoria == "BUS-BUSETA") {
                         $("input[name='freno_ahogo']").attr("disabled", false);
                         $("input[name='compresor']").attr("disabled", false);
                         $("input[name='fuga_aire']").attr("disabled", false);
-                        $("input[name='banda_delantera_derecha']").attr(
-                            "disabled",
-                            false
-                        );
-                        $("input[name='banda_delantera_izquierda']").attr(
-                            "disabled",
-                            false
-                        );
+                        $("input[name='banda_delantera_derecha']").attr("disabled",false);
+                        $("input[name='banda_delantera_izquierda']").attr("disabled",false);
                         $("input[name='rachets']").attr("disabled", false);
                         $("input[name='llantar5']").attr("disabled", false);
                         $("input[name='llantar6']").attr("disabled", false);
                         $("input[name='tanques_aire']").attr("disabled", false);
-                        $("input[name='luces_delimitadoras']").attr(
-                            "disabled",
-                            false
-                        );
+                        $("input[name='luces_delimitadoras']").attr("disabled",false);
                         $("input[name='rutero']").attr("disabled", false);
-                        $("input[name='estribos_puerta']").attr(
-                            "disabled",
-                            false
-                        );
-                        $("input[name='brazo_limpiaparabrisas_derecho']").attr(
-                            "disabled",
-                            false
-                        );
-                        $("input[name='parabrisas_izquierdo']").attr(
-                            "disabled",
-                            false
-                        );
-                        $(
-                            "input[name='brazo_limpiaparabrisas_izquierdo']"
-                        ).attr("disabled", false);
-                        $("input[name='vidrio_puerta_principal']").attr(
-                            "disabled",
-                            false
-                        );
-                        $("input[name='vidrio_segunda_puerta']").attr(
-                            "disabled",
-                            false
-                        );
+                        $("input[name='estribos_puerta']").attr("disabled",false);
+                        $("input[name='brazo_limpiaparabrisas_derecho']").attr("disabled",false);
+                        $("input[name='parabrisas_izquierdo']").attr("disabled",false);
+                        $("input[name='brazo_limpiaparabrisas_izquierdo']").attr("disabled", false);
+                        $("input[name='vidrio_puerta_principal']").attr("disabled",false);
+                        $("input[name='vidrio_segunda_puerta']").attr("disabled",false);
                         $("input[name='claraboyas']").attr("disabled", false);
                         $("input[name='parales']").attr("disabled", false);
-                        $("input[name='booster_puertas']").attr(
-                            "disabled",
-                            false
-                        );
+                        $("input[name='booster_puertas']").attr("disabled",false);
                         $("input[name='reloj_vigia']").attr("disabled", false);
-                        $("input[name='vigia_delantera_derecha']").attr(
-                            "disabled",
-                            false
-                        );
-                        $("input[name='vigia_delantera_izquierda']").attr(
-                            "disabled",
-                            false
-                        );
-                        $("input[name='vigia_trasera_derecha']").attr(
-                            "disabled",
-                            false
-                        );
-                        $("input[name='vigia_trasera_izquierda']").attr(
-                            "disabled",
-                            false
-                        );
-                        $("input[name='martillo_emergencia']").attr(
-                            "disabled",
-                            false
-                        );
-                        $("input[name='dispositivo_velocidad']").attr(
-                            "disabled",
-                            false
-                        );
+                        $("input[name='vigia_delantera_derecha']").attr("disabled",false);
+                        $("input[name='vigia_delantera_izquierda']").attr("disabled",false);
+                        $("input[name='vigia_trasera_derecha']").attr("disabled",false);
+                        $("input[name='vigia_trasera_izquierda']").attr("disabled",false);
+                        $("input[name='martillo_emergencia']").attr("disabled",false);
+                        $("input[name='dispositivo_velocidad']").attr("disabled",false);
                         $("input[name='balizas']").attr("disabled", false);
                     }
 
