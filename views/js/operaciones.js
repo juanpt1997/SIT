@@ -1248,14 +1248,32 @@ $(document).ready(function () {
                         success: function (response) {
                             if (response.valor_recorrido == undefined) {
                                 Swal.fire({
-                                    icon: "info",
-                                    title: "No se encontró ruta con ese cliente",
-                                    text: "Ingrese el valor total de la ruta.",
+                                    icon: "warning",
+                                    title: "No hay ruta asociada con ese cliente",
+                                    html:`
+                                        <p>Debe asegurarse que tenga un valor de recorrido asignado que coincida con los siguientes campos:</p>
+                                        <div class="d-flex justify-content-center">
+                                            <ul>
+                                                <li><i>Tipo de vehículo.</i></li>
+                                                <li><i>Cliente.</i></li> 
+                                            </ul>
+                                        </div>
+                                        `,
                                     showConfirmButton: true,
-                                    confirmButtonText: "continuar.",
-                                });
-                                $("#valor_total").removeAttr("readonly");
-                            } else {
+                                    confirmButtonText: "Asignar nueva ruta en fijos. <i class='fas fa-arrow-alt-circle-right'></i>",
+                                    confirmButtonColor: "#00b300"
+                                }).then((result)=>{
+
+									if(result.value){
+										window.open('contratos-fijos');
+									}
+								});
+                                $("#idruta").val("");
+                                $("#descrip").val("");
+                                $("#origen").val("");
+                                $("#destino").val("");
+                                //$("#valor_total").removeAttr("readonly");
+                            }else{
                                 $("#valor_total").val(response.valor_recorrido);
                                 $("#valor_total").attr("readonly", true);
                             }
