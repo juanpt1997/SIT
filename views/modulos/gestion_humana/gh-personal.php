@@ -66,7 +66,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                         <span class="sr-only">Loading...</span>
                     </div>
                     <div class="table-responsive">
-                        <table id="tblPersonal" class="table table-sm text-sm table-light table-striped table-bordered tablas w-100 text-center">
+                        <table id="tblPersonal" class="table table-sm text-sm table-striped table-bordered tablas w-100 text-center text-nowrap">
                             <thead class="text-capitalize">
                                 <tr>
                                     <th style="width:90px;">Id</th>
@@ -110,40 +110,40 @@ $Sucursales = ControladorGH::ctrSucursales();
                 </button>
             </div>
             <div class="modal-body">
-                <ul class="nav nav-tabs navbar-light" id="myTab" role="tablist">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
                     <!-- ===================================================
                         PRIMER TAB
                     =================================================== -->
                     <li class="nav-item">
-                        <a class="nav-link active font-weight-bold" id="personal-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="personal" aria-selected="true">Personal</a>
+                        <a class="nav-link active" id="personal-tab" data-toggle="tab" href="#personal" role="tab" aria-controls="personal" aria-selected="true">Personal</a>
                     </li>
 
                     <!-- ===================================================
                         SEGUNDO TAB
                     =================================================== -->
                     <li class="nav-item">
-                        <a class="nav-link font-weight-bold" id="contratos-tab" data-toggle="tab" href="#contratos" role="tab" aria-controls="contratos" aria-selected="false">Contratos y prórrogas</a>
+                        <a class="nav-link" id="contratos-tab" data-toggle="tab" href="#contratos" role="tab" aria-controls="contratos" aria-selected="false">Contratos y prórrogas</a>
                     </li>
 
                     <!-- ===================================================
                         TERCER TAB
                     =================================================== -->
                     <li class="nav-item">
-                        <a class="nav-link font-weight-bold" id="hijos-tab" data-toggle="tab" href="#hijos" role="tab" aria-controls="hijos" aria-selected="false">Hijos</a>
+                        <a class="nav-link" id="hijos-tab" data-toggle="tab" href="#hijos" role="tab" aria-controls="hijos" aria-selected="false">Hijos</a>
                     </li>
 
                     <!-- ===================================================
                         CUARTO TAB
                     =================================================== -->
                     <li class="nav-item">
-                        <a class="nav-link font-weight-bold" id="licencias-tab" data-toggle="tab" href="#licencias" role="tab" aria-controls="licencias" aria-selected="false">Licencias de conducción</a>
+                        <a class="nav-link" id="licencias-tab" data-toggle="tab" href="#licencias" role="tab" aria-controls="licencias" aria-selected="false">Licencias de conducción</a>
                     </li>
 
                     <!-- ===================================================
                         QUINTO TAB
                     =================================================== -->
                     <li class="nav-item">
-                        <a class="nav-link font-weight-bold" id="examenes-tab" data-toggle="tab" href="#examenes" role="tab" aria-controls="examenes" aria-selected="false">Exámenes médicos</a>
+                        <a class="nav-link" id="examenes-tab" data-toggle="tab" href="#examenes" role="tab" aria-controls="examenes" aria-selected="false">Exámenes médicos</a>
                     </li>
                 </ul>
                 <div class="tab-content" id="myTabContent">
@@ -158,7 +158,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4 text-center">
                                     <div class="form-group">
-                                        <!-- <label for="exampleInput1">Foto</label> -->
+                                        <!-- <label for="exampleInput1" class="text-sm">Foto</label> -->
                                         <br>
                                         <img src="views/img/fotosUsuarios/default/anonymous.png" class="img-fluid previsualizar" width="100">
                                         <div class="input-group mt-1">
@@ -174,46 +174,17 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 </div>
 
                             </div>
+
                             <hr class="bg-secondary">
+
                             <div class="row">
-                                <!-- ===================================================
-                                    ID Empleado
-                                =================================================== -->
-                                <input type="hidden" name="idPersonal" id="idPersonal" value="">
-
-
-                                <!-- ===================================================
-                                        Consentimiento Informado
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Consentimiento Informado *</label>
-                                        <div class="form-group clearfix">
-                                            <div class="icheck-primary d-inline">
-                                                <input type="radio" class="consentimiento_informado" id="consentInform1" name="consentimiento_informado" checked value="S">
-                                                <label class="font-weight-normal" for="consentInform1">Si
-                                                </label>
-                                            </div>
-                                            <div class="icheck-primary d-inline">
-                                                <input type="radio" class="consentimiento_informado" id="consentInform2" name="consentimiento_informado" value="N">
-                                                <label class="font-weight-normal" for="consentInform2">No
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
                                 <!-- ===================================================
                                     Nombre Completo
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Nombre Completo *</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                            </div>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Nombre Completo *</i></label>
+                                        <div class="form-group">
                                             <input type="text" class="form-control" name="Nombre" id="Nombre" maxlength="100" required>
                                         </div>
                                         <!-- /.input group -->
@@ -224,8 +195,8 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 Tipo Documento
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Tipo Documento *</label>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Tipo Documento *</i></label>
                                         <div class="form-group clearfix">
                                             <div class="icheck-primary d-inline">
                                                 <input type="radio" class="tipo_doc" id="tipoDoc1" name="tipo_doc" value="CC" required>
@@ -250,12 +221,9 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     Documento
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Documento *</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-id-card"></i></span>
-                                            </div>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Documento *</i></label>
+                                        <div class="form-group">
                                             <input type="text" class="form-control" name="Documento" id="Documento" maxlength="20" required>
                                         </div>
                                         <!-- /.input group -->
@@ -266,13 +234,10 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     DOCUMENTOS ESCANEADO
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label>Adjuntar documento</label>
+                                    <div class="form-group text-center">
+                                        <label><i>Adjuntar documento</i></label>
                                         <div class="input-group mt-auto">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">
-                                                    <i class="fas fa-file-alt"></i>
-                                                </span>
+                                            <div class="form-group-append">
                                             </div>
                                             <input type="file" class="form-control" id="documento_escaneado" accept="image/png, image/jpeg">
                                         </div>
@@ -284,13 +249,13 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     Lugar de Expedición
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Lugar de Expedición *</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
-                                                <span class="input-group-text" style="height: 100%;"><i class="fas fa-map-marker-alt"></i></span>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Lugar de Expedición *</i></label>
+                                        <div class="form-group">
+                                            <div class="form-group-prepend d-none d-sm-block d-md-none d-xl-block">
+                                                <span class="form-group-text" style="height: 100%;"></span>
                                             </div>
-                                            <select id="lugar_expedicion" class="form-control select2-single" style="width: 90%" name="lugar_expedicion" required>
+                                            <select id="lugar_expedicion" class="form-control select2-single" name="lugar_expedicion" required>
                                                 <option value="" selected>DEPARTAMENTO - MUNICIPIO</option>
                                                 <?php foreach ($DeparMunicipios as $key => $value) : ?>
                                                     <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
@@ -305,12 +270,9 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     Fecha de Nacimiento
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Fecha de Nacimiento *</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                            </div>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Fecha de Nacimiento *</i></label>
+                                        <div class="form-group">
                                             <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento" max="<?php echo date('Y-m-d', strtotime(date("Y-m-d"))); ?>" required>
                                         </div>
                                         <!-- /.input group -->
@@ -321,13 +283,13 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     Lugar de Nacimiento
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Lugar de Nacimiento *</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
-                                                <span class="input-group-text" style="height: 100%;"><i class="fas fa-map-marker-alt"></i></span>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Lugar de Nacimiento *</i></label>
+                                        <div class="form-group">
+                                            <div class="form-group-prepend d-none d-sm-block d-md-none d-xl-block">
+                                                <span class="form-group-text" style="height: 100%;"></i></span>
                                             </div>
-                                            <select id="lugar_nacimiento" class="form-control select2-single" style="width: 90%" name="lugar_nacimiento" required>
+                                            <select id="lugar_nacimiento" class="form-control select2-single" name="lugar_nacimiento" required>
                                                 <option value="" selected>DEPARTAMENTO - MUNICIPIO</option>
                                                 <?php foreach ($DeparMunicipios as $key => $value) : ?>
                                                     <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
@@ -342,8 +304,8 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     Edad
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Edad *</label>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Edad *</i></label>
                                         <input type="text" class="form-control" name="edad" id="edad" maxlength="10" required>
                                     </div>
                                 </div>
@@ -352,13 +314,13 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     Lugar de Residencia
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Lugar de Residencia *</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
-                                                <span class="input-group-text" style="height: 100%;"><i class="fas fa-map-marker-alt"></i></span>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Lugar de Residencia *</i></label>
+                                        <div class="form-group">
+                                            <div class="form-group-prepend d-none d-sm-block d-md-none d-xl-block">
+                                                <span class="form-group-text" style="height: 100%;"></span>
                                             </div>
-                                            <select id="lugar_residencia" class="form-control select2-single" style="width: 90%" name="lugar_residencia" required>
+                                            <select id="lugar_residencia" class="form-control select2-single" name="lugar_residencia" required>
                                                 <option value="" selected>DEPARTAMENTO - MUNICIPIO</option>
                                                 <?php foreach ($DeparMunicipios as $key => $value) : ?>
                                                     <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
@@ -373,8 +335,8 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     Dirección
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Dirección *</label>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Dirección *</i></label>
                                         <input type="text" class="form-control" name="direccion" id="direccion" maxlength="100" required>
                                     </div>
                                 </div>
@@ -383,8 +345,8 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     Barrio
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Barrio *</label>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Barrio *</i></label>
                                         <input type="text" class="form-control" name="barrio" id="barrio" maxlength="45" required>
                                     </div>
                                 </div>
@@ -393,8 +355,8 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     Estrato Social
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Estrato Social *</label>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Estrato Social *</i></label>
                                         <select id="estrato_social" class="form-control" name="estrato_social" required>
                                             <option value="" selected>Seleccione una opción</option>
                                             <option>1</option>
@@ -410,9 +372,9 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <!-- ===================================================
                                     Tipo de Vivienda
                                 =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
                                     <div class="form-group d-inline">
-                                        <label for="exampleInput1">Tipo de Vivienda *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>Tipo de Vivienda *</i></label>
                                         <div class="form-group clearfix">
                                             <div class="icheck-primary d-inline">
                                                 <input class="tipo_vivienda" type="radio" id="radioPrimary1" name="tipo_vivienda" value="Propia" required>
@@ -437,12 +399,9 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     Teléfono 1
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Teléfono 1 *</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
-                                            </div>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Teléfono 1 *</i></label>
+                                        <div class="form-group">
                                             <input type="text" class="form-control" name="telefono1" id="telefono1" maxlength="10" required>
                                         </div>
                                         <!-- /.input group -->
@@ -453,12 +412,9 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     Teléfono 2
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Teléfono 2</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-phone-alt"></i></span>
-                                            </div>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Teléfono 2</i></label>
+                                        <div class="form-group">
                                             <input type="text" class="form-control" name="telefono2" id="telefono2" maxlength="10">
                                         </div>
                                         <!-- /.input group -->
@@ -469,8 +425,8 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     Estado Civil
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Estado Civil *</label>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Estado Civil *</i></label>
                                         <select id="estado_civil" class="form-control" name="estado_civil" required>
                                             <option value="" selected>Seleccione una opción</option>
                                             <option>Soltero</option>
@@ -482,32 +438,11 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 </div>
 
                                 <!-- ===================================================
-                                    Género
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group d-inline">
-                                        <label for="exampleInput1">Género *</label>
-                                        <div class="form-group clearfix">
-                                            <div class="icheck-primary d-inline">
-                                                <input class="genero" type="radio" id="genero1" name="genero" value="Masculino" required>
-                                                <label class="font-weight-normal" for="genero1">Masculino
-                                                </label>
-                                            </div>
-                                            <div class="icheck-primary d-inline">
-                                                <input class="genero" type="radio" id="genero2" name="genero" value="Femenino">
-                                                <label class="font-weight-normal" for="genero2">Femenino
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- ===================================================
                                     Tipo de Sangre
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Tipo de Sangre *</label>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Tipo de Sangre *</i></label>
                                         <select id="tipo_sangre" class="form-control" name="tipo_sangre" required>
                                             <option value="" selected>Seleccione una opción</option>
                                             <option>O+</option>
@@ -526,8 +461,8 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     Raza
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Raza *</label>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Raza *</i></label>
                                         <select id="raza" class="form-control" name="raza" required>
                                             <option value="" selected>Seleccione una opción</option>
                                             <option>Mulato</option>
@@ -544,12 +479,9 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     Correo
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Correo *</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-at"></i></span>
-                                            </div>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Correo *</i></label>
+                                        <div class="form-group">
                                             <input type="text" class="form-control" name="correo" id="correo" maxlength="45" required>
                                         </div>
                                         <!-- /.input group -->
@@ -560,8 +492,8 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     Nivel de Escolaridad
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Nivel de Escolaridad *</label>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Nivel de Escolaridad *</i></label>
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="fas fa-graduation-cap"></i></span>
@@ -581,17 +513,99 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 </div>
 
                                 <!-- ===================================================
-                                    Cargo
+                                    Pago de seguridad social
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
+                                    <div class="form-group">
+                                        <label for="exampleInput1" class="text-sm"><i>Pago de seguridad social</i></label>
+                                        <select id="pago_seguridadsocial" class="form-control" name="pago_seguridadsocial">
+                                            <option value="" selected>Seleccione una opción</option>
+                                            <option>Por la empresa</option>
+                                            <option>Independiente</option>
+                                            <option>Independiente con permiso</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Personas a cargo
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
+                                    <div class="form-group">
+                                        <label for="exampleInput1" class="text-sm"><i>Personas a cargo *</i></label>
+                                        <input type="text" class="form-control" name="dependientes" id="dependientes" maxlength="45" required>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Ciudad
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
+                                    <div class="form-group">
+                                        <label for="exampleInput1" class="text-sm" class="text-sm"><i>Ciudad</i></label>
+                                        <div class="form-group">
+                                            <div class="form-group-prepend d-none d-sm-block d-md-none d-xl-block">
+                                                <span class="form-group-text" style="height: 100%;"></span>
+                                            </div>
+                                            <select id="ciudad" class="form-control select2-single" name="ciudad">
+                                                <option value="" selected>DEPARTAMENTO - MUNICIPIO</option>
+                                                <?php foreach ($DeparMunicipios as $key => $value) : ?>
+                                                    <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
+                                                <?php endforeach ?>
+                                            </select>
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="bg-secondary">
+                            <div class="row">
+                                <!-- ===================================================
+                                    ID Empleado
+                                =================================================== -->
+                                <input type="hidden" name="idPersonal" id="idPersonal" value="">
+
+
+                                <!-- ===================================================
+                                        Consentimiento Informado
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Cargo *</label>
-                                        <select id="cargo" class="form-control" name="cargo" required>
-                                            <option value="" selected>Seleccione una opción</option>
-                                            <?php foreach ($Cargos as $key => $value) : ?>
-                                                <option value="<?= $value['idCargo'] ?>"><?= $value['cargo'] ?></option>
-                                            <?php endforeach ?>
-                                        </select>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Consentimiento Informado *</i></label>
+                                        <div class="form-group clearfix">
+                                            <div class="icheck-primary d-inline">
+                                                <input type="radio" class="consentimiento_informado" id="consentInform1" name="consentimiento_informado" checked value="S">
+                                                <label class="font-weight-normal" for="consentInform1">Si
+                                                </label>
+                                            </div>
+                                            <div class="icheck-primary d-inline">
+                                                <input type="radio" class="consentimiento_informado" id="consentInform2" name="consentimiento_informado" value="N">
+                                                <label class="font-weight-normal" for="consentInform2">No
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Género
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
+                                    <div class="form-group d-inline">
+                                        <label for="exampleInput1" class="text-sm"><i>Género *</i></label>
+                                        <div class="form-group clearfix">
+                                            <div class="icheck-primary d-inline">
+                                                <input class="genero" type="radio" id="genero1" name="genero" value="Masculino" required>
+                                                <label class="font-weight-normal" for="genero1">Masculino
+                                                </label>
+                                            </div>
+                                            <div class="icheck-primary d-inline">
+                                                <input class="genero" type="radio" id="genero2" name="genero" value="Femenino">
+                                                <label class="font-weight-normal" for="genero2">Femenino
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -599,8 +613,8 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     Área
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Área *</label>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Área *</i></label>
                                         <div class="form-group clearfix">
                                             <div class="icheck-primary d-inline">
                                                 <input class="area" type="radio" id="area1" name="area" value="Operativo" required>
@@ -617,36 +631,11 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 </div>
 
                                 <!-- ===================================================
-                                    Proceso *
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Proceso *</label>
-                                        <select id="proceso" class="form-control" name="proceso" required>
-                                            <option value="" selected>Seleccione una opción</option>
-                                            <?php foreach ($Procesos as $key => $value) : ?>
-                                                <option value="<?= $value['idProceso'] ?>"><?= $value['proceso'] ?></option>
-                                            <?php endforeach ?>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <!-- ===================================================
-                                    Antigüedad
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Antigüedad *</label>
-                                        <input type="text" class="form-control" name="antiguedad" id="antiguedad" maxlength="45" required>
-                                    </div>
-                                </div>
-
-                                <!-- ===================================================
                                     Turno de Trabajo
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Turno de Trabajo *</label>
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Turno de Trabajo *</i></label>
                                         <div class="form-group clearfix">
                                             <div class="icheck-primary d-inline">
                                                 <input class="turno_trabajo" type="radio" id="turnoTrabajo1" name="turno_trabajo" value="Diurno" required>
@@ -668,11 +657,158 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 </div>
 
                                 <!-- ===================================================
-                                    Tipo de contrato
+                                    Activo
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
+                                    <div class="form-group">
+                                        <label for="exampleInput1" class="text-sm"><i>Activo *</i></label>
+                                        <div class="form-group clearfix">
+                                            <div class="icheck-primary d-inline">
+                                                <input class="activo" type="radio" id="activo1" value="S" name="activo" checked>
+                                                <label class="font-weight-normal" for="activo1">Activo
+                                                </label>
+                                            </div>
+                                            <div class="icheck-primary d-inline">
+                                                <input class="activo" type="radio" id="activo2" value="N" name="activo">
+                                                <label class="font-weight-normal" for="activo2">Inactivo
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="bg-secondary">
+
+                            <div class="row">
+                                <!-- ===================================================
+                                    Empresa
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
+                                    <div class="form-group">
+                                        <label for="exampleInput1" class="text-sm"><i>Empresa *</i></label>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="empresa" id="empresa" maxlength="100">
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+                                </div>
+
+
+                                <!-- ===================================================
+                                    Fecha Ingreso
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
+                                    <div class="form-group">
+                                        <label for="exampleInput1" class="text-sm"><i>Fecha Ingreso *</i></label>
+                                        <div class="form-group">
+                                            <input type="date" class="form-control" name="fecha_ingreso" id="fecha_ingreso" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>">
+                                        </div>
+                                        <!-- /.input group -->
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Sucursal
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
+                                    <div class="form-group">
+                                        <label for="exampleInput1" class="text-sm"><i>Sucursal *</i></label>
+                                        <select id="sucursal" class="form-control" name="sucursal" required>
+                                            <option value="" selected>Seleccione una opción</option>
+                                            <?php foreach ($Sucursales as $key => $value) : ?>
+                                                <option value="<?= $value['ids'] ?>"><?= $value['sucursal'] ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Salario Básico
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
+                                    <div class="form-group">
+                                        <label for="exampleInput1" class="text-sm"><i>Salario Básico *</i></label>
+                                        <input type="number" class="form-control" name="salario_basico" id="salario_basico" min="0" required>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Beneficio Fijo
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
+                                    <div class="form-group">
+                                        <label for="exampleInput1" class="text-sm"><i>Beneficio Fijo</i></label>
+                                        <input type="number" class="form-control" name="beneficio_fijo" id="beneficio_fijo" min="0">
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Bonificación Variable
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
+                                    <div class="form-group">
+                                        <label for="exampleInput1" class="text-sm"><i>Bonificación Variable</i></label>
+                                        <input type="number" class="form-control" name="bonificacion_variable" id="bonificacion_variable" min="0">
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Cargo
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Cargo *</i></label>
+                                        <select id="cargo" class="form-control" name="cargo" required>
+                                            <option value="" selected>Seleccione una opción</option>
+                                            <?php foreach ($Cargos as $key => $value) : ?>
+                                                <option value="<?= $value['idCargo'] ?>"><?= $value['cargo'] ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Años Experiencia
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Tipo de contrato</label>
+                                        <label for="exampleInput1" class="text-sm"><i>Años Experiencia *</i></label>
+                                        <input type="number" class="form-control" name="anios_experiencia" id="anios_experiencia" min="0" max="999" required>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Proceso *
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Proceso *</i></label>
+                                        <select id="proceso" class="form-control" name="proceso" required>
+                                            <option value="" selected>Seleccione una opción</option>
+                                            <?php foreach ($Procesos as $key => $value) : ?>
+                                                <option value="<?= $value['idProceso'] ?>"><?= $value['proceso'] ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Antigüedad
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1" class="text-sm"><i>Antigüedad *</i></label>
+                                        <input type="text" class="form-control" name="antiguedad" id="antiguedad" maxlength="45" required>
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                                    Tipo de contrato
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
+                                    <div class="form-group">
+                                        <label for="exampleInput1" class="text-sm"><i>Tipo de contrato</i></label>
                                         <select id="tipo_contrato" class="form-control" name="tipo_contrato">
                                             <option value="" selected>Seleccione una opción</option>
                                             <option>Definido</option>
@@ -685,9 +821,9 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <!-- ===================================================
                                     Tipo de vinculación
                                 =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Tipo de vinculación *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>Tipo de vinculación *</i></label>
                                         <div class="form-group clearfix">
                                             <div class="icheck-primary d-inline">
                                                 <input class="tipo_vinculacion" type="radio" id="tipo_vinculacion1" name="tipo_vinculacion" value="Propio" required>
@@ -708,47 +844,13 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     </div>
                                 </div>
 
-                                <!-- ===================================================
-                                    Pago de seguridad social
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Pago de seguridad social</label>
-                                        <select id="pago_seguridadsocial" class="form-control" name="pago_seguridadsocial">
-                                            <option value="" selected>Seleccione una opción</option>
-                                            <option>Por la empresa</option>
-                                            <option>Independiente</option>
-                                            <option>Independiente con permiso</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <!-- ===================================================
-                                    Años Experiencia
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Años Experiencia *</label>
-                                        <input type="number" class="form-control" name="anios_experiencia" id="anios_experiencia" min="0" max="999" required>
-                                    </div>
-                                </div>
-
-                                <!-- ===================================================
-                                    Personas a cargo
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Personas a cargo *</label>
-                                        <input type="text" class="form-control" name="dependientes" id="dependientes" maxlength="45" required>
-                                    </div>
-                                </div>
 
                                 <!-- ===================================================
                                     Eps
                                 =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Eps *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>EPS *</i></label>
                                         <select id="eps" class="form-control" name="eps" required>
                                             <option value="" selected>Seleccione una opción</option>
                                             <?php foreach ($ListadoEPS as $key => $value) : ?>
@@ -761,9 +863,9 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <!-- ===================================================
                                     Afp
                                 =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Afp *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>AFP *</i></label>
                                         <select id="afp" class="form-control" name="afp" required>
                                             <option value="" selected>Seleccione una opción</option>
                                             <?php foreach ($ListadoAFP as $key => $value) : ?>
@@ -776,9 +878,9 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <!-- ===================================================
                                     Arl
                                 =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Arl *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>ARL *</i></label>
                                         <select id="arl" class="form-control" name="arl" required>
                                             <option value="" selected>Seleccione una opción</option>
                                             <?php foreach ($ListadoARL as $key => $value) : ?>
@@ -787,140 +889,22 @@ $Sucursales = ControladorGH::ctrSucursales();
                                         </select>
                                     </div>
                                 </div>
-
-                                <!-- ===================================================
-                                    Salario Básico
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Salario Básico *</label>
-                                        <input type="number" class="form-control" name="salario_basico" id="salario_basico" min="0" required>
-                                    </div>
-                                </div>
-
-                                <!-- ===================================================
-                                    Beneficio Fijo
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Beneficio Fijo</label>
-                                        <input type="number" class="form-control" name="beneficio_fijo" id="beneficio_fijo" min="0">
-                                    </div>
-                                </div>
-
-                                <!-- ===================================================
-                                    Bonificación Variable
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Bonificación Variable</label>
-                                        <input type="number" class="form-control" name="bonificacion_variable" id="bonificacion_variable" min="0">
-                                    </div>
-                                </div>
-
-                                <!-- ===================================================
-                                    Ciudad
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Ciudad</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
-                                                <span class="input-group-text" style="height: 100%;"><i class="fas fa-map-marker-alt"></i></span>
-                                            </div>
-                                            <select id="ciudad" class="form-control select2-single" style="width: 90%" name="ciudad">
-                                                <option value="" selected>DEPARTAMENTO - MUNICIPIO</option>
-                                                <?php foreach ($DeparMunicipios as $key => $value) : ?>
-                                                    <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
-                                                <?php endforeach ?>
-                                            </select>
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                </div>
-
-                                <!-- ===================================================
-                                    Sucursal
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Sucursal *</label>
-                                        <select id="sucursal" class="form-control" name="sucursal" required>
-                                            <option value="" selected>Seleccione una opción</option>
-                                            <?php foreach ($Sucursales as $key => $value) : ?>
-                                                <option value="<?= $value['ids'] ?>"><?= $value['sucursal'] ?></option>
-                                            <?php endforeach ?>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <!-- ===================================================
-                                    Activo
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Activo *</label>
-                                        <div class="form-group clearfix">
-                                            <div class="icheck-primary d-inline">
-                                                <input class="activo" type="radio" id="activo1" value="S" name="activo" checked>
-                                                <label class="font-weight-normal" for="activo1">Activo
-                                                </label>
-                                            </div>
-                                            <div class="icheck-primary d-inline">
-                                                <input class="activo" type="radio" id="activo2" value="N" name="activo">
-                                                <label class="font-weight-normal" for="activo2">Inactivo
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- ===================================================
-                                    Fecha Ingreso
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Fecha Ingreso</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                            </div>
-                                            <input type="date" class="form-control" name="fecha_ingreso" id="fecha_ingreso" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>">
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                </div>
-
-                                <!-- ===================================================
-                                    Empresa
-                                =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
-                                    <div class="form-group">
-                                        <label for="exampleInput1">Empresa</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="fas fa-building"></i></span>
-                                            </div>
-                                            <input type="text" class="form-control" name="empresa" id="empresa" maxlength="100">
-                                        </div>
-                                        <!-- /.input group -->
-                                    </div>
-                                </div>
-
                             </div>
+
+                            <hr class="bg-secondary">
 
                             <!-- ===================================================
                                 BOTON GUARDAR FORMULARIO
                             =================================================== -->
                             <div class="row">
-                                <div class="col-12 text-right">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                                <div class="col-12 text-center">
                                     <?php if (validarPermiso('M_GESTION_HUMANA', 'U')) : ?>
                                         <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Guardar</button>
                                         <div class="overlay d-none" id="overlayBtnGuardarformulariogeneral">
                                             <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                                         </div>
                                     <?php endif ?>
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                                 </div>
                             </div>
                         </form>
@@ -935,9 +919,9 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <!-- ===================================================
                                     Contrato
                                 =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Contrato *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>Contrato *</i></label>
                                         <select id="my-select" class="form-control" name="contrato">
                                             <option>Contrato inicial</option>
                                             <option>Prorroga 1</option>
@@ -951,9 +935,9 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <!-- ===================================================
                                     Fecha Inicial
                                 =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Fecha inicial *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>Fecha inicial *</i></label>
                                         <input type="date" class="form-control" name="fecha_inicial" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" required>
                                     </div>
                                 </div>
@@ -961,9 +945,9 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <!-- ===================================================
                                     Fecha Fin
                                 =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Fecha fin *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>Fecha fin *</i></label>
                                         <input type="date" class="form-control" name="fecha_fin" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" required>
                                     </div>
                                 </div>
@@ -971,9 +955,9 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <!-- ===================================================
                                     Meses Prorroga
                                 =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Meses prorroga *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>Meses prorroga *</i></label>
                                         <select id="my-select" class="form-control" name="meses_prorroga" required>
                                             <option value="" selected></option>
                                             <option>1</option>
@@ -990,25 +974,18 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <!-- ===================================================
                                     Cargar contrato
                                 =================================================== -->
-                                <div class="col-12 col-md-6 col-lg-4">
+                                <div class="col-12 col-md-6 col-lg-4 text-center">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Cargar contrato</label>
-                                        <div class="input-group mt-1">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">
-                                                    <i class="fas fa-file-alt"></i>
-                                                </span>
-                                            </div>
-                                            <input type="file" class="form-control" name="" id="inputfile-prorrogas" accept="image/png, image/jpeg, application/pdf">
-                                        </div>
+                                        <label for="exampleInput1" class="text-sm"><i>Cargar contrato</i></label>
+                                        <input type="file" class="form-control" name="" id="inputfile-prorrogas" accept="image/png, image/jpeg, application/pdf">
                                     </div>
                                 </div>
 
                                 <!-- ===================================================
                                 BOTON GUARDAR FORMULARIO
-                            =================================================== -->
+                                =================================================== -->
                                 <?php if (validarPermiso('M_GESTION_HUMANA', 'U')) : ?>
-                                    <div class="col-12 col-md-6 col-lg-4 text-right text-md-left align-self-center">
+                                    <div class="col-12 col-md-6 col-lg-4 align-self-center text-center">
                                         <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
                                         <div class="overlay d-none" id="overlayBtnGuardarcontratoprorroga">
                                             <i class="fas fa-2x fa-sync-alt fa-spin"></i>
@@ -1053,7 +1030,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                     <!-- ===================================================
                         CONTENIDO TERCER TAB HIJOS
                     =================================================== -->
-                    <div class="tab-pane fade" id="hijos" role="tabpanel" aria-labelledby="hijos-tab">
+                    <div class="tab-pane fade text-center" id="hijos" role="tabpanel" aria-labelledby="hijos-tab">
                         <form class="formulario" id="frmHijos" method="post" enctype="multipart/form-data">
                             <div class="row mt-2 border border-info rounded">
                                 <!-- ===================================================
@@ -1061,7 +1038,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4 col-xl-3">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Nombre *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>Nombre *</i></label>
                                         <input type="text" class="form-control" name="Nombre" id="Nombre_hijo" maxlength="100" required>
                                     </div>
                                 </div>
@@ -1071,7 +1048,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4 col-xl-3">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Fecha nacimiento *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>Fecha nacimiento *</i></label>
                                         <input type="date" class="form-control" name="fecha_nacimiento" id="fecha_nacimiento_hijo" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" max="<?php echo date('Y-m-d', strtotime(date("Y-m-d"))); ?>" required>
                                     </div>
                                 </div>
@@ -1082,7 +1059,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 <div class="col-12 col-md-6 col-lg-4 col-xl-2">
                                     <div>
                                         <div class="form-group">
-                                            <label for="exampleInput1">Edad</label>
+                                            <label for="exampleInput1" class="text-sm"><i>Edad</i></label>
                                             <input type="text" class="form-control" name="edad" id="edad_hijo" maxlength="10">
                                         </div>
                                     </div>
@@ -1093,7 +1070,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 =================================================== -->
                                 <div class="col-6 col-lg-4 col-xl-3">
                                     <div class="form-group d-inline">
-                                        <label for="exampleInput1">Género *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>Género *</i></label>
                                         <div class="form-group clearfix">
                                             <div class="icheck-primary d-inline">
                                                 <input type="radio" id="generohijo1" name="genero" value="Masculino" required>
@@ -1158,7 +1135,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                     <!-- ===================================================
                         CONTENIDO CUARTO TAB CON LICENCIA DE CONDUCCIÓN
                     =================================================== -->
-                    <div class="tab-pane fade" id="licencias" role="tabpanel" aria-labelledby="licencias-tab">
+                    <div class="tab-pane fade text-center" id="licencias" role="tabpanel" aria-labelledby="licencias-tab">
                         <form class="formulario" id="frmLicencias" method="post" enctype="multipart/form-data">
                             <div class="row mt-2 border border-info rounded">
                                 <!-- ===================================================
@@ -1166,7 +1143,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Nro licencia *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>Nro licencia *</i></label>
                                         <input type="text" class="form-control" name="nro_licencia" maxlength="50" required>
                                     </div>
                                 </div>
@@ -1176,15 +1153,8 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Licencia escaneada</label>
-                                        <div class="input-group mt-1">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">
-                                                    <i class="fas fa-file-alt"></i>
-                                                </span>
-                                            </div>
-                                            <input type="file" class="form-control" name="" id="inputfile-licencias" accept="image/png, image/jpeg">
-                                        </div>
+                                        <label for="exampleInput1" class="text-sm"><i>Licencia escaneada</i></label>
+                                        <input type="file" class="form-control" name="" id="inputfile-licencias" accept="image/png, image/jpeg">
                                     </div>
                                 </div>
 
@@ -1193,7 +1163,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Fecha expedición *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>Fecha expedición *</i></label>
                                         <input type="date" class="form-control" name="fecha_expedicion" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" required>
                                     </div>
                                 </div>
@@ -1203,7 +1173,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Fecha vencimiento *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>Fecha vencimiento *</i></label>
                                         <input type="date" class="form-control" name="fecha_vencimiento" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" required>
                                     </div>
                                 </div>
@@ -1213,7 +1183,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Categoría *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>Categoría *</i></label>
                                         <select id="my-select" class="form-control" name="categoria" required>
                                             <option value="" selected>Seleccione una opción</option>
                                             <option>A1</option>
@@ -1232,7 +1202,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 BOTON GUARDAR FORMULARIO
                             =================================================== -->
                                 <?php if (validarPermiso('M_GESTION_HUMANA', 'U')) : ?>
-                                    <div class="col-12 col-md-6 col-lg-4 text-right text-md-left align-self-center">
+                                    <div class="col-12 col-md-6 col-lg-4 align-self-center text-center">
                                         <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
                                         <div class="overlay d-none" id="overlayBtnGuardarlicenciaconduccion">
                                             <i class="fas fa-2x fa-sync-alt fa-spin"></i>
@@ -1277,7 +1247,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                     <!-- ===================================================
                         CONTENIDO QUINTO TAB CON EXAMENES MEDICOS
                     =================================================== -->
-                    <div class="tab-pane fade" id="examenes" role="tabpanel" aria-labelledby="examenes-tab">
+                    <div class="tab-pane fade text-center" id="examenes" role="tabpanel" aria-labelledby="examenes-tab">
                         <form class="formulario" id="frmExamenes" method="post" enctype="multipart/form-data">
                             <div class="row mt-2 border border-info rounded">
                                 <!-- ===================================================
@@ -1285,7 +1255,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Tipo examen *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>Tipo examen *</i></label>
                                         <select id="my-select" class="form-control" name="tipo_examen" required>
                                             <option value="" selected>Seleccione una opción</option>
                                             <option>Examenes ocupacionales</option>
@@ -1302,7 +1272,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Fecha inicial *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>Fecha inicial *</i></label>
                                         <input type="date" class="form-control" name="fecha_inicial" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" required>
                                     </div>
                                 </div>
@@ -1312,7 +1282,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Fecha final *</label>
+                                        <label for="exampleInput1" class="text-sm"><i>Fecha final *</i></label>
                                         <input type="date" class="form-control" name="fecha_final" min="<?php echo date('Y-m-d', strtotime("1900-01-01")); ?>" required>
                                     </div>
                                 </div>
@@ -1322,15 +1292,8 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <label for="exampleInput1">Cargar documento</label>
-                                        <div class="input-group mt-1">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">
-                                                    <i class="fas fa-file-alt"></i>
-                                                </span>
-                                            </div>
-                                            <input type="file" class="form-control" name="" id="inputfile-examenes" accept="image/png, image/jpeg, application/pdf">
-                                        </div>
+                                        <label for="exampleInput1" class="text-sm"><i>Cargar documento</i></label>
+                                        <input type="file" class="form-control" name="" id="inputfile-examenes" accept="image/png, image/jpeg, application/pdf">
                                     </div>
                                 </div>
 
@@ -1338,7 +1301,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 BOTON GUARDAR FORMULARIO
                             =================================================== -->
                                 <?php if (validarPermiso('M_GESTION_HUMANA', 'U')) : ?>
-                                    <div class="col-12 col-lg-4 text-right text-lg-left align-self-center">
+                                    <div class="col-12 col-lg-4 align-self-center text-center">
                                         <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
                                         <div class="overlay d-none" id="overlayBtnGuardarexamenesmedicos">
                                             <i class="fas fa-2x fa-sync-alt fa-spin"></i>
