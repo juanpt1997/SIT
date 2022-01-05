@@ -1648,6 +1648,58 @@ if (
                 }
             });
         });
+        //BOTON NUEVO TIPO DE VEHICULO
+        $(document).on("click", ".btn-nuevo-tipo", function () {
+            var concepto = $(this).attr("concepto");
+            //Removemos d-none del info-box de cada concepto
+            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
+            //Envio de concepto al titulo del modal
+            $("#titulo_tipo_vehi").html(concepto);
+        });
+        //BOTON VER TIPOS DE VEHICULOS
+        $(document).on("click", ".btn-ver-tipos", function () {
+            var concepto = $(this).attr("concepto");
+            //Removemos d-none del info-box de cada concepto
+            $(`.overlay[concepto='${concepto}']`).removeClass("d-none");
+            //Agregamos el titulo a cada modal de cada concepto
+            $("#titulo_modalVerV2").html(concepto);
+            // Quitar datatable
+            $("#ver_conceptoV2").dataTable().fnDestroy();
+            // Borrar datos
+            $("#tbody_ver_conceptoV2").html("");
+            //Nombre de la cabecera de la tabla segun el concepto
+            $("#tipoV1").html(concepto);
+            $("#tipoV2").html("Categoría");
+
+            var datos = new FormData();
+            datos.append("VerTodosDos", "ok");
+            datos.append("concepto", concepto);
+            $.ajax({
+                type: "POST",
+                url: "ajax/conceptos.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                //dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbody_ver_conceptoV2").html(response);
+                    } else {
+                        $("#tbody_ver_conceptoV2").html("");
+                    }
+
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "btn-info",
+                            text: '<i class="far fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(`#ver_conceptoV2`, buttons);
+                },
+            });
+        });
         //SUBMIT DEL FORMULARIO DE VEHICULAR
         $("#formularioV").submit(function (e) {
             e.preventDefault(); //Previene la accion por defecto del boton
@@ -1806,10 +1858,45 @@ if (
             });
         });
         //BOTON CANCELAR AL AGREGAR==================
-        $("#AgregarEditarV, #AgregarEditarV2, #AgregarEditarV3, #AgregarRuta, #VisualizarV, #VisualizarV1, #VisualizarRutas").on("hidden.bs.modal", function (e) {
+        $("#AgregarEditarV, #AgregarEditarV2, #AgregarEditarV3, #AgregarRuta, #VisualizarV, #VisualizarV1, #VisualizarRutas, #AgregarTipoVel").on("hidden.bs.modal", function (e) {
             $(".overlay").each(function () {
                 //Al cancelar se agrega la clase d-none para que no se vea el reload
                 $(this).addClass("d-none");
+            });
+        });
+        //SUBMIT TIPO DE VEHICULO
+        $("#formulario_tipo_vehiculo").submit(function (e) {
+            e.preventDefault(); //Previene la accion por defecto del boton
+            var concepto = $("#titulo_tipo_vehi").html();
+            console.log(concepto);
+            var datos = new FormData();
+
+            datos.append("NuevoDos", "ok");
+            datos.append("concepto", concepto);
+            datos.append("dato1", $("#input_tipovehic").val());
+            datos.append("dato2", $("#input_categoria").val());
+
+            $.ajax({
+                url: "ajax/conceptos.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: "success",
+                            showConfirmButton: true,
+                            title: "El nuevo tipo ha sido agregado",
+                            confirmButtonText: "¡Cerrar!",
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location = "cg-vehicular";
+                            }
+                        });
+                    }
+                },
             });
         });
     });
