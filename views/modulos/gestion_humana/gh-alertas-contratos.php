@@ -57,12 +57,17 @@ $ContratosVencer = ControladorGH::ctrContratosVencer();
                                 </thead>
                                 <tbody>
                                     <?php foreach ($ContratosVencer as $key => $value) : ?>
+                                        <?php 
+                                        
+                                        $badgecolor = ControladorVehiculos::Semaforo_tipo2($value['fecha_fin'], date("Y-m-d"));
+
+                                        ?>
                                         <tr>
                                             <td><?= $value['Documento'] ?></td>
                                             <td><?= $value['Nombre'] ?></td>
                                             <td><?= $value['contrato'] ?></td>
                                             <td><?= $value['fecha_fin'] ?></td>
-                                            <td><span class="badge badge-danger"><?= $value['diferencia'] ?></span></td>
+                                            <td><span class="badge badge-<?= $badgecolor ?>"><?= $value['diferencia'] ?></span></td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>

@@ -95,15 +95,22 @@ $(document).ready(function () {
                 processData: false,
                 success: function (response) {
                     response.forEach((element) => {
-                        var bg =
-                            element.fechafin >= moment().format("YYYY-MM-DD")
-                                ? "bg-success"
-                                : "bg-danger";
-                        $(`#documento_${element.idtipodocumento}`).addClass(bg);
-                        // Asigno valor fecha
-                        $(`#documento_${element.idtipodocumento}`).val(
-                            element.fechafin
-                        );
+                        $(
+                            `#documento_${element.idtipodocumento}`
+                        ).val(element.fechafin);
+
+                        // Color del fondo segun la fecha
+                        // var bg =
+                        //     element.fechafin >=
+                        //     moment().format("YYYY-MM-DD")
+                        //         ? "bg-success"
+                        //         : "bg-danger";
+
+                        bg = semaforo_tipo1(element.fechafin, moment().format("YYYY-MM-DD"));
+
+                        $(
+                            `#documento_${element.idtipodocumento}`
+                        ).addClass("bg-"+bg);
                     });
                 },
             });
@@ -150,6 +157,9 @@ $(document).ready(function () {
                 },
             });
         });
+
+
+        
 
         /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
     LICENCIA DEL CONDUCTOR SELECCIONADO
@@ -959,26 +969,30 @@ $(document).ready(function () {
                         processData: false,
                         success: function (response) {
                             response.forEach((element) => {
-                                // Asigno valor fecha
-                                $(`#documento_${element.idtipodocumento}`).val(
-                                    element.fechafin
-                                );
-
-                                // Color del fondo segun la fecha
-                                var bg =
-                                    element.fechafin >=
-                                    moment().format("YYYY-MM-DD")
-                                        ? "bg-success"
-                                        : "bg-danger";
                                 $(
                                     `#documento_${element.idtipodocumento}`
-                                ).addClass(bg);
+                                ).val(element.fechafin);
+
+                                // Color del fondo segun la fecha
+                                // var bg =
+                                //     element.fechafin >=
+                                //     moment().format("YYYY-MM-DD")
+                                //         ? "bg-success"
+                                //         : "bg-danger";
+
+                                bg = semaforo_tipo1(element.fechafin, moment().format("YYYY-MM-DD"));
+                                        $(
+                                            `#documento_${element.idtipodocumento}`
+                                        ).addClass("bg-"+bg);
                             });
                         },
                     });
                 },
             });
         });
+
+        
+
 
         /*============================================
             CLICK EN NUEVA REVISIÓN
@@ -1558,7 +1572,7 @@ $(document).ready(function () {
 
             $(".documentos").val("").removeClass("bg-danger bg-success");
 
-            if(idvehiculo == null){
+            if (idvehiculo == null) {
                 $(".documentos").val("");
             }
 
@@ -1613,15 +1627,20 @@ $(document).ready(function () {
                         $(`#documento_${element.idtipodocumento}`).val(
                             element.fechafin
                         );
-                        var bg =
-                            element.fechafin >= moment().format("YYYY-MM-DD")
-                                ? "bg-success"
-                                : "bg-danger";
-                        $(`#documento_${element.idtipodocumento}`).addClass(bg);
+                        // var bg =
+                        //     element.fechafin >= moment().format("YYYY-MM-DD")
+                        //         ? "bg-success"
+                        //         : "bg-danger";
+                        // $(`#documento_${element.idtipodocumento}`).addClass(bg);
+
+                        bg = semaforo_tipo1(element.fechafin, moment().format("YYYY-MM-DD"));
+
+                                        $(
+                                            `#documento_${element.idtipodocumento}`
+                                        ).addClass("bg-"+bg);
                     });
                 },
             });
-
 
             // var datos = new FormData();
             // datos.append("DocumentosxVehiculo", "ok");

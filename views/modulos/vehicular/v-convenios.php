@@ -294,7 +294,10 @@ $ConveniosVencer = ControladorConvenios::ctrVencimientosConvenios();
 
                                                         $btnDoc = "<span class='badge badge-secondary'>sin documento</span>";
                                                     }
-
+                                        
+                                                    $badgecolor = ControladorVehiculos::Semaforo_tipo2($value['fecha_terminacion'], date("Y-m-d"));
+            
+                                                    
                                                     ?>
                                                     <tr>
                                                         <td>
@@ -306,7 +309,7 @@ $ConveniosVencer = ControladorConvenios::ctrVencimientosConvenios();
                                                         </td>
                                                         <td><?= $value['fecha_inicio'] ?></td>
                                                         <td><?= $value['fecha_terminacion'] ?></td>
-                                                        <td><span class="badge badge-danger"><?= $value['diferencia'] ?></span></td>
+                                                        <td><span class="badge badge-<?= $badgecolor ?> "><?= $value['diferencia'] ?></span></td>
                                                         <td class="text-center">
                                                             <div class="btn-group mr-2" role="group" aria-label="Button group">
                                                                 <button class="btn btn-xs btn-success btnPlacas" idConvenio="<?= $value['idconvenio'] ?>"><i class="fas fa-bus"></i></button>

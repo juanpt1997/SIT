@@ -614,8 +614,8 @@ class AjaxMantenimientos
              <td class='hide'>" . $value['placa'] . "</td>
              <td class='hide'>" . $value['numinterno'] . "</td>
              <td class='hide'>" . $value['kilometraje_actual'] . "</td>
-             <td class='hide'>" . $value['fecha_solicitud'] . "</td>
-             <td class='hide'>" . $value['fecha_programacion'] . "</td>
+             <td class='hide'>" . $value['Ffecha_solicitud'] . "</td>
+             <td class='hide'>" . $value['Ffecha_programacion'] . "</td>
              <td>" . $value['item'] . "</td>
              <td class='hide'>" . $value['tiempo_mantenimiento'] . "</td>
              <td class='hide'>" . $value['observacion'] . "</td>
@@ -645,8 +645,8 @@ class AjaxMantenimientos
                      <td $rowspantd>" . $value['placa'] . "</td>
                      <td $rowspantd >" . $value['numinterno'] . "</td>
                      <td $rowspantd >" . $value['kilometraje_actual'] . "</td>
-                     <td $rowspantd >" . $value['fecha_solicitud'] . "</td>
-                     <td $rowspantd >" . $value['fecha_programacion'] . "</td>
+                     <td $rowspantd >" . $value['Ffecha_solicitud'] . "</td>
+                     <td $rowspantd >" . $value['Ffecha_programacion'] . "</td>
                      <td>" . $value['item'] . "</td>
                      $tiempo
                      <td $rowspantd>" . $value['observacion'] . "</td>
@@ -771,9 +771,9 @@ class AjaxMantenimientos
 
         //Array que nos guarda las placas que ya se pusieron en la tabla para así juntar los itemas
         $repetidas = array();
+
+        
         foreach ($respuesta as $key => $value) {
-
-
 
             $tr = "";
             //Si la placa está en el array es porque ya se hizo una fila de sus datos en la tabla
@@ -784,14 +784,17 @@ class AjaxMantenimientos
                 $fecha_Actual = date('Y-m-d');
 
                 // VALIDACIÓN SI LA FECHA YA VENCIÓ 
-                if ($fecha_Actual < $value['fecha_comparar']) {
-                    $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
-                }
-                else if ($fecha_Actual > $value['fecha_comparar']) {
-                    $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
-                } else if($value['fecha_comparar'] == null || $value['fecha_comparar'] == ""){
-                    $fecha = "<td>No aplica </td>";
-                }
+                // if ($fecha_Actual < $value['fecha_comparar']) {
+                //     $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
+                // }
+                // else if ($fecha_Actual > $value['fecha_comparar']) {
+                //     $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
+                // } else if($value['fecha_comparar'] == null || $value['fecha_comparar'] == "" || !isset($value['fecha_comparar'])){
+                //     $fecha = "<td>No aplica </td>";
+                // }
+
+                $semaforo = ControladorVehiculos::Semaforo_tipo1($value['fecha_comparar'], $fecha_Actual);
+
 
                 //VALIDACIÓN SI EL KILOMETRAJE YA SE PASÓ
                 if ($value['kilometraje_servicio'] != 0 && $value['kilometraje_actual'] >= $value['kilometraje_cambio']) {
@@ -810,7 +813,7 @@ class AjaxMantenimientos
                     <tr>
                     <td>" . $value['item'] . "</td>
                     $kilometraje 
-                    $fecha 
+                    <td>No aplica</td>
                     <td><a href=' " . $value['ruta_foto'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a></td>
                     
                     
@@ -821,7 +824,7 @@ class AjaxMantenimientos
                     <tr>
                     <td>" . $value['item'] . "</td>
                     $kilometraje 
-                    $fecha 
+                    <td class='bg-{$semaforo}'> ". $value['fecha_cambio'] ."</td>
                     <td>Sin evidencia</td>
     
                     
@@ -833,17 +836,19 @@ class AjaxMantenimientos
     
 
                 // VALIDACIÓN SI LA FECHA YA VENCIÓ 
-                if ($fecha_Actual < $value['fecha_comparar']) {
-                    $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
-                }
-                else if ($fecha_Actual > $value['fecha_comparar']) {
-                    $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
-                } else if($value['fecha_comparar'] == null || $value['fecha_comparar'] == ""){
-                    $fecha = "<td>No aplica </td>";
-                }
+                // if ($fecha_Actual < $value['fecha_comparar']) {
+                //     $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
+                // }
+                // else if ($fecha_Actual > $value['fecha_comparar']) {
+                //     $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
+                //     echo $value['fecha_comparar'];
+                // } else if($value['fecha_comparar'] == null || $value['fecha_comparar'] == "" || !isset($value['fecha_comparar'])){
+                //     $fecha = "<td>No aplica </td>";
+                // }
 
-                $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
+                $semaforo = ControladorVehiculos::Semaforo_tipo1($value['fecha_comparar'], $fecha_Actual);
 
+                
                 //VALIDACIÓN SI EL KILOMETRAJE YA SE PASÓ
                 if ($value['kilometraje_servicio'] != 0 && $value['kilometraje_actual'] >= $value['kilometraje_cambio']) {
                     $kilometraje = "<td class='bg-danger'>" . $value['kilometraje_cambio'] .  "</td>";
@@ -866,7 +871,7 @@ class AjaxMantenimientos
                             <td rowspan='{$rowspan[$value['placa']]}'>" . $value['kilometraje_actual'] . "</td>
                             <td>" . $value['item'] . "</td>
                             $kilometraje
-                            $fecha
+                            <td>No aplica</td>
                             <td>" . $value['ruta_foto'] . "</td>
                             <td rowspan='{$rowspan[$value['placa']]}'>" . $value['fecha_programacion'] . " </td>
                             <td><a href=' " . $value['ruta_foto'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a></td>
@@ -882,7 +887,7 @@ class AjaxMantenimientos
                             <td rowspan='{$rowspan[$value['placa']]}'>" . $value['kilometraje_actual'] . "</td>
                             <td>" . $value['item'] . "</td>
                             $kilometraje
-                            $fecha
+                            <td class='bg-{$semaforo}'> ". $value['fecha_cambio'] ."</td>
                             <td>Sin evidencia</td>
                             <td rowspan='{$rowspan[$value['placa']]}'>" . $value['fecha_programacion'] . " </td>
 
@@ -925,6 +930,8 @@ class AjaxMantenimientos
         echo $respuesta;
     }
 
+    
+
     /* ===================================================
         TABLA HISTORIAL SOLICITUDES PROGRAMACIÓN
     ===================================================*/
@@ -941,13 +948,14 @@ class AjaxMantenimientos
                 $tiempo = " <td> " . $value['tiempo_mantenimiento'] . "</td>"; 
             }
 
+            
             $tr .= "
             <tr>
             <td>" . $value['idsolicitud'] . "</td>
             <td>" . $value['placa'] . "</td>
             <td>" . $value['descripcion'] . "</td>
-            <td>" . $value['fecha_solicitud'] . "</td>
-            <td>" . $value['fecha_programacion'] . "</td>
+            <td>" .  $value['Ffecha_solicitud']  ."</td>
+            <td>" . $value['Ffecha_programacion'] . "</td>
             $tiempo
             <td>" . $value['estado'] . "</td>
             <td>" . $value['observacion'] . "</td>
@@ -958,6 +966,8 @@ class AjaxMantenimientos
 
         echo $tr;
     }
+
+    
 }
 /* ===================================================
             LLAMADOS AJAX INVENTARIO
