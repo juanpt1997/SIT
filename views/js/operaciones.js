@@ -192,14 +192,17 @@ $(document).ready(function () {
                                         ).val(element.fechafin);
 
                                         // Color del fondo segun la fecha
-                                        var bg =
-                                            element.fechafin >=
-                                            moment().format("YYYY-MM-DD")
-                                                ? "bg-success"
-                                                : "bg-danger";
+                                        // var bg =
+                                        //     element.fechafin >=
+                                        //     moment().format("YYYY-MM-DD")
+                                        //         ? "bg-success"
+                                        //         : "bg-danger";
+
+                                        bg = semaforo_tipo1(element.fechafin, moment().format("YYYY-MM-DD"));
+
                                         $(
                                             `#documento_${element.idtipodocumento}`
-                                        ).addClass(bg);
+                                        ).addClass("bg-"+bg);
                                     });
                                 },
                             });
@@ -256,6 +259,10 @@ $(document).ready(function () {
             }
         });
 
+
+        
+
+
         /* ==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
                 ELEMENTO OBSERVADOR QUE PONE EL CONDUCTOR CUANDO SE ACTUALIZA EL SELECT 
                 ==========================================================================*/
@@ -273,10 +280,9 @@ $(document).ready(function () {
         /* ===================================================
              BOTON PDF ALISTAMIENTO
            ===================================================*/
-            $(document).on('click','.btn-PdfAlistamiento', function () {
-                
-               let id = $(this).attr('idalistamiento');
-               window.open(
+        $(document).on("click", ".btn-PdfAlistamiento", function () {
+            let id = $(this).attr("idalistamiento");
+            window.open(
                 `./pdf/pdfalistamiento.php?idalistamiento=${id}`,
                 "",
                 "width=1280,height=720,left=50,top=50,toolbar=yes"
@@ -883,9 +889,9 @@ $(document).ready(function () {
                     $("#marca").val(Vehiculo.datosVehiculo.marca);
                     $("#modelo").val(Vehiculo.datosVehiculo.modelo);
                     $("#capacidad").val(Vehiculo.datosVehiculo.capacidad);
-                    $("#tipoVehiculo").val(
-                        Vehiculo.datosVehiculo.idtipovehiculo
-                    ).trigger("change");
+                    $("#tipoVehiculo")
+                        .val(Vehiculo.datosVehiculo.idtipovehiculo)
+                        .trigger("change");
                 },
             });
 
@@ -953,32 +959,50 @@ $(document).ready(function () {
                     $("#idruta").val(response.idruta);
                     $("#placa_roda").val(response.idvehiculo).trigger("change");
                     $("#idcliente").val(response.idcliente);
-                    $("#placa_invent").val(response.idvehiculo).trigger("change");
-                    $("#observador_conductoresRodamiento").attr("idconductor",response.idconductor);
+                    $("#placa_invent")
+                        .val(response.idvehiculo)
+                        .trigger("change");
+                    $("#observador_conductoresRodamiento").attr(
+                        "idconductor",
+                        response.idconductor
+                    );
                     $("#fecha_servicio").val(response.fecha_servicio);
-                    $("#tipo_servicio").val(response.tipo_servicio).trigger("change");
-                    $("#cantidadpasajerosdatosroda").val(response.cantidad_pasajeros);
+                    $("#tipo_servicio")
+                        .val(response.tipo_servicio)
+                        .trigger("change");
+                    $("#cantidadpasajerosdatosroda").val(
+                        response.cantidad_pasajeros
+                    );
                     $("#hora_inicio").val(response.h_inicio);
                     $("#hora_final").val(response.h_final);
                     $("#kmrecorridosdatosroda").val(response.kmrecorridos);
                     $("#descrip").val(response.descripcion);
                     $("#origen").val(response.origen);
                     $("#destino").val(response.destino);
-                    $("#valor_total").val(response.valortotal).removeAttr("readonly");
-                    if(response.contratante == null){
+                    $("#valor_total")
+                        .val(response.valortotal)
+                        .removeAttr("readonly");
+                    if (response.contratante == null) {
                         $("#selectContFijos").removeClass("d-none"); // Muestra el select de fijos
                         $("#selectContOrden").addClass("d-none");
                         $("#contratofijo").attr("required", "required"); // SE VUELVE REQUERIDO EL SELECT DE FIJOS
                         $("#contratante").val("").removeAttr("required");
-                    } else if (response.contratofijo == null){
+                    } else if (response.contratofijo == null) {
                         $("#selectContOrden").removeClass("d-none"); // Muestra el select de contratante
                         $("#selectContFijos").addClass("d-none");
                         $("#contratofijo").val("").removeAttr("required"); // Reset valor de fijos y lo vuelvo obligatorio
                         $("#contratante").attr("required", "required");
                     }
-                    $("#tipocontrato").val(response.tipo_contrato).attr("actualizo", "NO").trigger("change");
-                    $("#contratante").val(response.contratante).trigger("change");
-                    $("#contratofijo").val(response.contratofijo).trigger("change");
+                    $("#tipocontrato")
+                        .val(response.tipo_contrato)
+                        .attr("actualizo", "NO")
+                        .trigger("change");
+                    $("#contratante")
+                        .val(response.contratante)
+                        .trigger("change");
+                    $("#contratofijo")
+                        .val(response.contratofijo)
+                        .trigger("change");
                 },
             });
         });
@@ -1029,15 +1053,15 @@ $(document).ready(function () {
             $("#idcliente").val("");
             $("#placa_roda").val("").trigger("change");
             $("#idconductor").empty();
-            $("#selectContOrden").addClass("d-none");//OCULTA EL SELECT DE OCASIONAL
-            $("#selectContFijos").addClass("d-none");//OCULTA EL SELECT DE FIJOS
+            $("#selectContOrden").addClass("d-none"); //OCULTA EL SELECT DE OCASIONAL
+            $("#selectContFijos").addClass("d-none"); //OCULTA EL SELECT DE FIJOS
             $("#contratofijo").val("").removeAttr("required");
             $("#contratante").val("").removeAttr("required");
             $("#contratante").trigger("change");
             $("#contratofijo").trigger("change");
             $(".input-clientes-datos").val("");
             $(".input-ruta").val("");
-            $("#valor_total").val("").attr("required",true);
+            $("#valor_total").val("").attr("required", true);
         });
         /*==========================================================================
         BOTON ELIMINAR RODAMIENTO
@@ -1191,24 +1215,22 @@ $(document).ready(function () {
             let contratante = $("#contratante").val();
 
             if (contratofijo != "") {
-
                 let idcliente = $("#idcliente").val();
                 let idruta = $("#idruta").val();
                 let idtipo = $("#tipoVehiculo").val();
 
-                if(idtipo == ""){
+                if (idtipo == "") {
                     Swal.fire({
                         icon: "warning",
                         title: "Seleccione una vehículo.",
                         showConfirmButton: true,
-                        confirmButtonText: "continuar."
+                        confirmButtonText: "continuar.",
                     });
 
                     $("#idruta").val("");
                     $("#descrip").val("");
                     $("#origen").val("");
                     $("#destino").val("");
-
                 } else if (idcliente != "" && idruta != "" && idtipo != "") {
                     var datos = new FormData();
                     datos.append("ConsultarValor", "ok");
@@ -1224,18 +1246,36 @@ $(document).ready(function () {
                         contentType: false,
                         processData: false,
                         success: function (response) {
-                            if(response.valor_recorrido == undefined){
+                            if (response.valor_recorrido == undefined) {
                                 Swal.fire({
-                                    icon: "info",
-                                    title: "No se encontró ruta con ese cliente",
-                                    text: "Ingrese el valor total de la ruta.",
+                                    icon: "warning",
+                                    title: "No hay ruta asociada con ese cliente",
+                                    html:`
+                                        <p>Debe asegurarse que tenga un valor de recorrido asignado que coincida con los siguientes campos:</p>
+                                        <div class="d-flex justify-content-center">
+                                            <ul>
+                                                <li><i>Tipo de vehículo.</i></li>
+                                                <li><i>Cliente.</i></li> 
+                                            </ul>
+                                        </div>
+                                        `,
                                     showConfirmButton: true,
-                                    confirmButtonText: "continuar."
-                                });
-                                $("#valor_total").removeAttr("readonly");
+                                    confirmButtonText: "Asignar nueva ruta en fijos. <i class='fas fa-arrow-alt-circle-right'></i>",
+                                    confirmButtonColor: "#00b300"
+                                }).then((result)=>{
+
+									if(result.value){
+										window.open('contratos-fijos');
+									}
+								});
+                                $("#idruta").val("");
+                                $("#descrip").val("");
+                                $("#origen").val("");
+                                $("#destino").val("");
+                                //$("#valor_total").removeAttr("readonly");
                             }else{
                                 $("#valor_total").val(response.valor_recorrido);
-                                $("#valor_total").attr("readonly",true);
+                                $("#valor_total").attr("readonly", true);
                             }
                         },
                     });
@@ -1245,7 +1285,7 @@ $(document).ready(function () {
                     icon: "warning",
                     title: "Debe seleccionar un contrato fijo",
                     showConfirmButton: true,
-                    confirmButtonText: "continuar."
+                    confirmButtonText: "continuar.",
                 });
                 $("#idruta").val("");
                 $("#descrip").val("");
@@ -1285,18 +1325,16 @@ $(document).ready(function () {
         TIPO DE CONTRATO
         ===========================================================================*/
         $(document).on("change", "#tipocontrato", function () {
-
             var actualizoTipoContrato = $(this).attr("actualizo");
-            if(actualizoTipoContrato == "SI"){
-
+            if (actualizoTipoContrato == "SI") {
                 var tipocontrato = $(this).val();
                 if (tipocontrato == "FIJO") {
                     $("#selectContFijos").removeClass("d-none"); // Muestra el select de fijos
                     $("#selectContOrden").addClass("d-none"); // Esconde el select de contratante
                     $("#contratofijo").attr("required", "required"); // SE VUELVE REQUERIDO EL SELECT DE FIJOS
-                    $("#contratante").val("").removeAttr("required");//REMUEVE EL ATRIBUTO REQUERIDO DE CONTRATANTE
+                    $("#contratante").val("").removeAttr("required"); //REMUEVE EL ATRIBUTO REQUERIDO DE CONTRATANTE
                     $("#contratante").trigger("change"); //CHANGE QUE RESETEA EL SELECT DE CONTRATANTE
-                    $(".input-clientes-datos").val("");//RESET VALORES DEL CLIENTE AL CAMBIAR DE TIPO DE CONTRATO
+                    $(".input-clientes-datos").val(""); //RESET VALORES DEL CLIENTE AL CAMBIAR DE TIPO DE CONTRATO
                     $(".input-ruta").val("");
                     $("#valor_total").val("");
                     $(".btn-ruta").attr("disabled", true);
@@ -1305,13 +1343,13 @@ $(document).ready(function () {
                     $("#selectContFijos").addClass("d-none"); // Esconde el select de fijos
                     $("#contratofijo").val("").removeAttr("required"); // Reset valor de fijos y lo vuelvo obligatorio
                     $("#contratante").attr("required", "required"); // Vuelvo obligatorios el select de contratante
-                    $("#contratofijo").trigger("change");//CHANGE QUE RESETEA EL SELECT DE FIJOS
-                    $(".input-clientes-datos").val("");//RESET VALORES DEL CLIENTE AL CAMBIAR DE TIPO DE CONTRATO
-                    $("#valor_total").val("").attr("readonly",true);
+                    $("#contratofijo").trigger("change"); //CHANGE QUE RESETEA EL SELECT DE FIJOS
+                    $(".input-clientes-datos").val(""); //RESET VALORES DEL CLIENTE AL CAMBIAR DE TIPO DE CONTRATO
+                    $("#valor_total").val("").attr("readonly", true);
                     $(".btn-ruta").attr("disabled", true);
                 } else if (tipocontrato == "") {
-                    $("#selectContOrden").addClass("d-none");//OCULTA EL SELECT DE OCASIONAL
-                    $("#selectContFijos").addClass("d-none");//OCULTA EL SELECT DE FIJOS
+                    $("#selectContOrden").addClass("d-none"); //OCULTA EL SELECT DE OCASIONAL
+                    $("#selectContFijos").addClass("d-none"); //OCULTA EL SELECT DE FIJOS
                     $("#contratofijo").val("").removeAttr("required");
                     $("#contratante").val("").removeAttr("required");
                     $("#contratante").trigger("change");
@@ -1321,7 +1359,7 @@ $(document).ready(function () {
                     $("#valor_total").val("");
                     $(".btn-ruta").attr("disabled", true);
                 }
-            }else {
+            } else {
                 $(this).attr("actualizo", "SI");
             }
         });
@@ -1329,10 +1367,8 @@ $(document).ready(function () {
         TRAER LOS DATOS DEL CLIENTE SI ES OCASIONAL
         ===========================================================================*/
         $(document).on("change", "#contratante", function () {
-
             var actualizoDatosclienteOca = $(this).attr("actualizo");
-            if(actualizoDatosclienteOca == "SI"){
-
+            if (actualizoDatosclienteOca == "SI") {
                 var idorden = $(this).val();
                 if (idorden != "") {
                     var datos = new FormData();
@@ -1360,7 +1396,7 @@ $(document).ready(function () {
                         },
                     });
                 }
-            }else{
+            } else {
                 $(this).attr("actualizo", "SI");
             }
         });
@@ -1368,10 +1404,8 @@ $(document).ready(function () {
         TRAER LOS DATOS DEL CLIENTE SI ES FIJO
         ===========================================================================*/
         $(document).on("change", "#contratofijo", function () {
-
             var actualizoDatosclienteFijo = $(this).attr("actualizo");
-            if(actualizoDatosclienteFijo == "SI"){
-
+            if (actualizoDatosclienteFijo == "SI") {
                 var idfijo = $(this).val();
                 if (idfijo != "") {
                     var datos = new FormData();
@@ -1403,11 +1437,10 @@ $(document).ready(function () {
         VALIDA SI UN CONTRATO FIJO Y UN TIPO DE VEHICULO HA SIDO SELECCIONADO (PARA HABILITAR EL BOTON DE LA RUTA)
         ========================================================================================================*/
         $(document).on("change", ".validacion", function () {
-
             let tipo = $("#tipoVehiculo").val();
             let fijo = $("#contratofijo").val();
-            console.log(tipo,fijo);
-            if(tipo != "" && tipo != null && fijo != ""){
+            console.log(tipo, fijo);
+            if (tipo != "" && tipo != null && fijo != "") {
                 $(".btn-ruta").removeAttr("disabled");
             }
         });

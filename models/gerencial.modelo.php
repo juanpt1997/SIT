@@ -15,7 +15,7 @@ class ModeloGerencial
     {
         $sql = "SELECT COUNT(DISTINCT(p.idPersonal)) AS Cantidad, MONTH(p.fecha_ingreso) AS mes, YEAR(p.fecha_ingreso) AS `year`
                 FROM gh_personal p
-                WHERE YEAR(p.fecha_ingreso) = YEAR(NOW())
+                WHERE YEAR(p.fecha_ingreso) = 2021 -- YEAR(NOW())
                 GROUP BY YEAR(p.fecha_ingreso), MONTH(p.fecha_ingreso);";
 
         $stmt = Conexion::conectar()->prepare($sql);
@@ -61,7 +61,7 @@ class ModeloGerencial
         $sql = "SELECT COUNT(DISTINCT(o.idorden)) AS Cantidad, MONTH(c.fecha_inicio) AS mes, YEAR(c.fecha_inicio) AS `year`
                 FROM cont_ordenservicio o
                 INNER JOIN cont_cotizaciones c ON c.idcotizacion = o.idcotizacion
-                WHERE YEAR(c.fecha_inicio) = YEAR(NOW())
+                WHERE YEAR(c.fecha_inicio) = 2021 -- YEAR(NOW())
                 GROUP BY YEAR(c.fecha_inicio), MONTH(c.fecha_inicio);";
 
         $stmt = Conexion::conectar()->prepare($sql);

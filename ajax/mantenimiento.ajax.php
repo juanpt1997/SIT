@@ -596,94 +596,159 @@ class AjaxMantenimientos
             $rowspan = array_count_values($placas);
         }
 
-        //Array que nos guarda las placas que ya se pusieron en la tabla para así juntar los itemas
         $repetidas = array();
+        //TESTEO
         foreach ($respuesta as $key => $value) {
-
             $tr = "";
-            //Si la placa está en el array es porque ya se hizo una fila de sus datos en la tabla
-            //Entonces se añaden los items a la misma fila, si no hay fila de esa placa
-            //Se crea una nueva fila con todo
+
             if (in_array($value['placa'], $repetidas)) {
+
                 $tr .= "
-                <tr>
-                <td class='hide'>" . $value['item'] . "</td>
-                </tr>
+                 <tr>
+                 <td class='hide'>
+                 <button type='button' class='btn btn-info btn-md btn-serviciosprogramacion' idsolicitud='{$value['idsolicitud']}' data-toggle='modal' data-target='#servicios'> <i class='fas fa-clipboard-list'></i></button>
+                 <button type='button' class='btn btn-warning btn-md btn-programacionxvehiculo' idsolicitud='{$value['idsolicitud']}' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#serviciosxvehiculo' style='display:none;'> <i class='far fa-calendar-alt'></i> </button>
+                 <button type='button' class='btn btn-success btn-md btn-programacion' idsolicitud='{$value['idsolicitud']}' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#Programacion'> <i class='far fa-clock'></i></button>
+                            
+             </td>
+             <td class='hide'>" . $value['placa'] . "</td>
+             <td class='hide'>" . $value['numinterno'] . "</td>
+             <td class='hide'>" . $value['kilometraje_actual'] . "</td>
+             <td class='hide'>" . $value['Ffecha_solicitud'] . "</td>
+             <td class='hide'>" . $value['Ffecha_programacion'] . "</td>
+             <td>" . $value['item'] . "</td>
+             <td class='hide'>" . $value['tiempo_mantenimiento'] . "</td>
+             <td class='hide'>" . $value['observacion'] . "</td>
+                 </tr>
+                 
                 ";
             } else {
+
                 array_push($repetidas, $value['placa']);
-                //El $rowspan[$value['placa']]' me devuelve la cantidad de veces que está la misma
-                //Placa en la programación, de ese modo sabemos cuantas filas combinar
+                //echo $rowspan[$value['placa']] . "-";
+                $rowspantd = $rowspan[$value['placa']] == 1 ? "" : "rowspan='{$rowspan[$value['placa']]}'";
+
+                if(is_numeric( $value['tiempo_mantenimiento'])){
+                    $tiempo = " <td $rowspantd> " . $value['tiempo_mantenimiento'] . " Dias </td>"; 
+                }else{
+                    $tiempo = " <td $rowspantd> " . $value['tiempo_mantenimiento'] . "</td>"; 
+                }
+
                 $tr .= "
-                    <tr>
-                        <td rowspan='{$rowspan[$value['placa']]}'>
-                            <button type='button' class='btn btn-info btn-md btn-serviciosprogramacion' idsolicitud='{$value['idsolicitud']}' data-toggle='modal' data-target='#servicios'> <i class='fas fa-clipboard-list'></i></button>
-                            <button type='button' class='btn btn-warning btn-md btn-programacionxvehiculo' idsolicitud='{$value['idsolicitud']}' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#serviciosxvehiculo' style='display:none;'> <i class='far fa-calendar-alt'></i> </button>
-                            <button type='button' class='btn btn-success btn-md btn-programacion' idsolicitud='{$value['idsolicitud']}' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#Programacion'> <i class='far fa-clock'></i></button>
-                            
-                        </td>
-                        <td rowspan='{$rowspan[$value['placa']]}'>" . $value['placa'] . "</td>
-                        <td rowspan='{$rowspan[$value['placa']]}'>" . $value['numinterno'] . "</td>
-                        <td rowspan='{$rowspan[$value['placa']]}'>" . $value['kilometraje_actual'] . "</td>
-                        <td rowspan='{$rowspan[$value['placa']]}'>". $value['fecha_solicitud']. "</td>
-                        <td rowspan='{$rowspan[$value['placa']]}'>" . $value['fecha_programacion'] . "</td>
-                        <td>" . $value['item'] . "</td>
-                        <td rowspan='{$rowspan[$value['placa']]}'>" . $value['tiempo_mantenimiento'] . "</td>
-                        <td rowspan='{$rowspan[$value['placa']]}'>". $value['observacion']."</td>
-                    </tr>
-
-
-                ";
+                <tr>
+                     <td $rowspantd>
+                        <button type='button' class='btn btn-info btn-md btn-serviciosprogramacion' idsolicitud='{$value['idsolicitud']}' data-toggle='modal' data-target='#servicios'> <i class='fas fa-clipboard-list'></i></button>
+                         <button type='button' class='btn btn-warning btn-md btn-programacionxvehiculo' idsolicitud='{$value['idsolicitud']}' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#serviciosxvehiculo' style='display:none;'> <i class='far fa-calendar-alt'></i> </button>
+                         <button type='button' class='btn btn-success btn-md btn-programacion' idsolicitud='{$value['idsolicitud']}' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#Programacion'> <i class='far fa-clock'></i></button>
+                                    
+                     </td>
+                     <td $rowspantd>" . $value['placa'] . "</td>
+                     <td $rowspantd >" . $value['numinterno'] . "</td>
+                     <td $rowspantd >" . $value['kilometraje_actual'] . "</td>
+                     <td $rowspantd >" . $value['Ffecha_solicitud'] . "</td>
+                     <td $rowspantd >" . $value['Ffecha_programacion'] . "</td>
+                     <td>" . $value['item'] . "</td>
+                     $tiempo
+                     <td $rowspantd>" . $value['observacion'] . "</td>
+                 </tr>
+                    ";
             }
-            //echo $tr;
+
+            echo $tr;
         }
 
-        echo "
-            <tr>
-                <td rowspan='3'>Jhojan</td>
-                <td>1</td>
-                <td>2</td>
-                <td>3</td>
-                <td>4</td>
-                <td>5</td>
-                <td>6</td>
-                <td>7</td>
-                <td>8</td>
-            </tr>
-            <tr>
-                <td class='hide'>Jhojan</td>
-                <td>9</td>
-                <td>10</td>
-                <td>11</td>
-                <td>12</td>
-                <td>13</td>
-                <td>14</td>
-                <td>15</td>
-                <td>16</td>
-            </tr>
-            <tr>
-                <td class='hide'>Jhojan</td>
-                <td>17</td>
-                <td>18</td>
-                <td>19</td>
-                <td>20</td>
-                <td>21</td>
-                <td>22</td>
-                <td>23</td>
-                <td>24</td>
-            </tr>
-            <tr>
-                <td>Steven</td>
-                <td>17</td>
-                <td>18</td>
-                <td>19</td>
-                <td>20</td>
-                <td>21</td>
-                <td>22</td>
-                <td>23</td>
-                <td>24</td>
-            </tr>
-            ";
+
+
+
+
+
+
+        //Array que nos guarda las placas que ya se pusieron en la tabla para así juntar los itemas
+        // foreach ($respuesta as $key => $value) {
+
+        //     $tr = "";
+        //     //Si la placa está en el array es porque ya se hizo una fila de sus datos en la tabla
+        //     //Entonces se añaden los items a la misma fila, si no hay fila de esa placa
+        //     //Se crea una nueva fila con todo
+        //     if (in_array($value['placa'], $repetidas)) {
+        //         $tr .= "
+        //         <tr>
+        //         <td>" . $value['item'] . "</td>
+        //         </tr>
+        //         ";
+        //     } else {
+        //         array_push($repetidas, $value['placa']);
+        //         //El $rowspan[$value['placa']]' me devuelve la cantidad de veces que está la misma
+        //         //Placa en la programación, de ese modo sabemos cuantas filas combinar
+        //         $tr .= "
+        //             <tr>
+        //                 <td rowspan='{$rowspan[$value['placa']]}'>
+        //                     <button type='button' class='btn btn-info btn-md btn-serviciosprogramacion' idsolicitud='{$value['idsolicitud']}' data-toggle='modal' data-target='#servicios'> <i class='fas fa-clipboard-list'></i></button>
+        //                     <button type='button' class='btn btn-warning btn-md btn-programacionxvehiculo' idsolicitud='{$value['idsolicitud']}' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#serviciosxvehiculo' style='display:none;'> <i class='far fa-calendar-alt'></i> </button>
+        //                     <button type='button' class='btn btn-success btn-md btn-programacion' idsolicitud='{$value['idsolicitud']}' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#Programacion'> <i class='far fa-clock'></i></button>
+
+        //                 </td>
+        //                 <td rowspan='{$rowspan[$value['placa']]}'>" . $value['placa'] . "</td>
+        //                 <td rowspan='{$rowspan[$value['placa']]}'>" . $value['numinterno'] . "</td>
+        //                 <td rowspan='{$rowspan[$value['placa']]}'>" . $value['kilometraje_actual'] . "</td>
+        //                 <td rowspan='{$rowspan[$value['placa']]}'>" . $value['fecha_solicitud'] . "</td>
+        //                 <td rowspan='{$rowspan[$value['placa']]}'>" . $value['fecha_programacion'] . "</td>
+        //                 <td>" . $value['item'] . "</td>
+        //                 <td rowspan='{$rowspan[$value['placa']]}'>" . $value['tiempo_mantenimiento'] . "</td>
+        //                 <td rowspan='{$rowspan[$value['placa']]}'>" . $value['observacion'] . "</td>
+        //             </tr>
+
+
+        //         ";
+        //     }
+        // }
+
+        // echo "
+        //     <tr>
+        //         <td rowspan='3'>Jhojan</td>
+        //         <td>1</td>
+        //         <td>2</td>
+        //         <td>3</td>
+        //         <td>4</td>
+        //         <td>5</td>
+        //         <td>6</td>
+        //         <td>7</td>
+        //         <td>8</td>
+        //     </tr>
+        //     <tr>
+        //         <td class='hide'>Jhojan</td>
+        //         <td>9</td>
+        //         <td>10</td>
+        //         <td>11</td>
+        //         <td>12</td>
+        //         <td>13</td>
+        //         <td>14</td>
+        //         <td>15</td>
+        //         <td>16</td>
+        //     </tr>
+        //     <tr>
+        //         <td class='hide'>Jhojan</td>
+        //         <td>17</td>
+        //         <td>18</td>
+        //         <td>19</td>
+        //         <td>20</td>
+        //         <td>21</td>
+        //         <td>22</td>
+        //         <td>23</td>
+        //         <td>24</td>
+        //     </tr>
+        //     <tr>
+        //         <td>Steven</td>
+        //         <td>17</td>
+        //         <td>18</td>
+        //         <td>19</td>
+        //         <td>20</td>
+        //         <td>21</td>
+        //         <td>22</td>
+        //         <td>23</td>
+        //         <td>24</td>
+        //     </tr>
+        //     ";
     }
 
 
@@ -706,27 +771,30 @@ class AjaxMantenimientos
 
         //Array que nos guarda las placas que ya se pusieron en la tabla para así juntar los itemas
         $repetidas = array();
+
+        
         foreach ($respuesta as $key => $value) {
-
-
 
             $tr = "";
             //Si la placa está en el array es porque ya se hizo una fila de sus datos en la tabla
             //Entonces se añaden los items a la misma fila, si no hay fila de esa placa
             //Se crea una nueva fila con todo
-            
+
             if (in_array($value['placa'], $repetidas)) {
                 $fecha_Actual = date('Y-m-d');
 
                 // VALIDACIÓN SI LA FECHA YA VENCIÓ 
-                if ($fecha_Actual < $value['fecha_comparar']) {
-                    $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
-                }
-                if ($value['fecha_comparar'] == "" || $value['fecha_comparar'] == NULL) {
-                    $fecha = "<td>No aplica </td>";
-                } else {
-                    $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
-                }
+                // if ($fecha_Actual < $value['fecha_comparar']) {
+                //     $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
+                // }
+                // else if ($fecha_Actual > $value['fecha_comparar']) {
+                //     $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
+                // } else if($value['fecha_comparar'] == null || $value['fecha_comparar'] == "" || !isset($value['fecha_comparar'])){
+                //     $fecha = "<td>No aplica </td>";
+                // }
+
+                $semaforo = ControladorVehiculos::Semaforo_tipo1($value['fecha_comparar'], $fecha_Actual);
+
 
                 //VALIDACIÓN SI EL KILOMETRAJE YA SE PASÓ
                 if ($value['kilometraje_servicio'] != 0 && $value['kilometraje_actual'] >= $value['kilometraje_cambio']) {
@@ -745,7 +813,7 @@ class AjaxMantenimientos
                     <tr>
                     <td>" . $value['item'] . "</td>
                     $kilometraje 
-                    $fecha 
+                    <td>No aplica</td>
                     <td><a href=' " . $value['ruta_foto'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a></td>
                     
                     
@@ -756,7 +824,7 @@ class AjaxMantenimientos
                     <tr>
                     <td>" . $value['item'] . "</td>
                     $kilometraje 
-                    $fecha 
+                    <td class='bg-{$semaforo}'> ". $value['fecha_cambio'] ."</td>
                     <td>Sin evidencia</td>
     
                     
@@ -765,17 +833,22 @@ class AjaxMantenimientos
                 }
             } else {
                 $fecha_Actual = date('Y-m-d');
+    
 
                 // VALIDACIÓN SI LA FECHA YA VENCIÓ 
-                if ($fecha_Actual < $value['fecha_comparar']) {
-                    $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
-                }
-                if ($value['fecha_comparar'] == "" || $value['fecha_comparar'] == NULL) {
-                    $fecha = "<td>No aplica </td>";
-                } else {
-                    $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
-                }
+                // if ($fecha_Actual < $value['fecha_comparar']) {
+                //     $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
+                // }
+                // else if ($fecha_Actual > $value['fecha_comparar']) {
+                //     $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
+                //     echo $value['fecha_comparar'];
+                // } else if($value['fecha_comparar'] == null || $value['fecha_comparar'] == "" || !isset($value['fecha_comparar'])){
+                //     $fecha = "<td>No aplica </td>";
+                // }
 
+                $semaforo = ControladorVehiculos::Semaforo_tipo1($value['fecha_comparar'], $fecha_Actual);
+
+                
                 //VALIDACIÓN SI EL KILOMETRAJE YA SE PASÓ
                 if ($value['kilometraje_servicio'] != 0 && $value['kilometraje_actual'] >= $value['kilometraje_cambio']) {
                     $kilometraje = "<td class='bg-danger'>" . $value['kilometraje_cambio'] .  "</td>";
@@ -798,7 +871,7 @@ class AjaxMantenimientos
                             <td rowspan='{$rowspan[$value['placa']]}'>" . $value['kilometraje_actual'] . "</td>
                             <td>" . $value['item'] . "</td>
                             $kilometraje
-                            $fecha
+                            <td>No aplica</td>
                             <td>" . $value['ruta_foto'] . "</td>
                             <td rowspan='{$rowspan[$value['placa']]}'>" . $value['fecha_programacion'] . " </td>
                             <td><a href=' " . $value['ruta_foto'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a></td>
@@ -807,14 +880,14 @@ class AjaxMantenimientos
     
     
                     ";
-                }else{
+                } else {
                     $tr .= "
                         <tr>
                             
                             <td rowspan='{$rowspan[$value['placa']]}'>" . $value['kilometraje_actual'] . "</td>
                             <td>" . $value['item'] . "</td>
                             $kilometraje
-                            $fecha
+                            <td class='bg-{$semaforo}'> ". $value['fecha_cambio'] ."</td>
                             <td>Sin evidencia</td>
                             <td rowspan='{$rowspan[$value['placa']]}'>" . $value['fecha_programacion'] . " </td>
 
@@ -857,6 +930,8 @@ class AjaxMantenimientos
         echo $respuesta;
     }
 
+    
+
     /* ===================================================
         TABLA HISTORIAL SOLICITUDES PROGRAMACIÓN
     ===================================================*/
@@ -866,16 +941,24 @@ class AjaxMantenimientos
         $tr = "";
 
         foreach ($respuesta as $key => $value) {
+
+            if(is_numeric( $value['tiempo_mantenimiento'])){
+                $tiempo = " <td> " . $value['tiempo_mantenimiento'] . " Dias </td>"; 
+            }else{
+                $tiempo = " <td> " . $value['tiempo_mantenimiento'] . "</td>"; 
+            }
+
+            
             $tr .= "
             <tr>
-            <td>".$value['idsolicitud']."</td>
-            <td>".$value['placa']."</td>
-            <td>".$value['descripcion']."</td>
-            <td>".$value['fecha_solicitud']."</td>
-            <td>".$value['fecha_programacion']."</td>
-            <td>".$value['tiempo_mantenimiento']."</td>
-            <td>".$value['estado']."</td>
-            <td>".$value['observacion']."</td>
+            <td>" . $value['idsolicitud'] . "</td>
+            <td>" . $value['placa'] . "</td>
+            <td>" . $value['descripcion'] . "</td>
+            <td>" .  $value['Ffecha_solicitud']  ."</td>
+            <td>" . $value['Ffecha_programacion'] . "</td>
+            $tiempo
+            <td>" . $value['estado'] . "</td>
+            <td>" . $value['observacion'] . "</td>
             </tr>
             ";
         }
@@ -883,6 +966,8 @@ class AjaxMantenimientos
 
         echo $tr;
     }
+
+    
 }
 /* ===================================================
             LLAMADOS AJAX INVENTARIO

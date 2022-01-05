@@ -1,5 +1,7 @@
 <?php
 
+use PhpOffice\PhpSpreadsheet\Shared\Date;
+
 class ControladorInventario
 {
 	/* ===================================================
@@ -1197,20 +1199,61 @@ class ControladorMantenimientos
 					$datos['estado_programacion'] = "PENDIENTE";
 					$respuesta = ModeloMantenimientos::mdlGuardarSolicitudProgramacion($datos);
 				}
-				if ($datos['estado_programacion'] == "REPROGRAMADO"){
+				if ($datos['estado_programacion'] == "REPROGRAMADO") {
 					//PONEMOS EL ESTADO DE LA ANTERIOR SOLICITUD EN REPROGRAMADO
 					$DatosSolicitud['estado'] = "REPROGRAMADO";
 					$respuesta = ModeloMantenimientos::mdlActualizarEstadoSolicitudProgramacion($DatosSolicitud);
 					//PONEMOS EL ESTADO DE LA NUEVA SOLICITUD EN PENDIENTE Y GUARDAMOS LOS DATOS 
 					$datos['estado_programacion'] = "PENDIENTE";
 					$respuesta = ModeloMantenimientos::mdlGuardarSolicitudProgramacion($datos);
-
 				}
-					
+
 
 
 				return $respuesta;
 			}
 		}
 	}
+
+	// static public function Semaforo_tipo1($fecha, $fecha_limite)
+	// {
+	// 	// $fecha = new DateTime($fecha);
+	// 	// $fecha_limite = new DateTime($fecha_limite);
+
+	// 	// var_dump($fecha->diff($fecha_limite));
+	// 	// return $fecha->diff($fecha_limite);
+
+
+	// 	// var_dump($fecha,$fecha_limite);
+
+	// 	$fecha = date_create($fecha);
+	// 	$fecha_limite = date_create($fecha_limite);
+
+	// 	$fecha = date_format($fecha, "Y-m-d");
+	// 	$fecha_limite = date_format($fecha_limite,"Y-m-d");
+
+	// 	$fecha1 = new DateTime($fecha);
+	// 	$fecha2 = new DateTime($fecha_limite);
+	// 	// var_dump($fecha1,$fecha2);
+	// 	$diff = $fecha1->diff($fecha2);
+	// 	if ($fecha1 < $fecha2){
+	// 		$diferencia = ($diff->days) * (-1);
+	// 	}else{
+	// 		$diferencia = $diff->days;
+	// 	}
+
+
+	// 	if($diferencia >= 31 ){
+	// 		$bg = 'bg-success';
+	// 	}else if($diferencia >= 0 && $diferencia <= 30){
+	// 		$bg = 'bg-warning';
+	// 	}else{
+	// 		$bg = 'bg-danger';
+	// 	}
+
+	// 	//echo $diferencia . "<br>";
+
+	// 	// El resultados sera 3 dias
+	// 	return $bg;
+	// }
 }

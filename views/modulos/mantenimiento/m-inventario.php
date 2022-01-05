@@ -1149,21 +1149,21 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                             </table>
                                                                                             <hr class="my-4 bg-dark">
                                                                                             <!--IMAGEN DE POSICION DE LLANTAS DE BUS-->
-                                                                                            <div id="llantas_bus" class="text-center">
-                                                                                                <img src="./views/img/llantas/LLANTAS-BUS.png" class="img-fluid">
+                                                                                            <div id="llantas_bus_buseta" class="text-center">
+                                                                                                <img src="./views/img/llantas/BUS-BUSETA.png" class="img-fluid">
                                                                                             </div>
                                                                                             <!--IMAGEN DE POSICION DE LLANTAS DE BUSETA-->
-                                                                                            <div id="llantas_buseta" class="d-none text-center">
+                                                                                            <!-- <div id="llantas_buseta" class="d-none text-center">
                                                                                                 <img src="./views/img/llantas/LLANTAS-BUSETA.png" class="img-fluid">
-                                                                                            </div>
+                                                                                            </div> -->
                                                                                             <!--IMAGEN DE POSICION DE LLANTAS DE CAMIONETA-->
-                                                                                            <div id="llantas_camioneta" class="d-none text-center">
-                                                                                                <img src="./views/img/llantas/LLANTAS-CAMIONETA.png" class="img-fluid">
+                                                                                            <div id="llantas_camioneta_micro" class="d-none text-center">
+                                                                                                <img src="./views/img/llantas/CAMIONETA-MICRO.png" class="img-fluid">
                                                                                             </div>
                                                                                             <!--IMAGEN DE POSICION DE LLANTAS DE MICRO-->
-                                                                                            <div id="llantas_micro" class="d-none text-center">
+                                                                                            <!-- <div id="llantas_micro" class="d-none text-center">
                                                                                                 <img src="./views/img/llantas/LLANTAS-MICRO.png" class="img-fluid">
-                                                                                            </div>
+                                                                                            </div> -->
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>

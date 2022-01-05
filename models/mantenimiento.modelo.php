@@ -2582,7 +2582,7 @@ class ModeloMantenimientos
     ===================================================*/
     static public function mdlListaProgramacion()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT v.*, sv.idsolicitud, sv.fecha_programacion, sv.tiempo_mantenimiento, sv.estado AS estadoSolicitud, sv.fecha_solicitud, sv.observacion FROM view_m_programacionvehiculos v
+        $stmt = Conexion::conectar()->prepare("SELECT v.*, sv.idsolicitud, sv.fecha_programacion, DATE_FORMAT(sv.fecha_programacion, '%d/%m/%Y') AS Ffecha_programacion, sv.tiempo_mantenimiento, sv.estado AS estadoSolicitud, sv.fecha_solicitud, DATE_FORMAT(sv.fecha_solicitud, '%d/%m/%Y') AS Ffecha_solicitud, sv.observacion FROM view_m_programacionvehiculos v
         LEFT JOIN m_re_solicitudesvehiculo sv ON sv.idvehiculo = v.idvehiculo
         WHERE (sv.idsolicitud, v.idvehiculo, v.item)
                 IN (select MAX(sv1.idsolicitud), v1.idvehiculo, v1.item FROM
@@ -2691,8 +2691,8 @@ class ModeloMantenimientos
     ===================================================*/
     static public function mdlHistorialSolicitudesProgramacion()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT s.*, v.* FROM m_re_solicitudesvehiculo s
-                                              INNER JOIN v_vehiculos v ON s.idvehiculo = v.idvehiculo");
+        $stmt = Conexion::conectar()->prepare("SELECT s.*, v.*, DATE_FORMAT(s.fecha_solicitud, '%d/%m/%Y') AS Ffecha_solicitud, DATE_FORMAT(s.fecha_programacion, '%d/%m/%Y') AS Ffecha_programacion FROM m_re_solicitudesvehiculo s
+        INNER JOIN v_vehiculos v ON s.idvehiculo = v.idvehiculo");
 
         $stmt->execute();
         $respuesta = $stmt->fetchAll();
