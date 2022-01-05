@@ -1556,6 +1556,12 @@ $(document).ready(function () {
             let fecha_actual = moment().format("YYYY-MM-DD");
             let idvehiculo = $(this).val();
 
+            $(".documentos").val("").removeClass("bg-danger bg-success");
+
+            if(idvehiculo == null){
+                $(".documentos").val("");
+            }
+
             //CARGAR TABLA DE PROGRAMACIÓN POR VEHÍCULO
             AjaxTablaProgramacionxVehiculo(
                 idvehiculo,
@@ -1589,6 +1595,7 @@ $(document).ready(function () {
                 },
             });
 
+            //DOCUMENTOS DEL VEHÍCULO
             var datos = new FormData();
             datos.append("DocumentosxVehiculo", "ok");
             datos.append("idvehiculo", idvehiculo);
@@ -1603,21 +1610,46 @@ $(document).ready(function () {
                 success: function (response) {
                     response.forEach((element) => {
                         // Asigno valor fecha
-                        $(`#documento_${element.idtipodocumento} `).val(
+                        $(`#documento_${element.idtipodocumento}`).val(
                             element.fechafin
                         );
-
-                        // Color del fondo segun la fecha
                         var bg =
                             element.fechafin >= moment().format("YYYY-MM-DD")
                                 ? "bg-success"
                                 : "bg-danger";
-                        $(`#documento_${element.idtipodocumento} `).addClass(
-                            bg
-                        );
+                        $(`#documento_${element.idtipodocumento}`).addClass(bg);
                     });
                 },
             });
+
+
+            // var datos = new FormData();
+            // datos.append("DocumentosxVehiculo", "ok");
+            // datos.append("idvehiculo", idvehiculo);
+            // $.ajax({
+            //     type: "post",
+            //     url: `${urlPagina}ajax/vehicular.ajax.php`,
+            //     data: datos,
+            //     dataType: "json",
+            //     cache: false,
+            //     contentType: false,
+            //     processData: false,
+            //     success: function (response) {
+            //         response.forEach((element) => {
+            //             // Color del fondo segun la fecha
+            //             var bg =
+            //                 element.fechafin >= moment().format("YYYY-MM-DD")
+            //                     ? "bg-success"
+            //                     : "bg-danger";
+            //             $(`#documento_${element.idtipodocumento}`).addClass(bg);
+
+            //             // Asigno valor fecha
+            //             $(`#documento_${element.idtipodocumento}`).val(
+            //                 element.fechafin
+            //             );
+            //         });
+            //     },
+            // });
         });
 
         //CARGAR TABLA DE PRODUCTOS
@@ -3417,37 +3449,37 @@ $(document).ready(function () {
                         buttons
                     );
 
-                    var data = [];
-                    $("#tablaSolicitudesProgramacion td").each(function () {
-                        var $this = $(this);
-                        var index = $this.index();
-                        var txt = $this.text();
-                        //console.log(this);
-                        //console.log(index);
-                        
-                        if (index == 0) {
-                            var item = _.find(data, function (o) {
-                                //return o.v == txt;
-                                return txt.indexOf(o.v) != -1;
-                            });
+                    // var data = [];
+                    // $("#tablaSolicitudesProgramacion1 td").each(function () {
+                    //     var $this = $(this);
+                    //     var index = $this.index();
+                    //     var txt = $this.text();
+                    //     //console.log(this);
+                    //     //console.log(index);
 
-                            if (item) {
-                                item.t = item.t + 1;
-                                item.o
-                                    .attr("rowspan", item.t)
-                                    .removeClass("hide");
-                                $this.addClass("hide");
-                            } else {
-                                data.push({
-                                    i: index,
-                                    t: 1,
-                                    o: $this,
-                                    v: txt,
-                                });
-                                //$this.addClass('hide');
-                            }
-                        }
-                    });
+                    //     if (index == 0) {
+                    //         var item = _.find(data, function (o) {
+                    //             //return o.v == txt;
+                    //             return txt.indexOf(o.v) != -1;
+                    //         });
+
+                    //         if (item) {
+                    //             item.t = item.t + 1;
+                    //             item.o
+                    //                 .attr("rowspan", item.t)
+                    //                 .removeClass("hide");
+                    //             $this.addClass("hide");
+                    //         } else {
+                    //             data.push({
+                    //                 i: index,
+                    //                 t: 1,
+                    //                 o: $this,
+                    //                 v: txt,
+                    //             });
+                    //             //$this.addClass('hide');
+                    //         }
+                    //     }
+                    // });
                 },
             });
         }
@@ -3562,56 +3594,60 @@ $(document).ready(function () {
                 $("#observacion_progra").attr("required", false);
             }
         });
-    }
 
-    /*============================================
-        CARGAR HISTORIAL DE SOLICITUDES 
-    ==============================================*/
-    $(document).on(
-        "click",
-        "#historialSolicitudesProgramacion-tab",
-        function () {
-            // Quitar datatable
-            $(`#tablaHistorialSolicitudesProgramacion`).dataTable().fnDestroy();
-            // Borrar datos
-            $(`#tbodyHistorialSolicitudesProgramacion`).html("");
+        /*============================================
+            CARGAR HISTORIAL DE SOLICITUDES 
+        ==============================================*/
+        $(document).on(
+            "click",
+            "#historialSolicitudesProgramacion-tab",
+            function () {
+                // Quitar datatable
+                $(`#tablaHistorialSolicitudesProgramacion`)
+                    .dataTable()
+                    .fnDestroy();
+                // Borrar datos
+                $(`#tbodyHistorialSolicitudesProgramacion`).html("");
 
-            var datos = new FormData();
-            datos.append("TablaHistorialSolicitudesProgramacion", "ok");
+                var datos = new FormData();
+                datos.append("TablaHistorialSolicitudesProgramacion", "ok");
 
-            $.ajax({
-                type: "post",
-                url: "ajax/mantenimiento.ajax.php",
-                data: datos,
-                // dataType: "JSON",
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    if (response != "" || response != null) {
-                        $("#tbodyHistorialSolicitudesProgramacion").html(
-                            response
+                $.ajax({
+                    type: "post",
+                    url: "ajax/mantenimiento.ajax.php",
+                    data: datos,
+                    // dataType: "JSON",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        if (response != "" || response != null) {
+                            $("#tbodyHistorialSolicitudesProgramacion").html(
+                                response
+                            );
+                        } else {
+                            $("#tbodyHistorialSolicitudesProgramacion").html(
+                                ""
+                            );
+                        }
+
+                        /* ===================================================
+                   INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                   ===================================================*/
+                        var buttons = [
+                            {
+                                extend: "excel",
+                                className: "btn-info",
+                                text: '<i class="far fa-file-excel"></i> Exportar',
+                            },
+                        ];
+                        var table = dataTableCustom(
+                            `#tablaHistorialSolicitudesProgramacion`,
+                            buttons
                         );
-                    } else {
-                        $("#tbodyHistorialSolicitudesProgramacion").html("");
-                    }
-
-                    /* ===================================================
-               INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-               ===================================================*/
-                    var buttons = [
-                        {
-                            extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
-                        },
-                    ];
-                    var table = dataTableCustom(
-                        `#tablaHistorialSolicitudesProgramacion`,
-                        buttons
-                    );
-                },
-            });
-        }
-    );
+                    },
+                });
+            }
+        );
+    }
 });
