@@ -40,7 +40,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
             <hr class="my-4">
             <div class="row">
                 <div class="col-12">
-                    <button type="button" class="btn bg-gradient-success btn-nuevaRevision" data-toggle="modal" data-target="#modal-nuevaRevision"><i class="fas fa-bus"></i> Nuevo</button>
+                    <button type="button" class="btn bg-gradient-success btn-nuevaRevision" data-toggle="modal" data-target="#modal-nuevaRevision"><i class="fas fa-clipboard-check"></i> Nueva revisión</button>
                 </div>
             </div>
             <!-- ===================== 
@@ -52,7 +52,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                         <div class="card-body">
                             <!--|||TABLA PROTOCOLO DE REVISION||-->
                             <div class="table-responsive">
-                                <table id="tblRevision" class="table table-responsive table-bordered table-striped text-center tablasBtnExport w-100">
+                                <table id="tblRevision" class="table table-sm table-responsive table-bordered table-striped text-center tablasBtnExport w-100">
                                     <thead class="text-nowrap text-sm">
                                         <tr>
                                             <th colspan="7">INFORMACIÓN GENERAL</th>
@@ -256,13 +256,13 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                     <div class="row d-flex flex-nowrap justify-content-center">
                                                         <div class="col-md-6">
                                                             <div class="btn-group" role="group" aria-label="Button group">
-                                                                <button class="btn btn-xs btn-info btnEditarRev" idrevision="<?= $value['idtm'] ?>" idvehiculo="<?= $value['idvehiculo'] ?>" data-toggle="modal" data-target="#modal-nuevaRevision"><i class="fas fa-edit"></i></button>
+                                                                <button class="btn btn-sm btn-info btnEditarRev" title="Editar revisión" idrevision="<?= $value['idtm'] ?>" idvehiculo="<?= $value['idvehiculo'] ?>" data-toggle="modal" data-target="#modal-nuevaRevision"><i class="fas fa-edit"></i></button>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <?php if (validarPermiso('M_OPCIONES', 'D')) : ?>
                                                                 <div class="btn-group" role="group" aria-label="Button group">
-                                                                    <button class="btn btn-xs btn-danger btnBorrarRev" idrevision="<?= $value['idtm'] ?>" idvehiculo="<?= $value['idvehiculo'] ?>"> <i class="fas fa-trash"></i> </button>
+                                                                    <button class="btn btn-sm btn-danger btnBorrarRev" title="Eliminar revisión" idrevision="<?= $value['idtm'] ?>" idvehiculo="<?= $value['idvehiculo'] ?>"> <i class="fas fa-trash"></i> </button>
                                                                 </div>
                                                             <?php endif ?>
                                                         </div>
@@ -492,7 +492,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                 <a class="nav-link" id="sistema_direccion" data-toggle="pill" href="#custom-tabs-two-sistema-direccion" role="tab" aria-controls="custom-tabs-two-sistema-direccion" aria-selected="false"><u>Sistema dirección</u></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="sistema_frenos" data-toggle="pill" href="#custom-tabs-two-sistema-frenos" role="tab" aria-controls="custom-tabs-two-sistema-frenos" aria-selected="false"><u>Sisema de frenos y llantas</u></a>
+                                <a class="nav-link" id="sistema_frenos" data-toggle="pill" href="#custom-tabs-two-sistema-frenos" role="tab" aria-controls="custom-tabs-two-sistema-frenos" aria-selected="false"><u>Sistema de frenos y llantas</u></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="sistema_electrico" data-toggle="pill" href="#custom-tabs-two-sistema-electrico" role="tab" aria-controls="custom-tabs-two-sistema-electrico" aria-selected="false"><u>Sistema eléctrico</u></a>
@@ -1827,7 +1827,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                         <!-- TAB SISTEMA DE FRENOS Y LLANTAS  -->
                                         <div class="tab-pane fade show" id="custom-tabs-two-sistema-frenos" role="tabpanel" aria-labelledby="custom-tabs-two-sistema-frenos">
                                             <div class="table-responsive">
-                                                <table class="table table-bordered text-center border-danger" nombre="Sistema de frenos y llantas">
+                                                <table class="table table-sm table-bordered text-center border-danger" nombre="Sistema de frenos y llantas">
                                                     <thead class="text-nowrap">
                                                         <tr class="font-weight-bold">
                                                             <th>Nivel de fluido <small><i>(Fugas)</i></small></th>
@@ -2435,6 +2435,17 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         </tr>
                                                     </tbody>
                                                 </table>
+
+                                                <hr class="my-4 bg-dark">
+                                                <!--IMAGEN DE POSICION DE LLANTAS DE BUS-->
+                                                <div id="llantas_bus_buseta" class="text-center">
+                                                    <img src="./views/img/llantas/BUS-BUSETA.png" class="img-fluid">
+                                                </div>
+                                                
+                                                <div id="llantas_camioneta_micro" class="d-none text-center">
+                                                    <img src="./views/img/llantas/CAMIONETA-MICRO.png" class="img-fluid">
+                                                </div>
+
                                             </div>
                                         </div>
 
