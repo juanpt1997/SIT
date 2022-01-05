@@ -66,10 +66,10 @@ class AjaxConceptosGenerales
 				$item = "cargo";
 				break;
 				//VEHICULAR
-			case 'Tipos de vehiculos':
-				$tabla = "v_tipovehiculos";
-				$item = "tipovehiculo";
-				break;
+			// case 'Tipos de vehiculos':
+			// 	$tabla = "v_tipovehiculos";
+			// 	$item = "tipovehiculo";
+			// 	break;
 
 			case 'Marcas de vehículos':
 				$tabla = "v_marcas";
@@ -207,11 +207,11 @@ class AjaxConceptosGenerales
 				break;
 
 				//VEHICULAR
-			case 'Tipos de vehiculos':
-				$tabla = "v_tipovehiculos";
-				$item = "tipovehiculo";
-				$id = "idtipovehiculo";
-				break;
+			// case 'Tipos de vehiculos':
+			// 	$tabla = "v_tipovehiculos";
+			// 	$item = "tipovehiculo";
+			// 	$id = "idtipovehiculo";
+			// 	break;
 
 			case 'Marcas de vehículos':
 				$tabla = "v_marcas";
@@ -728,8 +728,14 @@ class AjaxConceptosGenerales
 				$item1 = "num_cuenta";
 				$item2 = "nombre_cuenta";
 				break;
+			case 'Tipos de vehiculos':
+				$tabla = "v_tipovehiculos";
+				$item1 = "tipovehiculo";
+				$item2 = "categoria";
+				break;	
 
-			default:
+			
+				default:
 				# code...
 				break;
 		}
@@ -776,6 +782,14 @@ class AjaxConceptosGenerales
 				$item2 = "nombre_cuenta";
 				$idtabla = "id";
 				break;
+			case 'Tipos de vehiculos':
+				$tabla = "v_tipovehiculos";
+				$item1 = "tipovehiculo";
+				$item2 = "categoria";
+				$idtabla = "idtipovehiculo";
+				break;
+					
+
 
 			default:
 				# code...
@@ -869,6 +883,12 @@ class AjaxConceptosGenerales
 				$item2 = "nombre_cuenta";
 				$id = "id";
 				break;
+			case 'Tipos de vehiculos':
+				$tabla = "v_tipovehiculos";
+				$item1 = "tipovehiculo";
+				$item2 = "categoria";
+				$id = "idtipovehiculo";
+				break;	
 
 			default:
 				// code...
