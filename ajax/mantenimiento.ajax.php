@@ -627,10 +627,10 @@ class AjaxMantenimientos
                 //echo $rowspan[$value['placa']] . "-";
                 $rowspantd = $rowspan[$value['placa']] == 1 ? "" : "rowspan='{$rowspan[$value['placa']]}'";
 
-                if(is_numeric( $value['tiempo_mantenimiento'])){
-                    $tiempo = " <td $rowspantd> " . $value['tiempo_mantenimiento'] . " Días </td>"; 
-                }else{
-                    $tiempo = " <td $rowspantd> " . $value['tiempo_mantenimiento'] . "</td>"; 
+                if (is_numeric($value['tiempo_mantenimiento'])) {
+                    $tiempo = " <td $rowspantd> " . $value['tiempo_mantenimiento'] . " Días </td>";
+                } else {
+                    $tiempo = " <td $rowspantd> " . $value['tiempo_mantenimiento'] . "</td>";
                 }
 
                 $tr .= "
@@ -749,6 +749,145 @@ class AjaxMantenimientos
         //     </tr>
         //     ";
     }
+    static public function ajaxTablaProgramacion2()
+    {
+        $respuesta = ControladorMantenimientos::ctrListaProgramacion();
+
+        $placas = array();
+        foreach ($respuesta as $key => $value) {
+            array_push($placas, $value['placa']);
+        }
+
+        //GENERA UN ARRRAY CON LA CANTIDAD DE VECES QUE HAY UNA PLACA 
+        foreach ($placas as $key => $value) {
+            $rowspan = array_count_values($placas);
+        }
+
+        $repetidas = array();
+
+        //var_dump($rowspan);
+        $cont = 0; // Define la posición en la que me encuentro dentro del arreglo de programación
+
+        // Recorro el arreglo con las placas y su respectivo contador
+        foreach ($rowspan as $key => $value) {
+            $tr = "";
+
+            $numfilas = $value; //num filas repetidas de cada registro
+
+            // Escribiendo las primeras columnas con rowspan de la tabla 
+            $tr .= "
+                     <tr>
+                        <td data-datatable-multi-row-rowspan='$numfilas'>
+                            <button type='button' class='btn btn-info btn-md btn-serviciosprogramacion' idsolicitud='{$respuesta[$cont]['idsolicitud']}' data-toggle='modal' data-target='#servicios'> <i class='fas fa-clipboard-list'></i></button>
+                            <button type='button' class='btn btn-warning btn-md btn-programacionxvehiculo' idsolicitud='{$respuesta[$cont]['idsolicitud']}' idvehiculo='{$respuesta[$cont]['idvehiculo']}' data-toggle='modal' data-target='#serviciosxvehiculo' style='display:none;'> <i class='far fa-calendar-alt'></i> </button>
+                            <button  type='button' class='btn btn-success btn-md btn-programacion' idsolicitud='{$respuesta[$cont]['idsolicitud']}' idvehiculo='{$respuesta[$cont]['idvehiculo']}' data-toggle='modal' data-target='#Programacion'> <i class='far fa-clock'></i></button>
+
+                        </td>
+                        <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['placa'] . "</td>
+                        <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['numinterno'] . "</td>
+                        <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['kilometraje_actual'] . "</td>
+                        <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['fecha_solicitud'] . "</td>
+                        <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['fecha_programacion']; // . "</td>"; // La columna anterior a la columna que si tiene varias filas juntas, no se puede cerrar aún
+            // Si existe más de una fila abre el script y luego itera por cada uno
+            if ($numfilas > 1) {
+                $tr .= "<script type='x/template' class='extra-row-content'>"; // abre script
+
+                // Comienza iteración
+                for ($i = 0; $i < $numfilas - 1; $i++) { // $numfilas - 1 para cerrar el script antes de escribir el último item que debería iterar
+                    // Por cada uno tiene que abrir también un tr
+                    $tr .= "
+                                <tr><td>" . $respuesta[$cont]['item'] . "</td></tr>
+                        ";
+
+                    $cont++; // Aumento la posición
+                }
+
+                // Cierro script
+                $tr .= "</script>";
+            }
+            // Cierro td anterior al td que itera muchas veces, en este caso el de fecha programación, si no entra ninguna vez a la condición anterior pues simplemente sale
+            $tr .= "</td>";
+            // Monta el último item que se iteró, si no tuvo que iterar solo se escribe y ya
+            $tr .= "<td>" . $respuesta[$cont]['item'] . "</td>";
+            
+            // Últimas columnas de la tabla
+            $tr .= "
+                        <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['tiempo_mantenimiento'] . "</td>
+                        <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['observacion'] . "</td>
+                    </tr>
+                    ";
+            $cont++; // Aumento una posición más del contador que me posiciona dentro del arreglo de programación
+            echo $tr;
+        }
+
+
+        // Ejemplo
+        // echo "
+        //     <tr>
+        //         <td data-datatable-multi-row-rowspan='3'>
+        //             Brad Jones
+        //             <script type='x/template' class='extra-row-content'>
+        //                 <tr>
+        //                 <td>
+        //                     Brad Jones is such a nice guy! I have written notes about him.
+        //                 </td>
+        //                 <td>
+        //                     Brad Jones 2 is such a nice guy! I have written notes about him.
+        //                 </td>
+        //                 <td>
+        //                     <ul>
+        //                     <li>Rachel, Wife</li>
+        //                     <li>Deshawn, Son</li>
+        //                     <li>Marian, Daughter</li>
+        //                     </ul>
+        //                 </td>
+        //                 </tr>
+        //                 <tr>
+        //                 <td>
+        //                     Brad Jones is such a nice guy! I have written notes about him.
+        //                 </td>
+        //                 <td>
+        //                     Brad Jones 2 is such a nice guy! I have written notes about him.
+        //                 </td>
+        //                 <td>
+        //                     <ul>
+        //                     <li>Rachel, Wife</li>
+        //                     <li>Deshawn, Son</li>
+        //                     <li>Marian, Daughter</li>
+        //                     </ul>
+        //                 </td>
+        //                 </tr>
+        //             </script>
+        //         </td>
+        //         <td>4/15/2011</td>
+        //         <td>Philadelphia</td>
+        //         <td>3</td>
+        //         <td data-datatable-multi-row-rowspan='3'>$65,000</td>
+        //     </tr>
+        //     <tr>
+        //         <td data-datatable-multi-row-rowspan='2'>
+        //         Martha Williams
+        //         <script type='x/template' class='extra-row-content'>
+        //             <tr>
+        //             <td colspan='2'>
+        //                 I first met Martha at a laundromat.
+        //             </td>
+        //             <td>
+        //                 <ul>
+        //                 <li>Marshall, Husband</li>
+        //                 <li>Marshall Jr., Son</li>
+        //                 </ul>
+        //             </td>
+        //             </tr>
+        //         </script>
+        //         </td>
+        //         <td>9/3/2015</td>
+        //         <td>Annapolis</td>
+        //         <td>2</td>
+        //         <td data-datatable-multi-row-rowspan='2'>$7,800</td>
+        //     </tr>
+        // ";
+    }
 
 
     /* ===================================================
@@ -771,7 +910,7 @@ class AjaxMantenimientos
         //Array que nos guarda las placas que ya se pusieron en la tabla para así juntar los itemas
         $repetidas = array();
 
-        
+
         foreach ($respuesta as $key => $value) {
 
             $tr = "";
@@ -823,7 +962,7 @@ class AjaxMantenimientos
                     <tr>
                     <td>" . $value['item'] . "</td>
                     $kilometraje 
-                    <td class='bg-{$semaforo}'> ". $value['fecha_cambio'] ."</td>
+                    <td class='bg-{$semaforo}'> " . $value['fecha_cambio'] . "</td>
                     <td>Sin evidencia</td>
     
                     
@@ -832,7 +971,7 @@ class AjaxMantenimientos
                 }
             } else {
                 $fecha_Actual = date('Y-m-d');
-    
+
 
                 // VALIDACIÓN SI LA FECHA YA VENCIÓ 
                 // if ($fecha_Actual < $value['fecha_comparar']) {
@@ -847,7 +986,7 @@ class AjaxMantenimientos
 
                 $semaforo = ControladorVehiculos::Semaforo_tipo1($value['fecha_comparar'], $fecha_Actual);
 
-                
+
                 //VALIDACIÓN SI EL KILOMETRAJE YA SE PASÓ
                 if ($value['kilometraje_servicio'] != 0 && $value['kilometraje_actual'] >= $value['kilometraje_cambio']) {
                     $kilometraje = "<td class='bg-danger'>" . $value['kilometraje_cambio'] .  "</td>";
@@ -886,7 +1025,7 @@ class AjaxMantenimientos
                             <td rowspan='{$rowspan[$value['placa']]}'>" . $value['kilometraje_actual'] . "</td>
                             <td>" . $value['item'] . "</td>
                             $kilometraje
-                            <td class='bg-{$semaforo}'> ". $value['fecha_cambio'] ."</td>
+                            <td class='bg-{$semaforo}'> " . $value['fecha_cambio'] . "</td>
                             <td>Sin evidencia</td>
                             <td rowspan='{$rowspan[$value['placa']]}'>" . $value['fecha_programacion'] . " </td>
 
@@ -929,7 +1068,7 @@ class AjaxMantenimientos
         echo $respuesta;
     }
 
-    
+
 
     /* ===================================================
         TABLA HISTORIAL SOLICITUDES PROGRAMACIÓN
@@ -941,19 +1080,26 @@ class AjaxMantenimientos
 
         foreach ($respuesta as $key => $value) {
 
+<<<<<<< HEAD
             if(is_numeric( $value['tiempo_mantenimiento'])){
                 $tiempo = " <td> " . $value['tiempo_mantenimiento'] . " Días </td>"; 
             }else{
                 $tiempo = " <td> " . $value['tiempo_mantenimiento'] . "</td>"; 
+=======
+            if (is_numeric($value['tiempo_mantenimiento'])) {
+                $tiempo = " <td> " . $value['tiempo_mantenimiento'] . " Dias </td>";
+            } else {
+                $tiempo = " <td> " . $value['tiempo_mantenimiento'] . "</td>";
+>>>>>>> master
             }
 
-            
+
             $tr .= "
             <tr>
             <td>" . $value['idsolicitud'] . "</td>
             <td>" . $value['placa'] . "</td>
             <td>" . $value['descripcion'] . "</td>
-            <td>" .  $value['Ffecha_solicitud']  ."</td>
+            <td>" .  $value['Ffecha_solicitud']  . "</td>
             <td>" . $value['Ffecha_programacion'] . "</td>
             $tiempo
             <td>" . $value['estado'] . "</td>
@@ -965,8 +1111,6 @@ class AjaxMantenimientos
 
         echo $tr;
     }
-
-    
 }
 /* ===================================================
             LLAMADOS AJAX INVENTARIO
@@ -1070,7 +1214,7 @@ if (isset($_POST['DatosAsume']) && $_POST['DatosAsume'] == "ok") AjaxMantenimien
 if (isset($_POST['datosCuenta']) && $_POST['datosCuenta'] == "ok") AjaxMantenimientos::ajaxCargarDatosCuenta($_POST['idcuenta']);
 
 #LLAMADO A CARGAR TABLA PROGRAMACIÓN 
-if (isset($_POST['TablaProgramacion']) && $_POST['TablaProgramacion'] == "ok") AjaxMantenimientos::ajaxTablaProgramacion();
+if (isset($_POST['TablaProgramacion']) && $_POST['TablaProgramacion'] == "ok") AjaxMantenimientos::ajaxTablaProgramacion2();
 
 #LLAMADO A CARGAR TABLA DE PROGRAMACIÓN POR VEHÍCULO 
 if (isset($_POST['TablaProgramacionxVehiculo']) && $_POST['TablaProgramacionxVehiculo'] == "ok") AjaxMantenimientos::ajaxTablaProgramacionxVehiculo($_POST['idvehiculo']);
