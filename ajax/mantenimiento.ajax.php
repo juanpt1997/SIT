@@ -597,7 +597,6 @@ class AjaxMantenimientos
         }
 
         $repetidas = array();
-        //TESTEO
         foreach ($respuesta as $key => $value) {
             $tr = "";
 
@@ -629,7 +628,7 @@ class AjaxMantenimientos
                 $rowspantd = $rowspan[$value['placa']] == 1 ? "" : "rowspan='{$rowspan[$value['placa']]}'";
 
                 if(is_numeric( $value['tiempo_mantenimiento'])){
-                    $tiempo = " <td $rowspantd> " . $value['tiempo_mantenimiento'] . " Dias </td>"; 
+                    $tiempo = " <td $rowspantd> " . $value['tiempo_mantenimiento'] . " Días </td>"; 
                 }else{
                     $tiempo = " <td $rowspantd> " . $value['tiempo_mantenimiento'] . "</td>"; 
                 }
@@ -943,7 +942,7 @@ class AjaxMantenimientos
         foreach ($respuesta as $key => $value) {
 
             if(is_numeric( $value['tiempo_mantenimiento'])){
-                $tiempo = " <td> " . $value['tiempo_mantenimiento'] . " Dias </td>"; 
+                $tiempo = " <td> " . $value['tiempo_mantenimiento'] . " Días </td>"; 
             }else{
                 $tiempo = " <td> " . $value['tiempo_mantenimiento'] . "</td>"; 
             }
