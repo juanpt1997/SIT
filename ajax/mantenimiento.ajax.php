@@ -468,6 +468,17 @@ class AjaxMantenimientos
     static public function ajaxListadoControlActividades()
     {
         $respuesta = ControladorMantenimientos::ctrListadoControlActividades();
+
+        $placas = array();
+        foreach ($respuesta as $key => $value) {
+            array_push($placas, $value['placa']);
+        }
+
+        //GENERA UN ARRRAY CON LA CANTIDAD DE VECES QUE HAY UNA PLACA 
+        foreach ($placas as $key => $value) {
+            $rowspan = array_count_values($placas);
+        }
+
         $tr = "";
 
         foreach ($respuesta as $key => $value) {
@@ -1080,17 +1091,10 @@ class AjaxMantenimientos
 
         foreach ($respuesta as $key => $value) {
 
-<<<<<<< HEAD
-            if(is_numeric( $value['tiempo_mantenimiento'])){
-                $tiempo = " <td> " . $value['tiempo_mantenimiento'] . " Días </td>"; 
-            }else{
-                $tiempo = " <td> " . $value['tiempo_mantenimiento'] . "</td>"; 
-=======
             if (is_numeric($value['tiempo_mantenimiento'])) {
-                $tiempo = " <td> " . $value['tiempo_mantenimiento'] . " Dias </td>";
+                $tiempo = " <td> " . $value['tiempo_mantenimiento'] . " Días </td>";
             } else {
                 $tiempo = " <td> " . $value['tiempo_mantenimiento'] . "</td>";
->>>>>>> master
             }
 
 
