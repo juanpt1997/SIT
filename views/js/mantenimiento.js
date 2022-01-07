@@ -1499,7 +1499,7 @@ $(document).ready(function () {
         =====================================================*/
         const AjaxTablaProgramacionxVehiculo = (idvehiculo, tbody) => {
             // Quitar datatable
-            //  $("#tablaProgramacionServ").dataTable().fnDestroy();
+            $("#tablaProgramacionServ").dataTable().fnDestroy();
             // Borrar datos
             $(tbody).html("");
 
@@ -2892,14 +2892,15 @@ $(document).ready(function () {
         /*============================================
             CARGA TABLA CONTROL DE ACTIVIDADES 
         ==============================================*/
-        $(document).on("click", "#custom-tabs-one-control-tab", function () {
+        const TablaControlActividades = () =>{
             // Quitar datatable
             $("#tableControlActividades").dataTable().fnDestroy();
             // Borrar datos
-            // $("#tableControlActividades").html("");
+            $("#tbodyControlActividades").html("");
 
             var datos = new FormData();
             datos.append("TablaControlActividades", "ok");
+            
 
             $.ajax({
                 type: "post",
@@ -2941,21 +2942,104 @@ $(document).ready(function () {
                         }
                     );
                     /* ===================================================
-                    INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-                    ===================================================*/
-                    var buttons = [
-                        {
-                            extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                   INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                   ===================================================*/
+                   var buttons = [
+                    {
+                        extend: "",
+                        className: "btn-info excel-controlActividades",
+                        text: '<i class="far fa-file-excel "></i> Exportar',
+                    },
+                ];
+                /* var table = dataTableCustom(
+                    `#tablaSolicitudesProgramacion`,
+                    buttons
+                ); */
+
+                var table = $('#tableControlActividades').DataTable({
+                    dom:
+                        "<'row'<'col-12 text-right'B>>" +
+                        "<'row mt-1'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+                        "<'row'<'col-sm-12'tr>>" +
+                        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                    buttons: buttons,
+                    orderCellsTop: true,
+                    fixedHeader: true,
+                    order: [],
+                    language: {
+                        sProcessing: "Procesando...",
+                        sLengthMenu: "Mostrar _MENU_ registros",
+                        sZeroRecords: "No se encontraron resultados",
+                        sEmptyTable: "Ningún dato disponible en esta tabla",
+                        sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                        sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0",
+                        sInfoFiltered:
+                            "<div class='small'>(filtrado de un total de _MAX_ registros)</div>",
+                        sInfoPostFix: "",
+                        sSearch: "Buscar:",
+                        sUrl: "",
+                        sInfoThousands: ",",
+                        sLoadingRecords: "Cargando...",
+                        oPaginate: {
+                            sFirst: "Primero",
+                            sLast: "Último",
+                            sNext: "Siguiente",
+                            sPrevious: "Anterior",
                         },
-                    ];
-                    var table = dataTableCustom(
-                        `#tableControlActividades`,
-                        buttons
-                    );
+                        oAria: {
+                            sSortAscending:
+                                ": Activar para ordenar la columna de manera ascendente",
+                            sSortDescending:
+                                ": Activar para ordenar la columna de manera descendente",
+                        },
+                    },
+                    lengthMenu: [
+                        [10, 25, 50, 75, -1],
+                        [10, 25, 50, 75, "Todo"],
+                    ],
+                    "fnDrawCallback": function () {
+
+                        $table = $(this);
+
+                        // only apply this to specific tables
+                        if ($table.closest(".datatable-multi-row").length) {
+
+                            // for each row in the table body...
+                            $table.find("tbody>tr").each(function () {
+                                var $tr = $(this);
+
+                                // get the "extra row" content from the <script> tag.
+                                // note, this could be any DOM object in the row.
+                                var extra_row = $tr.find(".extra-row-content").html();
+
+                                // in case draw() fires multiple times, 
+                                // we only want to add new rows once.
+                                if (!$tr.next().hasClass('dt-added')) {
+                                    $tr.after(extra_row);
+                                    $tr.find("td").each(function () {
+
+                                        // for each cell in the top row,
+                                        // set the "rowspan" according to the data value.
+                                        var $td = $(this);
+                                        var rowspan = parseInt($td.data("datatable-multi-row-rowspan"), 10);
+                                        if (rowspan) {
+                                            $td.attr('rowspan', rowspan);
+                                        }
+                                    });
+                                }
+
+                            });
+
+                        } // end if the table has the proper class
+                    } // end fnDrawCallback()
+                });
+                    
                 },
             });
+        }
+
+        $(document).on("click", "#custom-tabs-one-control-tab", function () {
+            TablaControlActividades();
         });
         /*============================================
             CARGAR DATOS PARA LA MODAL DE QUIÉN ASUME
@@ -3076,7 +3160,11 @@ $(document).ready(function () {
             let total = $("#total_ctrActividades").val();
             let asume = 0;
 
-            if (porcentaje > 0 && total > 0) asume = total * (porcentaje / 100);
+            if (porcentaje > 0 && total > 0){
+
+                asume = total * (porcentaje / 100);
+                asume = asume.toFixed();
+            } 
             else asume = 0;
 
             $("#valor_cliente").val(asume);
@@ -3087,7 +3175,11 @@ $(document).ready(function () {
             let total = $("#total_ctrActividades").val();
             let asume = 0;
 
-            if (porcentaje > 0 && total > 0) asume = total * (porcentaje / 100);
+            if (porcentaje > 0 && total > 0)
+            {
+                asume = total * (porcentaje / 100);
+                asume = asume.toFixed();
+            } 
             else asume = 0;
 
             $("#valor_empresa").val(asume);
@@ -3098,7 +3190,10 @@ $(document).ready(function () {
             let total = $("#total_ctrActividades").val();
             let asume = 0;
 
-            if (porcentaje > 0 && total > 0) asume = total * (porcentaje / 100);
+            if (porcentaje > 0 && total > 0){
+                asume = total * (porcentaje / 100);
+                asume = asume.toFixed();
+            } 
             else asume = 0;
 
             $("#valor_contratista").val(asume);
@@ -3165,85 +3260,7 @@ $(document).ready(function () {
                         });
 
                         //SE CARGA LA TABLA
-                        // Quitar datatable
-                        $("#tableControlActividades").dataTable().fnDestroy();
-                        // Borrar datos
-                        $("#tbodyControlActividades").html("");
-
-                        var datos = new FormData();
-                        datos.append("TablaControlActividades", "ok");
-
-                        $.ajax({
-                            type: "post",
-                            url: `ajax/mantenimiento.ajax.php`,
-                            data: datos,
-                            cache: false,
-                            // dataType: "JSON",
-                            contentType: false,
-                            processData: false,
-                            success: function (response) {
-                                if (response != "")
-                                    $("#tbodyControlActividades").html(
-                                        response
-                                    );
-                                else $("#tbodyControlActividades").html("");
-
-                                /* ===================================================
-                    FILTRAR POR COLUMNA
-                    ====================================================*/
-                                /* Filtrar por columna */
-                                //Clonar el tr del thead
-                                if (
-                                    $(`#tableControlActividades thead tr`)
-                                        .length == 1
-                                )
-                                    $(`#tableControlActividades thead tr:eq(0)`)
-                                        .clone(true)
-                                        .appendTo(
-                                            `#tableControlActividades thead`
-                                        );
-                                //Por cada th creado hacer lo siguiente
-                                $(
-                                    `#tableControlActividades thead tr:eq(1) th`
-                                ).each(function (i) {
-                                    //Remover clase sorting y el evento que tiene cuando se hace click
-                                    $(this).removeClass("sorting").unbind();
-                                    //Agregar input de busqueda
-                                    $(this).html(
-                                        '<input class="form-control" type="text" placeholder="Buscar"/>'
-                                    );
-                                    //Evento para detectar cambio en el input y buscar
-                                    $("input", this).on(
-                                        "keyup change",
-                                        function () {
-                                            if (
-                                                table.column(i).search() !==
-                                                this.value
-                                            ) {
-                                                table
-                                                    .column(i)
-                                                    .search(this.value)
-                                                    .draw();
-                                            }
-                                        }
-                                    );
-                                });
-                                /* ===================================================
-                    INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-                    ===================================================*/
-                                var buttons = [
-                                    {
-                                        extend: "excel",
-                                        className: "btn-info",
-                                        text: '<i class="far fa-file-excel"></i> Exportar',
-                                    },
-                                ];
-                                var table = dataTableCustom(
-                                    `#tableControlActividades`,
-                                    buttons
-                                );
-                            },
-                        });
+                        TablaControlActividades();
                     }
                 },
             });
@@ -3396,6 +3413,10 @@ $(document).ready(function () {
             });
         });
 
+        /*============================================
+            FUNCION QUE CARGA LA TABLA DE SOLICITUDES 
+        ==============================================*/
+
         function TablaSolicitudesProgramacion() {
             // // Quitar datatable
             $(`#tablaSolicitudesProgramacion`).dataTable().fnDestroy();
@@ -3425,8 +3446,8 @@ $(document).ready(function () {
                    ===================================================*/
                     var buttons = [
                         {
-                            extend: "excel",
-                            className: "btn-info",
+                            extend: "",
+                            className: "btn-info excelSolicitudesProgramacion",
                             text: '<i class="far fa-file-excel"></i> Exportar',
                         },
                     ];
@@ -3681,5 +3702,21 @@ $(document).ready(function () {
                 });
             }
         );
+
+        /*============================================
+            EXPORTAR EXCEL CONTROL DE ACTIVIDADES
+        ==============================================*/
+        $(document).on("click", ".excel-controlActividades", function(){
+            let urlRerport = `${urlPagina}/ajax/mantenimiento.ajax.php?ExcelControlActividades=ok`;
+            window.location = urlRerport;
+        });
+
+        /*============================================
+            EXPORTAR EXCEL PROGRAMACION
+        ==============================================*/
+        $(document).on("click",".excelSolicitudesProgramacion", function(){
+            let urlRerport = `${urlPagina}/ajax/mantenimiento.ajax.php?ExcelSolicitudesProgramacion=ok`;
+            window.location = urlRerport;
+        });
     }
 });

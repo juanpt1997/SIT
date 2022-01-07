@@ -24,24 +24,6 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
   ESTRUCTURA 
 ========================= -->
 
-<style>
-    .wrapper {
-        margin: 20px;
-        font-family: sans-serif;
-    }
-
-    td,
-    th {
-        vertical-align: top;
-        border: 1px solid #ddd;
-    }
-
-    ul,
-    li {
-        padding-left: 5px;
-        margin-left: 5px;
-    }
-</style>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -852,7 +834,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                         <div class="card-body">
 
                                                             <div class="table-responsive" style="font-size: 14px;">
-                                                                <table id="tableControlActividades" class="table-sm table-striped table-bordered  text-center table-hover  w-100">
+                                                                <!-- <table id="tableControlActividades" class="datatable-multi-row table table-sm table-striped table-hover table-bordered text-center w-100">
                                                                     <thead class="text-nowrap">
                                                                         <tr>
                                                                             <th># Orden</th>
@@ -887,6 +869,44 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                     </thead>
 
                                                                     <tbody id="tbodyControlActividades" class="text-nowrap">
+                                                                    </tbody>
+                                                                </table> -->
+                                                                <table id="tableControlActividades" class="datatable-multi-row table table-sm table-striped table-hover table-bordered text-center w-100">
+                                                                    <thead class="text-nowrap">
+                                                                        <tr>
+                                                                            <th># Orden</th>
+                                                                            <th>Vehículo</th>
+                                                                            <th>Kilometraje</th>
+                                                                            <th>Cliente</th>
+                                                                            <th># Factura</th>
+                                                                            <th>Ciudad</th>
+                                                                            <th>Fecha de solicitud</th>
+                                                                            <th>Fecha ejecución</th>
+                                                                            <th>Fecha entrega</th>
+                                                                            <th>Diagnóstico</th>
+                                                                            <th>Proveedor</th>
+                                                                            <th>Item</th>
+                                                                            <th>Descripción</th>
+                                                                            <th>Sistema</th>
+                                                                            <th>Cantidad</th>
+                                                                            <th>Precio unitario</th>
+                                                                            <th>Iva</th>
+                                                                            <th>Cliente</th>
+                                                                            <th>% que asume</th>
+                                                                            <th>Empresa</th>
+                                                                            <th>% que asume</th>
+                                                                            <th>Contratista</th>
+                                                                            <th>% que asume</th>
+                                                                            <th>Precio total</th>
+                                                                            <th>Clasificación</th>
+                                                                            <th>Nombre de cuenta</th>
+                                                                            <th>Código cuenta</th>
+                                                                            <th>Asume</th> 
+                                                                        </tr>
+                                                                    </thead>
+
+                                                                    <tbody id="tbodyControlActividades" class="text-nowrap">
+
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -1138,7 +1158,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                         </thead>
 
                                                         <tbody id="tbodyprogramacion" class="text-nowrap">
-                                                                    
+
                                                         </tbody>
                                                     </table>
                                                     <!-- <table id="tablaSolicitudesProgramacion" class="datatable-multi-row w-100">
@@ -1194,26 +1214,6 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                             </div>
                         </div>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </div> <!-- PROGRAMACIÓN-->
             </div>
         </div>

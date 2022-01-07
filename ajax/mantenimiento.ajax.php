@@ -469,56 +469,283 @@ class AjaxMantenimientos
     {
         $respuesta = ControladorMantenimientos::ctrListadoControlActividades();
 
-        $placas = array();
+
+        $ordenes = array();
         foreach ($respuesta as $key => $value) {
-            array_push($placas, $value['placa']);
+            array_push($ordenes, $value['idorden']);
         }
+
 
         //GENERA UN ARRRAY CON LA CANTIDAD DE VECES QUE HAY UNA PLACA 
-        foreach ($placas as $key => $value) {
-            $rowspan = array_count_values($placas);
+        foreach ($ordenes as $key => $value) {
+            $rowspan = array_count_values($ordenes);
         }
 
-        $tr = "";
 
-        foreach ($respuesta as $key => $value) {
+
+        // var_dump($rowspan);
+        $cont = 0; // Define la posición en la que me encuentro dentro del arreglo de programación
+
+
+
+        // Recorro el arreglo con las placas y su respectivo contador
+        // var_dump($rowspan);
+
+        foreach ($rowspan as $key => $value) {
+            $tr = "";
+
+            $numfilas = $value; //num filas repetidas de cada registro
+
+
+
+
+
             $tr .= "
             <tr>
-
-            <td> <button class='btn btn-outline-dark btn-editarOrden' title='Ir a la orden' data-toggle='tooltip' data-placement='top' idorden='{$value['idorden']}'>" . $value['idorden'] . "</button></td>
-            <td>" . $value['placa'] . "</td>
-            <td>" . $value['kilometraje_orden'] . "</td>
-            <td>" . $value['cliente'] . "</td>
-            <td>" . $value['factura'] . "</td>
-            <td>" . $value['municipio'] . "</td>
-            <td>" . $value['Ffecha_entrada'] . "</td>
-            <td>" . $value['Ffecha_trabajos'] . "</td>
-            <td>" . $value['Ffecha_aprobacion'] . "</td>
-            <td>" . $value['servicio'] . "</td>
-            <td>" . $value['nombre_contacto'] . "</td>
-            <td>" . $value['item'] . "</td>
-            <td>" . $value['descripcion'] . "</td>
-            <td>" . $value['sistema'] . "</td>
-            <td>" . $value['cantidad'] . "</td>
-            <td>" . $value['valor'] . "</td>
-            <td>" . $value['iva'] . "%</td>
-            <td>" . $value['cliente_asume'] . "</td>
-            <td>" . $value['porcentaje_cliente'] . "%</td>
-            <td>" . $value['empresa_asume'] . "</td>
-            <td>" . $value['porcentaje_empresa'] . "%</td>
-            <td>" . $value['contratista_asume'] . "</td>
-            <td>" . $value['porcentaje_contratista'] . "%</td>
-            <td>" . $value['total'] . "</td>
-            <td>" . $value['mantenimiento'] . "</td>
-            <td>" . $value['nombre_cuenta'] . "</td>
-            <td>" . $value['num_cuenta'] . "</td>
-            <td><button type='button' class='btn btn-success btn-asume' data-toggle='modal' data-target='#modalAsume' idvehiculo='{$value['idvehiculo']}' idcliente='{$value['idcliente']}' idcuenta='{$value['idcuenta']}' cliente='{$value['cliente']}' num_cuenta='{$value['num_cuenta']}' nombre_cuenta='{$value['nombre_cuenta']}' total='{$value['total']}' iva='{$value['iva']}' valor='{$value['valor']}' cantidad='{$value['cantidad']}' idorden='{$value['idorden']}' id='{$value['id']}' descripcion='{$value['descripcion']}' ><i class='fas fa-wallet'></i></button></td>
+                <td data-datatable-multi-row-rowspan='$numfilas'> <button class='btn btn-outline-dark btn-editarOrden' title='Ir a la orden' data-toggle='tooltip' data-placement='top' idorden='{$respuesta[$cont]['idorden']}'>" . $respuesta[$cont]['idorden'] . "</button></td>
+                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['placa'] . "</td>
+                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['kilometraje_orden'] . "</td>
+                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['cliente'] . "</td>
+                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['factura'] . "</td>
+                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['municipio'] . "</td>
+                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['Ffecha_entrada'] . "</td>
+                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['Ffecha_trabajos'] . "</td>
+                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['fecha_aprobacion']; // . "</td>"; // La columna anterior a la columna que si tiene varias filas juntas, no se puede cerrar aún
 
 
-            </tr>
-            ";
+            if ($numfilas > 1) {
+                $tr .= "<script type='x/template' class='extra-row-content'>"; // abre script
+
+                // Comienza iteración
+                for ($i = 0; $i < $numfilas - 1; $i++) { // $numfilas - 1 para cerrar el script antes de escribir el último item que debería iterar
+                    // Por cada uno tiene que abrir también un tr
+                    if ($respuesta[$cont]['porcentaje_cliente'] != 0) {
+
+                        $valor_corresponde_cliente = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_cliente'] / 100));
+                    } else {
+                        $valor_corresponde_cliente = "";
+                    }
+                    if ($respuesta[$cont]['porcentaje_empresa'] != 0) {
+                        $valor_corresponde_empresa = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_empresa'] / 100));
+                    } else {
+                        $valor_corresponde_empresa = "";
+                    }
+                    if ($respuesta[$cont]['porcentaje_contratista'] != 0) {
+                        $valor_corresponde_contratista = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_contratista'] / 100));
+                    } else {
+                        $valor_corresponde_contratista = "";
+                    }
+
+                    $tr .= "
+                                <tr>
+                                    <td>" . $respuesta[$cont]['servicio'] . "</td>
+                                    <td>" . $respuesta[$cont]['nombre_contacto'] . "</td>
+                                    <td>" . $respuesta[$cont]['item'] . "</td>
+                                    <td>" . $respuesta[$cont]['descripcion'] . "</td>
+                                    <td>" . $respuesta[$cont]['sistema'] . "</td>
+                                    <td>" . $respuesta[$cont]['cantidad'] . "</td>
+                                    <td>" . $respuesta[$cont]['valor'] . "$</td>
+                                    <td>" . $respuesta[$cont]['iva'] . "%</td>
+                                    <td>" . $respuesta[$cont]['cliente_asume'] . "</td>
+                                    <td>" . $respuesta[$cont]['porcentaje_cliente'] . "% - " . $valor_corresponde_cliente . "$</td>
+                                    <td>" . $respuesta[$cont]['empresa_asume'] . "</td>
+                                    <td>" . $respuesta[$cont]['porcentaje_empresa'] . "% - " . $valor_corresponde_empresa . "$</td>
+                                    <td>" . $respuesta[$cont]['contratista_asume'] . "</td>
+                                    <td>" . $respuesta[$cont]['porcentaje_contratista'] . "% - " . $valor_corresponde_contratista . "$</td>
+                                    <td>" . $respuesta[$cont]['total'] . "$</td>
+                                    <td>" . $respuesta[$cont]['mantenimiento'] . "</td>
+                                    <td>" . $respuesta[$cont]['nombre_cuenta'] . "</td>
+                                    <td>" . $respuesta[$cont]['num_cuenta'] . "</td>
+                                    <td><button type='button' class='btn btn-success btn-asume' data-toggle='modal' data-target='#modalAsume' idvehiculo='{$respuesta[$cont]['idvehiculo']}' idcliente='{$respuesta[$cont]['idcliente']}' idcuenta='{$respuesta[$cont]['idcuenta']}' cliente='{$respuesta[$cont]['cliente']}' num_cuenta='{$respuesta[$cont]['num_cuenta']}' nombre_cuenta='{$respuesta[$cont]['nombre_cuenta']}' total='{$respuesta[$cont]['total']}' iva='{$respuesta[$cont]['iva']}' valor='{$respuesta[$cont]['valor']}' cantidad='{$respuesta[$cont]['cantidad']}' idorden='{$respuesta[$cont]['idorden']}' id='{$respuesta[$cont]['id']}' descripcion='{$respuesta[$cont]['descripcion']}' ><i class='fas fa-wallet'></i></button></td>
+
+                                    </tr>
+                                    ";
+
+                    $cont++; // Aumento la posición
+                }
+
+                // Cierro script
+                $tr .= "</script>";
+            }
+            // Cierro td anterior al td que itera muchas veces, en este caso el de fecha programación, si no entra ninguna vez a la condición anterior pues simplemente sale
+            $tr .= "</td>";
+
+            if ($respuesta[$cont]['porcentaje_cliente'] != 0) {
+
+                $valor_corresponde_cliente = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_cliente'] / 100));
+            } else {
+                $valor_corresponde_cliente = "";
+            }
+            if ($respuesta[$cont]['porcentaje_empresa'] != 0) {
+                $valor_corresponde_empresa = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_empresa'] / 100));
+            } else {
+                $valor_corresponde_empresa = "";
+            }
+            if ($respuesta[$cont]['porcentaje_contratista'] != 0) {
+                $valor_corresponde_contratista = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_contratista'] / 100));
+            } else {
+                $valor_corresponde_contratista = "";
+            }
+
+            // Monta el último servicio que se iteró, si no tuvo que iterar solo se escribe y ya
+            $tr .= "<td>" . $respuesta[$cont]['servicio'] . "</td>";
+            $tr .= "<td>" . $respuesta[$cont]['nombre_contacto'] . "</td>";
+            $tr .= "<td>" . $respuesta[$cont]['item'] . "</td>";
+            $tr .= "<td>" . $respuesta[$cont]['descripcion'] . "</td>";
+            $tr .= "<td>" . $respuesta[$cont]['sistema'] . "</td>";
+            $tr .= "<td>" . $respuesta[$cont]['cantidad'] . "</td>";
+            $tr .= "<td>" . $respuesta[$cont]['valor'] . "$</td>";
+            $tr .= "<td>" . $respuesta[$cont]['iva'] . "%</td>";
+            $tr .= "<td>" . $respuesta[$cont]['cliente_asume'] . "</td>";
+            $tr .= "<td>" . $respuesta[$cont]['porcentaje_cliente'] . "% - " . $valor_corresponde_cliente . "$</td>";
+            $tr .= "<td>" . $respuesta[$cont]['empresa_asume'] . "</td>";
+            $tr .= "<td>" . $respuesta[$cont]['porcentaje_empresa'] . "% - " . $valor_corresponde_empresa . "$</td>";
+            $tr .= "<td>" . $respuesta[$cont]['contratista_asume'] . "</td>";
+            $tr .= "<td>" . $respuesta[$cont]['porcentaje_contratista'] . "% - " . $valor_corresponde_contratista . "$</td>";
+            $tr .= "<td>" . $respuesta[$cont]['total'] . "$</td>";
+            $tr .= "<td>" . $respuesta[$cont]['mantenimiento'] . "</td>";
+            $tr .= "<td>" . $respuesta[$cont]['nombre_cuenta'] . "</td>";
+            $tr .= "<td>" . $respuesta[$cont]['num_cuenta'] . "</td>";
+            $tr .= "<td><button type='button' class='btn btn-success btn-asume' data-toggle='modal' data-target='#modalAsume' idvehiculo='{$respuesta[$cont]['idvehiculo']}' idcliente='{$respuesta[$cont]['idcliente']}' idcuenta='{$respuesta[$cont]['idcuenta']}' cliente='{$respuesta[$cont]['cliente']}' num_cuenta='{$respuesta[$cont]['num_cuenta']}' nombre_cuenta='{$respuesta[$cont]['nombre_cuenta']}' total='{$respuesta[$cont]['total']}' iva='{$respuesta[$cont]['iva']}' valor='{$respuesta[$cont]['valor']}' cantidad='{$respuesta[$cont]['cantidad']}' idorden='{$respuesta[$cont]['idorden']}' id='{$respuesta[$cont]['id']}' descripcion='{$respuesta[$cont]['descripcion']}' ><i class='fas fa-wallet'></i></button></td>";
+
+
+            $cont++; // Aumento una posición más del contador que me posiciona dentro del arreglo de programación
+
+            echo $tr;
         }
-        echo $tr;
+
+
+        // Ejemplo
+        // echo "
+        //     <tr>
+        //         <td data-datatable-multi-row-rowspan='3'>
+        //             Brad Jones
+        //             <script type='x/template' class='extra-row-content'>
+        //                 <tr>
+        //                 <td>
+        //                     Brad Jones is such a nice guy! I have written notes about him.
+        //                 </td>
+        //                 <td>
+        //                     Brad Jones 2 is such a nice guy! I have written notes about him.
+        //                 </td>
+        //                 <td>
+        //                     <ul>
+        //                     <li>Rachel, Wife</li>
+        //                     <li>Deshawn, Son</li>
+        //                     <li>Marian, Daughter</li>
+        //                     </ul>
+        //                 </td>
+        //                 </tr>
+        //                 <tr>
+        //                 <td>
+        //                     Brad Jones is such a nice guy! I have written notes about him.
+        //                 </td>
+        //                 <td>
+        //                     Brad Jones 2 is such a nice guy! I have written notes about him.
+        //                 </td>
+        //                 <td>
+        //                     <ul>
+        //                     <li>Rachel, Wife</li>
+        //                     <li>Deshawn, Son</li>
+        //                     <li>Marian, Daughter</li>
+        //                     </ul>
+        //                 </td>
+        //                 </tr>
+        //             </script>
+        //         </td>
+        //         <td>4/15/2011</td>
+        //         <td>Philadelphia</td>
+        //         <td>3</td>
+        //         <td data-datatable-multi-row-rowspan='3'>$65,000</td>
+        //     </tr>
+        //     <tr>
+        //         <td data-datatable-multi-row-rowspan='2'>
+        //         Martha Williams
+        //         <script type='x/template' class='extra-row-content'>
+        //             <tr>
+        //             <td colspan='2'>
+        //                 I first met Martha at a laundromat.
+        //             </td>
+        //             <td>
+        //                 <ul>
+        //                 <li>Marshall, Husband</li>
+        //                 <li>Marshall Jr., Son</li>
+        //                 </ul>
+        //             </td>
+        //             </tr>
+        //         </script>
+        //         </td>
+        //         <td>9/3/2015</td>
+        //         <td>Annapolis</td>
+        //         <td>2</td>
+        //         <td data-datatable-multi-row-rowspan='2'>$7,800</td>
+        //     </tr>
+        // ";
+
+
+
+
+
+
+
+        // $tr =""; 
+        // foreach ($respuesta as $key => $value) {
+        //     if ($value['porcentaje_cliente'] != 0) {
+
+        //         $valor_corresponde_cliente = ($value['total'] * ($value['porcentaje_cliente'] /100));
+        //     }else{
+        //         $valor_corresponde_cliente = "";
+        //     }
+        //     if($value['porcentaje_empresa'] != 0){
+        //         $valor_corresponde_empresa = ($value['total'] * ($value['porcentaje_empresa'] /100));
+        //     }else{
+        //         $valor_corresponde_empresa = "";
+        //     }
+        //     if($value['porcentaje_contratista'] != 0){
+        //         $valor_corresponde_contratista = ($value['total'] * ($value['porcentaje_contratista'] /100));
+        //     }else{
+        //         $valor_corresponde_contratista = "";
+        //     }
+
+
+
+        //     $tr .= "
+        //     <tr>
+
+        //     <td> <button class='btn btn-outline-dark btn-editarOrden' title='Ir a la orden' data-toggle='tooltip' data-placement='top' idorden='{$value['idorden']}'>" . $value['idorden'] . "</button></td>
+        //     <td>" . $value['placa'] . "</td>
+        //     <td>" . $value['kilometraje_orden'] . "</td>
+        //     <td>" . $value['cliente'] . "</td>
+        //     <td>" . $value['factura'] . "</td>
+        //     <td>" . $value['municipio'] . "</td>
+        //     <td>" . $value['Ffecha_entrada'] . "</td>
+        //     <td>" . $value['Ffecha_trabajos'] . "</td>
+        //     <td>" . $value['Ffecha_aprobacion'] . "</td>
+        //     <td>" . $value['servicio'] . "</td>
+        //     <td>" . $value['nombre_contacto'] . "</td>
+        //     <td>" . $value['item'] . "</td>
+        //     <td>" . $value['descripcion'] . "</td>
+        //     <td>" . $value['sistema'] . "</td>
+        //     <td>" . $value['cantidad'] . "</td>
+        //     <td>" . $value['valor'] . "$</td>
+        //     <td>" . $value['iva'] . "%</td>
+        //     <td>" . $value['cliente_asume'] . "</td>
+        //     <td>" . $value['porcentaje_cliente'] . "% - " . $valor_corresponde_cliente . "$</td>
+        //     <td>" . $value['empresa_asume'] . "</td>
+        //     <td>" . $value['porcentaje_empresa'] . "% - ". $valor_corresponde_empresa. "$</td>
+        //     <td>" . $value['contratista_asume'] . "</td>
+        //     <td>" . $value['porcentaje_contratista'] . "% - ". $valor_corresponde_contratista. "$</td>
+        //     <td>" . $value['total'] . "$</td>
+        //     <td>" . $value['mantenimiento'] . "</td>
+        //     <td>" . $value['nombre_cuenta'] . "</td>
+        //     <td>" . $value['num_cuenta'] . "</td>
+        //     <td><button type='button' class='btn btn-success btn-asume' data-toggle='modal' data-target='#modalAsume' idvehiculo='{$value['idvehiculo']}' idcliente='{$value['idcliente']}' idcuenta='{$value['idcuenta']}' cliente='{$value['cliente']}' num_cuenta='{$value['num_cuenta']}' nombre_cuenta='{$value['nombre_cuenta']}' total='{$value['total']}' iva='{$value['iva']}' valor='{$value['valor']}' cantidad='{$value['cantidad']}' idorden='{$value['idorden']}' id='{$value['id']}' descripcion='{$value['descripcion']}' ><i class='fas fa-wallet'></i></button></td>
+
+
+        //     </tr>
+        //     ";
+        // }
+        // echo $tr;
     }
 
     /* ===================================================
@@ -608,173 +835,6 @@ class AjaxMantenimientos
         }
 
         $repetidas = array();
-        foreach ($respuesta as $key => $value) {
-            $tr = "";
-
-            if (in_array($value['placa'], $repetidas)) {
-
-                $tr .= "
-                 <tr>
-                 <td class='hide'>
-                 <button type='button' class='btn btn-info btn-md btn-serviciosprogramacion' idsolicitud='{$value['idsolicitud']}' data-toggle='modal' data-target='#servicios'> <i class='fas fa-clipboard-list'></i></button>
-                 <button type='button' class='btn btn-warning btn-md btn-programacionxvehiculo' idsolicitud='{$value['idsolicitud']}' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#serviciosxvehiculo' style='display:none;'> <i class='far fa-calendar-alt'></i> </button>
-                 <button type='button' class='btn btn-success btn-md btn-programacion' idsolicitud='{$value['idsolicitud']}' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#Programacion'> <i class='far fa-clock'></i></button>
-                            
-             </td>
-             <td class='hide'>" . $value['placa'] . "</td>
-             <td class='hide'>" . $value['numinterno'] . "</td>
-             <td class='hide'>" . $value['kilometraje_actual'] . "</td>
-             <td class='hide'>" . $value['Ffecha_solicitud'] . "</td>
-             <td class='hide'>" . $value['Ffecha_programacion'] . "</td>
-             <td>" . $value['item'] . "</td>
-             <td class='hide'>" . $value['tiempo_mantenimiento'] . "</td>
-             <td class='hide'>" . $value['observacion'] . "</td>
-                 </tr>
-                 
-                ";
-            } else {
-
-                array_push($repetidas, $value['placa']);
-                //echo $rowspan[$value['placa']] . "-";
-                $rowspantd = $rowspan[$value['placa']] == 1 ? "" : "rowspan='{$rowspan[$value['placa']]}'";
-
-                if (is_numeric($value['tiempo_mantenimiento'])) {
-                    $tiempo = " <td $rowspantd> " . $value['tiempo_mantenimiento'] . " Días </td>";
-                } else {
-                    $tiempo = " <td $rowspantd> " . $value['tiempo_mantenimiento'] . "</td>";
-                }
-
-                $tr .= "
-                <tr>
-                     <td $rowspantd>
-                        <button type='button' class='btn btn-info btn-md btn-serviciosprogramacion' idsolicitud='{$value['idsolicitud']}' data-toggle='modal' data-target='#servicios'> <i class='fas fa-clipboard-list'></i></button>
-                         <button type='button' class='btn btn-warning btn-md btn-programacionxvehiculo' idsolicitud='{$value['idsolicitud']}' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#serviciosxvehiculo' style='display:none;'> <i class='far fa-calendar-alt'></i> </button>
-                         <button type='button' class='btn btn-success btn-md btn-programacion' idsolicitud='{$value['idsolicitud']}' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#Programacion'> <i class='far fa-clock'></i></button>
-                                    
-                     </td>
-                     <td $rowspantd>" . $value['placa'] . "</td>
-                     <td $rowspantd >" . $value['numinterno'] . "</td>
-                     <td $rowspantd >" . $value['kilometraje_actual'] . "</td>
-                     <td $rowspantd >" . $value['Ffecha_solicitud'] . "</td>
-                     <td $rowspantd >" . $value['Ffecha_programacion'] . "</td>
-                     <td>" . $value['item'] . "</td>
-                     $tiempo
-                     <td $rowspantd>" . $value['observacion'] . "</td>
-                 </tr>
-                    ";
-            }
-
-            echo $tr;
-        }
-
-
-
-
-
-
-
-        //Array que nos guarda las placas que ya se pusieron en la tabla para así juntar los itemas
-        // foreach ($respuesta as $key => $value) {
-
-        //     $tr = "";
-        //     //Si la placa está en el array es porque ya se hizo una fila de sus datos en la tabla
-        //     //Entonces se añaden los items a la misma fila, si no hay fila de esa placa
-        //     //Se crea una nueva fila con todo
-        //     if (in_array($value['placa'], $repetidas)) {
-        //         $tr .= "
-        //         <tr>
-        //         <td>" . $value['item'] . "</td>
-        //         </tr>
-        //         ";
-        //     } else {
-        //         array_push($repetidas, $value['placa']);
-        //         //El $rowspan[$value['placa']]' me devuelve la cantidad de veces que está la misma
-        //         //Placa en la programación, de ese modo sabemos cuantas filas combinar
-        //         $tr .= "
-        //             <tr>
-        //                 <td rowspan='{$rowspan[$value['placa']]}'>
-        //                     <button type='button' class='btn btn-info btn-md btn-serviciosprogramacion' idsolicitud='{$value['idsolicitud']}' data-toggle='modal' data-target='#servicios'> <i class='fas fa-clipboard-list'></i></button>
-        //                     <button type='button' class='btn btn-warning btn-md btn-programacionxvehiculo' idsolicitud='{$value['idsolicitud']}' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#serviciosxvehiculo' style='display:none;'> <i class='far fa-calendar-alt'></i> </button>
-        //                     <button type='button' class='btn btn-success btn-md btn-programacion' idsolicitud='{$value['idsolicitud']}' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#Programacion'> <i class='far fa-clock'></i></button>
-
-        //                 </td>
-        //                 <td rowspan='{$rowspan[$value['placa']]}'>" . $value['placa'] . "</td>
-        //                 <td rowspan='{$rowspan[$value['placa']]}'>" . $value['numinterno'] . "</td>
-        //                 <td rowspan='{$rowspan[$value['placa']]}'>" . $value['kilometraje_actual'] . "</td>
-        //                 <td rowspan='{$rowspan[$value['placa']]}'>" . $value['fecha_solicitud'] . "</td>
-        //                 <td rowspan='{$rowspan[$value['placa']]}'>" . $value['fecha_programacion'] . "</td>
-        //                 <td>" . $value['item'] . "</td>
-        //                 <td rowspan='{$rowspan[$value['placa']]}'>" . $value['tiempo_mantenimiento'] . "</td>
-        //                 <td rowspan='{$rowspan[$value['placa']]}'>" . $value['observacion'] . "</td>
-        //             </tr>
-
-
-        //         ";
-        //     }
-        // }
-
-        // echo "
-        //     <tr>
-        //         <td rowspan='3'>Jhojan</td>
-        //         <td>1</td>
-        //         <td>2</td>
-        //         <td>3</td>
-        //         <td>4</td>
-        //         <td>5</td>
-        //         <td>6</td>
-        //         <td>7</td>
-        //         <td>8</td>
-        //     </tr>
-        //     <tr>
-        //         <td class='hide'>Jhojan</td>
-        //         <td>9</td>
-        //         <td>10</td>
-        //         <td>11</td>
-        //         <td>12</td>
-        //         <td>13</td>
-        //         <td>14</td>
-        //         <td>15</td>
-        //         <td>16</td>
-        //     </tr>
-        //     <tr>
-        //         <td class='hide'>Jhojan</td>
-        //         <td>17</td>
-        //         <td>18</td>
-        //         <td>19</td>
-        //         <td>20</td>
-        //         <td>21</td>
-        //         <td>22</td>
-        //         <td>23</td>
-        //         <td>24</td>
-        //     </tr>
-        //     <tr>
-        //         <td>Steven</td>
-        //         <td>17</td>
-        //         <td>18</td>
-        //         <td>19</td>
-        //         <td>20</td>
-        //         <td>21</td>
-        //         <td>22</td>
-        //         <td>23</td>
-        //         <td>24</td>
-        //     </tr>
-        //     ";
-    }
-    static public function ajaxTablaProgramacion2()
-    {
-        $respuesta = ControladorMantenimientos::ctrListaProgramacion();
-
-        $placas = array();
-        foreach ($respuesta as $key => $value) {
-            array_push($placas, $value['placa']);
-        }
-
-        //GENERA UN ARRRAY CON LA CANTIDAD DE VECES QUE HAY UNA PLACA 
-        foreach ($placas as $key => $value) {
-            $rowspan = array_count_values($placas);
-        }
-
-        $repetidas = array();
 
         //var_dump($rowspan);
         $cont = 0; // Define la posición en la que me encuentro dentro del arreglo de programación
@@ -820,13 +880,22 @@ class AjaxMantenimientos
             $tr .= "</td>";
             // Monta el último item que se iteró, si no tuvo que iterar solo se escribe y ya
             $tr .= "<td>" . $respuesta[$cont]['item'] . "</td>";
-            
+
             // Últimas columnas de la tabla
-            $tr .= "
-                        <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['tiempo_mantenimiento'] . "</td>
-                        <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['observacion'] . "</td>
-                    </tr>
-                    ";
+            if ($respuesta[$cont]['tiempo_mantenimiento'] != "") {
+
+                $tr .= "
+                            <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['tiempo_mantenimiento'] . " Días</td>
+                            <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['observacion'] . "</td>
+                        </tr>
+                        ";
+            } else {
+                $tr .= "
+                            <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['tiempo_mantenimiento'] . "</td>
+                            <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['observacion'] . "</td>
+                        </tr>
+                        ";
+            }
             $cont++; // Aumento una posición más del contador que me posiciona dentro del arreglo de programación
             echo $tr;
         }
@@ -1115,6 +1184,39 @@ class AjaxMantenimientos
 
         echo $tr;
     }
+
+    /* ===================================================
+        EXPORTAR EXCEL CONTROL DE ACTIVIDADES
+    ===================================================*/
+    static public function ajaxExcelControlActividades()
+    {
+        # AUTOLOAD
+        require_once DIR_APP . 'vendor/autoload.php';
+
+
+        # Requiero los modelos
+        require_once DIR_APP . 'models/mantenimiento.modelo.php';
+        require_once DIR_APP . 'models/conceptos.modelo.php';
+
+        ControladorMantenimientos::ctrExcelControlActividades();
+    }
+
+
+    /* ===================================================
+        EXPORTAR EXCEL SOLICITUDES PROGRAMACION
+    ===================================================*/
+    static public function ajaxExcelSolicitudesProgramacion()
+    {
+        # AUTOLOAD
+        require_once DIR_APP . 'vendor/autoload.php';
+
+
+        # Requiero los modelos
+        require_once DIR_APP . 'models/mantenimiento.modelo.php';
+        require_once DIR_APP . 'models/conceptos.modelo.php';
+
+        ControladorMantenimientos::ctrExcelSolicitudesProgramacion();
+    }
 }
 /* ===================================================
             LLAMADOS AJAX INVENTARIO
@@ -1218,7 +1320,7 @@ if (isset($_POST['DatosAsume']) && $_POST['DatosAsume'] == "ok") AjaxMantenimien
 if (isset($_POST['datosCuenta']) && $_POST['datosCuenta'] == "ok") AjaxMantenimientos::ajaxCargarDatosCuenta($_POST['idcuenta']);
 
 #LLAMADO A CARGAR TABLA PROGRAMACIÓN 
-if (isset($_POST['TablaProgramacion']) && $_POST['TablaProgramacion'] == "ok") AjaxMantenimientos::ajaxTablaProgramacion2();
+if (isset($_POST['TablaProgramacion']) && $_POST['TablaProgramacion'] == "ok") AjaxMantenimientos::ajaxTablaProgramacion();
 
 #LLAMADO A CARGAR TABLA DE PROGRAMACIÓN POR VEHÍCULO 
 if (isset($_POST['TablaProgramacionxVehiculo']) && $_POST['TablaProgramacionxVehiculo'] == "ok") AjaxMantenimientos::ajaxTablaProgramacionxVehiculo($_POST['idvehiculo']);
@@ -1231,3 +1333,9 @@ if (isset($_POST['GuardarSolicitudProgramacion']) && $_POST['GuardarSolicitudPro
 
 #LLAMADO A CARGAR TABLA HISTORIAL SOLICITUDES DE PROGRAMACIÓN
 if (isset($_POST['TablaHistorialSolicitudesProgramacion']) && $_POST['TablaHistorialSolicitudesProgramacion'] == "ok") AjaxMantenimientos::ajaxHistorialSolicitudesProgramacion();
+
+#LLAMADO A EXPORTAR EXCEL CONTROL DE ACTIVIDADES 
+if (isset($_GET['ExcelControlActividades']) && $_GET['ExcelControlActividades'] == "ok") AjaxMantenimientos::ajaxExcelControlActividades();
+
+#LLAMADO A EXPORTAR EXCEL CONTROL DE ACTIVIDADES 
+if (isset($_GET['ExcelSolicitudesProgramacion']) && $_GET['ExcelSolicitudesProgramacion'] == "ok") AjaxMantenimientos::ajaxExcelSolicitudesProgramacion();
