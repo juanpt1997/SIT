@@ -134,7 +134,7 @@ $TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
             <div class="modal-header bg-info">
                 <h4 class="modal-title">
                     <span id="titulo_modal_rodamiento"></span>
-                    <a class="btn btn-app bg-success btn-copiar-rodamiento d-none" id="btn-copiar">
+                    <a class="btn btn-sm bg-success btn-copiar-rodamiento d-none" id="btn-copiar">
                         <i class="fas fa-copy"></i> Copiar
                     </a>
                 </h4>
@@ -149,8 +149,6 @@ $TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
 
                         <input type="hidden" id="observador_conductoresRodamiento" idconductor="">
                         <input type="hidden" id="idcliente" name="idcliente">
-
-                        <hr class="my-4">
 
                         <div class="row">
                             <div class="col-md text-center">
