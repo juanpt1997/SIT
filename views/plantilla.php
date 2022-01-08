@@ -250,6 +250,7 @@ if (isset($_GET['pagina'])) {
 <!-- =================================================== CUSTOM JS =================================================== -->
 <script src="<?= URL_APP ?>config/config.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/plantilla.js?v=<?= time() ?>"></script>
+<script src="<?= URL_APP ?>views/js/inicio.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/gerencial.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/usuarios.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/gh.js?v=<?= time() ?>"></script>
