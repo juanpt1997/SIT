@@ -1068,7 +1068,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
         ===================================================*/
         $(document).on("blur", "#placa", function () {
             // Cuando se encuentra agregando uno nuevo
-            if ($("#idvehiculo").val() == "") {
+            
                 /* AJAX PARA CARGAR DATOS */
                 var datos = new FormData();
                 datos.append('DatosVehiculo', "ok");
@@ -1083,7 +1083,17 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                     contentType: false,
                     processData: false,
                     success: function (response) {
-                        if (response.datosVehiculo != "") {
+                        if (response.datosVehiculo.idvehiculo != undefined) {
+
+                            Swal.fire({
+                                position: 'top-end',
+                                icon: 'info',
+                                title: 'Este vehículo ya existe ',
+                                text: 'Cargando datos del vehículo ...',
+                                showConfirmButton: false,
+                                timer: 1500
+                              })
+
                             $("#vehiculos_form").trigger("reset"); //reset formulario
 
                             FuncionCargarDatosVehiculo(response.datosVehiculo);
@@ -1091,7 +1101,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                         }
                     }
                 });
-            }
+            
         });
 
         /* ===================================================
