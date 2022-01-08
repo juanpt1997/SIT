@@ -129,7 +129,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                         </div>
 
                                                         <div class="col-9 mt-3">
-                                                            <button type="submit" form="ordenServ_form" class="btn btn-success mb-2 col fileinput-button dz-clickable">
+                                                            <button type="submit" id="guardar_orden" form="ordenServ_form" class="btn btn-success mb-2 col fileinput-button dz-clickable">
                                                                 <i class="fas fa-plus"></i>
                                                                 <span>Guardar</span>
                                                             </button>
@@ -476,7 +476,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                                             <th style="min-width: 300px;">DIAGNÓSTICO</th>
                                                                                             <th style="min-width: 300px;">TIPO DE SISTEMA</th>
                                                                                             <th style="min-width: 300px;">TIPO DE MANTENIMIENTO</th>
-                                                                                            <th style="min-width: 300px;">CÓDIGO CUENTA CONTABLE</th>
+                                                                                            <!-- <th style="min-width: 300px;">CÓDIGO CUENTA CONTABLE</th> -->
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody id="filas_tabla_repuestoSolicitud">
@@ -523,7 +523,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </td>
-                                                                                            <td>
+                                                                                            <td style="display: none;">
                                                                                                 <input type="hidden" id="idcuenta_repuesto_1" name="idcuenta[]">
                                                                                                 <div class="input-group">
                                                                                                     <input class="form-control form-control-sm" type="text" id="cuenta_repuesto_1" name="cuenta_repuesto[]" placeholder="Seleccione una cuenta" maxlength="0">
@@ -582,7 +582,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                                             <th style=" min-width:300px;">DIAGNÓSTICO</th>
                                                                                             <th style="min-width:300px;">TIPO DE SISTEMA</th>
                                                                                             <th style="min-width:300px;">TIPO DE MANTENIMIENTO</th>
-                                                                                            <th style="min-width:300px;">CÓDIGO CUENTA CONTABLE</th>
+                                                                                            <!-- <th style="min-width:300px;">CÓDIGO CUENTA CONTABLE</th> -->
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody id="filas_tabla_manoObra">
@@ -628,7 +628,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </td>
-                                                                                            <td>
+                                                                                            <td style="display: none;">
                                                                                                 <input type="hidden" id="idcuenta_mano_1" name="idcuenta_mano[]">
                                                                                                 <div class="input-group">
                                                                                                     <input class="form-control form-control-sm" type="text" id="cuenta_mano_1" name="cuenta_mano[]" placeholder="Seleccione una cuenta" maxlength="0">
@@ -1917,7 +1917,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
             <div class="card-body">
                 <div class="col-12">
                     <div class="table-responsive">
-                        <table id="" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                        <table id="tablaserviciosxvehiculoprogramacion" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
                             <thead class="text-nowrap">
                                 <th>Rutina</th>
                                 <th>Kilometraje actual</th>
