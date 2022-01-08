@@ -531,7 +531,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                         <select id="placa" name="idvehiculo" class="form-control select2-single" type="number" style="width: 99%" required>
                                                             <option value="" selected><b>-Lista de placas-</b></option>
                                                             <?php foreach ($Placas as $key => $value) : ?>
-                                                                <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?></option>
+                                                                <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?></option>
                                                             <?php endforeach ?>
                                                         </select>
                                                     </div>
@@ -539,7 +539,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
                                                 <div class="col-12 col-sm-6 col-lg-4">
                                                     <div class="form-group">
-                                                        <label>Numero interno</label>
+                                                        <label>Número interno</label>
                                                         <input id="numinterno" name="numinterno" type="text" class="form-control datosVehiculo" readonly>
                                                     </div>
                                                 </div>
