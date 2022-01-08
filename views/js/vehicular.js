@@ -99,9 +99,7 @@ if (window.location.href == `${urlPagina}v-propietarios/` ||
                     processData: false,
                     //dataType: "json",
                     success: function (response) {
-                        console.log(response);
                         if (response == "ok") {
-                            console.log("entré");
                             Swal.fire({
                                 icon: "success",
                                 showConfirmButton: true,
@@ -358,7 +356,6 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
 
 
     $(document).on("click", ".btnBorrarConv", function () {
-        console.log("Borrando");
         let idConvenio = $(this).attr("idConvenio");
         var datos = new FormData();
         datos.append("Borrado", "ok");
@@ -384,7 +381,6 @@ if (window.location.href == `${urlPagina}v-convenios/` ||
                         cancelButtonText: 'Cancelar',
                         confirmButtonText: 'Si,borrar'
                     }).then((result) => {
-                        console.log(result);
                         if (result.value == true) {
                             Swal.fire({
                                 icon: 'success',
@@ -1393,7 +1389,6 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                     processData: false,
                     // dataType: "json",
                     success: function (response) {
-                        console.log(response);
                         if (response != '' || response != null) {
                             $("#tbodyTablaHistorico").html(response);
                         } else {
@@ -1434,7 +1429,6 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    console.log(response);
                     if (response != "") {
                         switch (tabla) {
                             case 'v_re_propietariosvehiculos':
@@ -1827,7 +1821,6 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    console.log(response);
                     // Quitar spinner
                     $(`#spinnerTabla${nombreTabla}`).addClass("d-none");
 

@@ -24,6 +24,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
   ESTRUCTURA 
 ========================= -->
 
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -833,7 +834,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                         <div class="card-body">
 
                                                             <div class="table-responsive" style="font-size: 14px;">
-                                                                <table id="tableControlActividades" class="table-sm table-striped table-bordered  text-center table-hover  w-100">
+                                                                <!-- <table id="tableControlActividades" class="datatable-multi-row table table-sm table-striped table-hover table-bordered text-center w-100">
                                                                     <thead class="text-nowrap">
                                                                         <tr>
                                                                             <th># Orden</th>
@@ -868,6 +869,44 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                     </thead>
 
                                                                     <tbody id="tbodyControlActividades" class="text-nowrap">
+                                                                    </tbody>
+                                                                </table> -->
+                                                                <table id="tableControlActividades" class="datatable-multi-row table table-sm table-striped table-hover table-bordered text-center w-100">
+                                                                    <thead class="text-nowrap">
+                                                                        <tr>
+                                                                            <th># Orden</th>
+                                                                            <th>Vehículo</th>
+                                                                            <th>Kilometraje</th>
+                                                                            <th>Cliente</th>
+                                                                            <th># Factura</th>
+                                                                            <th>Ciudad</th>
+                                                                            <th>Fecha de solicitud</th>
+                                                                            <th>Fecha ejecución</th>
+                                                                            <th>Fecha entrega</th>
+                                                                            <th>Diagnóstico</th>
+                                                                            <th>Proveedor</th>
+                                                                            <th>Item</th>
+                                                                            <th>Descripción</th>
+                                                                            <th>Sistema</th>
+                                                                            <th>Cantidad</th>
+                                                                            <th>Precio unitario</th>
+                                                                            <th>Iva</th>
+                                                                            <th>Cliente</th>
+                                                                            <th>% que asume</th>
+                                                                            <th>Empresa</th>
+                                                                            <th>% que asume</th>
+                                                                            <th>Contratista</th>
+                                                                            <th>% que asume</th>
+                                                                            <th>Precio total</th>
+                                                                            <th>Clasificación</th>
+                                                                            <th>Nombre de cuenta</th>
+                                                                            <th>Código cuenta</th>
+                                                                            <th>Asume</th> 
+                                                                        </tr>
+                                                                    </thead>
+
+                                                                    <tbody id="tbodyControlActividades" class="text-nowrap">
+
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -964,7 +1003,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                             <div class="card-body">
                                 <h5 class="text-center"><i>Vehiculos</i></h5>
                                 <div class="table-responsive">
-                                    <table id="tablaProgramacion" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                                    <table id="tablaProgramacion" class="table table-sm table-striped table-bordered text-center table-hover  w-100">
                                         <thead class="text-nowrap">
                                             <th>...</th>
                                             <th>Placa</th>
@@ -1103,7 +1142,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
 
                                                 <!-- TABLA VEHICULOS -->
                                                 <div class="table-responsive">
-                                                    <table id="tablaSolicitudesProgramacion" class="table table-sm table-striped table-hover table-bordered text-center w-100">
+                                                    <table id="tablaSolicitudesProgramacion" class="datatable-multi-row table table-sm table-striped table-hover table-bordered text-center w-100">
                                                         <thead class="text-nowrap">
                                                             <tr>
                                                                 <th>...</th>
@@ -1119,11 +1158,25 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                         </thead>
 
                                                         <tbody id="tbodyprogramacion" class="text-nowrap">
-                                                                    
+
                                                         </tbody>
                                                     </table>
+                                                    <!-- <table id="tablaSolicitudesProgramacion" class="datatable-multi-row w-100">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Contact Date</th>
+                                                                <th>City</th>
+                                                                <th>Family Members</th>
+                                                                <th>Est. Value</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tbodyprogramacion" class="text-nowrap">
+                                                            
+                                                            </tbody>
+                                                    </table> -->
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
 
@@ -1152,35 +1205,15 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </div> <!-- PROGRAMACIÓN-->
             </div>
         </div>
@@ -1859,8 +1892,8 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                 <div class="col-12 mt-2">
                     <a href="cg-mantenimiento" target="_blank">
                         <button class="btn btn-sm btn-warning float-center"><i class="fas fa-plus-circle"></i>
-                        Crear nueva rutina 
-                    </button>
+                            Crear nueva rutina
+                        </button>
                     </a>
                 </div>
             </div>
@@ -2134,7 +2167,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                 <div class="row">
                     <div class="col-lg-12 col-sm-12 justify-content-center">
                         <div class="table-responsive">
-                            <table id="tablaProgramacionSolicitud" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover">
+                            <table id="tablaProgramacionSolicitud" class="table table-sm table-striped table-bordered text-center table-hover">
                                 <thead class="text-nowrap">
                                     <th>Kilometraje</th>
                                     <th>Actividad</th>
