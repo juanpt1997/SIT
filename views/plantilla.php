@@ -217,6 +217,8 @@ if (isset($_GET['pagina'])) {
                         $ruta == "g-dashboard"
                     ) {
                         include "modulos/gerencial/{$ruta}.php";
+                    } else if ($ruta == "tr-gps") {
+                        include "modulos/tecnolab-tracker/{$ruta}.php";
                     } else { # Página no válida
                         include "includes/error404.php";
                     }
@@ -242,8 +244,6 @@ if (isset($_GET['pagina'])) {
     ===================================================*/
         include 'includes/modals.php';
         ?>
-
-
     </body>
 <?php endif ?>
 

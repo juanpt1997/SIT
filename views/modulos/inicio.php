@@ -458,12 +458,11 @@
                             =================================================== -->
                               <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                                   <div class="col-12 col-sm-6 col-md-4 col-xl-3">
-                                      <a href="#">
+                                      <a href="tr-gps">
                                           <div class="info-box border border-info">
                                               <span class="info-box-icon bg-info elevation-1"><i class="fas fa-map-marked-alt"></i></span>
                                               <div class="info-box-content">
-                                                  <span class="info-box-text font-weight-bold text-dark">Rastreo
-                                                      Satelital</span>
+                                                  <span class="info-box-text font-weight-bold text-dark">Tecnolab Tracker</span>
                                               </div>
                                               <!-- /.info-box-content -->
                                           </div>
