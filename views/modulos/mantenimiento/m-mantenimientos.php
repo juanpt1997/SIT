@@ -172,7 +172,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                     <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Placa</i></label>
-                                                                            <select id="placa_OrdServ" name="idvehiculo_OrdServ" class="form-control select2-single" type="number" style="height: 99%" required>
+                                                                            <select id="placa_OrdServ" name="idvehiculo_OrdServ" class="form-control form-control-sm select2-single" type="number" style="height: 99%;" required>
                                                                                 <option selected value="">Seleccione un vehículo</option>
                                                                                 <?php foreach ($Placas as $key => $value) : ?>
                                                                                     <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?> </option>
@@ -347,7 +347,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                         <div class="row">
                                                                             <div class="col-lg-12 col-sm-12 justify-content-center">
                                                                                 <div class="table-responsive">
-                                                                                    <table id="tablaProgramacionServ" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover">
+                                                                                    <table id="tablaProgramacionServ" class="datatable-multi-row table table-sm table-striped table-hover table-bordered text-center w-100">
                                                                                         <thead class="text-nowrap">
                                                                                             <th>Kilometraje</th>
                                                                                             <th>Actividad</th>
@@ -1917,7 +1917,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
             <div class="card-body">
                 <div class="col-12">
                     <div class="table-responsive">
-                        <table id="tablaserviciosxvehiculoprogramacion" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                        <table id="tablaserviciosxvehiculoprogramacion" class="datatable-multi-row table table-sm table-striped table-hover table-bordered text-center w-100">
                             <thead class="text-nowrap">
                                 <th>Rutina</th>
                                 <th>Kilometraje actual</th>
@@ -2167,7 +2167,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                 <div class="row">
                     <div class="col-lg-12 col-sm-12 justify-content-center">
                         <div class="table-responsive">
-                            <table id="tablaProgramacionSolicitud" class="table table-sm table-striped table-bordered text-center table-hover">
+                            <table id="tablaProgramacionSolicitud" class="datatable-multi-row table table-sm table-striped table-hover table-bordered text-center w-100">
                                 <thead class="text-nowrap">
                                     <th>Kilometraje</th>
                                     <th>Actividad</th>

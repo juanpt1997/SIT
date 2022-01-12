@@ -68,6 +68,10 @@ if (isset($_GET['pagina'])) {
     <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/cross-page-tab-navigation/jquery.simpletabs.css">
     <!-- fullCalendar -->
     <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/fullcalendar-5.10.0/lib/main.css">
+    <!-- Leaflet -->
+    <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/leaflet/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.2.0/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css" />
 
 
     <!-- =================================================== 
@@ -120,6 +124,10 @@ if (isset($_GET['pagina'])) {
     <!-- Charjs -->
     <script src="<?= URL_APP ?>views/plugins/chart.js/Chart.bundle.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/chart.js/Charjs-plugin-datalabels.min.js"></script>
+    <!-- Leaflet  -->
+    <script src="<?= URL_APP ?>views/plugins/leaflet/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
 
 </head>
 
@@ -218,6 +226,8 @@ if (isset($_GET['pagina'])) {
                         $ruta == "g-dashboard"
                     ) {
                         include "modulos/gerencial/{$ruta}.php";
+                    } else if ($ruta == "tr-gps") {
+                        include "modulos/tecnolab-tracker/{$ruta}.php";
                     } else { # Página no válida
                         include "includes/error404.php";
                     }
@@ -243,8 +253,6 @@ if (isset($_GET['pagina'])) {
     ===================================================*/
         include 'includes/modals.php';
         ?>
-
-
     </body>
 <?php endif ?>
 
@@ -263,6 +271,5 @@ if (isset($_GET['pagina'])) {
 <script src="<?= URL_APP ?>views/js/operaciones.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/compras.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/almacen.js?v=<?= time() ?>"></script>
-
-
+<script src="<?= URL_APP ?>views/js/tecnolab-tracker.js?v=<?= time() ?>"></script>
 </html>
