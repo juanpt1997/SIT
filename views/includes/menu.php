@@ -277,7 +277,7 @@
                             <!-- ===================================================
                                     Consulta comparendos
                                 =================================================== -->
-                            <li class="nav-item d-none">
+                            <li class="nav-item">
                                 <a href="v-comparendos" class="nav-link" target="_blank">
                                     <i class="fas fa-search nav-icon"></i>
                                     <p>Comparendos</p>
