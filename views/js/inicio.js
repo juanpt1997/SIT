@@ -218,10 +218,18 @@ $(document).ready(function () {
             );
             //GUARDAMOS LA NUEVA FECHA FINAL AL SOLTAR EL EVENTO
             let nuevaFechaF = event.end;
-            //FORMATEAMOS LA FECHA PARA GUARDAR EN LA BD
-            let fechaFinal_formateada = moment(nuevaFechaF).format(
-                "YYYY-MM-DD HH:mm:ss"
-            );
+            let fechaFinal_formateada;
+
+            if(nuevaFechaF == null){
+
+                fechaFinal_formateada = fechaInicio_formateada;
+
+            }else{
+                //FORMATEAMOS LA FECHA PARA GUARDAR EN LA BD
+                fechaFinal_formateada = moment(nuevaFechaF).format(
+                    "YYYY-MM-DD HH:mm:ss"
+                );
+            }
 
             Swal.fire({
                 title: "¿Está seguro que desea cambiar la fecha de la tarea?",
@@ -295,8 +303,13 @@ $(document).ready(function () {
                             } else {
                                 bg = `<span class="badge badge-success">finalizada</span>`;
                             }
+                            if (element.end == null) {
+                                fin = "Sin fecha final."
+                            } else{
+                                fin = element.end;
+                            }
 
-                            tareas += `<li style="font-family: Arial, Helvetica, sans-serif;"><strong><i>Título: </i></strong> ${element.title}</li><li style="font-family: Arial, Helvetica, sans-serif;"><strong><i>Descripción: </i></strong> ${element.descripcion}</li><li style="font-family: Arial, Helvetica, sans-serif;"><strong><i>Fecha de inicio: </i></strong> ${element.start}</li><li style="font-family: Arial, Helvetica, sans-serif;"><strong><i>Fecha final: </i></strong> ${element.end}</li><li style="font-family: Arial, Helvetica, sans-serif;"><strong><i>Estado: </i></strong> ${bg}</li><br>`;
+                            tareas += `<li style="font-family: Arial, Helvetica, sans-serif;"><strong><i>Título: </i></strong> ${element.title}</li><li style="font-family: Arial, Helvetica, sans-serif;"><strong><i>Descripción: </i></strong> ${element.descripcion}</li><li style="font-family: Arial, Helvetica, sans-serif;"><strong><i>Fecha de inicio: </i></strong> ${element.start}</li><li style="font-family: Arial, Helvetica, sans-serif;"><strong><i>Fecha final: </i></strong> ${fin}</li><li style="font-family: Arial, Helvetica, sans-serif;"><strong><i>Estado: </i></strong> ${bg}</li><br>`;
                         }
                     });
 
