@@ -49,7 +49,7 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
             ========================= -->
             <div class="row mt-2">
                 <div class="col-12">
-                    <div class="card card-outline card-success">
+                    <div class="card card-outline card-info">
                         <div class="card-body">
                             <!--|||TABLA PROTOCOLO DE ALISTAMIENTO|||-->
                             <table id="tblAlistamientos" class="table table-sm table-bordered table-striped text-center text-nowrap">
@@ -164,8 +164,8 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
                                     <?php foreach ($Alistamientos as $key => $value) : ?>
                                         <tr>
                                             <td>
-                                                <button type="button" class="btn btn-success btn-sm btn-editarAlistamiento" idalistamiento="<?= $value['id'] ?>" placa="<?= $value['placa'] ?>" data-toggle="modal" data-target="#modal-nuevoAlistamiento"><i class="fas fa-edit"></i></button>
-                                                <button type="button" title="PDF Alistamiento" class="btn btn-danger btn-sm btn-PdfAlistamiento" idalistamiento="<?= $value['id'] ?>"><i class="fas fa-file-pdf"></i></button>
+                                                <button type="button" class="btn btn-info btn-sm btn-editarAlistamiento" title="Editar alistamiento." idalistamiento="<?= $value['id'] ?>" placa="<?= $value['placa'] ?>" data-toggle="modal" data-target="#modal-nuevoAlistamiento"><i class="fas fa-edit"></i></button>
+                                                <button type="button" title="PDF Alistamiento" class="btn btn-secondary btn-sm btn-PdfAlistamiento" idalistamiento="<?= $value['id'] ?>"><i class="fas fa-file-pdf"></i></button>
                                             </td>
                                             <td><?= $value['id'] ?></td>
                                             <td><?= $value['fechaalista'] ?></td>

@@ -48,8 +48,8 @@ $listaUltimo = ControladorBloqueosV::ctrUltimoBloqueoV();
             ========================= -->
             <div class="row mt-2">
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-header bg-info"></div>
+                    <div class="card card-outline card-info">
+                        
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
@@ -174,7 +174,7 @@ $listaUltimo = ControladorBloqueosV::ctrUltimoBloqueoV();
                     </div>
 
                     <div class="form-group">
-                        <label>Fecha de bloque/desbloqueo</label>
+                        <label>Fecha de bloqueo/desbloqueo</label>
                         <div class="input-group">
                             <div class="input-group-append">
                                 <span class="input-group-text">

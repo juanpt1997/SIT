@@ -15,7 +15,7 @@ $(document).ready(function () {
 
         //FUNCION QUE DEFINE EL CALENDARIO
         var calendario;
-        function initCalendario(data) {
+        function initCalendario() {
             var datosAjax = new FormData();
             datosAjax.append("cargarCalendario", "ok");
 
@@ -40,7 +40,7 @@ $(document).ready(function () {
                         headerToolbar: {
                             start: "prev,next",
                             center: "title",
-                            end: "dayGridMonth,timeGridWeek,listMonth custom1,custom2",
+                            end: "dayGridMonth,timeGridWeek,listMonth custom1",
                         },
 
                         //BOTONES PERSONALIZADOS (agregar funciones al metodo click)
@@ -51,13 +51,16 @@ $(document).ready(function () {
                                 click: function () {
                                     //Muestra el dia actual del calendario segun la fecha
                                     calendar.today();
+                                    //cargar tareas del dia
+                                    tareasDelDia();
                                 },
                             },
-                            custom2: {
-                                text: "Tareas del día",
-                                click: function () {
-                                    alert("tarea del dia");
-                                },
+                        },
+
+                        views: {
+                            timeGridWeek: {
+                                titleFormat: { month: "long", year: "numeric" },
+                                // dayMaxEventRows: 6
                             },
                         },
 
@@ -66,6 +69,8 @@ $(document).ready(function () {
                         locale: "Es",
                         eventDisplay: "block",
                         displayEventTime: false,
+                        editable: true,
+                        droppable: true,
                         weekNumbers: true,
                         eventResizableFromStart: false,
 
@@ -74,6 +79,11 @@ $(document).ready(function () {
                         // mostrar info de la tarea al clickear la tarea especifica
                         eventClick: function (info) {
                             visualizarTarea(info);
+                        },
+
+                        eventDrop: function (info) {
+                            //console.log(info);
+                            soltarTarea(info, info.event);
                         },
                     });
 
@@ -85,7 +95,9 @@ $(document).ready(function () {
         }
 
         //INICIALIZAR EL CALENDARIO
-        initCalendario();
+        $("#custom-tabs-five-normal-tab").on("shown.bs.tab", function (e) {
+            initCalendario();
+        });
 
         //FUNCION QUE AÑADE UN EVENTO NUEVO AL CALENDARIO
         function crearEvento(calendar, evento) {
@@ -125,6 +137,14 @@ $(document).ready(function () {
                     contentType: false,
                     processData: false,
                     success: function (response) {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Tarea añadida al calendario.",
+                            showConfirmButton: false,
+                            timer: 2000,
+                            timerProgressBar: true,
+                            allowOutsideClick: false,
+                        });
                         //AÑADIR EVENTO AL CALENDARIO
                         crearEvento(calendario, {
                             title: titulo,
@@ -133,6 +153,14 @@ $(document).ready(function () {
                             color: "#DBD053",
                             id: response,
                         });
+                        initCalendario();
+                        ListaTareas("PENDIENTE", "lista_pendientes");
+                        ListaTareas("FINALIZADA", "lista_finalizadas");
+                        //RESET Valores
+                        $("#titulo_tarea").val("");
+                        $("#fecha_inicio").val("");
+                        $("#fecha_final").val("");
+                        $("#descripcion_tarea").val("");
                     },
                 });
             }
@@ -156,6 +184,7 @@ $(document).ready(function () {
                     $("#modal_titulo_tarea").val(response.title);
                     $("#modal_descripcion").val(response.descripcion);
                     $("#modal_fecha_inicio").val(response.start);
+                    $("#modal_fecha_final").val(response.end);
                     $("#id_evento").val(id);
 
                     if (response.estado_tarea == "PENDIENTE") {
@@ -175,6 +204,112 @@ $(document).ready(function () {
 
             let id = info.event.id;
             datosEvento(id);
+        }
+
+        //FUNCION ARRASTRAR Y SOLTAR UNA TAREA (ACTUALIZA LA FECHA)
+        function soltarTarea(info, event) {
+            let id = event.id;
+
+            //GUARDAMOS LA NUEVA FECHA INICAL AL SOLTAR EL EVENTO
+            let nuevaFechaI = event.start;
+            //FORMATEAMOS LA FECHA PARA GUARDAR EN LA BD
+            let fechaInicio_formateada = moment(nuevaFechaI).format(
+                "YYYY-MM-DD HH:mm:ss"
+            );
+            //GUARDAMOS LA NUEVA FECHA FINAL AL SOLTAR EL EVENTO
+            let nuevaFechaF = event.end;
+            //FORMATEAMOS LA FECHA PARA GUARDAR EN LA BD
+            let fechaFinal_formateada = moment(nuevaFechaF).format(
+                "YYYY-MM-DD HH:mm:ss"
+            );
+
+            Swal.fire({
+                title: "¿Está seguro que desea cambiar la fecha de la tarea?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Si, actualizar!",
+            }).then((result) => {
+                if (result.value == true) {
+                    var datosAjax = new FormData();
+                    datosAjax.append("actualizarFechas", "ok");
+                    datosAjax.append("id", id);
+                    datosAjax.append("fecha_i", fechaInicio_formateada);
+                    datosAjax.append("fecha_f", fechaFinal_formateada);
+
+                    $.ajax({
+                        type: "post",
+                        url: `${urlPagina}ajax/calendario.ajax.php`,
+                        data: datosAjax,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        //dataType: "json",
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    title: "Actualizado!",
+                                    icon: "success",
+                                    timer: 2000,
+                                    showConfirmButton: false,
+                                });
+                                initCalendario();
+                                ListaTareas("PENDIENTE", "lista_pendientes");
+                                ListaTareas("FINALIZADA", "lista_finalizadas");
+                            }
+                        },
+                    });
+                } else {
+                    info.revert();
+                }
+            });
+        }
+
+        //CARGAR LAS TAREAS DEL DIA ACTUAL
+        function tareasDelDia() {
+            let fecha_actual = moment().format("YYYY-MM-DD");
+            let tareas = [];
+
+            var datosAjax = new FormData();
+            datosAjax.append("cargarCalendario", "ok");
+
+            $.ajax({
+                type: "post",
+                url: `${urlPagina}ajax/calendario.ajax.php`,
+                data: datosAjax,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    var tareas = ``;
+                    var bg = ``;
+
+                    response.forEach((element) => {
+                        let fecha = moment(element.start).format("YYYY-MM-DD");
+
+                        if (fecha == fecha_actual) {
+                            if (element.estado_tarea == "PENDIENTE") {
+                                bg = `<span class="badge badge-warning">pendiente</span>`;
+                            } else {
+                                bg = `<span class="badge badge-success">finalizada</span>`;
+                            }
+
+                            tareas += `<li style="font-family: Arial, Helvetica, sans-serif;"><strong><i>Título: </i></strong> ${element.title}</li><li style="font-family: Arial, Helvetica, sans-serif;"><strong><i>Descripción: </i></strong> ${element.descripcion}</li><li style="font-family: Arial, Helvetica, sans-serif;"><strong><i>Fecha de inicio: </i></strong> ${element.start}</li><li style="font-family: Arial, Helvetica, sans-serif;"><strong><i>Fecha final: </i></strong> ${element.end}</li><li style="font-family: Arial, Helvetica, sans-serif;"><strong><i>Estado: </i></strong> ${bg}</li><br>`;
+                        }
+                    });
+
+                    if (tareas != "") {
+                        $("#ingresar_tareas").html(tareas);
+                    } else {
+                        $("#ingresar_tareas").html(
+                            "<i>No hay tareas disponibles para el día de hoy.</i>"
+                        );
+                    }
+                },
+            });
+            $("#tareas_del_dia").modal("show");
         }
 
         //AGREGAR UNA TAREA AL CALENDARIO
@@ -218,6 +353,9 @@ $(document).ready(function () {
                                 confirmButtonText: "continuar",
                             });
                             initCalendario();
+                            ListaTareas("PENDIENTE", "lista_pendientes");
+                            ListaTareas("FINALIZADA", "lista_finalizadas");
+                            $("#modal_tarea").modal("hide");
                         } else {
                             Swal.fire({
                                 icon: "error",
@@ -235,11 +373,19 @@ $(document).ready(function () {
         //BOTON QUE FINALIZA LA TAREA
         $(".btn-finalizar").on("click", function () {
             let id = $("#id_evento").val();
+            let titulo = $("#modal_titulo_tarea").val();
+            let fecha_i = $("#modal_fecha_inicio").val();
+            let fecha_f = $("#modal_fecha_final").val();
+            let descripcion = $("#modal_descripcion").val();
 
             var datosAjax = new FormData();
             datosAjax.append("estadoTarea", "ok");
             datosAjax.append("id", id);
             datosAjax.append("estado", "PENDIENTE");
+            datosAjax.append("titulo", titulo);
+            datosAjax.append("fecha_i", fecha_i);
+            datosAjax.append("fecha_f", fecha_f);
+            datosAjax.append("descripcion", descripcion);
 
             $.ajax({
                 type: "post",
@@ -258,8 +404,8 @@ $(document).ready(function () {
                             confirmButtonText: "continuar",
                         });
                         initCalendario();
-                        ListaTareas("PENDIENTE","lista_pendientes");
-                        ListaTareas("FINALIZADA","lista_finalizadas");
+                        ListaTareas("PENDIENTE", "lista_pendientes");
+                        ListaTareas("FINALIZADA", "lista_finalizadas");
                         $("#modal_tarea").modal("hide");
                     } else {
                         Swal.fire({
@@ -277,11 +423,19 @@ $(document).ready(function () {
         //BOTON QUE VUELVE PENDIENTE LA TAREA
         $(".btn-pendiente").on("click", function () {
             let id = $("#id_evento").val();
+            let titulo = $("#modal_titulo_tarea").val();
+            let fecha_i = $("#modal_fecha_inicio").val();
+            let fecha_f = $("#modal_fecha_final").val();
+            let descripcion = $("#modal_descripcion").val();
 
             var datosAjax = new FormData();
             datosAjax.append("estadoTarea", "ok");
             datosAjax.append("id", id);
             datosAjax.append("estado", "FINALIZADA");
+            datosAjax.append("titulo", titulo);
+            datosAjax.append("fecha_i", fecha_i);
+            datosAjax.append("fecha_f", fecha_f);
+            datosAjax.append("descripcion", descripcion);
 
             $.ajax({
                 type: "post",
@@ -300,8 +454,8 @@ $(document).ready(function () {
                             confirmButtonText: "continuar",
                         });
                         initCalendario();
-                        ListaTareas("PENDIENTE","lista_pendientes");
-                        ListaTareas("FINALIZADA","lista_finalizadas");
+                        ListaTareas("PENDIENTE", "lista_pendientes");
+                        ListaTareas("FINALIZADA", "lista_finalizadas");
                         $("#modal_tarea").modal("hide");
                     } else {
                         Swal.fire({
@@ -314,11 +468,53 @@ $(document).ready(function () {
                     }
                 },
             });
-            
         });
 
-        function ListaTareas(estado,lista){
+        //BOTON ELIMINAR TAREA
+        $(".btn-eliminar").on("click", function () {
+            let id = $("#id_evento").val();
 
+            var datosAjax = new FormData();
+            datosAjax.append("eliminarTarea", "ok");
+            datosAjax.append("id", id);
+
+            $.ajax({
+                type: "post",
+                url: `${urlPagina}ajax/calendario.ajax.php`,
+                data: datosAjax,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "¡Eliminada!",
+                            text: "La tarea se ha eliminado con éxito.",
+                            showConfirmButton: true,
+                            confirmButtonText: "continuar",
+                        });
+                        // .then(function (){
+                        //     location.reload();
+                        // })
+                        initCalendario();
+                        ListaTareas("PENDIENTE", "lista_pendientes");
+                        ListaTareas("FINALIZADA", "lista_finalizadas");
+                        $("#modal_tarea").modal("hide");
+                    }
+                },
+            });
+        });
+
+        //ABRIR MODAL AL DARLE CLICK A LA TAREA LISTADA
+        $(document).on("click", ".btn-listaTarea", function () {
+            let id = $(this).attr("id");
+            $("#modal_tarea").modal("show");
+            datosEvento(id);
+        });
+
+        //LISTAR TAREAS EN TAB DE VISUALIZACION
+        function ListaTareas(estado, lista) {
             var datosAjax = new FormData();
             datosAjax.append("tareasPorEstado", "ok");
             datosAjax.append("estado", estado);
@@ -331,14 +527,20 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    $(`#${lista}`).html(response);
+                    if (response) {
+                        $(`#${lista}`).html(response);
+                    } else {
+                        $(`#${lista}`).html(
+                            "<p><i>No hay tareas disponibles para visualizar.</i></p>"
+                        );
+                    }
                 },
-            });  
+            });
         }
-    
-        ListaTareas("PENDIENTE","lista_pendientes");
-        ListaTareas("FINALIZADA","lista_finalizadas");
-             
+
+        //INSTANCIAR FUNCION LISTAR TAREAS
+        ListaTareas("PENDIENTE", "lista_pendientes");
+        ListaTareas("FINALIZADA", "lista_finalizadas");
     } else {
         $("body").addClass("sidebar-mini");
     }

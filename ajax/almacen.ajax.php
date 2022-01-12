@@ -403,7 +403,7 @@ class AjaxAlmacen
                 <button idorden = '{$value['idorden']}' class='btn btn-sm btn-info btnEditarOrden' title='Editar orden de compra'><i class='fas fa-edit'></i></button>
                 </div>
                 <div class='btn-group' role='group' aria-label='Button group'>
-                <button idorden = '{$value['idorden']}' class='btn btn-sm btn-danger btn_pdf_orden' title='Generar PDF'><i class='fas fa-file-pdf'></i></button>
+                <button idorden = '{$value['idorden']}' class='btn btn-sm btn-secondary btn_pdf_orden' title='Generar PDF'><i class='fas fa-file-pdf'></i></button>
                 </div>
                 </td>
                 <td>$estado</td>

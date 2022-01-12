@@ -780,7 +780,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                             }
                                                                             ?>
                                                                             <tr>
-                                                                                <td><button class="btn btn-outline-dark btn-pdforden bg-danger" idorden="<?= $value['idorden'] ?>" tipo_mantenimiento="orden"><i class="far fa-file-pdf"></i></button></td>
+                                                                                <td><button class="btn btn-outline-dark btn-pdforden bg-secondary" title="Ver PDF Orden." data-toggle="tooltip" data-placement="top" idorden="<?= $value['idorden'] ?>" tipo_mantenimiento="orden"><i class="fas fa-file-pdf"></i></button></td>
                                                                                 <td><button class="btn btn-outline-dark btn-editarOrden" idorden="<?= $value['idorden'] ?>" title="Ir a la orden" data-toggle="tooltip" data-placement="top" type="button"><?= $value['idorden'] ?></button></td>
                                                                                 <td><?= $value['placa'] ?></td>
                                                                                 <td><?= $value['Ffecha_entrada'] ?></td>

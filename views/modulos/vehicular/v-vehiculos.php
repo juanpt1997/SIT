@@ -64,11 +64,11 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                     <!--|||TABLA VEHICULOS|||-->
                     <div class="row mt-2">
                         <div class="col-12">
-                            <div class="card">
-                                <div class="card-header bg-info"></div>
+                            <div class="card card-outline card-info">
+                                
                                 <div class="card-body">
 
-                                    <table id="tblVehiculos" class="table table-responsive table-sm table-striped table-bordered table-hover w-100">
+                                    <table id="tblVehiculos" class="table table-responsive table-sm table-striped table-bordered table-hover text-nowrap w-100">
                                         <thead class="thead-light text-sm text-center text-nowrap">
                                             <tr>
                                                 <th style="min-width:80px;">#</th>
@@ -102,10 +102,10 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <?php
                                                 $BtnAcciones = "<div class='btn-group'>
                                                             {$value['idvehiculo']}
-                                                            <button type='button' class='btn btnEditarVehiculo' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#VehiculosModal'>
+                                                            <button type='button' class='btn btn-sm btnEditarVehiculo' title='Editar vehículo.' idvehiculo='{$value['idvehiculo']}' data-toggle='modal' data-target='#VehiculosModal'>
                                                                 <i class='fas fa-lg fa-edit text-info'></i>
                                                             </button>
-                                                            <button type='button' class='btn btn-FTVehiculo' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-lg fa-book text-secondary'></i></button>
+                                                            <button type='button' class='btn btn-sm btn-FTVehiculo' title='Ver ficha tecnica' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-lg fa-book text-secondary'></i></button>
                                                         </div>";
                                                 ?>
                                                 <tr>
@@ -156,8 +156,8 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                     CONTENIDO DOCUMENTOS
                 =================================================== -->
                 <div class="tab-pane fade" id="pills-documentos" role="tabpanel" aria-labelledby="pills-documentos-tab">
-                    <div class="card">
-                        <div class="card-header bg-info"></div>
+                    <div class="card card-outline card-info">
+                        
                         <div class="card-body">
 
                             <div class="row">

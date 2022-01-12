@@ -84,12 +84,12 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                             <tr>
                                                 <td class="text-center">
                                                     <div class="btn-group" role="group" aria-label="Button group">
-                                                        <button class="btn btn-toolbar btn-sm btn-info btn-editarorden" data-toggle="modal" data-target="#ordenserviciomodal" idorden="<?= $value['idorden'] ?>"><i class="fas fa-edit"></i></button>
+                                                        <button class="btn btn-toolbar btn-sm btn-info btn-editarorden" title="Editar orden." data-toggle="modal" data-target="#ordenserviciomodal" idorden="<?= $value['idorden'] ?>"><i class="fas fa-edit"></i></button>
                                                     </div>
                                                 </td>
                                                 <td class="text-center">
                                                     <div class="btn-group" role="group" aria-label="Button group">
-                                                        <button class="btn btn-toolbar btn-sm btn-secondary btn-verorden float-right" idorden="<?= $value['idorden'] ?>"><i class="fas fa-book"></i></button>
+                                                        <button class="btn btn-toolbar btn-sm btn-secondary btn-verorden float-right" title="Ver PDF orden." idorden="<?= $value['idorden'] ?>"><i class="fas fa-file-pdf"></i></button>
                                                     </div>
                                                 </td>
                                                 <td><?= $value['idorden'] ?></td>

@@ -51,8 +51,8 @@ $FUEC = ControladorFuec::ctrListaFUEC();
             ========================= -->
             <div class="row mt-2">
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-header bg-info"></div>
+                    <div class="card card-outline card-info">
+                       
                         <div class="card-body">
                             <table id="tblFUEC" class="table table-responsive table-sm table-striped table-bordered table-hover w-100 text-center">
                                 <thead class="thead-light text-sm text-nowrap">
