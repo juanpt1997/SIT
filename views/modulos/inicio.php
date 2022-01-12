@@ -189,6 +189,7 @@
                                                       <a class="dropdown-item font-weight-bold" href="v-convenios"><u>Convenios</u></a>
                                                       <a class="dropdown-item font-weight-bold" href="v-bloqueo-vehiculo"><u>Bloqueo
                                                               de vehículos</u></a>
+                                                      <a class="dropdown-item font-weight-bold" href="v-comparendos"><u>Consulta de comparendos</u></a>
                                                   </div>
                                               </div>
                                           </div>
@@ -480,8 +481,8 @@
                                                       </div>
                                                   </div>
                                               </a>
-                                            </div>
-                                            <!-- /.col -->
+                                          </div>
+                                          <!-- /.col -->
                                       <?php endif ?>
                                   </div>
                               </div>

@@ -5,58 +5,7 @@ if (!validarPermiso('M_VEHICULAR', 'R')) {
 }
 
 ?>
-<!-- ===================== 
-  MODELO PARA LA IMPLEMENTARCION EN EL DISEÑO DE LOS MODULOS
-  ESTRUCTURA 
-========================= -->
-
 <style>
-    body,
-    html {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0
-    }
-
-    .first-row {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 100px;
-        background-color: lime;
-    }
-
-    .second-row {
-        position: absolute;
-        top: 100px;
-        left: 100px;
-        right: 50px;
-        bottom: 50px;
-    }
-
-    .second-row iframe {
-        display: block;
-        width: 100%;
-        height: 100%;
-        border: none;
-    }
-
-
-    .parallax4 {
-
-        background-image: url("<?= URL_APP ?>views/img/imgMultas/Version_2_multas_dashboard.jpeg");
-        min-height: 500px;
-        min-width: 500px;
-        background-attachment: fixed;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        /* background-size: 1230px 100px; */
-        display: grid;
-    }
-
     .parallax5 {
 
         background-image: url("<?= URL_APP ?>views/img/imgMultas/cuerpo_multas.jpeg");
@@ -69,6 +18,10 @@ if (!validarPermiso('M_VEHICULAR', 'R')) {
         display: grid;
     }
 </style>
+<!-- ===================== 
+  MODELO PARA LA IMPLEMENTARCION EN EL DISEÑO DE LOS MODULOS
+  ESTRUCTURA 
+========================= -->
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -77,7 +30,7 @@ if (!validarPermiso('M_VEHICULAR', 'R')) {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark "><strong><i>Comparendos y acuerdos de pago </i></strong><i class="far fa-address-card"></i></h1>
+                    <h1 class="m-0 text-dark "><strong><i>Comparendos y acuerdos de pago </i></strong></h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -103,21 +56,13 @@ if (!validarPermiso('M_VEHICULAR', 'R')) {
 
 
             <div class="card">
-                <div class="parallax4">
-                    <div class="card-body">
-                        <div class="row"></div>
-                    </div>
-                </div>
+                <img src="views/img/imgMultas/Version_2_multas_dashboard.jpeg" alt="" class="card-img-top">
             </div>
-            <div style="height:100px;font-size:60px;"><strong><i>Consultas</i></strong></div>
+            <h3 class="m-0 text-dark "><strong><i>Consultas </i></strong></h3>
 
             <div class="card">
                 <div class="parallax5">
                     <div class="card-body">
-
-
-
-
                         <div class="row justify-content-end" style="margin-left:620px; margin-top:90px;">
                             <!-- CONSULTAS GENERALES  -->
                             <div class="col-12 justify-content-end">
@@ -141,19 +86,19 @@ if (!validarPermiso('M_VEHICULAR', 'R')) {
                                             <a class="dropdown-item font-weight-bold" target="_blank" href="https://www.runt.com.co/directorio-de-actores"><u>Directorio de actores de tránsito</u></a>
                                             <a class="dropdown-item font-weight-bold" target="_blank" href="https://mintransporte.gov.co/publicaciones/4464/devolucion-de-dineros-por-tramites-cancelados-y-no-realizados/"><u>Procedimiento devolución de dineros por trámites cancelados y no realizados</u></a>
                                             <a class="dropdown-item font-weight-bold" target="_blank" href="https://mintransporte.gov.co/publicaciones/5544/bases-gravables-para-pago-de-impuesto-de-vehiculos-automotores/"><u>Bases gravables para pago de impuesto de vehículos automotores</u></a>
-    
+
                                         <?php endif ?>
-    
-    
+
+
                                     </div>
                                 </div>
                             </div>
-                            
+
 
 
                             <!-- TRANSPORTE Y TRANSITO NACIONAL -->
                             <div class="col-12 justify-content-end">
-                                
+
                                 <div class="dropdown col-lg-12 col-md-6 col-sm-3" style="cursor: pointer;">
                                     <div class="info-box border border-primary" id="ConsultasGenerales" data-toggle="dropdown">
                                         <span class="info-box-icon bg-primary"><i class="fas fa-directions"></i></span>
@@ -172,10 +117,10 @@ if (!validarPermiso('M_VEHICULAR', 'R')) {
                                             <a class="dropdown-item font-weight-bold" target="_blank" href="https://web.mintransporte.gov.co/Consultas/venales/home.htm"><u>Pago de especies venales SIREV</u></a>
                                             <a class="dropdown-item font-weight-bold" target="_blank" href="https://web.mintransporte.gov.co/peajes/seguridad/wf_iniciosesion.aspx"><u>Aplicación Modelo de costos para peaje</u></a>
                                             <a class="dropdown-item font-weight-bold" target="_blank" href="https://consulta-to.mintransporte.gov.co/"><u>Consulta estado tarjeta de operación</u></a>
-    
+
                                         <?php endif ?>
-    
-    
+
+
                                     </div>
                                 </div>
                             </div>
@@ -196,26 +141,19 @@ if (!validarPermiso('M_VEHICULAR', 'R')) {
                                         <?php if (validarPermiso('M_VEHICULAR', 'R')) : ?>
                                             <a class="dropdown-item font-weight-bold" target="_blank" href="https://web.mintransporte.gov.co/consultas_mod/servicioInternacional.jsp"><u>Vehículos y Unidades de Carga</u></a>
                                             <a class="dropdown-item font-weight-bold" target="_blank" href="https://web.mintransporte.gov.co/consulta_spain/Consultas.aspx"><u>Licencias España</u></a>
-    
+
                                         <?php endif ?>
-    
-    
+
+
                                     </div>
                                 </div>
 
                             </div>
-
-
-
-
                         </div>
-
-                        
-
-
                     </div>
                 </div>
             </div>
+
             <div style="height:100px;font-size:60px;"></div>
 
 
