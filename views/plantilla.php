@@ -115,7 +115,8 @@ if (isset($_GET['pagina'])) {
     <!-- cross-page-tab-navigation -->
     <script src="<?= URL_APP ?>views/plugins/cross-page-tab-navigation/jquery.simpletabs.js"></script>
     <!-- fullCalendar -->
-    <script src="<?= URL_APP ?>views/plugins/fullcalendar-5.10.0/lib/main.js"></script>
+    <script src="<?= URL_APP ?>views/plugins/fullcalendar-5.10.0/lib/main.min.js"></script>
+    <script src="<?= URL_APP ?>views/plugins/fullcalendar-5.10.0/lib/locales/es.js"></script>
     <!-- Charjs -->
     <script src="<?= URL_APP ?>views/plugins/chart.js/Chart.bundle.min.js"></script>
     <script src="<?= URL_APP ?>views/plugins/chart.js/Charjs-plugin-datalabels.min.js"></script>
