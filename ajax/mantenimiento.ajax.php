@@ -469,150 +469,157 @@ class AjaxMantenimientos
     {
         $respuesta = ControladorMantenimientos::ctrListadoControlActividades();
 
-
-        $ordenes = array();
-        foreach ($respuesta as $key => $value) {
-            array_push($ordenes, $value['idorden']);
-        }
-
-
-        //GENERA UN ARRRAY CON LA CANTIDAD DE VECES QUE HAY UNA PLACA 
-        foreach ($ordenes as $key => $value) {
-            $rowspan = array_count_values($ordenes);
-        }
-
-
-
-        // var_dump($rowspan);
-        $cont = 0; // Define la posición en la que me encuentro dentro del arreglo de programación
-
-
-
-        // Recorro el arreglo con las placas y su respectivo contador
-        // var_dump($rowspan);
-
-        foreach ($rowspan as $key => $value) {
-            $tr = "";
-
-            $numfilas = $value; //num filas repetidas de cada registro
-
-
-
-
-
-            $tr .= "
-            <tr>
-                <td data-datatable-multi-row-rowspan='$numfilas'> <button class='btn btn-outline-dark btn-editarOrden' title='Ir a la orden' data-toggle='tooltip' data-placement='top' idorden='{$respuesta[$cont]['idorden']}'>" . $respuesta[$cont]['idorden'] . "</button></td>
-                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['placa'] . "</td>
-                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['kilometraje_orden'] . "</td>
-                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['cliente'] . "</td>
-                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['factura'] . "</td>
-                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['municipio'] . "</td>
-                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['Ffecha_entrada'] . "</td>
-                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['Ffecha_trabajos'] . "</td>
-                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['fecha_aprobacion']; // . "</td>"; // La columna anterior a la columna que si tiene varias filas juntas, no se puede cerrar aún
-
-
-            if ($numfilas > 1) {
-                $tr .= "<script type='x/template' class='extra-row-content'>"; // abre script
-
-                // Comienza iteración
-                for ($i = 0; $i < $numfilas - 1; $i++) { // $numfilas - 1 para cerrar el script antes de escribir el último item que debería iterar
-                    // Por cada uno tiene que abrir también un tr
-                    if ($respuesta[$cont]['porcentaje_cliente'] != 0) {
-
-                        $valor_corresponde_cliente = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_cliente'] / 100));
-                    } else {
-                        $valor_corresponde_cliente = "";
+        if($respuesta != "")
+        {
+            $ordenes = array();
+            foreach ($respuesta as $key => $value) {
+                array_push($ordenes, $value['idorden']);
+            }
+    
+    
+            //GENERA UN ARRRAY CON LA CANTIDAD DE VECES QUE HAY UNA PLACA 
+            foreach ($ordenes as $key => $value) {
+                $rowspan = array_count_values($ordenes);
+            }
+    
+    
+    
+            // var_dump($rowspan);
+            $cont = 0; // Define la posición en la que me encuentro dentro del arreglo de programación
+    
+    
+    
+            // Recorro el arreglo con las placas y su respectivo contador
+            // var_dump($rowspan);
+    
+            foreach ($rowspan as $key => $value) {
+                $tr = "";
+    
+                $numfilas = $value; //num filas repetidas de cada registro
+    
+    
+    
+    
+    
+                $tr .= "
+                <tr>
+                    <td data-datatable-multi-row-rowspan='$numfilas'> <button class='btn btn-outline-dark btn-editarOrden' title='Ir a la orden' data-toggle='tooltip' data-placement='top' idorden='{$respuesta[$cont]['idorden']}'>" . $respuesta[$cont]['idorden'] . "</button></td>
+                    <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['placa'] . "</td>
+                    <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['kilometraje_orden'] . "</td>
+                    <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['cliente'] . "</td>
+                    <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['factura'] . "</td>
+                    <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['municipio'] . "</td>
+                    <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['Ffecha_entrada'] . "</td>
+                    <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['Ffecha_trabajos'] . "</td>
+                    <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['fecha_aprobacion']; // . "</td>"; // La columna anterior a la columna que si tiene varias filas juntas, no se puede cerrar aún
+    
+    
+                if ($numfilas > 1) {
+                    $tr .= "<script type='x/template' class='extra-row-content'>"; // abre script
+    
+                    // Comienza iteración
+                    for ($i = 0; $i < $numfilas - 1; $i++) { // $numfilas - 1 para cerrar el script antes de escribir el último item que debería iterar
+                        // Por cada uno tiene que abrir también un tr
+                        if ($respuesta[$cont]['porcentaje_cliente'] != 0) {
+    
+                            $valor_corresponde_cliente = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_cliente'] / 100));
+                        } else {
+                            $valor_corresponde_cliente = "";
+                        }
+                        if ($respuesta[$cont]['porcentaje_empresa'] != 0) {
+                            $valor_corresponde_empresa = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_empresa'] / 100));
+                        } else {
+                            $valor_corresponde_empresa = "";
+                        }
+                        if ($respuesta[$cont]['porcentaje_contratista'] != 0) {
+                            $valor_corresponde_contratista = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_contratista'] / 100));
+                        } else {
+                            $valor_corresponde_contratista = "";
+                        }
+    
+                        $tr .= "
+                                    <tr>
+                                        <td>" . $respuesta[$cont]['servicio'] . "</td>
+                                        <td>" . $respuesta[$cont]['nombre_contacto'] . "</td>
+                                        <td>" . $respuesta[$cont]['item'] . "</td>
+                                        <td>" . $respuesta[$cont]['descripcion'] . "</td>
+                                        <td>" . $respuesta[$cont]['sistema'] . "</td>
+                                        <td>" . $respuesta[$cont]['cantidad'] . "</td>
+                                        <td>" . $respuesta[$cont]['valor'] . "$</td>
+                                        <td>" . $respuesta[$cont]['iva'] . "%</td>
+                                        <td>" . $respuesta[$cont]['cliente_asume'] . "</td>
+                                        <td>" . $respuesta[$cont]['porcentaje_cliente'] . "% - " . $valor_corresponde_cliente . "$</td>
+                                        <td>" . $respuesta[$cont]['empresa_asume'] . "</td>
+                                        <td>" . $respuesta[$cont]['porcentaje_empresa'] . "% - " . $valor_corresponde_empresa . "$</td>
+                                        <td>" . $respuesta[$cont]['contratista_asume'] . "</td>
+                                        <td>" . $respuesta[$cont]['porcentaje_contratista'] . "% - " . $valor_corresponde_contratista . "$</td>
+                                        <td>" . $respuesta[$cont]['total'] . "$</td>
+                                        <td>" . $respuesta[$cont]['mantenimiento'] . "</td>
+                                        <td>" . $respuesta[$cont]['nombre_cuenta'] . "</td>
+                                        <td>" . $respuesta[$cont]['num_cuenta'] . "</td>
+                                        <td><button type='button' class='btn btn-success btn-asume' data-toggle='modal' data-target='#modalAsume' idvehiculo='{$respuesta[$cont]['idvehiculo']}' idcliente='{$respuesta[$cont]['idcliente']}' idcuenta='{$respuesta[$cont]['idcuenta']}' cliente='{$respuesta[$cont]['cliente']}' num_cuenta='{$respuesta[$cont]['num_cuenta']}' nombre_cuenta='{$respuesta[$cont]['nombre_cuenta']}' total='{$respuesta[$cont]['total']}' iva='{$respuesta[$cont]['iva']}' valor='{$respuesta[$cont]['valor']}' cantidad='{$respuesta[$cont]['cantidad']}' idorden='{$respuesta[$cont]['idorden']}' id='{$respuesta[$cont]['id']}' descripcion='{$respuesta[$cont]['descripcion']}' ><i class='fas fa-wallet'></i></button></td>
+    
+                                        </tr>
+                                        ";
+    
+                        $cont++; // Aumento la posición
                     }
-                    if ($respuesta[$cont]['porcentaje_empresa'] != 0) {
-                        $valor_corresponde_empresa = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_empresa'] / 100));
-                    } else {
-                        $valor_corresponde_empresa = "";
-                    }
-                    if ($respuesta[$cont]['porcentaje_contratista'] != 0) {
-                        $valor_corresponde_contratista = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_contratista'] / 100));
-                    } else {
-                        $valor_corresponde_contratista = "";
-                    }
-
-                    $tr .= "
-                                <tr>
-                                    <td>" . $respuesta[$cont]['servicio'] . "</td>
-                                    <td>" . $respuesta[$cont]['nombre_contacto'] . "</td>
-                                    <td>" . $respuesta[$cont]['item'] . "</td>
-                                    <td>" . $respuesta[$cont]['descripcion'] . "</td>
-                                    <td>" . $respuesta[$cont]['sistema'] . "</td>
-                                    <td>" . $respuesta[$cont]['cantidad'] . "</td>
-                                    <td>" . $respuesta[$cont]['valor'] . "$</td>
-                                    <td>" . $respuesta[$cont]['iva'] . "%</td>
-                                    <td>" . $respuesta[$cont]['cliente_asume'] . "</td>
-                                    <td>" . $respuesta[$cont]['porcentaje_cliente'] . "% - " . $valor_corresponde_cliente . "$</td>
-                                    <td>" . $respuesta[$cont]['empresa_asume'] . "</td>
-                                    <td>" . $respuesta[$cont]['porcentaje_empresa'] . "% - " . $valor_corresponde_empresa . "$</td>
-                                    <td>" . $respuesta[$cont]['contratista_asume'] . "</td>
-                                    <td>" . $respuesta[$cont]['porcentaje_contratista'] . "% - " . $valor_corresponde_contratista . "$</td>
-                                    <td>" . $respuesta[$cont]['total'] . "$</td>
-                                    <td>" . $respuesta[$cont]['mantenimiento'] . "</td>
-                                    <td>" . $respuesta[$cont]['nombre_cuenta'] . "</td>
-                                    <td>" . $respuesta[$cont]['num_cuenta'] . "</td>
-                                    <td><button type='button' class='btn btn-success btn-asume' data-toggle='modal' data-target='#modalAsume' idvehiculo='{$respuesta[$cont]['idvehiculo']}' idcliente='{$respuesta[$cont]['idcliente']}' idcuenta='{$respuesta[$cont]['idcuenta']}' cliente='{$respuesta[$cont]['cliente']}' num_cuenta='{$respuesta[$cont]['num_cuenta']}' nombre_cuenta='{$respuesta[$cont]['nombre_cuenta']}' total='{$respuesta[$cont]['total']}' iva='{$respuesta[$cont]['iva']}' valor='{$respuesta[$cont]['valor']}' cantidad='{$respuesta[$cont]['cantidad']}' idorden='{$respuesta[$cont]['idorden']}' id='{$respuesta[$cont]['id']}' descripcion='{$respuesta[$cont]['descripcion']}' ><i class='fas fa-wallet'></i></button></td>
-
-                                    </tr>
-                                    ";
-
-                    $cont++; // Aumento la posición
+    
+                    // Cierro script
+                    $tr .= "</script>";
                 }
-
-                // Cierro script
-                $tr .= "</script>";
+                // Cierro td anterior al td que itera muchas veces, en este caso el de fecha programación, si no entra ninguna vez a la condición anterior pues simplemente sale
+                $tr .= "</td>";
+    
+                if ($respuesta[$cont]['porcentaje_cliente'] != 0) {
+    
+                    $valor_corresponde_cliente = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_cliente'] / 100));
+                } else {
+                    $valor_corresponde_cliente = "";
+                }
+                if ($respuesta[$cont]['porcentaje_empresa'] != 0) {
+                    $valor_corresponde_empresa = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_empresa'] / 100));
+                } else {
+                    $valor_corresponde_empresa = "";
+                }
+                if ($respuesta[$cont]['porcentaje_contratista'] != 0) {
+                    $valor_corresponde_contratista = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_contratista'] / 100));
+                } else {
+                    $valor_corresponde_contratista = "";
+                }
+    
+                // Monta el último servicio que se iteró, si no tuvo que iterar solo se escribe y ya
+                $tr .= "<td>" . $respuesta[$cont]['servicio'] . "</td>";
+                $tr .= "<td>" . $respuesta[$cont]['nombre_contacto'] . "</td>";
+                $tr .= "<td>" . $respuesta[$cont]['item'] . "</td>";
+                $tr .= "<td>" . $respuesta[$cont]['descripcion'] . "</td>";
+                $tr .= "<td>" . $respuesta[$cont]['sistema'] . "</td>";
+                $tr .= "<td>" . $respuesta[$cont]['cantidad'] . "</td>";
+                $tr .= "<td>" . $respuesta[$cont]['valor'] . "$</td>";
+                $tr .= "<td>" . $respuesta[$cont]['iva'] . "%</td>";
+                $tr .= "<td>" . $respuesta[$cont]['cliente_asume'] . "</td>";
+                $tr .= "<td>" . $respuesta[$cont]['porcentaje_cliente'] . "% - " . $valor_corresponde_cliente . "$</td>";
+                $tr .= "<td>" . $respuesta[$cont]['empresa_asume'] . "</td>";
+                $tr .= "<td>" . $respuesta[$cont]['porcentaje_empresa'] . "% - " . $valor_corresponde_empresa . "$</td>";
+                $tr .= "<td>" . $respuesta[$cont]['contratista_asume'] . "</td>";
+                $tr .= "<td>" . $respuesta[$cont]['porcentaje_contratista'] . "% - " . $valor_corresponde_contratista . "$</td>";
+                $tr .= "<td>" . $respuesta[$cont]['total'] . "$</td>";
+                $tr .= "<td>" . $respuesta[$cont]['mantenimiento'] . "</td>";
+                $tr .= "<td>" . $respuesta[$cont]['nombre_cuenta'] . "</td>";
+                $tr .= "<td>" . $respuesta[$cont]['num_cuenta'] . "</td>";
+                $tr .= "<td><button type='button' class='btn btn-success btn-asume' data-toggle='modal' data-target='#modalAsume' idvehiculo='{$respuesta[$cont]['idvehiculo']}' idcliente='{$respuesta[$cont]['idcliente']}' idcuenta='{$respuesta[$cont]['idcuenta']}' cliente='{$respuesta[$cont]['cliente']}' num_cuenta='{$respuesta[$cont]['num_cuenta']}' nombre_cuenta='{$respuesta[$cont]['nombre_cuenta']}' total='{$respuesta[$cont]['total']}' iva='{$respuesta[$cont]['iva']}' valor='{$respuesta[$cont]['valor']}' cantidad='{$respuesta[$cont]['cantidad']}' idorden='{$respuesta[$cont]['idorden']}' id='{$respuesta[$cont]['id']}' descripcion='{$respuesta[$cont]['descripcion']}' ><i class='fas fa-wallet'></i></button></td>";
+    
+    
+                $cont++; // Aumento una posición más del contador que me posiciona dentro del arreglo de programación
+    
+                echo $tr;
             }
-            // Cierro td anterior al td que itera muchas veces, en este caso el de fecha programación, si no entra ninguna vez a la condición anterior pues simplemente sale
-            $tr .= "</td>";
 
-            if ($respuesta[$cont]['porcentaje_cliente'] != 0) {
-
-                $valor_corresponde_cliente = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_cliente'] / 100));
-            } else {
-                $valor_corresponde_cliente = "";
-            }
-            if ($respuesta[$cont]['porcentaje_empresa'] != 0) {
-                $valor_corresponde_empresa = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_empresa'] / 100));
-            } else {
-                $valor_corresponde_empresa = "";
-            }
-            if ($respuesta[$cont]['porcentaje_contratista'] != 0) {
-                $valor_corresponde_contratista = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_contratista'] / 100));
-            } else {
-                $valor_corresponde_contratista = "";
-            }
-
-            // Monta el último servicio que se iteró, si no tuvo que iterar solo se escribe y ya
-            $tr .= "<td>" . $respuesta[$cont]['servicio'] . "</td>";
-            $tr .= "<td>" . $respuesta[$cont]['nombre_contacto'] . "</td>";
-            $tr .= "<td>" . $respuesta[$cont]['item'] . "</td>";
-            $tr .= "<td>" . $respuesta[$cont]['descripcion'] . "</td>";
-            $tr .= "<td>" . $respuesta[$cont]['sistema'] . "</td>";
-            $tr .= "<td>" . $respuesta[$cont]['cantidad'] . "</td>";
-            $tr .= "<td>" . $respuesta[$cont]['valor'] . "$</td>";
-            $tr .= "<td>" . $respuesta[$cont]['iva'] . "%</td>";
-            $tr .= "<td>" . $respuesta[$cont]['cliente_asume'] . "</td>";
-            $tr .= "<td>" . $respuesta[$cont]['porcentaje_cliente'] . "% - " . $valor_corresponde_cliente . "$</td>";
-            $tr .= "<td>" . $respuesta[$cont]['empresa_asume'] . "</td>";
-            $tr .= "<td>" . $respuesta[$cont]['porcentaje_empresa'] . "% - " . $valor_corresponde_empresa . "$</td>";
-            $tr .= "<td>" . $respuesta[$cont]['contratista_asume'] . "</td>";
-            $tr .= "<td>" . $respuesta[$cont]['porcentaje_contratista'] . "% - " . $valor_corresponde_contratista . "$</td>";
-            $tr .= "<td>" . $respuesta[$cont]['total'] . "$</td>";
-            $tr .= "<td>" . $respuesta[$cont]['mantenimiento'] . "</td>";
-            $tr .= "<td>" . $respuesta[$cont]['nombre_cuenta'] . "</td>";
-            $tr .= "<td>" . $respuesta[$cont]['num_cuenta'] . "</td>";
-            $tr .= "<td><button type='button' class='btn btn-success btn-asume' data-toggle='modal' data-target='#modalAsume' idvehiculo='{$respuesta[$cont]['idvehiculo']}' idcliente='{$respuesta[$cont]['idcliente']}' idcuenta='{$respuesta[$cont]['idcuenta']}' cliente='{$respuesta[$cont]['cliente']}' num_cuenta='{$respuesta[$cont]['num_cuenta']}' nombre_cuenta='{$respuesta[$cont]['nombre_cuenta']}' total='{$respuesta[$cont]['total']}' iva='{$respuesta[$cont]['iva']}' valor='{$respuesta[$cont]['valor']}' cantidad='{$respuesta[$cont]['cantidad']}' idorden='{$respuesta[$cont]['idorden']}' id='{$respuesta[$cont]['id']}' descripcion='{$respuesta[$cont]['descripcion']}' ><i class='fas fa-wallet'></i></button></td>";
-
-
-            $cont++; // Aumento una posición más del contador que me posiciona dentro del arreglo de programación
-
+        }else{
+            $tr = "";
             echo $tr;
         }
+
 
 
         // Ejemplo
@@ -824,79 +831,86 @@ class AjaxMantenimientos
     {
         $respuesta = ControladorMantenimientos::ctrListaProgramacion();
 
-        $placas = array();
-        foreach ($respuesta as $key => $value) {
-            array_push($placas, $value['placa']);
-        }
-
-        //GENERA UN ARRRAY CON LA CANTIDAD DE VECES QUE HAY UNA PLACA 
-        foreach ($placas as $key => $value) {
-            $rowspan = array_count_values($placas);
-        }
-
-        $repetidas = array();
-
-        //var_dump($rowspan);
-        $cont = 0; // Define la posición en la que me encuentro dentro del arreglo de programación
-
-        // Recorro el arreglo con las placas y su respectivo contador
-        foreach ($rowspan as $key => $value) {
-            $tr = "";
-
-            $numfilas = $value; //num filas repetidas de cada registro
-
-            // Escribiendo las primeras columnas con rowspan de la tabla 
-            $tr .= "
-                     <tr>
-                        <td data-datatable-multi-row-rowspan='$numfilas'>
-                            <button type='button' class='btn btn-info btn-md btn-serviciosprogramacion' idsolicitud='{$respuesta[$cont]['idsolicitud']}' data-toggle='modal' data-target='#servicios'> <i class='fas fa-clipboard-list'></i></button>
-                            <button type='button' class='btn btn-warning btn-md btn-programacionxvehiculo' idsolicitud='{$respuesta[$cont]['idsolicitud']}' idvehiculo='{$respuesta[$cont]['idvehiculo']}' data-toggle='modal' data-target='#serviciosxvehiculo' style='display:none;'> <i class='far fa-calendar-alt'></i> </button>
-                            <button  type='button' class='btn btn-success btn-md btn-programacion' idsolicitud='{$respuesta[$cont]['idsolicitud']}' idvehiculo='{$respuesta[$cont]['idvehiculo']}' data-toggle='modal' data-target='#Programacion'> <i class='far fa-clock'></i></button>
-
-                        </td>
-                        <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['placa'] . "</td>
-                        <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['numinterno'] . "</td>
-                        <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['kilometraje_actual'] . "</td>
-                        <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['fecha_solicitud'] . "</td>
-                        <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['fecha_programacion']; // . "</td>"; // La columna anterior a la columna que si tiene varias filas juntas, no se puede cerrar aún
-            // Si existe más de una fila abre el script y luego itera por cada uno
-            if ($numfilas > 1) {
-                $tr .= "<script type='x/template' class='extra-row-content'>"; // abre script
-
-                // Comienza iteración
-                for ($i = 0; $i < $numfilas - 1; $i++) { // $numfilas - 1 para cerrar el script antes de escribir el último item que debería iterar
-                    // Por cada uno tiene que abrir también un tr
-                    $tr .= "
-                                <tr><td>" . $respuesta[$cont]['item'] . "</td></tr>
-                        ";
-
-                    $cont++; // Aumento la posición
+        if($respuesta != "")
+        {
+            $placas = array();
+            foreach ($respuesta as $key => $value) {
+                array_push($placas, $value['placa']);
+            }
+    
+            //GENERA UN ARRRAY CON LA CANTIDAD DE VECES QUE HAY UNA PLACA 
+            foreach ($placas as $key => $value) {
+                $rowspan = array_count_values($placas);
+            }
+    
+            $repetidas = array();
+    
+            //var_dump($rowspan);
+            $cont = 0; // Define la posición en la que me encuentro dentro del arreglo de programación
+    
+            // Recorro el arreglo con las placas y su respectivo contador
+            foreach ($rowspan as $key => $value) {
+                $tr = "";
+    
+                $numfilas = $value; //num filas repetidas de cada registro
+    
+                // Escribiendo las primeras columnas con rowspan de la tabla 
+                $tr .= "
+                         <tr>
+                            <td data-datatable-multi-row-rowspan='$numfilas'>
+                                <button type='button' class='btn btn-info btn-md btn-serviciosprogramacion' idsolicitud='{$respuesta[$cont]['idsolicitud']}' data-toggle='modal' data-target='#servicios'> <i class='fas fa-clipboard-list'></i></button>
+                                <button type='button' class='btn btn-warning btn-md btn-programacionxvehiculo' idsolicitud='{$respuesta[$cont]['idsolicitud']}' idvehiculo='{$respuesta[$cont]['idvehiculo']}' data-toggle='modal' data-target='#serviciosxvehiculo' style='display:none;'> <i class='far fa-calendar-alt'></i> </button>
+                                <button  type='button' class='btn btn-success btn-md btn-programacion' idsolicitud='{$respuesta[$cont]['idsolicitud']}' idvehiculo='{$respuesta[$cont]['idvehiculo']}' data-toggle='modal' data-target='#Programacion'> <i class='far fa-clock'></i></button>
+    
+                            </td>
+                            <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['placa'] . "</td>
+                            <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['numinterno'] . "</td>
+                            <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['kilometraje_actual'] . "</td>
+                            <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['fecha_solicitud'] . "</td>
+                            <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['fecha_programacion']; // . "</td>"; // La columna anterior a la columna que si tiene varias filas juntas, no se puede cerrar aún
+                // Si existe más de una fila abre el script y luego itera por cada uno
+                if ($numfilas > 1) {
+                    $tr .= "<script type='x/template' class='extra-row-content'>"; // abre script
+    
+                    // Comienza iteración
+                    for ($i = 0; $i < $numfilas - 1; $i++) { // $numfilas - 1 para cerrar el script antes de escribir el último item que debería iterar
+                        // Por cada uno tiene que abrir también un tr
+                        $tr .= "
+                                    <tr><td>" . $respuesta[$cont]['item'] . "</td></tr>
+                            ";
+    
+                        $cont++; // Aumento la posición
+                    }
+    
+                    // Cierro script
+                    $tr .= "</script>";
                 }
-
-                // Cierro script
-                $tr .= "</script>";
+                // Cierro td anterior al td que itera muchas veces, en este caso el de fecha programación, si no entra ninguna vez a la condición anterior pues simplemente sale
+                $tr .= "</td>";
+                // Monta el último item que se iteró, si no tuvo que iterar solo se escribe y ya
+                $tr .= "<td>" . $respuesta[$cont]['item'] . "</td>";
+    
+                // Últimas columnas de la tabla
+                if ($respuesta[$cont]['tiempo_mantenimiento'] != "") {
+    
+                    $tr .= "
+                                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['tiempo_mantenimiento'] . " Días</td>
+                                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['observacion'] . "</td>
+                            </tr>
+                            ";
+                } else {
+                    $tr .= "
+                                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['tiempo_mantenimiento'] . "</td>
+                                <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['observacion'] . "</td>
+                            </tr>
+                            ";
+                }
+                $cont++; // Aumento una posición más del contador que me posiciona dentro del arreglo de programación
+                echo $tr;
             }
-            // Cierro td anterior al td que itera muchas veces, en este caso el de fecha programación, si no entra ninguna vez a la condición anterior pues simplemente sale
-            $tr .= "</td>";
-            // Monta el último item que se iteró, si no tuvo que iterar solo se escribe y ya
-            $tr .= "<td>" . $respuesta[$cont]['item'] . "</td>";
 
-            // Últimas columnas de la tabla
-            if ($respuesta[$cont]['tiempo_mantenimiento'] != "") {
-
-                $tr .= "
-                            <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['tiempo_mantenimiento'] . " Días</td>
-                            <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['observacion'] . "</td>
-                        </tr>
-                        ";
-            } else {
-                $tr .= "
-                            <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['tiempo_mantenimiento'] . "</td>
-                            <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['observacion'] . "</td>
-                        </tr>
-                        ";
-            }
-            $cont++; // Aumento una posición más del contador que me posiciona dentro del arreglo de programación
+        }else{
+            $tr = "";
             echo $tr;
         }
 
@@ -969,153 +983,302 @@ class AjaxMantenimientos
         // ";
     }
 
-
     /* ===================================================
         TABLA PROGRAMACIÓN POR VEHÍCULO
     ===================================================*/
     static public function ajaxTablaProgramacionxVehiculo($idvehiculo)
     {
+
         $respuesta = ModeloMantenimientos::mdlProgramacionxVehiculo($idvehiculo);
+        
+        
 
-        $placas = array();
-        foreach ($respuesta as $key => $value) {
-            array_push($placas, $value['placa']);
-        }
-
-        //GENERA UN ARRRAY CON LA CANTIDAD DE VECES QUE HAY UNA PLACA 
-        foreach ($placas as $key => $value) {
-            $rowspan = array_count_values($placas);
-        }
-
-        //Array que nos guarda las placas que ya se pusieron en la tabla para así juntar los itemas
-        $repetidas = array();
-
-
-        foreach ($respuesta as $key => $value) {
-
-            $tr = "";
-            //Si la placa está en el array es porque ya se hizo una fila de sus datos en la tabla
-            //Entonces se añaden los items a la misma fila, si no hay fila de esa placa
-            //Se crea una nueva fila con todo
-
-            if (in_array($value['placa'], $repetidas)) {
-                $fecha_Actual = date('Y-m-d');
-
-                // VALIDACIÓN SI LA FECHA YA VENCIÓ 
-                // if ($fecha_Actual < $value['fecha_comparar']) {
-                //     $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
-                // }
-                // else if ($fecha_Actual > $value['fecha_comparar']) {
-                //     $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
-                // } else if($value['fecha_comparar'] == null || $value['fecha_comparar'] == "" || !isset($value['fecha_comparar'])){
-                //     $fecha = "<td>No aplica </td>";
-                // }
-
-                $semaforo = ControladorVehiculos::Semaforo_tipo1($value['fecha_comparar'], $fecha_Actual);
-
-
-                //VALIDACIÓN SI EL KILOMETRAJE YA SE PASÓ
-                if ($value['kilometraje_servicio'] != 0 && $value['kilometraje_actual'] >= $value['kilometraje_cambio']) {
-                    $kilometraje = "<td class='bg-danger'>" . $value['kilometraje_cambio'] .  "</td>";
-                }
-                if ($value['kilometraje_servicio'] == 0) {
-                    $kilometraje = "<td>No aplica</td>";
-                } else {
-                    $kilometraje = "<td class='bg-success'>" . $value['kilometraje_cambio'] .  "</td>";
-                }
-
-                //VALIDACION SI VIENE EVIDENCIA
-                if ($value['ruta_foto'] != NULL or $value['ruta_foto'] != "") {
-
-                    $tr .= "
-                    <tr>
-                    <td>" . $value['item'] . "</td>
-                    $kilometraje 
-                    <td>No aplica</td>
-                    <td><a href=' " . $value['ruta_foto'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a></td>
-                    
-                    
-                    </tr>
-                    ";
-                } else {
-                    $tr .= "
-                    <tr>
-                    <td>" . $value['item'] . "</td>
-                    $kilometraje 
-                    <td class='bg-{$semaforo}'> " . $value['fecha_cambio'] . "</td>
-                    <td>Sin evidencia</td>
-    
-                    
-                    </tr>
-                    ";
-                }
-            } else {
-                $fecha_Actual = date('Y-m-d');
-
-
-                // VALIDACIÓN SI LA FECHA YA VENCIÓ 
-                // if ($fecha_Actual < $value['fecha_comparar']) {
-                //     $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
-                // }
-                // else if ($fecha_Actual > $value['fecha_comparar']) {
-                //     $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
-                //     echo $value['fecha_comparar'];
-                // } else if($value['fecha_comparar'] == null || $value['fecha_comparar'] == "" || !isset($value['fecha_comparar'])){
-                //     $fecha = "<td>No aplica </td>";
-                // }
-
-                $semaforo = ControladorVehiculos::Semaforo_tipo1($value['fecha_comparar'], $fecha_Actual);
-
-
-                //VALIDACIÓN SI EL KILOMETRAJE YA SE PASÓ
-                if ($value['kilometraje_servicio'] != 0 && $value['kilometraje_actual'] >= $value['kilometraje_cambio']) {
-                    $kilometraje = "<td class='bg-danger'>" . $value['kilometraje_cambio'] .  "</td>";
-                }
-                if ($value['kilometraje_servicio'] == 0) {
-                    $kilometraje = "<td>No aplica</td>";
-                } else {
-                    $kilometraje = "<td class='bg-success'>" . $value['kilometraje_cambio'] .  "</td>";
-                }
-
-                array_push($repetidas, $value['placa']);
-                //El $rowspan[$value['placa']]' me devuelve la cantidad de veces que está la misma
-                //Placa en la programación, de ese modo sabemos cuantas filas combinar
-
-                if ($value['ruta_foto'] != NULL or $value['ruta_foto'] != "") {
-
-                    $tr .= "
-                        <tr>
-                            
-                            <td rowspan='{$rowspan[$value['placa']]}'>" . $value['kilometraje_actual'] . "</td>
-                            <td>" . $value['item'] . "</td>
-                            $kilometraje
-                            <td>No aplica</td>
-                            <td>" . $value['ruta_foto'] . "</td>
-                            <td rowspan='{$rowspan[$value['placa']]}'>" . $value['fecha_programacion'] . " </td>
-                            <td><a href=' " . $value['ruta_foto'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a></td>
-
-                        </tr>
-    
-    
-                    ";
-                } else {
-                    $tr .= "
-                        <tr>
-                            
-                            <td rowspan='{$rowspan[$value['placa']]}'>" . $value['kilometraje_actual'] . "</td>
-                            <td>" . $value['item'] . "</td>
-                            $kilometraje
-                            <td class='bg-{$semaforo}'> " . $value['fecha_cambio'] . "</td>
-                            <td>Sin evidencia</td>
-                            <td rowspan='{$rowspan[$value['placa']]}'>" . $value['fecha_programacion'] . " </td>
-
-                        </tr>
-                    ";
-                }
+        if($respuesta != ""){
+            
+            $placas = array();
+            foreach ($respuesta as $key => $value) {
+                array_push($placas, $value['placa']);
             }
+            
+            $rowspan = array();
+            //GENERA UN ARRRAY CON LA CANTIDAD DE VECES QUE HAY UNA PLACA 
+            foreach ($placas as $key => $value) {
+                $rowspan = array_count_values($placas);
+            }
+    
+            $repetidas = array();
+    
+            //var_dump($rowspan);
+            $cont = 0; // Define la posición en la que me encuentro dentro del arreglo de programación
+    
+            // Recorro el arreglo con las placas y su respectivo contador
+            foreach ($rowspan as $key => $value) {
+                $tr = "";
+    
+                $numfilas = $value; //num filas repetidas de cada registro
+    
+                // Escribiendo las primeras columnas con rowspan de la tabla 
+                $tr .= "
+                         <tr>
+                            
+                            
+                            <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['kilometraje_actual']; // . "</td>"; // La columna anterior a la columna que si tiene varias filas juntas, no se puede cerrar aún
+                // Si existe más de una fila abre el script y luego itera por cada uno
+                if ($numfilas > 1) {
+                    $tr .= "<script type='x/template' class='extra-row-content'>"; // abre script
+    
+                    // Comienza iteración
+                    for ($i = 0; $i < $numfilas - 1; $i++) { // $numfilas - 1 para cerrar el script antes de escribir el último item que debería iterar
+                        // Por cada uno tiene que abrir también un tr
+    
+                        $fecha_Actual = date('Y-m-d');
+                        $semaforo = ControladorVehiculos::Semaforo_tipo1($respuesta[$cont]['fecha_comparar'], $fecha_Actual);
+    
+                        //VALIDACIÓN SI EL KILOMETRAJE YA SE PASÓ
+                        if ($respuesta[$cont]['kilometraje_servicio'] != 0 && $respuesta[$cont]['kilometraje_actual'] >= $respuesta[$cont]['kilometraje_cambio']) {
+                            $kilometraje = "<td class='bg-danger'>" . $respuesta[$cont]['kilometraje_cambio'] .  "</td>";
+                        }
+                        if ($respuesta[$cont]['kilometraje_servicio'] == 0) {
+                            $kilometraje = "<td>No aplica</td>";
+                        } else {
+                            $kilometraje = "<td class='bg-success'>" . $respuesta[$cont]['kilometraje_cambio'] .  "</td>";
+                        }
+    
+                        if ($respuesta[$cont]['ruta_foto'] != "") {
+    
+                            $tr .= "
+                                        <tr><td>" . $respuesta[$cont]['item'] . "</td>
+                                        $kilometraje
+                                        <td class='bg-" . $semaforo . "' >" . $respuesta[$cont]['fecha_cambio'] . "</td>
+                                        <td><a href=' " . $respuesta[$cont]['ruta_foto'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a></td>
+                                        </tr>
+                                ";
+                        } else {
+                            $tr .= "
+                                        <tr><td>" . $respuesta[$cont]['item'] . "</td>
+                                        $kilometraje 
+                                        <td class='bg-" . $semaforo . "'>" . $respuesta[$cont]['fecha_cambio'] . "</td>
+                                        <td> Sin evidencia </td>
+                                        </tr>
+                                ";
+                        }
+    
+    
+                        $cont++; // Aumento la posición
+                    }
+    
+                    // Cierro script
+                    $tr .= "</script>";
+                }
+    
+                $fecha_Actual = date('Y-m-d');
+                $semaforo = ControladorVehiculos::Semaforo_tipo1($respuesta[$cont]['fecha_comparar'], $fecha_Actual);
+    
+                //VALIDACIÓN SI EL KILOMETRAJE YA SE PASÓ
+                if ($respuesta[$cont]['kilometraje_servicio'] != 0 && $respuesta[$cont]['kilometraje_actual'] >= $respuesta[$cont]['kilometraje_cambio']) {
+                    $kilometraje = "<td class='bg-danger'>" . $respuesta[$cont]['kilometraje_cambio'] .  "</td>";
+                }
+                if ($respuesta[$cont]['kilometraje_servicio'] == 0) {
+                    $kilometraje = "<td>No aplica</td>";
+                } else {
+                    $kilometraje = "<td class='bg-success'>" . $respuesta[$cont]['kilometraje_cambio'] .  "</td>";
+                }
+    
+    
+    
+    
+                // Cierro td anterior al td que itera muchas veces, en este caso el de fecha programación, si no entra ninguna vez a la condición anterior pues simplemente sale
+                $tr .= "</td>";
+    
+    
+                if ($respuesta[$cont]['ruta_foto'] != "") {
+                    $tr .= "<td>" . $respuesta[$cont]['item'] . "</td>";
+                    $tr .= $kilometraje;
+                    $tr .= "<td>No aplica</td>";
+                    $tr .= "<td><a href=' " . $respuesta[$cont]['ruta_foto'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a></td>";
+                    $tr .= "
+                            <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['fecha_programacion'] . "</td>
+                        </tr>
+                        ";
+                } else {
+                    $tr .= "<td>" . $respuesta[$cont]['item'] . "</td>";
+                    $tr .= $kilometraje;
+                    $tr .= "<td  class='bg-" . $semaforo . "'> ".$respuesta[$cont]['fecha_cambio']."</td>";
+                    $tr .= "<td>Sin evidencia </td>";
+                    $tr .= "
+                            <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['fecha_programacion'] . "</td>
+                        </tr>
+                        ";
+                }
+    
+    
+                // Monta el último item que se iteró, si no tuvo que iterar solo se escribe y ya
+                // $tr .= "<td>" . $respuesta[$cont]['item'] . "</td>";
+                // $tr .= $kilometraje;
+                // $tr .= "<td>" . $respuesta[$cont]['fecha_cambio'] . "</td>";
+                // $tr .= "<td><a href=' " . $respuesta[$cont]['ruta_foto'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a></td>";
+                // $tr .= "
+                //             <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['fecha_programacion'] . "</td>
+                //         </tr>
+                //         ";
+    
+    
+                $cont++; // Aumento una posición más del contador que me posiciona dentro del arreglo de programación
+                echo $tr;
+            }
+        }else{
+            $tr = "";
             echo $tr;
         }
+
     }
+
+    /* ===================================================
+        TABLA PROGRAMACIÓN POR VEHÍCULO
+    ===================================================*/
+    // static public function ajaxTablaProgramacionxVehiculo($idvehiculo)
+    // {
+    //     $respuesta = ModeloMantenimientos::mdlProgramacionxVehiculo($idvehiculo);
+
+    //     $placas = array();
+    //     foreach ($respuesta as $key => $value) {
+    //         array_push($placas, $value['placa']);
+    //     }
+
+    //     //GENERA UN ARRRAY CON LA CANTIDAD DE VECES QUE HAY UNA PLACA 
+    //     foreach ($placas as $key => $value) {
+    //         $rowspan = array_count_values($placas);
+    //     }
+
+    //     //Array que nos guarda las placas que ya se pusieron en la tabla para así juntar los itemas
+    //     $repetidas = array();
+
+
+    //     foreach ($respuesta as $key => $value) {
+
+    //         $tr = "";
+    //         //Si la placa está en el array es porque ya se hizo una fila de sus datos en la tabla
+    //         //Entonces se añaden los items a la misma fila, si no hay fila de esa placa
+    //         //Se crea una nueva fila con todo
+
+    //         if (in_array($value['placa'], $repetidas)) {
+    //             $fecha_Actual = date('Y-m-d');
+    //             $semaforo = ControladorVehiculos::Semaforo_tipo1($value['fecha_comparar'], $fecha_Actual);
+
+    //             // VALIDACIÓN SI LA FECHA YA VENCIÓ 
+    //             // if ($fecha_Actual < $value['fecha_comparar']) {
+    //             //     $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
+    //             // }
+    //             // else if ($fecha_Actual > $value['fecha_comparar']) {
+    //             //     $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
+    //             // } else if($value['fecha_comparar'] == null || $value['fecha_comparar'] == "" || !isset($value['fecha_comparar'])){
+    //             //     $fecha = "<td>No aplica </td>";
+    //             // }
+
+
+
+    //             //VALIDACIÓN SI EL KILOMETRAJE YA SE PASÓ
+    //             if ($value['kilometraje_servicio'] != 0 && $value['kilometraje_actual'] >= $value['kilometraje_cambio']) {
+    //                 $kilometraje = "<td class='bg-danger'>" . $value['kilometraje_cambio'] .  "</td>";
+    //             }
+    //             if ($value['kilometraje_servicio'] == 0) {
+    //                 $kilometraje = "<td>No aplica</td>";
+    //             } else {
+    //                 $kilometraje = "<td class='bg-success'>" . $value['kilometraje_cambio'] .  "</td>";
+    //             }
+
+    //             //VALIDACION SI VIENE EVIDENCIA
+    //             if ($value['ruta_foto'] != NULL or $value['ruta_foto'] != "") {
+
+    //                 $tr .= "
+    //                 <tr>
+    //                 <td>" . $value['item'] . "</td>
+    //                 $kilometraje 
+    //                 <td>No aplica</td>
+    //                 <td><a href=' " . $value['ruta_foto'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a></td>
+
+
+    //                 </tr>
+    //                 ";
+    //             } else {
+    //                 $tr .= "
+    //                 <tr>
+    //                 <td>" . $value['item'] . "</td>
+    //                 $kilometraje 
+    //                 <td class='bg-{$semaforo}'> " . $value['fecha_cambio'] . "</td>
+    //                 <td>Sin evidencia</td>
+
+
+    //                 </tr>
+    //                 ";
+    //             }
+    //         } else {
+    //             $fecha_Actual = date('Y-m-d');
+
+
+    //             // VALIDACIÓN SI LA FECHA YA VENCIÓ 
+    //             // if ($fecha_Actual < $value['fecha_comparar']) {
+    //             //     $fecha = "<td class='bg-success' > " . $value['fecha_cambio']   . "</td>";
+    //             // }
+    //             // else if ($fecha_Actual > $value['fecha_comparar']) {
+    //             //     $fecha = "<td class='bg-danger' > " . $value['fecha_cambio'] .  "</td>";
+    //             //     echo $value['fecha_comparar'];
+    //             // } else if($value['fecha_comparar'] == null || $value['fecha_comparar'] == "" || !isset($value['fecha_comparar'])){
+    //             //     $fecha = "<td>No aplica </td>";
+    //             // }
+
+    //             $semaforo = ControladorVehiculos::Semaforo_tipo1($value['fecha_comparar'], $fecha_Actual);
+
+
+    //             //VALIDACIÓN SI EL KILOMETRAJE YA SE PASÓ
+    //             if ($value['kilometraje_servicio'] != 0 && $value['kilometraje_actual'] >= $value['kilometraje_cambio']) {
+    //                 $kilometraje = "<td class='bg-danger'>" . $value['kilometraje_cambio'] .  "</td>";
+    //             }
+    //             if ($value['kilometraje_servicio'] == 0) {
+    //                 $kilometraje = "<td>No aplica</td>";
+    //             } else {
+    //                 $kilometraje = "<td class='bg-success'>" . $value['kilometraje_cambio'] .  "</td>";
+    //             }
+
+    //             array_push($repetidas, $value['placa']);
+    //             //El $rowspan[$value['placa']]' me devuelve la cantidad de veces que está la misma
+    //             //Placa en la programación, de ese modo sabemos cuantas filas combinar
+
+    //             if ($value['ruta_foto'] != NULL or $value['ruta_foto'] != "") {
+
+    //                 $tr .= "
+    //                     <tr>
+
+    //                         <td rowspan='{$rowspan[$value['placa']]}'>" . $value['kilometraje_actual'] . "</td>
+    //                         <td>" . $value['item'] . "</td>
+    //                         $kilometraje
+    //                         <td>No aplica</td>
+    //                         <td>" . $value['ruta_foto'] . "</td>
+    //                         <td rowspan='{$rowspan[$value['placa']]}'>" . $value['fecha_programacion'] . " </td>
+    //                         <td><a href=' " . $value['ruta_foto'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a></td>
+
+    //                     </tr>
+
+
+    //                 ";
+    //             } else {
+    //                 $tr .= "
+    //                     <tr>
+
+    //                         <td rowspan='{$rowspan[$value['placa']]}'>" . $value['kilometraje_actual'] . "</td>
+    //                         <td>" . $value['item'] . "</td>
+    //                         $kilometraje
+    //                         <td class='bg-{$semaforo}'> " . $value['fecha_cambio'] . "</td>
+    //                         <td>Sin evidencia</td>
+    //                         <td rowspan='{$rowspan[$value['placa']]}'>" . $value['fecha_programacion'] . " </td>
+
+    //                     </tr>
+    //                 ";
+    //             }
+    //         }
+    //         echo $tr;
+    //     }
+    // }
 
     /* ===================================================
         DATOS PROGRAMACIÓN POR VEHÍCULO    

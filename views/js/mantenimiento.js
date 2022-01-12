@@ -1544,6 +1544,7 @@ $(document).ready(function () {
          FUNCION PARA CARGAR TABLA PROGRAMACION POR VEHÍCULO
         =====================================================*/
         const AjaxTablaProgramacionxVehiculo = (idvehiculo, tbody, tabla) => {
+
             // Quitar datatable
             $(tabla).dataTable().fnDestroy();
             // Borrar datos
@@ -1561,7 +1562,8 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    if (response != "" || response != null) {
+                    console.log(response);
+                    if (response != "" || response != undefined) {
                         $(tbody).html(response);
                     } else {
                         $(tbody).html("");
@@ -1570,16 +1572,98 @@ $(document).ready(function () {
                     /* ===================================================
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
-                    // var buttons = [
-                    //   { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
-                    // ];
-                    // var table = dataTableCustom(`#tablaProgramacionServ`, buttons);
+                    var buttons = [
+                      { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    // var table = dataTableCustom(tabla, buttons);
+
+                    var table = $(tabla).DataTable({
+                        dom:
+                            "<'row'<'col-12 text-right'B>>" +
+                            "<'row mt-1'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+                            "<'row'<'col-sm-12'tr>>" +
+                            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                        buttons: buttons,
+                        orderCellsTop: true,
+                        fixedHeader: true,
+                        order: [],
+                        language: {
+                            sProcessing: "Procesando...",
+                            sLengthMenu: "Mostrar _MENU_ registros",
+                            sZeroRecords: "No se encontraron resultados",
+                            sEmptyTable: "Ningún dato disponible en esta tabla",
+                            sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                            sInfoEmpty:
+                                "Mostrando registros del 0 al 0 de un total de 0",
+                            sInfoFiltered:
+                                "<div class='small'>(filtrado de un total de _MAX_ registros)</div>",
+                            sInfoPostFix: "",
+                            sSearch: "Buscar:",
+                            sUrl: "",
+                            sInfoThousands: ",",
+                            sLoadingRecords: "Cargando...",
+                            oPaginate: {
+                                sFirst: "Primero",
+                                sLast: "Último",
+                                sNext: "Siguiente",
+                                sPrevious: "Anterior",
+                            },
+                            oAria: {
+                                sSortAscending:
+                                    ": Activar para ordenar la columna de manera ascendente",
+                                sSortDescending:
+                                    ": Activar para ordenar la columna de manera descendente",
+                            },
+                        },
+                        lengthMenu: [
+                            [10, 25, 50, 75, -1],
+                            [10, 25, 50, 75, "Todo"],
+                        ],
+                        fnDrawCallback: function () {
+                            $table = $(this);
+
+                            // only apply this to specific tables
+                            if ($table.closest(".datatable-multi-row").length) {
+                                // for each row in the table body...
+                                $table.find("tbody>tr").each(function () {
+                                    var $tr = $(this);
+
+                                    // get the "extra row" content from the <script> tag.
+                                    // note, this could be any DOM object in the row.
+                                    var extra_row = $tr
+                                        .find(".extra-row-content")
+                                        .html();
+
+                                    // in case draw() fires multiple times,
+                                    // we only want to add new rows once.
+                                    if (!$tr.next().hasClass("dt-added")) {
+                                        $tr.after(extra_row);
+                                        $tr.find("td").each(function () {
+                                            // for each cell in the top row,
+                                            // set the "rowspan" according to the data value.
+                                            var $td = $(this);
+                                            var rowspan = parseInt(
+                                                $td.data(
+                                                    "datatable-multi-row-rowspan"
+                                                ),
+                                                10
+                                            );
+                                            if (rowspan) {
+                                                $td.attr("rowspan", rowspan);
+                                            }
+                                        });
+                                    }
+                                });
+                            } // end if the table has the proper class
+                        }, // end fnDrawCallback()
+                    });
                 },
             });
         };
 
         // CARGAR DATOS DEL VEHICULO
         $(document).on("change", "#placa_OrdServ", function () {
+
             let fecha_actual = moment().format("YYYY-MM-DD");
             let idvehiculo = $(this).val();
 
@@ -1589,13 +1673,16 @@ $(document).ready(function () {
                 $(".documentos").val("");
             }
 
+            console.log(idvehiculo);
+
             //CARGAR TABLA DE PROGRAMACIÓN POR VEHÍCULO
             AjaxTablaProgramacionxVehiculo(
                 idvehiculo,
                 "#tbodyProgramacionServ",
                 "#tablaProgramacionServ"
             );
-            // AjaxTablaEvidenciasOrden(idvehiculo);
+            
+            AjaxTablaEvidenciasOrden(idvehiculo);
 
             var datos = new FormData();
             datos.append("DatosVehiculo", "ok");

@@ -347,8 +347,8 @@
 
 
                                       <!-- ===================================================
-                                            ** Documentos Contable
-                                            =================================================== -->
+                                        ** Documentos Contable
+                                        =================================================== -->
                                       <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                                           <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                                               <a href="#">
@@ -367,8 +367,8 @@
                                       <?php endif ?>
 
                                       <!-- ===================================================
-                                            ** Comercial
-                                            =================================================== -->
+                                        ** Comercial
+                                        =================================================== -->
                                       <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                                           <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                                               <a href="#">
@@ -386,8 +386,8 @@
                                       <?php endif ?>
 
                                       <!-- ===================================================
-                                            ** Escolar
-                                            =================================================== -->
+                                        ** Escolar
+                                        =================================================== -->
                                       <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                                           <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                                               <a href="#">
@@ -405,8 +405,8 @@
                                       <?php endif ?>
 
                                       <!-- ===================================================
-                                            ** Compras
-                                            =================================================== -->
+                                        ** Compras
+                                        =================================================== -->
                                       <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                                           <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                                               <div class="dropdown" style="cursor: pointer;">
@@ -428,8 +428,8 @@
                                       <?php endif ?>
 
                                       <!-- ===================================================
-                                            ** Estandar. procesos calidad
-                                            =================================================== -->
+                                        ** Estandar. procesos calidad
+                                        =================================================== -->
                                       <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                                           <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                                               <a href="#">
@@ -448,8 +448,8 @@
                                       <?php endif ?>
 
                                       <!-- ===================================================
-                                            ** Formatos de calidad
-                                            =================================================== -->
+                                        ** Formatos de calidad
+                                        =================================================== -->
                                       <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                                           <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                                               <a href="#">
@@ -468,25 +468,21 @@
                                       <?php endif ?>
 
                                       <!-- ===================================================
-                                            ** Rastreo Satelital
-                                            =================================================== -->
+                                        ** Rastreo Satelital
+                                        =================================================== -->
                                       <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                                           <div class="col-12 col-sm-6 col-md-4 col-xl-3">
-                                              <a href="#">
+                                              <a href="tr-gps">
                                                   <div class="info-box border border-info">
                                                       <span class="info-box-icon bg-info elevation-1"><i class="fas fa-map-marked-alt"></i></span>
                                                       <div class="info-box-content">
-                                                          <span class="info-box-text font-weight-bold text-dark">Rastreo
-                                                              Satelital</span>
+                                                          <span class="info-box-text font-weight-bold text-dark">Tecnolab Tracker</span>
                                                       </div>
-                                                      <!-- /.info-box-content -->
                                                   </div>
-                                                  <!-- /.info-box -->
                                               </a>
-                                          </div>
-                                          <!-- /.col -->
+                                            </div>
+                                            <!-- /.col -->
                                       <?php endif ?>
-
                                   </div>
                               </div>
                               <div class="tab-pane fade" id="custom-tabs-five-normal" role="tabpanel" aria-labelledby="custom-tabs-five-normal-tab">
@@ -674,7 +670,7 @@
       </div>
   </div>
 
-   <!--MODAL PARA VISUALIZAR LAS TAREAS DEL DIA ACTUAL-->
+  <!--MODAL PARA VISUALIZAR LAS TAREAS DEL DIA ACTUAL-->
   <div id="tareas_del_dia" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="tareas_del_dia-title" aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
           <div class="modal-content">
@@ -688,9 +684,9 @@
 
               <div class="modal-body">
                   <p>
-                    <ul id="ingresar_tareas">
+                  <ul id="ingresar_tareas">
 
-                    </ul>
+                  </ul>
                   </p>
               </div>
 
