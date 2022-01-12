@@ -78,10 +78,12 @@ $(document).ready(function () {
                     //     $("#llantas_buseta").addClass("d-none");
                     //     $("#llantas_camioneta").addClass("d-none");
                     // }
-                    if(Vehiculo.datosVehiculo.categoria == "BUS-BUSETA"){
+                    if (Vehiculo.datosVehiculo.categoria == "BUS-BUSETA") {
                         $("#llantas_bus_buseta").removeClass("d-none");
                         $("#llantas_camioneta_micro").addClass("d-none");
-                    } else if(Vehiculo.datosVehiculo.categoria == "CAMIONETA-MICRO"){
+                    } else if (
+                        Vehiculo.datosVehiculo.categoria == "CAMIONETA-MICRO"
+                    ) {
                         $("#llantas_camioneta_micro").removeClass("d-none");
                         $("#llantas_bus_buseta").addClass("d-none");
                     }
@@ -102,9 +104,9 @@ $(document).ready(function () {
                 processData: false,
                 success: function (response) {
                     response.forEach((element) => {
-                        $(
-                            `#documento_${element.idtipodocumento}`
-                        ).val(element.fechafin);
+                        $(`#documento_${element.idtipodocumento}`).val(
+                            element.fechafin
+                        );
 
                         // Color del fondo segun la fecha
                         // var bg =
@@ -113,11 +115,14 @@ $(document).ready(function () {
                         //         ? "bg-success"
                         //         : "bg-danger";
 
-                        bg = semaforo_tipo1(element.fechafin, moment().format("YYYY-MM-DD"));
+                        bg = semaforo_tipo1(
+                            element.fechafin,
+                            moment().format("YYYY-MM-DD")
+                        );
 
-                        $(
-                            `#documento_${element.idtipodocumento}`
-                        ).addClass("bg-"+bg);
+                        $(`#documento_${element.idtipodocumento}`).addClass(
+                            "bg-" + bg
+                        );
                     });
                 },
             });
@@ -164,9 +169,6 @@ $(document).ready(function () {
                 },
             });
         });
-
-
-        
 
         /*==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
         LICENCIA DEL CONDUCTOR SELECCIONADO
@@ -354,13 +356,11 @@ $(document).ready(function () {
         FUNCION PARA CAMBIAR EL INVENTARIO SEGUN EL TIPO DE VEHICULO
         ==========================================================================*/
         let inventario_tipo_vel = (response) => {
-            if (
-                response == "CAMIONETA-MICRO"
-            ) {
+            if (response == "CAMIONETA-MICRO") {
                 $(".input-camioneta").addClass("d-none");
                 $(".camioneta").removeAttr("required");
                 $(".camioneta").val(0);
-            } else if(response == "BUS-BUSETA") {
+            } else if (response == "BUS-BUSETA") {
                 $(".input-camioneta").removeClass("d-none");
                 $(".camioneta").prop("required", true);
             }
@@ -863,35 +863,81 @@ $(document).ready(function () {
                             true
                         );
                         $("input[name='balizas']").attr("disabled", true);
-
-                    } else if(Vehiculo.categoria == "BUS-BUSETA") {
+                    } else if (Vehiculo.categoria == "BUS-BUSETA") {
                         $("input[name='freno_ahogo']").attr("disabled", false);
                         $("input[name='compresor']").attr("disabled", false);
                         $("input[name='fuga_aire']").attr("disabled", false);
-                        $("input[name='banda_delantera_derecha']").attr("disabled",false);
-                        $("input[name='banda_delantera_izquierda']").attr("disabled",false);
+                        $("input[name='banda_delantera_derecha']").attr(
+                            "disabled",
+                            false
+                        );
+                        $("input[name='banda_delantera_izquierda']").attr(
+                            "disabled",
+                            false
+                        );
                         $("input[name='rachets']").attr("disabled", false);
                         $("input[name='llantar5']").attr("disabled", false);
                         $("input[name='llantar6']").attr("disabled", false);
                         $("input[name='tanques_aire']").attr("disabled", false);
-                        $("input[name='luces_delimitadoras']").attr("disabled",false);
+                        $("input[name='luces_delimitadoras']").attr(
+                            "disabled",
+                            false
+                        );
                         $("input[name='rutero']").attr("disabled", false);
-                        $("input[name='estribos_puerta']").attr("disabled",false);
-                        $("input[name='brazo_limpiaparabrisas_derecho']").attr("disabled",false);
-                        $("input[name='parabrisas_izquierdo']").attr("disabled",false);
-                        $("input[name='brazo_limpiaparabrisas_izquierdo']").attr("disabled", false);
-                        $("input[name='vidrio_puerta_principal']").attr("disabled",false);
-                        $("input[name='vidrio_segunda_puerta']").attr("disabled",false);
+                        $("input[name='estribos_puerta']").attr(
+                            "disabled",
+                            false
+                        );
+                        $("input[name='brazo_limpiaparabrisas_derecho']").attr(
+                            "disabled",
+                            false
+                        );
+                        $("input[name='parabrisas_izquierdo']").attr(
+                            "disabled",
+                            false
+                        );
+                        $(
+                            "input[name='brazo_limpiaparabrisas_izquierdo']"
+                        ).attr("disabled", false);
+                        $("input[name='vidrio_puerta_principal']").attr(
+                            "disabled",
+                            false
+                        );
+                        $("input[name='vidrio_segunda_puerta']").attr(
+                            "disabled",
+                            false
+                        );
                         $("input[name='claraboyas']").attr("disabled", false);
                         $("input[name='parales']").attr("disabled", false);
-                        $("input[name='booster_puertas']").attr("disabled",false);
+                        $("input[name='booster_puertas']").attr(
+                            "disabled",
+                            false
+                        );
                         $("input[name='reloj_vigia']").attr("disabled", false);
-                        $("input[name='vigia_delantera_derecha']").attr("disabled",false);
-                        $("input[name='vigia_delantera_izquierda']").attr("disabled",false);
-                        $("input[name='vigia_trasera_derecha']").attr("disabled",false);
-                        $("input[name='vigia_trasera_izquierda']").attr("disabled",false);
-                        $("input[name='martillo_emergencia']").attr("disabled",false);
-                        $("input[name='dispositivo_velocidad']").attr("disabled",false);
+                        $("input[name='vigia_delantera_derecha']").attr(
+                            "disabled",
+                            false
+                        );
+                        $("input[name='vigia_delantera_izquierda']").attr(
+                            "disabled",
+                            false
+                        );
+                        $("input[name='vigia_trasera_derecha']").attr(
+                            "disabled",
+                            false
+                        );
+                        $("input[name='vigia_trasera_izquierda']").attr(
+                            "disabled",
+                            false
+                        );
+                        $("input[name='martillo_emergencia']").attr(
+                            "disabled",
+                            false
+                        );
+                        $("input[name='dispositivo_velocidad']").attr(
+                            "disabled",
+                            false
+                        );
                         $("input[name='balizas']").attr("disabled", false);
                     }
 
@@ -925,9 +971,9 @@ $(document).ready(function () {
                         processData: false,
                         success: function (response) {
                             response.forEach((element) => {
-                                $(
-                                    `#documento_${element.idtipodocumento}`
-                                ).val(element.fechafin);
+                                $(`#documento_${element.idtipodocumento}`).val(
+                                    element.fechafin
+                                );
 
                                 // Color del fondo segun la fecha
                                 // var bg =
@@ -936,19 +982,19 @@ $(document).ready(function () {
                                 //         ? "bg-success"
                                 //         : "bg-danger";
 
-                                bg = semaforo_tipo1(element.fechafin, moment().format("YYYY-MM-DD"));
-                                        $(
-                                            `#documento_${element.idtipodocumento}`
-                                        ).addClass("bg-"+bg);
+                                bg = semaforo_tipo1(
+                                    element.fechafin,
+                                    moment().format("YYYY-MM-DD")
+                                );
+                                $(
+                                    `#documento_${element.idtipodocumento}`
+                                ).addClass("bg-" + bg);
                             });
                         },
                     });
                 },
             });
         });
-
-        
-
 
         /*============================================
             CLICK EN NUEVA REVISIÓN
@@ -1156,19 +1202,19 @@ $(document).ready(function () {
             FUNCION QUE RECIBE UNA CATEGORIA DE VEHICULO Y CAMBIA LAS IMAGENES DE LAS LLANTAS
         ====================================================================================*/
         let imagenesLlantas = (categoria) => {
-            if(categoria == "BUS-BUSETA"){
+            if (categoria == "BUS-BUSETA") {
                 $("#llantas_bus_buseta").removeClass("d-none");
                 $("#llantas_camioneta_micro").addClass("d-none");
-            } else if(categoria == "CAMIONETA-MICRO"){
+            } else if (categoria == "CAMIONETA-MICRO") {
                 $("#llantas_camioneta_micro").removeClass("d-none");
                 $("#llantas_bus_buseta").addClass("d-none");
             }
-        }
+        };
     }
 
-    /*========================================================
-    *MANTENIMIENTOS
-    ========================================================*/
+    /* ===================================================
+    * MANTENIMIENTOS
+  ====================================================== */
     if (
         window.location.href == `${urlPagina}m-mantenimientos/` ||
         window.location.href == `${urlPagina}m-mantenimientos`
@@ -1240,7 +1286,7 @@ $(document).ready(function () {
                 </div>
                 </div>
                 </td>` +
-                `<td>
+                `<td style="display: none;">
                 <input type="hidden" id="idcuenta_mano_${dinamico}" name="idcuenta_mano[]">
                 <div class="input-group">
                     <input class="form-control form-control-sm" type="text" id="cuenta_mano_${dinamico}" name="cuenta_mano[]" placeholder="Seleccione una cuenta" maxlength="0">
@@ -1321,7 +1367,7 @@ $(document).ready(function () {
                 </div>
                 </div>
                 </td>` +
-                `<td>
+                `<td style="display: none;">
                 <input type="hidden" id="idcuenta_repuesto_${dinamico}" name="idcuenta[]">
                 <div class="input-group">
                 <input class="form-control form-control-sm" type="text" id="cuenta_repuesto_${dinamico}" name="cuenta_repuesto[]" placeholder="Seleccione una cuenta" maxlength="0">
@@ -1497,9 +1543,10 @@ $(document).ready(function () {
         /*===================================================
          FUNCION PARA CARGAR TABLA PROGRAMACION POR VEHÍCULO
         =====================================================*/
-        const AjaxTablaProgramacionxVehiculo = (idvehiculo, tbody) => {
+        const AjaxTablaProgramacionxVehiculo = (idvehiculo, tbody, tabla) => {
+
             // Quitar datatable
-            //  $("#tablaProgramacionServ").dataTable().fnDestroy();
+            $(tabla).dataTable().fnDestroy();
             // Borrar datos
             $(tbody).html("");
 
@@ -1515,7 +1562,8 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    if (response != "" || response != null) {
+                    console.log(response);
+                    if (response != "" || response != undefined) {
                         $(tbody).html(response);
                     } else {
                         $(tbody).html("");
@@ -1524,16 +1572,98 @@ $(document).ready(function () {
                     /* ===================================================
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
-                    // var buttons = [
-                    //   { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
-                    // ];
-                    // var table = dataTableCustom(`#tablaProgramacionServ`, buttons);
+                    var buttons = [
+                      { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    ];
+                    // var table = dataTableCustom(tabla, buttons);
+
+                    var table = $(tabla).DataTable({
+                        dom:
+                            "<'row'<'col-12 text-right'B>>" +
+                            "<'row mt-1'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+                            "<'row'<'col-sm-12'tr>>" +
+                            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                        buttons: buttons,
+                        orderCellsTop: true,
+                        fixedHeader: true,
+                        order: [],
+                        language: {
+                            sProcessing: "Procesando...",
+                            sLengthMenu: "Mostrar _MENU_ registros",
+                            sZeroRecords: "No se encontraron resultados",
+                            sEmptyTable: "Ningún dato disponible en esta tabla",
+                            sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                            sInfoEmpty:
+                                "Mostrando registros del 0 al 0 de un total de 0",
+                            sInfoFiltered:
+                                "<div class='small'>(filtrado de un total de _MAX_ registros)</div>",
+                            sInfoPostFix: "",
+                            sSearch: "Buscar:",
+                            sUrl: "",
+                            sInfoThousands: ",",
+                            sLoadingRecords: "Cargando...",
+                            oPaginate: {
+                                sFirst: "Primero",
+                                sLast: "Último",
+                                sNext: "Siguiente",
+                                sPrevious: "Anterior",
+                            },
+                            oAria: {
+                                sSortAscending:
+                                    ": Activar para ordenar la columna de manera ascendente",
+                                sSortDescending:
+                                    ": Activar para ordenar la columna de manera descendente",
+                            },
+                        },
+                        lengthMenu: [
+                            [10, 25, 50, 75, -1],
+                            [10, 25, 50, 75, "Todo"],
+                        ],
+                        fnDrawCallback: function () {
+                            $table = $(this);
+
+                            // only apply this to specific tables
+                            if ($table.closest(".datatable-multi-row").length) {
+                                // for each row in the table body...
+                                $table.find("tbody>tr").each(function () {
+                                    var $tr = $(this);
+
+                                    // get the "extra row" content from the <script> tag.
+                                    // note, this could be any DOM object in the row.
+                                    var extra_row = $tr
+                                        .find(".extra-row-content")
+                                        .html();
+
+                                    // in case draw() fires multiple times,
+                                    // we only want to add new rows once.
+                                    if (!$tr.next().hasClass("dt-added")) {
+                                        $tr.after(extra_row);
+                                        $tr.find("td").each(function () {
+                                            // for each cell in the top row,
+                                            // set the "rowspan" according to the data value.
+                                            var $td = $(this);
+                                            var rowspan = parseInt(
+                                                $td.data(
+                                                    "datatable-multi-row-rowspan"
+                                                ),
+                                                10
+                                            );
+                                            if (rowspan) {
+                                                $td.attr("rowspan", rowspan);
+                                            }
+                                        });
+                                    }
+                                });
+                            } // end if the table has the proper class
+                        }, // end fnDrawCallback()
+                    });
                 },
             });
         };
 
         // CARGAR DATOS DEL VEHICULO
         $(document).on("change", "#placa_OrdServ", function () {
+
             let fecha_actual = moment().format("YYYY-MM-DD");
             let idvehiculo = $(this).val();
 
@@ -1543,12 +1673,16 @@ $(document).ready(function () {
                 $(".documentos").val("");
             }
 
+            console.log(idvehiculo);
+
             //CARGAR TABLA DE PROGRAMACIÓN POR VEHÍCULO
             AjaxTablaProgramacionxVehiculo(
                 idvehiculo,
-                "#tbodyProgramacionServ"
+                "#tbodyProgramacionServ",
+                "#tablaProgramacionServ"
             );
-            // AjaxTablaEvidenciasOrden(idvehiculo);
+            
+            AjaxTablaEvidenciasOrden(idvehiculo);
 
             var datos = new FormData();
             datos.append("DatosVehiculo", "ok");
@@ -1600,11 +1734,14 @@ $(document).ready(function () {
                         //         : "bg-danger";
                         // $(`#documento_${element.idtipodocumento}`).addClass(bg);
 
-                        bg = semaforo_tipo1(element.fechafin, moment().format("YYYY-MM-DD"));
+                        bg = semaforo_tipo1(
+                            element.fechafin,
+                            moment().format("YYYY-MM-DD")
+                        );
 
-                                        $(
-                                            `#documento_${element.idtipodocumento}`
-                                        ).addClass("bg-"+bg);
+                        $(`#documento_${element.idtipodocumento}`).addClass(
+                            "bg-" + bg
+                        );
                     });
                 },
             });
@@ -2270,7 +2407,7 @@ $(document).ready(function () {
             </div>
         </div>
       </td>` +
-                `<td>
+                `<td style="display: none;">
                 <input type="hidden" id="idcuenta_repuesto_${dinamico}" value="${element.idcuenta}" name="idcuenta[]">
       <div class="input-group">
           <input class="form-control form-control-sm" type="text" id="cuenta_repuesto_${dinamico}" value="${element.num_cuenta}" name="cuenta_repuesto[]" placeholder="Seleccione una cuenta" maxlength="0">
@@ -2286,6 +2423,8 @@ $(document).ready(function () {
 
         //FUNCION PARA RESETEAR TABLA REPUESTO CUANDO DEN EDITAR ORDEN
         const resetTableRepuesto = () => {
+            $("#filas_tabla_repuestoSolicitud").html("");
+
             var fila = ` <tr id="contenido_filas_repuestoSolicitud" consecutivo="1">
             <td style="width: 900px;">
                 <div class="input-group">
@@ -2329,7 +2468,7 @@ $(document).ready(function () {
                     </div>
                 </div>
             </td>
-            <td>
+            <td style="display: none;">
                 <input type="hidden" id="idcuenta_repuesto_1" name="idcuenta[]">
                 <div class="input-group">
                     <input class="form-control form-control-sm" type="text" id="cuenta_repuesto_1" name="cuenta_repuesto[]" placeholder="Seleccione una cuenta" maxlength="0">
@@ -2388,7 +2527,7 @@ $(document).ready(function () {
                     </div>
                 </div>
             </td>
-            <td>
+            <td style="display: none;">
                 <input type="hidden" id="idcuenta_mano_${dinamico}" value="${element.idcuenta}" name="idcuenta_mano[]">
                 <div class="input-group">
                     <input class="form-control form-control-sm" type="text" id="cuenta_mano_${dinamico}" value="${element.num_cuenta}" name="cuenta_mano[]" placeholder="Seleccione una cuenta" maxlength="0">
@@ -2405,6 +2544,8 @@ $(document).ready(function () {
 
         //FUNCIION PARA RESETEAR TABLA DE MANO DE OBRA
         const resetTableMano = () => {
+            $("#filas_tabla_manoObra").html("");
+
             var fila = `<tr id="Contenido_tabla_manoObra" consecutivo="1">
             <td style="width: 600px">
                 <div class="input-group">
@@ -2447,7 +2588,7 @@ $(document).ready(function () {
                     </div>
                 </div>
             </td>
-            <td>
+            <td style="display: none;">
                 <input type="hidden" id="idcuenta_mano_1" name="idcuenta_mano[]">
                 <div class="input-group">
                     <input class="form-control form-control-sm" type="text" id="cuenta_mano_1" name="cuenta_mano[]" placeholder="Seleccione una cuenta" maxlength="0">
@@ -2505,23 +2646,20 @@ $(document).ready(function () {
                     $("#v-pills-observaciones-tab").removeClass("active");
                     $("#v-pills-observaciones").removeClass("show active");
 
-                    // $("#placa_OrdServ").attr("disabled", true);
+                    $("#placa_OrdServ").attr("disabled", true);
                     // $('placa_OrdServ').prop('readonly',true);
 
                     //RESETEA LA TABLA DE REPUESTOS
-                    $("#filas_tabla_repuestoSolicitud").html("");
                     resetTableRepuesto();
-                    $("#cantrepuestos_1").removeAttr("readonly");
 
                     //RESETEA LA TABLA DE MANO DE OBRA
-                    $("#filas_tabla_manoObra").html("");
                     resetTableMano();
 
                     //RESETEA SERVICIOS EXTERNOS
                     $(".input-servext").prop("checked", false);
 
                     // NO PERMITE CAMBIAR VEHÍCULO
-                    $("#placa_OrdServ").attr("disabled", true);
+                    // $("#placa_OrdServ").attr("disabled", true);
 
                     let idorden = $(this).attr("idorden");
 
@@ -2625,9 +2763,9 @@ $(document).ready(function () {
                                     $("#cuenta_repuesto_1").val(
                                         element.num_cuenta
                                     );
-                                    $("#idcuenta_repuesto_1").val(
-                                        element.idcuenta
-                                    );
+                                    // $("#idcuenta_repuesto_1").val(
+                                    //     element.idcuenta
+                                    // );
                                     $("#idproveedor_repuesto_1").val(
                                         element.idproveedor
                                     );
@@ -2675,7 +2813,7 @@ $(document).ready(function () {
                                     );
                                     $("#total_mano_1").val(element.total);
                                     $("#cuenta_mano_1").val(element.num_cuenta);
-                                    $("#idcuenta_mano_1").val(element.idcuenta);
+                                    // $("#idcuenta_mano_1").val(element.idcuenta);
                                 } else {
                                     filasEditarOrdenMano(dinamico2, element);
 
@@ -2709,7 +2847,7 @@ $(document).ready(function () {
                 timerProgressBar: true,
             }).then((result) => {
                 if (result.dismiss === Swal.DismissReason.timer) {
-                    //CAMBIA DE TAB
+                    // //CAMBIA DE TAB
                     $("#v-pills-general").addClass("show active");
                     $("#v-pills-diagnostico").removeClass("show active");
                     $("#v-pills-repuestos").removeClass("show active");
@@ -2717,19 +2855,19 @@ $(document).ready(function () {
                     $("#v-pills-diagnostico-tab").removeClass("active");
                     $("#v-pills-repuestos-tab").removeClass("active");
 
+                    $("#placa_OrdServ").attr("disabled", false);
                     $("#placa_OrdServ").val("").trigger("change");
-                    $("#placa_OrdServ").removeAttr("disabled");
+                    // $("#placa_OrdServ").select2("val","");
+                    // $("#placa_OrdServ").removeAttr("disabled");
                     $("#ciudad_OrdServ").val("").trigger("change");
 
-                    //RESETEA LA TABLA DE REPUESTOS
-                    $("#filas_tabla_repuestoSolicitud").html("");
+                    // //RESETEA LA TABLA DE REPUESTOS
                     resetTableRepuesto();
 
-                    //RESETEA LA TABLA DE MANO DE OBRA
-                    $("#filas_tabla_manoObra").html("");
+                    // //RESETEA LA TABLA DE MANO DE OBRA
                     resetTableMano();
 
-                    //RESETEA ESTADO DE LA ORDEN
+                    // //RESETEA ESTADO DE LA ORDEN
                     $("#estado").val(3).trigger("change");
                 }
             });
@@ -2890,13 +3028,13 @@ $(document).ready(function () {
             }
         });
         /*============================================
-            CARGA TABLA CONTROL DE ACTIVIDADES 
-        ==============================================*/
-        $(document).on("click", "#custom-tabs-one-control-tab", function () {
+                CARGA TABLA CONTROL DE ACTIVIDADES
+            ==============================================*/
+        const TablaControlActividades = () => {
             // Quitar datatable
             $("#tableControlActividades").dataTable().fnDestroy();
             // Borrar datos
-            // $("#tableControlActividades").html("");
+            $("#tbodyControlActividades").html("");
 
             var datos = new FormData();
             datos.append("TablaControlActividades", "ok");
@@ -2915,8 +3053,8 @@ $(document).ready(function () {
                     else $("#tbodyControlActividades").html("");
 
                     /* ===================================================
-                    FILTRAR POR COLUMNA
-                    ====================================================*/
+                        FILTRAR POR COLUMNA
+                        ====================================================*/
                     /* Filtrar por columna */
                     //Clonar el tr del thead
                     if ($(`#tableControlActividades thead tr`).length == 1)
@@ -2941,25 +3079,110 @@ $(document).ready(function () {
                         }
                     );
                     /* ===================================================
-                    INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-                    ===================================================*/
+                       INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                       ===================================================*/
                     var buttons = [
                         {
-                            extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            extend: "",
+                            className: "btn-info excel-controlActividades",
+                            text: '<i class="far fa-file-excel "></i> Exportar',
                         },
                     ];
-                    var table = dataTableCustom(
-                        `#tableControlActividades`,
+                    /* var table = dataTableCustom(
+                        `#tablaSolicitudesProgramacion`,
                         buttons
-                    );
+                    ); */
+
+                    var table = $("#tableControlActividades").DataTable({
+                        dom:
+                            "<'row'<'col-12 text-right'B>>" +
+                            "<'row mt-1'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+                            "<'row'<'col-sm-12'tr>>" +
+                            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                        buttons: buttons,
+                        orderCellsTop: true,
+                        fixedHeader: true,
+                        order: [],
+                        language: {
+                            sProcessing: "Procesando...",
+                            sLengthMenu: "Mostrar _MENU_ registros",
+                            sZeroRecords: "No se encontraron resultados",
+                            sEmptyTable: "Ningún dato disponible en esta tabla",
+                            sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                            sInfoEmpty:
+                                "Mostrando registros del 0 al 0 de un total de 0",
+                            sInfoFiltered:
+                                "<div class='small'>(filtrado de un total de _MAX_ registros)</div>",
+                            sInfoPostFix: "",
+                            sSearch: "Buscar:",
+                            sUrl: "",
+                            sInfoThousands: ",",
+                            sLoadingRecords: "Cargando...",
+                            oPaginate: {
+                                sFirst: "Primero",
+                                sLast: "Último",
+                                sNext: "Siguiente",
+                                sPrevious: "Anterior",
+                            },
+                            oAria: {
+                                sSortAscending:
+                                    ": Activar para ordenar la columna de manera ascendente",
+                                sSortDescending:
+                                    ": Activar para ordenar la columna de manera descendente",
+                            },
+                        },
+                        lengthMenu: [
+                            [10, 25, 50, 75, -1],
+                            [10, 25, 50, 75, "Todo"],
+                        ],
+                        fnDrawCallback: function () {
+                            $table = $(this);
+
+                            // only apply this to specific tables
+                            if ($table.closest(".datatable-multi-row").length) {
+                                // for each row in the table body...
+                                $table.find("tbody>tr").each(function () {
+                                    var $tr = $(this);
+
+                                    // get the "extra row" content from the <script> tag.
+                                    // note, this could be any DOM object in the row.
+                                    var extra_row = $tr
+                                        .find(".extra-row-content")
+                                        .html();
+
+                                    // in case draw() fires multiple times,
+                                    // we only want to add new rows once.
+                                    if (!$tr.next().hasClass("dt-added")) {
+                                        $tr.after(extra_row);
+                                        $tr.find("td").each(function () {
+                                            // for each cell in the top row,
+                                            // set the "rowspan" according to the data value.
+                                            var $td = $(this);
+                                            var rowspan = parseInt(
+                                                $td.data(
+                                                    "datatable-multi-row-rowspan"
+                                                ),
+                                                10
+                                            );
+                                            if (rowspan) {
+                                                $td.attr("rowspan", rowspan);
+                                            }
+                                        });
+                                    }
+                                });
+                            } // end if the table has the proper class
+                        }, // end fnDrawCallback()
+                    });
                 },
             });
+        };
+
+        $(document).on("click", "#custom-tabs-one-control-tab", function () {
+            TablaControlActividades();
         });
         /*============================================
-            CARGAR DATOS PARA LA MODAL DE QUIÉN ASUME
-        ==============================================*/
+                CARGAR DATOS PARA LA MODAL DE QUIÉN ASUME
+            ==============================================*/
         $(document).on("click", ".btn-asume", function () {
             let id = $(this).attr("id");
             let cantidad = $(this).attr("cantidad");
@@ -3047,8 +3270,8 @@ $(document).ready(function () {
             });
         });
         /*============================================
-            VISUALIZAR PDF DE SOLICITUD DE SERVICIO 
-        ==============================================*/
+                VISUALIZAR PDF DE SOLICITUD DE SERVICIO
+            ==============================================*/
         $(document).on("click", ".btn-exportar-solicitud", function () {
             var idorden = $(this).attr("idorden");
             window.open(
@@ -3058,8 +3281,8 @@ $(document).ready(function () {
             );
         });
         /*============================================
-            VISUALIZAR PDF DE ORDEN DE SERVICIO 
-        ==============================================*/
+                VISUALIZAR PDF DE ORDEN DE SERVICIO
+            ==============================================*/
         $(document).on("click", ".btn-pdforden", function () {
             var idorden = $(this).attr("idorden");
             window.open(
@@ -3069,15 +3292,17 @@ $(document).ready(function () {
             );
         });
         /*============================================
-            CALCULOS PARA EL VALOR QUE ASUME CADA PARTE
-        ==============================================*/
+                CALCULOS PARA EL VALOR QUE ASUME CADA PARTE
+            ==============================================*/
         $(document).on("blur", "#porcentaje_cliente", function () {
             let porcentaje = $(this).val();
             let total = $("#total_ctrActividades").val();
             let asume = 0;
 
-            if (porcentaje > 0 && total > 0) asume = total * (porcentaje / 100);
-            else asume = 0;
+            if (porcentaje > 0 && total > 0) {
+                asume = total * (porcentaje / 100);
+                asume = asume.toFixed();
+            } else asume = 0;
 
             $("#valor_cliente").val(asume);
         });
@@ -3087,8 +3312,10 @@ $(document).ready(function () {
             let total = $("#total_ctrActividades").val();
             let asume = 0;
 
-            if (porcentaje > 0 && total > 0) asume = total * (porcentaje / 100);
-            else asume = 0;
+            if (porcentaje > 0 && total > 0) {
+                asume = total * (porcentaje / 100);
+                asume = asume.toFixed();
+            } else asume = 0;
 
             $("#valor_empresa").val(asume);
         });
@@ -3098,15 +3325,17 @@ $(document).ready(function () {
             let total = $("#total_ctrActividades").val();
             let asume = 0;
 
-            if (porcentaje > 0 && total > 0) asume = total * (porcentaje / 100);
-            else asume = 0;
+            if (porcentaje > 0 && total > 0) {
+                asume = total * (porcentaje / 100);
+                asume = asume.toFixed();
+            } else asume = 0;
 
             $("#valor_contratista").val(asume);
         });
 
         /*============================================
-            CLICK PARA ABRIR LA SUCURSAL PRODUCTO
-        ==============================================*/
+                CLICK PARA ABRIR LA SUCURSAL PRODUCTO
+            ==============================================*/
         $(document).on("click", ".btn-SucursalesProducto", function () {
             $("#modal-repuestos").modal("hide");
             let idproducto = $(this).attr("idproducto");
@@ -3134,8 +3363,8 @@ $(document).ready(function () {
         });
 
         /*============================================
-            GUARDAR QUIÉN ASUME
-        ==============================================*/
+                GUARDAR QUIÉN ASUME
+            ==============================================*/
         $("#asume_form").submit(function (e) {
             e.preventDefault();
             var datosFrm = $(this).serializeArray();
@@ -3165,93 +3394,15 @@ $(document).ready(function () {
                         });
 
                         //SE CARGA LA TABLA
-                        // Quitar datatable
-                        $("#tableControlActividades").dataTable().fnDestroy();
-                        // Borrar datos
-                        $("#tbodyControlActividades").html("");
-
-                        var datos = new FormData();
-                        datos.append("TablaControlActividades", "ok");
-
-                        $.ajax({
-                            type: "post",
-                            url: `ajax/mantenimiento.ajax.php`,
-                            data: datos,
-                            cache: false,
-                            // dataType: "JSON",
-                            contentType: false,
-                            processData: false,
-                            success: function (response) {
-                                if (response != "")
-                                    $("#tbodyControlActividades").html(
-                                        response
-                                    );
-                                else $("#tbodyControlActividades").html("");
-
-                                /* ===================================================
-                    FILTRAR POR COLUMNA
-                    ====================================================*/
-                                /* Filtrar por columna */
-                                //Clonar el tr del thead
-                                if (
-                                    $(`#tableControlActividades thead tr`)
-                                        .length == 1
-                                )
-                                    $(`#tableControlActividades thead tr:eq(0)`)
-                                        .clone(true)
-                                        .appendTo(
-                                            `#tableControlActividades thead`
-                                        );
-                                //Por cada th creado hacer lo siguiente
-                                $(
-                                    `#tableControlActividades thead tr:eq(1) th`
-                                ).each(function (i) {
-                                    //Remover clase sorting y el evento que tiene cuando se hace click
-                                    $(this).removeClass("sorting").unbind();
-                                    //Agregar input de busqueda
-                                    $(this).html(
-                                        '<input class="form-control" type="text" placeholder="Buscar"/>'
-                                    );
-                                    //Evento para detectar cambio en el input y buscar
-                                    $("input", this).on(
-                                        "keyup change",
-                                        function () {
-                                            if (
-                                                table.column(i).search() !==
-                                                this.value
-                                            ) {
-                                                table
-                                                    .column(i)
-                                                    .search(this.value)
-                                                    .draw();
-                                            }
-                                        }
-                                    );
-                                });
-                                /* ===================================================
-                    INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-                    ===================================================*/
-                                var buttons = [
-                                    {
-                                        extend: "excel",
-                                        className: "btn-info",
-                                        text: '<i class="far fa-file-excel"></i> Exportar',
-                                    },
-                                ];
-                                var table = dataTableCustom(
-                                    `#tableControlActividades`,
-                                    buttons
-                                );
-                            },
-                        });
+                        TablaControlActividades();
                     }
                 },
             });
         });
 
         /*============================================
-            DATOS DE LA CUENTA 
-        ==============================================*/
+                DATOS DE LA CUENTA
+            ==============================================*/
         $(document).on("change", "#codigo_cuenta_ctrActividades", function () {
             let idcuenta = $(this).val();
 
@@ -3276,8 +3427,8 @@ $(document).ready(function () {
         });
 
         /*===================================================================
-             MUESTRA EL BOTON DE CREAR SOLICITUD SOLO CUANDO ESTÁ EN EL TAB
-        =====================================================================*/
+                 MUESTRA EL BOTON DE CREAR SOLICITUD SOLO CUANDO ESTÁ EN EL TAB
+            =====================================================================*/
         $(document).on("click", "#v-pills-repuestos-tab", function () {
             $("#btn-crearSolicitud").removeClass("invisible");
             $("#btn-crearSolicitud").addClass("visible");
@@ -3285,21 +3436,21 @@ $(document).ready(function () {
 
         $(document).on("click", "#v-pills-diagnostico-tab", function () {
             $("#btn-crearSolicitud").addClass("invisible");
-            $("#btn-crearSolicitud").RemoveClass("visible");
+            $("#btn-crearSolicitud").removeClass("visible");
         });
 
         $(document).on("click", "#v-pills-general-tab", function () {
             $("#btn-crearSolicitud").addClass("invisible");
-            $("#btn-crearSolicitud").RemoveClass("visible");
+            $("#btn-crearSolicitud").removeClass("visible");
         });
 
         /*============================================
-            PROGRAMACIÓN
-        ==============================================*/
+                PROGRAMACIÓN
+            ==============================================*/
 
         /*============================================
-            FUNCION PARA CARGAR TABLA DE EVIDENCIAS DEL VEHÍCULO
-        ==============================================*/
+                FUNCION PARA CARGAR TABLA DE EVIDENCIAS DEL VEHÍCULO
+            ==============================================*/
         const AjaxTablaEvidencias = (idvehiculo) => {
             // Quitar datatable
             $(`#table-evidenciasprogramacion`).dataTable().fnDestroy();
@@ -3325,8 +3476,8 @@ $(document).ready(function () {
                     }
 
                     /* ===================================================
-                            INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-                        ===================================================*/
+                                INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                            ===================================================*/
                     var buttons = [
                         {
                             extend: "excel",
@@ -3343,22 +3494,23 @@ $(document).ready(function () {
         };
 
         /*============================================
-            CARGA DATOS SOLICITUD PROGRAMACIÓN X VEHÍCULO 
-        ==============================================*/
+                CARGA DATOS SOLICITUD PROGRAMACIÓN X VEHÍCULO
+            ==============================================*/
         $(document).on("click", ".btn-programacionxvehiculo", function () {
             let idvehiculo = $(this).attr("idvehiculo");
 
             AjaxTablaProgramacionxVehiculo(
                 idvehiculo,
-                "#tbodyserviciosxvehiculoprogramacion"
+                "#tbodyserviciosxvehiculoprogramacion",
+                "#tablaserviciosxvehiculoprogramacion"
             );
 
             let idsolicitud = $(this).attr("idsolicitud");
         });
 
         /*============================================
-            CARGAR SOLICITUDES
-        ==============================================*/
+                CARGAR SOLICITUDES
+            ==============================================*/
         $(document).on("click", ".btn-solicitudesvehiculo", function () {
             let idvehiculo = $(this).attr("idvehiculo");
 
@@ -3366,8 +3518,8 @@ $(document).ready(function () {
         });
 
         /*============================================
-            CARGAR DATOS DEL VEHÍCULO
-        ==============================================*/
+                CARGAR DATOS DEL VEHÍCULO
+            ==============================================*/
         $(document).on("change", "#placa_programacion", function () {
             let idvehiculo = $(this).val();
 
@@ -3396,6 +3548,10 @@ $(document).ready(function () {
             });
         });
 
+        /*============================================
+                FUNCION QUE CARGA LA TABLA DE SOLICITUDES
+            ==============================================*/
+
         function TablaSolicitudesProgramacion() {
             // // Quitar datatable
             $(`#tablaSolicitudesProgramacion`).dataTable().fnDestroy();
@@ -3421,65 +3577,114 @@ $(document).ready(function () {
                     }
 
                     /* ===================================================
-                   INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-                   ===================================================*/
+                       INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                       ===================================================*/
                     var buttons = [
                         {
-                            extend: "excel",
-                            className: "btn-info",
+                            extend: "",
+                            className: "btn-info excelSolicitudesProgramacion",
                             text: '<i class="far fa-file-excel"></i> Exportar',
                         },
                     ];
-                    var table = dataTableCustom(
-                        `#tablaSolicitudesProgramacion`,
-                        buttons
-                    );
+                    /* var table = dataTableCustom(
+                            `#tablaSolicitudesProgramacion`,
+                            buttons
+                        ); */
 
-                    // var data = [];
-                    // $("#tablaSolicitudesProgramacion1 td").each(function () {
-                    //     var $this = $(this);
-                    //     var index = $this.index();
-                    //     var txt = $this.text();
-                    //     //console.log(this);
-                    //     //console.log(index);
+                    var table = $("#tablaSolicitudesProgramacion").DataTable({
+                        dom:
+                            "<'row'<'col-12 text-right'B>>" +
+                            "<'row mt-1'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+                            "<'row'<'col-sm-12'tr>>" +
+                            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                        buttons: buttons,
+                        orderCellsTop: true,
+                        fixedHeader: true,
+                        order: [],
+                        language: {
+                            sProcessing: "Procesando...",
+                            sLengthMenu: "Mostrar _MENU_ registros",
+                            sZeroRecords: "No se encontraron resultados",
+                            sEmptyTable: "Ningún dato disponible en esta tabla",
+                            sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                            sInfoEmpty:
+                                "Mostrando registros del 0 al 0 de un total de 0",
+                            sInfoFiltered:
+                                "<div class='small'>(filtrado de un total de _MAX_ registros)</div>",
+                            sInfoPostFix: "",
+                            sSearch: "Buscar:",
+                            sUrl: "",
+                            sInfoThousands: ",",
+                            sLoadingRecords: "Cargando...",
+                            oPaginate: {
+                                sFirst: "Primero",
+                                sLast: "Último",
+                                sNext: "Siguiente",
+                                sPrevious: "Anterior",
+                            },
+                            oAria: {
+                                sSortAscending:
+                                    ": Activar para ordenar la columna de manera ascendente",
+                                sSortDescending:
+                                    ": Activar para ordenar la columna de manera descendente",
+                            },
+                        },
+                        lengthMenu: [
+                            [10, 25, 50, 75, -1],
+                            [10, 25, 50, 75, "Todo"],
+                        ],
+                        fnDrawCallback: function () {
+                            $table = $(this);
 
-                    //     if (index == 0) {
-                    //         var item = _.find(data, function (o) {
-                    //             //return o.v == txt;
-                    //             return txt.indexOf(o.v) != -1;
-                    //         });
+                            // only apply this to specific tables
+                            if ($table.closest(".datatable-multi-row").length) {
+                                // for each row in the table body...
+                                $table.find("tbody>tr").each(function () {
+                                    var $tr = $(this);
 
-                    //         if (item) {
-                    //             item.t = item.t + 1;
-                    //             item.o
-                    //                 .attr("rowspan", item.t)
-                    //                 .removeClass("hide");
-                    //             $this.addClass("hide");
-                    //         } else {
-                    //             data.push({
-                    //                 i: index,
-                    //                 t: 1,
-                    //                 o: $this,
-                    //                 v: txt,
-                    //             });
-                    //             //$this.addClass('hide');
-                    //         }
-                    //     }
-                    // });
+                                    // get the "extra row" content from the <script> tag.
+                                    // note, this could be any DOM object in the row.
+                                    var extra_row = $tr
+                                        .find(".extra-row-content")
+                                        .html();
+
+                                    // in case draw() fires multiple times,
+                                    // we only want to add new rows once.
+                                    if (!$tr.next().hasClass("dt-added")) {
+                                        $tr.after(extra_row);
+                                        $tr.find("td").each(function () {
+                                            // for each cell in the top row,
+                                            // set the "rowspan" according to the data value.
+                                            var $td = $(this);
+                                            var rowspan = parseInt(
+                                                $td.data(
+                                                    "datatable-multi-row-rowspan"
+                                                ),
+                                                10
+                                            );
+                                            if (rowspan) {
+                                                $td.attr("rowspan", rowspan);
+                                            }
+                                        });
+                                    }
+                                });
+                            } // end if the table has the proper class
+                        }, // end fnDrawCallback()
+                    });
                 },
             });
         }
 
         /*============================================
-         CARGAR TABLA DE SOLICITUDES PROGRAMACIÓN 
-        ==============================================*/
+             CARGAR TABLA DE SOLICITUDES PROGRAMACIÓN
+            ==============================================*/
         $(document).on("click", "#pills-programacion-tab", function () {
             TablaSolicitudesProgramacion();
         });
 
         /*====================================================================
-        CARGAR DATOS DEL VEHÍCULO CUANDO ABRAN MODAL DE SOLICITUD PROGRAMACION
-        ======================================================================*/
+            CARGAR DATOS DEL VEHÍCULO CUANDO ABRAN MODAL DE SOLICITUD PROGRAMACION
+            ======================================================================*/
         $(document).on("click", ".btn-programacion", function () {
             let idvehiculo = $(this).attr("idvehiculo");
             let idsolicitud = $(this).attr("idsolicitud");
@@ -3498,7 +3703,8 @@ $(document).ready(function () {
 
             AjaxTablaProgramacionxVehiculo(
                 idvehiculo,
-                "#tbodyProgramacionSolicitud"
+                "#tbodyProgramacionSolicitud",
+                "#tablaProgramacionSolicitud"
             );
 
             $("#placa_programacion").val(idvehiculo).trigger("change");
@@ -3521,8 +3727,8 @@ $(document).ready(function () {
         });
 
         /*============================================
-            GUARDAR SOLICITUD PROGRAMACIÓN 
-        ==============================================*/
+                GUARDAR SOLICITUD PROGRAMACIÓN
+            ==============================================*/
         $("#Guardarprogramacion_form").submit(function (e) {
             e.preventDefault();
 
@@ -3567,8 +3773,8 @@ $(document).ready(function () {
         });
 
         /*============================================
-        OCULTAR/MOSTRAR OBSERVACIÓN DE REPROGRAMACIÓN
-        ==============================================*/
+            OCULTAR/MOSTRAR OBSERVACIÓN DE REPROGRAMACIÓN
+            ==============================================*/
         $(document).on("change", "#estado_programacion", function () {
             let option = $(this).val();
 
@@ -3582,8 +3788,8 @@ $(document).ready(function () {
         });
 
         /*============================================
-            CARGAR HISTORIAL DE SOLICITUDES 
-        ==============================================*/
+                CARGAR HISTORIAL DE SOLICITUDES
+            ==============================================*/
         $(document).on(
             "click",
             "#historialSolicitudesProgramacion-tab",
@@ -3618,8 +3824,8 @@ $(document).ready(function () {
                         }
 
                         /* ===================================================
-                   INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
-                   ===================================================*/
+                       INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                       ===================================================*/
                         var buttons = [
                             {
                                 extend: "excel",
@@ -3635,5 +3841,76 @@ $(document).ready(function () {
                 });
             }
         );
+
+        /*============================================
+                EXPORTAR EXCEL CONTROL DE ACTIVIDADES
+            ==============================================*/
+        $(document).on("click", ".excel-controlActividades", function () {
+            let urlRerport = `${urlPagina}/ajax/mantenimiento.ajax.php?ExcelControlActividades=ok`;
+            window.location = urlRerport;
+        });
+
+        /*============================================
+                EXPORTAR EXCEL PROGRAMACION
+            ==============================================*/
+        $(document).on("click", ".excelSolicitudesProgramacion", function () {
+            let urlRerport = `${urlPagina}/ajax/mantenimiento.ajax.php?ExcelSolicitudesProgramacion=ok`;
+            window.location = urlRerport;
+        });
+
+        /*============================================
+            NOTIFICACIONES ORDEN DE SERVICIO SI FALTA UN CAMPO
+        ==============================================*/
+        $(document).on("click", "#guardar_orden", function(){
+            
+            Areas = [];
+            Requeridos = [];
+            Elementos = [];
+            //Validación de inputs
+            $("input:invalid").each(function (index, element) {
+                var $input = $(this);
+                var idform = $input.closest("form").attr("id");
+                if (idform == "ordenServ_form") {
+                    Requeridos.push($input);
+                }
+            });
+            //Validación textarea
+            $("textarea:invalid").each(function (index, element) {
+                var $area = $(this);
+                var idform = $area.closest("form").attr("id");
+                if (idform == "ordenServ_form") {
+                    Areas.push($area);
+                }
+            });
+            var tab = [];
+            //Se trae los tabs
+            $("input:invalid").each(function (index, element) {
+                var $tabs = $(this);
+                var idtab = $tabs.closest(".tab-pane").attr("nombre");
+                if (!tab.includes(idtab) && idtab != undefined) tab.push(idtab);
+            });
+            $("textarea:invalid").each(function (index, element) {
+                var $tabs = $(this);
+                var idtab = $tabs.closest(".tab-pane").attr("nombre");
+                if (!tab.includes(idtab) && idtab) tab.push(idtab);
+            });
+            if (Requeridos.length > 0 || Areas.length > 0) {
+                let inputsRequeridosHtml = `<ul>`;
+                tab.forEach((element) => {
+                    inputsRequeridosHtml += `<li>${element}</li>`;
+                });
+                inputsRequeridosHtml += `</ul>`;
+                Swal.fire({
+                    icon: "warning",
+                    html: `<div class="text-left">
+                                              <p class="font-weight-bold">Hace falta diligenciar campos en los siguientes apartados:</p>
+                                                  ${inputsRequeridosHtml}
+                                          </div>`,
+                    showConfirmButton: true,
+                    confirmButtonText: "Cerrar",
+                    closeOnConfirm: false,
+                });
+            }
+        });
     }
 });

@@ -24,6 +24,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
   ESTRUCTURA 
 ========================= -->
 
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -128,7 +129,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                         </div>
 
                                                         <div class="col-9 mt-3">
-                                                            <button type="submit" form="ordenServ_form" class="btn btn-success mb-2 col fileinput-button dz-clickable">
+                                                            <button type="submit" id="guardar_orden" form="ordenServ_form" class="btn btn-success mb-2 col fileinput-button dz-clickable">
                                                                 <i class="fas fa-plus"></i>
                                                                 <span>Guardar</span>
                                                             </button>
@@ -171,7 +172,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                     <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Placa</i></label>
-                                                                            <select id="placa_OrdServ" name="idvehiculo_OrdServ" class="form-control select2-single" type="number" style="height: 99%" required>
+                                                                            <select id="placa_OrdServ" name="idvehiculo_OrdServ" class="form-control form-control-sm select2-single" type="number" style="height: 99%;" required>
                                                                                 <option selected value="">Seleccione un vehículo</option>
                                                                                 <?php foreach ($Placas as $key => $value) : ?>
                                                                                     <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?> </option>
@@ -346,7 +347,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                         <div class="row">
                                                                             <div class="col-lg-12 col-sm-12 justify-content-center">
                                                                                 <div class="table-responsive">
-                                                                                    <table id="tablaProgramacionServ" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover">
+                                                                                    <table id="tablaProgramacionServ" class="datatable-multi-row table table-sm table-striped table-hover table-bordered text-center w-100">
                                                                                         <thead class="text-nowrap">
                                                                                             <th>Kilometraje</th>
                                                                                             <th>Actividad</th>
@@ -475,7 +476,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                                             <th style="min-width: 300px;">DIAGNÓSTICO</th>
                                                                                             <th style="min-width: 300px;">TIPO DE SISTEMA</th>
                                                                                             <th style="min-width: 300px;">TIPO DE MANTENIMIENTO</th>
-                                                                                            <th style="min-width: 300px;">CÓDIGO CUENTA CONTABLE</th>
+                                                                                            <!-- <th style="min-width: 300px;">CÓDIGO CUENTA CONTABLE</th> -->
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody id="filas_tabla_repuestoSolicitud">
@@ -522,7 +523,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </td>
-                                                                                            <td>
+                                                                                            <td style="display: none;">
                                                                                                 <input type="hidden" id="idcuenta_repuesto_1" name="idcuenta[]">
                                                                                                 <div class="input-group">
                                                                                                     <input class="form-control form-control-sm" type="text" id="cuenta_repuesto_1" name="cuenta_repuesto[]" placeholder="Seleccione una cuenta" maxlength="0">
@@ -581,7 +582,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                                             <th style=" min-width:300px;">DIAGNÓSTICO</th>
                                                                                             <th style="min-width:300px;">TIPO DE SISTEMA</th>
                                                                                             <th style="min-width:300px;">TIPO DE MANTENIMIENTO</th>
-                                                                                            <th style="min-width:300px;">CÓDIGO CUENTA CONTABLE</th>
+                                                                                            <!-- <th style="min-width:300px;">CÓDIGO CUENTA CONTABLE</th> -->
                                                                                         </tr>
                                                                                     </thead>
                                                                                     <tbody id="filas_tabla_manoObra">
@@ -627,7 +628,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </td>
-                                                                                            <td>
+                                                                                            <td style="display: none;">
                                                                                                 <input type="hidden" id="idcuenta_mano_1" name="idcuenta_mano[]">
                                                                                                 <div class="input-group">
                                                                                                     <input class="form-control form-control-sm" type="text" id="cuenta_mano_1" name="cuenta_mano[]" placeholder="Seleccione una cuenta" maxlength="0">
@@ -779,7 +780,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                             }
                                                                             ?>
                                                                             <tr>
-                                                                                <td><button class="btn btn-outline-dark btn-pdforden bg-danger" idorden="<?= $value['idorden'] ?>" tipo_mantenimiento="orden"><i class="far fa-file-pdf"></i></button></td>
+                                                                                <td><button class="btn btn-outline-dark btn-pdforden bg-secondary" title="Ver PDF Orden." data-toggle="tooltip" data-placement="top" idorden="<?= $value['idorden'] ?>" tipo_mantenimiento="orden"><i class="fas fa-file-pdf"></i></button></td>
                                                                                 <td><button class="btn btn-outline-dark btn-editarOrden" idorden="<?= $value['idorden'] ?>" title="Ir a la orden" data-toggle="tooltip" data-placement="top" type="button"><?= $value['idorden'] ?></button></td>
                                                                                 <td><?= $value['placa'] ?></td>
                                                                                 <td><?= $value['Ffecha_entrada'] ?></td>
@@ -833,7 +834,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                         <div class="card-body">
 
                                                             <div class="table-responsive" style="font-size: 14px;">
-                                                                <table id="tableControlActividades" class="table-sm table-striped table-bordered  text-center table-hover  w-100">
+                                                                <!-- <table id="tableControlActividades" class="datatable-multi-row table table-sm table-striped table-hover table-bordered text-center w-100">
                                                                     <thead class="text-nowrap">
                                                                         <tr>
                                                                             <th># Orden</th>
@@ -868,6 +869,44 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                     </thead>
 
                                                                     <tbody id="tbodyControlActividades" class="text-nowrap">
+                                                                    </tbody>
+                                                                </table> -->
+                                                                <table id="tableControlActividades" class="datatable-multi-row table table-sm table-striped table-hover table-bordered text-center w-100">
+                                                                    <thead class="text-nowrap">
+                                                                        <tr>
+                                                                            <th># Orden</th>
+                                                                            <th>Vehículo</th>
+                                                                            <th>Kilometraje</th>
+                                                                            <th>Cliente</th>
+                                                                            <th># Factura</th>
+                                                                            <th>Ciudad</th>
+                                                                            <th>Fecha de solicitud</th>
+                                                                            <th>Fecha ejecución</th>
+                                                                            <th>Fecha entrega</th>
+                                                                            <th>Diagnóstico</th>
+                                                                            <th>Proveedor</th>
+                                                                            <th>Item</th>
+                                                                            <th>Descripción</th>
+                                                                            <th>Sistema</th>
+                                                                            <th>Cantidad</th>
+                                                                            <th>Precio unitario</th>
+                                                                            <th>Iva</th>
+                                                                            <th>Cliente</th>
+                                                                            <th>% que asume</th>
+                                                                            <th>Empresa</th>
+                                                                            <th>% que asume</th>
+                                                                            <th>Contratista</th>
+                                                                            <th>% que asume</th>
+                                                                            <th>Precio total</th>
+                                                                            <th>Clasificación</th>
+                                                                            <th>Nombre de cuenta</th>
+                                                                            <th>Código cuenta</th>
+                                                                            <th>Asume</th> 
+                                                                        </tr>
+                                                                    </thead>
+
+                                                                    <tbody id="tbodyControlActividades" class="text-nowrap">
+
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -964,7 +1003,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                             <div class="card-body">
                                 <h5 class="text-center"><i>Vehiculos</i></h5>
                                 <div class="table-responsive">
-                                    <table id="tablaProgramacion" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                                    <table id="tablaProgramacion" class="table table-sm table-striped table-bordered text-center table-hover  w-100">
                                         <thead class="text-nowrap">
                                             <th>...</th>
                                             <th>Placa</th>
@@ -1103,7 +1142,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
 
                                                 <!-- TABLA VEHICULOS -->
                                                 <div class="table-responsive">
-                                                    <table id="tablaSolicitudesProgramacion" class="table table-sm table-striped table-hover table-bordered text-center w-100">
+                                                    <table id="tablaSolicitudesProgramacion" class="datatable-multi-row table table-sm table-striped table-hover table-bordered text-center w-100">
                                                         <thead class="text-nowrap">
                                                             <tr>
                                                                 <th>...</th>
@@ -1119,11 +1158,25 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                         </thead>
 
                                                         <tbody id="tbodyprogramacion" class="text-nowrap">
-                                                                    
+
                                                         </tbody>
                                                     </table>
+                                                    <!-- <table id="tablaSolicitudesProgramacion" class="datatable-multi-row w-100">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Name</th>
+                                                                <th>Contact Date</th>
+                                                                <th>City</th>
+                                                                <th>Family Members</th>
+                                                                <th>Est. Value</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="tbodyprogramacion" class="text-nowrap">
+                                                            
+                                                            </tbody>
+                                                    </table> -->
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
 
@@ -1152,35 +1205,15 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 </div> <!-- PROGRAMACIÓN-->
             </div>
         </div>
@@ -1859,8 +1892,8 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                 <div class="col-12 mt-2">
                     <a href="cg-mantenimiento" target="_blank">
                         <button class="btn btn-sm btn-warning float-center"><i class="fas fa-plus-circle"></i>
-                        Crear nueva rutina 
-                    </button>
+                            Crear nueva rutina
+                        </button>
                     </a>
                 </div>
             </div>
@@ -1884,7 +1917,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
             <div class="card-body">
                 <div class="col-12">
                     <div class="table-responsive">
-                        <table id="" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
+                        <table id="tablaserviciosxvehiculoprogramacion" class="datatable-multi-row table table-sm table-striped table-hover table-bordered text-center w-100">
                             <thead class="text-nowrap">
                                 <th>Rutina</th>
                                 <th>Kilometraje actual</th>
@@ -2134,7 +2167,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                 <div class="row">
                     <div class="col-lg-12 col-sm-12 justify-content-center">
                         <div class="table-responsive">
-                            <table id="tablaProgramacionSolicitud" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover">
+                            <table id="tablaProgramacionSolicitud" class="datatable-multi-row table table-sm table-striped table-hover table-bordered text-center w-100">
                                 <thead class="text-nowrap">
                                     <th>Kilometraje</th>
                                     <th>Actividad</th>

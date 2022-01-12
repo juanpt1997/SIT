@@ -10,6 +10,8 @@ $Vehiculos = ControladorVehiculos::ctrListaVehiculos();
 $ObjetosContrato = ControladorFuec::ctrObjetosContrato();
 $Rutas = ControladorRutas::ctrListarRutas();
 $FUEC = ControladorFuec::ctrListaFUEC();
+$Conductores = ControladorVehiculos::ctrListaConductores();
+
 ?>
 
 
@@ -51,8 +53,8 @@ $FUEC = ControladorFuec::ctrListaFUEC();
             ========================= -->
             <div class="row mt-2">
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-header bg-info"></div>
+                    <div class="card card-outline card-info">
+                       
                         <div class="card-body">
                             <table id="tblFUEC" class="table table-responsive table-sm table-striped table-bordered table-hover w-100 text-center">
                                 <thead class="thead-light text-sm text-nowrap">
@@ -336,7 +338,7 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                                 <label>Conductor 1</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
-                                        <span class="input-group-text" style="height: 100%;"><i class="fas fa-user-check"></i></span>
+                                        <span class="input-group-text bg-success" data-toggle="modal" data-target="#agregar_conductor" style="height: 100%; cursor:pointer;"><i class="fas fa-user-check"></i></span>
                                     </div>
                                     <select id="conductor1" class="form-control select2-single input-fuec conductores" style="width: 90%" name="conductor1" required>
                                         <option value="" selected>-Seleccione un conductor</option>
@@ -639,6 +641,73 @@ $FUEC = ControladorFuec::ctrListaFUEC();
                         Guardar
                     </button>
                 <?php endif ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PARA AGREGAR CONDUCTOR -->
+<div id="agregar_conductor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <h5 class="modal-title" id="my-modal-title">Agregar conductor <i class="fas fa-user-plus"></i></h5> 
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    
+
+                    <!-- FORMULARIO DE CONDUCTORES -->
+                    <form class="formulario" id="frmConductores" method="post" enctype="multipart/form-data">
+                        <div class="row mt-2 border border-info rounded">
+                            <!-- ===================================================
+                                                    Conductor
+                                                =================================================== -->
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="form-group">
+                                    <label for="exampleInput1">Conductor *</label>
+                                    <select class="form-control select2-single " name="idconductor" required>
+                                        <option value="" selected>-Seleccione un conductor-</option>
+                                        <?php foreach ($Conductores as $key => $value) : ?>
+                                            <option value="<?= $value['idPersonal'] ?>"><?= $value['Nombre'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- ===================================================
+                                                    Observaciones
+                                                =================================================== -->
+                            <div class="col-12 col-md-8 col-lg-6">
+                                <div class="form-group">
+                                    <label for="exampleInput1">Observaciones</label>
+                                    <textarea class="form-control" name="observacion" rows="1" style="min-height:70px"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- ===================================================
+                                                    BOTON GUARDAR FORMULARIO
+                                                =================================================== -->
+                            <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
+                                <div class="col-12 col-md-4 col-lg-2 text-right text-md-left align-self-center">
+                                    <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
+                                    <div class="overlay d-none overlayBtnguardar" id="overlayBtnGuardardetalles">
+                                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                    </div>
+                                </div>
+                            <?php endif ?>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-danger ml-2" data-dismiss="modal">Cerrar</button>
+
             </div>
         </div>
     </div>

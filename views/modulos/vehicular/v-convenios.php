@@ -72,8 +72,8 @@ $ConveniosVencer = ControladorConvenios::ctrVencimientosConvenios();
                     </div> <!-- /.row -->
                     <div class="row mt-2">
                         <div class="col-12">
-                            <div class="card">
-                                <div class="card-header bg-info"></div>
+                            <div class="card card-outline card-info">
+                                
                                 <div class="card-body">
 
                                     <div class="table-responsive">
@@ -116,11 +116,11 @@ $ConveniosVencer = ControladorConvenios::ctrVencimientosConvenios();
                                                             <div class="row d-flex flex-nowrap justify-content-center">
                                                                 <div class="col-md-6">
                                                                     <div class="btn-group" role="group" aria-label="Button group">
-                                                                        <button class="btn btn-sm btn-info btnEditarEmpresa" idxc="<?= $value['idxc'] ?>" nit="<?= $value['nit'] ?>" data-toggle="modal" data-target="#EmpresasModal"><i class="fas fa-edit"></i></button>
+                                                                        <button class="btn btn-sm btn-info btnEditarEmpresa" title="Editar empresa." idxc="<?= $value['idxc'] ?>" nit="<?= $value['nit'] ?>" data-toggle="modal" data-target="#EmpresasModal"><i class="fas fa-edit"></i></button>
                                                                     </div>
                                                                     <?php if (validarPermiso('M_VEHICULAR', 'D')) : ?>
                                                                         <div class="btn-group" role="group" aria-label="Button group">
-                                                                            <button class="btn btn-sm btn-danger btnBorrarEmpresa" idxc="<?= $value['idxc'] ?>" nit="<?= $value['nit'] ?>"> <i class="fas fa-trash"></i> </button>
+                                                                            <button class="btn btn-sm btn-danger btnBorrarEmpresa" title="Eliminar empresa." idxc="<?= $value['idxc'] ?>" nit="<?= $value['nit'] ?>"> <i class="fas fa-trash"></i> </button>
                                                                         </div>
                                                                     <?php endif ?>
                                                                 </div>
@@ -152,8 +152,8 @@ $ConveniosVencer = ControladorConvenios::ctrVencimientosConvenios();
 
                     <div class="row mt-2">
                         <div class="col-12">
-                            <div class="card">
-                                <div class="card-header bg-info"></div>
+                            <div class="card card-outline card-info">
+                                
                                 <div class="card-body">
 
                                     <div class="table-responsive">
@@ -197,13 +197,13 @@ $ConveniosVencer = ControladorConvenios::ctrVencimientosConvenios();
                                                             <div class="row d-flex flex-nowrap justify-content-center">
                                                                 <div class="col-md-6">
                                                                     <div class="btn-group" role="group" aria-label="Button group">
-                                                                        <button class="btn btn-xs btn-info btnEditarConv" idConvenio="<?= $value['idconvenio'] ?>" data-toggle="modal" data-target="#ConvenioModal"><i class="fas fa-edit"></i></button>
+                                                                        <button class="btn btn-xs btn-info btnEditarConv" title="Editar convenio." idConvenio="<?= $value['idconvenio'] ?>" data-toggle="modal" data-target="#ConvenioModal"><i class="fas fa-edit"></i></button>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <?php if (validarPermiso('M_VEHICULAR', 'D')) : ?>
                                                                         <div class="btn-group" role="group" aria-label="Button group">
-                                                                            <button class="btn btn-xs btn-danger btnBorrarConv" idConvenio="<?= $value['idconvenio'] ?>"> <i class="fas fa-trash"></i> </button>
+                                                                            <button class="btn btn-xs btn-danger btnBorrarConv" title="Eliminar convenio." idConvenio="<?= $value['idconvenio'] ?>"> <i class="fas fa-trash"></i> </button>
                                                                         </div>
                                                                     <?php endif ?>
                                                                 </div>
@@ -256,8 +256,8 @@ $ConveniosVencer = ControladorConvenios::ctrVencimientosConvenios();
                 <div class="tab-pane fade" id="pills-vencimientos" role="tabpanel" aria-labelledby="pills-vencimientos-tab">
                     <div class="row mt-2">
                         <div class="col-12">
-                            <div class="card">
-                                <div class="card-header bg-info"></div>
+                            <div class="card card-outline card-info">
+                               
                                 <div class="card-body">
 
                                     <div class="table-responsive">

@@ -3,6 +3,6 @@
         "phpmailer/phpmailer": "^6.0",
         "fpdf/fpdf": "^1.82",
         "tecnickcom/tcpdf": "^6.4",
-        "phpoffice/phpspreadsheet": "^1.15"
+        "phpoffice/phpspreadsheet": "^1.20"
     }
 }

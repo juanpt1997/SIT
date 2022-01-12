@@ -45,8 +45,8 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
             <div class="row mt-2">
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card-header bg-info"></div>
+                    <div class="card card-outline card-info">
+                        
                         <div class="card-body">
 
                             <div class="table-responsive">
@@ -79,13 +79,13 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                                     <div class="row d-flex flex-nowrap justify-content-center">
                                                         <div class="col-md-6">
                                                             <div class="btn-group" role="group" aria-label="Button group">
-                                                                <button class="btn btn-sm btn-info btnEditarProp" idxp="<?= $value['idxp'] ?>" cedula="<?= $value['documento'] ?>" data-toggle="modal" data-target="#PropietarioModal"><i class="fas fa-edit"></i></button>
+                                                                <button class="btn btn-sm btn-info btnEditarProp" title="Editar propietario." idxp="<?= $value['idxp'] ?>" cedula="<?= $value['documento'] ?>" data-toggle="modal" data-target="#PropietarioModal"><i class="fas fa-edit"></i></button>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <?php if (validarPermiso('M_VEHICULAR', 'D')) : ?>
                                                                 <div class="btn-group" role="group" aria-label="Button group">
-                                                                    <button class="btn btn-sm btn-danger btnBorrarProp" idxp="<?= $value['idxp'] ?>" cedula="<?= $value['documento'] ?>"> <i class="fas fa-trash"></i> </button>
+                                                                    <button class="btn btn-sm btn-danger btnBorrarProp" title="Eliminar propietario." idxp="<?= $value['idxp'] ?>" cedula="<?= $value['documento'] ?>"> <i class="fas fa-trash"></i> </button>
                                                                 </div>
                                                             <?php endif ?>
                                                         </div>

@@ -53,7 +53,7 @@ $TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
             <div class="row mt-2">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card card-outline card-success">
+                        <div class="card card-outline card-info">
                             <div class="card-body">
                                 <!--|||TABLA PLAN DE RODAMIENTO|||-->
                                 <div class="table-responsive">
@@ -86,9 +86,9 @@ $TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
                                             <?php foreach ($Plan_r as $key => $value) : ?>
                                                 <tr>
                                                     <td>
-                                                        <button type="button" class="btn btn-success btn-sm btn-editarRodamiento" id_rodamiento="<?= $value['id'] ?>" data-toggle="modal" data-target="#modal-nuevoplanrodamiento"><i class="fas fa-edit"></i></button>
+                                                        <button type="button" class="btn btn-info btn-sm btn-editarRodamiento" title="Editar plan de rodamiento." id_rodamiento="<?= $value['id'] ?>" data-toggle="modal" data-target="#modal-nuevoplanrodamiento"><i class="fas fa-edit"></i></button>
                                                         <?php if (validarPermiso('M_OPERACIONES', 'D')) : ?>
-                                                            <button type="button" class="btn btn-danger btn-sm btn-eliminar-rodamiento" id_rodamiento="<?= $value['id'] ?>"><i class="fas fa-trash"></i></button>
+                                                            <button type="button" class="btn btn-danger btn-sm btn-eliminar-rodamiento" title="Eliminar." id_rodamiento="<?= $value['id'] ?>"><i class="fas fa-trash"></i></button>
                                                         <?php endif ?>
                                                     </td>
                                                     <td><?= $value['id'] ?></td>
