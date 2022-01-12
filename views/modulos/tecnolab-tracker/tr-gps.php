@@ -1,8 +1,8 @@
+<!-- <link rel="stylesheet" href="<?= URL_APP ?>views/css/tracker.css?v=<?= time() ?>"> -->
 <link rel="stylesheet" href="<?= URL_APP ?>views/css/tracker.css?v=<?= time() ?>">
-
 <!-- API KEY -->
-<script src="<?= URL_APP ?>views/js/tecnolab-tracker.js?v=<?= time() ?>"></script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB9pRTDe9mPjJ9YyqRNHopoG2S8A9sCGc&map_ids=768187b9c45dab96&callback=initMap"></script>
+<!-- <script src="<?= URL_APP ?>views/js/tecnolab-tracker.js?v=<?= time() ?>"></script> -->
+<!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCB9pRTDe9mPjJ9YyqRNHopoG2S8A9sCGc&map_ids=768187b9c45dab96&callback=initMap"></script> -->
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -33,11 +33,9 @@
             ========================= -->
             <div class="row">
                 <div class="col-12">
-                    <div class="lista_vehiculos">
-                        <strong>Vehículos</strong>
-                    </div>
-                    <div id="map" class="gmap">
-                    </div>
+                    
+                    
+                    <div id="map"></div>
                 </div>
             </div>
         </div><!-- /.container-fluid -->
