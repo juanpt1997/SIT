@@ -65,9 +65,9 @@ class MYPDF extends TCPDF
     // Position at 15 mm from bottom
     $this->SetY(-10);
     // Set font
-    $this->SetFont('helvetica', 'I', 8);
+    $this->SetFont('Times', 'I', 8);
     // Page number
-    $this->Cell(0, 10, 'Página ' . $this->getAliasNumPage() . '/' . $this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+    $this->Cell(0, 10, 'Tecnolab Soluciones Digitales - apps.tecnolab.com.co - Pagina ' . $this->getAliasNumPage() . '/' . $this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
   }
 }
 
@@ -115,13 +115,13 @@ class InventarioPDF
 
     //VALIDAR TIPO DE DOCUMENTOS 
     foreach ($documentos as $key => $value) {
-      if ($value['tipodocumento'] == 'Tarjeta de Operacion') {
+      if ($value['tipodocumento'] == 'Tarjeta de Operación') {
 
         $fechaTO = $value['Ffechafin'];
-      } else if ($value['tipodocumento'] == 'Revision preventiva') {
+      } else if ($value['tipodocumento'] == 'Revisión preventiva') {
 
         $fechaRP = $value['Ffechafin'];
-      } else if ($value['tipodocumento'] == 'Revision tecnico-mecanica') {
+      } else if ($value['tipodocumento'] == 'Revisión tecnico-mecánica') {
 
         $fechaRM = $value['Ffechafin'];
       } else if ($value['tipodocumento'] == 'Extintor') {
@@ -130,7 +130,7 @@ class InventarioPDF
       } else if ($value['tipodocumento'] == 'SOAT') {
 
         $fechaS = $value['Ffechafin'];
-      } else if ($value['tipodocumento'] == 'Poliza RC - RCE') {
+      } else if ($value['tipodocumento'] == 'Póliza RC - RCE') {
 
         $fechaP = $value['Ffechafin'];
       }
@@ -247,7 +247,7 @@ class InventarioPDF
     /* ===================================================
            TITULO INVENTARIO
     ===================================================*/
-    $pdf->SetFont('helvetica', 'B', '8');
+    $pdf->SetFont('Times', 'B', '8');
     //Ancho de texto y de pagina
     $anchoTexto = 130;
     $anchoPaginaMM = $pdf->getPageWidth();
@@ -257,10 +257,10 @@ class InventarioPDF
     //Titulo principal
     $pdf->MultiCell(130, 5, 'INVENTARIO VEHICULAR', 0, 'C', 0, 1, $x, $y, true);
     $pdf->MultiCell(130, 5, $empresa['razon_social'], 0, 'C', 0, 1, $x, '', true);
-    $pdf->SetFont('helvetica', '', '8');
+    $pdf->SetFont('Times', '', '8');
     $pdf->Ln(4);
     //NIT
-    $pdf->SetFont('helvetica', 'B', '8');
+    $pdf->SetFont('Times', 'B', '8');
     $pdf->MultiCell(130, 5, "NIT:", 0, 'C', 0, 1, $x, '', true);
     $pdf->SetFont('helvetica', 'I', '8');
     $pdf->MultiCell(130, 5, $empresa['nit'], 0, 'C', 0, 1, $x, '', true);
