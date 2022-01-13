@@ -128,7 +128,10 @@ $(document).ready(function () {
                                     let listaVencidosHtml = `<ul>`;
                                     response.DocumentosVencidos.forEach(
                                         (element) => {
-                                            let fechaVencido = element.fechafin == null ? "Sin fecha" : element.fechafin;
+                                            let fechaVencido =
+                                                element.fechafin == null
+                                                    ? "Sin fecha"
+                                                    : element.fechafin;
                                             listaVencidosHtml += `<li>${element.tipodocumento} -> ${fechaVencido}</li>`;
                                         }
                                     );
@@ -384,7 +387,10 @@ $(document).ready(function () {
                         if (response.DocumentosxVencer != "") {
                             let listaVencidosHtml = `<ul>`;
                             response.DocumentosxVencer.forEach((element) => {
-                                let fechaVencido = element.fechafin == null ? "Sin fecha" : element.fechafin;
+                                let fechaVencido =
+                                    element.fechafin == null
+                                        ? "Sin fecha"
+                                        : element.fechafin;
                                 listaVencidosHtml += `<li>${element.tipodocumento} -> ${fechaVencido}</li>`;
                             });
                             listaVencidosHtml += `</ul>`;
@@ -430,14 +436,14 @@ $(document).ready(function () {
             var files = $("#contratoadjunto")[0].files;
             datosAjax.append("documento", files[0]);
 
-            if ($("#idruta").val() == ""){
+            if ($("#idruta").val() == "") {
                 Swal.fire({
-                        icon: "warning",
-                        title: "¡Debe seleccionar una ruta antes de guardar!",
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-            }else{
+                    icon: "warning",
+                    title: "¡Debe seleccionar una ruta antes de guardar!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            } else {
                 $.ajax({
                     type: "post",
                     url: `${urlPagina}ajax/fuec.ajax.php`,
@@ -500,7 +506,6 @@ $(document).ready(function () {
                     },
                 });
             }
-
         });
 
         /* ===================================================
@@ -608,7 +613,9 @@ $(document).ready(function () {
                         $("#destino").val(response.destino);
                         //$("#descrip").val(response.observaciones);
                         setTimeout(() => {
-                            $("#observacionescontr").val(response.observaciones);
+                            $("#observacionescontr").val(
+                                response.observaciones
+                            );
                         }, 1000);
                         $("#precio").val(response.precio);
                         $("#valorneto").val(response.valor_neto);
@@ -677,7 +684,7 @@ $(document).ready(function () {
             // Borrar datos
             $("#tbody_principal").html("");
 
-            $(".btnBorrar").addClass('d-none');
+            $(".btnBorrar").addClass("d-none");
 
             var datos = new FormData();
             datos.append("ListarRutas", "ok");
@@ -709,9 +716,8 @@ $(document).ready(function () {
         });
 
         $(document).on("click", ".btnSeleccionarRuta", function () {
-
-            $("#NuevoFuecModal").modal('show');
-            $("#modal_general").modal('hide');
+            $("#NuevoFuecModal").modal("show");
+            $("#modal_general").modal("hide");
 
             var origen = $(this).attr("origen");
             var destino = $(this).attr("destino");
@@ -734,14 +740,70 @@ $(document).ready(function () {
         //     $("#origen").val("");
         //     $("#destino").val("");
         // });
-        $("#modal_general").on('hidden.bs.modal', function () {
-            $("#NuevoFuecModal").modal('show');
-            $("#modal_general").modal('hide');
+        $("#modal_general").on("hidden.bs.modal", function () {
+            $("#NuevoFuecModal").modal("show");
+            $("#modal_general").modal("hide");
 
             // $("#idruta").val("");
             // $("#observacionescontr").val("");
             // $("#origen").val("");
             // $("#destino").val("");
+        });
+
+        /*============================================
+            AGREGAR CONDUCTOR 
+        ==============================================*/
+        $("#frmConductores").submit(function (e) {
+            e.preventDefault();
+
+            let idvehiculo = $("#vehiculofuec").val();
+
+            var datosAjax = new FormData();
+            datosAjax.append("GuardarDetallesVehiculo", "ok");
+
+            // DATOS FORMULARIO
+            var datosFrm = $(this).serializeArray();
+            datosFrm.forEach((element) => {
+                datosAjax.append(element.name, element.value);
+            });
+
+            datosAjax.append("idvehiculo", idvehiculo);
+
+            $.ajax({
+                type: "post",
+                url: `${urlPagina}ajax/vehicular.ajax.php`,
+                data: datosAjax,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+
+                    if (response != "error") {
+                        // Reset del formulario
+                        $(this).trigger("reset");
+                        $(".select2-single").trigger("change"); //reset select2
+                        // Mensaje de éxito al usuario
+                        Swal.fire({
+                            icon: "success",
+                            title: "¡Datos guardados correctamente!",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Ha ocurrido un error, por favor intente de nuevo",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                            closeOnConfirm: false,
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location = "v-vehiculos";
+                            }
+                        });
+                    }
+                },
+            });
         });
     }
 
