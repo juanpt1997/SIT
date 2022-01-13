@@ -54,7 +54,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
             <div class="row mt-2">
                 <div class="col-12">
                     <div class="card card-outline card-info">
-                       
+
                         <div class="card-body">
                             <table id="tblFUEC" class="table table-responsive table-sm table-striped table-bordered table-hover w-100 text-center">
                                 <thead class="thead-light text-sm text-nowrap">
@@ -338,7 +338,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                 <label>Conductor 1</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
-                                        <span class="input-group-text bg-success" data-toggle="modal" data-target="#agregar_conductor" style="height: 100%; cursor:pointer;"><i class="fas fa-user-check"></i></span>
+                                        <span class="input-group-text bg-success btn-ModalConductores" data-toggle="modal" data-target="#agregar_conductor" style="height: 100%; cursor:pointer;"><i class="fas fa-user-check"></i></span>
                                     </div>
                                     <select id="conductor1" class="form-control select2-single input-fuec conductores" style="width: 90%" name="conductor1" required>
                                         <option value="" selected>-Seleccione un conductor</option>
@@ -651,14 +651,14 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-success">
-                <h5 class="modal-title" id="my-modal-title">Agregar conductor <i class="fas fa-user-plus"></i></h5> 
+                <h5 class="modal-title" id="my-modal-title">Agregar conductor <i class="fas fa-user-plus"></i></h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="card">
                 <div class="card-body">
-                    
+
 
                     <!-- FORMULARIO DE CONDUCTORES -->
                     <form class="formulario" id="frmConductores" method="post" enctype="multipart/form-data">
@@ -701,12 +701,32 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                             <?php endif ?>
                         </div>
                     </form>
+                    <div class="table-responsive mt-2">
+                        <table id="tblConductores" class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
+                            <thead class="thead-light text-sm text-center">
+                                <tr>
+                                    <th>Conductor</th>
+                                    <th>Observaciones</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyConductores" class="text-center">
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td>
+                                        
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
 
 
                 </div>
             </div>
             <div class="modal-footer">
-            <button type="button" class="btn btn-danger ml-2" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-danger ml-2" data-dismiss="modal">Cerrar</button>
 
             </div>
         </div>
