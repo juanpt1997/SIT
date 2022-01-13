@@ -307,7 +307,6 @@ if (
                         processData: false,
                         dataType: "json",
                         success: function (response) {
-                            console.log(response);
                             $("#nom_contrata").val(response.nombre);
                             $("#t_document_empre").val(response.tipo_doc);
                             $("#document").val(response.Documento);

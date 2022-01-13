@@ -65,7 +65,7 @@ class MYPDF extends TCPDF
         // Position at 15 mm from bottom
         $this->SetY(-10);
         // Set font
-        $this->SetFont('helvetica', 'I', 8);
+        $this->SetFont('Times', 'I', 8);
         // Page number
         $this->Cell(0, 10, 'Tecnolab Soluciones Digitales - apps.tecnolab.com.co - Pagina ' . $this->getAliasNumPage() . '/' . $this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
     }
@@ -175,7 +175,7 @@ class mantenimientoPDF
         /* ===================================================
            TITULO ALISTAMIENTO
         ===================================================*/
-        $pdf->SetFont('helvetica', 'B', '8');
+        $pdf->SetFont('Times', 'B', '8');
         //Ancho de texto y de pagina
         $anchoTexto = 130;
         $anchoPaginaMM = $pdf->getPageWidth();
@@ -185,12 +185,12 @@ class mantenimientoPDF
         //Titulo principal
         $pdf->MultiCell(130, 5, 'SOLICITUD DE SERVICIO', 0, 'C', 0, 1, $x, $y, true);
         $pdf->MultiCell(130, 5, $empresa['razon_social'], 0, 'C', 0, 1, $x, '', true);
-        $pdf->SetFont('helvetica', '', '8');
+        $pdf->SetFont('Times', '', '8');
         $pdf->Ln(3);
         //NIT
-        $pdf->SetFont('helvetica', 'B', '8');
+        $pdf->SetFont('Times', 'B', '8');
         $pdf->MultiCell(130, 5, "NIT:", 0, 'C', 0, 1, $x, '', true);
-        $pdf->SetFont('helvetica', 'I', '8');
+        $pdf->SetFont('Helvetica', 'I', '8');
         $pdf->MultiCell(130, 5, $empresa['nit'], 0, 'C', 0, 1, $x, '', true);
         $pdf->Ln(3);
 
@@ -299,7 +299,7 @@ class mantenimientoPDF
 
         // Close and output PDF document
         // This method has several options, check the source code documentation for more information.
-        $pdf->Output('SolicitudOrden', 'I');
+        $pdf->Output('SolicitudOrden-N'.$orden['idorden'], 'I');
         //============================================================+
         // END OF FILE
         //============================================================+

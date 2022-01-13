@@ -316,8 +316,8 @@ class ModeloCotizaciones
       //nomcontratante,Documento,direccion,telefono1,telefono2,nomcontacto,
       $stmt = Conexion::conectar()->prepare("INSERT INTO cont_cotizaciones(idcliente,empresa,idsucursal,
       origen,destino,descripcion,fecha_solicitud,fecha_solucion,fecha_inicio,fecha_fin,duracion,hora_salida,hora_recogida,idtipovehiculo,nro_vehiculos,
-      capacidad,valorxvehiculo,valortotal,cotizacion,clasificacion,musica,aire,wifi,silleriareclinable,bano,bodega,otro,realiza_viaje,porque,nombre_con,documento_con,tipo_doc_con,tel_1,direccion_con,nombre_respo,tipo_doc_respo,cedula_expedicion,documento_res,ciudad_con,ciudad_res,tel_2,otro_v, idruta, viaje_ocasional)
-      VALUES(:idcliente,:empresa,:idsucursal,:origen,:destino,:descripcion,:fecha_solicitud,:fecha_solucion,:fecha_inicio,:fecha_fin,:duracion,:hora_salida,:hora_recogida,:idtipovehiculo,:nro_vehiculos,:capacidad,:valorxvehiculo,:valortotal,:cotizacion,:clasificacion,:musica,:aire,:wifi,:silleriareclinable,:bano,:bodega,:otro,:realiza_viaje,:porque,:nombre_con,:documento_con,:tipo_doc_con,:tel_1,:direccion_con,:nombre_respo,:tipo_doc_respo,:cedula_expedicion,:documento_res,:ciudad_con,:ciudad_res,:tel_2,:otro_v, :idruta, :viaje_ocasional)");
+      capacidad,valorxvehiculo,valortotal,cotizacion,clasificacion,musica,aire,wifi,silleriareclinable,bano,bodega,otro,realiza_viaje,porque,nombre_con,documento_con,tipo_doc_con,tel_1,direccion_con,nombre_respo,tipo_doc_respo,cedula_expedicion,documento_res,ciudad_con,ciudad_res,tel_2,otro_v, idruta, viaje_ocasional,user_created,user_updated)
+      VALUES(:idcliente,:empresa,:idsucursal,:origen,:destino,:descripcion,:fecha_solicitud,:fecha_solucion,:fecha_inicio,:fecha_fin,:duracion,:hora_salida,:hora_recogida,:idtipovehiculo,:nro_vehiculos,:capacidad,:valorxvehiculo,:valortotal,:cotizacion,:clasificacion,:musica,:aire,:wifi,:silleriareclinable,:bano,:bodega,:otro,:realiza_viaje,:porque,:nombre_con,:documento_con,:tipo_doc_con,:tel_1,:direccion_con,:nombre_respo,:tipo_doc_respo,:cedula_expedicion,:documento_res,:ciudad_con,:ciudad_res,:tel_2,:otro_v, :idruta, :viaje_ocasional,:user_created,:user_updated)");
 
       $stmt->bindParam(":documento_con", $datos["document"], PDO::PARAM_STR);
       $stmt->bindParam(":tipo_doc_con", $datos["t_document_empre"], PDO::PARAM_STR);
@@ -367,6 +367,9 @@ class ModeloCotizaciones
       $stmt->bindParam(":idruta", $datos["idruta"], PDO::PARAM_INT);
 
       $stmt->bindParam(":viaje_ocasional", $datos["viaje_ocasional"], PDO::PARAM_STR);
+      $stmt->bindParam(":user_created", $datos["usuario"], PDO::PARAM_INT);
+      $stmt->bindParam(":user_updated", $datos["usuario"], PDO::PARAM_INT);
+
 
       if ($stmt->execute()) {
          $retorno = "ok";
@@ -455,7 +458,7 @@ class ModeloCotizaciones
       empresa=:empresa,idsucursal=:idsucursal,origen=:origen,destino=:destino,descripcion=:descripcion,fecha_solicitud=:fecha_solicitud,fecha_solucion=:fecha_solucion,fecha_inicio=:fecha_inicio,
       fecha_fin=:fecha_fin,duracion=:duracion,idcliente =:idcliente,hora_salida=:hora_salida,hora_recogida=:hora_recogida,idtipovehiculo=:idtipovehiculo,nro_vehiculos=:nro_vehiculos,
       capacidad=:capacidad,valorxvehiculo=:valorxvehiculo,valortotal=:valortotal,cotizacion=:cotizacion,clasificacion=:clasificacion,musica=:musica,aire=:aire,wifi=:wifi,
-      silleriareclinable=:silleriareclinable,bano=:bano,bodega=:bodega,otro=:otro,realiza_viaje=:realiza_viaje,porque=:porque,nombre_con=:nombre_con,documento_con=:documento_con,tipo_doc_con=:tipo_doc_con,tel_1=:tel_1,direccion_con=:direccion_con,nombre_respo=:nombre_respo,tipo_doc_respo=:tipo_doc_respo,cedula_expedicion=:cedula_expedicion,documento_res=:documento_res,ciudad_con=:ciudad_con,ciudad_res=:ciudad_res,tel_2=:tel_2,otro_v=:otro_v,idruta=:idruta, viaje_ocasional=:viaje_ocasional
+      silleriareclinable=:silleriareclinable,bano=:bano,bodega=:bodega,otro=:otro,realiza_viaje=:realiza_viaje,porque=:porque,nombre_con=:nombre_con,documento_con=:documento_con,tipo_doc_con=:tipo_doc_con,tel_1=:tel_1,direccion_con=:direccion_con,nombre_respo=:nombre_respo,tipo_doc_respo=:tipo_doc_respo,cedula_expedicion=:cedula_expedicion,documento_res=:documento_res,ciudad_con=:ciudad_con,ciudad_res=:ciudad_res,tel_2=:tel_2,otro_v=:otro_v,idruta=:idruta, viaje_ocasional=:viaje_ocasional, user_updated=:user_updated
 		WHERE idcotizacion = :idcotizacion");
 
       $stmt->bindParam(":idcotizacion", $datos["id_cot"], PDO::PARAM_INT);
@@ -507,6 +510,8 @@ class ModeloCotizaciones
       $stmt->bindParam(":idruta", $datos["idruta"], PDO::PARAM_INT);
 
       $stmt->bindParam(":viaje_ocasional", $datos["viaje_ocasional"], PDO::PARAM_STR);
+      $stmt->bindParam(":user_updated", $datos["usuario"], PDO::PARAM_INT);
+
 
       if ($stmt->execute()) {
          $retorno = "ok";
@@ -682,8 +687,8 @@ class ModeloOrdenServicio
 {
    static public function mdlAgregarOrden($datos)
    {
-      $stmt = Conexion::conectar()->prepare("INSERT INTO cont_ordenservicio(idcotizacion,nro_contrato,nro_factura,fecha_facturacion,cancelada,cod_autoriz)
-      VALUES(:idcotizacion,:nro_contrato,:nro_factura,:fecha_facturacion,:cancelada,:cod_autoriz)");
+      $stmt = Conexion::conectar()->prepare("INSERT INTO cont_ordenservicio(idcotizacion,nro_contrato,nro_factura,fecha_facturacion,cancelada,cod_autoriz,user_created,user_updated)
+      VALUES(:idcotizacion,:nro_contrato,:nro_factura,:fecha_facturacion,:cancelada,:cod_autoriz,:user_created,:user_updated)");
 
       $stmt->bindParam(":idcotizacion", $datos["idcotizacion"], PDO::PARAM_INT);
       $stmt->bindParam(":nro_contrato", $datos["nro_contrato"], PDO::PARAM_INT);
@@ -691,6 +696,8 @@ class ModeloOrdenServicio
       $stmt->bindParam(":fecha_facturacion", $datos["fecha_facturacion"], PDO::PARAM_STR);
       $stmt->bindParam(":cancelada", $datos["cancelada"], PDO::PARAM_STR);
       $stmt->bindParam(":cod_autoriz", $datos["cod_autoriz"], PDO::PARAM_STR);
+      $stmt->bindParam(":user_created", $datos["usuario"], PDO::PARAM_INT);
+      $stmt->bindParam(":user_updated", $datos["usuario"], PDO::PARAM_INT);
       //$stmt->bindParam(":viaje_ocasional", $datos["viaje_ocasional"], PDO::PARAM_STR);
 
       if ($stmt->execute()) {
@@ -784,7 +791,7 @@ class ModeloOrdenServicio
 
    static public function mdlEditarOrden($datos)
    {
-      $stmt = Conexion::conectar()->prepare("UPDATE cont_ordenservicio set idcotizacion=:idcotizacion, nro_contrato=:nro_contrato, nro_factura=:nro_factura, fecha_facturacion=:fecha_facturacion, cancelada=:cancelada, cod_autoriz=:cod_autoriz
+      $stmt = Conexion::conectar()->prepare("UPDATE cont_ordenservicio set idcotizacion=:idcotizacion, nro_contrato=:nro_contrato, nro_factura=:nro_factura, fecha_facturacion=:fecha_facturacion, cancelada=:cancelada, cod_autoriz=:cod_autoriz,user_updated=:user_updated
 											            WHERE idorden = :idorden");
 
       $stmt->bindParam(":idorden", $datos["idorden"], PDO::PARAM_INT);
@@ -794,6 +801,7 @@ class ModeloOrdenServicio
       $stmt->bindParam(":fecha_facturacion", $datos["fecha_facturacion"], PDO::PARAM_STR);
       $stmt->bindParam(":cancelada", $datos["cancelada"], PDO::PARAM_STR);
       $stmt->bindParam(":cod_autoriz", $datos["cod_autoriz"], PDO::PARAM_STR);
+      $stmt->bindParam(":user_updated", $datos["usuario"], PDO::PARAM_INT);
       //$stmt->bindParam(":viaje_ocasional", $datos["viaje_ocasional"], PDO::PARAM_STR);
 
       if ($stmt->execute()) {
