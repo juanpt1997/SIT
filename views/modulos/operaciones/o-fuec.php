@@ -693,8 +693,8 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                                 =================================================== -->
                             <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
                                 <div class="col-12 col-md-4 col-lg-2 text-right text-md-left align-self-center">
-                                    <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
-                                    <div class="overlay d-none overlayBtnguardar" id="overlayBtnGuardardetalles">
+                                    <button type="submit" class="btn btn-success btn-agregarConductorFuec"><i class="fas fa-check-circle"></i></button>
+                                    <div class="overlay d-none" id="overlayBtnGuardardetalles">
                                         <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                                     </div>
                                 </div>

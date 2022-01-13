@@ -498,7 +498,7 @@
                 =================================================== -->
                 <?php if (validarPermiso('M_TRACKER', 'R')) : ?>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="tr-gps" class="nav-link">
                             <i class="nav-icon fas fa-map-marked-alt"></i>
                             <p>Rastreo Satelital</p>
                         </a>
