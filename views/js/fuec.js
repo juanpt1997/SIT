@@ -792,10 +792,6 @@ $(document).ready(function () {
 
                         $("#agregar_conductor").modal('hide');
 
-
-
-
-
                     } else {
                         Swal.fire({
                             icon: "error",
@@ -805,7 +801,7 @@ $(document).ready(function () {
                             closeOnConfirm: false,
                         }).then((result) => {
                             if (result.value) {
-                                window.location = "v-vehiculos";
+                                window.location = "o-fuec";
                             }
                         });
                     }
@@ -1098,9 +1094,7 @@ $(document).ready(function () {
                         success: function (response) {
                             // Mensaje de éxito
                             if (response == "ok") {
-                                AjaxTablaDinamica(idvehiculo, "Propietarios");
                                 AjaxTablaDinamica(idvehiculo, "Conductores");
-                                AjaxTablaDinamica(idvehiculo, "Documentos");
 
                                 Swal.fire({
                                     icon: 'success',
@@ -1119,7 +1113,7 @@ $(document).ready(function () {
                                 }).then((result) => {
 
                                     if (result.value) {
-                                        window.location = 'v-vehiculos';
+                                        window.location = 'o-fuec';
                                     }
 
                                 })
