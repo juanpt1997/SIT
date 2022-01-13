@@ -432,7 +432,8 @@ class ModeloCotizaciones
                                                 -- IF (C.idruta IS NULL, C.descripcion, rt.nombreruta) AS descripcion,
                                                 IF (C.descripcion = '', rt.nombreruta, C.descripcion) AS descripcion,
                                                 C.fecha_solicitud, C.fecha_solucion, C.fecha_inicio, C.fecha_fin, C.duracion, C.hora_salida, C.hora_recogida, C.idtipovehiculo, C.nro_vehiculos, C.capacidad, C.valorxvehiculo, C.valortotal, C.cotizacion, C.clasificacion, C.musica, C.aire, C.wifi, C.silleriareclinable, C.bano, C.bodega, C.otro, C.realiza_viaje, C.porque, C.nombre_con, C.documento_con, C.tipo_doc_con, C.tel_1, C.direccion_con, C.nombre_respo, C.tipo_doc_respo, C.cedula_expedicion, C.documento_res, C.ciudad_con, C.ciudad_res, C.tel_2, C.otro_v, C.idruta, C.viaje_ocasional,
-                                                S.sucursal AS sucursal, V.tipovehiculo AS tipov, Cl.*, CONCAT('ID: ',C.idcotizacion, ' - ',C.nombre_con) AS clientexist, m1.municipio AS ciudadcon, m2.municipio AS ciudadres, m3.municipio AS cedulaexpe
+                                                S.sucursal AS sucursal, V.tipovehiculo AS tipov, Cl.*, CONCAT('ID: ',C.idcotizacion, ' - ',C.nombre_con) AS clientexist, m1.municipio AS ciudadcon, m2.municipio AS ciudadres, m3.municipio AS cedulaexpe,
+                                                u.Nombre AS usuarioCreacion
                                                 FROM cont_cotizaciones C
                                                 LEFT JOIN gh_sucursales S ON C.idsucursal = S.ids
                                                 LEFT JOIN v_tipovehiculos V ON C.idtipovehiculo = V.idtipovehiculo
@@ -442,7 +443,8 @@ class ModeloCotizaciones
                                                 LEFT JOIN v_rutas rt ON rt.id = C.idruta
                                                 LEFT JOIN gh_municipios AS ori ON ori.idmunicipio=rt.idorigen
                                                 LEFT JOIN gh_municipios AS des ON des.idmunicipio=rt.iddestino
-                                                INNER JOIN cont_clientes Cl ON C.idcliente = Cl.idcliente");
+                                                INNER JOIN cont_clientes Cl ON C.idcliente = Cl.idcliente
+                                                LEFT JOIN l_usuarios u ON u.Cedula = C.user_created");
 
          $stmt->execute();
          $retorno =  $stmt->fetchAll();
@@ -774,14 +776,16 @@ class ModeloOrdenServicio
                                              C.fecha_solicitud, C.fecha_solucion, C.fecha_inicio, C.fecha_fin, C.duracion, C.hora_salida, C.hora_recogida, C.idtipovehiculo, C.nro_vehiculos, C.capacidad, C.valorxvehiculo, C.valortotal, C.cotizacion, C.clasificacion, C.musica, C.aire, C.wifi, C.silleriareclinable, C.bano, C.bodega, C.otro, C.realiza_viaje, C.porque, C.nombre_con, C.documento_con, C.tipo_doc_con, C.tel_1, C.direccion_con, C.nombre_respo, C.tipo_doc_respo, C.cedula_expedicion, C.documento_res, C.ciudad_con, C.ciudad_res, C.tel_2, C.otro_v, C.idruta, 
                                              CL.correo,
                                              O.idorden, O.nro_contrato, O.nro_factura, O.fecha_facturacion, O.cancelada, O.cod_autoriz, C.viaje_ocasional,
-                                             C.nombre_con AS nomContrata, C.documento_con AS doContrata
+                                             C.nombre_con AS nomContrata, C.documento_con AS doContrata,
                                              -- C.direccion_con, C.tel_1, C.tel_2, C.nombre_respo
+                                             u.Nombre AS usuarioCreacion
                                              FROM cont_ordenservicio O
                                              LEFT JOIN cont_cotizaciones C ON O.idcotizacion = C.idcotizacion
                                              LEFT JOIN cont_clientes CL ON CL.idcliente = C.idcliente
                                              LEFT JOIN v_rutas rt ON rt.id = C.idruta
                                              LEFT JOIN gh_municipios AS ori ON ori.idmunicipio=rt.idorigen
-                                             LEFT JOIN gh_municipios AS des ON des.idmunicipio=rt.iddestino");
+                                             LEFT JOIN gh_municipios AS des ON des.idmunicipio=rt.iddestino
+                                             LEFT JOIN l_usuarios u ON u.Cedula = O.user_created");
 
       $stmt->execute();
       $retorno =  $stmt->fetchAll();
