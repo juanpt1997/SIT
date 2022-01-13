@@ -140,50 +140,58 @@
 //ACESS TOKERN
 //  //styles/jhojaaan/ckybqcm1c4rf314p9s2wampox   pk.eyJ1IjoiamhvamFhYW4iLCJhIjoiY2t5YnFnenQ0MGh1NDJ2bXJuNHAyYzNwNyJ9.G2RDhoh0k89zZdQCJIdZMw
 
-var map = L.map('map').setView([4.831024153615176, -75.69801344661542], 18); //Inicializamos el mapa [Coordenadas], zoom
 
-L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-    maxZoom: 20,
-    id: 'jhojaaan/ckybriueb1y4y14pejl9edlxv',
-    tileSize: 512,
-    zoomOffset: -1,
-    accessToken: 'pk.eyJ1IjoiamhvamFhYW4iLCJhIjoiY2t5YnFnenQ0MGh1NDJ2bXJuNHAyYzNwNyJ9.G2RDhoh0k89zZdQCJIdZMw'
-}).addTo(map);
+if (
+    window.location.href == `${urlPagina}tr-gps/` ||
+    window.location.href == `${urlPagina}tr-gps`)
+    {
+        
+        var map = L.map('map').setView([4.831024153615176, -75.69801344661542], 18); //Inicializamos el mapa [Coordenadas], zoom
+        
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 20,
+            id: 'jhojaaan/ckybriueb1y4y14pejl9edlxv',
+            tileSize: 512,
+            zoomOffset: -1,
+            accessToken: 'pk.eyJ1IjoiamhvamFhYW4iLCJhIjoiY2t5YnFnenQ0MGh1NDJ2bXJuNHAyYzNwNyJ9.G2RDhoh0k89zZdQCJIdZMw'
+        }).addTo(map);
+        
+        // Estilo de mapa 1: ckybqcm1c4rf314p9s2wampox
+        // Estilo de mapa 2: ckybriueb1y4y14pejl9edlxv
+        
+        //Crear marcador 
+        var vehiculo1 = L.marker([4.818690612367718, -75.71297155516983]).bindPopup("INI 109");
+        var vehiculo2 = L.marker([4.814496008354692, -75.69285895928363]).bindPopup("KUK 090");
+        var vehiculo3 = L.marker([4.816378727930608, -75.68668972946124]).bindPopup("LAI 350");
+        var vehiculo4 = L.marker([4.819435315212369, -75.67460046430203]).bindPopup("MAN 919");
+        var vehiculo5 = L.marker([4.834250578428947, -75.67091955371562]).bindPopup("SJR 276");
+        
+        var vehiculos = L.layerGroup([vehiculo1,vehiculo2,vehiculo3,vehiculo4,vehiculo5]).addTo(map);
+        
+        // var latlngs = [
+        //     [4.818690612367718, -75.71297155516983],
+        // [4.814496008354692, -75.69285895928363],
+        // [4.816378727930608, -75.68668972946124]
+        // ];
+        
+        // var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+        
+        L.Routing.control({
+            waypoints: [
+                L.latLng(4.818690612367718, -75.71297155516983),
+                L.latLng(4.816378727930608, -75.68668972946124)
+                // L.latLng(4.834250578428947, -75.67091955371562)
+            ],
+            show: false
+          }).addTo(map);
+        
+        
+        // vehiculo1.bindTooltip("test").openTooltip().addTo(map);
+        // var popup = L.popup()
+        // .setLatLng([4.831024153615176, -75.69801344661542])
+        // .setContent("I am a standalone popup.")
+        // .openOn(map);
 
-// Estilo de mapa 1: ckybqcm1c4rf314p9s2wampox
-// Estilo de mapa 2: ckybriueb1y4y14pejl9edlxv
-
-//Crear marcador 
-var vehiculo1 = L.marker([4.818690612367718, -75.71297155516983]).bindPopup("INI 109");
-var vehiculo2 = L.marker([4.814496008354692, -75.69285895928363]).bindPopup("KUK 090");
-var vehiculo3 = L.marker([4.816378727930608, -75.68668972946124]).bindPopup("LAI 350");
-var vehiculo4 = L.marker([4.819435315212369, -75.67460046430203]).bindPopup("MAN 919");
-var vehiculo5 = L.marker([4.834250578428947, -75.67091955371562]).bindPopup("SJR 276");
-
-var vehiculos = L.layerGroup([vehiculo1,vehiculo2,vehiculo3,vehiculo4,vehiculo5]).addTo(map);
-
-// var latlngs = [
-//     [4.818690612367718, -75.71297155516983],
-// [4.814496008354692, -75.69285895928363],
-// [4.816378727930608, -75.68668972946124]
-// ];
-
-// var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
-
-L.Routing.control({
-    waypoints: [
-        L.latLng(4.818690612367718, -75.71297155516983),
-        L.latLng(4.816378727930608, -75.68668972946124)
-        // L.latLng(4.834250578428947, -75.67091955371562)
-    ],
-    show: false
-  }).addTo(map);
-
-
-// vehiculo1.bindTooltip("test").openTooltip().addTo(map);
-// var popup = L.popup()
-// .setLatLng([4.831024153615176, -75.69801344661542])
-// .setContent("I am a standalone popup.")
-// .openOn(map);
-
+    }    
+    
