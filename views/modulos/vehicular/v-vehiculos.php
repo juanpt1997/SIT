@@ -106,6 +106,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                                 <i class='fas fa-lg fa-edit text-info'></i>
                                                             </button>
                                                             <button type='button' class='btn btn-sm btn-FTVehiculo' title='Ver ficha tecnica' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-lg fa-book text-secondary'></i></button>
+                                                            <a target='_blank' href='https://fcm.org.co/simit/#/estado-cuenta?numDocPlacaProp={$value['placa']}'><button type='button' class='btn btn-sm' title='Consultar infracciones' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-search text-warning'></i></button></a>
                                                         </div>";
                                                 ?>
                                                 <tr>

@@ -51,9 +51,10 @@ class AjaxPersonal
             }
 
             # Botón Acciones
+            $btnConsultar = "<a target='_blank' href='https://fcm.org.co/simit/#/estado-cuenta?numDocPlacaProp={$value['Documento']}'><button type='button' class='btn btn-sm bg-warning btn-sm m-1' title='Consultar infracciones' documento='{$value['Documento']}'><i class='fas fa-search '></i></button></a>";
             $btnEditar = "<button type='button' class='btn btn-info btn-sm m-1 btn-editarPersonal' idPersonal='{$value['idPersonal']}' data-toggle='modal' data-target='#PersonalModal'><i class='fas fa-edit'></i></button>";
             $btnFichaTecnica = "<button type='button' class='btn btn-secondary btn-sm m-1 btn-FTConductor' idPersonal='{$value['idPersonal']}'><i class='fas fa-book'></i></button>";
-            $botonAcciones = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnEditar . $btnFichaTecnica . "</div>";
+            $botonAcciones = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnEditar . $btnFichaTecnica . $btnConsultar . "</div>";
 
             /* <tr>
                                     <td><?= $value['idPersonal'] ?></td>

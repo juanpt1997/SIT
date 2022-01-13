@@ -275,7 +275,9 @@ class AjaxVehiculos
             } else {
                 $btnEliminar = "";
             }
-            $botonAcciones = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnEditar . $btnEliminar . "</div>";
+
+            $btnConsultar = "<a target='_blank' href='https://fcm.org.co/simit/#/estado-cuenta?numDocPlacaProp={$value['Documento']}'><button type='button' class='btn btn-sm bg-warning' title='Consultar infracciones' documento='{$value['Documento']}'><i class='fas fa-search '></i></button></a>";
+            $botonAcciones = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnEditar . $btnEliminar .  $btnConsultar ."</div>";
 
             $btnFichaTecnicaConductor = "<button type='button' class='btn btn-secondary btn-sm mr-3 btn-FTConductor' idPersonal='{$value['idconductor']}'><i class='fas fa-book'></i></button>";
             $Conductor = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnFichaTecnicaConductor . $value['conductor'] . "</div>";

@@ -1952,12 +1952,13 @@ class ModeloMantenimientos
 
     static public function mdlAgregarOrdenServicio($datos)
     {
+        
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("INSERT INTO m_ordenservicio(idvehiculo,fecha_entrada,hora_entrada,fecha_trabajos,diagnostico,observacion, estado, ciudad, factura, kilometraje_orden, fecha_aprobacion, cedula)
-                                                VALUES(:idvehiculo_OrdServ, :fechaentrada_OrdSer, :horaentra_ordSer, :fechaInic_ordSer, :diagnostico, :observacion, :estado, :ciudad, :factura, :kilometraje_orden, :fecha_aprobacion, :cedula)");
+        $stmt = $conexion->prepare("INSERT INTO m_ordenservicio(idvehiculo,hora_entrada,fecha_trabajos,diagnostico,observacion, estado, ciudad, factura, kilometraje_orden, fecha_aprobacion, cedula)
+                                                VALUES(:idvehiculo_OrdServ, :horaentra_ordSer, :fechaInic_ordSer, :diagnostico, :observacion, :estado, :ciudad, :factura, :kilometraje_orden, :fecha_aprobacion, :cedula)");
 
         $stmt->bindParam(":idvehiculo_OrdServ", $datos['idvehiculo_OrdServ'], PDO::PARAM_INT);
-        $stmt->bindParam(":fechaentrada_OrdSer", $datos['fechaentrada_OrdSer'], PDO::PARAM_STR);
+        // $stmt->bindParam(":fechaentrada_OrdSer", $datos['fechaentrada_OrdSer'], PDO::PARAM_STR);
         $stmt->bindParam(":horaentra_ordSer", $datos['horaentra_ordSer'], PDO::PARAM_STR);
         $stmt->bindParam(":fechaInic_ordSer", $datos['fechaInic_ordSer'], PDO::PARAM_STR);
         $stmt->bindParam(":fecha_aprobacion", $datos['fecha_aprobacion'], PDO::PARAM_STR);
@@ -1977,6 +1978,7 @@ class ModeloMantenimientos
         $stmt->closeCursor();
         $conexion = null;
 
+        
         return $id;
     }
 
@@ -2168,10 +2170,10 @@ class ModeloMantenimientos
         AGREGAR REPUESTO EN ORDEN DE SERVICIO
     ===================================================*/
 
-    static public function mdlAgregarRepuestoOrdenServicio($idorden, $idinventario, $cantidad, $idservicio, $sistema, $mantenimiento, $iva, $total, $idproveedor, $valor, $idcuenta)
+    static public function mdlAgregarRepuestoOrdenServicio($idorden, $idinventario, $cantidad, $idservicio, $sistema, $mantenimiento, $iva, $total, $idproveedor, $valor)
     {
-        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_repuestoordenservicio(idorden,idinventario, cantidad,idservicio,sistema,mantenimiento,iva,total, idproveedor, valor, idcuenta )
-                                                VALUES(:idorden,:idinventario, :cantidad, :idservicio, :sistema, :mantenimiento,:iva,:total, :idproveedor, :valor, :idcuenta)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_repuestoordenservicio(idorden,idinventario, cantidad,idservicio,sistema,mantenimiento,iva,total, idproveedor, valor )
+                                                VALUES(:idorden,:idinventario, :cantidad, :idservicio, :sistema, :mantenimiento,:iva,:total, :idproveedor, :valor)");
 
         $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
         $stmt->bindParam(":idinventario", $idinventario, PDO::PARAM_INT);
@@ -2183,7 +2185,6 @@ class ModeloMantenimientos
         $stmt->bindParam(":total", $total, PDO::PARAM_INT);
         $stmt->bindParam(":idproveedor", $idproveedor, PDO::PARAM_INT);
         $stmt->bindParam(":valor", $valor, PDO::PARAM_INT);
-        $stmt->bindParam(":idcuenta", $idcuenta, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $retorno = "ok";
@@ -2202,10 +2203,10 @@ class ModeloMantenimientos
         AGREGAR MANO DE OBRA / PROVEEDOR
     ===================================================*/
 
-    static public function mdlAgregarManoObra($idorden, $idproveedor, $descrip, $valor, $cantidad, $idservicio, $sistema, $mantenimiento, $iva, $total, $idcuenta)
+    static public function mdlAgregarManoObra($idorden, $idproveedor, $descrip, $valor, $cantidad, $idservicio, $sistema, $mantenimiento, $iva, $total)
     {
-        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_proveedorordenservicio(idorden,idproveedor,descripcion,valor, cantidad, idservicio,sistema,mantenimiento,iva,total, idcuenta)
-                                            VALUES(:idorden, :idproveedor, :descripcion, :valor, :cantidad, :idservicio, :sistema, :mantenimiento,:iva,:total, :idcuenta )");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_proveedorordenservicio(idorden,idproveedor,descripcion,valor, cantidad, idservicio,sistema,mantenimiento,iva,total)
+                                            VALUES(:idorden, :idproveedor, :descripcion, :valor, :cantidad, :idservicio, :sistema, :mantenimiento,:iva,:total )");
 
         $stmt->bindParam(":idorden", $idorden, PDO::PARAM_INT);
         $stmt->bindParam(":idproveedor", $idproveedor, PDO::PARAM_INT);
@@ -2217,7 +2218,7 @@ class ModeloMantenimientos
         $stmt->bindParam(":mantenimiento", $mantenimiento, PDO::PARAM_STR);
         $stmt->bindParam(":iva", $iva, PDO::PARAM_INT);
         $stmt->bindParam(":total", $total, PDO::PARAM_INT);
-        $stmt->bindParam(":idcuenta", $idcuenta, PDO::PARAM_INT);
+        // $stmt->bindParam(":idcuenta", $idcuenta, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $retorno = "ok";

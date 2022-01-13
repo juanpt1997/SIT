@@ -1272,7 +1272,7 @@ $(document).ready(function () {
                 </td>` +
                 `<td style="width: 900px;">
                 <div class="input-group">
-                <input class="form-control form-control-sm" type="text" id="sistemanoObra_${dinamico}" name="sistemarepuesto[]" placeholder="Seleccione el tipo de sistema"  maxlength="0">
+                <input class="form-control form-control-sm" type="text" id="sistemanoObra_${dinamico}" name="sistmanoobra[]" placeholder="Seleccione el tipo de sistema"  maxlength="0">
                 <div class="input-group-append">
                 <button type="button" class="btn btn-sm btn-success btn-md btn-sistema" seccion="manoObra" consecutivo="${dinamico}" title="lista de sistemas" data-toggle="modal" data-target="#modal-sistema"><i class="fas fa-drafting-compass"></i></button>
                 </div>
@@ -1280,7 +1280,7 @@ $(document).ready(function () {
                 </td>` +
                 `<td style="width: 900px;">
                 <div class="input-group">
-                <input class="form-control form-control-sm" type="text" id="mantenimientoManoObra_${dinamico}" name="mantenimientorepuesto[]" placeholder="Seleccione un mantenimiento"  maxlength="0">
+                <input class="form-control form-control-sm" type="text" id="mantenimientoManoObra_${dinamico}" name="mantenimientomanobra[]" placeholder="Seleccione un mantenimiento"  maxlength="0">
                 <div class="input-group-append">
                 <button type="button" class="btn btn-sm btn-success btn-md btn-mantenimiento" seccion="manoObra" consecutivo="${dinamico}" title="lista de mantenimientos" data-toggle="modal" data-target="#modal-mantenimiento"><i class="fas fa-wrench"></i></button>
                 </div>
@@ -1562,7 +1562,7 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    console.log(response);
+                    
                     if (response != "" || response != undefined) {
                         $(tbody).html(response);
                     } else {
@@ -1673,7 +1673,6 @@ $(document).ready(function () {
                 $(".documentos").val("");
             }
 
-            console.log(idvehiculo);
 
             //CARGAR TABLA DE PROGRAMACIÓN POR VEHÍCULO
             AjaxTablaProgramacionxVehiculo(

@@ -721,7 +721,6 @@ class ControladorMantenimientos
 									'observaciones' => $datos['observacion']
 								);
 
-								// var_dump($datos['inventario'][$key], $datos['posicion'], $datos['stock']);
 								$respuesta = ModeloProductos::mdlAgregarMovimiento($datos3);
 								$respuesta = ModeloProductos::mdlEditarInventario($datos2);
 							}
@@ -734,7 +733,7 @@ class ControladorMantenimientos
 					if (isset($datos['servicio_repuesto'])) {
 						foreach ($datos['servicio_repuesto'] as $key => $value) {
 
-							if ($value != 10 && $datos['servrepuesto'][$key] != "Otros") {
+							if ($value != 10 && $datos['servrepuesto'][$key] != "Otros" && $value != "") {
 								$datos2 = array(
 									'idvehiculo_serv' => $datos['idvehiculo_OrdServ'],
 									'idservicio' => $value,
@@ -751,7 +750,7 @@ class ControladorMantenimientos
 					//AGREGO LA PROGRAMACIÓN DE MANO DE OBRA
 					if (isset($datos['servicio_mano'])) {
 						foreach ($datos['servicio_mano'] as $key => $value) {
-							if ($value != 10 && $datos['servmanoObra'][$key] != "Otros") {
+							if ($value != 10 && $datos['servmanoObra'][$key] != "Otros" && $value != "") {
 								$datos2 = array(
 									'idvehiculo_serv' => $datos['idvehiculo_OrdServ'],
 									'idservicio' => $value,
@@ -781,8 +780,8 @@ class ControladorMantenimientos
 							$total = intval($datos['total_repuesto'][$key]);
 							$idproveedor = intval($datos['idproveedor_repuesto'][$key]);
 							$valor = intval($datos['valor_repuesto'][$key]);
-							$idcuenta = intval($datos['idcuenta'][$key]);
-							$add = ModeloMantenimientos::mdlAgregarRepuestoOrdenServicio($idorden, $idinventario, $cantidad, $idservicio, $sistema, $mantenimiento, $iva, $total, $idproveedor, $valor, $idcuenta);
+							// $idcuenta = intval($datos['idcuenta'][$key]);
+							$add = ModeloMantenimientos::mdlAgregarRepuestoOrdenServicio($idorden, $idinventario, $cantidad, $idservicio, $sistema, $mantenimiento, $iva, $total, $idproveedor, $valor);
 						}
 					}
 				}
@@ -801,8 +800,8 @@ class ControladorMantenimientos
 							$mantenimiento = $datos['mantenimientomanobra'][$key];
 							$iva = intval($datos['iva_mano'][$key]);
 							$total = intval($datos['total_mano'][$key]);
-							$idcuenta = intval($datos['idcuenta_mano'][$key]);
-							$add = ModeloMantenimientos::mdlAgregarManoObra($idorden, $idproveedor, $descrip, $valor, $cantidad, $idservicio, $sistema, $mantenimiento, $iva, $total, $idcuenta);
+							// $idcuenta = intval($datos['idcuenta_mano'][$key]);
+							$add = ModeloMantenimientos::mdlAgregarManoObra($idorden, $idproveedor, $descrip, $valor, $cantidad, $idservicio, $sistema, $mantenimiento, $iva, $total);
 						}
 					}
 				}
@@ -828,6 +827,7 @@ class ControladorMantenimientos
 				//OBTENEMOS LOS DATOS DE ESA ORDEN
 				$datosOrden = ModeloMantenimientos::mdlCargarOrdenServicio($datos['numOrden_ordSer']);
 
+				
 
 				if ($datosOrden['idvehiculo'] != "") {
 					$idvehiculo = intval($datosOrden['idvehiculo']);
@@ -884,7 +884,6 @@ class ControladorMantenimientos
 									'observaciones' => $datos['observacion']
 								);
 
-								// var_dump($datos['inventario'][$key], $datos['posicion'], $datos['stock']);
 								$respuesta = ModeloProductos::mdlAgregarMovimiento($datos3);
 								$respuesta = ModeloProductos::mdlEditarInventario($datos2);
 							}
@@ -898,7 +897,8 @@ class ControladorMantenimientos
 						foreach ($datos['servicio_repuesto'] as $key => $value) {
 
 
-							if ($value != 10 && $datos['servrepuesto'][$key] != "Otros") {
+							if ($value != 10 && $datos['servrepuesto'][$key] != "Otros" && $value != "") {
+
 								$datos2 = array(
 									'idvehiculo_serv' => $datos['idvehiculo_OrdServ'],
 									'idservicio' => $value,
@@ -906,7 +906,7 @@ class ControladorMantenimientos
 									'fecha' => $datos['fechaInic_ordSer'],
 									'idorden' => $datos['numOrden_ordSer']
 								);
-
+								
 								$respuesta = ModeloMantenimientos::mdlAgregarServicio($datos2);
 							}
 						}
@@ -919,7 +919,7 @@ class ControladorMantenimientos
 						if ($borrar != "ok") $borrar = ModeloMantenimientos::mdlEliminarServicioxOrden($datos['numOrden_ordSer']);
 
 						foreach ($datos['servicio_mano'] as $key => $value) {
-							if ($value != 10 && $datos['servmanoObra'][$key] != "Otros") {
+							if ($value != 10 && $datos['servmanoObra'][$key] != "Otros" && $value != "") {
 								$datos2 = array(
 									'idvehiculo_serv' => $datos['idvehiculo_OrdServ'],
 									'idservicio' => $value,
@@ -960,9 +960,9 @@ class ControladorMantenimientos
 							$total = intval($datos['total_repuesto'][$key]);
 							$idproveedor = intval($datos['idproveedor_repuesto'][$key]);
 							$valor = intval($datos['valor_repuesto'][$key]);
-							$idcuenta = intval($datos['idcuenta'][$key]);
+							// $idcuenta = intval($datos['idcuenta'][$key]);
 
-							$add = ModeloMantenimientos::mdlAgregarRepuestoOrdenServicio($idorden, $idinventario, $cantidad, $idservicio, $sistema, $mantenimiento, $iva, $total, $idproveedor, $valor, $idcuenta);
+							$add = ModeloMantenimientos::mdlAgregarRepuestoOrdenServicio($idorden, $idinventario, $cantidad, $idservicio, $sistema, $mantenimiento, $iva, $total, $idproveedor, $valor);
 						}
 					}
 				}
@@ -982,8 +982,8 @@ class ControladorMantenimientos
 							$mantenimiento = $datos['mantenimientomanobra'][$key];
 							$iva = intval($datos['iva_mano'][$key]);
 							$total = intval($datos['total_mano'][$key]);
-							$idcuenta = intval($datos['idcuenta_mano'][$key]);
-							$add = ModeloMantenimientos::mdlAgregarManoObra($idorden, $idproveedor, $descrip, $valor, $cantidad, $idservicio, $sistema, $mantenimiento, $iva, $total, $idcuenta);
+							// $idcuenta = intval($datos['idcuenta_mano'][$key]);
+							$add = ModeloMantenimientos::mdlAgregarManoObra($idorden, $idproveedor, $descrip, $valor, $cantidad, $idservicio, $sistema, $mantenimiento, $iva, $total);
 						}
 					}
 				}
@@ -1443,9 +1443,7 @@ class ControladorMantenimientos
 		$respuesta = ControladorMantenimientos::ctrListaProgramacion();
 		$empresa = ModeloEmpresaRaiz::mdlVerEmpresa();
 
-		// var_dump($empresa);
-
-        /* var_dump($respuesta); */
+		
 
 
         $documento = new Spreadsheet();
