@@ -1,4 +1,9 @@
 <?php
+
+if (!validarPermiso('M_MANTENIMIENTO', 'R')) {
+    echo "<script> window.location = '" . URL_APP . "'; </script>";
+}
+
 $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 $ListadoRevision = ControladorRevision::ctrListadoRevision();
 $Placas = ControladorVehiculos::ctrListaVehiculos();

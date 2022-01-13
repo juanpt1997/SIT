@@ -1,8 +1,8 @@
 <?php
 
-// if (!validarPermiso('CARGAR_OPCION', 'R')) {
-//     echo "<script> window.location = 'inicio'; </script>";
-// }
+if (!validarPermiso('M_MANTENIMIENTO', 'R')) {
+    echo "<script> window.location = '" . URL_APP . "'; </script>";
+}
 
 $Placas = ControladorVehiculos::ctrListaVehiculos();
 $Servicios = ControladorVehiculos::ctrListadoServicios();

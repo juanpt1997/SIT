@@ -61,7 +61,7 @@ class MYPDF extends TCPDF
         // Set font
         $this->SetFont('helvetica', 'I', 8);
         // Page number
-        $this->Cell(0, 10, 'Página ' . $this->getAliasNumPage() . '/' . $this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+        $this->Cell(0, 10, 'Tecnolab Soluciones Digitales - apps.tecnolab.com.co - Pagina ' . $this->getAliasNumPage() . '/' . $this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
     }
 }
 
@@ -286,7 +286,7 @@ class AlmacenPDF
         $pdf->writeHTML($tabla_productos);
         // Close and output PDF document
         // This method has several options, check the source code documentation for more information.
-        $pdf->Output('OrdenCompra', 'I');
+        $pdf->Output('OrdenCompra-N'.$orden['idorden'], 'I');
         //============================================================+
         // END OF FILE
         //============================================================+

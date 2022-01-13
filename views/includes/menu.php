@@ -102,7 +102,7 @@
                                 </li>
                             <?php endif ?>
 
-                            <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
+                            <?php if (validarPermiso('M_MANTENIMIENTO', 'U')) : ?>
                                 <!-- ===================================================
                                     Mantenimiento
                                 =================================================== -->
@@ -112,7 +112,9 @@
                                         <p>Mantenimiento</p>
                                     </a>
                                 </li>
+                            <?php endif ?>
 
+                            <?php if (validarPermiso('M_ALMACEN', 'U')) : ?>
                                 <!-- ===================================================
                                     Almacen
                                 =================================================== -->
@@ -122,7 +124,9 @@
                                         <p>Almacén</p>
                                     </a>
                                 </li>
+                            <?php endif ?>
 
+                            <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                                 <!-- ===================================================
                                     Seguridad
                                 =================================================== -->
@@ -429,9 +433,24 @@
                 <?php endif ?>
 
                 <!-- ===================================================
+                    ** Almacen
+                =================================================== -->
+                <?php if (validarPermiso('M_ALMACEN', 'R')) : ?>
+                    <li class="nav-item has-treeview">
+                        <a href="a-inventario" class="nav-link" target="_blank">
+                            <i class="fas fa-warehouse nav-icon"></i>
+                            <p>
+                                Almacén
+                            </p>
+                        </a>
+
+                    </li>
+                <?php endif ?>
+
+                <!-- ===================================================
                     ** Mantenimiento
                 =================================================== -->
-                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
+                <?php if (validarPermiso('M_MANTENIMIENTO', 'R')) : ?>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-cogs"></i>
@@ -459,7 +478,7 @@
                                     <p>Inventario</p>
                                 </a>
                             </li>
-                            
+
                             <!-- ===================================================
                                     Revison tecnomecánica 
                                 =================================================== -->
@@ -475,17 +494,14 @@
                 <?php endif ?>
 
                 <!-- ===================================================
-                    ** Almacen
+                    ** Rastreo Satelital
                 =================================================== -->
-                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
-                    <li class="nav-item has-treeview">
-                        <a href="a-inventario" class="nav-link" target="_blank">
-                            <i class="fas fa-warehouse nav-icon"></i>
-                            <p>
-                                Almacén
-                            </p>
+                <?php if (validarPermiso('M_TRACKER', 'R')) : ?>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-map-marked-alt"></i>
+                            <p>Rastreo Satelital</p>
                         </a>
-                     
                     </li>
                 <?php endif ?>
 
@@ -583,18 +599,6 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-clipboard-check"></i>
                             <p>Formatos de calidad</p>
-                        </a>
-                    </li>
-                <?php endif ?>
-
-                <!-- ===================================================
-                    ** Rastreo Satelital
-                =================================================== -->
-                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-map-marked-alt"></i>
-                            <p>Rastreo Satelital</p>
                         </a>
                     </li>
                 <?php endif ?>
