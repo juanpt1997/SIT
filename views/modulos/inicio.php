@@ -1,21 +1,4 @@
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- fullCalendar -->
-  <!-- <link rel="stylesheet" href="../plugins/fullcalendar/main.min.css">
-  <link rel="stylesheet" href="../plugins/fullcalendar-interaction/main.min.css">
-  <link rel="stylesheet" href="../plugins/fullcalendar-daygrid/main.min.css">
-  <link rel="stylesheet" href="../plugins/fullcalendar-timegrid/main.min.css">
-  <link rel="stylesheet" href="../plugins/fullcalendar-bootstrap/main.min.css"> -->
-  <!-- <link href='../plugins/fullcalendar-5.10.0/lib/main.css' rel='stylesheet' /> -->
-  <link href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.css' rel='stylesheet' />
-  <link href='https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13.1/css/all.css' rel='stylesheet'>
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../dist/css/adminlte.min.css">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-  <!-- =================================================== ESTILOS =================================================== -->
+<!-- =================================================== ESTILOS =================================================== -->
   <style>
       .parallax1 {
 
@@ -189,6 +172,7 @@
                                                       <a class="dropdown-item font-weight-bold" href="v-convenios"><u>Convenios</u></a>
                                                       <a class="dropdown-item font-weight-bold" href="v-bloqueo-vehiculo"><u>Bloqueo
                                                               de vehículos</u></a>
+                                                      <a class="dropdown-item font-weight-bold" href="v-comparendos"><u>Consulta de comparendos</u></a>
                                                   </div>
                                               </div>
                                           </div>
@@ -480,8 +464,8 @@
                                                       </div>
                                                   </div>
                                               </a>
-                                            </div>
-                                            <!-- /.col -->
+                                          </div>
+                                          <!-- /.col -->
                                       <?php endif ?>
                                   </div>
                               </div>

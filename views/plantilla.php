@@ -44,6 +44,8 @@ if (isset($_GET['pagina'])) {
     =================================================== -->
     <!-- CUSTOM CSS -->
     <link rel="stylesheet" href="<?= URL_APP ?>views/css/plantilla.css?v=<?= time() ?>">
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/bootstrap/css/bootstrap.css">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="<?= URL_APP ?>views/plugins/fontawesome-free/css/all.min.css">
     <!-- overlayScrollbars -->
