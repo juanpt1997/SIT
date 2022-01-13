@@ -109,9 +109,13 @@
                                                       <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
                                                           <a class="dropdown-item font-weight-bold" href="cg-vehicular"><u>Vehicular</u></a>
                                                       <?php endif ?>
-                                                      <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
+                                                      <?php if (validarPermiso('M_MANTENIMIENTO', 'R')) : ?>
                                                           <a class="dropdown-item font-weight-bold" href="cg-mantenimiento"><u>Matenimiento</u></a>
+                                                      <?php endif ?>
+                                                      <?php if (validarPermiso('M_ALMACEN', 'R')) : ?>
                                                           <a class="dropdown-item font-weight-bold" href="cg-almacen"><u>Almacén</u></a>
+                                                      <?php endif ?>
+                                                      <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                                                           <a class="dropdown-item font-weight-bold" href="cg-seguridad"><u>Seguridad</u></a>
                                                       <?php endif ?>
                                                   </div>
@@ -272,7 +276,7 @@
                                       <!-- ===================================================
                                             ** Almacen
                                             =================================================== -->
-                                      <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
+                                      <?php if (validarPermiso('M_ALMACEN', 'R')) : ?>
                                           <div class="col-12 col-sm-6 col-md-4 col-xl-3 d-none">
                                               <a href="a-inventario">
                                                   <div class="info-box border border-dark">
@@ -306,7 +310,7 @@
                                       <!-- ===================================================
                                             ** Mantenimiento
                                             =================================================== -->
-                                      <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
+                                      <?php if (validarPermiso('M_MANTENIMIENTO', 'R')) : ?>
                                           <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                                               <div class="dropdown" style="cursor: pointer;">
                                                   <div class="info-box border border-danger" id="dropdownMenuMantenimiento" data-toggle="dropdown">
@@ -328,7 +332,22 @@
                                           <!-- /.col -->
                                       <?php endif ?>
 
-
+                                    <!-- ===================================================
+                                            ** Rastreo Satelital
+                                            =================================================== -->
+                                      <?php if (validarPermiso('M_TRACKER', 'R')) : ?>
+                                          <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+                                              <a href="tr-gps">
+                                                  <div class="info-box border border-info">
+                                                      <span class="info-box-icon bg-info elevation-1"><i class="fas fa-map-marked-alt"></i></span>
+                                                      <div class="info-box-content">
+                                                          <span class="info-box-text font-weight-bold text-dark">Tecnolab Tracker</span>
+                                                      </div>
+                                                  </div>
+                                              </a>
+                                          </div>
+                                          <!-- /.col -->
+                                      <?php endif ?>
 
                                       <!-- ===================================================
                                         ** Documentos Contable
@@ -392,7 +411,7 @@
                                         ** Compras
                                         =================================================== -->
                                       <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
-                                          <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+                                          <div class="col-12 col-sm-6 col-md-4 col-xl-3 d-none">
                                               <div class="dropdown" style="cursor: pointer;">
                                                   <div class="info-box border border-danger" id="dropdownMenuCompras" data-toggle="dropdown">
                                                       <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-shopping-cart"></i></span>
@@ -451,22 +470,6 @@
                                           <!-- /.col -->
                                       <?php endif ?>
 
-                                      <!-- ===================================================
-                                        ** Rastreo Satelital
-                                        =================================================== -->
-                                      <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
-                                          <div class="col-12 col-sm-6 col-md-4 col-xl-3">
-                                              <a href="tr-gps">
-                                                  <div class="info-box border border-info">
-                                                      <span class="info-box-icon bg-info elevation-1"><i class="fas fa-map-marked-alt"></i></span>
-                                                      <div class="info-box-content">
-                                                          <span class="info-box-text font-weight-bold text-dark">Tecnolab Tracker</span>
-                                                      </div>
-                                                  </div>
-                                              </a>
-                                          </div>
-                                          <!-- /.col -->
-                                      <?php endif ?>
                                   </div>
                               </div>
                               <div class="tab-pane fade" id="custom-tabs-five-normal" role="tabpanel" aria-labelledby="custom-tabs-five-normal-tab">
