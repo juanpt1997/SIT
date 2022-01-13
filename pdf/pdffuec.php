@@ -69,9 +69,9 @@ class MYPDF extends TCPDF
         // Position at 15 mm from bottom
         $this->SetY(-10);
         // Set font
-        $this->SetFont('helvetica', 'I', 8);
+        $this->SetFont('Times', 'I', 8);
         // Page number
-        $this->Cell(0, 10, 'Página ' . $this->getAliasNumPage() . '/' . $this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+        $this->Cell(0, 10, 'Tecnolab Soluciones Digitales - apps.tecnolab.com.co - Pagina ' . $this->getAliasNumPage() . '/' . $this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
     }
 }
 
@@ -215,7 +215,7 @@ class PdfFuec
         /* ===================================================
            TITULO FUEC
         ===================================================*/
-        $pdf->SetFont('helvetica', 'B', '8');
+        $pdf->SetFont('Times', 'B', '8');
         $anchoTexto = 130;
         $anchoPaginaMM = $pdf->getPageWidth();
         $x = ($anchoPaginaMM / 2) - ($anchoTexto / 2);
