@@ -67,7 +67,7 @@ class MYPDF extends TCPDF
         // Set font
         $this->SetFont('helvetica', 'I', 8);
         // Page number
-        $this->Cell(0, 10, 'Página ' . $this->getAliasNumPage() . '/' . $this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+        $this->Cell(0, 10, 'Tecnolab Soluciones Digitales - apps.tecnolab.com.co - Pagina ' . $this->getAliasNumPage() . '/' . $this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
     }
 }
 
@@ -629,7 +629,7 @@ class mantenimientoPDF
         $pdf->SetFont('helvetica', '', '7');
         $pdf->writeHTML($tabla4);
         
-        $pdf->Output('OrdenServicio', 'I');
+        $pdf->Output('OrdenServicio-N'.$orden['idorden'], 'I');
     }
 }
 
