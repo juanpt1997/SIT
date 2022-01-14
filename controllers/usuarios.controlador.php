@@ -459,15 +459,17 @@ class ControladorUsuarios
 						$correoOculto = substr_replace($usuario['Email'], "********", 0, 8);
 
 						$to = $usuario['Email'];
-						$subject = "Restauración de contraseña";
+						$subject = "Restauración de contraseña 🔐";
+						$logo = URL_APP . "views/img/plantilla/isotipoTL.jpg";
 						$message = "<html>
                                     <body>
-                                    <p>
-									Su contraseña ha sido restaurada.<br><br>
-                                    USUARIO: Su número de identificación, CONTRASEÑA: $cadena<br>
-                                    <a href='" . URL_APP . "'>Enlace para ir al sitio web.</a><br>
-                                    Gracias,<br>
-                                    Equipo de Tecnolab.</p><br>
+                                    <center>
+                                        <img src='$logo' style='width:200px;'>
+                                        <h3>Solicitud de cambio de contraseña 🔐</h3><br>
+                                        <h4>Su contraseña de acceso es: <b>$cadena</b></h4>
+                                        <h4><a href='" . URL_APP . "'>Enlace para ir al sitio web.</a></h4>
+                                        <br><i> Email generado automáticamente, por favor no responder este correo.</i>
+                                    </center>
                                     </body>
                                     </html>";
 						ControladorCorreo::ctrEnviarCorreo($to, $subject, $message);

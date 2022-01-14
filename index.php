@@ -3,6 +3,11 @@
    date_default_timezone_set('America/Bogota');
    ob_start();
 
+   /* =====================
+   SE CARGAN LOS PAQUETES DEL PROYECTO DE COMPOSER
+   ========================= */
+   include __DIR__ .  '/vendor/autoload.php';
+
    /* ===================== 
    INCLUIMOS LA CONFIGURACION DE LAS SESIONES 
    ========================= */
