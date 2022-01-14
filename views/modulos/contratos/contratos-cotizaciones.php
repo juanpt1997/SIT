@@ -96,6 +96,7 @@ $Rutas = ControladorRutas::ctrListarRutas();
                                         <th>Realiza viaje</th>
                                         <th>Viaje ocasional</th>
                                         <th style="min-width:90px;">Por qué</th>
+                                        <th style="min-width:90px;">Usuario</th>
                                     </tr>
                                 </thead>
                                 <tbody id="tbodyCotizaciones" class="text-sm">
@@ -150,6 +151,7 @@ $Rutas = ControladorRutas::ctrListarRutas();
                                             <td><?= $value['realiza_viaje'] ?></td>
                                             <td><?= $value['viaje_ocasional'] ?></td>
                                             <td><?= $value['porque'] ?></td>
+                                            <td><?= $value['usuarioCreacion'] ?></td>
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>
