@@ -264,8 +264,8 @@ $(".tablasBtnExport").DataTable({
     buttons: [
         {
             extend: "excel",
-            className: "btn-info no-print",
-            text: '<i class="far fa-file-excel"></i> Exportar',
+            className: "border-0 bg-gradient-olive no-print",
+            text: '<i class="fas fa-file-excel"></i> Exportar',
         },
         /* 'copy', 'csv', 'excel', 'pdf', 'print' */
     ],
