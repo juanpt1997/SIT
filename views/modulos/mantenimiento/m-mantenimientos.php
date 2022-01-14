@@ -247,10 +247,9 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                         <div class="form-group text-center">
                                                                             <label><i>Fecha de entrada</i></label>
                                                                             <?php
-                                                                            $fecha = getdate();
-
+                                                                            $fecha =  date('Y/m/d');
                                                                             ?>
-                                                                            <input type="date" class="form-control form-control-sm" id="fechaentrada_ordSer" name="fechaentrada_OrdSer" value="<?= $fecha['year'] . "-" . $fecha['mon'] . "-" . $fecha['mday'] ?>" required readonly>
+                                                                            <input type="text" class="form-control form-control-sm" id="fechaentrada_ordSer" name="fechaentrada_OrdSer" value="<?= $fecha ?>"  readonly>
                                                                         </div>
                                                                     </div>
 

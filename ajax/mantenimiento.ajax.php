@@ -469,7 +469,8 @@ class AjaxMantenimientos
     {
         $respuesta = ControladorMantenimientos::ctrListadoControlActividades();
 
-        if($respuesta != "")
+        
+        if(!empty($respuesta))
         {
             $ordenes = array();
             foreach ($respuesta as $key => $value) {
@@ -620,139 +621,6 @@ class AjaxMantenimientos
             echo $tr;
         }
 
-
-
-        // Ejemplo
-        // echo "
-        //     <tr>
-        //         <td data-datatable-multi-row-rowspan='3'>
-        //             Brad Jones
-        //             <script type='x/template' class='extra-row-content'>
-        //                 <tr>
-        //                 <td>
-        //                     Brad Jones is such a nice guy! I have written notes about him.
-        //                 </td>
-        //                 <td>
-        //                     Brad Jones 2 is such a nice guy! I have written notes about him.
-        //                 </td>
-        //                 <td>
-        //                     <ul>
-        //                     <li>Rachel, Wife</li>
-        //                     <li>Deshawn, Son</li>
-        //                     <li>Marian, Daughter</li>
-        //                     </ul>
-        //                 </td>
-        //                 </tr>
-        //                 <tr>
-        //                 <td>
-        //                     Brad Jones is such a nice guy! I have written notes about him.
-        //                 </td>
-        //                 <td>
-        //                     Brad Jones 2 is such a nice guy! I have written notes about him.
-        //                 </td>
-        //                 <td>
-        //                     <ul>
-        //                     <li>Rachel, Wife</li>
-        //                     <li>Deshawn, Son</li>
-        //                     <li>Marian, Daughter</li>
-        //                     </ul>
-        //                 </td>
-        //                 </tr>
-        //             </script>
-        //         </td>
-        //         <td>4/15/2011</td>
-        //         <td>Philadelphia</td>
-        //         <td>3</td>
-        //         <td data-datatable-multi-row-rowspan='3'>$65,000</td>
-        //     </tr>
-        //     <tr>
-        //         <td data-datatable-multi-row-rowspan='2'>
-        //         Martha Williams
-        //         <script type='x/template' class='extra-row-content'>
-        //             <tr>
-        //             <td colspan='2'>
-        //                 I first met Martha at a laundromat.
-        //             </td>
-        //             <td>
-        //                 <ul>
-        //                 <li>Marshall, Husband</li>
-        //                 <li>Marshall Jr., Son</li>
-        //                 </ul>
-        //             </td>
-        //             </tr>
-        //         </script>
-        //         </td>
-        //         <td>9/3/2015</td>
-        //         <td>Annapolis</td>
-        //         <td>2</td>
-        //         <td data-datatable-multi-row-rowspan='2'>$7,800</td>
-        //     </tr>
-        // ";
-
-
-
-
-
-
-
-        // $tr =""; 
-        // foreach ($respuesta as $key => $value) {
-        //     if ($value['porcentaje_cliente'] != 0) {
-
-        //         $valor_corresponde_cliente = ($value['total'] * ($value['porcentaje_cliente'] /100));
-        //     }else{
-        //         $valor_corresponde_cliente = "";
-        //     }
-        //     if($value['porcentaje_empresa'] != 0){
-        //         $valor_corresponde_empresa = ($value['total'] * ($value['porcentaje_empresa'] /100));
-        //     }else{
-        //         $valor_corresponde_empresa = "";
-        //     }
-        //     if($value['porcentaje_contratista'] != 0){
-        //         $valor_corresponde_contratista = ($value['total'] * ($value['porcentaje_contratista'] /100));
-        //     }else{
-        //         $valor_corresponde_contratista = "";
-        //     }
-
-
-
-        //     $tr .= "
-        //     <tr>
-
-        //     <td> <button class='btn btn-outline-dark btn-editarOrden' title='Ir a la orden' data-toggle='tooltip' data-placement='top' idorden='{$value['idorden']}'>" . $value['idorden'] . "</button></td>
-        //     <td>" . $value['placa'] . "</td>
-        //     <td>" . $value['kilometraje_orden'] . "</td>
-        //     <td>" . $value['cliente'] . "</td>
-        //     <td>" . $value['factura'] . "</td>
-        //     <td>" . $value['municipio'] . "</td>
-        //     <td>" . $value['Ffecha_entrada'] . "</td>
-        //     <td>" . $value['Ffecha_trabajos'] . "</td>
-        //     <td>" . $value['Ffecha_aprobacion'] . "</td>
-        //     <td>" . $value['servicio'] . "</td>
-        //     <td>" . $value['nombre_contacto'] . "</td>
-        //     <td>" . $value['item'] . "</td>
-        //     <td>" . $value['descripcion'] . "</td>
-        //     <td>" . $value['sistema'] . "</td>
-        //     <td>" . $value['cantidad'] . "</td>
-        //     <td>" . $value['valor'] . "$</td>
-        //     <td>" . $value['iva'] . "%</td>
-        //     <td>" . $value['cliente_asume'] . "</td>
-        //     <td>" . $value['porcentaje_cliente'] . "% - " . $valor_corresponde_cliente . "$</td>
-        //     <td>" . $value['empresa_asume'] . "</td>
-        //     <td>" . $value['porcentaje_empresa'] . "% - ". $valor_corresponde_empresa. "$</td>
-        //     <td>" . $value['contratista_asume'] . "</td>
-        //     <td>" . $value['porcentaje_contratista'] . "% - ". $valor_corresponde_contratista. "$</td>
-        //     <td>" . $value['total'] . "$</td>
-        //     <td>" . $value['mantenimiento'] . "</td>
-        //     <td>" . $value['nombre_cuenta'] . "</td>
-        //     <td>" . $value['num_cuenta'] . "</td>
-        //     <td><button type='button' class='btn btn-success btn-asume' data-toggle='modal' data-target='#modalAsume' idvehiculo='{$value['idvehiculo']}' idcliente='{$value['idcliente']}' idcuenta='{$value['idcuenta']}' cliente='{$value['cliente']}' num_cuenta='{$value['num_cuenta']}' nombre_cuenta='{$value['nombre_cuenta']}' total='{$value['total']}' iva='{$value['iva']}' valor='{$value['valor']}' cantidad='{$value['cantidad']}' idorden='{$value['idorden']}' id='{$value['id']}' descripcion='{$value['descripcion']}' ><i class='fas fa-wallet'></i></button></td>
-
-
-        //     </tr>
-        //     ";
-        // }
-        // echo $tr;
     }
 
     /* ===================================================
@@ -831,7 +699,7 @@ class AjaxMantenimientos
     {
         $respuesta = ControladorMantenimientos::ctrListaProgramacion();
 
-        if($respuesta != "")
+        if(!empty($respuesta))
         {
             $placas = array();
             foreach ($respuesta as $key => $value) {
@@ -993,7 +861,7 @@ class AjaxMantenimientos
         
         
 
-        if($respuesta != ""){
+        if(!empty($respuesta)){
             
             $placas = array();
             foreach ($respuesta as $key => $value) {
