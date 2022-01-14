@@ -13,12 +13,11 @@ class ControladorTelegram
 
         # Instanciamos la clase de telegram para incluir las credenciales 
         $telegram = new Telegram();
-
         $token = $telegram->token;
         $id = $telegram->idCanal;
         $urlMsg = "https://api.telegram.org/bot{$token}/sendMessage";
         $msg = $msgTelegram;
-
+        
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $urlMsg);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
