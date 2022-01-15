@@ -33,9 +33,48 @@
             ========================= -->
             <div class="row">
                 <div class="col-12">
-                    
-                    
+
+
                     <div id="map"></div>
+
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <div class="card justify-content-center">
+                                <div class="card-header bg-success text-center">
+                                    <strong>Lista de vehículos <i class="fas fa-car"></i></strong>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive mt-2">
+                                        <table id="tablaVehiculos" class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">
+                                            <thead class="thead-light text-sm text-center">
+                                                <tr>
+                                                    <th>Acciones</th>
+                                                    <th>Vehículo</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbodyVehiculos" class="text-center">
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="card">
+                                <div class="card-header bg-navy text-center">
+                                    <strong>Funcionalidades <i class="far fa-map"></i></strong>
+                                </div>
+                                <div class="card-body">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
                 </div>
             </div>
         </div><!-- /.container-fluid -->

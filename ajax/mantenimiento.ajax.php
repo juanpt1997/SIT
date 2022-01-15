@@ -512,7 +512,7 @@ class AjaxMantenimientos
                     <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['municipio'] . "</td>
                     <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['Ffecha_entrada'] . "</td>
                     <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['Ffecha_trabajos'] . "</td>
-                    <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['fecha_aprobacion']; // . "</td>"; // La columna anterior a la columna que si tiene varias filas juntas, no se puede cerrar aún
+                    <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['Ffecha_aprobacion']; // . "</td>"; // La columna anterior a la columna que si tiene varias filas juntas, no se puede cerrar aún
     
     
                 if ($numfilas > 1) {

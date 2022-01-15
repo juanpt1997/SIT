@@ -2289,16 +2289,33 @@ $(document).ready(function () {
                 success: function (response) {
                     let datos = response.datosOrden;
 
-                    var fila = `<tr>
-                     <td>${datos.idorden}</td>
-                     <td>${datos.placa}</td>
-                     <td>${datos.numinterno}</td>
-                     <td>${datos.marca}</td>
-                     <td>${datos.tipovehiculo}</td>
-                     <td>${datos.modelo}</td>
-                     <td>${datos.kilometraje}</td>
-                     <td>${datos.Ffecha_entrada}</td>
-                     </tr>`;
+                    //SI EL KILOMETRAJE ES NULL SE PONE 0
+                    if(datos.kilometraje != null)
+                    {
+                        var fila = `<tr>
+                         <td>${datos.idorden}</td>
+                         <td>${datos.placa}</td>
+                         <td>${datos.numinterno}</td>
+                         <td>${datos.marca}</td>
+                         <td>${datos.tipovehiculo}</td>
+                         <td>${datos.modelo}</td>
+                         <td>${datos.kilometraje}</td>
+                         <td>${datos.Ffecha_entrada}</td>
+                         </tr>`;
+
+                    }else{
+                        var fila = `<tr>
+                         <td>${datos.idorden}</td>
+                         <td>${datos.placa}</td>
+                         <td>${datos.numinterno}</td>
+                         <td>${datos.marca}</td>
+                         <td>${datos.tipovehiculo}</td>
+                         <td>${datos.modelo}</td>
+                         <td>0</td>
+                         <td>${datos.Ffecha_entrada}</td>
+                         </tr>`;
+                    }
+
 
                     $("#tbodyResumen").append(fila);
                 },
