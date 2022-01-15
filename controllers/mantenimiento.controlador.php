@@ -675,9 +675,7 @@ class ControladorMantenimientos
 					$datos['estado'] = 1;
 				}
 
-				#RETORNA EL ÚLTIMO ID INSERTADO
-				$respuesta = ModeloMantenimientos::mdlAgregarOrdenServicio($datos);
-				$idorden = $respuesta;
+
 
 
 				//SI EL ESTADO ES 2 (APROBADA) PONE LA FECHA ACTUAL EN FECHA DE APROBACION
@@ -686,6 +684,11 @@ class ControladorMantenimientos
 					//GUARDAMOS FECHA DE APROBACIÓN COMO LA ACTUAL
 					$date = date('Y-m-d H:i:s');
 					$datos['fecha_aprobacion'] = $date;
+
+					#RETORNA EL ÚLTIMO ID INSERTADO
+					$respuesta = ModeloMantenimientos::mdlAgregarOrdenServicio($datos);
+					$idorden = $respuesta;
+
 
 					//EDITO INVENTARIO Y GENERO MOVIMIENTO
 					if (isset($datos['inventario'])) {
@@ -763,6 +766,10 @@ class ControladorMantenimientos
 							}
 						}
 					}
+				} else {
+					#RETORNA EL ÚLTIMO ID INSERTADO
+					$respuesta = ModeloMantenimientos::mdlAgregarOrdenServicio($datos);
+					$idorden = $respuesta;
 				}
 
 
@@ -827,7 +834,7 @@ class ControladorMantenimientos
 				//OBTENEMOS LOS DATOS DE ESA ORDEN
 				$datosOrden = ModeloMantenimientos::mdlCargarOrdenServicio($datos['numOrden_ordSer']);
 
-				
+
 
 				if ($datosOrden['idvehiculo'] != "") {
 					$idvehiculo = intval($datosOrden['idvehiculo']);
@@ -906,7 +913,7 @@ class ControladorMantenimientos
 									'fecha' => $datos['fechaInic_ordSer'],
 									'idorden' => $datos['numOrden_ordSer']
 								);
-								
+
 								$respuesta = ModeloMantenimientos::mdlAgregarServicio($datos2);
 							}
 						}
@@ -1185,6 +1192,9 @@ class ControladorMantenimientos
 		//Validamos si es una solicitud nueva o si es una que ya está 
 		if (isset($datos['idsolicitud'])) {
 			if ($datos['idsolicitud'] == '' || $datos['idsolicitud'] == NULL) {
+				
+				if($datos['estado_programacion'] == "NUEVO") $datos['estado_programacion'] = "PENDIENTE";
+				
 				//Añadimos la nueva solicitud 
 				$respuesta = ModeloMantenimientos::mdlGuardarSolicitudProgramacion($datos);
 				return $respuesta;
@@ -1223,324 +1233,325 @@ class ControladorMantenimientos
 	===================================================*/
 	static public function ctrExcelControlActividades()
 	{
-		
+
 		$respuesta = ControladorMantenimientos::ctrListadoControlActividades();
 		$empresa = ModeloEmpresaRaiz::mdlVerEmpresa();
 
 
 
-        $documento = new Spreadsheet();
-        $documento
-            ->getProperties()
-            ->setCreator("{$empresa['razon_social']}")
-            ->setLastModifiedBy("{$_SESSION['cedula']}") // última vez modificado por
-            ->setTitle("{$empresa['razon_social']}")
-            ->setSubject("{$empresa['razon_social']}" . 'Control de actividades')
-            ->setDescription("{$empresa['razon_social']}")
-            ->setKeywords('control actividades EXCEL php')
-            ->setCategory("{$empresa['razon_social']}");
+		$documento = new Spreadsheet();
+		$documento
+			->getProperties()
+			->setCreator("{$empresa['razon_social']}")
+			->setLastModifiedBy("{$_SESSION['cedula']}") // última vez modificado por
+			->setTitle("{$empresa['razon_social']}")
+			->setSubject("{$empresa['razon_social']}" . 'Control de actividades')
+			->setDescription("{$empresa['razon_social']}")
+			->setKeywords('control actividades EXCEL php')
+			->setCategory("{$empresa['razon_social']}");
 
-        $documento->getActiveSheet()->setTitle('CONTROL DE ACTIVIDADES'); // NOMBRE A LA HOJA
-        $rangoColumnas = 'A1:AA1';
-        $documento->getActiveSheet()->getStyle($rangoColumnas)->getFont()->setBold(true)->setSize(14); # LA PRIMERA FILA EN NEGRITA
+		$documento->getActiveSheet()->setTitle('CONTROL DE ACTIVIDADES'); // NOMBRE A LA HOJA
+		$rangoColumnas = 'A1:AA1';
+		$documento->getActiveSheet()->getStyle($rangoColumnas)->getFont()->setBold(true)->setSize(14); # LA PRIMERA FILA EN NEGRITA
 
-        //APLICAMOS AUTOFILTER
-        $documento->getActiveSheet()->setAutoFilter($rangoColumnas);
-        $sheet = $documento->getActiveSheet();
+		//APLICAMOS AUTOFILTER
+		$documento->getActiveSheet()->setAutoFilter($rangoColumnas);
+		$sheet = $documento->getActiveSheet();
 
-        $sheet->setTitle("CONTROL DE ACTIVIDADES");
+		$sheet->setTitle("CONTROL DE ACTIVIDADES");
 
-        # Bordes de la primera fila
-        $sheet->getStyle($rangoColumnas)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+		# Bordes de la primera fila
+		$sheet->getStyle($rangoColumnas)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
 
-        
 
-        $sheet->getColumnDimension('A')->setAutoSize(true);
-        $sheet->getStyle('A')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('A1', 'ORDEN');
 
-        $sheet->getColumnDimension('B')->setAutoSize(true);
-        $sheet->getStyle('B')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('B1', 'VEHÍCULO');
+		$sheet->getColumnDimension('A')->setAutoSize(true);
+		$sheet->getStyle('A')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('A1', 'ORDEN');
 
-        $sheet->getColumnDimension('C')->setAutoSize(true);
-        $sheet->getStyle('C')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('C1', 'KILOMETRAJE');
+		$sheet->getColumnDimension('B')->setAutoSize(true);
+		$sheet->getStyle('B')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('B1', 'VEHÍCULO');
 
-        $sheet->getColumnDimension('D')->setAutoSize(true);
-        $sheet->getStyle('D')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('D1', 'CLIENTE');
+		$sheet->getColumnDimension('C')->setAutoSize(true);
+		$sheet->getStyle('C')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('C1', 'KILOMETRAJE');
 
-        $sheet->getColumnDimension('E')->setAutoSize(true);
-        $sheet->getStyle('E')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('E1', '# FACTURA');
+		$sheet->getColumnDimension('D')->setAutoSize(true);
+		$sheet->getStyle('D')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('D1', 'CLIENTE');
 
-        $sheet->getColumnDimension('F')->setAutoSize(true);
-        $sheet->getStyle('F')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('F1', 'CIUDAD');
+		$sheet->getColumnDimension('E')->setAutoSize(true);
+		$sheet->getStyle('E')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('E1', '# FACTURA');
 
-        $sheet->getColumnDimension('G')->setAutoSize(true);
-        $sheet->getStyle('G')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('G1', 'FECHA DE SOLICITUD');
+		$sheet->getColumnDimension('F')->setAutoSize(true);
+		$sheet->getStyle('F')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('F1', 'CIUDAD');
 
-        $sheet->getColumnDimension('H')->setAutoSize(true);
-        $sheet->getStyle('H')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('H1', 'FECHA DE EJECUCIÓN');
+		$sheet->getColumnDimension('G')->setAutoSize(true);
+		$sheet->getStyle('G')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('G1', 'FECHA DE SOLICITUD');
 
-        $sheet->getColumnDimension('I')->setAutoSize(true);
-        $sheet->getStyle('I')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('I1', 'FECHA DE ENTREGA');
+		$sheet->getColumnDimension('H')->setAutoSize(true);
+		$sheet->getStyle('H')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('H1', 'FECHA DE EJECUCIÓN');
 
-        $sheet->getColumnDimension('J')->setAutoSize(true);
-        $sheet->getStyle('J')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('J1', 'DIAGNÓSTICO');
+		$sheet->getColumnDimension('I')->setAutoSize(true);
+		$sheet->getStyle('I')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('I1', 'FECHA DE ENTREGA');
 
-        $sheet->getColumnDimension('K')->setAutoSize(true);
-        $sheet->getStyle('K')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('K1', 'PROVEEDOR');
+		$sheet->getColumnDimension('J')->setAutoSize(true);
+		$sheet->getStyle('J')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('J1', 'DIAGNÓSTICO');
 
-        $sheet->getColumnDimension('L')->setAutoSize(true);
-        $sheet->getStyle('L')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('L1', 'ITEM');
+		$sheet->getColumnDimension('K')->setAutoSize(true);
+		$sheet->getStyle('K')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('K1', 'PROVEEDOR');
 
-        $sheet->getColumnDimension('M')->setAutoSize(true);
-        $sheet->getStyle('M')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('M1', 'DESCRIPCIÓN');
+		$sheet->getColumnDimension('L')->setAutoSize(true);
+		$sheet->getStyle('L')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('L1', 'ITEM');
 
-        $sheet->getColumnDimension('N')->setAutoSize(true);
-        $sheet->setCellValue('N1', 'SISTEMA');
+		$sheet->getColumnDimension('M')->setAutoSize(true);
+		$sheet->getStyle('M')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('M1', 'DESCRIPCIÓN');
 
-        $sheet->getColumnDimension('O')->setAutoSize(true);
-        $sheet->setCellValue('O1', 'CANTIDAD');
+		$sheet->getColumnDimension('N')->setAutoSize(true);
+		$sheet->setCellValue('N1', 'SISTEMA');
 
-        $sheet->getColumnDimension('P')->setAutoSize(true);
-        $sheet->setCellValue('P1', 'PRECIO UNITARIO');
+		$sheet->getColumnDimension('O')->setAutoSize(true);
+		$sheet->setCellValue('O1', 'CANTIDAD');
 
-        $sheet->getColumnDimension('Q')->setAutoSize(true);
-        $sheet->getStyle('Q')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('Q1', 'IVA');
+		$sheet->getColumnDimension('P')->setAutoSize(true);
+		$sheet->setCellValue('P1', 'PRECIO UNITARIO');
 
-        $sheet->getColumnDimension('R')->setAutoSize(true);
-        $sheet->getStyle('R')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('R1', 'CLIENTE');
+		$sheet->getColumnDimension('Q')->setAutoSize(true);
+		$sheet->getStyle('Q')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('Q1', 'IVA');
 
-        $sheet->getColumnDimension('S')->setAutoSize(true);
-        $sheet->getStyle('S')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('S1', 'VALOR QUE ASUME');
+		$sheet->getColumnDimension('R')->setAutoSize(true);
+		$sheet->getStyle('R')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('R1', 'CLIENTE');
 
-        $sheet->getColumnDimension('T')->setAutoSize(true);
-        $sheet->getStyle('T')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('T1', 'EMPRESA');
+		$sheet->getColumnDimension('S')->setAutoSize(true);
+		$sheet->getStyle('S')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('S1', 'VALOR QUE ASUME');
 
-        $sheet->getColumnDimension('U')->setAutoSize(true);
-        $sheet->getStyle('U')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('U1', 'VALOR QUE ASUME');
+		$sheet->getColumnDimension('T')->setAutoSize(true);
+		$sheet->getStyle('T')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('T1', 'EMPRESA');
 
-        $sheet->getColumnDimension('V')->setAutoSize(true);
-        $sheet->getStyle('V')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('V1', 'CONTRATISTA');
+		$sheet->getColumnDimension('U')->setAutoSize(true);
+		$sheet->getStyle('U')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('U1', 'VALOR QUE ASUME');
 
-        $sheet->getColumnDimension('W')->setAutoSize(true);
-        $sheet->getStyle('W')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('W1', 'VALOR QUE ASUME');
+		$sheet->getColumnDimension('V')->setAutoSize(true);
+		$sheet->getStyle('V')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('V1', 'CONTRATISTA');
 
-        $sheet->getColumnDimension('X')->setAutoSize(true);
-        $sheet->getStyle('X')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('X1', 'PRECIO TOTAL');
+		$sheet->getColumnDimension('W')->setAutoSize(true);
+		$sheet->getStyle('W')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('W1', 'VALOR QUE ASUME');
 
-        $sheet->getColumnDimension('Y')->setAutoSize(true);
-        $sheet->getStyle('Y')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('Y1', 'CLASIFICACIÓN');
+		$sheet->getColumnDimension('X')->setAutoSize(true);
+		$sheet->getStyle('X')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('X1', 'PRECIO TOTAL');
 
-        $sheet->getColumnDimension('Z')->setAutoSize(true);
-        $sheet->getStyle('Z')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('Z1', 'NOMBRE DE CUENTA');
+		$sheet->getColumnDimension('Y')->setAutoSize(true);
+		$sheet->getStyle('Y')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('Y1', 'CLASIFICACIÓN');
 
-        $sheet->getColumnDimension('AA')->setAutoSize(true);
-        $sheet->setCellValue('AA1', 'CÓDGIO DE CUENTA');
+		$sheet->getColumnDimension('Z')->setAutoSize(true);
+		$sheet->getStyle('Z')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('Z1', 'NOMBRE DE CUENTA');
 
-        
+		$sheet->getColumnDimension('AA')->setAutoSize(true);
+		$sheet->setCellValue('AA1', 'CÓDGIO DE CUENTA');
 
-       
 
-        
 
-        $fila = 2; //fila en donde se incia a mostrar los datos en excel
-        foreach ($respuesta as $key => $value) {
-            
+
+
+
+
+		$fila = 2; //fila en donde se incia a mostrar los datos en excel
+		foreach ($respuesta as $key => $value) {
+
 
 			if ($value['porcentaje_cliente'] != 0) {
 
-                $valor_corresponde_cliente = ($value['total'] * ($value['porcentaje_cliente'] / 100));
-            } else {
-                $valor_corresponde_cliente = "";
-            }
-            if ($value['porcentaje_empresa'] != 0) {
-                $valor_corresponde_empresa = ($value['total'] * ($value['porcentaje_empresa'] / 100));
-            } else {
-                $valor_corresponde_empresa = "";
-            }
-            if ($value['porcentaje_contratista'] != 0) {
-                $valor_corresponde_contratista = ($value['total'] * ($value['porcentaje_contratista'] / 100));
-            } else {
-                $valor_corresponde_contratista = "";
-            }
+				$valor_corresponde_cliente = ($value['total'] * ($value['porcentaje_cliente'] / 100));
+			} else {
+				$valor_corresponde_cliente = "";
+			}
+			if ($value['porcentaje_empresa'] != 0) {
+				$valor_corresponde_empresa = ($value['total'] * ($value['porcentaje_empresa'] / 100));
+			} else {
+				$valor_corresponde_empresa = "";
+			}
+			if ($value['porcentaje_contratista'] != 0) {
+				$valor_corresponde_contratista = ($value['total'] * ($value['porcentaje_contratista'] / 100));
+			} else {
+				$valor_corresponde_contratista = "";
+			}
 
 
-            # Lleno el excel
-            $sheet->setCellValue('A' . $fila, $value['idorden']);
-            $sheet->setCellValue('B' . $fila, $value['placa']);
-            $sheet->setCellValue('C' . $fila, $value['kilometraje_orden']);
-            $sheet->setCellValue('D' . $fila, $value['cliente']);
-            $sheet->setCellValue('E' . $fila, $value['factura']);
-            $sheet->setCellValue('F' . $fila, $value['municipio']);
-            $sheet->setCellValue('G' . $fila, $value['Ffecha_entrada']);
-            $sheet->setCellValue('H' . $fila, $value['Ffecha_trabajos']);
-            $sheet->setCellValue('I' . $fila, $value['Ffecha_aprobacion']);
-            $sheet->setCellValue('J' . $fila, $value['servicio']);
-            $sheet->setCellValue('K' . $fila, $value['nombre_contacto']);
-            $sheet->setCellValue('L' . $fila, $value['item']);
-            $sheet->setCellValue('M' . $fila, $value['descripcion']);
-            $sheet->setCellValue('N' . $fila, $value['sistema']);
-            $sheet->setCellValue('O' . $fila, $value['cantidad']);
-            $sheet->setCellValue('P' . $fila, $value['valor'] . "$");
-            $sheet->setCellValue('Q' . $fila, $value['iva']. "%");
-            $sheet->setCellValue('R' . $fila, $value['cliente_asume']  );
-            $sheet->setCellValue('S' . $fila, $value['porcentaje_cliente']. "% -" . $valor_corresponde_cliente . "$");
-            $sheet->setCellValue('T' . $fila, $value['empresa_asume']);
-            $sheet->setCellValue('U' . $fila, $value['porcentaje_empresa']. "% -" . $valor_corresponde_empresa . "$");
-            $sheet->setCellValue('V' . $fila, $value['contratista_asume']);
-            $sheet->setCellValue('W' . $fila, $value['porcentaje_contratista']. "% -" . $valor_corresponde_contratista . "$");
-            $sheet->setCellValue('X' . $fila, $value['total']. "$");
-            $sheet->setCellValue('Y' . $fila, $value['mantenimiento']);
-            $sheet->setCellValue('Z' . $fila, $value['nombre_cuenta']);
-            $sheet->setCellValue('AA' . $fila, $value['num_cuenta']);
-            
+			# Lleno el excel
+			$sheet->setCellValue('A' . $fila, $value['idorden']);
+			$sheet->setCellValue('B' . $fila, $value['placa']);
+			$sheet->setCellValue('C' . $fila, $value['kilometraje_orden']);
+			$sheet->setCellValue('D' . $fila, $value['cliente']);
+			$sheet->setCellValue('E' . $fila, $value['factura']);
+			$sheet->setCellValue('F' . $fila, $value['municipio']);
+			$sheet->setCellValue('G' . $fila, $value['Ffecha_entrada']);
+			$sheet->setCellValue('H' . $fila, $value['Ffecha_trabajos']);
+			$sheet->setCellValue('I' . $fila, $value['Ffecha_aprobacion']);
+			$sheet->setCellValue('J' . $fila, $value['servicio']);
+			$sheet->setCellValue('K' . $fila, $value['nombre_contacto']);
+			$sheet->setCellValue('L' . $fila, $value['item']);
+			$sheet->setCellValue('M' . $fila, $value['descripcion']);
+			$sheet->setCellValue('N' . $fila, $value['sistema']);
+			$sheet->setCellValue('O' . $fila, $value['cantidad']);
+			$sheet->setCellValue('P' . $fila, $value['valor'] . "$");
+			$sheet->setCellValue('Q' . $fila, $value['iva'] . "%");
+			$sheet->setCellValue('R' . $fila, $value['cliente_asume']);
+			$sheet->setCellValue('S' . $fila, $value['porcentaje_cliente'] . "% -" . $valor_corresponde_cliente . "$");
+			$sheet->setCellValue('T' . $fila, $value['empresa_asume']);
+			$sheet->setCellValue('U' . $fila, $value['porcentaje_empresa'] . "% -" . $valor_corresponde_empresa . "$");
+			$sheet->setCellValue('V' . $fila, $value['contratista_asume']);
+			$sheet->setCellValue('W' . $fila, $value['porcentaje_contratista'] . "% -" . $valor_corresponde_contratista . "$");
+			$sheet->setCellValue('X' . $fila, $value['total'] . "$");
+			$sheet->setCellValue('Y' . $fila, $value['mantenimiento']);
+			$sheet->setCellValue('Z' . $fila, $value['nombre_cuenta']);
+			$sheet->setCellValue('AA' . $fila, $value['num_cuenta']);
 
-            $fila++;
-        }
 
-        $nombre_reporte = "Control de actividades" . date('Y-m-d g:i A') . ".xlsx";
-        /*
+			$fila++;
+		}
+
+		$nombre_reporte = "Control de actividades" . date('Y-m-d g:i A') . ".xlsx";
+		/*
                 * Los siguientes encabezados son necesarios para que
                 * el navegador entienda que no le estamos mandando
                 * simple HTML
                 * Por cierto: no hagas ningún echo ni cosas de esas; es decir, no imprimas nada
             */
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="' . $nombre_reporte . '"');
-        header('Cache-Control: max-age=0');
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename="' . $nombre_reporte . '"');
+		header('Cache-Control: max-age=0');
 
-        $writer = IOFactory::createWriter($documento, 'Xlsx');
-        $writer->save('php://output');
-        exit;
+		$writer = IOFactory::createWriter($documento, 'Xlsx');
+		$writer->save('php://output');
+		exit;
 	}
 
 	/* ===================================================
 		EXPORTAR EXCEL PROGRAMACIÓN
 	===================================================*/
-	static public function ctrExcelSolicitudesProgramacion(){
+	static public function ctrExcelSolicitudesProgramacion()
+	{
 		$respuesta = ControladorMantenimientos::ctrListaProgramacion();
 		$empresa = ModeloEmpresaRaiz::mdlVerEmpresa();
 
-		
 
 
-        $documento = new Spreadsheet();
-        $documento
-            ->getProperties()
-            ->setCreator("{$empresa['razon_social']}")
-            ->setLastModifiedBy("{$_SESSION['cedula']}") // última vez modificado por
-            ->setTitle("{$empresa['razon_social']}")
-            ->setSubject("{$empresa['razon_social']}" . 'Solicitudes programación')
-            ->setDescription("{$empresa['razon_social']}")
-            ->setKeywords('solicitudes programación EXCEL php')
-            ->setCategory("{$empresa['razon_social']}");
 
-        $documento->getActiveSheet()->setTitle('SOLICITUDES'); // NOMBRE A LA HOJA
-        $rangoColumnas = 'A1:H1';
-        $documento->getActiveSheet()->getStyle($rangoColumnas)->getFont()->setBold(true)->setSize(14); # LA PRIMERA FILA EN NEGRITA
+		$documento = new Spreadsheet();
+		$documento
+			->getProperties()
+			->setCreator("{$empresa['razon_social']}")
+			->setLastModifiedBy("{$_SESSION['cedula']}") // última vez modificado por
+			->setTitle("{$empresa['razon_social']}")
+			->setSubject("{$empresa['razon_social']}" . 'Solicitudes programación')
+			->setDescription("{$empresa['razon_social']}")
+			->setKeywords('solicitudes programación EXCEL php')
+			->setCategory("{$empresa['razon_social']}");
 
-        //APLICAMOS AUTOFILTER
-        $documento->getActiveSheet()->setAutoFilter($rangoColumnas);
-        $sheet = $documento->getActiveSheet();
+		$documento->getActiveSheet()->setTitle('SOLICITUDES'); // NOMBRE A LA HOJA
+		$rangoColumnas = 'A1:H1';
+		$documento->getActiveSheet()->getStyle($rangoColumnas)->getFont()->setBold(true)->setSize(14); # LA PRIMERA FILA EN NEGRITA
 
-        $sheet->setTitle("SOLICITUDES");
+		//APLICAMOS AUTOFILTER
+		$documento->getActiveSheet()->setAutoFilter($rangoColumnas);
+		$sheet = $documento->getActiveSheet();
 
-        # Bordes de la primera fila
-        $sheet->getStyle($rangoColumnas)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+		$sheet->setTitle("SOLICITUDES");
 
-        
+		# Bordes de la primera fila
+		$sheet->getStyle($rangoColumnas)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
 
-        $sheet->getColumnDimension('A')->setAutoSize(true);
-        $sheet->getStyle('A')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('A1', 'PLACA');
 
-        $sheet->getColumnDimension('B')->setAutoSize(true);
-        $sheet->getStyle('B')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('B1', 'NÚMERO INTERNO');
 
-        $sheet->getColumnDimension('C')->setAutoSize(true);
-        $sheet->getStyle('C')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('C1', 'KILOMETRAJE');
+		$sheet->getColumnDimension('A')->setAutoSize(true);
+		$sheet->getStyle('A')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('A1', 'PLACA');
 
-        $sheet->getColumnDimension('D')->setAutoSize(true);
-        $sheet->getStyle('D')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('D1', 'FECHA DE SOLICITUD');
+		$sheet->getColumnDimension('B')->setAutoSize(true);
+		$sheet->getStyle('B')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('B1', 'NÚMERO INTERNO');
 
-        $sheet->getColumnDimension('E')->setAutoSize(true);
-        $sheet->getStyle('E')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('E1', 'FECHA DE PROGRAMACIÓN');
+		$sheet->getColumnDimension('C')->setAutoSize(true);
+		$sheet->getStyle('C')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('C1', 'KILOMETRAJE');
 
-        $sheet->getColumnDimension('F')->setAutoSize(true);
-        $sheet->getStyle('F')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('F1', 'ACTIVIDAD');
+		$sheet->getColumnDimension('D')->setAutoSize(true);
+		$sheet->getStyle('D')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('D1', 'FECHA DE SOLICITUD');
 
-        $sheet->getColumnDimension('G')->setAutoSize(true);
-        $sheet->getStyle('G')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('G1', 'TIEMPO DE MANTENIMIENTO (DÍAS)');
+		$sheet->getColumnDimension('E')->setAutoSize(true);
+		$sheet->getStyle('E')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('E1', 'FECHA DE PROGRAMACIÓN');
 
-        $sheet->getColumnDimension('H')->setAutoSize(true);
-        $sheet->getStyle('H')->getAlignment()->setHorizontal('center');
-        $sheet->setCellValue('H1', 'OBSERVACIONES');
+		$sheet->getColumnDimension('F')->setAutoSize(true);
+		$sheet->getStyle('F')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('F1', 'ACTIVIDAD');
 
-        
+		$sheet->getColumnDimension('G')->setAutoSize(true);
+		$sheet->getStyle('G')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('G1', 'TIEMPO DE MANTENIMIENTO (DÍAS)');
 
-       
+		$sheet->getColumnDimension('H')->setAutoSize(true);
+		$sheet->getStyle('H')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('H1', 'OBSERVACIONES');
 
-        
 
-        $fila = 2; //fila en donde se incia a mostrar los datos en excel
-        foreach ($respuesta as $key => $value) {
-            
 
-            # Lleno el excel
-            $sheet->setCellValue('A' . $fila, $value['placa']);
-            $sheet->setCellValue('B' . $fila, $value['numinterno']);
-            $sheet->setCellValue('C' . $fila, $value['kilometraje_actual']);
-            $sheet->setCellValue('D' . $fila, $value['Ffecha_solicitud']);
-            $sheet->setCellValue('E' . $fila, $value['Ffecha_programacion']);
-            $sheet->setCellValue('F' . $fila, $value['item']);
-            $sheet->setCellValue('G' . $fila, $value['tiempo_mantenimiento']);
-            $sheet->setCellValue('H' . $fila, $value['observacion']);
-            
 
-            $fila++;
-        }
 
-        $nombre_reporte = "Control de actividades" . date('Y-m-d g:i A') . ".xlsx";
-        /*
+
+
+		$fila = 2; //fila en donde se incia a mostrar los datos en excel
+		foreach ($respuesta as $key => $value) {
+
+
+			# Lleno el excel
+			$sheet->setCellValue('A' . $fila, $value['placa']);
+			$sheet->setCellValue('B' . $fila, $value['numinterno']);
+			$sheet->setCellValue('C' . $fila, $value['kilometraje_actual']);
+			$sheet->setCellValue('D' . $fila, $value['Ffecha_solicitud']);
+			$sheet->setCellValue('E' . $fila, $value['Ffecha_programacion']);
+			$sheet->setCellValue('F' . $fila, $value['item']);
+			$sheet->setCellValue('G' . $fila, $value['tiempo_mantenimiento']);
+			$sheet->setCellValue('H' . $fila, $value['observacion']);
+
+
+			$fila++;
+		}
+
+		$nombre_reporte = "Control de actividades" . date('Y-m-d g:i A') . ".xlsx";
+		/*
                 * Los siguientes encabezados son necesarios para que
                 * el navegador entienda que no le estamos mandando
                 * simple HTML
                 * Por cierto: no hagas ningún echo ni cosas de esas; es decir, no imprimas nada
             */
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="' . $nombre_reporte . '"');
-        header('Cache-Control: max-age=0');
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename="' . $nombre_reporte . '"');
+		header('Cache-Control: max-age=0');
 
-        $writer = IOFactory::createWriter($documento, 'Xlsx');
-        $writer->save('php://output');
-        exit;
+		$writer = IOFactory::createWriter($documento, 'Xlsx');
+		$writer->save('php://output');
+		exit;
 	}
 }
