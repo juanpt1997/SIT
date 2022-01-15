@@ -202,9 +202,6 @@ class AjaxAlmacen
                     <button title='Ver sucursales' data-toggle='modal' data-target='#modal-sucursalesProducto' idproducto='{$value["idproducto"]}' class='btn btn-sm btn-success btnSucursalesInventario'><i class='fas fa-map-marker-alt'></i></button>
                     </div>
                     <div class='btn-group' role='group' aria-label='Button group'>
-                    <button title='Generar salida' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-warning btnGenerarSalida'><i class='fas fa-sign-out-alt'></i></button>
-                    </div>
-                    <div class='btn-group' role='group' aria-label='Button group'>
                     <button title='Editar producto' data-toggle='tooltip' data-placement='top'  idproducto='{$value["idproducto"]}' class='btn btn-sm btn-primary btnEditar'><i class='fas fa-edit'></i></button>
                     </div>
                 </td>

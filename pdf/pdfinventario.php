@@ -135,13 +135,10 @@ class InventarioPDF
         $fechaP = $value['Ffechafin'];
       }
     }
-
     //VALIDAR EVIDENCIAS Y LISTARLAS EN EL CUERPO DE LA TABLA 
     foreach ($evidencias as $key => $value) {
       //var_dump($evidencias);
       if ($value['estado'] == 'RESUELTO') {
-
-        
       } else {
         $evidencia = '<img src="../' . $value['ruta_foto'] . '">';
         $observaciones = $value['observaciones'];
@@ -149,13 +146,25 @@ class InventarioPDF
         $estado = $value['estado'];
         $tr .= "
       <tr>
-        <td colspan='2' height='150'>" . $evidencia . "</td>
+        <td height='150'>" . $evidencia . "</td>
         <td>" . $observaciones . "</td>
         <td>" . $fecha_evidencia . "</td>
         <td>" . $estado . "</td>
       </tr>";
       }
     }
+
+    if ($tr == "") {
+
+      $tr = "<tr>
+              <td colspan='5' height='150'>N/A</td>
+              <td>N/A</td>
+              <td>N/A</td>
+              <td>N/A</td>
+            </tr>";
+    }
+
+    //var_dump($tr);
     //FECHAS DE VENCIMIENTO DE LOS DOCUMENTOS
     $fechaTO = isset($fechaTO) ? $fechaTO : "";
     $fechaRM = isset($fechaRM) ? $fechaRM : "";
@@ -678,11 +687,14 @@ class InventarioPDF
         ';
     $pdf->SetFont('helvetica', '', '8');
     $pdf->writeHTML($tabla);
+    $pdf->Ln();
+    
     /* ---------------------------------------------------------
     | | | | EVIDENCIAS
     ==========================================================*/
     $pdf->SetFont('helvetica', 'B', '12');
     $pdf->Cell(0, 0, "EVIDENCIAS", 0, 0, 'C', 0, '', 0);
+    $pdf->Ln();
     $pdf->Ln();
     $pdf->Ln();
 
