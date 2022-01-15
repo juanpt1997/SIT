@@ -466,7 +466,7 @@ class PdfVehiculo
                 </tr>
 
                 <tr style="text-align: center;">
-                    <td colspan="2" border="1" height="190"><img src="' . $tarjetaPropiedad['ruta_documento'] . '" height="190"></td>
+                    <td colspan="2" border="1" height="180"><img src="' . $tarjetaPropiedad['ruta_documento'] . '" height="180"></td>
                 </tr>
 
                 <tr style="text-align: center; font-weight:bold;">
@@ -474,7 +474,7 @@ class PdfVehiculo
                 </tr>
 
                 <tr style="text-align: center;">
-                    <td colspan="2" border="1" height="190"><img src="' . $TarjetaOperacion['ruta_documento'] . '" height="190"></td>
+                    <td colspan="2" border="1" height="180"><img src="' . $TarjetaOperacion['ruta_documento'] . '" height="180"></td>
                 </tr>
             </tbody>
         </table>

@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '50d9d3522a96f93588e3944adf867c4b6399d69e',
+    'reference' => '86063cf99ab1c0b880f8f7abb2218ff6004d6f71',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '50d9d3522a96f93588e3944adf867c4b6399d69e',
+      'reference' => '86063cf99ab1c0b880f8f7abb2218ff6004d6f71',
     ),
     'ezyang/htmlpurifier' => 
     array (
@@ -76,12 +76,12 @@
     ),
     'phpmailer/phpmailer' => 
     array (
-      'pretty_version' => 'v6.1.8',
-      'version' => '6.1.8.0',
+      'pretty_version' => 'v6.5.3',
+      'version' => '6.5.3.0',
       'aliases' => 
       array (
       ),
-      'reference' => '917ab212fa00dc6eacbb26e8bc387ebe40993bc1',
+      'reference' => 'baeb7cde6b60b1286912690ab0693c7789a31e71',
     ),
     'phpoffice/phpspreadsheet' => 
     array (

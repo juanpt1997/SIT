@@ -134,7 +134,7 @@ if (
         // Apenas carga la página mostrar el Datatable
         var buttons = [
             { className: 'btn-secondary mr-1 btn-agregarPersonal', text: '<i class="fas fa-plus-circle"></i> Nuevo' },
-            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+            { extend: 'excel', className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar' }
             /* 'copy', 'csv', 'excel', 'pdf', 'print' */
         ];
         mostrarDatatableGH("Personal", buttons);

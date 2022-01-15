@@ -77,6 +77,7 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                             <th>Silleteria reclinable</th>
                                             <th>Viaje ocasional</th>
                                             <th>Cancelada</th>
+                                            <th style="min-width:90px;">Usuario</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-sm">
@@ -120,6 +121,7 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                                 <td><?= $value['silleriareclinable'] ?></td>
                                                 <td><?= $value['viaje_ocasional'] ?></td>
                                                 <td><?= $value['cancelada'] ?></td>
+                                                <td><?= $value['usuarioCreacion'] ?></td>
                                             </tr>
                                         <?php endforeach ?>
                                     </tbody>
