@@ -41,8 +41,7 @@ $(document).ready(function () {
             var buttons = [
                 {
                     extend: "excel",
-                    className: "btn-info",
-                    text: '<i class="far fa-file-excel"></i> Exportar',
+                    className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                 },
             ];
             var table = dataTableCustom(`#tblAlistamientos`, buttons);
@@ -604,8 +603,7 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#tblEvidencias`, buttons);
@@ -1144,8 +1142,7 @@ $(document).ready(function () {
             var buttons = [
                 {
                     extend: "excel",
-                    className: "btn-info",
-                    text: '<i class="far fa-file-excel"></i> Exportar',
+                    className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                 },
             ];
             var table = dataTableCustom(`#tblplanrodamiento`, buttons);
@@ -1185,8 +1182,7 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                         /* 'copy', 'csv', 'excel', 'pdf', 'print' */
                     ];

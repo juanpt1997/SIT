@@ -153,8 +153,7 @@ if (
             var buttons = [
                 {
                     extend: "excel",
-                    className: "btn-info",
-                    text: '<i class="far fa-file-excel"></i> Exportar',
+                    className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                 },
             ];
             var table = dataTableCustom(`#tblCotizaciones`, buttons);
@@ -372,8 +371,7 @@ if (
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                         /* 'copy', 'csv', 'excel', 'pdf', 'print' */
                     ];
@@ -567,8 +565,7 @@ if (
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                         /* 'copy', 'csv', 'excel', 'pdf', 'print' */
                     ];
@@ -837,8 +834,7 @@ if (
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#tblRutasxCliente`, buttons);
@@ -1059,8 +1055,7 @@ if (
             var buttons = [
                 {
                     extend: "excel",
-                    className: "btn-info",
-                    text: '<i class="far fa-file-excel"></i> Exportar',
+                    className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                 },
             ];
             var table = dataTableCustom(`#tblOrdenServicio`, buttons);
