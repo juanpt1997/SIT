@@ -206,7 +206,8 @@ if (isset($_GET['pagina'])) {
                     } else if ( # Mantenimiento
                         $ruta == "m-inventario" ||
                         $ruta == "m-revision-tm" ||
-                        $ruta == "m-mantenimientos"
+                        $ruta == "m-mantenimientos"||
+                        $ruta == "m-control-llantas"
                     ) {
                         include "modulos/mantenimiento/{$ruta}.php";
                     } else if ( # Compras

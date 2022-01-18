@@ -1269,12 +1269,10 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                         </div>
                     </div>
                     <div class="col-12 mt-2">
-                        <a href="a-inventario" class="mt-5" target="_blank">
-                            <button type="" class="btn btn-sm btn-info float-center">
-                                <i class="fas fa-warehouse"></i>
-                                Ver almacén
-                            </button>
-                        </a>
+                        <button type="button" class="btn btn-sm btn-info btn_addRepuesto float-center">
+                            <i class="fas fa-warehouse"></i>
+                            Agregar nuevo respuesto
+                        </button>
                     </div>
                 </div>
             </div>
@@ -2199,6 +2197,170 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
             <div class="modal-footer">
                 <button type="submit" form="Guardarprogramacion_form" class="btn btn-success">Guardar</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="AgregarRepuesto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="AgregarRepuesto-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header bg-info">
+                <h5 class="modal-title" id="AgregarRepuesto-title">Agregar nuevo repuesto</h5>
+                <button class="close" id="cerrar" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="card-body">
+
+                    <!--INGRESO DATOS PRODUCTOS-->
+                    <h4><i class="fas fa-info-circle"></i> <b><i>Datos del repuesto</i></b></h4>
+                    <hr class="my-4">
+
+                    <form id="formulario_addRepuesto" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <!-- <input type="hidden" id="id_producto" name="id_producto" value=""> -->
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Código del repuesto</i> <i class="fas fa-barcode"></i></label>
+                                    <input type="text" class="form-control" id="cod_producto" name="cod_producto" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Referencia</i></label>
+                                    <input type="number" class="form-control input_producto" id="referencia" name="referencia" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Descripción</i></label>
+                                    <input type="text" class="form-control input_producto" id="descripcion_prod" name="descripcion_prod" placeholder="Nombre del producto / Descripción del producto" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Categoría</i></label>
+                                    <div class="input-group">
+                                        <select class="custom-select rounded-0 input_producto" id="categoria" name="categoria" required>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nueva categoria" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Marca</i> <i class="fas fa-copyright"></i></label>
+                                    <div class="input-group">
+                                        <select class="custom-select rounded-0 input_producto" id="marca" name="marca" required>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nueva marca" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Medida</i> <i class="fas fa-tachometer-alt"></i></label>
+                                    <div class="input-group">
+                                        <select class="custom-select rounded-0 input_producto" id="medida" name="medida" required>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nueva medida" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="bg-dark">
+
+                        <div class="row">
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Sucursal - bodega</i></label>
+                                    <div class="input-group">
+                                        <select class="select2-single rounded-0" id="sucursal" name="sucursal" required>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <a href="cg-gestion-humana" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nueva sucursal" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Número de factura repuesto</i></label>
+                                    <input type="text" class="form-control input_inventario" id="num_factura" name="num_factura" placeholder="#" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Proveedor</i></label>
+                                    <div class="input-group">
+                                        <select class="select2-single rounded-0" id="proveedor" name="proveedor" required>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <a href="c-proveedores" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nuevo proveedor" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Cantidad a ingresar (unidades)</i></label>
+                                    <input type="number" class="form-control input_inventario" id="cantidad" name="cantidad" placeholder="-" min="0" step="1" title="Ingrese solo valores positivos" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Posición</i> <i class="fas fa-sitemap"></i></label>
+                                    <input type="text" class="form-control input_inventario" id="posicion" name="posicion" placeholder="-">
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label><i>Precio de compra (valor unitario)</i> <i class="fas fa-dollar-sign"></i></label>
+                                    <input type="text" class="form-control input_inventario" id="precio-compra-producto" name="precio-compra-producto" placeholder="$" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-sm bg-gradient-info btn-block" form="formulario_addRepuesto"><i class="fas fa-plus"></i> Agregar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="modal-footer justify-content-center bg-dark">
+                <a class="btn btn-sm btn-cerrar2 bg-danger" data-dismiss="modal">
+                    <i class="fas fa-ban"></i> Cancelar
+                </a>
+
+
             </div>
 
         </div>
