@@ -489,6 +489,16 @@
                                     <p>Revision TM</p>
                                 </a>
                             </li>
+
+                            <!-- ===================================================
+                                    Control de llantas 
+                                =================================================== -->
+                            <li class="nav-item">
+                                <a href="m-control-llantas" class="nav-link" target="_blank">
+                                <i class="fas fa-truck-monster"></i>
+                                    <p>Control de llantas</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                 <?php endif ?>

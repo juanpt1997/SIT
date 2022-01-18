@@ -660,7 +660,8 @@ $(document).ready(function () {
             var buttons = [
                 {
                     extend: "excel",
-                    className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
+                    className: "border-0 bg-gradient-olive",
+                    text: '<i class="fas fa-file-excel"></i> Exportar',
                 },
             ];
             var table = dataTableCustom(`#tabla_resumen_inventario`, buttons);
@@ -1543,7 +1544,6 @@ $(document).ready(function () {
          FUNCION PARA CARGAR TABLA PROGRAMACION POR VEHÍCULO
         =====================================================*/
         const AjaxTablaProgramacionxVehiculo = (idvehiculo, tbody, tabla) => {
-
             // Quitar datatable
             $(tabla).dataTable().fnDestroy();
             // Borrar datos
@@ -1561,7 +1561,6 @@ $(document).ready(function () {
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    
                     if (response != "" || response != undefined) {
                         $(tbody).html(response);
                     } else {
@@ -1572,7 +1571,11 @@ $(document).ready(function () {
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
                     var buttons = [
-                      { extend: 'excel', className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar' }
+                        {
+                            extend: "excel",
+                            className: "border-0 bg-gradient-olive",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
+                        },
                     ];
                     // var table = dataTableCustom(tabla, buttons);
 
@@ -1662,7 +1665,6 @@ $(document).ready(function () {
 
         // CARGAR DATOS DEL VEHICULO
         $(document).on("change", "#placa_OrdServ", function () {
-
             let fecha_actual = moment().format("YYYY-MM-DD");
             let idvehiculo = $(this).val();
 
@@ -1672,14 +1674,13 @@ $(document).ready(function () {
                 $(".documentos").val("");
             }
 
-
             //CARGAR TABLA DE PROGRAMACIÓN POR VEHÍCULO
             AjaxTablaProgramacionxVehiculo(
                 idvehiculo,
                 "#tbodyProgramacionServ",
                 "#tablaProgramacionServ"
             );
-            
+
             AjaxTablaEvidenciasOrden(idvehiculo);
 
             var datos = new FormData();
@@ -1827,7 +1828,8 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "excel",
-                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
+                            className: "border-0 bg-gradient-olive",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#tablaRepuesto`, buttons);
@@ -1934,7 +1936,8 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "excel",
-                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
+                            className: "border-0 bg-gradient-olive",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#tablaProgramacion`, buttons);
@@ -2189,7 +2192,8 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "excel",
-                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
+                            className: "border-0 bg-gradient-olive",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#tablaProveedores`, buttons);
@@ -2286,8 +2290,7 @@ $(document).ready(function () {
                     let datos = response.datosOrden;
 
                     //SI EL KILOMETRAJE ES NULL SE PONE 0
-                    if(datos.kilometraje != null)
-                    {
+                    if (datos.kilometraje != null) {
                         var fila = `<tr>
                          <td>${datos.idorden}</td>
                          <td>${datos.placa}</td>
@@ -2298,8 +2301,7 @@ $(document).ready(function () {
                          <td>${datos.kilometraje}</td>
                          <td>${datos.Ffecha_entrada}</td>
                          </tr>`;
-
-                    }else{
+                    } else {
                         var fila = `<tr>
                          <td>${datos.idorden}</td>
                          <td>${datos.placa}</td>
@@ -2311,7 +2313,6 @@ $(document).ready(function () {
                          <td>${datos.Ffecha_entrada}</td>
                          </tr>`;
                     }
-
 
                     $("#tbodyResumen").append(fila);
                 },
@@ -3096,7 +3097,8 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "",
-                            className: "border-0 bg-gradient-olive excel-controlActividades",
+                            className:
+                                "border-0 bg-gradient-olive excel-controlActividades",
                             text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
@@ -3493,7 +3495,8 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "excel",
-                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
+                            className: "border-0 bg-gradient-olive",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(
@@ -3593,7 +3596,8 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "",
-                            className: "border-0 bg-gradient-olive excelSolicitudesProgramacion",
+                            className:
+                                "border-0 bg-gradient-olive excelSolicitudesProgramacion",
                             text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
@@ -3840,7 +3844,8 @@ $(document).ready(function () {
                         var buttons = [
                             {
                                 extend: "excel",
-                                className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
+                                className: "border-0 bg-gradient-olive",
+                                text: '<i class="fas fa-file-excel"></i> Exportar',
                             },
                         ];
                         var table = dataTableCustom(
@@ -3871,8 +3876,7 @@ $(document).ready(function () {
         /*============================================
             NOTIFICACIONES ORDEN DE SERVICIO SI FALTA UN CAMPO
         ==============================================*/
-        $(document).on("click", "#guardar_orden", function(){
-            
+        $(document).on("click", "#guardar_orden", function () {
             Areas = [];
             Requeridos = [];
             Elementos = [];
@@ -3937,5 +3941,184 @@ $(document).ready(function () {
         `
             );
         });
+        /* ===================================================
+            CREAR NUEVO PRODUCTO(repuesto) desde la tabla de repuestos
+        ==============================================*/
+        $(".btn_addRepuesto").on("click", function () {
+            //cambiar de modal por el de agregar un repuesto nuevo
+            //$("#modal-repuestos").modal("hide");
+            $("#modal-repuestos").modal("toggle");
+            $("#AgregarRepuesto").modal("show");
+        });
+
+        $("#cerrar").on("click", function () {
+            $("#AgregarRepuesto").modal("hide");
+            $("#modal-repuestos").modal("show");
+        });
+
+        $(".btn-cerrar2").on("click", function () {
+            $("#AgregarRepuesto").modal("hide");
+            $("#modal-repuestos").modal("show");
+        });
+
+        //VALIDAR DATOS DE FACTURA DEL RESPUESTO
+        //permite agregar si se digitó un producto y una factura de producto
+        $(document).on("shown.bs.modal", "#AgregarRepuesto", function () {
+            cargarSelect("categoria");
+            cargarSelect("medida");
+            cargarSelect("marca");
+            cargarSelect("sucursal");
+            cargarSelectProveedor("proveedor");
+        });
+
+        const cargarSelect = (nombre) => {
+            let datos = new FormData();
+            datos.append("cargarselect", "ok");
+            datos.append("nombreSelect", nombre);
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/almacen.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $(`#${nombre}`).html(response);
+                    } else {
+                        $(`#${nombre}`).html("");
+                    }
+                },
+            });
+        };
+
+        //FUNCION para cargar los datos del select proveedor
+        const cargarSelectProveedor = (proveedor) => {
+            let datos = new FormData();
+            datos.append("cargarselectProveedor", "ok");
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/compras.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $(`#${proveedor}`).html(response);
+                    } else {
+                        $(`#${proveedor}`).html("");
+                    }
+                },
+            });
+        };
+
+        $("#formulario_addRepuesto").submit(function (e) {
+            e.preventDefault();
+
+            var datosAjax = new FormData();
+            datosAjax.append("AgregarProducto", "ok");
+            var datosFrm = $(this).serializeArray();
+            datosFrm.forEach((element) => {
+                datosAjax.append(element.name, element.value);
+            });
+
+            $.ajax({
+                type: "post",
+                url: `${urlPagina}ajax/almacen.ajax.php`,
+                data: datosAjax,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response != "") {
+                        //GUARDAR ID para agregar al inventario
+                        let id = response;
+
+                        var datosAjax2 = new FormData();
+                        var datosFrm2 = $(
+                            "#formulario_addRepuesto"
+                        ).serializeArray();
+                        datosFrm2.forEach((element) => {
+                            datosAjax2.append(element.name, element.value);
+                        });
+                        datosAjax2.append("AgregarInventario", "ok");
+                        datosAjax2.append("idproducto", id);
+
+                        $.ajax({
+                            type: "post",
+                            url: `${urlPagina}ajax/almacen.ajax.php`,
+                            data: datosAjax2,
+                            dataType: "json",
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            success: function (response) {
+                                if (response == "agregado") {
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Se agregó correctamente al inventario.",
+                                        showConfirmButton: false,
+                                        timer: 2500,
+                                    });
+                                    $("#AgregarRepuesto").modal("hide");
+                                    //$("#modal-repuestos").modal("show");
+                                    
+
+                                } else if (response == "editado") {
+                                    Swal.fire({
+                                        icon: "success",
+                                        title: "Se ha actualizado el inventario.",
+                                        showConfirmButton: false,
+                                        timer: 2500,
+                                    });
+                                }
+                            },
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Error al crear el repuesto",
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                    }
+                },
+            });
+        });
+    }
+
+    /* ===================================================
+    * CONTROL DE LLANTAS
+  ====================================================== */
+
+    if (
+        window.location.href == `${urlPagina}m-control-llantas/` ||
+        window.location.href == `${urlPagina}m-control-llantas`
+    ) {
+        //FUNCION para cargar los datos del select
+        const cargarSelect = (nombre) => {
+            let datos = new FormData();
+            datos.append("cargarselect", "ok");
+            datos.append("nombreSelect", nombre);
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/almacen.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $(`#${nombre}`).html(response);
+                    } else {
+                        $(`#${nombre}`).html("");
+                    }
+                },
+            });
+        };
     }
 });
