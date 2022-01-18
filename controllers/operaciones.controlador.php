@@ -155,6 +155,7 @@ class ControladorAlistamiento
            INSERT/UPDATE
         ===================================================*/
         # INSERT
+        var_dump($datos);
         if ($datos['id'] == "") {
             if (is_array($alistamiento)) {
                 # mensaje al usuario
@@ -305,7 +306,7 @@ class ControladorRodamientos
             $contratofijo = $_POST["contratofijo"] == "" ? null : $_POST["contratofijo"];
 		    $contratante = $_POST["contratante"] == "" ? null : $_POST["contratante"];
 
-            var_dump($_POST);
+            
             
             $datos = array(
                 'id_rodamiento' => $_POST['id_rodamiento'],

@@ -561,7 +561,7 @@ $(document).ready(function () {
                         // $("#sincronizacion").val(response.sincronizacion);
                         // $("#alineacion_balanceo").val(response.alineacion_balanceo);
 
-                        $("#fechaAlistamiento").val(response.Ffechaalista);
+                        $("#fechaAlistamiento").val(response.fechaalista);
                         $("#kmtotal").val(response.kilometraje_total);
                         $("#observaciones").val(response.observaciones);
                     }
