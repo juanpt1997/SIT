@@ -364,7 +364,7 @@ if (
                 var popup = L.popup() //Abrimos el popup con la info del vehículo 
                     .setLatLng([element.lat, element.lng])
                     .setContent(
-                        `<p>Vehículo:<strong> <span class="bg-warning text-dark p-1"> ${element.placa}</span></strong></p>
+                        `<p>Vehículo:<strong> <span class="bg-warning text-dark p-1 border border-dark"> ${element.placa}</span></strong></p>
                          <p><strong>Nivel de combustible:</strong> Bajo</p>
                          <p><strong>Velocidad: </strong> 68 km/h</p>`
                     )
