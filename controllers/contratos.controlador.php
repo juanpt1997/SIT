@@ -393,41 +393,44 @@ class ControladorCotizaciones
                         $responseModel = ModeloCotizaciones::mdlAgregarCotizacion($datos);
                         if ($responseModel == "ok") {
 
+                            # Enviar correo de notificación
+                            
+
                             echo "
-                         <script>
-                         Swal.fire({
-                            icon: 'success',
-                            title: 'Cotización añadida correctamente!',						
-                            showConfirmButton: true,
-                            confirmButtonText: 'Cerrar',
-                            
-                         }).then((result)=>{
-                            
-                            if(result.value){
-                               window.location = 'contratos-cotizaciones';
-                            }
-                            
-                         })
-                         </script>
-                         ";
+                                <script>
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Cotización añadida correctamente!',						
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                    
+                                }).then((result)=>{
+                                    
+                                    if(result.value){
+                                    window.location = 'contratos-cotizaciones';
+                                    }
+                                    
+                                })
+                                </script>
+                                ";
                         } else {
                             echo "
-                         <script>
-                         Swal.fire({
-                            icon: 'warning',
-                            title: '¡Problema al añadir la cotización!',						
-                            showConfirmButton: true,
-                            confirmButtonText: 'Cerrar',
-                            
-                         }).then((result)=>{
-                            
-                            if(result.value){
-                               window.location = 'contratos-cotizaciones';
-                            }
-                            
-                         })
-                         </script>
-                         ";
+                                <script>
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: '¡Problema al añadir la cotización!',						
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                    
+                                }).then((result)=>{
+                                    
+                                    if(result.value){
+                                    window.location = 'contratos-cotizaciones';
+                                    }
+                                    
+                                })
+                                </script>
+                                ";
                         }
                     }
                 }
