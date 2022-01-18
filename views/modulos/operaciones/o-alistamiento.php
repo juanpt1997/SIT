@@ -168,7 +168,7 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
                                                 <button type="button" title="PDF Alistamiento" class="btn btn-secondary btn-sm btn-PdfAlistamiento" idalistamiento="<?= $value['id'] ?>"><i class="fas fa-file-pdf"></i></button>
                                             </td>
                                             <td><?= $value['id'] ?></td>
-                                            <td><?= $value['fechaalista'] ?></td>
+                                            <td><?= $value['Ffechaalista'] ?></td>
                                             <td><?= $value['placa'] ?></td>
                                             <td><?= $value['numinterno'] ?></td>
                                             <td><?= $value['conductor'] ?></td>
@@ -426,7 +426,10 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
                                                 <div class="col-12 col-sm-6 col-lg-4">
                                                     <div class="form-group">
                                                         <label>Fecha</label>
-                                                        <input id="fechaAlistamiento" name="fechaAlistamiento" type="date" class="form-control" required>
+                                                        <?php
+                                                        $fecha =  date('Y/m/d H:i:s');
+                                                        ?>
+                                                        <input id="fechaAlistamiento" name="fechaAlistamiento" type="text" class="form-control" value="<?= $fecha ?>" readonly required>
                                                     </div>
                                                 </div>
 
@@ -494,11 +497,11 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
                                                         <div class="form-group">
                                                             <label><?= $value['tipodocumento'] ?></label>
                                                             <div class="input-group">
-                                                                <input id="documento_<?= $value['idtipo'] ?>" type="date" class="form-control documentos"  readonly>
+                                                                <input id="documento_<?= $value['idtipo'] ?>" type="date" class="form-control documentos" readonly>
                                                                 <div class="input-group-append">
-                                                                    <button class="btn info-semaforotipo1" type="button" >
+                                                                    <button class="btn info-semaforotipo1" type="button">
                                                                         <i class="fas fa-exclamation-triangle"></i>
-                                                                        
+
                                                                     </button>
                                                                 </div>
                                                             </div>
