@@ -444,7 +444,8 @@ class ModeloCotizaciones
                                                 LEFT JOIN gh_municipios AS ori ON ori.idmunicipio=rt.idorigen
                                                 LEFT JOIN gh_municipios AS des ON des.idmunicipio=rt.iddestino
                                                 INNER JOIN cont_clientes Cl ON C.idcliente = Cl.idcliente
-                                                LEFT JOIN l_usuarios u ON u.Cedula = C.user_created");
+                                                LEFT JOIN l_usuarios u ON u.Cedula = C.user_created
+                                                ORDER BY C.user_created DESC");
 
          $stmt->execute();
          $retorno =  $stmt->fetchAll();
@@ -785,7 +786,8 @@ class ModeloOrdenServicio
                                              LEFT JOIN v_rutas rt ON rt.id = C.idruta
                                              LEFT JOIN gh_municipios AS ori ON ori.idmunicipio=rt.idorigen
                                              LEFT JOIN gh_municipios AS des ON des.idmunicipio=rt.iddestino
-                                             LEFT JOIN l_usuarios u ON u.Cedula = O.user_created");
+                                             LEFT JOIN l_usuarios u ON u.Cedula = O.user_created
+                                             ORDER BY O.fechacreacion DESC");
 
       $stmt->execute();
       $retorno =  $stmt->fetchAll();
