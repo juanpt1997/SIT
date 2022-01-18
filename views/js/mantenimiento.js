@@ -3922,5 +3922,20 @@ $(document).ready(function () {
                 });
             }
         });
+
+        /*============================================
+        INFO SOBRE EL SEMAFORO
+        ==============================================*/
+        $(document).on("mouseover", ".info-semaforotipo1", function () {
+            $(this).attr(
+                "title",
+                `ㅤ
+                Rojo: Documento vencido
+                Amarillo: Documento próximo a vencer
+                Verde: Documento vigente
+                ㅤ
+        `
+            );
+        });
     }
 });
