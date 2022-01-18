@@ -509,7 +509,7 @@ if (
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
                     var buttons = [
-                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        { extend: 'excel', className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar' }
                     ];
                     var table = dataTableCustom(`#tblHijos`, buttons);
 
@@ -681,7 +681,7 @@ if (
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
                     var buttons = [
-                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        { extend: 'excel', className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar' }
                     ];
                     var table = dataTableCustom(`#tblProrrogas`, buttons);
                 }
@@ -864,7 +864,7 @@ if (
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
                     var buttons = [
-                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        { extend: 'excel', className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar' }
                     ];
                     var table = dataTableCustom(`#tblLicencias`, buttons);
                 }
@@ -1037,7 +1037,7 @@ if (
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
                     var buttons = [
-                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        { extend: 'excel', className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar' }
                     ];
                     var table = dataTableCustom(`#tblExamenes`, buttons);
                 }
@@ -1313,7 +1313,7 @@ if (
 
         // Apenas carga la página mostrar el Datatable
         var buttons = [
-            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+            { extend: 'excel', className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar' }
             /* 'copy', 'csv', 'excel', 'pdf', 'print' */
         ];
         mostrarDatatableGH("PerfilSD", buttons);
@@ -1508,7 +1508,7 @@ if (
                     ===================================================*/
                     var buttons = [
                         { className: 'btn-secondary mr-1 btn-agregarPersonal', text: '<i class="fas fa-plus-circle"></i> Nuevo' },
-                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        { extend: 'excel', className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar' }
                         /* 'copy', 'csv', 'excel', 'pdf', 'print' */
                     ];
                     var table = dataTableCustom(`#tblPagoSS`, buttons);
@@ -1754,7 +1754,7 @@ if (window.location.href == `${urlPagina}gh-ausentismo/` ||
         ===================================================*/
         var buttons = [
             { className: 'btn-secondary mr-1 btn-nuevoAusentismo', text: '<i class="fas fa-plus-circle"></i> Nuevo' },
-            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+            { extend: 'excel', className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar' }
             /* 'copy', 'csv', 'excel', 'pdf', 'print' */
         ];
         dataTableCustom("#tblAusentismo", buttons);

@@ -76,28 +76,40 @@ class mantenimientoPDF
     /* ===================== 
       GENERACION DE ARCHIVOS PDF DE LA SOLICITUD 
     ========================= */
-    static public function solicitudPDF($orden,$servicios,$repuestos,$empresa)
+    static public function solicitudPDF($orden, $servicios, $repuestos, $empresa)
     {
-       
+
         // echo "<pre>";
         // var_dump($repuestos);
         // echo "</pre>";
-        $p="<ul>";
+        $p = "<ul>";
         //VALIDAR TIPO DE SERVICIOS 
         foreach ($servicios as $key => $value) {
 
-            $p .= "<li>" . $value['nombre'] ."</li>";
+            $p .= "<li>" . $value['nombre'] . "</li>";
         }
-        $p.="</ul>";
+        $p .= "</ul>";
 
-        $tr="";
+        $tr = "";
         foreach ($repuestos as $key => $value) {
             $tr .= "
             <tr>
-                <td style='text-align: center;'>".$value['descripcion']."</td>
-                <td style='text-align: center;'>".$value['referencia']."</td>
-                <td style='text-align: center;'>".$value['codigo']."</td>
-                <td style='text-align: center;'>".$value['valor']."</td>
+                <td style='text-align: center;'>" . $value['descripcion'] . "</td>
+                <td style='text-align: center;'>" . $value['referencia'] . "</td>
+                <td style='text-align: center;'>" . $value['codigo'] . "</td>
+                <td style='text-align: center;'>" . $value['valor'] . "</td>
+            </tr>
+            ";
+        }
+
+        if ($tr == "") {
+
+            $tr = "
+            <tr>
+                <td style='text-align: center;'>N/A</td>
+                <td style='text-align: center;'>N/A</td>
+                <td style='text-align: center;'>N/A</td>
+                <td style='text-align: center;'>N/A</td>
             </tr>
             ";
         }
@@ -258,7 +270,7 @@ class mantenimientoPDF
 
             <tr>
             <td colspan="6" style="text-align: center;">' . $orden['diagnostico'] . '</td>
-            <td colspan="6" class="text-center" style="text-align: center;">'.$p.'</td>
+            <td colspan="6" class="text-center" style="text-align: center;">' . $p . '</td>
             </tr>
             </tbody>  
         </table>
@@ -286,7 +298,7 @@ class mantenimientoPDF
             </thead>
 
             <tbody>
-                '.$tr.'
+                ' . $tr . '
             </tbody>  
         </table>
         ';
@@ -299,7 +311,7 @@ class mantenimientoPDF
 
         // Close and output PDF document
         // This method has several options, check the source code documentation for more information.
-        $pdf->Output('SolicitudOrden-N'.$orden['idorden'], 'I');
+        $pdf->Output('SolicitudOrden-N' . $orden['idorden'], 'I');
         //============================================================+
         // END OF FILE
         //============================================================+
@@ -308,7 +320,7 @@ class mantenimientoPDF
     /* ===================== 
       GENERACION DE ARCHIVOS PDF DE LA ORDEN DE SERVICIO
     ========================= */
-    static public function ordenServicioPDF($orden,$servicios,$mano_obra,$repuestos,$empresa)
+    static public function ordenServicioPDF($orden, $servicios, $mano_obra, $repuestos, $empresa)
     {
         // $p="<ul>";
         // //VALIDAR TIPO DE SERVICIOS 
@@ -318,38 +330,71 @@ class mantenimientoPDF
         // }
         // $p.="</ul>";
 
-        $tr="";
+        $tr = "";
         foreach ($repuestos as $key => $value) {
             $tr .= "
             <tr>
-                <td style='text-align: center;'>".$value['descripcion']."</td>
-                <td style='text-align: center;'>".$value['referencia']."</td>
-                <td style='text-align: center;'>".$value['codigo']."</td>
-                <td style='text-align: center;'>".$value['cantidad']."</td>
-                <td style='text-align: center;'>$".$value['valor']."</td>
-                <td style='text-align: center;'>".$value['razon_social']."</td>
+                <td style='text-align: center;'>" . $value['descripcion'] . "</td>
+                <td style='text-align: center;'>" . $value['referencia'] . "</td>
+                <td style='text-align: center;'>" . $value['codigo'] . "</td>
+                <td style='text-align: center;'>" . $value['cantidad'] . "</td>
+                <td style='text-align: center;'>$" . $value['valor'] . "</td>
+                <td style='text-align: center;'>" . $value['razon_social'] . "</td>
             </tr>
             ";
         }
 
-        $tr2="";
+        $tr2 = "";
         foreach ($repuestos as $key => $value) {
             $tr2 .= "
             <tr>
-                <td style='text-align: center;'>".$value['sistema']."</td>
-                <td style='text-align: center;'>".$value['mantenimiento']."</td>
+                <td style='text-align: center;'>" . $value['sistema'] . "</td>
+                <td style='text-align: center;'>" . $value['mantenimiento'] . "</td>
             </tr>
             ";
         }
 
-        $tr3="";
+        $tr3 = "";
         foreach ($mano_obra as $key => $value) {
             $tr3 .= "
             <tr>
-                <td style='text-align: center;'>".$value['descripcion']."</td>
-                <td style='text-align: center;'>".$value['cantidad']."</td>
-                <td style='text-align: center;'>".$value['valor']."</td>
-                <td style='text-align: center;'>".$value['razon_social']."</td>
+                <td style='text-align: center;'>" . $value['descripcion'] . "</td>
+                <td style='text-align: center;'>" . $value['cantidad'] . "</td>
+                <td style='text-align: center;'>" . $value['valor'] . "</td>
+                <td style='text-align: center;'>" . $value['razon_social'] . "</td>
+            </tr>
+            ";
+        }
+
+        if ($tr == "") {
+            $tr = "
+            <tr>
+                <td style='text-align: center;'>N/A</td>
+                <td style='text-align: center;'>N/A</td>
+                <td style='text-align: center;'>N/A</td>
+                <td style='text-align: center;'>N/A</td>
+                <td style='text-align: center;'>N/A</td>
+                <td style='text-align: center;'>N/A</td>
+            </tr>
+            ";
+        }
+
+        if ($tr2 == "") {
+            $tr2 = "
+            <tr>
+                <td style='text-align: center;'>N/A</td>
+                <td style='text-align: center;'>N/A</td>
+            </tr>
+            ";
+        }
+
+        if ($tr3 == "") {
+            $tr3 = "
+            <tr>
+                <td style='text-align: center;'>N/A</td>
+                <td style='text-align: center;'>N/A</td>
+                <td style='text-align: center;'>N/A</td>
+                <td style='text-align: center;'>N/A</td>
             </tr>
             ";
         }
@@ -525,9 +570,9 @@ class mantenimientoPDF
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="text-center" style="text-align: center;">'.$orden['fecha_entrada'].'</td>
-                        <td class="text-center" style="text-align: center;">'.$orden['hora_entrada'].'</td>
-                        <td class="text-center" style="text-align: center;">'.$orden['fecha_aprobacion'].'</td>
+                        <td class="text-center" style="text-align: center;">' . $orden['fecha_entrada'] . '</td>
+                        <td class="text-center" style="text-align: center;">' . $orden['hora_entrada'] . '</td>
+                        <td class="text-center" style="text-align: center;">' . $orden['fecha_aprobacion'] . '</td>
                     </tr>
                 </tbody>  
             </table>
@@ -545,7 +590,7 @@ class mantenimientoPDF
                     </tr>
                 </thead>
                 <tbody>
-                        '.$tr2.'
+                        ' . $tr2 . '
                 </tbody>  
             </table>
         ';
@@ -573,7 +618,7 @@ class mantenimientoPDF
                     </tr>
                 </thead>
                 <tbody>
-                    '.$tr.'
+                    ' . $tr . '
                 </tbody>  
             </table>
         ';
@@ -598,7 +643,7 @@ class mantenimientoPDF
                     </tr>
                 </thead>
                 <tbody>
-                    '.$tr3.'
+                    ' . $tr3 . '
                 </tbody>  
             </table>
         ';
@@ -620,31 +665,28 @@ class mantenimientoPDF
             </thead>
                 <tbody>
                     <tr>
-                        <td style="text-align: center;">'.$orden['diagnostico'].'</td>
-                        <td style="text-align: center;">'.$orden['observacion'].'</td>
+                        <td style="text-align: center;">' . $orden['diagnostico'] . '</td>
+                        <td style="text-align: center;">' . $orden['observacion'] . '</td>
                     </tr>  
                 </tbody>  
             </table>
         ';
         $pdf->SetFont('helvetica', '', '7');
         $pdf->writeHTML($tabla4);
-        
-        $pdf->Output('OrdenServicio-N'.$orden['idorden'], 'I');
+
+        $pdf->Output('OrdenServicio-N' . $orden['idorden'], 'I');
     }
 }
 
-if(isset($_REQUEST['tipo_mantenimiento'])){
-    
+if (isset($_REQUEST['tipo_mantenimiento'])) {
+
     $mantenimiento = $_REQUEST['tipo_mantenimiento'];
 
-    if($mantenimiento == 'orden'){
+    if ($mantenimiento == 'orden') {
 
-        mantenimientoPDF::ordenServicioPDF($OrdenServicios,$ServiciosExternos,$ManoObra,$Repuestos,$empresa);
-        
-    } else if($mantenimiento == 'solicitud'){
+        mantenimientoPDF::ordenServicioPDF($OrdenServicios, $ServiciosExternos, $ManoObra, $Repuestos, $empresa);
+    } else if ($mantenimiento == 'solicitud') {
 
-        mantenimientoPDF::solicitudPDF($OrdenServicios,$ServiciosExternos,$Repuestos,$empresa);
-
+        mantenimientoPDF::solicitudPDF($OrdenServicios, $ServiciosExternos, $Repuestos, $empresa);
     }
 }
-

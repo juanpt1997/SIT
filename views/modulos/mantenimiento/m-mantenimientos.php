@@ -1385,7 +1385,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                         </div>
                     </div>
                     <div class="card-footer d-flex ">
-                        <button type="button" class="btn btn-success ml-auto btn-exportar-solicitud" tipo_mantenimiento="solicitud">Exportar <i class="far fa-file-pdf"></i></button>
+                        <button type="button" class="btn bg-gradient-olive ml-auto btn-exportar-solicitud" tipo_mantenimiento="solicitud"><i class="fas fa-file-pdf"></i> Exportar</button>
                         <button type="button" class="btn btn-danger ml-2" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>

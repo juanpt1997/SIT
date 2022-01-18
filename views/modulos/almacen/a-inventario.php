@@ -41,7 +41,7 @@
                 <div class="card-body">
                     <hr class="my-4">
                     <div class="row mt-2 d-flex justify-content-center">
-                        <div class="col-lg-3">
+                        <div class="col-md-8 col-lg-5 col-xl-4">
                             <!--PRODUCTOS-->
                             <div class="small-box bg-info">
                                 <div class="inner">
@@ -55,7 +55,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-3">
+                        <div class="col-md-8 col-lg-5 col-xl-4">
                             <!--ORDENES DE COMPRA-->
                             <div class="small-box" style="background-color: #222A68; color: white;">
                                 <div class="inner">
@@ -109,7 +109,7 @@
                 <div class="card-body">
 
                     <!--INGRESO DATOS PRODUCTOS-->
-                    <h4><i class="fas fa-info-circle"></i> <b><i>Datos producto</i></b></h4>
+                    <h4><i class="fas fa-info-circle"></i> <b><i>Datos producto</i> <small><strong>(buscar o agregar un producto)</strong></small></b></h4>
                     <hr class="my-4">
                     <form id="formulario_producto" method="post" enctype="multipart/form-data">
                         <div class="row">
