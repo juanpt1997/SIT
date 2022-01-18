@@ -37,7 +37,7 @@
 
                     <div id="map"></div>
 
-                    <div class="row mt-3">
+                    <!-- <div class="row mt-3">
                         <div class="col-6">
                             <div class="card justify-content-center">
                                 <div class="card-header bg-success text-center">
@@ -71,7 +71,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
 
 

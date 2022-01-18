@@ -493,7 +493,15 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
                                                     <div class="col-12 col-sm-6 col-lg-4">
                                                         <div class="form-group">
                                                             <label><?= $value['tipodocumento'] ?></label>
-                                                            <input id="documento_<?= $value['idtipo'] ?>" type="date" class="form-control documentos" readonly>
+                                                            <div class="input-group">
+                                                                <input id="documento_<?= $value['idtipo'] ?>" type="date" class="form-control documentos"  readonly>
+                                                                <div class="input-group-append">
+                                                                    <button class="btn info-semaforotipo1" type="button" >
+                                                                        <i class="fas fa-exclamation-triangle"></i>
+                                                                        
+                                                                    </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 <?php endforeach ?>
@@ -2388,14 +2396,14 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
             </div>
 
             <div class="modal-footer justify-content-center bg-info">
-                    <div class="col-5 col-md-4 col-lg-3 col-xl-2 text-right">
-                        <?php if (validarPermiso('M_OPERACIONES', 'U')) : ?>
-                            <button type="submit" form="alistamiento_form" class="btn btn-block btn-success btn-alistamientoguardar"><i class="fas fa-print"></i> Guardar<div class="overlay d-none overlayBtnGuardarAlistamiento">
+                <div class="col-5 col-md-4 col-lg-3 col-xl-2 text-right">
+                    <?php if (validarPermiso('M_OPERACIONES', 'U')) : ?>
+                        <button type="submit" form="alistamiento_form" class="btn btn-block btn-success btn-alistamientoguardar"><i class="fas fa-print"></i> Guardar<div class="overlay d-none overlayBtnGuardarAlistamiento">
                                 <i class="fas fa-3x fa-sync-alt fa-spin"></i>
                             </div></button>
-                            
-                        <?php endif ?>
-                    </div>
+
+                    <?php endif ?>
+                </div>
                 <div class="col-5 col-md-4 col-lg-3 col-xl-2 text-left">
                     <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Volver</button>
                 </div>
