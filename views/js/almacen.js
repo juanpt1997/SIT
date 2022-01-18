@@ -978,8 +978,7 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#tabla_productos`, buttons);
@@ -1037,8 +1036,7 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#tabla_inventario`, buttons);
@@ -1098,8 +1096,7 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#tabla_historial`, buttons);
@@ -1159,8 +1156,7 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#tabla_sucursales`, buttons);
@@ -1196,8 +1192,7 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(
@@ -1696,8 +1691,7 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#tablaOrdenes`, buttons);

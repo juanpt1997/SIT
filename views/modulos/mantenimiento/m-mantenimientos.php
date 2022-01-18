@@ -172,7 +172,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                     <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Placa</i></label>
-                                                                            <select id="placa_OrdServ" name="idvehiculo_OrdServ" class="form-control form-control-sm select2-single" type="number" style="height: 99%;" required>
+                                                                            <select id="placa_OrdServ" name="idvehiculo_OrdServ" class="form-control form-control-sm select2-single" type="number" style="width: 99%" required>
                                                                                 <option selected value="">Seleccione un vehículo</option>
                                                                                 <?php foreach ($Placas as $key => $value) : ?>
                                                                                     <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?> </option>
@@ -249,7 +249,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                             <?php
                                                                             $fecha =  date('Y/m/d');
                                                                             ?>
-                                                                            <input type="text" class="form-control form-control-sm" id="fechaentrada_ordSer" name="fechaentrada_OrdSer" value="<?= $fecha ?>"  readonly>
+                                                                            <input type="text" class="form-control form-control-sm" id="fechaentrada_ordSer" name="fechaentrada_OrdSer" value="<?= $fecha ?>" readonly>
                                                                         </div>
                                                                     </div>
 
@@ -319,7 +319,15 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                                                             <div class="form-group">
                                                                                                 <label><?= $value['tipodocumento'] ?></label>
-                                                                                                <input id="documento_<?= $value['idtipo'] ?>" type="date" class="form-control documentos" readonly>
+                                                                                                <div class="input-group">
+                                                                                                    <input id="documento_<?= $value['idtipo'] ?>" type="date" class="form-control documentos" readonly>
+                                                                                                    <div class="input-group-append">
+                                                                                                        <button class="btn info-semaforotipo1" type="button">
+                                                                                                            <i class="fas fa-exclamation-triangle"></i>
+
+                                                                                                        </button>
+                                                                                                    </div>
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     <?php endforeach ?>
@@ -900,7 +908,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                             <th>Clasificación</th>
                                                                             <th>Nombre de cuenta</th>
                                                                             <th>Código cuenta</th>
-                                                                            <th>Asume</th> 
+                                                                            <th>Asume</th>
                                                                         </tr>
                                                                     </thead>
 
@@ -1377,7 +1385,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                         </div>
                     </div>
                     <div class="card-footer d-flex ">
-                        <button type="button" class="btn btn-success ml-auto btn-exportar-solicitud" tipo_mantenimiento="solicitud">Exportar <i class="far fa-file-pdf"></i></button>
+                        <button type="button" class="btn bg-gradient-olive ml-auto btn-exportar-solicitud" tipo_mantenimiento="solicitud"><i class="fas fa-file-pdf"></i> Exportar</button>
                         <button type="button" class="btn btn-danger ml-2" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>

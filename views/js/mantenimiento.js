@@ -660,8 +660,7 @@ $(document).ready(function () {
             var buttons = [
                 {
                     extend: "excel",
-                    className: "btn-info",
-                    text: '<i class="far fa-file-excel"></i> Exportar',
+                    className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                 },
             ];
             var table = dataTableCustom(`#tabla_resumen_inventario`, buttons);
@@ -1491,7 +1490,7 @@ $(document).ready(function () {
                    INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                    ===================================================*/
                     // var buttons = [
-                    //   { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    //   { extend: 'excel', className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar' }
                     // ];
                     // var table = dataTableCustom(`#tablaProgramacionServ`, buttons);
                 },
@@ -1573,7 +1572,7 @@ $(document).ready(function () {
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
                     var buttons = [
-                      { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                      { extend: 'excel', className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar' }
                     ];
                     // var table = dataTableCustom(tabla, buttons);
 
@@ -1828,8 +1827,7 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#tablaRepuesto`, buttons);
@@ -1936,8 +1934,7 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#tablaProgramacion`, buttons);
@@ -2192,8 +2189,7 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#tablaProveedores`, buttons);
@@ -3100,8 +3096,8 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "",
-                            className: "btn-info excel-controlActividades",
-                            text: '<i class="far fa-file-excel "></i> Exportar',
+                            className: "border-0 bg-gradient-olive excel-controlActividades",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     /* var table = dataTableCustom(
@@ -3497,8 +3493,7 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(
@@ -3598,8 +3593,8 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "",
-                            className: "btn-info excelSolicitudesProgramacion",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: "border-0 bg-gradient-olive excelSolicitudesProgramacion",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     /* var table = dataTableCustom(
@@ -3845,8 +3840,7 @@ $(document).ready(function () {
                         var buttons = [
                             {
                                 extend: "excel",
-                                className: "btn-info",
-                                text: '<i class="far fa-file-excel"></i> Exportar',
+                                className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                             },
                         ];
                         var table = dataTableCustom(
@@ -3927,6 +3921,21 @@ $(document).ready(function () {
                     closeOnConfirm: false,
                 });
             }
+        });
+
+        /*============================================
+        INFO SOBRE EL SEMAFORO
+        ==============================================*/
+        $(document).on("mouseover", ".info-semaforotipo1", function () {
+            $(this).attr(
+                "title",
+                `ㅤ
+                Rojo: Documento vencido
+                Amarillo: Documento próximo a vencer
+                Verde: Documento vigente
+                ㅤ
+        `
+            );
         });
     }
 });

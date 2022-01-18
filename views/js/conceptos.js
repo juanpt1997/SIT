@@ -92,8 +92,7 @@ if (
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#ver_concepto`, buttons);
@@ -216,8 +215,7 @@ if (
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#tabla_empresa`, buttons);
@@ -369,8 +367,7 @@ if (
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#ver_ciudad`, buttons);
@@ -630,8 +627,7 @@ if (
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#ver_concepto`, buttons);
@@ -844,8 +840,7 @@ if (
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#ver_conceptoS`, buttons);
@@ -989,8 +984,7 @@ if (
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#ver_cuentascont`, buttons);
@@ -1461,8 +1455,7 @@ if (
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#ver_conceptoV`, buttons);
@@ -1505,8 +1498,7 @@ if (
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#ver_conceptoV2`, buttons);
@@ -1549,8 +1541,7 @@ if (
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#ver_conceptoV2`, buttons);
@@ -1588,8 +1579,7 @@ if (
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                         /* 'copy', 'csv', 'excel', 'pdf', 'print' */
                     ];
@@ -1692,8 +1682,7 @@ if (
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#ver_conceptoV2`, buttons);
@@ -1986,8 +1975,7 @@ if (
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#ver_concepto_a`, buttons);

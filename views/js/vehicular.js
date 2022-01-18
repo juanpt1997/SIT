@@ -511,7 +511,7 @@ if (window.location.href == `${urlPagina}gh-bloqueo-personal/` ||
                 }
 
                 var buttons = [
-                    { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                    { extend: 'excel', className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar' }
                 ];
                 var table = dataTableCustom(`#tabla-historial`, buttons);
 
@@ -781,7 +781,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
             });
         });
         var buttons = [
-            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+            { extend: 'excel', className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar' }
             /* 'copy', 'csv', 'excel', 'pdf', 'print' */
         ];
         var table = dataTableCustom(`#tblVehiculos`, buttons);
@@ -1375,7 +1375,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
                     var buttons = [
-                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        { extend: 'excel', className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar' }
                     ];
                     var table = dataTableCustom(`#tbl${nombreTabla}`, buttons);
                 }
@@ -1409,7 +1409,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                         INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                         ===================================================*/
                         var buttons = [
-                            { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                            { extend: 'excel', className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar' }
                         ];
                         var table = dataTableCustom(`#tblHistorico`, buttons);
                     }
@@ -1870,7 +1870,7 @@ if (window.location.href == `${urlPagina}v-vehiculos/` ||
                     INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
                     ===================================================*/
                     var buttons = [
-                        { extend: 'excel', className: 'btn-info', text: '<i class="far fa-file-excel"></i> Exportar' }
+                        { extend: 'excel', className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar' }
                     ];
                     var table = dataTableCustom(`#tbl${nombreTabla}`, buttons);
 

@@ -41,8 +41,7 @@ $(document).ready(function () {
             var buttons = [
                 {
                     extend: "excel",
-                    className: "btn-info",
-                    text: '<i class="far fa-file-excel"></i> Exportar',
+                    className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                 },
             ];
             var table = dataTableCustom(`#tblAlistamientos`, buttons);
@@ -198,11 +197,14 @@ $(document).ready(function () {
                                         //         ? "bg-success"
                                         //         : "bg-danger";
 
-                                        bg = semaforo_tipo1(element.fechafin, moment().format("YYYY-MM-DD"));
+                                        bg = semaforo_tipo1(
+                                            element.fechafin,
+                                            moment().format("YYYY-MM-DD")
+                                        );
 
                                         $(
                                             `#documento_${element.idtipodocumento}`
-                                        ).addClass("bg-"+bg);
+                                        ).addClass("bg-" + bg);
                                     });
                                 },
                             });
@@ -258,10 +260,6 @@ $(document).ready(function () {
                 actualizo = true;
             }
         });
-
-
-        
-
 
         /* ==========================================================================                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
                 ELEMENTO OBSERVADOR QUE PONE EL CONDUCTOR CUANDO SE ACTUALIZA EL SELECT 
@@ -604,8 +602,7 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#tblEvidencias`, buttons);
@@ -852,6 +849,21 @@ $(document).ready(function () {
                     closeOnConfirm: false,
                 });
             }
+        });
+
+        /*============================================
+        INFO SOBRE EL SEMAFORO
+        ==============================================*/
+        $(document).on("mouseover", ".info-semaforotipo1", function () {
+            $(this).attr(
+                "title",
+                `ㅤ
+                Rojo: Documento vencido
+                Amarillo: Documento próximo a vencer
+                Verde: Documento vigente
+                ㅤ
+        `
+            );
         });
     }
 
@@ -1144,8 +1156,7 @@ $(document).ready(function () {
             var buttons = [
                 {
                     extend: "excel",
-                    className: "btn-info",
-                    text: '<i class="far fa-file-excel"></i> Exportar',
+                    className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                 },
             ];
             var table = dataTableCustom(`#tblplanrodamiento`, buttons);
@@ -1185,8 +1196,7 @@ $(document).ready(function () {
                     var buttons = [
                         {
                             extend: "excel",
-                            className: "btn-info",
-                            text: '<i class="far fa-file-excel"></i> Exportar',
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                         /* 'copy', 'csv', 'excel', 'pdf', 'print' */
                     ];
@@ -1250,7 +1260,7 @@ $(document).ready(function () {
                                 Swal.fire({
                                     icon: "warning",
                                     title: "No hay ruta asociada con ese cliente",
-                                    html:`
+                                    html: `
                                         <p>Debe asegurarse que tenga un valor de recorrido asignado que coincida con los siguientes campos:</p>
                                         <div class="d-flex justify-content-center">
                                             <ul>
@@ -1260,20 +1270,20 @@ $(document).ready(function () {
                                         </div>
                                         `,
                                     showConfirmButton: true,
-                                    confirmButtonText: "Asignar nueva ruta en fijos. <i class='fas fa-arrow-alt-circle-right'></i>",
-                                    confirmButtonColor: "#00b300"
-                                }).then((result)=>{
-
-									if(result.value){
-										window.open('contratos-fijos');
-									}
-								});
+                                    confirmButtonText:
+                                        "Asignar nueva ruta en fijos. <i class='fas fa-arrow-alt-circle-right'></i>",
+                                    confirmButtonColor: "#00b300",
+                                }).then((result) => {
+                                    if (result.value) {
+                                        window.open("contratos-fijos");
+                                    }
+                                });
                                 $("#idruta").val("");
                                 $("#descrip").val("");
                                 $("#origen").val("");
                                 $("#destino").val("");
                                 //$("#valor_total").removeAttr("readonly");
-                            }else{
+                            } else {
                                 $("#valor_total").val(response.valor_recorrido);
                                 $("#valor_total").attr("readonly", true);
                             }
