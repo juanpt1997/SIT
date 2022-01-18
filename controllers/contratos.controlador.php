@@ -191,7 +191,7 @@ class ControladorClientes
     {
         $respuesta = ModeloClientes::mdlEliminarRutaCliente($idrutacliente);
 
-        if ($respuesta != "ok"){
+        if ($respuesta != "ok") {
             $respuesta = "error";
         }
         return $respuesta;
@@ -393,41 +393,69 @@ class ControladorCotizaciones
                         $responseModel = ModeloCotizaciones::mdlAgregarCotizacion($datos);
                         if ($responseModel == "ok") {
 
+                            # Enviar correo de notificación
+
+                            include './config/correos_difusion.php';
+                            $listaCorreos = CorreosDifusion::ListaCotizaciones();
+                            //$emailDestino = explode(",", $listaCorreos);
+                            $subject = "Nueva cotización - {$_POST['nom_contrata']}";
+                            $logo = URL_APP . "views/img/plantilla/logo.png";
+                            $message = "<html>
+                                    <body>
+                                    
+                                        <img src='$logo' style='width:200px;'>
+                                        <h3><b>Fecha solicitud: </b>{$_POST['f_sol']}</h3>
+                                        <h3><b>Cliente: </b>{$_POST['nom_contrata']}</h3>
+                                        <h3><b>Dirección: </b>{$_POST['direcci']}</h3>
+                                        <h3><b>Teléfono: </b>{$_POST['tel1']}</h3>
+                                        <h3><b>Fecha inicio: </b>{$_POST['f_inicio']}</h3>
+                                        <h3><b>Fecha fin: </b>{$_POST['f_fin']}</h3>
+                                        <h3><b>Hora salida: </b>{$_POST['h_salida']}</h3>
+                                        <h3><b>Hora recogida: </b>{$_POST['h_recog']}</h3>
+                                        <h3><b>Origen: </b>{$_POST['origin']}</h3>
+                                        <h3><b>Destino: </b>{$_POST['destin']}</h3>
+                                        <br>
+                                        <br><i> Email generado automáticamente, por favor no responder este correo.</i>
+                                    
+                                    </body>
+                                    </html>";
+                            ControladorCorreo::ctrEnviarCorreo($listaCorreos, $subject, $message);
+
                             echo "
-                         <script>
-                         Swal.fire({
-                            icon: 'success',
-                            title: 'Cotización añadida correctamente!',						
-                            showConfirmButton: true,
-                            confirmButtonText: 'Cerrar',
-                            
-                         }).then((result)=>{
-                            
-                            if(result.value){
-                               window.location = 'contratos-cotizaciones';
-                            }
-                            
-                         })
-                         </script>
-                         ";
+                                <script>
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Cotización añadida correctamente!',						
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                    
+                                }).then((result)=>{
+                                    
+                                    if(result.value){
+                                    window.location = 'contratos-cotizaciones';
+                                    }
+                                    
+                                })
+                                </script>
+                                ";
                         } else {
                             echo "
-                         <script>
-                         Swal.fire({
-                            icon: 'warning',
-                            title: '¡Problema al añadir la cotización!',						
-                            showConfirmButton: true,
-                            confirmButtonText: 'Cerrar',
-                            
-                         }).then((result)=>{
-                            
-                            if(result.value){
-                               window.location = 'contratos-cotizaciones';
-                            }
-                            
-                         })
-                         </script>
-                         ";
+                                <script>
+                                Swal.fire({
+                                    icon: 'warning',
+                                    title: '¡Problema al añadir la cotización!',						
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
+                                    
+                                }).then((result)=>{
+                                    
+                                    if(result.value){
+                                    window.location = 'contratos-cotizaciones';
+                                    }
+                                    
+                                })
+                                </script>
+                                ";
                         }
                     }
                 }
@@ -557,7 +585,7 @@ class ControladorFijos
             }
         }
     }
-    
+
     /* ===================================================
         AGREGAR VEHICULO A UN CLIENTE
     ===================================================*/
@@ -566,12 +594,11 @@ class ControladorFijos
     {
         $datos = ModeloFijos::mdlConsultarVehiculoCliente($idvehiculo);
 
-        
 
-        if($datos['idcliente'] == ""){
+
+        if ($datos['idcliente'] == "") {
             $respuesta = ModeloFijos::mdlAgregarVehiculoCliente($idcliente, $idvehiculo);
-
-        }else{
+        } else {
             $respuesta = "error";
         }
 
@@ -586,7 +613,6 @@ class ControladorFijos
         $respuesta = ModeloFijos::mdlVehiculosxCliente($idcliente);
         return $respuesta;
     }
-    
 }
 /* ===================================================
    * ORDEN DE SERVICIO

@@ -128,8 +128,9 @@ if (isset($_GET['pagina'])) {
     <script src="<?= URL_APP ?>views/plugins/chart.js/Charjs-plugin-datalabels.min.js"></script>
     <!-- Leaflet  -->
     <script src="<?= URL_APP ?>views/plugins/leaflet/leaflet.js"></script>
-    <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+    <!-- <script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script> -->
+    <script src="<?= URL_APP ?>views/plugins/leaflet/Leaflet.Control.Custom.js"></script>
 
 </head>
 

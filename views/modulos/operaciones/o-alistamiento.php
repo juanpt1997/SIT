@@ -51,306 +51,308 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
                 <div class="col-12">
                     <div class="card card-outline card-info">
                         <div class="card-body">
-                            <!--|||TABLA PROTOCOLO DE ALISTAMIENTO|||-->
-                            <table id="tblAlistamientos" class="table table-sm table-bordered table-striped text-center text-nowrap">
-                                <thead class="text-nowrap text-sm">
-                                    <tr>
-                                        <th colspan="7">INFORMACIÓN GENERAL</th>
-                                        <th colspan="12">SISTEMA DE LUCES</th>
-                                        <th colspan="24">CARROCERÍA</th>
-                                        <th colspan="12">SISTEMAS</th>
-                                        <th colspan="6">INDICADORES DE TABLERO</th>
-                                        <th colspan="6">MANTENIMIENTO</th>
-                                        <th colspan="11">LLANTAS</th>
-                                        <th colspan="14">EQUIPO DE SEGURIDAD</th>
-                                    </tr>
-
-                                    <tr>
-                                        <th style="min-width:80px;">...</th>
-                                        <th style="min-width:80px;">ID</th>
-                                        <th>Fecha - Hora</th>
-                                        <th style="min-width:80px;">Placa</th>
-                                        <th>Número interno</th>
-                                        <th>Nombre del conductor</th>
-                                        <th>Cédula del conductor</th>
-                                        <th>Luces bajas</th>
-                                        <th>Luces altas</th>
-                                        <th>Luces reversa</th>
-                                        <th>Direccionales delanteras</th>
-                                        <th>Iluminación cabina</th>
-                                        <th>Luces internas</th>
-                                        <th>Luces medias</th>
-                                        <th>Luces de Stop</th>
-                                        <th>Luces de Parqueo</th>
-                                        <th>Direccionales traseras</th>
-                                        <th>Luz escala</th>
-                                        <th>Baliza / Licuadora</th>
-                                        <th>Retrovisores izquierdo</th>
-                                        <th>Espejo interno</th>
-                                        <th>Apoya cabeza - Conductor</th>
-                                        <th>Equipo de Audio</th>
-                                        <th>Claraboyas</th>
-                                        <th>Alarma de Retroceso</th>
-                                        <th>Parabrisas</th>
-                                        <th>Retrovisor derecho</th>
-                                        <th>Apoya cabeza Pasajero</th>
-                                        <th>Placas</th>
-                                        <th>Limpia parabrisas Derecho</th>
-                                        <th>Limpia parabrizas Izquierdo</th>
-                                        <th>Piso</th>
-                                        <th>Sillas</th>
-                                        <th> Escaleras Antideslizante</th>
-                                        <th> Puertas</th>
-                                        <th> Bomper trasero</th>
-                                        <th> Bomper delantero</th>
-                                        <th> Claxon</th>
-                                        <th>Cinturones de seguridad Pasajeros</th>
-                                        <th> Pasamanos interno </th>
-                                        <th> Indicador de Velocidad</th>
-                                        <th> Ventanería</th>
-                                        <th> Cinturones de seguridad Conductor</th>
-                                        <th>Nivel de Refrigerante</th>
-                                        <th>Nivel de Combustible</th>
-                                        <th>Baterías</th>
-                                        <th>Freno principal</th>
-                                        <th>Líquido Hidráulico</th>
-                                        <th>Sistema Hidráulico</th>
-                                        <th>Estado de correas
-                                        <th>Nivel líquido de Frenos</th>
-                                        <th>Caja de Cambios</th>
-                                        <th>Dirección</th>
-                                        <th>Nivel de Aceite</th>
-                                        <th>Freno de Emergencia</th>
-                                        <th>Velocímetro</th>
-                                        <th>Carga de la Batería</th>
-                                        <th> Presión de Aceite</th>
-                                        <th>Combustible</th>
-                                        <th>Presión de Aire</th>
-                                        <th>Temperatura</th>
-                                        <th>Cambio de Aceite</th>
-                                        <th>Engrase</th>
-                                        <th>Rotación de Llantas</th>
-                                        <th>Filtro de Aire</th>
-                                        <th>Sincronización</th>
-                                        <th>Alineación y Balanceo</th>
-                                        <th>Delanteras</th>
-                                        <th>Traseras</th>
-                                        <th>Cortes</th>
-                                        <th>Espárragos</th>
-                                        <th>Profundidad de huella 2mm</th>
-                                        <th>Llanta de Repuesto</th>
-                                        <th>Presión de Inflado</th>
-                                        <th>Abultamientos</th>
-                                        <th>Chaleco reflectivo</th>
-                                        <th>Linterna</th>
-                                        <th>Conos 2 o Triángulos</th>
-                                        <th>Tacos de Bloques</th>
-                                        <th>Gato</th>
-                                        <th>Cruceta o Copa</th>
-                                        <th>Alicate</th>
-                                        <th>Destornilladores</th>
-                                        <th>Llaves fijas</th>
-                                        <th>Botiquín</th>
-                                        <th>Llave de Expansión</th>
-                                        <th>Extintor</th>
-                                        <th>Kilometraje total</th>
-                                        <th>Observaciones</th>
-                                    </tr>
-
-                                </thead>
-
-
-                                <tbody id="tbodyAlistamientos" class="text-sm">
-                                    <?php foreach ($Alistamientos as $key => $value) : ?>
+                            <div class="table-responsive">
+                                <!--|||TABLA PROTOCOLO DE ALISTAMIENTO|||-->
+                                <table id="tblAlistamientos" class="table table-sm table-bordered table-striped text-center text-nowrap">
+                                    <thead class="text-nowrap text-sm">
                                         <tr>
-                                            <td>
-                                                <button type="button" class="btn btn-info btn-sm btn-editarAlistamiento" title="Editar alistamiento." idalistamiento="<?= $value['id'] ?>" placa="<?= $value['placa'] ?>" data-toggle="modal" data-target="#modal-nuevoAlistamiento"><i class="fas fa-edit"></i></button>
-                                                <button type="button" title="PDF Alistamiento" class="btn btn-secondary btn-sm btn-PdfAlistamiento" idalistamiento="<?= $value['id'] ?>"><i class="fas fa-file-pdf"></i></button>
-                                            </td>
-                                            <td><?= $value['id'] ?></td>
-                                            <td><?= $value['fechaalista'] ?></td>
-                                            <td><?= $value['placa'] ?></td>
-                                            <td><?= $value['numinterno'] ?></td>
-                                            <td><?= $value['conductor'] ?></td>
-                                            <td><?= $value['cedulaConductor'] ?></td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesbajas']) ?></td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesaltas']) ?></td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesreversa']) ?></td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['direccionales_delanteras']) ?></td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['iluminacioncabina']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesinternas']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesmedias']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesdestop']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesdeparqueo']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['direccionales_traseras']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['luzescala']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['baliza_licuadora']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['retrovisor_izquierdo']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['espejointerno']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['apoyacabeza_conductor']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['equipoaudio']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['claraboya']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['alarmareversa']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['parabrisas']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['retrovisor_derecho']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['retrovisor_izquierdo']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['placas']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['limpiaparabrisas_derecho']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['limpiaparabrisas_izquierdo']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['piso']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['sillas']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['antideslizante_escaleras']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['puertas']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['bomper_trasero']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['bomper_delantero']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['claxon']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['cinturones_pasajero']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['pasamanos_interno']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['indicador_velocidad']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['ventaneria']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['cinturones_conductor']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['nivel_refrigerante']) ?>
-                                            </td>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['nivel_combustible']) ?>
-                                            </td>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['baterias']) ?>
-                                            </td>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['freno_principal']) ?>
-                                            </td>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['liquido_hidraulico']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['sistema_hidraulico']) ?>
-                                            </td>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['estado_correas']) ?>
-                                            </td>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['nivel_liquido_frenos']) ?>
-                                            </td>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['caja_cambios']) ?>
-                                            </td>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['direccion']) ?>
-                                            </td>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['nivel_aceite']) ?>
-                                            </td>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['freno_emergencia']) ?>
-                                            </td>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['velocimetro']) ?>
-                                            </td>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['carga_bateria']) ?>
-                                            </td>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['presion_aceite']) ?>
-                                            </td>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['combustible']) ?>
-                                            </td>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['presion_aire']) ?>
-                                            </td>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['temperatura']) ?>
-                                            </td>
-                                            <td><?= $value['cambio_aceite'] ?>
-                                            </td>
-                                            <td><?= $value['engrase'] ?>
-                                            </td>
-                                            <td><?= $value['rotacion_llantas'] ?>
-                                            </td>
-                                            <td><?= $value['filtro_aire'] ?>
-                                            </td>
-                                            <td><?= $value['sincronizacion'] ?>
-                                            </td>
-                                            <td><?= $value['alineacion_balanceo'] ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['llantas_delanteras']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['llantas_traseras']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['cortes']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['esparragos']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['profundidad_huella']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['llanta_repuesto']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['presion_inflado']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['abultamientos']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['chalecoreflectivo']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['linterna']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['conos_triangulos']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['tacos_bloques']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['gato']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['cruceta_copa']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['alicate']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['destornilladores']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['llavesfijas']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['botiquin']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['llave_expansion']) ?>
-                                            </td>
-                                            <td><?= ControladorAlistamiento::FTraducirEstado($value['extintor']) ?>
-                                            </td>
-                                            <td><?= $value['kilometraje_total'] ?></td>
-                                            <td><?= $value['observaciones'] ?></td>
+                                            <th colspan="7">INFORMACIÓN GENERAL</th>
+                                            <th colspan="12">SISTEMA DE LUCES</th>
+                                            <th colspan="24">CARROCERÍA</th>
+                                            <th colspan="12">SISTEMAS</th>
+                                            <th colspan="6">INDICADORES DE TABLERO</th>
+                                            <th colspan="6">MANTENIMIENTO</th>
+                                            <th colspan="11">LLANTAS</th>
+                                            <th colspan="14">EQUIPO DE SEGURIDAD</th>
                                         </tr>
-                                    <?php endforeach ?>
-                                </tbody>
-                            </table>
+
+                                        <tr>
+                                            <th style="min-width:80px;">...</th>
+                                            <th style="min-width:80px;">ID</th>
+                                            <th>Fecha - Hora</th>
+                                            <th style="min-width:80px;">Placa</th>
+                                            <th>Número interno</th>
+                                            <th>Nombre del conductor</th>
+                                            <th>Cédula del conductor</th>
+                                            <th>Luces bajas</th>
+                                            <th>Luces altas</th>
+                                            <th>Luces reversa</th>
+                                            <th>Direccionales delanteras</th>
+                                            <th>Iluminación cabina</th>
+                                            <th>Luces internas</th>
+                                            <th>Luces medias</th>
+                                            <th>Luces de Stop</th>
+                                            <th>Luces de Parqueo</th>
+                                            <th>Direccionales traseras</th>
+                                            <th>Luz escala</th>
+                                            <th>Baliza / Licuadora</th>
+                                            <th>Retrovisores izquierdo</th>
+                                            <th>Espejo interno</th>
+                                            <th>Apoya cabeza - Conductor</th>
+                                            <th>Equipo de Audio</th>
+                                            <th>Claraboyas</th>
+                                            <th>Alarma de Retroceso</th>
+                                            <th>Parabrisas</th>
+                                            <th>Retrovisor derecho</th>
+                                            <th>Apoya cabeza Pasajero</th>
+                                            <th>Placas</th>
+                                            <th>Limpia parabrisas Derecho</th>
+                                            <th>Limpia parabrizas Izquierdo</th>
+                                            <th>Piso</th>
+                                            <th>Sillas</th>
+                                            <th> Escaleras Antideslizante</th>
+                                            <th> Puertas</th>
+                                            <th> Bomper trasero</th>
+                                            <th> Bomper delantero</th>
+                                            <th> Claxon</th>
+                                            <th>Cinturones de seguridad Pasajeros</th>
+                                            <th> Pasamanos interno </th>
+                                            <th> Indicador de Velocidad</th>
+                                            <th> Ventanería</th>
+                                            <th> Cinturones de seguridad Conductor</th>
+                                            <th>Nivel de Refrigerante</th>
+                                            <th>Nivel de Combustible</th>
+                                            <th>Baterías</th>
+                                            <th>Freno principal</th>
+                                            <th>Líquido Hidráulico</th>
+                                            <th>Sistema Hidráulico</th>
+                                            <th>Estado de correas
+                                            <th>Nivel líquido de Frenos</th>
+                                            <th>Caja de Cambios</th>
+                                            <th>Dirección</th>
+                                            <th>Nivel de Aceite</th>
+                                            <th>Freno de Emergencia</th>
+                                            <th>Velocímetro</th>
+                                            <th>Carga de la Batería</th>
+                                            <th> Presión de Aceite</th>
+                                            <th>Combustible</th>
+                                            <th>Presión de Aire</th>
+                                            <th>Temperatura</th>
+                                            <th>Cambio de Aceite</th>
+                                            <th>Engrase</th>
+                                            <th>Rotación de Llantas</th>
+                                            <th>Filtro de Aire</th>
+                                            <th>Sincronización</th>
+                                            <th>Alineación y Balanceo</th>
+                                            <th>Delanteras</th>
+                                            <th>Traseras</th>
+                                            <th>Cortes</th>
+                                            <th>Espárragos</th>
+                                            <th>Profundidad de huella 2mm</th>
+                                            <th>Llanta de Repuesto</th>
+                                            <th>Presión de Inflado</th>
+                                            <th>Abultamientos</th>
+                                            <th>Chaleco reflectivo</th>
+                                            <th>Linterna</th>
+                                            <th>Conos 2 o Triángulos</th>
+                                            <th>Tacos de Bloques</th>
+                                            <th>Gato</th>
+                                            <th>Cruceta o Copa</th>
+                                            <th>Alicate</th>
+                                            <th>Destornilladores</th>
+                                            <th>Llaves fijas</th>
+                                            <th>Botiquín</th>
+                                            <th>Llave de Expansión</th>
+                                            <th>Extintor</th>
+                                            <th>Kilometraje total</th>
+                                            <th>Observaciones</th>
+                                        </tr>
+
+                                    </thead>
+
+
+                                    <tbody id="tbodyAlistamientos" class="text-sm">
+                                        <?php foreach ($Alistamientos as $key => $value) : ?>
+                                            <tr>
+                                                <td>
+                                                    <button type="button" class="btn btn-info btn-sm btn-editarAlistamiento" title="Editar alistamiento." idalistamiento="<?= $value['id'] ?>" placa="<?= $value['placa'] ?>" data-toggle="modal" data-target="#modal-nuevoAlistamiento"><i class="fas fa-edit"></i></button>
+                                                    <button type="button" title="PDF Alistamiento" class="btn btn-secondary btn-sm btn-PdfAlistamiento" idalistamiento="<?= $value['id'] ?>"><i class="fas fa-file-pdf"></i></button>
+                                                </td>
+                                                <td><?= $value['id'] ?></td>
+                                                <td><?= $value['Ffechaalista'] ?></td>
+                                                <td><?= $value['placa'] ?></td>
+                                                <td><?= $value['numinterno'] ?></td>
+                                                <td><?= $value['conductor'] ?></td>
+                                                <td><?= $value['cedulaConductor'] ?></td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesbajas']) ?></td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesaltas']) ?></td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesreversa']) ?></td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['direccionales_delanteras']) ?></td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['iluminacioncabina']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesinternas']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesmedias']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesdestop']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['lucesdeparqueo']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['direccionales_traseras']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['luzescala']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['baliza_licuadora']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['retrovisor_izquierdo']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['espejointerno']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['apoyacabeza_conductor']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['equipoaudio']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['claraboya']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['alarmareversa']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['parabrisas']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['retrovisor_derecho']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['retrovisor_izquierdo']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['placas']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['limpiaparabrisas_derecho']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['limpiaparabrisas_izquierdo']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['piso']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['sillas']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['antideslizante_escaleras']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['puertas']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['bomper_trasero']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['bomper_delantero']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['claxon']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['cinturones_pasajero']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['pasamanos_interno']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['indicador_velocidad']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['ventaneria']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['cinturones_conductor']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['nivel_refrigerante']) ?>
+                                                </td>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['nivel_combustible']) ?>
+                                                </td>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['baterias']) ?>
+                                                </td>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['freno_principal']) ?>
+                                                </td>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['liquido_hidraulico']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['sistema_hidraulico']) ?>
+                                                </td>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['estado_correas']) ?>
+                                                </td>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['nivel_liquido_frenos']) ?>
+                                                </td>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['caja_cambios']) ?>
+                                                </td>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['direccion']) ?>
+                                                </td>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['nivel_aceite']) ?>
+                                                </td>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['freno_emergencia']) ?>
+                                                </td>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['velocimetro']) ?>
+                                                </td>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['carga_bateria']) ?>
+                                                </td>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['presion_aceite']) ?>
+                                                </td>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['combustible']) ?>
+                                                </td>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['presion_aire']) ?>
+                                                </td>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['temperatura']) ?>
+                                                </td>
+                                                <td><?= $value['cambio_aceite'] ?>
+                                                </td>
+                                                <td><?= $value['engrase'] ?>
+                                                </td>
+                                                <td><?= $value['rotacion_llantas'] ?>
+                                                </td>
+                                                <td><?= $value['filtro_aire'] ?>
+                                                </td>
+                                                <td><?= $value['sincronizacion'] ?>
+                                                </td>
+                                                <td><?= $value['alineacion_balanceo'] ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['llantas_delanteras']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['llantas_traseras']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['cortes']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['esparragos']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['profundidad_huella']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['llanta_repuesto']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['presion_inflado']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['abultamientos']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['chalecoreflectivo']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['linterna']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['conos_triangulos']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['tacos_bloques']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['gato']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['cruceta_copa']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['alicate']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['destornilladores']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['llavesfijas']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['botiquin']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['llave_expansion']) ?>
+                                                </td>
+                                                <td><?= ControladorAlistamiento::FTraducirEstado($value['extintor']) ?>
+                                                </td>
+                                                <td><?= $value['kilometraje_total'] ?></td>
+                                                <td><?= $value['observaciones'] ?></td>
+                                            </tr>
+                                        <?php endforeach ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -426,7 +428,10 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
                                                 <div class="col-12 col-sm-6 col-lg-4">
                                                     <div class="form-group">
                                                         <label>Fecha</label>
-                                                        <input id="fechaAlistamiento" name="fechaAlistamiento" type="date" class="form-control" required>
+                                                        <?php
+                                                        $fecha =  date('Y/m/d H:i:s');
+                                                        ?>
+                                                        <input id="fechaAlistamiento" name="fechaAlistamiento" type="text" class="form-control" value="<?= $fecha ?>" readonly required>
                                                     </div>
                                                 </div>
 
@@ -493,7 +498,15 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
                                                     <div class="col-12 col-sm-6 col-lg-4">
                                                         <div class="form-group">
                                                             <label><?= $value['tipodocumento'] ?></label>
-                                                            <input id="documento_<?= $value['idtipo'] ?>" type="date" class="form-control documentos" readonly>
+                                                            <div class="input-group">
+                                                                <input id="documento_<?= $value['idtipo'] ?>" type="date" class="form-control documentos" readonly>
+                                                                <div class="input-group-append">
+                                                                    <button class="btn info-semaforotipo1" type="button">
+                                                                        <i class="fas fa-exclamation-triangle"></i>
+
+                                                                    </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 <?php endforeach ?>
@@ -2388,14 +2401,14 @@ $ServiciosMenores = ControladorVehiculos::ctrListadoServicios();
             </div>
 
             <div class="modal-footer justify-content-center bg-info">
-                    <div class="col-5 col-md-4 col-lg-3 col-xl-2 text-right">
-                        <?php if (validarPermiso('M_OPERACIONES', 'U')) : ?>
-                            <button type="submit" form="alistamiento_form" class="btn btn-block btn-success btn-alistamientoguardar"><i class="fas fa-print"></i> Guardar<div class="overlay d-none overlayBtnGuardarAlistamiento">
+                <div class="col-5 col-md-4 col-lg-3 col-xl-2 text-right">
+                    <?php if (validarPermiso('M_OPERACIONES', 'U')) : ?>
+                        <button type="submit" form="alistamiento_form" class="btn btn-block btn-success btn-alistamientoguardar"><i class="fas fa-print"></i> Guardar<div class="overlay d-none overlayBtnGuardarAlistamiento">
                                 <i class="fas fa-3x fa-sync-alt fa-spin"></i>
                             </div></button>
-                            
-                        <?php endif ?>
-                    </div>
+
+                    <?php endif ?>
+                </div>
                 <div class="col-5 col-md-4 col-lg-3 col-xl-2 text-left">
                     <button type="button" class="btn btn-danger btn-block" data-dismiss="modal">Volver</button>
                 </div>

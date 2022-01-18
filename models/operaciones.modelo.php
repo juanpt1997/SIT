@@ -13,11 +13,11 @@ class ModeloAlistamiento
     ===================================================*/
     static public function mdlListaAlistamientos()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.numinterno, p.Nombre AS conductor, p.Documento AS cedulaConductor, a.*
-                                                FROM o_alistamiento a
-                                                INNER JOIN v_vehiculos v ON v.idvehiculo = a.idvehiculo
-                                                LEFT JOIN gh_personal p ON p.idPersonal = a.idconductor
-                                                ORDER BY a.fechaalista DESC");
+        $stmt = Conexion::conectar()->prepare("SELECT v.placa, v.numinterno, p.Nombre AS conductor, p.Documento AS cedulaConductor,DATE_FORMAT(a.fechaalista, '%d/%m/%Y - %H:%i:%s') AS Ffechaalista , a.*
+        FROM o_alistamiento a
+        INNER JOIN v_vehiculos v ON v.idvehiculo = a.idvehiculo
+        LEFT JOIN gh_personal p ON p.idPersonal = a.idconductor
+        ORDER BY a.fechaalista DESC");
 
         $stmt->execute();
         $retorno = $stmt->fetchAll();

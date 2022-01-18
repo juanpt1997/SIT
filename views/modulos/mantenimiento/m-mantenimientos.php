@@ -172,7 +172,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                     <div class="col-3 ">
                                                                         <div class="form-group text-center">
                                                                             <label><i>Placa</i></label>
-                                                                            <select id="placa_OrdServ" name="idvehiculo_OrdServ" class="form-control form-control-sm select2-single" type="number" style="height: 99%;" required>
+                                                                            <select id="placa_OrdServ" name="idvehiculo_OrdServ" class="form-control form-control-sm select2-single" type="number" style="width: 99%" required>
                                                                                 <option selected value="">Seleccione un vehículo</option>
                                                                                 <?php foreach ($Placas as $key => $value) : ?>
                                                                                     <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?> </option>
@@ -319,7 +319,15 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                                         <div class="col-12 col-sm-6 col-lg-4">
                                                                                             <div class="form-group">
                                                                                                 <label><?= $value['tipodocumento'] ?></label>
-                                                                                                <input id="documento_<?= $value['idtipo'] ?>" type="date" class="form-control documentos" readonly>
+                                                                                                <div class="input-group">
+                                                                                                    <input id="documento_<?= $value['idtipo'] ?>" type="date" class="form-control documentos" readonly>
+                                                                                                    <div class="input-group-append">
+                                                                                                        <button class="btn info-semaforotipo1" type="button">
+                                                                                                            <i class="fas fa-exclamation-triangle"></i>
+
+                                                                                                        </button>
+                                                                                                    </div>
+                                                                                                </div>
                                                                                             </div>
                                                                                         </div>
                                                                                     <?php endforeach ?>

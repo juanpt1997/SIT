@@ -3928,6 +3928,20 @@ $(document).ready(function () {
         });
 
         /*============================================
+        INFO SOBRE EL SEMAFORO
+        ==============================================*/
+        $(document).on("mouseover", ".info-semaforotipo1", function () {
+            $(this).attr(
+                "title",
+                `ㅤ
+                Rojo: Documento vencido
+                Amarillo: Documento próximo a vencer
+                Verde: Documento vigente
+                ㅤ
+        `
+            );
+        });
+        /* ===================================================
             CREAR NUEVO PRODUCTO(repuesto) desde la tabla de repuestos
         ==============================================*/
         $(".btn_addRepuesto").on("click", function () {
