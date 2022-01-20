@@ -286,7 +286,23 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                 <div class="col-12 col-sm-6 col-lg-4">
                                                                     <div class="form-group">
                                                                         <label><?= $value['tipodocumento'] ?></label>
-                                                                        <input id="documento_<?= $value['idtipo'] ?>" type="date" class="form-control documentos" readonly>
+                                                                        <div class="input-group">
+                                                                            <input id="documento_<?= $value['idtipo'] ?>" type="date" class="form-control documentos" readonly>
+                                                                            <div class="input-group-append">
+
+                                                                                <button class="btn info-semaforotipo1 btn-info-semaforotipo<?= $value['idtipo'] ?> d-none" type="button" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-exclamation-triangle"></i></button>
+                                                                                <div class="dropdown-menu">
+                                                                                    <a class="dropdown-item"><i class="fas fa-circle text-danger"></i> Documento vencido.</a>
+                                                                                    <a class="dropdown-item"><i class="fas fa-circle text-warning"></i> Documento próximo a vencer.</a>
+                                                                                    <a class="dropdown-item"><i class="fas fa-circle text-success"></i> Documento vigente.</a>
+                                                                                </div>
+
+
+
+
+                                                                                
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             <?php endforeach ?>
@@ -2478,7 +2494,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                         <!--ROW CIERRE-->
                                                     </form>
                                                     <!--FORM CIERRE-->
-                                                    <hr class="my-5 bg-black">            
+                                                    <hr class="my-5 bg-black">
                                                     <!-- EVIDENCIAS -->
                                                     <div class="row">
                                                         <!--TITULO EVIDENCIAS-->
@@ -2590,7 +2606,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                         <i class="fas fa-car-alt"></i>
                                     </h3>
                                     <div class="card-tools">
-                                        <button type="button" title="Abrir tabla de inventarios"  data-toggle="tooltip" data-placement="top" class="btn btn-tool" data-card-widget="collapse">
+                                        <button type="button" title="Abrir tabla de inventarios" data-toggle="tooltip" data-placement="top" class="btn btn-tool" data-card-widget="collapse">
                                             <i class="fas fa-plus"></i>
                                         </button>
                                     </div>

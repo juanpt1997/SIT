@@ -120,9 +120,41 @@ $(document).ready(function () {
                             moment().format("YYYY-MM-DD")
                         );
 
-                        $(`#documento_${element.idtipodocumento}`).addClass(
-                            "bg-" + bg
+                        //Reiniciamos el fondo de los inputs
+                        $(
+                            `#documento_${element.idtipodocumento}`
+                        ).removeClass(
+                            "bg-danger bg-success bg-warning"
                         );
+
+                        //Se añade el color del input
+                        $(
+                            `#documento_${element.idtipodocumento}`
+                        ).addClass("bg-" + bg);
+
+                        //Reiniciamos el color del boton de informacion de semaforo
+                        $(
+                            `.btn-info-semaforotipo${element.idtipodocumento}`
+                        ).removeClass(
+                            "text-danger text-success text-warning"
+                        );
+
+                        //Reiniciamos la visibilidad
+                        $(
+                            `.btn-info-semaforotipo${element.idtipodocumento}`
+                        ).addClass("d-none");
+
+                        //Añadimos el color al boton de informacion de semaforo
+                        $(
+                            `.btn-info-semaforotipo${element.idtipodocumento}`
+                        ).addClass("text-" + bg);
+
+                        //Si está en verde no muestra el boton con la informacion del semaforo
+                        if (bg != "success") {
+                            $(
+                                `.btn-info-semaforotipo${element.idtipodocumento}`
+                            ).removeClass("d-none");
+                        }
                     });
                 },
             });
@@ -626,6 +658,13 @@ $(document).ready(function () {
             );
         });
 
+        /*============================================
+        INFO SOBRE EL SEMAFORO
+        ==============================================*/
+        $(document).on("mouseover", ".info-semaforotipo1", function () {
+            $(this).trigger("click");
+        });
+
         /*===================================================
               INICIALIZAR DATATABLE
         ===================================================*/
@@ -986,9 +1025,42 @@ $(document).ready(function () {
                                     element.fechafin,
                                     moment().format("YYYY-MM-DD")
                                 );
+
+                                //Reiniciamos el fondo de los inputs
+                                $(
+                                    `#documento_${element.idtipodocumento}`
+                                ).removeClass(
+                                    "bg-danger bg-success bg-warning"
+                                );
+
+                                //Se añade el color del input
                                 $(
                                     `#documento_${element.idtipodocumento}`
                                 ).addClass("bg-" + bg);
+
+                                //Reiniciamos el color del boton de informacion de semaforo
+                                $(
+                                    `.btn-info-semaforotipo${element.idtipodocumento}`
+                                ).removeClass(
+                                    "text-danger text-success text-warning"
+                                );
+
+                                //Reiniciamos la visibilidad
+                                $(
+                                    `.btn-info-semaforotipo${element.idtipodocumento}`
+                                ).addClass("d-none");
+
+                                //Añadimos el color al boton de informacion de semaforo
+                                $(
+                                    `.btn-info-semaforotipo${element.idtipodocumento}`
+                                ).addClass("text-" + bg);
+
+                                //Si está en verde no muestra el boton con la informacion del semaforo
+                                if (bg != "success") {
+                                    $(
+                                        `.btn-info-semaforotipo${element.idtipodocumento}`
+                                    ).removeClass("d-none");
+                                }
                             });
                         },
                     });
@@ -1210,6 +1282,13 @@ $(document).ready(function () {
                 $("#llantas_bus_buseta").addClass("d-none");
             }
         };
+
+        /*============================================
+        INFO SOBRE EL SEMAFORO
+        ==============================================*/
+        $(document).on("mouseover", ".info-semaforotipo1", function () {
+            $(this).trigger("click");
+        });
     }
 
     /* ===================================================
@@ -1738,9 +1817,37 @@ $(document).ready(function () {
                             moment().format("YYYY-MM-DD")
                         );
 
+                        //Reiniciamos el fondo de los inputs
+                        $(`#documento_${element.idtipodocumento}`).removeClass(
+                            "bg-danger bg-success bg-warning"
+                        );
+
+                        //Se añade el color del input
                         $(`#documento_${element.idtipodocumento}`).addClass(
                             "bg-" + bg
                         );
+
+                        //Reiniciamos el color del boton de informacion de semaforo
+                        $(
+                            `.btn-info-semaforotipo${element.idtipodocumento}`
+                        ).removeClass("text-danger text-success text-warning");
+
+                        //Reiniciamos la visibilidad
+                        $(
+                            `.btn-info-semaforotipo${element.idtipodocumento}`
+                        ).addClass("d-none");
+
+                        //Añadimos el color al boton de informacion de semaforo
+                        $(
+                            `.btn-info-semaforotipo${element.idtipodocumento}`
+                        ).addClass("text-" + bg);
+
+                        //Si está en verde no muestra el boton con la informacion del semaforo
+                        if (bg != "success") {
+                            $(
+                                `.btn-info-semaforotipo${element.idtipodocumento}`
+                            ).removeClass("d-none");
+                        }
                     });
                 },
             });
@@ -3931,15 +4038,7 @@ $(document).ready(function () {
         INFO SOBRE EL SEMAFORO
         ==============================================*/
         $(document).on("mouseover", ".info-semaforotipo1", function () {
-            $(this).attr(
-                "title",
-                `ㅤ
-                Rojo: Documento vencido
-                Amarillo: Documento próximo a vencer
-                Verde: Documento vigente
-                ㅤ
-        `
-            );
+            $(this).trigger("click");
         });
         /* ===================================================
             CREAR NUEVO PRODUCTO(repuesto) desde la tabla de repuestos
@@ -4065,8 +4164,6 @@ $(document).ready(function () {
                                     });
                                     $("#AgregarRepuesto").modal("hide");
                                     //$("#modal-repuestos").modal("show");
-                                    
-
                                 } else if (response == "editado") {
                                     Swal.fire({
                                         icon: "success",
