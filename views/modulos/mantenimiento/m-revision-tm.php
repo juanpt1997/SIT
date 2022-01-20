@@ -590,10 +590,27 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
 
                                                 <?php foreach ($tiposDocumentacion as $key => $value) : ?>
-                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                    <!-- <div class="col-12 col-sm-6 col-lg-4">
                                                         <div class="form-group">
                                                             <label><?= $value['tipodocumento'] ?></label>
                                                             <input id="documento_<?= $value['idtipo'] ?>" type="date" class="form-control documentos" readonly>
+                                                        </div>
+                                                    </div> -->
+                                                    <div class="col-12 col-sm-6 col-lg-4">
+                                                        <div class="form-group">
+                                                            <label><?= $value['tipodocumento'] ?></label>
+                                                            <div class="input-group">
+                                                                <input id="documento_<?= $value['idtipo'] ?>" type="date" class="form-control documentos" readonly>
+                                                                <div class="input-group-append">
+
+                                                                    <button class="btn info-semaforotipo1 btn-info-semaforotipo<?= $value['idtipo'] ?> d-none" type="button" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-exclamation-triangle"></i></button>
+                                                                    <div class="dropdown-menu">
+                                                                        <a class="dropdown-item"><i class="fas fa-circle text-danger"></i> Documento vencido.</a>
+                                                                        <a class="dropdown-item"><i class="fas fa-circle text-warning"></i> Documento próximo a vencer.</a>
+                                                                        <a class="dropdown-item"><i class="fas fa-circle text-success"></i> Documento vigente.</a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 <?php endforeach ?>
@@ -2446,7 +2463,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                 <div id="llantas_bus_buseta" class="text-center">
                                                     <img src="./views/img/llantas/BUS-BUSETA.png" class="img-fluid">
                                                 </div>
-                                                
+
                                                 <div id="llantas_camioneta_micro" class="d-none text-center">
                                                     <img src="./views/img/llantas/CAMIONETA-MICRO.png" class="img-fluid">
                                                 </div>
