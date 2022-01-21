@@ -4218,11 +4218,163 @@ $(document).ready(function () {3
             });
         };
 
+        //FUNCION para cargar los datos del select proveedor
+        const cargarSelectProveedor = (proveedor) => {
+            let datos = new FormData();
+            datos.append("cargarselectProveedor", "ok");
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/compras.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $(`#${proveedor}`).html(response);
+                    } else {
+                        $(`#${proveedor}`).html("");
+                    }
+                },
+            });
+        };
+
+        //FUNCION para cargar el body de la tabla productos
+        const cargarTablaLlantas = () => {
+            let datos = new FormData();
+            // Quitar datatable
+            $(`#tabla_llantas`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbody_tabla_llantas`).html("");
+            datos.append("cargarTablaLLantas", "ok");
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbody_tabla_llantas").html(response);
+                    } else {
+                        $("#tbody_tabla_llantas").html("");
+                    }
+
+                    /*===================================================
+                    FILTRAR POR COLUMNA
+                    ====================================================*/
+                    /* Filtrar por columna */
+                    //Clonar el tr del thead
+                    if ($(`#tabla_llantas thead tr`).length == 1)
+                        $(`#tabla_llantas thead tr:eq(0)`)
+                            .clone(true)
+                            .appendTo(`#tabla_llantas thead`);
+                    //Por cada th creado hacer lo siguiente
+                    $(`#tabla_llantas thead tr:eq(1) th`).each(function (i) {
+                        //Remover clase sorting y el evento que tiene cuando se hace click
+                        $(this).removeClass("sorting").unbind();
+                        //Agregar input de busqueda
+                        $(this).html(
+                            '<input class="form-control" type="text" placeholder="Buscar"/>'
+                        );
+                        //Evento para detectar cambio en el input y buscar
+                        $("input", this).on("keyup change", function () {
+                            if (table.column(i).search() !== this.value) {
+                                table.column(i).search(this.value).draw();
+                            }
+                        });
+                    });
+
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(`#tabla_llantas`, buttons);
+                },
+            });
+        };
+
+        cargarTablaLlantas();
+
+        //CARGAR FUNCIONES AL ABRIR EL MODAL DE REGISTRAR LLANTA
         $("#registro-llantas").on("show.bs.modal", function () {
             cargarSelect("marca");
             cargarSelect("medida");
             cargarSelect("categoria");
             cargarSelect("sucursal");
+            cargarSelectProveedor("proveedor");
+        });
+
+        //ASIGNAR PLACA DE VEHICULO A LAS OBSERVACIONES DE LA LLANTA
+        $(document).on("change", "#placa", function () {
+            let placa = $('#placa :selected').text();
+            $("#observaciones_salida").val(placa);
+        });
+
+        //EDITAR CONTROL LLANTAS
+        $(document).on('click', ".btn-editar-control", function () {
+
+            $(".btn_actualizarllanta").removeClass("d-none");
+            $(".btn-guardar-registro-llantas").addClass("d-none");
+
+            let idproducto = $(this).attr("idalmacen");
+            let idllanta = $(this).attr("idllanta");
+            let datos = new FormData();
+
+            datos.append("datosLlantas", "ok");
+            datos.append("idllanta", idllanta);
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                   if(response != "")
+                   {
+                       $("#num_llanta").val(response.codigo);
+                       $("#descripcion").val(response.descripcion);
+                       $("#placa").val(response.idvehiculo).trigger("change");;
+                       $("#tama_llanta").val(response.tamanio);
+                       $("#marca").val(response.idmarca);
+                       $("#sucursal").val(response.idsucursal).trigger("change");;
+                       $("#categoria").val(response.idcategoria);
+                       $("#medida").val(response.idmedida);
+                       $("#vida_util").val(response.vida);
+                       $("#referencia").val(response.referencia);
+                       $("#cantidad").val(response.stock);
+                       $("#fecha_factura").val(response.fecha_factura);
+                       $("#num_factura").val(response.num_factura);
+                       $("#precio").val(response.preciocompra);
+                       $("#proveedor").val(response.idproveedor).trigger("change");;
+                       $("#observaciones_salida").val(response.observaciones);
+                       $("#fecha_montaje").val(response.fecha_montaje);
+                       $("#kilo_montaje").val(response.kilom_montaje);
+                       $("#lonas").val(response.lonas);
+                       $("#estado").val(response.estado_actual);
+                      
+                   }
+                },
+            });
+           
+
+
+        });
+
+        //NUEVO REGISTRO
+        $(".btn-nuevoregistro-llantas").on('click', function () {
+            $(".btn_actualizarllanta").addClass("d-none");
+            $(".btn-guardar-registro-llantas").removeClass("d-none");
+            $("#formulario_LlantasControl").trigger("reset");
+            
         });
 
         //SUBMIT del formulario que agrega llantas
@@ -4244,13 +4396,14 @@ $(document).ready(function () {3
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    if (response != "") {
-
-                        console.log(response);
-                        
-
-
-
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "LLanta reigstrada al vehículo.",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                            closeOnConfirm: false,
+                        })
                     }
                 },
             });

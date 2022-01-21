@@ -50,109 +50,27 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         <div class="card-body">
 
                             <div class="table-responsive">
-                                <table class="table table-sm table-bordered table-striped text-center">
+                                <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tabla_llantas">
                                     <thead>
                                         <tr>
                                             <th>...</th>
                                             <th>Número llanta</th>
-                                            <th>Ciudad</th>
-                                            <th>Placa vehículo</th>
-                                            <th>Tamaño</th>
-                                            <th>Marca</th>
                                             <th>Referencia</th>
+                                            <th>Descripción</th>
+                                            <th>Tamaño</th>
+                                            <th>Categoria</th>
+                                            <th>Marca</th>
+                                            <th>Medida</th>
                                             <th>Vida</th>
-                                            <th>Cantidad</th>
+                                            <th>Fecha montaje</th>
+                                            <th>Kilometraje montaje</th>
+                                            <th>Lonas</th>
+                                            <th>Estado actual</th>
+                                            <th>Fecha factura</th>
+                                            <th>Número de factura</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class='btn-group' role='group' aria-label='Button group'>
-                                                    <button title='Control/Seguimiento' data-toggle="modal" data-target="#seguimiento-llantas" class='btn btn-sm bg-gradient-primary btn-seguimiento'><i class="fas fa-calendar-check"></i></button>
-                                                </div>
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button title='Editar control' data-toggle="modal" data-target="#registro-llantas" class='btn btn-sm bg-gradient-info btn-editar-control'><i class="fas fa-edit"></i></button>
-                                                </div>
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button title='Eliminar control' class='btn btn-sm bg-gradient-danger btn-eliminar-control'><i class="fas fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                            <td>1</td>
-                                            <td>RISARALDA - PEREIRA</td>
-                                            <td>TEP997</td>
-                                            <td>255/70R16</td>
-                                            <td>Bridgstone</td>
-                                            <td>1</td>
-                                            <td></td>
-                                            <td>6</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <div class='btn-group' role='group' aria-label='Button group'>
-                                                    <button title='Control/Seguimiento' data-toggle="modal" data-target="#seguimiento-llantas" class='btn btn-sm bg-gradient-primary btn-seguimiento'><i class="fas fa-calendar-check"></i></button>
-                                                </div>
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button title='Editar control' data-toggle="modal" data-target="#registro-llantas" class='btn btn-sm bg-gradient-info btn-editar-control'><i class="fas fa-edit"></i></button>
-                                                </div>
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button title='Eliminar control' class='btn btn-sm bg-gradient-danger btn-eliminar-control'><i class="fas fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                            <td>2</td>
-                                            <td>RISARALDA - PEREIRA</td>
-                                            <td>JNE128</td>
-                                            <td>215/75R17.5</td>
-                                            <td>General</td>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td>4</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <div class='btn-group' role='group' aria-label='Button group'>
-                                                    <button title='Control/Seguimiento' data-toggle="modal" data-target="#seguimiento-llantas" class='btn btn-sm bg-gradient-primary btn-seguimiento'><i class="fas fa-calendar-check"></i></button>
-                                                </div>
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button title='Editar control' data-toggle="modal" data-target="#registro-llantas" class='btn btn-sm bg-gradient-info btn-editar-control'><i class="fas fa-edit"></i></button>
-                                                </div>
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button title='Eliminar control' class='btn btn-sm bg-gradient-danger btn-eliminar-control'><i class="fas fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                            <td>3</td>
-                                            <td>RISARALDA - PEREIRA</td>
-                                            <td>LGH479</td>
-                                            <td>255/70R16</td>
-                                            <td>Bridgstone</td>
-                                            <td>3</td>
-                                            <td></td>
-                                            <td>3</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <div class='btn-group' role='group' aria-label='Button group'>
-                                                    <button title='Control/Seguimiento' data-toggle="modal" data-target="#seguimiento-llantas" class='btn btn-sm bg-gradient-primary btn-seguimiento'><i class="fas fa-calendar-check"></i></button>
-                                                </div>
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button title='Editar control' data-toggle="modal" data-target="#registro-llantas" class='btn btn-sm bg-gradient-info btn-editar-control'><i class="fas fa-edit"></i></button>
-                                                </div>
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button title='Eliminar control' class='btn btn-sm bg-gradient-danger btn-eliminar-control'><i class="fas fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                            <td>4</td>
-                                            <td>RISARALDA - PEREIRA</td>
-                                            <td>RFK405</td>
-                                            <td>LT31X10,50R15</td>
-                                            <td>Nankang</td>
-                                            <td>4</td>
-                                            <td></td>
-                                            <td>3</td>
-                                        </tr>
-
+                                    <tbody id="tbody_tabla_llantas">
                                     </tbody>
                                 </table>
                             </div>
@@ -184,7 +102,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                 <div class="modal-body">
 
                     <h4><i class="fas fa-angle-double-right"></i> <b><i>Asociar llanta a vehículo</i></b></h4>
-                    
+
                     <hr class="my-4 bg-dark">
 
                     <div class="col">
@@ -247,7 +165,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label><i>Ciudad</i></label>
                                 <select id="sucursal" name="sucursal" class="form-control select2-single" type="number" style="width: 99%" required>
-                                    
+
                                 </select>
                             </div>
                         </div>
@@ -322,7 +240,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="fecha_montaje">Num. Factura</label>
+                                <label for="num_factura">Num. Factura</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-bars"></i></span>
@@ -331,6 +249,39 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="precio">Precio de compra</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                    </div>
+                                    <input class="form-control" type="number" id="precio" name="precio" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label><i>Proveedor</i></label>
+                                <div class="input-group">
+                                    <select class="select2-single rounded-0" id="proveedor" name="proveedor" required>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <a href="c-proveedores" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nuevo proveedor" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="observaciones"><i>Observaciones</i></label>
+                                <textarea class="form-control" name="observaciones_salida" id="observaciones_salida" rows="2"></textarea>
+                            </div>
+                        </div>
+
                     </div>
 
                     <hr class="my-4">
@@ -391,8 +342,12 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
             </form>
 
             <div class="modal-footer bg-gradient-dark">
-                <button type="submit" class="btn bg-gradient-success btn-guardar-registro-llantas" form="formulario_LlantasControl"><i class="fas fa-share"></i> Guardar</button>
-                <button type="button" class="btn bg-gradient-danger" data-dismiss="modal">Cancelar</button>
+                <div class="form-group">
+                    <button type="button" class="btn bg-gradient-info btn_actualizarllanta d-none"><i class="fas fa-sync-alt"></i> Actualizar</button>
+                    <button type="submit" class="btn bg-gradient-success btn-guardar-registro-llantas" form="formulario_LlantasControl"><i class="fas fa-share"></i> Guardar</button>
+                    <button type="button" class="btn bg-gradient-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+
             </div>
         </div>
     </div>

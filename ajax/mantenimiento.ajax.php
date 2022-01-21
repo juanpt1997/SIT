@@ -1300,13 +1300,108 @@ class AjaxLlantasControl
 
     static public function ajaxAgregarLlanta($frmData)
     {
-        //$id_llanta = ModeloProductos::mdlAgregarProducto()
-        echo var_dump($frmData);
-
-        $datos = array('cod_producto' => $frmData['num_llanta'], 
+        $datos =  array('cod_producto' => $frmData['num_llanta'], 
                         'descripcion_prod' => $frmData['descripcion'],
                         'placa' => $frmData['placa'],
+                        'tamanio' => $frmData['tama_llanta'],
+                        'marca' => $frmData['marca'],
+                        'sucursal' => $frmData['sucursal'],
+                        'categoria' => $frmData['categoria'],
+                        'medida' => $frmData['medida'],
+                        'vida' => $frmData['vida_util'],
+                        'referencia' => $frmData['referencia'],
+                        'cantidad' => $frmData['cantidad'],
+                        'fecha_factura' => $frmData['fecha_factura'],
+                        'num_factura' => $frmData['num_factura'],
+                        'precio-compra-producto' => $frmData['precio'],
+                        'proveedor' => $frmData['proveedor'],
+                        'fecha_montaje' => $frmData['fecha_montaje'],
+                        'fecha_montaje' => $frmData['fecha_montaje'],
+                        'kilo_montaje' => $frmData['kilo_montaje'],
+                        'lonas' => $frmData['lonas'],
+                        'estado_actual' => $frmData['estado'],
+                        'observaciones' => $frmData['observaciones_salida']
                     );
+                    
+                    //Se agregan los datos de la llanta a a_productos
+                    $id_llanta = ModeloProductos::mdlAgregarProducto($datos);
+                    //Agregamos el id de la llanta que recien se agregó a los datos
+                    $datos['idproducto'] = $id_llanta;
+                    //Se agrega la nueva llanta al inventario 
+                    $id_inventario = ModeloProductos::mdlAgregarInventario($datos);
+                    //Guardamos el id del inventario para generar el movimiento
+                    $datos['idinventario'] = $id_inventario;
+                    //TIPO DE MOVIMIENTO A REALIZAR
+                    $datos['tipo_movimiento'] = 'ENTRADA';
+                    //GENERAR ENTRADA
+                    $respuesta = ModeloProductos::mdlAgregarMovimiento($datos);
+
+                    if($respuesta == 'ok'){
+
+                        $AgregarLlanta = ModeloControlLlantas::mdlAgregarllanta($datos);
+                        
+                        if($AgregarLlanta == 'ok'){
+
+                            $datos['tipo_movimiento'] = 'SALIDA';
+                            $respuesta2 = ModeloProductos::mdlAgregarMovimiento($datos);
+                            
+                            if($respuesta2 == 'ok'){
+                                echo 'ok';
+                            }
+                        }
+
+                    }
+
+                    
+    }
+
+    static public function ajaxCargarTablaLlantas()
+    {
+        $respuesta = ModeloControlLlantas::mdlTablaLlantas();
+		$tr = "";
+
+		foreach ($respuesta as $key => $value) {
+			$tr .= "
+			<tr>
+                <td>
+                    <div class='btn-group' role='group' aria-label='Button group'>
+                        <button title='Control/Seguimiento' data-toggle='modal' idllanta='{$value["idllanta"]}' data-target='#seguimiento-llantas' class='btn btn-sm bg-gradient-primary btn-seguimiento'><i class='fas fa-calendar-check'></i></button>
+                    </div>
+                    <div class='btn-group' role='group' aria-label='Button group'>
+                        <button title='Editar control' data-toggle='modal' idllanta='{$value["idllanta"]}' idalmacen='{$value["idproducto"]}' data-target='#registro-llantas' class='btn btn-sm bg-gradient-info btn-editar-control'><i class='fas fa-edit'></i></button>
+                    </div>
+                    <div class='btn-group' role='group' aria-label='Button group'>
+                        <button title='Eliminar control' class='btn btn-sm bg-gradient-danger btn-eliminar-control' idllanta='{$value["idllanta"]}'><i class='fas fa-trash'></i></button>
+                    </div>
+                </td>
+				<td>{$value["codigo"]}</td>
+				<td>{$value["referencia"]}</td>
+				<td>{$value["descripcion"]}</td>
+				<td>{$value["tamanio"]}</td>
+				<td>{$value["categoria"]}</td>
+				<td>{$value["marca"]}</td>
+				<td>{$value["medida"]}</td>
+                <td>{$value["vida"]}</td>
+                <td>{$value["fecha_montaje"]}</td>
+                <td>{$value["kilom_montaje"]}</td>
+                <td>{$value["lonas"]}</td>
+                <td>{$value["estado_actual"]}</td>
+                <td>{$value["fecha_factura"]}</td>
+                <td>{$value["num_factura"]}</td>
+			</tr>
+			";
+		}
+		echo $tr;
+    }
+
+    static public function ajaxDatosllantas($id_llanta)
+    {
+        $respuesta = ModeloControlLlantas::mdlDatosLLanta($id_llanta);
+        echo json_encode($respuesta);
+    }
+
+    static public function ajaxValidar()
+    {
 
     }
 }
@@ -1441,4 +1536,12 @@ if (isset($_POST['cargarselect']) && $_POST['cargarselect'] == "ok") {
 
 if (isset($_POST['AgregarLlanta']) && $_POST['AgregarLlanta'] == "ok") {
     AjaxLlantasControl::ajaxAgregarLlanta($_POST);
+}
+
+if (isset($_POST['cargarTablaLLantas']) && $_POST['cargarTablaLLantas'] == "ok") {
+    AjaxLlantasControl::ajaxCargarTablaLlantas();
+}
+
+if (isset($_POST['datosLlantas']) && $_POST['datosLlantas'] == "ok") {
+    AjaxLlantasControl::ajaxDatosllantas($_POST['idllanta']);
 }
