@@ -39,9 +39,20 @@ $Rutas = ControladorRutas::ctrListarRutas();
 
             <hr class="my-4">
 
-            <button type="button" class="btn btn-success btn-md btn-agregarcotizacion" data-toggle="modal" data-target="#cotizacionmodal">
-                <i class="fas fa-file-invoice-dollar"></i> Agregar nueva cotización
-            </button>
+
+            <div class="margin">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success btn-md btn-agregarcotizacion" data-toggle="modal" data-target="#cotizacionmodal">
+                        <i class="fas fa-file-invoice-dollar"></i> Agregar nueva cotización
+                    </button>
+                </div>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-md bg-gradient-lightblue" data-toggle="modal" data-target="#difusion_correo">
+                        <i class="fas fa-envelope"></i> Lista de difusión
+                    </button>
+                </div>
+            </div>
 
             <div class="row mt-2">
                 <div class="col-12">
@@ -409,7 +420,7 @@ $Rutas = ControladorRutas::ctrListarRutas();
                             <div class="form-group">
                                 <label class="text-sm">Viaje ocasional</label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control" id="viaje_ocasional" name="viaje_ocasional">                                        
+                                    <select class="form-control" id="viaje_ocasional" name="viaje_ocasional">
                                         <option value="" selected><strong>Seleccione un tipo de viaje</strong></option>
                                         <option value="Propio">Propio</option>
                                         <option value="Afiliado">Afiliado</option>
@@ -726,3 +737,49 @@ $Rutas = ControladorRutas::ctrListarRutas();
         </div>
     </div>
 </div>
+
+<!-- <div id="difusion_correo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="difusion_correo-title" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header bg-gradient-info">
+                <h5 class="modal-title" id="difusion_correo-title">E-mail cotizaciones</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_correos">
+                        <thead>
+                            <tr>
+                                <th>Acciones</th>
+                                <th>Correo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody_correos">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer bg-gradient-dark justify-content-center">
+                <div class="margin">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm bg-gradient-green">
+                            <i class="fas fa-at"></i> Agregar correo
+                        </button>
+                    </div>
+
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm bg-gradient-danger" data-dismiss="modal">
+                            <i class="fas fa-times-circle"></i> Cerrar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div> -->

@@ -469,39 +469,38 @@ class AjaxMantenimientos
     {
         $respuesta = ControladorMantenimientos::ctrListadoControlActividades();
 
-        
-        if(!empty($respuesta))
-        {
+
+        if (!empty($respuesta)) {
             $ordenes = array();
             foreach ($respuesta as $key => $value) {
                 array_push($ordenes, $value['idorden']);
             }
-    
-    
+
+
             //GENERA UN ARRRAY CON LA CANTIDAD DE VECES QUE HAY UNA PLACA 
             foreach ($ordenes as $key => $value) {
                 $rowspan = array_count_values($ordenes);
             }
-    
-    
-    
+
+
+
             // var_dump($rowspan);
             $cont = 0; // Define la posición en la que me encuentro dentro del arreglo de programación
-    
-    
-    
+
+
+
             // Recorro el arreglo con las placas y su respectivo contador
             // var_dump($rowspan);
-    
+
             foreach ($rowspan as $key => $value) {
                 $tr = "";
-    
+
                 $numfilas = $value; //num filas repetidas de cada registro
-    
-    
-    
-    
-    
+
+
+
+
+
                 $tr .= "
                 <tr>
                     <td data-datatable-multi-row-rowspan='$numfilas'> <button class='btn btn-outline-dark btn-editarOrden' title='Ir a la orden' data-toggle='tooltip' data-placement='top' idorden='{$respuesta[$cont]['idorden']}'>" . $respuesta[$cont]['idorden'] . "</button></td>
@@ -513,16 +512,16 @@ class AjaxMantenimientos
                     <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['Ffecha_entrada'] . "</td>
                     <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['Ffecha_trabajos'] . "</td>
                     <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['Ffecha_aprobacion']; // . "</td>"; // La columna anterior a la columna que si tiene varias filas juntas, no se puede cerrar aún
-    
-    
+
+
                 if ($numfilas > 1) {
                     $tr .= "<script type='x/template' class='extra-row-content'>"; // abre script
-    
+
                     // Comienza iteración
                     for ($i = 0; $i < $numfilas - 1; $i++) { // $numfilas - 1 para cerrar el script antes de escribir el último item que debería iterar
                         // Por cada uno tiene que abrir también un tr
                         if ($respuesta[$cont]['porcentaje_cliente'] != 0) {
-    
+
                             $valor_corresponde_cliente = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_cliente'] / 100));
                         } else {
                             $valor_corresponde_cliente = "";
@@ -537,7 +536,7 @@ class AjaxMantenimientos
                         } else {
                             $valor_corresponde_contratista = "";
                         }
-    
+
                         $tr .= "
                                     <tr>
                                         <td>" . $respuesta[$cont]['servicio'] . "</td>
@@ -562,18 +561,18 @@ class AjaxMantenimientos
     
                                         </tr>
                                         ";
-    
+
                         $cont++; // Aumento la posición
                     }
-    
+
                     // Cierro script
                     $tr .= "</script>";
                 }
                 // Cierro td anterior al td que itera muchas veces, en este caso el de fecha programación, si no entra ninguna vez a la condición anterior pues simplemente sale
                 $tr .= "</td>";
-    
+
                 if ($respuesta[$cont]['porcentaje_cliente'] != 0) {
-    
+
                     $valor_corresponde_cliente = ($respuesta[$cont]['total'] * ($respuesta[$cont]['porcentaje_cliente'] / 100));
                 } else {
                     $valor_corresponde_cliente = "";
@@ -588,7 +587,7 @@ class AjaxMantenimientos
                 } else {
                     $valor_corresponde_contratista = "";
                 }
-    
+
                 // Monta el último servicio que se iteró, si no tuvo que iterar solo se escribe y ya
                 $tr .= "<td>" . $respuesta[$cont]['servicio'] . "</td>";
                 $tr .= "<td>" . $respuesta[$cont]['nombre_contacto'] . "</td>";
@@ -609,18 +608,16 @@ class AjaxMantenimientos
                 $tr .= "<td>" . $respuesta[$cont]['nombre_cuenta'] . "</td>";
                 $tr .= "<td>" . $respuesta[$cont]['num_cuenta'] . "</td>";
                 $tr .= "<td><button type='button' class='btn btn-success btn-asume' data-toggle='modal' data-target='#modalAsume' idvehiculo='{$respuesta[$cont]['idvehiculo']}' idcliente='{$respuesta[$cont]['idcliente']}' idcuenta='{$respuesta[$cont]['idcuenta']}' cliente='{$respuesta[$cont]['cliente']}' num_cuenta='{$respuesta[$cont]['num_cuenta']}' nombre_cuenta='{$respuesta[$cont]['nombre_cuenta']}' total='{$respuesta[$cont]['total']}' iva='{$respuesta[$cont]['iva']}' valor='{$respuesta[$cont]['valor']}' cantidad='{$respuesta[$cont]['cantidad']}' idorden='{$respuesta[$cont]['idorden']}' id='{$respuesta[$cont]['id']}' descripcion='{$respuesta[$cont]['descripcion']}' ><i class='fas fa-wallet'></i></button></td>";
-    
-    
+
+
                 $cont++; // Aumento una posición más del contador que me posiciona dentro del arreglo de programación
-    
+
                 echo $tr;
             }
-
-        }else{
+        } else {
             $tr = "";
             echo $tr;
         }
-
     }
 
     /* ===================================================
@@ -699,29 +696,28 @@ class AjaxMantenimientos
     {
         $respuesta = ControladorMantenimientos::ctrListaProgramacion();
 
-        if(!empty($respuesta))
-        {
+        if (!empty($respuesta)) {
             $placas = array();
             foreach ($respuesta as $key => $value) {
                 array_push($placas, $value['placa']);
             }
-    
+
             //GENERA UN ARRRAY CON LA CANTIDAD DE VECES QUE HAY UNA PLACA 
             foreach ($placas as $key => $value) {
                 $rowspan = array_count_values($placas);
             }
-    
+
             $repetidas = array();
-    
+
             //var_dump($rowspan);
             $cont = 0; // Define la posición en la que me encuentro dentro del arreglo de programación
-    
+
             // Recorro el arreglo con las placas y su respectivo contador
             foreach ($rowspan as $key => $value) {
                 $tr = "";
-    
+
                 $numfilas = $value; //num filas repetidas de cada registro
-    
+
                 // Escribiendo las primeras columnas con rowspan de la tabla 
                 $tr .= "
                          <tr>
@@ -739,17 +735,17 @@ class AjaxMantenimientos
                 // Si existe más de una fila abre el script y luego itera por cada uno
                 if ($numfilas > 1) {
                     $tr .= "<script type='x/template' class='extra-row-content'>"; // abre script
-    
+
                     // Comienza iteración
                     for ($i = 0; $i < $numfilas - 1; $i++) { // $numfilas - 1 para cerrar el script antes de escribir el último item que debería iterar
                         // Por cada uno tiene que abrir también un tr
                         $tr .= "
                                     <tr><td>" . $respuesta[$cont]['item'] . "</td></tr>
                             ";
-    
+
                         $cont++; // Aumento la posición
                     }
-    
+
                     // Cierro script
                     $tr .= "</script>";
                 }
@@ -757,10 +753,10 @@ class AjaxMantenimientos
                 $tr .= "</td>";
                 // Monta el último item que se iteró, si no tuvo que iterar solo se escribe y ya
                 $tr .= "<td>" . $respuesta[$cont]['item'] . "</td>";
-    
+
                 // Últimas columnas de la tabla
                 if ($respuesta[$cont]['tiempo_mantenimiento'] != "") {
-    
+
                     $tr .= "
                                 <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['tiempo_mantenimiento'] . " Días</td>
                                 <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['observacion'] . "</td>
@@ -776,8 +772,7 @@ class AjaxMantenimientos
                 $cont++; // Aumento una posición más del contador que me posiciona dentro del arreglo de programación
                 echo $tr;
             }
-
-        }else{
+        } else {
             $tr = "";
             echo $tr;
         }
@@ -858,33 +853,33 @@ class AjaxMantenimientos
     {
 
         $respuesta = ModeloMantenimientos::mdlProgramacionxVehiculo($idvehiculo);
-        
-        
 
-        if(!empty($respuesta)){
-            
+
+
+        if (!empty($respuesta)) {
+
             $placas = array();
             foreach ($respuesta as $key => $value) {
                 array_push($placas, $value['placa']);
             }
-            
+
             $rowspan = array();
             //GENERA UN ARRRAY CON LA CANTIDAD DE VECES QUE HAY UNA PLACA 
             foreach ($placas as $key => $value) {
                 $rowspan = array_count_values($placas);
             }
-    
+
             $repetidas = array();
-    
+
             //var_dump($rowspan);
             $cont = 0; // Define la posición en la que me encuentro dentro del arreglo de programación
-    
+
             // Recorro el arreglo con las placas y su respectivo contador
             foreach ($rowspan as $key => $value) {
                 $tr = "";
-    
+
                 $numfilas = $value; //num filas repetidas de cada registro
-    
+
                 // Escribiendo las primeras columnas con rowspan de la tabla 
                 $tr .= "
                          <tr>
@@ -894,14 +889,14 @@ class AjaxMantenimientos
                 // Si existe más de una fila abre el script y luego itera por cada uno
                 if ($numfilas > 1) {
                     $tr .= "<script type='x/template' class='extra-row-content'>"; // abre script
-    
+
                     // Comienza iteración
                     for ($i = 0; $i < $numfilas - 1; $i++) { // $numfilas - 1 para cerrar el script antes de escribir el último item que debería iterar
                         // Por cada uno tiene que abrir también un tr
-    
+
                         $fecha_Actual = date('Y-m-d');
                         $semaforo = ControladorVehiculos::Semaforo_tipo1($respuesta[$cont]['fecha_comparar'], $fecha_Actual);
-    
+
                         //VALIDACIÓN SI EL KILOMETRAJE YA SE PASÓ
                         if ($respuesta[$cont]['kilometraje_servicio'] != 0 && $respuesta[$cont]['kilometraje_actual'] >= $respuesta[$cont]['kilometraje_cambio']) {
                             $kilometraje = "<td class='bg-danger'>" . $respuesta[$cont]['kilometraje_cambio'] .  "</td>";
@@ -911,9 +906,9 @@ class AjaxMantenimientos
                         } else {
                             $kilometraje = "<td class='bg-success'>" . $respuesta[$cont]['kilometraje_cambio'] .  "</td>";
                         }
-    
+
                         if ($respuesta[$cont]['ruta_foto'] != "") {
-    
+
                             $tr .= "
                                         <tr><td>" . $respuesta[$cont]['item'] . "</td>
                                         $kilometraje
@@ -930,18 +925,18 @@ class AjaxMantenimientos
                                         </tr>
                                 ";
                         }
-    
-    
+
+
                         $cont++; // Aumento la posición
                     }
-    
+
                     // Cierro script
                     $tr .= "</script>";
                 }
-    
+
                 $fecha_Actual = date('Y-m-d');
                 $semaforo = ControladorVehiculos::Semaforo_tipo1($respuesta[$cont]['fecha_comparar'], $fecha_Actual);
-    
+
                 //VALIDACIÓN SI EL KILOMETRAJE YA SE PASÓ
                 if ($respuesta[$cont]['kilometraje_servicio'] != 0 && $respuesta[$cont]['kilometraje_actual'] >= $respuesta[$cont]['kilometraje_cambio']) {
                     $kilometraje = "<td class='bg-danger'>" . $respuesta[$cont]['kilometraje_cambio'] .  "</td>";
@@ -951,14 +946,14 @@ class AjaxMantenimientos
                 } else {
                     $kilometraje = "<td class='bg-success'>" . $respuesta[$cont]['kilometraje_cambio'] .  "</td>";
                 }
-    
-    
-    
-    
+
+
+
+
                 // Cierro td anterior al td que itera muchas veces, en este caso el de fecha programación, si no entra ninguna vez a la condición anterior pues simplemente sale
                 $tr .= "</td>";
-    
-    
+
+
                 if ($respuesta[$cont]['ruta_foto'] != "") {
                     $tr .= "<td>" . $respuesta[$cont]['item'] . "</td>";
                     $tr .= $kilometraje;
@@ -971,15 +966,15 @@ class AjaxMantenimientos
                 } else {
                     $tr .= "<td>" . $respuesta[$cont]['item'] . "</td>";
                     $tr .= $kilometraje;
-                    $tr .= "<td  class='bg-" . $semaforo . "'> ".$respuesta[$cont]['fecha_cambio']."</td>";
+                    $tr .= "<td  class='bg-" . $semaforo . "'> " . $respuesta[$cont]['fecha_cambio'] . "</td>";
                     $tr .= "<td>Sin evidencia </td>";
                     $tr .= "
                             <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['fecha_programacion'] . "</td>
                         </tr>
                         ";
                 }
-    
-    
+
+
                 // Monta el último item que se iteró, si no tuvo que iterar solo se escribe y ya
                 // $tr .= "<td>" . $respuesta[$cont]['item'] . "</td>";
                 // $tr .= $kilometraje;
@@ -989,16 +984,15 @@ class AjaxMantenimientos
                 //             <td data-datatable-multi-row-rowspan='$numfilas'>" . $respuesta[$cont]['fecha_programacion'] . "</td>
                 //         </tr>
                 //         ";
-    
-    
+
+
                 $cont++; // Aumento una posición más del contador que me posiciona dentro del arreglo de programación
                 echo $tr;
             }
-        }else{
+        } else {
             $tr = "";
             echo $tr;
         }
-
     }
 
     /* ===================================================
@@ -1249,6 +1243,73 @@ class AjaxMantenimientos
         ControladorMantenimientos::ctrExcelSolicitudesProgramacion();
     }
 }
+
+class AjaxLlantasControl
+{
+    static public function ajaxCargarSelect($nombre)
+    {
+        switch ($nombre) {
+
+            case 'categoria':
+
+                $tabla = "a_categorias";
+                $item = "categoria";
+                $id = "idcategorias";
+                break;
+
+            case 'medida':
+
+                $tabla = "a_medidas";
+                $item = "medida";
+                $id = "idmedidas";
+                break;
+
+            case 'marca':
+
+                $tabla = "a_marcas";
+                $item = "marca";
+                $id = "idmarca";
+                break;
+
+            case 'sucursal':
+
+                $tabla = "gh_sucursales";
+                $item = "sucursal";
+                $id = "ids";
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+        $datos = array(
+            "tabla" => $tabla,
+            "item"  => $item,
+            "id" => $id
+        );
+
+        $respuesta = ModeloConceptosGenerales::mdlVer($datos);
+        $option = "<option value='' selected>Seleccione {$nombre} </option>";
+
+        foreach ($respuesta as $key => $value) {
+            $option .= "<option value='{$value["{$datos['id']}"]}'>{$value["{$datos['item']}"]}</option>";
+        }
+        echo $option;
+    }
+
+    static public function ajaxAgregarLlanta($frmData)
+    {
+        //$id_llanta = ModeloProductos::mdlAgregarProducto()
+        echo var_dump($frmData);
+
+        $datos = array('cod_producto' => $frmData['num_llanta'], 
+                        'descripcion_prod' => $frmData['descripcion'],
+                        'placa' => $frmData['placa'],
+                    );
+
+    }
+}
 /* ===================================================
             LLAMADOS AJAX INVENTARIO
 ====================================================*/
@@ -1370,3 +1431,14 @@ if (isset($_GET['ExcelControlActividades']) && $_GET['ExcelControlActividades'] 
 
 #LLAMADO A EXPORTAR EXCEL CONTROL DE ACTIVIDADES 
 if (isset($_GET['ExcelSolicitudesProgramacion']) && $_GET['ExcelSolicitudesProgramacion'] == "ok") AjaxMantenimientos::ajaxExcelSolicitudesProgramacion();
+
+/* ===================================================
+    CONTROL DE LLANTAS
+===================================================*/
+if (isset($_POST['cargarselect']) && $_POST['cargarselect'] == "ok") {
+    AjaxLlantasControl::ajaxCargarSelect($_POST['nombreSelect']);
+}
+
+if (isset($_POST['AgregarLlanta']) && $_POST['AgregarLlanta'] == "ok") {
+    AjaxLlantasControl::ajaxAgregarLlanta($_POST);
+}

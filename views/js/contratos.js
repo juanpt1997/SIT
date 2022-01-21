@@ -153,7 +153,8 @@ if (
             var buttons = [
                 {
                     extend: "excel",
-                    className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
+                    className: "border-0 bg-gradient-olive",
+                    text: '<i class="fas fa-file-excel"></i> Exportar',
                 },
             ];
             var table = dataTableCustom(`#tblCotizaciones`, buttons);
@@ -371,7 +372,8 @@ if (
                     var buttons = [
                         {
                             extend: "excel",
-                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
+                            className: "border-0 bg-gradient-olive",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                         /* 'copy', 'csv', 'excel', 'pdf', 'print' */
                     ];
@@ -436,6 +438,231 @@ if (
                 }
             }
         });
+
+        //FUNCION para cargar el body de la tabla correos
+        const cargarTablaCorreos = () => {
+            let datos = new FormData();
+            // Quitar datatable
+            $(`#tabla_correos`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbody_correos`).html("");
+
+            datos.append("cargarTablaCorreos", "ok");
+            datos.append("modulo", "COTIZACIONES");
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/mail.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbody_correos").html(response);
+                    } else {
+                        $("#tbody_correos").html("");
+                    }
+
+                    /*===================================================
+                    FILTRAR POR COLUMNA
+                    ====================================================*/
+                    /* Filtrar por columna */
+                    //Clonar el tr del thead
+                    if ($(`#tabla_correos thead tr`).length == 1)
+                        $(`#tabla_correos thead tr:eq(0)`)
+                            .clone(true)
+                            .appendTo(`#tabla_correos thead`);
+                    //Por cada th creado hacer lo siguiente
+                    $(`#tabla_correos thead tr:eq(1) th`).each(function (i) {
+                        //Remover clase sorting y el evento que tiene cuando se hace click
+                        $(this).removeClass("sorting").unbind();
+                        //Agregar input de busqueda
+                        $(this).html(
+                            '<input class="form-control" type="text" placeholder="Buscar"/>'
+                        );
+                        //Evento para detectar cambio en el input y buscar
+                        $("input", this).on("keyup change", function () {
+                            if (table.column(i).search() !== this.value) {
+                                table.column(i).search(this.value).draw();
+                            }
+                        });
+                    });
+
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "border-0 bg-gradient-olive",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(`#tabla_correos`, buttons);
+                },
+            });
+        };
+
+        //EVENTO AL ABRIR EL MODAL DE PRODUCTOS CARGA LOS DATOS DE LOS SELECT(proveedor, marca, medida,categoria,sucursales)
+        $(document).on("shown.bs.modal", "#difusion_correo", function () {
+            cargarTablaCorreos();
+        });
+
+        //EDITAR UN CORREO
+        $(document).on("click", ".btnEditarCorreo", function () {
+            let id = $(this).attr("idcorreo");
+
+            var datos = new FormData();
+            datos.append("datosCorreo", "ok");
+            datos.append("id", id);
+
+            $.ajax({
+                type: "POST",
+                url: "ajax/mail.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    Swal.fire({
+                        title: `Editar (${response.correo})`,
+                        html: `
+                            <hr class="bg-dark">
+                            <label for="">Correo</label>
+                            <input class="form-control" id="correo_edit" type="text" value="${response.correo}">`,
+                        showCancelButton: true,
+                        confirmButtonColor: "#0099ff",
+                        cancelButtonColor: "#d33",
+                        confirmButtonText: "Actualizar!",
+                        cancelButtonText: "Cancelar",
+                    }).then((result) => {
+                        if (result.value) {
+                            let correo = $("#correo_edit").val();
+                            var datos = new FormData();
+                            datos.append("editarCorreo", "ok");
+                            datos.append("id", id);
+                            datos.append("correo", correo);
+                            $.ajax({
+                                type: "POST",
+                                url: "ajax/mail.ajax.php",
+                                data: datos,
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                //dataType: "json",
+                                success: function (response) {
+                                    if (response == "ok") {
+                                        Swal.fire({
+                                            icon: "info",
+                                            title: "¡El E-mail ha sido actualizado!",
+                                            showConfirmButton: true,
+                                            confirmButtonText: "¡Cerrar!",
+                                            allowOutsideClick: false,
+                                        }).then((result) => {
+                                            window.location =
+                                                "contratos-cotizaciones";
+                                        });
+                                    }
+                                },
+                            });
+                        }
+                    });
+                },
+            });
+        });
+
+        //AGREGAR NUEVO CORREO SEGUN EL MODULO
+        $(document).on("click", ".btnAgregarCorreo", function () {
+            Swal.fire({
+                title: `Agregar nuevo correo`,
+                html: `
+                <hr class="bg-dark">
+                <label for="">Correo</label>
+                <input class="form-control" placeholder="example@gmail.com" id="correo_add" type="text">`,
+                showCancelButton: true,
+                confirmButtonColor: "#00cc00",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "¡Añadir!",
+                cancelButtonText: "Cancelar",
+            }).then((result) => {
+                if (result.value) {
+                    let correo = $("#correo_add").val();
+                    var datos = new FormData();
+                    datos.append("agregarCorreo", "ok");
+                    datos.append("correo", correo);
+                    datos.append("modulo", "COTIZACIONES");
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/mail.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        //dataType: "json",
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: "info",
+                                    title: "¡E-mail agregado!",
+                                    showConfirmButton: true,
+                                    confirmButtonText: "¡Cerrar!",
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "contratos-cotizaciones";
+                                });
+                            }
+                        },
+                    });
+                }
+            });
+        });
+
+        //ELIMINAR CORREO
+        $(document).on("click", ".btnEliminarCorreo", function () {
+            //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
+            var id = $(this).attr("idcorreo");
+            
+            Swal.fire({
+                icon: "warning",
+                showConfirmButton: true,
+                showCancelButton: true,
+                title: "¿Seguro que desea borrar este E-mail?",
+                confirmButtonText: "SI, borrar",
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: "#ff0000",
+                cancelButtonColor: "#009900",
+                allowOutsideClick: false,
+            }).then((result) => {
+                if (result.value) {
+                    var datos = new FormData();
+                    datos.append("eliminarCorreo", "ok");
+                    datos.append("id", id);
+                    
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/mail.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        //dataType: "json",
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: "success",
+                                    showConfirmButton: true,
+                                    title: "¡El E-mail ha sido borrado correctamente!",
+                                    confirmButtonText: "¡Cerrar!",
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "contratos-cotizaciones";
+                                });
+                            }
+                        },
+                    });
+                }
+            });
+        });
     });
 }
 /* ===================================================
@@ -468,8 +695,6 @@ if (
                 processData: false,
                 dataType: "json",
                 success: function (response) {
-                    console.log(response.observaciones);
-
                     $("#titulo_fijos").html(
                         "Editar (Contrato # " +
                             response.numcontrato +
@@ -565,7 +790,8 @@ if (
                     var buttons = [
                         {
                             extend: "excel",
-                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
+                            className: "border-0 bg-gradient-olive",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                         /* 'copy', 'csv', 'excel', 'pdf', 'print' */
                     ];
@@ -834,7 +1060,8 @@ if (
                     var buttons = [
                         {
                             extend: "excel",
-                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
+                            className: "border-0 bg-gradient-olive",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     var table = dataTableCustom(`#tblRutasxCliente`, buttons);
@@ -847,7 +1074,6 @@ if (
         ================================*/
 
         $(document).on("change", "#placa_contrutas", function () {
-
             let idvehiculo = $(this).val();
 
             var datos = new FormData();
@@ -864,7 +1090,7 @@ if (
                 processData: false,
                 dataType: "json",
                 success: function (response) {
-                    let datosVehiculo = response.datosVehiculo
+                    let datosVehiculo = response.datosVehiculo;
                     $("#num_internocontrutas").val(datosVehiculo.numinterno);
                     $("#marca_contrutas").val(datosVehiculo.marca);
                     $("#clase_contrutas").val(datosVehiculo.tipovehiculo);
@@ -877,7 +1103,7 @@ if (
         /*============================================
         CLICK EN VER VEHÍCULOS CLIENTES / CARGA TABLA
         ==============================================*/
-        $(document).on("click", ".btn-verVehiculosRutas",function(){
+        $(document).on("click", ".btn-verVehiculosRutas", function () {
             let idcliente = $(this).attr("idcliente");
             $(".btn-guardarvehiculosclientes").attr("idcliente", idcliente);
 
@@ -894,40 +1120,33 @@ if (
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    if(response != ""){
+                    if (response != "") {
                         $("#tbodyresuRutasContratos").html(response);
-                    }else{
+                    } else {
                         $("#tbodyresuRutasContratos").html("");
                     }
                 },
             });
-
-
-
-
         });
 
         /*==============================================
             GUARDAR / ASOCIAR VEHÍCULO A CLIENTE
         ===============================================*/
-        $("#form_contrutas").submit(function (e){
+        $("#form_contrutas").submit(function (e) {
             e.preventDefault();
 
-            let idcliente = $(".btn-guardarvehiculosclientes").attr("idcliente");
+            let idcliente = $(".btn-guardarvehiculosclientes").attr(
+                "idcliente"
+            );
 
-            
             var datosFrm = $(this).serializeArray();
             var datosAjax = new FormData();
             datosAjax.append("Guardar_VehiculoCliente", "ok");
             datosAjax.append("idcliente", idcliente);
 
-            
-           
-
             datosFrm.forEach((element) => {
                 datosAjax.append(element.name, element.value);
             });
-
 
             $.ajax({
                 type: "post",
@@ -937,32 +1156,28 @@ if (
                 contentType: false,
                 processData: false,
                 success: function (response) {
-                    
-                    if(response != "error"){
+                    if (response != "error") {
                         Swal.fire({
                             icon: "success",
                             title: "¡Datos guardados correctamente!",
                             showConfirmButton: false,
                             timer: 2000,
                         });
-                    }else{
+                    } else {
                         Swal.fire({
                             icon: "error",
                             title: "¡Este vehículo ya se encuentra asociado a un cliente!",
-                            showConfirmButton: false
+                            showConfirmButton: false,
                         });
                     }
                 },
             });
-
-        
-
         });
-        
+
         /*============================================
             ELIMINAR VEHICULO A UN CLIENTE
         ==============================================*/
-        $(document).on("click",".btnEliminarVehiculoRuta", function(){
+        $(document).on("click", ".btnEliminarVehiculoRuta", function () {
             let idvehiculo = $(this).attr("idvehiculo");
             let idcliente = $(this).attr("idcliente");
 
@@ -978,12 +1193,10 @@ if (
                 allowOutsideClick: false,
             }).then((result) => {
                 if (result.value == true) {
-
                     var datos = new FormData();
                     datos.append("EliminarVehiculoCliente", "ok");
                     datos.append("idcliente", idcliente);
                     datos.append("idvehiculo", idvehiculo);
-                    
 
                     $.ajax({
                         type: "POST",
@@ -1010,7 +1223,6 @@ if (
                 }
             });
         });
-        
     });
 }
 /* ===================================================
@@ -1055,7 +1267,8 @@ if (
             var buttons = [
                 {
                     extend: "excel",
-                    className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
+                    className: "border-0 bg-gradient-olive",
+                    text: '<i class="fas fa-file-excel"></i> Exportar',
                 },
             ];
             var table = dataTableCustom(`#tblOrdenServicio`, buttons);

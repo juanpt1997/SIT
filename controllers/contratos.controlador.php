@@ -397,6 +397,7 @@ class ControladorCotizaciones
 
                             include './config/correos_difusion.php';
                             $listaCorreos = CorreosDifusion::ListaCotizaciones();
+                            echo $listaCorreos; 
                             //$emailDestino = explode(",", $listaCorreos);
                             $subject = "Nueva cotización - {$_POST['nom_contrata']}";
                             $logo = URL_APP . "views/img/plantilla/logo.png";
@@ -421,23 +422,23 @@ class ControladorCotizaciones
                                     </html>";
                             ControladorCorreo::ctrEnviarCorreo($listaCorreos, $subject, $message);
 
-                            echo "
-                                <script>
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Cotización añadida correctamente!',						
-                                    showConfirmButton: true,
-                                    confirmButtonText: 'Cerrar',
+                            // echo "
+                            //     <script>
+                            //     Swal.fire({
+                            //         icon: 'success',
+                            //         title: 'Cotización añadida correctamente!',						
+                            //         showConfirmButton: true,
+                            //         confirmButtonText: 'Cerrar',
                                     
-                                }).then((result)=>{
+                            //     }).then((result)=>{
                                     
-                                    if(result.value){
-                                    window.location = 'contratos-cotizaciones';
-                                    }
+                            //         if(result.value){
+                            //         window.location = 'contratos-cotizaciones';
+                            //         }
                                     
-                                })
-                                </script>
-                                ";
+                            //     })
+                            //     </script>
+                            //     ";
                         } else {
                             echo "
                                 <script>

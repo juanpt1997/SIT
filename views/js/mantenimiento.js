@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function () {3
     /* ===================================================
     * INVENTARIO
     ===================================================*/
@@ -4105,7 +4105,7 @@ $(document).ready(function () {
             datos.append("nombreSelect", nombre);
             $.ajax({
                 type: "POST",
-                url: `${urlPagina}ajax/almacen.ajax.php`,
+                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
                 data: datos,
                 cache: false,
                 contentType: false,
@@ -4120,5 +4120,44 @@ $(document).ready(function () {
                 },
             });
         };
+
+        $("#registro-llantas").on("show.bs.modal", function () {
+            cargarSelect("marca");
+            cargarSelect("medida");
+            cargarSelect("categoria");
+            cargarSelect("sucursal");
+        });
+
+        //SUBMIT del formulario que agrega llantas
+        $("#formulario_LlantasControl").submit(function (e) {
+            e.preventDefault();
+
+            var datosAjax = new FormData();
+            datosAjax.append("AgregarLlanta", "ok");
+            var datosFrm = $(this).serializeArray();
+            datosFrm.forEach((element) => {
+                datosAjax.append(element.name, element.value);
+            });
+
+            $.ajax({
+                type: "post",
+                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                data: datosAjax,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response != "") {
+
+                        console.log(response);
+                        
+
+
+
+                    }
+                },
+            });
+        });
+
     }
 });
