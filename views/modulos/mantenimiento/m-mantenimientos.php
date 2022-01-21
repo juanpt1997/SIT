@@ -129,10 +129,14 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                         </div>
 
                                                         <div class="col-9 mt-3">
-                                                            <button type="submit" id="guardar_orden" form="ordenServ_form" class="btn btn-success mb-2 col fileinput-button dz-clickable">
-                                                                <i class="fas fa-plus"></i>
-                                                                <span>Guardar</span>
-                                                            </button>
+                                                            <?php if (validarPermiso('M_MANTENIMIENTO', 'U')) : ?>
+
+                                                                <button type="submit" id="guardar_orden" form="ordenServ_form" class="btn btn-success mb-2 col fileinput-button dz-clickable">
+                                                                    <i class="fas fa-plus"></i>
+                                                                    <span>Guardar</span>
+                                                                </button>
+                                                            <?php endif ?>
+
 
                                                             <button type="reset" class="btn btn-warning col cancel mb-2" id="btn-restablecer">
                                                                 <i class="fas fa-broom"></i>
@@ -1823,7 +1827,10 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
 
 
                     <div class="modal-footer">
-                        <button type="submit" form="asume_form" class="btn btn-success">Guardar</button>
+                        <?php if (validarPermiso('M_MANTENIMIENTO', 'U')) : ?>
+                            <button type="submit" form="asume_form" class="btn btn-success">Guardar</button>
+                        <?php endif ?>
+
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
@@ -2204,7 +2211,10 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
             </div>
 
             <div class="modal-footer">
-                <button type="submit" form="Guardarprogramacion_form" class="btn btn-success">Guardar</button>
+                <?php if (validarPermiso('M_MANTENIMIENTO', 'U')) : ?>
+                    <button type="submit" form="Guardarprogramacion_form" class="btn btn-success">Guardar</button>
+                <?php endif ?>
+
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
             </div>
 
