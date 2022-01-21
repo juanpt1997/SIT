@@ -396,45 +396,48 @@ class ControladorCotizaciones
                             # Enviar correo de notificación
 
                             include './models/mail.modelo.php';
-                            $listaCorreos = ModeloCorreos::mdlListarCorreos("COTIZACIONES");
-
+                            //cadena que guarda los correos seguidos de coma
                             $cadenaCorreos = "";
-
+                            //Traer la lista de correos que coincidan con cotizaciones
+                            $listaCorreos = ModeloCorreos::mdlListarCorreos("COTIZACIONES");
+                            //Saber el tamaño de la lista de correos
                             $tamanio = count($listaCorreos);
+                            //Si la lista está vacia no haga nada, de lo contrario envie el correo a la lista de correos
+                            if (empty($listaCorreos)) {
 
-                            foreach ($listaCorreos as $key => $value) {
+                                // echo "vacio";
+                                
+                            } else {
+                                foreach ($listaCorreos as $key => $value) {
 
-                                if ($key == $tamanio - 1) {
-                                    $cadenaCorreos .= $value["correo"];
-                                } else {
-                                    $cadenaCorreos .= $value["correo"] . ",";
+                                    if ($key == $tamanio - 1) {
+                                        $cadenaCorreos .= $value["correo"];
+                                    } else {
+                                        $cadenaCorreos .= $value["correo"] . ",";
+                                    }
                                 }
-                            }
 
-                            echo $cadenaCorreos;
-                            //$emailDestino = explode(",", $listaCorreos);
-                            $subject = "Nueva cotización - {$_POST['nom_contrata']}";
-                            $logo = URL_APP . "views/img/plantilla/logo.png";
-                            $message = "<html>
-                                    <body>
-                                    
-                                        <img src='$logo' style='width:200px;'>
-                                        <h3><b><u>Fecha solicitud:</u></b> {$_POST['f_sol']}</h3>
-                                        <h3><b><u>Cliente:</u></b> {$_POST['nom_contrata']}</h3>
-                                        <h3><b><u>Dirección:</u></b> {$_POST['direcci']}</h3>
-                                        <h3><b><u>Teléfono:</u></b> {$_POST['tel1']}</h3>
-                                        <h3><b><u>Fecha inicio:</u></b> {$_POST['f_inicio']}</h3>
-                                        <h3><b><u>Fecha fin:</u></b> {$_POST['f_fin']}</h3>
-                                        <h3><b><u>Hora salida:</u></b> {$_POST['h_salida']}</h3>
-                                        <h3><b><u>Hora recogida:</u></b> {$_POST['h_recog']}</h3>
-                                        <h3><b><u>Origen:</u></b> {$_POST['origin']}</h3>
-                                        <h3><b><u>Destino:</u></b> {$_POST['destin']}</h3>
-                                        <br>
-                                        <br><i> Email generado automáticamente, por favor no responder este correo.</i>
-                                    
-                                    </body>
+                                $subject = "Nueva cotización - {$_POST['nom_contrata']}";
+                                $logo = URL_APP . "views/img/plantilla/logo.png";
+                                $message = "<html>
+                                        <body>
+                                            <img src='$logo' style='width:200px;'>
+                                            <h3><b><u>Fecha solicitud:</u></b> {$_POST['f_sol']}</h3>
+                                            <h3><b><u>Cliente:</u></b> {$_POST['nom_contrata']}</h3>
+                                            <h3><b><u>Dirección:</u></b> {$_POST['direcci']}</h3>
+                                            <h3><b><u>Teléfono:</u></b> {$_POST['tel1']}</h3>
+                                            <h3><b><u>Fecha inicio:</u></b> {$_POST['f_inicio']}</h3>
+                                            <h3><b><u>Fecha fin:</u></b> {$_POST['f_fin']}</h3>
+                                            <h3><b><u>Hora salida:</u></b> {$_POST['h_salida']}</h3>
+                                            <h3><b><u>Hora recogida:</u></b> {$_POST['h_recog']}</h3>
+                                            <h3><b><u>Origen:</u></b> {$_POST['origin']}</h3>
+                                            <h3><b><u>Destino:</u></b> {$_POST['destin']}</h3>
+                                            <br>
+                                            <br><i> Email generado automáticamente, por favor no responder este correo.</i>
+                                        </body>
                                     </html>";
-                            ControladorCorreo::ctrEnviarCorreo($cadenaCorreos, $subject, $message);
+                                ControladorCorreo::ctrEnviarCorreo($cadenaCorreos, $subject, $message);
+                            }
 
                             // echo "
                             //     <script>
