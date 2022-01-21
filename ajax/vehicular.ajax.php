@@ -50,6 +50,9 @@ class AjaxPropietarios
 
         foreach ($respuesta as $key => $value) {
             $tr .= "<tr>
+            <td>
+            <button type='button' class='btn btn-sm btn-FTVehiculo' title='Ver ficha tecnica' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-lg fa-book text-secondary'></i></button>
+            </td>
             <td>" . $value['placa'] . "</td>
             <td>" . $value['participacion'] . "</td>
             <td>" . $value['observacion'] . "</td>

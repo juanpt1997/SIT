@@ -324,6 +324,7 @@ $Placas = ControladorVehiculos::ctrListaVehiculos();
                 <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100 text-center" id="tablaVehiculosxPropietarios">
                     <thead class="thead-light text-uppercase text-sm text-center">
                         <tr>
+                            <th>...</th>
                             <th>Vehículo</th>
                             <th>Porcentaje de participación</th>
                             <th>observación</th>

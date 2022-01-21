@@ -255,9 +255,30 @@ if (
                 } else {
                     $("#tbodyVehiculosxPropietarios").html("");
                 }
+
+                /* ===================================================
+                   INICIALIZAR DATATABLE PUESTO QUE ESTO CARGA POR AJAX
+                   ===================================================*/
+                    var buttons = [
+                      { extend: 'excel', className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar' }
+                    ];
+                    var table = dataTableCustom(`#tablaVehiculosxPropietarios`, buttons);
             },
         });
     };
+
+
+    /* ===================================================
+            FICHA TÉCNICA VEHICULO - BOTON PARA GENERAR PDF
+        ===================================================*/
+        $(document).on("click", ".btn-FTVehiculo", function () {
+            var idvehiculo = $(this).attr("idvehiculo");
+            window.open(
+                `./pdf/pdfvehiculo.php?idvehiculo=${idvehiculo}`,
+                "",
+                "width=1280,height=720,left=50,top=50,toolbar=yes"
+            );
+        });
 }
 
 if (
