@@ -14,7 +14,8 @@ class ControladorEmpresa
 	#Agregar/ Editar una empresa (la opcion de agregar se encuentra inhabilitada)
 	static public function ctrAgregarEditarEmpresa($POST, $imagen)
 	{
-		$empresa = ModeloEmpresaRaiz::mdlVerEmpresa();
+		//$empresa = ModeloEmpresaRaiz::mdlVerEmpresa();
+		$empresa = ModeloEmpresaRaiz::mdlUnaEmpresa($_POST['id_empresa']);
 		$response = "";
 		# Verificar Directorio imagenes de firma en empresa
 		$directorio = DIR_APP . "views/img/plantilla/fuec/fotosFirmaEmpresa";

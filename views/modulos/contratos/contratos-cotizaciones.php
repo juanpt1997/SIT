@@ -7,6 +7,7 @@ if (!validarPermiso('M_CONTRATOS', 'R')) {
 $tvehiculos = ControladorVehiculos::ctrMostrarTipoVehiculo();
 $Sucursales = ControladorGH::ctrSucursales();
 $Cotizaciones = ControladorCotizaciones::ctrVerCotizacion();
+$Empresas = ControladorEmpresa::ctrListaEmpresa();
 $clientes = ControladorClientes::ctrVerCliente();
 $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 $Rutas = ControladorRutas::ctrListarRutas();
@@ -424,9 +425,9 @@ $Rutas = ControladorRutas::ctrListarRutas();
                                 <div class="input-group input-group-sm">
                                     <select class="form-control" type="text" id="empres" name="empres" required>
                                         <option selected value="">-Seleccione una opción-</option>
-                                        <option>El SAMAN</option>
-                                        <option>JOMAR</option>
-                                        <option>AGRECON</option>
+                                        <?php foreach ($Empresas as $key => $value) : ?>
+                                            <option value="<?= $value['id'] ?>"><?= $value['razon_social'] ?></option>
+                                        <?php endforeach ?>
                                     </select>
                                 </div>
                             </div>

@@ -404,16 +404,16 @@ class ControladorCotizaciones
                                     <body>
                                     
                                         <img src='$logo' style='width:200px;'>
-                                        <h3><b>Fecha solicitud: </b>{$_POST['f_sol']}</h3>
-                                        <h3><b>Cliente: </b>{$_POST['nom_contrata']}</h3>
-                                        <h3><b>Dirección: </b>{$_POST['direcci']}</h3>
-                                        <h3><b>Teléfono: </b>{$_POST['tel1']}</h3>
-                                        <h3><b>Fecha inicio: </b>{$_POST['f_inicio']}</h3>
-                                        <h3><b>Fecha fin: </b>{$_POST['f_fin']}</h3>
-                                        <h3><b>Hora salida: </b>{$_POST['h_salida']}</h3>
-                                        <h3><b>Hora recogida: </b>{$_POST['h_recog']}</h3>
-                                        <h3><b>Origen: </b>{$_POST['origin']}</h3>
-                                        <h3><b>Destino: </b>{$_POST['destin']}</h3>
+                                        <h3><b><u>Fecha solicitud:</u></b> {$_POST['f_sol']}</h3>
+                                        <h3><b><u>Cliente:</u></b> {$_POST['nom_contrata']}</h3>
+                                        <h3><b><u>Dirección:</u></b> {$_POST['direcci']}</h3>
+                                        <h3><b><u>Teléfono:</u></b> {$_POST['tel1']}</h3>
+                                        <h3><b><u>Fecha inicio:</u></b> {$_POST['f_inicio']}</h3>
+                                        <h3><b><u>Fecha fin:</u></b> {$_POST['f_fin']}</h3>
+                                        <h3><b><u>Hora salida:</u></b> {$_POST['h_salida']}</h3>
+                                        <h3><b><u>Hora recogida:</u></b> {$_POST['h_recog']}</h3>
+                                        <h3><b><u>Origen:</u></b> {$_POST['origin']}</h3>
+                                        <h3><b><u>Destino:</u></b> {$_POST['destin']}</h3>
                                         <br>
                                         <br><i> Email generado automáticamente, por favor no responder este correo.</i>
                                     

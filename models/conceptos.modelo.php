@@ -212,7 +212,10 @@ class ModeloEmpresaRaiz
     //Listar empresa
     static public function mdlVerEmpresa()
     {
-        $sql = "SELECT * FROM empresa LIMIT 1";
+        $sql = "SELECT *
+                FROM empresa
+                WHERE principal = 1
+                LIMIT 1";
         $stmt = Conexion::conectar()->prepare($sql);
 
         $stmt->execute();
@@ -223,7 +226,7 @@ class ModeloEmpresaRaiz
     //Listar todas las empresas (deshabilitado)
     static public function mdlListaEmpresa()
     {
-        $sql = "SELECT * FROM empresa";
+        $sql = "SELECT * FROM empresa WHERE activo = 1";
         $stmt = Conexion::conectar()->prepare($sql);
 
         $stmt->execute();
