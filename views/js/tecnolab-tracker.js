@@ -166,7 +166,7 @@ if (
             MARCADOR PERSONALIZADO
         ==============================================*/
     var custom_marker = L.icon({
-        iconUrl: "../elsaman/views/img/imgTracker/coche.png", //../views/img/plantilla/plantillapdf.png
+        iconUrl: `${urlPagina}/views/img/imgTracker/coche.png`, 
         iconSize: [70, 71],
         iconAnchor: [22, 61],
     });

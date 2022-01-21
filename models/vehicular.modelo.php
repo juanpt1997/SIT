@@ -46,7 +46,8 @@ class ModeloPropietarios
 
         $docum = $datos["documento"];
 
-        $stmt = Conexion::conectar()->prepare("INSERT INTO propietario(tipodoc,documento,nombre,telef,direccion,email,idciudad)
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO propietario(tipodoc,documento,nombre,telef,direccion,email,idciudad)
                                                 VALUES(:tipodoc,:documento,:nombre,:telef,:direccion,:email,:idciudad)");
 
         $stmt->bindParam(":documento", $datos["documento"], PDO::PARAM_STR);
@@ -58,7 +59,7 @@ class ModeloPropietarios
         $stmt->bindParam(":idciudad", $datos["ciudadpro"], PDO::PARAM_INT);
 
         if ($stmt->execute()) {
-            $retorno = "ok";
+            $id = $conexion->lastInsertId();
         } else {
             $retorno = "error";
         }
@@ -66,7 +67,7 @@ class ModeloPropietarios
         $stmt->closeCursor();
         $stmt = null;
 
-        return $retorno;
+        return $id;
     }
 
     /*===========================
@@ -122,6 +123,23 @@ class ModeloPropietarios
         $stmt = null;
 
         return $retorno;
+    }
+
+    /* ===================================================
+        TABLA VEHICULOS X PROPIETARIOS
+    ===================================================*/
+    static public function mdlTablaVehiculoPropietarios($idxp){
+        $stmt = Conexion::conectar()->prepare("SELECT vp.*, v.placa FROM v_re_propietariosvehiculos vp 
+        INNER JOIN v_vehiculos v ON vp.idvehiculo = v.idvehiculo
+        WHERE vp.idpropietario = :idxp");
+
+        $stmt->bindParam(":idxp", $idxp, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+
     }
 }
 
