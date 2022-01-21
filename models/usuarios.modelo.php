@@ -26,7 +26,8 @@ class ModeloUsuarios
         } else {
             $stmt = Conexion::conectar()->prepare("SELECT u.*, p.perfil
                                                     FROM l_usuarios u
-                                                    inner join l_perfiles p on u.idPerfil = p.idPerfil");
+                                                    inner join l_perfiles p on u.idPerfil = p.idPerfil
+                                                    WHERE p.perfil != 'DESARROLLADOR'");
 
             $stmt->execute();
 
