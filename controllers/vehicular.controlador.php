@@ -18,91 +18,43 @@ class ControladorPropietarios
 	}
 
 	//==============AGREGAR/EDITAR PROPIETARIO=========//
-	public function ctrAgregarEditar()
+	static public function ctrAgregarEditar($datos)
 	{
+		
+		if (isset($datos['documento'])) {
 
-		if (isset($_POST['documento'])) {
+			$propietarioExistente = ModeloPropietarios::mdlMostrar($datos['documento']);
 
-			$propietarioExistente = ModeloPropietarios::mdlMostrar($_POST['documento']);
-
-			$datos = array(
-				'idxp' => $_POST['idxp'],
-				'documento' => $_POST['documento'],
-				'tdocumento' => $_POST['tdocumento'],
-				'nombre' => $_POST['nombre'],
-				'telpro' => $_POST['telpro'],
-				'dirpro' => $_POST['dirpro'],
-				'emailp' => $_POST['emailp'],
-				'ciudadpro' => $_POST['ciudadpro']
+			$datos2 = array(
+				'idxp' => $datos['idxp'],
+				'documento' => $datos['documento'],
+				'tdocumento' => $datos['tdocumento'],
+				'nombre' => $datos['nombre'],
+				'telpro' => $datos['telpro'],
+				'dirpro' => $datos['dirpro'],
+				'emailp' => $datos['emailp'],
+				'ciudadpro' => $datos['ciudadpro']
 			);
 
-			if (is_array($propietarioExistente) && $propietarioExistente['idxp'] != $_POST['idxp']) {
-				echo "
-							<script>
-								Swal.fire({
-									icon: 'warning',
-									title: '¡Propietario ya existe!',						
-									showConfirmButton: true,
-									confirmButtonText: 'Cerrar',
-									
-								}).then((result)=>{
-
-									if(result.value){
-										window.location = 'v-propietarios';
-									}
-
-								})
-							</script>
-						";
-				return;
+			if (is_array($propietarioExistente) && $propietarioExistente['idxp'] != $datos['idxp']) {
+				return "existe";
 			} else {
-				if ($_POST['idxp'] == '') {
+				if ($datos['idxp'] == '') {
 
 
-					$responseModel = ModeloPropietarios::mdlAgregar($datos);
+					$responseModel = ModeloPropietarios::mdlAgregar($datos2);
 
-					if ($responseModel == "ok") {
+					if (is_numeric($responseModel)) {
 
-						echo "
-								<script>
-									Swal.fire({
-										icon: 'success',
-										title: '¡Propietario añadido correctamente!',						
-										showConfirmButton: true,
-										confirmButtonText: 'Cerrar',
-										
-									}).then((result)=>{
-		
-										if(result.value){
-											window.location = 'v-propietarios';
-										}
-		
-									})
-								</script>
-							";
+						return $responseModel;
 					} else {
-						echo "
-								<script>
-									Swal.fire({
-										icon: 'warning',
-										title: '¡Problema al añadir el propietario!',						
-										showConfirmButton: true,
-										confirmButtonText: 'Cerrar',
-										
-									}).then((result)=>{
-		
-										if(result.value){
-											window.location = 'v-propietarios';
-										}
-		
-									})
-								</script>
-							";
+
+						return "error";
 					}
 				} else {
 
 
-					$responseModel = ModeloPropietarios::mdlEditar($datos);
+					$responseModel = ModeloPropietarios::mdlEditar($datos2);
 
 					if ($responseModel == "ok") {
 
