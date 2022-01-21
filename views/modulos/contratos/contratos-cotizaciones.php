@@ -47,12 +47,13 @@ $Rutas = ControladorRutas::ctrListarRutas();
                         <i class="fas fa-file-invoice-dollar"></i> Agregar nueva cotización
                     </button>
                 </div>
-
-                <div class="btn-group">
-                    <button type="button" class="btn btn-md bg-gradient-lightblue" data-toggle="modal" data-target="#difusion_correo">
-                        <i class="fas fa-envelope"></i> Lista de difusión
-                    </button>
-                </div>
+                <?php if (validarPermiso('M_OPCIONES', 'U')) : ?>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-md bg-gradient-lightblue" data-toggle="modal" data-target="#difusion_correo">
+                            <i class="fas fa-envelope"></i> Lista de difusión
+                        </button>
+                    </div>
+                <?php endif ?>
             </div>
 
             <div class="row mt-2">
