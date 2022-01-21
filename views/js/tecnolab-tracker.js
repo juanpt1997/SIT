@@ -1,142 +1,3 @@
-// let map;
-// let marcadores = [];
-
-// const CrearMarcador = (coord, nombre) => {
-//     let html = nombre;
-
-//     const marcador = new google.maps.Marker({
-//         position: coord,
-//         map: map,
-//       });
-
-//       const infowindow = new google.maps.InfoWindow({
-//         content: html,
-//       });
-
-//     google.maps.event.addListener(marcador, "click", () => {
-//         infowindow.open({
-//             anchor: marcador,
-//             map: map,
-//             shouldFocus: false,
-//         });
-
-//     });
-
-//     marcadores.push(marcador);
-// };
-
-// let lugares = [
-//     {
-//         name: "Oficina",
-//         lat: 4.831005177695691,
-//         lng: -75.69797583132306,
-//         address: "Entrada la graciela, vía el pollo",
-//         phone: "321284891",
-//     },
-//     {
-//         name: "Avenida Regional",
-//         lat: 6.250736407386298,
-//         lng: -75.57878098613203,
-//         address: "Avenida Regional, Medellín",
-//         phone: "3235235234",
-//     },
-//     {
-//         name: "Museo botero",
-//         lat: 4.597265695257339,
-//         lng: -74.07183358128225,
-//         address: "Museo Botero, Bogotá",
-//         phone: "38292342",
-//     },
-//     {
-//         name: "Zoologico barranquilla",
-//         lat: 11.01413540162625,
-//         lng: -74.79724977164044,
-//         address: "Zoologico, Barranquilla",
-//         phone: "38292342",
-//     },
-//     {
-//         name: "Universidad cartagena",
-//         lat: 10.388477573044046,
-//         lng: -75.4664233226174,
-//         address: "Universidad de san Buenaventura, Cartagena",
-//         phone: "38292342",
-//     },
-//     {
-//         name: "Makro",
-//         lat: 4.823824652394727,
-//         lng: -75.68443182550892,
-//         address: "Makro, Pereira",
-//         phone: "39354334",
-//     },
-//     {
-//         name: "Santa Monica",
-//         lat: 4.825150314541477,
-//         lng: -75.6790244924601,
-//         address: "Hospital Santa Monica, Dosquebradas",
-//         phone: "234234234",
-//     },
-// ];
-
-// //RECORRE LUGARES Y CREA MARCADORES
-// const MarcarLugares = () => {
-//     lugares.forEach((element) => {
-//         let coord = new google.maps.LatLng(element.lat, element.lng);
-//         let nombre = element.name;
-//         CrearMarcador(coord, nombre);
-//         // console.log(element);
-//     });
-// };
-
-// // MarcarLugares();
-// //Inicializa el mapa
-// function initMap() {
-//     let oficina = { lat: 4.831005177695691, lng: -75.69797583132306 };
-
-//     map = new google.maps.Map(document.getElementById("map"), {
-//         center: oficina,
-//         zoom: 17,
-//         mapId: "768187b9c45dab96", //Id del mapa que se personaliza a través de la plataforma de google, se debe agregar como otra variable en el script de la api,antes del callback
-//     });
-
-//     MarcarLugares();
-//     const marker = new google.maps.Marker({
-//         position: oficina,
-//         map: map,
-//         // icon: "/bus.png"
-//     });
-
-//     const infowindow = new google.maps.InfoWindow({
-//       content: "Oficina",
-//     });
-
-//     google.maps.event.addListener(marker, "click", () => {
-//       infowindow.open({
-//           anchor: marker,
-//           map: map,
-//           shouldFocus: false,
-//       });
-//     })
-
-//     const flightPlanCoordinates = [
-//       { lat: 4.831005177695691, lng: -75.69797583132306 },
-//       { lat: 21.291, lng: -157.821 },
-//       { lat: -18.142, lng: 178.431 },
-//       { lat: -27.467, lng: 153.027 },
-//     ];
-//     const flightPath = new google.maps.Polyline({
-//       path: flightPlanCoordinates,
-//       geodesic: true,
-//       strokeColor: "#FF0000",
-//       strokeOpacity: 1.0,
-//       strokeWeight: 2,
-//     });
-
-//     flightPath.setMap(map);
-// }
-
-//ACESS TOKERN
-//  //styles/jhojaaan/ckybqcm1c4rf314p9s2wampox   pk.eyJ1IjoiamhvamFhYW4iLCJhIjoiY2t5YnFnenQ0MGh1NDJ2bXJuNHAyYzNwNyJ9.G2RDhoh0k89zZdQCJIdZMw
-
 if (
     window.location.href == `${urlPagina}tr-gps/` ||
     window.location.href == `${urlPagina}tr-gps`
@@ -177,15 +38,14 @@ if (
             }
         ).addTo(map);
 
-
-            L.circle([4.814496008354692, -75.69285895928363], {radius: 200}).addTo(map);
+        // L.circle([4.814496008354692, -75.69285895928363], {radius: 1000}).addTo(map);
 
         //Botones con funcionalidades
         L.control
             .custom({
                 position: "topright",
                 content:
-                    '<button type="button" class="btn btn-default">' +
+                    '<button type="button" class="btn btn-default mallas">' +
                     '    <i class="fa fa-crosshairs"></i>' +
                     "</button>" +
                     '<button type="button" class="btn btn-info">' +
@@ -251,8 +111,8 @@ if (
                     "</div>" +
                     "    </div>" +
                     '<div class="card-body">' +
-                    '<div class="table-responsive mt-2">' +
-                    '<table id="tablaVehiculos" class="table table-sm table-striped table-bordered dt-responsive table-hover tablas w-100">' +
+                    '<div class="table-responsive">' +
+                    '<table id="tablaVehiculos" class="table table-sm table-striped table-bordered table-hover tablas w-100">' +
                     '<thead class="thead-light text-sm text-center">' +
                     "<tr>" +
                     "<th>Acciones</th>" +
@@ -270,11 +130,11 @@ if (
                     margin: "10px",
                     padding: "0px 0 0 0",
                     cursor: "pointer",
-                    width: "220px",
+                    width: "530px",
                 },
-                datas: {
-                    foo: "bar",
-                },
+                // datas: {
+                //     foo: "bar",
+                // },
                 // events:
                 // {
                 //     click: function(data)
@@ -295,6 +155,9 @@ if (
                 // }
             })
             .addTo(map);
+
+            
+           
     };
 
     iniciar_mapa();
@@ -303,7 +166,7 @@ if (
             MARCADOR PERSONALIZADO
         ==============================================*/
     var custom_marker = L.icon({
-        iconUrl: "../elsaman/views/img/imgTracker/coche.png", //../views/img/plantilla/plantillapdf.png
+        iconUrl: `${urlPagina}/views/img/imgTracker/coche.png`, 
         iconSize: [70, 71],
         iconAnchor: [22, 61],
     });
@@ -351,6 +214,10 @@ if (
 
             $("#tbodyVehiculos").append(contenido);
         });
+
+        var buttons = [];
+
+        var table = dataTableCustom(`#tablaVehiculos`, buttons);
     };
 
     /*============================================
@@ -361,7 +228,7 @@ if (
             if (element.placa == placa) {
                 // map.panTo(new L.LatLng(element.lat, element.lng));
                 map.flyTo([element.lat, element.lng], 17); //Centramos el mapa
-                var popup = L.popup() //Abrimos el popup con la info del vehículo 
+                var popup = L.popup() //Abrimos el popup con la info del vehículo
                     .setLatLng([element.lat, element.lng])
                     .setContent(
                         `<p>Vehículo:<strong> <span class="bg-warning text-dark p-1 border border-dark"> ${element.placa}</span></strong></p>
@@ -381,7 +248,48 @@ if (
         ubicar_vehiculo(placa, Vehiculos);
     });
 
+    /*============================================
+        CLICK EN CREAR MALLAS 
+    ==============================================*/
+    // $(document).on("click", ".mallas", function () {
+
+    //     const formValues = () =>{} Swal.fire({
+    //         title: "Crear nueva malla",
+    //         html:
+    //             '<label>Ingresar nombre de la malla </label>' +
+    //             '<input id="nombre_malla" class="form-control">' +
+    //             '<label class="mt-2">Ingresar radio de la malla (Km)</label>'+
+    //             '<input id="radio_malla" class="form-control">',
+    //         focusConfirm: false,
+    //         preConfirm: () => {
+                
+    //             return [
+    //                 document.getElementById("nombre_malla").value,
+    //                 document.getElementById("radio_malla").value,
+    //             ];
+    //         },
+    //     });
+
+    //     if (formValues) {
+    //         console.log("entre");
+    //         Swal.fire(JSON.stringify(formValues));
+    //     }
+
+    //     map.on("click", function (e) {
+    //         var popLocation = e.latlng;
+
+    //         var popup = L.popup()
+    //             .setLatLng(popLocation)
+    //             .setContent("<p>Hello world!<br />This is a nice popup.</p>")
+    //             .openOn(map);
+    //     });
+    // });
+
     //ARRAY CON INFORMACIÓN DE LOS VEHÍCULOS
+    
+    
+    
+    
     var Vehiculos = [
         {
             placa: "RFK405",
@@ -413,7 +321,6 @@ if (
     marcadores(Vehiculos);
     lista_vehiculos(Vehiculos);
 
-
     // L.Routing.control({
     //     waypoints: [
     //         L.latLng(4.818690612367718, -75.71297155516983),
@@ -422,6 +329,4 @@ if (
     //     ],
     //     show: false
     //   }).addTo(map);
-
-  
 }

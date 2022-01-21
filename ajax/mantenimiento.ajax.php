@@ -279,7 +279,7 @@ class AjaxMantenimientos
 
         $tr = "";
         foreach ($respuesta as $key => $value) {
-            if (validarPermiso('M_OPCIONES', 'D')) {
+            if (validarPermiso('M_MANTENIMIENTO', 'D')) {
                 $btnEliminarProgra = "<button type='button' class='btn btn-xs btn-danger btnBorrarProgramacion' idservicio='{$value['idservicio']}' idserviciovehiculo='{$value['idserviciovehiculo']}'><i class='fas fa-trash-alt'></i></button>";
             }
 

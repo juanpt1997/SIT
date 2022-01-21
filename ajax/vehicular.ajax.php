@@ -29,6 +29,38 @@ class AjaxPropietarios
         $respuesta = ModeloPropietarios::mdlEliminarPropietario($idxp);
         echo $respuesta;
     }
+
+    static public function AjaxGuardarEditarPropietario($datos){
+        $respuesta = ControladorPropietarios::ctrAgregarEditar($datos);
+        echo $respuesta;
+    }
+
+    static public function AjaxAsociarVehiculoxPropietario($datos)
+    {
+        $respuesta = ControladorVehiculos::ctrGuardarDetallesVehiculo($datos);
+        echo $respuesta;
+    }
+
+    static public function AjaxTablaVehiculosxPropietario($idxp)
+    {
+        
+        $respuesta = ModeloPropietarios::mdlTablaVehiculoPropietarios($idxp);
+
+        $tr = "";
+
+        foreach ($respuesta as $key => $value) {
+            $tr .= "<tr>
+            <td>
+            <button type='button' class='btn btn-sm btn-FTVehiculo' title='Ver ficha tecnica' idvehiculo='{$value['idvehiculo']}'><i class='fas fa-lg fa-book text-secondary'></i></button>
+            </td>
+            <td>" . $value['placa'] . "</td>
+            <td>" . $value['participacion'] . "</td>
+            <td>" . $value['observacion'] . "</td>
+                    </tr>";
+        }
+
+        echo $tr;
+    }
 }
 
 /* ===================================================
@@ -1180,3 +1212,12 @@ if(isset($_POST['EliminarEmpresa']) && $_POST['EliminarEmpresa'] == "ok") AjaxCo
 #LLAMADO A VEHICULOS X CONVENIO 
 
 if(isset($_POST['DatosVehiculoxConvenio']) && $_POST['DatosVehiculoxConvenio'] == "ok") AjaxConvenios::AjaxVehiculosxConvenios($_POST['idconvenio']);
+
+#LLAMADO A GUARDAR PROPIETARIO
+if(isset($_POST['GuardarEditarPropietario']) && $_POST['GuardarEditarPropietario'] == "ok") AjaxPropietarios::AjaxGuardarEditarPropietario($_POST);
+
+#LLAMADO A GUARDAR VEHICULO POR PROPIETARIO
+if(isset($_POST['GuardarVehiculoxPropietario']) && $_POST['GuardarVehiculoxPropietario'] == "ok") AjaxPropietarios::AjaxAsociarVehiculoxPropietario($_POST);
+
+#LLAMADO A TABLA DE VEHICULO POR PROPIETARIO
+if(isset($_POST['TablaVehiculosxPropietario']) && $_POST['TablaVehiculosxPropietario'] == "ok") AjaxPropietarios::AjaxTablaVehiculosxPropietario($_POST['idpropietario']);

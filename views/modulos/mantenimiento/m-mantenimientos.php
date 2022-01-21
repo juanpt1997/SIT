@@ -996,7 +996,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                         </div>
 
                                     </div>
-                                    <?php if (validarPermiso('M_OPCIONES', 'U')) : ?>
+                                    <?php if (validarPermiso('M_MANTENIMIENTO', 'U')) : ?>
                                         <div class="col-12 mb-1">
                                             <button type="submit" form="programacion_form" id="btn-guardarProgra" class="btn btn-sm btn-success float-center">
                                                 <i class="fas fa-print"></i>

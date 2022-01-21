@@ -265,7 +265,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
-                                                            <?php if (validarPermiso('M_OPCIONES', 'D')) : ?>
+                                                            <?php if (validarPermiso('M_MANTENIMIENTO', 'D')) : ?>
                                                                 <div class="btn-group" role="group" aria-label="Button group">
                                                                     <button class="btn btn-sm btn-danger btnBorrarRev" title="Eliminar revisión" idrevision="<?= $value['idtm'] ?>" idvehiculo="<?= $value['idvehiculo'] ?>"> <i class="fas fa-trash"></i> </button>
                                                                 </div>
@@ -4880,7 +4880,7 @@ $tiposDocumentacion = ControladorVehiculos::ctrTiposDocumentacion();
 
 
                                     <div class="modal-footer justify-content-center bg-dark">
-                                        <?php if (validarPermiso('M_OPCIONES', 'U')) : ?>
+                                        <?php if (validarPermiso('M_MANTENIMIENTO', 'U')) : ?>
                                             <button type="submit" form="datosrevision_form" class="btn btn-success btn-guardarRev"><i class="fas fa-print"></i> Guardar</button>
                                         <?php endif ?>
                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Volver</button>
