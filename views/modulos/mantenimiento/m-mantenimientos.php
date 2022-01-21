@@ -322,10 +322,19 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                                                                 <div class="input-group">
                                                                                                     <input id="documento_<?= $value['idtipo'] ?>" type="date" class="form-control documentos" readonly>
                                                                                                     <div class="input-group-append">
-                                                                                                        <button class="btn info-semaforotipo1" type="button">
+
+                                                                                                        <button class="btn info-semaforotipo1 btn-info-semaforotipo<?= $value['idtipo'] ?> d-none" type="button" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-exclamation-triangle"></i></button>
+                                                                                                        <div class="dropdown-menu">
+                                                                                                            <a class="dropdown-item"><i class="fas fa-circle text-danger"></i> Documento vencido.</a>
+                                                                                                            <a class="dropdown-item"><i class="fas fa-circle text-warning"></i> Documento próximo a vencer.</a>
+                                                                                                            <a class="dropdown-item"><i class="fas fa-circle text-success"></i> Documento vigente.</a>
+                                                                                                        </div>
+
+
+                                                                                                        <!-- <button class="btn info-semaforotipo1 btn-info-semaforotipo<?= $value['idtipo'] ?>" type="button">
                                                                                                             <i class="fas fa-exclamation-triangle"></i>
 
-                                                                                                        </button>
+                                                                                                        </button> -->
                                                                                                     </div>
                                                                                                 </div>
                                                                                             </div>

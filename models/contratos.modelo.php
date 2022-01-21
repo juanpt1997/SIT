@@ -423,7 +423,10 @@ class ModeloCotizaciones
          // LEFT JOIN gh_municipios m2 ON C.ciudad_res = m2.idmunicipio
          // LEFT JOIN gh_municipios m3 ON C.cedula_expedicion = m3.idmunicipio
          // INNER JOIN cont_clientes Cl ON C.idcliente = Cl.idcliente");
-         $stmt = Conexion::conectar()->prepare("SELECT C.idcotizacion, C.idcliente, C.empresa, C.idsucursal, 
+         $stmt = Conexion::conectar()->prepare("SELECT C.idcotizacion, C.idcliente, 
+                                                -- C.empresa, 
+                                                e.razon_social AS empresa, 
+                                                C.idsucursal, 
                                                 -- ori.municipio AS origen,
                                                 IF (C.idruta IS NULL, C.origen, ori.municipio) AS origen,
                                                 -- des.municipio AS destino,
@@ -445,6 +448,7 @@ class ModeloCotizaciones
                                                 LEFT JOIN gh_municipios AS des ON des.idmunicipio=rt.iddestino
                                                 INNER JOIN cont_clientes Cl ON C.idcliente = Cl.idcliente
                                                 LEFT JOIN l_usuarios u ON u.Cedula = C.user_created
+                                                inner join empresa e on e.id = C.empresa
                                                 ORDER BY C.user_created DESC");
 
          $stmt->execute();
