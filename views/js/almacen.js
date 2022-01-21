@@ -215,16 +215,7 @@ $(document).ready(function () {
                 
             }
         });
-        //EVENTO QUE VERIFICA CUANDO CAMBIA EL SWITCH PARA MOSTRAR SALIDAS O ENTRADAS
-        // $("#switch-offColor").on("switchChange.bootstrapSwitch", function (e, state) {
-        //     if(state){
-        //         $("#div_ver_inputs_entradas").addClass("d-none");
-        //         $("#div_ver_inputs_salidas").removeClass("d-none");
-        //     }else{
-        //         $("#div_ver_inputs_entradas").removeClass("d-none");
-        //         $("#div_ver_inputs_salidas").addClass("d-none");
-        //     }
-        // });
+
         //EVENTO AL ABRIR EL MODAL DE PRODUCTOS CARGA LOS DATOS DE LOS SELECT(proveedor, marca, medida,categoria,sucursales)
         $(document).on("shown.bs.modal", "#modal-productos", function () {
             cargarSelect("categoria");

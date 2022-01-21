@@ -395,8 +395,23 @@ class ControladorCotizaciones
 
                             # Enviar correo de notificación
 
-                            include './config/correos_difusion.php';
-                            $listaCorreos = CorreosDifusion::ListaCotizaciones();
+                            include './models/mail.modelo.php';
+                            $listaCorreos = ModeloCorreos::mdlListarCorreos("COTIZACIONES");
+
+                            $cadenaCorreos = "";
+
+                            $tamanio = count($listaCorreos);
+
+                            foreach ($listaCorreos as $key => $value) {
+
+                                if ($key == $tamanio - 1) {
+                                    $cadenaCorreos .= $value["correo"];
+                                } else {
+                                    $cadenaCorreos .= $value["correo"] . ",";
+                                }
+                            }
+
+                            echo $cadenaCorreos;
                             //$emailDestino = explode(",", $listaCorreos);
                             $subject = "Nueva cotización - {$_POST['nom_contrata']}";
                             $logo = URL_APP . "views/img/plantilla/logo.png";
@@ -419,25 +434,25 @@ class ControladorCotizaciones
                                     
                                     </body>
                                     </html>";
-                            ControladorCorreo::ctrEnviarCorreo($listaCorreos, $subject, $message);
+                            ControladorCorreo::ctrEnviarCorreo($cadenaCorreos, $subject, $message);
 
-                            echo "
-                                <script>
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Cotización añadida correctamente!',						
-                                    showConfirmButton: true,
-                                    confirmButtonText: 'Cerrar',
-                                    
-                                }).then((result)=>{
-                                    
-                                    if(result.value){
-                                    window.location = 'contratos-cotizaciones';
-                                    }
-                                    
-                                })
-                                </script>
-                                ";
+                            // echo "
+                            //     <script>
+                            //     Swal.fire({
+                            //         icon: 'success',
+                            //         title: 'Cotización añadida correctamente!',						
+                            //         showConfirmButton: true,
+                            //         confirmButtonText: 'Cerrar',
+
+                            //     }).then((result)=>{
+
+                            //         if(result.value){
+                            //         window.location = 'contratos-cotizaciones';
+                            //         }
+
+                            //     })
+                            //     </script>
+                            //     ";
                         } else {
                             echo "
                                 <script>

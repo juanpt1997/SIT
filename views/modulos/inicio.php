@@ -35,6 +35,13 @@
         background-size: cover;
         display: grid;
     }
+
+    .calendar-responsive {
+        display: grid;
+        grid-gap: 5px;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        grid-template-rows: repeat(2, 100px);
+    }
 </style>
 <!-- =================================================== CONTENT =================================================== -->
 <div class="content-wrapper">
@@ -473,50 +480,50 @@
 
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="custom-tabs-five-normal" role="tabpanel" aria-labelledby="custom-tabs-five-normal-tab">
+                            <div class="tab-pane fade calendar-responsive" id="custom-tabs-five-normal" role="tabpanel" aria-labelledby="custom-tabs-five-normal-tab">
                                 <div class="row">
                                     <!--SECCION PARA AÑADIR TAREAS-->
-                                    <div class="col-3">
-                                        <div class="card border-dark">
+                                    <div class="col-lg-3 col-12">
+                                        <div class="card border border-dark">
                                             <div class="card-header bg-gradient-lightblue">
-                                                <h1 class="card-title"><i class="fas fa-thumbtack" style="color: white;"></i> <i>CREAR TAREA</i></h1>
+                                                <h1 class="card-title"><i class="fas fa-thumbtack" style="color: white; "></i> <strong><i>CREAR TAREA</i></strong></h1>
                                             </div>
                                             <div class="card-body">
 
                                                 <div class="col">
-                                                    <div class="form-group text-center">
-                                                        <label style="font-family: 'Times New Roman', Times, serif;"><i>Título</i></label>
-                                                        <input type="text" class="form-control" id="titulo_tarea" name="titulo_tarea">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label" for="titulo_tarea"><i>Título</i></label>
+                                                        <input type="text" class="form-control is-valid" id="titulo_tarea" name="titulo_tarea">
                                                     </div>
                                                 </div>
 
                                                 <div class="col">
-                                                    <div class="form-group text-center">
-                                                        <label style="font-family: 'Times New Roman', Times, serif;"><i>Descripción</i></label>
-                                                        <input type="text" class="form-control" id="descripcion_tarea" name="descripcion_tarea">
+                                                    <div class="form-group">
+                                                        <label class="col-form-label" for="descripcion_tarea"><i>Descripción</i></label>
+                                                        <input type="text" class="form-control is-valid" id="descripcion_tarea" name="descripcion_tarea">
                                                     </div>
                                                 </div>
 
                                                 <div class="col">
-                                                    <div class="form-group text-center">
-                                                        <label style="font-family: 'Times New Roman', Times, serif;"><i>Fecha inicio</i></label>
+                                                    <div class="form-group">
+                                                        <label class="col-form-label" for="fecha_inicio"><i>Fecha inicio</i></label>
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
                                                             </div>
-                                                            <input class="form-control inventario" type="datetime-local" id="fecha_inicio" name="fecha_inicio" required>
+                                                            <input class="form-control is-valid" type="datetime-local" id="fecha_inicio" name="fecha_inicio" required>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="col">
-                                                    <div class="form-group text-center">
-                                                        <label style="font-family: 'Times New Roman', Times, serif;"><i>Fecha final</i></label>
+                                                    <div class="form-group">
+                                                        <label class="col-form-label" for="fecha_final"><i>Fecha final</i></label>
                                                         <div class="input-group">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
                                                             </div>
-                                                            <input class="form-control inventario" type="datetime-local" id="fecha_final" name="fecha_final" required>
+                                                            <input class="form-control is-valid" type="datetime-local" id="fecha_final" name="fecha_final" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -524,7 +531,7 @@
                                             <div class="card-footer bg-gradient-lightblue">
                                                 <div class="d-flex justify-content-center">
                                                     <div class="form-group">
-                                                        <button type="button" data-toggle="tooltip" data-placement="top" class="btn btn-sm btn-block bg-gradient-olive btn-flat btn-crearTarea" style="color: white;" data-original-title="Agregar nueva tarea.">
+                                                        <button type="button" data-toggle="tooltip" data-placement="top" class="btn btn-sm btn-block bg-gradient-light btn-flat btn-crearTarea" data-original-title="Agregar nueva tarea.">
                                                             <i class="fas fa-plus"></i> <strong>Añadir</strong>
                                                         </button>
                                                     </div>
@@ -534,7 +541,7 @@
 
                                         <hr class="bg-dark">
 
-                                        <div class="card card-tabs border-dark">
+                                        <div class="card card-tabs border border-dark">
                                             <div class="card-header">
                                                 <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist" style="text-decoration: none;">
                                                     <li class="pt-2 px-3">
@@ -569,8 +576,8 @@
                                         </div>
                                     </div>
                                     <!--SECCION PARA EL CALENDARIO-->
-                                    <div class="col-9">
-                                        <div class="card card-light border-dark">
+                                    <div class="col-lg-9 col-12">
+                                        <div class="card card-light border border-dark">
                                             <div class="card-body">
                                                 <div id="calendar">
 

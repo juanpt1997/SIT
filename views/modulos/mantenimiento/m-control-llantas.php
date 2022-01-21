@@ -50,109 +50,27 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         <div class="card-body">
 
                             <div class="table-responsive">
-                                <table class="table table-sm table-bordered table-striped text-center">
+                                <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tabla_llantas">
                                     <thead>
                                         <tr>
                                             <th>...</th>
                                             <th>Número llanta</th>
-                                            <th>Ciudad</th>
-                                            <th>Placa vehículo</th>
-                                            <th>Tamaño</th>
-                                            <th>Marca</th>
                                             <th>Referencia</th>
+                                            <th>Descripción</th>
+                                            <th>Tamaño</th>
+                                            <th>Categoria</th>
+                                            <th>Marca</th>
+                                            <th>Medida</th>
                                             <th>Vida</th>
-                                            <th>Cantidad</th>
+                                            <th>Fecha montaje</th>
+                                            <th>Kilometraje montaje</th>
+                                            <th>Lonas</th>
+                                            <th>Estado actual</th>
+                                            <th>Fecha factura</th>
+                                            <th>Número de factura</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                <div class='btn-group' role='group' aria-label='Button group'>
-                                                    <button title='Control/Seguimiento' data-toggle="modal" data-target="#seguimiento-llantas" class='btn btn-sm bg-gradient-primary btn-seguimiento'><i class="fas fa-calendar-check"></i></button>
-                                                </div>
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button title='Editar control' data-toggle="modal" data-target="#registro-llantas" class='btn btn-sm bg-gradient-info btn-editar-control'><i class="fas fa-edit"></i></button>
-                                                </div>
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button title='Eliminar control' class='btn btn-sm bg-gradient-danger btn-eliminar-control'><i class="fas fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                            <td>1</td>
-                                            <td>RISARALDA - PEREIRA</td>
-                                            <td>TEP997</td>
-                                            <td>255/70R16</td>
-                                            <td>Bridgstone</td>
-                                            <td>1</td>
-                                            <td></td>
-                                            <td>6</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <div class='btn-group' role='group' aria-label='Button group'>
-                                                    <button title='Control/Seguimiento' data-toggle="modal" data-target="#seguimiento-llantas" class='btn btn-sm bg-gradient-primary btn-seguimiento'><i class="fas fa-calendar-check"></i></button>
-                                                </div>
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button title='Editar control' data-toggle="modal" data-target="#registro-llantas" class='btn btn-sm bg-gradient-info btn-editar-control'><i class="fas fa-edit"></i></button>
-                                                </div>
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button title='Eliminar control' class='btn btn-sm bg-gradient-danger btn-eliminar-control'><i class="fas fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                            <td>2</td>
-                                            <td>RISARALDA - PEREIRA</td>
-                                            <td>JNE128</td>
-                                            <td>215/75R17.5</td>
-                                            <td>General</td>
-                                            <td>2</td>
-                                            <td></td>
-                                            <td>4</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <div class='btn-group' role='group' aria-label='Button group'>
-                                                    <button title='Control/Seguimiento' data-toggle="modal" data-target="#seguimiento-llantas" class='btn btn-sm bg-gradient-primary btn-seguimiento'><i class="fas fa-calendar-check"></i></button>
-                                                </div>
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button title='Editar control' data-toggle="modal" data-target="#registro-llantas" class='btn btn-sm bg-gradient-info btn-editar-control'><i class="fas fa-edit"></i></button>
-                                                </div>
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button title='Eliminar control' class='btn btn-sm bg-gradient-danger btn-eliminar-control'><i class="fas fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                            <td>3</td>
-                                            <td>RISARALDA - PEREIRA</td>
-                                            <td>LGH479</td>
-                                            <td>255/70R16</td>
-                                            <td>Bridgstone</td>
-                                            <td>3</td>
-                                            <td></td>
-                                            <td>3</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>
-                                                <div class='btn-group' role='group' aria-label='Button group'>
-                                                    <button title='Control/Seguimiento' data-toggle="modal" data-target="#seguimiento-llantas" class='btn btn-sm bg-gradient-primary btn-seguimiento'><i class="fas fa-calendar-check"></i></button>
-                                                </div>
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button title='Editar control' data-toggle="modal" data-target="#registro-llantas" class='btn btn-sm bg-gradient-info btn-editar-control'><i class="fas fa-edit"></i></button>
-                                                </div>
-                                                <div class="btn-group" role="group" aria-label="Button group">
-                                                    <button title='Eliminar control' class='btn btn-sm bg-gradient-danger btn-eliminar-control'><i class="fas fa-trash"></i></button>
-                                                </div>
-                                            </td>
-                                            <td>4</td>
-                                            <td>RISARALDA - PEREIRA</td>
-                                            <td>RFK405</td>
-                                            <td>LT31X10,50R15</td>
-                                            <td>Nankang</td>
-                                            <td>4</td>
-                                            <td></td>
-                                            <td>3</td>
-                                        </tr>
-
+                                    <tbody id="tbody_tabla_llantas">
                                     </tbody>
                                 </table>
                             </div>
@@ -170,7 +88,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 <!-- /.content-wrapper -->
 
 <div id="registro-llantas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="registro-llantas-title" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
 
             <div class="modal-header bg-gradient-info">
@@ -180,201 +98,256 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                 </button>
             </div>
 
-            <div class="modal-body">
+            <form id="formulario_LlantasControl" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
 
-                <div class="col">
-                    <div class="form-group">
-                        <label><i>Número de LLanta</i></label>
-                        <input class="form-control" type="number" id="num_llanta" max="9999" name="num_llanta" required>
-                    </div>
-                </div>
+                    <h4><i class="fas fa-angle-double-right"></i> <b><i>Asociar llanta a vehículo</i></b></h4>
 
-                <div class="col">
-                    <div class="form-group">
-                        <label><i>PLACA</i></label>
-                        <select id="placa" name="placa" class="form-control select2-single" type="number" style="width: 99%" required>
-                            <option value="" selected><b>-Lista de placas-</b></option>
-                            <?php foreach ($Placas as $key => $value) : ?>
-                                <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?></option>
-                            <?php endforeach ?>
-                        </select>
-                    </div>
-                </div>
+                    <hr class="my-4 bg-dark">
 
-                <hr class="my-4">
-
-                <div class="row">
-                    <div class="col-6">
+                    <div class="col">
                         <div class="form-group">
-                            <label>Tamaño</label>
-                            <select id="tama_llanta" name="tama_llanta" class="form-control" type="number" style="width: 99%" required>
-                                <option value="" selected><b>-Lista de tamaños llantas-</b></option>
-                                <option value="1">215/75R15</option>
-                                <option value="2">225/70R15</option>
-                                <option value="3">235/75R15</option>
-                                <option value="4">245/75R16</option>
-                                <option value="5">255/70R16</option>
-                                <option value="6">255/70R15C</option>
-                                <option value="7">205/75R17.5</option>
-                                <option value="8">215/75R17.5</option>
-                                <option value="9">LT31X10,50R15</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label>Marca</label>
-                            <select id="marca" name="marca" class="form-control" type="number" style="width: 99%" required>
-                                <option value="" selected>-Lista de marcas-</option>
-                                <option value="">Bridgstone</option>
-                                <option value="">Nankang</option>
-                                <option value="">Hifly</option>
-                                <option value="">Goodyear</option>
-                                <option value="">Pirelli</option>
-                                <option value="">Michelin</option>
-                                <option value="">Continental</option>
-                                <option value="">General</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label><i>Ciudad</i></label>
-                            <select id="ciudad" name="ciudad" class="form-control select2-single" type="number" style="width: 99%" required>
-                                <option value="" selected><b>-Lista de ciudades-</b></option>
-                                <?php foreach ($DeparMunicipios as $key => $value) : ?>
-                                    <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
-                                <?php endforeach ?>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="kilo_invent">Vida</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                                </div>
-                                <input class="form-control" type="number" id="vida_util" max="9999" name="vida_util" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="kilo_invent">Referencia</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-file-alt"></i></span>
-                                </div>
-                                <input class="form-control" type="text" id="referencia" max="9999" name="referencia" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="kilo_invent">Cantidad</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-cubes"></i></span>
-                                </div>
-                                <input class="form-control" type="number" id="cantidad" max="9999" name="cantidad" required>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="my-4">
-
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="fecha_montaje">Fecha factura</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
-                                </div>
-                                <input class="form-control" type="date" id="fecha_factura" name="fecha_factura" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="fecha_montaje">Num. Factura</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-bars"></i></span>
-                                </div>
-                                <input class="form-control" type="number" id="num_factura" name="num_factura" required>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="my-4">
-
-                <div class="row">
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="fecha_montaje">Fecha montaje</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
-                                </div>
-                                <input class="form-control" type="date" id="fecha_montaje" name="fecha_montaje" required>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="kilo_invent">Kilometraje montaje</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
-                                </div>
-                                <input class="form-control" type="number" id="kilo_montaje" max="9999" name="kilo_montaje" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-6">
-                        <div class="form-group">
-                            <label for="kilo_invent">Lonas</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-poll"></i></span>
-                                </div>
-                                <input class="form-control" type="number" id="lonas" max="9999" name="lonas" required>
-                            </div>
+                            <label><i>Número/Código de LLanta</i></label>
+                            <input class="form-control" type="number" id="num_llanta" max="9999" name="num_llanta" required>
                         </div>
                     </div>
 
                     <div class="col">
                         <div class="form-group">
-                            <label>Estado actual llanta</label>
-                            <select id="estado" name="estado" class="form-control" type="number" style="width: 99%" required>
-                                <option value="" selected><b>-Seleccione el estado actual-</b></option>
-                                <option value="montada">Montada</option>
-                                <option value="desmontada">Desmontada</option>
+                            <label><i>Descripción</i></label>
+                            <input type="text" class="form-control input_producto" id="descripcion" name="descripcion" placeholder="Descripción / Nombre de llanta" required>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-group">
+                            <label><i>PLACA</i></label>
+                            <select id="placa" name="placa" class="form-control select2-single" type="number" style="width: 99%" required>
+                                <option value="" selected><b>-Lista de placas-</b></option>
+                                <?php foreach ($Placas as $key => $value) : ?>
+                                    <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?></option>
+                                <?php endforeach ?>
                             </select>
                         </div>
                     </div>
 
+                    <hr class="my-4">
+
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Tamaño</label>
+                                <select id="tama_llanta" name="tama_llanta" class="form-control" type="number" style="width: 99%" required>
+                                    <option value="" selected><b>-Lista de tamaños llantas-</b></option>
+                                    <option value="215/75R15">215/75R15</option>
+                                    <option value="225/70R15">225/70R15</option>
+                                    <option value="235/75R15">235/75R15</option>
+                                    <option value="245/75R16">245/75R16</option>
+                                    <option value="255/70R16">255/70R16</option>
+                                    <option value="255/70R15C">255/70R15C</option>
+                                    <option value="205/75R17.5">205/75R17.5</option>
+                                    <option value="215/75R17.5">215/75R17.5</option>
+                                    <option value="LT31X10,50R15">LT31X10,50R15</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Marca</label>
+                                <select id="marca" name="marca" class="form-control" type="number" style="width: 99%" required>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label><i>Ciudad</i></label>
+                                <select id="sucursal" name="sucursal" class="form-control select2-single" type="number" style="width: 99%" required>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Categoria</label>
+                                <select id="categoria" name="categoria" class="form-control" type="number" style="width: 99%" required>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Medida</label>
+                                <select id="medida" name="medida" class="form-control" type="number" style="width: 99%" required>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="kilo_invent">Vida</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                    </div>
+                                    <input class="form-control" type="number" id="vida_util" max="9999" name="vida_util" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="kilo_invent">Referencia</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-file-alt"></i></span>
+                                    </div>
+                                    <input class="form-control" type="text" id="referencia" max="9999" name="referencia" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="kilo_invent">Cantidad</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-cubes"></i></span>
+                                    </div>
+                                    <input class="form-control" type="number" id="cantidad" max="9999" name="cantidad" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="fecha_montaje">Fecha factura</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
+                                    </div>
+                                    <input class="form-control" type="date" id="fecha_factura" name="fecha_factura" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="num_factura">Num. Factura</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-bars"></i></span>
+                                    </div>
+                                    <input class="form-control" type="number" id="num_factura" name="num_factura" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="precio">Precio de compra</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-dollar-sign"></i></span>
+                                    </div>
+                                    <input class="form-control" type="number" id="precio" name="precio" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label><i>Proveedor</i></label>
+                                <div class="input-group">
+                                    <select class="select2-single rounded-0" id="proveedor" name="proveedor" required>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <a href="c-proveedores" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nuevo proveedor" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="observaciones"><i>Observaciones</i></label>
+                                <textarea class="form-control" name="observaciones_salida" id="observaciones_salida" rows="2"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="fecha_montaje">Fecha montaje</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
+                                    </div>
+                                    <input class="form-control" type="date" id="fecha_montaje" name="fecha_montaje" required>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="kilo_invent">Kilometraje montaje</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
+                                    </div>
+                                    <input class="form-control" type="number" id="kilo_montaje" max="9999" name="kilo_montaje" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="kilo_invent">Lonas</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-poll"></i></span>
+                                    </div>
+                                    <input class="form-control" type="number" id="lonas" max="9999" name="lonas" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Estado actual llanta</label>
+                                <select id="estado" name="estado" class="form-control" type="number" style="width: 99%" required>
+                                    <option value="" selected><b>-Seleccione el estado actual-</b></option>
+                                    <option value="montada">Montada</option>
+                                    <option value="desmontada">Desmontada</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                    </div>
 
                 </div>
-
-            </div>
+            </form>
 
             <div class="modal-footer bg-gradient-dark">
-                <button type="submit" class="btn bg-gradient-success btn-guardar-registro-llantas"><i class="fas fa-share"></i> Guardar</button>
-                <button type="button" class="btn bg-gradient-danger" data-dismiss="modal">Cancelar</button>
+                <div class="form-group">
+                    <button type="button" class="btn bg-gradient-info btn_actualizarllanta d-none"><i class="fas fa-sync-alt"></i> Actualizar</button>
+                    <button type="submit" class="btn bg-gradient-success btn-guardar-registro-llantas" form="formulario_LlantasControl"><i class="fas fa-share"></i> Guardar</button>
+                    <button type="button" class="btn bg-gradient-danger" data-dismiss="modal">Cancelar</button>
+                </div>
+
             </div>
         </div>
     </div>

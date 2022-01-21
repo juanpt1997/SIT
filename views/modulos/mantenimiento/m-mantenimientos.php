@@ -1244,7 +1244,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
     Modal para selecionar repuesto 
 ==================================-->
 
-<div class="modal fade show" id="modal-repuestos" aria-modal="true" role="dialog">
+<div class="modal fade show" style="overflow-y: scroll;" id="modal-repuestos" aria-modal="true" role="dialog">
 
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -2212,7 +2212,7 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
     </div>
 </div>
 
-<div id="AgregarRepuesto" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="AgregarRepuesto-title" aria-hidden="true">
+<div id="AgregarRepuesto" class="modal fade" style="overflow-y: scroll;" tabindex="-1" role="dialog" aria-labelledby="AgregarRepuesto-title" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
 

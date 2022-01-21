@@ -1952,7 +1952,7 @@ class ModeloMantenimientos
 
     static public function mdlAgregarOrdenServicio($datos)
     {
-        
+
         $conexion = Conexion::conectar();
         $stmt = $conexion->prepare("INSERT INTO m_ordenservicio(idvehiculo,hora_entrada,fecha_trabajos,diagnostico,observacion, estado, ciudad, factura, kilometraje_orden, fecha_aprobacion, cedula)
                                                 VALUES(:idvehiculo_OrdServ, :horaentra_ordSer, :fechaInic_ordSer, :diagnostico, :observacion, :estado, :ciudad, :factura, :kilometraje_orden, :fecha_aprobacion, :cedula)");
@@ -1978,7 +1978,7 @@ class ModeloMantenimientos
         $stmt->closeCursor();
         $conexion = null;
 
-        
+
         return $id;
     }
 
@@ -2699,5 +2699,84 @@ class ModeloMantenimientos
         $respuesta = $stmt->fetchAll();
         $stmt->closeCursor();
         return $respuesta;
+    }
+}
+
+class ModeloControlLlantas
+{
+    static public function mdlAgregarllanta($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_control_llantas(idvehiculo,vida,fecha_montaje,kilom_montaje,lonas,estado_actual,fecha_factura,num_factura,idalmacen)
+                                                VALUES(:idvehiculo,:vida,:fecha_montaje,:kilom_montaje,:lonas,:estado_actual,:fecha_factura,:num_factura,:idalmacen)");
+
+        $stmt->bindParam(":idvehiculo", $datos["placa"], PDO::PARAM_INT);
+        $stmt->bindParam(":idalmacen", $datos["idproducto"], PDO::PARAM_INT);
+        $stmt->bindParam(":vida", $datos["vida"], PDO::PARAM_INT);
+        $stmt->bindParam(":fecha_montaje", $datos["fecha_montaje"], PDO::PARAM_STR);
+        $stmt->bindParam(":kilom_montaje", $datos["kilo_montaje"], PDO::PARAM_INT);
+        $stmt->bindParam(":lonas", $datos["lonas"], PDO::PARAM_INT);
+        $stmt->bindParam(":estado_actual", $datos["estado_actual"], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_factura", $datos["fecha_factura"], PDO::PARAM_STR);
+        $stmt->bindParam(":num_factura", $datos["num_factura"], PDO::PARAM_STR);
+
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    static public function mdlEditarLLanta()
+    {
+    }
+
+    static public function mdlEliminarLlanta()
+    {
+    }
+
+    static public function mdlTablaLlantas()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT cl.*, p.*, ma.marca, me.medida, ca.categoria, i.idsucursal, i.stock, s.sucursal, m.preciocompra, m.idproveedor, m.observaciones FROM m_control_llantas cl
+        INNER JOIN a_productos p ON p.idproducto = cl.idalmacen
+        INNER JOIN a_marcas ma ON ma.idmarca = p.idmarca
+        INNER JOIN a_categorias ca ON ca.idcategorias = p.idcategoria
+        INNER JOIN a_medidas me ON me.idmedidas = p.idmedida
+        INNER JOIN a_re_inventario i ON i.idproducto = p.idproducto
+        INNER JOIN gh_sucursales s ON s.ids = i.idsucursal
+        INNER JOIN a_re_movimientoinven m ON m.idinventario = i.idinventario
+        WHERE cl.estado = 1");
+
+        $stmt->execute();
+        $retorno =  $stmt->fetchAll();
+
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    static public function mdlDatosLLanta($id_llanta)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT cl.*, p.*, ma.marca, me.medida, ca.categoria, i.idsucursal, i.stock, s.sucursal, m.preciocompra, m.idproveedor, m.observaciones FROM m_control_llantas cl
+        INNER JOIN a_productos p ON p.idproducto = cl.idalmacen
+        INNER JOIN a_marcas ma ON ma.idmarca = p.idmarca
+        INNER JOIN a_categorias ca ON ca.idcategorias = p.idcategoria
+        INNER JOIN a_medidas me ON me.idmedidas = p.idmedida
+        INNER JOIN a_re_inventario i ON i.idproducto = p.idproducto
+        INNER JOIN gh_sucursales s ON s.ids = i.idsucursal
+        INNER JOIN a_re_movimientoinven m ON m.idinventario = i.idinventario
+        WHERE cl.idllanta = :idllanta");
+
+        $stmt->bindParam(":idllanta", $id_llanta, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno =  $stmt->fetch();
+
+        $stmt->closeCursor();
+        return $retorno;
     }
 }
