@@ -13,9 +13,10 @@ class ModeloUsuarios
         if ($value != null) {
 
             // $stmt = Conexion::conectar_sit()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
-            $stmt = Conexion::conectar()->prepare("SELECT u.*, s.sucursal AS Sucursal
+            $stmt = Conexion::conectar()->prepare("SELECT u.*, p.activo,s.sucursal AS Sucursal
                                                     FROM l_usuarios u
                                                     INNER JOIN gh_sucursales s ON u.idSucursal = s.ids
+                                                    INNER JOIN l_perfiles p ON p.idPerfil = u.idPerfil
                                                     WHERE u.Cedula = :cedula");
 
             $stmt->bindParam(":cedula",  $value, PDO::PARAM_INT);
@@ -65,7 +66,7 @@ class ModeloUsuarios
     static public function mdlListadoPerfiles()
     {
         $stmt = Conexion::conectar()->prepare("SELECT p.idPerfil, p.perfil, p.estado,  p.activo  as activoPerfil, p.descripcion
-                                                FROM l_perfiles p WHERE p.estado = 1
+                                                FROM l_perfiles p WHERE p.estado = 1 AND p.perfil != 'DESARROLLADOR'
                                                 ORDER BY p.perfil ASC");
 
         $stmt->execute();
