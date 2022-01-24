@@ -2760,7 +2760,7 @@ class ModeloControlLlantas
         INNER JOIN a_medidas me ON me.idmedidas = p.idmedida
         INNER JOIN a_re_inventario i ON i.idproducto = p.idproducto
         INNER JOIN gh_sucursales s ON s.ids = i.idsucursal
-        RIGHT JOIN a_re_movimientoinven m ON m.idinventario = i.idinventario
+        INNER JOIN a_re_movimientoinven m ON m.idinventario = i.idinventario
         WHERE cl.estado = 1 AND m.tipo_movimiento = 'ENTRADA'");
 
         $stmt->execute();
