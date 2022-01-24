@@ -1,4 +1,4 @@
-$(document).ready(function () {3
+$(document).ready(function () {
     /* ===================================================
     * INVENTARIO
     ===================================================*/
@@ -4217,7 +4217,6 @@ $(document).ready(function () {3
                 },
             });
         };
-
         //FUNCION para cargar los datos del select proveedor
         const cargarSelectProveedor = (proveedor) => {
             let datos = new FormData();
@@ -4239,7 +4238,6 @@ $(document).ready(function () {3
                 },
             });
         };
-
         //FUNCION para cargar el body de la tabla productos
         const cargarTablaLlantas = () => {
             let datos = new FormData();
@@ -4298,25 +4296,17 @@ $(document).ready(function () {3
                 },
             });
         };
-
         cargarTablaLlantas();
-
-        //CARGAR FUNCIONES AL ABRIR EL MODAL DE REGISTRAR LLANTA
-        $("#registro-llantas").on("show.bs.modal", function () {
-            cargarSelect("marca");
-            cargarSelect("medida");
-            cargarSelect("categoria");
-            cargarSelect("sucursal");
-            cargarSelectProveedor("proveedor");
-        });
-
         //ASIGNAR PLACA DE VEHICULO A LAS OBSERVACIONES DE LA LLANTA
         $(document).on("change", "#placa", function () {
-            let placa = $('#placa :selected').text();
-            $("#observaciones_salida").val(placa);
+            if($(this).val() == ""){
+                $("#observaciones_salida").val("");
+            } else {
+                let placa = $('#placa :selected').text();
+                $("#observaciones_salida").val(placa);
+            }
         });
-
-        //EDITAR CONTROL LLANTAS
+        //TRAER DATOS A LOS INPUTS EN CONTROL LLANTAS
         $(document).on('click', ".btn-editar-control", function () {
 
             $(".btn_actualizarllanta").removeClass("d-none");
@@ -4325,6 +4315,8 @@ $(document).ready(function () {3
             let idproducto = $(this).attr("idalmacen");
             let idllanta = $(this).attr("idllanta");
             let datos = new FormData();
+
+            $("#id_llanta").val(idllanta);
 
             datos.append("datosLlantas", "ok");
             datos.append("idllanta", idllanta);
@@ -4368,21 +4360,59 @@ $(document).ready(function () {3
 
 
         });
+        //ACTUALIZAR DATOS DE CONTROL DE LLANTAS
+        $(document).on('click', ".btn_actualizarllanta", function () {
+            
+            let id = $("#id_llanta").val();
+            
+            let datosAjax = new FormData();
+            datosAjax.append("actualizarControl", "ok");
+            datosAjax.append("idllanta", id);
 
-        //NUEVO REGISTRO
+            var datosFrm = $("#formulario_LlantasControl").serializeArray();
+            datosFrm.forEach((element) => {
+                datosAjax.append(element.name, element.value);
+            });
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                data: datosAjax,
+                cache: false,
+                contentType: false,
+                processData: false,
+                //dataType: "json",
+                success: function (response) {
+                   if(response == "ok")
+                   {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Llanta actualizada con éxito.",
+                        showConfirmButton: true,
+                        confirmButtonText: "Cerrar",
+                        closeOnConfirm: false,
+                    }).then((result) => {
+                        if (result.value) {
+                            window.location = "m-control-llantas";
+                        }
+                    });
+                   }
+                },
+            });
+        });
+        //NUEVO REGISTRO (REINICIA VALORES)
         $(".btn-nuevoregistro-llantas").on('click', function () {
             $(".btn_actualizarllanta").addClass("d-none");
             $(".btn-guardar-registro-llantas").removeClass("d-none");
             $("#formulario_LlantasControl").trigger("reset");
-            
+            $(".select2-single").trigger("change");
         });
-
         //SUBMIT del formulario que agrega llantas
         $("#formulario_LlantasControl").submit(function (e) {
             e.preventDefault();
-
             var datosAjax = new FormData();
             datosAjax.append("AgregarLlanta", "ok");
+
             var datosFrm = $(this).serializeArray();
             datosFrm.forEach((element) => {
                 datosAjax.append(element.name, element.value);
@@ -4399,15 +4429,74 @@ $(document).ready(function () {3
                     if (response == "ok") {
                         Swal.fire({
                             icon: "success",
-                            title: "LLanta reigstrada al vehículo.",
+                            title: "Llanta registrada al vehículo con éxito.",
                             showConfirmButton: true,
                             confirmButtonText: "Cerrar",
                             closeOnConfirm: false,
-                        })
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location = "m-control-llantas";
+                            }
+                        });
                     }
                 },
             });
         });
+        //CARGAR FUNCIONES AL ABRIR EL MODAL DE REGISTRAR LLANTA
+        $("#registro-llantas").on("show.bs.modal", function () {
+            cargarSelect("marca");
+            cargarSelect("medida");
+            cargarSelect("categoria");
+            cargarSelect("sucursal");
+            cargarSelectProveedor("proveedor");
+        });
 
+        $(document).on('click', ".btn-eliminar-control", function () {
+
+            let id = $(this).attr("idllanta");
+
+            Swal.fire({
+                icon: "warning",
+                showConfirmButton: true,
+                showCancelButton: true,
+                title: "¿Seguro que desea borrar este registro?",
+                confirmButtonText: "SI, borrar",
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: "#ff0000",
+                cancelButtonColor: "#66ff99",
+                allowOutsideClick: false,
+            }).then((result) => {
+                if (result.value) {
+
+                    var datos = new FormData();
+                    datos.append("EliminarRegistro", "ok");
+                    datos.append("idllanta", id);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/mantenimiento.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        //dataType: "json",
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: "success",
+                                    showConfirmButton: true,
+                                    title: "¡El registro ha sido borrado correctamente!",
+                                    confirmButtonText: "¡Cerrar!",
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "m-control-llantas";
+                                });
+                            }
+                        },
+                    });
+                }
+            });
+            
+        });
     }
 });

@@ -2732,12 +2732,23 @@ class ModeloControlLlantas
         return $retorno;
     }
 
-    static public function mdlEditarLLanta()
+    static public function mdlEliminarLlanta($id_llanta)
     {
-    }
+        $stmt = Conexion::conectar()->prepare("UPDATE m_control_llantas set estado = 0
+                                               WHERE idllanta = :idllanta");
 
-    static public function mdlEliminarLlanta()
-    {
+        $stmt->bindParam(":idllanta", $id_llanta, PDO::PARAM_INT);
+        
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
     }
 
     static public function mdlTablaLlantas()
@@ -2749,8 +2760,8 @@ class ModeloControlLlantas
         INNER JOIN a_medidas me ON me.idmedidas = p.idmedida
         INNER JOIN a_re_inventario i ON i.idproducto = p.idproducto
         INNER JOIN gh_sucursales s ON s.ids = i.idsucursal
-        INNER JOIN a_re_movimientoinven m ON m.idinventario = i.idinventario
-        WHERE cl.estado = 1");
+        RIGHT JOIN a_re_movimientoinven m ON m.idinventario = i.idinventario
+        WHERE cl.estado = 1 AND m.tipo_movimiento = 'ENTRADA'");
 
         $stmt->execute();
         $retorno =  $stmt->fetchAll();
@@ -2777,6 +2788,30 @@ class ModeloControlLlantas
         $retorno =  $stmt->fetch();
 
         $stmt->closeCursor();
+        return $retorno;
+    }
+
+    static public function mdlEditarControl($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE m_control_llantas set vida=:vida, fecha_montaje=:fecha_montaje, kilom_montaje=:kilom_montaje,lonas=:lonas,estado_actual=:estado_actual
+                                               WHERE idllanta = :idllanta");
+
+        $stmt->bindParam(":idllanta", $datos["idllanta"], PDO::PARAM_INT);
+        $stmt->bindParam(":vida", $datos["vida_util"], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_montaje", $datos["fecha_montaje"], PDO::PARAM_STR);
+        $stmt->bindParam(":kilom_montaje", $datos["kilo_montaje"], PDO::PARAM_INT);
+        $stmt->bindParam(":lonas", $datos["lonas"], PDO::PARAM_INT);
+        $stmt->bindParam(":estado_actual", $datos["estado"], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
         return $retorno;
     }
 }
