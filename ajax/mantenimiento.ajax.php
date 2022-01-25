@@ -1361,34 +1361,33 @@ class AjaxLlantasControl
 		$tr = "";
 
 		foreach ($respuesta as $key => $value) {
-			$tr .= "
-			<tr>
-                <td>
-                    <div class='btn-group' role='group' aria-label='Button group'>
-                        <button title='Control/Seguimiento' data-toggle='modal' idllanta='{$value["idllanta"]}' data-target='#seguimiento-llantas' class='btn btn-sm bg-gradient-primary btn-seguimiento'><i class='fas fa-calendar-check'></i></button>
-                    </div>
-                    <div class='btn-group' role='group' aria-label='Button group'>
-                        <button title='Editar control' data-toggle='modal' idllanta='{$value["idllanta"]}' idalmacen='{$value["idproducto"]}' data-target='#registro-llantas' class='btn btn-sm bg-gradient-info btn-editar-control'><i class='fas fa-edit'></i></button>
-                    </div>
-                    <div class='btn-group' role='group' aria-label='Button group'>
-                        <button title='Eliminar control' class='btn btn-sm bg-gradient-danger btn-eliminar-control' idllanta='{$value["idllanta"]}'><i class='fas fa-trash'></i></button>
-                    </div>
-                </td>
-				<td>{$value["codigo"]}</td>
-				<td>{$value["referencia"]}</td>
-				<td>{$value["descripcion"]}</td>
-				<td>{$value["tamanio"]}</td>
-				<td>{$value["categoria"]}</td>
-				<td>{$value["marca"]}</td>
-				<td>{$value["medida"]}</td>
-                <td>{$value["vida"]}</td>
-                <td>{$value["fecha_montaje"]}</td>
-                <td>{$value["kilom_montaje"]}</td>
-                <td>{$value["lonas"]}</td>
-                <td>{$value["estado_actual"]}</td>
-                <td>{$value["fecha_factura"]}</td>
-                <td>{$value["num_factura"]}</td>
-			</tr>
+			$tr .= "<tr>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Button group'>
+                                <button title='Control/Seguimiento' data-toggle='modal' idllanta='{$value["idllanta"]}' data-target='#seguimiento-llantas' class='btn btn-sm bg-gradient-primary btn-seguimiento'><i class='fas fa-calendar-check'></i></button>
+                            </div>
+                            <div class='btn-group' role='group' aria-label='Button group'>
+                                <button title='Editar control' data-toggle='modal' idllanta='{$value["idllanta"]}' idalmacen='{$value["idproducto"]}' data-target='#registro-llantas' class='btn btn-sm bg-gradient-info btn-editar-control'><i class='fas fa-edit'></i></button>
+                            </div>
+                            <div class='btn-group' role='group' aria-label='Button group'>
+                                <button title='Eliminar control' class='btn btn-sm bg-gradient-danger btn-eliminar-control' idllanta='{$value["idllanta"]}'><i class='fas fa-trash'></i></button>
+                            </div>
+                        </td>
+                        <td>{$value["codigo"]}</td>
+                        <td>{$value["referencia"]}</td>
+                        <td>{$value["descripcion"]}</td>
+                        <td>{$value["tamanio"]}</td>
+                        <td>{$value["categoria"]}</td>
+                        <td>{$value["marca"]}</td>
+                        <td>{$value["medida"]}</td>
+                        <td>{$value["vida"]}</td>
+                        <td>{$value["fecha_montaje"]}</td>
+                        <td>{$value["kilom_montaje"]}</td>
+                        <td>{$value["lonas"]}</td>
+                        <td>{$value["estado_actual"]}</td>
+                        <td>{$value["fecha_factura"]}</td>
+                        <td>{$value["num_factura"]}</td>
+                    </tr>
 			";
 		}
 		echo $tr;
@@ -1400,9 +1399,16 @@ class AjaxLlantasControl
         echo json_encode($respuesta);
     }
 
-    static public function ajaxValidar()
+    static public function ajaxActualizarLlanta($frmData)
     {
+        $respuesta = ModeloControlLlantas::mdlEditarControl($frmData);
+        echo $respuesta;
+    }
 
+    static public function ajaxEliminarControl($id_llanta)
+    {
+        $respuesta = ModeloControlLlantas::mdlEliminarLlanta($id_llanta);
+        echo $respuesta; 
     }
 }
 /* ===================================================
@@ -1544,4 +1550,12 @@ if (isset($_POST['cargarTablaLLantas']) && $_POST['cargarTablaLLantas'] == "ok")
 
 if (isset($_POST['datosLlantas']) && $_POST['datosLlantas'] == "ok") {
     AjaxLlantasControl::ajaxDatosllantas($_POST['idllanta']);
+}
+
+if (isset($_POST['actualizarControl']) && $_POST['actualizarControl'] == "ok") {
+    AjaxLlantasControl::ajaxActualizarLlanta($_POST);
+}
+
+if (isset($_POST['EliminarRegistro']) && $_POST['EliminarRegistro'] == "ok") {
+    AjaxLlantasControl::ajaxEliminarControl($_POST['idllanta']);
 }

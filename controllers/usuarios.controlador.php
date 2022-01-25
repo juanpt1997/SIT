@@ -30,7 +30,7 @@ class ControladorUsuarios
 
 				if ($respuesta !== false && $respuesta["Cedula"] == $cedulaUsuario && $respuesta["Password"] == $encriptar) {
 					#SI EL USUARIO ESTA ACTIVO EN EL SISTEMA
-					if ($respuesta['estado'] == 1) {
+					if ($respuesta['estado'] == 1 && $respuesta['activo'] == 1) {
 						$_SESSION['iniciarSesion'] = "ok";
 						$_SESSION['idUsuario'] = $respuesta['UsuariosID'];
 						$_SESSION['cedula'] = $respuesta['Cedula'];

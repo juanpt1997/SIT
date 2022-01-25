@@ -500,7 +500,7 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label class="col-form-label" for="descripcion_tarea"><i>Descripción</i></label>
-                                                        <input type="text" class="form-control is-valid" id="descripcion_tarea" name="descripcion_tarea">
+                                                        <textarea type="text" class="form-control is-valid" id="descripcion_tarea" name="descripcion_tarea" maxlength="100"></textarea>
                                                     </div>
                                                 </div>
 
@@ -548,7 +548,7 @@
                                                         <h3 class="card-title"><strong>Tareas</strong></h3>
                                                     </li>
                                                     <li class="nav-item">
-                                                        <a class="nav-link active" id="tab-pendientes" data-toggle="pill" href="#pendientes" role="tab" aria-controls="pendientes" aria-selected="true"><span class="badge badge-warning">pendientes <i class="fas fa-stopwatch"></i></span></a>
+                                                        <a class="nav-link active" id="tab-pendientes" data-toggle="pill" href="#pendientes" role="tab" aria-controls="pendientes" aria-selected="true"><span class="badge badge-warning"><i class="fas fa-clock"></i> pendientes</span></a>
                                                     </li>
                                                     <li class="nav-item">
                                                         <a class="nav-link" id="tab-finalizadas" data-toggle="pill" href="#finalizadas" role="tab" aria-controls="finalizadas" aria-selected="false"><span class="badge badge-success">finalizadas <i class="fas fa-check-circle"></i></span></a>
@@ -621,7 +621,7 @@
                 <div class="col">
                     <div class="form-group text-center">
                         <label><i>Descripción</i></label>
-                        <input type="text" class="form-control" id="modal_descripcion" name="modal_descripcion">
+                        <textarea type="text" class="form-control" id="modal_descripcion" name="modal_descripcion" maxlength="100"></textarea>
                     </div>
                 </div>
 
@@ -647,7 +647,7 @@
                 </div>
                 <div class="form-group d-none" id="btn_pendiente">
                     <button type="button" data-toggle="tooltip" data-placement="top" class="btn btn-sm btn-block bg-gradient-warning btn-flat btn-pendiente" style="color: black;" data-original-title="Tarea pendiente.">
-                        <i class="fas fa-stopwatch"></i> Tarea pendiente
+                        <i class="fas fa-clock"></i> Posponer
                     </button>
                 </div>
                 <div class="form-group ">

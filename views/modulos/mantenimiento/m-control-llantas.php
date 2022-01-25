@@ -105,6 +105,8 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                     <hr class="my-4 bg-dark">
 
+                    <input type="hidden" name="id_llanta" id="id_llanta" value="">
+
                     <div class="col">
                         <div class="form-group">
                             <label><i>Número/Código de LLanta</i></label>
@@ -155,9 +157,14 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Marca</label>
-                                <select id="marca" name="marca" class="form-control" type="number" style="width: 99%" required>
-                                </select>
+                                <label><i>Marca</i> <i class="fas fa-copyright"></i></label>
+                                <div class="input-group">
+                                    <select class="custom-select rounded-0 input_producto" id="marca" name="marca" required>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nueva marca" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -172,17 +179,28 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Categoria</label>
-                                <select id="categoria" name="categoria" class="form-control" type="number" style="width: 99%" required>
-                                </select>
+                                <label><i>Categoría</i></label>
+                                <div class="input-group">
+                                    <select class="custom-select rounded-0" id="categoria" name="categoria" required>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nueva categoria" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Medida</label>
-                                <select id="medida" name="medida" class="form-control" type="number" style="width: 99%" required>
-                                </select>
+                                <label><i>Medida</i> <i class="fas fa-tachometer-alt"></i></label>
+                                <div class="input-group">
+                                    <select class="custom-select rounded-0 input_producto" id="medida" name="medida" required>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nueva medida" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -302,7 +320,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="kilo_invent">Kilometraje montaje</label>
+                                <label for="kilo_montaje">Kilometraje montaje</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
@@ -314,7 +332,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="kilo_invent">Lonas</label>
+                                <label for="lonas">Lonas</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-poll"></i></span>
@@ -327,7 +345,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         <div class="col">
                             <div class="form-group">
                                 <label>Estado actual llanta</label>
-                                <select id="estado" name="estado" class="form-control" type="number" style="width: 99%" required>
+                                <select id="estado" name="estado" class="form-control" type="text" style="width: 99%" required>
                                     <option value="" selected><b>-Seleccione el estado actual-</b></option>
                                     <option value="montada">Montada</option>
                                     <option value="desmontada">Desmontada</option>
@@ -343,7 +361,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
             <div class="modal-footer bg-gradient-dark">
                 <div class="form-group">
-                    <button type="button" class="btn bg-gradient-info btn_actualizarllanta d-none"><i class="fas fa-sync-alt"></i> Actualizar</button>
+                    <button type="submit" class="btn bg-gradient-info btn_actualizarllanta d-none" form="formulario_LlantasControl"><i class="fas fa-sync-alt"></i> Actualizar</button>
                     <button type="submit" class="btn bg-gradient-success btn-guardar-registro-llantas" form="formulario_LlantasControl"><i class="fas fa-share"></i> Guardar</button>
                     <button type="button" class="btn bg-gradient-danger" data-dismiss="modal">Cancelar</button>
                 </div>
