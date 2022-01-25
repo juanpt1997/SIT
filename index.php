@@ -34,6 +34,7 @@ require_once 'controllers/compras.controlador.php';
 require_once 'controllers/operaciones.controlador.php';
 require_once 'controllers/gerencial.controlador.php';
 require_once 'controllers/telegram.controlador.php';
+require_once 'controllers/escolar.controlador.php';
 
 
 
@@ -51,6 +52,7 @@ require_once 'models/mantenimiento.modelo.php';
 require_once 'models/compras.modelo.php';
 require_once 'models/operaciones.modelo.php';
 require_once 'models/gerencial.modelo.php';
+require_once 'models/escolar.modelo.php';
 
 
 

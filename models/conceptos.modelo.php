@@ -8,6 +8,17 @@ include_once DIR_APP . 'config/conexion.php';
 ============================================================?*/
 class ModeloConceptosGenerales
 {
+    //LISTAR TODOS LOS REGISTRO DE 1 CAMPO GENERAL SIN ESTADO
+    static public function mdlVerRegistro($datos){
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("SELECT {$datos['item']}, {$datos['id']}, {$datos['item2']} FROM {$datos['tabla']}");
+
+        $stmt->execute();
+        $respuesta =  $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
+
     //Agregar 1 campo general
     static public function mdlNuevo($datos)
     {
