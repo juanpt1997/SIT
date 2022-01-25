@@ -20,6 +20,9 @@ class ControladorEscolar
             if($datos['idruta'] == ""){
                 $respuesta = ModeloEscolar::mdlGuardarRuta($datos);
                 return $respuesta;
+            }else{
+                $respuesta = ModeloEscolar::mdlEditarRuta($datos);
+                return $respuesta;
             }
         }
     }

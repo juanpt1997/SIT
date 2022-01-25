@@ -73,11 +73,6 @@ if (
         cargarTablaRutas();
 
         /*============================================
-            EVENTO AL ABRIR MODAL
-        ==============================================*/
-        $(document).on("shown.bs.modal", "#modalRuta", function () {});
-
-        /*============================================
             SELECCIONAN VEHÍCULO
         ==============================================*/
         $(document).on("change", "#placa", function () {
@@ -179,7 +174,9 @@ if (
                         $("#institucion")
                             .val(response.idinstitucion)
                             .trigger("change");
-                        $("#placa").val(response.idvehiculo).trigger("change");
+                        $("#placa")
+                            .val(response.idvehiculo)
+                            .trigger("change");
                     }
                 },
             });

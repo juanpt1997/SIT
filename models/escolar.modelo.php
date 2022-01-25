@@ -1,9 +1,10 @@
-<?php 
+<?php
 
 // INCLUIMOS LA CONFIGURACIÓN Y LA CONEXION PARA EL FUNCIONAMIENTO DEL PROYECTO
 include_once DIR_APP . 'config/conexion.php';
 
-class ModeloEscolar{
+class ModeloEscolar
+{
 
     /* ===================================================
         LISTA INSTITUCIONES 
@@ -14,7 +15,7 @@ class ModeloEscolar{
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();
-        
+
         return $retorno;
     }
 
@@ -46,14 +47,15 @@ class ModeloEscolar{
     /* ===================================================
         LISTAR RUTAS
     ===================================================*/
-    static public function mdlListarRutas(){
+    static public function mdlListarRutas()
+    {
         $stmt = Conexion::conectar()->prepare("SELECT r.*, i.nombre, v.placa, v.capacidad FROM e_rutas r
         INNER JOIN e_instituciones i on r.idinstitucion = i.idinstitucion
         INNER JOIN v_vehiculos v ON r.idvehiculo = v.idvehiculo");
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();
-        
+
         return $retorno;
     }
 
@@ -61,7 +63,8 @@ class ModeloEscolar{
     /* ===================================================
         RUTAS POR IDRUTA
     ===================================================*/
-    static public function mdlRutaxId($idruta){
+    static public function mdlRutaxId($idruta)
+    {
         $stmt = Conexion::conectar()->prepare("SELECT r.*, i.nombre, v.placa, v.capacidad FROM e_rutas r
         INNER JOIN e_instituciones i on r.idinstitucion = i.idinstitucion
         INNER JOIN v_vehiculos v ON r.idvehiculo = v.idvehiculo 
@@ -73,9 +76,34 @@ class ModeloEscolar{
         $stmt->execute();
         $retorno = $stmt->fetch();
         $stmt->closeCursor();
-        
+
         return $retorno;
     }
 
+    /* ===================================================
+        EDITAR RUTA
+    ===================================================*/
+    static public function mdlEditarRuta($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE e_rutas SET idinstitucion = :idinstitucion, numruta = :numruta, 
+        sector = :sector, idvehiculo = :idvehiculo
+        WHERE idruta = :idruta");
 
+        $stmt->bindParam(":idinstitucion", $datos['idinstitucion'], PDO::PARAM_INT);
+        $stmt->bindParam(":numruta", $datos['numruta'], PDO::PARAM_STR);
+        $stmt->bindParam(":sector", $datos['sector'], PDO::PARAM_STR);
+        $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
+        $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
 }
