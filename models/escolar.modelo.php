@@ -106,4 +106,73 @@ class ModeloEscolar
 
         return $retorno;
     }
+
+    /* ===================================================
+        ESTUDIANTE X DOCUMENTO
+    ===================================================*/
+    static public function mdlEstudiantexDocumento($codigo)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT  * FROM e_pasajeros WHERE codigo = :codigo");
+
+        $stmt->bindParam(":codigo", $codigo, PDO::PARAM_STR);
+
+        $stmt->execute();
+        $retorno = $stmt->fetch();
+        $stmt->closeCursor();
+
+        return $retorno;
+
+    }
+
+    /* ===================================================
+        GUARDAR ESTUDIANTE
+    ===================================================*/
+    static public function mdlGuardarEstudiante($datos)
+    {
+
+        $stmt = Conexion::conectar()->prepare("INSERT INTO e_pasajeros 
+                (codigo, nombre, idruta, ano, grado, grupo, nivel, barrio, direccion, nombre_acudiente1, celular_acudiente1, nombre_acudiente2, celular_acudiente2) 
+        VALUES (:codigo, :nombre, :idruta, :ano, :grado, :grupo, :nivel, :barrio, :direccion, :nombre_acudiente1, :celular_acudiente1, :nombre_acudiente2, :celular_acudiente2)");
+
+        $stmt->bindParam(":codigo", $datos['documentoEstudiante'], PDO::PARAM_STR);
+        $stmt->bindParam(":nombre", $datos['nombreEstudiante'], PDO::PARAM_STR);
+        $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
+        $stmt->bindParam(":ano", $datos['anoEstudiante'], PDO::PARAM_STR);
+        $stmt->bindParam(":grado", $datos['gradoEstudiante'], PDO::PARAM_STR);
+        $stmt->bindParam(":grupo", $datos['grupoEstudiante'], PDO::PARAM_STR);
+        $stmt->bindParam(":nivel", $datos['nivelEstudiante'], PDO::PARAM_STR);
+        $stmt->bindParam(":barrio", $datos['barrioEstudiante'], PDO::PARAM_STR);
+        $stmt->bindParam(":direccion", $datos['direccionEstudiante'], PDO::PARAM_STR);
+        $stmt->bindParam(":nombre_acudiente1", $datos['nombrePAcudienteEstudiante'], PDO::PARAM_STR);
+        $stmt->bindParam(":celular_acudiente1", $datos['celularPAcudienteEstudiante'], PDO::PARAM_STR);
+        $stmt->bindParam(":nombre_acudiente2", $datos['nombreSAcudienteEstudiante'], PDO::PARAM_STR);
+        $stmt->bindParam(":celular_acudiente2", $datos['celularSAcudienteEstudiante'], PDO::PARAM_STR);
+        
+        if($stmt->execute()){
+            $retorno = "ok";
+        }else{
+            $retorno = "error";
+        }
+
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        ESTUDIANTES X RUTA 
+    ===================================================*/
+    static public function mdlEstudiantesxRuta($ruta)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT  * FROM e_pasajeros WHERE idruta = :idruta");
+
+        $stmt->bindParam(":idruta", $ruta, PDO::PARAM_INT);
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+
+        return $retorno;
+    }
 }

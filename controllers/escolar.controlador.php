@@ -26,4 +26,25 @@ class ControladorEscolar
             }
         }
     }
+
+    /* ===================================================
+        GUARDAR ESTUDIANTE 
+    ===================================================*/
+    static public function ctrGuardarEstudiante($datos)
+    {
+        if(isset($datos['documentoEstudiante'])){
+
+            //Verificar si el estudiante existe 
+            $existe = ModeloEscolar::mdlEstudiantexDocumento($datos['documentoEstudiante']);
+            // var_dump($existe);
+
+            if($existe != false){
+                return "existe";
+            }else{
+                $respuesta = ModeloEscolar::mdlGuardarEstudiante($datos);
+                return $respuesta;
+            }
+            
+        }
+    }
 }

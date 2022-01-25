@@ -205,7 +205,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
             </div>
 
             <div class="justify-content-start">
-                <button class="btn btn-success m-2" data-toggle="modal" data-target="#modalEstudiante">Crear nuevo estudiante</button>
+                <button class="btn btn-success m-2 btn-nuevoEstudiante" data-toggle="modal" data-target="#modalEstudiante">Crear nuevo estudiante</button>
             </div>
 
             <div class="card">
@@ -225,11 +225,9 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInput1">Estudiante</label>
-                                    <select class="form-control select2-single" id="idestudiante" name="idestudiante">
+                                    <select class="form-control select2-single" id="estudiante" name="idpasajero">
                                         <option value="" selected>-Seleccione un estudiante-</option>
-                                        <?php foreach ($Placas as $key => $value) : ?>
-                                            <option value="<?= $value['idestudiante'] ?>"><?= $value['placa'] ?></option>
-                                        <?php endforeach ?>
+                                       
                                     </select>
                                 </div>
                             </div>
@@ -241,10 +239,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                                 <div class="form-group">
                                     <label for="exampleInput1">Ruta</label>
                                     <select class="form-control select2-single" id="idruta" name="idruta">
-                                        <option value="" selected>-Seleccione una ruta-</option>
-                                        <?php foreach ($Placas as $key => $value) : ?>
-                                            <option value="<?= $value['idruta'] ?>"><?= $value['placa'] ?></option>
-                                        <?php endforeach ?>
+
                                     </select>
                                 </div>
                             </div>
@@ -268,15 +263,14 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
 
                     <!-- TABLA DE ESTUDIANTES -->
                     <div class="table-responsive">
-                        <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100 text-center">
+                        <table  id="tablaEstudiantesxRuta" class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100 text-center">
                             <thead class="thead-light text-uppercase text-sm text-center">
                                 <tr>
                                     <th>Código</th>
                                     <th>Año</th>
                                     <th>Grado</th>
                                     <th>Grupo</th>
-                                    <th>Apellidos</th>
-                                    <th>Nombres</th>
+                                    <th>Nombre</th>
                                     <th>Nivel</th>
                                     <th>Barrio</th>
                                     <th>Dirección</th>
@@ -286,8 +280,8 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                                     <th>Celular segundo acudiente</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-sm">
-                                <td>101010101</td>
+                            <tbody id="tbodyEstudiantesxRuta" class="text-sm">
+                                <!-- <td>101010101</td>
                                 <td>2022A</td>
                                 <td>K4</td>
                                 <td>K4</td>
@@ -299,7 +293,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                                 <td>Osorio Rivera Luis Alberto</td>
                                 <td>3117736856</td>
                                 <td></td>
-                                <td></td>
+                                <td></td> -->
                             </tbody>
                         </table>
                     </div>
@@ -317,7 +311,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
 
 <!-- MODAL PARA CREAR NUEVO ESTUDIANTE -->
 <div id="modalEstudiante" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-info">
                 <h5 class="modal-title" id="my-modal-title">Nuevo estudiante</h5>
@@ -326,39 +320,108 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row">
+                <form class="formulario" id="estudianteNuevo_form" method="post" enctype="multipart/form-data">
+                    <div class="row">
 
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label># Documento</label>
-                            <input type="text" class="form-control" id="documentoEstudiante" name="documentoEstudiante">
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label># Documento</label>
+                                <input type="text" class="form-control" id="documentoEstudiante" name="documentoEstudiante" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label>Nombre</label>
+                                <input type="text" class="form-control" id="nombreEstudiante" name="nombreEstudiante" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label for="exampleInput1">Ruta</label>
+                                <select class="form-control select2-single" id="ruta" name="idruta" required>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label>Año</label>
+                                <input type="text" class="form-control" id="anoEstudiante" name="anoEstudiante" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label>Grado</label>
+                                <input type="text" class="form-control" id="gradoEstudiante" name="gradoEstudiante" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label>Grupo</label>
+                                <input type="text" class="form-control" id="grupoEstudiante" name="grupoEstudiante" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label>Nivel</label>
+                                <input type="text" class="form-control" id="nivelEstudiante" name="nivelEstudiante" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label>Barrio</label>
+                                <input type="text" class="form-control" id="barrioEstudiante" name="barrioEstudiante" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label>Dirección</label>
+                                <input type="text" class="form-control" id="direccionEstudiante" name="direccionEstudiante" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label>Nombre primer acudiente</label>
+                                <input type="text" class="form-control" id="nombrePAcudienteEstudiante" name="nombrePAcudienteEstudiante" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label>Celular primer acudiente</label>
+                                <input type="text" class="form-control" id="celularPAcudienteEstudiante" name="celularPAcudienteEstudiante" required>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label>Nombre segundo acudiente</label>
+                                <input type="text" class="form-control" id="nombreSAcudienteEstudiante" name="nombreSAcudienteEstudiante">
+                            </div>
+                        </div>
+                        
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
+                                <label>Celular segundo acudiente</label>
+                                <input type="text" class="form-control" id="celularSAcudienteEstudiante" name="celularSAcudienteEstudiante">
+                            </div>
                         </div>
                     </div>
-
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label>Nombre</label>
-                            <input type="text" class="form-control" id="nombreEstudiante" name="nombreEstudiante">
-                        </div>
-                    </div>
-
-                    <div class="col-12">
-                        <div class="form-group">
-                            <label for="exampleInput1">Ruta</label>
-                            <select class="form-control select2-single" id="idruta" name="idruta">
-                                <option value="" selected>-Seleccione una ruta-</option>
-                                <?php foreach ($Placas as $key => $value) : ?>
-                                    <option value="<?= $value['idruta'] ?>"><?= $value['placa'] ?></option>
-                                <?php endforeach ?>
-                            </select>
-                        </div>
-                    </div>
-
-                </div>
+                </form>
             </div>
             <div class="modal-footer">
                 <div class="d-flex justify-content-center">
-                    <button type="submit" form="" class="btn btn-info">
+                    <button type="submit" form="estudianteNuevo_form" class="btn btn-info">
                         <i class="fas fa-save"></i>
                         Guardar
                     </button>
@@ -369,6 +432,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
     </div>
 </div>
 
+<!-- MODAL PARA EL SEGUIMIENTO ESTUDIANTE  -->
 <div id="modal-seguimiento" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
