@@ -296,21 +296,21 @@ class PdfConductor
         $tabla = '
         <table cellspacing="2" cellpadding="3">
             <tbody>
-            <tr style="text-align: center; font-weight:bold;">
-            <th colspan="2" border="2" width="625">DOCUMENTO</th>
-           </tr>
+                <tr style="text-align: center; font-weight:bold;">
+                    <th colspan="2" border="2" width="625">DOCUMENTO</th>
+                </tr>
 
-           <tr style="text-align: center;">
-              <td colspan="2" border="1" height="190"><img src="' . $documento_escaneado . '" height="190"></td>
-           </tr>
+                <tr style="text-align: center;">
+                    <td colspan="2" border="1" height="190"><img src="' . $documento_escaneado . '" height="190" width="400"></td>
+                </tr>
 
-           <tr style="text-align: center; font-weight:bold;">
-           <th colspan="2" border="2">LICENCIA DE CONDUCCIÓN</th>
-        </tr>
+                <tr style="text-align: center; font-weight:bold;">
+                    <th colspan="2" border="2">LICENCIA DE CONDUCCIÓN</th>
+                </tr>
 
-        <tr style="text-align: center;">
-          <td colspan="2" border="1" height="190"><img src="' . $licencia_conduccion . '" height="190"></td>
-        </tr>
+                <tr style="text-align: center;">
+                    <td colspan="2" border="1" height="190"><img src="' . $licencia_conduccion . '" height="190" width="400" ></td>
+                </tr>
             </tbody>
         </table>
         ';

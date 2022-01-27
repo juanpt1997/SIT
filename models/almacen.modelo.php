@@ -8,14 +8,14 @@ class ModeloProductos
     static public function mdlAgregarProducto($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("INSERT INTO a_productos (codigo,referencia,descripcion,idcategoria,idmarca,idmedida,tamanio) VALUES (:codigo,:referencia,:descripcion,:idcategoria,:idmarca,:idmedida,:tamanio)");
+        $stmt = $conexion->prepare("INSERT INTO a_productos (codigo,referencia,descripcion,idcategoria,idmarca,idmedida,idtamanio) VALUES (:codigo,:referencia,:descripcion,:idcategoria,:idmarca,:idmedida,:idtamanio)");
         $stmt->bindParam(":codigo", $datos["cod_producto"], PDO::PARAM_STR);
         $stmt->bindParam(":referencia", $datos["referencia"], PDO::PARAM_INT);
         $stmt->bindParam(":descripcion", $datos["descripcion_prod"], PDO::PARAM_STR);
         $stmt->bindParam(":idcategoria", $datos["categoria"], PDO::PARAM_INT);
         $stmt->bindParam(":idmarca", $datos["marca"], PDO::PARAM_INT);
         $stmt->bindParam(":idmedida", $datos["medida"], PDO::PARAM_INT);
-        $stmt->bindParam(":tamanio", $datos["tamanio"], PDO::PARAM_STR);
+        $stmt->bindParam(":idtamanio", $datos["tamanio"], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             $id = $conexion->lastInsertId();

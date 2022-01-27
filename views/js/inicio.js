@@ -314,21 +314,37 @@ $(document).ready(function () {
                     });
 
                     if (tareas != "") {
-                        $("#ingresar_tareas").html(tareas);
+                        //$("#ingresar_tareas").html(tareas);
+                        Swal.fire({
+                            title:`<h3><i class="fas fa-clipboard-list" style='color: #02075d;'></i>&nbsp<i style='color: #000000;'>TAREAS DEL DÍA</i></h3>`,
+                            html:`<hr class="bg-dark"><ul style='list-style: none;'>${tareas}</ul>`,
+                            showCancelButton: false,
+                            confirmButtonColor: "#02075d",
+                            confirmButtonText: "Continuar.",
+                        })
                     } else {
-                        $("#ingresar_tareas").html(
-                            "<i>No hay tareas disponibles para el día de hoy.</i>"
-                        );
+                        // $("#ingresar_tareas").html(
+                        //     "<i>No hay tareas disponibles para el día de hoy.</i>"
+                        // );
+                        Swal.fire({
+                            title:`<h3><i class="fas fa-clipboard-list" style='color: #02075d;'></i>&nbsp<i style='color: #000000;'>TAREAS DEL DÍA</i></h3>`,
+                            html:`<i>No hay tareas disponibles para el día de hoy</i>`,
+                            showCancelButton: false,
+                            confirmButtonColor: "#02075d",
+                            confirmButtonText: "Continuar",
+                        })
                     }
                 },
             });
-            $("#tareas_del_dia").modal("show");
+            //$("#tareas_del_dia").modal("show");
         }
 
         //AGREGAR UNA TAREA AL CALENDARIO
         $(".btn-crearTarea").on("click", function () {
             //GUARDAR EN LA BD Y ENVIAR AL CALENDARIO
             almacenarEvento();
+            $(".input_add_tarea").removeClass("is-valid");
+            $(".input_add_tarea").removeClass("is-invalid");
         });
 
         //EDITAR UNA TAREA
@@ -519,6 +535,23 @@ $(document).ready(function () {
             });
         });
 
+        //VALIDAR INPUTS AL CREAR TAREA (verificar que no esten vacios)
+        $(".input_add_tarea").blur(function () {
+            let valor = $(this).val();
+
+            if(valor != ""){
+
+                $(this).addClass("is-valid");
+                $(this).removeClass("is-invalid");
+
+            }else {
+
+                $(this).addClass("is-invalid");
+                $(this).removeClass("is-valid");
+                
+            }
+        });
+        
         //ABRIR MODAL AL DARLE CLICK A LA TAREA LISTADA
         $(document).on("click", ".btn-listaTarea", function () {
             let id = $(this).attr("id");

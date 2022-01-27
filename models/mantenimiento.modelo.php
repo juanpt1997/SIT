@@ -2738,7 +2738,7 @@ class ModeloControlLlantas
                                                WHERE idllanta = :idllanta");
 
         $stmt->bindParam(":idllanta", $id_llanta, PDO::PARAM_INT);
-        
+
         if ($stmt->execute()) {
             $retorno = "ok";
         } else {
@@ -2812,6 +2812,20 @@ class ModeloControlLlantas
         $stmt->closeCursor();
         $stmt = null;
 
+        return $retorno;
+    }
+
+    static public function mdlListarSelectLlantas()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT p.*, c.categoria, ma.marca, me.medida FROM a_productos p
+        INNER JOIN a_categorias c ON p.idcategoria = c.idcategorias
+        INNER JOIN a_marcas ma ON p.idmarca = ma.idmarca
+        INNER JOIN a_medidas me ON p.idmedida = me.idmedidas
+        WHERE p.descripcion LIKE '%lanta%'");
+
+        $stmt->execute();
+        $retorno =  $stmt->fetchAll();
+        $stmt->closeCursor();
         return $retorno;
     }
 }
