@@ -175,4 +175,94 @@ class ModeloEscolar
 
         return $retorno;
     }
+
+    /* ===================================================
+        ESTUDIANTE POR ID PASAJERO
+    ===================================================*/
+    static public function mdlEstudiantexId($idpasajero)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM e_pasajeros WHERE idpasajero = :idpasajero");
+
+        $stmt->bindParam(":idpasajero", $idpasajero, PDO::PARAM_INT);
+
+       
+        $stmt->execute();
+        $retorno = $stmt->fetch();
+        $stmt->closeCursor();
+
+        return $retorno;
+
+    }
+
+    /* ===================================================
+        ASOCIAR ESTUDIANTE A RUTA
+    ===================================================*/
+    static public function mdlAsociarEstudianteRuta($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE e_pasajeros set idruta = :idruta
+                                                WHERE idpasajero = :idpasajero");
+
+        $stmt->bindParam(":idpasajero", $datos['idpasajero'], PDO::PARAM_INT);
+        $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
+
+        if($stmt->execute()){
+            $retorno = "ok";
+        }else{
+            $retorno = "error";
+        }
+
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+
+    /* ===================================================
+        GUARDAR RECORRIDO
+    ===================================================*/
+    static public function mdlGuardarRecorrido($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO e_re_recorridos (idruta, fecha, auxiliar, observaciones) 
+                                                VALUES (:idruta, :fecha, :auxiliar, :observaciones)");
+
+        $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
+        $stmt->bindParam(":fecha", $datos['fecha'], PDO::PARAM_STR);
+        $stmt->bindParam(":auxiliar", $datos['auxiliar'], PDO::PARAM_STR);
+        $stmt->bindParam(":observaciones", $datos['observaciones'], PDO::PARAM_STR);
+
+        if($stmt->execute()){
+            $retorno = "ok";
+        }else{
+            $retorno = "error";
+        }
+
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+
+    /* ==========================================================
+        CONSULTAR SI HAY RECORRIDO PARA ESA RUTA EN EL MISMO DÍA 
+    ============================================================*/
+    static public function mdlRecorridoxRutaxDia($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM e_re_recorridos WHERE fecha = :fecha AND idruta = :idruta");
+
+        $stmt->bindParam(":fecha", $datos['fecha'], PDO::PARAM_STR);
+        $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
+
+
+        $stmt->execute();
+        $retorno = $stmt->fetch();
+        $stmt->closeCursor();
+
+        return $retorno;
+
+    }
+
 }

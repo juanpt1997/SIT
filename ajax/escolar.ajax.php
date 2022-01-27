@@ -13,7 +13,8 @@ class AjaxEscolar
         CARGAR SELECT
     ===================================================*/
     static public function ajaxCargarSelect($nombre)
-    {
+    {   
+        
         switch ($nombre) {
 
             case 'institucion':
@@ -37,14 +38,23 @@ class AjaxEscolar
                 $item = "numruta";
                 $item2 = "sector";
                 $id = "idruta";
+                break;
 
+            case 'ruta2':
+                $tabla = "e_rutas";
+                $item = "numruta";
+                $item2 = "sector";
+                $id = "idruta";
+                break;
             
             case 'estudiante':
                 $tabla = "e_pasajeros";
                 $item = "nombre";
                 $item2 = "codigo";
                 $id = "idpasajero";
+                break;
 
+            
             default:
                 # code...
                 break;
@@ -57,9 +67,14 @@ class AjaxEscolar
             "id" => $id
         );
 
-        $option = "<option value='' selected>Seleccione {$nombre} </option>";
+        if($nombre == "ruta2"){
+            $option = "<option value='' selected>Seleccione ruta </option>";
+        }else{
+            $option = "<option value='' selected>Seleccione {$nombre} </option>";
+        }
 
-        if ($nombre != "placa" && $nombre != "ruta" && $nombre != "idruta" && $nombre != "estudiante" ) {
+
+        if ($nombre != "placa" && $nombre != "ruta" && $nombre != "ruta2" && $nombre != "estudiante" ) {
 
             $respuesta = ModeloConceptosGenerales::mdlVer($datos);
             foreach ($respuesta as $key => $value) {
@@ -102,7 +117,7 @@ class AjaxEscolar
                 <div class='btn-group' role='group' aria-label='Button group'>
                     <button class='btn btn-info btn-editarRuta' idruta='{$value['idruta']}' data-toggle='modal' data-target='#modalRuta'><i class='fas fa-edit'></i></button>
                     <button class='btn btn-success btn-listar' idruta='{$value['idruta']}' data-toggle='modal' data-target='#modal-listar'><i class='fas fa-user-check'></i></button>
-                    <button class='btn btn-warning' idruta='{$value['idruta']}' data-toggle='modal' data-target='#modal-seguimiento'><i class='fas fa-clipboard-check'></i></button>
+                    <button class='btn btn-warning btn-seguimiento' idruta='{$value['idruta']}' data-toggle='modal' data-target='#modal-seguimiento'><i class='fas fa-clipboard-check'></i></button>
                 </div>
             </td>
             <td>{$value['numruta']}</td>
@@ -166,6 +181,75 @@ class AjaxEscolar
 
         echo $tr;
     }
+
+    /* ===================================================
+        ASOCIAR ESTUDIANTE A RUTA 
+    ===================================================*/
+    static public function ajaxEstudianteaRuta($datos)
+    {
+        $respuesta = ControladorEscolar::ctrAsociarEstudianteRuta($datos);
+        echo $respuesta;
+    }
+
+    /* ===================================================
+        TABLA SEGUIMIENTO X RUTA 
+    ===================================================*/
+    static public function ajaxSeguimientoxRuta($ruta)
+    {
+        $respuesta = ModeloEscolar::mdlEstudiantesxRuta($ruta);
+
+        $datos = array(
+            "fecha" => date("Y/m/d"),
+            "idruta" => $ruta
+        );
+
+        $recorrido = ModeloEscolar::mdlRecorridoxRutaxDia($datos);
+        
+
+
+        $tr = "";
+
+        foreach ($respuesta as $key => $value) {
+
+            if($recorrido != false){
+                $botones = "<div class='btn-group'>
+                <button class='btn btn-success btn-entrega' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' ><i class='fas fa-sign-in-alt'></i></button>
+                <button class='btn btn-danger btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}'><i class='fas fa-sign-out-alt'></i></button>
+        </div>";
+            }else{
+                $botones = "<div class='btn-group'>
+                <button class='btn btn-success btn-entrega' idpasajero='{$value['idpasajero']}'  idrecorrido=''><i class='fas fa-sign-in-alt'></i></button>
+                <button class='btn btn-danger btn-recoge' idpasajero='{$value['idpasajero']}'  idrecorrido='' ><i class='fas fa-sign-out-alt'></i></button>
+                </div>";
+            }
+
+            $tr .= "
+            <tr>
+                    <td>
+                        {$botones}
+                    </td>
+                    <td> {$value['codigo']} </td>
+                    <td> {$value['nombre']} </td>
+                    <td> {$value['nivel']} </td>
+                    <td> {$value['barrio']} </td>
+                    <td> {$value['direccion']} </td>
+                </tr>
+            
+            ";
+        }
+        
+        echo $tr;
+    }
+
+
+    /* ===================================================
+        GUARDAR RECORRIDO
+    ===================================================*/
+    static public function ajaxGuardarRecorrido($datos)
+    {
+        $respuesta = ControladorEscolar::ctrGuardarRecorrido($datos);
+        echo $respuesta;
+    }
 }
 
 
@@ -202,4 +286,20 @@ if (isset($_POST['CrearEstudiante']) && $_POST['CrearEstudiante'] == "ok") {
 #LLAMADO A TABLA ESTUDIANTES X RUTA 
 if(isset($_POST['TablaEstudiantesxRuta']) && $_POST['TablaEstudiantesxRuta'] == "ok"){
     AjaxEscolar::ajaxTablaEstudiantesxRuta($_POST['idruta']);
+}
+
+#LLAMADO A ASOCIAR ESTUDIANTE A RUTA
+if(isset($_POST['estudianteARuta']) && $_POST['estudianteARuta'] == "ok"){
+    AjaxEscolar::ajaxEstudianteaRuta($_POST);
+}
+
+#LLAMADO A TABLA SEGUIMIENTO X RUTA
+if(isset($_POST['TablaSeguimientosxRuta']) && $_POST['TablaSeguimientosxRuta'] == "ok")
+{
+    AjaxEscolar::ajaxSeguimientoxRuta($_POST['idruta']);
+}
+
+#LLAMADO A GUARDAR RECORRIDO
+if(isset($_POST['guardarRecorrido']) && $_POST['guardarRecorrido'] == "ok"){
+    AjaxEscolar::ajaxGuardarRecorrido($_POST);
 }

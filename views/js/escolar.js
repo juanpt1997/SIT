@@ -31,6 +31,7 @@ if (
         cargarSelect("institucion");
         cargarSelect("placa");
         cargarSelect("ruta");
+        cargarSelect("ruta2");
         cargarSelect("estudiante");
 
         /*============================================
@@ -79,7 +80,6 @@ if (
         ==============================================*/
 
         const cargarTablaEstudiantesxRuta = (idruta) => {
-
             // Quitar datatable
             $(`#tablaEstudiantesxRuta`).dataTable().fnDestroy();
             // Borrar datos
@@ -111,7 +111,50 @@ if (
                             text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
-                    var table = dataTableCustom(`#tablaEstudiantesxRuta`, buttons);
+                    var table = dataTableCustom(
+                        `#tablaEstudiantesxRuta`,
+                        buttons
+                    );
+                },
+            });
+        };
+
+        /*============================================
+            TABLA SEGUIMIENTO X RUTA    
+        ==============================================*/
+        const cargarTablaSeguimientoxRuta = (idruta) => {
+            // Quitar datatable
+            $(`#tablaSeguimiento`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbodySeguimiento`).html("");
+
+            var datos = new FormData();
+            datos.append("TablaSeguimientosxRuta", "ok");
+            datos.append("idruta", idruta);
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/escolar.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbodySeguimiento").html(response);
+                    } else {
+                        $("#tbodySeguimiento").html("");
+                    }
+
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "border-0 bg-gradient-olive",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(`#tablaSeguimiento`, buttons);
                 },
             });
         };
@@ -178,6 +221,8 @@ if (
 
                         //ACTUALIZAMOS LA TABLA
                         cargarTablaRutas();
+                        cargarSelect("ruta");
+                        cargarSelect("ruta2");
                     } else {
                         Swal.fire({
                             icon: "warning",
@@ -306,7 +351,142 @@ if (
         ==============================================*/
         $(document).on("click", ".btn-listar", function () {
             let idruta = $(this).attr("idruta");
+
+            $("#formulario_estudianteRuta").trigger("reset");
+
+            $("#ruta2").val(idruta).trigger("change");
             cargarTablaEstudiantesxRuta(idruta);
         });
+
+        /*============================================
+            ASOCIAR ESTUDIANTE A RUTA 
+        ==============================================*/
+        $("#formulario_estudianteRuta").submit(function (e) {
+            e.preventDefault();
+
+            let datosFrm = $(this).serializeArray();
+            let idruta = $("#ruta2").val();
+
+            var datosAjax = new FormData();
+
+            datosAjax.append("estudianteARuta", "ok");
+
+            datosFrm.forEach((element) => {
+                datosAjax.append(element.name, element.value);
+            });
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/escolar.ajax.php`,
+                data: datosAjax,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response == "no existe") {
+                        Swal.fire({
+                            icon: "error",
+                            title: "El estudiante que intenta asociar, no existe.",
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                    } else if (response == "ok") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Datos agregados correctamente.",
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+
+                        cargarTablaEstudiantesxRuta(idruta);
+                    } else {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Los datos no pudieron ser guardados vuelva a intentar más tarde.",
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                    }
+                },
+            });
+        });
+
+        /*============================================
+            TABLA SEGUIMIENTO X RUTA 
+        ==============================================*/
+        $(document).on("click", ".btn-seguimiento", function () {
+            let idruta = $(this).attr("idruta");
+
+            $("#idruta_aux").val(idruta);
+            cargarTablaSeguimientoxRuta(idruta);
+        });
+
+        /*============================================
+            GUARDAR RECORRIDO 
+        ==============================================*/
+        $("#auxiliar_form").submit(function (e) {
+            e.preventDefault();
+
+            let datosFrm = $(this).serializeArray();
+
+            var datos = new FormData();
+
+            datos.append("guardarRecorrido", "ok");
+
+            datosFrm.forEach((element) => {
+                datos.append(element.name, element.value);
+            });
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/escolar.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Datos agregados correctamente.",
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+
+                        cargarTablaEstudiantesxRuta(idruta);
+                    } else {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Los datos no pudieron ser guardados vuelva a intentar más tarde.",
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                    }
+                },
+            });
+        });
+
+
+        /*============================================
+            CLICK EN ENTREGAR 
+        ==============================================*/
+        $(document).on("click", ".btn-entrega", function(){
+
+            let idrecorrido = $(this).attr("idrecorrido");
+            let idpasajero = $(this).attr("idpasajero");
+
+            if(idrecorrido != ""){
+
+                var datos = new FormData();
+
+                datos.append("GuardarSeguimiento", "ok");
+                datos.append("idrecorrido", idrecorrido);
+                datos.append("idpasajero", idpasajero);
+
+            }
+        })
+
     }); //FINAL DOCUMENT READY
 }

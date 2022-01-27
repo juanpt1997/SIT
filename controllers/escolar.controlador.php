@@ -47,4 +47,41 @@ class ControladorEscolar
             
         }
     }
+
+
+    /* ===================================================
+        ASOCIAR ESTUDIANTE A RUTA 
+    ===================================================*/
+    static public function ctrAsociarEstudianteRuta($datos)
+    {
+        if(isset($datos['idpasajero'])){
+            $existe = ModeloEscolar::mdlEstudiantexId($datos['idpasajero']);
+            
+            if($existe != false){
+                $respuesta = ModeloEscolar::mdlAsociarEstudianteRuta($datos);
+                return $respuesta;
+            }else{
+                return "no existe";
+            }
+        }
+    }
+
+    /* ===================================================
+        GUARDAR RECORRIDO
+    ===================================================*/
+    static public function ctrGuardarRecorrido($datos)
+    {
+
+
+        $datos2 = array(
+            "idruta" => $datos['idruta_aux'],
+            "fecha" => date("Y/m/d"), 
+            "auxiliar" => $datos['nom_auxiliar'],
+            "observaciones" => $datos['observaciones_auxiliar']
+        );
+
+        $respuesta = ModeloEscolar::mdlGuardarRecorrido($datos2);
+        return $respuesta;
+    }
+
 }
