@@ -2753,12 +2753,14 @@ class ModeloControlLlantas
 
     static public function mdlTablaLlantas()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT cl.*, p.*, ma.marca, me.medida, ca.categoria, i.idsucursal, i.stock, s.sucursal, m.preciocompra, m.idproveedor, m.observaciones FROM m_control_llantas cl
+        $stmt = Conexion::conectar()->prepare("SELECT cl.*, p.*, ma.marca, me.medida, ca.categoria, i.idsucursal, i.stock, s.sucursal, m.preciocompra, m.idproveedor, m.observaciones, t.tamanio
+        FROM m_control_llantas cl
         INNER JOIN a_productos p ON p.idproducto = cl.idalmacen
         INNER JOIN a_marcas ma ON ma.idmarca = p.idmarca
         INNER JOIN a_categorias ca ON ca.idcategorias = p.idcategoria
         INNER JOIN a_medidas me ON me.idmedidas = p.idmedida
         INNER JOIN a_re_inventario i ON i.idproducto = p.idproducto
+        INNER JOIN a_tamanios t ON t.idtamanio = p.idtamanio
         INNER JOIN gh_sucursales s ON s.ids = i.idsucursal
         INNER JOIN a_re_movimientoinven m ON m.idinventario = i.idinventario
         WHERE cl.estado = 1 AND m.tipo_movimiento = 'ENTRADA'");
@@ -2825,6 +2827,20 @@ class ModeloControlLlantas
 
         $stmt->execute();
         $retorno =  $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    static public function mdlValidarVehiculo($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT cl.idvehiculo FROM m_control_llantas cl
+        WHERE idalmacen = :idalmacen");
+
+        $stmt->bindParam(":idalmacen", $datos['idproducto'], PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno =  $stmt->fetch();
+
         $stmt->closeCursor();
         return $retorno;
     }
