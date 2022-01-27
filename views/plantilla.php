@@ -232,6 +232,8 @@ if (isset($_GET['pagina'])) {
                         include "modulos/gerencial/{$ruta}.php";
                     } else if ($ruta == "tr-gps") {
                         include "modulos/tecnolab-tracker/{$ruta}.php";
+                    }else if($ruta == "e-escolar"){
+                        include "modulos/escolar/{$ruta}.php";
                     } else { # Página no válida
                         include "includes/error404.php";
                     }
@@ -276,4 +278,5 @@ if (isset($_GET['pagina'])) {
 <script src="<?= URL_APP ?>views/js/compras.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/almacen.js?v=<?= time() ?>"></script>
 <script src="<?= URL_APP ?>views/js/tecnolab-tracker.js?v=<?= time() ?>"></script>
+<script src="<?= URL_APP ?>views/js/escolar.js?v=<?= time() ?>"></script>
 </html>

@@ -582,7 +582,7 @@
                 =================================================== -->
                 <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="e-escolar" class="nav-link">
                             <i class="nav-icon fas fa-school"></i>
                             <p>Escolar</p>
                         </a>
