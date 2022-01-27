@@ -46,9 +46,9 @@ if (
                         });
                     } else if (response == 'existe'){
                         Swal.fire({
-                            icon: "danger",
+                            icon: "info",
                             showConfirmButton: true,
-                            title: "El dato ya existe.",
+                            title: "El dato a agregar ya existe.",
                             text: "Verifique los datos.",
                             confirmButtonText: "Continuar!",
                             allowOutsideClick: false,
@@ -581,6 +581,19 @@ if (
                             icon: "success",
                             showConfirmButton: true,
                             title: "El nuevo dato ha sido agregado",
+                            confirmButtonText: "¡Cerrar!",
+                            allowOutsideClick: false,
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location = "cg-mantenimiento";
+                            }
+                        });
+                    } else if(response == 'existe'){
+                        Swal.fire({
+                            icon: "info",
+                            showConfirmButton: true,
+                            title: "El dato a agregar ya existe.",
+                            text: "Verifique los datos.",
                             confirmButtonText: "¡Cerrar!",
                             allowOutsideClick: false,
                         }).then((result) => {
@@ -1718,6 +1731,18 @@ if (
                                 window.location = "cg-vehicular";
                             }
                         });
+                    } else if(response == 'existe'){
+                        Swal.fire({
+                            icon: "info",
+                            showConfirmButton: true,
+                            title: "El dato a agregar ya existe.",
+                            text: "Verifique los datos.",
+                            confirmButtonText: "¡Cerrar!",
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location = "cg-vehicular";
+                            }
+                        });
                     }
                 },
             });
@@ -1929,6 +1954,19 @@ if (
                             icon: "success",
                             showConfirmButton: true,
                             title: "El nuevo dato ha sido agregado",
+                            confirmButtonText: "¡Cerrar!",
+                            allowOutsideClick: false,
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location = "cg-almacen";
+                            }
+                        });
+                    } else if(response == 'existe'){
+                        Swal.fire({
+                            icon: "info",
+                            showConfirmButton: true,
+                            title: "El dato a agregar ya existe.",
+                            text: "Verifique los datos.",
                             confirmButtonText: "¡Cerrar!",
                             allowOutsideClick: false,
                         }).then((result) => {

@@ -4217,6 +4217,34 @@ $(document).ready(function () {
                 },
             });
         };
+        //FUNCION para listar los productos en SELECT
+        const cargarProductos = (idproducto = "") => {
+            let datos = new FormData();
+            datos.append("cargarProductos", "ok");
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $(`#num_llanta`).html(response);
+                    } else {
+                        $(`#num_llanta`).html("");
+                    }
+
+                    setTimeout(() => {
+                        if (idproducto != ""){
+                            $("#num_llanta").val(idproducto).trigger("change");
+                        }
+                    }, 500);
+
+                },
+            }); 
+        };
         //FUNCION para cargar los datos del select proveedor
         const cargarSelectProveedor = (proveedor) => {
             let datos = new FormData();
@@ -4238,7 +4266,7 @@ $(document).ready(function () {
                 },
             });
         };
-        //FUNCION para cargar el body de la tabla productos
+        //FUNCION para cargar el body de la tabla llantas
         const cargarTablaLlantas = () => {
             let datos = new FormData();
             // Quitar datatable
@@ -4296,6 +4324,7 @@ $(document).ready(function () {
                 },
             });
         };
+        //instancias funcion
         cargarTablaLlantas();
         //ASIGNAR PLACA DE VEHICULO A LAS OBSERVACIONES DE LA LLANTA
         $(document).on("change", "#placa", function () {
@@ -4444,13 +4473,15 @@ $(document).ready(function () {
         });
         //CARGAR FUNCIONES AL ABRIR EL MODAL DE REGISTRAR LLANTA
         $("#registro-llantas").on("show.bs.modal", function () {
+            cargarProductos();
             cargarSelect("marca");
             cargarSelect("medida");
             cargarSelect("categoria");
             cargarSelect("sucursal");
+            cargarSelect("tama_llanta")
             cargarSelectProveedor("proveedor");
         });
-
+        //Eliminar control (borrado logico)
         $(document).on('click', ".btn-eliminar-control", function () {
 
             let id = $(this).attr("idllanta");
@@ -4497,6 +4528,96 @@ $(document).ready(function () {
                 }
             });
             
+        });
+        //Agregar llanta nueva que no se encuentre en la lista de llantas
+        $(".btn_add_llanta").on('click', function () {
+            $("#registro-llantas").modal('hide');
+            $("#crear_llanta").modal('show');
+        });
+        //CARGAR selects al abrir el modal de crear una nueva llanta
+        $("#crear_llanta").on("show.bs.modal", function () {
+            cargarSelect("marca2");
+            cargarSelect("medida2");
+            cargarSelect("categoria2");
+            cargarSelect("nuevo_tama_llanta");
+        });
+        //TRAER LOS DATOS DE LA LLANTA AL SELECCIONAR UNA DE LA LISTA
+        $(document).on("change", "#num_llanta", function () {
+
+            let id = $(this).val();
+            var datos = new FormData();
+            datos.append("datosProducto", "ok");
+            datos.append("item", "idproducto");
+            datos.append("valor", id);
+
+            $.ajax({
+                type: "post",
+                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    if (response != "") {
+                        $("#descripcion").val(response[0].descripcion);
+                        $("#tama_llanta").val(response[0].tamanio);
+                        $("#marca").val(response[0].idmarca);
+                        $("#categoria").val(response[0].idcategoria);
+                        $("#medida").val(response[0].idmedida);
+                        $("#referencia").val(response[0].referencia);
+                    }
+                },
+            });
+        });
+        //SUBMIT del formulario que agrega llantas
+        $("#formulario_crear_nuevaLlanta").submit(function (e) {
+            e.preventDefault();
+            var datosAjax = new FormData();
+            datosAjax.append("nuevaLLanta", "ok");
+
+            var datosFrm = $(this).serializeArray();
+            datosFrm.forEach((element) => {
+                datosAjax.append(element.name, element.value);
+            });
+
+            $.ajax({
+                type: "post",
+                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                data: datosAjax,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response != "" && response != "error") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Llanta creada con éxito.",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                            closeOnConfirm: false,
+                        })
+                        cargarProductos(response);
+                        $("#registro-llantas").modal('show');
+                        $("#crear_llanta").modal('hide');
+                        //$("#num_llanta").val(response).trigger('change');
+
+                    } else if (response == 'error') {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Problema al crear la llanta.",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                            closeOnConfirm: false,
+                        })
+                    }
+                },
+            });
+        });
+        //Volver al modal de ASOCIAR LLANTA CON VEHICULO al dar click en cancelar del modal CREAR NUEVA LLANTA
+        $(".btn_cancelar_add").on('click', function () {
+            $("#registro-llantas").modal('show');
+            $("#crear_llanta").modal('hide');
         });
     }
 });

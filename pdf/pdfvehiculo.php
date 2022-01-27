@@ -494,8 +494,8 @@ class PdfVehiculo
                     </tr>
   
                     <tr style="text-align: center;">
-                        <td border="1" height="190"><img src="' . $SOAT['ruta_documento'] . '" height="190"></td>
-                        <td border="1" height="190"><img src="' . $CDA['ruta_documento'] . '" height="190"></td>
+                        <td border="1" height="190"><img src="' . $SOAT['ruta_documento'] . '" height="350"></td>
+                        <td border="1" height="190"><img src="' . $CDA['ruta_documento'] . '" height="350"></td>
                     </tr>
 
                     <tr style="text-align: center; font-weight:bold;">
