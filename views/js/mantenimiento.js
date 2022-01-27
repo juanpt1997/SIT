@@ -4364,7 +4364,7 @@ $(document).ready(function () {
                        $("#num_llanta").val(response.codigo);
                        $("#descripcion").val(response.descripcion);
                        $("#placa").val(response.idvehiculo).trigger("change");;
-                       $("#tama_llanta").val(response.tamanio);
+                       $("#tama_llanta").val(response.idtamanio);
                        $("#marca").val(response.idmarca);
                        $("#sucursal").val(response.idsucursal).trigger("change");;
                        $("#categoria").val(response.idcategoria);
@@ -4456,6 +4456,31 @@ $(document).ready(function () {
                 processData: false,
                 success: function (response) {
                     if (response == "ok") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Llanta registrada al vehículo con éxito.",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                            closeOnConfirm: false,
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location = "m-control-llantas";
+                            }
+                        });
+                    } else if(response == 'asociado'){
+                        Swal.fire({
+                            icon: "info",
+                            title: "Llanta en existencia.",
+                            text: "Actualmente la llanta se encuentra asociada a un vehículo.",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                            closeOnConfirm: false,
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location = "m-control-llantas";
+                            }
+                        });
+                    } else if (response == 'asociar'){
                         Swal.fire({
                             icon: "success",
                             title: "Llanta registrada al vehículo con éxito.",
@@ -4561,7 +4586,7 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response != "") {
                         $("#descripcion").val(response[0].descripcion);
-                        $("#tama_llanta").val(response[0].tamanio);
+                        $("#tama_llanta").val(response[0].idtamanio);
                         $("#marca").val(response[0].idmarca);
                         $("#categoria").val(response[0].idcategoria);
                         $("#medida").val(response[0].idmedida);

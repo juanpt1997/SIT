@@ -333,7 +333,9 @@
                                                     <a class="dropdown-item font-weight-bold" href="m-inventario"><u>Inventario</u></a>
                                                     <a class="dropdown-item font-weight-bold" href="m-revision-tm"><u>Revisión
                                                             tecnicomecánica</u></a>
-                                                    <a class="dropdown-item font-weight-bold" href="m-control-llantas   "><u>Control de llantas</u></a>
+                                                    <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
+                                                        <a class="dropdown-item font-weight-bold" href="m-control-llantas"><u>Control de llantas</u></a>
+                                                    <?php endif ?>
                                                 </div>
                                             </div>
                                         </div>
