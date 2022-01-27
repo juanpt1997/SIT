@@ -87,12 +87,12 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 </div>
 <!-- /.content-wrapper -->
 
-<div id="registro-llantas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="registro-llantas-title" aria-hidden="true">
+<div id="registro-llantas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="registro-llantas-title" aria-hidden="true" style="overflow-y: scroll;">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
 
             <div class="modal-header bg-gradient-info">
-                <h5 class="modal-title" id="registro-llantas-title">Registrar llanta</h5>
+                <h4 class="modal-title" id="registro-llantas-title">Registrar llanta</h4>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -107,24 +107,133 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                     <input type="hidden" name="id_llanta" id="id_llanta" value="">
 
-                    <div class="col">
-                        <div class="form-group">
-                            <label><i>Número/Código de LLanta</i></label>
-                            <input class="form-control" type="number" id="num_llanta" max="9999" name="num_llanta" required>
+                    <div class="form-group">
+                        <label><i>Lista de LLantas</i></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="my-addon"><i class="fas fa-list"></i></span>
+                            </div>
+                            <!-- <input class="form-control" type="number" id="num_llanta" max="9999" name="num_llanta" required> -->
+                            <select class="custom-select rounded-0 input_producto select2-single" id="num_llanta" name="num_llanta" required>
+                            </select>
+                            <div class="input-group-append">
+                                <a><button type="button" class="btn btn-success btn-md btn_add_llanta" title="Crear nueva llanta" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="col">
-                        <div class="form-group">
-                            <label><i>Descripción</i></label>
-                            <input type="text" class="form-control input_producto" id="descripcion" name="descripcion" placeholder="Descripción / Nombre de llanta" required>
+                    <div class="form-group">
+                        <label><i>Descripción</i></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="my-addon"><i class="fas fa-align-left"></i></span>
+                            </div>
+                            <input type="text" class="form-control input_producto" id="descripcion" name="descripcion" placeholder="Descripción o nombre del producto" required readonly>
                         </div>
                     </div>
 
-                    <div class="col">
-                        <div class="form-group">
-                            <label><i>PLACA</i></label>
-                            <select id="placa" name="placa" class="form-control select2-single" type="number" style="width: 99%" required>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Tamaño</label>
+                                <div class="input-group">
+                                    <select id="tama_llanta" name="tama_llanta" class="custom-select rounded-0" type="number" required>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md" title="Crear nuevo tamaño de llantas" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="referencia">Referencia</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" id="referencia" max="9999" name="referencia" required readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label><i>Marca</i></label>
+                                <div class="input-group">
+                                    <select class="custom-select rounded-0 input_producto" id="marca" name="marca" required readonly>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md" title="Crear nueva marca" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label><i>Categoría</i></label>
+                                <div class="input-group">
+                                    <select class="custom-select rounded-0" id="categoria" name="categoria" required readonly>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md" title="Crear nueva categoria" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label><i>Medida</i></label>
+                                <div class="input-group">
+                                    <select class="custom-select rounded-0 input_producto" id="medida" name="medida" required readonly>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md" title="Crear nueva medida" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label><i>Ciudad</i></label>
+                                <select id="sucursal" name="sucursal" class="form-control select2-single" type="number" style="width: 99%" required>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="vida_util">Vida</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="number" id="vida_util" max="9999" name="vida_util" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label for="cantidad">Cantidad</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="number" id="cantidad" max="9999" name="cantidad" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4 bg-dark">
+
+                    <div class="form-group">
+                        <label><i>PLACA del vehículo a relacionar</i></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-car-side"></i></span>
+                            </div>
+                            <select id="placa" name="placa" class="form-control select2-single" type="number" required>
                                 <option value="" selected><b>-Lista de placas-</b></option>
                                 <?php foreach ($Placas as $key => $value) : ?>
                                     <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?></option>
@@ -133,120 +242,10 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         </div>
                     </div>
 
-                    <hr class="my-4">
-
-
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label>Tamaño</label>
-                                <select id="tama_llanta" name="tama_llanta" class="form-control" type="number" style="width: 99%" required>
-                                    <option value="" selected><b>-Lista de tamaños llantas-</b></option>
-                                    <option value="215/75R15">215/75R15</option>
-                                    <option value="225/70R15">225/70R15</option>
-                                    <option value="235/75R15">235/75R15</option>
-                                    <option value="245/75R16">245/75R16</option>
-                                    <option value="255/70R16">255/70R16</option>
-                                    <option value="255/70R15C">255/70R15C</option>
-                                    <option value="205/75R17.5">205/75R17.5</option>
-                                    <option value="215/75R17.5">215/75R17.5</option>
-                                    <option value="LT31X10,50R15">LT31X10,50R15</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label><i>Marca</i> <i class="fas fa-copyright"></i></label>
-                                <div class="input-group">
-                                    <select class="custom-select rounded-0 input_producto" id="marca" name="marca" required>
-                                    </select>
-                                    <div class="input-group-append">
-                                        <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nueva marca" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label><i>Ciudad</i></label>
-                                <select id="sucursal" name="sucursal" class="form-control select2-single" type="number" style="width: 99%" required>
-
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label><i>Categoría</i></label>
-                                <div class="input-group">
-                                    <select class="custom-select rounded-0" id="categoria" name="categoria" required>
-                                    </select>
-                                    <div class="input-group-append">
-                                        <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nueva categoria" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label><i>Medida</i> <i class="fas fa-tachometer-alt"></i></label>
-                                <div class="input-group">
-                                    <select class="custom-select rounded-0 input_producto" id="medida" name="medida" required>
-                                    </select>
-                                    <div class="input-group-append">
-                                        <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nueva medida" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="kilo_invent">Vida</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                                    </div>
-                                    <input class="form-control" type="number" id="vida_util" max="9999" name="vida_util" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="kilo_invent">Referencia</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-file-alt"></i></span>
-                                    </div>
-                                    <input class="form-control" type="text" id="referencia" max="9999" name="referencia" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="kilo_invent">Cantidad</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-cubes"></i></span>
-                                    </div>
-                                    <input class="form-control" type="number" id="cantidad" max="9999" name="cantidad" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr class="my-4">
-
-                    <div class="row">
-                        <div class="col-6">
-                            <div class="form-group">
-                                <label for="fecha_montaje">Fecha factura</label>
+                                <label for="fecha_factura">Fecha factura</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
@@ -284,10 +283,13 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label><i>Proveedor</i></label>
                                 <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-truck"></i></span>
+                                    </div>
                                     <select class="select2-single rounded-0" id="proveedor" name="proveedor" required>
                                     </select>
                                     <div class="input-group-append">
-                                        <a href="c-proveedores" target="_blank"><button type="button" class="btn btn-success btn-md btn-ruta" title="Crear nuevo proveedor" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                        <a href="c-proveedores" target="_blank"><button type="button" class="btn btn-success btn-md" title="Crear nuevo proveedor" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
                                     </div>
                                 </div>
                             </div>
@@ -302,7 +304,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                     </div>
 
-                    <hr class="my-4">
+                    <hr class="my-4 bg-dark">
 
                     <div class="row">
                         <div class="col-6">
@@ -345,11 +347,17 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         <div class="col">
                             <div class="form-group">
                                 <label>Estado actual llanta</label>
-                                <select id="estado" name="estado" class="form-control" type="text" style="width: 99%" required>
-                                    <option value="" selected><b>-Seleccione el estado actual-</b></option>
-                                    <option value="montada">Montada</option>
-                                    <option value="desmontada">Desmontada</option>
-                                </select>
+
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-toggle-on"></i></span>
+                                    </div>
+                                    <select id="estado" name="estado" class="form-control" type="text" required>
+                                        <option value="" selected><b>-Seleccione el estado actual-</b></option>
+                                        <option value="montada">Montada</option>
+                                        <option value="desmontada">Desmontada</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
@@ -365,7 +373,6 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                     <button type="submit" class="btn bg-gradient-success btn-guardar-registro-llantas" form="formulario_LlantasControl"><i class="fas fa-share"></i> Guardar</button>
                     <button type="button" class="btn bg-gradient-danger" data-dismiss="modal">Cancelar</button>
                 </div>
-
             </div>
         </div>
     </div>
@@ -453,6 +460,133 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
             <div class="modal-footer bg-gradient-dark">
                 <button type="submit" class="btn bg-gradient-success btn-guardar-seguimiento"><i class="fas fa-share"></i> Guardar</button>
                 <button type="button" class="btn bg-gradient-danger" data-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="crear_llanta" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="crear_llanta-title" aria-hidden="true" style="overflow-y: scroll;">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header bg-gradient-info">
+                <h4 class="modal-title" id="crear_llanta-title">Crear nueva llanta</h4>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form id="formulario_crear_nuevaLlanta" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+
+                    <hr class="my-4 bg-dark">
+
+                    <input type="hidden" name="id_llanta" id="id_llanta" value="">
+
+
+
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label><i>Número/Código de LLanta</i></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="my-addon"><i class="fas fa-list"></i></span>
+                                    </div>
+                                    <input class="form-control" type="number" id="nuevo_num_llanta" max="9999" name="nuevo_num_llanta" required>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="form-group">
+                                <label><i>Descripción</i></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="my-addon"><i class="fas fa-align-left"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control input_producto" id="nuevo_descripcion" name="nuevo_descripcion" placeholder="Descripción / Nombre de llanta" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="row">
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Tamaño</label>
+                                <div class="input-group">
+                                    <select id="nuevo_tama_llanta" name="nuevo_tama_llanta" class="custom-select rounded-0" type="number" required>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md" title="Crear nuevo tamaño de llantas" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label><i>Marca</i></label>
+                                <div class="input-group">
+                                    <select class="custom-select rounded-0 input_producto" id="marca2" name="marca2" required>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md" title="Crear nueva marca" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label><i>Categoría</i></label>
+                                <div class="input-group">
+                                    <select class="custom-select rounded-0" id="categoria2" name="categoria2" required>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md" title="Crear nueva categoria" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label><i>Medida</i></label>
+                                <div class="input-group">
+                                    <select class="custom-select rounded-0 input_producto" id="medida2" name="medida2" required>
+                                    </select>
+                                    <div class="input-group-append">
+                                        <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md" title="Crear nueva medida" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="kilo_invent">Referencia</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="text" id="nuevo_referencia" max="9999" name="nuevo_referencia" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+            <div class="modal-footer">
+                <div class="form-group">
+                    <button type="submit" class="btn bg-gradient-success btn_nueva_llanta" form="formulario_crear_nuevaLlanta"><i class="fas fa-share"></i> Agregar</button>
+                    <button type="button" class="btn bg-gradient-danger btn_cancelar_add" data-dismiss="modal">Cancelar</button>
+                </div>
             </div>
         </div>
     </div>

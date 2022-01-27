@@ -1555,3 +1555,31 @@ class ControladorMantenimientos
 		exit;
 	}
 }
+
+class ControladorLlantasControl
+{
+	static public function ctrValidarControl($datos)
+	{
+		//ENIAMOS LA SUCURSAL CON PRODUCTO DEL CONTROL DE LLANTAS
+		$inventario = ModeloProductos::mdlValidarInventario($datos);
+		//Verificamos que ya exista un inventario con ese producto en esa sucursal
+		if(is_array($inventario)){
+
+			// $vehiculoAsociado = ModeloControlLlantas::mdlValidarVehiculo($datos);
+
+			// if($vehiculoAsociado != ""){
+
+			// 	return 'asociado';
+
+			// } else {
+
+			// 	return 'asociar';
+			// }
+			return 'existe';
+
+		} else {
+
+			return 'crear';
+		}
+	}
+}

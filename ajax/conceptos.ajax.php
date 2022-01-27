@@ -121,6 +121,10 @@ class AjaxConceptosGenerales
 				$tabla = "m_serviciosexternos";
 				$item = "nombre";
 				break;
+			case 'Tamaños llantas':
+				$tabla = "a_tamanios";
+				$item = "tamanio";
+				break;	
 
 			default:
 				// code...
@@ -272,6 +276,11 @@ class AjaxConceptosGenerales
 				$tabla = "m_serviciosexternos";
 				$item = "nombre";
 				$id = "idservicio_externo";
+				break;
+			case 'Tamaños llantas':
+				$tabla = "a_tamanios";
+				$item = "tamanio";
+				$id = "idtamanio";
 				break;
 
 			default:
@@ -426,7 +435,11 @@ class AjaxConceptosGenerales
 				$item = "nombre";
 				$idtabla = "idservicio_externo";
 				break;
-
+			case 'Tamaños llantas':
+				$tabla = "a_tamanios";
+				$item = "tamanio";
+				$idtabla = "idtamanio";
+				break;
 			default:
 				// code...
 				break;
@@ -541,6 +554,10 @@ class AjaxConceptosGenerales
 			case 'Servicios externos':
 				$tabla = "m_serviciosexternos";
 				$item = "nombre";
+				break;
+			case 'Tamaños llantas':
+				$tabla = "a_tamanios";
+				$item = "tamanio";
 				break;
 
 			default:
@@ -686,6 +703,10 @@ class AjaxConceptosGenerales
 			case 'Cuentas contables':
 				$tabla = "li_cuentas_contables";
 				$item = "num_cuenta";
+				break;
+			case 'Tamaños llantas':
+				$tabla = "a_tamanios";
+				$item = "tamanio";
 				break;
 
 			default:
@@ -1057,6 +1078,10 @@ class AjaxConceptosGenerales
 				$tabla = "li_cuentas_contables";
 				$id_tabla = "id";
 				break;
+			case 'Tamaños llantas':
+				$tabla = "a_tamanios";
+				$id_tabla = "idtamanio";
+				break;	
 
 			default:
 				// code...

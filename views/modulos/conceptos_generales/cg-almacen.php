@@ -116,6 +116,26 @@
                                     <!-- /.info-box -->
                                 </div>
 
+                                <div class="col-12 col-sm-12 col-md-6 text-nowrap">
+                                    <div class="info-box border border-secondary">
+                                        <span class="info-box-icon bg-navy elevation-1"><i class="fas fa-arrows-alt"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text"><i>Tamaños llantas</i></span>
+                                            <span class="info-box-number" concepto="Tamaños llantas"></span>
+                                        </div>
+                                        <!-- /.info-box-content -->
+                                        <div class="d-flex flex-column">
+                                            <button concepto="Tamaños llantas" type="button" class="btn-toolbar btn-ver btn-sm btn-info float-right" style="margin: 1px;" data-toggle="modal" data-target="#VisualizarA"><i class="far fa-eye"></i></button>
+                                            <button concepto="Tamaños llantas" type="button" class="btn-toolbar btn-nuevo btn-sm btn-success float-right" style="margin: 1px;" data-toggle="modal" data-target="#AgregarEditarA"><i class="fas fa-plus-circle"></i></button>
+                                        </div>
+
+                                        <div class="overlay d-none" concepto="Tamaños llantas">
+                                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                        </div>
+                                    </div>
+                                    <!-- /.info-box -->
+                                </div>
+
                             </div>
                         </div>
                     </div>

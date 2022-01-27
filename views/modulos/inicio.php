@@ -333,7 +333,9 @@
                                                     <a class="dropdown-item font-weight-bold" href="m-inventario"><u>Inventario</u></a>
                                                     <a class="dropdown-item font-weight-bold" href="m-revision-tm"><u>Revisión
                                                             tecnicomecánica</u></a>
-                                                    <a class="dropdown-item font-weight-bold" href="m-control-llantas   "><u>Control de llantas</u></a>
+                                                    <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
+                                                        <a class="dropdown-item font-weight-bold" href="m-control-llantas"><u>Control de llantas</u></a>
+                                                    <?php endif ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -495,14 +497,14 @@
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label class="col-form-label" for="titulo_tarea"><i>Título</i></label>
-                                                        <input type="text" class="form-control is-valid" id="titulo_tarea" name="titulo_tarea">
+                                                        <input type="text" class="form-control input_add_tarea" id="titulo_tarea" name="titulo_tarea">
                                                     </div>
                                                 </div>
 
                                                 <div class="col">
                                                     <div class="form-group">
                                                         <label class="col-form-label" for="descripcion_tarea"><i>Descripción</i></label>
-                                                        <textarea type="text" class="form-control is-valid" id="descripcion_tarea" name="descripcion_tarea" maxlength="100"></textarea>
+                                                        <textarea type="text" class="form-control input_add_tarea" id="descripcion_tarea" name="descripcion_tarea" maxlength="100"></textarea>
                                                     </div>
                                                 </div>
 
@@ -513,7 +515,7 @@
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
                                                             </div>
-                                                            <input class="form-control is-valid" type="datetime-local" id="fecha_inicio" name="fecha_inicio" required>
+                                                            <input class="form-control input_add_tarea" type="datetime-local" id="fecha_inicio" name="fecha_inicio" required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -525,7 +527,7 @@
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
                                                             </div>
-                                                            <input class="form-control is-valid" type="datetime-local" id="fecha_final" name="fecha_final" required>
+                                                            <input class="form-control" type="datetime-local" id="fecha_final" name="fecha_final" required>
                                                         </div>
                                                     </div>
                                                 </div>
