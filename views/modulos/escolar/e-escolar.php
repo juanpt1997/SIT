@@ -217,7 +217,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                     </div>
 
                     <!-- FORMULARIO PARA ASOCIAR ESTUDIANTE A RUTA -->
-                    <form class="formulario" id="" method="post" enctype="multipart/form-data">
+                    <form class="" id="formulario_estudianteRuta" method="post" enctype="multipart/form-data">
                         <div class="row mt-2 mb-2 border border-info rounded">
                             <!-- ===================================================
                                 ESTUDIANTE
@@ -227,7 +227,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                                     <label for="exampleInput1">Estudiante</label>
                                     <select class="form-control select2-single" id="estudiante" name="idpasajero">
                                         <option value="" selected>-Seleccione un estudiante-</option>
-                                       
+
                                     </select>
                                 </div>
                             </div>
@@ -238,7 +238,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="form-group">
                                     <label for="exampleInput1">Ruta</label>
-                                    <select class="form-control select2-single" id="idruta" name="idruta">
+                                    <select class="form-control select2-single" id="ruta2" name="idruta">
 
                                     </select>
                                 </div>
@@ -249,7 +249,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                                                     =================================================== -->
                             <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
                                 <div class="col-12 col-md-4 col-lg-1 text-right text-md-left align-self-center">
-                                    <button type="submit" form="" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
+                                    <button type="submit" form="formulario_estudianteRuta" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
                                     <div class="overlay d-none" id="">
                                         <i class="fas fa-2x fa-sync-alt fa-spin"></i>
                                     </div>
@@ -263,7 +263,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
 
                     <!-- TABLA DE ESTUDIANTES -->
                     <div class="table-responsive">
-                        <table  id="tablaEstudiantesxRuta" class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100 text-center">
+                        <table id="tablaEstudiantesxRuta" class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100 text-center">
                             <thead class="thead-light text-uppercase text-sm text-center">
                                 <tr>
                                     <th>Código</th>
@@ -408,7 +408,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                                 <input type="text" class="form-control" id="nombreSAcudienteEstudiante" name="nombreSAcudienteEstudiante">
                             </div>
                         </div>
-                        
+
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
@@ -449,47 +449,49 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                     <div class="justify-content-start">
                         <h3><i>Recorrido</i> <i class="fas fa-route"></i></h3>
                     </div>
-                    <div class="row">
+                    <form class="" id="auxiliar_form" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                        
+                            
+                            <input type="hidden" id="idruta_aux" name="idruta_aux" value="">
 
+                            <div class="col-12 col-sm-6 col-lg-6">
+                                <div class="form-group text-center">
+                                    <label><i>Nombre auxiliar</i></label>
+                                    <input type="text" class="form-control" id="nom_auxiliar" name="nom_auxiliar" required>
+                                </div>
+                            </div>
 
-                        <div class="col-12 col-sm-6 col-lg-6">
-                            <div class="form-group text-center">
-                                <label><i>Nombre auxiliar</i></label>
-                                <input type="text" class="form-control" id="cod_producto" name="cod_producto" required>
+                            <div class="col-12 col-sm-6 col-lg-6">
+                                <div class="form-group text-center">
+                                    <label for="observaciones"><i>Observaciones</i></label>
+                                    <textarea class="form-control" name="observaciones_auxiliar" id="observaciones_auxiliar" rows="2"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="text-center justify-content-center">
+                                <button type="submit" class="btn btn-md bg-gradient-success " form="auxiliar_form"><i class="fas fa-plus"></i> Guardar</button>
                             </div>
                         </div>
-
-                        <div class="col-12 col-sm-6 col-lg-6">
-                            <div class="form-group text-center">
-                                <label for="observaciones"><i>Observaciones</i></label>
-                                <textarea class="form-control" name="observaciones_salida" id="observaciones_salida" rows="2"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="text-center justify-content-center">
-                            <button type="submit" class="btn btn-md bg-gradient-success " form=""><i class="fas fa-plus"></i> Guardar</button>
-                        </div>
-
-                    </div>
+                    </form>
 
                     <hr class="my-4">
 
                     <!-- TABLA DE ESTUDIANTES -->
                     <div class="table-responsive">
-                        <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100 text-center">
+                        <table id="tablaSeguimiento" class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100 text-center">
                             <thead class="thead-light text-uppercase text-sm text-center">
                                 <tr>
                                     <th>...</th>
                                     <th>Código</th>
-                                    <th>Apellidos</th>
-                                    <th>Nombres</th>
+                                    <th>Nombre</th>
                                     <th>Nivel</th>
                                     <th>Barrio</th>
                                     <th>Dirección</th>
                                 </tr>
                             </thead>
-                            <tbody class="text-sm">
-                                <td>
+                            <tbody id="tbodySeguimiento" class="text-sm">
+                                <!-- <td>
                                     <div class="btn-group">
                                         <button class="btn btn-success"><i class="fas fa-sign-in-alt"></i></button>
                                         <button class="btn btn-danger"><i class="fas fa-sign-out-alt"></i></button>
@@ -500,7 +502,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                                 <td>Simón Eduardo</td>
                                 <td>Preescolar</td>
                                 <td>Alamos</td>
-                                <td>Altos de canaan</td>
+                                <td>Altos de canaan</td> -->
                             </tbody>
                         </table>
                     </div>
