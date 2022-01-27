@@ -159,6 +159,32 @@ if (
             });
         };
 
+
+        /*============================================
+            CARGAR SELECT PARA EL ORDEN
+        ==============================================*/
+        const cargarSelectOrden = (idruta) =>{
+            let datos = new FormData();
+            datos.append("cargarselectOrden", "ok");
+            datos.append("idruta", idruta);
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/escolar.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $(`#estudianteOrden`).html(response);
+                    } else {
+                        $(`#estudianteOrden`).html("");
+                    }
+                },
+            });
+        };
+
         /*============================================
             SELECCIONAN VEHÍCULO
         ==============================================*/
@@ -183,6 +209,39 @@ if (
                     $("#numinterno").val(Vehiculo.numinterno);
                     $("#tipovehiculo").val(Vehiculo.tipovehiculo);
                     $("#cantidad").val(Vehiculo.capacidad);
+
+                    /* ===================================================
+                        CARGAR LISTA CONDUCTORES
+                        ===================================================*/
+                    var datos = new FormData();
+                    datos.append("ListaConductores", "ok");
+                    datos.append("idvehiculo", Vehiculo.idvehiculo);
+                    $.ajax({
+                        type: "post",
+                        url: `${urlPagina}ajax/fuec.ajax.php`,
+                        data: datos,
+                        dataType: "json",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            // $(".overlay-conductores").addClass("d-none");
+                            let htmlSelect = `<option value="" selected>-Seleccione un conductor</option>`;
+                            if (response != "") {
+                                response.forEach((element) => {
+                                    htmlSelect += `<option value="${element.idconductor}">${element.Documento} - ${element.conductor}</option>`;
+                                });
+                            }
+                            $("#idconductor").html(htmlSelect);
+
+                            // console.log(response);
+
+                            // Accionar el observador
+                            // $("#observador_conductores_ruta").trigger(
+                            //     "change"
+                            // );
+                        },
+                    });
                 },
             });
         });
@@ -256,7 +315,6 @@ if (
                 processData: false,
                 dataType: "json",
                 success: function (response) {
-                    console.log(response);
                     if (response != "") {
                         $("#idruta").val(response.idruta);
                         $("#numruta").val(response.numruta);
@@ -265,6 +323,12 @@ if (
                             .val(response.idinstitucion)
                             .trigger("change");
                         $("#placa").val(response.idvehiculo).trigger("change");
+
+                        setTimeout(() => {
+                            $("#idconductor")
+                                .val(response.idconductor)
+                                .trigger("change");
+                        }, 1500);
                     }
                 },
             });
@@ -334,6 +398,8 @@ if (
                             showConfirmButton: false,
                             timer: 1500,
                         });
+
+                        cargarSelect("estudiante");
                     } else {
                         Swal.fire({
                             icon: "warning",
@@ -351,11 +417,21 @@ if (
         ==============================================*/
         $(document).on("click", ".btn-listar", function () {
             let idruta = $(this).attr("idruta");
+            let ordenado = $(this).attr("ordenado");
+
+            //SI LA RUTA YA ESTÁ ORDENADA HABILITA EL BOTON PARA ORDEN DE LOS ESTUDIANTES
+            if(ordenado == 1){
+                $("#despuesDe").removeClass("hide");
+            }else{
+                $("#despuesDe").addClass("hide");
+            }
 
             $("#formulario_estudianteRuta").trigger("reset");
 
             $("#ruta2").val(idruta).trigger("change");
-            cargarTablaEstudiantesxRuta(idruta);
+            $("#estudiante").val("").trigger("change");
+            cargarSelectOrden(idruta);
+            cargarTablaEstudiantesxRuta(idruta); 
         });
 
         /*============================================
@@ -391,7 +467,7 @@ if (
                             showConfirmButton: false,
                             timer: 1500,
                         });
-                    } else if (response == "ok") {
+                    } else if (response != "error") {
                         Swal.fire({
                             icon: "success",
                             title: "Datos agregados correctamente.",
@@ -400,6 +476,11 @@ if (
                         });
 
                         cargarTablaEstudiantesxRuta(idruta);
+                        cargarSelectOrden(idruta);
+
+                        //HABILITAMOS PARA DAR ORDEN A LOS ESTUDIANTES 
+                        $("#despuesDe").removeClass("hide");
+
                     } else {
                         Swal.fire({
                             icon: "warning",
@@ -447,13 +528,16 @@ if (
                 processData: false,
                 // dataType: "json",
                 success: function (response) {
-                    if (response == "ok") {
+                    if (!isNaN(response)) {
                         Swal.fire({
                             icon: "success",
                             title: "Datos agregados correctamente.",
                             showConfirmButton: false,
                             timer: 1500,
                         });
+
+                        $(".btn-entrega").attr("idrecorrido", response);
+                        $(".btn-recoge").attr("idrecorrido", response);
 
                         cargarTablaEstudiantesxRuta(idruta);
                     } else {
@@ -468,25 +552,20 @@ if (
             });
         });
 
-
         /*============================================
             CLICK EN ENTREGAR 
         ==============================================*/
-        $(document).on("click", ".btn-entrega", function(){
-
+        $(document).on("click", ".btn-entrega", function () {
             let idrecorrido = $(this).attr("idrecorrido");
             let idpasajero = $(this).attr("idpasajero");
 
-            if(idrecorrido != ""){
-
+            if (idrecorrido != "") {
                 var datos = new FormData();
 
                 datos.append("GuardarSeguimiento", "ok");
                 datos.append("idrecorrido", idrecorrido);
                 datos.append("idpasajero", idpasajero);
-
             }
-        })
-
+        });
     }); //FINAL DOCUMENT READY
 }

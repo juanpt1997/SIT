@@ -36,7 +36,7 @@ class ControladorEscolar
 
             //Verificar si el estudiante existe 
             $existe = ModeloEscolar::mdlEstudiantexDocumento($datos['documentoEstudiante']);
-            // var_dump($existe);
+            
 
             if($existe != false){
                 return "existe";
@@ -56,9 +56,46 @@ class ControladorEscolar
     {
         if(isset($datos['idpasajero'])){
             $existe = ModeloEscolar::mdlEstudiantexId($datos['idpasajero']);
-            
+            $ruta = ModeloEscolar::mdlRutaxId($datos['idruta']);
+            $cantidad = ModeloEscolar::mdlEstudiantesxRuta($datos['idruta']);
+            // var_dump($cantidad);
+
+
+            //Valida que el estudiante exista 
             if($existe != false){
+                
+                //Valida si la ruta está ordenada
+                if($ruta['ordenado'] == 0 && count($cantidad) < 1 )
+                {
+                    //Actualizar campo ordenado en la ruta 
+                    $respuesta = ModeloEscolar:: mdlActualizarOrdenadoRuta($datos['idruta']);
+                    //Al ser el primer estudiante el orden es 100 (Primero)
+                    $datos['orden'] = 100; 
+                }else{
+                   
+                    foreach ($cantidad as $key => $value) {
+                        if($value['idpasajero'] == $datos['estudianteOrden']){
+                            if($cantidad[$key + 1] != null ){
+
+                                $datos['orden'] = ($value['orden'] + $cantidad[$key + 1]['orden'])  / 2;
+                                // var_dump($value['orden'], " + ", ($cantidad[$key + 1]['orden'] / 2));
+                                // var_dump($datos);
+                            }else{
+                                $datos['orden'] = $value['orden'] + 100;
+                            }
+                            
+                        }else if($datos['estudianteOrden'] == 0){
+                            $datos['orden'] = ($cantidad[0]['orden'] / 2 );
+                        }
+                    }
+                }
+                
+                
+                
+                //Asociamos estudiante a ruta
                 $respuesta = ModeloEscolar::mdlAsociarEstudianteRuta($datos);
+
+                var_dump($datos);
                 return $respuesta;
             }else{
                 return "no existe";

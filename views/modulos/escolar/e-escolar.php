@@ -157,6 +157,16 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center ">
+                                <label><i>Conductor</i></label>
+                                <select id="idconductor" name="idconductor" class="form-control form-control-sm select2-single" type="number" style="width: 99%" required>
+
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center ">
                                 <label><i>Número interno</i></label>
                                 <input type="text" class="form-control" id="numinterno" name="numinterno" readonly required>
                             </div>
@@ -223,7 +233,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                                 ESTUDIANTE
                             =================================================== -->
                             <div class="col-12 col-md-6 col-lg-4">
-                                <div class="form-group">
+                                <div class="form-group text-center">
                                     <label for="exampleInput1">Estudiante</label>
                                     <select class="form-control select2-single" id="estudiante" name="idpasajero">
                                         <option value="" selected>-Seleccione un estudiante-</option>
@@ -236,9 +246,21 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                             NUM RUTA
                         =================================================== -->
                             <div class="col-12 col-md-6 col-lg-4">
-                                <div class="form-group">
+                                <div class="form-group text-center">
                                     <label for="exampleInput1">Ruta</label>
                                     <select class="form-control select2-single" id="ruta2" name="idruta">
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- ======================================
+                                 ORDEN
+                                ========================================= -->
+                            <div class="col-12 col-md-6 col-lg-4 hide" id="despuesDe">
+                                <div class="form-group text-center ">
+                                    <label for="exampleInput1">Después de</label>
+                                    <select class="form-control select2-single" id="estudianteOrden" name="estudianteOrden" >
 
                                     </select>
                                 </div>
@@ -248,7 +270,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                                                         BOTON GUARDAR FORMULARIO
                                                     =================================================== -->
                             <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
-                                <div class="col-12 col-md-4 col-lg-1 text-right text-md-left align-self-center">
+                                <div class="col-12 col-md-4 col-lg-1 text-right text-md-left align-self-center m-1">
                                     <button type="submit" form="formulario_estudianteRuta" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
                                     <div class="overlay d-none" id="">
                                         <i class="fas fa-2x fa-sync-alt fa-spin"></i>
@@ -446,18 +468,18 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
             <div class="card">
                 <div class="card-body">
 
-                    <div class="justify-content-start">
-                        <h3><i>Recorrido</i> <i class="fas fa-route"></i></h3>
+                    <div class="justify-content-center">
+                        <h3 class="text-center"><i>Recorrido</i> <i class="fas fa-route"></i></h3>
                     </div>
                     <form class="" id="auxiliar_form" method="post" enctype="multipart/form-data">
                         <div class="row">
-                        
-                            
+
+
                             <input type="hidden" id="idruta_aux" name="idruta_aux" value="">
 
                             <div class="col-12 col-sm-6 col-lg-6">
                                 <div class="form-group text-center">
-                                    <label><i>Nombre auxiliar</i></label>
+                                    <label><i>Nombre auxiliar de recogida</i></label>
                                     <input type="text" class="form-control" id="nom_auxiliar" name="nom_auxiliar" required>
                                 </div>
                             </div>
@@ -466,6 +488,21 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                                 <div class="form-group text-center">
                                     <label for="observaciones"><i>Observaciones</i></label>
                                     <textarea class="form-control" name="observaciones_auxiliar" id="observaciones_auxiliar" rows="2"></textarea>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 col-sm-6 col-lg-6">
+                                <div class="form-group text-center">
+                                    <label><i>Nombre auxiliar de entrega</i></label>
+                                    <input type="text" class="form-control" id="nom_auxiliar2" name="nom_auxiliar2" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-lg-6">
+                                <div class="form-group text-center">
+                                    <label for="observaciones"><i>Observaciones</i></label>
+                                    <textarea class="form-control" name="observaciones_auxiliar2" id="observaciones_auxiliar2" rows="2"></textarea>
                                 </div>
                             </div>
 
@@ -482,7 +519,8 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                         <table id="tablaSeguimiento" class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100 text-center">
                             <thead class="thead-light text-uppercase text-sm text-center">
                                 <tr>
-                                    <th>...</th>
+                                    <th>Recoge</th>
+                                    <th>Entrega</th>
                                     <th>Código</th>
                                     <th>Nombre</th>
                                     <th>Nivel</th>

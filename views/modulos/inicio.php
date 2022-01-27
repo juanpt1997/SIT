@@ -357,6 +357,25 @@
                                         <!-- /.col -->
                                     <?php endif ?>
 
+                                     <!-- ===================================================
+                                        ** Escolar
+                                        =================================================== -->
+                                        <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
+                                        <div class="col-12 col-sm-6 col-md-4 col-xl-3">
+                                            <a href="e-escolar">
+                                                <div class="info-box border border-dark">
+                                                    <span class="info-box-icon bg-light elevation-1"><i class="fas fa-school"></i></span>
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text font-weight-bold text-dark">Escolar</span>
+                                                    </div>
+                                                    <!-- /.info-box-content -->
+                                                </div>
+                                                <!-- /.info-box -->
+                                            </a>
+                                        </div>
+                                        <!-- /.col -->
+                                    <?php endif ?>
+
                                     <!-- ===================================================
                                         ** Documentos Contable
                                         =================================================== -->
@@ -396,24 +415,7 @@
                                         <!-- /.col -->
                                     <?php endif ?>
 
-                                    <!-- ===================================================
-                                        ** Escolar
-                                        =================================================== -->
-                                    <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
-                                        <div class="col-12 col-sm-6 col-md-4 col-xl-3">
-                                            <a href="e-escolar">
-                                                <div class="info-box border border-dark">
-                                                    <span class="info-box-icon bg-light elevation-1"><i class="fas fa-school"></i></span>
-                                                    <div class="info-box-content">
-                                                        <span class="info-box-text font-weight-bold text-dark">Escolar</span>
-                                                    </div>
-                                                    <!-- /.info-box-content -->
-                                                </div>
-                                                <!-- /.info-box -->
-                                            </a>
-                                        </div>
-                                        <!-- /.col -->
-                                    <?php endif ?>
+                                   
 
                                     <!-- ===================================================
                                         ** Compras

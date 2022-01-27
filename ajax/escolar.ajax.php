@@ -68,9 +68,9 @@ class AjaxEscolar
         );
 
         if($nombre == "ruta2"){
-            $option = "<option value='' selected>Seleccione ruta </option>";
+            $option = "<option value='' selected>-- Seleccione ruta --</option>";
         }else{
-            $option = "<option value='' selected>Seleccione {$nombre} </option>";
+            $option = "<option value='' selected>-- Seleccione {$nombre} --</option>";
         }
 
 
@@ -116,7 +116,7 @@ class AjaxEscolar
             <td>
                 <div class='btn-group' role='group' aria-label='Button group'>
                     <button class='btn btn-info btn-editarRuta' idruta='{$value['idruta']}' data-toggle='modal' data-target='#modalRuta'><i class='fas fa-edit'></i></button>
-                    <button class='btn btn-success btn-listar' idruta='{$value['idruta']}' data-toggle='modal' data-target='#modal-listar'><i class='fas fa-user-check'></i></button>
+                    <button class='btn btn-success btn-listar' idruta='{$value['idruta']}' ordenado='{$value['ordenado']}' data-toggle='modal' data-target='#modal-listar'><i class='fas fa-user-check'></i></button>
                     <button class='btn btn-warning btn-seguimiento' idruta='{$value['idruta']}' data-toggle='modal' data-target='#modal-seguimiento'><i class='fas fa-clipboard-check'></i></button>
                 </div>
             </td>
@@ -212,21 +212,28 @@ class AjaxEscolar
         foreach ($respuesta as $key => $value) {
 
             if($recorrido != false){
-                $botones = "<div class='btn-group'>
-                <button class='btn btn-success btn-entrega' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' ><i class='fas fa-sign-in-alt'></i></button>
-                <button class='btn btn-danger btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}'><i class='fas fa-sign-out-alt'></i></button>
-        </div>";
+                $boton_entrega = "
+                <button class='btn btn-danger btn-entrega' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' ><i class='fas fa-sign-out-alt'></i></button>
+                ";
+                $boton_recoge ="
+                <button class='btn btn-success btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}'><i class='fas fa-sign-in-alt'></i></button>
+                ";
             }else{
-                $botones = "<div class='btn-group'>
-                <button class='btn btn-success btn-entrega' idpasajero='{$value['idpasajero']}'  idrecorrido=''><i class='fas fa-sign-in-alt'></i></button>
-                <button class='btn btn-danger btn-recoge' idpasajero='{$value['idpasajero']}'  idrecorrido='' ><i class='fas fa-sign-out-alt'></i></button>
-                </div>";
+                $boton_entrega = "
+                <button class='btn btn-danger btn-entrega' idpasajero='{$value['idpasajero']}' idrecorrido='' ><i class='fas fa-sign-out-alt'></i></button>
+                ";
+                $boton_recoge ="
+                <button class='btn btn-success btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido=''> <i class='fas fa-sign-in-alt'></i></button>
+                ";
             }
 
             $tr .= "
             <tr>
                     <td>
-                        {$botones}
+                        {$boton_recoge}
+                    </td>
+                    <td>
+                        {$boton_entrega}
                     </td>
                     <td> {$value['codigo']} </td>
                     <td> {$value['nombre']} </td>
@@ -250,6 +257,28 @@ class AjaxEscolar
         $respuesta = ControladorEscolar::ctrGuardarRecorrido($datos);
         echo $respuesta;
     }
+
+    /* ===================================================
+        CARGAR SELECT ESTUDIANTES ORDEN
+    ===================================================*/
+    static public function ajaxSelectOrden($ruta)
+    {
+        $respuesta = ModeloEscolar::mdlEstudiantesxRuta($ruta);
+
+        //OBTENEMOS EL ORDEN DEL PRIMER ESTUDIANTE Y LO DIVIDIMOS SOBRE 2 PARA TENER EL ORDEN EN CASO TAL QUE SE ESTABLEZCA COMO PRIMERO
+        // $val_primero = $respuesta[0]['orden'] / 2;
+        // var_dump($val_primero);
+
+        $option = "<option value=''>-- Seleccione el orden--</option>
+                   <option value='0'>Establecer como primero</option>";
+        foreach ($respuesta as $key => $value) {
+            $option .= "<option value='{$value['idpasajero']}'> {$value['nombre']} - {$value['codigo']}</option>";
+        }
+
+        echo $option;
+    }
+
+    
 }
 
 
@@ -302,4 +331,9 @@ if(isset($_POST['TablaSeguimientosxRuta']) && $_POST['TablaSeguimientosxRuta'] =
 #LLAMADO A GUARDAR RECORRIDO
 if(isset($_POST['guardarRecorrido']) && $_POST['guardarRecorrido'] == "ok"){
     AjaxEscolar::ajaxGuardarRecorrido($_POST);
+}
+
+#LLAMADO A CARGAR SELECT ORDEN ESTUDIANTE
+if(isset($_POST['cargarselectOrden']) && $_POST['cargarselectOrden'] == "ok"){
+    AjaxEscolar::ajaxSelectOrden($_POST['idruta']);
 }

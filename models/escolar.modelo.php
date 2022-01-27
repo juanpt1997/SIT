@@ -25,11 +25,12 @@ class ModeloEscolar
     ===================================================*/
     static public function mdlGuardarRuta($datos)
     {
-        $stmt = Conexion::conectar()->prepare("INSERT INTO e_rutas (idinstitucion, numruta, sector,idvehiculo) VALUES (:idinstitucion, :numruta, :sector, :idvehiculo)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO e_rutas (idinstitucion, numruta, sector,idvehiculo, idconductor) VALUES (:idinstitucion, :numruta, :sector, :idvehiculo, :idconductor)");
         $stmt->bindParam(":idinstitucion", $datos['idinstitucion'], PDO::PARAM_INT);
         $stmt->bindParam(":numruta", $datos['numruta'], PDO::PARAM_STR);
         $stmt->bindParam(":sector", $datos['sector'], PDO::PARAM_STR);
         $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
+        $stmt->bindParam(":idconductor", $datos['idconductor'], PDO::PARAM_INT);
 
 
         if ($stmt->execute()) {
@@ -85,14 +86,19 @@ class ModeloEscolar
     ===================================================*/
     static public function mdlEditarRuta($datos)
     {
-        $stmt = Conexion::conectar()->prepare("UPDATE e_rutas SET idinstitucion = :idinstitucion, numruta = :numruta, 
-        sector = :sector, idvehiculo = :idvehiculo
+        $stmt = Conexion::conectar()->prepare("UPDATE e_rutas SET 
+        idinstitucion = :idinstitucion, 
+        numruta = :numruta, 
+        sector = :sector, 
+        idvehiculo = :idvehiculo,
+        idconductor = :idconductor
         WHERE idruta = :idruta");
 
         $stmt->bindParam(":idinstitucion", $datos['idinstitucion'], PDO::PARAM_INT);
         $stmt->bindParam(":numruta", $datos['numruta'], PDO::PARAM_STR);
         $stmt->bindParam(":sector", $datos['sector'], PDO::PARAM_STR);
         $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
+        $stmt->bindParam(":idconductor", $datos['idconductor'], PDO::PARAM_INT);
         $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
 
         if ($stmt->execute()) {
@@ -166,7 +172,7 @@ class ModeloEscolar
     ===================================================*/
     static public function mdlEstudiantesxRuta($ruta)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT  * FROM e_pasajeros WHERE idruta = :idruta");
+        $stmt = Conexion::conectar()->prepare("SELECT  * FROM e_pasajeros WHERE idruta = :idruta ORDER BY orden ");
 
         $stmt->bindParam(":idruta", $ruta, PDO::PARAM_INT);
         $stmt->execute();
@@ -199,10 +205,13 @@ class ModeloEscolar
     ===================================================*/
     static public function mdlAsociarEstudianteRuta($datos)
     {
-        $stmt = Conexion::conectar()->prepare("UPDATE e_pasajeros set idruta = :idruta
+        $stmt = Conexion::conectar()->prepare("UPDATE e_pasajeros set 
+                                                idruta = :idruta,
+                                                orden = :orden
                                                 WHERE idpasajero = :idpasajero");
 
         $stmt->bindParam(":idpasajero", $datos['idpasajero'], PDO::PARAM_INT);
+        $stmt->bindParam(":orden", $datos['orden'], PDO::PARAM_INT);
         $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
 
         if($stmt->execute()){
@@ -224,7 +233,8 @@ class ModeloEscolar
     ===================================================*/
     static public function mdlGuardarRecorrido($datos)
     {
-        $stmt = Conexion::conectar()->prepare("INSERT INTO e_re_recorridos (idruta, fecha, auxiliar, observaciones) 
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO e_re_recorridos (idruta, fecha, auxiliar, observaciones) 
                                                 VALUES (:idruta, :fecha, :auxiliar, :observaciones)");
 
         $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
@@ -233,16 +243,16 @@ class ModeloEscolar
         $stmt->bindParam(":observaciones", $datos['observaciones'], PDO::PARAM_STR);
 
         if($stmt->execute()){
-            $retorno = "ok";
+            $id = $conexion->lastInsertId();
         }else{
-            $retorno = "error";
+            $id = "error";
         }
 
 
         $stmt->closeCursor();
         $stmt = null;
 
-        return $retorno;
+        return $id;
     }
 
 
@@ -265,4 +275,23 @@ class ModeloEscolar
 
     }
 
+    /* ===================================================
+        ACTUALIZAR CAMPO ORDENADO 
+    ===================================================*/
+    static public function mdlActualizarOrdenadoRuta($idruta)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE e_rutas SET ordenado = 1 WHERE idruta = :idruta");
+
+        $stmt->bindParam(":idruta", $idruta, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
 }
