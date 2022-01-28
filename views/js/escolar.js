@@ -159,11 +159,10 @@ if (
             });
         };
 
-
         /*============================================
             CARGAR SELECT PARA EL ORDEN
         ==============================================*/
-        const cargarSelectOrden = (idruta) =>{
+        const cargarSelectOrden = (idruta) => {
             let datos = new FormData();
             datos.append("cargarselectOrden", "ok");
             datos.append("idruta", idruta);
@@ -420,9 +419,9 @@ if (
             let ordenado = $(this).attr("ordenado");
 
             //SI LA RUTA YA ESTÁ ORDENADA HABILITA EL BOTON PARA ORDEN DE LOS ESTUDIANTES
-            if(ordenado == 1){
+            if (ordenado == 1) {
                 $("#despuesDe").removeClass("hide");
-            }else{
+            } else {
                 $("#despuesDe").addClass("hide");
             }
 
@@ -431,7 +430,7 @@ if (
             $("#ruta2").val(idruta).trigger("change");
             $("#estudiante").val("").trigger("change");
             cargarSelectOrden(idruta);
-            cargarTablaEstudiantesxRuta(idruta); 
+            cargarTablaEstudiantesxRuta(idruta);
         });
 
         /*============================================
@@ -478,9 +477,8 @@ if (
                         cargarTablaEstudiantesxRuta(idruta);
                         cargarSelectOrden(idruta);
 
-                        //HABILITAMOS PARA DAR ORDEN A LOS ESTUDIANTES 
+                        //HABILITAMOS PARA DAR ORDEN A LOS ESTUDIANTES
                         $("#despuesDe").removeClass("hide");
-
                     } else {
                         Swal.fire({
                             icon: "warning",
@@ -498,9 +496,64 @@ if (
         ==============================================*/
         $(document).on("click", ".btn-seguimiento", function () {
             let idruta = $(this).attr("idruta");
+            let idrecorrido = $(this).attr("idrecorrido");
+
+            $("#auxiliar_form").trigger("reset");
+            $("#nom_auxiliar").attr("readonly", false);
+            $("#nom_auxiliar2").attr("readonly", false);
+            $("#observaciones_auxiliar").attr("readonly", false);
+            $("#observaciones_auxiliar2").attr("readonly", false);
 
             $("#idruta_aux").val(idruta);
             cargarTablaSeguimientoxRuta(idruta);
+
+            if (idrecorrido != "") {
+                var datos = new FormData();
+                datos.append("DatosRecorrido", "ok");
+                datos.append("idrecorrido", idrecorrido);
+
+                $.ajax({
+                    type: "POST",
+                    url: `${urlPagina}ajax/escolar.ajax.php`,
+                    data: datos,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (response) {
+                        //PONEMOS LOS DATOS
+                        if (response.auxiliar_recoge != "") {
+                            $("#nom_auxiliar").val(response.auxiliar_recoge);
+                            $("#nom_auxiliar").attr("readonly", true);
+                            $("#observaciones_auxiliar").val(
+                                response.observaciones_recoge
+                            );
+                            $("#observaciones_auxiliar").attr("readonly", true);
+                        } else {
+                            $("#nom_auxiliar").attr("readonly", false);
+                            $("#observaciones_auxiliar").attr(
+                                "readonly",
+                                false
+                            );
+                        }
+
+                        if (response.auxiliar_entrega != "") {
+                            $("#nom_auxiliar2").val(response.auxiliar_entrega);
+                            $("#nom_auxiliar2").attr("readonly", true);
+                            $("#observaciones_auxiliar2").attr(
+                                "readonly",
+                                true
+                            );
+                        } else {
+                            $("#nom_auxiliar2").attr("readonly", false);
+                            $("#observaciones_auxiliar2").attr(
+                                "readonly",
+                                false
+                            );
+                        }
+                    },
+                });
+            }
         });
 
         /*============================================
@@ -528,7 +581,7 @@ if (
                 processData: false,
                 // dataType: "json",
                 success: function (response) {
-                    if (!isNaN(response)) {
+                    if (!isNaN(response) || response == "ok") {
                         Swal.fire({
                             icon: "success",
                             title: "Datos agregados correctamente.",
@@ -553,6 +606,60 @@ if (
         });
 
         /*============================================
+            CLICK EN RECOGE 
+        ==============================================*/
+        $(document).on("click", ".btn-recoge", function () {
+            let idrecorrido = $(this).attr("idrecorrido");
+            let idpasajero = $(this).attr("idpasajero");
+            // let btnhora = false;
+
+            if (idrecorrido != "") {
+                var datos = new FormData();
+
+                datos.append("GuardarSeguimientoRecoge", "ok");
+                datos.append("idrecorrido", idrecorrido);
+                datos.append("idpasajero", idpasajero);
+
+                $.ajax({
+                    type: "POST",
+                    url: `${urlPagina}ajax/escolar.ajax.php`,
+                    data: datos,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    // dataType: "json",
+                    success: function (response) {
+                        if (response == "error") {
+                            Swal.fire({
+                                icon: "warning",
+                                title: "Los datos no pudieron ser guardados vuelva a intentar más tarde.",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                        } else if (response == "ya lo recogieron") {
+                            Swal.fire({
+                                icon: "info",
+                                title: "El estudiante ya ha sido recogido en otra ruta.",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+
+                            //Carga tabla
+                            let idruta = $("#idruta_aux").val();
+                            cargarTablaSeguimientoxRuta(idruta);
+                        }
+                    },
+                });
+            }
+        });
+
+        /*============================================
             CLICK EN ENTREGAR 
         ==============================================*/
         $(document).on("click", ".btn-entrega", function () {
@@ -562,9 +669,46 @@ if (
             if (idrecorrido != "") {
                 var datos = new FormData();
 
-                datos.append("GuardarSeguimiento", "ok");
+                datos.append("GuardarSeguimientoEntrega", "ok");
                 datos.append("idrecorrido", idrecorrido);
                 datos.append("idpasajero", idpasajero);
+
+                $.ajax({
+                    type: "POST",
+                    url: `${urlPagina}ajax/escolar.ajax.php`,
+                    data: datos,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    // dataType: "json",
+                    success: function (response) {
+                        if (response == "error") {
+                            Swal.fire({
+                                icon: "warning",
+                                title: "Los datos no pudieron ser guardados vuelva a intentar más tarde.",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                        } else if (response == "ya lo entregaron") {
+                            Swal.fire({
+                                icon: "info",
+                                title: "El estudiante ya ha sido entregado en otra ruta.",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+
+                            //Carga tabla
+                            let idruta = $("#idruta_aux").val();
+                            cargarTablaSeguimientoxRuta(idruta);
+                        }
+                    },
+                });
             }
         });
     }); //FINAL DOCUMENT READY

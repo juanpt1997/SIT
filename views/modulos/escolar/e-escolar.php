@@ -495,7 +495,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                             <div class="col-12 col-sm-6 col-lg-6">
                                 <div class="form-group text-center">
                                     <label><i>Nombre auxiliar de entrega</i></label>
-                                    <input type="text" class="form-control" id="nom_auxiliar2" name="nom_auxiliar2" required>
+                                    <input type="text" class="form-control" id="nom_auxiliar2" name="nom_auxiliar2" >
                                 </div>
                             </div>
 

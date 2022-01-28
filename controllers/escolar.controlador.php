@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class ControladorEscolar
 {
@@ -16,11 +16,11 @@ class ControladorEscolar
     ===================================================*/
     static public function ctrGuardarEditarRuta($datos)
     {
-        if(isset($datos['idruta'])){
-            if($datos['idruta'] == ""){
+        if (isset($datos['idruta'])) {
+            if ($datos['idruta'] == "") {
                 $respuesta = ModeloEscolar::mdlGuardarRuta($datos);
                 return $respuesta;
-            }else{
+            } else {
                 $respuesta = ModeloEscolar::mdlEditarRuta($datos);
                 return $respuesta;
             }
@@ -32,19 +32,18 @@ class ControladorEscolar
     ===================================================*/
     static public function ctrGuardarEstudiante($datos)
     {
-        if(isset($datos['documentoEstudiante'])){
+        if (isset($datos['documentoEstudiante'])) {
 
             //Verificar si el estudiante existe 
             $existe = ModeloEscolar::mdlEstudiantexDocumento($datos['documentoEstudiante']);
-            
 
-            if($existe != false){
+
+            if ($existe != false) {
                 return "existe";
-            }else{
+            } else {
                 $respuesta = ModeloEscolar::mdlGuardarEstudiante($datos);
                 return $respuesta;
             }
-            
         }
     }
 
@@ -54,50 +53,52 @@ class ControladorEscolar
     ===================================================*/
     static public function ctrAsociarEstudianteRuta($datos)
     {
-        if(isset($datos['idpasajero'])){
+        if (isset($datos['idpasajero'])) {
+            //Trae el estudiante, para validar si existe
             $existe = ModeloEscolar::mdlEstudiantexId($datos['idpasajero']);
+            //Trae información de la ruta
             $ruta = ModeloEscolar::mdlRutaxId($datos['idruta']);
+            //Trae los estudiantes que están en esa ruta
             $cantidad = ModeloEscolar::mdlEstudiantesxRuta($datos['idruta']);
-            // var_dump($cantidad);
+
 
 
             //Valida que el estudiante exista 
-            if($existe != false){
-                
+            if ($existe != false) {
+
                 //Valida si la ruta está ordenada
-                if($ruta['ordenado'] == 0 && count($cantidad) < 1 )
-                {
+                if ($ruta['ordenado'] == 0 && count($cantidad) < 1) {
                     //Actualizar campo ordenado en la ruta 
-                    $respuesta = ModeloEscolar:: mdlActualizarOrdenadoRuta($datos['idruta']);
+                    $respuesta = ModeloEscolar::mdlActualizarOrdenadoRuta($datos['idruta']);
                     //Al ser el primer estudiante el orden es 100 (Primero)
-                    $datos['orden'] = 100; 
-                }else{
-                   
+                    $datos['orden'] = 100;
+                } else {
+
                     foreach ($cantidad as $key => $value) {
-                        if($value['idpasajero'] == $datos['estudianteOrden']){
-                            if($cantidad[$key + 1] != null ){
+                        //Se toma el orden del estudiante que seleccionaron en después de  
+                        if ($value['idpasajero'] == $datos['estudianteOrden']) {
+                            if ($cantidad[$key + 1] != null) {
 
                                 $datos['orden'] = ($value['orden'] + $cantidad[$key + 1]['orden'])  / 2;
-                                // var_dump($value['orden'], " + ", ($cantidad[$key + 1]['orden'] / 2));
-                                // var_dump($datos);
-                            }else{
+                            } else {
+                                //Si van a poner el estudiante de último, se toma el orden del último estudiante y se le suman 100
                                 $datos['orden'] = $value['orden'] + 100;
                             }
-                            
-                        }else if($datos['estudianteOrden'] == 0){
-                            $datos['orden'] = ($cantidad[0]['orden'] / 2 );
+                        } else if ($datos['estudianteOrden'] == 0) {
+                            //Si desean establecer como primero tomamos el orden del primer estudiante y lo dividimos entre 2
+                            $datos['orden'] = ($cantidad[0]['orden'] / 2);
                         }
                     }
                 }
-                
-                
-                
+
+
+
                 //Asociamos estudiante a ruta
                 $respuesta = ModeloEscolar::mdlAsociarEstudianteRuta($datos);
 
                 var_dump($datos);
                 return $respuesta;
-            }else{
+            } else {
                 return "no existe";
             }
         }
@@ -112,13 +113,112 @@ class ControladorEscolar
 
         $datos2 = array(
             "idruta" => $datos['idruta_aux'],
-            "fecha" => date("Y/m/d"), 
+            "fecha" => date("Y/m/d"),
             "auxiliar" => $datos['nom_auxiliar'],
-            "observaciones" => $datos['observaciones_auxiliar']
+            "observaciones" => $datos['observaciones_auxiliar'],
+            "auxiliar2" => $datos['nom_auxiliar2'],
+            "observaciones2" => $datos['observaciones_auxiliar2']
         );
 
-        $respuesta = ModeloEscolar::mdlGuardarRecorrido($datos2);
-        return $respuesta;
+        //Ver si existe un recorrido para ese día y esa ruta
+        $existe = ModeloEscolar::mdlRecorridoxFechaxRuta($datos2['idruta'], $datos2['fecha']);
+
+        if ($existe != false) {
+            //Actualizar recorrido 
+            $respuesta = ModeloEscolar::mdlEditarRecorrido($datos2);
+            return $respuesta;
+        } else {
+            //Agrega el nuevo recorrido
+            $respuesta = ModeloEscolar::mdlGuardarRecorrido($datos2);
+            return $respuesta;
+        }
     }
 
+    /* ===================================================
+        GUARDAR SEGUIMIENTO RECOGE 
+    ===================================================*/
+    static public function ctrGuardarSeguimientoRecoge($idrecorrido, $idpasajero)
+    {
+        date_default_timezone_set('America/Bogota');
+        $fecha = date("Y/m/d");
+        $hora = date("h:i:s");
+
+
+        //Verificar si el pasajero tiene un seguimiento, es decir si ya lo recogieron en otra ruta  
+        $existe = ModeloEscolar::mdlSeguimientoxPasajeroxFecha($idpasajero, $fecha);
+
+        
+
+        if ($existe == false) {
+
+            $datos = array(
+                "idpasajero" => $idpasajero,
+                "idrecorrido" => $idrecorrido,
+                "fecha" => $fecha,
+                "hora" => $hora
+            );
+
+            $respuesta = ModeloEscolar::mdlGuardarSeguimientoRecoge($datos);
+            if ($respuesta == "ok") {
+                return $hora;
+            } else {
+
+                return $respuesta;
+            }
+        } else {
+            return "ya lo recogieron";
+        }
+    }
+
+    /* ===================================================
+        GUARDAR SEGUIMIENTO ENTREGA 
+    ===================================================*/
+    static public function ctrGuardarSeguimientoEntrega($idrecorrido, $idpasajero)
+    {
+        date_default_timezone_set('America/Bogota');
+        $fecha = date("Y/m/d");
+        $hora = date("h:i:s");
+
+        //Verificar si el pasajero tiene un seguimiento, es decir si ya lo recogieron en otra ruta  
+        $existe = ModeloEscolar::mdlSeguimientoxPasajeroxFecha($idpasajero, $fecha);
+
+        //Si lo entregan pero no lo llevó ninguna ruta 
+        if ($existe == false) {
+            $datos = array(
+                "idpasajero" => $idpasajero,
+                "idrecorrido" => $idrecorrido,
+                "fecha" => $fecha,
+                "hora" => $hora
+            );
+
+            $respuesta = ModeloEscolar::mdlGuardarSeguimientoEntrega($datos);
+            if ($respuesta == "ok") {
+                return $hora;
+            } else {
+
+                return $respuesta;
+            }
+            //SI LO RECOGIÓ UNA RUTA Y LO VA ENTREGAR OTRA RUTA
+        } else if ($existe['idrecorrido_recogida'] != "" && $existe['idrecorrido_entrega'] == "") {
+
+            
+            $datos = array(
+                "idpasajero" => $idpasajero,
+                "idrecorrido" => $idrecorrido,
+                "fecha" => $fecha,
+                "hora" => $hora,
+                "idseguimiento" => $existe['idseguimiento']
+            );
+
+            $respuesta = ModeloEscolar::mdlInsertarEntrega($datos);
+            if ($respuesta == "ok") {
+                return $hora;
+            } else {
+
+                return $respuesta;
+            }
+        } else {
+            return "ya lo entregaron";
+        }
+    }
 }
