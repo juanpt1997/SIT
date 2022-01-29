@@ -273,7 +273,7 @@ class ModeloUsuarios
 
     static public function mdlListadoOpciones()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT o.idOpcion, o.nombre FROM l_opciones o");
+        $stmt = Conexion::conectar()->prepare("SELECT o.idOpcion, o.nombre FROM l_opciones o WHERE o.estado = 1");
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();
