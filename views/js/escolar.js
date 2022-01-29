@@ -160,6 +160,31 @@ if (
         };
 
         /*============================================
+            CARGAR SELECT PARA EL ORDEN
+        ==============================================*/
+        const cargarSelectOrden = (idruta) => {
+            let datos = new FormData();
+            datos.append("cargarselectOrden", "ok");
+            datos.append("idruta", idruta);
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/escolar.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $(`#estudianteOrden`).html(response);
+                    } else {
+                        $(`#estudianteOrden`).html("");
+                    }
+                },
+            });
+        };
+
+        /*============================================
             SELECCIONAN VEHÍCULO
         ==============================================*/
         $(document).on("change", "#placa", function () {
@@ -183,6 +208,39 @@ if (
                     $("#numinterno").val(Vehiculo.numinterno);
                     $("#tipovehiculo").val(Vehiculo.tipovehiculo);
                     $("#cantidad").val(Vehiculo.capacidad);
+
+                    /* ===================================================
+                        CARGAR LISTA CONDUCTORES
+                        ===================================================*/
+                    var datos = new FormData();
+                    datos.append("ListaConductores", "ok");
+                    datos.append("idvehiculo", Vehiculo.idvehiculo);
+                    $.ajax({
+                        type: "post",
+                        url: `${urlPagina}ajax/fuec.ajax.php`,
+                        data: datos,
+                        dataType: "json",
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        success: function (response) {
+                            // $(".overlay-conductores").addClass("d-none");
+                            let htmlSelect = `<option value="" selected>-Seleccione un conductor</option>`;
+                            if (response != "") {
+                                response.forEach((element) => {
+                                    htmlSelect += `<option value="${element.idconductor}">${element.Documento} - ${element.conductor}</option>`;
+                                });
+                            }
+                            $("#idconductor").html(htmlSelect);
+
+                            // console.log(response);
+
+                            // Accionar el observador
+                            // $("#observador_conductores_ruta").trigger(
+                            //     "change"
+                            // );
+                        },
+                    });
                 },
             });
         });
@@ -256,7 +314,6 @@ if (
                 processData: false,
                 dataType: "json",
                 success: function (response) {
-                    console.log(response);
                     if (response != "") {
                         $("#idruta").val(response.idruta);
                         $("#numruta").val(response.numruta);
@@ -265,6 +322,12 @@ if (
                             .val(response.idinstitucion)
                             .trigger("change");
                         $("#placa").val(response.idvehiculo).trigger("change");
+
+                        setTimeout(() => {
+                            $("#idconductor")
+                                .val(response.idconductor)
+                                .trigger("change");
+                        }, 1500);
                     }
                 },
             });
@@ -334,6 +397,8 @@ if (
                             showConfirmButton: false,
                             timer: 1500,
                         });
+
+                        cargarSelect("estudiante");
                     } else {
                         Swal.fire({
                             icon: "warning",
@@ -351,10 +416,20 @@ if (
         ==============================================*/
         $(document).on("click", ".btn-listar", function () {
             let idruta = $(this).attr("idruta");
+            let ordenado = $(this).attr("ordenado");
+
+            //SI LA RUTA YA ESTÁ ORDENADA HABILITA EL BOTON PARA ORDEN DE LOS ESTUDIANTES
+            if (ordenado == 1) {
+                $("#despuesDe").removeClass("hide");
+            } else {
+                $("#despuesDe").addClass("hide");
+            }
 
             $("#formulario_estudianteRuta").trigger("reset");
 
             $("#ruta2").val(idruta).trigger("change");
+            $("#estudiante").val("").trigger("change");
+            cargarSelectOrden(idruta);
             cargarTablaEstudiantesxRuta(idruta);
         });
 
@@ -391,7 +466,7 @@ if (
                             showConfirmButton: false,
                             timer: 1500,
                         });
-                    } else if (response == "ok") {
+                    } else if (response != "error") {
                         Swal.fire({
                             icon: "success",
                             title: "Datos agregados correctamente.",
@@ -400,6 +475,10 @@ if (
                         });
 
                         cargarTablaEstudiantesxRuta(idruta);
+                        cargarSelectOrden(idruta);
+
+                        //HABILITAMOS PARA DAR ORDEN A LOS ESTUDIANTES
+                        $("#despuesDe").removeClass("hide");
                     } else {
                         Swal.fire({
                             icon: "warning",
@@ -417,9 +496,64 @@ if (
         ==============================================*/
         $(document).on("click", ".btn-seguimiento", function () {
             let idruta = $(this).attr("idruta");
+            let idrecorrido = $(this).attr("idrecorrido");
+
+            $("#auxiliar_form").trigger("reset");
+            $("#nom_auxiliar").attr("readonly", false);
+            $("#nom_auxiliar2").attr("readonly", false);
+            $("#observaciones_auxiliar").attr("readonly", false);
+            $("#observaciones_auxiliar2").attr("readonly", false);
 
             $("#idruta_aux").val(idruta);
             cargarTablaSeguimientoxRuta(idruta);
+
+            if (idrecorrido != "") {
+                var datos = new FormData();
+                datos.append("DatosRecorrido", "ok");
+                datos.append("idrecorrido", idrecorrido);
+
+                $.ajax({
+                    type: "POST",
+                    url: `${urlPagina}ajax/escolar.ajax.php`,
+                    data: datos,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (response) {
+                        //PONEMOS LOS DATOS
+                        if (response.auxiliar_recoge != "") {
+                            $("#nom_auxiliar").val(response.auxiliar_recoge);
+                            $("#nom_auxiliar").attr("readonly", true);
+                            $("#observaciones_auxiliar").val(
+                                response.observaciones_recoge
+                            );
+                            $("#observaciones_auxiliar").attr("readonly", true);
+                        } else {
+                            $("#nom_auxiliar").attr("readonly", false);
+                            $("#observaciones_auxiliar").attr(
+                                "readonly",
+                                false
+                            );
+                        }
+
+                        if (response.auxiliar_entrega != "") {
+                            $("#nom_auxiliar2").val(response.auxiliar_entrega);
+                            $("#nom_auxiliar2").attr("readonly", true);
+                            $("#observaciones_auxiliar2").attr(
+                                "readonly",
+                                true
+                            );
+                        } else {
+                            $("#nom_auxiliar2").attr("readonly", false);
+                            $("#observaciones_auxiliar2").attr(
+                                "readonly",
+                                false
+                            );
+                        }
+                    },
+                });
+            }
         });
 
         /*============================================
@@ -447,13 +581,16 @@ if (
                 processData: false,
                 // dataType: "json",
                 success: function (response) {
-                    if (response == "ok") {
+                    if (!isNaN(response) || response == "ok") {
                         Swal.fire({
                             icon: "success",
                             title: "Datos agregados correctamente.",
                             showConfirmButton: false,
                             timer: 1500,
                         });
+
+                        $(".btn-entrega").attr("idrecorrido", response);
+                        $(".btn-recoge").attr("idrecorrido", response);
 
                         cargarTablaEstudiantesxRuta(idruta);
                     } else {
@@ -468,25 +605,111 @@ if (
             });
         });
 
+        /*============================================
+            CLICK EN RECOGE 
+        ==============================================*/
+        $(document).on("click", ".btn-recoge", function () {
+            let idrecorrido = $(this).attr("idrecorrido");
+            let idpasajero = $(this).attr("idpasajero");
+            // let btnhora = false;
+
+            if (idrecorrido != "") {
+                var datos = new FormData();
+
+                datos.append("GuardarSeguimientoRecoge", "ok");
+                datos.append("idrecorrido", idrecorrido);
+                datos.append("idpasajero", idpasajero);
+
+                $.ajax({
+                    type: "POST",
+                    url: `${urlPagina}ajax/escolar.ajax.php`,
+                    data: datos,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    // dataType: "json",
+                    success: function (response) {
+                        if (response == "error") {
+                            Swal.fire({
+                                icon: "warning",
+                                title: "Los datos no pudieron ser guardados vuelva a intentar más tarde.",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                        } else if (response == "ya lo recogieron") {
+                            Swal.fire({
+                                icon: "info",
+                                title: "El estudiante ya ha sido recogido en otra ruta.",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+
+                            //Carga tabla
+                            let idruta = $("#idruta_aux").val();
+                            cargarTablaSeguimientoxRuta(idruta);
+                        }
+                    },
+                });
+            }
+        });
 
         /*============================================
             CLICK EN ENTREGAR 
         ==============================================*/
-        $(document).on("click", ".btn-entrega", function(){
-
+        $(document).on("click", ".btn-entrega", function () {
             let idrecorrido = $(this).attr("idrecorrido");
             let idpasajero = $(this).attr("idpasajero");
 
-            if(idrecorrido != ""){
-
+            if (idrecorrido != "") {
                 var datos = new FormData();
 
-                datos.append("GuardarSeguimiento", "ok");
+                datos.append("GuardarSeguimientoEntrega", "ok");
                 datos.append("idrecorrido", idrecorrido);
                 datos.append("idpasajero", idpasajero);
 
-            }
-        })
+                $.ajax({
+                    type: "POST",
+                    url: `${urlPagina}ajax/escolar.ajax.php`,
+                    data: datos,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    // dataType: "json",
+                    success: function (response) {
+                        if (response == "error") {
+                            Swal.fire({
+                                icon: "warning",
+                                title: "Los datos no pudieron ser guardados vuelva a intentar más tarde.",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                        } else if (response == "ya lo entregaron") {
+                            Swal.fire({
+                                icon: "info",
+                                title: "El estudiante ya ha sido entregado en otra ruta.",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
+                        } else {
+                            Swal.fire({
+                                icon: "success",
+                                showConfirmButton: false,
+                                timer: 1500,
+                            });
 
+                            //Carga tabla
+                            let idruta = $("#idruta_aux").val();
+                            cargarTablaSeguimientoxRuta(idruta);
+                        }
+                    },
+                });
+            }
+        });
     }); //FINAL DOCUMENT READY
 }

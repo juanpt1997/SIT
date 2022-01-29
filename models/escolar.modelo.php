@@ -25,11 +25,12 @@ class ModeloEscolar
     ===================================================*/
     static public function mdlGuardarRuta($datos)
     {
-        $stmt = Conexion::conectar()->prepare("INSERT INTO e_rutas (idinstitucion, numruta, sector,idvehiculo) VALUES (:idinstitucion, :numruta, :sector, :idvehiculo)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO e_rutas (idinstitucion, numruta, sector,idvehiculo, idconductor) VALUES (:idinstitucion, :numruta, :sector, :idvehiculo, :idconductor)");
         $stmt->bindParam(":idinstitucion", $datos['idinstitucion'], PDO::PARAM_INT);
         $stmt->bindParam(":numruta", $datos['numruta'], PDO::PARAM_STR);
         $stmt->bindParam(":sector", $datos['sector'], PDO::PARAM_STR);
         $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
+        $stmt->bindParam(":idconductor", $datos['idconductor'], PDO::PARAM_INT);
 
 
         if ($stmt->execute()) {
@@ -85,14 +86,19 @@ class ModeloEscolar
     ===================================================*/
     static public function mdlEditarRuta($datos)
     {
-        $stmt = Conexion::conectar()->prepare("UPDATE e_rutas SET idinstitucion = :idinstitucion, numruta = :numruta, 
-        sector = :sector, idvehiculo = :idvehiculo
+        $stmt = Conexion::conectar()->prepare("UPDATE e_rutas SET 
+        idinstitucion = :idinstitucion, 
+        numruta = :numruta, 
+        sector = :sector, 
+        idvehiculo = :idvehiculo,
+        idconductor = :idconductor
         WHERE idruta = :idruta");
 
         $stmt->bindParam(":idinstitucion", $datos['idinstitucion'], PDO::PARAM_INT);
         $stmt->bindParam(":numruta", $datos['numruta'], PDO::PARAM_STR);
         $stmt->bindParam(":sector", $datos['sector'], PDO::PARAM_STR);
         $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
+        $stmt->bindParam(":idconductor", $datos['idconductor'], PDO::PARAM_INT);
         $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
 
         if ($stmt->execute()) {
@@ -166,7 +172,7 @@ class ModeloEscolar
     ===================================================*/
     static public function mdlEstudiantesxRuta($ruta)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT  * FROM e_pasajeros WHERE idruta = :idruta");
+        $stmt = Conexion::conectar()->prepare("SELECT  * FROM e_pasajeros WHERE idruta = :idruta ORDER BY orden ");
 
         $stmt->bindParam(":idruta", $ruta, PDO::PARAM_INT);
         $stmt->execute();
@@ -199,10 +205,13 @@ class ModeloEscolar
     ===================================================*/
     static public function mdlAsociarEstudianteRuta($datos)
     {
-        $stmt = Conexion::conectar()->prepare("UPDATE e_pasajeros set idruta = :idruta
+        $stmt = Conexion::conectar()->prepare("UPDATE e_pasajeros set 
+                                                idruta = :idruta,
+                                                orden = :orden
                                                 WHERE idpasajero = :idpasajero");
 
         $stmt->bindParam(":idpasajero", $datos['idpasajero'], PDO::PARAM_INT);
+        $stmt->bindParam(":orden", $datos['orden'], PDO::PARAM_INT);
         $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
 
         if($stmt->execute()){
@@ -224,25 +233,28 @@ class ModeloEscolar
     ===================================================*/
     static public function mdlGuardarRecorrido($datos)
     {
-        $stmt = Conexion::conectar()->prepare("INSERT INTO e_re_recorridos (idruta, fecha, auxiliar, observaciones) 
-                                                VALUES (:idruta, :fecha, :auxiliar, :observaciones)");
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO e_re_recorridos (idruta, fecha, auxiliar_recoge, observaciones_recoge, auxiliar_entrega, observaciones_entrega) 
+                                                VALUES (:idruta, :fecha, :auxiliar_recoge, :observaciones_recoge, :auxiliar_entrega, :observaciones_entrega)");
 
         $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
         $stmt->bindParam(":fecha", $datos['fecha'], PDO::PARAM_STR);
-        $stmt->bindParam(":auxiliar", $datos['auxiliar'], PDO::PARAM_STR);
-        $stmt->bindParam(":observaciones", $datos['observaciones'], PDO::PARAM_STR);
+        $stmt->bindParam(":auxiliar_recoge", $datos['auxiliar'], PDO::PARAM_STR);
+        $stmt->bindParam(":observaciones_recoge", $datos['observaciones'], PDO::PARAM_STR);
+        $stmt->bindParam(":auxiliar_entrega", $datos['auxiliar2'], PDO::PARAM_STR);
+        $stmt->bindParam(":observaciones_entrega", $datos['observaciones2'], PDO::PARAM_STR);
 
         if($stmt->execute()){
-            $retorno = "ok";
+            $id = $conexion->lastInsertId();
         }else{
-            $retorno = "error";
+            $id = "error";
         }
 
 
         $stmt->closeCursor();
         $stmt = null;
 
-        return $retorno;
+        return $id;
     }
 
 
@@ -265,4 +277,176 @@ class ModeloEscolar
 
     }
 
+    /* ===================================================
+        ACTUALIZAR CAMPO ORDENADO 
+    ===================================================*/
+    static public function mdlActualizarOrdenadoRuta($idruta)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE e_rutas SET ordenado = 1 WHERE idruta = :idruta");
+
+        $stmt->bindParam(":idruta", $idruta, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        RECORRIDO POR FECHA Y RUTA 
+    ===================================================*/
+    static public function mdlRecorridoxFechaxRuta($idruta,$fecha)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM e_re_recorridos WHERE idruta = :idruta AND fecha = :fecha");
+
+        $stmt->bindParam(":idruta", $idruta, PDO::PARAM_INT);
+        $stmt->bindParam(":fecha", $fecha, PDO::PARAM_STR);
+
+        $stmt->execute();
+        $retorno = $stmt->fetch();
+        $stmt->closeCursor();
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        EDITAR RECORRIDO
+    ===================================================*/
+    static public function mdlEditarRecorrido($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE e_re_recorridos SET 
+                                            auxiliar_entrega = :auxiliar_entrega, 
+                                            observaciones_entrega = :observaciones_entrega
+                                            WHERE idruta = :idruta");
+
+        $stmt->bindParam(":auxiliar_entrega", $datos['auxiliar2'], PDO::PARAM_STR);
+        $stmt->bindParam(":observaciones_entrega", $datos['observaciones2'], PDO::PARAM_STR);
+        $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        DATOS DEL RECORRIDO
+    ===================================================*/
+    static public function mdlDatosRecorrido($idrecorrido)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM e_re_recorridos WHERE idrecorrido = :idrecorrido");
+
+        $stmt->bindParam(":idrecorrido", $idrecorrido, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno = $stmt->fetch();
+        $stmt->closeCursor();
+
+        return $retorno;
+
+    }
+
+    /* ===================================================
+        SEGUIMIENTO POR PASAJERO Y FECHA 
+    ===================================================*/
+    static public function mdlSeguimientoxPasajeroxFecha($idpasajero, $fecha)
+    {
+        $stmt= Conexion::conectar()->prepare("SELECT * FROM e_re_seguimiento_pasajeros WHERE idpasajero = :idpasajero AND fecha = :fecha");
+
+        $stmt->bindParam(":idpasajero", $idpasajero, PDO::PARAM_INT);
+        $stmt->bindParam(":fecha", $fecha, PDO::PARAM_STR);
+
+        $stmt->execute();
+        $retorno = $stmt->fetch();
+        $stmt->closeCursor();
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        GUARDAR SEGUIMIENTO RECOGE 
+    ===================================================*/
+    static public function mdlGuardarSeguimientoRecoge($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO e_re_seguimiento_pasajeros (idpasajero, fecha, hora_recogida, idrecorrido_recogida)
+                                                VALUES (:idpasajero, :fecha, :hora_recogida, :idrecorrido_recogida)");
+
+        $stmt->bindParam(":idpasajero", $datos['idpasajero'], PDO::PARAM_INT);
+        $stmt->bindParam(":fecha", $datos['fecha'], PDO::PARAM_STR);
+        $stmt->bindParam(":hora_recogida", $datos['hora'], PDO::PARAM_STR);
+        $stmt->bindParam(":idrecorrido_recogida", $datos['idrecorrido'], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        GUARDAR SEGUIMIENTO ENTREGA 
+    ===================================================*/
+    static public function mdlGuardarSeguimientoEntrega($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO e_re_seguimiento_pasajeros (idpasajero, fecha, hora_entrega, idrecorrido_entrega)
+                                                VALUES (:idpasajero, :fecha, :hora_entrega, :idrecorrido_entrega)");
+
+        $stmt->bindParam(":idpasajero", $datos['idpasajero'], PDO::PARAM_INT);
+        $stmt->bindParam(":fecha", $datos['fecha'], PDO::PARAM_STR);
+        $stmt->bindParam(":hora_entrega", $datos['hora'], PDO::PARAM_STR);
+        $stmt->bindParam(":idrecorrido_entrega", $datos['idrecorrido'], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        INSERTAR ENTREGA 
+    ===================================================*/
+    static public function mdlInsertarEntrega($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE e_re_seguimiento_pasajeros SET 
+        hora_entrega = :hora_entrega,
+        idrecorrido_entrega = :idrecorrido_entrega
+        WHERE idseguimiento = :idseguimiento");
+
+        $stmt->bindParam(":hora_entrega", $datos['hora'], PDO::PARAM_STR);
+        $stmt->bindParam(":idrecorrido_entrega", $datos['idrecorrido'], PDO::PARAM_INT);
+        $stmt->bindParam(":idseguimiento", $datos['idseguimiento'], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
 }
