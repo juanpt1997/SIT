@@ -53,7 +53,18 @@ class AjaxEscolar
                 $item2 = "codigo";
                 $id = "idpasajero";
                 break;
-
+            case 'estudiante2':
+                $tabla = "e_pasajeros";
+                $item = "nombre";
+                $item2 = "codigo";
+                $id = "idpasajero";
+                break;
+            case 'ruta3':
+                $tabla = "e_rutas";
+                $item = "numruta";
+                $item2 = "sector";
+                $id = "idruta";
+                break;
 
             default:
                 # code...
@@ -67,14 +78,16 @@ class AjaxEscolar
             "id" => $id
         );
 
-        if ($nombre == "ruta2") {
+        if ($nombre == "ruta2" || $nombre == "ruta3") {
             $option = "<option value='' selected>-- Seleccione ruta --</option>";
+        }else if($nombre == "estudiante2"){
+            $option = "<option value='' selected>-- Seleccione estudiante --</option>";
         } else {
             $option = "<option value='' selected>-- Seleccione {$nombre} --</option>";
         }
 
 
-        if ($nombre != "placa" && $nombre != "ruta" && $nombre != "ruta2" && $nombre != "estudiante") {
+        if ($nombre != "placa" && $nombre != "ruta" && $nombre != "ruta2" && $nombre != "estudiante" && $nombre != "estudiante2" && $nombre != "ruta3") {
 
             $respuesta = ModeloConceptosGenerales::mdlVer($datos);
             foreach ($respuesta as $key => $value) {
@@ -225,8 +238,8 @@ class AjaxEscolar
 
             $fecha = date("Y/m/d");
             $seguimiento = ModeloEscolar::mdlSeguimientoxPasajeroxFecha($value['idpasajero'], $fecha);
-            
-            
+
+
 
             if ($recorrido != false) {
                 $boton_entrega = "
@@ -244,16 +257,13 @@ class AjaxEscolar
                 ";
             }
 
-            if($seguimiento != false)
-            {
-                
-                if($seguimiento['hora_recogida'] != "")
-                {
-                    $boton_recoge ="<span>{$seguimiento['hora_recogida']}</span>";
+            if ($seguimiento != false) {
+
+                if ($seguimiento['hora_recogida'] != "") {
+                    $boton_recoge = "<span>{$seguimiento['hora_recogida']}</span>";
                 }
 
-                if($seguimiento['hora_entrega'] != "")
-                {
+                if ($seguimiento['hora_entrega'] != "") {
                     $boton_entrega = "<span>{$seguimiento['hora_entrega']}</span>";
                 }
             }
@@ -335,6 +345,122 @@ class AjaxEscolar
         $respuesta = ControladorEscolar::ctrGuardarSeguimientoEntrega($idrecorrido, $idpasajero);
         echo $respuesta;
     }
+
+    /* ===================================================
+        ASOCIAR ESTUDIANTE TEMPORAL A RUTA 
+    ===================================================*/
+    static public function ajaxAsociarEstudianteTemporalRuta($datos)
+    {
+        $respuesta = ControladorEscolar::ctrAsociarEstudianteTemporalRuta($datos);
+        echo $respuesta;
+    }
+
+    /* ===================================================
+        TABLA ESTUDIANTES TEMPORAL X RUTA 
+    ===================================================*/
+    static public function ajaxTablaEstudiantesTemporalxRuta($idruta)
+    {
+        $respuesta = ModeloEscolar::mdlListarEstudiantesTemporalesxRuta($idruta);
+        $tr = "";
+
+
+        foreach ($respuesta as $key => $value) {
+            $tr .= "
+                <tr>
+                <td> " . $value['codigo']  . " </td>
+                <td> " . $value['ano']  . " </td>
+                <td> " . $value['grado']  . " </td>
+                <td> " . $value['grupo']  . " </td>
+                <td> " . $value['nombre']  . " </td>
+                <td> " . $value['nivel']  . " </td>
+                <td> " . $value['barrio']  . " </td>
+                <td> " . $value['direccion']  . " </td>
+                <td> " . $value['nombre_acudiente1']  . " </td>
+                <td> " . $value['celular_acudiente1']  . " </td>
+                <td> " . $value['nombre_acudiente2']  . " </td>
+                <td> " . $value['celular_acudiente2']  . " </td>
+                </tr>
+
+            ";
+        }
+
+        echo $tr;
+
+    }
+
+    /* ===================================================
+        TABLA SEGUIMIENTO ESTUDIANTES TEMPORAL X RUTA
+    ===================================================*/
+    static public function ajaxtablaSeguimientoEstudiantesTemporalxRuta($idruta)
+    {
+        $respuesta = ModeloEscolar::mdlListarEstudiantesTemporalesxRuta($idruta);
+
+        $datos = array(
+            "fecha" => date("Y/m/d"),
+            "idruta" => $idruta
+        );
+
+        $recorrido = ModeloEscolar::mdlRecorridoxRutaxDia($datos);
+
+
+
+        $tr = "";
+
+        foreach ($respuesta as $key => $value) {
+            date_default_timezone_set('America/Bogota');
+
+            $fecha = date("Y/m/d");
+            $seguimiento = ModeloEscolar::mdlSeguimientoxPasajeroxFecha($value['idpasajero'], $fecha);
+
+
+
+            if ($recorrido != false) {
+                $boton_entrega = "
+                <button class='btn btn-danger btn-entrega' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' ><i class='fas fa-sign-out-alt'></i></button>
+                ";
+                $boton_recoge = "
+                <button class='btn btn-success btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}'><i class='fas fa-sign-in-alt'></i></button>
+                ";
+            } else {
+                $boton_entrega = "
+                <button class='btn btn-danger btn-entrega' idpasajero='{$value['idpasajero']}' idrecorrido='' ><i class='fas fa-sign-out-alt'></i></button>
+                ";
+                $boton_recoge = "
+                <button class='btn btn-success btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido=''> <i class='fas fa-sign-in-alt'></i></button>
+                ";
+            }
+
+            if ($seguimiento != false) {
+
+                if ($seguimiento['hora_recogida'] != "") {
+                    $boton_recoge = "<span>{$seguimiento['hora_recogida']}</span>";
+                }
+
+                if ($seguimiento['hora_entrega'] != "") {
+                    $boton_entrega = "<span>{$seguimiento['hora_entrega']}</span>";
+                }
+            }
+
+            $tr .= "
+            <tr>
+                    <td>
+                        {$boton_recoge}
+                    </td>
+                    <td>
+                        {$boton_entrega}
+                    </td>
+                    <td> {$value['codigo']} </td>
+                    <td> {$value['nombre']} </td>
+                    <td> {$value['nivel']} </td>
+                    <td> {$value['barrio']} </td>
+                    <td> {$value['direccion']} </td>
+                </tr>
+            
+            ";
+        }
+
+        echo $tr;
+    }
 }
 
 
@@ -406,4 +532,21 @@ if (isset($_POST['GuardarSeguimientoRecoge']) && $_POST['GuardarSeguimientoRecog
 #LLAMADO A GUARDAR SEGUIMIENTO ENTREGA
 if (isset($_POST['GuardarSeguimientoEntrega']) && $_POST['GuardarSeguimientoEntrega'] == "ok") {
     AjaxEscolar::ajaxGuardarSeguimientoEntrega($_POST['idrecorrido'], $_POST['idpasajero']);
+}
+
+#LLAMADO A ASOCIAR ESTUDIANTE TEMPORAL A RUTA
+if(isset($_POST['estudianteTemporalRuta']) && $_POST['estudianteTemporalRuta'] == "ok"){
+    AjaxEscolar::ajaxAsociarEstudianteTemporalRuta($_POST);
+}
+
+#LLAMADO A TABLA ESTUDIANTES TEMPORAL X RUTA 
+if(isset($_POST['TablaEstudiantesTemporalxRuta']) && $_POST['TablaEstudiantesTemporalxRuta'] == "ok")
+{
+    AjaxEscolar::ajaxTablaEstudiantesTemporalxRuta($_POST['idruta']);
+}
+
+#LLAMADO A TABLA SEGUIMIENTO ESTUDIANTES TEMPORAL X RUTA 
+if(isset($_POST['tablaSeguimientoEstudiantesTemporalxRuta']) && $_POST['tablaSeguimientoEstudiantesTemporalxRuta'] == "ok")
+{
+    AjaxEscolar::ajaxtablaSeguimientoEstudiantesTemporalxRuta($_POST['idruta']);
 }

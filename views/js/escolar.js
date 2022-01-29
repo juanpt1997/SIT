@@ -33,6 +33,8 @@ if (
         cargarSelect("ruta");
         cargarSelect("ruta2");
         cargarSelect("estudiante");
+        cargarSelect("estudiante2");
+        cargarSelect("ruta3");
 
         /*============================================
             FUNCION PARA CARGAR TABLA DE RUTAS 
@@ -183,6 +185,86 @@ if (
                 },
             });
         };
+
+        /*============================================
+            TABLA DE ESTUDIANTES TEMPORAL X RUTA 
+        ==============================================*/
+        const cargarTablaEstudiantesTemporalxRuta = (idruta) =>{
+            // Quitar datatable
+            $(`#tablaEstudiantesTemporalxRuta`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbodyEstudiantesTemporalxRuta`).html("");
+
+            var datos = new FormData();
+            datos.append("TablaEstudiantesTemporalxRuta", "ok");
+            datos.append("idruta", idruta);
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/escolar.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbodyEstudiantesTemporalxRuta").html(response);
+                    } else {
+                        $("#tbodyEstudiantesTemporalxRuta").html("");
+                    }
+
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "border-0 bg-gradient-olive",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(`#tablaEstudiantesTemporalxRuta`, buttons);
+                },
+            });
+        }
+
+        /*============================================
+        TABLA SEGUIMIENTO ESTUDIANTE TEMPORAL X RUTA
+        ==============================================*/
+        const cargarTablaSeguimientoTemporalxRuta = (idruta) =>{
+            // Quitar datatable
+            $(`#tablaSeguimientoEstudiantesTemporalxRuta`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbodySeguimientoEstudiantesTemporalxRuta`).html("");
+
+            var datos = new FormData();
+            datos.append("tablaSeguimientoEstudiantesTemporalxRuta", "ok");
+            datos.append("idruta", idruta);
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/escolar.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbodySeguimientoEstudiantesTemporalxRuta").html(response);
+                    } else {
+                        $("#tbodySeguimientoEstudiantesTemporalxRuta").html("");
+                    }
+
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "border-0 bg-gradient-olive",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(`#tablaSeguimientoEstudiantesTemporalxRuta`, buttons);
+                },
+            });
+        }
 
         /*============================================
             SELECCIONAN VEHÍCULO
@@ -431,6 +513,7 @@ if (
             $("#estudiante").val("").trigger("change");
             cargarSelectOrden(idruta);
             cargarTablaEstudiantesxRuta(idruta);
+            cargarTablaEstudiantesTemporalxRuta(idruta);
         });
 
         /*============================================
@@ -506,6 +589,7 @@ if (
 
             $("#idruta_aux").val(idruta);
             cargarTablaSeguimientoxRuta(idruta);
+            cargarTablaSeguimientoTemporalxRuta(idruta);
 
             if (idrecorrido != "") {
                 var datos = new FormData();
@@ -653,8 +737,17 @@ if (
                             //Carga tabla
                             let idruta = $("#idruta_aux").val();
                             cargarTablaSeguimientoxRuta(idruta);
+                            cargarTablaSeguimientoTemporalxRuta(idruta);
+
                         }
                     },
+                });
+            } else {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Esta ruta no tiene recorrido para el día de hoy.",
+                    showConfirmButton: false,
+                    timer: 1500,
                 });
             }
         });
@@ -706,10 +799,81 @@ if (
                             //Carga tabla
                             let idruta = $("#idruta_aux").val();
                             cargarTablaSeguimientoxRuta(idruta);
+                            cargarTablaSeguimientoTemporalxRuta(idruta);
+
                         }
                     },
                 });
+            } else {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Esta ruta no tiene recorrido para el día de hoy.",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
             }
+        });
+
+        /*============================================
+            SE CIERRA MODAL ESTUDIANTE TEMPORAL
+        ==============================================*/
+        $("#modalEstudianteTemporal").on("hidden.bs.modal", function () {
+            $("#modal-listar").modal("show");
+        });
+
+        /*============================================
+            CLICK EN ABRIR MODAL ESTUDIANTE TEMPORAL
+        ==============================================*/
+        $(document).on("click", ".btn-EstudianteTemp", function () {
+            $("#modal-listar").modal("hide");
+        });
+
+        /*============================================
+            ASOCIAR ESTUDIANTE TEMPORAL A RUTA 
+        ==============================================*/
+        $("#estudianteTemp_form").submit(function (e) {
+            e.preventDefault();
+
+            let datosFrm = $(this).serializeArray();
+            let idruta = $("#ruta3").val();
+            
+
+            var datos = new FormData();
+            datos.append("estudianteTemporalRuta", "ok");
+
+            datosFrm.forEach((element) => {
+                datos.append(element.name, element.value);
+            });
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/escolar.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Datos agregados correctamente.",
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                        
+                        cargarTablaEstudiantesTemporalxRuta(idruta);
+
+                    } else {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Los datos no pudieron ser guardados vuelva a intentar más tarde.",
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
+                    }
+                },
+            });
         });
     }); //FINAL DOCUMENT READY
 }

@@ -221,4 +221,13 @@ class ControladorEscolar
             return "ya lo entregaron";
         }
     }
+
+    /* ===================================================
+        ASOCIAR ESTUDIANTE TEMPORAL A RUTA
+    ===================================================*/
+    static public function ctrAsociarEstudianteTemporalRuta($datos)
+    {
+        $respuesta = ModeloEscolar::mdlAsociarEstudianteTemporalRuta($datos);
+        return $respuesta;
+    }
 }
