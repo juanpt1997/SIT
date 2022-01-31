@@ -449,4 +449,43 @@ class ModeloEscolar
 
         return $retorno;
     }
+
+    /* ===================================================
+        ASOCIAR ESTUDIANTE TEMPORAL A RUTA
+    ===================================================*/
+    static public function mdlAsociarEstudianteTemporalRuta($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO e_ruta_temporal (idpasajero, idruta) VALUES (:idpasajero, :idruta)");
+
+        $stmt->bindParam(":idpasajero", $datos['idpasajero'], PDO::PARAM_INT);
+        $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        MODELO LISTAR ESTUDIANTES TEMPORALES X RUTA
+    ===================================================*/
+    static public function mdlListarEstudiantesTemporalesxRuta($idruta)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT rt.*, p.* FROM e_ruta_temporal rt
+                                                INNER JOIN e_pasajeros p ON rt.idpasajero = p.idpasajero 
+                                                WHERE rt.idruta = :idruta");
+
+        $stmt->bindParam(":idruta", $idruta, PDO::PARAM_INT);
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+
+        return $retorno;
+    }
 }

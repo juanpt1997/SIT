@@ -215,7 +215,9 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
             </div>
 
             <div class="justify-content-start">
-                <button class="btn btn-success m-2 btn-nuevoEstudiante" data-toggle="modal" data-target="#modalEstudiante">Crear nuevo estudiante</button>
+                <button class="btn btn-info m-2 btn-EstudianteTemp" data-toggle="modal" data-target="#modalEstudianteTemporal">Asociar pasajero temporal <i class="fas fa-user-clock"></i></button>
+                <button class="btn btn-success m-2 btn-nuevoEstudiante" data-toggle="modal" data-target="#modalEstudiante">Crear nuevo estudiante <i class="fas fa-user-check"></i></button>
+                <button class="btn btn-danger m-2 btn-eliminarEstudiante" data-toggle="modal" data-target="#modalEliminarEstudiante">Eliminar estudiante <i class="fas fa-user-minus"></i></button>
             </div>
 
             <div class="card">
@@ -244,7 +246,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
 
                             <!-- ===================================================
                             NUM RUTA
-                        =================================================== -->
+                            =================================================== -->
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label for="exampleInput1">Ruta</label>
@@ -260,7 +262,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                             <div class="col-12 col-md-6 col-lg-4 hide" id="despuesDe">
                                 <div class="form-group text-center ">
                                     <label for="exampleInput1">Después de</label>
-                                    <select class="form-control select2-single" id="estudianteOrden" name="estudianteOrden" >
+                                    <select class="form-control select2-single" id="estudianteOrden" name="estudianteOrden">
 
                                     </select>
                                 </div>
@@ -319,6 +321,50 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                             </tbody>
                         </table>
                     </div>
+
+
+                    <hr class="my-4 bg-dark">
+                    <div class="justify-content-center">
+                        <h3 class="text-center"><i>Posibles estudiantes en esta ruta</i> <i class="fas fa-route"></i></h3>
+                    </div>
+
+                    <!-- TABLA DE ESTUDIANTES TEMPORALES -->
+                    <div class="table-responsive">
+                        <table id="tablaEstudiantesTemporalxRuta" class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100 text-center">
+                            <thead class="thead-light text-uppercase text-sm text-center">
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Año</th>
+                                    <th>Grado</th>
+                                    <th>Grupo</th>
+                                    <th>Nombre</th>
+                                    <th>Nivel</th>
+                                    <th>Barrio</th>
+                                    <th>Dirección</th>
+                                    <th>Nombre primer acudiente</th>
+                                    <th>Celular primer acudiente</th>
+                                    <th>Nombre segundo acudiente</th>
+                                    <th>Celular segundo acudiente</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyEstudiantesTemporalxRuta" class="text-sm">
+                                <!-- <td>101010101</td>
+                                <td>2022A</td>
+                                <td>K4</td>
+                                <td>K4</td>
+                                <td>Osorio Castillo</td>
+                                <td>Simón Eduardo</td>
+                                <td>Preescolar</td>
+                                <td>Alamos</td>
+                                <td>Altos de canaan</td>
+                                <td>Osorio Rivera Luis Alberto</td>
+                                <td>3117736856</td>
+                                <td></td>
+                                <td></td> -->
+                            </tbody>
+                        </table>
+                    </div>
+
 
                 </div>
             </div>
@@ -495,7 +541,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                             <div class="col-12 col-sm-6 col-lg-6">
                                 <div class="form-group text-center">
                                     <label><i>Nombre auxiliar de entrega</i></label>
-                                    <input type="text" class="form-control" id="nom_auxiliar2" name="nom_auxiliar2" >
+                                    <input type="text" class="form-control" id="nom_auxiliar2" name="nom_auxiliar2">
                                 </div>
                             </div>
 
@@ -544,10 +590,115 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                             </tbody>
                         </table>
                     </div>
+
+                    <hr class="my-4 bg-dark">
+                    <div class="justify-content-center">
+                        <h3 class="text-center"><i>Posibles estudiantes en esta ruta</i> <i class="fas fa-route"></i></h3>
+                    </div>
+
+
+                    <!-- TABLA DE ESTUDIANTES TEMPORALES -->
+                    <div class="table-responsive">
+                        <table id="tablaSeguimientoEstudiantesTemporalxRuta" class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100 text-center">
+                            <thead class="thead-light text-uppercase text-sm text-center">
+                                <tr>
+                                    <th>Recoge</th>
+                                    <th>Entrega</th>
+                                    <th>Código</th>
+                                    <th>Nombre</th>
+                                    <th>Nivel</th>
+                                    <th>Barrio</th>
+                                    <th>Dirección</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodySeguimientoEstudiantesTemporalxRuta" class="text-sm">
+                                <!-- <td>101010101</td>
+                                <td>2022A</td>
+                                <td>K4</td>
+                                <td>K4</td>
+                                <td>Osorio Castillo</td>
+                                <td>Simón Eduardo</td>
+                                <td>Preescolar</td>
+                                <td>Alamos</td>
+                                <td>Altos de canaan</td>
+                                <td>Osorio Rivera Luis Alberto</td>
+                                <td>3117736856</td>
+                                <td></td>
+                                <td></td> -->
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
 
 
+
+
+
+        </div>
+    </div>
+</div>
+
+<!-- MODAL ESTUDIANTE TEMPORAL -->
+<div id="modalEstudianteTemporal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title" id="my-modal-title">Asociar estudiante temporal</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+
+            <div class="card">
+                <div class="card-body">
+                    <form class="" id="estudianteTemp_form" method="post" enctype="multipart/form-data">
+
+                        <div class="row mt-2 mb-2 border border-info rounded">
+                            <!-- ===================================================
+                                ESTUDIANTE
+                            =================================================== -->
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label for="exampleInput1">Estudiante</label>
+                                    <select class="form-control select2-single" id="estudiante2" name="idpasajero">
+                                        <option value="" selected>-Seleccione un estudiante-</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- ===================================================
+                            NUM RUTA
+                            =================================================== -->
+                            <div class="col-12 col-md-6 col-lg-4">
+                                <div class="form-group text-center">
+                                    <label for="exampleInput1">Ruta</label>
+                                    <select class="form-control select2-single" id="ruta3" name="idruta">
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                            <!-- ===================================================
+                                                        BOTON GUARDAR FORMULARIO
+                                                    =================================================== -->
+                            <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
+                                <div class="col-12 col-md-4 col-lg-1 text-right text-md-left align-self-center m-1">
+                                    <button type="submit" form="estudianteTemp_form" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
+                                    <div class="overlay d-none" id="">
+                                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                    </div>
+                                </div>
+                            <?php endif ?>
+                        </div>
+                    </form>
+                </div>
+            </div>
 
 
 
