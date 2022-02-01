@@ -262,17 +262,17 @@ class ControladorEscolar
     /* ===================================================
         ELIMINAR SEGUIMIENTO PASAJERO
     ===================================================*/
-    // static public function ctrEliminarSeguimientoEstudiante($datos)
-    // {
-    //     $datos['fecha'] = $fecha = date("Y/m/d");
+    static public function ctrEliminarSeguimientoEstudiante($datos)
+    {
+        $datos['fecha'] = date("Y/m/d");
 
-    //     if($datos['momento'] == "entrega")
-    //     {
-    //         $respuesta = ModeloEscolar::mdlEliminarSeguimientoEntrega($datos);
-    //         return $respuesta;
-    //     }else{
-    //         $respuesta = ModeloEscolar::mdlEliminarSeguimientoRecoge($datos);
-    //         return $respuesta;
-    //     }
-    // }
+        if($datos['momento'] == "entrega")
+        {
+            $respuesta = ModeloEscolar::mdlEliminarSeguimientoEntrega($datos);
+            return $respuesta;
+        }else{
+            $respuesta = ModeloEscolar::mdlEliminarSeguimientoRecoge($datos);
+            return $respuesta;
+        }
+    }
 }

@@ -577,4 +577,50 @@ class ModeloEscolar
 
         return $retorno;
     }
+
+    /* ===================================================
+        ELIMINAR SEGUIMIENTO ENTREGA 
+    ===================================================*/
+    static public function mdlEliminarSeguimientoEntrega($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE e_re_seguimiento_pasajeros set idrecorrido_entrega = NULL, hora_entrega = NULL
+                                                WHERE idpasajero = :idpasajero AND fecha = :fecha");
+
+        $stmt->bindParam(":idpasajero", $datos['idpasajero'], PDO::PARAM_INT);
+        $stmt->bindParam(":fecha", $datos['fecha'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        ELIMINAR SEGUIMIENTO RECOGE
+    ===================================================*/
+    static public function mdlEliminarSeguimientoRecoge($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE e_re_seguimiento_pasajeros set idrecorrido_recogida = NULL, hora_recogida = NULL
+                                             WHERE idpasajero = :idpasajero AND fecha = :fecha");
+
+        $stmt->bindParam(":idpasajero", $datos['idpasajero'], PDO::PARAM_INT);
+        $stmt->bindParam(":fecha", $datos['fecha'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
 }

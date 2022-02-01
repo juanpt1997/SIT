@@ -686,6 +686,7 @@ if (
 
                         $(".btn-entrega").attr("idrecorrido", response);
                         $(".btn-recoge").attr("idrecorrido", response);
+                        $(".btn-eliminar").attr("idrecorrido", response);
 
                         cargarTablaEstudiantesxRuta(idruta);
                     } else {
@@ -1137,7 +1138,9 @@ if (
                                     confirmButtonText: "¡Cerrar!",
                                     allowOutsideClick: false,
                                 }).then((result) => {
-                                    window.location = "cg-gestion-humana";
+                                    let idruta = $("#idruta_aux").val();
+                                    cargarTablaSeguimientoxRuta(idruta);
+                                    cargarTablaSeguimientoTemporalxRuta(idruta);
                                 });
                             }
                         },
