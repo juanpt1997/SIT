@@ -17,6 +17,10 @@ class ControladorEscolar
     ===================================================*/
     static public function ctrGuardarEditarRuta($datos)
     {
+
+
+        var_dump($datos);
+
         if (isset($datos['idruta'])) {
             if ($datos['idruta'] == "") {
                 $datos['user_created'] = $_SESSION['cedula'];
@@ -190,7 +194,19 @@ class ControladorEscolar
 
                 return $respuesta;
             }
-        } else {
+        } else if($existe['idrecorrido_recogida'] == NULL || $existe['idrecorrido_recogida'] == ""){
+
+            $datos2 = array(
+                "hora" => $hora,
+                "idrecorrido" => $idrecorrido,
+                "idseguimiento" => $existe['idseguimiento'],
+                "user_updated" => $_SESSION['cedula'] 
+            );
+
+            $respuesta = ModeloEscolar::mdlInsertarRecogida($datos2);
+            return $respuesta;
+        }
+        else{
             return "ya lo recogieron";
         }
     }
