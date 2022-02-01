@@ -434,6 +434,9 @@ if (
             $("#ruta_form").trigger("reset");
             $("#institucion").val("").trigger("change");
             $("#placa").val("").trigger("change");
+
+            $("#idruta").val("");
+
         });
 
         /*============================================

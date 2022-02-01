@@ -460,6 +460,34 @@ class ModeloEscolar
     }
 
     /* ===================================================
+        INSERTAR RECOGIDA 
+    ===================================================*/
+    static public function mdlInsertarRecogida($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE e_re_seguimiento_pasajeros SET 
+        hora_recogida = :hora_recogida,
+        idrecorrido_recogida = :idrecorrido_recogida,
+        user_updated = :user_updated
+        WHERE idseguimiento = :idseguimiento");
+
+        $stmt->bindParam(":hora_recogida", $datos['hora'], PDO::PARAM_STR);
+        $stmt->bindParam(":idrecorrido_recogida", $datos['idrecorrido'], PDO::PARAM_INT);
+        $stmt->bindParam(":idseguimiento", $datos['idseguimiento'], PDO::PARAM_INT);
+        $stmt->bindParam(":user_updated", $datos['user_updated'], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
         ASOCIAR ESTUDIANTE TEMPORAL A RUTA
     ===================================================*/
     static public function mdlAsociarEstudianteTemporalRuta($datos)
