@@ -561,11 +561,11 @@ class AjaxEscolar
     /* ===================================================
         ELIMINAR SEGUIMIENTO PASAJERO 
     ===================================================*/
-    static public function ajaxEliminarSeguimientoEstudiante($datos)
-    {
-        $respuesta = ControladorEscolar::ctrEliminarSeguimientoEstudiante($datos);
-        echo $respuesta;
-    }
+    // static public function ajaxEliminarSeguimientoEstudiante($datos)
+    // {
+    //     $respuesta = ControladorEscolar::ctrEliminarSeguimientoEstudiante($datos);
+    //     echo $respuesta;
+    // }
 }
 
 
@@ -675,7 +675,7 @@ if(isset($_POST['PasajerosxRecorrido']) && $_POST['PasajerosxRecorrido'] == "ok"
 }
 
 #LLAMADO A ELIMINAR SEGUIMIENTO PASAJERO
-if(isset($_POST['eliminarSeguimientoEstudiante']) && $_POST['eliminarSeguimientoEstudiante'] == "ok")
-{
-    AjaxEscolar::ajaxEliminarSeguimientoEstudiante($_POST);
-}
+// if(isset($_POST['eliminarSeguimientoEstudiante']) && $_POST['eliminarSeguimientoEstudiante'] == "ok")
+// {
+//     AjaxEscolar::ajaxEliminarSeguimientoEstudiante($_POST);
+// }
