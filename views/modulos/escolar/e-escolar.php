@@ -31,75 +31,176 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
             <!-- ===================== 
               AGREGAR FILAS Y COLUMNAS PARA EL DESARROLLO 
             ========================= -->
-            <div class="row">
-                <div class="col-md-12  card ">
 
+            <div class="tab-content" id="pills-tabcontent">
+                <div class="tab-pane fade show active" id="pills-escolar" role="tabpanel" aria-labelledby="pills-escolar-tab">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 col-lg-12">
+                            <div class="card card-info">
+                                <div class="card-header">
+                                    <ul class="nav nav-tabs card-header-tabs" id="custom-tabs-one-tab" role="tablist">
+                                        <!-- <li class="nav-item">
+                                         <a class="nav-link active" id="custom-tabs-one-solicitudserv_exter_repues-tab" data-toggle="pill" href="#custom-tabs-one-solicitudserv_exter_repues" role="tab" aria-controls="custom-tabs-one-solicitudserv_exter_repues" aria-selected="false">Solicitud de servicio / Repuestos</a>
+                                        </li> -->
+                                        <li class="nav-item ">
+                                            <!-- TABS HORIZONTALES-->
+                                            <a class="nav-link active" id="custom-tabs-one-escolar-tab" data-toggle="pill" href="#custom-tabs-one-escolar" role="tab" aria-controls="custom-tabs-one-escolar" aria-selected="true"><i class="fas fa-route"></i> Rutas y seguimiento</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="custom-tabs-one-historial_escolar-tab" data-toggle="pill" href="#custom-tabs-one-historial_escolar" role="tab" aria-controls="custom-tabs-one-historial_escolar" aria-selected="false"><i class="fas fa-history"></i> Historial de recorridos</a>
+                                        </li>
 
-                    <!-- <hr class="my-4"> -->
-                    <div class="justify-content-start mt-2">
-                        <!-- BOTON NUEVA RUTA-->
-                        <button type="button" class="btn btn-info btn-md btn-nuevaRuta" data-toggle="modal" data-target="#modalRuta">
-                            <i class="fas fa-road"></i> Agregar ruta
-                        </button>
-
-                    </div>
-                    <!-- <button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#modalRuta">
-                                <i class="fas fa-user-plus"></i> Agregar estudiante
-                            </button> -->
-
-
-
-
-
-                    <!--|||TABLA|||-->
-                    <div class="row mt-2">
-                        <div class="col-12">
-                            <div class="card card-outline card-info">
+                                    </ul>
+                                </div>
 
                                 <div class="card-body">
+                                    <div class="tab-content" id="custom-tabs-one-tabContent">
+                                        <!-- ==============================================
+                                        TAB ESCOLAR
+                                        ==================================================-->
+                                        <div class="tab-pane fade active show" id="custom-tabs-one-escolar" role="tabpanel" aria-labelledby="custom-tabs-one-escolar-tab">
 
-                                    <div class="table-responsive">
-                                        <table id="tablaruta" class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100 text-center">
-                                            <thead class="thead-light text-uppercase text-sm text-center">
-                                                <tr>
-                                                    <th style="width:10px;">Acciones</th>
-                                                    <th># Ruta</th>
-                                                    <th>Sector</th>
-                                                    <th>Vehículo</th>
-                                                    <th>Cantidad</th>
-                                                    <th>Institución</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="text-sm" id="tbodyRuta">
-                                                <!-- <td>
-                                                    <div class="btn-group" role="group" aria-label="Button group">
-                                                        <button class="btn btn-info" data-toggle="modal" data-target="#modalRuta"><i class="fas fa-edit"></i></button>
-                                                        <button class="btn btn-success" data-toggle="modal" data-target="#modal-listar"><i class="fas fa-user-check"></i></button>
-                                                        <button class="btn btn-warning" data-toggle="modal" data-target="#modal-seguimiento"><i class="fas fa-clipboard-check"></i></button>
+                                            <div class="row">
+                                                <div class="col-md-12">
+
+
+                                                    <!-- <hr class="my-4"> -->
+                                                    <div class="justify-content-start mt-2">
+                                                        <!-- BOTON NUEVA RUTA-->
+                                                        <button type="button" class="btn btn-info btn-md btn-nuevaRuta" data-toggle="modal" data-target="#modalRuta">
+                                                            <i class="fas fa-road"></i> Agregar ruta
+                                                        </button>
+
                                                     </div>
-                                                </td>
-                                                <td>7N</td>
-                                                <td>ÁLAMOS</td>
-                                                <td>INI109</td>
-                                                <td>29</td>
-                                                <td>San Pablo</td> -->
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                                    <!-- <button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#modalRuta">
+                                                    <i class="fas fa-user-plus"></i> Agregar estudiante
+                                                        </button> -->
 
+
+
+
+
+                                                    <!--|||TABLA|||-->
+                                                    <div class="row mt-2">
+                                                        <div class="col-12">
+                                                            <div class="card card-outline card-info">
+
+                                                                <div class="card-body">
+
+                                                                    <div class="table-responsive">
+                                                                        <table id="tablaruta" class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100 text-center">
+                                                                            <thead class="thead-light text-uppercase text-sm text-center">
+                                                                                <tr>
+                                                                                    <th style="width:10px;">Acciones</th>
+                                                                                    <th># Ruta</th>
+                                                                                    <th>Sector</th>
+                                                                                    <th>Vehículo</th>
+                                                                                    <th>Cantidad</th>
+                                                                                    <th>Institución</th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody class="text-sm" id="tbodyRuta">
+                                                                                <!-- <td>
+                                                                                    <div class="btn-group" role="group" aria-label="Button group">
+                                                                                        <button class="btn btn-info" data-toggle="modal" data-target="#modalRuta"><i class="fas fa-edit"></i></button>
+                                                                                        <button class="btn btn-success" data-toggle="modal" data-target="#modal-listar"><i class="fas fa-user-check"></i></button>
+                                                                                        <button class="btn btn-warning" data-toggle="modal" data-target="#modal-seguimiento"><i class="fas fa-clipboard-check"></i></button>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>7N</td>
+                                                                                <td>ÁLAMOS</td>
+                                                                                <td>INI109</td>
+                                                                                <td>29</td>
+                                                                                <td>San Pablo</td> -->
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+
+
+                                                </div><!-- col -->
+
+
+                                            </div> <!-- /.row -->
+
+
+                                        </div>
+
+                                        <!-- ============================================
+                                            TAB HISTORIAL ESCOLAR
+                                        ================================================ -->
+                                        <div class="tab-pane fade active" id="custom-tabs-one-historial_escolar" role="tabpanel" aria-labelledby="custom-tabs-one-historial_escolar-tab">
+                                            <div class="row">
+
+                                               
+                                                    <div class="col-12">
+                                                        <div class="card card-outline card-info">
+
+                                                            <div class="card-body col-12">
+
+                                                                <div class="table-responsive">
+                                                                    <table id="tableHistorialRecorrido" class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100 text-center">
+                                                                        <thead class="thead-light text-uppercase text-sm text-center">
+                                                                            <tr>
+                                                                                <th style="width:10px;">Pasajeros</th>
+                                                                                <th># Ruta</th>
+                                                                                <th>Sector</th>
+                                                                                <th>Vehículo</th>
+                                                                                <th>Conductor</th>
+                                                                                <th>Institución</th>
+                                                                                <th>Fecha</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody class="text-sm" id="tbodyHistorialRecorrido">
+                                                                            <!-- <tr>
+                                                                                <td>
+                                                                                    <div class="btn-group" role="group" aria-label="Button group">
+                                                                                        <button class="btn btn-warning" data-toggle="modal" data-target="#modal"><i class="fas fa-clipboard-check"></i></button>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td>7N</td>
+                                                                                <td>ÁLAMOS</td>
+                                                                                <td>INI109</td>
+                                                                                <td>29</td>
+                                                                                <td>San Pablo</td>
+                                                                                <td>San Pablo</td>
+                                                                            </tr> -->
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                
+
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
 
 
 
 
-                </div><!-- col -->
 
 
-            </div> <!-- /.row -->
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
@@ -572,6 +673,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                                     <th>Nivel</th>
                                     <th>Barrio</th>
                                     <th>Dirección</th>
+                                    <th>...</th>
                                 </tr>
                             </thead>
                             <tbody id="tbodySeguimiento" class="text-sm">
@@ -609,6 +711,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                                     <th>Nivel</th>
                                     <th>Barrio</th>
                                     <th>Dirección</th>
+                                    <th>...</th>
                                 </tr>
                             </thead>
                             <tbody id="tbodySeguimientoEstudiantesTemporalxRuta" class="text-sm">
@@ -702,6 +805,97 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
 
 
 
+        </div>
+    </div>
+</div>
+
+<!-- MODAL ELIMINAR ESTUDIANTE -->
+<div id="modalEliminarEstudiante" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-danger">
+                <h5 class="modal-title" id="my-modal-title">Eliminar estudiante</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <form class="" id="Eliminarestudiante_form" method="post" enctype="multipart/form-data">
+
+                        <div class="row mt-2 mb-2 border border-info rounded">
+                            <!-- ===================================================
+                                ESTUDIANTE
+                            =================================================== -->
+                            <div class="col-12">
+                                <div class="form-group text-center">
+                                    <label for="exampleInput1">Estudiante</label>
+                                    <select class="form-control select2-single" id="estudiante3" name="idpasajero">
+                                        <option value="" selected>-Seleccione un estudiante-</option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+                            <!-- ===================================================
+                                                        BOTON GUARDAR FORMULARIO
+                                                    =================================================== -->
+                            <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
+                                <div class="col-12 col-md-4 col-lg-1 text-right text-md-left align-self-center m-1">
+                                    <button type="submit" form="Eliminarestudiante_form" class="btn btn-danger"><i class="fas fa-check-circle"></i></button>
+                                    <div class="overlay d-none" id="">
+                                        <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                    </div>
+                                </div>
+                            <?php endif ?>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- MODAL PASAJEROS HISTORIAL RECORRIDOS -->
+<div id="modalHistorialRecorrido" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title" id="my-modal-title">Pasajeros</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="card">
+                <div class="card-body">
+
+                <!-- TABLA DE ESTUDIANTES -->
+                <div class="table-responsive">
+                        <table id="tablaPasajerosxRecorrido" class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100 text-center">
+                            <thead class="thead-light text-uppercase text-sm text-center">
+                                <tr>
+                                    <th>Código</th>
+                                    <th>Nombre</th>
+                                    <th>Hora recoge</th>
+                                    <th>Hora entrega</th>
+                                    <th>Nivel</th>
+                                    <th>Barrio</th>
+                                    <th>Dirección</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyPasajerosxRecorrido" class="text-sm">
+                                
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+            </div>
         </div>
     </div>
 </div>

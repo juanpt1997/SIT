@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set('America/Bogota');
 
 class ControladorEscolar
 {
@@ -18,9 +19,12 @@ class ControladorEscolar
     {
         if (isset($datos['idruta'])) {
             if ($datos['idruta'] == "") {
+                $datos['user_created'] = $_SESSION['cedula'];
+                $datos['user_updated'] = $_SESSION['cedula'];
                 $respuesta = ModeloEscolar::mdlGuardarRuta($datos);
                 return $respuesta;
             } else {
+                $datos['user_updated'] = $_SESSION['cedula'];
                 $respuesta = ModeloEscolar::mdlEditarRuta($datos);
                 return $respuesta;
             }
@@ -110,25 +114,45 @@ class ControladorEscolar
     static public function ctrGuardarRecorrido($datos)
     {
 
-
         $datos2 = array(
             "idruta" => $datos['idruta_aux'],
             "fecha" => date("Y/m/d"),
             "auxiliar" => $datos['nom_auxiliar'],
             "observaciones" => $datos['observaciones_auxiliar'],
             "auxiliar2" => $datos['nom_auxiliar2'],
-            "observaciones2" => $datos['observaciones_auxiliar2']
+            "observaciones2" => $datos['observaciones_auxiliar2'],
         );
 
+        
         //Ver si existe un recorrido para ese día y esa ruta
         $existe = ModeloEscolar::mdlRecorridoxFechaxRuta($datos2['idruta'], $datos2['fecha']);
-
+        
         if ($existe != false) {
             //Actualizar recorrido 
+            $datos2 = array(
+                "idruta" => $datos['idruta_aux'],
+                "fecha" => date("Y/m/d"),
+                "auxiliar" => $datos['nom_auxiliar'],
+                "observaciones" => $datos['observaciones_auxiliar'],
+                "auxiliar2" => $datos['nom_auxiliar2'],
+                "observaciones2" => $datos['observaciones_auxiliar2'],
+                "user_updated" => $_SESSION['cedula']
+            );
+            
             $respuesta = ModeloEscolar::mdlEditarRecorrido($datos2);
             return $respuesta;
         } else {
             //Agrega el nuevo recorrido
+            $datos2 = array(
+                "idruta" => $datos['idruta_aux'],
+                "fecha" => date("Y/m/d"),
+                "auxiliar" => $datos['nom_auxiliar'],
+                "observaciones" => $datos['observaciones_auxiliar'],
+                "auxiliar2" => $datos['nom_auxiliar2'],
+                "observaciones2" => $datos['observaciones_auxiliar2'],
+                "user_updated" => $_SESSION['cedula'],
+                "user_created" => $_SESSION['cedula']
+            );
             $respuesta = ModeloEscolar::mdlGuardarRecorrido($datos2);
             return $respuesta;
         }
@@ -147,7 +171,7 @@ class ControladorEscolar
         //Verificar si el pasajero tiene un seguimiento, es decir si ya lo recogieron en otra ruta  
         $existe = ModeloEscolar::mdlSeguimientoxPasajeroxFecha($idpasajero, $fecha);
 
-        
+
 
         if ($existe == false) {
 
@@ -155,7 +179,8 @@ class ControladorEscolar
                 "idpasajero" => $idpasajero,
                 "idrecorrido" => $idrecorrido,
                 "fecha" => $fecha,
-                "hora" => $hora
+                "hora" => $hora,
+                "user_created" => $_SESSION['cedula']
             );
 
             $respuesta = ModeloEscolar::mdlGuardarSeguimientoRecoge($datos);
@@ -188,7 +213,8 @@ class ControladorEscolar
                 "idpasajero" => $idpasajero,
                 "idrecorrido" => $idrecorrido,
                 "fecha" => $fecha,
-                "hora" => $hora
+                "hora" => $hora,
+                "user_created" => $_SESSION['cedula']
             );
 
             $respuesta = ModeloEscolar::mdlGuardarSeguimientoEntrega($datos);
@@ -201,13 +227,15 @@ class ControladorEscolar
             //SI LO RECOGIÓ UNA RUTA Y LO VA ENTREGAR OTRA RUTA
         } else if ($existe['idrecorrido_recogida'] != "" && $existe['idrecorrido_entrega'] == "") {
 
-            
+
             $datos = array(
                 "idpasajero" => $idpasajero,
                 "idrecorrido" => $idrecorrido,
                 "fecha" => $fecha,
                 "hora" => $hora,
-                "idseguimiento" => $existe['idseguimiento']
+                "idseguimiento" => $existe['idseguimiento'],
+                "user_updated" => $_SESSION['cedula']
+
             );
 
             $respuesta = ModeloEscolar::mdlInsertarEntrega($datos);
@@ -230,4 +258,21 @@ class ControladorEscolar
         $respuesta = ModeloEscolar::mdlAsociarEstudianteTemporalRuta($datos);
         return $respuesta;
     }
+
+    /* ===================================================
+        ELIMINAR SEGUIMIENTO PASAJERO
+    ===================================================*/
+    // static public function ctrEliminarSeguimientoEstudiante($datos)
+    // {
+    //     $datos['fecha'] = $fecha = date("Y/m/d");
+
+    //     if($datos['momento'] == "entrega")
+    //     {
+    //         $respuesta = ModeloEscolar::mdlEliminarSeguimientoEntrega($datos);
+    //         return $respuesta;
+    //     }else{
+    //         $respuesta = ModeloEscolar::mdlEliminarSeguimientoRecoge($datos);
+    //         return $respuesta;
+    //     }
+    // }
 }
