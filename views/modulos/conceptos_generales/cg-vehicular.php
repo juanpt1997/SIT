@@ -221,7 +221,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <i class="fas fa-address-card"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" min="0" id="inputGH" name="inputGH" placeholder="" required>
+                            <input class="form-control" type="text" min="0" id="inputGH" name="inputGH" placeholder="" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                         </div>
                     </div>
                 </div>
@@ -292,7 +292,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <i class="fas fa-address-card"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" id="input_campo_uno" name="input_campo_uno" required>
+                            <input class="form-control" type="text" id="input_campo_uno" name="input_campo_uno" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -341,7 +341,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <i class="fas fa-address-card"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" id="input_tipo" name="input_tipo" required>
+                            <input class="form-control" type="text" id="input_tipo" name="input_tipo" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -529,7 +529,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <i class="fas fa-truck-moving"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" id="input_tipovehic" name="input_tipovehic" required>
+                            <input class="form-control" type="text" id="input_tipovehic" name="input_tipovehic" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                         </div>
                     </div>
                     <div class="form-group">
