@@ -212,7 +212,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-info">
-                <h5 class="modal-title" id="title-modal-ruta">Ruta <i class="fas fa-road"></i></h5>
+                <h5 class="modal-title" id="title-modal-ruta"><span class="badge badge-light">RUTA <i class="fas fa-road"></i></span></h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -309,7 +309,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-success">
-                <h5 class="modal-title" id="my-modal-title">Estudiantes</h5>
+                <h5 class="modal-title" id="my-modal-title"><span class="badge badge-light">ESTUDIANTES <i class="fas fa-book-reader"></i></span></h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -606,7 +606,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-warning">
-                <h5 class="modal-title" id="my-modal-title">SEGUIMIENTO</h5>
+                <h5 class="modal-title" id="my-modal-title"><span class="badge badge-light">SEGUIMIENTO <i class="fas fa-shuttle-van"></i></span></h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
