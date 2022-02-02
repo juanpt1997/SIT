@@ -19,7 +19,7 @@ class ControladorEscolar
     {
 
 
-        var_dump($datos);
+        
 
         if (isset($datos['idruta'])) {
             if ($datos['idruta'] == "") {
@@ -104,7 +104,7 @@ class ControladorEscolar
                 //Asociamos estudiante a ruta
                 $respuesta = ModeloEscolar::mdlAsociarEstudianteRuta($datos);
 
-                var_dump($datos);
+                
                 return $respuesta;
             } else {
                 return "no existe";
@@ -251,13 +251,12 @@ class ControladorEscolar
         
             //Si ya existen pasajeros 
             if($pasajerosRecorrido != false)
-            {
-                
-                
+            {                
                 foreach ($pasajerosRecorrido as $key => $value) {
                    $respuesta = ModeloEscolar::mdlEstudiantexId($value['idpasajero']);
                    if($respuesta != false)
                    {
+                        var_dump($respuesta['nombre'], $respuesta['orden'], $orden);
                         if($respuesta['orden'] != NULL && $respuesta['orden'] != 0 )
                         {
                             

@@ -363,6 +363,7 @@ if (
                 //dataType: "json",
                 success: function (response) {
                     if (response == "ok") {
+
                         Swal.fire({
                             icon: "success",
                             title: "Datos agregados correctamente.",
