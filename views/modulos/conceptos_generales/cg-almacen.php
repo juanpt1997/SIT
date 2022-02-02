@@ -176,7 +176,7 @@
                                     <i class="fas fa-plus-circle"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" id="entrada1" name="entrada1" required>
+                            <input class="form-control" type="text" id="entrada1" name="entrada1" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                         </div>
                     </div>
 

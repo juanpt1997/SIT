@@ -286,7 +286,7 @@ $departamentos = ControladorCiudades::ctrListaDepar();
                                     <i class="fas fa-address-card"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" min="0" id="inputGH" name="inputGH" placeholder="" required>
+                            <input class="form-control" type="text" min="0" id="inputGH" name="inputGH" placeholder="" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                         </div>
                     </div>
 
@@ -418,7 +418,7 @@ $departamentos = ControladorCiudades::ctrListaDepar();
                                     <i class="fas fa-map-marker-alt"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" id="municipio" name="municipio" required>
+                            <input class="form-control" type="text" id="municipio" name="municipio" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                         </div>
                     </div>
 
