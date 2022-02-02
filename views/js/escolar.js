@@ -700,7 +700,6 @@ if (
                     cancelButtonText: "Cancelar",
                     confirmButtonText: "Si",
                 }).then((result) => {
-                    console.log(result);
                     if (result.value == true) {
                         Swal.fire({
                             icon: "success",
@@ -820,7 +819,6 @@ if (
                     cancelButtonText: "Cancelar",
                     confirmButtonText: "Si",
                 }).then((result) => {
-                    console.log(result);
                     if (result.value == true) {
                         Swal.fire({
                             icon: "success",
@@ -1064,7 +1062,6 @@ if (
         ==============================================*/
         $(document).on("click", ".pasajerosxrecorrido", function () {
             let idrecorrido = $(this).attr("idrecorrido");
-            console.log(idrecorrido);
 
             // Quitar datatable
             $(`#tablaPasajerosxRecorrido`).dataTable().fnDestroy();
