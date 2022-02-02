@@ -436,7 +436,6 @@ if (
             $("#placa").val("").trigger("change");
 
             $("#idruta").val("");
-
         });
 
         /*============================================
@@ -769,12 +768,35 @@ if (
                                                 timer: 1500,
                                             });
 
+                                            var datos2 = new FormData();
+                                            datos2.append("darOrden", "ok");
+                                            datos2.append("idrecorrido",idrecorrido);
+                                            datos2.append("idpasajero",idpasajero);
+
+                                            $.ajax({
+                                                type: "POST",
+                                                url: `${urlPagina}ajax/escolar.ajax.php`,
+                                                data: datos2,
+                                                cache: false,
+                                                contentType: false,
+                                                processData: false,
+                                                // dataType: "json",
+                                                success: function (response) {
+                                                    
+                                                    if(response != "Este recorrido no existe" )
+                                                    {
+                                                        let idruta = $("#idruta_aux").val();
+                                                        cargarTablaSeguimientoxRuta(idruta);
+                                                        cargarTablaSeguimientoTemporalxRuta(
+                                                            idruta
+                                                        );
+                                                    }
+                                                
+                                                },
+                                            });
+
                                             //Carga tabla
-                                            let idruta = $("#idruta_aux").val();
-                                            cargarTablaSeguimientoxRuta(idruta);
-                                            cargarTablaSeguimientoTemporalxRuta(
-                                                idruta
-                                            );
+                                            
                                         }
                                     },
                                 });
@@ -1093,15 +1115,13 @@ if (
         /*============================================
             CLICK EN ELIMINAR REGISTRO DE SEGUIMIENTO
         ==============================================*/
-        $(document).on("click", ".btn-eliminar", function(){
-
+        $(document).on("click", ".btn-eliminar", function () {
             let idpasajero = $(this).attr("idpasajero");
             let idrecorrido = $(this).attr("idrecorrido");
 
-
             Swal.fire({
                 title: `Eliminar seguimiento`,
-                text: 'Seleccione que momento desea eliminar',
+                text: "Seleccione que momento desea eliminar",
                 html: `
                 <hr>
                 <label for="">Momentos</label>
@@ -1150,8 +1170,6 @@ if (
                     });
                 }
             });
-
-
         });
     }); //FINAL DOCUMENT READY
 }
