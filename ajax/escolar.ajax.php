@@ -355,6 +355,15 @@ class AjaxEscolar
     }
 
     /* ===================================================
+        DAR ORDEN 
+    ===================================================*/
+    static public function ajaxDarOrden($idrecorrido, $idpasajero)
+    {
+        $respuesta =ControladorEscolar::ctrDarOrden($idrecorrido, $idpasajero);
+        echo $respuesta;
+    }
+
+    /* ===================================================
         GUARDAMOS SEGUIMIENTO ENTREGA 
     ===================================================*/
     static public function ajaxGuardarSeguimientoEntrega($idrecorrido, $idpasajero)
@@ -437,6 +446,8 @@ class AjaxEscolar
                 $boton_recoge = "
                 <button class='btn btn-success btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}'><i class='fas fa-sign-in-alt'></i></button>
                 ";
+                $boton_eliminar = "<td><button class='btn btn-sm btn-danger btn-eliminar' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' ><i class='fas fa-minus'></i></button></td>";
+
             } else {
                 $boton_entrega = "
                 <button class='btn btn-danger btn-entrega' idpasajero='{$value['idpasajero']}' idrecorrido='' ><i class='fas fa-sign-out-alt'></i></button>
@@ -444,6 +455,8 @@ class AjaxEscolar
                 $boton_recoge = "
                 <button class='btn btn-success btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido=''> <i class='fas fa-sign-in-alt'></i></button>
                 ";
+                $boton_eliminar = "<td><button class='btn btn-sm btn-danger btn-eliminar' idpasajero='{$value['idpasajero']}' idrecorrido='' ><i class='fas fa-minus'></i></button></td>";
+
             }
 
             if ($seguimiento != false) {
@@ -470,7 +483,7 @@ class AjaxEscolar
                     <td> {$value['nivel']} </td>
                     <td> {$value['barrio']} </td>
                     <td> {$value['direccion']} </td>
-                    <td><button class='btn btn-sm btn-danger btn-eliminar' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' ><i class='fas fa-minus'></i></button></td>
+                    {$boton_eliminar}
                 </tr>
             
             ";
@@ -683,4 +696,10 @@ if(isset($_POST['PasajerosxRecorrido']) && $_POST['PasajerosxRecorrido'] == "ok"
 if(isset($_POST['eliminarSeguimientoEstudiante']) && $_POST['eliminarSeguimientoEstudiante'] == "ok")
 {
     AjaxEscolar::ajaxEliminarSeguimientoEstudiante($_POST);
+}
+
+#LLAMADO A DAR ORDEN 
+if(isset($_POST['darOrden']) && $_POST['darOrden'] == "ok")
+{
+    AjaxEscolar::ajaxDarOrden($_POST['idrecorrido'], $_POST['idpasajero']);
 }

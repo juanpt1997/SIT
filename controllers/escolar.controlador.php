@@ -19,7 +19,7 @@ class ControladorEscolar
     {
 
 
-        var_dump($datos);
+        
 
         if (isset($datos['idruta'])) {
             if ($datos['idruta'] == "") {
@@ -104,7 +104,7 @@ class ControladorEscolar
                 //Asociamos estudiante a ruta
                 $respuesta = ModeloEscolar::mdlAsociarEstudianteRuta($datos);
 
-                var_dump($datos);
+                
                 return $respuesta;
             } else {
                 return "no existe";
@@ -171,12 +171,21 @@ class ControladorEscolar
         $fecha = date("Y/m/d");
         $hora = date("h:i:s");
 
+        
+
+        $pasajero = ModeloEscolar::mdlEstudiantexId($idpasajero);
+        
+
+        
+
 
         //Verificar si el pasajero tiene un seguimiento, es decir si ya lo recogieron en otra ruta  
         $existe = ModeloEscolar::mdlSeguimientoxPasajeroxFecha($idpasajero, $fecha);
 
 
-
+        /* ===================================================
+            GUARDAR SEGUIMIENTO
+        ===================================================*/
         if ($existe == false) {
 
             $datos = array(
@@ -209,6 +218,82 @@ class ControladorEscolar
         else{
             return "ya lo recogieron";
         }
+
+        
+
+
+    }
+
+    /* ===================================================
+        DAR ORDEN
+    ===================================================*/
+    static public function ctrDarOrden($idrecorrido, $idpasajero)
+    {
+        date_default_timezone_set('America/Bogota');
+        $fecha = date("Y/m/d");
+
+        $datosPR = array(
+            "idrecorrido" => $idrecorrido,
+            "fecha" => $fecha
+        );
+        
+        
+
+
+        $recorrido = ModeloEscolar::mdlDatosRecorrido($idrecorrido);
+        $pasajerosRecorrido = ModeloEscolar::mdlPasajerosxRecorridoxFecha($datosPR);
+
+        $orden = 0;
+
+        //Si existe el recorrido
+        if($recorrido != false)
+        {
+        
+            //Si ya existen pasajeros 
+            if($pasajerosRecorrido != false)
+            {                
+                foreach ($pasajerosRecorrido as $key => $value) {
+                   $respuesta = ModeloEscolar::mdlEstudiantexId($value['idpasajero']);
+                   if($respuesta != false)
+                   {
+                        var_dump($respuesta['nombre'], $respuesta['orden'], $orden);
+                        if($respuesta['orden'] != NULL && $respuesta['orden'] != 0 )
+                        {
+                            
+                            
+                            if($respuesta['orden'] >= $orden)
+                            {
+                                
+                                //CAPTURO EL ORDEN DEL ÚLTIMO PASAJERO
+                                $orden = $respuesta['orden'] + 100;
+                            }
+                        }
+
+                   }
+
+                   
+                }
+
+                
+
+                   $act = ModeloEscolar::mdlActualizarOrden($idpasajero, $orden);
+                   
+                   return $act;
+
+
+
+
+            }else{
+                //ES EL PRIMER PASAJERO QUE VAN A LISTAR
+                $orden = 100;
+                $act = ModeloEscolar::mdlActualizarOrden($idpasajero, $orden);
+                return $act;
+            }
+
+        }else{
+            return "Este recorrido no existe";
+        }
+
     }
 
     /* ===================================================
