@@ -651,4 +651,47 @@ class ModeloEscolar
 
         return $retorno;
     }
+
+    /* ===================================================
+        PASAJEROS POR RECORRIDO ENTREGA Y FECHA
+    ===================================================*/
+    static public function mdlPasajerosxRecorridoxFecha($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM e_re_seguimiento_pasajeros 
+        WHERE idrecorrido_recogida = :idrecorrido_recogida AND fecha = :fecha");
+        
+        $stmt->bindParam(":idrecorrido_recogida", $datos['idrecorrido'], PDO::PARAM_INT);
+        $stmt->bindParam(":fecha", $datos['fecha'], PDO::PARAM_STR);
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        ACTUALIZAR ORDEN PASAJERO
+    ===================================================*/
+    static public function mdlActualizarOrden($idpasajero, $orden)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE e_pasajeros set
+                                                orden = :orden
+                                                WHERE idpasajero = :idpasajero");
+
+        $stmt->bindParam(":idpasajero", $idpasajero, PDO::PARAM_INT);
+        $stmt->bindParam(":orden", $orden, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
 }
