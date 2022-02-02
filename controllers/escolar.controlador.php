@@ -131,6 +131,7 @@ class ControladorEscolar
         //Ver si existe un recorrido para ese día y esa ruta
         $existe = ModeloEscolar::mdlRecorridoxFechaxRuta($datos2['idruta'], $datos2['fecha']);
         
+        
         if ($existe != false) {
             //Actualizar recorrido 
             $datos2 = array(
@@ -144,6 +145,7 @@ class ControladorEscolar
             );
             
             $respuesta = ModeloEscolar::mdlEditarRecorrido($datos2);
+            
             return $respuesta;
         } else {
             //Agrega el nuevo recorrido
@@ -252,26 +254,31 @@ class ControladorEscolar
             //Si ya existen pasajeros 
             if($pasajerosRecorrido != false)
             {                
+
+            //     $longitud = sizeof($pasajerosRecorrido);
+
+            //   $ultimo_pasajero=ModeloEscolar::mdlEstudiantexId($pasajerosRecorrido[$longitud - 2]['idpasajero']);
+
+            //   var_dump($ultimo_pasajero['orden'], $ultimo_pasajero['nombre']);
+            //   if($ultimo_pasajero['orden'] >= $orden &&  $$ultimo_pasajero['orden'] != NULL)
+            //   {
+            //       $orden = $ultimo_pasajero['orden'] + 100;
+            //   }
+
                 foreach ($pasajerosRecorrido as $key => $value) {
                    $respuesta = ModeloEscolar::mdlEstudiantexId($value['idpasajero']);
-                   if($respuesta != false)
-                   {
-                        var_dump($respuesta['nombre'], $respuesta['orden'], $orden);
-                        if($respuesta['orden'] != NULL && $respuesta['orden'] != 0 )
-                        {
-                            
-                            
-                            if($respuesta['orden'] >= $orden)
-                            {
-                                
-                                //CAPTURO EL ORDEN DEL ÚLTIMO PASAJERO
-                                $orden = $respuesta['orden'] + 100;
-                            }
-                        }
 
-                   }
-
+                    if($respuesta['orden'] != NULL && $respuesta['orden'] != 0 && $respuesta['orden'] != $orden && $respuesta['orden'] > $orden)
+                    {
+                        $orden = $respuesta['orden'] + 100;
+                    }else if($respuesta['orden'] == $orden)
+                    {
+                        $orden = $orden + 100;
+                    }
                    
+                }
+                if($orden == 0){
+                    $orden = 100;
                 }
 
                 
