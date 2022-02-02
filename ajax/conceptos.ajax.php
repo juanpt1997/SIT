@@ -124,7 +124,11 @@ class AjaxConceptosGenerales
 			case 'Tamaños llantas':
 				$tabla = "a_tamanios";
 				$item = "tamanio";
-				break;	
+				break;
+			case 'Trabajos llantas':
+				$tabla = "m_trabajos_llantas";
+				$item = "trabajo";
+				break;		
 
 			default:
 				// code...
@@ -282,6 +286,11 @@ class AjaxConceptosGenerales
 				$item = "tamanio";
 				$id = "idtamanio";
 				break;
+			case 'Trabajos llantas':
+				$tabla = "m_trabajos_llantas";
+				$item = "trabajo";
+				$id = "idtrabajo";
+				break;	
 
 			default:
 				// code...
@@ -440,6 +449,11 @@ class AjaxConceptosGenerales
 				$item = "tamanio";
 				$idtabla = "idtamanio";
 				break;
+			case 'Trabajos llantas':
+				$tabla = "m_trabajos_llantas";
+				$item = "trabajo";
+				$idtabla = "idtrabajo";
+				break;	
 			default:
 				// code...
 				break;
@@ -558,6 +572,10 @@ class AjaxConceptosGenerales
 			case 'Tamaños llantas':
 				$tabla = "a_tamanios";
 				$item = "tamanio";
+				break;
+			case 'Trabajos llantas':
+				$tabla = "m_trabajos_llantas";
+				$item = "trabajo";
 				break;
 
 			default:
@@ -708,6 +726,10 @@ class AjaxConceptosGenerales
 				$tabla = "a_tamanios";
 				$item = "tamanio";
 				break;
+			case 'Trabajos llantas':
+				$tabla = "m_trabajos_llantas";
+				$item = "trabajo";
+				break;	
 
 			default:
 				// code...
@@ -1081,7 +1103,11 @@ class AjaxConceptosGenerales
 			case 'Tamaños llantas':
 				$tabla = "a_tamanios";
 				$id_tabla = "idtamanio";
-				break;	
+				break;
+			case 'Trabajos llantas':
+				$tabla = "m_trabajos_llantas";
+				$id_tabla = "idtrabajo";
+				break;			
 
 			default:
 				// code...

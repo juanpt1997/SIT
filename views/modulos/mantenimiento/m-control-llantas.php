@@ -39,6 +39,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
             <div class="row">
                 <div class="col-12">
                     <button type="button" class="btn bg-gradient-success btn-nuevoregistro-llantas" data-toggle="modal" data-target="#registro-llantas"><i class="fas fa-plus"></i> Ingresar registro</button>
+                    <button type="button" class="btn bg-gradient-cyan btn-ordenTrabajo" data-toggle="modal" data-target="#ordenTrabajo_llantas"><i class="fas fa-briefcase"></i> Orden de trabajo</button>
                 </div>
             </div>
             <div class="row mt-2">
@@ -54,12 +55,14 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <thead>
                                         <tr>
                                             <th>...</th>
+                                            <th>Placa</th>
                                             <th>Número llanta</th>
+                                            <th>Tamaño</th>
+                                            <th>Marca</th>
+                                            <th>Código</th>
                                             <th>Referencia</th>
                                             <th>Descripción</th>
-                                            <th>Tamaño</th>
                                             <th>Categoria</th>
-                                            <th>Marca</th>
                                             <th>Medida</th>
                                             <th>Vida</th>
                                             <th>Fecha montaje</th>
@@ -137,7 +140,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label>Tamaño</label>
                                 <div class="input-group">
-                                    <select id="tama_llanta" name="tama_llanta" class="custom-select rounded-0" type="number" required>
+                                    <select id="tama_llanta" name="tama_llanta" class="custom-select rounded-0" type="number" required readonly>
                                     </select>
                                     <div class="input-group-append">
                                         <a href="cg-almacen" target="_blank"><button type="button" class="btn btn-success btn-md" title="Crear nuevo tamaño de llantas" data-toggle="tooltip" data-placement="top"><i class="fas fa-plus"></i></button></a>
@@ -200,7 +203,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
-                                <label><i>Ciudad</i></label>
+                                <label><i>Sucursal</i></label>
                                 <select id="sucursal" name="sucursal" class="form-control select2-single" type="number" style="width: 99%" required>
                                 </select>
                             </div>
@@ -210,19 +213,36 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label for="vida_util">Vida</label>
                                 <div class="input-group">
-                                    <input class="form-control" type="number" id="vida_util" max="9999" name="vida_util" required>
+                                    <input class="form-control" type="text" id="vida_util" max="9999" name="vida_util" required>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-3">
+                        <div class="col-3" id="col_cantidad">
                             <div class="form-group">
-                                <label for="cantidad">Cantidad</label>
+                                <label for="cantidad">Cantidad de llantas a vincular</label>
                                 <div class="input-group">
                                     <input class="form-control" type="number" id="cantidad" max="9999" name="cantidad" required>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-3 d-none" id="col_num_llanta">
+                            <div class="form-group">
+                                <label for="cantidad">Número de llanta</label>
+                                <div class="input-group">
+                                    <input class="form-control" type="number" id="numero_llanta_edit" max="9999" name="numero_llanta_edit">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <hr class="my-4 bg-dark d-none" id="hr-llantas">
+
+                    <div class="row" id="inputs_numero_llantas">
+
                     </div>
 
                     <hr class="my-4 bg-dark">
@@ -257,7 +277,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="num_factura">Num. Factura</label>
+                                <label for="num_factura">Núm. Factura</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-bars"></i></span>
@@ -281,7 +301,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label><i>Proveedor</i></label>
+                                <label>Proveedor</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-truck"></i></span>
@@ -297,7 +317,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label for="observaciones"><i>Observaciones</i></label>
+                                <label for="observaciones">Observaciones</label>
                                 <textarea class="form-control" name="observaciones_salida" id="observaciones_salida" rows="2"></textarea>
                             </div>
                         </div>
@@ -371,7 +391,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                 <div class="form-group">
                     <button type="submit" class="btn bg-gradient-info btn_actualizarllanta d-none" form="formulario_LlantasControl"><i class="fas fa-sync-alt"></i> Actualizar</button>
                     <button type="submit" class="btn bg-gradient-success btn-guardar-registro-llantas" form="formulario_LlantasControl"><i class="fas fa-share"></i> Guardar</button>
-                    <button type="button" class="btn bg-gradient-danger" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn bg-gradient-danger btn_cancelarRegistro" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </div>
@@ -489,7 +509,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label><i>Número/Código de LLanta</i></label>
+                                <label><i>Código de LLanta</i></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="my-addon"><i class="fas fa-list"></i></span>
@@ -586,6 +606,158 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                 <div class="form-group">
                     <button type="submit" class="btn bg-gradient-success btn_nueva_llanta" form="formulario_crear_nuevaLlanta"><i class="fas fa-share"></i> Agregar</button>
                     <button type="button" class="btn bg-gradient-danger btn_cancelar_add" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ordenTrabajo_llantas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ordenTrabajo_llantas-title" aria-hidden="true" style="overflow-y: scroll;">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header bg-gradient-info">
+                <h4 class="modal-title" id="ordenTrabajo_llantas-title">Orden de trabajo para llantas <i class="fas fa-cog"></i></h4>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <h5>Buscar llantas montadas en vehículos</h5>
+                <hr>
+                <div class="form-group">
+                    <label><i>Vehículo</i></label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-car-side"></i></span>
+                        </div>
+                        <select id="placa_orden" name="placa_orden" class="form-control select2-single" type="number" required>
+                            <option value="" selected><b>-Lista de placas-</b></option>
+                            <?php foreach ($Placas as $key => $value) : ?>
+                                <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?></option>
+                            <?php endforeach ?>
+                        </select>
+                    </div>
+                </div>
+
+                <hr>
+
+                <h5><strong>Ubicación</strong></h5>
+
+                <div class="row">
+                    <div class="col-5">
+                        <div class="jumbotron jumbotron-fluid">
+                            <div class="text-center">
+                                <img src="./views/img/llantas/ubicacion.png" class="img-fluid">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-7">
+                        <div class="row" id="row_listaDatos">
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label> Alineación de vehículo  </label>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" value="1" id="si_ali" name="alineacion">
+                            <label class="form-check-label text-nowrap">
+                                <b>Si</b>
+                            </label>
+                        </div>
+    
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" value="0" id="no_ali" name="alineacion">
+                            <label class="form-check-label text-nowrap">
+                                <b>No</b>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <hr>
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tabla_ordenTrabajo_llanta">
+                        <thead>
+                            <tr>
+                                <th colspan="11"></th>
+                                <th colspan="6">Ubicación final</th>
+                            </tr>
+                            <tr>
+                                <th>ID llanta</th>
+                                <th>Núm. Llanta</th>
+                                <th>Marca</th>
+                                <th>Banda</th>
+                                <th>Tamaño</th>
+                                <th>Prof 1</th>
+                                <th>Prof 2</th>
+                                <th>Prof 3</th>
+                                <th>Promedio</th>
+                                <th>Presión</th>
+                                <th>Trabajo realizado</th>
+                                <th>1</th>
+                                <th>2</th>
+                                <th>3</th>
+                                <th>4</th>
+                                <th>5</th>
+                                <th>6</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody_tabla_ordenTrabajo">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer modal-footer bg-gradient-dark">
+                <div class="form-group">
+                    <button type="submit" class="btn bg-gradient-success btn_agregarOrden"><i class="fas fa-share"></i> Agregar</button>
+                    <button type="button" class="btn bg-gradient-danger btn_cancelarOrden" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="trabajosRealizados" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="trabajosRealizados-title" aria-hidden="true" style="overflow-y: scroll;">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header bg-gradient-info">
+                <h5 class="modal-title" id="trabajosRealizados-title">Lista de trabajos</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tablaTrabajos">
+                        <thead>
+                            <tr>
+                                <th>Trabajo</th>
+                                <th>Selección</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody_tablaTrabajos">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer modal-footer bg-gradient-dark">
+                <div class="form-group">
+                    <a href="cg-mantenimiento" target="_blank"><span class="badge badge-info badge-md">Nuevo trabajo</span></a>
+                    <button type="button" class="btn btn-sm bg-gradient-danger btn_cancelarTrabajo" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </div>

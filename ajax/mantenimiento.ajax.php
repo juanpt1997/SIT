@@ -1360,12 +1360,13 @@ class AjaxLlantasControl
             'precio-compra-producto' => $frmData['precio'],
             'proveedor' => $frmData['proveedor'],
             'fecha_montaje' => $frmData['fecha_montaje'],
-            'fecha_montaje' => $frmData['fecha_montaje'],
             'kilo_montaje' => $frmData['kilo_montaje'],
             'lonas' => $frmData['lonas'],
             'estado_actual' => $frmData['estado'],
             'observaciones' => $frmData['observaciones_salida'],
-            'posicion' => 1
+            'numero_llanta' => $frmData['numero_llanta'],
+            'posicion' => 1,
+            'usuario' => $_SESSION['cedula']
         );
         //ACTUALIZAR el tamaño de la llanta en caso de que la llanta sea creada desde almacen
         $actualizar = array(
@@ -1377,42 +1378,75 @@ class AjaxLlantasControl
         );
         ModeloConceptosGenerales::mdlEditar($actualizar);
 
-        $validarLLanta = ControladorLlantasControl::ctrValidarControl($datos);
+        if (isset($datos['numero_llanta'])) {
+            foreach ($datos['numero_llanta'] as $key => $value) {
+                if ($value != "") {
 
-        if ($validarLLanta == 'existe') {
-
-            $AgregarLlanta = ModeloControlLlantas::mdlAgregarllanta($datos);
-            echo 'asociar';
-
-        } else if ($validarLLanta == 'crear') {
-
-            $id_inventario = ModeloProductos::mdlAgregarInventario($datos);
-            //Guardamos el id del inventario para generar el movimiento
-            $datos['idinventario'] = $id_inventario;
-            //TIPO DE MOVIMIENTO A REALIZAR
-            $datos['tipo_movimiento'] = 'ENTRADA';
-            //GENERAR ENTRADA
-            $respuesta = ModeloProductos::mdlAgregarMovimiento($datos);
-            if ($respuesta == 'ok') {
-
-                $AgregarLlanta = ModeloControlLlantas::mdlAgregarllanta($datos);
-
-                if ($AgregarLlanta == 'ok') {
-
-                    $datos['tipo_movimiento'] = 'SALIDA';
-                    $respuesta2 = ModeloProductos::mdlAgregarMovimiento($datos);
-
-                    if ($respuesta2 == 'ok') {
-                        echo 'ok';
-                    }
+                    $cantidad = intval($value);
+                    ModeloControlLlantas::mdlAgregarLLantaVehiculo($datos, $cantidad);
                 }
+            }
+        }
+
+        $id_inventario = ModeloProductos::mdlValidarInventario($datos);
+
+        //Si el inventario existe con esa llanta y esa sucursal
+        if (is_array($id_inventario)) {
+            //Obtener el id del inventario
+            $datos['idinventario'] = $id_inventario['idinventario'];
+            //Se genera una entrada al inventario
+            $datos['tipo_movimiento'] = 'ENTRADA';
+            //Se envian los datos para generar el movimiento
+            $respuesta = ModeloProductos::mdlAgregarMovimiento($datos);
+            //Si el movimiento se genera satisfactoriamente
+            if ($respuesta == 'ok') {
+                //Se hace el stock 0 ya que la cantidad de salida es la misma de entrada
+                $actualizarInventario = array(
+                    'stock' => $datos['cantidad'] - $datos['cantidad'],
+                    'posicion' => 1,
+                    'idinventario' => $id_inventario['idinventario']
+                );
+                //Se genera un movimiento salida
+                $datos['tipo_movimiento'] = 'SALIDA';
+                //Se hace la cantidad negativa en la salida para reflejar que salio el valor
+                $datos['cantidad'] = $datos['cantidad'];
+                ModeloProductos::mdlAgregarMovimiento($datos);
+                //Se actualiza el inventario con el nuevo stock en 0
+                ModeloProductos::mdlEditarInventario($actualizarInventario);
+
+                echo 'ok';
+            }
+        } else {
+            //Se crea el nuevo inventario con el producto (llanta) nuevo
+            $inventario = ModeloProductos::mdlAgregarInventario($datos);
+            //Guardamos el ID del inventario nuevo
+            $datos['idinventario'] = $inventario;
+            //Se genera la entrada al almacen
+            $datos['tipo_movimiento'] = 'ENTRADA';
+            $respuesta = ModeloProductos::mdlAgregarMovimiento($datos);
+            //Si la entrada se realiza satisfactoriamente
+            if ($respuesta == 'ok') {
+                //Se hace el stock 0 ya que la cantidad de salida es la misma de entrada
+                $actualizarInventario = array(
+                    'stock' => $datos['cantidad'] - $datos['cantidad'],
+                    'posicion' => 1,
+                    'idinventario' => $inventario
+                );
+                //Se genera un movimiento de salida
+                $datos['tipo_movimiento'] = 'SALIDA';
+                $datos['cantidad'] = $datos['cantidad'];
+                ModeloProductos::mdlAgregarMovimiento($datos);
+                //Se actualiza el inventario con el nuevo stock en 0
+                ModeloProductos::mdlEditarInventario($actualizarInventario);
+
+                echo 'ok';
             }
         }
     }
 
     static public function ajaxCargarTablaLlantas()
     {
-        $respuesta = ModeloControlLlantas::mdlTablaLlantas();
+        $respuesta = ModeloControlLlantas::mdlListarLLantasVehiculos();
         $tr = "";
 
         foreach ($respuesta as $key => $value) {
@@ -1428,12 +1462,14 @@ class AjaxLlantasControl
                                 <button title='Eliminar control' class='btn btn-sm bg-gradient-danger btn-eliminar-control' idllanta='{$value["idllanta"]}'><i class='fas fa-trash'></i></button>
                             </div>
                         </td>
+                        <td>{$value["placa"]}</td>
+                        <td>{$value["num_llanta"]}</td>
+                        <td>{$value["tamanio"]}</td>
+                        <td>{$value["marca"]}</td>
                         <td>{$value["codigo"]}</td>
                         <td>{$value["referencia"]}</td>
                         <td>{$value["descripcion"]}</td>
-                        <td>{$value["tamanio"]}</td>
                         <td>{$value["categoria"]}</td>
-                        <td>{$value["marca"]}</td>
                         <td>{$value["medida"]}</td>
                         <td>{$value["vida"]}</td>
                         <td>{$value["fecha_montaje"]}</td>
@@ -1456,21 +1492,70 @@ class AjaxLlantasControl
 
     static public function ajaxActualizarLlanta($frmData)
     {
+        $datos =  array(
+            'idproducto' => $frmData['num_llanta'],
+            'descripcion_prod' => $frmData['descripcion'],
+            'placa' => $frmData['placa'],
+            'tamanio' => $frmData['tama_llanta'],
+            'marca' => $frmData['marca'],
+            'sucursal' => $frmData['sucursal'],
+            'categoria' => $frmData['categoria'],
+            'medida' => $frmData['medida'],
+            'vida' => $frmData['vida_util'],
+            'referencia' => $frmData['referencia'],
+            'cantidad' => 0,
+            'fecha_factura' => $frmData['fecha_factura'],
+            'num_factura' => $frmData['num_factura'],
+            'precio-compra-producto' => $frmData['precio'],
+            'proveedor' => $frmData['proveedor'],
+            'fecha_montaje' => $frmData['fecha_montaje'],
+            'kilo_montaje' => $frmData['kilo_montaje'],
+            'lonas' => $frmData['lonas'],
+            'estado_actual' => $frmData['estado'],
+            'observaciones' => $frmData['observaciones_salida'],
+            'numero_llanta' => $frmData['numero_llanta_edit'],
+            'posicion' => 1,
+            'usuario' => $_SESSION['cedula'],
+            'idllanta' => $frmData['idllanta']
+        );
         $actualizar = array(
-            'valor' => $frmData['tamanio'],
+            'valor' => $datos['tamanio'],
             'item' => 'idtamanio',
             'tabla' => 'a_productos',
             'idtabla' => 'idproducto',
-            'id' => $$frmData['idproducto']
+            'id' => $datos['idproducto']
         );
+        $id_inventario = ModeloProductos::mdlValidarInventario($datos);
+        //ACTUALIZAR TAMAÑO DE LLANTAS QUE HAYAN SIDO CREADAS DESDE ALMACEN
         ModeloConceptosGenerales::mdlEditar($actualizar);
-        $respuesta = ModeloControlLlantas::mdlEditarControl($frmData);
+        //ACTUALIZAR DATOS DE LA LLANTA SELECCIONADA (generar un movimiento de correcion)
+        $respuesta = ModeloControlLlantas::mdlEditarLLantaVehiculo($datos);
+        // $datos2 = array('observaciones' => $datos['observaciones'],
+        //                 'idinventario' => $id_inventario);
+        //VALIDAR SI SE HICIERON CAMBIOS EN LOS DATOS DEL MOVIMIENTO
+        // $validarMovimiento = ModeloControlLlantas::mdlValidarMovimiento($datos2);
+        // //Se genera la entrada al almacen
+        // $datos['tipo_movimiento'] = 'ENTRADA';
+        // $datos['observaciones'] = $datos['observaciones'] . ' CORRECCIÓN DE DATOS';
+        // $datos['idinventario'] = $id_inventario['idinventario'];
+        // //Se envian los datos para generar el movimiento
+        // $movimiento = ModeloProductos::mdlAgregarMovimiento($datos);
+        // //Si el movimiento se genera satisfactoriamente
+        // if($movimiento == 'ok'){
+        //     //Se genera un movimiento salida
+        //     $datos['tipo_movimiento'] = 'SALIDA';
+        //     ModeloProductos::mdlAgregarMovimiento($datos);
+        // }
         echo $respuesta;
     }
 
     static public function ajaxEliminarControl($id_llanta)
     {
-        $respuesta = ModeloControlLlantas::mdlEliminarLlanta($id_llanta);
+        $datos = array(
+            'idllanta' => $id_llanta,
+            'usuario' => $_SESSION['cedula']
+        );
+        $respuesta = ModeloControlLlantas::mdlEliminarLLantaVehiculo($datos);
         echo $respuesta;
     }
 
@@ -1518,6 +1603,120 @@ class AjaxLlantasControl
             echo 'error';
         }
     }
+
+    static public function ajaxLlantasMontadas($idvehiculo)
+    {
+        $respuesta = ModeloControlLlantas::mdlLlantasMontadas($idvehiculo);
+        echo json_encode($respuesta);
+    }
+
+    static public function ajaxTablaOrdenTRabajo($idvehiculo)
+    {
+        $datos = array('item' => 'trabajo', 
+                        'id' => 'idtrabajo',
+                        'tabla' => 'm_trabajos_llantas');
+
+        $respuesta = ModeloControlLlantas::mdlLlantasMontadas($idvehiculo);
+
+        $trabajos = ModeloConceptosGenerales::mdlVer($datos);
+
+        $option = "<option value=''>-Lista de trabajos-</option>";
+
+        $tr = "";
+
+        $consecutivo = 1;
+
+        foreach ($trabajos as $key => $value) {
+            $option .= "<option value='{$value['idtrabajo']}' data-select2-id='trabajo_{$consecutivo}'>{$value['trabajo']}</option>";
+        }
+
+        
+
+        if (!empty($respuesta)) {
+
+            foreach ($respuesta as $key => $value) {
+                $tr .= "<tr>
+                                <td>{$value["idllanta"]}</td>
+                                <td>{$value["num_llanta"]}</td>
+                                <td>{$value["marca"]}</td>
+                                <td><input type='text' class='form-control form-control-sm' id='banda_{$consecutivo}'></td>
+                                <td>{$value["tamanio"]}</td>
+                                <td><input type='text' class='form-control form-control-sm' id='prof1_{$consecutivo}'></td>
+                                <td><input type='text' class='form-control form-control-sm' id='prof2_{$consecutivo}'></td>
+                                <td><input type='text' class='form-control form-control-sm' id='prof3_{$consecutivo}'></td>
+                                <td><input type='text' class='form-control form-control-sm' id='promedio_{$consecutivo}'></td>
+                                <td><input type='text' class='form-control form-control-sm' id='presion_{$consecutivo}'></td>
+                                <td>
+                                    <select id='trabajo_{$consecutivo}' >{$option}</select>
+                                </td>
+                                <td><div class='form-check form-switch'><input class='form-check-input' type='radio' id='ubicacion1_{$consecutivo}'></div></td>
+                                <td><div class='form-check form-switch'><input class='form-check-input' type='radio' id='ubicacion2_{$consecutivo}'></div></td>
+                                <td><div class='form-check form-switch'><input class='form-check-input' type='radio' id='ubicacion3_{$consecutivo}'></div></td>
+                                <td><div class='form-check form-switch'><input class='form-check-input' type='radio' id='ubicacion4_{$consecutivo}'></div></td>
+                                <td><div class='form-check form-switch'><input class='form-check-input' type='radio' id='ubicacion5_{$consecutivo}'></div></td>
+                                <td><div class='form-check form-switch'><input class='form-check-input' type='radio' id='ubicacion6_{$consecutivo}'></div></td>
+                            </tr>
+                    ";
+                $consecutivo++;
+            }
+            echo $tr;
+        } else {
+            $tr .= "<tr>
+                        <td colspan='17'>Seleccione un vehículo con llantas montadas</td>
+                    </tr>";
+
+            echo $tr;
+        }
+    }
+
+    static public function ajaxListaDatosLLantasxVehiculo($idvehiculo)
+    {
+        $respuesta = ModeloControlLlantas::mdlLlantasMontadas($idvehiculo);
+        $ul = "";
+
+        if (!empty($respuesta)) {
+
+            foreach ($respuesta as $key => $value) {
+                $ul .= "<div class='col-6'>
+                            <ul>
+                                <li><strong>Número de llanta:</strong> {$value["num_llanta"]}</li>
+                                <li><strong>Proveedor:</strong> {$value["razon_social"]}</li>
+                                <li><strong>Fecha:</strong> {$value["fecha_montaje"]}</li>
+                                <li><strong>Kilometraje:</strong> {$value["kilom_montaje"]}</li>
+                            </ul>
+                        </div>";
+            }
+            echo $ul;
+        } else {
+            $ul .= "<p>Seleccione un vehículo.</p>";
+
+            echo $ul;
+        }
+    }
+
+    // static public function ajaxListaTrabajos()
+    // {
+    //     $datos = array('item' => 'trabajo', 
+    //                     'id' => 'idtrabajo',
+    //                     'tabla' => 'm_trabajos_llantas');
+
+    //     $respuesta = ModeloConceptosGenerales::mdlVer($datos);
+    //     $tr = "";
+
+    //     foreach ($respuesta as $key => $value) {
+    //         $tr .= "
+    //             <tr>
+    //                 <td>" . $value['trabajo'] . "</td>
+    //                 <td>
+    //                     <div class='btn-group' role='group' aria-label='Button group'>
+    //                     <button data-toggle='tooltip' data-placement='top' title='Seleccionar trabajo' idtrabajo = '{$value["idtrabajo"]}' class='btn btn-sm btn-success btnSeleccionarTrabajo '><i class='fas fa-check'></i></button>
+    //                     </div>
+    //                 </td>
+    //             </tr>";
+    //     }
+
+    //     echo $tr;
+    // }
 }
 /* ===================================================
             LLAMADOS AJAX INVENTARIO
@@ -1679,3 +1878,19 @@ if (isset($_POST['datosProducto']) && $_POST['datosProducto'] == "ok") {
 if (isset($_POST['nuevaLLanta']) && $_POST['nuevaLLanta'] == "ok") {
     AjaxLlantasControl::ajaxNuevaLlanta($_POST);
 }
+
+if (isset($_POST['llantasMontadas']) && $_POST['llantasMontadas'] == "ok") {
+    AjaxLlantasControl::ajaxLlantasMontadas($_POST['idvehiculo']);
+}
+
+if (isset($_POST['cargarTablaOrdenTrabajo']) && $_POST['cargarTablaOrdenTrabajo'] == "ok") {
+    AjaxLlantasControl::ajaxTablaOrdenTRabajo($_POST['idvehiculo']);
+}
+
+if (isset($_POST['datosVehiculosLlantas']) && $_POST['datosVehiculosLlantas'] == "ok") {
+    AjaxLlantasControl::ajaxListaDatosLLantasxVehiculo($_POST['idvehiculo']);
+}
+
+// if (isset($_POST['listaTrabajos']) && $_POST['listaTrabajos'] == "ok") {
+//     AjaxLlantasControl::ajaxListaTrabajos();
+// }
