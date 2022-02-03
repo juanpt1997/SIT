@@ -267,19 +267,24 @@ class ControladorEscolar
 
                 foreach ($pasajerosRecorrido as $key => $value) {
                    $respuesta = ModeloEscolar::mdlEstudiantexId($value['idpasajero']);
+                   $orden_estudiante = ModeloEscolar::mdlEstudiantexId($idpasajero);
 
-                    if($respuesta['orden'] != NULL && $respuesta['orden'] != 0 && $respuesta['orden'] != $orden && $respuesta['orden'] > $orden)
-                    {
-                        $orden = $respuesta['orden'] + 100;
-                    }else if($respuesta['orden'] == $orden)
-                    {
-                        $orden = $orden + 100;
-                    }
+                   if(!is_numeric($orden_estudiante['orden'])){
+
+                       if($respuesta['orden'] != NULL && $respuesta['orden'] != 0 && $respuesta['orden'] != $orden && $respuesta['orden'] > $orden)
+                       {
+                           $orden = $respuesta['orden'] + 100;
+                       }else if($respuesta['orden'] == $orden)
+                       {
+                           $orden = $orden + 100;
+                       }
+                   }else if(is_numeric($orden_estudiante['orden'])){
+                       $orden = $orden_estudiante['orden'];
+                   }
+
                    
                 }
-                if($orden == 0){
-                    $orden = 100;
-                }
+            
 
                 
 

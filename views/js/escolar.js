@@ -796,9 +796,14 @@ if (
                 Swal.fire({
                     icon: "warning",
                     title: "Esta ruta no tiene recorrido para el día de hoy.",
+                    text: 'Debe crear primero el recorrido',
                     showConfirmButton: false,
                     timer: 2500,
                 });
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $('#nom_auxiliar').offset().top
+                    //scrollTop: 0 // Inicio del documento
+                }, 2000); // Tiempo en milisegundos
             }
         });
 

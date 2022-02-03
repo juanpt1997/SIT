@@ -585,6 +585,7 @@ class ModeloEscolar
         INNER JOIN e_instituciones i ON rt.idinstitucion = i.idinstitucion
         INNER JOIN v_vehiculos v ON rt.idvehiculo = v.idvehiculo
         INNER JOIN gh_personal p ON p.idPersonal = rt.idvehiculo  
+        ORDER BY r.fecha DESC 
         ");
 
         $stmt->execute();
