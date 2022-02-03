@@ -439,23 +439,23 @@ class ControladorCotizaciones
                                 ControladorCorreo::ctrEnviarCorreo($cadenaCorreos, $subject, $message);
                             }
 
-                            // echo "
-                            //     <script>
-                            //     Swal.fire({
-                            //         icon: 'success',
-                            //         title: 'Cotización añadida correctamente!',						
-                            //         showConfirmButton: true,
-                            //         confirmButtonText: 'Cerrar',
+                            echo "
+                                <script>
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Cotización añadida correctamente!',						
+                                    showConfirmButton: true,
+                                    confirmButtonText: 'Cerrar',
 
-                            //     }).then((result)=>{
+                                }).then((result)=>{
 
-                            //         if(result.value){
-                            //         window.location = 'contratos-cotizaciones';
-                            //         }
+                                    if(result.value){
+                                    window.location = 'contratos-cotizaciones';
+                                    }
 
-                            //     })
-                            //     </script>
-                            //     ";
+                                })
+                                </script>
+                                ";
                         } else {
                             echo "
                                 <script>

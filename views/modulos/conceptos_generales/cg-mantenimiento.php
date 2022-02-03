@@ -238,7 +238,7 @@
                                     <i class="fas fa-address-card"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" min="0" id="inputGH" name="inputGH" placeholder="" required>
+                            <input class="form-control" type="text" min="0" id="inputGH" name="inputGH" placeholder="" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                         </div>
                     </div>
 
@@ -322,7 +322,7 @@
                                     <i class="fas fa-hand-holding"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" id="servicio" name="servicio" placeholder="Agregue un nuevo servicio" maxlength="100" required>
+                            <input class="form-control" type="text" id="servicio" name="servicio" placeholder="Agregue un nuevo servicio" maxlength="100" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                         </div>
                     </div>
 
@@ -428,7 +428,7 @@
                                     <i class="fas fa-address-card"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" id="num_cuenta" name="num_cuenta" required>
+                            <input class="form-control" type="text" id="num_cuenta" name="num_cuenta" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -439,7 +439,7 @@
                                     <i class="fas fa-address-card"></i>
                                 </span>
                             </div>
-                            <input class="form-control" type="text" id="nom_cuenta" name="nom_cuenta" required>
+                            <input class="form-control" type="text" id="nom_cuenta" name="nom_cuenta" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();" required>
                         </div>
                     </div>
                 </div>
