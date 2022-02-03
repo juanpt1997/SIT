@@ -265,7 +265,7 @@ class PdfFuec
         $pdf->Ln();
 
         # OBJETO CONTRATO
-        if ($info['anotObjetoContrato'] == null || $info['anotObjetoContrato'] == ""){
+        if (true/* $info['anotObjetoContrato'] == null || $info['anotObjetoContrato'] == "" */){
             $objetoContrato = $info['objetocontrato'];
         }
         else{
