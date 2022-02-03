@@ -265,6 +265,7 @@ class PdfFuec
         $pdf->Ln();
 
         # OBJETO CONTRATO
+        // ***** Mientras revisamos que dice bien la norma ******
         if (true/* $info['anotObjetoContrato'] == null || $info['anotObjetoContrato'] == "" */){
             $objetoContrato = $info['objetocontrato'];
         }
@@ -285,17 +286,17 @@ class PdfFuec
         $pdf->Ln();
 
         # OBSERVACIONES DEL CONTRATO
-        $pdf->SetFont('helvetica', 'B', '8');
-        $pdf->MultiCell(52, 5, "OBSERVACIONES DEL CONTRATO:", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(140, 5, $info['observaciones'], 0, 'L', 0, 0, '', '', true);
-        $pdf->Ln();
+        // $pdf->SetFont('helvetica', 'B', '8');
+        // $pdf->MultiCell(52, 5, "OBSERVACIONES DEL CONTRATO:", 0, 'L', 0, 0, '', '', true);
+        // $pdf->SetFont('helvetica', '', '8');
+        // $pdf->MultiCell(140, 5, $info['observaciones'], 0, 'L', 0, 0, '', '', true);
+        // $pdf->Ln();
 
         # CONVENIO DE COLABORACIÓN EMPRESARIAL CON
         $pdf->SetFont('helvetica', 'B', '8');
-        $pdf->MultiCell(77, 5, "CONVENIO DE COLABORACIÓN EMPRESARIAL CON:", 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(48, 5, "CONVENIO DE COLABORACIÓN:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(110, 5, $info['nomconvenio'], 0, 'L', 0, 0, '', '', true);
+        $pdf->MultiCell(142, 5, $info['nomconvenio'], 0, 'L', 0, 0, '', '', true);
         $pdf->Ln();
 
         /* ===================================================
