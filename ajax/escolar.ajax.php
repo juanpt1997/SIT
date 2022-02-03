@@ -149,9 +149,9 @@ class AjaxEscolar
             <tr>
             <td>
                 <div class='btn-group' role='group' aria-label='Button group'>
-                    <button class='btn btn-info btn-editarRuta' idruta='{$value['idruta']}' data-toggle='modal' data-target='#modalRuta'><i class='fas fa-edit'></i></button>
-                    <button class='btn btn-success btn-listar' idruta='{$value['idruta']}' ordenado='{$value['ordenado']}' data-toggle='modal' data-target='#modal-listar'><i class='fas fa-user-check'></i></button>
-                    <button class='btn btn-warning btn-seguimiento' idruta='{$value['idruta']}' idrecorrido='{$idrecorrido}' data-toggle='modal' data-target='#modal-seguimiento'><i class='fas fa-clipboard-check'></i></button>
+                    <button class='btn btn-info btn-editarRuta' idruta='{$value['idruta']}' data-toggle='modal' data-target='#modalRuta'  title='Editar ruta' data-toggle='tooltip' data-placement='top'><i class='fas fa-edit'></i></button>
+                    <button class='btn btn-success btn-listar' idruta='{$value['idruta']}' ordenado='{$value['ordenado']}' data-toggle='modal' data-target='#modal-listar' title='Asociar pasajeros' data-toggle='tooltip' data-placement='top'><i class='fas fa-user-check'></i></button>
+                    <button class='btn btn-warning btn-seguimiento' idruta='{$value['idruta']}' idrecorrido='{$idrecorrido}' data-toggle='modal' data-target='#modal-seguimiento' title='Seguimiento a pasajeros' data-toggle='tooltip' data-placement='top'><i class='fas fa-clipboard-check'></i></button>
                 </div>
             </td>
             <td>{$value['numruta']}</td>
