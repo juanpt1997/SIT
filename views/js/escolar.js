@@ -595,6 +595,8 @@ if (
             let idrecorrido = $(this).attr("idrecorrido");
 
             $("#auxiliar_form").trigger("reset");
+            $("#nom_auxiliar").val("").trigger("change");
+            $("#nom_auxiliar2").val("").trigger("change");
 
             $("#idruta_aux").val(idruta);
             cargarTablaSeguimientoxRuta(idruta);
@@ -616,14 +618,15 @@ if (
                     success: function (response) {
                         //PONEMOS LOS DATOS
                         if (response.auxiliar_recoge != "") {
-                            $("#nom_auxiliar").val(response.auxiliar_recoge);
+                            $("#nom_auxiliar").val(response.auxiliar_recoge).trigger("change");
                             $("#observaciones_auxiliar").val(
                                 response.observaciones_recoge
                             );
                         } 
 
                         if (response.auxiliar_entrega != "") {
-                            $("#nom_auxiliar2").val(response.auxiliar_entrega);
+                            $("#nom_auxiliar2").val(response.auxiliar_entrega).trigger("change");
+                            $("#observaciones_auxiliar2").val(response.observaciones_entrega);
                             
                         }
                     },

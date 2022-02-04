@@ -19,7 +19,7 @@ class ControladorEscolar
     {
 
 
-        
+
 
         if (isset($datos['idruta'])) {
             if ($datos['idruta'] == "") {
@@ -104,7 +104,7 @@ class ControladorEscolar
                 //Asociamos estudiante a ruta
                 $respuesta = ModeloEscolar::mdlAsociarEstudianteRuta($datos);
 
-                
+
                 return $respuesta;
             } else {
                 return "no existe";
@@ -125,27 +125,37 @@ class ControladorEscolar
             "observaciones" => $datos['observaciones_auxiliar'],
             "auxiliar2" => $datos['nom_auxiliar2'],
             "observaciones2" => $datos['observaciones_auxiliar2'],
+            "user_updated" => $_SESSION['cedula']
         );
 
-        
+        if ($datos2['auxiliar'] == 0 || $datos2['auxiliar'] == "") $datos2['auxiliar'] == null;
+        if ($datos2['auxiliar2'] == 0 || $datos2['auxiliar2'] == "") $datos2['auxiliar2'] == null;
+
+        $datos2['auxiliar'] = $datos2['auxiliar'] == "" ? null : $datos2['auxiliar'];
+        $datos2['auxiliar2'] = $datos2['auxiliar2'] == "" ? null : $datos2['auxiliar2'];
+
+
+
         //Ver si existe un recorrido para ese día y esa ruta
         $existe = ModeloEscolar::mdlRecorridoxFechaxRuta($datos2['idruta'], $datos2['fecha']);
-        
-        
+
+
         if ($existe != false) {
             //Actualizar recorrido 
-            $datos2 = array(
-                "idruta" => $datos['idruta_aux'],
-                "fecha" => date("Y/m/d"),
-                "auxiliar" => $datos['nom_auxiliar'],
-                "observaciones" => $datos['observaciones_auxiliar'],
-                "auxiliar2" => $datos['nom_auxiliar2'],
-                "observaciones2" => $datos['observaciones_auxiliar2'],
-                "user_updated" => $_SESSION['cedula']
-            );
-            
+            // $datos2 = array(
+            //     "idruta" => $datos['idruta_aux'],
+            //     "fecha" => date("Y/m/d"),
+            //     "auxiliar" => $datos['nom_auxiliar'],
+            //     "observaciones" => $datos['observaciones_auxiliar'],
+            //     "auxiliar2" => $datos['nom_auxiliar2'],
+            //     "observaciones2" => $datos['observaciones_auxiliar2'],
+            //     "user_updated" => $_SESSION['cedula']
+            // );
+
+
+
             $respuesta = ModeloEscolar::mdlEditarRecorrido($datos2);
-            
+
             return $respuesta;
         } else {
             //Agrega el nuevo recorrido
@@ -159,6 +169,11 @@ class ControladorEscolar
                 "user_updated" => $_SESSION['cedula'],
                 "user_created" => $_SESSION['cedula']
             );
+
+            $datos2['auxiliar'] = $datos2['auxiliar'] == "" ? null : $datos2['auxiliar'];
+            $datos2['auxiliar2'] = $datos2['auxiliar2'] == "" ? null : $datos2['auxiliar2'];
+
+
             $respuesta = ModeloEscolar::mdlGuardarRecorrido($datos2);
             return $respuesta;
         }
@@ -173,12 +188,12 @@ class ControladorEscolar
         $fecha = date("Y/m/d");
         $hora = date("h:i:s");
 
-        
+
 
         $pasajero = ModeloEscolar::mdlEstudiantexId($idpasajero);
-        
 
-        
+
+
 
 
         //Verificar si el pasajero tiene un seguimiento, es decir si ya lo recogieron en otra ruta  
@@ -205,25 +220,20 @@ class ControladorEscolar
 
                 return $respuesta;
             }
-        } else if($existe['idrecorrido_recogida'] == NULL || $existe['idrecorrido_recogida'] == ""){
+        } else if ($existe['idrecorrido_recogida'] == NULL || $existe['idrecorrido_recogida'] == "") {
 
             $datos2 = array(
                 "hora" => $hora,
                 "idrecorrido" => $idrecorrido,
                 "idseguimiento" => $existe['idseguimiento'],
-                "user_updated" => $_SESSION['cedula'] 
+                "user_updated" => $_SESSION['cedula']
             );
 
             $respuesta = ModeloEscolar::mdlInsertarRecogida($datos2);
             return $respuesta;
-        }
-        else{
+        } else {
             return "ya lo recogieron";
         }
-
-        
-
-
     }
 
     /* ===================================================
@@ -238,8 +248,8 @@ class ControladorEscolar
             "idrecorrido" => $idrecorrido,
             "fecha" => $fecha
         );
-        
-        
+
+
 
 
         $recorrido = ModeloEscolar::mdlDatosRecorrido($idrecorrido);
@@ -248,64 +258,56 @@ class ControladorEscolar
         $orden = 0;
 
         //Si existe el recorrido
-        if($recorrido != false)
-        {
-        
+        if ($recorrido != false) {
+
             //Si ya existen pasajeros 
-            if($pasajerosRecorrido != false)
-            {                
+            if ($pasajerosRecorrido != false) {
 
-            //     $longitud = sizeof($pasajerosRecorrido);
+                //     $longitud = sizeof($pasajerosRecorrido);
 
-            //   $ultimo_pasajero=ModeloEscolar::mdlEstudiantexId($pasajerosRecorrido[$longitud - 2]['idpasajero']);
+                //   $ultimo_pasajero=ModeloEscolar::mdlEstudiantexId($pasajerosRecorrido[$longitud - 2]['idpasajero']);
 
-            //   var_dump($ultimo_pasajero['orden'], $ultimo_pasajero['nombre']);
-            //   if($ultimo_pasajero['orden'] >= $orden &&  $$ultimo_pasajero['orden'] != NULL)
-            //   {
-            //       $orden = $ultimo_pasajero['orden'] + 100;
-            //   }
+                //   var_dump($ultimo_pasajero['orden'], $ultimo_pasajero['nombre']);
+                //   if($ultimo_pasajero['orden'] >= $orden &&  $$ultimo_pasajero['orden'] != NULL)
+                //   {
+                //       $orden = $ultimo_pasajero['orden'] + 100;
+                //   }
 
                 foreach ($pasajerosRecorrido as $key => $value) {
-                   $respuesta = ModeloEscolar::mdlEstudiantexId($value['idpasajero']);
-                   $orden_estudiante = ModeloEscolar::mdlEstudiantexId($idpasajero);
+                    $respuesta = ModeloEscolar::mdlEstudiantexId($value['idpasajero']);
+                    $orden_estudiante = ModeloEscolar::mdlEstudiantexId($idpasajero);
 
-                   if(!is_numeric($orden_estudiante['orden'])){
+                    //SI EL ESTUDIANTE TIENE UN ORDEN NO HACE NADA
+                    if (!is_numeric($orden_estudiante['orden'])) {
 
-                       if($respuesta['orden'] != NULL && $respuesta['orden'] != 0 && $respuesta['orden'] != $orden && $respuesta['orden'] > $orden)
-                       {
-                           $orden = $respuesta['orden'] + 100;
-                       }else if($respuesta['orden'] == $orden)
-                       {
-                           $orden = $orden + 100;
-                       }
-                   }else if(is_numeric($orden_estudiante['orden'])){
-                       $orden = $orden_estudiante['orden'];
-                   }
-
-                   
+                        if ($respuesta['orden'] != NULL && $respuesta['orden'] != 0 && $respuesta['orden'] != $orden && $respuesta['orden'] > $orden) {
+                            //CAPTURA EL ÚLTIMO ORDEN Y SUMA 100 PARA EL NUEVO ODEN
+                            $orden = $respuesta['orden'] + 100;
+                        } else if ($respuesta['orden'] == $orden) {
+                            //Si tiene el mismo orden suma 100
+                            $orden = $orden + 100;
+                        }
+                    } else if (is_numeric($orden_estudiante['orden'])) {
+                        //EL ESTUDIANTE TIENE ORDEN, SE MANTIENE EL MISMO ORDEN
+                        $orden = $orden_estudiante['orden'];
+                    }
                 }
-            
-
-                
-
-                   $act = ModeloEscolar::mdlActualizarOrden($idpasajero, $orden);
-                   
-                   return $act;
 
 
 
 
-            }else{
+                $act = ModeloEscolar::mdlActualizarOrden($idpasajero, $orden);
+
+                return $act;
+            } else {
                 //ES EL PRIMER PASAJERO QUE VAN A LISTAR
                 $orden = 100;
                 $act = ModeloEscolar::mdlActualizarOrden($idpasajero, $orden);
                 return $act;
             }
-
-        }else{
+        } else {
             return "Este recorrido no existe";
         }
-
     }
 
     /* ===================================================
@@ -379,11 +381,10 @@ class ControladorEscolar
     {
         $datos['fecha'] = date("Y/m/d");
 
-        if($datos['momento'] == "entrega")
-        {
+        if ($datos['momento'] == "entrega") {
             $respuesta = ModeloEscolar::mdlEliminarSeguimientoEntrega($datos);
             return $respuesta;
-        }else{
+        } else {
             $respuesta = ModeloEscolar::mdlEliminarSeguimientoRecoge($datos);
             return $respuesta;
         }

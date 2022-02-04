@@ -242,9 +242,9 @@ class ModeloEscolar
 
         $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
         $stmt->bindParam(":fecha", $datos['fecha'], PDO::PARAM_STR);
-        $stmt->bindParam(":auxiliar_recoge", $datos['auxiliar'], PDO::PARAM_STR);
+        $stmt->bindParam(":auxiliar_recoge", $datos['auxiliar'], PDO::PARAM_INT);
         $stmt->bindParam(":observaciones_recoge", $datos['observaciones'], PDO::PARAM_STR);
-        $stmt->bindParam(":auxiliar_entrega", $datos['auxiliar2'], PDO::PARAM_STR);
+        $stmt->bindParam(":auxiliar_entrega", $datos['auxiliar2'], PDO::PARAM_INT);
         $stmt->bindParam(":observaciones_entrega", $datos['observaciones2'], PDO::PARAM_STR);
         $stmt->bindParam(":user_created", $datos['user_created'], PDO::PARAM_STR);
         $stmt->bindParam(":user_updated", $datos['user_updated'], PDO::PARAM_STR);
@@ -332,9 +332,9 @@ class ModeloEscolar
                                             user_updated = :user_updated
                                             WHERE idruta = :idruta");
 
-        $stmt->bindParam(":auxiliar_recoge", $datos['auxiliar'], PDO::PARAM_STR);
+        $stmt->bindParam(":auxiliar_recoge", $datos['auxiliar'], PDO::PARAM_INT);
         $stmt->bindParam(":observaciones_recoge", $datos['observaciones'], PDO::PARAM_STR);
-        $stmt->bindParam(":auxiliar_entrega", $datos['auxiliar2'], PDO::PARAM_STR);
+        $stmt->bindParam(":auxiliar_entrega", $datos['auxiliar2'], PDO::PARAM_INT);
         $stmt->bindParam(":observaciones_entrega", $datos['observaciones2'], PDO::PARAM_STR);
         $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
         $stmt->bindParam(":user_updated", $datos['user_updated'], PDO::PARAM_INT);

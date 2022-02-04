@@ -1,7 +1,7 @@
 <?php
 $Placas = ControladorVehiculos::ctrListaVehiculos();
 $instituciones = ControladorEscolar::ctrListaInstituciones();
-
+$personal = ControladorGH::ctrListaPersonal();
 ?>
 
 
@@ -139,27 +139,27 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                                         <div class="tab-pane fade active" id="custom-tabs-one-historial_escolar" role="tabpanel" aria-labelledby="custom-tabs-one-historial_escolar-tab">
                                             <div class="row">
 
-                                               
-                                                    <div class="col-12">
-                                                        <div class="card card-outline card-info">
 
-                                                            <div class="card-body col-12">
+                                                <div class="col-12">
+                                                    <div class="card card-outline card-info">
 
-                                                                <div class="table-responsive">
-                                                                    <table id="tableHistorialRecorrido" class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100 text-center">
-                                                                        <thead class="thead-light text-uppercase text-sm text-center">
-                                                                            <tr>
-                                                                                <th style="width:10px;">Pasajeros</th>
-                                                                                <th># Ruta</th>
-                                                                                <th>Sector</th>
-                                                                                <th>Vehículo</th>
-                                                                                <th>Conductor</th>
-                                                                                <th>Institución</th>
-                                                                                <th>Fecha</th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody class="text-sm" id="tbodyHistorialRecorrido">
-                                                                            <!-- <tr>
+                                                        <div class="card-body col-12">
+
+                                                            <div class="table-responsive">
+                                                                <table id="tableHistorialRecorrido" class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100 text-center">
+                                                                    <thead class="thead-light text-uppercase text-sm text-center">
+                                                                        <tr>
+                                                                            <th style="width:10px;">Pasajeros</th>
+                                                                            <th># Ruta</th>
+                                                                            <th>Sector</th>
+                                                                            <th>Vehículo</th>
+                                                                            <th>Conductor</th>
+                                                                            <th>Institución</th>
+                                                                            <th>Fecha</th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody class="text-sm" id="tbodyHistorialRecorrido">
+                                                                        <!-- <tr>
                                                                                 <td>
                                                                                     <div class="btn-group" role="group" aria-label="Button group">
                                                                                         <button class="btn btn-warning" data-toggle="modal" data-target="#modal"><i class="fas fa-clipboard-check"></i></button>
@@ -172,14 +172,14 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                                                                                 <td>San Pablo</td>
                                                                                 <td>San Pablo</td>
                                                                             </tr> -->
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
+
                                                         </div>
                                                     </div>
-                                                
+                                                </div>
+
 
 
 
@@ -627,7 +627,13 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                             <div class="col-12 col-sm-6 col-lg-6">
                                 <div class="form-group text-center">
                                     <label><i>Nombre auxiliar de recogida</i></label>
-                                    <input type="text" class="form-control" id="nom_auxiliar" name="nom_auxiliar" required>
+                                    <select class="form-control select2-single" id="nom_auxiliar" name="nom_auxiliar" type="number">
+                                        <option value="">--Seleccione un auxiliar</option>
+                                        <?php foreach ($personal as $key => $value) : ?>
+                                            <option value="<?= $value['idPersonal'] ?>"> <?= $value['Nombre'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                    <!-- <input type="text" class="form-control" id="nom_auxiliar" name="nom_auxiliar" required> -->
                                 </div>
                             </div>
 
@@ -642,7 +648,14 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                             <div class="col-12 col-sm-6 col-lg-6">
                                 <div class="form-group text-center">
                                     <label><i>Nombre auxiliar de entrega</i></label>
-                                    <input type="text" class="form-control" id="nom_auxiliar2" name="nom_auxiliar2">
+                                    <select class="form-control select2-single" id="nom_auxiliar2" name="nom_auxiliar2" type="number">
+                                        <option value="">--Seleccione un auxiliar</option>
+                                        <?php foreach ($personal as $key => $value) : ?>
+                                            <option value="<?= $value['idPersonal'] ?>"> <?= $value['Nombre'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                    
+                                    <!-- <input type="text" class="form-control" id="nom_auxiliar2" name="nom_auxiliar2"> -->
                                 </div>
                             </div>
 
@@ -873,8 +886,8 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
             <div class="card">
                 <div class="card-body">
 
-                <!-- TABLA DE ESTUDIANTES -->
-                <div class="table-responsive">
+                    <!-- TABLA DE ESTUDIANTES -->
+                    <div class="table-responsive">
                         <table id="tablaPasajerosxRecorrido" class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100 text-center">
                             <thead class="thead-light text-uppercase text-sm text-center">
                                 <tr>
@@ -888,7 +901,7 @@ $instituciones = ControladorEscolar::ctrListaInstituciones();
                                 </tr>
                             </thead>
                             <tbody id="tbodyPasajerosxRecorrido" class="text-sm">
-                                
+
                             </tbody>
                         </table>
                     </div>
