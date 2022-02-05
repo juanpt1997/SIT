@@ -156,6 +156,8 @@ $personal = ControladorGH::ctrListaPersonal();
                                                                             <th>Conductor</th>
                                                                             <th>Institución</th>
                                                                             <th>Fecha</th>
+                                                                            <th>Final entrega</th>
+                                                                            <th>Final recogida</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody class="text-sm" id="tbodyHistorialRecorrido">
@@ -654,7 +656,7 @@ $personal = ControladorGH::ctrListaPersonal();
                                             <option value="<?= $value['idPersonal'] ?>"> <?= $value['Nombre'] ?></option>
                                         <?php endforeach ?>
                                     </select>
-                                    
+
                                     <!-- <input type="text" class="form-control" id="nom_auxiliar2" name="nom_auxiliar2"> -->
                                 </div>
                             </div>
@@ -668,6 +670,7 @@ $personal = ControladorGH::ctrListaPersonal();
 
                             <div class="text-center justify-content-center">
                                 <button type="submit" class="btn btn-md bg-gradient-success " form="auxiliar_form"><i class="fas fa-plus"></i> Guardar</button>
+                                <button type="button" class="btn btn-md bg-info" id="fin_recorrido"><i class="fas fa-hourglass-end"></i> Marcar fin del recorrido</button>
                             </div>
                         </div>
                     </form>

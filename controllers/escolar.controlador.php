@@ -142,19 +142,11 @@ class ControladorEscolar
 
         if ($existe != false) {
             //Actualizar recorrido 
-            // $datos2 = array(
-            //     "idruta" => $datos['idruta_aux'],
-            //     "fecha" => date("Y/m/d"),
-            //     "auxiliar" => $datos['nom_auxiliar'],
-            //     "observaciones" => $datos['observaciones_auxiliar'],
-            //     "auxiliar2" => $datos['nom_auxiliar2'],
-            //     "observaciones2" => $datos['observaciones_auxiliar2'],
-            //     "user_updated" => $_SESSION['cedula']
-            // );
-
-
-
             $respuesta = ModeloEscolar::mdlEditarRecorrido($datos2);
+
+            if ($respuesta == "ok") {
+                $respuesta = $existe['idrecorrido'];
+            }
 
             return $respuesta;
         } else {
@@ -259,19 +251,9 @@ class ControladorEscolar
 
         //Si existe el recorrido
         if ($recorrido != false) {
-
             //Si ya existen pasajeros 
             if ($pasajerosRecorrido != false) {
 
-                //     $longitud = sizeof($pasajerosRecorrido);
-
-                //   $ultimo_pasajero=ModeloEscolar::mdlEstudiantexId($pasajerosRecorrido[$longitud - 2]['idpasajero']);
-
-                //   var_dump($ultimo_pasajero['orden'], $ultimo_pasajero['nombre']);
-                //   if($ultimo_pasajero['orden'] >= $orden &&  $$ultimo_pasajero['orden'] != NULL)
-                //   {
-                //       $orden = $ultimo_pasajero['orden'] + 100;
-                //   }
 
                 foreach ($pasajerosRecorrido as $key => $value) {
                     $respuesta = ModeloEscolar::mdlEstudiantexId($value['idpasajero']);
@@ -294,12 +276,30 @@ class ControladorEscolar
                 }
 
 
+                
+
 
 
                 $act = ModeloEscolar::mdlActualizarOrden($idpasajero, $orden);
 
+                //SI ES EL PRIMERO 
+                if ($orden == 100) {
+                    //ENVIAMOS CORREO
+                    $datos_estudiante = ModeloEscolar::mdlEstudiantexId($idpasajero);
+                    $datos_institucion = ModeloEscolar::mdlInstitucionxIdruta($datos_estudiante['idruta']);
+
+                    if ($act == "ok") {
+                        $correo_institucion = $datos_institucion['correo'];
+                        $subject = "Inicio de recorrido de la ruta " . $datos_institucion['numruta'];
+                        $message = "Sector: " . $datos_institucion['sector'] . "<br>" . "Vehiculo: " . $datos_institucion['placa'] . "<br>"  . "Institución: " . $datos_institucion['nombre'];
+
+                        ControladorCorreo::ctrEnviarCorreo($correo_institucion, $subject, $message);
+                    }
+                }
+
                 return $act;
             } else {
+
                 //ES EL PRIMER PASAJERO QUE VAN A LISTAR
                 $orden = 100;
                 $act = ModeloEscolar::mdlActualizarOrden($idpasajero, $orden);
@@ -370,8 +370,16 @@ class ControladorEscolar
     ===================================================*/
     static public function ctrAsociarEstudianteTemporalRuta($datos)
     {
-        $respuesta = ModeloEscolar::mdlAsociarEstudianteTemporalRuta($datos);
-        return $respuesta;
+        $existe = ModeloEscolar::mdlEstudiantexId($datos['idpasajero']);
+
+        if ($existe != false) {
+            if ($existe['idruta'] == $datos['idruta']) {
+                return "El estudiante ya existe en esta ruta";
+            } else {
+                $respuesta = ModeloEscolar::mdlAsociarEstudianteTemporalRuta($datos);
+                return $respuesta;
+            }
+        }
     }
 
     /* ===================================================
@@ -386,6 +394,24 @@ class ControladorEscolar
             return $respuesta;
         } else {
             $respuesta = ModeloEscolar::mdlEliminarSeguimientoRecoge($datos);
+            return $respuesta;
+        }
+    }
+
+    /* ===================================================
+        FINALIZAR RECORRIDO
+    ===================================================*/
+    static public function ctrFinalizarRecorrido($datos)
+    {
+        $hora = date("h:i:s");
+
+        $datos['hora'] = $hora;
+
+        if ($datos['momento'] == "entrega") {
+            $respuesta = ModeloEscolar::mdlFinalizarRecorridoEntrega($datos);
+            return $respuesta;
+        } else {
+            $respuesta = ModeloEscolar::mdlFinalizarRecorridoRecoge($datos);
             return $respuesta;
         }
     }
