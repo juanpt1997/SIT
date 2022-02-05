@@ -235,7 +235,8 @@ class ControladorEscolar
     {
         date_default_timezone_set('America/Bogota');
         $fecha = date("Y/m/d");
-
+        $estudiantes = 0;
+        
         $datosPR = array(
             "idrecorrido" => $idrecorrido,
             "fecha" => $fecha
@@ -276,26 +277,36 @@ class ControladorEscolar
                 }
 
 
-                
+
 
 
 
                 $act = ModeloEscolar::mdlActualizarOrden($idpasajero, $orden);
 
-                //SI ES EL PRIMERO 
-                if ($orden == 100) {
-                    //ENVIAMOS CORREO
-                    $datos_estudiante = ModeloEscolar::mdlEstudiantexId($idpasajero);
-                    $datos_institucion = ModeloEscolar::mdlInstitucionxIdruta($datos_estudiante['idruta']);
 
-                    if ($act == "ok") {
+                
+                
+                if ($act == "ok") {
+                    
+                    //SUMAMOS UNO CADA VEZ QUE RECOJAN A ALGUIEN PARA SABER CUANDO INICIÓ 
+                    $estudiantes += 1;
+                    
+                    if($estudiantes == 1)
+                    {
+                        //ENVIAMOS CORREO
+                        $datos_estudiante = ModeloEscolar::mdlEstudiantexId($idpasajero);
+                        $datos_institucion = ModeloEscolar::mdlInstitucionxIdruta($datos_estudiante['idruta']);
+
                         $correo_institucion = $datos_institucion['correo'];
                         $subject = "Inicio de recorrido de la ruta " . $datos_institucion['numruta'];
                         $message = "Sector: " . $datos_institucion['sector'] . "<br>" . "Vehiculo: " . $datos_institucion['placa'] . "<br>"  . "Institución: " . $datos_institucion['nombre'];
-
+    
                         ControladorCorreo::ctrEnviarCorreo($correo_institucion, $subject, $message);
+
                     }
+
                 }
+
 
                 return $act;
             } else {
