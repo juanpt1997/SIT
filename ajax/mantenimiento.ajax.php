@@ -1641,11 +1641,11 @@ class AjaxLlantasControl
                                 <td>{$value["marca"]}</td>
                                 <td><input type='text' class='form-control form-control-sm' id='banda_{$consecutivo}'></td>
                                 <td>{$value["tamanio"]}</td>
-                                <td><input type='text' class='form-control form-control-sm' id='prof1_{$consecutivo}'></td>
-                                <td><input type='text' class='form-control form-control-sm' id='prof2_{$consecutivo}'></td>
-                                <td><input type='text' class='form-control form-control-sm' id='prof3_{$consecutivo}'></td>
-                                <td><input type='text' class='form-control form-control-sm' id='promedio_{$consecutivo}'></td>
-                                <td><input type='text' class='form-control form-control-sm' id='presion_{$consecutivo}'></td>
+                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='prof1_{$consecutivo}'></td>
+                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='prof2_{$consecutivo}'></td>
+                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='prof3_{$consecutivo}'></td>
+                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='promedio_{$consecutivo}'></td>
+                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='presion_{$consecutivo}'></td>
                                 <td>
                                     <select id='trabajo_{$consecutivo}' >{$option}</select>
                                 </td>
