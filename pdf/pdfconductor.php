@@ -171,7 +171,7 @@ class PdfConductor
         $complex_cell_border = array(
             /* 'T' => array('width' => 0, 'color' => array(255, 255, 255), 'dash' => 0, 'cap' => 'butt'), */
             /* 'R' => array('width' => 0, 'color' => array(255, 255, 255), 'dash' => 0, 'cap' => 'butt'), */
-            'B' => array('width' => 0.4, 'color' => array(0, 0, 0), 'dash' => 0, 'cap' => 'butt'),
+            'B' => array('width' => 0.2, 'color' => array(0, 0, 0), 'dash' => 0, 'cap' => 'butt'),
             /* 'L' => array('width' => 0, 'color' => array(255, 255, 255), 'dash' => 0, 'cap' => 'butt'), */
         );
 
@@ -190,102 +190,104 @@ class PdfConductor
         ===================================================*/
         # Nombre
         $pdf->writeHTML("<br>");
-        $pdf->SetFont('helvetica', 'B', '10');
-        $pdf->MultiCell(18, 5, "Nombre:", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '10');
-        $pdf->MultiCell(92, 5, $info['Nombre'], $complex_cell_border, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', 'B', '7');
+        $pdf->MultiCell(18, 3, "Nombre:", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '7');
+        $pdf->MultiCell(92, 3, $info['Nombre'], $complex_cell_border, 'L', 0, 0, '', '', true);
         $pdf->Ln();
         $pdf->Ln();
+
 
         # Cédula
-        $pdf->SetFont('helvetica', 'B', '10');
-        $pdf->MultiCell(15, 5, "Cédula: ", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '10');
-        $pdf->MultiCell(25, 5, $info['Documento'], $complex_cell_border, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', 'B', '7');
+        $pdf->MultiCell(15, 3, "Cédula: ", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '7');
+        $pdf->MultiCell(25, 3, $info['Documento'], $complex_cell_border, 'L', 0, 0, '', '', true);
 
         # Ciudad
-        $pdf->SetFont('helvetica', 'B', '10');
-        $pdf->MultiCell(17, 5, "Ciudad:", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '10');
-        $pdf->MultiCell(53, 5, $info['Ciudad'], $complex_cell_border, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', 'B', '7');
+        $pdf->MultiCell(17, 3, "Ciudad:", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '7');
+        $pdf->MultiCell(53, 3, $info['Ciudad'], $complex_cell_border, 'L', 0, 0, '', '', true);
         $pdf->Ln();
         $pdf->Ln();
 
         # Nomenclatura
-        $pdf->SetFont('helvetica', 'B', '10');
-        $pdf->MultiCell(30, 5, " Nomenclatura:", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '10');
-        $pdf->MultiCell(80, 5, $info['direccion'], $complex_cell_border, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', 'B', '7');
+        $pdf->MultiCell(30, 3, " Nomenclatura:", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '7');
+        $pdf->MultiCell(80, 3, $info['direccion'], $complex_cell_border, 'L', 0, 0, '', '', true);
         $pdf->Ln();
         $pdf->Ln();
 
         # Barrio
-        $pdf->SetFont('helvetica', 'B', '10');
-        $pdf->MultiCell(15, 5, " Barrio:", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '10');
-        $pdf->MultiCell(95, 5, $info['barrio'], $complex_cell_border, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', 'B', '7');
+        $pdf->MultiCell(15, 3, " Barrio:", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '7');
+        $pdf->MultiCell(95, 3, $info['barrio'], $complex_cell_border, 'L', 0, 0, '', '', true);
         $pdf->Ln();
         $pdf->Ln();
 
         # Tipo de sangre
-        $pdf->SetFont('helvetica', 'B', '10');
-        $pdf->MultiCell(30, 5, "Tipo de sangre:", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '10');
-        $pdf->MultiCell(10, 5, $info['tipo_sangre'], $complex_cell_border, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', 'B', '7');
+        $pdf->MultiCell(30, 3, "Tipo de sangre:", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '7');
+        $pdf->MultiCell(10, 3, $info['tipo_sangre'], $complex_cell_border, 'L', 0, 0, '', '', true);
 
         # Nivel Educación
-        $pdf->SetFont('helvetica', 'B', '10');
-        $pdf->MultiCell(32, 5, " Nivel Educación:", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '10');
-        $pdf->MultiCell(38, 5, $info['nivel_escolaridad'], $complex_cell_border, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', 'B', '7');
+        $pdf->MultiCell(32, 3, " Nivel Educación:", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '7');
+        $pdf->MultiCell(38, 3, $info['nivel_escolaridad'], $complex_cell_border, 'L', 0, 0, '', '', true);
         $pdf->Ln();
         $pdf->Ln();
 
         # Años de experiencia
-        $pdf->SetFont('helvetica', 'B', '10');
-        $pdf->MultiCell(38, 5, "Años de experiencia:", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '10');
-        $pdf->MultiCell(10, 5, $info['anios_experiencia'], $complex_cell_border, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', 'B', '7');
+        $pdf->MultiCell(38, 3, "Años de experiencia:", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '7');
+        $pdf->MultiCell(10, 3, $info['anios_experiencia'], $complex_cell_border, 'L', 0, 0, '', '', true);
 
         # Fecha Consulta DAS
-        $pdf->SetFont('helvetica', 'B', '10');
-        $pdf->MultiCell(39, 5, " Fecha Consulta DAS:", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '10');
-        $pdf->MultiCell(23, 5, "", $complex_cell_border, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', 'B', '7');
+        $pdf->MultiCell(39, 3, " Fecha Consulta DAS:", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '7');
+        $pdf->MultiCell(23, 3, "", $complex_cell_border, 'L', 0, 0, '', '', true);
         $pdf->Ln();
         $pdf->Ln();
 
         # Fecha Antecedentes
-        $pdf->SetFont('helvetica', 'B', '10');
-        $pdf->MultiCell(40, 5, "Fecha Antecedentes:", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '10');
-        $pdf->MultiCell(70, 5, "", $complex_cell_border, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', 'B', '7');
+        $pdf->MultiCell(40, 3, "Fecha Antecedentes:", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '7');
+        $pdf->MultiCell(70, 3, "", $complex_cell_border, 'L', 0, 0, '', '', true);
         $pdf->Ln();
         $pdf->Ln();
 
         # Licencia de conducción No
-        $pdf->SetFont('helvetica', 'B', '10');
-        $pdf->MultiCell(50, 5, "Licencia de conducción No:", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '10');
-        $pdf->MultiCell(60, 5, $info['nro_licencia'], $complex_cell_border, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', 'B', '7');
+        $pdf->MultiCell(50, 3, "Licencia de conducción No:", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '7');
+        $pdf->MultiCell(60, 3, $info['nro_licencia'], $complex_cell_border, 'L', 0, 0, '', '', true);
         $pdf->Ln();
         $pdf->Ln();
 
         # Categoría
-        $pdf->SetFont('helvetica', 'B', '10');
-        $pdf->MultiCell(25, 5, "Categoría:", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '10');
-        $pdf->MultiCell(85, 5, $info['categoria'], $complex_cell_border, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', 'B', '7');
+        $pdf->MultiCell(25, 3, "Categoría:", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '7');
+        $pdf->MultiCell(85, 3, $info['categoria'], $complex_cell_border, 'L', 0, 0, '', '', true);
         $pdf->Ln();
         $pdf->Ln();
 
         # Vencimiento
-        $pdf->SetFont('helvetica', 'B', '10');
-        $pdf->MultiCell(30, 5, "Vencimiento:", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '10');
-        $pdf->MultiCell(80, 5, $info['fecha_vencimiento'], $complex_cell_border, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', 'B', '7');
+        $pdf->MultiCell(30, 3, "Vencimiento:", 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', '7');
+        $pdf->MultiCell(80, 3, $info['fecha_vencimiento'], $complex_cell_border, 'L', 0, 0, '', '', true);
         $pdf->Ln();
         $pdf->Ln();
+
 
         /* ===================================================
            DOCUMENTACIÓN
@@ -293,7 +295,18 @@ class PdfConductor
         // TABLA CON LOS DOCUMENTOS CEDULA Y LICENCIA DE CONDUCCIÓN
         $documento_escaneado = $info['documento_escaneado'] == "" || $info['documento_escaneado'] == null ? "" : '../' . $info['documento_escaneado'];
         $licencia_conduccion = $info['ruta_documento'] == "" || $info['ruta_documento'] == null ? "" : '../' . $info['ruta_documento'];
-        $tabla = '
+        $imagen = getimagesize($licencia_conduccion);
+        $imagen2 = getimagesize($documento_escaneado);
+        $ancho = $imagen[0];
+        $altura = $imagen[1];
+        $ancho2 = $imagen2[0];
+        $altura2 = $imagen2[1];
+
+        //var_dump($altura);
+
+        if ($altura < 500) {
+
+            $tabla = '
         <table cellspacing="2" cellpadding="3">
             <tbody>
                 <tr style="text-align: center; font-weight:bold;">
@@ -314,8 +327,30 @@ class PdfConductor
             </tbody>
         </table>
         ';
-        $pdf->SetFont('helvetica', '', '8');
-        $pdf->writeHTML($tabla);
+            $pdf->SetFont('helvetica', '', '8');
+            $pdf->writeHTML($tabla);
+
+        } else {
+
+            $tabla = '
+            <table cellspacing="2" cellpadding="3">
+                <tbody>
+                    <tr style="text-align: center; font-weight:bold;">
+                        <th colspan="1" border="2">DOCUMENTO</th>
+                        <th colspan="1" border="2">LICENCIA DE CONDUCCIÓN</th>
+                    </tr>
+    
+                    <tr style="text-align: center;">
+                        <td colspan="1" border="1"><img src="' . $documento_escaneado . '" height="585" width="400"></td>
+                        <td colspan="1" border="1"><img src="' . $licencia_conduccion . '" height="585" width="400" ></td>
+                    </tr>
+                </tbody>
+            </table>
+            ';
+            $pdf->SetFont('helvetica', '', '8');
+            $pdf->writeHTML($tabla);
+        }
+
 
         /* ===================================================
             PAGINA DOCUMENTACION

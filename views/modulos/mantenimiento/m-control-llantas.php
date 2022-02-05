@@ -116,7 +116,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="my-addon"><i class="fas fa-list"></i></span>
                             </div>
-                            <!-- <input class="form-control" type="number" id="num_llanta" max="9999" name="num_llanta" required> -->
+                            <!-- <input class="form-control" type="number" id="num_llanta" max="999999" name="num_llanta" required> -->
                             <select class="custom-select rounded-0 input_producto select2-single" id="num_llanta" name="num_llanta" required>
                             </select>
                             <div class="input-group-append">
@@ -153,7 +153,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label for="referencia">Referencia</label>
                                 <div class="input-group">
-                                    <input class="form-control" type="text" id="referencia" max="9999" name="referencia" required readonly>
+                                    <input class="form-control" type="text" id="referencia" max="999999" name="referencia" required readonly>
                                 </div>
                             </div>
                         </div>
@@ -211,9 +211,9 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                         <div class="col-3">
                             <div class="form-group">
-                                <label for="vida_util">Vida</label>
+                                <label for="vida_util">Vida(Km/h)</label>
                                 <div class="input-group">
-                                    <input class="form-control" type="text" id="vida_util" max="9999" name="vida_util" required>
+                                    <input class="form-control" type="text" id="vida_util" max="999999" name="vida_util" required>
                                 </div>
                             </div>
                         </div>
@@ -222,7 +222,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label for="cantidad">Cantidad de llantas a vincular</label>
                                 <div class="input-group">
-                                    <input class="form-control" type="number" id="cantidad" max="9999" name="cantidad" required>
+                                    <input class="form-control" type="number" id="cantidad" max="999999" name="cantidad" required>
                                 </div>
                             </div>
                         </div>
@@ -231,7 +231,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label for="cantidad">Número de llanta</label>
                                 <div class="input-group">
-                                    <input class="form-control" type="number" id="numero_llanta_edit" max="9999" name="numero_llanta_edit">
+                                    <input class="form-control" type="number" id="numero_llanta_edit" max="999999" name="numero_llanta_edit">
                                 </div>
                             </div>
                         </div>
@@ -347,7 +347,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
                                     </div>
-                                    <input class="form-control" type="number" id="kilo_montaje" max="9999" name="kilo_montaje" required>
+                                    <input class="form-control" type="number" id="kilo_montaje" max="999999" name="kilo_montaje" required>
                                 </div>
                             </div>
                         </div>
@@ -359,7 +359,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-poll"></i></span>
                                     </div>
-                                    <input class="form-control" type="number" id="lonas" max="9999" name="lonas" required>
+                                    <input class="form-control" type="number" id="lonas" max="999999" name="lonas" required>
                                 </div>
                             </div>
                         </div>
@@ -431,7 +431,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
                                 </div>
-                                <input class="form-control" type="number" id="kilo_inspeccion" max="9999" name="kilo_inspeccion" required>
+                                <input class="form-control" type="number" id="kilo_inspeccion" max="999999" name="kilo_inspeccion" required>
                             </div>
                         </div>
                     </div>
@@ -443,7 +443,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-sort-amount-down-alt"></i></span>
                                 </div>
-                                <input class="form-control" type="number" id="prof_inter" max="9999" name="prof_inter" required>
+                                <input class="form-control" type="number" id="prof_inter" max="999999" name="prof_inter" required>
                             </div>
                         </div>
                     </div>
@@ -455,7 +455,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-sort-amount-up-alt"></i></span>
                                 </div>
-                                <input class="form-control" type="number" id="prof_exter" max="9999" name="prof_exter" required>
+                                <input class="form-control" type="number" id="prof_exter" max="999999" name="prof_exter" required>
                             </div>
                         </div>
                     </div>
@@ -467,7 +467,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-percentage"></i></span>
                                 </div>
-                                <input class="form-control" type="number" id="promedio" max="9999" name="promedio" required>
+                                <input class="form-control" type="number" id="promedio" max="999999" name="promedio" required>
                             </div>
                         </div>
                     </div>
@@ -514,7 +514,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="my-addon"><i class="fas fa-list"></i></span>
                                     </div>
-                                    <input class="form-control" type="number" id="nuevo_num_llanta" max="9999" name="nuevo_num_llanta" required>
+                                    <input class="form-control" type="number" id="nuevo_num_llanta" max="999999" name="nuevo_num_llanta" required>
                                 </div>
 
                             </div>
@@ -593,7 +593,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <div class="form-group">
                                 <label for="kilo_invent">Referencia</label>
                                 <div class="input-group">
-                                    <input class="form-control" type="text" id="nuevo_referencia" max="9999" name="nuevo_referencia" required>
+                                    <input class="form-control" type="text" id="nuevo_referencia" max="999999" name="nuevo_referencia" required>
                                 </div>
                             </div>
                         </div>
