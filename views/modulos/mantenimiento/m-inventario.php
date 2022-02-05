@@ -1063,24 +1063,24 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                                     </tr>
                                                                                                     <!--TRASERA INTERIOR IZQUIERDA-->
                                                                                                     <tr>
-                                                                                                        <td>Trasera interior izquierda ( R3 )</td>
+                                                                                                        <td>Trasera exterior izquierda ( R3 )</td>
                                                                                                         <td>
                                                                                                             <div class="icheck-warning d-inline">
-                                                                                                                <input type="radio" class="form-control inventario" required id="Trasera_interior_izquierda_R31" name="Trasera_interior_izquierda_R3" value="3">
+                                                                                                                <input type="radio" class="form-control inventario" required id="Trasera_exterior_izquierda_R31" name="Trasera_exterior_izquierda_R3" value="3">
                                                                                                                 <label for="Trasera_interior_izquierda_R31">
                                                                                                                 </label>
                                                                                                             </div>
                                                                                                         </td>
                                                                                                         <td>
                                                                                                             <div class="icheck-success d-inline">
-                                                                                                                <input type="radio" class="form-control inventario" required id="Trasera_interior_izquierda_R34" name="Trasera_interior_izquierda_R3" value="1">
+                                                                                                                <input type="radio" class="form-control inventario" required id="Trasera_exterior_izquierda_R34" name="Trasera_exterior_izquierda_R3" value="1">
                                                                                                                 <label for="Trasera_interior_izquierda_R34">
                                                                                                                 </label>
                                                                                                             </div>
                                                                                                         </td>
                                                                                                         <td>
                                                                                                             <div class="icheck-danger d-inline">
-                                                                                                                <input type="radio" class="form-control inventario" required id="Trasera_interior_izquierda_R3_5" name="Trasera_interior_izquierda_R3" value="0">
+                                                                                                                <input type="radio" class="form-control inventario" required id="Trasera_exterior_izquierda_R3_5" name="Trasera_exterior_izquierda_R3" value="0">
                                                                                                                 <label for="Trasera_interior_izquierda_R3_5">
                                                                                                                 </label>
                                                                                                             </div>
@@ -1088,24 +1088,24 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                                     </tr>
                                                                                                     <!--TRASERA EXTERIOR IZQUIERDA-->
                                                                                                     <tr>
-                                                                                                        <td>Trasera exterior izquierda ( R4 )</td>
+                                                                                                        <td>Trasera interior izquierda ( R4 )</td>
                                                                                                         <td>
                                                                                                             <div class="icheck-warning d-inline">
-                                                                                                                <input type="radio" class="form-control inventario" required id="Trasera_exterior_izquierda_R41" name="Trasera_exterior_izquierda_R4" value="3">
+                                                                                                                <input type="radio" class="form-control inventario" required id="Trasera_interior_izquierda_R41" name="Trasera_interior_izquierda_R4" value="3">
                                                                                                                 <label for="Trasera_exterior_izquierda_R41">
                                                                                                                 </label>
                                                                                                             </div>
                                                                                                         </td>
                                                                                                         <td>
                                                                                                             <div class="icheck-success d-inline">
-                                                                                                                <input type="radio" class="form-control inventario" required id="Trasera_exterior_izquierda_R44" name="Trasera_exterior_izquierda_R4" value="1">
+                                                                                                                <input type="radio" class="form-control inventario" required id="Trasera_interior_izquierda_R44" name="Trasera_interior_izquierda_R4" value="1">
                                                                                                                 <label for="Trasera_exterior_izquierda_R44">
                                                                                                                 </label>
                                                                                                             </div>
                                                                                                         </td>
                                                                                                         <td>
                                                                                                             <div class="icheck-danger d-inline">
-                                                                                                                <input type="radio" class="form-control inventario" required id="Trasera_exterior_izquierda_R4_5" name="Trasera_exterior_izquierda_R4" value="0">
+                                                                                                                <input type="radio" class="form-control inventario" required id="Trasera_interior_izquierda_R4_5" name="Trasera_interior_izquierda_R4" value="0">
                                                                                                                 <label for="Trasera_exterior_izquierda_R4_5">
                                                                                                                 </label>
                                                                                                             </div>
@@ -1166,7 +1166,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                             <hr class="my-4 bg-dark">
                                                                                             <!--IMAGEN DE POSICION DE LLANTAS DE BUS-->
                                                                                             <div id="llantas_bus_buseta" class="text-center">
-                                                                                                <img src="./views/img/llantas/BUS-BUSETA.png" class="img-fluid">
+                                                                                                <img src="./views/img/llantas/Bus-llantas2.png" class="img-fluid">
                                                                                             </div>
                                                                                             <!--IMAGEN DE POSICION DE LLANTAS DE BUSETA-->
                                                                                             <!-- <div id="llantas_buseta" class="d-none text-center">
@@ -1174,7 +1174,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                                             </div> -->
                                                                                             <!--IMAGEN DE POSICION DE LLANTAS DE CAMIONETA-->
                                                                                             <div id="llantas_camioneta_micro" class="d-none text-center">
-                                                                                                <img src="./views/img/llantas/CAMIONETA-MICRO.png" class="img-fluid">
+                                                                                                <img src="./views/img/llantas/Camioneta-llantas.png" class="img-fluid">
                                                                                             </div>
                                                                                             <!--IMAGEN DE POSICION DE LLANTAS DE MICRO-->
                                                                                             <!-- <div id="llantas_micro" class="d-none text-center">
@@ -2668,8 +2668,8 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                     <!--LLANTAS-->
                                                     <th>Delantera izquierda (R1)</th>
                                                     <th>Delantera derecha (R2)</th>
-                                                    <th>Trasera interior izquierda (R3)</th>
-                                                    <th>Trasera exterior izquierda (R4)</th>
+                                                    <th>Trasera exterior izquierda (R3)</th>
+                                                    <th>Trasera interior izquierda (R4)</th>
                                                     <th>Trasera interior derecha (R5)</th>
                                                     <th>Trasera exterior derecha (R6)</th>
                                                     <!--Prevencion y seguridad-->
@@ -2798,8 +2798,8 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                         <td><?= ControladorInventario::TraducirEstadoInventario($value['balizas']) ?></td>
                                                         <td><?= ControladorInventario::TraducirEstadoInventario($value['Delantera_izquierda_R1']) ?></td>
                                                         <td><?= ControladorInventario::TraducirEstadoInventario($value['Delantera_derecha_R2']) ?></td>
-                                                        <td><?= ControladorInventario::TraducirEstadoInventario($value['Trasera_interior_izquierda_R3']) ?></td>
-                                                        <td><?= ControladorInventario::TraducirEstadoInventario($value['Trasera_exterior_izquierda_R4']) ?></td>
+                                                        <td><?= ControladorInventario::TraducirEstadoInventario($value['Trasera_exterior_izquierda_R3']) ?></td>
+                                                        <td><?= ControladorInventario::TraducirEstadoInventario($value['Trasera_interior_izquierda_R4']) ?></td>
                                                         <td><?= ControladorInventario::TraducirEstadoInventario($value['Trasera_interior_derecha_R5']) ?></td>
                                                         <td><?= ControladorInventario::TraducirEstadoInventario($value['Trasera_exterior_derecha_R6']) ?></td>
                                                         <td><?= ControladorInventario::TraducirEstadoInventario($value['Gato']) ?></td>

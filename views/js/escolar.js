@@ -594,7 +594,12 @@ if (
             let idruta = $(this).attr("idruta");
             let idrecorrido = $(this).attr("idrecorrido");
 
+            
+
             $("#auxiliar_form").trigger("reset");
+            $("#nom_auxiliar").val("").trigger("change");
+            $("#nom_auxiliar2").val("").trigger("change");
+            $("#fin_recorrido").attr("idrecorrido", idrecorrido);
 
             $("#idruta_aux").val(idruta);
             cargarTablaSeguimientoxRuta(idruta);
@@ -614,16 +619,20 @@ if (
                     processData: false,
                     dataType: "json",
                     success: function (response) {
+
+                        
+
                         //PONEMOS LOS DATOS
                         if (response.auxiliar_recoge != "") {
-                            $("#nom_auxiliar").val(response.auxiliar_recoge);
+                            $("#nom_auxiliar").val(response.auxiliar_recoge).trigger("change");
                             $("#observaciones_auxiliar").val(
                                 response.observaciones_recoge
                             );
                         } 
 
                         if (response.auxiliar_entrega != "") {
-                            $("#nom_auxiliar2").val(response.auxiliar_entrega);
+                            $("#nom_auxiliar2").val(response.auxiliar_entrega).trigger("change");
+                            $("#observaciones_auxiliar2").val(response.observaciones_entrega);
                             
                         }
                     },
@@ -667,9 +676,22 @@ if (
                         $(".btn-entrega").attr("idrecorrido", response);
                         $(".btn-recoge").attr("idrecorrido", response);
                         $(".btn-eliminar").attr("idrecorrido", response);
-                        $("#idrecorrido").value(response);
+                        $("#fin_recorrido").attr("idrecorrido", response);
+                        $("#idrecorrido").val(response);
 
-                        cargarTablaEstudiantesxRuta(idruta);
+                        let idruta_aux = $("#idruta_aux").val();
+
+                        $(".btn-seguimiento").each(function(){
+                            let idruta_rec =$(this).attr("idruta");
+
+                            if(idruta_aux == idruta_rec)
+                            {
+                                $(this).attr("idrecorrido", response);
+                            }
+                        });
+
+
+                        
                     } else {
                         Swal.fire({
                             icon: "warning",
@@ -800,10 +822,20 @@ if (
                     showConfirmButton: false,
                     timer: 2500,
                 });
-                $([document.documentElement, document.body]).animate({
-                    scrollTop: $('#nom_auxiliar').offset().top
-                    //scrollTop: 0 // Inicio del documento
-                }, 2000); // Tiempo en milisegundos
+
+               
+
+                
+                setTimeout(() => {
+                    
+                    $("#modal-seguimiento").animate({
+                        scrollTop: $('.modal-header ').offset().top
+                        //scrollTop: 0 // Inicio del documento
+                    }, 2000); // Tiempo en milisegundos
+                }, 2200);
+                // $("#nom_auxiliar").focus(function (e) { 
+                //     e.preventDefault()
+                // });
             }
         });
 
@@ -941,6 +973,13 @@ if (
                         });
 
                         cargarTablaEstudiantesTemporalxRuta(idruta);
+                    }else if(response == "El estudiante ya existe en esta ruta"){
+                        Swal.fire({
+                            icon: "info",
+                            title: "El estudiante ya existe en esta ruta",
+                            showConfirmButton: false,
+                            timer: 1500,
+                        });
                     } else {
                         Swal.fire({
                             icon: "warning",
@@ -1018,10 +1057,7 @@ if (
         /*============================================
             CLICK EN VER HISTORIAL DE RECORRIDOS
         ==============================================*/
-        $(document).on(
-            "click",
-            "#custom-tabs-one-historial_escolar-tab",
-            function () {
+        $(document).on("click","#custom-tabs-one-historial_escolar-tab",function () {
                 // Quitar datatable
                 $(`#tableHistorialRecorrido`).dataTable().fnDestroy();
                 // Borrar datos
@@ -1117,10 +1153,10 @@ if (
 
             Swal.fire({
                 title: `Eliminar seguimiento`,
-                text: "Seleccione que momento desea eliminar",
+                text: "Seleccione que recorrido desea eliminar",
                 html: `
                 <hr>
-                <label for="">Momentos</label>
+                <label for="">Recorridos</label>
                 <select class="form-control select2-single" id="momento">
                         <option value="entrega" selected>Entrega</option>
                         <option value="recoge" selected>Recoge</option>
@@ -1167,5 +1203,61 @@ if (
                 }
             });
         });
+
+        /*============================================
+            FINALIZAR RECORRIDO
+        ==============================================*/
+        $(document).on("click", "#fin_recorrido", function(){
+            let idrecorrido = $(this).attr("idrecorrido");
+
+            Swal.fire({
+                title: `Finalizar recorrido`,
+                text: "Seleccione que recorrido desea finalizar",
+                html: `
+                <hr>
+                <label for="">Recorrido</label>
+                <select class="form-control select2-single" id="recorrido">
+                        <option value="entrega" selected>Entrega</option>
+                        <option value="recoge" selected>Recoge</option>
+
+                </select>`,
+                showCancelButton: true,
+                confirmButtonColor: "#5cb85c",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Continuar!",
+                cancelButtonText: "Cancelar",
+            }).then((result) => {
+                if (result.value) {
+                    var momento = $("#recorrido").val();
+                    var datos = new FormData();
+                    datos.append("finalizarRecorrido", "ok");
+                    datos.append("idrecorrido", idrecorrido);
+                    datos.append("momento", momento);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/escolar.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        //dataType: "json",
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: "success",
+                                    showConfirmButton: true,
+                                    title: "¡El dato ha sido actualizado!",
+                                    confirmButtonText: "¡Cerrar!",
+                                    allowOutsideClick: false,
+                                })
+                            }
+                        },
+                    });
+                }
+            });
+
+        });
+
     }); //FINAL DOCUMENT READY
 }

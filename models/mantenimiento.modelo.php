@@ -60,8 +60,8 @@ class ModeloInventario
                                                             balizas,
                                                             Delantera_izquierda_R1,
                                                             Delantera_derecha_R2,
-                                                            Trasera_interior_izquierda_R3,
-                                                            Trasera_exterior_izquierda_R4,
+                                                            Trasera_exterior_izquierda_R3,
+                                                            Trasera_interior_izquierda_R4,
                                                             Trasera_interior_derecha_R5,
                                                             Trasera_exterior_derecha_R6,
                                                             Gato,
@@ -151,8 +151,8 @@ class ModeloInventario
                                                     :balizas,
                                                     :Delantera_izquierda_R1,
                                                     :Delantera_derecha_R2,
-                                                    :Trasera_interior_izquierda_R3,
-                                                    :Trasera_exterior_izquierda_R4,
+                                                    :Trasera_exterior_izquierda_R3,
+                                                    :Trasera_interior_izquierda_R4,
                                                     :Trasera_interior_derecha_R5,
                                                     :Trasera_exterior_derecha_R6,
                                                     :Gato,
@@ -243,8 +243,8 @@ class ModeloInventario
         $stmt->bindParam(":balizas", $datos["balizas"], PDO::PARAM_INT);
         $stmt->bindParam(":Delantera_izquierda_R1", $datos["Delantera_izquierda_R1"], PDO::PARAM_INT);
         $stmt->bindParam(":Delantera_derecha_R2", $datos["Delantera_derecha_R2"], PDO::PARAM_INT);
-        $stmt->bindParam(":Trasera_interior_izquierda_R3", $datos["Trasera_interior_izquierda_R3"], PDO::PARAM_INT);
-        $stmt->bindParam(":Trasera_exterior_izquierda_R4", $datos["Trasera_exterior_izquierda_R4"], PDO::PARAM_INT);
+        $stmt->bindParam(":Trasera_exterior_izquierda_R3", $datos["Trasera_exterior_izquierda_R3"], PDO::PARAM_INT);
+        $stmt->bindParam(":Trasera_interior_izquierda_R4", $datos["Trasera_interior_izquierda_R4"], PDO::PARAM_INT);
         $stmt->bindParam(":Trasera_interior_derecha_R5", $datos["Trasera_interior_derecha_R5"], PDO::PARAM_INT);
         $stmt->bindParam(":Trasera_exterior_derecha_R6", $datos["Trasera_exterior_derecha_R6"], PDO::PARAM_INT);
         $stmt->bindParam(":Gato", $datos["Gato"], PDO::PARAM_INT);
@@ -355,8 +355,8 @@ class ModeloInventario
                                                             balizas=:balizas,
                                                             Delantera_izquierda_R1=:Delantera_izquierda_R1,
                                                             Delantera_derecha_R2=:Delantera_derecha_R2,
-                                                            Trasera_interior_izquierda_R3=:Trasera_interior_izquierda_R3,
-                                                            Trasera_exterior_izquierda_R4=:Trasera_exterior_izquierda_R4,
+                                                            Trasera_exterior_izquierda_R3=:Trasera_exterior_izquierda_R3,
+                                                            Trasera_interior_izquierda_R4=:Trasera_interior_izquierda_R4,
                                                             Trasera_interior_derecha_R5=:Trasera_interior_derecha_R5,
                                                             Trasera_exterior_derecha_R6=:Trasera_exterior_derecha_R6,
                                                             Gato=:Gato,
@@ -448,8 +448,8 @@ class ModeloInventario
         $stmt->bindParam(":balizas", $datos["balizas"], PDO::PARAM_INT);
         $stmt->bindParam(":Delantera_izquierda_R1", $datos["Delantera_izquierda_R1"], PDO::PARAM_INT);
         $stmt->bindParam(":Delantera_derecha_R2", $datos["Delantera_derecha_R2"], PDO::PARAM_INT);
-        $stmt->bindParam(":Trasera_interior_izquierda_R3", $datos["Trasera_interior_izquierda_R3"], PDO::PARAM_INT);
-        $stmt->bindParam(":Trasera_exterior_izquierda_R4", $datos["Trasera_exterior_izquierda_R4"], PDO::PARAM_INT);
+        $stmt->bindParam(":Trasera_exterior_izquierda_R3", $datos["Trasera_exterior_izquierda_R3"], PDO::PARAM_INT);
+        $stmt->bindParam(":Trasera_interior_izquierda_R4", $datos["Trasera_interior_izquierda_R4"], PDO::PARAM_INT);
         $stmt->bindParam(":Trasera_interior_derecha_R5", $datos["Trasera_interior_derecha_R5"], PDO::PARAM_INT);
         $stmt->bindParam(":Trasera_exterior_derecha_R6", $datos["Trasera_exterior_derecha_R6"], PDO::PARAM_INT);
         $stmt->bindParam(":Gato", $datos["Gato"], PDO::PARAM_INT);
