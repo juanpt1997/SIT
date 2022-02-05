@@ -139,9 +139,9 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
 
-            <div class="modal-header bg-info">
+            <div class="modal-header bg-navy">
                 <h5 class="modal-title font-weight-bold" id="titulo-modal-fuec"></h5>
-                <button class="btn btn-app bg-success ml-2 d-none btn-copy-fuec" type="button"><i class="fas fa-copy"></i> Copia</button>
+                <button class="btn btn-app btn-sm bg-info ml-2 d-none btn-copy-fuec" type="button"><i class="fas fa-copy"></i> Copia</button>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -309,7 +309,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
 
                     </div><!-- /.row -->
 
-                    <hr>
+                    <hr class="my-4 bg-dark">
 
                     <!-- Datos del FUEC -->
                     <div class="row">
@@ -338,7 +338,11 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                 <label>Conductor 1</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend d-none d-sm-block d-md-none d-xl-block" style="width: 10%;">
-                                        <span class="input-group-text bg-success btn-ModalConductores" data-toggle="modal" data-target="#agregar_conductor" style="height: 100%; cursor:pointer;"><i class="fas fa-user-check"></i></span>
+                                        <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
+                                            <span class="input-group-text bg-success btn-ModalConductores" data-toggle="modal" data-target="#agregar_conductor" style="height: 100%; cursor:pointer;"><i class="fas fa-user-check"></i></span>
+                                        <?php else : ?>
+                                            <span class="input-group-text" style="height: 100%;"><i class="fas fa-user-check"></i></span>
+                                        <?php endif ?>
                                     </div>
                                     <select id="conductor1" class="form-control select2-single input-fuec conductores" style="width: 90%" name="conductor1" required>
                                         <option value="" selected>-Seleccione un conductor</option>
@@ -438,7 +442,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                         </div><!-- /.col -->
 
                         <!-- Anotación objeto de contrato -->
-                        <div class="col-12 col-md-6 d-none">
+                        <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Anotación objeto de contrato</label>
                                 <div class="input-group">
@@ -453,18 +457,22 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
 
                         </div><!-- /.col -->
 
-                        <!-- Ruta -->
-                        <div class="col-12">
+                    </div>
+
+                    <hr class="my-4 bg-dark">
+                    <div class="row">
+                        <!-- Ruta (oculto) -->
+                        <div class="col-12 d-none">
                             <hr class="my-4 bg-dark">
                             <div class="form-group">
                                 <label for="idruta" class="d-flex justify-content-center"><i>RUTA</i></label>
                                 <div class="input-group">
                                     <!-- <select class="form-control select2-single input-fuec input-ordenservicio" style="width: 99%" id="idruta" name="idruta" required>
-                                    <option selected value="">-Seleccione una ruta-</option>
-                                    <?php foreach ($Rutas as $key => $value) : ?>
-                                        <option value="<?= $value['id'] ?>"><?= $value['origendestino'] ?></option>
-                                    <?php endforeach ?>
-                                </select> -->
+                                        <option selected value="">-Seleccione una ruta-</option>
+                                        <?php foreach ($Rutas as $key => $value) : ?>
+                                            <option value="<?= $value['id'] ?>"><?= $value['origendestino'] ?></option>
+                                        <?php endforeach ?>
+                                    </select> -->
                                     <input type="hidden" id="idruta" name="idruta">
                                     <input class="form-control" type="text" id="observacionescontr" name="observacionescontr" placeholder="Seleccione una ruta de la lista" required>
                                     <div class="input-group-append">
@@ -474,14 +482,13 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
 
                             </div>
                         </div>
-
                         <!-- Origen -->
                         <div class="col-12 col-md-6">
                             <div class="form-group">
                                 <label>Origen</label>
                                 <div class="input-group">
                                     <div class="input-group-append">
-                                        <span class="input-group-text">
+                                        <span class="input-group-text bg-success btn-ruta" title="Buscar una ruta existente" data-toggle="modal" data-target="#modal_general" style="height: 100%; cursor:pointer;">
                                             <i class="fas fa-route"></i>
                                         </span>
                                     </div>
@@ -501,7 +508,8 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                             <i class="fas fa-route"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="destino" name="destino" readonly>
+                                    <textarea class="form-control input-fuec" rows="1" id="destino" name="destino" required maxlength="2500"></textarea>
+                                    <!-- <input class="form-control input-fuec" type="text" id="destino" name="destino" required maxlength="2000"> -->
                                 </div>
                             </div>
                         </div><!-- /.col -->
@@ -715,7 +723,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                     <td></td>
                                     <td></td>
                                     <td>
-                                        
+
                                     </td>
                                 </tr>
                             </tbody>

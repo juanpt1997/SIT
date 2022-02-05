@@ -81,6 +81,7 @@ $(document).ready(function () {
 
                     /* Seleccionar tipo de contrato, es readonly en este caso y solo permite una opción */
                     $("#objetocontrato").val(4).attr("readonly", "readonly");
+                    $("#anotObjetoContrato").val("").attr("readonly", "readonly"); // Anotación objeto de contrato no se permite con uno ocasional
                 }
             }
         });
@@ -414,6 +415,20 @@ $(document).ready(function () {
                 });
             }
         };
+
+        /* ===================================================
+          DETECTA CAMBIO EN OBJETO DE CONTRATO
+        ===================================================*/
+        $(document).on("change", "#objetocontrato", function () {
+            let idobjeto_contrato = $(this).val();
+
+            // Si es transporte de estudiantes, permitimos la anotación del objeto de contrato
+            if (idobjeto_contrato != 1){
+                $("#anotObjetoContrato").val("").attr("readonly", "readonly");
+            }else{
+                $("#anotObjetoContrato").removeAttr("readonly");
+            }
+        });
 
         /* ===================================================
           GUARDAR FORMULARIO FUEC
