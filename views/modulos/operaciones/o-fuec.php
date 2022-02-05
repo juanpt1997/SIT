@@ -438,7 +438,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                         </div><!-- /.col -->
 
                         <!-- Anotación objeto de contrato -->
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-md-6 d-none">
                             <div class="form-group">
                                 <label>Anotación objeto de contrato</label>
                                 <div class="input-group">

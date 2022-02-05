@@ -363,7 +363,6 @@ if (
                 //dataType: "json",
                 success: function (response) {
                     if (response == "ok") {
-
                         Swal.fire({
                             icon: "success",
                             title: "Datos agregados correctamente.",
@@ -596,10 +595,6 @@ if (
             let idrecorrido = $(this).attr("idrecorrido");
 
             $("#auxiliar_form").trigger("reset");
-            $("#nom_auxiliar").attr("readonly", false);
-            $("#nom_auxiliar2").attr("readonly", false);
-            $("#observaciones_auxiliar").attr("readonly", false);
-            $("#observaciones_auxiliar2").attr("readonly", false);
 
             $("#idruta_aux").val(idruta);
             cargarTablaSeguimientoxRuta(idruta);
@@ -622,32 +617,14 @@ if (
                         //PONEMOS LOS DATOS
                         if (response.auxiliar_recoge != "") {
                             $("#nom_auxiliar").val(response.auxiliar_recoge);
-                            $("#nom_auxiliar").attr("readonly", true);
                             $("#observaciones_auxiliar").val(
                                 response.observaciones_recoge
                             );
-                            $("#observaciones_auxiliar").attr("readonly", true);
-                        } else {
-                            $("#nom_auxiliar").attr("readonly", false);
-                            $("#observaciones_auxiliar").attr(
-                                "readonly",
-                                false
-                            );
-                        }
+                        } 
 
                         if (response.auxiliar_entrega != "") {
                             $("#nom_auxiliar2").val(response.auxiliar_entrega);
-                            $("#nom_auxiliar2").attr("readonly", true);
-                            $("#observaciones_auxiliar2").attr(
-                                "readonly",
-                                true
-                            );
-                        } else {
-                            $("#nom_auxiliar2").attr("readonly", false);
-                            $("#observaciones_auxiliar2").attr(
-                                "readonly",
-                                false
-                            );
+                            
                         }
                     },
                 });
@@ -690,6 +667,7 @@ if (
                         $(".btn-entrega").attr("idrecorrido", response);
                         $(".btn-recoge").attr("idrecorrido", response);
                         $(".btn-eliminar").attr("idrecorrido", response);
+                        $("#idrecorrido").value(response);
 
                         cargarTablaEstudiantesxRuta(idruta);
                     } else {
@@ -722,7 +700,6 @@ if (
                     cancelButtonText: "Cancelar",
                     confirmButtonText: "Si",
                 }).then((result) => {
-                    console.log(result);
                     if (result.value == true) {
                         Swal.fire({
                             icon: "success",
@@ -771,8 +748,14 @@ if (
 
                                             var datos2 = new FormData();
                                             datos2.append("darOrden", "ok");
-                                            datos2.append("idrecorrido",idrecorrido);
-                                            datos2.append("idpasajero",idpasajero);
+                                            datos2.append(
+                                                "idrecorrido",
+                                                idrecorrido
+                                            );
+                                            datos2.append(
+                                                "idpasajero",
+                                                idpasajero
+                                            );
 
                                             $.ajax({
                                                 type: "POST",
@@ -783,21 +766,25 @@ if (
                                                 processData: false,
                                                 // dataType: "json",
                                                 success: function (response) {
-                                                    
-                                                    if(response != "Este recorrido no existe" )
-                                                    {
-                                                        let idruta = $("#idruta_aux").val();
-                                                        cargarTablaSeguimientoxRuta(idruta);
+                                                    if (
+                                                        response !=
+                                                        "Este recorrido no existe"
+                                                    ) {
+                                                        let idruta =
+                                                            $(
+                                                                "#idruta_aux"
+                                                            ).val();
+                                                        cargarTablaSeguimientoxRuta(
+                                                            idruta
+                                                        );
                                                         cargarTablaSeguimientoTemporalxRuta(
                                                             idruta
                                                         );
                                                     }
-                                                
                                                 },
                                             });
 
                                             //Carga tabla
-                                            
                                         }
                                     },
                                 });
@@ -809,9 +796,14 @@ if (
                 Swal.fire({
                     icon: "warning",
                     title: "Esta ruta no tiene recorrido para el día de hoy.",
+                    text: 'Debe crear primero el recorrido',
                     showConfirmButton: false,
                     timer: 2500,
                 });
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $('#nom_auxiliar').offset().top
+                    //scrollTop: 0 // Inicio del documento
+                }, 2000); // Tiempo en milisegundos
             }
         });
 
@@ -832,7 +824,6 @@ if (
                     cancelButtonText: "Cancelar",
                     confirmButtonText: "Si",
                 }).then((result) => {
-                    console.log(result);
                     if (result.value == true) {
                         Swal.fire({
                             icon: "success",
@@ -1007,6 +998,11 @@ if (
                             showConfirmButton: false,
                             timer: 1500,
                         });
+
+                        let idruta = $("#ruta2").val();
+                        cargarTablaEstudiantesxRuta(idruta);
+                        cargarTablaEstudiantesTemporalxRuta(idruta);
+                        
                     } else {
                         Swal.fire({
                             icon: "error",
@@ -1071,7 +1067,6 @@ if (
         ==============================================*/
         $(document).on("click", ".pasajerosxrecorrido", function () {
             let idrecorrido = $(this).attr("idrecorrido");
-            console.log(idrecorrido);
 
             // Quitar datatable
             $(`#tablaPasajerosxRecorrido`).dataTable().fnDestroy();
