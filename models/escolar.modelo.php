@@ -242,9 +242,9 @@ class ModeloEscolar
 
         $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
         $stmt->bindParam(":fecha", $datos['fecha'], PDO::PARAM_STR);
-        $stmt->bindParam(":auxiliar_recoge", $datos['auxiliar'], PDO::PARAM_STR);
+        $stmt->bindParam(":auxiliar_recoge", $datos['auxiliar'], PDO::PARAM_INT);
         $stmt->bindParam(":observaciones_recoge", $datos['observaciones'], PDO::PARAM_STR);
-        $stmt->bindParam(":auxiliar_entrega", $datos['auxiliar2'], PDO::PARAM_STR);
+        $stmt->bindParam(":auxiliar_entrega", $datos['auxiliar2'], PDO::PARAM_INT);
         $stmt->bindParam(":observaciones_entrega", $datos['observaciones2'], PDO::PARAM_STR);
         $stmt->bindParam(":user_created", $datos['user_created'], PDO::PARAM_STR);
         $stmt->bindParam(":user_updated", $datos['user_updated'], PDO::PARAM_STR);
@@ -322,22 +322,24 @@ class ModeloEscolar
         EDITAR RECORRIDO
     ===================================================*/
     static public function mdlEditarRecorrido($datos)
-    {   
-        
+    {
+
         $stmt = Conexion::conectar()->prepare("UPDATE e_re_recorridos SET 
                                             auxiliar_recoge = :auxiliar_recoge,
                                             observaciones_recoge = :observaciones_recoge,
                                             auxiliar_entrega = :auxiliar_entrega, 
                                             observaciones_entrega = :observaciones_entrega,
                                             user_updated = :user_updated
-                                            WHERE idruta = :idruta");
+                                            WHERE idruta = :idruta AND 
+                                                fecha = :fecha");
 
-        $stmt->bindParam(":auxiliar_recoge", $datos['auxiliar'], PDO::PARAM_STR);
+        $stmt->bindParam(":auxiliar_recoge", $datos['auxiliar'], PDO::PARAM_INT);
         $stmt->bindParam(":observaciones_recoge", $datos['observaciones'], PDO::PARAM_STR);
-        $stmt->bindParam(":auxiliar_entrega", $datos['auxiliar2'], PDO::PARAM_STR);
+        $stmt->bindParam(":auxiliar_entrega", $datos['auxiliar2'], PDO::PARAM_INT);
         $stmt->bindParam(":observaciones_entrega", $datos['observaciones2'], PDO::PARAM_STR);
         $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
         $stmt->bindParam(":user_updated", $datos['user_updated'], PDO::PARAM_INT);
+        $stmt->bindParam(":fecha", $datos['fecha'], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             $retorno = "ok";
@@ -665,7 +667,7 @@ class ModeloEscolar
     {
         $stmt = Conexion::conectar()->prepare("SELECT * FROM e_re_seguimiento_pasajeros 
         WHERE idrecorrido_recogida = :idrecorrido_recogida AND fecha = :fecha");
-        
+
         $stmt->bindParam(":idrecorrido_recogida", $datos['idrecorrido'], PDO::PARAM_INT);
         $stmt->bindParam(":fecha", $datos['fecha'], PDO::PARAM_STR);
 
@@ -699,5 +701,76 @@ class ModeloEscolar
         $stmt = null;
 
         return $retorno;
+    }
+
+    /* ===================================================
+        FINALIZAR RECORRIDO ENTREGA 
+    ===================================================*/
+    static public function mdlFinalizarRecorridoEntrega($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE e_re_recorridos set 
+                                                fin_entrega = :fin_entrega
+                                                WHERE idrecorrido = :idrecorrido");
+
+        $stmt->bindParam(":fin_entrega", $datos['hora'], PDO::PARAM_STR);
+        $stmt->bindParam(":idrecorrido", $datos['idrecorrido'], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        FINALIZAR RECORRIDO RECOGE
+    ===================================================*/
+    static public function mdlFinalizarRecorridoRecoge($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE e_re_recorridos set 
+                                                fin_recogida = :fin_recogida
+                                                WHERE idrecorrido = :idrecorrido");
+
+        $stmt->bindParam(":fin_recogida", $datos['hora'], PDO::PARAM_STR);
+        $stmt->bindParam(":idrecorrido", $datos['idrecorrido'], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        INSTITUCION X RUTA
+    ===================================================*/
+    static public function mdlInstitucionxIdruta($idruta)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT r.*, i.*, v.placa, p.Nombre FROM e_rutas r 
+        INNER JOIN e_instituciones i ON r.idinstitucion = i.idinstitucion
+        INNER JOIN v_vehiculos v ON r.idvehiculo = v.idvehiculo
+        INNER JOIN gh_personal p ON r.idconductor = p.idPersonal
+        WHERE r.idruta = :idruta");
+
+        $stmt->bindParam(":idruta", $idruta, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno = $stmt->fetch();
+        $stmt->closeCursor();
+
+        return $retorno;
+
     }
 }

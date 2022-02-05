@@ -5,6 +5,7 @@ require_once '../models/conceptos.modelo.php';
 require_once '../models/vehicular.modelo.php';
 require_once '../controllers/escolar.controlador.php';
 require_once '../models/escolar.modelo.php';
+require_once '../controllers/mail.controller.php';
 date_default_timezone_set('America/Bogota');
 
 
@@ -534,6 +535,8 @@ class AjaxEscolar
                 <td>{$value['nombre_conductor']}</td>
                 <td>{$value['nombre']}</td>
                 <td>{$value['Ffecha']}</td>
+                <td>{$value['fin_entrega']}</td>
+                <td>{$value['fin_recogida']}</td>
             </tr>
             ";
         }
@@ -582,6 +585,15 @@ class AjaxEscolar
     static public function ajaxEliminarSeguimientoEstudiante($datos)
     {
         $respuesta = ControladorEscolar::ctrEliminarSeguimientoEstudiante($datos);
+        echo $respuesta;
+    }
+
+    /* ===================================================
+        FINALIZAR RECORRIDO 
+    ===================================================*/
+    static public function ajaxFinalizarRecorrido($datos)
+    {
+        $respuesta = ControladorEscolar::ctrFinalizarRecorrido($datos);
         echo $respuesta;
     }
 }
@@ -702,4 +714,9 @@ if(isset($_POST['eliminarSeguimientoEstudiante']) && $_POST['eliminarSeguimiento
 if(isset($_POST['darOrden']) && $_POST['darOrden'] == "ok")
 {
     AjaxEscolar::ajaxDarOrden($_POST['idrecorrido'], $_POST['idpasajero']);
+}
+
+#LLAMADO A FINALIZAR RECORRIDO
+if(isset($_POST['finalizarRecorrido']) && $_POST['finalizarRecorrido'] == "ok"){
+    AjaxEscolar::ajaxFinalizarRecorrido($_POST);
 }
