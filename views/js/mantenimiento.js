@@ -4947,6 +4947,30 @@ $(document).ready(function () {
             
         });
 
-        $(".select2-primary").select2();
+        //$(".select2-primary").select2();
+
+        // $(".calcular").keyup(function (e) { 
+        //     console.log($(this).val());
+        // });
+        $(document).on("keyup", ".calcular", function () {
+            console.log($(this).val());
+            let consecutivo = $(this).attr("consecutivo");
+            $(`#promedio_${consecutivo}`).val($(this).val());
+        });
+        const calcularPromedio = () =>{
+            var consecutivo = 1;
+
+            // for (let index = 0; index < array.length; index++) {
+
+            //     const element = array[index];
+            //     $(`#`).val();
+            //     consecutivo++
+                
+            // }
+
+
+
+        }
+    
     }
 });

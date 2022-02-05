@@ -101,11 +101,15 @@ class ModeloProductos
     static public function mdlAgregarInventario($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("INSERT INTO a_re_inventario (idproducto,idsucursal,posicion,stock) VALUES (:idproducto,:idsucursal,:posicion,:stock)");
+        $stmt = $conexion->prepare("INSERT INTO a_re_inventario (idproducto,idsucursal,posicion,stock,preciocompra,idproveedor,facturacompra,observaciones) VALUES (:idproducto,:idsucursal,:posicion,:stock,:preciocompra,:idproveedor,:facturacompra,:observaciones)");
         $stmt->bindParam(":idproducto", $datos["idproducto"], PDO::PARAM_INT);
         $stmt->bindParam(":idsucursal", $datos["sucursal"], PDO::PARAM_INT);
         $stmt->bindParam(":posicion", $datos["posicion"], PDO::PARAM_STR);
         $stmt->bindParam(":stock", $datos["cantidad"], PDO::PARAM_INT);
+        $stmt->bindParam(":preciocompra", $datos["precio-compra-producto"], PDO::PARAM_INT);
+        $stmt->bindParam(":idproveedor", $datos["proveedor"], PDO::PARAM_INT);
+        $stmt->bindParam(":facturacompra", $datos["num_factura"], PDO::PARAM_STR);
+        $stmt->bindParam(":observaciones", $datos["observaciones"], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             $id = $conexion->lastInsertId();
@@ -201,26 +205,39 @@ class ModeloProductos
         // INNER JOIN gh_sucursales s ON s.ids = i.idsucursal
         // WHERE p.idproducto = :idproducto");
 
+        // $stmt = Conexion::conectar()->prepare("SELECT i.stock, i.posicion, i.idinventario, s.sucursal, p.*, m.medida, mc.marca, ct.categoria,
+        //                                         mi.preciocompra AS precio_compra, mi.idproveedor,
+        //                                         prov.razon_social AS nombre_proveedor
+        //                                         FROM a_re_inventario i
+        //                                         INNER JOIN gh_sucursales s ON i.idsucursal = s.ids
+        //                                         INNER JOIN a_productos p ON i.idproducto = p.idproducto
+        //                                         LEFT JOIN a_medidas m ON p.idmedida = m.idmedidas
+        //                                         LEFT JOIN a_marcas mc ON p.idmarca = mc.idmarca
+        //                                         LEFT JOIN a_categorias ct ON p.idcategoria = ct.idcategorias
+        //                                         LEFT JOIN a_re_movimientoinven mi ON mi.idinventario = i.idinventario
+        //                                         LEFT JOIN c_proveedores prov ON prov.id = mi.idproveedor
+        //                                         WHERE (mi.idmovimiento, mi.idinventario) 
+        //                                                 IN (
+        //                                                     SELECT MAX(mi1.idmovimiento), mi1.idinventario
+        //                                                     FROM a_re_movimientoinven mi1
+        //                                                     WHERE mi1.tipo_movimiento = 'ENTRADA' AND mi1.preciocompra IS NOT NULL
+        //                                                     GROUP BY mi1.idinventario
+        //                                                     )
+        //                                                     AND p.idproducto = :idproducto
+        //                                         GROUP BY mi.idinventario");
+        
         $stmt = Conexion::conectar()->prepare("SELECT i.stock, i.posicion, i.idinventario, s.sucursal, p.*, m.medida, mc.marca, ct.categoria,
-                                                mi.preciocompra AS precio_compra, mi.idproveedor,
-                                                prov.razon_social AS nombre_proveedor
-                                                FROM a_re_inventario i
-                                                INNER JOIN gh_sucursales s ON i.idsucursal = s.ids
-                                                INNER JOIN a_productos p ON i.idproducto = p.idproducto
-                                                LEFT JOIN a_medidas m ON p.idmedida = m.idmedidas
-                                                LEFT JOIN a_marcas mc ON p.idmarca = mc.idmarca
-                                                LEFT JOIN a_categorias ct ON p.idcategoria = ct.idcategorias
-                                                LEFT JOIN a_re_movimientoinven mi ON mi.idinventario = i.idinventario
-                                                LEFT JOIN c_proveedores prov ON prov.id = mi.idproveedor
-                                                WHERE (mi.idmovimiento, mi.idinventario) 
-                                                        IN (
-                                                            SELECT MAX(mi1.idmovimiento), mi1.idinventario
-                                                            FROM a_re_movimientoinven mi1
-                                                            WHERE mi1.tipo_movimiento = 'ENTRADA' AND mi1.preciocompra IS NOT NULL
-                                                            GROUP BY mi1.idinventario
-                                                            )
-                                                            AND p.idproducto = :idproducto
-                                                GROUP BY mi.idinventario");
+        i.preciocompra AS precio_compra, i.idproveedor,
+        prov.razon_social AS nombre_proveedor
+       FROM a_re_inventario i
+       INNER JOIN gh_sucursales s ON i.idsucursal = s.ids
+       INNER JOIN a_productos p ON i.idproducto = p.idproducto
+       LEFT JOIN a_medidas m ON p.idmedida = m.idmedidas
+       LEFT JOIN a_marcas mc ON p.idmarca = mc.idmarca
+       LEFT JOIN a_categorias ct ON p.idcategoria = ct.idcategorias
+       LEFT JOIN c_proveedores prov ON prov.id = i.idproveedor
+       WHERE p.idproducto = :idproducto
+       GROUP BY i.idinventario");
 
         $stmt->bindParam(":idproducto", $idproducto, PDO::PARAM_INT);
 

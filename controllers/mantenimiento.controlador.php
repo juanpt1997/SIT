@@ -48,8 +48,10 @@ class ControladorInventario
 				'balizas' => $_POST['balizas'],
 				'Delantera_izquierda_R1' => $_POST['Delantera_izquierda_R1'],
 				'Delantera_derecha_R2' => $_POST['Delantera_derecha_R2'],
-				'Trasera_interior_izquierda_R3' => $_POST['Trasera_interior_izquierda_R3'],
-				'Trasera_exterior_izquierda_R4' => $_POST['Trasera_exterior_izquierda_R4'],
+
+				'Trasera_interior_izquierda_R4' => $_POST['Trasera_interior_izquierda_R4'],
+				'Trasera_exterior_izquierda_R3' => $_POST['Trasera_exterior_izquierda_R3'],
+
 				'Trasera_interior_derecha_R5' => $_POST['Trasera_interior_derecha_R5'],
 				'Trasera_exterior_derecha_R6' => $_POST['Trasera_exterior_derecha_R6'],
 				'Gato' => $_POST['Gato'],
