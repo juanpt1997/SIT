@@ -98,7 +98,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                             <td><?= $value['tipovinculacion'] ?></td>
                                             <td><?= $value['objetocontrato'] ?></td>
                                             <td><?= $value['origen'] ?></td>
-                                            <td><?= $value['destino'] ?></td>
+                                            <td class="text-truncate" style="max-width: 250px;"><?= $value['destino'] ?></td>
                                             <td><?= $value['fecha_inicial'] ?></td>
                                             <td><?= $value['fecha_vencimiento'] ?></td>
                                             <td><?= $value['conductor1'] ?></td>
@@ -451,7 +451,7 @@ $Conductores = ControladorVehiculos::ctrListaConductores();
                                             <i class="fas fa-caret-right"></i>
                                         </span>
                                     </div>
-                                    <input class="form-control input-fuec" type="text" id="anotObjetoContrato" name="anotObjetoContrato">
+                                    <input class="form-control input-fuec" type="text" id="anotObjetoContrato" name="anotObjetoContrato" readonly>
                                 </div>
                             </div>
 

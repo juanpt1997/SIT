@@ -570,15 +570,15 @@ $(document).ready(function () {
                 success: function (response) {
                     if (response != "") {
                         $("#titulo-modal-fuec").html(response.idfuec);
+                        $("#tipocontrato")
+                            .val(response.tipocontrato)
+                            .trigger("change");
                         $("#contratofijo")
                             .val(response.contratofijo)
                             .trigger("change");
                         $("#contratante")
                             .val(response.contratante)
                             .attr("actualizo", "NO")
-                            .trigger("change");
-                        $("#tipocontrato")
-                            .val(response.tipocontrato)
                             .trigger("change");
 
                         // Datos cliente

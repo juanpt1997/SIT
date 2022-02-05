@@ -295,10 +295,11 @@ class PdfFuec
                 }
             }
         }
+        $Justificado = $CantidadCaracteres < 100 ? "L" : "J";
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(30, 5, "ORIGEN - DESTINO:", 0, 'L', 0, 0, '', '', true);
         $pdf->SetFont('helvetica', '', $fontsize);
-        $pdf->MultiCell(150, 5, $info['origen'] . ' - ' . $info['destino'], 0, 'J', 0, 0, '', '', true);
+        $pdf->MultiCell(150, 5, $info['origen'] . ' - ' . $info['destino'], 0, $Justificado, 0, 0, '', '', true);
         $pdf->Ln();
 
         # OBSERVACIONES DEL CONTRATO
