@@ -481,11 +481,11 @@ $personal = ControladorGH::ctrListaPersonal();
 </div>
 
 <!-- MODAL PARA CREAR NUEVO ESTUDIANTE -->
-<div id="modalEstudiante" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+<div id="modalEstudiante" class="modal fade" style="overflow-y: scroll;" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-info">
-                <h5 class="modal-title" id="my-modal-title">Nuevo estudiante</h5>
+                <h5 class="modal-title" id="my-modal-title">Nuevo estudiante <i class="fas fa-user-check"></i></h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

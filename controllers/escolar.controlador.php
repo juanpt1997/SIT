@@ -235,7 +235,6 @@ class ControladorEscolar
     {
         date_default_timezone_set('America/Bogota');
         $fecha = date("Y/m/d");
-        $estudiantes = 0;
         
         $datosPR = array(
             "idrecorrido" => $idrecorrido,
@@ -260,7 +259,7 @@ class ControladorEscolar
                     $respuesta = ModeloEscolar::mdlEstudiantexId($value['idpasajero']);
                     $orden_estudiante = ModeloEscolar::mdlEstudiantexId($idpasajero);
 
-                    //SI EL ESTUDIANTE TIENE UN ORDEN NO HACE NADA
+                    //SI EL ESTUDIANTE NO TIENE UN ORDEN 
                     if (!is_numeric($orden_estudiante['orden'])) {
 
                         if ($respuesta['orden'] != NULL && $respuesta['orden'] != 0 && $respuesta['orden'] != $orden && $respuesta['orden'] > $orden) {
@@ -283,24 +282,35 @@ class ControladorEscolar
 
                 $act = ModeloEscolar::mdlActualizarOrden($idpasajero, $orden);
 
-
-                
+                //Array para saber cuantas veces se ha actualizado el orden
+                // $actualizaciones = [];
                 
                 if ($act == "ok") {
+
                     
-                    //SUMAMOS UNO CADA VEZ QUE RECOJAN A ALGUIEN PARA SABER CUANDO INICIÓ 
-                    $estudiantes += 1;
                     
-                    if($estudiantes == 1)
+                    //Si solo se ha recogido un pasajero
+                    if(count($pasajerosRecorrido) <= 1)
                     {
                         //ENVIAMOS CORREO
                         $datos_estudiante = ModeloEscolar::mdlEstudiantexId($idpasajero);
                         $datos_institucion = ModeloEscolar::mdlInstitucionxIdruta($datos_estudiante['idruta']);
 
+
                         $correo_institucion = $datos_institucion['correo'];
                         $subject = "Inicio de recorrido de la ruta " . $datos_institucion['numruta'];
-                        $message = "Sector: " . $datos_institucion['sector'] . "<br>" . "Vehiculo: " . $datos_institucion['placa'] . "<br>"  . "Institución: " . $datos_institucion['nombre'];
-    
+                        $message = "<html>
+                        <body>
+                        <center>
+                            <ul>
+                            <li>Sector: {$datos_institucion['sector']}</li>
+                            <li>Vehículo: {$datos_institucion['placa']} </li>
+                            <li>Institución: {$datos_institucion['nombre']}</li>
+                            </ul>
+                        </center>
+                        </body>
+                        </html>";
+                        
                         ControladorCorreo::ctrEnviarCorreo($correo_institucion, $subject, $message);
 
                     }
