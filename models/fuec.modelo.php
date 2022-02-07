@@ -38,11 +38,10 @@ class ModeloFuec
         //                                         LEFT JOIN gh_sucursales s ON s.ids = v.idsucursal
         //                                         INNER JOIN l_usuarios u ON u.Cedula = f.usuario_creacion");
         $stmt = Conexion::conectar()->prepare("SELECT f.idfuec, f.tipocontrato, f.contratofijo, f.contratante, f.idvehiculo, f.idconductor1, f.idconductor2, f.idconductor3, f.fecha_inicial, f.fecha_vencimiento, f.idobjeto_contrato, f.anotObjetoContrato,
-                                                -- ori.municipio AS origen,
-                                                IF (f.idruta IS NULL, f.origen, ori.municipio) AS origen,
-                                                -- des.municipio AS destino,
-                                                IF (f.idruta IS NULL, f.destino, des.municipio) AS destino,
-                                                -- rt.nombreruta AS observaciones,
+                                                -- IF (f.idruta IS NULL, f.origen, ori.municipio) AS origen,
+                                                f.origen,
+                                                -- IF (f.idruta IS NULL, f.destino, des.municipio) AS destino,
+                                                f.destino,
                                                 -- IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
                                                 IF (f.observaciones = '', rt.nombreruta, f.observaciones) AS observaciones,
                                                 f.precio, f.listado_pasajeros, f.estado_pago, f.valor_neto, f.estado_fuec, f.ruta_contrato, f.usuario_creacion, f.fecha_creacion, f.nro_contrato, f.idruta,
@@ -116,11 +115,10 @@ class ModeloFuec
 
         if ($tipocontrato == "OCASIONAL") {
             $sql = "SELECT f.idfuec, f.tipocontrato, f.contratofijo, f.contratante, f.idvehiculo, f.idconductor1, f.idconductor2, f.idconductor3, f.fecha_inicial, f.fecha_vencimiento, f.idobjeto_contrato, f.anotObjetoContrato,
-                        -- ori.municipio AS origen,
-                        IF (f.idruta IS NULL, f.origen, ori.municipio) AS origen,
-                        -- des.municipio AS destino,
-                        IF (f.idruta IS NULL, f.destino, des.municipio) AS destino,
-                        -- rt.nombreruta AS observaciones,
+                        -- IF (f.idruta IS NULL, f.origen, ori.municipio) AS origen,
+                        f.origen,
+                        -- IF (f.idruta IS NULL, f.destino, des.municipio) AS destino,
+                        f.destino,
                         -- IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
                         IF (f.observaciones = '', rt.nombreruta, f.observaciones) AS observaciones,
                         f.precio, f.listado_pasajeros, f.estado_pago, f.valor_neto, f.estado_fuec, f.ruta_contrato, f.usuario_creacion, f.fecha_creacion, f.nro_contrato, f.idruta,
@@ -174,11 +172,10 @@ class ModeloFuec
                     GROUP BY idfuec";
         } else {
             $sql = "SELECT f.idfuec, f.tipocontrato, f.contratofijo, f.contratante, f.idvehiculo, f.idconductor1, f.idconductor2, f.idconductor3, f.fecha_inicial, f.fecha_vencimiento, f.idobjeto_contrato, f.anotObjetoContrato,
-                        -- ori.municipio AS origen,
-                        IF (f.idruta IS NULL, f.origen, ori.municipio) AS origen,
-                        -- des.municipio AS destino,
-                        IF (f.idruta IS NULL, f.destino, des.municipio) AS destino,
-                        -- rt.nombreruta AS observaciones,
+                        -- IF (f.idruta IS NULL, f.origen, ori.municipio) AS origen,
+                        f.origen,
+                        -- IF (f.idruta IS NULL, f.destino, des.municipio) AS destino,
+                        f.destino,
                         -- IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
                         IF (f.observaciones = '', rt.nombreruta, f.observaciones) AS observaciones,
                         f.precio, f.listado_pasajeros, f.estado_pago, f.valor_neto, f.estado_fuec, f.ruta_contrato, f.usuario_creacion, f.fecha_creacion, f.nro_contrato, f.idruta,
