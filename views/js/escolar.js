@@ -723,14 +723,7 @@ if (
                     confirmButtonText: "Si",
                 }).then((result) => {
                     if (result.value == true) {
-                        Swal.fire({
-                            icon: "success",
-                            title: "Pasajero listado correctamente",
-                            showConfirmButton: true,
-                            confirmButtonText: "Cerrar",
-                        }).then((result) => {
-                            if (result.value) {
-                                var datos = new FormData();
+                        var datos = new FormData();
 
                                 datos.append("GuardarSeguimientoRecoge", "ok");
                                 datos.append("idrecorrido", idrecorrido);
@@ -810,8 +803,6 @@ if (
                                         }
                                     },
                                 });
-                            }
-                        });
                     }
                 });
             } else {
@@ -857,14 +848,7 @@ if (
                     confirmButtonText: "Si",
                 }).then((result) => {
                     if (result.value == true) {
-                        Swal.fire({
-                            icon: "success",
-                            title: "Pasajero listado correctamente",
-                            showConfirmButton: true,
-                            confirmButtonText: "Cerrar",
-                        }).then((result) => {
-                            if (result.value) {
-                                var datos = new FormData();
+                        var datos = new FormData();
 
                                 datos.append("GuardarSeguimientoEntrega", "ok");
                                 datos.append("idrecorrido", idrecorrido);
@@ -911,8 +895,6 @@ if (
                                         }
                                     },
                                 });
-                            }
-                        });
                     }
                 });
             } else {
@@ -1210,52 +1192,79 @@ if (
         $(document).on("click", "#fin_recorrido", function(){
             let idrecorrido = $(this).attr("idrecorrido");
 
-            Swal.fire({
-                title: `Finalizar recorrido`,
-                text: "Seleccione que recorrido desea finalizar",
-                html: `
-                <hr>
-                <label for="">Recorrido</label>
-                <select class="form-control select2-single" id="recorrido">
-                        <option value="entrega" selected>Entrega</option>
-                        <option value="recoge" selected>Recoge</option>
+            if(idrecorrido != ""){
 
-                </select>`,
-                showCancelButton: true,
-                confirmButtonColor: "#5cb85c",
-                cancelButtonColor: "#d33",
-                confirmButtonText: "Continuar!",
-                cancelButtonText: "Cancelar",
-            }).then((result) => {
-                if (result.value) {
-                    var momento = $("#recorrido").val();
-                    var datos = new FormData();
-                    datos.append("finalizarRecorrido", "ok");
-                    datos.append("idrecorrido", idrecorrido);
-                    datos.append("momento", momento);
+                Swal.fire({
+                    title: `Finalizar recorrido`,
+                    text: "Seleccione que recorrido desea finalizar",
+                    html: `
+                    <hr>
+                    <label for="">Recorrido</label>
+                    <select class="form-control select2-single" id="recorrido">
+                            <option value="entrega" selected>Entrega</option>
+                            <option value="recoge" selected>Recoge</option>
+    
+                    </select>`,
+                    showCancelButton: true,
+                    confirmButtonColor: "#5cb85c",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Continuar!",
+                    cancelButtonText: "Cancelar",
+                }).then((result) => {
+                    if (result.value) {
+                        var momento = $("#recorrido").val();
+                        var datos = new FormData();
+                        datos.append("finalizarRecorrido", "ok");
+                        datos.append("idrecorrido", idrecorrido);
+                        datos.append("momento", momento);
+    
+                        $.ajax({
+                            type: "POST",
+                            url: "ajax/escolar.ajax.php",
+                            data: datos,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            //dataType: "json",
+                            success: function (response) {
+                                if (response == "ok") {
+                                    Swal.fire({
+                                        icon: "success",
+                                        showConfirmButton: true,
+                                        title: "¡El dato ha sido actualizado!",
+                                        confirmButtonText: "¡Cerrar!",
+                                        allowOutsideClick: false,
+                                    })
+                                }
+                            },
+                        });
+                    }
+                });
+            }else{
+                Swal.fire({
+                    icon: "warning",
+                    title: "Primero debe crear recorrido.",
+                    showConfirmButton: false,
+                    timer: 1500,
+                });
+            }
 
-                    $.ajax({
-                        type: "POST",
-                        url: "ajax/escolar.ajax.php",
-                        data: datos,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        //dataType: "json",
-                        success: function (response) {
-                            if (response == "ok") {
-                                Swal.fire({
-                                    icon: "success",
-                                    showConfirmButton: true,
-                                    title: "¡El dato ha sido actualizado!",
-                                    confirmButtonText: "¡Cerrar!",
-                                    allowOutsideClick: false,
-                                })
-                            }
-                        },
-                    });
-                }
-            });
+
+        });
+
+        /*============================================
+            CAMBIO EN EL AUXILIAR ENTREGA
+        ==============================================*/
+        $(document).on("change", "#nom_auxiliar", function(){
+            idpersonal = $(this).val();
+
+
+            if(idpersonal != "")
+            {
+                $("#observaciones_auxiliar").attr("required", false);
+            }else{
+                $("#observaciones_auxiliar").attr("required", true);
+            }
 
         });
 

@@ -642,7 +642,7 @@ $personal = ControladorGH::ctrListaPersonal();
                             <div class="col-12 col-sm-6 col-lg-6">
                                 <div class="form-group text-center">
                                     <label for="observaciones"><i>Observaciones</i></label>
-                                    <textarea class="form-control" name="observaciones_auxiliar" id="observaciones_auxiliar" rows="2"></textarea>
+                                    <textarea class="form-control" name="observaciones_auxiliar" id="observaciones_auxiliar" rows="2" required></textarea>
                                 </div>
                             </div>
 
