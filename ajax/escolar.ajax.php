@@ -557,8 +557,12 @@ class AjaxEscolar
 
         foreach ($respuesta as $key => $value) {
 
-            if($value['hora_recogida'] == null) $value['hora_recogida'] = "";
-            if($value['hora_entrega'] == null) $value['hora_entrega'] = "";
+            if($value['hora_recogida'] == null || $value['idrecorrido_recogida'] != $idrecorrido) {
+                $value['hora_recogida'] = "";
+            }
+            if($value['hora_entrega'] == null || $value['idrecorrido_entrega'] != $idrecorrido){
+                $value['hora_entrega'] = "";
+            } 
 
             $tr .= "
             
