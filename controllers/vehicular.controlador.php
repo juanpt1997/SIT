@@ -20,7 +20,7 @@ class ControladorPropietarios
 	//==============AGREGAR/EDITAR PROPIETARIO=========//
 	static public function ctrAgregarEditar($datos)
 	{
-		
+
 		if (isset($datos['documento'])) {
 
 			$propietarioExistente = ModeloPropietarios::mdlMostrar($datos['documento']);
@@ -162,7 +162,6 @@ class ControladorConvenios
 				if ($_POST['idxc'] == "") {
 
 					$id = ModeloConvenios::mdlAgregar($datos);
-					
 				} else {
 
 					$id = ModeloConvenios::mdlEditar($datos);
@@ -381,9 +380,9 @@ class ControladorConvenios
 					);
 
 					$guardarArchivo = ModeloVehiculos::mdlActualizarVehiculo($datos2);
-					echo $guardarArchivo;
+					// echo $guardarArchivo;
 				} else {
-					echo "error";
+					// echo "error";
 				}
 
 				echo "
@@ -880,24 +879,24 @@ class ControladorVehiculos
 		$fecha_limite = date_create($fecha_limite);
 
 		$fecha = date_format($fecha, "Y-m-d");
-		$fecha_limite = date_format($fecha_limite,"Y-m-d");
+		$fecha_limite = date_format($fecha_limite, "Y-m-d");
 
 		$fecha1 = new DateTime($fecha);
 		$fecha2 = new DateTime($fecha_limite);
 		// var_dump($fecha1,$fecha2);
 		$diff = $fecha1->diff($fecha2);
-		if ($fecha1 < $fecha2){
+		if ($fecha1 < $fecha2) {
 			$diferencia = ($diff->days) * (-1);
-		}else{
+		} else {
 			$diferencia = $diff->days;
 		}
 
 
-		if($diferencia >= 31 ){
+		if ($diferencia >= 31) {
 			$bg = 'success';
-		}else if($diferencia >= 0 && $diferencia <= 30){
+		} else if ($diferencia >= 0 && $diferencia <= 30) {
 			$bg = 'warning';
-		}else{
+		} else {
 			$bg = 'danger';
 		}
 
@@ -926,24 +925,24 @@ class ControladorVehiculos
 		$fecha_limite = date_create($fecha_limite);
 
 		$fecha = date_format($fecha, "Y-m-d");
-		$fecha_limite = date_format($fecha_limite,"Y-m-d");
+		$fecha_limite = date_format($fecha_limite, "Y-m-d");
 
 		$fecha1 = new DateTime($fecha);
 		$fecha2 = new DateTime($fecha_limite);
 		// var_dump($fecha1,$fecha2);
 		$diff = $fecha1->diff($fecha2);
-		if ($fecha1 < $fecha2){
+		if ($fecha1 < $fecha2) {
 			$diferencia = ($diff->days) * (-1);
-		}else{
+		} else {
 			$diferencia = $diff->days;
 		}
 
 
-		if($diferencia >= 31 ){
+		if ($diferencia >= 31) {
 			$bg = 'success';
-		}else if($diferencia >= 15 && $diferencia <= 30){
+		} else if ($diferencia >= 15 && $diferencia <= 30) {
 			$bg = 'warning';
-		}else{
+		} else {
 			$bg = 'danger';
 		}
 

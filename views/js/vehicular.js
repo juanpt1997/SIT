@@ -341,9 +341,10 @@ if (
 
     $(document).on("click", ".btn-agregarConvenio", function () {
         $("#titulo-modal-convenios").html("Nuevo Convenio");
+        $("#idConvenio").val("");
         $("#datosconvenio_form").trigger("reset");
-        $(".select2-single").val(" ").trigger("change");
-        $(".select2-multiple").val(" ").trigger("change");
+        $(".select2-single").val("").trigger("change");
+        $(".select2-multiple").val("").trigger("change");
         $(".btn-copy-convenio").addClass("d-none");
     });
 
