@@ -212,7 +212,7 @@ $personal = ControladorGH::ctrListaPersonal();
 <!-- /.content-wrapper -->
 
 <!-- MODAL NUEVA RUTA ESCOLAR -->
-<div id="modalRuta" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+<div id="modalRuta" style="overflow-y: scroll;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-info">
@@ -223,6 +223,9 @@ $personal = ControladorGH::ctrListaPersonal();
             </div>
             <form id="ruta_form" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
+                    <div class="justify-content-start">
+                        <button class="btn btn-warning m-2 btn-institucion" type="button" data-toggle="modal" data-target="#modalInstitucion">Crear Institución <i class="fas fa-chalkboard"></i></button>
+                    </div>
                     <div class="row">
 
                         <input type="hidden" id="idruta" name="idruta" value="">
@@ -914,6 +917,64 @@ $personal = ControladorGH::ctrListaPersonal();
 
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<!-- NUEVA INSTITUCION -->
+<div id="modalInstitucion"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <h5 class="modal-title" id="my-modal-title">Nueva institución <i class="fas fa-chalkboard"></i></h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+               
+                        <form class="" id="institucion_form" method="post" enctype="multipart/form-data">
+
+                            <div class="row mt-2 mb-2 border border-info rounded">
+                                <!-- ===================================================
+                                NOMBRE
+                            =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1">Nombre de la institución</label>
+                                        <input type="text" class="form-control" id="nombre_institucion" name="nombre_institucion">
+                                    </div>
+                                </div>
+
+                                <!-- ===================================================
+                           CORREO
+                            =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group text-center">
+                                        <label for="exampleInput1">Correo</label>
+                                        <input type="email" class="form-control" id="email_institucion" name="email_institucion">
+
+                                    </div>
+                                </div>
+
+
+
+                                <!-- ===================================================
+                                                        BOTON GUARDAR FORMULARIO
+                                                    =================================================== -->
+                                <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
+                                    <div class="col-12 col-md-4 col-lg-1 text-right text-md-left align-self-center m-1">
+                                        <button type="submit" form="institucion_form" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
+                                        <div class="overlay d-none" id="">
+                                            <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                        </div>
+                                    </div>
+                                <?php endif ?>
+                            </div>
+                        </form>
+                    
+            </div>
+
         </div>
     </div>
 </div>

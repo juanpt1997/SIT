@@ -651,6 +651,17 @@ class AjaxEscolar
         $respuesta = ControladorEscolar::ctrFinalizarRecorrido($datos);
         echo $respuesta;
     }
+
+
+    /* ===================================================
+        GUARDAR INSTITUCIÓN 
+    ===================================================*/
+    static public function ajaxGuardarInstitucion($datos)
+    {
+        $respuesta = ControladorEscolar::ctrGuardarInstitucion($datos);
+        echo $respuesta;
+    }
+
 }
 
 
@@ -769,4 +780,10 @@ if (isset($_POST['darOrden']) && $_POST['darOrden'] == "ok") {
 #LLAMADO A FINALIZAR RECORRIDO
 if (isset($_POST['finalizarRecorrido']) && $_POST['finalizarRecorrido'] == "ok") {
     AjaxEscolar::ajaxFinalizarRecorrido($_POST);
+}
+
+#LLAMADO A GUARDAR INSTITUCIÓN 
+if(isset($_POST['GuardarInstitucion']) && $_POST['GuardarInstitucion'] == "ok")
+{
+    AjaxEscolar::ajaxGuardarInstitucion($_POST);
 }

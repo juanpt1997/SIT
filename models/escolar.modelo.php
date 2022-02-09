@@ -790,4 +790,47 @@ class ModeloEscolar
 
         return $retorno;
     }
+
+    /* ===================================================
+        PASAJEROS POR RECORRIDO RECOGE
+    ===================================================*/
+    static public function mdlPasajerosxRecorridoRecoge($idrecorrido)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT s.*, p.* FROM e_re_seguimiento_pasajeros s
+        INNER JOIN e_pasajeros p ON s.idpasajero = p.idpasajero 
+        WHERE  s.idrecorrido_recogida = :idrecorrido_recogida");
+
+        $stmt->bindParam(":idrecorrido_recogida", $idrecorrido, PDO::PARAM_INT);        
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        GUARDAR INSTITUCION 
+    ===================================================*/
+    static public function mdlGuardarInstitucion($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO e_instituciones (nombre, correo) VALUES (:nombre, :correo)");
+
+        $stmt->bindParam(":nombre", $datos['nombre_institucion'], PDO::PARAM_STR);
+        $stmt->bindParam(":correo", $datos['email_institucion'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+
 }

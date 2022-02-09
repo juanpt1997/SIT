@@ -443,11 +443,13 @@ class ControladorEscolar
                 $datos_institucion = ModeloEscolar::mdlInstitucionxIdruta($datos_recorrido['idruta']);
                 $pasajeros = ModeloEscolar::mdlPasajerosxRecorridoEntrega($datos['idrecorrido']);
                 
-                $lista_estudiantes = "";
+                $lista_estudiantes = "<ul>";
 
                 foreach ($pasajeros as $key => $value) {
-                    $lista_estudiantes .=  "<br>" . $value['nombre'] .  " - "  . $value['codigo'];
+                    $lista_estudiantes .=  "<br><li>" . $value['nombre'] .  " - "  . $value['codigo'] . "</li>";
                 }
+
+                $lista_estudiantes .= "</ul>";
 
 
                 $correo_institucion = $datos_institucion['correo'];
@@ -498,6 +500,7 @@ class ControladorEscolar
                 //         </html>";
 
 
+               
                 
                 ControladorCorreo::ctrEnviarCorreo($correo_institucion, $subject, $message);
             }
@@ -510,13 +513,15 @@ class ControladorEscolar
                 $datos_recorrido = ModeloEscolar::mdlDatosRecorrido($datos['idrecorrido']);
                 $datos_institucion = ModeloEscolar::mdlInstitucionxIdruta($datos_recorrido['idruta']);
 
-                $pasajeros = ModeloEscolar::mdlPasajerosxRecorridoEntrega($datos['idrecorrido']);
+                $pasajeros = ModeloEscolar::mdlPasajerosxRecorridoRecoge($datos['idrecorrido']);
                 
-                $lista_estudiantes = "";
+                $lista_estudiantes = "<ul>";
 
                 foreach ($pasajeros as $key => $value) {
-                    $lista_estudiantes .=  "<br>" . $value['nombre'] .  " - "  . $value['codigo'];
+                    $lista_estudiantes .=  "<br><li>" . $value['nombre'] .  " - "  . $value['codigo'] . "</li>";
                 }
+                $lista_estudiantes .= "</ul>";
+
 
                 $correo_institucion = $datos_institucion['correo'];
                 $subject = "Fin de recorrido de la ruta " . $datos_institucion['numruta'] . " (RECOGIDA)";
@@ -543,7 +548,7 @@ class ControladorEscolar
                   </tbody>
                 </table>
                 <br>
-                <b><u>Estudiantes que fueron entregados:</u></b> $lista_estudiantes
+                <b><u>Estudiantes que fueron recogidos:</u></b> $lista_estudiantes
                 <br>
                 <i> Email generado automáticamente, por favor no responder este correo.</i>
                 ";
@@ -565,6 +570,7 @@ class ControladorEscolar
 
                 //         </body>
                 //         </html>";
+
                 ControladorCorreo::ctrEnviarCorreo($correo_institucion, $subject, $message);
             }
 
@@ -572,5 +578,14 @@ class ControladorEscolar
 
             return $respuesta;
         }
+    }
+
+    /* ===================================================
+        GUARDAR INSTITUCION 
+    ===================================================*/
+    static public function ctrGuardarInstitucion($datos)
+    {
+        $respuesta = ModeloEscolar::mdlGuardarInstitucion($datos);
+        return $respuesta;
     }
 }
