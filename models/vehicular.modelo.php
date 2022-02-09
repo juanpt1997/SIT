@@ -409,7 +409,7 @@ class ModeloConvenios
     static public function mdlEditarConvenio($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("UPDATE v_convenios SET idcontratante = :idcontratante, idcontratista = :idcontratista, contrato = :contrato, idsucursal = :idsucursal, idvehiculo =:idvehiculo, 
+        $stmt = $conexion->prepare("UPDATE v_convenios SET idcontratante = :idcontratante, idcontratista = :idcontratista, contrato = :contrato, idsucursal = :idsucursal,
                                                                     estado = :estado, num_radicado = :num_radicado, observacion = :observacion, fecha_inicio = :fecha_inicio, 
                                                                     fecha_terminacion = :fecha_terminacion, fecha_radicado = :fecha_radicado WHERE idConvenio = :idConvenio");
 
@@ -418,7 +418,7 @@ class ModeloConvenios
         $stmt->bindParam(":idcontratista", $datos['idcontratista'], PDO::PARAM_INT);
         $stmt->bindParam(":contrato", $datos['contrato'], PDO::PARAM_STR);
         $stmt->bindParam(":idsucursal", $datos['idsucursal'], PDO::PARAM_INT);
-        $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
+        //$stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
         $stmt->bindParam(":estado", $datos['estado'], PDO::PARAM_STR);
         $stmt->bindParam(":num_radicado", $datos['num_radicado'], PDO::PARAM_INT);
         $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);

@@ -73,7 +73,7 @@ $ConveniosVencer = ControladorConvenios::ctrVencimientosConvenios();
                     <div class="row mt-2">
                         <div class="col-12">
                             <div class="card card-outline card-info">
-                                
+
                                 <div class="card-body">
 
                                     <div class="table-responsive">
@@ -116,13 +116,11 @@ $ConveniosVencer = ControladorConvenios::ctrVencimientosConvenios();
                                                             <div class="row d-flex flex-nowrap justify-content-center">
                                                                 <div class="col-md-6">
                                                                     <div class="btn-group" role="group" aria-label="Button group">
-                                                                        <button class="btn btn-sm btn-info btnEditarEmpresa" title="Editar empresa." idxc="<?= $value['idxc'] ?>" nit="<?= $value['nit'] ?>" data-toggle="modal" data-target="#EmpresasModal"><i class="fas fa-edit"></i></button>
+                                                                        <button class="btn btn-toolbar btn-sm btn-info btnEditarEmpresa" title="Editar empresa." idxc="<?= $value['idxc'] ?>" nit="<?= $value['nit'] ?>" data-toggle="modal" data-target="#EmpresasModal"><i class="fas fa-edit"></i></button>
+                                                                        <?php if (validarPermiso('M_VEHICULAR', 'D')) : ?>
+                                                                            <button class="btn btn-toolbar btn-sm btn-danger btnBorrarEmpresa ml-1" title="Eliminar empresa." idxc="<?= $value['idxc'] ?>" nit="<?= $value['nit'] ?>"> <i class="fas fa-trash"></i> </button>
+                                                                        <?php endif ?>
                                                                     </div>
-                                                                    <?php if (validarPermiso('M_VEHICULAR', 'D')) : ?>
-                                                                        <div class="btn-group" role="group" aria-label="Button group">
-                                                                            <button class="btn btn-sm btn-danger btnBorrarEmpresa" title="Eliminar empresa." idxc="<?= $value['idxc'] ?>" nit="<?= $value['nit'] ?>"> <i class="fas fa-trash"></i> </button>
-                                                                        </div>
-                                                                    <?php endif ?>
                                                                 </div>
                                                             </div>
                                                         </td>
@@ -153,7 +151,7 @@ $ConveniosVencer = ControladorConvenios::ctrVencimientosConvenios();
                     <div class="row mt-2">
                         <div class="col-12">
                             <div class="card card-outline card-info">
-                                
+
                                 <div class="card-body">
 
                                     <div class="table-responsive">
@@ -257,7 +255,7 @@ $ConveniosVencer = ControladorConvenios::ctrVencimientosConvenios();
                     <div class="row mt-2">
                         <div class="col-12">
                             <div class="card card-outline card-info">
-                               
+
                                 <div class="card-body">
 
                                     <div class="table-responsive">
@@ -294,10 +292,10 @@ $ConveniosVencer = ControladorConvenios::ctrVencimientosConvenios();
 
                                                         $btnDoc = "<span class='badge badge-secondary'>sin documento</span>";
                                                     }
-                                        
+
                                                     $badgecolor = ControladorVehiculos::Semaforo_tipo2($value['fecha_terminacion'], date("Y-m-d"));
-            
-                                                    
+
+
                                                     ?>
                                                     <tr>
                                                         <td>
@@ -446,7 +444,7 @@ $ConveniosVencer = ControladorConvenios::ctrVencimientosConvenios();
                     </div>
 
                     <div class="form-group">
-                        <label>Subir documento escaneado (1 Foto a la vez)</label>
+                        <label>Subir documento escaneado (1 archivo a la vez)</label>
                         <div class="input-group">
                             <div class="input-group-append">
                                 <span class="input-group-text">
@@ -506,7 +504,7 @@ $ConveniosVencer = ControladorConvenios::ctrVencimientosConvenios();
                             <div class="form-group">
                                 <label class="text-sm">Empresa contratante</label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control select2-single" id="empresacontratante" type="text" style="width: 99%" data-placeholder="-Lista de empresas-" name="idcontratante">
+                                    <select class="form-control select2-single" id="empresacontratante" type="text" style="width: 99%" data-placeholder="-Lista de empresas-" name="idcontratante" required>
                                         <?php foreach ($Empresas as $key => $value) : ?>
                                             <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
                                         <?php endforeach ?>
@@ -522,7 +520,7 @@ $ConveniosVencer = ControladorConvenios::ctrVencimientosConvenios();
                             <div class="form-group">
                                 <label class="text-sm">Empresa contratista</label>
                                 <div class="input-group input-group-sm">
-                                    <select class="form-control select2-single" id="empresacontratista" data-placeholder="-Lista de empresas-" style="width: 99%" name="idcontratista">
+                                    <select class="form-control select2-single" id="empresacontratista" data-placeholder="-Lista de empresas-" style="width: 99%" name="idcontratista" required>
                                         <?php foreach ($Empresas as $key => $value) : ?>
                                             <option value="<?= $value['idxc'] ?>"><?= $value['nombre'] ?></option>
                                         <?php endforeach ?>
@@ -559,7 +557,7 @@ $ConveniosVencer = ControladorConvenios::ctrVencimientosConvenios();
                     </div>
 
                     <div class="form-group">
-                        <label>Subir documento escaneado (1 Foto a la vez)</label>
+                        <label>Subir documento escaneado (1 archivo a la vez)</label>
                         <div class="input-group">
                             <div class="input-group-append">
                                 <span class="input-group-text">

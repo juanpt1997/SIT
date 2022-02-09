@@ -295,16 +295,21 @@ class PdfConductor
         // TABLA CON LOS DOCUMENTOS CEDULA Y LICENCIA DE CONDUCCIÓN
         $documento_escaneado = $info['documento_escaneado'] == "" || $info['documento_escaneado'] == null ? "" : '../' . $info['documento_escaneado'];
         $licencia_conduccion = $info['ruta_documento'] == "" || $info['ruta_documento'] == null ? "" : '../' . $info['ruta_documento'];
-        $imagen = getimagesize($licencia_conduccion);
-        $imagen2 = getimagesize($documento_escaneado);
-        $ancho = $imagen[0];
-        $altura = $imagen[1];
-        $ancho2 = $imagen2[0];
-        $altura2 = $imagen2[1];
+        if ($licencia_conduccion != "" && file_exists($licencia_conduccion)){
+            $imagen = getimagesize($licencia_conduccion);
+            $ancho = $imagen[0];
+            $altura = $imagen[1];
+        }else{
+            $ancho = 0;
+            $altura = 0;
+        }
+        //$imagen2 = getimagesize($documento_escaneado);
+        // $ancho2 = $imagen2[0];
+        // $altura2 = $imagen2[1];
 
         //var_dump($altura);
 
-        if ($altura < 500) {
+        if ($altura <= $ancho) {
 
             $tabla = '
         <table cellspacing="2" cellpadding="3">
