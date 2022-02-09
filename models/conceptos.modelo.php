@@ -357,11 +357,20 @@ class ModeloRutas
     static public function mdlListarRutas()
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("SELECT id, nombreruta, idorigen, iddestino, o.municipio AS orig, d.municipio AS dest, CONCAT(o.municipio, '-', d.municipio, ' (', nombreruta,')') AS origendestino
-                                    FROM v_rutas
-                                    LEFT JOIN gh_municipios AS o ON o.idmunicipio=v_rutas.idorigen
-                                    LEFT JOIN gh_municipios AS d ON d.idmunicipio=v_rutas.iddestino
-                                    WHERE v_rutas.estado = 1
+        // $stmt = $conexion->prepare("SELECT id, nombreruta, idorigen, iddestino, o.municipio AS orig, d.municipio AS dest, CONCAT(o.municipio, '-', d.municipio, ' (', nombreruta,')') AS origendestino
+        //                             FROM v_rutas
+        //                             LEFT JOIN gh_municipios AS o ON o.idmunicipio=v_rutas.idorigen
+        //                             LEFT JOIN gh_municipios AS d ON d.idmunicipio=v_rutas.iddestino
+        //                             WHERE v_rutas.estado = 1
+        //                             ORDER BY orig, dest");
+        $stmt = $conexion->prepare("SELECT id, nombreruta, idorigen, iddestino, CONCAT(o.municipio, ', ', dep1.nombre) AS orig, CONCAT(d.municipio, ', ', dep2.nombre) AS dest, CONCAT(o.municipio, '-', d.municipio, ' (', nombreruta,')') AS origendestino
+                                    FROM v_rutas r
+                                    LEFT JOIN gh_municipios AS o ON o.idmunicipio=r.idorigen
+                                    LEFT JOIN gh_municipios AS d ON d.idmunicipio=r.iddestino
+                                    LEFT JOIN gh_departamentos dep1 ON dep1.iddepartamento = o.iddepartamento
+                                    LEFT JOIN gh_departamentos dep2 ON dep2.iddepartamento = d.iddepartamento
+                                    WHERE r.estado = 1
+                                    GROUP BY r.id
                                     ORDER BY orig, dest");
 
         $stmt->execute();

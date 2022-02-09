@@ -167,7 +167,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                                     <i class="fas fa-image"></i>
                                                 </span>
                                             </div>
-                                            <input type="file" class="form-control" name="nuevaFoto" id="nuevaFoto">
+                                            <input type="file" class="form-control" name="nuevaFoto" id="nuevaFoto" accept="image/png, image/jpeg">
                                         </div>
                                         <p>Peso máximo de la foto 2 MB</p>
                                     </div>

@@ -155,7 +155,6 @@ class ControladorAlistamiento
            INSERT/UPDATE
         ===================================================*/
         # INSERT
-        var_dump($datos);
         if ($datos['id'] == "") {
             if (is_array($alistamiento)) {
                 # mensaje al usuario

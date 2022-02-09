@@ -185,7 +185,8 @@ class PdfFuec
         $pdf->Image($image_vigilado, 10, 20, 65, 12,  'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         $pdf->Image($image_iso, 85, 20, 28, 12,  'JPEG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         $pdf->Image($image_elsaman, 118, 10, 45, 34,  'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
-        $pdf->Image($image_qr, 165, 15, 20, 20,  'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+        //$pdf->Image($image_qr, 165, 15, 20, 20,  'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+        $pdf->Image($image_mintransporte, 165, 15, 30, 20,  'jpeg', '', 'T', false, 300, '', false, false, 0, false, false, false);
 
         /* ===================================================
            CONSECUTIVO FUEC
@@ -265,8 +266,7 @@ class PdfFuec
         $pdf->Ln();
 
         # OBJETO CONTRATO
-        // ***** Mientras revisamos que dice bien la norma ******
-        if (true/* $info['anotObjetoContrato'] == null || $info['anotObjetoContrato'] == "" */){
+        if ($info['anotObjetoContrato'] == null || $info['anotObjetoContrato'] == ""){
             $objetoContrato = $info['objetocontrato'];
         }
         else{
@@ -279,10 +279,27 @@ class PdfFuec
         $pdf->Ln();
 
         # ORIGEN - DESTINO
+        $CantidadCaracteres = strlen($info['origen'] . ' - ' . $info['destino']);
+        if ($CantidadCaracteres > 2400){
+            $fontsize = 5;
+        }else{
+            if($CantidadCaracteres > 1750){
+                $fontsize = 6;
+            }
+            else{
+                if($CantidadCaracteres > 950){
+                    $fontsize = 7;
+                }
+                else{
+                    $fontsize = 8;
+                }
+            }
+        }
+        $Justificado = $CantidadCaracteres < 100 ? "L" : "J";
         $pdf->SetFont('helvetica', 'B', '8');
         $pdf->MultiCell(30, 5, "ORIGEN - DESTINO:", 0, 'L', 0, 0, '', '', true);
-        $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(160, 5, $info['origen'] . ' - ' . $info['destino'], 0, 'L', 0, 0, '', '', true);
+        $pdf->SetFont('helvetica', '', $fontsize);
+        $pdf->MultiCell(150, 5, $info['origen'] . ' - ' . $info['destino'], 0, $Justificado, 0, 0, '', '', true);
         $pdf->Ln();
 
         # OBSERVACIONES DEL CONTRATO
@@ -384,73 +401,80 @@ class PdfFuec
                         <td colspan="2" border="1" style="font-size:9px"><span style="font-weight:bold;">DIRECCIÓN</span><br>' . $info['direccion'] . '</td>
                     </tr>
                     <tr>
-                        <td rowspan="2" colspan="3" style="font-weight:bold; border-bottom: 1px solid #000000; border-left: 1px solid  #000000;"><br><br>PBX: 872 21 80 - 313 6305866<br>AV CENTENARIO 24   47   LC 102 Manizales - Caldas<br>comercial@elsaman.com.co<br>www.elsaman.com.co</td>
-                        <td rowspan="2" style="border-bottom: 1px solid #000000; border-right: 1px solid  #000000"><br><br><img src="' . $image_mintransporte . '"  width="81" height="55"></td>
+                        <td rowspan="2" colspan="3" style="font-weight:bold; border-bottom: 1px solid #000000; border-left: 1px solid  #000000;">
+                            <br>
+                            ' . $empresa['telefono'] . '<br>
+                            ' . $empresa['direccion'] . '<br>
+                            ' . $empresa['correo'] . '<br>
+                            ' . $empresa['sitio_web'] . '
+                        </td>
+                        <td rowspan="2" style="border-bottom: 1px solid #000000; border-right: 1px solid  #000000;"><img src="' . $image_qr . '"  width="70" height="70"><span style="font-size:7px; text-align: center;">cod: ' . $info['idfuec'] . '</span></td>
                         <td colspan="3" style="text-align: center; border-right: 1px solid #000000;"><img src="' . $image_firma . '"  width="112" height="60"></td>
                     </tr>
                     <tr>
-                        <td colspan="3" style="text-align: center; font-weight:bold; border-right: 1px solid #000000; border-bottom: 1px solid #000000;">Representante legal<br>Firma digital amparada por ley 527 de 1999 y<br>Decreto 2364 de 2012</td>
+                        <td colspan="3" style="text-align: center; font-weight:bold; border-right: 1px solid #000000; border-bottom: 1px solid #000000;">FIRMA GERENTE EMPRESA</td>
                     </tr>
                     
                 </tbody>
             </table>
         ';
+        // <br>Firma digital amparada por ley 527 de 1999 y<br>Decreto 2364 de 2012
         $pdf->SetFont('helvetica', '', '8');
         $pdf->writeHTML($tabla);
 
         /* ===================================================
            INSTRUCTIVO PARA CONSECUTIVO DEL FUEC
         ===================================================*/
-        $pdf->SetMargins(25, 25, 25, true);
-        $pdf->AddPage();
-        $pdf->SetFont('helvetica', 'B', '8');
-        $pdf->MultiCell(130, 5, 'INSTRUCTIVO PARA DETERMINACIÓN DEL NÚMERO CONSECUTIVO DEL FUEC', 0, 'C', 0, 1, $x, '', true);
-        $pdf->Ln();
+        // $pdf->SetMargins(25, 25, 25, true);
+        // $pdf->AddPage();
+        // $pdf->SetFont('helvetica', 'B', '8');
+        // $pdf->MultiCell(130, 5, 'INSTRUCTIVO PARA DETERMINACIÓN DEL NÚMERO CONSECUTIVO DEL FUEC', 0, 'C', 0, 1, $x, '', true);
+        // $pdf->Ln();
 
+        // // $pdf->SetFont('helvetica', '', '8');
+        // // $pdf->Cell(20, 0.5, 'El Formato Único de Extracto del Contrato "FUEC" estará constituido por los siguientes números: ', 0, 1, 'L');
+
+        // $pdf->SetFont('helvetica', '', '7');
+        // $htmlInstructivo = 'El Formato Único de Extracto del Contrato "FUEC" estará constituido por los siguientes números:
+        //                     <ol type="a">
+        //                         <li> Los tres primeros dígitos de izquierda a derecha corresponderán al código de la Dirección Territorial que otorgó la habilitación o de aquella a la cual se hubiera trasladado la empresa de Servicio Público de Transporte Terrestre Automotor Especial;
+        //                             <br>
+        //                             <img src="' . $image_codigos . '" alt="test alt attribute" width="463" height="140">
+        //                         </li>
+        //                         <br>
+        //                         <li> Los cuatro números siguientes señalarán el número de la resolución mediante la cual se otorgó la habilitación de la empresa. En caso que la resolución no tenga estos dígitos, los faltantes serán completados con ceros a la izquierda;</li>
+        //                         <br>
+        //                         <li> Los dos siguientes dígitos, corresponderán a los dos últimos del año en que la empresa fue habilitada;</li>
+        //                         <br>
+        //                         <li> A continuación, cuatro dígitos que corresponderán al año en el que se expide el extracto del contrato; </li>
+        //                         <br>
+        //                         <li> Posteriormente, cuatro dígitos que identifican el número del contrato. La numeración de los contratos debe ser consecutiva, establecida por cada empresa  y continuará con la numeración dada a los contratos de prestación del servicio celebrados para el transporte de estudiantes, empleados, turistas, usuarios del servicio de salud y grupos específicos de usuarios, en vigencia de la resolución 3068 de 2014.</li>
+        //                         <br>
+        //                         <li> Finalmente, los cuatro últimos dígitos corresponderán al número consecutivo del extracto de contrato que se expida para la ejecución de cada contrato. Se debe expedir un nuevo extracto por vencimiento del plazo inicial del mismo o por cambio del vehículo.</li>
+        //                     </ol>
+        //                     <br>';
+        // $pdf->writeHTML($htmlInstructivo);
+        // # EJEMPLO
+        // $pdf->SetFont('helvetica', 'B', '8');
+        // $pdf->Cell(20, 0.5, 'EJEMPLO:', 0, 1, 'L');
+        // $pdf->Ln();
         // $pdf->SetFont('helvetica', '', '8');
-        // $pdf->Cell(20, 0.5, 'El Formato Único de Extracto del Contrato "FUEC" estará constituido por los siguientes números: ', 0, 1, 'L');
+        // $pdf->MultiCell(160, 5, 'Empresa habilitada por la Dirección Territorial Cundinamarca en el año 2012, con resolución de habilitación número 0155, que expide el primer extracto del contrato en el año 2015, del contrato número 255. El número del Formato Único de Extracto del Contrato "FUEC" será 425015512201502550001.', 0, 'L', 0, 0, '', '', true);
+        // $pdf->Ln(20);
 
-        $pdf->SetFont('helvetica', '', '7');
-        $htmlInstructivo = 'El Formato Único de Extracto del Contrato "FUEC" estará constituido por los siguientes números:
-                            <ol type="a">
-                                <li> Los tres primeros dígitos de izquierda a derecha corresponderán al código de la Dirección Territorial que otorgó la habilitación o de aquella a la cual se hubiera trasladado la empresa de Servicio Público de Transporte Terrestre Automotor Especial;
-                                    <br>
-                                    <img src="' . $image_codigos . '" alt="test alt attribute" width="463" height="140">
-                                </li>
-                                <br>
-                                <li> Los cuatro números siguientes señalarán el número de la resolución mediante la cual se otorgó la habilitación de la empresa. En caso que la resolución no tenga estos dígitos, los faltantes serán completados con ceros a la izquierda;</li>
-                                <br>
-                                <li> Los dos siguientes dígitos, corresponderán a los dos últimos del año en que la empresa fue habilitada;</li>
-                                <br>
-                                <li> A continuación, cuatro dígitos que corresponderán al año en el que se expide el extracto del contrato; </li>
-                                <br>
-                                <li> Posteriormente, cuatro dígitos que identifican el número del contrato. La numeración de los contratos debe ser consecutiva, establecida por cada empresa  y continuará con la numeración dada a los contratos de prestación del servicio celebrados para el transporte de estudiantes, empleados, turistas, usuarios del servicio de salud y grupos específicos de usuarios, en vigencia de la resolución 3068 de 2014.</li>
-                                <br>
-                                <li> Finalmente, los cuatro últimos dígitos corresponderán al número consecutivo del extracto de contrato que se expida para la ejecución de cada contrato. Se debe expedir un nuevo extracto por vencimiento del plazo inicial del mismo o por cambio del vehículo.</li>
-                            </ol>
-                            <br>';
-        $pdf->writeHTML($htmlInstructivo);
-        # EJEMPLO
-        $pdf->SetFont('helvetica', 'B', '8');
-        $pdf->Cell(20, 0.5, 'EJEMPLO:', 0, 1, 'L');
-        $pdf->Ln();
-        $pdf->SetFont('helvetica', '', '8');
-        $pdf->MultiCell(160, 5, 'Empresa habilitada por la Dirección Territorial Cundinamarca en el año 2012, con resolución de habilitación número 0155, que expide el primer extracto del contrato en el año 2015, del contrato número 255. El número del Formato Único de Extracto del Contrato "FUEC" será 425015512201502550001.', 0, 'L', 0, 0, '', '', true);
-        $pdf->Ln(20);
+        // # NOTA
+        // $pdf->MultiCell(160, 10, 'NOTA: El vehículo se encuentra en perfecto estado mecánico y de aseo.', $complex_cell_border_top, 'L', 0, 0, '', '', true);
+        // $pdf->Ln();
 
-        # NOTA
-        $pdf->MultiCell(160, 10, 'NOTA: El vehículo se encuentra en perfecto estado mecánico y de aseo.', $complex_cell_border_top, 'L', 0, 0, '', '', true);
-        $pdf->Ln();
-
-        $pdf->Image($image_ponal, '', '', 26, 20,  'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
-        $x = $pdf->GetX() + 5;
-        $pdf->MultiCell(129, 5, 'Para su autenticidad de esta planilla consultar la página web ' . $empresa['sitio_web'] . 'busqueda-fuec o escanear el código QR de la parte superior de este documento e ingresando el siguiente código: ' . $info['idfuec'], 0, 'L', 0, 0, $x, '', true);
-        $pdf->Ln();
+        // $pdf->Image($image_ponal, '', '', 26, 20,  'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+        // $x = $pdf->GetX() + 5;
+        // $pdf->MultiCell(129, 5, 'Para su autenticidad de esta planilla consultar la página web ' . $empresa['sitio_web'] . 'busqueda-fuec o escanear el código QR de la parte superior de este documento e ingresando el siguiente código: ' . $info['idfuec'], 0, 'L', 0, 0, $x, '', true);
+        // $pdf->Ln();
 
 
-        $y = $pdf->GetY() + 20;
-        $pdf->MultiCell(160, 5, 'En desarrollo de lo dispuesto al Artículo 17 de la Ley 679 del 2001, Empresa de trans Especiales El Saman s.a.s advierte al viajero que la explotación y abuso sexual de niños, niñas y adolecentes en el país son sancionados penalmente conforme a las leyes vigentes.', 0, 'L', 0, 0, '', $y, true);
-        //$pdf->SetXY(120, 85);
+        // $y = $pdf->GetY() + 20;
+        // $pdf->MultiCell(160, 5, 'En desarrollo de lo dispuesto al Artículo 17 de la Ley 679 del 2001, Empresa de trans Especiales El Saman s.a.s advierte al viajero que la explotación y abuso sexual de niños, niñas y adolecentes en el país son sancionados penalmente conforme a las leyes vigentes.', 0, 'L', 0, 0, '', $y, true);
+        // //$pdf->SetXY(120, 85);
 
 
 
