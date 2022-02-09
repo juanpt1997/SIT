@@ -6,6 +6,70 @@
 $Placas = ControladorVehiculos::ctrListaVehiculos();
 $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 ?>
+
+<style>
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 34px;
+    }
+
+    /* Hide default HTML checkbox */
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    /* The slider */
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+    input:checked+.slider {
+        background-color: #2196F3;
+    }
+
+    input:focus+.slider {
+        box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked+.slider:before {
+        -webkit-transform: translateX(26px);
+        -ms-transform: translateX(26px);
+        transform: translateX(26px);
+    }
+
+    /* Rounded sliders */
+    .slider.round {
+        border-radius: 34px;
+    }
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+</style>
 <!-- ===================== 
   MODELO PARA LA IMPLEMENTARCION EN EL DISEÑO DE LOS MODULOS
   ESTRUCTURA 
@@ -209,7 +273,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             </div>
                         </div>
 
-                        <div class="col-3">
+                        <div class="col-md-12 col-lg-3 col-xl-3 col-sm-12 ">
                             <div class="form-group">
                                 <label for="vida_util">Vida(Km/h)</label>
                                 <div class="input-group">
@@ -218,13 +282,18 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             </div>
                         </div>
 
-                        <div class="col-3" id="col_cantidad">
+                        <div class="col-md-12 col-lg-3 col-xl-3 col-sm-12 col-xs-12" id="col_cantidad">
                             <div class="form-group">
                                 <label for="cantidad">Cantidad de llantas a vincular</label>
                                 <div class="input-group">
                                     <input class="form-control" type="number" id="cantidad" max="999999" name="cantidad" required>
                                 </div>
                             </div>
+                            <label><span class="badge badge-light">Agregar llanta de repuesto</span></label>
+                            <label class="switch">
+                                <input type="checkbox" id="agregar_llanta_repuesto">
+                                <span class="slider round"></span>
+                            </label>
                         </div>
 
                         <div class="col-3 d-none" id="col_num_llanta">
@@ -239,7 +308,26 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                     </div>
 
-                    <hr class="my-4 bg-dark d-none" id="hr-llantas">
+                    <hr class="my-4 bg-dark">
+                    <div class="text-center">
+                        <h5><b>Ubicación inicial de las llantas</b></h5>
+                        <div><img src="./views/img/llantas/ubicacion.png" class="img-fluid" id="img_llantas_6"></div>
+                        <div><img src="./views/img/llantas/llantas_4.png" class="img-fluid d-none" id="img_llantas_4"></div>
+
+                        <hr class="my-4 bg-dark d-none" id="linea_llanta_repuesto">
+
+                        <div class="row d-none" id="input_llanta_repuesto">
+                            <div class="col-4"></div>
+                            <div class="col-4">
+                                <div class="form-group"><label for="llanta_repuesto">Número llanta de REPUESTO</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-hashtag"></i></span></div><input class="form-control" type="number" id="llanta_repuesto" name="llanta_repuesto">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4"></div>
+                        </div>
+                    </div>
 
                     <div class="row" id="inputs_numero_llantas">
 
@@ -299,7 +387,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             </div>
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12 col-xs-12">
                             <div class="form-group">
                                 <label>Proveedor</label>
                                 <div class="input-group">
@@ -662,14 +750,14 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
                 <div class="row">
                     <div class="col">
-                        <label> Alineación de vehículo  </label>
+                        <label> Alineación de vehículo </label>
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" value="1" id="si_ali" name="alineacion">
                             <label class="form-check-label text-nowrap">
                                 <b>Si</b>
                             </label>
                         </div>
-    
+
                         <div class="form-check form-check-inline">
                             <input class="form-check-input" type="radio" value="0" id="no_ali" name="alineacion">
                             <label class="form-check-label text-nowrap">
