@@ -517,7 +517,7 @@ class ModeloEscolar
     }
 
     /* ===================================================
-        MODELO LISTAR ESTUDIANTES TEMPORALES X RUTA
+         LISTAR ESTUDIANTES TEMPORALES X RUTA
     ===================================================*/
     static public function mdlListarEstudiantesTemporalesxRuta($idruta)
     {
@@ -771,6 +771,23 @@ class ModeloEscolar
         $stmt->closeCursor();
 
         return $retorno;
+    }
 
+    /* ===================================================
+        PASAJEROS POR RECORRIDO ENTREGA
+    ===================================================*/
+    static public function mdlPasajerosxRecorridoEntrega($idrecorrido)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT s.*, p.* FROM e_re_seguimiento_pasajeros s
+        INNER JOIN e_pasajeros p ON s.idpasajero = p.idpasajero 
+        WHERE  s.idrecorrido_entrega = :idrecorrido_entrega");
+
+        $stmt->bindParam(":idrecorrido_entrega", $idrecorrido, PDO::PARAM_INT);        
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+
+        return $retorno;
     }
 }

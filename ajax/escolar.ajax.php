@@ -142,8 +142,12 @@ class AjaxEscolar
 
             if ($recorrido != false) {
                 $idrecorrido = $recorrido['idrecorrido'];
+                $fin_recogida = $recorrido['fin_recogida'];
+                $fin_entrega = $recorrido['fin_entrega'];
             } else {
                 $idrecorrido = "";
+                $fin_recogida = "";
+                $fin_entrega = "";
             }
 
             $tr .= "
@@ -160,6 +164,8 @@ class AjaxEscolar
             <td>{$value['placa']}</td>
             <td>{$value['capacidad']}</td>
             <td>{$value['nombre']}</td>
+            <td>{$fin_recogida}</td>
+            <td>{$fin_entrega}</td>
             </tr>
             ";
         }
@@ -253,13 +259,33 @@ class AjaxEscolar
 
 
             if ($recorrido != false) {
-                $boton_entrega = "
-                <button class='btn btn-danger btn-entrega' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' ><i class='fas fa-sign-out-alt'></i></button>
+
+                $fin_recorrido = ModeloEscolar::mdlDatosRecorrido($recorrido['idrecorrido']);
+
+                if ($fin_recorrido['fin_entrega'] != "" || $fin_recorrido['fin_entrega'] != NULL) {
+                    $boton_entrega = "
+                <button class='btn btn-danger btn-entrega' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' disabled><i class='fas fa-sign-out-alt'></i></button>
                 ";
-                $boton_recoge = "
-                <button class='btn btn-success btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}'><i class='fas fa-sign-in-alt'></i></button>
+                } else {
+
+                    $boton_entrega = "
+                    <button class='btn btn-danger btn-entrega' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' ><i class='fas fa-sign-out-alt'></i></button>
+                    ";
+                }
+
+
+                if ($fin_recorrido['fin_recogida'] != "" || $fin_recorrido['fin_recogida'] != NULL) {
+                    $boton_recoge = "
+                <button class='btn btn-success btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' disabled><i class='fas fa-sign-in-alt'></i></button>
                 ";
-                    
+                } else {
+
+                    $boton_recoge = "
+                    <button class='btn btn-success btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}'><i class='fas fa-sign-in-alt'></i></button>
+                    ";
+                }
+
+
                 $boton_eliminar = "<td><button class='btn btn-sm btn-danger btn-eliminar' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' ><i class='fas fa-minus'></i></button></td>";
             } else {
                 $boton_entrega = "
@@ -270,7 +296,6 @@ class AjaxEscolar
                 ";
 
                 $boton_eliminar = "<td><button class='btn btn-sm btn-danger btn-eliminar' idpasajero='{$value['idpasajero']}' idrecorrido='' ><i class='fas fa-minus'></i></button></td>";
-                
             }
 
             if ($seguimiento != false) {
@@ -360,7 +385,7 @@ class AjaxEscolar
     ===================================================*/
     static public function ajaxDarOrden($idrecorrido, $idpasajero)
     {
-        $respuesta =ControladorEscolar::ctrDarOrden($idrecorrido, $idpasajero);
+        $respuesta = ControladorEscolar::ctrDarOrden($idrecorrido, $idpasajero);
         echo $respuesta;
     }
 
@@ -441,13 +466,41 @@ class AjaxEscolar
 
 
             if ($recorrido != false) {
-                $boton_entrega = "
-                <button class='btn btn-danger btn-entrega' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' ><i class='fas fa-sign-out-alt'></i></button>
+                // $boton_entrega = "
+                // <button class='btn btn-danger btn-entrega' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' ><i class='fas fa-sign-out-alt'></i></button>
+                // ";
+                // $boton_recoge = "
+                // <button class='btn btn-success btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}'><i class='fas fa-sign-in-alt'></i></button>
+                // ";
+                // $boton_eliminar = "<td><button class='btn btn-sm btn-danger btn-eliminar' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' ><i class='fas fa-minus'></i></button></td>";
+           
+                $fin_recorrido = ModeloEscolar::mdlDatosRecorrido($recorrido['idrecorrido']);
+
+                if ($fin_recorrido['fin_entrega'] != "" || $fin_recorrido['fin_entrega'] != NULL) {
+                    $boton_entrega = "
+                <button class='btn btn-danger btn-entrega' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' disabled><i class='fas fa-sign-out-alt'></i></button>
                 ";
-                $boton_recoge = "
-                <button class='btn btn-success btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}'><i class='fas fa-sign-in-alt'></i></button>
+                } else {
+
+                    $boton_entrega = "
+                    <button class='btn btn-danger btn-entrega' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' ><i class='fas fa-sign-out-alt'></i></button>
+                    ";
+                }
+
+
+                if ($fin_recorrido['fin_recogida'] != "" || $fin_recorrido['fin_recogida'] != NULL) {
+                    $boton_recoge = "
+                <button class='btn btn-success btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' disabled><i class='fas fa-sign-in-alt'></i></button>
                 ";
+                } else {
+
+                    $boton_recoge = "
+                    <button class='btn btn-success btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}'><i class='fas fa-sign-in-alt'></i></button>
+                    ";
+                }
+
                 $boton_eliminar = "<td><button class='btn btn-sm btn-danger btn-eliminar' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' ><i class='fas fa-minus'></i></button></td>";
+
 
             } else {
                 $boton_entrega = "
@@ -457,7 +510,6 @@ class AjaxEscolar
                 <button class='btn btn-success btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido=''> <i class='fas fa-sign-in-alt'></i></button>
                 ";
                 $boton_eliminar = "<td><button class='btn btn-sm btn-danger btn-eliminar' idpasajero='{$value['idpasajero']}' idrecorrido='' ><i class='fas fa-minus'></i></button></td>";
-
             }
 
             if ($seguimiento != false) {
@@ -508,7 +560,7 @@ class AjaxEscolar
     static public function ajaxDesvincularEstudianteRutaTemp($idpasajero)
     {
         $respuesta = ModeloEscolar::mdlDesvincularEstudianteRutaTemp($idpasajero);
-        echo $respuesta; 
+        echo $respuesta;
     }
 
 
@@ -542,7 +594,6 @@ class AjaxEscolar
         }
 
         echo $tr;
-
     }
 
 
@@ -557,12 +608,12 @@ class AjaxEscolar
 
         foreach ($respuesta as $key => $value) {
 
-            if($value['hora_recogida'] == null || $value['idrecorrido_recogida'] != $idrecorrido) {
+            if ($value['hora_recogida'] == null || $value['idrecorrido_recogida'] != $idrecorrido) {
                 $value['hora_recogida'] = "";
             }
-            if($value['hora_entrega'] == null || $value['idrecorrido_entrega'] != $idrecorrido){
+            if ($value['hora_entrega'] == null || $value['idrecorrido_entrega'] != $idrecorrido) {
                 $value['hora_entrega'] = "";
-            } 
+            }
 
             $tr .= "
             
@@ -690,37 +741,32 @@ if (isset($_POST['tablaSeguimientoEstudiantesTemporalxRuta']) && $_POST['tablaSe
 }
 
 #LLAMADO A DESVINCULAR ESTUDIANTE X RUTA 
-if(isset($_POST['desvincularEstudianteRuta']) && $_POST['desvincularEstudianteRuta'] == "ok")
-{
+if (isset($_POST['desvincularEstudianteRuta']) && $_POST['desvincularEstudianteRuta'] == "ok") {
     AjaxEscolar::ajaxDesvincularEstudianteRuta($_POST['idpasajero']);
     AjaxEscolar::ajaxDesvincularEstudianteRutaTemp($_POST['idpasajero']);
 }
 
 #LLAMADO A TABLA HISTORIAL RECORRIDO
-if(isset($_POST['HistorialRecorridos']) && $_POST['HistorialRecorridos'] == "ok")
-{
+if (isset($_POST['HistorialRecorridos']) && $_POST['HistorialRecorridos'] == "ok") {
     AjaxEscolar::ajaxHistorialRecorridos();
 }
 
 #LLAMADO A TABLA PASAJEROS X RECORRIDO
-if(isset($_POST['PasajerosxRecorrido']) && $_POST['PasajerosxRecorrido'] == "ok")
-{
+if (isset($_POST['PasajerosxRecorrido']) && $_POST['PasajerosxRecorrido'] == "ok") {
     AjaxEscolar::ajaxTablaPasajerosxRecorrido($_POST['idrecorrido']);
 }
 
 #LLAMADO A ELIMINAR SEGUIMIENTO PASAJERO
-if(isset($_POST['eliminarSeguimientoEstudiante']) && $_POST['eliminarSeguimientoEstudiante'] == "ok")
-{
+if (isset($_POST['eliminarSeguimientoEstudiante']) && $_POST['eliminarSeguimientoEstudiante'] == "ok") {
     AjaxEscolar::ajaxEliminarSeguimientoEstudiante($_POST);
 }
 
 #LLAMADO A DAR ORDEN 
-if(isset($_POST['darOrden']) && $_POST['darOrden'] == "ok")
-{
+if (isset($_POST['darOrden']) && $_POST['darOrden'] == "ok") {
     AjaxEscolar::ajaxDarOrden($_POST['idrecorrido'], $_POST['idpasajero']);
 }
 
 #LLAMADO A FINALIZAR RECORRIDO
-if(isset($_POST['finalizarRecorrido']) && $_POST['finalizarRecorrido'] == "ok"){
+if (isset($_POST['finalizarRecorrido']) && $_POST['finalizarRecorrido'] == "ok") {
     AjaxEscolar::ajaxFinalizarRecorrido($_POST);
 }

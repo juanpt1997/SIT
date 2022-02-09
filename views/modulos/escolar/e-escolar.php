@@ -97,6 +97,8 @@ $personal = ControladorGH::ctrListaPersonal();
                                                                                     <th>Vehículo</th>
                                                                                     <th>Cantidad</th>
                                                                                     <th>Institución</th>
+                                                                                    <th>Hora recogida</th>
+                                                                                    <th>Hora entrega</th>
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody class="text-sm" id="tbodyRuta">
