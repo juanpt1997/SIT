@@ -6,6 +6,7 @@ if (!validarPermiso('M_CONTRATOS', 'R')) {
 
 $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 $ListarClientes = ControladorClientes::ctrVerCliente();
+$tiposClientes = ControladorClientes::ctrTiposClientes();
 ?>
 
 
@@ -163,6 +164,20 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                                 </div>
                             </div>
 
+
+
+                        </div><!-- col-1-->
+                        <div class="col-6">
+
+                            <div class="form-group">
+                                <label class="text-sm">Documento</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control input-clientes" type="text" id="docum_empre" name="docum_empre" placeholder="Ingrese el documento de la empresa" maxlength="15" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
                             <div class="form-group">
                                 <label class="text-sm">Ciudad</label>
                                 <div class="input-group input-group-sm">
@@ -174,6 +189,9 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                                     </select>
                                 </div>
                             </div>
+                        </div>
+
+                        <div class="col-6">
 
                             <div class="form-group">
                                 <label class="text-sm">Teléfono</label>
@@ -181,16 +199,9 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                                     <input class="form-control input-clientes" type="text" id="telclient" name="telclient" placeholder="Ingrese un teléfono" maxlength="10" required>
                                 </div>
                             </div>
-                        </div><!-- col-1-->
+                        </div>
 
-                        <div class="col-md-6">
-
-                            <div class="form-group">
-                                <label class="text-sm">Documento</label>
-                                <div class="input-group input-group-sm">
-                                    <input class="form-control input-clientes" type="text" id="docum_empre" name="docum_empre" placeholder="Ingrese el documento de la empresa" maxlength="15" required>
-                                </div>
-                            </div>
+                        <div class="col-6">
 
                             <div class="form-group">
                                 <label class="text-sm">Dirección</label>
@@ -198,15 +209,32 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
                                     <input class="form-control input-clientes" type="text" id="dir_empre" name="dir_empre" placeholder="Dirección de la empresa" maxlength="100" required>
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="col-6">
                             <div class="form-group">
                                 <label class="text-sm">Teléfono 2</label>
                                 <div class="input-group input-group-sm">
                                     <input class="form-control input-clientes" type="text" id="telclient2" name="telclient2" placeholder="Ingrese un segundo teléfono" maxlength="10">
                                 </div>
                             </div>
+                        </div>
 
-                        </div><!-- col-2-->
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="text-sm">Tipo de cliente</label>
+                                <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="tipocliente" name="tipocliente" >
+                                    <option selected value="">-Seleccione el tipo de cliente-</option>
+                                    <?php foreach ($tiposClientes as $key => $value) : ?>
+                                        <option value="<?= $value['id'] ?>"><?= $value['tipo'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+
                     </div><!-- row-->
 
                     <hr class="my-4 bg-dark">

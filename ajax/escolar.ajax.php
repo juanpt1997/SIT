@@ -6,6 +6,8 @@ require_once '../models/vehicular.modelo.php';
 require_once '../controllers/escolar.controlador.php';
 require_once '../models/escolar.modelo.php';
 require_once '../controllers/mail.controller.php';
+require_once '../controllers/contratos.controlador.php';
+require_once '../models/contratos.modelo.php';
 date_default_timezone_set('America/Bogota');
 
 
@@ -21,10 +23,10 @@ class AjaxEscolar
 
             case 'institucion':
 
-                $tabla = "e_instituciones";
+                $tabla = "cont_clientes";
                 $item = "nombre";
-                $item2 = "";
-                $id = "idinstitucion";
+                $item2 = "Documento";
+                $id = "idcliente";
                 break;
 
             case 'placa':
@@ -98,16 +100,26 @@ class AjaxEscolar
         }
 
 
-        if ($nombre != "placa" && $nombre != "ruta" && $nombre != "ruta2" && $nombre != "estudiante" && $nombre != "estudiante2" && $nombre != "estudiante3" && $nombre != "ruta3") {
+        
+
+        if ($nombre != "placa" && $nombre != "ruta" && $nombre != "ruta2" && $nombre != "estudiante" && $nombre != "estudiante2" && $nombre != "estudiante3" && $nombre != "ruta3" && $nombre != "institucion") {
 
             $respuesta = ModeloConceptosGenerales::mdlVer($datos);
             foreach ($respuesta as $key => $value) {
                 $option .= "<option value='{$value["{$datos['id']}"]}'>{$value["{$datos['item']}"]}</option>";
             }
+        }else if($nombre == "institucion")
+        {
+            $respuesta = ModeloEscolar::mdlClientes();
+            foreach ($respuesta as $key => $value) {
+                // $option .= "<option value='{$value["{$datos['id']}"]}'> {$value["{$datos['item']}"]} </option> "
+                $option .= "<option value='{$value["{$datos['id']}"]}'>{$value["{$datos['item']}"]} - {$value["{$datos['item2']}"]}</option>";
+            }
         } else {
             $respuesta = ModeloConceptosGenerales::mdlVerRegistro($datos);
             foreach ($respuesta as $key => $value) {
-                $option .= "<option value='{$value["{$datos['id']}"]}'>{$value["{$datos['item']}"]} - {$value["{$datos['item2']}"]}</option>";
+                
+                $option .= " <option value='{$value["{$datos['id']}"]}'>{$value["{$datos['item']}"]} - {$value["{$datos['item2']}"]}</option>";
             }
         }
 
@@ -163,7 +175,7 @@ class AjaxEscolar
             <td>{$value['sector']}</td>
             <td>{$value['placa']}</td>
             <td>{$value['capacidad']}</td>
-            <td>{$value['nombre']}</td>
+            <td>{$value['institucion']}</td>
             <td>{$fin_recogida}</td>
             <td>{$fin_entrega}</td>
             </tr>
@@ -264,29 +276,29 @@ class AjaxEscolar
 
                 if ($fin_recorrido['fin_entrega'] != "" || $fin_recorrido['fin_entrega'] != NULL) {
                     $boton_entrega = "
-                <button class='btn btn-danger btn-entrega' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' disabled><i class='fas fa-sign-out-alt'></i></button>
+                <button class='btn btn-danger btn-entrega' title='Entregar pasajero' data-toggle='tooltip' data-placement='top' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' disabled><i class='fas fa-sign-out-alt'></i></button>
                 ";
                 } else {
 
                     $boton_entrega = "
-                    <button class='btn btn-danger btn-entrega' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' ><i class='fas fa-sign-out-alt'></i></button>
+                    <button class='btn btn-danger btn-entrega' title='Entregar pasajero' data-toggle='tooltip' data-placement='top'  idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' ><i class='fas fa-sign-out-alt'></i></button>
                     ";
                 }
 
 
                 if ($fin_recorrido['fin_recogida'] != "" || $fin_recorrido['fin_recogida'] != NULL) {
                     $boton_recoge = "
-                <button class='btn btn-success btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' disabled><i class='fas fa-sign-in-alt'></i></button>
+                <button class='btn btn-success btn-recoge' title='Recoger pasajero' data-toggle='tooltip' data-placement='top' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' disabled><i class='fas fa-sign-in-alt'></i></button>
                 ";
                 } else {
 
                     $boton_recoge = "
-                    <button class='btn btn-success btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}'><i class='fas fa-sign-in-alt'></i></button>
+                    <button class='btn btn-success btn-recoge' title='Recoger pasajero' data-toggle='tooltip' data-placement='top' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}'><i class='fas fa-sign-in-alt'></i></button>
                     ";
                 }
 
 
-                $boton_eliminar = "<td><button class='btn btn-sm btn-danger btn-eliminar' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' ><i class='fas fa-minus'></i></button></td>";
+                $boton_eliminar = "<td><button class='btn btn-sm btn-danger btn-eliminar' title='Eliminar recorrido del pasajero' data-toggle='tooltip' data-placement='top' idpasajero='{$value['idpasajero']}' idrecorrido='{$recorrido['idrecorrido']}' ><i class='fas fa-minus'></i></button></td>";
             } else {
                 $boton_entrega = "
                 <button class='btn btn-danger btn-entrega' idpasajero='{$value['idpasajero']}' idrecorrido='' ><i class='fas fa-sign-out-alt'></i></button>
@@ -295,17 +307,17 @@ class AjaxEscolar
                 <button class='btn btn-success btn-recoge' idpasajero='{$value['idpasajero']}' idrecorrido=''> <i class='fas fa-sign-in-alt'></i></button>
                 ";
 
-                $boton_eliminar = "<td><button class='btn btn-sm btn-danger btn-eliminar' idpasajero='{$value['idpasajero']}' idrecorrido='' ><i class='fas fa-minus'></i></button></td>";
+                $boton_eliminar = "<td><button class='btn btn-sm btn-danger btn-eliminar' title='Eliminar recorrido del pasajero' data-toggle='tooltip' data-placement='top' idpasajero='{$value['idpasajero']}' idrecorrido='' ><i class='fas fa-minus'></i></button></td>";
             }
 
             if ($seguimiento != false) {
 
                 if ($seguimiento['hora_recogida'] != "") {
-                    $boton_recoge = "<span>{$seguimiento['hora_recogida']}</span>";
+                    $boton_recoge = "<span id='hora_recogida'>{$seguimiento['hora_recogida']}</span>";
                 }
 
                 if ($seguimiento['hora_entrega'] != "") {
-                    $boton_entrega = "<span>{$seguimiento['hora_entrega']}</span>";
+                    $boton_entrega = "<span id='hora_entrega'>{$seguimiento['hora_entrega']}</span>";
                 }
             }
 
@@ -651,6 +663,17 @@ class AjaxEscolar
         $respuesta = ControladorEscolar::ctrFinalizarRecorrido($datos);
         echo $respuesta;
     }
+
+
+    /* ===================================================
+        GUARDAR INSTITUCIÓN 
+    ===================================================*/
+    static public function ajaxGuardarInstitucion($datos)
+    {
+        $respuesta = ControladorEscolar::ctrGuardarInstitucion($datos);
+        echo $respuesta;
+    }
+
 }
 
 
@@ -769,4 +792,10 @@ if (isset($_POST['darOrden']) && $_POST['darOrden'] == "ok") {
 #LLAMADO A FINALIZAR RECORRIDO
 if (isset($_POST['finalizarRecorrido']) && $_POST['finalizarRecorrido'] == "ok") {
     AjaxEscolar::ajaxFinalizarRecorrido($_POST);
+}
+
+#LLAMADO A GUARDAR INSTITUCIÓN 
+if(isset($_POST['GuardarInstitucion']) && $_POST['GuardarInstitucion'] == "ok")
+{
+    AjaxEscolar::ajaxGuardarInstitucion($_POST);
 }
