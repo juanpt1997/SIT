@@ -2,6 +2,10 @@
 $Placas = ControladorVehiculos::ctrListaVehiculos();
 $instituciones = ControladorEscolar::ctrListaInstituciones();
 $personal = ControladorGH::ctrListaPersonal();
+$DeparMunicipios = ControladorGH::ctrDeparMunicipios();
+$tiposClientes = ControladorClientes::ctrTiposClientes();
+
+
 ?>
 
 
@@ -97,8 +101,8 @@ $personal = ControladorGH::ctrListaPersonal();
                                                                                     <th>Vehículo</th>
                                                                                     <th>Cantidad</th>
                                                                                     <th>Institución</th>
-                                                                                    <th>Hora recogida</th>
-                                                                                    <th>Hora entrega</th>
+                                                                                    <th>Fin recogida</th>
+                                                                                    <th>Fin entrega</th>
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody class="text-sm" id="tbodyRuta">
@@ -216,7 +220,7 @@ $personal = ControladorGH::ctrListaPersonal();
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-info">
-                <h5 class="modal-title" id="title-modal-ruta"><span class="badge badge-light">RUTA <i class="fas fa-road"></i></span></h5>
+                <h5 class="titulo-light" id="title-modal-ruta">RUTA <i class="fas fa-road"></i></h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -316,7 +320,7 @@ $personal = ControladorGH::ctrListaPersonal();
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-success">
-                <h5 class="modal-title" id="my-modal-title"><span class="badge badge-light">ESTUDIANTES <i class="fas fa-book-reader"></i></span></h5>
+                <h5 class="titulo-light" id="my-modal-title">ESTUDIANTES <i class="fas fa-book-reader"></i></h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -613,7 +617,7 @@ $personal = ControladorGH::ctrListaPersonal();
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-warning">
-                <h5 class="modal-title" id="my-modal-title"><span class="badge badge-light">SEGUIMIENTO <i class="fas fa-shuttle-van"></i></span></h5>
+                <h5 class="titulo-dark" id="my-modal-title">Seguimiento <i class="fas fa-shuttle-van"></i></h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -635,7 +639,7 @@ $personal = ControladorGH::ctrListaPersonal();
                                 <div class="form-group text-center">
                                     <label><i>Nombre auxiliar de recogida</i></label>
                                     <select class="form-control select2-single" id="nom_auxiliar" name="nom_auxiliar" type="number">
-                                        <option value="">--Seleccione un auxiliar</option>
+                                        <option value="">--Seleccione un auxiliar--</option>
                                         <?php foreach ($personal as $key => $value) : ?>
                                             <option value="<?= $value['idPersonal'] ?>"> <?= $value['Nombre'] ?></option>
                                         <?php endforeach ?>
@@ -656,7 +660,7 @@ $personal = ControladorGH::ctrListaPersonal();
                                 <div class="form-group text-center">
                                     <label><i>Nombre auxiliar de entrega</i></label>
                                     <select class="form-control select2-single" id="nom_auxiliar2" name="nom_auxiliar2" type="number">
-                                        <option value="">--Seleccione un auxiliar</option>
+                                        <option value="">--Seleccione un auxiliar--</option>
                                         <?php foreach ($personal as $key => $value) : ?>
                                             <option value="<?= $value['idPersonal'] ?>"> <?= $value['Nombre'] ?></option>
                                         <?php endforeach ?>
@@ -673,10 +677,18 @@ $personal = ControladorGH::ctrListaPersonal();
                                 </div>
                             </div>
 
-                            <div class="text-center justify-content-center">
+                            <div class="col-8 col-md-6 col-lg-1 col-xl-4 mb-1">
+
+                            
                                 <button type="submit" class="btn btn-md bg-gradient-success " form="auxiliar_form"><i class="fas fa-plus"></i> Guardar</button>
                                 <button type="button" class="btn btn-md bg-info" id="fin_recorrido"><i class="fas fa-hourglass-end"></i> Marcar fin del recorrido</button>
+
+
+                                <div class="overlay d-none" id="overlayRecorrido">
+                                    <i class="fas fa-2x fa-sync-alt fa-spin"></i>
+                                </div>
                             </div>
+
                         </div>
                     </form>
 
@@ -787,7 +799,7 @@ $personal = ControladorGH::ctrListaPersonal();
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label for="exampleInput1">Estudiante</label>
-                                    <select class="form-control select2-single" id="estudiante2" name="idpasajero">
+                                    <select class="form-control select2-single" id="estudiante2" name="idpasajero" required>
                                         <option value="" selected>-Seleccione un estudiante-</option>
 
                                     </select>
@@ -800,7 +812,7 @@ $personal = ControladorGH::ctrListaPersonal();
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="form-group text-center">
                                     <label for="exampleInput1">Ruta</label>
-                                    <select class="form-control select2-single" id="ruta3" name="idruta">
+                                    <select class="form-control select2-single" id="ruta3" name="idruta" required>
 
                                     </select>
                                 </div>
@@ -886,7 +898,7 @@ $personal = ControladorGH::ctrListaPersonal();
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-info">
-                <h5 class="modal-title" id="my-modal-title">Pasajeros</h5>
+                <h5 class="titulo-light" id="my-modal-title">Pasajeros</h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -922,23 +934,21 @@ $personal = ControladorGH::ctrListaPersonal();
 </div>
 
 <!-- NUEVA INSTITUCION -->
-<div id="modalInstitucion"  class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+<div id="modalInstitucion" style="overflow-y: scroll;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-warning">
-                <h5 class="modal-title" id="my-modal-title">Nueva institución <i class="fas fa-chalkboard"></i></h5>
+                <h5 class="titulo-dark" id="my-modal-title">Nueva institución <i class="fas fa-chalkboard"></i></h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-               
-                        <form class="" id="institucion_form" method="post" enctype="multipart/form-data">
+
+                <!-- <form class="" id="institucion_form" method="post" enctype="multipart/form-data">
 
                             <div class="row mt-2 mb-2 border border-info rounded">
-                                <!-- ===================================================
-                                NOMBRE
-                            =================================================== -->
+                                
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <div class="form-group text-center">
                                         <label for="exampleInput1">Nombre de la institución</label>
@@ -946,9 +956,7 @@ $personal = ControladorGH::ctrListaPersonal();
                                     </div>
                                 </div>
 
-                                <!-- ===================================================
-                           CORREO
-                            =================================================== -->
+                                
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <div class="form-group text-center">
                                         <label for="exampleInput1">Correo</label>
@@ -959,9 +967,6 @@ $personal = ControladorGH::ctrListaPersonal();
 
 
 
-                                <!-- ===================================================
-                                                        BOTON GUARDAR FORMULARIO
-                                                    =================================================== -->
                                 <?php if (validarPermiso('M_VEHICULAR', 'U')) : ?>
                                     <div class="col-12 col-md-4 col-lg-1 text-right text-md-left align-self-center m-1">
                                         <button type="submit" form="institucion_form" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
@@ -971,8 +976,205 @@ $personal = ControladorGH::ctrListaPersonal();
                                     </div>
                                 <?php endif ?>
                             </div>
-                        </form>
-                    
+                        </form> -->
+
+                <form method="post" enctype="multipart/form-data" id="institucion_form">
+
+                    <div class="modal-body">
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="text-sm">ID</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control" type="number" id="idcliente" name="idcliente" value="" readonly>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4 bg-dark">
+
+                        <div class="form-group">
+                            <label class="text-sm">Nombre de la empresa</label>
+                            <div class="input-group input-group-sm">
+                                <input class="form-control input-clientes" type="text" id="nom_empre" name="nom_empre" placeholder="Nombre de la empresa" maxlength="100" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label class="text-sm">Tipo de documento</label>
+                                    <div class="input-group input-group-sm">
+                                        <select class="form-control input-clientes" type="text" id="t_document_empre" name="t_document_empre" required>
+                                            <option selected value="">-Seleccione una opción-</option>
+                                            <option>NIT</option>
+                                            <option>CC</option>
+                                            <option>CE</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+
+                            </div><!-- col-1-->
+                            <div class="col-6">
+
+                                <div class="form-group">
+                                    <label class="text-sm">Documento</label>
+                                    <div class="input-group input-group-sm">
+                                        <input class="form-control input-clientes" type="text" id="docum_empre" name="docum_empre" placeholder="Ingrese el documento de la empresa" maxlength="15" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="text-sm">Ciudad</label>
+                                    <div class="input-group input-group-sm">
+                                        <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="ciudadcliente" name="ciudadcliente" required>
+                                            <option selected value="">-Seleccione una ciudad-</option>
+                                            <?php foreach ($DeparMunicipios as $key => $value) : ?>
+                                                <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+
+                                <div class="form-group">
+                                    <label class="text-sm">Teléfono</label>
+                                    <div class="input-group input-group-sm">
+                                        <input class="form-control input-clientes" type="text" id="telclient" name="telclient" placeholder="Ingrese un teléfono" maxlength="10" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+
+                                <div class="form-group">
+                                    <label class="text-sm">Dirección</label>
+                                    <div class="input-group input-group-sm">
+                                        <input class="form-control input-clientes" type="text" id="dir_empre" name="dir_empre" placeholder="Dirección de la empresa" maxlength="100" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="text-sm">Teléfono 2</label>
+                                    <div class="input-group input-group-sm">
+                                        <input class="form-control input-clientes" type="text" id="telclient2" name="telclient2" placeholder="Ingrese un segundo teléfono" maxlength="10">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label class="text-sm">Tipo de cliente</label>
+                                    <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="tipocliente" name="tipocliente">
+
+                                        <?php foreach ($tiposClientes as $key => $value) : ?>
+                                            <?php if ($value['tipo'] == "Escolar") : ?>
+                                                <option selected value="<?= $value['id'] ?>"><?= $value['tipo'] ?></option>
+                                            <?php endif ?>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+
+                        </div><!-- row-->
+
+                        <hr class="my-4 bg-dark">
+
+                        <div class="form-group">
+                            <label class="text-sm">Nombre del responsable</label>
+                            <div class="input-group input-group-sm">
+                                <input class="form-control input-clientes" type="text" id="nom_respo" name="nom_respo" placeholder="Nombre del responsable" maxlength="100" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label class="text-sm">Tipo de documento del responsable</label>
+                                    <div class="input-group input-group-sm">
+                                        <select class="form-control input-clientes" type="text" id="t_document_respo" name="t_document_respo" required>
+                                            <option selected value="">-Seleccione una opción-</option>
+                                            <option>NIT</option>
+                                            <option>CC</option>
+                                            <option>CE</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="text-sm">Ciudad responsable</label>
+                                    <div class="input-group input-group-sm">
+                                        <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="ciudadresponsable" name="ciudadresponsable" required>
+                                            <option selected value="">-Seleccione una ciudad-</option>
+                                            <?php foreach ($DeparMunicipios as $key => $value) : ?>
+                                                <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--col-1-->
+                            <div class="col-md-6">
+
+                                <div class="form-group">
+                                    <label class="text-sm">Cédula expedida en:</label>
+                                    <div class="input-group input-group-sm">
+                                        <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="expedicion" name="expedicion" required>
+                                            <option selected value="">-Seleccione una ciudad-</option>
+                                            <?php foreach ($DeparMunicipios as $key => $value) : ?>
+                                                <option value="<?= $value['idmunicipio'] ?>"><?= $value['DeparMunic'] ?></option>
+                                            <?php endforeach ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="text-sm">Documento</label>
+                                    <div class="input-group input-group-sm">
+                                        <input class="form-control input-clientes" type="text" id="docum_respo" name="docum_respo" placeholder="Documento del responsable" maxlength="15" required>
+                                    </div>
+                                </div>
+
+
+                            </div><!-- col-2-->
+                            <div class="form-group text-center col-12 col-sm-6 col-lg-12">
+                                <label class="text-sm">Correo electrónico</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control input-clientes" type="email" id="correo" name="correo" placeholder="Ejemplo@gmail.com" maxlength="100" required>
+                                </div>
+                            </div>
+                        </div><!-- row-2-->
+                    </div><!-- fin modal-body-->
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-cancelar" data-dismiss="modal">Cancelar</button>
+                        <?php if (validarPermiso('M_CONTRATOS', 'U')) : ?>
+                            <button type="submit" form="institucion_form" class="btn btn-success">
+                                <i class="fas fa-save"></i>
+                                Guardar
+                            </button>
+                        <?php endif ?>
+                    </div>
+                    <!-- <?php
+                            $CrearCliente = new ControladorClientes();
+                            $CrearCliente->ctrAgregarEditar();
+                            ?> -->
+                </form>
+
             </div>
 
         </div>

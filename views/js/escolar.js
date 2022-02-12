@@ -374,6 +374,7 @@ if (
                         cargarTablaRutas();
                         cargarSelect("ruta");
                         cargarSelect("ruta2");
+                        cargarSelect("ruta3");
                     } else {
                         Swal.fire({
                             icon: "warning",
@@ -594,6 +595,11 @@ if (
             let idruta = $(this).attr("idruta");
             let idrecorrido = $(this).attr("idrecorrido");
 
+            let isdisabled_recoge = $(".btn-recoge").attr("disabled");
+            let isdisabled_entrega = $(".btn-entrega").attr("disabled");
+            let hora_recoge = $("#hora_recogida").val();
+            let hora_entrega = $("#hora_entrega").val();
+
             $("#auxiliar_form").trigger("reset");
             $("#nom_auxiliar").val("").trigger("change");
             $("#nom_auxiliar2").val("").trigger("change");
@@ -648,6 +654,8 @@ if (
 
             let datosFrm = $(this).serializeArray();
 
+            $("#overlayRecorrido").removeClass("d-none");
+
             var datos = new FormData();
 
             datos.append("guardarRecorrido", "ok");
@@ -672,6 +680,8 @@ if (
                             showConfirmButton: false,
                             timer: 1500,
                         });
+
+                        $("#overlayRecorrido").addClass("d-none");
 
                         $(".btn-entrega").attr("idrecorrido", response);
                         $(".btn-recoge").attr("idrecorrido", response);
@@ -900,6 +910,10 @@ if (
         ==============================================*/
         $(document).on("click", ".btn-EstudianteTemp", function () {
             $("#modal-listar").modal("hide");
+
+            $("#estudianteTemp_form").trigger("reset");
+            $("#estudiante2").val("").trigger("change");
+            $("#ruta3").val("").trigger("change");
         });
 
         /*============================================
@@ -1177,171 +1191,459 @@ if (
         $(document).on("click", "#fin_recorrido", function () {
             let idrecorrido = $(this).attr("idrecorrido");
 
+            $("#overlayRecorrido").removeClass("d-none");
+
             if (idrecorrido != "") {
                 let isdisabled_recoge = $(".btn-recoge").attr("disabled");
                 let isdisabled_entrega = $(".btn-entrega").attr("disabled");
+                let hora_recoge = $("#hora_recogida").val();
+                let hora_entrega = $("#hora_entrega").val();
 
-                if (isdisabled_recoge == "disabled") {
-                    Swal.fire({
-                        title: `Finalizar recorrido`,
-                        text: "Seleccione que recorrido desea finalizar",
-                        html: `
-                    <hr>
-                    <label for="">Recorrido</label>
-                    <select class="form-control select2-single" id="recorrido">
-                            <option value="entrega" selected>Entrega</option>
-    
-                    </select>`,
-                        showCancelButton: true,
-                        confirmButtonColor: "#5cb85c",
-                        cancelButtonColor: "#d33",
-                        confirmButtonText: "Continuar!",
-                        cancelButtonText: "Cancelar",
-                    }).then((result) => {
-                        if (result.value) {
-                            var momento = $("#recorrido").val();
-                            var datos = new FormData();
-                            datos.append("finalizarRecorrido", "ok");
-                            datos.append("idrecorrido", idrecorrido);
-                            datos.append("momento", momento);
+                var datosR = new FormData();
+                datosR.append("DatosRecorrido", "ok");
+                datosR.append("idrecorrido", idrecorrido);
 
-                            $.ajax({
-                                type: "POST",
-                                url: "ajax/escolar.ajax.php",
-                                data: datos,
-                                cache: false,
-                                contentType: false,
-                                processData: false,
-                                //dataType: "json",
-                                success: function (response) {
-                                    if (response == "ok") {
-                                        Swal.fire({
-                                            icon: "success",
-                                            showConfirmButton: true,
-                                            title: "¡El dato ha sido actualizado!",
-                                            confirmButtonText: "¡Cerrar!",
-                                            allowOutsideClick: false,
-                                        });
+                $.ajax({
+                    type: "POST",
+                    url: "ajax/escolar.ajax.php",
+                    data: datosR,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        console.log(response.fin_recogida,response.fin_entrega );
 
-                                        let idruta = $("#idruta_aux").val();
-                                        cargarTablaSeguimientoxRuta(idruta);
-                                        cargarTablaSeguimientoTemporalxRuta(
-                                            idruta
-                                        );
-                                        cargarTablaRutas();
-                                    }
-                                },
+                        //SI NO HAY FIN DE RECORRIDO
+                        if (
+                            response.fin_recogida == null
+                             &&
+                            response.fin_entrega == null
+                    
+                        ) {
+                            Swal.fire({
+                                title: `Finalizar recorrido`,
+                                text: "Seleccione que recorrido desea finalizar",
+                                html: `
+                                    <hr>
+                                    <label for="">Recorrido</label>
+                                    <select class="form-control select2-single" id="recorrido">
+                                            <option value="entrega" selected>Entrega</option>
+                                            <option value="recoge" selected>Recoge</option>
+                    
+                                    </select>`,
+                                showCancelButton: true,
+                                confirmButtonColor: "#5cb85c",
+                                cancelButtonColor: "#d33",
+                                confirmButtonText: "Continuar!",
+                                cancelButtonText: "Cancelar",
+                            }).then((result) => {
+                                if (result.value) {
+                                    var momento = $("#recorrido").val();
+                                    var datos = new FormData();
+                                    datos.append("finalizarRecorrido", "ok");
+                                    datos.append("idrecorrido", idrecorrido);
+                                    datos.append("momento", momento);
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "ajax/escolar.ajax.php",
+                                        data: datos,
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
+                                        //dataType: "json",
+                                        success: function (response) {
+                                            if (response == "ok") {
+                                                Swal.fire({
+                                                    icon: "success",
+                                                    showConfirmButton: true,
+                                                    title: "¡El dato ha sido actualizado!",
+                                                    confirmButtonText:
+                                                        "¡Cerrar!",
+                                                    allowOutsideClick: false,
+                                                });
+
+                                                $("#overlayRecorrido").addClass("d-none");
+
+                                                let idruta =
+                                                    $("#idruta_aux").val();
+                                                cargarTablaSeguimientoxRuta(
+                                                    idruta
+                                                );
+                                                cargarTablaSeguimientoTemporalxRuta(
+                                                    idruta
+                                                );
+                                                cargarTablaRutas();
+                                            }
+                                        },
+                                    });
+                                }
+                            });
+                        } else if (
+                            response.fin_entrega == null  &&
+                            response.fin_recogida != null 
+                        ) {
+                            Swal.fire({
+                                title: `Finalizar recorrido`,
+                                text: "Seleccione que recorrido desea finalizar",
+                                html: `
+                                    <hr>
+                                    <label for="">Recorrido</label>
+                                    <select class="form-control select2-single" id="recorrido">
+                                            <option value="entrega" selected>Entrega</option>
+                    
+                                    </select>`,
+                                showCancelButton: true,
+                                confirmButtonColor: "#5cb85c",
+                                cancelButtonColor: "#d33",
+                                confirmButtonText: "Continuar!",
+                                cancelButtonText: "Cancelar",
+                            }).then((result) => {
+                                if (result.value) {
+                                    var momento = $("#recorrido").val();
+                                    var datos = new FormData();
+                                    datos.append("finalizarRecorrido", "ok");
+                                    datos.append("idrecorrido", idrecorrido);
+                                    datos.append("momento", momento);
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "ajax/escolar.ajax.php",
+                                        data: datos,
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
+                                        //dataType: "json",
+                                        success: function (response) {
+                                            if (response == "ok") {
+                                                Swal.fire({
+                                                    icon: "success",
+                                                    showConfirmButton: true,
+                                                    title: "¡El dato ha sido actualizado!",
+                                                    confirmButtonText:
+                                                        "¡Cerrar!",
+                                                    allowOutsideClick: false,
+                                                });
+
+                                                let idruta =
+                                                    $("#idruta_aux").val();
+                                                cargarTablaSeguimientoxRuta(
+                                                    idruta
+                                                );
+                                                cargarTablaSeguimientoTemporalxRuta(
+                                                    idruta
+                                                );
+                                                cargarTablaRutas();
+                                            }
+                                        },
+                                    });
+                                }
+                            });
+                        } else if (
+                            response.fin_recogida == null  &&
+                            response.fin_entrega != null 
+                        ) {
+                            Swal.fire({
+                                title: `Finalizar recorrido`,
+                                text: "Seleccione que recorrido desea finalizar",
+                                html: `
+                                    <hr>
+                                    <label for="">Recorrido</label>
+                                    <select class="form-control select2-single" id="recorrido">
+                                            <option value="recoge" selected>Recoge</option>
+                
+                                    </select>`,
+                                showCancelButton: true,
+                                confirmButtonColor: "#5cb85c",
+                                cancelButtonColor: "#d33",
+                                confirmButtonText: "Continuar!",
+                                cancelButtonText: "Cancelar",
+                            }).then((result) => {
+                                if (result.value) {
+                                    var momento = $("#recorrido").val();
+                                    var datos = new FormData();
+                                    datos.append("finalizarRecorrido", "ok");
+                                    datos.append("idrecorrido", idrecorrido);
+                                    datos.append("momento", momento);
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "ajax/escolar.ajax.php",
+                                        data: datos,
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
+                                        //dataType: "json",
+                                        success: function (response) {
+                                            if (response == "ok") {
+                                                Swal.fire({
+                                                    icon: "success",
+                                                    showConfirmButton: true,
+                                                    title: "¡El dato ha sido actualizado!",
+                                                    confirmButtonText:
+                                                        "¡Cerrar!",
+                                                    allowOutsideClick: false,
+                                                });
+
+                                                $("#overlayRecorrido").addClass("d-none");
+
+
+                                                let idruta =
+                                                    $("#idruta_aux").val();
+                                                cargarTablaSeguimientoxRuta(
+                                                    idruta
+                                                );
+                                                cargarTablaSeguimientoTemporalxRuta(
+                                                    idruta
+                                                );
+                                                cargarTablaRutas();
+                                            }
+                                        },
+                                    });
+                                }
+                            });
+                        }else if(response.fin_recogida != null &&  response.fin_entrega != null){
+
+                            Swal.fire({
+                                icon: "warning",
+                                showConfirmButton: true,
+                                title: "Esta ruta ya ha finalizado sus recorridos.",
+                                confirmButtonText:
+                                    "¡Cerrar!",
+                                allowOutsideClick: false,
+                            });
+
+                        } else {
+                            Swal.fire({
+                                title: `Finalizar recorrido`,
+                                text: "Seleccione que recorrido desea finalizar",
+                                html: `
+                                    <hr>
+                                    <label for="">Recorrido</label>
+                                    <select class="form-control select2-single" id="recorrido">
+                                            <option value="entrega" selected>Entrega</option>
+                                            <option value="recoge" selected>Recoge</option>
+                
+                                    </select>`,
+                                showCancelButton: true,
+                                confirmButtonColor: "#5cb85c",
+                                cancelButtonColor: "#d33",
+                                confirmButtonText: "Continuar!",
+                                cancelButtonText: "Cancelar",
+                            }).then((result) => {
+                                if (result.value) {
+                                    var momento = $("#recorrido").val();
+                                    var datos = new FormData();
+                                    datos.append("finalizarRecorrido", "ok");
+                                    datos.append("idrecorrido", idrecorrido);
+                                    datos.append("momento", momento);
+
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "ajax/escolar.ajax.php",
+                                        data: datos,
+                                        cache: false,
+                                        contentType: false,
+                                        processData: false,
+                                        //dataType: "json",
+                                        success: function (response) {
+                                            if (response == "ok") {
+                                                Swal.fire({
+                                                    icon: "success",
+                                                    showConfirmButton: true,
+                                                    title: "¡El dato ha sido actualizado!",
+                                                    confirmButtonText:
+                                                        "¡Cerrar!",
+                                                    allowOutsideClick: false,
+                                                });
+
+                                                $("#overlayRecorrido").addClass("d-none");
+
+
+                                                let idruta =
+                                                    $("#idruta_aux").val();
+                                                cargarTablaSeguimientoxRuta(
+                                                    idruta
+                                                );
+                                                cargarTablaSeguimientoTemporalxRuta(
+                                                    idruta
+                                                );
+                                                cargarTablaRutas();
+                                            }
+                                        },
+                                    });
+                                }
                             });
                         }
-                    });
-                } else if (isdisabled_entrega) {
-                    Swal.fire({
-                        title: `Finalizar recorrido`,
-                        text: "Seleccione que recorrido desea finalizar",
-                        html: `
-                    <hr>
-                    <label for="">Recorrido</label>
-                    <select class="form-control select2-single" id="recorrido">
-                            <option value="recoge" selected>Recoge</option>
-    
-                    </select>`,
-                        showCancelButton: true,
-                        confirmButtonColor: "#5cb85c",
-                        cancelButtonColor: "#d33",
-                        confirmButtonText: "Continuar!",
-                        cancelButtonText: "Cancelar",
-                    }).then((result) => {
-                        if (result.value) {
-                            var momento = $("#recorrido").val();
-                            var datos = new FormData();
-                            datos.append("finalizarRecorrido", "ok");
-                            datos.append("idrecorrido", idrecorrido);
-                            datos.append("momento", momento);
+                    },
+                });
 
-                            $.ajax({
-                                type: "POST",
-                                url: "ajax/escolar.ajax.php",
-                                data: datos,
-                                cache: false,
-                                contentType: false,
-                                processData: false,
-                                //dataType: "json",
-                                success: function (response) {
-                                    if (response == "ok") {
-                                        Swal.fire({
-                                            icon: "success",
-                                            showConfirmButton: true,
-                                            title: "¡El dato ha sido actualizado!",
-                                            confirmButtonText: "¡Cerrar!",
-                                            allowOutsideClick: false,
-                                        });
+                // if (isdisabled_recoge == "disabled" || hora_recoge != "") {
+                //     Swal.fire({
+                //         title: `Finalizar recorrido`,
+                //         text: "Seleccione que recorrido desea finalizar",
+                //         html: `
+                //     <hr>
+                //     <label for="">Recorrido</label>
+                //     <select class="form-control select2-single" id="recorrido">
+                //             <option value="entrega" selected>Entrega</option>
 
-                                        let idruta = $("#idruta_aux").val();
-                                        cargarTablaSeguimientoxRuta(idruta);
-                                        cargarTablaSeguimientoTemporalxRuta(
-                                            idruta
-                                        );
-                                        cargarTablaRutas();
-                                    }
-                                },
-                            });
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        title: `Finalizar recorrido`,
-                        text: "Seleccione que recorrido desea finalizar",
-                        html: `
-                    <hr>
-                    <label for="">Recorrido</label>
-                    <select class="form-control select2-single" id="recorrido">
-                            <option value="entrega" selected>Entrega</option>
-                            <option value="recoge" selected>Recoge</option>
-    
-                    </select>`,
-                        showCancelButton: true,
-                        confirmButtonColor: "#5cb85c",
-                        cancelButtonColor: "#d33",
-                        confirmButtonText: "Continuar!",
-                        cancelButtonText: "Cancelar",
-                    }).then((result) => {
-                        if (result.value) {
-                            var momento = $("#recorrido").val();
-                            var datos = new FormData();
-                            datos.append("finalizarRecorrido", "ok");
-                            datos.append("idrecorrido", idrecorrido);
-                            datos.append("momento", momento);
+                //     </select>`,
+                //         showCancelButton: true,
+                //         confirmButtonColor: "#5cb85c",
+                //         cancelButtonColor: "#d33",
+                //         confirmButtonText: "Continuar!",
+                //         cancelButtonText: "Cancelar",
+                //     }).then((result) => {
+                //         if (result.value) {
+                //             var momento = $("#recorrido").val();
+                //             var datos = new FormData();
+                //             datos.append("finalizarRecorrido", "ok");
+                //             datos.append("idrecorrido", idrecorrido);
+                //             datos.append("momento", momento);
 
-                            $.ajax({
-                                type: "POST",
-                                url: "ajax/escolar.ajax.php",
-                                data: datos,
-                                cache: false,
-                                contentType: false,
-                                processData: false,
-                                //dataType: "json",
-                                success: function (response) {
-                                    if (response == "ok") {
-                                        Swal.fire({
-                                            icon: "success",
-                                            showConfirmButton: true,
-                                            title: "¡El dato ha sido actualizado!",
-                                            confirmButtonText: "¡Cerrar!",
-                                            allowOutsideClick: false,
-                                        });
+                //             $.ajax({
+                //                 type: "POST",
+                //                 url: "ajax/escolar.ajax.php",
+                //                 data: datos,
+                //                 cache: false,
+                //                 contentType: false,
+                //                 processData: false,
+                //                 //dataType: "json",
+                //                 success: function (response) {
+                //                     if (response == "ok") {
+                //                         Swal.fire({
+                //                             icon: "success",
+                //                             showConfirmButton: true,
+                //                             title: "¡El dato ha sido actualizado!",
+                //                             confirmButtonText: "¡Cerrar!",
+                //                             allowOutsideClick: false,
+                //                         });
 
-                                        let idruta = $("#idruta_aux").val();
-                                        cargarTablaSeguimientoxRuta(idruta);
-                                        cargarTablaSeguimientoTemporalxRuta(
-                                            idruta
-                                        );
-                                        cargarTablaRutas();
-                                    }
-                                },
-                            });
-                        }
-                    });
-                }
+                //                         let idruta = $("#idruta_aux").val();
+                //                         cargarTablaSeguimientoxRuta(idruta);
+                //                         cargarTablaSeguimientoTemporalxRuta(
+                //                             idruta
+                //                         );
+                //                         cargarTablaRutas();
+                //                     }
+                //                 },
+                //             });
+                //         }
+                //     });
+                // } else if (
+                //     isdisabled_entrega == "disabled" ||
+                //     hora_entrega != ""
+                // ) {
+                //     Swal.fire({
+                //         title: `Finalizar recorrido`,
+                //         text: "Seleccione que recorrido desea finalizar",
+                //         html: `
+                //     <hr>
+                //     <label for="">Recorrido</label>
+                //     <select class="form-control select2-single" id="recorrido">
+                //             <option value="recoge" selected>Recoge</option>
+
+                //     </select>`,
+                //         showCancelButton: true,
+                //         confirmButtonColor: "#5cb85c",
+                //         cancelButtonColor: "#d33",
+                //         confirmButtonText: "Continuar!",
+                //         cancelButtonText: "Cancelar",
+                //     }).then((result) => {
+                //         if (result.value) {
+                //             var momento = $("#recorrido").val();
+                //             var datos = new FormData();
+                //             datos.append("finalizarRecorrido", "ok");
+                //             datos.append("idrecorrido", idrecorrido);
+                //             datos.append("momento", momento);
+
+                //             $.ajax({
+                //                 type: "POST",
+                //                 url: "ajax/escolar.ajax.php",
+                //                 data: datos,
+                //                 cache: false,
+                //                 contentType: false,
+                //                 processData: false,
+                //                 //dataType: "json",
+                //                 success: function (response) {
+                //                     if (response == "ok") {
+                //                         Swal.fire({
+                //                             icon: "success",
+                //                             showConfirmButton: true,
+                //                             title: "¡El dato ha sido actualizado!",
+                //                             confirmButtonText: "¡Cerrar!",
+                //                             allowOutsideClick: false,
+                //                         });
+
+                //                         let idruta = $("#idruta_aux").val();
+                //                         cargarTablaSeguimientoxRuta(idruta);
+                //                         cargarTablaSeguimientoTemporalxRuta(
+                //                             idruta
+                //                         );
+                //                         cargarTablaRutas();
+                //                     }
+                //                 },
+                //             });
+                //         }
+                //     });
+                // } else {
+                //     Swal.fire({
+                //         title: `Finalizar recorrido`,
+                //         text: "Seleccione que recorrido desea finalizar",
+                //         html: `
+                //     <hr>
+                //     <label for="">Recorrido</label>
+                //     <select class="form-control select2-single" id="recorrido">
+                //             <option value="entrega" selected>Entrega</option>
+                //             <option value="recoge" selected>Recoge</option>
+
+                //     </select>`,
+                //         showCancelButton: true,
+                //         confirmButtonColor: "#5cb85c",
+                //         cancelButtonColor: "#d33",
+                //         confirmButtonText: "Continuar!",
+                //         cancelButtonText: "Cancelar",
+                //     }).then((result) => {
+                //         if (result.value) {
+                //             var momento = $("#recorrido").val();
+                //             var datos = new FormData();
+                //             datos.append("finalizarRecorrido", "ok");
+                //             datos.append("idrecorrido", idrecorrido);
+                //             datos.append("momento", momento);
+
+                //             $.ajax({
+                //                 type: "POST",
+                //                 url: "ajax/escolar.ajax.php",
+                //                 data: datos,
+                //                 cache: false,
+                //                 contentType: false,
+                //                 processData: false,
+                //                 //dataType: "json",
+                //                 success: function (response) {
+                //                     if (response == "ok") {
+                //                         Swal.fire({
+                //                             icon: "success",
+                //                             showConfirmButton: true,
+                //                             title: "¡El dato ha sido actualizado!",
+                //                             confirmButtonText: "¡Cerrar!",
+                //                             allowOutsideClick: false,
+                //                         });
+
+                //                         let idruta = $("#idruta_aux").val();
+                //                         cargarTablaSeguimientoxRuta(idruta);
+                //                         cargarTablaSeguimientoTemporalxRuta(
+                //                             idruta
+                //                         );
+                //                         cargarTablaRutas();
+                //                     }
+                //                 },
+                //             });
+                //         }
+                //     });
+                // }
 
                 // Swal.fire({
                 //     title: `Finalizar recorrido`,
@@ -1427,7 +1729,6 @@ if (
 
             var datos = new FormData();
 
-
             datos.append("GuardarInstitucion", "ok");
 
             datosFrm.forEach((element) => {
@@ -1443,35 +1744,44 @@ if (
                 processData: false,
                 // dataType: "json",
                 success: function (response) {
-                    console.log(response);
-                    if (response == "ok") {
+                    if(response == "existe")
+                    {
                         Swal.fire({
-                            icon: "success",
+                            icon: 'warning',
+                            title: '¡Cliente ya existe!',						
                             showConfirmButton: true,
-                            title: "¡El dato ha sido actualizado!",
-                            confirmButtonText: "¡Cerrar!",
-                            allowOutsideClick: false,
-                        });
+                            confirmButtonText: 'Cerrar',
+                            
+                        })
+                    }else if(response == "ok")
+                    {
+                        Swal.fire({
+                            icon: 'success',
+                            title: '¡Cliente añadido correctamente!',						
+                            showConfirmButton: true,
+                            confirmButtonText: 'Cerrar',
+                            
+                        })
+
                         cargarSelect("institucion");
                     }else{
                         Swal.fire({
-                            icon: "error",
+                            icon: 'warning',
+                            title: '¡Problema al añadir el cliente!',						
                             showConfirmButton: true,
-                            title: "¡Los datos no pudieron ser guardados, vuelva a intentarlo más tarde!",
-                            confirmButtonText: "¡Cerrar!",
-                            allowOutsideClick: false,
-                        });
+                            confirmButtonText: 'Cerrar',
+                            
+                        })
                     }
                 },
             });
         });
 
-
         /*============================================
             CLICK EN MODAL DE INSTITUCIÓN 
         ==============================================*/
-        $(document).on("click", ".btn-institucion", function(){
-            $("#modalRuta").modal('hide');
+        $(document).on("click", ".btn-institucion", function () {
+            $("#modalRuta").modal("hide");
         });
 
         /*============================================
@@ -1480,6 +1790,5 @@ if (
         $("#modalInstitucion").on("hidden.bs.modal", function () {
             $("#modalRuta").modal("show");
         });
-
     }); //FINAL DOCUMENT READY
 }
