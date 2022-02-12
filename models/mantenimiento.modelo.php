@@ -2718,10 +2718,10 @@ class ModeloControlLlantas
         return $retorno;
     }
 
-    static public function mdlAgregarLLantaVehiculo($datos, $cantidad)
+    static public function mdlAgregarLLantaVehiculo($datos, $cantidad, $posicion)
     {
-        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_llantasvehiculos(idvehiculo,idalmacen,vida,fecha_montaje,kilom_montaje,lonas,num_llanta,estado_actual,fecha_factura,num_factura,precio_compra,idproveedor,observaciones,user_created,user_updated)
-                                                VALUES(:idvehiculo,:idalmacen,:vida,:fecha_montaje,:kilom_montaje,:lonas,:num_llanta,:estado_actual,:fecha_factura,:num_factura,:precio_compra,:idproveedor,:observaciones,:user_created,:user_updated)");
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_llantasvehiculos(idvehiculo,idalmacen,vida,fecha_montaje,kilom_montaje,lonas,num_llanta,estado_actual,fecha_factura,num_factura,precio_compra,idproveedor,observaciones,user_created,user_updated,posicion)
+                                                VALUES(:idvehiculo,:idalmacen,:vida,:fecha_montaje,:kilom_montaje,:lonas,:num_llanta,:estado_actual,:fecha_factura,:num_factura,:precio_compra,:idproveedor,:observaciones,:user_created,:user_updated,:posicion)");
 
         $stmt->bindParam(":idvehiculo", $datos["placa"], PDO::PARAM_INT);
         $stmt->bindParam(":idalmacen", $datos["idproducto"], PDO::PARAM_INT);
@@ -2738,6 +2738,7 @@ class ModeloControlLlantas
         $stmt->bindParam(":observaciones", $datos["observaciones"], PDO::PARAM_STR);
         $stmt->bindParam(":user_created", $datos["usuario"], PDO::PARAM_INT);
         $stmt->bindParam(":user_updated", $datos["usuario"], PDO::PARAM_INT);
+        $stmt->bindParam(":posicion", $posicion, PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $retorno = "ok";
@@ -2849,7 +2850,7 @@ class ModeloControlLlantas
 
     static public function mdlLlantasMontadas($idvehiculo)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT vl.idllanta, vl.num_llanta, vl.fecha_montaje, vl.kilom_montaje, pro.razon_social, p.codigo, p.referencia, mar.marca, t.tamanio FROM m_re_llantasvehiculos vl
+        $stmt = Conexion::conectar()->prepare("SELECT vl.idllanta, vl.num_llanta, vl.fecha_montaje, vl.kilom_montaje, vl.posicion,pro.razon_social, p.codigo, p.referencia, mar.marca, t.tamanio FROM m_re_llantasvehiculos vl
         INNER JOIN a_productos p ON p.idproducto = vl.idalmacen
         INNER JOIN a_marcas mar ON mar.idmarca = p.idmarca
         INNER JOIN a_tamanios t ON t.idtamanio = p.idtamanio
