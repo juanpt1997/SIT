@@ -42,6 +42,7 @@ if (
                     $("#expedicion").val(response.cedula_expedidaen);
                     $("#docum_respo").val(response.Documentorespons);
                     $("#correo").val(response.correo);
+                    $("#tipocliente").val(response.idtipo_cliente).trigger("change");
                     $(".select2-single").trigger("change"); //MUESTRA EL VALOR DEL SELECT
                 },
             });

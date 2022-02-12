@@ -76,3 +76,14 @@ center {
   color: #ffffff;
   background-color: rgba(0, 31, 63, 0.85);
 }
+
+.titulo-dark{
+  color: black;
+  text-transform: uppercase;
+
+}
+
+.titulo-light{
+  color: white;
+  text-transform: uppercase;
+}
