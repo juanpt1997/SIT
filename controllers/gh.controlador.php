@@ -83,7 +83,7 @@ class ControladorGH
     /* ===================================================
        GUARDAR PERSONAL
     ===================================================*/
-    static public function ctrGuardarPersonal($datos, $foto, $documento)
+    static public function ctrGuardarPersonal($datos, $foto, $documento_cara, $documento_huella)
     {
         $datosBusqueda = array(
             'item' => 'Documento',
@@ -176,16 +176,16 @@ class ControladorGH
             }
 
             /* ===================================================
-                       GUARDAR LA DOCUMENTO EN EL SERVIDOR
+                       GUARDAR LA DOCUMENTO EN EL SERVIDOR (cara)
                     ===================================================*/
             $GuardarDocumento = new FilesController();
-            $GuardarDocumento->file = $documento;
+            $GuardarDocumento->file = $documento_cara;
             $aleatorio = mt_rand(100, 999);
             $GuardarDocumento->ruta = $directorio . "/" . $aleatorio;
-            $ruta = $GuardarDocumento->ctrImages(500, 500);
+            $ruta = $GuardarDocumento->ctrImages(null, null);
 
             /* ===================================================
-					ACTUALIZAR RUTA DOCUMENTO EN LA BD
+					ACTUALIZAR RUTA DOCUMENTO EN LA BD (cara)
 				===================================================*/
             if ($ruta != "") {
                 $rutaImg = str_replace(DIR_APP, "", $ruta);
@@ -193,6 +193,31 @@ class ControladorGH
                 $datosRutaImg = array(
                     'tabla' => 'gh_personal',
                     'item1' => 'documento_escaneado',
+                    'valor1' => $rutaImg,
+                    'item2' => 'idPersonal',
+                    'valor2' => $idPersonal
+                );
+                $actualizarRutaImg = ModeloGH::mdlActualizarEmpleado($datosRutaImg);
+            }
+
+            /* ===================================================
+                       GUARDAR LA DOCUMENTO EN EL SERVIDOR (huella)
+                    ===================================================*/
+            $GuardarDocumento_huella = new FilesController();
+            $GuardarDocumento_huella->file = $documento_huella;
+            $aleatorio = mt_rand(100, 999);
+            $GuardarDocumento_huella->ruta = $directorio . "/" . $aleatorio;
+            $ruta = $GuardarDocumento_huella->ctrImages(null, null);
+
+            /* ===================================================
+					ACTUALIZAR RUTA DOCUMENTO EN LA BD (huella)
+				===================================================*/
+            if ($ruta != "") {
+                $rutaImg = str_replace(DIR_APP, "", $ruta);
+
+                $datosRutaImg = array(
+                    'tabla' => 'gh_personal',
+                    'item1' => 'documento_escaneado_huella',
                     'valor1' => $rutaImg,
                     'item2' => 'idPersonal',
                     'valor2' => $idPersonal

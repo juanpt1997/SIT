@@ -161,9 +161,13 @@ if (
             var files = $('#nuevaFoto')[0].files;
             datosAjax.append("foto", files[0]);
 
-            // DOCUMENTO ESCANEADO
-            var documento = $("#documento_escaneado")[0].files;
-            datosAjax.append("documento", documento[0]);
+            // DOCUMENTO ESCANEADO CARA
+            var documentoCara = $("#documento_escaneado_cara")[0].files;
+            datosAjax.append("documento_cara", documentoCara[0]);
+
+            // DOCUMENTO ESCANEADO HUELLA
+            var documentoHuella = $("#documento_escaneado_huella")[0].files;
+            datosAjax.append("documento_huella", documentoHuella[0]);
 
             $.ajax({
                 type: 'post',
@@ -235,7 +239,8 @@ if (
             $('#PersonalModal').modal('show');
             $("#titulo-modal-personal").html("Nuevo");
 
-            $("#visualizDocumento").text(""); // Reset documento escaneado
+            $("#visualizDocumento_cara").text(""); // Reset documento escaneado
+            $("#visualizDocumento_huella").text(""); // Reset documento escaneado
 
             $("#idPersonal").val(""); //reset id personal
 
@@ -267,7 +272,8 @@ if (
             $(".formulario").trigger("reset"); //reset formulario
             $('.select2-single').trigger('change'); //reset select2
             $('.previsualizar').attr('src', 'views/img/fotosUsuarios/default/anonymous.png'); //reset foto
-            $("#visualizDocumento").text(""); // Reset documento escaneado
+            $("#visualizDocumento_cara").text(""); // Reset documento escaneado
+            $("#visualizDocumento_huella").text(""); // Reset documento escaneado
 
             /* HIJOS */
             AjaxTablaHijos(idPersonal);
@@ -346,14 +352,26 @@ if (
                             $(".previsualizar").attr("src", `${urlPagina}views/img/fotosUsuarios/default/anonymous.png`);
                         }
 
-                        // Documento 
+                        // Documento (Cara)
                         if (response.documento_escaneado != null) {
                             let nombre = response.documento_escaneado.split("/");
                             nombre = nombre[nombre.length - 1];
-                            $("#visualizDocumento")
+                            $("#visualizDocumento_cara")
                                 .attr(
                                     "href",
                                     urlPagina + response.documento_escaneado
+                                )
+                                .text(nombre);
+                        }
+
+                        // Documento (Huella)
+                        if (response.documento_escaneado_huella != null) {
+                            let nombre = response.documento_escaneado_huella.split("/");
+                            nombre = nombre[nombre.length - 1];
+                            $("#visualizDocumento_huella")
+                                .attr(
+                                    "href",
+                                    urlPagina + response.documento_escaneado_huella
                                 )
                                 .text(nombre);
                         }

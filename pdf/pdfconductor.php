@@ -309,6 +309,8 @@ class PdfConductor
 
         //var_dump($altura);
 
+        
+        // Si las imagenes son más anchas que altas
         if ($altura <= $ancho) {
 
             $tabla = '
