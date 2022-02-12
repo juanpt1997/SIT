@@ -268,10 +268,10 @@ class ControladorEscolar
             if (!is_numeric($Estudiante['orden'])) {
                 foreach ($pasajerosRuta as $key => $value) {
                     if ($value['idpasajero'] == $ultimo_pasajero['idpasajero']) {
-                        
+
                         $anterior = $value['orden'];
-                        if($key + 1 != null) $siguiente = $pasajerosRuta[$key + 1]['orden'];
-                        
+                        if ($key + 1 != null) $siguiente = $pasajerosRuta[$key + 1]['orden'];
+
                         if ($anterior != null && $siguiente != null) {
 
                             $orden = ($anterior + $siguiente) /  2;
@@ -287,8 +287,7 @@ class ControladorEscolar
                             $orden = 100;
                             $act = ModeloEscolar::mdlActualizarOrden($idpasajero, $orden);
                             return $act;
-                        }else if($anterior != null && $siguiente == null)
-                        {
+                        } else if ($anterior != null && $siguiente == null) {
                             $orden = $anterior + 100;
                             $act = ModeloEscolar::mdlActualizarOrden($idpasajero, $orden);
                             return $act;
@@ -564,12 +563,15 @@ class ControladorEscolar
         $datos['hora'] = $hora;
 
         if ($datos['momento'] == "entrega") {
-            $respuesta = ModeloEscolar::mdlFinalizarRecorridoEntrega($datos);
 
-            if ($respuesta == "ok") {
-                $datos_recorrido = ModeloEscolar::mdlDatosRecorrido($datos['idrecorrido']);
-                $datos_institucion = ModeloEscolar::mdlInstitucionxIdruta($datos_recorrido['idruta']);
-                $pasajeros = ModeloEscolar::mdlPasajerosxRecorridoEntrega($datos['idrecorrido']);
+
+            $datos_recorrido = ModeloEscolar::mdlDatosRecorrido($datos['idrecorrido']);
+            $datos_institucion = ModeloEscolar::mdlInstitucionxIdruta($datos_recorrido['idruta']);
+            $pasajeros = ModeloEscolar::mdlPasajerosxRecorridoEntrega($datos['idrecorrido']);
+
+
+            if ($pasajeros != false) {
+                $respuesta = ModeloEscolar::mdlFinalizarRecorridoEntrega($datos);
 
                 $lista_estudiantes = "<ul>";
 
@@ -583,32 +585,32 @@ class ControladorEscolar
                 $correo_institucion = $datos_institucion['correo'];
                 $subject = "Fin de recorrido de la ruta " . $datos_institucion['numruta'] . " (ENTREGA)";
                 $message = "<table <table border='1'>
-                <thead>
-                  <tr>
-                    <td># Ruta</td>
-                    <td>Sector</td>
-                    <td>Placa</td>
-                     <td>Conductor</td>
-                    <td>Fecha</td>
-                    <td>Hora</td>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{$datos_institucion['numruta']}</td>
-                      <td>{$datos_institucion['sector']}</td>
-                      <td>{$datos_institucion['placa']}</td>
-                      <td>{$datos_institucion['Nombre']}</td>
-                      <td>$fecha</td>
-                      <td>$hora</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <br>
-                <b><u>Estudiantes que fueron entregados:</u></b> $lista_estudiantes
-                <br>
-                <i> Email generado automáticamente, por favor no responder este correo.</i>
-                ";
+                    <thead>
+                      <tr>
+                        <td># Ruta</td>
+                        <td>Sector</td>
+                        <td>Placa</td>
+                         <td>Conductor</td>
+                        <td>Fecha</td>
+                        <td>Hora</td>
+                      </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{$datos_institucion['numruta']}</td>
+                          <td>{$datos_institucion['sector']}</td>
+                          <td>{$datos_institucion['placa']}</td>
+                          <td>{$datos_institucion['Nombre']}</td>
+                          <td>$fecha</td>
+                          <td>$hora</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <br>
+                    <b><u>Estudiantes que fueron entregados:</u></b> $lista_estudiantes
+                    <br>
+                    <i> Email generado automáticamente, por favor no responder este correo.</i>
+                    ";
                 // $message = "<html>
                 //         <body>
 
@@ -631,22 +633,26 @@ class ControladorEscolar
 
 
                 ControladorCorreo::ctrEnviarCorreo($correo_institucion, $subject, $message);
+                return $respuesta;
+            } else {
+                return "no hay";
             }
-
-            return $respuesta;
         } else {
-            $respuesta = ModeloEscolar::mdlFinalizarRecorridoRecoge($datos);
 
-            if ($respuesta == "ok") {
-                $datos_recorrido = ModeloEscolar::mdlDatosRecorrido($datos['idrecorrido']);
-                $datos_institucion = ModeloEscolar::mdlInstitucionxIdruta($datos_recorrido['idruta']);
 
-                $pasajeros = ModeloEscolar::mdlPasajerosxRecorridoRecoge($datos['idrecorrido']);
+            $datos_recorrido = ModeloEscolar::mdlDatosRecorrido($datos['idrecorrido']);
+            $datos_institucion = ModeloEscolar::mdlInstitucionxIdruta($datos_recorrido['idruta']);
+
+            $pasajeros = ModeloEscolar::mdlPasajerosxRecorridoRecoge($datos['idrecorrido']);
+
+
+            if ($pasajeros != false) {
+                $respuesta = ModeloEscolar::mdlFinalizarRecorridoRecoge($datos);
 
                 $lista_estudiantes = "<ul>";
 
                 foreach ($pasajeros as $key => $value) {
-                    $lista_estudiantes .=  "<br><li>" . $value['nombre'] .  " - "  . $value['codigo'] .  $value['hora_recogida'] . "</li>";
+                    $lista_estudiantes .=  "<br><li>" . $value['nombre'] .  " - "  . $value['codigo'] . "-" . $value['hora_recogida'] . "</li>";
                 }
                 $lista_estudiantes .= "</ul>";
 
@@ -654,32 +660,32 @@ class ControladorEscolar
                 $correo_institucion = $datos_institucion['correo'];
                 $subject = "Fin de recorrido de la ruta " . $datos_institucion['numruta'] . " (RECOGIDA)";
                 $message = "<table border='1' style='text-align: center;'>
-                <thead>
-                  <tr>
-                    <td># Ruta</td>
-                    <td>Sector</td>
-                    <td>Placa</td>
-                     <td>Conductor</td>
-                    <td>Fecha</td>
-                    <td>Hora</td>
-                  </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>{$datos_institucion['numruta']}</td>
-                      <td>{$datos_institucion['sector']}</td>
-                      <td>{$datos_institucion['placa']}</td>
-                      <td>{$datos_institucion['Nombre']}</td>
-                      <td>$fecha</td>
-                      <td>$hora</td>
-                    </tr>
-                  </tbody>
-                </table>
-                <br>
-                <b><u>Estudiantes que fueron recogidos:</u></b> $lista_estudiantes
-                <br>
-                <i> Email generado automáticamente, por favor no responder este correo.</i>
-                ";
+                    <thead>
+                      <tr>
+                        <td># Ruta</td>
+                        <td>Sector</td>
+                        <td>Placa</td>
+                         <td>Conductor</td>
+                        <td>Fecha</td>
+                        <td>Hora</td>
+                      </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>{$datos_institucion['numruta']}</td>
+                          <td>{$datos_institucion['sector']}</td>
+                          <td>{$datos_institucion['placa']}</td>
+                          <td>{$datos_institucion['Nombre']}</td>
+                          <td>$fecha</td>
+                          <td>$hora</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    <br>
+                    <b><u>Estudiantes que fueron recogidos:</u></b> $lista_estudiantes
+                    <br>
+                    <i> Email generado automáticamente, por favor no responder este correo.</i>
+                    ";
 
                 // $message = "<html>
                 //         <body>
@@ -700,11 +706,10 @@ class ControladorEscolar
                 //         </html>";
 
                 ControladorCorreo::ctrEnviarCorreo($correo_institucion, $subject, $message);
+                return $respuesta;
+            } else {
+                return "no hay";
             }
-
-
-
-            return $respuesta;
         }
     }
 

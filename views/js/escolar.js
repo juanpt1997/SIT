@@ -592,6 +592,10 @@ if (
             TABLA SEGUIMIENTO X RUTA 
         ==============================================*/
         $(document).on("click", ".btn-seguimiento", function () {
+
+            $("#overlayRecorrido").addClass("d-none");
+
+
             let idruta = $(this).attr("idruta");
             let idrecorrido = $(this).attr("idrecorrido");
 
@@ -1212,8 +1216,6 @@ if (
                     processData: false,
                     dataType: "json",
                     success: function (response) {
-                        console.log(response);
-                        console.log(response.fin_recogida,response.fin_entrega );
 
                         //SI NO HAY FIN DE RECORRIDO
                         if (
@@ -1276,9 +1278,25 @@ if (
                                                     idruta
                                                 );
                                                 cargarTablaRutas();
+                                            }else if(response == "no hay")
+                                            {
+                                                Swal.fire({
+                                                    icon: "error",
+                                                    showConfirmButton: true,
+                                                    title: "¡Este recorrido no tiene pasajeros!",
+                                                    confirmButtonText:
+                                                        "¡Cerrar!",
+                                                    allowOutsideClick: false,
+                                                });
+                                                $("#overlayRecorrido").addClass("d-none");
+
                                             }
                                         },
                                     });
+                                }
+                                if (result.dismiss) {
+                                    $("#overlayRecorrido").addClass("d-none");
+
                                 }
                             });
                         } else if (
@@ -1327,6 +1345,8 @@ if (
                                                     allowOutsideClick: false,
                                                 });
 
+                                                $("#overlayRecorrido").addClass("d-none");
+
                                                 let idruta =
                                                     $("#idruta_aux").val();
                                                 cargarTablaSeguimientoxRuta(
@@ -1336,9 +1356,26 @@ if (
                                                     idruta
                                                 );
                                                 cargarTablaRutas();
+                                            }else if(response == "no hay")
+                                            {
+                                                Swal.fire({
+                                                    icon: "error",
+                                                    showConfirmButton: true,
+                                                    title: "¡Este recorrido no tiene pasajeros!",
+                                                    confirmButtonText:
+                                                        "¡Cerrar!",
+                                                    allowOutsideClick: false,
+                                                });
+
+                                                $("#overlayRecorrido").addClass("d-none");
+
                                             }
                                         },
                                     });
+                                }
+                                if (result.dismiss) {
+                                    $("#overlayRecorrido").addClass("d-none");
+
                                 }
                             });
                         } else if (
@@ -1399,9 +1436,26 @@ if (
                                                     idruta
                                                 );
                                                 cargarTablaRutas();
+                                            }else if(response == "no hay")
+                                            {
+                                                Swal.fire({
+                                                    icon: "error",
+                                                    showConfirmButton: true,
+                                                    title: "¡Este recorrido no tiene pasajeros!",
+                                                    confirmButtonText:
+                                                        "¡Cerrar!",
+                                                    allowOutsideClick: false,
+                                                });
+
+                                                $("#overlayRecorrido").addClass("d-none");
+
                                             }
                                         },
                                     });
+                                }
+                                if (result.dismiss) {
+                                    $("#overlayRecorrido").addClass("d-none");
+
                                 }
                             });
                         }else if(response.fin_recogida != null &&  response.fin_entrega != null){
@@ -1471,6 +1525,18 @@ if (
                                                     idruta
                                                 );
                                                 cargarTablaRutas();
+                                            }else if(response == "no hay")
+                                            {
+                                                Swal.fire({
+                                                    icon: "error",
+                                                    showConfirmButton: true,
+                                                    title: "¡Este recorrido no tiene pasajeros!",
+                                                    confirmButtonText:
+                                                        "¡Cerrar!",
+                                                    allowOutsideClick: false,
+                                                });
+                                                $("#overlayRecorrido").addClass("d-none");
+
                                             }
                                         },
                                     });
@@ -1703,6 +1769,9 @@ if (
                     showConfirmButton: false,
                     timer: 1500,
                 });
+
+                $("#overlayRecorrido").addClass("d-none");
+
             }
         });
 
