@@ -4500,19 +4500,38 @@ $(document).ready(function () {
         cargarTablaLlantas();
         //ASIGNAR PLACA DE VEHICULO A LAS OBSERVACIONES DE LA LLANTA
         $(document).on("change", "#placa", function () {
-            if($(this).val() == ""){
+            let id = $(this).val();
+
+            if(id == ""){
                 $("#observaciones_salida").val("");
             } else {
                 let placa = $('#placa :selected').text();
                 $("#observaciones_salida").val(placa);
-                llantasMontadas($(this).val(),placa);
+                llantasMontadas(id,placa);
+
+                var datos = new FormData();
+                datos.append("datosVehiculo", "ok");
+                datos.append("idvehiculo", id);
+
+                $.ajax({
+                    type: "post",
+                    url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                    data: datos,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response != "") {
+                            $("#kilo_montaje").val(response.kilometraje);
+                        }
+                    },
+                });
             }
         });
         //Segun la cantidad de llantas agrega inputs para asignar el numero de llanta
         $(document).on("blur", "#cantidad", function () {
 
-            $("#hr-llantas").removeClass("d-none");
-            
             $("#inputs_numero_llantas").html("");
             let num = 1;
             let cantidad = $(this).val();
@@ -4520,6 +4539,13 @@ $(document).ready(function () {
             
 
             if(cantidad <= max_campos){
+                if(cantidad <= 4){
+                    $("#img_llantas_6").addClass("d-none");
+                    $("#img_llantas_4").removeClass("d-none");
+                } else if(cantidad > 4){
+                    $("#img_llantas_4").addClass("d-none");
+                    $("#img_llantas_6").removeClass("d-none");
+                }
                 Swal.fire({
                     icon: "info",
                     title: "Digite el número de cada llanta a vincular.",
@@ -4585,7 +4611,6 @@ $(document).ready(function () {
         //CARGAR FUNCIONES AL ABRIR EL MODAL DE REGISTRAR LLANTA
         $("#registro-llantas").on("show.bs.modal", function () {
             $("#inputs_numero_llantas").html("");
-            $("#hr-llantas").addClass("d-none");
             cargarProductos();
             cargarSelect("marca");
             cargarSelect("medida");
@@ -4645,6 +4670,8 @@ $(document).ready(function () {
             $(".btn-guardar-registro-llantas").addClass("d-none");
             $("#col_cantidad").addClass("d-none");
             $("#col_num_llanta").removeClass("d-none");
+            $("#linea_llanta_repuesto").addClass("d-none");
+            $("#input_llanta_repuesto").addClass("d-none");
 
             let idproducto = $(this).attr("idalmacen");
             let idllanta = $(this).attr("idllanta");
@@ -4946,31 +4973,36 @@ $(document).ready(function () {
            
             
         });
-
-        //$(".select2-primary").select2();
-
-        // $(".calcular").keyup(function (e) { 
-        //     console.log($(this).val());
-        // });
+        //EVENTO que calcula el promedio segun las profundidades
         $(document).on("keyup", ".calcular", function () {
-            console.log($(this).val());
+
             let consecutivo = $(this).attr("consecutivo");
-            $(`#promedio_${consecutivo}`).val($(this).val());
-        });
-        const calcularPromedio = () =>{
-            var consecutivo = 1;
+            
+            if($(this).val()){
+                let val1 = $(`#prof1_${consecutivo}`).val();
+                let val2 = $(`#prof2_${consecutivo}`).val();
+                let val3 = $(`#prof3_${consecutivo}`).val();
+                var n = 0;
+                n += val1 != "" ? 1 : 0;
+                n += val2 != "" ? 1 : 0;
+                n += val3 != "" ? 1 : 0;
 
-            // for (let index = 0; index < array.length; index++) {
+                if(val1 != "" || val2 != "" || val3 != ""){
+                    let sum = (Number(val1)+Number(val2)+Number(val3));
+                    let prom = sum/n;
+                    $(`#promedio_${consecutivo}`).val(prom);
+                }
+            }
+        });    
 
-            //     const element = array[index];
-            //     $(`#`).val();
-            //     consecutivo++
-                
-            // }
-
-
-
-        }
-    
+        $('#agregar_llanta_repuesto').click (function ()  {  
+            if ($(this).is(":checked")){
+                $("#linea_llanta_repuesto").removeClass("d-none");
+                $("#input_llanta_repuesto").removeClass("d-none");
+            } else{  
+                $("#linea_llanta_repuesto").addClass("d-none");
+                $("#input_llanta_repuesto").addClass("d-none");
+            }  
+        }); 
     }
 });
