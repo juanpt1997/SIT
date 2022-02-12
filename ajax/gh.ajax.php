@@ -73,6 +73,7 @@ class AjaxPersonal
             $tr .= "
                 <tr>
                     <td>" . $value['idPersonal'] . "</td>
+                    <td>$botonAcciones</td>
                     <td>$foto</td>
                     <td>" . $value['Nombre'] . "</td>
                     <td>" . $value['Documento'] . "</td>
@@ -82,7 +83,6 @@ class AjaxPersonal
                     <td>" . $value['correo'] . "</td>
                     <td>" . $value['tipo_sangre'] . "</td>
                     <td>$activo</td>
-                    <td>$botonAcciones</td>
                 </tr>
             ";
         }
@@ -93,9 +93,9 @@ class AjaxPersonal
     /* ===================================================
        GUARDAR DATOS DEL PERSONAL
     ===================================================*/
-    static public function ajaxGuardarPersonal($formData, $foto, $documento)
+    static public function ajaxGuardarPersonal($formData, $foto, $documento_cara, $documento_huella)
     {
-        $respuesta = ControladorGH::ctrGuardarPersonal($formData, $foto, $documento);
+        $respuesta = ControladorGH::ctrGuardarPersonal($formData, $foto, $documento_cara, $documento_huella);
         echo $respuesta;
     }
 
@@ -530,8 +530,9 @@ if (isset($_POST['TablaPersonal']) && $_POST['TablaPersonal'] == "ok") {
 
 if (isset($_POST['GuardarPersonal']) && $_POST['GuardarPersonal'] == "ok") {
     $foto = isset($_FILES['foto']) ? $_FILES['foto'] : "";
-    $documento = isset($_FILES['documento']) ? $_FILES['documento'] : "";
-    AjaxPersonal::ajaxGuardarPersonal($_POST, $foto, $documento);
+    $documento_cara = isset($_FILES['documento_cara']) ? $_FILES['documento_cara'] : "";
+    $documento_huella = isset($_FILES['documento_huella']) ? $_FILES['documento_huella'] : "";
+    AjaxPersonal::ajaxGuardarPersonal($_POST, $foto, $documento_cara, $documento_huella);
 }
 
 if (isset($_POST['DatosEmpleado']) && $_POST['DatosEmpleado'] == "ok") {
