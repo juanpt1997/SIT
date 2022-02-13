@@ -1164,12 +1164,22 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 </div>
 
                                 <!-- ===================================================
-                                    Licencia escaneada
+                                    Licencia escaneada (cara)
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <label for="exampleInput1" class="text-sm"><i>Licencia escaneada</i></label>
-                                        <input type="file" class="form-control" name="" id="inputfile-licencias" accept="image/png, image/jpeg">
+                                        <label for="exampleInput1" class="text-sm"><i>Licencia escaneada (cara)</i></label>
+                                        <input type="file" class="form-control" name="" id="inputfile-licencias_cara" accept="image/png, image/jpeg">
+                                    </div>
+                                </div>
+                                
+                                <!-- ===================================================
+                                    Licencia escaneada (huella)
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1" class="text-sm"><i>Licencia escaneada (huella)</i></label>
+                                        <input type="file" class="form-control" name="" id="inputfile-licencias_huella" accept="image/png, image/jpeg">
                                     </div>
                                 </div>
 

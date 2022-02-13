@@ -1366,7 +1366,7 @@ class AjaxLlantasControl
             'observaciones' => $frmData['observaciones_salida'],
             'numero_llanta' => $frmData['numero_llanta'],
             'posicion' => 1,
-            'usuario' => $_SESSION['cedula']
+            'usuario' => $_SESSION['cedula']        
         );
         //ACTUALIZAR el tamaño de la llanta en caso de que la llanta sea creada desde almacen
         $actualizar = array(
@@ -1378,15 +1378,32 @@ class AjaxLlantasControl
         );
         ModeloConceptosGenerales::mdlEditar($actualizar);
 
+        $posicion = 1;
+
         if (isset($datos['numero_llanta'])) {
             foreach ($datos['numero_llanta'] as $key => $value) {
                 if ($value != "") {
 
                     $cantidad = intval($value);
-                    ModeloControlLlantas::mdlAgregarLLantaVehiculo($datos, $cantidad);
+                    ModeloControlLlantas::mdlAgregarLLantaVehiculo($datos, $cantidad, $posicion);
+                    $posicion++;
                 }
             }
         }
+
+        //echo $_POST['llanta_repuesto'];
+
+        // if (isset($_POST['llanta_repuesto'])) {
+        //     ModeloControlLlantas::mdlAgregarLLantaVehiculo($datos, $_POST['llanta_repuesto'], 0);
+        // }
+
+        if($_POST['llanta_repuesto'] != ""){
+
+            ModeloControlLlantas::mdlAgregarLLantaVehiculo($datos, $_POST['llanta_repuesto'], 0);
+
+        }
+
+        
 
         $id_inventario = ModeloProductos::mdlValidarInventario($datos);
 
@@ -1610,7 +1627,7 @@ class AjaxLlantasControl
         echo json_encode($respuesta);
     }
 
-    static public function ajaxTablaOrdenTRabajo($idvehiculo)
+    static public function ajaxTablaOrdenTrabajo($idvehiculo)
     {
         $datos = array('item' => 'trabajo', 
                         'id' => 'idtrabajo',
@@ -1644,17 +1661,17 @@ class AjaxLlantasControl
                                 <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='prof1_{$consecutivo}'></td>
                                 <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='prof2_{$consecutivo}'></td>
                                 <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='prof3_{$consecutivo}'></td>
-                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='promedio_{$consecutivo}'></td>
+                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='promedio_{$consecutivo}' readonly></td>
                                 <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='presion_{$consecutivo}'></td>
                                 <td>
                                     <select id='trabajo_{$consecutivo}' >{$option}</select>
                                 </td>
-                                <td><div class='form-check form-switch'><input class='form-check-input' type='radio' id='ubicacion1_{$consecutivo}'></div></td>
-                                <td><div class='form-check form-switch'><input class='form-check-input' type='radio' id='ubicacion2_{$consecutivo}'></div></td>
-                                <td><div class='form-check form-switch'><input class='form-check-input' type='radio' id='ubicacion3_{$consecutivo}'></div></td>
-                                <td><div class='form-check form-switch'><input class='form-check-input' type='radio' id='ubicacion4_{$consecutivo}'></div></td>
-                                <td><div class='form-check form-switch'><input class='form-check-input' type='radio' id='ubicacion5_{$consecutivo}'></div></td>
-                                <td><div class='form-check form-switch'><input class='form-check-input' type='radio' id='ubicacion6_{$consecutivo}'></div></td>
+                                <td><input class='check' type='radio' id='ubicacion1_{$consecutivo}' name='posicion{$consecutivo}[]'></td>
+                                <td><input class='check' type='radio' id='ubicacion2_{$consecutivo}' name='posicion{$consecutivo}[]'></td>
+                                <td><input class='check' type='radio' id='ubicacion3_{$consecutivo}' name='posicion{$consecutivo}[]'></td>
+                                <td><input class='check' type='radio' id='ubicacion4_{$consecutivo}' name='posicion{$consecutivo}[]'></td>
+                                <td><input class='check' type='radio' id='ubicacion5_{$consecutivo}' name='posicion{$consecutivo}[]'></td>
+                                <td><input class='check' type='radio' id='ubicacion6_{$consecutivo}' name='posicion{$consecutivo}[]'></td>
                             </tr>
                     ";
                 $consecutivo++;
@@ -1673,25 +1690,50 @@ class AjaxLlantasControl
     {
         $respuesta = ModeloControlLlantas::mdlLlantasMontadas($idvehiculo);
         $ul = "";
+        $posicion = "";
 
         if (!empty($respuesta)) {
 
             foreach ($respuesta as $key => $value) {
+
+                if($value['posicion'] == 0 && $value['posicion'] != NULL){
+
+                    $posicion = "<li><span class='badge badge-info'>Repuesto</span></li>";
+
+                } else {
+
+                    $posicion = "<li><span class='badge badge-success'>Montada</span></li>";
+
+                }
+
                 $ul .= "<div class='col-6'>
                             <ul>
                                 <li><strong>Número de llanta:</strong> {$value["num_llanta"]}</li>
                                 <li><strong>Proveedor:</strong> {$value["razon_social"]}</li>
                                 <li><strong>Fecha:</strong> {$value["fecha_montaje"]}</li>
                                 <li><strong>Kilometraje:</strong> {$value["kilom_montaje"]}</li>
+                                {$posicion}
                             </ul>
                         </div>";
             }
             echo $ul;
         } else {
-            $ul .= "<p>Seleccione un vehículo.</p>";
+            $ul .= "<p><span class='badge badge-secondary'>Seleccione un vehículo.</span></p>";
 
             echo $ul;
         }
+    }
+
+    static public function ajaxDatosVehiculo($idvehiculo)
+    {
+        $datosplaca = array(
+            'item' => 'idvehiculo',
+            'valor' => $idvehiculo
+        );
+
+        $respuestaPlaca = ModeloVehiculos::mdlDatosVehiculo($datosplaca);
+
+        echo json_encode($respuestaPlaca);
     }
 
     // static public function ajaxListaTrabajos()
@@ -1884,11 +1926,15 @@ if (isset($_POST['llantasMontadas']) && $_POST['llantasMontadas'] == "ok") {
 }
 
 if (isset($_POST['cargarTablaOrdenTrabajo']) && $_POST['cargarTablaOrdenTrabajo'] == "ok") {
-    AjaxLlantasControl::ajaxTablaOrdenTRabajo($_POST['idvehiculo']);
+    AjaxLlantasControl::ajaxTablaOrdenTrabajo($_POST['idvehiculo']);
 }
 
 if (isset($_POST['datosVehiculosLlantas']) && $_POST['datosVehiculosLlantas'] == "ok") {
     AjaxLlantasControl::ajaxListaDatosLLantasxVehiculo($_POST['idvehiculo']);
+}
+
+if (isset($_POST['datosVehiculo']) && $_POST['datosVehiculo'] == "ok") {
+    AjaxLlantasControl::ajaxDatosVehiculo($_POST['idvehiculo']);
 }
 
 // if (isset($_POST['listaTrabajos']) && $_POST['listaTrabajos'] == "ok") {

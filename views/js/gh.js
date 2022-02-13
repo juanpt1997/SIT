@@ -807,9 +807,10 @@ if (
                         if (response != "error") {
                             if (response != "existe") {
                                 // DOCUMENTO
-                                var documento = $('#inputfile-licencias')[0].files;
-
+                                var documento = $('#inputfile-licencias_cara')[0].files;
+                                var documento_huella = $('#inputfile-licencias_huella')[0].files;
                                 CargarDocumento(idPersonal, documento, "licencias", response, "no");
+                                CargarDocumento(idPersonal, documento_huella, "licencias_huella", response, "no");
                                 // Cargar de nuevo la tabla licencias - esto se va a hacer despues de obtener respuesta de la funcion anterior de cargar documeno
                                 //AjaxTablaLicencias(idPersonal);
 

@@ -413,8 +413,27 @@ class AjaxPersonal
         ========================= */
         $anioActual = date("Y");
 
-        # Verificar Directorio
-        $directorio = DIR_APP . "views/docs/personal/$tipoDoc/" . strval($idPersonal);
+        if ($tipoDoc == "licencias_huella"){
+            $folder = "licencias";
+        }else{
+            $folder = $tipoDoc;
+        }
+
+        # Verificar Directorio personal
+        $directorio = DIR_APP . "views/docs/personal";
+        if (!is_dir($directorio)) {
+            mkdir($directorio, 0755);
+        }
+
+        # Verificar Directorio tipo documento
+        $directorio .= "/$folder";
+        if (!is_dir($directorio)) {
+            mkdir($directorio, 0755);
+        }
+
+        # Verificar Directorio Persona
+        //$directorio = DIR_APP . "views/docs/personal/$folder/" . strval($idPersonal);
+        $directorio .= "/" . strval($idPersonal);
         if (!is_dir($directorio)) {
             mkdir($directorio, 0755);
         }
@@ -447,27 +466,37 @@ class AjaxPersonal
             switch ($tipoDoc) {
                 case 'examenes':
                     $tabla = "gh_re_personalexamenes";
+                    $item1 = "ruta_documento";
                     $item2 = "idexamen";
                     break;
 
                 case 'licencias':
                     $tabla = "gh_re_personallicencias";
+                    $item1 = "ruta_documento";
+                    $item2 = "idlicencia";
+                    break;
+
+                case 'licencias_huella':
+                    $tabla = "gh_re_personallicencias";
+                    $item1 = "ruta_documento_huella";
                     $item2 = "idlicencia";
                     break;
 
                 case 'contratos':
                     $tabla = "gh_re_personalprorrogas";
+                    $item1 = "ruta_documento";
                     $item2 = "idprorroga";
                     break;
 
                 default:
                     $tabla = "";
+                    $item1 = "";
                     $item2 = "";
                     break;
             }
             $datosRutaDoc = array(
                 'tabla' => $tabla,
-                'item1' => 'ruta_documento',
+                'item1' => $item1,
                 'valor1' => $rutaDoc,
                 'item2' => $item2,
                 'valor2' => $idregistro
