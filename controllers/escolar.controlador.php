@@ -570,6 +570,7 @@ class ControladorEscolar
             $pasajeros = ModeloEscolar::mdlPasajerosxRecorridoEntrega($datos['idrecorrido']);
 
 
+
             if ($pasajeros != false) {
                 $respuesta = ModeloEscolar::mdlFinalizarRecorridoEntrega($datos);
 
@@ -642,7 +643,6 @@ class ControladorEscolar
 
             $datos_recorrido = ModeloEscolar::mdlDatosRecorrido($datos['idrecorrido']);
             $datos_institucion = ModeloEscolar::mdlInstitucionxIdruta($datos_recorrido['idruta']);
-
             $pasajeros = ModeloEscolar::mdlPasajerosxRecorridoRecoge($datos['idrecorrido']);
 
 
@@ -719,7 +719,7 @@ class ControladorEscolar
     static public function ctrGuardarInstitucion($datos)
     {
 
-        var_dump($datos);
+        
 
 
         if (isset($_POST['docum_empre'])) {

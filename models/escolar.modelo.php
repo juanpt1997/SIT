@@ -69,9 +69,9 @@ class ModeloEscolar
     ===================================================*/
     static public function mdlRutaxId($idruta)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT r.*, i.nombre, v.placa, v.capacidad FROM e_rutas r
-        INNER JOIN e_instituciones i on r.idinstitucion = i.idinstitucion
-        INNER JOIN v_vehiculos v ON r.idvehiculo = v.idvehiculo 
+        $stmt = Conexion::conectar()->prepare("SELECT r.*, c.nombre, v.placa, v.capacidad FROM e_rutas r
+        INNER JOIN cont_clientes c on r.idinstitucion = c.idcliente
+        INNER JOIN v_vehiculos v ON r.idvehiculo = v.idvehiculo  
 		WHERE r.idruta = :idruta");
 
         $stmt->bindParam(":idruta", $idruta, PDO::PARAM_INT);
@@ -582,12 +582,12 @@ class ModeloEscolar
     ===================================================*/
     static public function mdlHistorialRecorrido()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT r.*, DATE_FORMAT(r.fecha, '%d/%m/%Y') AS Ffecha,  rt.*, i.nombre, v.placa,p.Nombre AS nombre_conductor  FROM e_re_recorridos r
+        $stmt = Conexion::conectar()->prepare("SELECT r.*, DATE_FORMAT(r.fecha, '%d/%m/%Y') AS Ffecha,  rt.*, c.nombre, v.placa,p.Nombre AS nombre_conductor  FROM e_re_recorridos r
         INNER JOIN e_rutas rt ON r.idruta = rt.idruta
-        INNER JOIN e_instituciones i ON rt.idinstitucion = i.idinstitucion
+        INNER JOIN cont_clientes c ON rt.idinstitucion = c.idcliente
         INNER JOIN v_vehiculos v ON rt.idvehiculo = v.idvehiculo
         LEFT JOIN gh_personal p ON p.idPersonal = rt.idconductor  
-        ORDER BY r.fecha DESC 
+        ORDER BY r.fecha DESC
         ");
 
         $stmt->execute();
@@ -758,8 +758,8 @@ class ModeloEscolar
     ===================================================*/
     static public function mdlInstitucionxIdruta($idruta)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT r.*, i.*, v.placa, p.Nombre FROM e_rutas r 
-        INNER JOIN e_instituciones i ON r.idinstitucion = i.idinstitucion
+        $stmt = Conexion::conectar()->prepare("SELECT r.*, c.*, v.placa, p.Nombre FROM e_rutas r 
+        INNER JOIN cont_clientes c ON r.idinstitucion = c.idcliente 
         INNER JOIN v_vehiculos v ON r.idvehiculo = v.idvehiculo
         INNER JOIN gh_personal p ON r.idconductor = p.idPersonal
         WHERE r.idruta = :idruta");
