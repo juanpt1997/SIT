@@ -1629,13 +1629,19 @@ class ControladorLlantasControl
 					$count++;
 					//Eliminamos trabajos antes de agregar para evitar la bsuqueda
 					//$eliminarTrabajo = ModeloControlLlantas::mdlEliminarTrabajos($idorden);
-
 					foreach ($datos[$trabajosConsecutivo] as $value) {
-
 						ModeloControlLlantas::mdlRegistrarTrabajos(array('idorden' => $idcontrol, 'trabajo' => intval($value)));
 					}
 				}
 			}
-		} 
+		}
+
+		if($idorden != "" || $idorden != 'error'){
+			return 'creado';
+			
+		} else {
+
+			return 'error';
+		}
 	}
 }

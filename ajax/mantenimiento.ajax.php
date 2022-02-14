@@ -1739,7 +1739,11 @@ class AjaxLlantasControl
     static public function ajaxGenerarOrdenTrabajo($frmData)
     {
         $respuesta = ControladorLlantasControl::ctrGenerarOrden($frmData);
-        echo $respuesta;
+        if($respuesta == 'creado'){
+            echo 'creado';
+        } else {
+            echo 'error';
+        }
     }
 
     static public function ajaxTablaControlOrdenes()
@@ -2010,7 +2014,7 @@ if (isset($_POST['cargarTablaControlOrdenes']) && $_POST['cargarTablaControlOrde
     AjaxLlantasControl::ajaxTablaControlOrdenes();
 }
 
-if (isset($_POST['ListarProveedores']) && $_POST['ListarProveedores'] == "ok") {
+if (isset($_POST['ListarProveedoresLlantas']) && $_POST['ListarProveedoresLlantas'] == "ok") {
     AjaxLlantasControl::ajaxListaProveedores();
 }
 
