@@ -1155,6 +1155,14 @@ if (
                                 AjaxTablaLicencias(idPersonal);
                                 break;
 
+                            case "licencias_huella":
+                                // esto se debe porque puede ser subido el documento separado del formulario e igual necesitamos que recargue la tabla
+                                // En el caso de ser montado directo en el formulario, tendriamos doble recarga de tabla y no queremos esto.
+                                if (msjExito == "si"){ 
+                                    AjaxTablaLicencias(idPersonal);
+                                }
+                                break;
+
                             case "contratos":
                                 AjaxTablaProrrogas(idPersonal);
                                 break;
@@ -1241,6 +1249,9 @@ if (
                                         break;
 
                                     case "licencias":
+                                        AjaxTablaLicencias(idPersonal);
+                                        break;
+                                    case "licencias_huella":
                                         AjaxTablaLicencias(idPersonal);
                                         break;
 

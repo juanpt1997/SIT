@@ -1615,7 +1615,7 @@ class ControladorLlantasControl
 					$datosLlanta['fecha_orden'] = $datos['fecha_orden'];
 					$datosLlanta['posicion_inicial'] = $datos['posicion_inicial'][$count];
 					//Creamos un array concatenando el numero consecutivo para cada input y asi se puede saber que posicion final se esta recorriendo
-					$posicionFinalConsecutivo = 'posicion' . $count + 1;
+					$posicionFinalConsecutivo = 'posicion' . ($count + 1);
 					//Hacemos la busqueda dentro del array de POST con la cadena concatenada
 					$datosLlanta['posicion_final'] = $datos[$posicionFinalConsecutivo][0];
 					$datosLlanta['usuario'] = $_SESSION['cedula'];
@@ -1624,7 +1624,7 @@ class ControladorLlantasControl
 					//GUARDAMOS EL ID al agregar
 					$idcontrol = ModeloControlLlantas::mdlAgregarLlantaOrden($datosLlanta);
 					//Creamos un array concatenando el numero consecutivo para cada input y asi se puede saber que trabajo se esta recorriendo
-					$trabajosConsecutivo = 'trabajos' . $count + 1;
+					$trabajosConsecutivo = 'trabajos' . ($count + 1);
 					//aumentamos el indice
 					$count++;
 					//Eliminamos trabajos antes de agregar para evitar la bsuqueda

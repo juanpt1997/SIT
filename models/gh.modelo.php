@@ -338,7 +338,8 @@ class ModeloGH
     static public function mdlDatosEmpleado($datos)
     {
         //$stmt = Conexion::conectar()->prepare("SELECT * FROM gh_personal WHERE idPersonal = :idPersonal");
-        $stmt = Conexion::conectar()->prepare("SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, s.sucursal AS Sucursal, l.nro_licencia, l.categoria, l.fecha_vencimiento, l.ruta_documento, 
+        $stmt = Conexion::conectar()->prepare("SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, s.sucursal AS Sucursal, 
+                                                l.nro_licencia, l.categoria, l.fecha_vencimiento, l.ruta_documento, l.ruta_documento_huella,
                                                     (case (YEAR(NOW()) - YEAR(p.fecha_nacimiento))
                                                     when 0
                                                     then 1
