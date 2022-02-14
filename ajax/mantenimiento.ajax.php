@@ -345,7 +345,7 @@ class AjaxMantenimientos
                 <td>" . $value['correo'] . "</td>
                 <td>
                 <div class='btn-group' role='group' aria-label='Button group'>
-			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' documento = '{$value["documento"]}' nombre_proveedor='{$value["nombre_contacto"]}' razon='{$value["razon_social"]}' direccion='{$value["direccion"]}' idproveedor='{$value["id"]}'  class='btn btn-sm btn-success btn-SeleccionarProveedor'><i class='fas fa-check'></i></button>
+			    <button data-toggle='tooltip' data-placement='top' title='Seleccionar producto' consecutivo = '{$consecutivo}' documento='{$value["documento"]}' nombre_proveedor='{$value["nombre_contacto"]}' razon='{$value["razon_social"]}' direccion='{$value["direccion"]}' idproveedor='{$value["id"]}'  class='btn btn-sm btn-success btn-SeleccionarProveedor'><i class='fas fa-check'></i></button>
 			    </div>
                 </td>
             </tr>
@@ -1366,7 +1366,7 @@ class AjaxLlantasControl
             'observaciones' => $frmData['observaciones_salida'],
             'numero_llanta' => $frmData['numero_llanta'],
             'posicion' => 1,
-            'usuario' => $_SESSION['cedula']        
+            'usuario' => $_SESSION['cedula']
         );
         //ACTUALIZAR el tamaño de la llanta en caso de que la llanta sea creada desde almacen
         $actualizar = array(
@@ -1397,13 +1397,12 @@ class AjaxLlantasControl
         //     ModeloControlLlantas::mdlAgregarLLantaVehiculo($datos, $_POST['llanta_repuesto'], 0);
         // }
 
-        if($_POST['llanta_repuesto'] != ""){
+        if ($_POST['llanta_repuesto'] != "") {
 
             ModeloControlLlantas::mdlAgregarLLantaVehiculo($datos, $_POST['llanta_repuesto'], 0);
-
         }
 
-        
+
 
         $id_inventario = ModeloProductos::mdlValidarInventario($datos);
 
@@ -1629,9 +1628,11 @@ class AjaxLlantasControl
 
     static public function ajaxTablaOrdenTrabajo($idvehiculo)
     {
-        $datos = array('item' => 'trabajo', 
-                        'id' => 'idtrabajo',
-                        'tabla' => 'm_trabajos_llantas');
+        $datos = array(
+            'item' => 'trabajo',
+            'id' => 'idtrabajo',
+            'tabla' => 'm_trabajos_llantas'
+        );
 
         $respuesta = ModeloControlLlantas::mdlLlantasMontadas($idvehiculo);
 
@@ -1644,34 +1645,35 @@ class AjaxLlantasControl
         $consecutivo = 1;
 
         foreach ($trabajos as $key => $value) {
-            $option .= "<option value='{$value['idtrabajo']}' data-select2-id='trabajo_{$consecutivo}'>{$value['trabajo']}</option>";
+            $option .= "<option value='{$value['idtrabajo']}'>{$value['trabajo']}</option>";
         }
-
-        
 
         if (!empty($respuesta)) {
 
             foreach ($respuesta as $key => $value) {
                 $tr .= "<tr>
-                                <td>{$value["idllanta"]}</td>
+                                <td><input type='number' class='form-control form-control-sm' consecutivo='{$consecutivo}' id='idllanta_{$consecutivo}' name='llanta[]' value='{$value["idllanta"]}' readonly></td>
                                 <td>{$value["num_llanta"]}</td>
+                                <td><input class='form-control form-control-sm' consecutivo='{$consecutivo}' id='posicion_{$consecutivo}' name='posicion_inicial[]' value='{$value["posicion"]}' readonly></td>
                                 <td>{$value["marca"]}</td>
-                                <td><input type='text' class='form-control form-control-sm' id='banda_{$consecutivo}'></td>
                                 <td>{$value["tamanio"]}</td>
-                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='prof1_{$consecutivo}'></td>
-                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='prof2_{$consecutivo}'></td>
-                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='prof3_{$consecutivo}'></td>
-                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='promedio_{$consecutivo}' readonly></td>
-                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='presion_{$consecutivo}'></td>
-                                <td>
-                                    <select id='trabajo_{$consecutivo}' >{$option}</select>
+                                <td><input type='number' class='form-control form-control-sm' id='kiloinspeccion_{$consecutivo}' name='kilo_inspeccion[]'></td>
+                                <td><input type='text' class='form-control form-control-sm' id='banda_{$consecutivo}' name='banda[]'></td>
+                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='prof1_{$consecutivo}' name='prof1[]'></td>
+                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='prof2_{$consecutivo}' name='prof2[]'></td>
+                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='prof3_{$consecutivo}' name='prof3[]'></td>
+                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='promedio_{$consecutivo}' name='promedio[]' readonly></td>
+                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='presion_{$consecutivo}' name='presion[]'></td>
+                                <td style='min-width: 370px'>
+                                    <select id='trabajo_{$consecutivo}' name='trabajos{$consecutivo}[]' class='select2-primary select2-multiple form-control input-sm' multiple='multiple'>{$option}</select>
                                 </td>
-                                <td><input class='check' type='radio' id='ubicacion1_{$consecutivo}' name='posicion{$consecutivo}[]'></td>
-                                <td><input class='check' type='radio' id='ubicacion2_{$consecutivo}' name='posicion{$consecutivo}[]'></td>
-                                <td><input class='check' type='radio' id='ubicacion3_{$consecutivo}' name='posicion{$consecutivo}[]'></td>
-                                <td><input class='check' type='radio' id='ubicacion4_{$consecutivo}' name='posicion{$consecutivo}[]'></td>
-                                <td><input class='check' type='radio' id='ubicacion5_{$consecutivo}' name='posicion{$consecutivo}[]'></td>
-                                <td><input class='check' type='radio' id='ubicacion6_{$consecutivo}' name='posicion{$consecutivo}[]'></td>
+                                <td><input class='check' type='radio' id='ubicacion1_{$consecutivo}' name='posicion{$consecutivo}[]' value='1'></td>
+                                <td><input class='check' type='radio' id='ubicacion2_{$consecutivo}' name='posicion{$consecutivo}[]' value='2'></td>
+                                <td><input class='check' type='radio' id='ubicacion3_{$consecutivo}' name='posicion{$consecutivo}[]' value='3'></td>
+                                <td><input class='check' type='radio' id='ubicacion4_{$consecutivo}' name='posicion{$consecutivo}[]' value='4'></td>
+                                <td><input class='check' type='radio' id='ubicacion5_{$consecutivo}' name='posicion{$consecutivo}[]' value='5'></td>
+                                <td><input class='check' type='radio' id='ubicacion6_{$consecutivo}' name='posicion{$consecutivo}[]' value='6'></td>
+                                <td><input class='check' type='radio' id='ubicacion0_{$consecutivo}' name='posicion{$consecutivo}[]' value='0'></td>
                             </tr>
                     ";
                 $consecutivo++;
@@ -1679,7 +1681,7 @@ class AjaxLlantasControl
             echo $tr;
         } else {
             $tr .= "<tr>
-                        <td colspan='17'>Seleccione un vehículo con llantas montadas</td>
+                        <td colspan='20'>Seleccione un vehículo con llantas montadas</td>
                     </tr>";
 
             echo $tr;
@@ -1696,22 +1698,20 @@ class AjaxLlantasControl
 
             foreach ($respuesta as $key => $value) {
 
-                if($value['posicion'] == 0 && $value['posicion'] != NULL){
+                if ($value['posicion'] == 0 && $value['posicion'] != NULL) {
 
                     $posicion = "<li><span class='badge badge-info'>Repuesto</span></li>";
-
                 } else {
 
                     $posicion = "<li><span class='badge badge-success'>Montada</span></li>";
-
                 }
 
-                $ul .= "<div class='col-6'>
+                $ul .= "<div class='col-md-12 col-lg-6 col-xl-6 col-sm-12 '>
                             <ul>
-                                <li><strong>Número de llanta:</strong> {$value["num_llanta"]}</li>
+                                <li><strong>Núm. llanta:</strong> {$value["num_llanta"]}</li>
                                 <li><strong>Proveedor:</strong> {$value["razon_social"]}</li>
-                                <li><strong>Fecha:</strong> {$value["fecha_montaje"]}</li>
-                                <li><strong>Kilometraje:</strong> {$value["kilom_montaje"]}</li>
+                                <li><strong>Fecha de montaje:</strong> {$value["fecha_montaje"]}</li>
+                                <li><strong>Kilometraje de montaje:</strong> {$value["kilom_montaje"]}</li>
                                 {$posicion}
                             </ul>
                         </div>";
@@ -1736,29 +1736,94 @@ class AjaxLlantasControl
         echo json_encode($respuestaPlaca);
     }
 
-    // static public function ajaxListaTrabajos()
-    // {
-    //     $datos = array('item' => 'trabajo', 
-    //                     'id' => 'idtrabajo',
-    //                     'tabla' => 'm_trabajos_llantas');
+    static public function ajaxGenerarOrdenTrabajo($frmData)
+    {
+        $respuesta = ControladorLlantasControl::ctrGenerarOrden($frmData);
+        echo $respuesta;
+    }
 
-    //     $respuesta = ModeloConceptosGenerales::mdlVer($datos);
-    //     $tr = "";
+    static public function ajaxTablaControlOrdenes()
+    {
+        $respuesta = ModeloControlLlantas::mdlListarOrdenes();
+        $tr = "";
 
-    //     foreach ($respuesta as $key => $value) {
-    //         $tr .= "
-    //             <tr>
-    //                 <td>" . $value['trabajo'] . "</td>
-    //                 <td>
-    //                     <div class='btn-group' role='group' aria-label='Button group'>
-    //                     <button data-toggle='tooltip' data-placement='top' title='Seleccionar trabajo' idtrabajo = '{$value["idtrabajo"]}' class='btn btn-sm btn-success btnSeleccionarTrabajo '><i class='fas fa-check'></i></button>
-    //                     </div>
-    //                 </td>
-    //             </tr>";
-    //     }
+        foreach ($respuesta as $key => $value) {
+            $tr .= "<tr>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Button group'>
+                                <button title='Editar orden de trabajo' data-toggle='modal' idcontrol='{$value["idcontrol"]}' idllanta='{$value["idllanta"]}' idorden='{$value["idorden"]}' data-target='#registro-llantas' class='btn btn-sm bg-gradient-info btn_editar_orden'><i class='fas fa-edit'></i></button>
+                            </div>
+                            <div class='btn-group' role='group' aria-label='Button group'>
+                                <button title='Ver trabajos realizados en llanta' class='btn btn-sm bg-gradient-olive btn_trabajos_realizados' idcontrol='{$value["idcontrol"]}' idllanta='{$value["idllanta"]}' data-toggle='modal' data-target='#HistorialTrabajos'><i class='fas fa-briefcase'></i></button>
+                            </div>
+                            <div class='btn-group' role='group' aria-label='Button group'>
+                                <button title='Eliminar orden de trabajo' class='btn btn-sm bg-gradient-danger btn_orden_control' idcontrol='{$value["idcontrol"]}'><i class='fas fa-trash'></i></button>
+                            </div>
+                        </td>
+                        <td>{$value["idorden"]}</td>
+                        <td>{$value["idllanta"]}</td>
+                        <td>{$value["num_llanta"]}</td>
+                        <td>{$value["fecha_orden"]}</td>
+                        <td>{$value["placa"]}</td>
+                        <td>{$value["numinterno"]}</td>
+                        <td>{$value["alineacion"]}</td>
+                        <td>{$value["km_inspeccion"]}</td>
+                        <td>{$value["razon_social"]}</td>
+                        <td>{$value["promedio"]}</td>
+                        <td>{$value["presion"]}</td>
+                        <td>{$value["posicion_anterior"]}</td>
+                        <td>{$value["nueva_posicion"]}</td>
+                    </tr>
+			";
+        }
+        echo $tr;
+    }
 
-    //     echo $tr;
-    // }
+    static public function ajaxListaProveedores()
+    {
+        $respuesta =  ModeloProveedores::mdlListarProveedores(null);
+
+        $tr = "";
+
+        foreach ($respuesta as $key => $value) {
+            $tr .= "
+            <tr>
+                <td>" . $value['documento']  . "</td>
+                <td>" . $value['nombre_contacto'] . "</td>
+                <td>" . $value['razon_social'] . "</td>
+                <td>" . $value['direccion'] . "</td>
+                <td>" . $value['telefono'] . "</td>
+                <td>" . $value['correo'] . "</td>
+                <td>
+                    <div class='btn-group' role='group' aria-label='Button group'>
+                    <button data-toggle='tooltip' data-placement='top' title='Seleccionar proveedor.' documento='{$value['documento']}' razon='{$value["razon_social"]}' direccion='{$value["direccion"]}' idproveedor='{$value["id"]}' class='btn btn-sm btn-success btn_seleccionarProveedor'><i class='fas fa-check'></i></button>
+                    </div>
+                </td>
+            </tr>
+            ";
+        }
+
+        echo $tr;
+    }
+
+    static public function ajaxTablaTrabajosRealizados($idcontrol,$idllanta)
+    {
+
+        $datos = array('idllanta' => $idllanta, 'idcontrol' => $idcontrol);
+
+        $respuesta = ModeloControlLlantas::mdlTrabajosRealizados($datos);
+        $tr = "";
+
+        foreach ($respuesta as $key => $value) {
+            $tr .= "<tr>
+                        <td>{$value["idcontrol"]}</td>
+                        <td>{$value["num_llanta"]}</td>
+                        <td>{$value["trabajo"]}</td>                        
+                    </tr>
+			";
+        }
+        echo $tr;
+    }
 }
 /* ===================================================
             LLAMADOS AJAX INVENTARIO
@@ -1937,6 +2002,18 @@ if (isset($_POST['datosVehiculo']) && $_POST['datosVehiculo'] == "ok") {
     AjaxLlantasControl::ajaxDatosVehiculo($_POST['idvehiculo']);
 }
 
-// if (isset($_POST['listaTrabajos']) && $_POST['listaTrabajos'] == "ok") {
-//     AjaxLlantasControl::ajaxListaTrabajos();
-// }
+if (isset($_POST['generarOrden']) && $_POST['generarOrden'] == "ok") {
+    AjaxLlantasControl::ajaxGenerarOrdenTrabajo($_POST);
+}
+
+if (isset($_POST['cargarTablaControlOrdenes']) && $_POST['cargarTablaControlOrdenes'] == "ok") {
+    AjaxLlantasControl::ajaxTablaControlOrdenes();
+}
+
+if (isset($_POST['ListarProveedores']) && $_POST['ListarProveedores'] == "ok") {
+    AjaxLlantasControl::ajaxListaProveedores();
+}
+
+if (isset($_POST['listaTrabajos']) && $_POST['listaTrabajos'] == "ok") {
+    AjaxLlantasControl::ajaxTablaTrabajosRealizados($_POST['idcontrol'],$_POST['idllanta']);
+}

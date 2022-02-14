@@ -1194,9 +1194,9 @@ class ControladorMantenimientos
 		//Validamos si es una solicitud nueva o si es una que ya está 
 		if (isset($datos['idsolicitud'])) {
 			if ($datos['idsolicitud'] == '' || $datos['idsolicitud'] == NULL) {
-				
-				if($datos['estado_programacion'] == "NUEVO") $datos['estado_programacion'] = "PENDIENTE";
-				
+
+				if ($datos['estado_programacion'] == "NUEVO") $datos['estado_programacion'] = "PENDIENTE";
+
 				//Añadimos la nueva solicitud 
 				$respuesta = ModeloMantenimientos::mdlGuardarSolicitudProgramacion($datos);
 				return $respuesta;
@@ -1565,7 +1565,7 @@ class ControladorLlantasControl
 		//ENIAMOS LA SUCURSAL CON PRODUCTO DEL CONTROL DE LLANTAS
 		$inventario = ModeloProductos::mdlValidarInventario($datos);
 		//Verificamos que ya exista un inventario con ese producto en esa sucursal
-		if(is_array($inventario)){
+		if (is_array($inventario)) {
 
 			// $vehiculoAsociado = ModeloControlLlantas::mdlValidarVehiculo($datos);
 
@@ -1578,10 +1578,64 @@ class ControladorLlantasControl
 			// 	return 'asociar';
 			// }
 			return 'existe';
-
 		} else {
 
 			return 'crear';
 		}
+	}
+
+	static public function ctrGenerarOrden($datos)
+	{
+		//contador para la posicion y los trabajos con name consecutivo (el name es dinamico)
+		$count = 0;
+		//Array que va a guardar los datos de cada llanta
+		$datosLlanta = [];
+		if (isset($datos['llanta'])) {
+
+			$idorden = ModeloControlLlantas::mdlCrearOrden(array(
+				'fecha_orden' => $datos['fecha_orden'],
+				'idvehiculo' => $datos['placa_orden'],
+				'kilom_orden' => $datos['kilo_orden'],
+				'idproveedor' => $datos['idproveedor'],
+				'alineacion' => $datos['alineacion']
+			));
+
+			foreach ($datos['llanta'] as $value) {
+				if ($value != "") {
+					$datosLlanta['idorden'] = $idorden;
+					$datosLlanta['idllanta'] = intval($value);
+					$datosLlanta['kilo_inspeccion'] = $datos['kilo_inspeccion'][$count];
+					$datosLlanta['prof1'] = $datos['prof1'][$count];
+					$datosLlanta['prof2'] = $datos['prof2'][$count];
+					$datosLlanta['prof3'] = $datos['prof3'][$count];
+					$datosLlanta['promedio'] = $datos['promedio'][$count];
+					$datosLlanta['presion'] = $datos['presion'][$count];
+					$datosLlanta['banda'] = $datos['banda'][$count];
+					//$datosLlanta['alineacion'] = $datos['alineacion'];
+					$datosLlanta['fecha_orden'] = $datos['fecha_orden'];
+					$datosLlanta['posicion_inicial'] = $datos['posicion_inicial'][$count];
+					//Creamos un array concatenando el numero consecutivo para cada input y asi se puede saber que posicion final se esta recorriendo
+					$posicionFinalConsecutivo = 'posicion' . $count + 1;
+					//Hacemos la busqueda dentro del array de POST con la cadena concatenada
+					$datosLlanta['posicion_final'] = $datos[$posicionFinalConsecutivo][0];
+					$datosLlanta['usuario'] = $_SESSION['cedula'];
+					//Actualilzamos la posicion de la llanta en caso de que haya cambiado
+					$update = ModeloControlLlantas::mdlActualizarPosicionLLanta(intval($value), $datos[$posicionFinalConsecutivo][0], $_SESSION['cedula']);
+					//GUARDAMOS EL ID al agregar
+					$idcontrol = ModeloControlLlantas::mdlAgregarLlantaOrden($datosLlanta);
+					//Creamos un array concatenando el numero consecutivo para cada input y asi se puede saber que trabajo se esta recorriendo
+					$trabajosConsecutivo = 'trabajos' . $count + 1;
+					//aumentamos el indice
+					$count++;
+					//Eliminamos trabajos antes de agregar para evitar la bsuqueda
+					//$eliminarTrabajo = ModeloControlLlantas::mdlEliminarTrabajos($idorden);
+
+					foreach ($datos[$trabajosConsecutivo] as $value) {
+
+						ModeloControlLlantas::mdlRegistrarTrabajos(array('idorden' => $idcontrol, 'trabajo' => intval($value)));
+					}
+				}
+			}
+		} 
 	}
 }
