@@ -25,6 +25,8 @@ class ControladorClientes
                 'valor' => $_POST['docum_empre']
             );
 
+
+
             $datos = array(
                 'idcliente' => $_POST['idcliente'],
                 't_document_empre' => $_POST['t_document_empre'],
@@ -40,8 +42,14 @@ class ControladorClientes
                 'nom_respo' => $_POST['nom_respo'],
                 'ciudadresponsable' => $_POST['ciudadresponsable'],
                 'correo' => $_POST['correo'],
-                'tipo' => "CLIENTE"
+                'tipo' => "CLIENTE",
+                'tipo_cliente' => $_POST['tipocliente']
             );
+
+            
+
+            $datos['tipo_cliente'] = $datos['tipo_cliente'] == "" ? null : $datos['tipo_cliente'];
+
 
             $ClienteExistente = ModeloClientes::mdlVerClienteid($datosBusqueda);
 
@@ -194,6 +202,16 @@ class ControladorClientes
         if ($respuesta != "ok") {
             $respuesta = "error";
         }
+        return $respuesta;
+    }
+
+
+    /* ===================================================
+        LISTA TIPO CLIENTES 
+    ===================================================*/
+    static public function ctrTiposClientes()
+    {
+        $respuesta = ModeloClientes::mdlTiposClientes();
         return $respuesta;
     }
 }
@@ -406,7 +424,7 @@ class ControladorCotizaciones
                             if (empty($listaCorreos)) {
 
                                 // echo "vacio";
-                                
+
                             } else {
                                 foreach ($listaCorreos as $key => $value) {
 

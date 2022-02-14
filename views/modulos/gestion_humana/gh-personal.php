@@ -70,6 +70,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                             <thead class="text-capitalize">
                                 <tr>
                                     <th style="width:90px;">Id</th>
+                                    <th>Acciones</th>
                                     <th>Foto</th>
                                     <th>Nombre</th>
                                     <th>Documento</th>
@@ -79,7 +80,6 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     <th>Correo</th>
                                     <th>Tipo sangre</th>
                                     <th>Activo</th>
-                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody id="tbodyPersonal">
@@ -231,17 +231,32 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 </div>
 
                                 <!-- ===================================================
-                                    DOCUMENTOS ESCANEADO
+                                    DOCUMENTO ESCANEADO (cara)
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <div class="form-group text-center">
-                                        <label><i>Adjuntar documento</i></label>
+                                        <label><i>Adjuntar documento (cara)</i></label>
                                         <div class="input-group mt-auto">
                                             <div class="form-group-append">
                                             </div>
-                                            <input type="file" class="form-control" id="documento_escaneado" accept="image/png, image/jpeg">
+                                            <input type="file" class="form-control" id="documento_escaneado_cara" accept="image/png, image/jpeg">
                                         </div>
-                                        <a id="visualizDocumento" href="" target="_blank"></a>
+                                        <a id="visualizDocumento_cara" href="" target="_blank"></a>
+                                    </div>
+                                </div><!-- /.col -->
+
+                                <!-- ===================================================
+                                    DOCUMENTO ESCANEADO (huella)
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group text-center">
+                                        <label><i>Adjuntar documento (huella)</i></label>
+                                        <div class="input-group mt-auto">
+                                            <div class="form-group-append">
+                                            </div>
+                                            <input type="file" class="form-control" id="documento_escaneado_huella" accept="image/png, image/jpeg">
+                                        </div>
+                                        <a id="visualizDocumento_huella" href="" target="_blank"></a>
                                     </div>
                                 </div><!-- /.col -->
 
@@ -1149,12 +1164,22 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 </div>
 
                                 <!-- ===================================================
-                                    Licencia escaneada
+                                    Licencia escaneada (cara)
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <div class="form-group">
-                                        <label for="exampleInput1" class="text-sm"><i>Licencia escaneada</i></label>
-                                        <input type="file" class="form-control" name="" id="inputfile-licencias" accept="image/png, image/jpeg">
+                                        <label for="exampleInput1" class="text-sm"><i>Licencia escaneada (cara)</i></label>
+                                        <input type="file" class="form-control" name="" id="inputfile-licencias_cara" accept="image/png, image/jpeg">
+                                    </div>
+                                </div>
+                                
+                                <!-- ===================================================
+                                    Licencia escaneada (huella)
+                                =================================================== -->
+                                <div class="col-12 col-md-6 col-lg-4">
+                                    <div class="form-group">
+                                        <label for="exampleInput1" class="text-sm"><i>Licencia escaneada (huella)</i></label>
+                                        <input type="file" class="form-control" name="" id="inputfile-licencias_huella" accept="image/png, image/jpeg">
                                     </div>
                                 </div>
 

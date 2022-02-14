@@ -294,67 +294,90 @@ class PdfConductor
         ===================================================*/
         // TABLA CON LOS DOCUMENTOS CEDULA Y LICENCIA DE CONDUCCIÓN
         $documento_escaneado = $info['documento_escaneado'] == "" || $info['documento_escaneado'] == null ? "" : '../' . $info['documento_escaneado'];
+        $documento_escaneado_huella = $info['documento_escaneado_huella'] == "" || $info['documento_escaneado_huella'] == null ? "" : '../' . $info['documento_escaneado_huella'];
         $licencia_conduccion = $info['ruta_documento'] == "" || $info['ruta_documento'] == null ? "" : '../' . $info['ruta_documento'];
-        if ($licencia_conduccion != "" && file_exists($licencia_conduccion)){
-            $imagen = getimagesize($licencia_conduccion);
-            $ancho = $imagen[0];
-            $altura = $imagen[1];
-        }else{
-            $ancho = 0;
-            $altura = 0;
-        }
-        //$imagen2 = getimagesize($documento_escaneado);
-        // $ancho2 = $imagen2[0];
-        // $altura2 = $imagen2[1];
 
-        //var_dump($altura);
-
-        if ($altura <= $ancho) {
-
+        // Si tiene escaneada imagen por la huella
+        if ($documento_escaneado_huella != "" /* || $licencia_conduccion_huella != "" */) {
             $tabla = '
-        <table cellspacing="2" cellpadding="3">
-            <tbody>
-                <tr style="text-align: center; font-weight:bold;">
-                    <th colspan="2" border="2" width="625">DOCUMENTO</th>
-                </tr>
+                    <table cellspacing="2" cellpadding="3">
+                        <tbody>
+                            <tr style="text-align: center; font-weight:bold;">
+                                <th colspan="2" border="2" width="650">DOCUMENTO</th>
+                            </tr>
 
-                <tr style="text-align: center;">
-                    <td colspan="2" border="1" height="190"><img src="' . $documento_escaneado . '" height="190" width="400"></td>
-                </tr>
+                            <tr style="text-align: center;">
+                                <td height="190" style="border-bottom: 1px solid #000000; border-top: 1px solid #000000; border-left: 1px solid  #000000;"><img src="' . $documento_escaneado . '" height="190" width="325"></td>
+                                <td height="190" style="border-bottom: 1px solid #000000; border-top: 1px solid #000000; border-right: 1px solid  #000000;"><img src="' . $documento_escaneado_huella . '" height="190" width="325"></td>
+                            </tr>
 
-                <tr style="text-align: center; font-weight:bold;">
-                    <th colspan="2" border="2">LICENCIA DE CONDUCCIÓN</th>
-                </tr>
+                            <tr style="text-align: center; font-weight:bold;">
+                                <th colspan="2" border="2">LICENCIA DE CONDUCCIÓN</th>
+                            </tr>
 
-                <tr style="text-align: center;">
-                    <td colspan="2" border="1" height="190"><img src="' . $licencia_conduccion . '" height="190" width="400" ></td>
-                </tr>
-            </tbody>
-        </table>
-        ';
-            $pdf->SetFont('helvetica', '', '8');
-            $pdf->writeHTML($tabla);
-
-        } else {
-
-            $tabla = '
-            <table cellspacing="2" cellpadding="3">
-                <tbody>
-                    <tr style="text-align: center; font-weight:bold;">
-                        <th colspan="1" border="2">DOCUMENTO</th>
-                        <th colspan="1" border="2">LICENCIA DE CONDUCCIÓN</th>
-                    </tr>
-    
-                    <tr style="text-align: center;">
-                        <td colspan="1" border="1"><img src="' . $documento_escaneado . '" height="585" width="400"></td>
-                        <td colspan="1" border="1"><img src="' . $licencia_conduccion . '" height="585" width="400" ></td>
-                    </tr>
-                </tbody>
-            </table>
-            ';
-            $pdf->SetFont('helvetica', '', '8');
-            $pdf->writeHTML($tabla);
+                            <tr style="text-align: center;">
+                                <td height="190" style="border-bottom: 1px solid #000000; border-top: 1px solid #000000; border-left: 1px solid  #000000;"><img src="' . $licencia_conduccion . '" height="190" width="325"></td>
+                                <td height="190" style="border-bottom: 1px solid #000000; border-top: 1px solid #000000; border-right: 1px solid  #000000;"><img src="' . $licencia_conduccion . '" height="190" width="325"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    ';
         }
+        // En el caso de que no, hay que mostrar según su tamaño, sea más ancho que alto o viceversa
+        else {
+            if ($documento_escaneado != "" && file_exists($documento_escaneado)) {
+                $imagen = getimagesize($documento_escaneado);
+                $ancho = $imagen[0];
+                $altura = $imagen[1];
+            } else {
+                $ancho = 0;
+                $altura = 0;
+            }
+            // Si las imagenes son más anchas que altas
+            if ($altura <= $ancho) {
+
+                $tabla = '
+                        <table cellspacing="2" cellpadding="3">
+                            <tbody>
+                                <tr style="text-align: center; font-weight:bold;">
+                                    <th colspan="2" border="2" width="625">DOCUMENTO</th>
+                                </tr>
+
+                                <tr style="text-align: center;">
+                                    <td colspan="2" border="1" height="190"><img src="' . $documento_escaneado . '" height="190" width="400"></td>
+                                </tr>
+
+                                <tr style="text-align: center; font-weight:bold;">
+                                    <th colspan="2" border="2">LICENCIA DE CONDUCCIÓN</th>
+                                </tr>
+
+                                <tr style="text-align: center;">
+                                    <td colspan="2" border="1" height="190"><img src="' . $licencia_conduccion . '" height="190" width="400" ></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        ';
+            } else {
+
+                $tabla = '
+                        <table cellspacing="2" cellpadding="3">
+                            <tbody>
+                                <tr style="text-align: center; font-weight:bold;">
+                                    <th colspan="1" border="2">DOCUMENTO</th>
+                                    <th colspan="1" border="2">LICENCIA DE CONDUCCIÓN</th>
+                                </tr>
+                
+                                <tr style="text-align: center;">
+                                    <td colspan="1" border="1"><img src="' . $documento_escaneado . '" height="585" width="400"></td>
+                                    <td colspan="1" border="1"><img src="' . $licencia_conduccion . '" height="585" width="400" ></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        ';
+            }
+        }
+        $pdf->SetFont('helvetica', '', '8');
+        $pdf->writeHTML($tabla);
 
 
         /* ===================================================

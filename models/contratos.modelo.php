@@ -13,8 +13,8 @@ class ModeloClientes
    {
       $conexion = Conexion::conectar();
       $stmt = $conexion->prepare("INSERT INTO cont_clientes(nombre,tipo_doc,Documento,telefono,direccion,idciudad,tipo_docrespons,Documentorespons,
-      cedula_expedidaen,nombrerespons,idciudadrespons,tipo,telefono2, correo)
-      VALUES(:nombre,:tipo_doc,:Documento,:telefono,:direccion,:idciudad,:tipo_docrespons,:Documentorespons,:cedula_expedidaen,:nombrerespons,:idciudadrespons,:tipo,:telefono2, :correo)");
+      cedula_expedidaen,nombrerespons,idciudadrespons,tipo,telefono2, correo, idtipo_cliente)
+      VALUES(:nombre,:tipo_doc,:Documento,:telefono,:direccion,:idciudad,:tipo_docrespons,:Documentorespons,:cedula_expedidaen,:nombrerespons,:idciudadrespons,:tipo,:telefono2, :correo, :idtipo_cliente)");
 
       $stmt->bindParam(":tipo", $datos["tipo"], PDO::PARAM_STR);
       $stmt->bindParam(":nombre", $datos["nom_empre"], PDO::PARAM_STR);
@@ -30,6 +30,7 @@ class ModeloClientes
       $stmt->bindParam(":nombrerespons", $datos["nom_respo"], PDO::PARAM_STR);
       $stmt->bindParam(":idciudadrespons", $datos["ciudadresponsable"], PDO::PARAM_INT);
       $stmt->bindParam(":correo", $datos["correo"], PDO::PARAM_STR);
+      $stmt->bindParam(":idtipo_cliente", $datos["tipo_cliente"], PDO::PARAM_INT);
 
       if ($stmt->execute()) {
          $id = $conexion->lastInsertId();
@@ -102,7 +103,7 @@ class ModeloClientes
    {
       $stmt = Conexion::conectar()->prepare("UPDATE cont_clientes set nombre = :nombre, tipo_doc=:tipo_doc,Documento=:Documento,telefono=:telefono,direccion=:direccion,
                                                       idciudad=:idciudad,tipo_docrespons=:tipo_docrespons,Documentorespons=:Documentorespons,cedula_expedidaen=:cedula_expedidaen,
-                                                      nombrerespons=:nombrerespons,idciudadrespons=:idciudadrespons,telefono2=:telefono2
+                                                      nombrerespons=:nombrerespons,idciudadrespons=:idciudadrespons,telefono2=:telefono2, idtipo_cliente = :idtipo_cliente
 											            WHERE idcliente = :idcliente");
 
       $stmt->bindParam(":idcliente", $datos["idcliente"], PDO::PARAM_INT);
@@ -118,6 +119,8 @@ class ModeloClientes
       $stmt->bindParam(":cedula_expedidaen", $datos["expedicion"], PDO::PARAM_INT);
       $stmt->bindParam(":nombrerespons", $datos["nom_respo"], PDO::PARAM_STR);
       $stmt->bindParam(":idciudadrespons", $datos["ciudadresponsable"], PDO::PARAM_INT);
+      $stmt->bindParam(":idtipo_cliente", $datos["tipo_cliente"], PDO::PARAM_INT);
+
 
       if ($stmt->execute()) {
          $retorno = "ok";
@@ -301,6 +304,20 @@ class ModeloClientes
 
       $stmt->closeCursor();
       $stmt = null;
+
+      return $retorno;
+   }
+
+   /* ===================================================
+      LISTAR TIPO DE CLIENTES 
+   ===================================================*/
+   static public function mdlTiposClientes()
+   {
+      $stmt = Conexion::conectar()->prepare("SELECT * FROM cont_tipo_clientes WHERE estado = 1");
+
+      $stmt->execute();
+      $retorno = $stmt->fetchAll();
+      $stmt->closeCursor();
 
       return $retorno;
    }

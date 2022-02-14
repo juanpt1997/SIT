@@ -53,8 +53,8 @@ class ModeloEscolar
     ===================================================*/
     static public function mdlListarRutas()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT r.*, i.nombre, v.placa, v.capacidad FROM e_rutas r
-        INNER JOIN e_instituciones i on r.idinstitucion = i.idinstitucion
+        $stmt = Conexion::conectar()->prepare("SELECT r.*, c.nombre AS institucion , v.placa, v.capacidad FROM e_rutas r
+        INNER JOIN cont_clientes c on r.idinstitucion = c.idcliente
         INNER JOIN v_vehiculos v ON r.idvehiculo = v.idvehiculo");
         $stmt->execute();
         $retorno = $stmt->fetchAll();
@@ -69,9 +69,9 @@ class ModeloEscolar
     ===================================================*/
     static public function mdlRutaxId($idruta)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT r.*, i.nombre, v.placa, v.capacidad FROM e_rutas r
-        INNER JOIN e_instituciones i on r.idinstitucion = i.idinstitucion
-        INNER JOIN v_vehiculos v ON r.idvehiculo = v.idvehiculo 
+        $stmt = Conexion::conectar()->prepare("SELECT r.*, c.nombre, v.placa, v.capacidad FROM e_rutas r
+        INNER JOIN cont_clientes c on r.idinstitucion = c.idcliente
+        INNER JOIN v_vehiculos v ON r.idvehiculo = v.idvehiculo  
 		WHERE r.idruta = :idruta");
 
         $stmt->bindParam(":idruta", $idruta, PDO::PARAM_INT);
@@ -582,12 +582,12 @@ class ModeloEscolar
     ===================================================*/
     static public function mdlHistorialRecorrido()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT r.*, DATE_FORMAT(r.fecha, '%d/%m/%Y') AS Ffecha,  rt.*, i.nombre, v.placa,p.Nombre AS nombre_conductor  FROM e_re_recorridos r
+        $stmt = Conexion::conectar()->prepare("SELECT r.*, DATE_FORMAT(r.fecha, '%d/%m/%Y') AS Ffecha,  rt.*, c.nombre, v.placa,p.Nombre AS nombre_conductor  FROM e_re_recorridos r
         INNER JOIN e_rutas rt ON r.idruta = rt.idruta
-        INNER JOIN e_instituciones i ON rt.idinstitucion = i.idinstitucion
+        INNER JOIN cont_clientes c ON rt.idinstitucion = c.idcliente
         INNER JOIN v_vehiculos v ON rt.idvehiculo = v.idvehiculo
         LEFT JOIN gh_personal p ON p.idPersonal = rt.idconductor  
-        ORDER BY r.fecha DESC 
+        ORDER BY r.fecha DESC
         ");
 
         $stmt->execute();
@@ -758,8 +758,8 @@ class ModeloEscolar
     ===================================================*/
     static public function mdlInstitucionxIdruta($idruta)
     {
-        $stmt = Conexion::conectar()->prepare("SELECT r.*, i.*, v.placa, p.Nombre FROM e_rutas r 
-        INNER JOIN e_instituciones i ON r.idinstitucion = i.idinstitucion
+        $stmt = Conexion::conectar()->prepare("SELECT r.*, c.*, v.placa, p.Nombre FROM e_rutas r 
+        INNER JOIN cont_clientes c ON r.idinstitucion = c.idcliente 
         INNER JOIN v_vehiculos v ON r.idvehiculo = v.idvehiculo
         INNER JOIN gh_personal p ON r.idconductor = p.idPersonal
         WHERE r.idruta = :idruta");
@@ -782,8 +782,175 @@ class ModeloEscolar
         INNER JOIN e_pasajeros p ON s.idpasajero = p.idpasajero 
         WHERE  s.idrecorrido_entrega = :idrecorrido_entrega");
 
-        $stmt->bindParam(":idrecorrido_entrega", $idrecorrido, PDO::PARAM_INT);        
+        $stmt->bindParam(":idrecorrido_entrega", $idrecorrido, PDO::PARAM_INT);
 
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        PASAJEROS POR RECORRIDO RECOGE
+    ===================================================*/
+    static public function mdlPasajerosxRecorridoRecoge($idrecorrido)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT s.*, p.* FROM e_re_seguimiento_pasajeros s
+        INNER JOIN e_pasajeros p ON s.idpasajero = p.idpasajero 
+        WHERE  s.idrecorrido_recogida = :idrecorrido_recogida");
+
+        $stmt->bindParam(":idrecorrido_recogida", $idrecorrido, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        GUARDAR INSTITUCION 
+    ===================================================*/
+    static public function mdlGuardarInstitucion($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO e_instituciones (nombre, correo) VALUES (:nombre, :correo)");
+
+        $stmt->bindParam(":nombre", $datos['nombre_institucion'], PDO::PARAM_STR);
+        $stmt->bindParam(":correo", $datos['email_institucion'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        ELIMINAR ORDEN X ID PASAJERO
+    ===================================================*/
+    static public function mdlEliminarOrden($idpasajero)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE e_pasajeros set 
+        orden = null
+        WHERE idpasajero = :idpasajero");
+
+        $stmt->bindParam(":idpasajero", $idpasajero, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        VER CLIENTES
+    ===================================================*/
+    static public function mdlClientes()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM cont_clientes  WHERE idtipo_cliente = 3");
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        ESTUDIANTES X RUTA 
+    ===================================================*/
+    static public function mdlEstudiantexRuta($idruta)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM e_pasajeros WHERE idruta = :idruta");
+
+        $stmt->bindParam(":idruta", $idruta, PDO::PARAM_INT);
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        LISTAR AUXILIARES 
+    ===================================================*/
+    static public function mdlListarAuxiliares()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT p.*, e.municipio AS lugarExpedicion, n.municipio AS lugarNacimiento, r.municipio AS lugarResidencia, c.cargo AS Cargo, pr.proceso AS Proceso, eps.eps AS Eps, fp.fondo AS Afp, ar.arl AS Arl, m.municipio AS Ciudad, d.nombre AS Departamento, s.sucursal AS Sucursal, l.nro_licencia, l.categoria, l.fecha_vencimiento, 
+        (case (YEAR(NOW()) - YEAR(p.fecha_nacimiento))
+        when 0
+        then 1
+        ELSE (YEAR(NOW()) - YEAR(p.fecha_nacimiento) + IF(DATE_FORMAT(CURDATE(), '%m-%d') > DATE_FORMAT(p.fecha_nacimiento,'%m-%d'), 0 , -1))
+        END) AS edadCalculada
+        FROM gh_personal p
+        LEFT JOIN gh_municipios e ON e.idmunicipio = p.lugar_expedicion
+        LEFT JOIN gh_municipios n ON n.idmunicipio = p.lugar_nacimiento
+        LEFT JOIN gh_municipios r ON r.idmunicipio = p.lugar_residencia
+        LEFT JOIN gh_cargos c ON c.idCargo = p.cargo
+        LEFT JOIN gh_procesos pr ON pr.idProceso = p.proceso
+        LEFT JOIN gh_eps eps ON eps.ideps = p.eps
+        LEFT JOIN gh_fondospension fp ON fp.idfondo = p.afp
+        LEFT JOIN gh_arl ar ON ar.idarl = p.arl
+        LEFT JOIN gh_municipios m ON m.idmunicipio = p.ciudad
+        LEFT JOIN gh_departamentos d ON d.iddepartamento = m.iddepartamento
+        INNER JOIN gh_sucursales s ON s.ids = p.sucursal
+        LEFT JOIN gh_re_personallicencias l ON l.idPersonal = p.idPersonal
+        WHERE p.activo = 'S' AND p.cargo = 14
+        GROUP BY p.idPersonal
+        ORDER BY idPersonal");
+
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        PASAJEROS X RUTA
+    ===================================================*/
+    static public function mdlPasajerosxRuta($idruta)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM e_pasajeros p
+        INNER JOIN e_rutas r ON p.idruta = r.idruta
+        LEFT JOIN e_re_seguimiento_pasajeros s ON s.idpasajero = p.idpasajero AND s.fecha = CURDATE()
+        WHERE r.idruta = :idruta
+        -- ORDER BY s.hora_recogida DESC
+        ORDER BY p.orden");
+
+        $stmt->bindParam(":idruta", $idruta, PDO::PARAM_INT);
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        ULTIMO PASAJERO DEL RECORRIDO
+    ===================================================*/
+    static public function mdlUltimoPasajero($idrecorrido)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM e_re_seguimiento_pasajeros s
+        WHERE s.idrecorrido_recogida = :idrecorrido
+        ORDER BY s.hora_recogida ASC
+        ");
+
+        $stmt->bindParam(":idrecorrido", $idrecorrido, PDO::PARAM_INT);
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();
