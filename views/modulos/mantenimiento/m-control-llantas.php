@@ -102,8 +102,8 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
             <hr class="my-4">
             <div class="row">
                 <div class="col-12">
-                    <button type="button" class="btn bg-gradient-success btn-nuevoregistro-llantas" data-toggle="modal" data-target="#registro-llantas"><i class="fas fa-plus"></i> Ingresar registro</button>
-                    <button type="button" class="btn bg-gradient-cyan btn-ordenTrabajo" data-toggle="modal" data-target="#ordenTrabajo_llantas"><i class="fas fa-briefcase"></i> Orden de trabajo</button>
+                    <button type="button" class="btn bg-gradient-success btn-nuevoregistro-llantas" data-toggle="modal" data-target="#registro-llantas"><i class="fas fa-clipboard-check"></i> Registrar llantas a vehículo</button>
+                    <button type="button" class="btn bg-gradient-cyan btn-ordenTrabajo" data-toggle="modal" data-target="#ordenTrabajo_llantas"><i class="fas fa-briefcase"></i> Crear orden de trabajo</button>
                 </div>
             </div>
             <div class="row mt-2">
@@ -112,7 +112,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         <div class="card-header p-0 border-bottom-0">
                             <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true"><i class="fas fa-angle-double-right"></i> Llantas montadas en vehículos</a>
+                                    <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true"><i class="fas fa-angle-double-right"></i> Llantas en vehículos</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false"><i class="fas fa-angle-double-right"></i> Órdenes de trabajo</a>
@@ -919,7 +919,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="listaProveedores">
+                    <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tablalistaProveedores">
                         <thead>
                             <tr>
                                 <th>Documento</th>
@@ -944,7 +944,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <i class="fas fa-parachute-box"></i>
                             Nuevo proveedor
                         </button></a>
-                    <button type="button" class="btn btn-sm bg-gradient-danger btn_cancelarTrabajo" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-sm bg-gradient-danger btn_cancelar_proveedor" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </div>

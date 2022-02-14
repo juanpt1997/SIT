@@ -2996,7 +2996,7 @@ class ModeloControlLlantas
     {
         $stmt = Conexion::conectar()->prepare("SELECT cl.*, ot.fecha_orden, ot.kilom_orden, ot.alineacion, v.placa, v.numinterno, p.razon_social, ll.num_llanta
         FROM m_re_control_llantas cl
-        INNER JOIN m_orden_trabajo ot ON ot.idorden=cl.idorden
+        INNER JOIN m_orden_trabajo_llantas ot ON ot.idorden=cl.idorden
         INNER JOIN v_vehiculos v ON v.idvehiculo=ot.idvehiculo
         INNER JOIN c_proveedores p ON p.id=ot.idproveedor
         INNER JOIN m_re_llantasvehiculos ll ON ll.idllanta=cl.idllanta");
@@ -3011,7 +3011,7 @@ class ModeloControlLlantas
     static public function mdlCrearOrden($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("INSERT INTO m_orden_trabajo(fecha_orden,idvehiculo,kilom_orden,idproveedor,alineacion)
+        $stmt = $conexion->prepare("INSERT INTO m_orden_trabajo_llantas(fecha_orden,idvehiculo,kilom_orden,idproveedor,alineacion)
                                                 VALUES(:fecha_orden,:idvehiculo,:kilom_orden,:idproveedor,:alineacion)");
 
         $stmt->bindParam(":fecha_orden", $datos['fecha_orden'], PDO::PARAM_STR);

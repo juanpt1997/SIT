@@ -4991,7 +4991,7 @@ $(document).ready(function () {
             $("#formulario_LlantasControl").trigger("reset");
             $(".select2-single").trigger("change");            
         });
-
+        //Mostrar tabla de los datos realizados segun la llanta y el control
         $(document).on("click", ".btn_trabajos_realizados", function () {
 
             $("#tablaTrabajosRealizados").dataTable().fnDestroy();
@@ -5032,13 +5032,6 @@ $(document).ready(function () {
                 },
             });
         });
-
-        $(".btnSeleccionarTrabajo").on("click", function () {
-
-           let idtrabajo = $(this).attr("idtrabajo");
-           
-            
-        });
         //EVENTO que calcula el promedio segun las profundidades
         $(document).on("keyup", ".calcular", function () {
 
@@ -5060,7 +5053,7 @@ $(document).ready(function () {
                 }
             }
         });    
-
+        //Crear campo para la llanta de repuesto
         $('#agregar_llanta_repuesto').click (function ()  {  
             if ($(this).is(":checked")){
                 $("#linea_llanta_repuesto").removeClass("d-none");
@@ -5070,7 +5063,7 @@ $(document).ready(function () {
                 $("#input_llanta_repuesto").addClass("d-none");
             }  
         }); 
-
+        //Guardar datos de la orden de trabajo
         $("#formulario_orden_trabajo").submit(function (e) {
             e.preventDefault();
 
@@ -5089,26 +5082,37 @@ $(document).ready(function () {
                 cache: false,
                 contentType: false,
                 processData: false,
-                dataType: "json",
+                //dataType: "json",
                 success: function (response) {
-                    console.log(response);
+                    if(response == 'creado'){
+                        Swal.fire({
+                            icon: "success",
+                            title: "Orden creada con exito.",
+                            showConfirmButton: false,
+                            timer: 1600,
+                        });
+                        $("#ordenTrabajo_llantas").modal("hide");
+                    } else {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Problema al crear la orden de trabajo.",
+                            text: "intente de nuevo.",
+                            showConfirmButton: false,
+                            timer: 1600,
+                        });
+                    }
                 },
             });
-
-
-
-
-
         });
-
+        //Mostrar tabla de proveedores
         $(document).on("click", ".btn_seleccionar_proveedor", function () {
             $("#ordenTrabajo_llantas").modal("hide");
-            $("#listaProveedores").dataTable().fnDestroy();
+            $("#tablalistaProveedores").dataTable().fnDestroy();
             // Borrar datos
             $("#tbody_listaProveedores").html("");
 
             var datos = new FormData();
-            datos.append("ListarProveedores", "ok");
+            datos.append("ListarProveedoresLlantas", "ok");
             $.ajax({
                 type: "POST",
                 url: "ajax/mantenimiento.ajax.php",
@@ -5131,11 +5135,11 @@ $(document).ready(function () {
                         },
                         /* 'copy', 'csv', 'excel', 'pdf', 'print' */
                     ];
-                    dataTableCustom("#listaProveedores", buttons);
+                    dataTableCustom("#tablalistaProveedores", buttons);
                 },
             });
         });
-
+        //Traer datos del proveedor seleccionado
         $(document).on("click", ".btn_seleccionarProveedor", function () {
             $("#listaProveedores").modal("hide");
             $("#ordenTrabajo_llantas").modal("show");
@@ -5145,6 +5149,11 @@ $(document).ready(function () {
 
             $("#idproveedor").val(idproveedor);
             $("#razon_social").val(razon_social);
+        });
+
+        $(document).on('click', ".btn_cancelar_proveedor", function () {
+            $("#ordenTrabajo_llantas").modal("show");
+            $("#listaProveedores").modal("hide");            
         });
     }
 });
