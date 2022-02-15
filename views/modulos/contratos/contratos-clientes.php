@@ -24,10 +24,11 @@ $tipovehiculos = ControladorVehiculos::ctrMostrarTipoVehiculo();
                             <a class="nav-link active h4" id="gestion-clientes-tab" data-toggle="tab" href="#gestion-clientes" role="tab" aria-controls="gestion-clientes" aria-selected="active">Gestión de clientes <i class="fas fa-user-tag"></i></a>
                         </li>
 
-
-                        <li class="nav-item border border-info rounded ml-2 mb-1 mb-md-0">
-                            <a class="nav-link h4" id="visitas-tab" data-toggle="tab" href="#visitas" role="tab" aria-controls="visitas" aria-selected="false">Visitas <i class="far fa-calendar-alt"></i></a>
-                        </li>
+                        <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
+                            <li class="nav-item border border-info rounded ml-2 mb-1 mb-md-0">
+                                <a class="nav-link h4" id="visitas-tab" data-toggle="tab" href="#visitas" role="tab" aria-controls="visitas" aria-selected="false">Visitas <i class="far fa-calendar-alt"></i></a>
+                            </li>
+                        <?php endif ?>
                     </ul>
 
 
