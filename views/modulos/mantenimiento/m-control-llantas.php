@@ -108,7 +108,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
             </div>
             <div class="row mt-2">
                 <div class="col-12">
-                    <div class="card card-info card-outline card-outline-tabs">
+                    <div class="card card-navy card-tabs">
                         <div class="card-header p-0 border-bottom-0">
                             <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
                                 <li class="nav-item">
@@ -496,8 +496,8 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                         <span class="input-group-text"><i class="fas fa-toggle-on"></i></span>
                                     </div>
                                     <select id="estado" name="estado" class="form-control" type="text" required>
-                                        <option value="" selected><b>-Seleccione el estado actual-</b></option>
-                                        <option value="montada">Montada</option>
+                                        <option value="" ><b>-Seleccione el estado actual-</b></option>
+                                        <option value="montada" selected>Montada</option>
                                         <option value="desmontada">Desmontada</option>
                                     </select>
                                 </div>
