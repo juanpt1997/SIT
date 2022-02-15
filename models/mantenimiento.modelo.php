@@ -2774,17 +2774,23 @@ class ModeloControlLlantas
 
     static public function mdlListarLLantasVehiculos()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT cl.*, p.*, v.placa,ma.marca, me.medida, ca.categoria, i.idsucursal, i.stock, s.sucursal, t.tamanio
-        FROM m_re_llantasvehiculos cl
-        INNER JOIN v_vehiculos v ON v.idvehiculo = cl.idvehiculo
-        INNER JOIN a_productos p ON p.idproducto = cl.idalmacen
-        INNER JOIN a_marcas ma ON ma.idmarca = p.idmarca
-        INNER JOIN a_categorias ca ON ca.idcategorias = p.idcategoria
-        INNER JOIN a_medidas me ON me.idmedidas = p.idmedida
-        INNER JOIN a_re_inventario i ON i.idproducto = p.idproducto
-        INNER JOIN a_tamanios t ON t.idtamanio = p.idtamanio
-        INNER JOIN gh_sucursales s ON s.ids = i.idsucursal
-        WHERE cl.estado = 1");
+        $stmt = Conexion::conectar()->prepare("SELECT 
+                                                    cl.*, 
+                                                    p.*, v.placa,
+                                                    ma.marca, me.medida, ca.categoria, 
+                                                    -- i.idsucursal, i.stock, 
+                                                    -- s.sucursal, 
+                                                    t.tamanio
+                                                FROM m_re_llantasvehiculos cl
+                                                INNER JOIN v_vehiculos v ON v.idvehiculo = cl.idvehiculo
+                                                INNER JOIN a_productos p ON p.idproducto = cl.idalmacen
+                                                INNER JOIN a_marcas ma ON ma.idmarca = p.idmarca
+                                                INNER JOIN a_categorias ca ON ca.idcategorias = p.idcategoria
+                                                INNER JOIN a_medidas me ON me.idmedidas = p.idmedida
+                                                -- INNER JOIN a_re_inventario i ON i.idproducto = p.idproducto
+                                                INNER JOIN a_tamanios t ON t.idtamanio = p.idtamanio
+                                                -- INNER JOIN gh_sucursales s ON s.ids = i.idsucursal
+                                                WHERE cl.estado = 1");
 
         $stmt->execute();
         $retorno =  $stmt->fetchAll();
