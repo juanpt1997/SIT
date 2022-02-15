@@ -275,7 +275,7 @@ class AjaxPersonal
                 $btnEliminar = "";
             }
 
-            # Documento
+            # Documento (cara)
             if ($value['ruta_documento'] != null) {
                 $btnVerDoc = "<a href='" . URL_APP . $value['ruta_documento'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a>";
                 /* Permiso de usuario */
@@ -295,10 +295,31 @@ class AjaxPersonal
                 $btnAccionesDoc = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnSubirDoc . "</div>";
             }
 
+            # Documento (huella)
+            if ($value['ruta_documento_huella'] != null) {
+                $btnVerDoc2 = "<a href='" . URL_APP . $value['ruta_documento_huella'] . "' target='_blank' class='btn btn-sm btn-info m-1' type='button'><i class='fas fa-file-alt'></i></a>";
+                /* Permiso de usuario */
+                if (validarPermiso('M_GESTION_HUMANA', 'U')) {
+                    $btnEliminarDoc2 = "<button class='btn btn-sm btn-danger m-1 btnEliminarDoc' idPersonal='{$idPersonal}' idregistro='{$value['idlicencia']}' tipoDoc='licencias_huella' type='button'><i class='fas fa-ban'></i></button>";
+                } else {
+                    $btnEliminarDoc2 = "";
+                }
+                $btnAccionesDoc2 = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnVerDoc2 . $btnEliminarDoc2 . "</div>";
+            } else {
+                /* Permiso de usuario */
+                if (validarPermiso('M_GESTION_HUMANA', 'U')) {
+                    $btnSubirDoc2 = "<button class='btn btn-sm btn-secondary m-1 btnSubirDoc' idPersonal='{$idPersonal}' idregistro='{$value['idlicencia']}' tipoDoc='licencias_huella' type='button'><i class='fas fa-file-upload'></i></button>";
+                } else {
+                    $btnSubirDoc2 = "";
+                }
+                $btnAccionesDoc2 = "<div class='row d-flex flex-nowrap justify-content-center'>" . $btnSubirDoc2 . "</div>";
+            }
+
             $tr .= "
                 <tr>
                     <td>" . $value['nro_licencia'] . "</td>
                     <td>" . $btnAccionesDoc . "</td>
+                    <td>" . $btnAccionesDoc2 . "</td>
                     <td>" . $value['fecha_expedicion'] . "</td>
                     <td>" . $value['fecha_vencimiento'] . "</td>
                     <td>" . $value['categoria'] . "</td>
@@ -518,21 +539,31 @@ class AjaxPersonal
         switch ($tipoDoc) {
             case 'examenes':
                 $tabla = "gh_re_personalexamenes";
+                $item1 = "ruta_documento";
                 $item2 = "idexamen";
                 break;
 
             case 'licencias':
                 $tabla = "gh_re_personallicencias";
+                $item1 = "ruta_documento";
+                $item2 = "idlicencia";
+                break;
+
+            case 'licencias_huella':
+                $tabla = "gh_re_personallicencias";
+                $item1 = "ruta_documento_huella";
                 $item2 = "idlicencia";
                 break;
 
             case 'contratos':
                 $tabla = "gh_re_personalprorrogas";
+                $item1 = "ruta_documento";
                 $item2 = "idprorroga";
                 break;
 
             default:
                 $tabla = "";
+                $item1 = "";
                 $item2 = "";
                 break;
         }
@@ -540,7 +571,7 @@ class AjaxPersonal
         # Actualizar el campo de documento como vacio
         $datosRutaDoc = array(
             'tabla' => $tabla,
-            'item1' => 'ruta_documento',
+            'item1' => $item1,
             'valor1' => "",
             'item2' => $item2,
             'valor2' => $idregistro

@@ -1227,7 +1227,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 BOTON GUARDAR FORMULARIO
                             =================================================== -->
                                 <?php if (validarPermiso('M_GESTION_HUMANA', 'U')) : ?>
-                                    <div class="col-12 col-md-6 col-lg-4 align-self-center text-center">
+                                    <div class="col-12 align-self-center text-right mb-1">
                                         <button type="submit" class="btn btn-success"><i class="fas fa-check-circle"></i></button>
                                         <div class="overlay d-none" id="overlayBtnGuardarlicenciaconduccion">
                                             <i class="fas fa-2x fa-sync-alt fa-spin"></i>
@@ -1246,7 +1246,8 @@ $Sucursales = ControladorGH::ctrSucursales();
                                     <thead class="thead-light text-center">
                                         <tr>
                                             <th>Nro Licencia</th>
-                                            <th>Documento</th>
+                                            <th>Documento (cara)</th>
+                                            <th>Documento (huella)</th>
                                             <th>Fecha exped.</th>
                                             <th>Fecha venc.</th>
                                             <th>Categoría</th>

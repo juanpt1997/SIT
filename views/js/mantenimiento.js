@@ -4496,8 +4496,67 @@ $(document).ready(function () {
                 },
             });
         };
+        //FUNCION para cargar el body de la tabla de las ordenes de control
+        const cargarTablaOrdenesControl = () => {
+            let datos = new FormData();
+            // Quitar datatable
+            $(`#tabla_controlOrdenes`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbody_controlOrdenes`).html("");
+            datos.append("cargarTablaControlOrdenes", "ok");
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbody_controlOrdenes").html(response);
+                    } else {
+                        $("#tbody_controlOrdenes").html("");
+                    }
+
+                    /*===================================================
+                    FILTRAR POR COLUMNA
+                    ====================================================*/
+                    /* Filtrar por columna */
+                    //Clonar el tr del thead
+                    if ($(`#tabla_controlOrdenes thead tr`).length == 1)
+                        $(`#tabla_controlOrdenes thead tr:eq(0)`)
+                            .clone(true)
+                            .appendTo(`#tabla_controlOrdenes thead`);
+                    //Por cada th creado hacer lo siguiente
+                    $(`#tabla_controlOrdenes thead tr:eq(1) th`).each(function (i) {
+                        //Remover clase sorting y el evento que tiene cuando se hace click
+                        $(this).removeClass("sorting").unbind();
+                        //Agregar input de busqueda
+                        $(this).html(
+                            '<input class="form-control" type="text" placeholder="Buscar"/>'
+                        );
+                        //Evento para detectar cambio en el input y buscar
+                        $("input", this).on("keyup change", function () {
+                            if (table.column(i).search() !== this.value) {
+                                table.column(i).search(this.value).draw();
+                            }
+                        });
+                    });
+
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(`#tabla_controlOrdenes`, buttons);
+                },
+            });
+        };
         //instancias funcion
         cargarTablaLlantas();
+        cargarTablaOrdenesControl();
         //ASIGNAR PLACA DE VEHICULO A LAS OBSERVACIONES DE LA LLANTA
         $(document).on("change", "#placa", function () {
             let id = $(this).val();
@@ -4894,6 +4953,7 @@ $(document).ready(function () {
                     } else {
                         $("#tbody_tabla_ordenTrabajo").html("");
                     }
+                    $(".select2-multiple").select2();
                 },
             });
 
@@ -4931,15 +4991,21 @@ $(document).ready(function () {
             $("#formulario_LlantasControl").trigger("reset");
             $(".select2-single").trigger("change");            
         });
-
+        //Mostrar tabla de los datos realizados segun la llanta y el control
         $(document).on("click", ".btn_trabajos_realizados", function () {
 
-            $("#ordenTrabajo_llantas").modal("hide");
+            $("#tablaTrabajosRealizados").dataTable().fnDestroy();
             // Borrar datos
-            $("#tbody_tablaTrabajos").html("");
+            $("#tbody_trabajosRealizados").html("");
+
+            let idcontrol = $(this).attr("idcontrol");
+            let idllanta = $(this).attr("idllanta");
 
             var datos = new FormData();
             datos.append("listaTrabajos", "ok");
+            datos.append("idcontrol", idcontrol);
+            datos.append("idllanta", idllanta);
+
             $.ajax({
                 type: "POST",
                 url: "ajax/mantenimiento.ajax.php",
@@ -4950,9 +5016,9 @@ $(document).ready(function () {
                 //dataType: "json",
                 success: function (response) {
                     if (response != "" || response != null) {
-                        $("#tbody_tablaTrabajos").html(response);
+                        $("#tbody_trabajosRealizados").html(response);
                     } else {
-                        $("#tbody_tablaTrabajos").html("");
+                        $("#tbody_trabajosRealizados").html("");
                     }
                     var buttons = [
                         {
@@ -4962,16 +5028,9 @@ $(document).ready(function () {
                         },
                         /* 'copy', 'csv', 'excel', 'pdf', 'print' */
                     ];
-                    dataTableCustom("#tablaTrabajos", buttons);
+                    dataTableCustom("#tablaTrabajosRealizados", buttons);
                 },
             });
-        });
-
-        $(".btnSeleccionarTrabajo").on("click", function () {
-
-           let idtrabajo = $(this).attr("idtrabajo");
-           
-            
         });
         //EVENTO que calcula el promedio segun las profundidades
         $(document).on("keyup", ".calcular", function () {
@@ -4990,11 +5049,11 @@ $(document).ready(function () {
                 if(val1 != "" || val2 != "" || val3 != ""){
                     let sum = (Number(val1)+Number(val2)+Number(val3));
                     let prom = sum/n;
-                    $(`#promedio_${consecutivo}`).val(prom);
+                    $(`#promedio_${consecutivo}`).val(prom.toFixed(2));
                 }
             }
         });    
-
+        //Crear campo para la llanta de repuesto
         $('#agregar_llanta_repuesto').click (function ()  {  
             if ($(this).is(":checked")){
                 $("#linea_llanta_repuesto").removeClass("d-none");
@@ -5004,5 +5063,97 @@ $(document).ready(function () {
                 $("#input_llanta_repuesto").addClass("d-none");
             }  
         }); 
+        //Guardar datos de la orden de trabajo
+        $("#formulario_orden_trabajo").submit(function (e) {
+            e.preventDefault();
+
+            var datosAjax = new FormData();
+            datosAjax.append("generarOrden", "ok");
+
+            var datosFrm = $(this).serializeArray();
+            datosFrm.forEach((element) => {
+                datosAjax.append(element.name, element.value);
+            });
+
+            $.ajax({
+                type: "post",
+                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                data: datosAjax,
+                cache: false,
+                contentType: false,
+                processData: false,
+                //dataType: "json",
+                success: function (response) {
+                    if(response == 'creado'){
+                        Swal.fire({
+                            icon: "success",
+                            title: "Orden creada con exito.",
+                            showConfirmButton: false,
+                            timer: 1600,
+                        });
+                        $("#ordenTrabajo_llantas").modal("hide");
+                    } else {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "Problema al crear la orden de trabajo.",
+                            text: "intente de nuevo.",
+                            showConfirmButton: false,
+                            timer: 1600,
+                        });
+                    }
+                },
+            });
+        });
+        //Mostrar tabla de proveedores
+        $(document).on("click", ".btn_seleccionar_proveedor", function () {
+            $("#ordenTrabajo_llantas").modal("hide");
+            $("#tablalistaProveedores").dataTable().fnDestroy();
+            // Borrar datos
+            $("#tbody_listaProveedores").html("");
+
+            var datos = new FormData();
+            datos.append("ListarProveedoresLlantas", "ok");
+            $.ajax({
+                type: "POST",
+                url: "ajax/mantenimiento.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                //dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbody_listaProveedores").html(response);
+                    } else {
+                        $("#tbody_listaProveedores").html("");
+                    }
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "border-0 bg-gradient-olive",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
+                        },
+                        /* 'copy', 'csv', 'excel', 'pdf', 'print' */
+                    ];
+                    dataTableCustom("#tablalistaProveedores", buttons);
+                },
+            });
+        });
+        //Traer datos del proveedor seleccionado
+        $(document).on("click", ".btn_seleccionarProveedor", function () {
+            $("#listaProveedores").modal("hide");
+            $("#ordenTrabajo_llantas").modal("show");
+
+            var idproveedor = $(this).attr("idproveedor");
+            var razon_social = $(this).attr("razon");
+
+            $("#idproveedor").val(idproveedor);
+            $("#razon_social").val(razon_social);
+        });
+
+        $(document).on('click', ".btn_cancelar_proveedor", function () {
+            $("#ordenTrabajo_llantas").modal("show");
+            $("#listaProveedores").modal("hide");            
+        });
     }
 });

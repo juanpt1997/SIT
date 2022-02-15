@@ -102,46 +102,81 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
             <hr class="my-4">
             <div class="row">
                 <div class="col-12">
-                    <button type="button" class="btn bg-gradient-success btn-nuevoregistro-llantas" data-toggle="modal" data-target="#registro-llantas"><i class="fas fa-plus"></i> Ingresar registro</button>
-                    <button type="button" class="btn bg-gradient-cyan btn-ordenTrabajo" data-toggle="modal" data-target="#ordenTrabajo_llantas"><i class="fas fa-briefcase"></i> Orden de trabajo</button>
+                    <button type="button" class="btn bg-gradient-success btn-nuevoregistro-llantas" data-toggle="modal" data-target="#registro-llantas"><i class="fas fa-clipboard-check"></i> Registrar llantas a vehículo</button>
+                    <button type="button" class="btn bg-gradient-cyan btn-ordenTrabajo" data-toggle="modal" data-target="#ordenTrabajo_llantas"><i class="fas fa-briefcase"></i> Crear orden de trabajo</button>
                 </div>
             </div>
             <div class="row mt-2">
                 <div class="col-12">
-                    <div class="card card-outline card-info">
-                        <div class="card-header">
-                            <strong><i>Listado general de llantas</i></strong>
+                    <div class="card card-info card-outline card-outline-tabs">
+                        <div class="card-header p-0 border-bottom-0">
+                            <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="custom-tabs-four-home-tab" data-toggle="pill" href="#custom-tabs-four-home" role="tab" aria-controls="custom-tabs-four-home" aria-selected="true"><i class="fas fa-angle-double-right"></i> Llantas en vehículos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="custom-tabs-four-profile-tab" data-toggle="pill" href="#custom-tabs-four-profile" role="tab" aria-controls="custom-tabs-four-profile" aria-selected="false"><i class="fas fa-angle-double-right"></i> Órdenes de trabajo</a>
+                                </li>
+                            </ul>
                         </div>
                         <div class="card-body">
-
-                            <div class="table-responsive">
-                                <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tabla_llantas">
-                                    <thead>
-                                        <tr>
-                                            <th>...</th>
-                                            <th>Placa</th>
-                                            <th>Número llanta</th>
-                                            <th>Tamaño</th>
-                                            <th>Marca</th>
-                                            <th>Código</th>
-                                            <th>Referencia</th>
-                                            <th>Descripción</th>
-                                            <th>Categoria</th>
-                                            <th>Medida</th>
-                                            <th>Vida</th>
-                                            <th>Fecha montaje</th>
-                                            <th>Kilometraje montaje</th>
-                                            <th>Lonas</th>
-                                            <th>Estado actual</th>
-                                            <th>Fecha factura</th>
-                                            <th>Número de factura</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbody_tabla_llantas">
-                                    </tbody>
-                                </table>
+                            <div class="tab-content" id="custom-tabs-four-tabContent">
+                                <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tabla_llantas">
+                                            <thead>
+                                                <tr>
+                                                    <th>...</th>
+                                                    <th>Placa</th>
+                                                    <th>Número llanta</th>
+                                                    <th>Tamaño</th>
+                                                    <th>Marca</th>
+                                                    <th>Código</th>
+                                                    <th>Referencia</th>
+                                                    <th>Descripción</th>
+                                                    <th>Categoria</th>
+                                                    <th>Medida</th>
+                                                    <th>Vida</th>
+                                                    <th>Fecha montaje</th>
+                                                    <th>Kilometraje montaje</th>
+                                                    <th>Lonas</th>
+                                                    <th>Estado actual</th>
+                                                    <th>Fecha factura</th>
+                                                    <th>Número de factura</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_tabla_llantas">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_controlOrdenes">
+                                            <thead>
+                                                <tr>
+                                                    <th>...</th>
+                                                    <th>Núm. Orden</th>
+                                                    <th>ID llanta</th>
+                                                    <th>Núm. Llanta</th>
+                                                    <th>Fecha orden</th>
+                                                    <th>Placa del vehículo</th>
+                                                    <th>Núm. Interno</th>
+                                                    <th>Alineación</th>
+                                                    <th>Kilometraje de inspección</th>
+                                                    <th>Proveedor servicio</th>
+                                                    <th>Promedio de profundidad (mm)</th>
+                                                    <th>Presión de aire</th>
+                                                    <th>Posición anterior</th>
+                                                    <th>Posición actual</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tbody_controlOrdenes">
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
-
                         </div>
                         <div class="card-footer bg-dark"></div>
                     </div>
@@ -711,102 +746,158 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                 </button>
             </div>
 
-            <div class="modal-body">
-                <h5>Buscar llantas montadas en vehículos</h5>
-                <hr>
-                <div class="form-group">
-                    <label><i>Vehículo</i></label>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-car-side"></i></span>
+            <form method="post" enctype="multipart/form-data" id="formulario_orden_trabajo">
+
+                <input id="idcontrol" type="hidden" name="idcontrol" value="">
+
+                <div class="modal-body">
+                    <h5>Buscar llantas montadas en vehículos</h5>
+                    <hr class="bg-dark">
+
+                    <div class="row">
+
+                        <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12">
+                            <div class="form-group">
+                                <label><i>Vehículo</i></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-car-side"></i></span>
+                                    </div>
+                                    <select id="placa_orden" name="placa_orden" class="form-control select2-single" type="number" required>
+                                        <option value="" selected><b>-Lista de placas-</b></option>
+                                        <?php foreach ($Placas as $key => $value) : ?>
+                                            <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            </div>
+
                         </div>
-                        <select id="placa_orden" name="placa_orden" class="form-control select2-single" type="number" required>
-                            <option value="" selected><b>-Lista de placas-</b></option>
-                            <?php foreach ($Placas as $key => $value) : ?>
-                                <option value="<?= $value['idvehiculo'] ?>"><?= $value['placa'] ?> - <?= $value['numinterno'] ?></option>
-                            <?php endforeach ?>
-                        </select>
-                    </div>
-                </div>
-
-                <hr>
-
-                <h5><strong>Ubicación</strong></h5>
-
-                <div class="row">
-                    <div class="col-5">
-                        <div class="jumbotron jumbotron-fluid">
-                            <div class="text-center">
-                                <img src="./views/img/llantas/ubicacion.png" class="img-fluid">
+                        <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="razon_social">Proveedor de servicio</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-dolly-flatbed"></i></span>
+                                    </div>
+                                    <input type="hidden" id="idproveedor" name="idproveedor">
+                                    <input class="form-control" type="text" id="razon_social" name="razon_social" placeholder="Seleccione un proveedor de servicio" required readonly>
+                                    <div class="input-group-append">
+                                        <button type="button" class="btn btn-success btn-md btn_seleccionar_proveedor" title="Visualizar lista de proveedores." data-toggle="modal" data-target="#listaProveedores"><i class="fas fa-info-circle"></i></button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-7">
-                        <div class="row" id="row_listaDatos">
 
+                    <div class="row">
+
+                        <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="fecha_factura">Fecha de la orden</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
+                                    </div>
+                                    <input class="form-control" type="date" id="fecha_orden" name="fecha_orden" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="fecha_factura">Kilometraje</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
+                                    </div>
+                                    <input class="form-control" type="number" id="kilo_orden" name="kilo_orden" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12">
+                            <label> Alineación de vehículo </label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" value="SI" id="si_ali" name="alineacion" required>
+                                <label class="form-check-label text-nowrap">
+                                    <strong>SI</strong>
+                                </label>
+                            </div>
+
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" value="NO" id="no_ali" name="alineacion" required>
+                                <label class="form-check-label text-nowrap">
+                                    <strong>NO</strong>
+                                </label>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                    <hr>
+
+                    <h5><strong>Ubicación</strong></h5>
+
+                    <div class="row">
+                        <div class="col-md-12 col-lg-5 col-xl-5 col-sm-12">
+                            <div class="jumbotron jumbotron-fluid">
+                                <div class="text-center">
+                                    <img src="./views/img/llantas/ubicacion.png" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <div class="row" id="row_listaDatos">
+
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col">
-                        <label> Alineación de vehículo </label>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" value="1" id="si_ali" name="alineacion">
-                            <label class="form-check-label text-nowrap">
-                                <b>Si</b>
-                            </label>
-                        </div>
+                    <hr class="bg-dark">
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tabla_ordenTrabajo_llanta">
+                            <thead>
+                                <tr>
+                                    <th colspan="13"></th>
+                                    <th colspan="7">Nueva ubicación</th>
+                                </tr>
+                                <tr>
+                                    <th>ID llanta</th>
+                                    <th>Núm. Llanta</th>
+                                    <th>Ubicación actual</th>
+                                    <th>Marca</th>
+                                    <th>Tamaño</th>
+                                    <th>Kilometraje</th>
+                                    <th>Banda</th>
+                                    <th>Profundidad 1 (mm)</th>
+                                    <th>Profundidad 2 (mm)</th>
+                                    <th>Profundidad 3 (mm)</th>
+                                    <th>Promedio (mm)</th>
+                                    <th>Presión (PSI)</th>
+                                    <th>Trabajos realizados</th>
+                                    <th>1</th>
+                                    <th>2</th>
+                                    <th>3</th>
+                                    <th>4</th>
+                                    <th>5</th>
+                                    <th>6</th>
+                                    <th>Repuesto</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_tabla_ordenTrabajo">
 
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" value="0" id="no_ali" name="alineacion">
-                            <label class="form-check-label text-nowrap">
-                                <b>No</b>
-                            </label>
-                        </div>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
-
-
-
-                <hr>
-                <div class="table-responsive">
-                    <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tabla_ordenTrabajo_llanta">
-                        <thead>
-                            <tr>
-                                <th colspan="11"></th>
-                                <th colspan="6">Ubicación final</th>
-                            </tr>
-                            <tr>
-                                <th>ID llanta</th>
-                                <th>Núm. Llanta</th>
-                                <th>Marca</th>
-                                <th>Banda</th>
-                                <th>Tamaño</th>
-                                <th>Prof 1</th>
-                                <th>Prof 2</th>
-                                <th>Prof 3</th>
-                                <th>Promedio</th>
-                                <th>Presión</th>
-                                <th>Trabajo realizado</th>
-                                <th>1</th>
-                                <th>2</th>
-                                <th>3</th>
-                                <th>4</th>
-                                <th>5</th>
-                                <th>6</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody_tabla_ordenTrabajo">
-
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+            </form>
 
             <div class="modal-footer modal-footer bg-gradient-dark">
                 <div class="form-group">
-                    <button type="submit" class="btn bg-gradient-success btn_agregarOrden"><i class="fas fa-share"></i> Agregar</button>
+                    <button type="submit" class="btn bg-gradient-success btn_agregarOrden" form="formulario_orden_trabajo"><i class="fas fa-share"></i> Agregar</button>
                     <button type="button" class="btn bg-gradient-danger btn_cancelarOrden" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
@@ -815,12 +906,12 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
     </div>
 </div>
 
-<div id="trabajosRealizados" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="trabajosRealizados-title" aria-hidden="true" style="overflow-y: scroll;">
+<div id="listaProveedores" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="listaProveedores-title" aria-hidden="true" style="overflow-y: scroll;">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
 
             <div class="modal-header bg-gradient-info">
-                <h5 class="modal-title" id="trabajosRealizados-title">Lista de trabajos</h5>
+                <h3 class="modal-title" id="listaProveedores-title">Lista de proveedores de servicios/productos <i class="fas fa-dolly-flatbed"></i></h3>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -828,24 +919,67 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tablaTrabajos">
+                    <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tablalistaProveedores">
                         <thead>
                             <tr>
-                                <th>Trabajo</th>
+                                <th>Documento</th>
+                                <th>Nombre</th>
+                                <th>Razón social</th>
+                                <th>Dirección</th>
+                                <th>Teléfono</th>
+                                <th>Correo</th>
                                 <th>Selección</th>
                             </tr>
                         </thead>
-                        <tbody id="tbody_tablaTrabajos">
-
+                        <tbody id="tbody_listaProveedores">
                         </tbody>
                     </table>
                 </div>
             </div>
 
-            <div class="modal-footer modal-footer bg-gradient-dark">
+            <div class="modal-footer bg-gradient-dark">
                 <div class="form-group">
-                    <a href="cg-mantenimiento" target="_blank"><span class="badge badge-info badge-md">Nuevo trabajo</span></a>
-                    <button type="button" class="btn btn-sm bg-gradient-danger btn_cancelarTrabajo" data-dismiss="modal">Cancelar</button>
+                    <a href="c-proveedores" target="_blank">
+                        <button type="" class="btn btn-sm btn-warning float-center btn-nuevoProveedor">
+                            <i class="fas fa-parachute-box"></i>
+                            Nuevo proveedor
+                        </button></a>
+                    <button type="button" class="btn btn-sm bg-gradient-danger btn_cancelar_proveedor" data-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="HistorialTrabajos" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="HistorialTrabajos-title" aria-hidden="true" style="overflow-y: scroll;">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-gradient-info">
+                <h4 class="modal-title" id="HistorialTrabajos-title">Trabajos realizados <i class="fas fa-toolbox"></i></h4>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tablaTrabajosRealizados">
+                        <thead>
+                            <tr>
+                                <th>Número de control</th>
+                                <th>Número de llanta</th>
+                                <th>Trabajo realizado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbody_trabajosRealizados">
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+            <div class="modal-footer bg-gradient-dark">
+                <div class="form-group">
+                    <!-- <button type="submit" class="btn bg-gradient-success" form="formulario_orden_trabajo"><i class="fas fa-share"></i> Agregar</button> -->
+                    <button type="button" class="btn bg-gradient-danger" data-dismiss="modal">Continuar</button>
                 </div>
             </div>
         </div>

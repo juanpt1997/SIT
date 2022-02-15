@@ -2880,7 +2880,154 @@ class ModeloControlLlantas
 
         $stmt->closeCursor();
         return $retorno;
+    }
+
+    static public function mdlAgregarLlantaOrden($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO m_re_control_llantas(idllanta,idorden,km_inspeccion,profundidad1,profundidad2,profundidad3,promedio,presion,banda,fecha_orden,posicion_anterior,nueva_posicion,user_created,user_updated)
+                                                VALUES(:idllanta,:idorden,:km_inspeccion,:profundidad1,:profundidad2,:profundidad3,:promedio,:presion,:banda,:fecha_orden,:posicion_anterior,:nueva_posicion,:user_created,:user_updated)");
+
+        $stmt->bindParam(":idllanta", $datos['idllanta'], PDO::PARAM_INT);
+        $stmt->bindParam(":idorden", $datos['idorden'], PDO::PARAM_INT);
+        $stmt->bindParam(":km_inspeccion", $datos['kilo_inspeccion'], PDO::PARAM_INT);
+        $stmt->bindParam(":profundidad1", $datos['prof1'], PDO::PARAM_STR);
+        $stmt->bindParam(":profundidad2", $datos['prof2'], PDO::PARAM_STR);
+        $stmt->bindParam(":profundidad3", $datos['prof3'], PDO::PARAM_STR);
+        $stmt->bindParam(":promedio", $datos['promedio'], PDO::PARAM_STR);
+        $stmt->bindParam(":presion", $datos['presion'], PDO::PARAM_STR);
+        $stmt->bindParam(":banda", $datos['banda'], PDO::PARAM_STR);
+        $stmt->bindParam(":fecha_orden", $datos['fecha_orden'], PDO::PARAM_STR);
+        $stmt->bindParam(":posicion_anterior", $datos['posicion_inicial'], PDO::PARAM_INT);
+        $stmt->bindParam(":nueva_posicion", $datos['posicion_final'], PDO::PARAM_INT);
+        $stmt->bindParam(":user_created", $datos['usuario'], PDO::PARAM_INT);
+        $stmt->bindParam(":user_updated", $datos['usuario'], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $id = $conexion->lastInsertId();
+        } else {
+            $id = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+
+        return $id;
+    }
+
+    static public function mdlActualizarPosicionLLanta($idllanta, $posicion, $usuario)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE m_re_llantasvehiculos set posicion=:posicion, user_updated=:user_updated
+        WHERE idllanta = :idllanta");
+
+        $stmt->bindParam(":idllanta", $idllanta, PDO::PARAM_INT);
+        $stmt->bindParam(":posicion", $posicion, PDO::PARAM_INT);
+        $stmt->bindParam(":user_updated", $usuario, PDO::PARAM_INT);
 
 
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    static public function mdlTrabajosRealizados($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT cl.idcontrol, ll.num_llanta, tl.trabajo FROM m_re_control_llantas cl
+        INNER JOIN m_re_llantasvehiculos ll ON ll.idllanta = cl.idllanta
+        INNER JOIN m_re_trabajos_control t ON t.idcontrol = cl.idcontrol
+        INNER JOIN m_trabajos_llantas tl ON tl.idtrabajo = t.idtrabajo
+        WHERE cl.idcontrol = :idcontrol AND cl.idllanta = :idllanta");
+
+        $stmt->bindParam(":idcontrol",  $datos['idcontrol'], PDO::PARAM_INT);
+        $stmt->bindParam(":idllanta",  $datos['idllanta'], PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno =  $stmt->fetchAll();
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    static public function mdlRegistrarTrabajos($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO m_re_trabajos_control(idtrabajo,idcontrol)
+                                                VALUES(:idtrabajo,:idcontrol)");
+
+        $stmt->bindParam(":idtrabajo", $datos["trabajo"], PDO::PARAM_INT);
+        $stmt->bindParam(":idcontrol", $datos["idorden"], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    static public function mdlEliminarTrabajos()
+    {
+        $stmt = Conexion::conectar()->prepare("DELETE FROM m_re_trabajos_control 
+                                                WHERE idcontrol = :idcontrol");
+
+        $stmt->bindParam(":idcontrol", $idorden, PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+
+    static public function mdlListarOrdenes()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT cl.*, ot.fecha_orden, ot.kilom_orden, ot.alineacion, v.placa, v.numinterno, p.razon_social, ll.num_llanta
+        FROM m_re_control_llantas cl
+        INNER JOIN m_orden_trabajo_llantas ot ON ot.idorden=cl.idorden
+        INNER JOIN v_vehiculos v ON v.idvehiculo=ot.idvehiculo
+        INNER JOIN c_proveedores p ON p.id=ot.idproveedor
+        INNER JOIN m_re_llantasvehiculos ll ON ll.idllanta=cl.idllanta");
+
+        $stmt->execute();
+        $retorno =  $stmt->fetchAll();
+
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+    static public function mdlCrearOrden($datos)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("INSERT INTO m_orden_trabajo_llantas(fecha_orden,idvehiculo,kilom_orden,idproveedor,alineacion)
+                                                VALUES(:fecha_orden,:idvehiculo,:kilom_orden,:idproveedor,:alineacion)");
+
+        $stmt->bindParam(":fecha_orden", $datos['fecha_orden'], PDO::PARAM_STR);
+        $stmt->bindParam(":idvehiculo", $datos['idvehiculo'], PDO::PARAM_INT);
+        $stmt->bindParam(":kilom_orden", $datos['kilom_orden'], PDO::PARAM_INT);
+        $stmt->bindParam(":idproveedor", $datos['idproveedor'], PDO::PARAM_INT);
+        $stmt->bindParam(":alineacion", $datos['alineacion'], PDO::PARAM_STR);
+
+        if ($stmt->execute()) {
+            $id = $conexion->lastInsertId();
+        } else {
+            $id = "error";
+        }
+        $stmt->closeCursor();
+        $conexion = null;
+
+        return $id;
     }
 }

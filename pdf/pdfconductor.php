@@ -296,9 +296,10 @@ class PdfConductor
         $documento_escaneado = $info['documento_escaneado'] == "" || $info['documento_escaneado'] == null ? "" : '../' . $info['documento_escaneado'];
         $documento_escaneado_huella = $info['documento_escaneado_huella'] == "" || $info['documento_escaneado_huella'] == null ? "" : '../' . $info['documento_escaneado_huella'];
         $licencia_conduccion = $info['ruta_documento'] == "" || $info['ruta_documento'] == null ? "" : '../' . $info['ruta_documento'];
+        $licencia_conduccion_huella = $info['ruta_documento_huella'] == "" || $info['ruta_documento_huella'] == null ? "" : '../' . $info['ruta_documento_huella'];
 
         // Si tiene escaneada imagen por la huella
-        if ($documento_escaneado_huella != "" /* || $licencia_conduccion_huella != "" */) {
+        if ($documento_escaneado_huella != "" || $licencia_conduccion_huella != "") {
             $tabla = '
                     <table cellspacing="2" cellpadding="3">
                         <tbody>
@@ -317,7 +318,7 @@ class PdfConductor
 
                             <tr style="text-align: center;">
                                 <td height="190" style="border-bottom: 1px solid #000000; border-top: 1px solid #000000; border-left: 1px solid  #000000;"><img src="' . $licencia_conduccion . '" height="190" width="325"></td>
-                                <td height="190" style="border-bottom: 1px solid #000000; border-top: 1px solid #000000; border-right: 1px solid  #000000;"><img src="' . $licencia_conduccion . '" height="190" width="325"></td>
+                                <td height="190" style="border-bottom: 1px solid #000000; border-top: 1px solid #000000; border-right: 1px solid  #000000;"><img src="' . $licencia_conduccion_huella . '" height="190" width="325"></td>
                             </tr>
                         </tbody>
                     </table>
