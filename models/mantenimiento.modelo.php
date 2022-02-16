@@ -2824,7 +2824,7 @@ class ModeloControlLlantas
 
     static public function mdlEditarLLantaVehiculo($datos)
     {
-        $stmt = Conexion::conectar()->prepare("UPDATE m_re_llantasvehiculos set vida=:vida, fecha_montaje=:fecha_montaje, kilom_montaje=:kilom_montaje, lonas=:lonas, num_llanta=:num_llanta, estado_actual=:estado_actual, fecha_factura=:fecha_factura, num_factura=:num_factura, precio_compra=:precio_compra,idproveedor=:idproveedor,observaciones=:observaciones,user_updated=:user_updated,idvehiculo=:idvehiculo 
+        $stmt = Conexion::conectar()->prepare("UPDATE m_re_llantasvehiculos set vida=:vida, fecha_montaje=:fecha_montaje, kilom_montaje=:kilom_montaje, lonas=:lonas, num_llanta=:num_llanta, estado_actual=:estado_actual, fecha_factura=:fecha_factura, num_factura=:num_factura, precio_compra=:precio_compra,idproveedor=:idproveedor,observaciones=:observaciones,user_updated=:user_updated,idvehiculo=:idvehiculo, posicion=:posicion 
                                                WHERE idllanta = :idllanta");
 
         $stmt->bindParam(":idllanta", $datos["idllanta"], PDO::PARAM_INT);
@@ -2840,7 +2840,9 @@ class ModeloControlLlantas
         $stmt->bindParam(":fecha_factura", $datos["fecha_factura"], PDO::PARAM_STR);
         $stmt->bindParam(":num_factura", $datos["num_factura"], PDO::PARAM_STR);
         $stmt->bindParam(":precio_compra", $datos["precio-compra-producto"], PDO::PARAM_INT);
+        $stmt->bindParam(":posicion", $datos["ubicacion"], PDO::PARAM_INT);
         $stmt->bindParam(":user_updated", $datos["usuario"], PDO::PARAM_INT);
+
 
         if ($stmt->execute()) {
             $retorno = "ok";

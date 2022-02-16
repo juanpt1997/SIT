@@ -4686,6 +4686,11 @@ $(document).ready(function () {
             $(".select2-single").trigger("change");
             $("#col_cantidad").removeClass("d-none");
             $("#col_num_llanta").addClass("d-none");
+
+            $("#img_llantas_6").removeClass("d-none");
+            $("#img_llantas_4").addClass("d-none");
+            $("#titulo_ubicacionLlantas").removeClass("d-none");
+            $("#input_ubicacion_llanta").addClass("d-none");
         });
         //SUBMIT del formulario que asocia las llantas con un vehiculo
         $("#formulario_LlantasControl").submit(function (e) {
@@ -4732,6 +4737,12 @@ $(document).ready(function () {
             $("#linea_llanta_repuesto").addClass("d-none");
             $("#input_llanta_repuesto").addClass("d-none");
 
+            //$("#img_llantas_6").addClass("d-none");
+            $("#img_llantas_4").addClass("d-none");
+            $("#titulo_ubicacionLlantas").addClass("d-none");
+            $("#input_ubicacion_llanta").removeClass("d-none");
+
+
             let idproducto = $(this).attr("idalmacen");
             let idllanta = $(this).attr("idllanta");
             console.log(idllanta);
@@ -4774,6 +4785,7 @@ $(document).ready(function () {
                        $("#kilo_montaje").val(response.kilom_montaje);
                        $("#lonas").val(response.lonas);
                        $("#estado").val(response.estado_actual);
+                       $("#ubicacion_llanta").val(response.posicion);
                    }
                 },
             });
@@ -4823,8 +4835,11 @@ $(document).ready(function () {
         });
         //Agregar llanta nueva que no se encuentre en la lista de llantas
         $(".btn_add_llanta").on('click', function () {
-            $("#registro-llantas").modal('hide');
+            //$("#registro-llantas").modal('hide');
+            //$("#crear_llanta").modal('show');
+            $("#listaLlantas").modal('hide');
             $("#crear_llanta").modal('show');
+
         });
         //CARGAR selects al abrir el modal de crear una nueva llanta
         $("#crear_llanta").on("show.bs.modal", function () {
@@ -4835,8 +4850,13 @@ $(document).ready(function () {
         });
         //Volver al modal de ASOCIAR LLANTA CON VEHICULO al dar click en cancelar del modal CREAR NUEVA LLANTA
         $(".btn_cancelar_add").on('click', function () {
-            $("#registro-llantas").modal('show');
             $("#crear_llanta").modal('hide');
+            $("#listaLlantas").modal('show');
+        });
+        //btn regresar al modal de registrar llanta desde la lista de llanta
+        $(".btn_regresar").on('click', function () {
+            $("#registro-llantas").modal('show');
+            $("#listaLlantas").modal('hide');
         });
         //SUBMIT del formulario que agrega llantas
         $("#formulario_crear_nuevaLlanta").submit(function (e) {
@@ -4888,14 +4908,14 @@ $(document).ready(function () {
             let id = $(this).attr("idllanta");
 
             Swal.fire({
-                icon: "warning",
+                icon: "info",
                 showConfirmButton: true,
                 showCancelButton: true,
-                title: "¿Seguro que desea borrar este registro?",
-                confirmButtonText: "SI, borrar",
+                title: "¿Está seguro que desea borrar este registro?",
+                confirmButtonText: "SI, borrar.",
                 cancelButtonText: "Cancelar",
                 confirmButtonColor: "#ff0000",
-                cancelButtonColor: "#66ff99",
+                cancelButtonColor: "#00b300",
                 allowOutsideClick: false,
             }).then((result) => {
                 if (result.value) {
@@ -5150,10 +5170,15 @@ $(document).ready(function () {
             $("#idproveedor").val(idproveedor);
             $("#razon_social").val(razon_social);
         });
-
+        //regresar a la orden de trabajo desde la lista de proveedores 
         $(document).on('click', ".btn_cancelar_proveedor", function () {
             $("#ordenTrabajo_llantas").modal("show");
             $("#listaProveedores").modal("hide");            
+        });
+        //Abrir modal donde se listan todas las llentas creadas
+        $(".btn_listarLlantas").on('click', function () {
+            $("#registro-llantas").modal('hide');
+            $("#listaLlantas").modal('show');
         });
     }
 });

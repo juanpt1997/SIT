@@ -1480,6 +1480,7 @@ class AjaxLlantasControl
                         </td>
                         <td>{$value["placa"]}</td>
                         <td>{$value["num_llanta"]}</td>
+                        <td>{$value["posicion"]}</td>
                         <td>{$value["tamanio"]}</td>
                         <td>{$value["marca"]}</td>
                         <td>{$value["codigo"]}</td>
@@ -1532,7 +1533,8 @@ class AjaxLlantasControl
             'numero_llanta' => $frmData['numero_llanta_edit'],
             'posicion' => 1,
             'usuario' => $_SESSION['cedula'],
-            'idllanta' => $frmData['idllanta']
+            'idllanta' => $frmData['idllanta'],
+            'ubicacion' => $frmData['ubicacion_llanta']
         );
         $actualizar = array(
             'valor' => $datos['tamanio'],
@@ -1767,6 +1769,8 @@ class AjaxLlantasControl
                         <td>{$value["idorden"]}</td>
                         <td>{$value["idllanta"]}</td>
                         <td>{$value["num_llanta"]}</td>
+                        <td>{$value["posicion_anterior"]}</td>
+                        <td>{$value["nueva_posicion"]}</td>
                         <td>{$value["fecha_orden"]}</td>
                         <td>{$value["placa"]}</td>
                         <td>{$value["numinterno"]}</td>
@@ -1774,9 +1778,7 @@ class AjaxLlantasControl
                         <td>{$value["km_inspeccion"]}</td>
                         <td>{$value["razon_social"]}</td>
                         <td>{$value["promedio"]}</td>
-                        <td>{$value["presion"]}</td>
-                        <td>{$value["posicion_anterior"]}</td>
-                        <td>{$value["nueva_posicion"]}</td>
+                        <td>{$value["presion"]}</td>    
                     </tr>
 			";
         }
@@ -1827,6 +1829,48 @@ class AjaxLlantasControl
 			";
         }
         echo $tr;
+    }
+
+    static public function ajaxTablaListaLlantas()
+    {
+        $respuesta = ModeloControlLlantas::mdlListarSelectLlantas();
+        $tr = "";
+
+        foreach ($respuesta as $key => $value) {
+            $tr .= "<tr>
+                        <td>
+                            <div class='btn-group' role='group' aria-label='Button group'>
+                                <button title='Control/Seguimiento' data-toggle='modal' idllanta='{$value["idllanta"]}' data-target='#seguimiento-llantas' class='btn btn-sm bg-gradient-primary btn-seguimiento'><i class='fas fa-calendar-check'></i></button>
+                            </div>
+                            <div class='btn-group' role='group' aria-label='Button group'>
+                                <button title='Editar control' data-toggle='modal' idllanta='{$value["idllanta"]}' idalmacen='{$value["idproducto"]}' data-target='#registro-llantas' class='btn btn-sm bg-gradient-info btn-editar-control'><i class='fas fa-edit'></i></button>
+                            </div>
+                            <div class='btn-group' role='group' aria-label='Button group'>
+                                <button title='Eliminar control' class='btn btn-sm bg-gradient-danger btn-eliminar-control' idllanta='{$value["idllanta"]}'><i class='fas fa-trash'></i></button>
+                            </div>
+                        </td>
+                        <td>{$value["placa"]}</td>
+                        <td>{$value["num_llanta"]}</td>
+                        <td>{$value["posicion"]}</td>
+                        <td>{$value["tamanio"]}</td>
+                        <td>{$value["marca"]}</td>
+                        <td>{$value["codigo"]}</td>
+                        <td>{$value["referencia"]}</td>
+                        <td>{$value["descripcion"]}</td>
+                        <td>{$value["categoria"]}</td>
+                        <td>{$value["medida"]}</td>
+                        <td>{$value["vida"]}</td>
+                        <td>{$value["fecha_montaje"]}</td>
+                        <td>{$value["kilom_montaje"]}</td>
+                        <td>{$value["lonas"]}</td>
+                        <td>{$value["estado_actual"]}</td>
+                        <td>{$value["fecha_factura"]}</td>
+                        <td>{$value["num_factura"]}</td>
+                    </tr>
+			";
+        }
+        echo $tr;
+
     }
 }
 /* ===================================================
