@@ -77,6 +77,8 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
                                                         <button type="button" class="btn btn-info btn-md btn-nuevaRuta" data-toggle="modal" data-target="#modalRuta">
                                                             <i class="fas fa-road"></i> Agregar ruta
                                                         </button>
+                                                        <!-- <button class="btn btn-md btn-warning m-2 btn-institucion" type="button" data-toggle="modal" data-target="#modalInstitucion">Crear Institución <i class="fas fa-chalkboard"></i></button> -->
+
 
                                                     </div>
                                                     <!-- <button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#modalRuta">
@@ -230,9 +232,9 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
             </div>
             <form id="ruta_form" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
-                    <div class="justify-content-start">
+                    <!-- <div class="justify-content-start">
                         <button class="btn btn-warning m-2 btn-institucion" type="button" data-toggle="modal" data-target="#modalInstitucion">Crear Institución <i class="fas fa-chalkboard"></i></button>
-                    </div>
+                    </div> -->
                     <div class="row">
 
                         <input type="hidden" id="idruta" name="idruta" value="">
@@ -308,31 +310,33 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
 
                 </div>
                 <div class="modal-footer">
+                    <button class="btn btn-sm btn-warning m-2 btn-institucion" type="button" data-toggle="modal" data-target="#modalInstitucion">Crear Institución <i class="fas fa-chalkboard"></i></button>
                     <button type="submit" form="ruta_form" id="btn-guardarProgra" class="btn btn-sm btn-success float-center">
                         <i class="fas fa-print"></i>
                         Guardar
                     </button>
+
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<!-- MODAL PARA LISTAR ESTUDIANTES EN UNA RUTA -->
+<!-- MODAL PARA LISTAR PASAJEROS EN UNA RUTA -->
 <div id="modal-listar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-success">
-                <h5 class="titulo-light" id="my-modal-title">ESTUDIANTES <i class="fas fa-book-reader"></i></h5>
+                <h5 class="titulo-light" id="my-modal-title">PASAJEROS <i class="fas fa-book-reader"></i></h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
             <div class="justify-content-start">
+                <button class="btn btn-success m-2 btn-nuevoEstudiante" data-toggle="modal" data-target="#modalEstudiante">Crear nuevo pasajero <i class="fas fa-user-check"></i></button>
                 <button class="btn btn-info m-2 btn-EstudianteTemp" data-toggle="modal" data-target="#modalEstudianteTemporal">Asociar pasajero temporal <i class="fas fa-user-clock"></i></button>
-                <button class="btn btn-success m-2 btn-nuevoEstudiante" data-toggle="modal" data-target="#modalEstudiante">Crear nuevo estudiante <i class="fas fa-user-check"></i></button>
-                <button class="btn btn-danger m-2 btn-eliminarEstudiante" data-toggle="modal" data-target="#modalEliminarEstudiante">Desvincular estudiante <i class="fas fa-user-minus"></i></button>
+                <button class="btn btn-danger m-2 btn-eliminarEstudiante" data-toggle="modal" data-target="#modalEliminarEstudiante">Desvincular pasajero <i class="fas fa-user-minus"></i></button>
             </div>
 
             <div class="card">
@@ -340,7 +344,7 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
 
 
                     <div>
-                        <h3><i>Asociar estudiante existente</i></h3>
+                        <h3><i>Asociar pasajero existente</i></h3>
                     </div>
 
                     <!-- FORMULARIO PARA ASOCIAR ESTUDIANTE A RUTA -->
@@ -351,9 +355,9 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
                             =================================================== -->
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="form-group text-center">
-                                    <label for="exampleInput1">Estudiante</label>
+                                    <label for="exampleInput1">Pasajero</label>
                                     <select class="form-control select2-single" id="estudiante" name="idpasajero">
-                                        <option value="" selected>-Seleccione un estudiante-</option>
+                                        <option value="" selected>-Seleccione un pasajero-</option>
 
                                     </select>
                                 </div>
@@ -440,7 +444,7 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
 
                     <hr class="my-4 bg-dark">
                     <div class="justify-content-center">
-                        <h3 class="text-center"><i>Posibles estudiantes en esta ruta</i> <i class="fas fa-route"></i></h3>
+                        <h3 class="text-center"><i>Posibles pasajeros en esta ruta</i> <i class="fas fa-route"></i></h3>
                     </div>
 
                     <!-- TABLA DE ESTUDIANTES TEMPORALES -->
@@ -497,7 +501,7 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-info">
-                <h5 class="modal-title" id="my-modal-title">Nuevo estudiante <i class="fas fa-user-check"></i></h5>
+                <h5 class="modal-title" id="my-modal-title">Nuevo pasajero <i class="fas fa-user-check"></i></h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -553,7 +557,17 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label>Nivel</label>
-                                <input type="text" class="form-control" id="nivelEstudiante" name="nivelEstudiante" required>
+                                <!-- <input type="text" class="form-control" id="nivelEstudiante" name="nivelEstudiante" required> -->
+                                <select id="nivelEstudiante" class="form-control select2-single" name="nivelEstudiante" required>
+                                    <option value="">--Seleccione nivel de escolaridad--</option>
+                                    <option>Ninguna</option>
+                                    <option>Primaria</option>
+                                    <option>Secundaria</option>
+                                    <option>Tecnico</option>
+                                    <option>Tecnologo</option>
+                                    <option>Universitario</option>
+                                    <option>Posgrado</option>
+                                </select>
                             </div>
                         </div>
 
@@ -682,7 +696,7 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
 
                             <div class="col-8 col-md-6 col-lg-1 col-xl-4 mb-1">
 
-                            
+
                                 <button type="submit" class="btn btn-md bg-gradient-success " form="auxiliar_form"><i class="fas fa-plus"></i> Guardar</button>
                                 <button type="button" class="btn btn-md bg-info" id="fin_recorrido"><i class="fas fa-hourglass-end"></i> Marcar fin del recorrido</button>
 
@@ -784,7 +798,7 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-info">
-                <h5 class="modal-title" id="my-modal-title">Asociar estudiante temporal</h5>
+                <h5 class="modal-title" id="my-modal-title">Asociar pasajero temporal</h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -801,9 +815,9 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
                             =================================================== -->
                             <div class="col-12 col-md-6 col-lg-4">
                                 <div class="form-group text-center">
-                                    <label for="exampleInput1">Estudiante</label>
+                                    <label for="exampleInput1">Pasajero</label>
                                     <select class="form-control select2-single" id="estudiante2" name="idpasajero" required>
-                                        <option value="" selected>-Seleccione un estudiante-</option>
+                                        <option value="" selected>-Seleccione un pasajero-</option>
 
                                     </select>
                                 </div>
@@ -850,7 +864,7 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header bg-danger">
-                <h5 class="modal-title" id="my-modal-title">Desvincular ruta</h5>
+                <h5 class="modal-title" id="my-modal-title">Desvincular pasajero de una ruta</h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -866,9 +880,9 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
                             =================================================== -->
                             <div class="col-12">
                                 <div class="form-group text-center">
-                                    <label for="exampleInput1">Estudiante</label>
+                                    <label for="exampleInput1">Pasajero</label>
                                     <select class="form-control select2-single" id="estudiante3" name="idpasajero">
-                                        <option value="" selected>-Seleccione un estudiante-</option>
+                                        <option value="" selected>-Seleccione un pasajero-</option>
 
                                     </select>
                                 </div>
@@ -942,7 +956,12 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
         <div class="modal-content">
             <div class="modal-header bg-warning">
                 <h5 class="titulo-dark" id="my-modal-title">Nueva institución <i class="fas fa-chalkboard"></i></h5>
-                <button class="close" data-dismiss="modal" aria-label="Close">
+
+                <!-- <div class="row">
+                    <button class="btn btn-sm btn-info m-2 btn-institucion text-align-right" type="button" data-toggle="modal" data-target="#modalListaInstituciones">Ver instituciones <i class="far fa-eye"></i></button>
+                </div> -->
+
+                <button class="close" id="cerrar_CrearInstitucion" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -985,11 +1004,23 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
 
                     <div class="modal-body">
 
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="text-sm">ID</label>
-                                <div class="input-group input-group-sm">
-                                    <input class="form-control" type="number" id="idcliente" name="idcliente" value="" readonly>
+
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <div class="input-group input-group-sm">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text" id="my-addon">ID</span>
+                                        </div>
+                                        <input class="form-control" type="number" id="idcliente" name="idcliente" value="" readonly>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <button class="btn btn-info btn-sm  btn-Lista-institucion" type="button" data-toggle="modal" data-target="#modalListaInstituciones">Ver instituciones <i class="far fa-eye"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -1172,14 +1203,57 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
                             </button>
                         <?php endif ?>
                     </div>
-                    <!-- <?php
-                            $CrearCliente = new ControladorClientes();
-                            $CrearCliente->ctrAgregarEditar();
-                            ?> -->
+                    
                 </form>
 
             </div>
 
+        </div>
+    </div>
+</div>
+
+<div id="modalListaInstituciones" style="overflow-y: scroll;" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-info">
+                <h5 class="modal-title" id="my-modal-title">Lista de instituciones</h5>
+                <button class="close" id="close_ListaClientes" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <!--TABLA PARA VISUALIZAR CLIENTES-->
+                <div class="table-responsive">
+                    <table id="tablaClientes" class="table table-sm table-striped table-bordered table-hover tablasBtnExport w-100">
+                        <thead class="text-sm text-center text-nowrap">
+                            <tr>
+
+                                <th style="width:10px;">ID</th>
+                                <th>Nombre</th>
+                                <th>Documento</th>
+                                <th>Tipo</th>
+                                <th>Telefono</th>
+                                <th>Dirección</th>
+                                <th>Ciudad</th>
+                                <th style="width:120px;">Estado</th>
+                                <th>Documento del responsable</th>
+                                <th>Teléfono</th>
+                                <th>Tipo</th>
+                                <th>Nombre del responsable</th>
+                                <th>Correo</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tbodyClientes" class="text-sm text-center">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-cerrar-ListaClientes" data-dismiss="modal">Cancelar</button>
+
+            </div>
         </div>
     </div>
 </div>

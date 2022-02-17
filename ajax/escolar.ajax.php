@@ -93,8 +93,8 @@ class AjaxEscolar
 
         if ($nombre == "ruta2" || $nombre == "ruta3") {
             $option = "<option value='' selected>-- Seleccione ruta --</option>";
-        } else if ($nombre == "estudiante2" || $nombre == "estudiante3") {
-            $option = "<option value='' selected>-- Seleccione estudiante --</option>";
+        } else if ($nombre == "estudiante2" || $nombre == "estudiante3" || $nombre == "estudiante") {
+            $option = "<option value='' selected>-- Seleccione un pasajero --</option>";
         } else {
             $option = "<option value='' selected>-- Seleccione {$nombre} --</option>";
         }
@@ -590,7 +590,7 @@ class AjaxEscolar
             <tr>
                 <td>
                     <div class='btn-group' role='group' aria-label='Button group'>
-                        <button class='btn btn-warning pasajerosxrecorrido' idrecorrido='{$value['idrecorrido']}' data-toggle='modal' data-target='#modalHistorialRecorrido'><i class='fas fa-clipboard-check'></i></button>
+                        <button class='btn btn-warning pasajerosxrecorrido' idrecorrido='{$value['idrecorrido']}' title='Lista de pasajeros'  data-placement='top'  data-toggle='modal' data-target='#modalHistorialRecorrido'><i class='fas fa-clipboard-check'></i></button>
                     </div>
                 </td>
                 <td>{$value['numruta']}</td>
@@ -672,6 +672,47 @@ class AjaxEscolar
     {
         $respuesta = ControladorEscolar::ctrGuardarInstitucion($datos);
         echo $respuesta;
+    }
+
+    /* ===================================================
+        TABLA INSTITUCIONES 
+    ===================================================*/
+    static public function ajaxTablaListaInstituciones()
+    {
+        $respuesta = ControladorClientes::ctrVerCliente();
+        $tr = "";
+
+        foreach ($respuesta as $key => $value) {
+
+
+            if ($value['tipo'] == "LEAD") {
+
+                $estado = '<button class="btn btn-sm btn-warning btn-estado" idcliente="' . $value["idcliente"] . '">Volver cliente <i class="fas fa-user-check"></i></button>';
+            } else {
+
+                $estado = "<span class='badge badge-success'>Cliente</span>";
+            }
+
+            $tr.="<tr>
+                <td>{$value['idcliente']}</td>
+                <td>{$value['nombre']}</td>
+                <td>{$value['Documento']}</td>
+                <td>{$value['tipo_doc']}</td>
+                <td>{$value['telefono']}</td>
+                <td>{$value['direccion']}</td>
+                <td>{$value['ciudad']}</td>
+                <td>{$estado}</td>
+                <td>{$value['Documentorespons']}</td>
+                <td>{$value['telefono2']}</td>
+                <td>{$value['tipo_docrespons']}</td>
+                <td>{$value['nombrerespons']}</td>
+                <td>{$value['correo']}</td>
+                
+                
+            </tr>";
+        }
+
+        echo $tr;
     }
 
 }
@@ -798,4 +839,9 @@ if (isset($_POST['finalizarRecorrido']) && $_POST['finalizarRecorrido'] == "ok")
 if(isset($_POST['GuardarInstitucion']) && $_POST['GuardarInstitucion'] == "ok")
 {
     AjaxEscolar::ajaxGuardarInstitucion($_POST);
+}
+
+#LLAMADO A LA TABLA DE CLIENTES / INSTITUCIÓN 
+if(isset($_POST['TablaInstituciones']) && $_POST['TablaInstituciones'] == "ok"){
+    AjaxEscolar::ajaxTablaListaInstituciones();
 }

@@ -370,6 +370,11 @@ if (
                             timer: 1500,
                         });
 
+                        $("#ruta_form").trigger("reset");
+                        $("#institucion").val("").trigger("change");
+                        $("#placa").val("").trigger("change");
+                        $("#idconductor").val("").trigger("change");
+
                         //ACTUALIZAMOS LA TABLA
                         cargarTablaRutas();
                         cargarSelect("ruta");
@@ -494,6 +499,10 @@ if (
                             timer: 1500,
                         });
 
+                        $("#estudianteNuevo_form").trigger("reset");
+                        $("#ruta").val("").trigger("change");
+                        $("#nivelEstudiante").val("").trigger("change");
+
                         cargarSelect("estudiante");
                     } else {
                         Swal.fire({
@@ -592,9 +601,7 @@ if (
             TABLA SEGUIMIENTO X RUTA 
         ==============================================*/
         $(document).on("click", ".btn-seguimiento", function () {
-
             $("#overlayRecorrido").addClass("d-none");
-
 
             let idruta = $(this).attr("idruta");
             let idrecorrido = $(this).attr("idrecorrido");
@@ -1216,13 +1223,10 @@ if (
                     processData: false,
                     dataType: "json",
                     success: function (response) {
-
                         //SI NO HAY FIN DE RECORRIDO
                         if (
-                            response.fin_recogida == null
-                             &&
+                            response.fin_recogida == null &&
                             response.fin_entrega == null
-                    
                         ) {
                             Swal.fire({
                                 title: `Finalizar recorrido`,
@@ -1267,7 +1271,9 @@ if (
                                                     allowOutsideClick: false,
                                                 });
 
-                                                $("#overlayRecorrido").addClass("d-none");
+                                                $("#overlayRecorrido").addClass(
+                                                    "d-none"
+                                                );
 
                                                 let idruta =
                                                     $("#idruta_aux").val();
@@ -1278,8 +1284,7 @@ if (
                                                     idruta
                                                 );
                                                 cargarTablaRutas();
-                                            }else if(response == "no hay")
-                                            {
+                                            } else if (response == "no hay") {
                                                 Swal.fire({
                                                     icon: "error",
                                                     showConfirmButton: true,
@@ -1288,20 +1293,20 @@ if (
                                                         "¡Cerrar!",
                                                     allowOutsideClick: false,
                                                 });
-                                                $("#overlayRecorrido").addClass("d-none");
-
+                                                $("#overlayRecorrido").addClass(
+                                                    "d-none"
+                                                );
                                             }
                                         },
                                     });
                                 }
                                 if (result.dismiss) {
                                     $("#overlayRecorrido").addClass("d-none");
-
                                 }
                             });
                         } else if (
-                            response.fin_entrega == null  &&
-                            response.fin_recogida != null 
+                            response.fin_entrega == null &&
+                            response.fin_recogida != null
                         ) {
                             Swal.fire({
                                 title: `Finalizar recorrido`,
@@ -1345,7 +1350,9 @@ if (
                                                     allowOutsideClick: false,
                                                 });
 
-                                                $("#overlayRecorrido").addClass("d-none");
+                                                $("#overlayRecorrido").addClass(
+                                                    "d-none"
+                                                );
 
                                                 let idruta =
                                                     $("#idruta_aux").val();
@@ -1356,8 +1363,7 @@ if (
                                                     idruta
                                                 );
                                                 cargarTablaRutas();
-                                            }else if(response == "no hay")
-                                            {
+                                            } else if (response == "no hay") {
                                                 Swal.fire({
                                                     icon: "error",
                                                     showConfirmButton: true,
@@ -1367,20 +1373,20 @@ if (
                                                     allowOutsideClick: false,
                                                 });
 
-                                                $("#overlayRecorrido").addClass("d-none");
-
+                                                $("#overlayRecorrido").addClass(
+                                                    "d-none"
+                                                );
                                             }
                                         },
                                     });
                                 }
                                 if (result.dismiss) {
                                     $("#overlayRecorrido").addClass("d-none");
-
                                 }
                             });
                         } else if (
-                            response.fin_recogida == null  &&
-                            response.fin_entrega != null 
+                            response.fin_recogida == null &&
+                            response.fin_entrega != null
                         ) {
                             Swal.fire({
                                 title: `Finalizar recorrido`,
@@ -1424,8 +1430,9 @@ if (
                                                     allowOutsideClick: false,
                                                 });
 
-                                                $("#overlayRecorrido").addClass("d-none");
-
+                                                $("#overlayRecorrido").addClass(
+                                                    "d-none"
+                                                );
 
                                                 let idruta =
                                                     $("#idruta_aux").val();
@@ -1436,8 +1443,7 @@ if (
                                                     idruta
                                                 );
                                                 cargarTablaRutas();
-                                            }else if(response == "no hay")
-                                            {
+                                            } else if (response == "no hay") {
                                                 Swal.fire({
                                                     icon: "error",
                                                     showConfirmButton: true,
@@ -1447,28 +1453,28 @@ if (
                                                     allowOutsideClick: false,
                                                 });
 
-                                                $("#overlayRecorrido").addClass("d-none");
-
+                                                $("#overlayRecorrido").addClass(
+                                                    "d-none"
+                                                );
                                             }
                                         },
                                     });
                                 }
                                 if (result.dismiss) {
                                     $("#overlayRecorrido").addClass("d-none");
-
                                 }
                             });
-                        }else if(response.fin_recogida != null &&  response.fin_entrega != null){
-
+                        } else if (
+                            response.fin_recogida != null &&
+                            response.fin_entrega != null
+                        ) {
                             Swal.fire({
                                 icon: "warning",
                                 showConfirmButton: true,
                                 title: "Esta ruta ya ha finalizado sus recorridos.",
-                                confirmButtonText:
-                                    "¡Cerrar!",
+                                confirmButtonText: "¡Cerrar!",
                                 allowOutsideClick: false,
                             });
-
                         } else {
                             Swal.fire({
                                 title: `Finalizar recorrido`,
@@ -1513,8 +1519,9 @@ if (
                                                     allowOutsideClick: false,
                                                 });
 
-                                                $("#overlayRecorrido").addClass("d-none");
-
+                                                $("#overlayRecorrido").addClass(
+                                                    "d-none"
+                                                );
 
                                                 let idruta =
                                                     $("#idruta_aux").val();
@@ -1525,8 +1532,7 @@ if (
                                                     idruta
                                                 );
                                                 cargarTablaRutas();
-                                            }else if(response == "no hay")
-                                            {
+                                            } else if (response == "no hay") {
                                                 Swal.fire({
                                                     icon: "error",
                                                     showConfirmButton: true,
@@ -1535,8 +1541,9 @@ if (
                                                         "¡Cerrar!",
                                                     allowOutsideClick: false,
                                                 });
-                                                $("#overlayRecorrido").addClass("d-none");
-
+                                                $("#overlayRecorrido").addClass(
+                                                    "d-none"
+                                                );
                                             }
                                         },
                                     });
@@ -1771,7 +1778,6 @@ if (
                 });
 
                 $("#overlayRecorrido").addClass("d-none");
-
             }
         });
 
@@ -1813,51 +1819,99 @@ if (
                 processData: false,
                 // dataType: "json",
                 success: function (response) {
-                    if(response == "existe")
-                    {
+                    if (response == "existe") {
                         Swal.fire({
-                            icon: 'warning',
-                            title: '¡Cliente ya existe!',						
+                            icon: "warning",
+                            title: "¡Cliente ya existe!",
                             showConfirmButton: true,
-                            confirmButtonText: 'Cerrar',
-                            
-                        })
-                    }else if(response == "ok")
-                    {
+                            confirmButtonText: "Cerrar",
+                        });
+                    } else if (response == "ok") {
                         Swal.fire({
-                            icon: 'success',
-                            title: '¡Cliente añadido correctamente!',						
+                            icon: "success",
+                            title: "¡Cliente añadido correctamente!",
                             showConfirmButton: true,
-                            confirmButtonText: 'Cerrar',
-                            
-                        })
+                            confirmButtonText: "Cerrar",
+                        });
 
                         cargarSelect("institucion");
-                    }else{
+                    } else {
                         Swal.fire({
-                            icon: 'warning',
-                            title: '¡Problema al añadir el cliente!',						
+                            icon: "warning",
+                            title: "¡Problema al añadir el cliente!",
                             showConfirmButton: true,
-                            confirmButtonText: 'Cerrar',
-                            
-                        })
+                            confirmButtonText: "Cerrar",
+                        });
                     }
                 },
             });
         });
 
         /*============================================
-            CLICK EN MODAL DE INSTITUCIÓN 
+            CLICK EN MODAL DE CREAR INSTITUCIÓN 
         ==============================================*/
         $(document).on("click", ".btn-institucion", function () {
+            $("#modalRuta").modal("hide");
+
+        });
+
+        /*============================================
+            SE CIERRA MODAL CREAR INSTITUCION
+        ==============================================*/
+        $(document).on("click","#cerrar_CrearInstitucion, .btn-cancelar" , function () {
+            $("#modalRuta").modal("show");
+        });
+
+        /*============================================
+            SE CIERRA EL MODAL PARA VER LAS INSTITUCIONES 
+        ==============================================*/
+        $(document).on("click"," .btn-cerrar-ListaClientes, #close_ListaClientes",  function () {
+            $("#modalInstitucion").modal("show");
             $("#modalRuta").modal("hide");
         });
 
         /*============================================
-            SE CIERRA MODAL INSTITUCION
+            SE ABRE EL MODAL PARA VER LAS INSTITUCIONES 
         ==============================================*/
-        $("#modalInstitucion").on("hidden.bs.modal", function () {
-            $("#modalRuta").modal("show");
+        $(document).on("click",".btn-Lista-institucion", function () {
+            $("#modalInstitucion").modal("hide");
+            // $("#modalRuta").modal("hide");
+
+            // Quitar datatable
+            $(`#tablaClientes`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbodyClientes`).html("");
+
+            var datos = new FormData();
+            datos.append("TablaInstituciones", "ok");
+
+
+            
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/escolar.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbodyClientes").html(response);
+                    } else {
+                        $("#tbodyClientes").html("");
+                    }
+
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "border-0 bg-gradient-olive",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(`#tablaClientes`, buttons);
+                },
+            });
         });
     }); //FINAL DOCUMENT READY
 }
