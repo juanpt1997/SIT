@@ -8,6 +8,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 $ListarClientes = ControladorClientes::ctrVerCliente();
 $tiposClientes = ControladorClientes::ctrTiposClientes();
 $tipovehiculos = ControladorVehiculos::ctrMostrarTipoVehiculo();
+$clientes = ControladorClientes::ctrVerCliente();
 ?>
 
 
@@ -141,7 +142,7 @@ $tipovehiculos = ControladorVehiculos::ctrMostrarTipoVehiculo();
                                             <a class="nav-link active" id="llamadas-tab" data-toggle="pill" href="#llamadas" role="tab" aria-controls="llamadas" aria-selected="true"><i class="fas fa-phone-alt"></i> Seguimiento llamadas</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="clientes-tab" data-toggle="pill" href="#clientes" role="tab" aria-controls="clientes" aria-selected="false"><i class="fas fa-history"></i> Seguimiento clientes</a>
+                                            <a class="nav-link" id="clientes-tab" data-toggle="pill" href="#clientes" role="tab" aria-controls="clientes" aria-selected="false"><i class="fas fa-clipboard-list"></i> Seguimiento clientes</a>
                                         </li>
 
                                     </ul>
@@ -510,10 +511,18 @@ $tipovehiculos = ControladorVehiculos::ctrMostrarTipoVehiculo();
                             </div>
                         </div>
 
+
+
+
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
-                                <label><i>Empresa</i></label>
-                                <input type="text" class="form-control">
+                                <label><i>Cliente</i></label>
+                                <select class="form-control select2-single select-clientes input-sm" id="listaclientes" style="width: 99%" name="listaclientes" readonly>
+                                    <option value="" selected><b>-Seleccione un cliente existente-</b></option>
+                                    <?php foreach ($clientes as $key => $value) : ?>
+                                        <option value="<?= $value['idcliente'] ?>"><?= $value['clientexist'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
                             </div>
                         </div>
 
@@ -521,12 +530,20 @@ $tipovehiculos = ControladorVehiculos::ctrMostrarTipoVehiculo();
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Sector</i></label>
-                                <select id="" name="" class="form-control select2-single" type="number" style="width: 99%" required>
-                                    <option selected value="">Seleccione un sector</option>
+                                <select id="" name="" class="form-control select" type="number" style="width: 99%" readonly>
+                                    <option selected value="">-Seleccione un sector-</option>
                                     <?php foreach ($tiposClientes as $key => $value) : ?>
                                         <option value="<?= $value['id'] ?>"><?= $value['tipo'] ?> </option>
                                     <?php endforeach ?>
                                 </select>
+                            </div>
+                        </div>
+
+                        
+                        <div class="col col-12 col-sm-12 col-lg-4">
+                            <div class="form-group text-center ">
+                                <label><i>Tipifación</i></label>
+                                <input type="text" class="form-control" readonly>
                             </div>
                         </div>
 
@@ -548,7 +565,7 @@ $tipovehiculos = ControladorVehiculos::ctrMostrarTipoVehiculo();
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Dirección</i></label>
-                                <input type="number" class="form-control">
+                                <input type="text" class="form-control">
                             </div>
                         </div>
 
@@ -602,12 +619,6 @@ $tipovehiculos = ControladorVehiculos::ctrMostrarTipoVehiculo();
                             </div>
                         </div>
 
-                        <div class="col col-12 col-sm-12 col-lg-4">
-                            <div class="form-group text-center ">
-                                <label><i>Tipifación</i></label>
-                                <input type="text" class="form-control">
-                            </div>
-                        </div>
 
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
