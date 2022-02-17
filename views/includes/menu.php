@@ -518,6 +518,18 @@
                 <?php endif ?>
 
                 <!-- ===================================================
+                    ** ESCOLAR
+                =================================================== -->
+                <?php if (validarPermiso('M_ESCOLAR', 'R')) : ?>
+                    <li class="nav-item">
+                        <a href="e-escolar" class="nav-link">
+                            <i class="nav-icon fas fa-school"></i>
+                            <p>Escolar</p>
+                        </a>
+                    </li>
+                <?php endif ?>
+
+                <!-- ===================================================
                     ** COMPRAS
                 =================================================== -->
                 <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
@@ -575,18 +587,6 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-chart-line"></i>
                             <p>Comercial</p>
-                        </a>
-                    </li>
-                <?php endif ?>
-
-                <!-- ===================================================
-                    ** ESCOLAR
-                =================================================== -->
-                <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
-                    <li class="nav-item">
-                        <a href="e-escolar" class="nav-link">
-                            <i class="nav-icon fas fa-school"></i>
-                            <p>Escolar</p>
                         </a>
                     </li>
                 <?php endif ?>

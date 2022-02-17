@@ -362,7 +362,7 @@
                                      <!-- ===================================================
                                         ** Escolar
                                         =================================================== -->
-                                        <?php if (validarPermiso('M_OPCIONES', 'R')) : ?>
+                                        <?php if (validarPermiso('M_ESCOLAR', 'R')) : ?>
                                         <div class="col-12 col-sm-6 col-md-4 col-xl-3">
                                             <a href="e-escolar">
                                                 <div class="info-box border border-dark">
