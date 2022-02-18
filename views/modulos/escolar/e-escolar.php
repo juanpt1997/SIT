@@ -1,4 +1,7 @@
 <?php
+if (!validarPermiso('M_ESCOLAR', 'R')) {
+    echo "<script> window.location = '" . URL_APP . "'; </script>";
+}
 $Placas = ControladorVehiculos::ctrListaVehiculos();
 $instituciones = ControladorEscolar::ctrListaInstituciones();
 $personal = ControladorGH::ctrListaPersonal();
