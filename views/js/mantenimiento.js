@@ -4389,34 +4389,6 @@ $(document).ready(function () {
                 },
             });
         };
-        //FUNCION para listar los productos en SELECT
-        const cargarProductos = (idproducto = "") => {
-            let datos = new FormData();
-            datos.append("cargarProductos", "ok");
-            $.ajax({
-                type: "POST",
-                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
-                data: datos,
-                cache: false,
-                contentType: false,
-                processData: false,
-                // dataType: "json",
-                success: function (response) {
-                    if (response != "" || response != null) {
-                        $(`#num_llanta`).html(response);
-                    } else {
-                        $(`#num_llanta`).html("");
-                    }
-
-                    setTimeout(() => {
-                        if (idproducto != ""){
-                            $("#num_llanta").val(idproducto).trigger("change");
-                        }
-                    }, 500);
-
-                },
-            }); 
-        };
         //FUNCION para cargar los datos del select proveedor
         const cargarSelectProveedor = (proveedor) => {
             let datos = new FormData();
@@ -4554,6 +4526,97 @@ $(document).ready(function () {
                 },
             });
         };
+        //FUNCION para cargar la lista de llantas cargadas en almacen
+        const cargarListaLlantas = () => {
+            let datos = new FormData();
+            // Quitar datatable
+            $(`#tablaListaLlantas`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbodyListaLlantas`).html("");
+            datos.append("cargarlistaLlantas", "ok");
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbodyListaLlantas").html(response);
+                    } else {
+                        $("#tbodyListaLlantas").html("");
+                    }
+
+                    /*===================================================
+                    FILTRAR POR COLUMNA
+                    ====================================================*/
+                    /* Filtrar por columna */
+                    //Clonar el tr del thead
+                    if ($(`#tablaListaLlantas thead tr`).length == 1)
+                        $(`#tablaListaLlantas thead tr:eq(0)`)
+                            .clone(true)
+                            .appendTo(`#tablaListaLlantas thead`);
+                    //Por cada th creado hacer lo siguiente
+                    $(`#tablaListaLlantas thead tr:eq(1) th`).each(function (i) {
+                        //Remover clase sorting y el evento que tiene cuando se hace click
+                        $(this).removeClass("sorting").unbind();
+                        //Agregar input de busqueda
+                        $(this).html(
+                            '<input class="form-control" type="text" placeholder="Buscar"/>'
+                        );
+                        //Evento para detectar cambio en el input y buscar
+                        $("input", this).on("keyup change", function () {
+                            if (table.column(i).search() !== this.value) {
+                                table.column(i).search(this.value).draw();
+                            }
+                        });
+                    });
+
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(`#tablaListaLlantas`, buttons);
+                },
+            });
+        };
+        //FUNCION para cargar los datos de la llanta seleccionada
+        const cargarDatosLLanta = (id) => {
+            console.log("entra");
+            var datos = new FormData();
+            datos.append("datosProducto", "ok");
+            datos.append("item", "idproducto");
+            datos.append("valor", id);
+
+            $.ajax({ 
+                type: "post",
+                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    if (response != "") {
+
+                        setTimeout(() => {
+                            $("#datos_llanta").val(response.descripcion + " - Código: " + response.codigo + " - Referencia: " + response.referencia);
+                            $("#num_llanta").val(response.idproducto);
+                            $("#descripcion").val(response.descripcion);
+                            $("#referencia").val(response.referencia);
+                            $("#tama_llanta").val(response.idtamanio);
+                            $("#marca").val(response.idmarca);
+                            $("#categoria").val(response.idcategoria);
+                            $("#medida").val(response.idmedida);
+                        }, 3000);
+                    }
+                },
+            });
+        }
         //instancias funcion
         cargarTablaLlantas();
         cargarTablaOrdenesControl();
@@ -4595,9 +4658,20 @@ $(document).ready(function () {
             let num = 1;
             let cantidad = $(this).val();
             let max_campos = 10;
-            
 
-            if(cantidad <= max_campos){
+            console.log(cantidad);
+            
+            if(cantidad < 0) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Ingrese una cantidad mayor a cero.",
+                    toast: true,
+                    position: 'bottom-right',
+                    //timer: 2000,
+                    //timerProgressBar: true,
+                })
+            } 
+            else if(cantidad <= max_campos){
                 if(cantidad <= 4){
                     $("#img_llantas_6").addClass("d-none");
                     $("#img_llantas_4").removeClass("d-none");
@@ -4608,10 +4682,11 @@ $(document).ready(function () {
                 Swal.fire({
                     icon: "info",
                     title: "Digite el número de cada llanta a vincular.",
+                    width: '440px',
+                    height: '440px',
                     showConfirmButton: false,
                     timer: 2500,
                     timerProgressBar: true,
-                    allowOutsideClick: false,
                 })
                 for (let index = 0; index < cantidad; index++) {
                     let input = `<div class="col-6"><div class="form-group"><label for="numero_llanta">Número de llanta ${num}</label><div class="input-group"><div class="input-group-prepend"><span class="input-group-text"><i class="fas fa-hashtag"></i></span></div><input class="form-control numero_llantas_valid" type="number" id="numero_llanta" name="numero_llanta[]" required></div></div></div>`;
@@ -4620,6 +4695,7 @@ $(document).ready(function () {
                 }
                 
                 $(".numero_llantas_valid").addClass("is-invalid");
+                $("#numero_llanta").focus();
 
                 setTimeout(() => {
                     $(".numero_llantas_valid").removeClass("is-invalid");
@@ -4630,47 +4706,19 @@ $(document).ready(function () {
                 Swal.fire({
                     icon: "warning",
                     title: "No se permite ingresar mas de 10 llantas a la vez.",
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: true,
-                    allowOutsideClick: false,
+                    toast: true,
+                    position: 'bottom-right',
+                    //timer: 2000,
+                    //timerProgressBar: true,
                 })
+
             }
             
-        });
-        //TRAER LOS DATOS DE LA LLANTA AL SELECCIONAR UNA DE LA LISTA
-        $(document).on("change", "#num_llanta", function () {
-
-            let id = $(this).val();
-            var datos = new FormData();
-            datos.append("datosProducto", "ok");
-            datos.append("item", "idproducto");
-            datos.append("valor", id);
-
-            $.ajax({
-                type: "post",
-                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
-                data: datos,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                success: function (response) {
-                    if (response != "") {
-                        $("#descripcion").val(response[0].descripcion);
-                        $("#tama_llanta").val(response[0].idtamanio);
-                        $("#marca").val(response[0].idmarca);
-                        $("#categoria").val(response[0].idcategoria);
-                        $("#medida").val(response[0].idmedida);
-                        $("#referencia").val(response[0].referencia);
-                    }
-                },
-            });
         });
         //CARGAR FUNCIONES AL ABRIR EL MODAL DE REGISTRAR LLANTA
         $("#registro-llantas").on("show.bs.modal", function () {
             $("#inputs_numero_llantas").html("");
-            cargarProductos();
+            //cargarProductos();
             cargarSelect("marca");
             cargarSelect("medida");
             cargarSelect("categoria");
@@ -4742,13 +4790,10 @@ $(document).ready(function () {
             $("#titulo_ubicacionLlantas").addClass("d-none");
             $("#input_ubicacion_llanta").removeClass("d-none");
 
-
             let idproducto = $(this).attr("idalmacen");
             let idllanta = $(this).attr("idllanta");
-            console.log(idllanta);
             let datos = new FormData();
-            cargarProductos(idproducto);
-
+            cargarDatosLLanta(idproducto);
             $("#id_llanta").val(idllanta);
 
             datos.append("datosLlantas", "ok");
@@ -4765,21 +4810,21 @@ $(document).ready(function () {
                 success: function (response) {
                    if(response != "")
                    {
-                       $("#num_llanta").val(response.codigo);
-                       $("#descripcion").val(response.descripcion);
-                       $("#placa").val(response.idvehiculo).trigger("change");;
-                       $("#tama_llanta").val(response.idtamanio);
-                       $("#marca").val(response.idmarca);
-                       $("#sucursal").val(response.idsucursal).trigger("change");;
-                       $("#categoria").val(response.idcategoria);
-                       $("#medida").val(response.idmedida);
+                       //$("#num_llanta").val(response.codigo);
+                       //$("#descripcion").val(response.descripcion);
+                       //$("#tama_llanta").val(response.idtamanio);
+                       //$("#marca").val(response.idmarca);
+                       //$("#categoria").val(response.idcategoria);
+                       //$("#medida").val(response.idmedida);
+                       //$("#referencia").val(response.referencia);
+                       $("#placa").val(response.idvehiculo).trigger("change");
+                       $("#sucursal").val(response.idsucursal).trigger("change");
                        $("#vida_util").val(response.vida);
-                       $("#referencia").val(response.referencia);
                        $("#numero_llanta_edit").val(response.num_llanta);
                        $("#fecha_factura").val(response.fecha_factura);
                        $("#num_factura").val(response.num_factura);
                        $("#precio").val(response.precio_compra);
-                       $("#proveedor").val(response.idproveedor).trigger("change");;
+                       $("#proveedor").val(response.idproveedor).trigger("change");
                        $("#observaciones_salida").val(response.observaciones);
                        $("#fecha_montaje").val(response.fecha_montaje);
                        $("#kilo_montaje").val(response.kilom_montaje);
@@ -4839,7 +4884,6 @@ $(document).ready(function () {
             //$("#crear_llanta").modal('show');
             $("#listaLlantas").modal('hide');
             $("#crear_llanta").modal('show');
-
         });
         //CARGAR selects al abrir el modal de crear una nueva llanta
         $("#crear_llanta").on("show.bs.modal", function () {
@@ -4878,17 +4922,17 @@ $(document).ready(function () {
                 processData: false,
                 success: function (response) {
                     if (response != "" && response != "error") {
+                        cargarDatosLLanta(response);
+                        $("#crear_llanta").modal('hide');
+                        $("#registro-llantas").modal('show');
                         Swal.fire({
                             icon: "success",
                             title: "Llanta creada con éxito.",
-                            showConfirmButton: true,
-                            confirmButtonText: "Cerrar",
-                            closeOnConfirm: false,
+                            showConfirmButton: false,
+                            timer: 4500,
+                            timerProgressBar: true,
+                            allowOutsideClick: false,
                         })
-                        cargarProductos(response);
-                        $("#registro-llantas").modal('show');
-                        $("#crear_llanta").modal('hide');
-                        //$("#num_llanta").val(response).trigger('change');
 
                     } else if (response == 'error') {
                         Swal.fire({
@@ -4997,6 +5041,25 @@ $(document).ready(function () {
                     }
                 },
             });
+
+            var datos = new FormData();
+                datos.append("datosVehiculo", "ok");
+                datos.append("idvehiculo", id);
+
+                $.ajax({
+                    type: "post",
+                    url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                    data: datos,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (response) {
+                        if (response != "") {
+                            $("#kilo_orden").val(response.kilometraje);
+                        }
+                    },
+                });
             
         });
         //CARGAR selects al abrir el modal de crear una nueva llanta
@@ -5004,7 +5067,7 @@ $(document).ready(function () {
 
             //$(".select2-single").trigger("change");
             $("#placa_orden").val("").trigger("change");
-            
+            $(".campos_ordenTrabajo").val("");
         });
         //CANCELAR REGISTRO DE LLANTAS A LOS VEHICULOS
         $(".btn_cancelarRegistro").on("click", function () {
@@ -5110,15 +5173,18 @@ $(document).ready(function () {
                             title: "Orden creada con exito.",
                             showConfirmButton: false,
                             timer: 1600,
+                            timerProgressBar: true,
                         });
                         $("#ordenTrabajo_llantas").modal("hide");
+                        cargarTablaOrdenesControl();
                     } else {
                         Swal.fire({
                             icon: "warning",
                             title: "Problema al crear la orden de trabajo.",
-                            text: "intente de nuevo.",
+                            text: "Es posible que falten campos por diligenciar.",
                             showConfirmButton: false,
                             timer: 1600,
+                            timerProgressBar: true,
                         });
                     }
                 },
@@ -5175,10 +5241,65 @@ $(document).ready(function () {
             $("#ordenTrabajo_llantas").modal("show");
             $("#listaProveedores").modal("hide");            
         });
-        //Abrir modal donde se listan todas las llentas creadas
+        //Abrir modal donde se listan todas las llantas creadas
         $(".btn_listarLlantas").on('click', function () {
             $("#registro-llantas").modal('hide');
             $("#listaLlantas").modal('show');
+            cargarListaLlantas();
         });
+        //Cambios de modal al seleccionar llanta y traer datos de la llanta seleccionada
+        $(document).on("click", ".btn_seleccionarLlanta", function () {
+            $("#listaLlantas").modal("hide");
+            $("#registro-llantas").modal("show");
+            let idproducto = $(this).attr("idproducto");
+            cargarDatosLLanta(idproducto);
+        });
+        //ELIMINAR ORDEN DE TRABAJO, LOGICO
+        $(document).on("click", ".btn_EliminarOrdenControl", function () {
+            let id = $(this).attr("idcontrol");
+
+            Swal.fire({
+                icon: "info",
+                showConfirmButton: true,
+                showCancelButton: true,
+                title: "¿Está seguro que desea borrar este registro?",
+                confirmButtonText: "SI, borrar.",
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: "#ff0000",
+                cancelButtonColor: "#00b300",
+                allowOutsideClick: false,
+            }).then((result) => {
+                if (result.value) {
+
+                    var datos = new FormData();
+                    datos.append("EliminarOrden", "ok");
+                    datos.append("idcontrol", id);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/mantenimiento.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        //dataType: "json",
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: "success",
+                                    showConfirmButton: true,
+                                    title: "¡El registro ha sido borrado correctamente!",
+                                    confirmButtonText: "¡Cerrar!",
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    cargarTablaOrdenesControl();
+                                });
+                            }
+                        },
+                    });
+                }
+            });
+        });
+        
     }
 });

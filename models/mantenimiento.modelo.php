@@ -2706,10 +2706,11 @@ class ModeloControlLlantas
 {
     static public function mdlListarSelectLlantas()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT p.*, c.categoria, ma.marca, me.medida FROM a_productos p
+        $stmt = Conexion::conectar()->prepare("SELECT p.*, c.categoria, ma.marca, me.medida, ta.tamanio FROM a_productos p
         INNER JOIN a_categorias c ON p.idcategoria = c.idcategorias
         INNER JOIN a_marcas ma ON p.idmarca = ma.idmarca
         INNER JOIN a_medidas me ON p.idmedida = me.idmedidas
+        INNER JOIN a_tamanios ta ON ta.idtamanio = p.idtamanio
         WHERE p.descripcion LIKE '%lanta%'");
 
         $stmt->execute();
@@ -3007,7 +3008,8 @@ class ModeloControlLlantas
         INNER JOIN m_orden_trabajo_llantas ot ON ot.idorden=cl.idorden
         INNER JOIN v_vehiculos v ON v.idvehiculo=ot.idvehiculo
         INNER JOIN c_proveedores p ON p.id=ot.idproveedor
-        INNER JOIN m_re_llantasvehiculos ll ON ll.idllanta=cl.idllanta");
+        INNER JOIN m_re_llantasvehiculos ll ON ll.idllanta=cl.idllanta
+        WHERE cl.estado=1");
 
         $stmt->execute();
         $retorno =  $stmt->fetchAll();
@@ -3037,5 +3039,42 @@ class ModeloControlLlantas
         $conexion = null;
 
         return $id;
+    }
+
+    static public function mdlTraerProducto($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT p.*, c.categoria AS categoria, ma.marca AS marca, me.medida AS medida FROM a_productos p
+        INNER JOIN a_categorias c ON p.idcategoria = c.idcategorias
+        INNER JOIN a_marcas ma ON p.idmarca = ma.idmarca
+        INNER JOIN a_medidas me ON p.idmedida = me.idmedidas
+        WHERE p.{$datos['item']} = :{$datos['item']}");
+
+        $stmt->bindParam(":{$datos['item']}", $datos['valor']);
+        $stmt->execute();
+        $retorno =  $stmt->fetch();
+
+        $stmt->closeCursor();
+        return $retorno;
+    }
+
+
+    static public function mdlEliminarOrden($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("UPDATE m_re_control_llantas set estado = 0, user_updated=:user_updated
+                                               WHERE idcontrol = :idcontrol");
+
+        $stmt->bindParam(":idcontrol", $datos["idcontrol"], PDO::PARAM_INT);
+        $stmt->bindParam(":user_updated", $datos["usuario"], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
     }
 }

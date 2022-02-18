@@ -40,6 +40,7 @@ $Rutas = ControladorRutas::ctrListarRutas();
 
             <hr class="my-4">
 
+
             <div class="margin">
                 <div class="btn-group">
                     <button type="button" class="btn btn-success btn-md btn-agregarcotizacion" data-toggle="modal" data-target="#cotizacionmodal">
@@ -54,64 +55,6 @@ $Rutas = ControladorRutas::ctrListarRutas();
                     </div>
                 <?php endif ?>
             </div>
-
-            <hr class="my-4">
-
-            <div class="row mt-2">
-                <div class="col-3">
-                    <div class="small-box bg-gradient-navy">
-                        <div class="inner">
-                            <h4 style="color: white">1 Cotizaciones</h4>
-                            <p><span class="badge badge-warning">Sin revisar</span></p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-                        <a href="#" class="small-box-footer bg-gradient-lightblue btn" data-toggle="modal" data-target="#consultar_cotizaciones">Consultar <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-3">
-                    <div class="small-box bg-gradient-navy">
-                        <div class="inner">
-                            <h4 style="color: white">2 Cotizaciones</h4>
-                            <p><span class="badge badge-secondary">1ra revisión</span></p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-                        <a href="#" class="small-box-footer bg-gradient-lightblue btn" data-toggle="modal" data-target="#consultar_cotizaciones">Consultar <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-3">
-                    <div class="small-box bg-gradient-navy">
-                        <div class="inner">
-                            <h4 style="color: white">2 Cotizaciones</h4>
-                            <p><span class="badge badge-primary">2da revisión</span></p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-                        <a href="#" class="small-box-footer bg-gradient-lightblue btn" data-toggle="modal" data-target="#consultar_cotizaciones">Consultar <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="col-3">
-                    <div class="small-box bg-gradient-navy">
-                        <div class="inner">
-                            <h4 style="color: white">3 Cotizaciones</h4>
-                            <p><span class="badge badge-success">3ra revisión</span></p>
-                        </div>
-                        <div class="icon">
-                            <i class="ion ion-bag"></i>
-                        </div>
-                        <a href="#" class="small-box-footer bg-gradient-lightblue btn" data-toggle="modal" data-target="#consultar_cotizaciones">Consultar <i class="fas fa-arrow-circle-right"></i></a>
-                    </div>
-                </div>
-            </div>
-
-
 
             <div class="row mt-2">
                 <div class="col-12">
@@ -842,74 +785,3 @@ $Rutas = ControladorRutas::ctrListarRutas();
         </div>
     </div>
 </div> -->
-
-
-<div id="consultar_cotizaciones" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="consultar_cotizaciones" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-        <div class="modal-content">
-
-            <div class="modal-header bg-gradient-info">
-                <h5 class="modal-title" id="consultar_cotizaciones_titulo">Consultar clientes en etapa</h5>
-                <button class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-
-            <div class="modal-body">
-                <div class="table-responsive">
-                    <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tablaEtapas_cotizaciones">
-                        <thead>
-                            <tr>
-                                <th>...</th>
-                                <th>Tipo cliente</th>
-                                <th>Nombre</th>
-                                <th>Documento</th>
-                                <th>Ciudad</th>
-                                <th>Dirección</th>
-                                <th>Teléfono</th>
-                                <th>Ruta</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbodyEtapas_cotizaciones">
-                            <tr>
-                                <td>1</td>
-                                <td>Cliente existente</td>
-                                <td>ANDRES ALEXANDER BOTERO</td>
-                                <td>239453003</td>
-                                <td>RISARALDA - DOSQUEBRADAS</td>
-                                <td>PEREIRA</td>
-                                <td>32109876</td>
-                                <td>AREA METROPOLITANA DE PEREIRA</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Cliente existente</td>
-                                <td>MANUEL CASTRO</td>
-                                <td>239453003</td>
-                                <td>RISARALDA - DOSQUEBRADAS</td>
-                                <td>PEREIRA</td>
-                                <td>32109876</td>
-                                <td>AREA METROPOLITANA DE PEREIRA</td>
-                            </tr>
-                            <tr>
-                                <td>3</td>
-                                <td>Cliente existente</td>
-                                <td>ANDRES ALEXANDER BOTERO</td>
-                                <td>239453003</td>
-                                <td>RISARALDA - DOSQUEBRADAS</td>
-                                <td>PEREIRA</td>
-                                <td>32109876</td>
-                                <td>AREA METROPOLITANA DE PEREIRA</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="modal-footer bg-gradient-dark">
-                
-
-            </div>
-        </div>
-    </div>
-</div>

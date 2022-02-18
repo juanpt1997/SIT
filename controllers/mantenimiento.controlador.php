@@ -1604,7 +1604,7 @@ class ControladorLlantasControl
 				if ($value != "") {
 					$datosLlanta['idorden'] = $idorden;
 					$datosLlanta['idllanta'] = intval($value);
-					$datosLlanta['kilo_inspeccion'] = $datos['kilo_inspeccion'][$count];
+					$datosLlanta['kilo_inspeccion'] = $datos['kilo_orden'];
 					$datosLlanta['prof1'] = $datos['prof1'][$count];
 					$datosLlanta['prof2'] = $datos['prof2'][$count];
 					$datosLlanta['prof3'] = $datos['prof3'][$count];

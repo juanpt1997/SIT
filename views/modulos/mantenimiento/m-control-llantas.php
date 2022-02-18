@@ -69,6 +69,18 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
     .slider.round:before {
         border-radius: 50%;
     }
+
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
 </style>
 <!-- ===================== 
   MODELO PARA LA IMPLEMENTARCION EN EL DISEÑO DE LOS MODULOS
@@ -222,15 +234,12 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <!-- <select class="custom-select rounded-0 input_producto select2-single" id="num_llanta" name="num_llanta" required>
                             </select> -->
 
-                            <input class="form-control" type="text" id="datos_llanta" name="datos_llanta">
-                            <input class="form-control" type="hidden" id="num_llanta" name="num_llanta" required>
+                            <input class="form-control" type="text" placeholder="Seleccione una llanta de la lista para asociarla a un vehículo" id="datos_llanta" name="datos_llanta" readonly required>
+                            <input class="form-control" type="hidden" id="num_llanta" name="num_llanta">
 
                             <div class="input-group-append">
                                 <div class='btn-group' role='group' aria-label='Button group'>
                                     <button title='Abrir lista de llantas' data-toggle='tooltip' data-placement='top' type="button" class='btn btn-info btn-md btn_listarLlantas'><i class="fas fa-clipboard-list"></i></button>
-                                </div>
-                                <div class='btn-group' role='group' aria-label='Button group'>
-                                    <button title="Crear nueva llanta" data-toggle="tooltip" data-placement="top" type="button" class="btn btn-success btn-md btn_add_llanta"><i class="fas fa-plus"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -547,7 +556,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
     </div>
 </div>
 
-<div id="seguimiento-llantas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="seguimiento-llantas-title" aria-hidden="true">
+<div id="seguimiento-llantas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="seguimiento-llantas-title" aria-hidden="true" style="overflow-y: scroll;">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
 
@@ -806,8 +815,8 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-dolly-flatbed"></i></span>
                                     </div>
-                                    <input type="hidden" id="idproveedor" name="idproveedor">
-                                    <input class="form-control" type="text" id="razon_social" name="razon_social" placeholder="Seleccione un proveedor de servicio" required readonly>
+                                    <input type="hidden" id="idproveedor" name="idproveedor" class="campos_ordenTrabajo">
+                                    <input class="form-control campos_ordenTrabajo" type="text" id="razon_social" name="razon_social" placeholder="Seleccione un proveedor de servicio" required readonly>
                                     <div class="input-group-append">
                                         <button type="button" class="btn btn-success btn-md btn_seleccionar_proveedor" title="Visualizar lista de proveedores." data-toggle="modal" data-target="#listaProveedores"><i class="fas fa-info-circle"></i></button>
                                     </div>
@@ -825,7 +834,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
                                     </div>
-                                    <input class="form-control" type="date" id="fecha_orden" name="fecha_orden" required>
+                                    <input class="form-control campos_ordenTrabajo" type="date" id="fecha_orden" name="fecha_orden" required>
                                 </div>
                             </div>
                         </div>
@@ -837,7 +846,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
                                     </div>
-                                    <input class="form-control" type="number" id="kilo_orden" name="kilo_orden" required>
+                                    <input class="form-control campos_ordenTrabajo" type="number" id="kilo_orden" name="kilo_orden" required readonly>
                                 </div>
                             </div>
                         </div>
@@ -887,16 +896,14 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tabla_ordenTrabajo_llanta">
                             <thead>
                                 <tr>
-                                    <th colspan="13"></th>
+                                    <th colspan="12"></th>
                                     <th colspan="7">Nueva ubicación</th>
                                 </tr>
                                 <tr>
                                     <th>ID llanta</th>
                                     <th>Núm. Llanta</th>
-                                    <th>Ubicación actual</th>
                                     <th>Marca</th>
                                     <th>Tamaño</th>
-                                    <th>Kilometraje</th>
                                     <th>Banda</th>
                                     <th>Profundidad 1 (mm)</th>
                                     <th>Profundidad 2 (mm)</th>
@@ -904,6 +911,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <th>Promedio (mm)</th>
                                     <th>Presión (PSI)</th>
                                     <th>Trabajos realizados</th>
+                                    <th>Ubicación actual</th>
                                     <th>1</th>
                                     <th>2</th>
                                     <th>3</th>
@@ -1012,21 +1020,23 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
     </div>
 </div>
 
-<div id="listaLlantas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="listaLlantastitle" aria-hidden="true">
+<div id="listaLlantas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="listaLlantastitle" aria-hidden="true" style="overflow-y: scroll;">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="listaLlantastitle">Listado de llantas</h5>
+            <div class="modal-header bg-gradient-info">
+                <h4 class="modal-title" id="listaLlantastitle">Listado de llantas</h4>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tablaListaLlantas">
+                    <table class="table table-sm table-bordered table-striped w-100 text-center text-nowrap" id="tablaListaLlantas">
                         <thead>
                             <tr>
+                                <th>Seleccionar</th>
                                 <th>ID</th>
+                                <th>Descripción</th>
                                 <th>Código</th>
                                 <th>Referencia</th>
                                 <th>Tamaño</th>
@@ -1041,12 +1051,31 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                 </div>
 
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer bg-gradient-dark">
                 <div class="form-group">
                     <button type="" class="btn btn-md btn-info float-center btn_add_llanta"><i class="fas fa-plus-circle"></i> Crear nueva llanta</button>
                     <button type="button" class="btn btn-md bg-gradient-danger btn_regresar" data-dismiss="modal">Regresar</button>
                 </div>
 
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="editarOrdenTrabajo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editarOrdenTrabajo-title" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editarOrdenTrabajo-title">Title</h5>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Content</p>
+            </div>
+            <div class="modal-footer">
+                Footer
             </div>
         </div>
     </div>

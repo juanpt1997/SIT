@@ -1462,15 +1462,15 @@ class AjaxLlantasControl
 
     static public function ajaxCargarTablaLlantas()
     {
+        // <div class='btn-group' role='group' aria-label='Button group'>
+        //     <button title='Control/Seguimiento' data-toggle='modal' idllanta='{$value["idllanta"]}' data-target='#seguimiento-llantas' class='btn btn-sm bg-gradient-primary btn-seguimiento'><i class='fas fa-calendar-check'></i></button>
+        // </div>
         $respuesta = ModeloControlLlantas::mdlListarLLantasVehiculos();
         $tr = "";
 
         foreach ($respuesta as $key => $value) {
             $tr .= "<tr>
                         <td>
-                            <div class='btn-group' role='group' aria-label='Button group'>
-                                <button title='Control/Seguimiento' data-toggle='modal' idllanta='{$value["idllanta"]}' data-target='#seguimiento-llantas' class='btn btn-sm bg-gradient-primary btn-seguimiento'><i class='fas fa-calendar-check'></i></button>
-                            </div>
                             <div class='btn-group' role='group' aria-label='Button group'>
                                 <button title='Editar control' data-toggle='modal' idllanta='{$value["idllanta"]}' idalmacen='{$value["idproducto"]}' data-target='#registro-llantas' class='btn btn-sm bg-gradient-info btn-editar-control'><i class='fas fa-edit'></i></button>
                             </div>
@@ -1595,7 +1595,7 @@ class AjaxLlantasControl
             'item' => $item,
             'valor' => $valor,
         ];
-        $respuesta = ModeloProductos::mdlDatosProducto($datos);
+        $respuesta = ModeloControlLlantas::mdlTraerProducto($datos);
         echo json_encode($respuesta);
     }
 
@@ -1656,26 +1656,25 @@ class AjaxLlantasControl
                 $tr .= "<tr>
                                 <td><input type='number' class='form-control form-control-sm' consecutivo='{$consecutivo}' id='idllanta_{$consecutivo}' name='llanta[]' value='{$value["idllanta"]}' readonly></td>
                                 <td>{$value["num_llanta"]}</td>
-                                <td><input class='form-control form-control-sm' consecutivo='{$consecutivo}' id='posicion_{$consecutivo}' name='posicion_inicial[]' value='{$value["posicion"]}' readonly></td>
                                 <td>{$value["marca"]}</td>
                                 <td>{$value["tamanio"]}</td>
-                                <td><input type='number' class='form-control form-control-sm' id='kiloinspeccion_{$consecutivo}' name='kilo_inspeccion[]'></td>
                                 <td><input type='text' class='form-control form-control-sm' id='banda_{$consecutivo}' name='banda[]'></td>
-                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='prof1_{$consecutivo}' name='prof1[]'></td>
-                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='prof2_{$consecutivo}' name='prof2[]'></td>
+                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='prof1_{$consecutivo}' name='prof1[]' required></td>
+                                <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='prof2_{$consecutivo}' name='prof2[]' required></td>
                                 <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='prof3_{$consecutivo}' name='prof3[]'></td>
                                 <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='promedio_{$consecutivo}' name='promedio[]' readonly></td>
                                 <td><input type='text' class='form-control form-control-sm calcular' consecutivo='{$consecutivo}' id='presion_{$consecutivo}' name='presion[]'></td>
                                 <td style='min-width: 370px'>
-                                    <select id='trabajo_{$consecutivo}' name='trabajos{$consecutivo}[]' class='select2-primary select2-multiple form-control input-sm' multiple='multiple'>{$option}</select>
+                                <select id='trabajo_{$consecutivo}' name='trabajos{$consecutivo}[]' class='select2-primary select2-multiple form-control input-sm' multiple='multiple' required>{$option}</select>
                                 </td>
-                                <td><input class='check' type='radio' id='ubicacion1_{$consecutivo}' name='posicion{$consecutivo}[]' value='1'></td>
-                                <td><input class='check' type='radio' id='ubicacion2_{$consecutivo}' name='posicion{$consecutivo}[]' value='2'></td>
-                                <td><input class='check' type='radio' id='ubicacion3_{$consecutivo}' name='posicion{$consecutivo}[]' value='3'></td>
-                                <td><input class='check' type='radio' id='ubicacion4_{$consecutivo}' name='posicion{$consecutivo}[]' value='4'></td>
-                                <td><input class='check' type='radio' id='ubicacion5_{$consecutivo}' name='posicion{$consecutivo}[]' value='5'></td>
-                                <td><input class='check' type='radio' id='ubicacion6_{$consecutivo}' name='posicion{$consecutivo}[]' value='6'></td>
-                                <td><input class='check' type='radio' id='ubicacion0_{$consecutivo}' name='posicion{$consecutivo}[]' value='0'></td>
+                                <td><input class='form-control form-control-sm' consecutivo='{$consecutivo}' id='posicion_{$consecutivo}' name='posicion_inicial[]' value='{$value["posicion"]}' readonly></td>
+                                <td><input class='check' type='radio' id='ubicacion1_{$consecutivo}' name='posicion{$consecutivo}[]' value='1' required></td>
+                                <td><input class='check' type='radio' id='ubicacion2_{$consecutivo}' name='posicion{$consecutivo}[]' value='2' required></td>
+                                <td><input class='check' type='radio' id='ubicacion3_{$consecutivo}' name='posicion{$consecutivo}[]' value='3' required></td>
+                                <td><input class='check' type='radio' id='ubicacion4_{$consecutivo}' name='posicion{$consecutivo}[]' value='4' required></td>   
+                                <td><input class='check' type='radio' id='ubicacion5_{$consecutivo}' name='posicion{$consecutivo}[]' value='5' required></td>
+                                <td><input class='check' type='radio' id='ubicacion6_{$consecutivo}' name='posicion{$consecutivo}[]' value='6' required></td>
+                                <td><input class='check' type='radio' id='ubicacion0_{$consecutivo}' name='posicion{$consecutivo}[]' value='0' required></td>
                             </tr>
                     ";
                 $consecutivo++;
@@ -1763,7 +1762,7 @@ class AjaxLlantasControl
                                 <button title='Ver trabajos realizados en llanta' class='btn btn-sm bg-gradient-olive btn_trabajos_realizados' idcontrol='{$value["idcontrol"]}' idllanta='{$value["idllanta"]}' data-toggle='modal' data-target='#HistorialTrabajos'><i class='fas fa-briefcase'></i></button>
                             </div>
                             <div class='btn-group' role='group' aria-label='Button group'>
-                                <button title='Eliminar orden de trabajo' class='btn btn-sm bg-gradient-danger btn_orden_control' idcontrol='{$value["idcontrol"]}'><i class='fas fa-trash'></i></button>
+                                <button title='Eliminar orden de trabajo' class='btn btn-sm bg-gradient-danger btn_EliminarOrdenControl' idcontrol='{$value["idcontrol"]}'><i class='fas fa-trash'></i></button>
                             </div>
                         </td>
                         <td>{$value["idorden"]}</td>
@@ -1840,37 +1839,31 @@ class AjaxLlantasControl
             $tr .= "<tr>
                         <td>
                             <div class='btn-group' role='group' aria-label='Button group'>
-                                <button title='Control/Seguimiento' data-toggle='modal' idllanta='{$value["idllanta"]}' data-target='#seguimiento-llantas' class='btn btn-sm bg-gradient-primary btn-seguimiento'><i class='fas fa-calendar-check'></i></button>
-                            </div>
-                            <div class='btn-group' role='group' aria-label='Button group'>
-                                <button title='Editar control' data-toggle='modal' idllanta='{$value["idllanta"]}' idalmacen='{$value["idproducto"]}' data-target='#registro-llantas' class='btn btn-sm bg-gradient-info btn-editar-control'><i class='fas fa-edit'></i></button>
-                            </div>
-                            <div class='btn-group' role='group' aria-label='Button group'>
-                                <button title='Eliminar control' class='btn btn-sm bg-gradient-danger btn-eliminar-control' idllanta='{$value["idllanta"]}'><i class='fas fa-trash'></i></button>
+                                <button title='Seleccionar llanta para asociar a vehículo' idproducto='{$value["idproducto"]}' descripcion = '{$value["descripcion"]} - Código: {$value["codigo"]} - Referencia: {$value["codigo"]}' class='btn btn-sm bg-gradient-olive btn_seleccionarLlanta'><i class='fas fa-check-circle'></i></button>
                             </div>
                         </td>
-                        <td>{$value["placa"]}</td>
-                        <td>{$value["num_llanta"]}</td>
-                        <td>{$value["posicion"]}</td>
-                        <td>{$value["tamanio"]}</td>
-                        <td>{$value["marca"]}</td>
+                        <td>{$value["idproducto"]}</td>
+                        <td>{$value["descripcion"]}</td>
                         <td>{$value["codigo"]}</td>
                         <td>{$value["referencia"]}</td>
-                        <td>{$value["descripcion"]}</td>
-                        <td>{$value["categoria"]}</td>
+                        <td>{$value["tamanio"]}</td>
                         <td>{$value["medida"]}</td>
-                        <td>{$value["vida"]}</td>
-                        <td>{$value["fecha_montaje"]}</td>
-                        <td>{$value["kilom_montaje"]}</td>
-                        <td>{$value["lonas"]}</td>
-                        <td>{$value["estado_actual"]}</td>
-                        <td>{$value["fecha_factura"]}</td>
-                        <td>{$value["num_factura"]}</td>
+                        <td>{$value["marca"]}</td>
+                        <td>{$value["categoria"]}</td>
                     </tr>
 			";
         }
         echo $tr;
+    }
 
+    static public function ajaxEliminarOrden($idcontrol)
+    {
+        $datos = array(
+            'idcontrol' => $idcontrol,
+            'usuario' => $_SESSION['cedula']
+        );
+        $respuesta = ModeloControlLlantas::mdlEliminarOrden($datos);
+        echo $respuesta;
     }
 }
 /* ===================================================
@@ -2064,4 +2057,12 @@ if (isset($_POST['ListarProveedoresLlantas']) && $_POST['ListarProveedoresLlanta
 
 if (isset($_POST['listaTrabajos']) && $_POST['listaTrabajos'] == "ok") {
     AjaxLlantasControl::ajaxTablaTrabajosRealizados($_POST['idcontrol'],$_POST['idllanta']);
+}
+
+if (isset($_POST['cargarlistaLlantas']) && $_POST['cargarlistaLlantas'] == "ok") {
+    AjaxLlantasControl::ajaxTablaListaLlantas();
+}
+
+if (isset($_POST['EliminarOrden']) && $_POST['EliminarOrden'] == "ok") {
+    AjaxLlantasControl::ajaxEliminarOrden($_POST['idcontrol']);
 }
