@@ -91,16 +91,16 @@ $tipificacion = ControladorClientes::ctrListaTipificacion();
                                                     <?php
                                                     if ($value['idtipificacion'] == 2) { //CLIENTE PROSPECTO
 
-                                                        $estado = '<button class="btn btn-sm btn-warning btn-estado" idcliente="' . $value["idcliente"] . '">Volver cliente <i class="fas fa-user-check"></i></button>';
+                                                        $estado = '<span class="badge badge-warning btn-tipificacionCliente" idcliente=' . $value['idcliente'] .'  style="cursor:pointer">Cliente prospecto</span>';
                                                     } else if ($value['idtipificacion'] == 1) { //CLIENTE ACTUAL
 
-                                                        $estado = "<span class='badge badge-success'>Cliente</span>";
+                                                        $estado = '<span class="badge badge-success btn-tipificacionCliente" idcliente=' . $value['idcliente'] . ' style="cursor:pointer">Cliente</span>';
                                                     } else if ($value['idtipificacion'] == 3) //CLIENTE OCASIONAL
                                                     {
-                                                        $estado = "<span class='badge badge-info'>Cliente ocasional</span>";
+                                                        $estado = '<span class="badge badge-info btn-tipificacionCliente" idcliente=' . $value['idcliente'].' style="cursor:pointer">Cliente ocasional</span>';
                                                     } else if ($value['idtipificacion'] == 4) //CLIENTE NO CUMPLE EL PERFIL
                                                     {
-                                                        $estado = "<span class='badge badge-danger'>Cliente no cumple con el perfil</span>";
+                                                        $estado = '<span class="badge badge-danger btn-tipificacionCliente" idcliente=' . $value['idcliente'].' style="cursor:pointer">Cliente no cumple con el perfil</span>';
                                                     } else if ($value['idtipificacion'] == null) {
                                                         $estado = "Sin tipificación";
                                                     }
@@ -163,41 +163,49 @@ $tipificacion = ControladorClientes::ctrListaTipificacion();
 
                                         <div class="tab-pane fade show active" id="llamadas" role="tabpanel" aria-labelledby="llamadas-tab">
 
-                                            <button type="button" class="btn btn-success btn-md btn-agregarLlamada" data-toggle="modal" data-target="#modalLlamadas">
-                                                <i class="fas fa-plus"></i> Agregar llamada
-                                            </button>
 
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-lg-12 col-sm-12 justify-content-center">
-                                                        <div class="table-responsive">
-                                                            <table id="tablaLlamadas" class="table table-sm table-striped table-bordered  text-center table-hover  w-100">
-                                                                <thead class="text-nowrap">
-                                                                    <th>...</th>
-                                                                    <th>Fecha</th>
-                                                                    <th>Cliente</th>
-                                                                    <th>Teléfono</th>
-                                                                    <th>Contacto</th>
-                                                                    <th>Fecha cita concretada</th>
-                                                                    <th>Hora</th>
-                                                                    <th>Nombre</th>
-                                                                    <th>Telefono</th>
-                                                                    <th>Observación</th>
-                                                                </thead>
-                                                                <tbody id="tbodyLlamadas" class="text-nowrap">
-                                                                    <!-- <td>07/02/2022</td>
-                                                                        <td>Colegio filadelfia</td>
-                                                                        <td>2485980</td>
-                                                                        <td>Contacto</td>
-                                                                        <td>29/02/2022</td>
-                                                                        <td>3:30 pm</td>
-                                                                        <td>Luis Rodriguez</td>
-                                                                        <td>3219365448</td>
-                                                                        <td>Observaciones</td> -->
+                                            <div class="card">
+
+                                                <div class="card-header">
+                                                    <button type="button" class="btn btn-success btn-md btn-agregarLlamada" data-toggle="modal" data-target="#modalLlamadas">
+                                                        <i class="fas fa-plus"></i> Agregar llamada
+                                                    </button>
+
+                                                </div>
 
 
-                                                                </tbody>
-                                                            </table>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-sm-12 justify-content-center">
+                                                            <div class="table-responsive">
+                                                                <table id="tablaLlamadas" class="table table-sm table-striped table-bordered  text-center table-hover  w-100">
+                                                                    <thead class="text-nowrap">
+                                                                        <th>...</th>
+                                                                        <th>Fecha</th>
+                                                                        <th>Cliente</th>
+                                                                        <th>Teléfono</th>
+                                                                        <th>Contacto</th>
+                                                                        <th>Fecha cita concretada</th>
+                                                                        <th>Hora</th>
+                                                                        <th>Nombre</th>
+                                                                        <th>Telefono</th>
+                                                                        <th>Observación</th>
+                                                                    </thead>
+                                                                    <tbody id="tbodyLlamadas" class="text-nowrap">
+                                                                        <!-- <td>07/02/2022</td>
+                                                                                                                                <td>Colegio filadelfia</td>
+                                                                                                                                <td>2485980</td>
+                                                                                                                                <td>Contacto</td>
+                                                                                                                                <td>29/02/2022</td>
+                                                                                                                                <td>3:30 pm</td>
+                                                                                                                                <td>Luis Rodriguez</td>
+                                                                                                                                <td>3219365448</td>
+                                                                                                                                <td>Observaciones</td> -->
+
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -211,41 +219,37 @@ $tipificacion = ControladorClientes::ctrListaTipificacion();
 
                                         <div class="tab-pane fade" id="clientes" role="tabpanel" aria-labelledby="clientes-tab">
 
+                                            <div class="row">
+                                                <div class="col-lg-12 col-sm-12 justify-content-center">
+                                                    <div class="card">
+                                                        <div class="card-header">
 
-
-
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-lg-12 col-sm-12 justify-content-center">
-                                                        <div class="card">
-                                                            <div class="card-header">
-
-                                                                <button type="button" class="btn btn-success btn-md btn-visitaCliente" data-toggle="modal" data-target="#SeguimientoClientes">
-                                                                    <i class="fas fa-plus"></i> Agregar visita a cliente
-                                                                </button>
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <div class="table-responsive">
-                                                                    <table id="tableSeguimientoClientes" class="table table-sm table-striped table-bordered  text-center table-hover  w-100">
-                                                                        <thead class="text-nowrap">
-                                                                            <th>...</th>
-                                                                            <th>Fecha visita</th>
-                                                                            <th>Razón social</th>
-                                                                            <th>Contacto</th>
-                                                                            <th># Celular - Teléfono</th>
-                                                                            <th>Correo</th>
-                                                                            <th>Tipo de vehículo</th>
-                                                                            <th>Sector</th>
-                                                                            <th>Promedio vehículos</th>
-                                                                            <th>Tarifa promedio</th>
-                                                                            <th>Proveedor</th>
-                                                                            <th>Nivel de satisfación</th>
-                                                                            <th>Tipificación</th>
-                                                                            <th>Próximo contacto</th>
-                                                                            <th>Observaciones</th>
-                                                                        </thead>
-                                                                        <tbody id="tbdoySeguimientoClientes" class="text-nowrap">
-                                                                            <!-- <td>07/02/2022</td>
+                                                            <button type="button" class="btn btn-success btn-md btn-visitaCliente" data-toggle="modal" data-target="#SeguimientoClientes">
+                                                                <i class="fas fa-plus"></i> Agregar visita a cliente
+                                                            </button>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <div class="table-responsive">
+                                                                <table id="tableSeguimientoClientes" class="table table-sm table-striped table-bordered  text-center table-hover  w-100">
+                                                                    <thead class="text-nowrap">
+                                                                        <th>...</th>
+                                                                        <th>Fecha visita</th>
+                                                                        <th>Razón social</th>
+                                                                        <th>Contacto</th>
+                                                                        <th># Celular - Teléfono</th>
+                                                                        <th>Correo</th>
+                                                                        <th>Tipo de vehículo</th>
+                                                                        <th>Sector</th>
+                                                                        <th>Promedio vehículos</th>
+                                                                        <th>Tarifa promedio</th>
+                                                                        <th>Proveedor</th>
+                                                                        <th>Nivel de satisfación</th>
+                                                                        <th>Tipificación</th>
+                                                                        <th>Próximo contacto</th>
+                                                                        <th>Observaciones</th>
+                                                                    </thead>
+                                                                    <tbody id="tbdoySeguimientoClientes" class="text-nowrap">
+                                                                        <!-- <td>07/02/2022</td>
                                                                             <td>Razón social</td>
                                                                             <td>Contacto</td>
                                                                             <td>3113937120</td>
@@ -260,14 +264,13 @@ $tipificacion = ControladorClientes::ctrListaTipificacion();
                                                                             <td>28/03/2022</td>
                                                                             <td>Observaciones</td> -->
 
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-
+                                                                    </tbody>
+                                                                </table>
                                                             </div>
-                                                        </div>
 
+                                                        </div>
                                                     </div>
+
                                                 </div>
                                             </div>
 
@@ -577,6 +580,26 @@ $tipificacion = ControladorClientes::ctrListaTipificacion();
                             </div>
                         </div>
 
+                        <div class="col col-12 col-sm-12 col-lg-4">
+                            <div class="form-group text-center ">
+                                <label><i># Celular - Teléfono</i></label>
+                                <input type="number" class="form-control" id="telefono" name="telefono" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col col-12 col-sm-12 col-lg-4">
+                            <div class="form-group text-center ">
+                                <label><i>Dirección</i></label>
+                                <input type="text" class="form-control" id="direccion" name="direccion" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col col-12 col-sm-12 col-lg-4">
+                            <div class="form-group text-center ">
+                                <label><i>Correo</i></label>
+                                <input type="email" class="form-control" id="correoClientes" name="correo" readonly>
+                            </div>
+                        </div>
 
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
@@ -585,32 +608,12 @@ $tipificacion = ControladorClientes::ctrListaTipificacion();
                             </div>
                         </div>
 
-                        <div class="col col-12 col-sm-12 col-lg-4">
-                            <div class="form-group text-center ">
-                                <label><i># Celular - Teléfono</i></label>
-                                <input type="number" class="form-control" id="telefono" name="telefono">
-                            </div>
-                        </div>
 
-                        <div class="col col-12 col-sm-12 col-lg-4">
-                            <div class="form-group text-center ">
-                                <label><i>Dirección</i></label>
-                                <input type="text" class="form-control" id="direccion" name="direccion">
-                            </div>
-                        </div>
-
-                        <div class="col col-12 col-sm-12 col-lg-4">
-                            <div class="form-group text-center ">
-                                <label><i>Correo</i></label>
-                                <input type="email" class="form-control" id="correoClientes" name="correo">
-                            </div>
-                        </div>
 
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Tipo de vehículo</i></label>
-                                <select id="idtipo_vehiculo" name="idtipo_vehiculo" class="form-control select2-single" type="number" style="width: 99%" required>
-                                    <option selected value="">Seleccione un tipo vehículo</option>
+                                <select id="idtipo_vehiculo" name="idtipo_vehiculo[]" data-placeholder="Seleccione tipo de vehículo" class="form-control select2-multiple" multiple="multiple" type="number" style="width: 99%" required>
                                     <?php foreach ($tipovehiculos as $key => $value) : ?>
                                         <option value="<?= $value['idtipovehiculo'] ?>"><?= $value['tipovehiculo'] ?> </option>
                                     <?php endforeach ?>
@@ -695,7 +698,7 @@ $tipificacion = ControladorClientes::ctrListaTipificacion();
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-success">
-                <h5 class="modal-title" id="my-modal-title">Nueva llamada <i class="fas fa-headset"></i></h5>
+                <h5 class="modal-title" id="my-modal-title">Llamada a cliente <i class="fas fa-headset"></i></h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -724,7 +727,14 @@ $tipificacion = ControladorClientes::ctrListaTipificacion();
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Teléfono</i></label>
-                                <input type="text" class="form-control" id="telefono1_llamada" name="telefono1">
+                                <input type="text" class="form-control" id="telefono1_llamada" name="telefono1" maxlength="50" readonly>
+                            </div>
+                        </div>
+
+                        <div class="col col-12 col-sm-12 col-lg-4">
+                            <div class="form-group text-center ">
+                                <label><i>Correo</i></label>
+                                <input type="text" class="form-control" id="correo_llamada" maxlength="50" readonly>
                             </div>
                         </div>
 
@@ -732,7 +742,7 @@ $tipificacion = ControladorClientes::ctrListaTipificacion();
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Contacto</i></label>
-                                <input type="text" class="form-control" id="contacto_llamada" name="contacto">
+                                <input type="text" class="form-control" id="contacto_llamada" name="contacto" maxlength="50">
                             </div>
                         </div>
 
@@ -754,8 +764,8 @@ $tipificacion = ControladorClientes::ctrListaTipificacion();
 
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
-                                <label><i>Nombre</i></label>
-                                <input type="text" class="form-control" id="nombre_llamada" name="nombre">
+                                <label><i>Nombre (recibe llamada)</i></label>
+                                <input type="text" class="form-control" id="nombre_llamada" name="nombre" maxlength="50">
 
                             </div>
                         </div>
@@ -763,15 +773,15 @@ $tipificacion = ControladorClientes::ctrListaTipificacion();
 
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
-                                <label><i>Teléfono</i></label>
-                                <input type="text" class="form-control" id="telefono2_llamada" name="telefono2">
+                                <label><i>Teléfono (recibe llamada)</i></label>
+                                <input type="text" class="form-control" id="telefono2_llamada" name="telefono2"  maxlength="50">
                             </div>
                         </div>
 
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Observación</i></label>
-                                <textarea rows="3" cols="3" class="form-control form-control-sm" id="observacion_llamada" name="observacion"> </textarea>
+                                <textarea rows="3" cols="3" class="form-control form-control-sm" id="observacion_llamada" name="observacion"  maxlength="300"> </textarea>
                             </div>
                         </div>
 

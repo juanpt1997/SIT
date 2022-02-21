@@ -199,19 +199,22 @@ class AjaxClientes
 
          if ($value['idtipificacion'] == 2) { //CLIENTE PROSPECTO
 
-            $estado = '<button class="btn btn-sm btn-warning btn-estado" idcliente="' . $value["idcliente"] . '">Volver cliente <i class="fas fa-user-check"></i></button>';
-         } else if ($value['idtipificacion'] == 1) { //CLIENTE ACTUAL
+            $estado = '<span class="badge badge-warning btn-tipificacionCliente" idcliente=' . $value['idcliente'] .'  style="cursor:pointer">Cliente prospecto</span>';
+        } else if ($value['idtipificacion'] == 1) { //CLIENTE ACTUAL
 
-            $estado = "<span class='badge badge-success'>Cliente</span>";
-         } else if ($value['idtipificacion'] == 3) //CLIENTE OCASIONAL
-         {
-            $estado = "<span class='badge badge-info'>Cliente ocasional</span>";
-         } else if ($value['idtipificacion'] == 4) //CLIENTE NO CUMPLE EL PERFIL
-         {
-            $estado = "<span class='badge badge-danger'>Cliente no cumple con el perfil</span>";
-         } else if ($value['idtipificacion'] == null) {
+            $estado = '<span class="badge badge-success btn-tipificacionCliente" idcliente=' . $value['idcliente'] . ' style="cursor:pointer">Cliente</span>';
+        } else if ($value['idtipificacion'] == 3) //CLIENTE OCASIONAL
+        {
+            $estado = '<span class="badge badge-info btn-tipificacionCliente" idcliente=' . $value['idcliente'].' style="cursor:pointer">Cliente ocasional</span>';
+        } else if ($value['idtipificacion'] == 4) //CLIENTE NO CUMPLE EL PERFIL
+        {
+            $estado = '<span class="badge badge-danger btn-tipificacionCliente" idcliente=' . $value['idcliente'].' style="cursor:pointer">Cliente no cumple con el perfil</span>';
+        } else if ($value['idtipificacion'] == null) {
             $estado = "Sin tipificación";
-         }
+        }
+
+        
+        $btn_vehiculo = "<button class='btn btn-xs btn-success btnVehiculo' data-toggle='tooltip' data-placement='top' title='Ver tipo de vehículos' idseguimiento='  {$value['idseguimiento']}'><i class='fas fa-bus'></i></button>";
 
          $tr .= "<tr>
          <td>
@@ -225,7 +228,7 @@ class AjaxClientes
          <td>{$value['contacto']}</td>
          <td>{$value['telefono']}</td>
          <td>{$value['correo']}</td>
-         <td>{$value['tipovehiculo']}</td>
+         <td>{$btn_vehiculo}</td>
          <td>{$value['sector']}</td>
          <td>{$value['promedio_vehiculos']}</td>
          <td>{$value['promedio_tarifa']}</td>
@@ -316,6 +319,25 @@ class AjaxClientes
       $respuesta = ModeloClientes::mdlEliminarLlamda($idseguimiento_llamada);
       echo $respuesta;
    }
+
+   /* ===================================================
+      ACTUALIZAR TIPIFICACION DEL CLIENTE 
+   ===================================================*/
+   static public function ajaxActualizarTipificacion($datos)
+   {
+      // $respuesta = ModeloClientes::mdlActualizarTipificacion($datos);
+      $respuesta = ControladorClientes::ctrActualizarTipificacion($datos);
+      echo $respuesta;
+   }
+
+   /* ===================================================
+      LSITA DE VEHÍCULOS POR ID SEGUIMIENTO
+   ===================================================*/
+   static public function ajaxListaVehiculos($idseguimiento)
+   {
+      $respuesta = ModeloClientes::mdlVehiculosxIdseguimiento($idseguimiento);
+      echo json_encode($respuesta);
+   }
 }
 /* ===================================================
    # LLAMADOS A AJAX CLIENTES
@@ -386,6 +408,18 @@ if (isset($_POST['DatosLlamada']) && $_POST['DatosLlamada'] == "ok") {
 #LLAMADO A ELIMINAR LLAMADA
 if (isset($_POST['EliminarLlamada']) && $_POST['EliminarLlamada'] == "ok") {
    AjaxClientes::ajaxEliminarLlamada($_POST['idseguimiento_llamada']);
+}
+
+#LLAMADO A CAMBIAR TIPIFICACION 
+if(isset($_POST['ActualizarTipificacion']) && $_POST['ActualizarTipificacion'] == "ok")
+{
+   AjaxClientes::ajaxActualizarTipificacion($_POST);
+}
+
+#LLAMADO A CARGAR LISTA DE VEHÍCULOS 
+if(isset($_POST['DatosVehiculoxidseguimiento']) && $_POST['DatosVehiculoxidseguimiento'] == "ok")
+{
+   AjaxClientes::ajaxListaVehiculos($_POST['idseguimiento']);
 }
 
 /* ===================================================

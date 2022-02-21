@@ -278,7 +278,7 @@ if (
                 processData: false,
                 // dataType: "json",
                 success: function (response) {
-                    if (response == "ok") {
+                    if (response != "error") {
                         Swal.fire({
                             icon: "success",
                             title: "¡Seguimiento añadido correctamente!",
@@ -305,7 +305,7 @@ if (
         });
 
         /*============================================
-            SELECCIONAN CLIENTE 
+            SELECCIONAN CLIENTE EN SEGUIMIENTO CLIENTES
         ==============================================*/
         $(document).on("change", "#listaclientes", function () {
             let idcliente = $(this).val();
@@ -329,6 +329,36 @@ if (
                     $("#tipificacionClientes")
                         .val(response.idtipificacion)
                         .trigger("change");
+                    $("#telefono").val(response.telefono);
+                    $("#direccion").val(response.direccion);
+                    $("#correoClientes").val(response.correo);
+                },
+            });
+        });
+
+        /*============================================
+            SELECCIONAN CLIENTE EN LLAMADAS
+        ==============================================*/
+        $(document).on("change", "#listaclientes2", function () {
+            let idcliente = $(this).val();
+
+            var datos = new FormData();
+
+            datos.append("DatosClientes", "ok");
+            datos.append("item", "idcliente");
+            datos.append("valor", idcliente);
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/contratos.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    $("#telefono1_llamada").val(response.telefono);
+                    $("#correo_llamada").val(response.correo);
                 },
             });
         });
@@ -391,6 +421,29 @@ if (
                         .trigger("change");
                     $("#fecha_proxima").val(response[0].fecha_proxima);
                     $("#observaciones").val(response[0].observaciones);
+                },
+            });
+
+            var datos2 = new FormData();
+            datos2.append("DatosVehiculoxidseguimiento", "ok");
+            datos2.append("idseguimiento", idseguimientoCliente);
+
+            $.ajax({
+                type: "POST",
+                url: "ajax/contratos.ajax.php",
+                data: datos2,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    var vehiculos = [];
+
+                    response.forEach((element) => {
+                        vehiculos.push(element.idtipo_vehiculo);
+                    });
+
+                    $("#idtipo_vehiculo").val(vehiculos).trigger("change");
                 },
             });
         });
@@ -602,6 +655,120 @@ if (
             $("#listaclientes2").val("").trigger("change");
             $("#idllamada").val("");
         });
+
+        /*============================================
+            CAMBIAR TIPIFICACION
+        ==============================================*/
+        $(document).on("click", ".btn-tipificacionCliente", function () {
+            let idcliente = $(this).attr("idcliente");
+
+            Swal.fire({
+                title: `Cambiar estado del cliente`,
+                text: "Seleccione el estado nuevo del cliente",
+                html: `
+                <hr>
+                <label for="">Estados</label>
+                <select class="form-control select2-single" id="estado">
+                        <option selected>--Seleccione un estado--</option>
+                        <option value="actual">Cliente actual</option>
+                        <option value="prospecto">Cliente prospecto</option>
+                        <option value="ocasional">Cliente ocasional</option>
+                        <option value="perfil">Cliente no cumple el perfil</option>
+
+                </select>`,
+                showCancelButton: true,
+                confirmButtonColor: "#5cb85c",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Continuar!",
+                cancelButtonText: "Cancelar",
+            }).then((result) => {
+                if (result.value) {
+                    var estado = $("#estado").val();
+                    var datos = new FormData();
+                    datos.append("ActualizarTipificacion", "ok");
+                    datos.append("idcliente", idcliente);
+                    datos.append("estado", estado);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/contratos.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        //dataType: "json",
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: "success",
+                                    showConfirmButton: true,
+                                    title: "¡El dato ha sido actualizado!",
+                                    confirmButtonText: "¡Cerrar!",
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "contratos-clientes";
+                                });
+                            }
+                        },
+                    });
+                }
+            });
+        });
+
+        /*============================================
+            CLICK EN VER TIPO DE VEHÍCULOS
+        ==============================================*/
+        $(document).on("click", ".btnVehiculo", function () {
+            var idseguimiento = $(this).attr("idseguimiento");
+
+            var datos = new FormData();
+            datos.append("DatosVehiculoxidseguimiento", "ok");
+            datos.append("idseguimiento", idseguimiento);
+
+            $.ajax({
+                type: "POST",
+                url: "ajax/contratos.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    if (response == "") {
+                        Swal.fire({
+                            icon: "warning",
+                            html: `<div class="font-weight-bold">Este cliente no cuenta con vehículos.</div>`,
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                            closeOnConfirm: false,
+                        });
+                    } else {
+                        var vehiculos = [];
+
+                        response.forEach((element) => {
+                            vehiculos.push(element.tipovehiculo);
+                        });
+
+                        let vehiculo = `<ul>`;
+                        vehiculos.forEach((element) => {
+                            vehiculo += `<li>${element}</li>`;
+                        });
+                        vehiculo += `</ul>`;
+
+                        Swal.fire({
+                            icon: "info",
+                            html: `<div class="text-left">
+                                                        <p class="font-weight-bold">Este cliente cuenta con los siguientes vehículos:</p>
+                                                            ${vehiculo}
+                                                    </div>`,
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                            closeOnConfirm: false,
+                        });
+                    }
+                },
+            });
+        });
     });
 }
 /* ===================================================
@@ -695,7 +862,10 @@ if (
                 processData: false,
                 dataType: "json",
                 success: function (response) {
-                    //console.log(response);
+                    // console.log(response);
+                    $("#sectorCliente")
+                        .val(response.idsector)
+                        .trigger("change");
                     $("#listaclientes").val(response.idcliente);
                     $("#titulo_cotizacion").html(
                         "Editar cotización ( " + response.nombre + " )"
@@ -758,6 +928,7 @@ if (
             // Reset valores del formulario
             $("#id_cot").val("");
             $("#titulo_cotizacion").html("Nueva cotización");
+            $("#sectorCliente").val("").trigger("change");
             $(".btn-copy-cotizacion").addClass("d-none");
             if (AbiertoxEditar) {
                 // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
@@ -812,6 +983,7 @@ if (
                         processData: false,
                         dataType: "json",
                         success: function (response) {
+                            // console.log(response);
                             $("#nom_contrata").val(response.nombre);
                             $("#t_document_empre").val(response.tipo_doc);
                             $("#document").val(response.Documento);
@@ -828,6 +1000,9 @@ if (
                             $("#expedicion").val(response.cedula_expedidaen);
                             $("#docum_respo").val(response.Documentorespons);
                             $("#tel2").val(response.telefono);
+                            $("#sectorCliente")
+                                .val(response.idsector)
+                                .trigger("change");
                             $(".select-ciudad").trigger("change"); //MUESTRA EL VALOR DEL SELECT
                         },
                     });
