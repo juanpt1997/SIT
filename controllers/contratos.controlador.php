@@ -43,7 +43,8 @@ class ControladorClientes
                 'ciudadresponsable' => $_POST['ciudadresponsable'],
                 'correo' => $_POST['correo'],
                 'tipo' => "CLIENTE",
-                'tipo_cliente' => $_POST['tipocliente']
+                'tipo_cliente' => $_POST['tipocliente'],
+                'tipificacion' => $_POST['tipificacion']
             );
 
             
@@ -55,24 +56,24 @@ class ControladorClientes
 
 
             if (is_array($ClienteExistente) && $ClienteExistente['idcliente'] != $_POST['idcliente']) {
-                echo "
-							<script>
-								Swal.fire({
-									icon: 'warning',
-									title: '¡Cliente ya existe!',						
-									showConfirmButton: true,
-									confirmButtonText: 'Cerrar',
+                // echo "
+				// 			<script>
+				// 				Swal.fire({
+				// 					icon: 'warning',
+				// 					title: '¡Cliente ya existe!',						
+				// 					showConfirmButton: true,
+				// 					confirmButtonText: 'Cerrar',
 									
-								}).then((result)=>{
+				// 				}).then((result)=>{
 
-									if(result.value){
-										window.location = 'contratos-clientes';
-									}
+				// 					if(result.value){
+				// 						window.location = 'contratos-clientes';
+				// 					}
 
-								})
-							</script>
-						";
-                return;
+				// 				})
+				// 			</script>
+				// 		";
+                return "existe";
             } else {
                 if ($_POST['idcliente'] == '') {
 
@@ -83,41 +84,43 @@ class ControladorClientes
             }
 
             if ($responseModel == "ok" || $responseModel != "error") {
-                echo "
-						<script>
-							Swal.fire({
-								icon: 'success',
-								title: '¡Cliente añadido correctamente!',						
-								showConfirmButton: true,
-								confirmButtonText: 'Cerrar',
+                // echo "
+				// 		<script>
+				// 			Swal.fire({
+				// 				icon: 'success',
+				// 				title: '¡Cliente añadido correctamente!',						
+				// 				showConfirmButton: true,
+				// 				confirmButtonText: 'Cerrar',
 								
-							}).then((result)=>{
+				// 			}).then((result)=>{
 
-								if(result.value){
-									window.location = 'contratos-clientes';
-								}
+				// 				if(result.value){
+				// 					window.location = 'contratos-clientes';
+				// 				}
 
-							})
-						</script>
-					";
+				// 			})
+				// 		</script>
+				// 	";
+                return "ok";
             } else {
-                echo "
-						<script>
-							Swal.fire({
-								icon: 'warning',
-								title: '¡Problema al añadir el cliente!',						
-								showConfirmButton: true,
-								confirmButtonText: 'Cerrar',
+                // echo "
+				// 		<script>
+				// 			Swal.fire({
+				// 				icon: 'warning',
+				// 				title: '¡Problema al añadir el cliente!',						
+				// 				showConfirmButton: true,
+				// 				confirmButtonText: 'Cerrar',
 								
-							}).then((result)=>{
+				// 			}).then((result)=>{
 
-								if(result.value){
-									window.location = 'contratos-clientes';
-								}
+				// 				if(result.value){
+				// 					window.location = 'contratos-clientes';
+				// 				}
 
-							})
-						</script>
-					";
+				// 			})
+				// 		</script>
+				// 	";
+                return "error";
             }
         }
     }
@@ -214,6 +217,65 @@ class ControladorClientes
         $respuesta = ModeloClientes::mdlTiposClientes();
         return $respuesta;
     }
+
+    /* ===================================================
+        GUARDAR SEGUMIENTO
+    ===================================================*/
+    static public function ctrGuardarSeguimientoCliente($datos)
+    {
+
+        if($datos['idseguimiento'] != "")
+        {
+            $respuesta = ModeloClientes::mdlEditarSeguimientoCliente($datos);
+        }else{
+
+            $respuesta = ModeloClientes::mdlGuardarSeguimientoCliente($datos);
+        }
+        return $respuesta;
+    }
+
+    /* ===================================================
+        LISTA DE TIPIFICACION
+    ===================================================*/
+    static public function ctrListaTipificacion()
+    {
+        $respuesta = ModeloClientes::mdlListaTipificacion();
+        return $respuesta;
+    }
+
+    /* ===================================================
+        LISTA DE VISITAS CLIENTES 
+    ===================================================*/
+    static public function ctrVisitasClientes()
+    {
+        $respuesta = ModeloClientes::mdlVisitasClientes();
+        return $respuesta;
+    }
+
+    /* ===================================================
+        DATOS SEGUIMIENTO CLIENTES
+    ===================================================*/
+    static public function ctrDatosSeguimientoClientes($datos)
+    {
+        $respuesta = ModeloClientes::mdlDatosSeguimientoClientes($datos);
+        return $respuesta;
+    }
+
+    /* ===================================================
+        GUARDAR / EDITAR LLAMADA 
+    ===================================================*/
+    static public function ctrGuardarLlamada($datos)
+    {
+        if($datos['idllamada'] != ""){
+            $respuesta = ModeloClientes::mdlActualizarLlamada($datos);
+        }else{
+
+            $respuesta = ModeloClientes::mdlGuardarLlamada($datos);
+        }
+        return $respuesta;
+    }
+
+
 }
 /* ===================================================
    * COTIZACIONES

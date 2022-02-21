@@ -9,6 +9,7 @@ $ListarClientes = ControladorClientes::ctrVerCliente();
 $tiposClientes = ControladorClientes::ctrTiposClientes();
 $tipovehiculos = ControladorVehiculos::ctrMostrarTipoVehiculo();
 $clientes = ControladorClientes::ctrVerCliente();
+$tipificacion = ControladorClientes::ctrListaTipificacion();
 ?>
 
 
@@ -88,12 +89,20 @@ $clientes = ControladorClientes::ctrVerCliente();
                                                 <?php foreach ($ListarClientes as $key => $value) : ?>
 
                                                     <?php
-                                                    if ($value['tipo'] == "LEAD") {
+                                                    if ($value['idtipificacion'] == 2) { //CLIENTE PROSPECTO
 
                                                         $estado = '<button class="btn btn-sm btn-warning btn-estado" idcliente="' . $value["idcliente"] . '">Volver cliente <i class="fas fa-user-check"></i></button>';
-                                                    } else {
+                                                    } else if ($value['idtipificacion'] == 1) { //CLIENTE ACTUAL
 
                                                         $estado = "<span class='badge badge-success'>Cliente</span>";
+                                                    } else if ($value['idtipificacion'] == 3) //CLIENTE OCASIONAL
+                                                    {
+                                                        $estado = "<span class='badge badge-info'>Cliente ocasional</span>";
+                                                    } else if ($value['idtipificacion'] == 4) //CLIENTE NO CUMPLE EL PERFIL
+                                                    {
+                                                        $estado = "<span class='badge badge-danger'>Cliente no cumple con el perfil</span>";
+                                                    } else if ($value['idtipificacion'] == null) {
+                                                        $estado = "Sin tipificación";
                                                     }
 
                                                     ?>
@@ -154,29 +163,29 @@ $clientes = ControladorClientes::ctrVerCliente();
 
                                         <div class="tab-pane fade show active" id="llamadas" role="tabpanel" aria-labelledby="llamadas-tab">
 
-                                            <button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#modalLlamadas">
+                                            <button type="button" class="btn btn-success btn-md btn-agregarLlamada" data-toggle="modal" data-target="#modalLlamadas">
                                                 <i class="fas fa-plus"></i> Agregar llamada
                                             </button>
 
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-lg-12 col-sm-12 justify-content-center">
-                                                        <div class="card card-outline ">
-                                                            <div class="table-responsive">
-                                                                <table id="" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
-                                                                    <thead class="text-nowrap">
-                                                                        <th>Fecha</th>
-                                                                        <th>Cliente</th>
-                                                                        <th>Teléfono</th>
-                                                                        <th>Contacto</th>
-                                                                        <th>Fecha cita concretada</th>
-                                                                        <th>Hora</th>
-                                                                        <th>Nombre</th>
-                                                                        <th>Telefono</th>
-                                                                        <th>Observación</th>
-                                                                    </thead>
-                                                                    <tbody id="" class="text-nowrap">
-                                                                        <td>07/02/2022</td>
+                                                        <div class="table-responsive">
+                                                            <table id="tablaLlamadas" class="table table-sm table-striped table-bordered  text-center table-hover  w-100">
+                                                                <thead class="text-nowrap">
+                                                                    <th>...</th>
+                                                                    <th>Fecha</th>
+                                                                    <th>Cliente</th>
+                                                                    <th>Teléfono</th>
+                                                                    <th>Contacto</th>
+                                                                    <th>Fecha cita concretada</th>
+                                                                    <th>Hora</th>
+                                                                    <th>Nombre</th>
+                                                                    <th>Telefono</th>
+                                                                    <th>Observación</th>
+                                                                </thead>
+                                                                <tbody id="tbodyLlamadas" class="text-nowrap">
+                                                                    <!-- <td>07/02/2022</td>
                                                                         <td>Colegio filadelfia</td>
                                                                         <td>2485980</td>
                                                                         <td>Contacto</td>
@@ -184,12 +193,11 @@ $clientes = ControladorClientes::ctrVerCliente();
                                                                         <td>3:30 pm</td>
                                                                         <td>Luis Rodriguez</td>
                                                                         <td>3219365448</td>
-                                                                        <td>Observaciones</td>
+                                                                        <td>Observaciones</td> -->
 
 
-                                                                    </tbody>
-                                                                </table>
-                                                            </div>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -204,52 +212,61 @@ $clientes = ControladorClientes::ctrVerCliente();
                                         <div class="tab-pane fade" id="clientes" role="tabpanel" aria-labelledby="clientes-tab">
 
 
-                                            <button type="button" class="btn btn-success btn-md" data-toggle="modal" data-target="#SeguimientoClientes">
-                                                <i class="fas fa-plus"></i> Agregar visita a cliente
-                                            </button>
+
 
                                             <div class="card-body">
                                                 <div class="row">
                                                     <div class="col-lg-12 col-sm-12 justify-content-center">
-                                                        <div class="card card-outline ">
-                                                            <div class="table-responsive">
-                                                                <table id="" class="table table-sm table-striped table-bordered dt-responsive text-center table-hover  w-100">
-                                                                    <thead class="text-nowrap">
-                                                                        <th>Fecha visita</th>
-                                                                        <th>Razón social</th>
-                                                                        <th>Contacto</th>
-                                                                        <th># Celular - Teléfono</th>
-                                                                        <th>Correo</th>
-                                                                        <th>Tipo de vehículo</th>
-                                                                        <th>Sector</th>
-                                                                        <th>Promedio vehículos</th>
-                                                                        <th>Tarifa promedio</th>
-                                                                        <th>Proveedor</th>
-                                                                        <th>Nivel de satisfación</th>
-                                                                        <th>Tipifación</th>
-                                                                        <th>Próximo contacto</th>
-                                                                        <th>Observaciones</th>
-                                                                    </thead>
-                                                                    <tbody id="" class="text-nowrap">
-                                                                        <td>07/02/2022</td>
-                                                                        <td>Razón social</td>
-                                                                        <td>Contacto</td>
-                                                                        <td>3113937120</td>
-                                                                        <td>Contacto@gmail.com</td>
-                                                                        <td>Busetones</td>
-                                                                        <td>Industria</td>
-                                                                        <td>5</td>
-                                                                        <td>400000</td>
-                                                                        <td>Proveedor</td>
-                                                                        <td>Bueno</td>
-                                                                        <td>Cliente prospecto</td>
-                                                                        <td>28/03/2022</td>
-                                                                        <td>Observaciones</td>
+                                                        <div class="card">
+                                                            <div class="card-header">
 
-                                                                    </tbody>
-                                                                </table>
+                                                                <button type="button" class="btn btn-success btn-md btn-visitaCliente" data-toggle="modal" data-target="#SeguimientoClientes">
+                                                                    <i class="fas fa-plus"></i> Agregar visita a cliente
+                                                                </button>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <div class="table-responsive">
+                                                                    <table id="tableSeguimientoClientes" class="table table-sm table-striped table-bordered  text-center table-hover  w-100">
+                                                                        <thead class="text-nowrap">
+                                                                            <th>...</th>
+                                                                            <th>Fecha visita</th>
+                                                                            <th>Razón social</th>
+                                                                            <th>Contacto</th>
+                                                                            <th># Celular - Teléfono</th>
+                                                                            <th>Correo</th>
+                                                                            <th>Tipo de vehículo</th>
+                                                                            <th>Sector</th>
+                                                                            <th>Promedio vehículos</th>
+                                                                            <th>Tarifa promedio</th>
+                                                                            <th>Proveedor</th>
+                                                                            <th>Nivel de satisfación</th>
+                                                                            <th>Tipificación</th>
+                                                                            <th>Próximo contacto</th>
+                                                                            <th>Observaciones</th>
+                                                                        </thead>
+                                                                        <tbody id="tbdoySeguimientoClientes" class="text-nowrap">
+                                                                            <!-- <td>07/02/2022</td>
+                                                                            <td>Razón social</td>
+                                                                            <td>Contacto</td>
+                                                                            <td>3113937120</td>
+                                                                            <td>Contacto@gmail.com</td>
+                                                                            <td>Busetones</td>
+                                                                            <td>Industria</td>
+                                                                            <td>5</td>
+                                                                            <td>400000</td>
+                                                                            <td>Proveedor</td>
+                                                                            <td>Bueno</td>
+                                                                            <td>Cliente prospecto</td>
+                                                                            <td>28/03/2022</td>
+                                                                            <td>Observaciones</td> -->
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+
                                                             </div>
                                                         </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -290,7 +307,7 @@ $clientes = ControladorClientes::ctrVerCliente();
                 </button>
             </div>
 
-            <form method="post" enctype="multipart/form-data" id="formularioclientes">
+            <form method="post" enctype="multipart/form-data" id="formularioAgregarclientes">
 
                 <div class="modal-body">
 
@@ -385,10 +402,22 @@ $clientes = ControladorClientes::ctrVerCliente();
 
                         <div class="col-6">
                             <div class="form-group">
-                                <label class="text-sm">Tipo de cliente</label>
+                                <label class="text-sm">Sector</label>
                                 <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="tipocliente" name="tipocliente">
-                                    <option selected value="">-Seleccione el tipo de cliente-</option>
+                                    <option selected value="">-Seleccione el sector-</option>
                                     <?php foreach ($tiposClientes as $key => $value) : ?>
+                                        <option value="<?= $value['id'] ?>"><?= $value['tipo'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="text-sm">Tipo de cliente</label>
+                                <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="tipificacion" name="tipificacion">
+                                    <option selected value="">-Seleccione un tipo de cliente-</option>
+                                    <?php foreach ($tipificacion as $key => $value) : ?>
                                         <option value="<?= $value['id'] ?>"><?= $value['tipo'] ?></option>
                                     <?php endforeach ?>
                                 </select>
@@ -473,16 +502,13 @@ $clientes = ControladorClientes::ctrVerCliente();
                 <div class="modal-footer bg-dark">
                     <button type="button" class="btn btn-danger btn-cancelar" data-dismiss="modal">Cancelar</button>
                     <?php if (validarPermiso('M_CONTRATOS', 'U')) : ?>
-                        <button type="submit" class="btn btn-success">
+                        <button type="submit" form="formularioAgregarclientes" class="btn btn-success">
                             <i class="fas fa-save"></i>
                             Guardar
                         </button>
                     <?php endif ?>
                 </div>
-                <?php
-                $CrearCliente = new ControladorClientes();
-                $CrearCliente->ctrAgregarEditar();
-                ?>
+
             </form>
         </div>
     </div>
@@ -494,20 +520,21 @@ $clientes = ControladorClientes::ctrVerCliente();
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header bg-success">
-                <h5 class="modal-title" id="my-modal-title">Nuevo seguimiento a cliente <i class="fas fa-user-clock"></i></h5>
+                <h5 class="modal-title" id="my-modal-title">Seguimiento a cliente <i class="fas fa-user-clock"></i></h5>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 
-            <form method="post" enctype="multipart/form-data" id="formularioclientes">
+            <form method="post" enctype="multipart/form-data" id="formularioSeguimientoClientes">
                 <div class="modal-body">
 
                     <div class="row">
+                        <input type="hidden" id="idseguimiento" name="idseguimiento">
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Fecha visita</i></label>
-                                <input type="date" class="form-control">
+                                <input type="date" class="form-control" id="fecha_visita" name="fecha_visita">
                             </div>
                         </div>
 
@@ -517,11 +544,8 @@ $clientes = ControladorClientes::ctrVerCliente();
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Cliente</i></label>
-                                <select class="form-control select2-single select-clientes input-sm" id="listaclientes" style="width: 99%" name="listaclientes" readonly>
-                                    <option value="" selected><b>-Seleccione un cliente existente-</b></option>
-                                    <?php foreach ($clientes as $key => $value) : ?>
-                                        <option value="<?= $value['idcliente'] ?>"><?= $value['clientexist'] ?></option>
-                                    <?php endforeach ?>
+                                <select class="form-control select2-single select-clientes input-sm" id="listaclientes" style="width: 99%" name="idcliente" readonly>
+
                                 </select>
                             </div>
                         </div>
@@ -530,8 +554,8 @@ $clientes = ControladorClientes::ctrVerCliente();
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Sector</i></label>
-                                <select id="" name="" class="form-control select" type="number" style="width: 99%" readonly>
-                                    <option selected value="">-Seleccione un sector-</option>
+                                <select id="sector" name="sector" class="form-control" type="number" style="width: 99%" readonly>
+                                    <option selected value="">--Seleccione un sector--</option>
                                     <?php foreach ($tiposClientes as $key => $value) : ?>
                                         <option value="<?= $value['id'] ?>"><?= $value['tipo'] ?> </option>
                                     <?php endforeach ?>
@@ -539,11 +563,17 @@ $clientes = ControladorClientes::ctrVerCliente();
                             </div>
                         </div>
 
-                        
+
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
-                                <label><i>Tipifación</i></label>
-                                <input type="text" class="form-control" readonly>
+                                <label><i>Tipificación</i></label>
+                                <select name="tipificacion" id="tipificacionClientes" class="form-control" type="number" style="width: 99%" readonly>
+                                    <option selected value="">--Seleccione el tipo de cliente--</option>
+                                    <?php foreach ($tipificacion as $key => $value) : ?>
+                                        <option value="<?= $value['id'] ?>"><?= $value['tipo'] ?></option>
+                                    <?php endforeach ?>
+                                </select>
+                                <!-- <input name="tipificacion" id="tipificacion" type="text" class="form-control" readonly> -->
                             </div>
                         </div>
 
@@ -551,35 +581,35 @@ $clientes = ControladorClientes::ctrVerCliente();
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Contacto</i></label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" id="contacto" name="contacto">
                             </div>
                         </div>
 
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i># Celular - Teléfono</i></label>
-                                <input type="number" class="form-control">
+                                <input type="number" class="form-control" id="telefono" name="telefono">
                             </div>
                         </div>
 
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Dirección</i></label>
-                                <input type="text" class="form-control">
+                                <input type="text" class="form-control" id="direccion" name="direccion">
                             </div>
                         </div>
 
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Correo</i></label>
-                                <input type="email" class="form-control">
+                                <input type="email" class="form-control" id="correoClientes" name="correo">
                             </div>
                         </div>
 
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Tipo de vehículo</i></label>
-                                <select id="" name="" class="form-control select2-single" type="number" style="width: 99%" required>
+                                <select id="idtipo_vehiculo" name="idtipo_vehiculo" class="form-control select2-single" type="number" style="width: 99%" required>
                                     <option selected value="">Seleccione un tipo vehículo</option>
                                     <?php foreach ($tipovehiculos as $key => $value) : ?>
                                         <option value="<?= $value['idtipovehiculo'] ?>"><?= $value['tipovehiculo'] ?> </option>
@@ -594,28 +624,33 @@ $clientes = ControladorClientes::ctrVerCliente();
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Promedio vehículos</i></label>
-                                <input type="text" class="form-control">
+                                <input id="promedio_vehiculo" name="promedio_vehiculo" type="text" class="form-control">
                             </div>
                         </div>
 
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Tarifa promedio</i></label>
-                                <input type="text" class="form-control">
+                                <input id="promedio_tarifa" name="promedio_tarifa" type="text" class="form-control">
                             </div>
                         </div>
 
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Proveedor</i></label>
-                                <input type="text" class="form-control">
+                                <input id="proveedor" name="proveedor" type="text" class="form-control">
                             </div>
                         </div>
 
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Nivel de satisfación</i></label>
-                                <input type="text" class="form-control">
+                                <select id="satisfacion" name="satisfacion" class="form-control select2-single" type="number" style="width: 99%" required>
+                                    <option selected value="">Seleccione un nivel de satisfación</option>
+                                    <option>Bueno</option>
+                                    <option>Regular</option>
+                                    <option>Malo</option>
+                                </select>
                             </div>
                         </div>
 
@@ -623,7 +658,7 @@ $clientes = ControladorClientes::ctrVerCliente();
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Próximo contacto</i></label>
-                                <input type="date" class="form-control">
+                                <input id="fecha_proxima" name="fecha_proxima" type="date" class="form-control">
                             </div>
                         </div>
 
@@ -631,7 +666,7 @@ $clientes = ControladorClientes::ctrVerCliente();
                         <div class="col col-12 col-sm-12 col-lg-4">
                             <div class="form-group text-center ">
                                 <label><i>Observaciones</i></label>
-                                <textarea rows="3" cols="3" class="form-control form-control-sm" id="" name=""> </textarea>
+                                <textarea rows="3" cols="3" class="form-control form-control-sm" id="observaciones" name="observaciones"> </textarea>
                             </div>
                         </div>
 
@@ -647,7 +682,7 @@ $clientes = ControladorClientes::ctrVerCliente();
 
             </form>
             <div class="modal-footer">
-                <button type="submit" form="Guardarprogramacion_form" class="btn btn-success">Guardar</button>
+                <button type="submit" form="formularioSeguimientoClientes" class="btn btn-success">Guardar</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
 
             </div>
@@ -666,86 +701,92 @@ $clientes = ControladorClientes::ctrVerCliente();
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col col-12 col-sm-12 col-lg-4">
-                        <div class="form-group text-center ">
-                            <label><i>Fecha</i></label>
-                            <input type="date" class="form-control">
+                <form method="post" enctype="multipart/form-data" id="formularioLlamada">
+                    <input type="hidden" id="idllamada" name="idllamada">
+                    <div class="row">
+                        <div class="col col-12 col-sm-12 col-lg-4">
+                            <div class="form-group text-center ">
+                                <label><i>Fecha</i></label>
+                                <input type="date" class="form-control" id="fecha_llamada" name="fecha">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col col-12 col-sm-12 col-lg-4">
-                        <div class="form-group text-center ">
-                            <label><i>Cliente</i></label>
-                            <input type="text" class="form-control">
+                        <div class="col col-12 col-sm-12 col-lg-4">
+                            <div class="form-group text-center ">
+                                <label><i>Cliente</i></label>
+                                <select class="form-control select2-single select-clientes input-sm" id="listaclientes2" style="width: 99%" name="idcliente" readonly>
+
+                                </select>
+                                <!-- <input type="text" class="form-control" id="" name=""> -->
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col col-12 col-sm-12 col-lg-4">
-                        <div class="form-group text-center ">
-                            <label><i>Teléfono</i></label>
-                            <input type="text" class="form-control">
+                        <div class="col col-12 col-sm-12 col-lg-4">
+                            <div class="form-group text-center ">
+                                <label><i>Teléfono</i></label>
+                                <input type="text" class="form-control" id="telefono1_llamada" name="telefono1">
+                            </div>
                         </div>
-                    </div>
 
 
-                    <div class="col col-12 col-sm-12 col-lg-4">
-                        <div class="form-group text-center ">
-                            <label><i>Contacto</i></label>
-                            <input type="text" class="form-control">
+                        <div class="col col-12 col-sm-12 col-lg-4">
+                            <div class="form-group text-center ">
+                                <label><i>Contacto</i></label>
+                                <input type="text" class="form-control" id="contacto_llamada" name="contacto">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col col-12 col-sm-12 col-lg-4">
-                        <div class="form-group text-center ">
-                            <label><i>Fecha cita concretada</i></label>
-                            <input type="date" class="form-control">
+                        <div class="col col-12 col-sm-12 col-lg-4">
+                            <div class="form-group text-center ">
+                                <label><i>Fecha cita concretada</i></label>
+                                <input type="date" class="form-control" id="fecha_cita_llamada" name="fecha_cita">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col col-12 col-sm-12 col-lg-4">
-                        <div class="form-group text-center ">
-                            <label><i>Hora</i></label>
-                            <input type="time" class="form-control">
+                        <div class="col col-12 col-sm-12 col-lg-4">
+                            <div class="form-group text-center ">
+                                <label><i>Hora</i></label>
+                                <input type="time" class="form-control" id="hora_llamada" name="hora">
+                            </div>
                         </div>
-                    </div>
 
 
 
-                    <div class="col col-12 col-sm-12 col-lg-4">
-                        <div class="form-group text-center ">
-                            <label><i>Nombre</i></label>
-                            <input type="text" class="form-control">
+                        <div class="col col-12 col-sm-12 col-lg-4">
+                            <div class="form-group text-center ">
+                                <label><i>Nombre</i></label>
+                                <input type="text" class="form-control" id="nombre_llamada" name="nombre">
 
+                            </div>
                         </div>
-                    </div>
 
 
-                    <div class="col col-12 col-sm-12 col-lg-4">
-                        <div class="form-group text-center ">
-                            <label><i>Teléfono</i></label>
-                            <input type="date" class="form-control">
+                        <div class="col col-12 col-sm-12 col-lg-4">
+                            <div class="form-group text-center ">
+                                <label><i>Teléfono</i></label>
+                                <input type="text" class="form-control" id="telefono2_llamada" name="telefono2">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="col col-12 col-sm-12 col-lg-4">
-                        <div class="form-group text-center ">
-                            <label><i>Observación</i></label>
-                            <textarea rows="3" cols="3" class="form-control form-control-sm" id="" name=""> </textarea>
+                        <div class="col col-12 col-sm-12 col-lg-4">
+                            <div class="form-group text-center ">
+                                <label><i>Observación</i></label>
+                                <textarea rows="3" cols="3" class="form-control form-control-sm" id="observacion_llamada" name="observacion"> </textarea>
+                            </div>
                         </div>
+
+
+
+
+
+
+
+
                     </div>
-
-
-
-
-
-
-
-
-                </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <button type="submit" form="Guardarprogramacion_form" class="btn btn-success">Guardar</button>
+                <button type="submit" form="formularioLlamada" class="btn btn-success">Guardar</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
             </div>
         </div>

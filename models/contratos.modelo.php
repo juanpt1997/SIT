@@ -13,8 +13,8 @@ class ModeloClientes
    {
       $conexion = Conexion::conectar();
       $stmt = $conexion->prepare("INSERT INTO cont_clientes(nombre,tipo_doc,Documento,telefono,direccion,idciudad,tipo_docrespons,Documentorespons,
-      cedula_expedidaen,nombrerespons,idciudadrespons,tipo,telefono2, correo, idtipo_cliente)
-      VALUES(:nombre,:tipo_doc,:Documento,:telefono,:direccion,:idciudad,:tipo_docrespons,:Documentorespons,:cedula_expedidaen,:nombrerespons,:idciudadrespons,:tipo,:telefono2, :correo, :idtipo_cliente)");
+      cedula_expedidaen,nombrerespons,idciudadrespons,tipo,telefono2, correo, idsector, idtipificacion)
+      VALUES(:nombre,:tipo_doc,:Documento,:telefono,:direccion,:idciudad,:tipo_docrespons,:Documentorespons,:cedula_expedidaen,:nombrerespons,:idciudadrespons,:tipo,:telefono2, :correo, :idsector, :idtipificacion)");
 
       $stmt->bindParam(":tipo", $datos["tipo"], PDO::PARAM_STR);
       $stmt->bindParam(":nombre", $datos["nom_empre"], PDO::PARAM_STR);
@@ -30,7 +30,8 @@ class ModeloClientes
       $stmt->bindParam(":nombrerespons", $datos["nom_respo"], PDO::PARAM_STR);
       $stmt->bindParam(":idciudadrespons", $datos["ciudadresponsable"], PDO::PARAM_INT);
       $stmt->bindParam(":correo", $datos["correo"], PDO::PARAM_STR);
-      $stmt->bindParam(":idtipo_cliente", $datos["tipo_cliente"], PDO::PARAM_INT);
+      $stmt->bindParam(":idsector", $datos["tipo_cliente"], PDO::PARAM_INT);
+      $stmt->bindParam(":idtipificacion", $datos["tipificacion"], PDO::PARAM_INT);
 
       if ($stmt->execute()) {
          $id = $conexion->lastInsertId();
@@ -103,7 +104,7 @@ class ModeloClientes
    {
       $stmt = Conexion::conectar()->prepare("UPDATE cont_clientes set nombre = :nombre, tipo_doc=:tipo_doc,Documento=:Documento,telefono=:telefono,direccion=:direccion,
                                                       idciudad=:idciudad,tipo_docrespons=:tipo_docrespons,Documentorespons=:Documentorespons,cedula_expedidaen=:cedula_expedidaen,
-                                                      nombrerespons=:nombrerespons,idciudadrespons=:idciudadrespons,telefono2=:telefono2, idtipo_cliente = :idtipo_cliente
+                                                      nombrerespons=:nombrerespons,idciudadrespons=:idciudadrespons,telefono2=:telefono2, idsector = :idsector
 											            WHERE idcliente = :idcliente");
 
       $stmt->bindParam(":idcliente", $datos["idcliente"], PDO::PARAM_INT);
@@ -119,7 +120,7 @@ class ModeloClientes
       $stmt->bindParam(":cedula_expedidaen", $datos["expedicion"], PDO::PARAM_INT);
       $stmt->bindParam(":nombrerespons", $datos["nom_respo"], PDO::PARAM_STR);
       $stmt->bindParam(":idciudadrespons", $datos["ciudadresponsable"], PDO::PARAM_INT);
-      $stmt->bindParam(":idtipo_cliente", $datos["tipo_cliente"], PDO::PARAM_INT);
+      $stmt->bindParam(":idsector", $datos["tipo_cliente"], PDO::PARAM_INT);
 
 
       if ($stmt->execute()) {
@@ -313,11 +314,266 @@ class ModeloClientes
    ===================================================*/
    static public function mdlTiposClientes()
    {
-      $stmt = Conexion::conectar()->prepare("SELECT * FROM cont_tipo_clientes WHERE estado = 1");
+      $stmt = Conexion::conectar()->prepare("SELECT * FROM cont_sector WHERE estado = 1");
 
       $stmt->execute();
       $retorno = $stmt->fetchAll();
       $stmt->closeCursor();
+
+      return $retorno;
+   }
+
+   /* ===================================================
+      GUARDAR SEGUIMIENTO CLIENTE 
+   ===================================================*/
+   static public function mdlGuardarSeguimientoCliente($datos)
+   {
+      $stmt = Conexion::conectar()->prepare("INSERT INTO 
+      cont_seguimiento_clientes(fecha_visita,idcliente,contacto,telefono,direccion,correo,idtipo_vehiculo,promedio_vehiculos,promedio_tarifa,proveedor,satisfacion,fecha_proxima,observaciones) 
+      VALUES (:fecha_visita,:idcliente,:contacto,:telefono,:direccion,:correo,:idtipo_vehiculo,:promedio_vehiculos,:promedio_tarifa,:proveedor,:satisfacion,:fecha_proxima,:observaciones)");
+
+      $stmt->bindParam(":fecha_visita", $datos['fecha_visita'], PDO::PARAM_STR);
+      $stmt->bindParam(":idcliente", $datos['idcliente'], PDO::PARAM_INT);
+      $stmt->bindParam(":contacto", $datos['contacto'], PDO::PARAM_STR);
+      $stmt->bindParam(":telefono", $datos['telefono'], PDO::PARAM_STR);
+      $stmt->bindParam(":direccion", $datos['direccion'], PDO::PARAM_STR);
+      $stmt->bindParam(":correo", $datos['correo'], PDO::PARAM_STR);
+      $stmt->bindParam(":idtipo_vehiculo", $datos['idtipo_vehiculo'], PDO::PARAM_INT);
+      $stmt->bindParam(":promedio_vehiculos", $datos['promedio_vehiculo'], PDO::PARAM_STR);
+      $stmt->bindParam(":promedio_tarifa", $datos['promedio_tarifa'], PDO::PARAM_STR);
+      $stmt->bindParam(":proveedor", $datos['proveedor'], PDO::PARAM_STR);
+      $stmt->bindParam(":satisfacion", $datos['satisfacion'], PDO::PARAM_STR);
+      $stmt->bindParam(":fecha_proxima", $datos['fecha_proxima'], PDO::PARAM_STR);
+      $stmt->bindParam(":observaciones", $datos['observaciones'], PDO::PARAM_STR);
+
+      if ($stmt->execute()) {
+         $retorno = "ok";
+      } else {
+         $retorno = "error";
+      }
+
+      $stmt->closeCursor();
+      $stmt = null;
+
+      return $retorno;
+   }
+
+   /* ===================================================
+      LISTA DE TIPIFICACION
+   ===================================================*/
+   static public function mdlListaTipificacion()
+   {
+
+      $stmt = Conexion::conectar()->prepare("SELECT * FROM cont_tipificacion");
+
+      $stmt->execute();
+      $retorno = $stmt->fetchAll();
+      $stmt->closeCursor();
+
+      return $retorno;
+   }
+
+   /* ===================================================
+      LISTA VISITAS CLIENTES 
+   ===================================================*/
+   static public function mdlVisitasClientes()
+   {
+      $stmt = Conexion::conectar()->prepare("SELECT v.*,DATE_FORMAT(v.fecha_visita,'%d/%m/%Y') AS Ffecha_visita,DATE_FORMAT(v.fecha_proxima,'%d/%m/%Y') AS Ffecha_proxima, c.*, tv.tipovehiculo, s.tipo AS sector, ct.tipo AS tipificacion
+      FROM cont_seguimiento_clientes v
+      INNER JOIN cont_clientes c ON v.idcliente = c.idcliente
+      INNER JOIN v_tipovehiculos tv ON v.idtipo_vehiculo = tv.idtipovehiculo
+      LEFT JOIN cont_sector s ON s.id = c.idsector
+      LEFT JOIN cont_tipificacion ct ON c.idtipificacion = ct.id 
+      WHERE v.estado = 1");
+
+      $stmt->execute();
+      $retorno = $stmt->fetchAll();
+      $stmt->closeCursor();
+
+      return $retorno;
+   }
+
+   /* ===================================================
+      DATOS SEGUIMIENTO CLIENTES X IDSEGUIMIENTO
+   ===================================================*/
+   static public function mdlDatosSeguimientoClientes($datos)
+   {
+      $stmt = Conexion::conectar()->prepare("SELECT s.*, c.*, vt.tipovehiculo FROM cont_seguimiento_clientes s
+      INNER JOIN cont_clientes c ON s.idcliente = c.idcliente
+      LEFT JOIN v_tipovehiculos vt ON s.idtipo_vehiculo = vt.idtipovehiculo
+      WHERE s.idseguimiento = :idseguimiento");
+
+      $stmt->bindParam(":idseguimiento", $datos['idseguimientoCliente'], PDO::PARAM_INT);
+
+      $stmt->execute();
+      $retorno = $stmt->fetchAll();
+      $stmt->closeCursor();
+
+      return $retorno;
+   }
+
+   /* ===================================================
+      EDITAR SEGUIMIENTO CLIENTES 
+   ===================================================*/
+   static public function mdlEditarSeguimientoCliente($datos)
+   {
+      $stmt = Conexion::conectar()->prepare("UPDATE cont_seguimiento_clientes SET 
+      fecha_visita =:fecha_visita,
+      idcliente = :idcliente, contacto = :contacto, telefono = :telefono,
+      direccion = :direccion,correo = :correo,idtipo_vehiculo =:idtipo_vehiculo,
+      promedio_vehiculos = :promedio_vehiculos, promedio_tarifa = :promedio_tarifa, 
+      proveedor =:proveedor, satisfacion = :satisfacion, fecha_proxima =:fecha_proxima, observaciones = :observaciones
+      WHERE idseguimiento = :idseguimiento
+      ");
+
+      $stmt->bindParam(":fecha_visita", $datos['fecha_visita'], PDO::PARAM_STR);
+      $stmt->bindParam(":idcliente", $datos['idcliente'], PDO::PARAM_INT);
+      $stmt->bindParam(":contacto", $datos['contacto'], PDO::PARAM_STR);
+      $stmt->bindParam(":telefono", $datos['telefono'], PDO::PARAM_STR);
+      $stmt->bindParam(":direccion", $datos['direccion'], PDO::PARAM_STR);
+      $stmt->bindParam(":correo", $datos['correo'], PDO::PARAM_STR);
+      $stmt->bindParam(":idtipo_vehiculo", $datos['idtipo_vehiculo'], PDO::PARAM_INT);
+      $stmt->bindParam(":promedio_vehiculos", $datos['promedio_vehiculo'], PDO::PARAM_STR);
+      $stmt->bindParam(":promedio_tarifa", $datos['promedio_tarifa'], PDO::PARAM_STR);
+      $stmt->bindParam(":proveedor", $datos['proveedor'], PDO::PARAM_STR);
+      $stmt->bindParam(":satisfacion", $datos['satisfacion'], PDO::PARAM_STR);
+      $stmt->bindParam(":fecha_proxima", $datos['fecha_proxima'], PDO::PARAM_STR);
+      $stmt->bindParam(":observaciones", $datos['observaciones'], PDO::PARAM_STR);
+      $stmt->bindParam(":idseguimiento", $datos['idseguimiento'], PDO::PARAM_INT);
+
+      if ($stmt->execute()) {
+         $retorno = "ok";
+      } else {
+         $retorno = "error";
+      }
+
+      return $retorno;
+   }
+
+   /* ===================================================
+      ELIMINAR SEGUIMIENTO CLIENTE 
+   ===================================================*/
+   static public function mdlEliminarSeguimientoCliente($idseguimiento)
+   {
+      $stmt = Conexion::conectar()->prepare("UPDATE cont_seguimiento_clientes SET estado = 0 WHERE idseguimiento = :idseguimiento");
+
+      $stmt->bindParam(":idseguimiento", $idseguimiento, PDO::PARAM_INT);
+
+      if ($stmt->execute()) {
+         $retorno = "ok";
+      } else {
+         $retorno = "error";
+      }
+
+      return $retorno;
+   }
+
+   /* ===================================================
+      GUARDAR LLAMADA CLIENTE 
+   ===================================================*/
+   static public function mdlGuardarLlamada($datos)
+   {
+      $stmt = Conexion::conectar()->prepare("INSERT INTO cont_llamadas(fecha,idcliente,telefono,contacto,fecha_cita,hora,nombre_recibe,telefono_recibe,observacion) 
+                                             VALUES(:fecha,:idcliente,:telefono,:contacto,:fecha_cita,:hora,:nombre_recibe,:telefono_recibe,:observacion)");
+
+      $stmt->bindParam(":fecha", $datos['fecha'], PDO::PARAM_STR);
+      $stmt->bindParam(":idcliente", $datos['idcliente'], PDO::PARAM_INT);
+      $stmt->bindParam(":telefono", $datos['telefono1'], PDO::PARAM_STR);
+      $stmt->bindParam(":contacto", $datos['contacto'], PDO::PARAM_STR);
+      $stmt->bindParam(":fecha_cita", $datos['fecha_cita'], PDO::PARAM_STR);
+      $stmt->bindParam(":hora", $datos['hora'], PDO::PARAM_STR);
+      $stmt->bindParam(":nombre_recibe", $datos['nombre'], PDO::PARAM_STR);
+      $stmt->bindParam(":telefono_recibe", $datos['telefono2'], PDO::PARAM_STR);
+      $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
+
+      if ($stmt->execute()) {
+         $retorno = "ok";
+      } else {
+         $retorno = "error";
+      }
+
+      return $retorno;
+   }
+
+   /* ===================================================
+      LISTA LLAMADAS CLIENTES 
+   ===================================================*/
+   static public function mdlListaLlamadas()
+   {
+      $stmt = Conexion::conectar()->prepare("SELECT l.*, c.idcliente, c.nombre, DATE_FORMAT(l.fecha,'%d/%m/%Y') AS Ffecha, DATE_FORMAT(l.fecha_cita,'%d/%m/%Y') AS Ffecha_cita FROM cont_llamadas l 
+      INNER JOIN cont_clientes c ON l.idcliente = c.idcliente
+      WHERE l.estado = 1");
+
+      $stmt->execute();
+      $retorno = $stmt->fetchAll();
+      $stmt->closeCursor();
+
+      return $retorno;
+   }
+
+   /* ===================================================
+      DATOS DE LLAMADA POR ID 
+   ===================================================*/
+   static public function mdlDatosLlamada($id)
+   {
+      $stmt = Conexion::conectar()->prepare("SELECT l.*, c.idcliente, c.nombre, DATE_FORMAT(l.fecha,'%d/%m/%Y') AS Ffecha, DATE_FORMAT(l.fecha_cita,'%d/%m/%Y') AS Ffecha_cita FROM cont_llamadas l 
+      INNER JOIN cont_clientes c ON l.idcliente = c.idcliente
+      WHERE l.idseguimiento_llamada = :idseguimiento_llamada");
+
+      $stmt->bindParam(":idseguimiento_llamada", $id, PDO::PARAM_INT);
+
+      $stmt->execute();
+      $retorno = $stmt->fetch();
+      $stmt->closeCursor();
+
+      return $retorno;
+   }
+
+   /* ===================================================
+      ELIMINAR LLAMADA 
+   ===================================================*/
+   static public function mdlEliminarLlamda($id)
+   {
+      $stmt = Conexion::conectar()->prepare("UPDATE cont_llamadas SET estado = 0 WHERE idseguimiento_llamada = :idseguimiento_llamada");
+
+      $stmt->bindParam(":idseguimiento_llamada", $id, PDO::PARAM_INT);
+      
+
+      if ($stmt->execute()) {
+         $retorno = "ok";
+      } else {
+         $retorno = "error";
+      }
+
+      return $retorno;
+   }
+
+   /* ===================================================
+      EDITAR LLAMADA
+   ===================================================*/
+   static public function mdlActualizarLlamada($datos)
+   {
+      $stmt = Conexion::conectar()->prepare("UPDATE cont_llamadas SET fecha = :fecha,
+      idcliente = :idcliente, telefono = :telefono, contacto = :contacto, fecha_cita = :fecha_cita, hora = :hora,
+      nombre_recibe = :nombre_recibe, telefono_recibe = :telefono_recibe, observacion = :observacion
+      WHERE idseguimiento_llamada = :idseguimiento_llamada");
+
+      $stmt->bindParam(":idseguimiento_llamada", $datos['idllamada'], PDO::PARAM_INT);
+      $stmt->bindParam(":fecha", $datos['fecha'], PDO::PARAM_STR);
+      $stmt->bindParam(":idcliente", $datos['idcliente'], PDO::PARAM_INT);
+      $stmt->bindParam(":telefono", $datos['telefono1'], PDO::PARAM_STR);
+      $stmt->bindParam(":contacto", $datos['contacto'], PDO::PARAM_STR);
+      $stmt->bindParam(":fecha_cita", $datos['fecha_cita'], PDO::PARAM_STR);
+      $stmt->bindParam(":hora", $datos['hora'], PDO::PARAM_STR);
+      $stmt->bindParam(":nombre_recibe", $datos['nombre'], PDO::PARAM_STR);
+      $stmt->bindParam(":telefono_recibe", $datos['telefono2'], PDO::PARAM_STR);
+      $stmt->bindParam(":observacion", $datos['observacion'], PDO::PARAM_STR);
+
+      if ($stmt->execute()) {
+         $retorno = "ok";
+      } else {
+         $retorno = "error";
+      }
 
       return $retorno;
    }
@@ -668,7 +924,8 @@ class ModeloFijos
    /* ===================================================
       VEHICULOS PARA UN CLIENTE 
    ===================================================*/
-   static public function mdlVehiculosxCliente($idcliente){
+   static public function mdlVehiculosxCliente($idcliente)
+   {
       $stmt = Conexion::conectar()->prepare("SELECT vc.*, v.placa, v.numinterno, c.nombre FROM cont_clientesvehiculos vc
                                              INNER JOIN v_vehiculos v ON vc.idvehiculo = v.idvehiculo
                                              INNER JOIN cont_clientes c ON vc.idcliente = c.idcliente
@@ -701,8 +958,6 @@ class ModeloFijos
       $stmt = null;
       return $retorno;
    }
-
-
 }
 /* ===================================================
    * ORDEN DE SERVICIO
