@@ -4586,7 +4586,6 @@ $(document).ready(function () {
         };
         //FUNCION para cargar los datos de la llanta seleccionada
         const cargarDatosLLanta = (id) => {
-            console.log("entra");
             var datos = new FormData();
             datos.append("datosProducto", "ok");
             datos.append("item", "idproducto");
@@ -4612,7 +4611,7 @@ $(document).ready(function () {
                             $("#marca").val(response.idmarca);
                             $("#categoria").val(response.idcategoria);
                             $("#medida").val(response.idmedida);
-                        }, 3000);
+                        }, 1000);
                     }
                 },
             });
@@ -5147,13 +5146,12 @@ $(document).ready(function () {
             }  
         }); 
         //Guardar datos de la orden de trabajo
-        $("#formulario_orden_trabajo").submit(function (e) {
-            e.preventDefault();
-
+        $(".btn_agregarOrden").on('click',function () {
+            ValidarCamposVacios();
             var datosAjax = new FormData();
             datosAjax.append("generarOrden", "ok");
 
-            var datosFrm = $(this).serializeArray();
+            var datosFrm = $("#formulario_orden_trabajo").serializeArray();
             datosFrm.forEach((element) => {
                 datosAjax.append(element.name, element.value);
             });
@@ -5249,10 +5247,38 @@ $(document).ready(function () {
         });
         //Cambios de modal al seleccionar llanta y traer datos de la llanta seleccionada
         $(document).on("click", ".btn_seleccionarLlanta", function () {
+
             $("#listaLlantas").modal("hide");
             $("#registro-llantas").modal("show");
             let idproducto = $(this).attr("idproducto");
             cargarDatosLLanta(idproducto);
+            // var datos = new FormData();
+            // datos.append("ValidarLLantaMontada", "ok");
+            // datos.append("idproducto", idproducto);
+
+            // $.ajax({ 
+            //     type: "post",
+            //     url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+            //     data: datos,
+            //     cache: false,
+            //     contentType: false,
+            //     processData: false,
+            //     dataType: "json",
+            //     success: function (response) {
+            //         if (response != "") {
+            //             Swal.fire({
+            //                 icon: "warning",
+            //                 title: "La llanta ya se encuentra montada.",
+            //                 text: "Seleccione otra llanta.",
+            //                 showConfirmButton: true,
+            //                 confirmButtonText: "Cerrar",
+            //                 closeOnConfirm: false,
+            //             })
+            //         } else {
+            //             cargarDatosLLanta(idproducto);
+            //         }
+            //     },
+            // });   
         });
         //ELIMINAR ORDEN DE TRABAJO, LOGICO
         $(document).on("click", ".btn_EliminarOrdenControl", function () {
@@ -5300,6 +5326,135 @@ $(document).ready(function () {
                 }
             });
         });
-        
+        //EDITAR ULTIMO CONTROL DE CADA LLANTA
+        $(document).on("click", ".btn_editar_orden", function () {
+
+            let idcontrol = $(this).attr("idcontrol");
+            let idllanta = $(this).attr("idllanta");
+            let idorden = $(this).attr("idorden");
+
+            $("#editar_id_orden").val(idorden);
+            $("#editar_id_control").val(idcontrol);
+
+            var datos = new FormData();
+            datos.append("datosOrdenxLlanta", "ok");
+            datos.append("idcontrol", idcontrol);
+            datos.append("idllanta", idllanta);
+            datos.append("idorden", idorden);
+
+            $.ajax({
+                type: "POST",
+                url: "ajax/mantenimiento.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+
+                        $("#editarOrdenTrabajo-title").html("Actualizar último control de llanta " + response.num_llanta);
+
+                        $("#editar_id_llanta").val(response.idllanta);
+                        $("#editar_fecha_orden").val(response.fecha_orden);
+                        $("#editar_prof1").val(response.profundidad1);
+                        $("#editar_prof2").val(response.profundidad2);
+                        $("#editar_prof3").val(response.profundidad3);
+                        $("#editar_promedio").val(response.promedio);
+                        $("#editar_presion").val(response.presion);
+                        $("#editar_banda").val(response.banda);
+                        $("#editar_ubicacion_actual").val(response.nueva_posicion);
+                    }
+                },
+            });            
+        });
+        //SUBMIT DEL FORMULARIO AL EDITAR EL ULTIMO CONTROL DE CADA LLANTA
+        $("#actualizar_datosLlanta_orden").submit(function (e) { 
+            e.preventDefault();
+            var datosAjax = new FormData();
+            datosAjax.append("ActualizarDatosLLanta_orden", "ok");
+
+            var datosFrm = $(this).serializeArray();
+            datosFrm.forEach((element) => {
+                datosAjax.append(element.name, element.value);
+            });
+
+            $.ajax({
+                type: "post",
+                url: `${urlPagina}ajax/mantenimiento.ajax.php`,
+                data: datosAjax,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "Ultimo Control actualizado con éxito.",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                            closeOnConfirm: false,
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location = "m-control-llantas";
+                            }
+                        });
+                    }
+                },
+            });
+            
+        });
+
+        $("#formulario_orden_trabajo input.validar_input").change(function () {
+            var validar = true;
+            $.each($("#formulario_orden_trabajo input.validar_input"), function (index, value) {
+                if(!$(value).val()){
+                   validar = false;
+                }
+            });
+
+            console.log(validar);
+
+            // if(!validar){
+            //     $("submitButton").attr("required", false);
+            // } 
+        });
+
+        var ValidarCamposVacios = () => {
+
+            // var consecutivo = 1;
+
+            // $.each($(`#formulario_orden_trabajo input.validar_input`), function (index, value) {
+            //     // if(!$(value).val()){
+            //     //     console.log("vacios");
+            //     //     console.log(consecutivo);
+            //     //     $(`validar_input${consecutivo}`).removeAttr("required");
+            //     // } else {
+            //     //     console.log("valores");
+            //     //     console.log(consecutivo);
+            //     //     $(`validar_input${consecutivo}`).attr("required");
+            //     // }
+            //     // consecutivo++;
+            //     var consecutivo = $(".validar_input").attr("consecutivo");
+
+            //     if(!$(value).val()){
+            //         $(`consecutivo_${consecutivo}`).removeAttr("required");
+            //     } else {
+            //         $(`consecutivo_${consecutivo}`).attr("required");
+            //     }    
+            // });
+            let consecutivo;
+            $("input:required").each(function (index, element) {
+                
+                consecutivo = $(this).attr("consecutivo");
+                console.log(consecutivo);
+                if($(`.consecutivo_${consecutivo}`).val() != ""){
+
+                    $(`.consecutivo_${consecutivo}`).attr("required", true);
+                } else {
+                    $(`.consecutivo_${consecutivo}`).attr("required", false);
+                }
+            });
+        }  
     }
 });
