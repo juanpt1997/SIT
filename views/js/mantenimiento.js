@@ -4518,8 +4518,8 @@ $(document).ready(function () {
 
                     var buttons = [
                         {
-                            extend: "excel",
-                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
+                            extend: "",
+                            className: 'border-0 bg-gradient-olive excel-control-llantas', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
                     
@@ -5521,5 +5521,10 @@ $(document).ready(function () {
                 }
             }
         }); 
+
+        $(document).on("click", ".excel-control-llantas", function () {
+            let urlRerport = `${urlPagina}/ajax/mantenimiento.ajax.php?ExcelControlLlantas=ok`;
+            window.location = urlRerport;
+        });
     }
 });

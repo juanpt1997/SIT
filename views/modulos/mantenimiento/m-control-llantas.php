@@ -172,6 +172,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                             <thead>
                                                 <tr>
                                                     <th>Núm. Orden</th>
+                                                    <th>Acciones</th>
                                                     <th>ID llanta</th>
                                                     <th>Núm. Llanta</th>
                                                     <th>Ubicación anterior</th>

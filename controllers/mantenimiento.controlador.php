@@ -1654,4 +1654,139 @@ class ControladorLlantasControl
 			}
 		}
 	}
+
+	static public function ctrExcelControlLLantas()
+	{
+		$respuesta = ModeloControlLlantas::mdlListarOrdenes();
+		$empresa = ModeloEmpresaRaiz::mdlVerEmpresa();
+
+		$documento = new Spreadsheet();
+		$documento
+			->getProperties()
+			->setCreator("{$empresa['razon_social']}")
+			->setLastModifiedBy("{$_SESSION['cedula']}") // última vez modificado por
+			->setTitle("{$empresa['razon_social']}")
+			->setSubject("{$empresa['razon_social']}" . 'CONTROL DE LLANTAS')
+			->setDescription("{$empresa['razon_social']}")
+			->setKeywords('control actividades EXCEL php')
+			->setCategory("{$empresa['razon_social']}");
+
+		$documento->getActiveSheet()->setTitle('CONTROL DE LLANTAS'); // NOMBRE A LA HOJA
+		$rangoColumnas = 'A1:AA1';
+		$documento->getActiveSheet()->getStyle($rangoColumnas)->getFont()->setBold(true)->setSize(14); # LA PRIMERA FILA EN NEGRITA
+
+		//APLICAMOS AUTOFILTER
+		$documento->getActiveSheet()->setAutoFilter($rangoColumnas);
+		$sheet = $documento->getActiveSheet();
+
+		$sheet->setTitle("CONTROL DE LLANTAS");
+
+		# Bordes de la primera fila
+		$sheet->getStyle($rangoColumnas)->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+
+
+
+		$sheet->getColumnDimension('A')->setAutoSize(true);
+		$sheet->getStyle('A')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('A1', 'N° Orden');
+
+		$sheet->getColumnDimension('B')->setAutoSize(true);
+		$sheet->getStyle('B')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('B1', 'ID Llanta');
+
+		$sheet->getColumnDimension('C')->setAutoSize(true);
+		$sheet->getStyle('C')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('C1', 'NÚM. Llanta');
+
+		$sheet->getColumnDimension('D')->setAutoSize(true);
+		$sheet->getStyle('D')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('D1', 'Ubicación anterior');
+
+		$sheet->getColumnDimension('E')->setAutoSize(true);
+		$sheet->getStyle('E')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('E1', 'Ubicación actual');
+
+		$sheet->getColumnDimension('F')->setAutoSize(true);
+		$sheet->getStyle('F')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('F1', 'Fecha orden');
+
+		$sheet->getColumnDimension('G')->setAutoSize(true);
+		$sheet->getStyle('G')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('G1', 'Placa del vehículo');
+
+		$sheet->getColumnDimension('H')->setAutoSize(true);
+		$sheet->getStyle('H')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('H1', 'Núm. Interno');
+
+		$sheet->getColumnDimension('I')->setAutoSize(true);
+		$sheet->getStyle('I')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('I1', 'Alineación');
+
+		$sheet->getColumnDimension('J')->setAutoSize(true);
+		$sheet->getStyle('J')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('J1', 'Kilometraje de inspección');
+
+		$sheet->getColumnDimension('K')->setAutoSize(true);
+		$sheet->getStyle('K')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('K1', 'Proveedor de servicio');
+
+		$sheet->getColumnDimension('L')->setAutoSize(true);
+		$sheet->getStyle('L')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('L1', 'Promedio de profundidad (mm)');
+
+		$sheet->getColumnDimension('M')->setAutoSize(true);
+		$sheet->getStyle('M')->getAlignment()->setHorizontal('center');
+		$sheet->setCellValue('M1', 'Presión de aire');
+
+		$fila = 2; //fila en donde se incia a mostrar los datos en excel
+		foreach ($respuesta as $key => $value) {
+
+
+			if ($value['posicion_anterior'] == 0) {
+				$llantaAnterior = "Repuesto";
+			} else {
+				$llantaAnterior = $value['posicion_anterior'];
+			}
+
+			if ($value['nueva_posicion'] == 0) {
+				$nuevaLlanta = "Repuesto";
+			} else {
+				$nuevaLlanta = $value['nueva_posicion'];
+			}
+
+
+			# Lleno el excel
+			$sheet->setCellValue('A' . $fila, $value['idorden']);
+			$sheet->setCellValue('B' . $fila, $value['idllanta']);
+			$sheet->setCellValue('C' . $fila, $value['num_llanta']);
+			$sheet->setCellValue('D' . $fila, $llantaAnterior);
+			$sheet->setCellValue('E' . $fila, $nuevaLlanta);
+			$sheet->setCellValue('F' . $fila, $value['fecha_orden']);
+			$sheet->setCellValue('G' . $fila, $value['placa']);
+			$sheet->setCellValue('H' . $fila, $value['numinterno']);
+			$sheet->setCellValue('I' . $fila, $value['alineacion']);
+			$sheet->setCellValue('J' . $fila, $value['km_inspeccion']);
+			$sheet->setCellValue('K' . $fila, $value['razon_social']);
+			$sheet->setCellValue('L' . $fila, $value['promedio']);
+			$sheet->setCellValue('M' . $fila, $value['presion']);
+
+			$fila++;
+		}
+
+		$nombre_reporte = "CONTROL DE LLANTAS" . date('Y-m-d g:i A') . ".xlsx";
+		/*
+                * Los siguientes encabezados son necesarios para que
+                * el navegador entienda que no le estamos mandando
+                * simple HTML
+                * Por cierto: no hagas ningún echo ni cosas de esas; es decir, no imprimas nada
+            */
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment;filename="' . $nombre_reporte . '"');
+		header('Cache-Control: max-age=0');
+
+		$writer = IOFactory::createWriter($documento, 'Xlsx');
+		$writer->save('php://output');
+		exit;
+
+	}
 }

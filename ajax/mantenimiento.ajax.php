@@ -1803,6 +1803,17 @@ class AjaxLlantasControl
 
 
                         $tr .= "<tr>
+                                    <td>
+                                        <div class='btn-group' role='group' aria-label='Button group'>
+                                            <button title='Actualizar último control / Cambiar ubicación llanta' data-toggle='modal' idcontrol='{$respuesta[$cont]["idcontrol"]}' idllanta='{$respuesta[$cont]["idllanta"]}' idorden='{$respuesta[$cont]["idorden"]}' data-target='#editarOrdenTrabajo' class='btn btn-sm bg-gradient-info btn_editar_orden'><i class='fas fa-edit'></i></button>
+                                        </div>
+                                        <div class='btn-group' role='group' aria-label='Button group'>
+                                            <button title='Ver trabajos realizados en llanta' class='btn btn-sm bg-gradient-olive btn_trabajos_realizados' idcontrol='{$respuesta[$cont]["idcontrol"]}' idllanta='{$respuesta[$cont]["idllanta"]}' data-toggle='modal' data-target='#HistorialTrabajos'><i class='fas fa-briefcase'></i></button>
+                                        </div>
+                                        <div class='btn-group' role='group' aria-label='Button group'>
+                                            <button title='Eliminar último control' class='btn btn-sm bg-gradient-danger btn_EliminarOrdenControl' idcontrol='{$respuesta[$cont]["idcontrol"]}'><i class='fas fa-trash'></i></button>
+                                        </div>
+                                    </td>
                                     <td>" .$respuesta[$cont]["idllanta"]."</td>
                                     <td>" .$respuesta[$cont]["num_llanta"]."</td>
                                     <td>" .$llantaAnterior."</td>
@@ -1836,7 +1847,17 @@ class AjaxLlantasControl
                 } else {
                     $nuevaLlanta = $respuesta[$cont]['nueva_posicion'];
                 }
-
+                $tr .=  "<td>
+                            <div class='btn-group' role='group' aria-label='Button group'>
+                                <button title='Actualizar último control / Cambiar ubicación llanta' data-toggle='modal' idcontrol='{$respuesta[$cont]["idcontrol"]}' idllanta='{$respuesta[$cont]["idllanta"]}' idorden='{$respuesta[$cont]["idorden"]}' data-target='#editarOrdenTrabajo' class='btn btn-sm bg-gradient-info btn_editar_orden'><i class='fas fa-edit'></i></button>
+                            </div>
+                            <div class='btn-group' role='group' aria-label='Button group'>
+                                <button title='Ver trabajos realizados en llanta' class='btn btn-sm bg-gradient-olive btn_trabajos_realizados' idcontrol='{$respuesta[$cont]["idcontrol"]}' idllanta='{$respuesta[$cont]["idllanta"]}' data-toggle='modal' data-target='#HistorialTrabajos'><i class='fas fa-briefcase'></i></button>
+                            </div>
+                            <div class='btn-group' role='group' aria-label='Button group'>
+                                <button title='Eliminar último control' class='btn btn-sm bg-gradient-danger btn_EliminarOrdenControl' idcontrol='{$respuesta[$cont]["idcontrol"]}'><i class='fas fa-trash'></i></button>
+                            </div>
+                        </td>";
                 $tr .="<td>".$respuesta[$cont]["idllanta"]."</td>";
                 $tr .="<td>".$respuesta[$cont]["num_llanta"]."</td>";
                 $tr .="<td>".$llantaAnterior."</td>";
@@ -1964,6 +1985,19 @@ class AjaxLlantasControl
     {
         $respuesta = ModeloControlLlantas::mdlVerificarllantaMontada($idproducto);
         echo json_encode($respuesta);
+    }
+
+    static public function ajaxExcelControlLlantas()
+    {
+        # AUTOLOAD
+        require_once DIR_APP . 'vendor/autoload.php';
+
+
+        # Requiero los modelos
+        require_once DIR_APP . 'models/mantenimiento.modelo.php';
+        require_once DIR_APP . 'models/conceptos.modelo.php';
+
+        ControladorLlantasControl::ctrExcelControlLLantas();
     }
 }
 /* ===================================================
@@ -2178,3 +2212,6 @@ if (isset($_POST['ActualizarDatosLLanta_orden']) && $_POST['ActualizarDatosLLant
 if (isset($_POST['ValidarLLantaMontada']) && $_POST['ValidarLLantaMontada'] == "ok") {
     AjaxLlantasControl::ajaxValidarLlantaMontada($_POST['idproducto']);
 }
+
+#LLAMADO A EXPORTAR EXCEL CONTROL DE LLANTAS
+if (isset($_GET['ExcelControlLlantas']) && $_GET['ExcelControlLlantas'] == "ok") AjaxLlantasControl::ajaxExcelControlLlantas();
