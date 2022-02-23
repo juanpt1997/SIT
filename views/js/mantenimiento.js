@@ -4522,7 +4522,89 @@ $(document).ready(function () {
                             className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
                         },
                     ];
-                    var table = dataTableCustom(`#tabla_controlOrdenes`, buttons);
+                    
+                    //var table = dataTableCustom(`#tabla_controlOrdenes`, buttons);
+
+                    var table = $("#tabla_controlOrdenes").DataTable({
+                        dom:
+                            "<'row'<'col-12 text-right'B>>" +
+                            "<'row mt-1'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>>" +
+                            "<'row'<'col-sm-12'tr>>" +
+                            "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+                        buttons: buttons,
+                        orderCellsTop: true,
+                        fixedHeader: true,
+                        order: [],
+                        language: {
+                            sProcessing: "Procesando...",
+                            sLengthMenu: "Mostrar _MENU_ registros",
+                            sZeroRecords: "No se encontraron resultados",
+                            sEmptyTable: "Ningún dato disponible en esta tabla",
+                            sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                            sInfoEmpty:
+                                "Mostrando registros del 0 al 0 de un total de 0",
+                            sInfoFiltered:
+                                "<div class='small'>(filtrado de un total de _MAX_ registros)</div>",
+                            sInfoPostFix: "",
+                            sSearch: "Buscar:",
+                            sUrl: "",
+                            sInfoThousands: ",",
+                            sLoadingRecords: "Cargando...",
+                            oPaginate: {
+                                sFirst: "Primero",
+                                sLast: "Último",
+                                sNext: "Siguiente",
+                                sPrevious: "Anterior",
+                            },
+                            oAria: {
+                                sSortAscending:
+                                    ": Activar para ordenar la columna de manera ascendente",
+                                sSortDescending:
+                                    ": Activar para ordenar la columna de manera descendente",
+                            },
+                        },
+                        lengthMenu: [
+                            [10, 25, 50, 75, -1],
+                            [10, 25, 50, 75, "Todo"],
+                        ],
+                        fnDrawCallback: function () {
+                            $table = $(this);
+
+                            // only apply this to specific tables
+                            if ($table.closest(".datatable-multi-row").length) {
+                                // for each row in the table body...
+                                $table.find("tbody>tr").each(function () {
+                                    var $tr = $(this);
+
+                                    // get the "extra row" content from the <script> tag.
+                                    // note, this could be any DOM object in the row.
+                                    var extra_row = $tr
+                                        .find(".extra-row-content")
+                                        .html();
+
+                                    // in case draw() fires multiple times,
+                                    // we only want to add new rows once.
+                                    if (!$tr.next().hasClass("dt-added")) {
+                                        $tr.after(extra_row);
+                                        $tr.find("td").each(function () {
+                                            // for each cell in the top row,
+                                            // set the "rowspan" according to the data value.
+                                            var $td = $(this);
+                                            var rowspan = parseInt(
+                                                $td.data(
+                                                    "datatable-multi-row-rowspan"
+                                                ),
+                                                10
+                                            );
+                                            if (rowspan) {
+                                                $td.attr("rowspan", rowspan);
+                                            }
+                                        });
+                                    }
+                                });
+                            } // end if the table has the proper class
+                        }, // end fnDrawCallback()
+                    });
                 },
             });
         };
@@ -5146,12 +5228,13 @@ $(document).ready(function () {
             }  
         }); 
         //Guardar datos de la orden de trabajo
-        $(".btn_agregarOrden").on('click',function () {
-            ValidarCamposVacios();
+        $("#formulario_orden_trabajo").submit(function (e) {
+
+            e.preventDefault();
             var datosAjax = new FormData();
             datosAjax.append("generarOrden", "ok");
 
-            var datosFrm = $("#formulario_orden_trabajo").serializeArray();
+            var datosFrm = $(this).serializeArray();
             datosFrm.forEach((element) => {
                 datosAjax.append(element.name, element.value);
             });
@@ -5404,57 +5487,39 @@ $(document).ready(function () {
             });
             
         });
-
-        $("#formulario_orden_trabajo input.validar_input").change(function () {
-            var validar = true;
-            $.each($("#formulario_orden_trabajo input.validar_input"), function (index, value) {
-                if(!$(value).val()){
-                   validar = false;
-                }
-            });
-
-            console.log(validar);
-
-            // if(!validar){
-            //     $("submitButton").attr("required", false);
-            // } 
+        //Verificar si en la orden de trabajo una llanta será registrada como control (si es asi habilitará los campos requeridos siempre que un input tenga datos, si no, los campos dejaran de ser requeridos)
+        $(document).on("blur", ".validar_input", function () {
+            const consecutivo = $(this).attr("consecutivo");
+            
+            if ($(this).val() != ""){
+                $(`.consecutivo_${consecutivo}`).attr("required", "required");
+            }else{
+                $(`.consecutivo_${consecutivo}`).removeAttr("required");
+                $(`.consecutivo_${consecutivo}`).each(function() {
+                    if ($(this).val() != ""){
+                        $(`.consecutivo_${consecutivo}`).attr("required", "required");
+                    }
+                })
+            }
         });
+        //CALCULAR promedio en editar la orden (se hace una funcion diferente ya que son inputas distintos y conlleva consecutivo)
+        $(document).on("keyup", ".calcular2", function () {
+            
+            if($(this).val()){
+                let val1 = $("#editar_prof1").val();
+                let val2 = $("#editar_prof2").val();
+                let val3 = $("#editar_prof3").val();
+                var n = 0;
+                n += val1 != "" ? 1 : 0;
+                n += val2 != "" ? 1 : 0;
+                n += val3 != "" ? 1 : 0;
 
-        var ValidarCamposVacios = () => {
-
-            // var consecutivo = 1;
-
-            // $.each($(`#formulario_orden_trabajo input.validar_input`), function (index, value) {
-            //     // if(!$(value).val()){
-            //     //     console.log("vacios");
-            //     //     console.log(consecutivo);
-            //     //     $(`validar_input${consecutivo}`).removeAttr("required");
-            //     // } else {
-            //     //     console.log("valores");
-            //     //     console.log(consecutivo);
-            //     //     $(`validar_input${consecutivo}`).attr("required");
-            //     // }
-            //     // consecutivo++;
-            //     var consecutivo = $(".validar_input").attr("consecutivo");
-
-            //     if(!$(value).val()){
-            //         $(`consecutivo_${consecutivo}`).removeAttr("required");
-            //     } else {
-            //         $(`consecutivo_${consecutivo}`).attr("required");
-            //     }    
-            // });
-            let consecutivo;
-            $("input:required").each(function (index, element) {
-                
-                consecutivo = $(this).attr("consecutivo");
-                console.log(consecutivo);
-                if($(`.consecutivo_${consecutivo}`).val() != ""){
-
-                    $(`.consecutivo_${consecutivo}`).attr("required", true);
-                } else {
-                    $(`.consecutivo_${consecutivo}`).attr("required", false);
+                if(val1 != "" || val2 != "" || val3 != ""){
+                    let sum = (Number(val1)+Number(val2)+Number(val3));
+                    let prom = sum/n;
+                    $("#editar_promedio").val(prom.toFixed(2));
                 }
-            });
-        }  
+            }
+        }); 
     }
 });

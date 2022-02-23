@@ -168,10 +168,9 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
                                     <div class="table-responsive">
-                                        <table class="table table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_controlOrdenes">
+                                        <table class="datatable-multi-row table table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_controlOrdenes">
                                             <thead>
                                                 <tr>
-                                                    <th>...</th>
                                                     <th>Núm. Orden</th>
                                                     <th>ID llanta</th>
                                                     <th>Núm. Llanta</th>

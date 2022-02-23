@@ -1600,48 +1600,58 @@ class ControladorLlantasControl
 				'alineacion' => $datos['alineacion']
 			));
 
-			foreach ($datos['llanta'] as $value) {
-				if ($value != "") {
-					$datosLlanta['idorden'] = $idorden;
-					$datosLlanta['idllanta'] = intval($value);
-					$datosLlanta['kilo_inspeccion'] = $datos['kilo_orden'];
-					$datosLlanta['prof1'] = $datos['prof1'][$count];
-					$datosLlanta['prof2'] = $datos['prof2'][$count];
-					$datosLlanta['prof3'] = $datos['prof3'][$count];
-					$datosLlanta['promedio'] = $datos['promedio'][$count];
-					$datosLlanta['presion'] = $datos['presion'][$count];
-					$datosLlanta['banda'] = $datos['banda'][$count];
-					//$datosLlanta['alineacion'] = $datos['alineacion'];
-					$datosLlanta['fecha_orden'] = $datos['fecha_orden'];
-					$datosLlanta['posicion_inicial'] = $datos['posicion_inicial'][$count];
-					//Creamos un array concatenando el numero consecutivo para cada input y asi se puede saber que posicion final se esta recorriendo
-					$posicionFinalConsecutivo = 'posicion' . ($count + 1);
-					//Hacemos la busqueda dentro del array de POST con la cadena concatenada
-					$datosLlanta['posicion_final'] = $datos[$posicionFinalConsecutivo][0];
-					$datosLlanta['usuario'] = $_SESSION['cedula'];
-					//Actualilzamos la posicion de la llanta en caso de que haya cambiado
-					$update = ModeloControlLlantas::mdlActualizarPosicionLLanta(intval($value), $datos[$posicionFinalConsecutivo][0], $_SESSION['cedula']);
-					//GUARDAMOS EL ID al agregar
-					$idcontrol = ModeloControlLlantas::mdlAgregarLlantaOrden($datosLlanta);
-					//Creamos un array concatenando el numero consecutivo para cada input y asi se puede saber que trabajo se esta recorriendo
-					$trabajosConsecutivo = 'trabajos' . ($count + 1);
-					//aumentamos el indice
-					$count++;
-					//Eliminamos trabajos antes de agregar para evitar la bsuqueda
-					//$eliminarTrabajo = ModeloControlLlantas::mdlEliminarTrabajos($idorden);
-					foreach ($datos[$trabajosConsecutivo] as $value) {
-						ModeloControlLlantas::mdlRegistrarTrabajos(array('idorden' => $idcontrol, 'trabajo' => intval($value)));
+			if ($idorden != "" || $idorden != 'error') {
+				foreach ($datos['llanta'] as $value) {
+					if ($value != "") {
+
+						if (!empty($datos['prof1'][$count]) && !empty($datos['prof2'][$count]) && !empty($datos['prof3'][$count])) {
+
+							$datosLlanta['idorden'] = $idorden;
+							$datosLlanta['idllanta'] = intval($value);
+							$datosLlanta['kilo_inspeccion'] = $datos['kilo_orden'];
+							$datosLlanta['prof1'] = $datos['prof1'][$count];
+							$datosLlanta['prof2'] = $datos['prof2'][$count];
+							$datosLlanta['prof3'] = $datos['prof3'][$count];
+							$datosLlanta['promedio'] = $datos['promedio'][$count];
+							$datosLlanta['presion'] = $datos['presion'][$count];
+							$datosLlanta['banda'] = $datos['banda'][$count];
+							//$datosLlanta['alineacion'] = $datos['alineacion'];
+							$datosLlanta['fecha_orden'] = $datos['fecha_orden'];
+							$datosLlanta['posicion_inicial'] = $datos['posicion_inicial'][$count];
+							//Creamos un array concatenando el numero consecutivo para cada input y asi se puede saber que posicion final se esta recorriendo
+							$posicionFinalConsecutivo = 'posicion' . ($count + 1);
+							//validar que venga una posicion final, en dado caso de que si guardarla, si no enviar null
+							if(isset($datos[$posicionFinalConsecutivo][0])){
+								$datosLlanta['posicion_final'] = $datos[$posicionFinalConsecutivo][0];
+							} else {
+								$datosLlanta['posicion_final'] = $datosLlanta['posicion_inicial'];
+							}
+							//Hacemos la busqueda dentro del array de POST con la cadena concatenada
+							//$datosLlanta['posicion_final'] = $datos[$posicionFinalConsecutivo][0];
+							$datosLlanta['usuario'] = $_SESSION['cedula'];
+							//Actualilzamos la posicion de la llanta en caso de que haya cambiado
+							$updatePosicion = ModeloControlLlantas::mdlActualizarPosicionLLanta(intval($value), $datosLlanta['posicion_final'], $_SESSION['cedula']);
+							//GUARDAMOS EL ID al agregar
+							$idcontrol = ModeloControlLlantas::mdlAgregarLlantaOrden($datosLlanta);
+							//Creamos un array concatenando el numero consecutivo para cada input y asi se puede saber que trabajo se esta recorriendo
+							$trabajosConsecutivo = 'trabajos' . ($count + 1);
+							//aumentamos el indice
+							$count++;
+							//Eliminamos trabajos antes de agregar para evitar la bsuqueda
+							//$eliminarTrabajo = ModeloControlLlantas::mdlEliminarTrabajos($idorden);
+							foreach ($datos[$trabajosConsecutivo] as $value) {
+								ModeloControlLlantas::mdlRegistrarTrabajos(array('idorden' => $idcontrol, 'trabajo' => intval($value)));
+							}
+						} else {
+							//aumentamos el indice
+							$count++;
+						}
 					}
 				}
+				return 'creado';
+			} else {
+				return 'error';
 			}
-		}
-
-		if($idorden != "" || $idorden != 'error'){
-			return 'creado';
-			
-		} else {
-
-			return 'error';
 		}
 	}
 }
