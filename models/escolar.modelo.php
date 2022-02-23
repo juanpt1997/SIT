@@ -862,7 +862,7 @@ class ModeloEscolar
     ===================================================*/
     static public function mdlClientes()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT * FROM cont_clientes  WHERE idtipo_cliente = 3");
+        $stmt = Conexion::conectar()->prepare("SELECT * FROM cont_clientes  WHERE idsector = 3");
         $stmt->execute();
         $retorno = $stmt->fetchAll();
         $stmt->closeCursor();

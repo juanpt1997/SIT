@@ -11,6 +11,8 @@ $Empresas = ControladorEmpresa::ctrListaEmpresa();
 $clientes = ControladorClientes::ctrVerCliente();
 $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 $Rutas = ControladorRutas::ctrListarRutas();
+$tiposClientes = ControladorClientes::ctrTiposClientes();
+
 ?>
 
 
@@ -289,7 +291,8 @@ $Rutas = ControladorRutas::ctrListarRutas();
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
+
+                        <div class="col-6">
                             <div class="form-group">
                                 <label class="text-sm">Teléfono 1</label>
                                 <div class="input-group input-group-sm">
@@ -297,19 +300,29 @@ $Rutas = ControladorRutas::ctrListarRutas();
                                 </div>
                             </div>
 
+                        </div>
+
+                        <div class="col-6">
+
                             <div class="form-group">
                                 <label class="text-sm">Nombre del responsable</label>
                                 <div class="input-group input-group-sm">
                                     <input class="form-control input-clientes" type="text" id="nom_respo" name="nom_respo" placeholder="Nombre del responsable" maxlength="100" required>
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="col-6">
                             <div class="form-group">
                                 <label class="text-sm">Documento</label>
                                 <div class="input-group input-group-sm">
                                     <input class="form-control input-clientes" type="text" id="docum_respo" name="docum_respo" placeholder="Documento del responsable" maxlength="15" required>
                                 </div>
                             </div>
+
+                        </div>
+
+                        <div class="col-6">
 
                             <div class="form-group">
                                 <label class="text-sm">Ciudad responsable</label>
@@ -323,16 +336,21 @@ $Rutas = ControladorRutas::ctrListarRutas();
                                     </select>
                                 </div>
                             </div>
-
                         </div>
 
-                        <div class="col-md-6">
+
+                        <div class="col-6">
+
                             <div class="form-group">
                                 <label class="text-sm">Teléfono 2</label>
                                 <div class="input-group input-group-sm">
                                     <input class="form-control input-clientes" type="text" id="tel2" name="tel2" placeholder="Ingrese un segundo teléfono" maxlength="10" required>
                                 </div>
                             </div>
+                        </div>
+
+
+                        <div class="col-6">
 
                             <div class="form-group">
                                 <label class="text-sm">Tipo de documento del responsable</label>
@@ -345,7 +363,9 @@ $Rutas = ControladorRutas::ctrListarRutas();
                                     </select>
                                 </div>
                             </div>
+                        </div>
 
+                        <div class="col-6">
                             <div class="form-group">
                                 <label class="text-sm">Cédula expedida en</label>
                                 <div class="input-group input-group-sm">
@@ -358,7 +378,24 @@ $Rutas = ControladorRutas::ctrListarRutas();
                                     </select>
                                 </div>
                             </div>
+
                         </div>
+                        <div class="col-6">
+
+                            <div class="form-group">
+                                <label class="text-sm">Sector</label>
+                                <div class="input-group input-group-sm">
+                                    <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="sectorCliente" name="sectorCliente">
+                                        <option selected value="">-Seleccione el sector-</option>
+                                        <?php foreach ($tiposClientes as $key => $value) : ?>
+                                            <option value="<?= $value['id'] ?>"><?= $value['tipo'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
 
                     <hr class="my-4 bg-dark">
