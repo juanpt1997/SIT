@@ -6,6 +6,106 @@ if (
     window.location.href == `${urlPagina}contratos-clientes`
 ) {
     $(document).ready(function () {
+        const cargarSelect = (nombre) => {
+            let datos = new FormData();
+            datos.append("cargarselect", "ok");
+            datos.append("nombreSelect", nombre);
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/contratos.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $(`#${nombre}`).html(response);
+                    } else {
+                        $(`#${nombre}`).html("");
+                    }
+                },
+            });
+        };
+
+        cargarSelect("listaclientes");
+        cargarSelect("listaclientes2");
+
+        const cargarTablaVisitas = () => {
+            // Quitar datatable
+            $(`#tableSeguimientoClientes`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbdoySeguimientoClientes`).html("");
+
+            var datos = new FormData();
+            datos.append("TablaVisitasClientes", "ok");
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/contratos.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbdoySeguimientoClientes").html(response);
+                    } else {
+                        $("#tbdoySeguimientoClientes").html("");
+                    }
+
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "border-0 bg-gradient-olive",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(
+                        `#tableSeguimientoClientes`,
+                        buttons
+                    );
+                },
+            });
+        };
+
+        const cargarTablaLlamadas = () => {
+            // Quitar datatable
+            $(`#tablaLlamadas`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbodyLlamadas`).html("");
+
+            var datos = new FormData();
+            datos.append("TablaLlamadas", "ok");
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/contratos.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbodyLlamadas").html(response);
+                    } else {
+                        $("#tbodyLlamadas").html("");
+                    }
+
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "border-0 bg-gradient-olive",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(`#tablaLlamadas`, buttons);
+                },
+            });
+        };
+
         $(document).on("click", ".btn-editarcliente", function () {
             AbiertoxEditar = true; // BOOL PARA EVITAR BORRAR DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO NUEVO
 
@@ -42,7 +142,7 @@ if (
                     $("#expedicion").val(response.cedula_expedidaen);
                     $("#docum_respo").val(response.Documentorespons);
                     $("#correo").val(response.correo);
-                    $("#tipocliente").val(response.idtipo_cliente).trigger("change");
+                    $("#tipocliente").val(response.idsector).trigger("change");
                     $(".select2-single").trigger("change"); //MUESTRA EL VALOR DEL SELECT
                 },
             });
@@ -90,6 +190,577 @@ if (
                         Swal.fire({
                             icon: "error",
                             title: "¡Error al actualizar cliente!",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                            closeOnConfirm: false,
+                        });
+                    }
+                },
+            });
+        });
+
+        /*============================================
+            GUARDAR CLIENTE
+        ==============================================*/
+        $("#formularioAgregarclientes").submit(function (e) {
+            e.preventDefault();
+
+            let datosFrm = $(this).serializeArray();
+
+            console.log(datosFrm);
+
+            var datos = new FormData();
+            datos.append("GuardarCliente", "ok");
+
+            datosFrm.forEach((element) => {
+                datos.append(element.name, element.value);
+            });
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/contratos.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "¡Cliente añadido correctamente!",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                        });
+
+                        cargarSelect("listaclientes");
+                    } else if (response == "existe") {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "¡Cliente ya existe!",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "¡Problema al añadir el cliente!",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                        });
+                    }
+                },
+            });
+        });
+
+        /*============================================
+            GUARDAR SEGUIMIENTO CLIENTE 
+        ==============================================*/
+        $("#formularioSeguimientoClientes").submit(function (e) {
+            e.preventDefault();
+
+            let datosFrm = $(this).serializeArray();
+
+            var datos = new FormData();
+
+            datos.append("GuardarSeguimiento", "ok");
+
+            datosFrm.forEach((element) => {
+                datos.append(element.name, element.value);
+            });
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/contratos.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "error") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "¡Seguimiento añadido correctamente!",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                        });
+
+                        $("#formularioSeguimientoClientes").trigger("reset");
+                        $("#listaclientes").val("").trigger("change");
+                        $("#idseguimiento").val("");
+                        $("#satisfacion").val("").trigger("change");
+                        $("#sector").val("").trigger("change");
+                        $("#idtipo_vehiculo").val("").trigger("change");
+                    } else {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "¡Problema al añadir el cliente!",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                        });
+                    }
+                },
+            });
+        });
+
+        /*============================================
+            SELECCIONAN CLIENTE EN SEGUIMIENTO CLIENTES
+        ==============================================*/
+        $(document).on("change", "#listaclientes", function () {
+            let idcliente = $(this).val();
+
+            var datos = new FormData();
+
+            datos.append("DatosClientes", "ok");
+            datos.append("item", "idcliente");
+            datos.append("valor", idcliente);
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/contratos.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    $("#sector").val(response.idsector).trigger("change");
+                    $("#tipificacionClientes")
+                        .val(response.idtipificacion)
+                        .trigger("change");
+                    $("#telefono").val(response.telefono);
+                    $("#direccion").val(response.direccion);
+                    $("#correoClientes").val(response.correo);
+                },
+            });
+        });
+
+        /*============================================
+            SELECCIONAN CLIENTE EN LLAMADAS
+        ==============================================*/
+        $(document).on("change", "#listaclientes2", function () {
+            let idcliente = $(this).val();
+
+            var datos = new FormData();
+
+            datos.append("DatosClientes", "ok");
+            datos.append("item", "idcliente");
+            datos.append("valor", idcliente);
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/contratos.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    $("#telefono1_llamada").val(response.telefono);
+                    $("#correo_llamada").val(response.correo);
+                },
+            });
+        });
+
+        /*============================================
+            CLICK EN AGREGAR VISITA A CLIENTE 
+        ==============================================*/
+        $(document).on("click", ".btn-visitaCliente", function () {
+            $("#formularioSeguimientoClientes").trigger("reset");
+            $("#listaclientes").val("").trigger("change");
+            $("#idseguimiento").val("");
+            $("#satisfacion").val("").trigger("change");
+            $("#sector").val("").trigger("change");
+            $("#idtipo_vehiculo").val("").trigger("change");
+        });
+
+        /*============================================
+            CLICK EN TAB DE SEGUIMIENTOS CLIENTES 
+        ==============================================*/
+        $(document).on("click", "#clientes-tab", function () {
+            cargarTablaVisitas();
+        });
+
+        /*============================================
+            CLICK EN EDITAR SEGUIMIENTO
+        ==============================================*/
+        $(document).on("click", ".btn-editarSeguimiento", function () {
+            let idseguimientoCliente = $(this).attr("idseguimientoCliente");
+            var datos = new FormData();
+
+            datos.append("datosSeguimientoCliente", "ok");
+            datos.append("idseguimientoCliente", idseguimientoCliente);
+
+            $.ajax({
+                type: "post",
+                url: "ajax/contratos.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    $("#idseguimiento").val(response[0].idseguimiento);
+                    $("#fecha_visita").val(response[0].fecha_visita);
+                    $("#listaclientes")
+                        .val(response[0].idcliente)
+                        .trigger("change");
+                    $("#contacto").val(response[0].contacto);
+                    $("#telefono").val(response[0].telefono);
+                    $("#direccion").val(response[0].direccion);
+                    $("#correoClientes").val(response[0].correo);
+                    $("#idtipo_vehiculo")
+                        .val(response[0].idtipo_vehiculo)
+                        .trigger("change");
+                    $("#promedio_vehiculo").val(response[0].promedio_vehiculos);
+                    $("#promedio_tarifa").val(response[0].promedio_tarifa);
+                    $("#proveedor").val(response[0].proveedor);
+                    $("#satisfacion")
+                        .val(response[0].satisfacion)
+                        .trigger("change");
+                    $("#fecha_proxima").val(response[0].fecha_proxima);
+                    $("#observaciones").val(response[0].observaciones);
+                },
+            });
+
+            var datos2 = new FormData();
+            datos2.append("DatosVehiculoxidseguimiento", "ok");
+            datos2.append("idseguimiento", idseguimientoCliente);
+
+            $.ajax({
+                type: "POST",
+                url: "ajax/contratos.ajax.php",
+                data: datos2,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    var vehiculos = [];
+
+                    response.forEach((element) => {
+                        vehiculos.push(element.idtipo_vehiculo);
+                    });
+
+                    $("#idtipo_vehiculo").val(vehiculos).trigger("change");
+                },
+            });
+        });
+
+        /*============================================
+            CLICK EN ELIMINAR SEGUIMIENTO CLIENTE
+        ==============================================*/
+        $(document).on("click", ".btn-eliminarSeguimiento", function () {
+            let idseguimientoCliente = $(this).attr("idseguimientoCliente");
+
+            var datos = new FormData();
+            datos.append("EliminarSeguimientoCliente", "ok");
+            datos.append("idseguimiento", idseguimientoCliente);
+
+            Swal.fire({
+                icon: "warning",
+                showConfirmButton: true,
+                showCancelButton: true,
+                title: "¿Seguro que desea borrar este registro?",
+                confirmButtonText: "SI, borrar",
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: "#ff0000",
+                cancelButtonColor: "#66ff99",
+                allowOutsideClick: false,
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        type: "post",
+                        url: "ajax/contratos.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        // dataType: "json",
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "¡Dato eliminado correctamente!",
+                                    showConfirmButton: true,
+                                    confirmButtonText: "Cerrar",
+                                });
+
+                                cargarTablaVisitas();
+                            } else {
+                                Swal.fire({
+                                    icon: "warning",
+                                    title: "¡Problema al eliminar el dato!",
+                                    showConfirmButton: true,
+                                    confirmButtonText: "Cerrar",
+                                });
+                            }
+                        },
+                    });
+                }
+            });
+        });
+
+        /*============================================
+            GUARDAR LLAMADA 
+        ==============================================*/
+        $("#formularioLlamada").submit(function (e) {
+            e.preventDefault();
+
+            let datosFrm = $(this).serializeArray();
+
+            var datos = new FormData();
+            datos.append("GuardarLlamada", "ok");
+            datosFrm.forEach((element) => {
+                datos.append(element.name, element.value);
+            });
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/contratos.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response == "ok") {
+                        Swal.fire({
+                            icon: "success",
+                            title: "¡Llamada añadida correctamente!",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                        });
+
+                        cargarTablaLlamadas();
+
+                        $("#formularioLlamada").trigger("reset");
+                        $("#listaclientes2").val("").trigger("change");
+                        $("#idllamada").val("");
+                    } else {
+                        Swal.fire({
+                            icon: "warning",
+                            title: "¡Problema al añadir llamada!",
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                        });
+                    }
+                },
+            });
+        });
+
+        /*============================================
+            CLICK EN TAB SEGUIMIENTO LLAMADAS
+        ==============================================*/
+        $(document).on("click", "#llamadas-tab, #visitas-tab", function () {
+            cargarTablaLlamadas();
+        });
+
+        /*============================================
+            CLICK EN EDITAR LLAMADA
+        ==============================================*/
+        $(document).on("click", ".btn-editarLlamada", function () {
+            let idseguimiento_llamada = $(this).attr("idseguimiento_llamada");
+
+            var datos = new FormData();
+            datos.append("DatosLlamada", "ok");
+            datos.append("idseguimiento_llamada", idseguimiento_llamada);
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/contratos.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    $("#idllamada").val(response.idseguimiento_llamada);
+                    $("#fecha_llamada").val(response.fecha);
+                    $("#listaclientes2")
+                        .val(response.idcliente)
+                        .trigger("change");
+                    $("#telefono1_llamada").val(response.telefono);
+                    $("#contacto_llamada").val(response.contacto);
+                    $("#fecha_cita_llamada").val(response.fecha_cita);
+                    $("#hora_llamada").val(response.hora);
+                    $("#nombre_llamada").val(response.nombre_recibe);
+                    $("#telefono2_llamada").val(response.telefono_recibe);
+                    $("#observacion_llamada").val(response.observacion);
+                },
+            });
+        });
+
+        /*============================================
+            ELIMINAR LLAMADA 
+        ==============================================*/
+        $(document).on("click", ".btn-eliminarLlamada", function () {
+            let idseguimiento_llamada = $(this).attr("idseguimiento_llamada");
+
+            var datos = new FormData();
+
+            datos.append("EliminarLlamada", "ok");
+            datos.append("idseguimiento_llamada", idseguimiento_llamada);
+
+            Swal.fire({
+                icon: "warning",
+                showConfirmButton: true,
+                showCancelButton: true,
+                title: "¿Seguro que desea borrar este registro?",
+                confirmButtonText: "SI, borrar",
+                cancelButtonText: "Cancelar",
+                confirmButtonColor: "#ff0000",
+                cancelButtonColor: "#66ff99",
+                allowOutsideClick: false,
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        type: "post",
+                        url: "ajax/contratos.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        // dataType: "json",
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "¡Dato eliminado correctamente!",
+                                    showConfirmButton: true,
+                                    confirmButtonText: "Cerrar",
+                                });
+
+                                cargarTablaLlamadas();
+                            } else {
+                                Swal.fire({
+                                    icon: "warning",
+                                    title: "¡Problema al eliminar el dato!",
+                                    showConfirmButton: true,
+                                    confirmButtonText: "Cerrar",
+                                });
+                            }
+                        },
+                    });
+                }
+            });
+        });
+
+        /*============================================
+            CLICK EN AGREGAR LLAMADA 
+        ==============================================*/
+        $(document).on("click", ".btn-agregarLlamada", function () {
+            $("#formularioLlamada").trigger("reset");
+            $("#listaclientes2").val("").trigger("change");
+            $("#idllamada").val("");
+        });
+
+        /*============================================
+            CAMBIAR TIPIFICACION
+        ==============================================*/
+        $(document).on("click", ".btn-tipificacionCliente", function () {
+            let idcliente = $(this).attr("idcliente");
+
+            Swal.fire({
+                title: `Cambiar estado del cliente`,
+                text: "Seleccione el estado nuevo del cliente",
+                html: `
+                <hr>
+                <label for="">Estados</label>
+                <select class="form-control select2-single" id="estado">
+                        <option selected>--Seleccione un estado--</option>
+                        <option value="actual">Cliente actual</option>
+                        <option value="prospecto">Cliente prospecto</option>
+                        <option value="ocasional">Cliente ocasional</option>
+                        <option value="perfil">Cliente no cumple el perfil</option>
+
+                </select>`,
+                showCancelButton: true,
+                confirmButtonColor: "#5cb85c",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Continuar!",
+                cancelButtonText: "Cancelar",
+            }).then((result) => {
+                if (result.value) {
+                    var estado = $("#estado").val();
+                    var datos = new FormData();
+                    datos.append("ActualizarTipificacion", "ok");
+                    datos.append("idcliente", idcliente);
+                    datos.append("estado", estado);
+
+                    $.ajax({
+                        type: "POST",
+                        url: "ajax/contratos.ajax.php",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        //dataType: "json",
+                        success: function (response) {
+                            if (response == "ok") {
+                                Swal.fire({
+                                    icon: "success",
+                                    showConfirmButton: true,
+                                    title: "¡El dato ha sido actualizado!",
+                                    confirmButtonText: "¡Cerrar!",
+                                    allowOutsideClick: false,
+                                }).then((result) => {
+                                    window.location = "contratos-clientes";
+                                });
+                            }
+                        },
+                    });
+                }
+            });
+        });
+
+        /*============================================
+            CLICK EN VER TIPO DE VEHÍCULOS
+        ==============================================*/
+        $(document).on("click", ".btnVehiculo", function () {
+            var idseguimiento = $(this).attr("idseguimiento");
+
+            var datos = new FormData();
+            datos.append("DatosVehiculoxidseguimiento", "ok");
+            datos.append("idseguimiento", idseguimiento);
+
+            $.ajax({
+                type: "POST",
+                url: "ajax/contratos.ajax.php",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (response) {
+                    if (response == "") {
+                        Swal.fire({
+                            icon: "warning",
+                            html: `<div class="font-weight-bold">Este cliente no cuenta con vehículos.</div>`,
+                            showConfirmButton: true,
+                            confirmButtonText: "Cerrar",
+                            closeOnConfirm: false,
+                        });
+                    } else {
+                        var vehiculos = [];
+
+                        response.forEach((element) => {
+                            vehiculos.push(element.tipovehiculo);
+                        });
+
+                        let vehiculo = `<ul>`;
+                        vehiculos.forEach((element) => {
+                            vehiculo += `<li>${element}</li>`;
+                        });
+                        vehiculo += `</ul>`;
+
+                        Swal.fire({
+                            icon: "info",
+                            html: `<div class="text-left">
+                                                        <p class="font-weight-bold">Este cliente cuenta con los siguientes vehículos:</p>
+                                                            ${vehiculo}
+                                                    </div>`,
                             showConfirmButton: true,
                             confirmButtonText: "Cerrar",
                             closeOnConfirm: false,
@@ -191,7 +862,10 @@ if (
                 processData: false,
                 dataType: "json",
                 success: function (response) {
-                    //console.log(response);
+                    // console.log(response);
+                    $("#sectorCliente")
+                        .val(response.idsector)
+                        .trigger("change");
                     $("#listaclientes").val(response.idcliente);
                     $("#titulo_cotizacion").html(
                         "Editar cotización ( " + response.nombre + " )"
@@ -254,6 +928,7 @@ if (
             // Reset valores del formulario
             $("#id_cot").val("");
             $("#titulo_cotizacion").html("Nueva cotización");
+            $("#sectorCliente").val("").trigger("change");
             $(".btn-copy-cotizacion").addClass("d-none");
             if (AbiertoxEditar) {
                 // NO BORRAR LOS DATOS DEL MODAL CUANDO SE ESTÁ LLENANDO UNO NUEVO
@@ -308,6 +983,7 @@ if (
                         processData: false,
                         dataType: "json",
                         success: function (response) {
+                            // console.log(response);
                             $("#nom_contrata").val(response.nombre);
                             $("#t_document_empre").val(response.tipo_doc);
                             $("#document").val(response.Documento);
@@ -324,6 +1000,9 @@ if (
                             $("#expedicion").val(response.cedula_expedidaen);
                             $("#docum_respo").val(response.Documentorespons);
                             $("#tel2").val(response.telefono);
+                            $("#sectorCliente")
+                                .val(response.idsector)
+                                .trigger("change");
                             $(".select-ciudad").trigger("change"); //MUESTRA EL VALOR DEL SELECT
                         },
                     });
@@ -622,7 +1301,7 @@ if (
         $(document).on("click", ".btnEliminarCorreo", function () {
             //Se guarda el ID, el CONCEPTO y el DATO que se va a editar
             var id = $(this).attr("idcorreo");
-            
+
             Swal.fire({
                 icon: "warning",
                 showConfirmButton: true,
@@ -638,7 +1317,7 @@ if (
                     var datos = new FormData();
                     datos.append("eliminarCorreo", "ok");
                     datos.append("id", id);
-                    
+
                     $.ajax({
                         type: "POST",
                         url: "ajax/mail.ajax.php",
@@ -757,7 +1436,7 @@ if (
             $("#idruta").val("");
 
             // Tabla dinámica de rutas
-            AjaxTablaRutasxCliente(idcliente);
+            AjaxtableSeguimientoClientessxCliente(idcliente);
         });
 
         /* ===================================================

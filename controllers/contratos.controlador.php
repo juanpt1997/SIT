@@ -43,10 +43,11 @@ class ControladorClientes
                 'ciudadresponsable' => $_POST['ciudadresponsable'],
                 'correo' => $_POST['correo'],
                 'tipo' => "CLIENTE",
-                'tipo_cliente' => $_POST['tipocliente']
+                'tipo_cliente' => $_POST['tipocliente'],
+                'tipificacion' => $_POST['tipificacion']
             );
 
-            
+
 
             $datos['tipo_cliente'] = $datos['tipo_cliente'] == "" ? null : $datos['tipo_cliente'];
 
@@ -55,24 +56,24 @@ class ControladorClientes
 
 
             if (is_array($ClienteExistente) && $ClienteExistente['idcliente'] != $_POST['idcliente']) {
-                echo "
-							<script>
-								Swal.fire({
-									icon: 'warning',
-									title: '¡Cliente ya existe!',						
-									showConfirmButton: true,
-									confirmButtonText: 'Cerrar',
-									
-								}).then((result)=>{
+                // echo "
+                // 			<script>
+                // 				Swal.fire({
+                // 					icon: 'warning',
+                // 					title: '¡Cliente ya existe!',						
+                // 					showConfirmButton: true,
+                // 					confirmButtonText: 'Cerrar',
 
-									if(result.value){
-										window.location = 'contratos-clientes';
-									}
+                // 				}).then((result)=>{
 
-								})
-							</script>
-						";
-                return;
+                // 					if(result.value){
+                // 						window.location = 'contratos-clientes';
+                // 					}
+
+                // 				})
+                // 			</script>
+                // 		";
+                return "existe";
             } else {
                 if ($_POST['idcliente'] == '') {
 
@@ -83,48 +84,50 @@ class ControladorClientes
             }
 
             if ($responseModel == "ok" || $responseModel != "error") {
-                echo "
-						<script>
-							Swal.fire({
-								icon: 'success',
-								title: '¡Cliente añadido correctamente!',						
-								showConfirmButton: true,
-								confirmButtonText: 'Cerrar',
-								
-							}).then((result)=>{
+                // echo "
+                // 		<script>
+                // 			Swal.fire({
+                // 				icon: 'success',
+                // 				title: '¡Cliente añadido correctamente!',						
+                // 				showConfirmButton: true,
+                // 				confirmButtonText: 'Cerrar',
 
-								if(result.value){
-									window.location = 'contratos-clientes';
-								}
+                // 			}).then((result)=>{
 
-							})
-						</script>
-					";
+                // 				if(result.value){
+                // 					window.location = 'contratos-clientes';
+                // 				}
+
+                // 			})
+                // 		</script>
+                // 	";
+                return "ok";
             } else {
-                echo "
-						<script>
-							Swal.fire({
-								icon: 'warning',
-								title: '¡Problema al añadir el cliente!',						
-								showConfirmButton: true,
-								confirmButtonText: 'Cerrar',
-								
-							}).then((result)=>{
+                // echo "
+                // 		<script>
+                // 			Swal.fire({
+                // 				icon: 'warning',
+                // 				title: '¡Problema al añadir el cliente!',						
+                // 				showConfirmButton: true,
+                // 				confirmButtonText: 'Cerrar',
 
-								if(result.value){
-									window.location = 'contratos-clientes';
-								}
+                // 			}).then((result)=>{
 
-							})
-						</script>
-					";
+                // 				if(result.value){
+                // 					window.location = 'contratos-clientes';
+                // 				}
+
+                // 			})
+                // 		</script>
+                // 	";
+                return "error";
             }
         }
     }
 
     static public function ctrActualizarCampo($id)
     {
-        $datos = array('id' => $id, 'tabla' =>  "cont_clientes", 'campo1' => "tipo", 'campo2' => "idcliente", 'valor' => "CLIENTE");
+        $datos = array('id' => $id, 'tabla' =>  "cont_clientes", 'campo1' => "idtipificacion", 'campo2' => "idcliente", 'valor' => 3);
 
         $respuesta = ModeloClientes::mdlActualizarCampo($datos);
 
@@ -214,6 +217,88 @@ class ControladorClientes
         $respuesta = ModeloClientes::mdlTiposClientes();
         return $respuesta;
     }
+
+    /* ===================================================
+        GUARDAR SEGUMIENTO
+    ===================================================*/
+    static public function ctrGuardarSeguimientoCliente($datos)
+    {
+
+        if ($datos['idseguimiento'] != "") {
+            if (isset($datos['idtipo_vehiculo']) && $datos['idtipo_vehiculo'] != "") {
+                $eliminar = ModeloClientes::mdlEliminarTipoVehiculoxIdSeguimiento($datos['idseguimiento']);
+                foreach ($datos['idtipo_vehiculo'] as $key => $value) {
+                    $guardar = ModeloClientes::mdlGuardarTipoVehiculo($datos['idseguimiento'], $value);
+                }
+            }
+            $respuesta = ModeloClientes::mdlEditarSeguimientoCliente($datos);
+        } else {
+            $respuesta = ModeloClientes::mdlGuardarSeguimientoCliente($datos);
+            if (isset($datos['idtipo_vehiculo']) && $datos['idtipo_vehiculo'] != "") {
+                $eliminar = ModeloClientes::mdlEliminarTipoVehiculoxIdSeguimiento($datos['idseguimiento']);
+                foreach ($datos['idtipo_vehiculo'] as $key => $value) {
+                    $guardar = ModeloClientes::mdlGuardarTipoVehiculo($respuesta, $value);
+                }
+            }
+        }
+        return $respuesta;
+    }
+
+    /* ===================================================
+        LISTA DE TIPIFICACION
+    ===================================================*/
+    static public function ctrListaTipificacion()
+    {
+        $respuesta = ModeloClientes::mdlListaTipificacion();
+        return $respuesta;
+    }
+
+    /* ===================================================
+        LISTA DE VISITAS CLIENTES 
+    ===================================================*/
+    static public function ctrVisitasClientes()
+    {
+        $respuesta = ModeloClientes::mdlVisitasClientes();
+        return $respuesta;
+    }
+
+    /* ===================================================
+        DATOS SEGUIMIENTO CLIENTES
+    ===================================================*/
+    static public function ctrDatosSeguimientoClientes($datos)
+    {
+        $respuesta = ModeloClientes::mdlDatosSeguimientoClientes($datos);
+        return $respuesta;
+    }
+
+    /* ===================================================
+        GUARDAR / EDITAR LLAMADA 
+    ===================================================*/
+    static public function ctrGuardarLlamada($datos)
+    {
+        if ($datos['idllamada'] != "") {
+            $respuesta = ModeloClientes::mdlActualizarLlamada($datos);
+        } else {
+
+            $respuesta = ModeloClientes::mdlGuardarLlamada($datos);
+        }
+        return $respuesta;
+    }
+
+    /* ===================================================
+        ACTUALIZAR TIPIFICACION
+    ===================================================*/
+    static public function ctrActualizarTipificacion($datos)
+    {
+        if ($datos['estado'] == "actual") $datos['estado'] = 1; //CLIENTE ACTUAL
+        if ($datos['estado'] == "prospecto") $datos['estado'] = 2; //CLIENTE PROSPECTO
+        if ($datos['estado'] == "ocasional") $datos['estado'] = 3; //CLIENTE OCASIONAL
+        if ($datos['estado'] == "perfil") $datos['estado'] = 4; //CLIENTE NO CUMPLE EL PERFIL 
+
+        $respuesta = ModeloClientes::mdlActualizarTipificacion($datos);
+
+        return $respuesta;
+    }
 }
 /* ===================================================
    * COTIZACIONES
@@ -249,6 +334,8 @@ class ControladorCotizaciones
                 'expedicion' => $_POST['expedicion'],
                 'nom_respo' => $_POST['nom_respo'],
                 'ciudadresponsable' => $_POST['ciudadresponsable'],
+                'tipo_cliente' => $_POST['sectorCliente'],
+                'tipificacion' => 2,
                 'tipo' => "LEAD"
             );
             //si el id es vacio

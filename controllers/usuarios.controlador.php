@@ -560,6 +560,7 @@ class ControladorUsuarios
 
 			// Arreglo de opciones
 			$arrayop = ModeloUsuarios::mdlListadoOpciones();
+			$respuesta = ModeloUsuarios::mdlEliminarPermisosRol( $_POST['idpermisos']) ;
 
 
 			// Recorrer el arreglo y realizar la busqueda por cada posicion
