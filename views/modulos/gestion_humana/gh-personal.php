@@ -239,7 +239,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                         <div class="input-group mt-auto">
                                             <div class="form-group-append">
                                             </div>
-                                            <input type="file" class="form-control" id="documento_escaneado_cara" accept="image/png, image/jpeg">
+                                            <input type="file" class="form-control" id="documento_escaneado_cara" accept="image/png, image/jpeg" required>
                                         </div>
                                         <a id="visualizDocumento_cara" href="" target="_blank"></a>
                                     </div>
@@ -254,7 +254,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                         <div class="input-group mt-auto">
                                             <div class="form-group-append">
                                             </div>
-                                            <input type="file" class="form-control" id="documento_escaneado_huella" accept="image/png, image/jpeg">
+                                            <input type="file" class="form-control" id="documento_escaneado_huella" accept="image/png, image/jpeg" required>
                                         </div>
                                         <a id="visualizDocumento_huella" href="" target="_blank"></a>
                                     </div>
@@ -701,7 +701,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4 text-center">
                                     <div class="form-group">
-                                        <label for="exampleInput1" class="text-sm"><i>Empresa *</i></label>
+                                        <label for="exampleInput1" class="text-sm"><i>Empresa </i></label>
                                         <div class="form-group">
                                             <input type="text" class="form-control" name="empresa" id="empresa" maxlength="100">
                                         </div>
@@ -743,8 +743,8 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4 text-center">
                                     <div class="form-group">
-                                        <label for="exampleInput1" class="text-sm"><i>Salario Básico *</i></label>
-                                        <input type="number" class="form-control" name="salario_basico" id="salario_basico" min="0" required>
+                                        <label for="exampleInput1" class="text-sm"><i>Salario Básico </i></label>
+                                        <input type="number" class="form-control" name="salario_basico" id="salario_basico" min="0" >
                                     </div>
                                 </div>
 
@@ -788,8 +788,8 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4 text-center">
                                     <div class="form-group">
-                                        <label for="exampleInput1" class="text-sm"><i>Años Experiencia *</i></label>
-                                        <input type="number" class="form-control" name="anios_experiencia" id="anios_experiencia" min="0" max="999" required>
+                                        <label for="exampleInput1" class="text-sm"><i>Años Experiencia </i></label>
+                                        <input type="number" class="form-control" name="anios_experiencia" id="anios_experiencia" min="0" max="999" >
                                     </div>
                                 </div>
 
@@ -813,8 +813,8 @@ $Sucursales = ControladorGH::ctrSucursales();
                                 =================================================== -->
                                 <div class="col-12 col-md-6 col-lg-4">
                                     <div class="form-group text-center">
-                                        <label for="exampleInput1" class="text-sm"><i>Antigüedad *</i></label>
-                                        <input type="text" class="form-control" name="antiguedad" id="antiguedad" maxlength="45" required>
+                                        <label for="exampleInput1" class="text-sm"><i>Antigüedad </i></label>
+                                        <input type="text" class="form-control" name="antiguedad" id="antiguedad" maxlength="45" >
                                     </div>
                                 </div>
 
