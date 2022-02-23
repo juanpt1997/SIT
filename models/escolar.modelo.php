@@ -141,8 +141,8 @@ class ModeloEscolar
     {
 
         $stmt = Conexion::conectar()->prepare("INSERT INTO e_pasajeros 
-                (codigo, nombre, idruta, ano, grado, grupo, nivel, barrio, direccion, nombre_acudiente1, celular_acudiente1, nombre_acudiente2, celular_acudiente2) 
-        VALUES (:codigo, :nombre, :idruta, :ano, :grado, :grupo, :nivel, :barrio, :direccion, :nombre_acudiente1, :celular_acudiente1, :nombre_acudiente2, :celular_acudiente2)");
+                (codigo, nombre, idruta, ano, grado, grupo, nivel, barrio, direccion, nombre_acudiente1, celular_acudiente1, nombre_acudiente2, celular_acudiente2,tipo_pasajero) 
+        VALUES (:codigo, :nombre, :idruta, :ano, :grado, :grupo, :nivel, :barrio, :direccion, :nombre_acudiente1, :celular_acudiente1, :nombre_acudiente2, :celular_acudiente2, :tipo_pasajero)");
 
         $stmt->bindParam(":codigo", $datos['documentoEstudiante'], PDO::PARAM_STR);
         $stmt->bindParam(":nombre", $datos['nombreEstudiante'], PDO::PARAM_STR);
@@ -157,6 +157,7 @@ class ModeloEscolar
         $stmt->bindParam(":celular_acudiente1", $datos['celularPAcudienteEstudiante'], PDO::PARAM_STR);
         $stmt->bindParam(":nombre_acudiente2", $datos['nombreSAcudienteEstudiante'], PDO::PARAM_STR);
         $stmt->bindParam(":celular_acudiente2", $datos['celularSAcudienteEstudiante'], PDO::PARAM_STR);
+        $stmt->bindParam(":tipo_pasajero", $datos['tipo_pasajero'], PDO::PARAM_STR);
 
         if ($stmt->execute()) {
             $retorno = "ok";

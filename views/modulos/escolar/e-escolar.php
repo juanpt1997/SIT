@@ -512,6 +512,17 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
+                                <label>Tipo de pasajero</label>
+                                <select class="form-control select2-single" id="tipo_pasajero" name="tipo_pasajero" required>
+                                    <option value="">--Selecione tipo de pasajero--</option>
+                                    <option>ESTUDIANTE</option>
+                                    <option>PROFESOR</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-6 col-lg-4">
+                            <div class="form-group text-center">
                                 <label># Documento</label>
                                 <input type="text" class="form-control" id="documentoEstudiante" name="documentoEstudiante" required>
                             </div>
@@ -536,21 +547,21 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label>Año</label>
-                                <input type="text" class="form-control" id="anoEstudiante" name="anoEstudiante" required>
+                                <input type="text" class="form-control" id="anoEstudiante" name="anoEstudiante" >
                             </div>
                         </div>
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label>Grado</label>
-                                <input type="text" class="form-control" id="gradoEstudiante" name="gradoEstudiante" required>
+                                <input type="text" class="form-control" id="gradoEstudiante" name="gradoEstudiante" >
                             </div>
                         </div>
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label>Grupo</label>
-                                <input type="text" class="form-control" id="grupoEstudiante" name="grupoEstudiante" required>
+                                <input type="text" class="form-control" id="grupoEstudiante" name="grupoEstudiante" >
                             </div>
                         </div>
 
@@ -558,7 +569,7 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
                             <div class="form-group text-center">
                                 <label>Nivel</label>
                                 <!-- <input type="text" class="form-control" id="nivelEstudiante" name="nivelEstudiante" required> -->
-                                <select id="nivelEstudiante" class="form-control select2-single" name="nivelEstudiante" required>
+                                <select id="nivelEstudiante" class="form-control select2-single" name="nivelEstudiante" >
                                     <option value="">--Seleccione nivel de escolaridad--</option>
                                     <option>Ninguna</option>
                                     <option>Primaria</option>
@@ -588,14 +599,14 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label>Nombre primer acudiente</label>
-                                <input type="text" class="form-control" id="nombrePAcudienteEstudiante" name="nombrePAcudienteEstudiante" required>
+                                <input type="text" class="form-control" id="nombrePAcudienteEstudiante" name="nombrePAcudienteEstudiante" >
                             </div>
                         </div>
 
                         <div class="col-12 col-sm-6 col-lg-4">
                             <div class="form-group text-center">
                                 <label>Celular primer acudiente</label>
-                                <input type="text" class="form-control" id="celularPAcudienteEstudiante" name="celularPAcudienteEstudiante" required>
+                                <input type="text" class="form-control" id="celularPAcudienteEstudiante" name="celularPAcudienteEstudiante" >
                             </div>
                         </div>
 
@@ -1203,7 +1214,7 @@ $tiposClientes = ControladorClientes::ctrTiposClientes();
                             </button>
                         <?php endif ?>
                     </div>
-                    
+
                 </form>
 
             </div>

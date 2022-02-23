@@ -278,6 +278,45 @@ if (
         };
 
         /*============================================
+            TABLA LISTA DE INSTITUCIONES 
+        ==============================================*/
+        const cargarTablaListaInstituciones = () => {
+            // Quitar datatable
+            $(`#tablaClientes`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbodyClientes`).html("");
+
+            var datos = new FormData();
+            datos.append("TablaInstituciones", "ok");
+
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/escolar.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbodyClientes").html(response);
+                    } else {
+                        $("#tbodyClientes").html("");
+                    }
+
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: "border-0 bg-gradient-olive",
+                            text: '<i class="fas fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(`#tablaClientes`, buttons);
+                },
+            });
+        };
+
+        /*============================================
             SELECCIONAN VEHÍCULO
         ==============================================*/
         $(document).on("change", "#placa", function () {
@@ -1832,6 +1871,12 @@ if (
                             title: "¡Cliente añadido correctamente!",
                             showConfirmButton: true,
                             confirmButtonText: "Cerrar",
+                        }).then((result) => {
+                            //Si salen de la alerta o cierran la alerta vuelve a la modal de ruta
+                            if (result.value == true || result.dismiss) {
+                                $("#modalInstitucion").modal("hide");
+                                $("#modalRuta").modal("show");
+                            }
                         });
 
                         cargarSelect("institucion");
@@ -1852,66 +1897,74 @@ if (
         ==============================================*/
         $(document).on("click", ".btn-institucion", function () {
             $("#modalRuta").modal("hide");
-
         });
 
         /*============================================
             SE CIERRA MODAL CREAR INSTITUCION
         ==============================================*/
-        $(document).on("click","#cerrar_CrearInstitucion, .btn-cancelar" , function () {
-            $("#modalRuta").modal("show");
-        });
+        $(document).on(
+            "click",
+            "#cerrar_CrearInstitucion, .btn-cancelar",
+            function () {
+                $("#modalRuta").modal("show");
+            }
+        );
 
         /*============================================
             SE CIERRA EL MODAL PARA VER LAS INSTITUCIONES 
         ==============================================*/
-        $(document).on("click"," .btn-cerrar-ListaClientes, #close_ListaClientes",  function () {
-            $("#modalInstitucion").modal("show");
-            $("#modalRuta").modal("hide");
-        });
+        $(document).on(
+            "click",
+            " .btn-cerrar-ListaClientes, #close_ListaClientes",
+            function () {
+                $("#modalInstitucion").modal("show");
+                $("#modalRuta").modal("hide");
+            }
+        );
 
         /*============================================
             SE ABRE EL MODAL PARA VER LAS INSTITUCIONES 
         ==============================================*/
-        $(document).on("click",".btn-Lista-institucion", function () {
+        $(document).on("click", ".btn-Lista-institucion", function () {
             $("#modalInstitucion").modal("hide");
+            cargarTablaListaInstituciones();
+
+
             // $("#modalRuta").modal("hide");
 
-            // Quitar datatable
-            $(`#tablaClientes`).dataTable().fnDestroy();
-            // Borrar datos
-            $(`#tbodyClientes`).html("");
+            // // Quitar datatable
+            // $(`#tablaClientes`).dataTable().fnDestroy();
+            // // Borrar datos
+            // $(`#tbodyClientes`).html("");
 
-            var datos = new FormData();
-            datos.append("TablaInstituciones", "ok");
+            // var datos = new FormData();
+            // datos.append("TablaInstituciones", "ok");
 
+            // $.ajax({
+            //     type: "POST",
+            //     url: `${urlPagina}ajax/escolar.ajax.php`,
+            //     data: datos,
+            //     cache: false,
+            //     contentType: false,
+            //     processData: false,
+            //     // dataType: "json",
+            //     success: function (response) {
+            //         if (response != "" || response != null) {
+            //             $("#tbodyClientes").html(response);
+            //         } else {
+            //             $("#tbodyClientes").html("");
+            //         }
 
-            
-            $.ajax({
-                type: "POST",
-                url: `${urlPagina}ajax/escolar.ajax.php`,
-                data: datos,
-                cache: false,
-                contentType: false,
-                processData: false,
-                // dataType: "json",
-                success: function (response) {
-                    if (response != "" || response != null) {
-                        $("#tbodyClientes").html(response);
-                    } else {
-                        $("#tbodyClientes").html("");
-                    }
-
-                    var buttons = [
-                        {
-                            extend: "excel",
-                            className: "border-0 bg-gradient-olive",
-                            text: '<i class="fas fa-file-excel"></i> Exportar',
-                        },
-                    ];
-                    var table = dataTableCustom(`#tablaClientes`, buttons);
-                },
-            });
+            //         var buttons = [
+            //             {
+            //                 extend: "excel",
+            //                 className: "border-0 bg-gradient-olive",
+            //                 text: '<i class="fas fa-file-excel"></i> Exportar',
+            //             },
+            //         ];
+            //         var table = dataTableCustom(`#tablaClientes`, buttons);
+            //     },
+            // });
         });
     }); //FINAL DOCUMENT READY
 }
