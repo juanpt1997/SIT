@@ -406,7 +406,7 @@ $tipificacion = ControladorClientes::ctrListaTipificacion();
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="text-sm">Sector</label>
-                                <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="tipocliente" name="tipocliente">
+                                <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="tipocliente" name="tipocliente" required>
                                     <option selected value="">-Seleccione el sector-</option>
                                     <?php foreach ($tiposClientes as $key => $value) : ?>
                                         <option value="<?= $value['id'] ?>"><?= $value['tipo'] ?></option>
@@ -418,7 +418,7 @@ $tipificacion = ControladorClientes::ctrListaTipificacion();
                         <div class="col-6">
                             <div class="form-group">
                                 <label class="text-sm">Tipo de cliente</label>
-                                <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="tipificacion" name="tipificacion">
+                                <select class="form-control input-sm select2-single input-clientes" style="width: 99%" type="number" id="tipificacion" name="tipificacion" required>
                                     <option selected value="">-Seleccione un tipo de cliente-</option>
                                     <?php foreach ($tipificacion as $key => $value) : ?>
                                         <option value="<?= $value['id'] ?>"><?= $value['tipo'] ?></option>
