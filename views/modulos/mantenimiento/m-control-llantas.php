@@ -114,8 +114,10 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
             <hr class="my-4">
             <div class="row">
                 <div class="col-12">
-                    <button type="button" class="btn bg-gradient-success btn-nuevoregistro-llantas" data-toggle="modal" data-target="#registro-llantas"><i class="fas fa-clipboard-check"></i> Registrar llantas a vehículo</button>
-                    <button type="button" class="btn bg-gradient-cyan btn-ordenTrabajo" data-toggle="modal" data-target="#ordenTrabajo_llantas"><i class="fas fa-briefcase"></i> Crear orden de trabajo</button>
+                    <div class="form-group">
+                        <button type="button" class="btn bg-gradient-success btn-nuevoregistro-llantas mb-2 mr-2" data-toggle="modal" data-target="#registro-llantas"><i class="fas fa-clipboard-check"></i> Registrar llantas a vehículo</button>
+                        <button type="button" class="btn bg-gradient-cyan btn-ordenTrabajo mb-2 mr-2" data-toggle="modal" data-target="#ordenTrabajo_llantas"><i class="fas fa-briefcase"></i> Crear orden de trabajo</button>
+                    </div>
                 </div>
             </div>
             <div class="row mt-2">
@@ -166,11 +168,11 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                 </div>
                                 <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
                                     <div class="table-responsive">
-                                        <table class="table table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_controlOrdenes">
+                                        <table class="datatable-multi-row table table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_controlOrdenes">
                                             <thead>
                                                 <tr>
-                                                    <th>...</th>
                                                     <th>Núm. Orden</th>
+                                                    <th>Acciones</th>
                                                     <th>ID llanta</th>
                                                     <th>Núm. Llanta</th>
                                                     <th>Ubicación anterior</th>
@@ -392,11 +394,13 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                     <div class="row d-none" id="input_ubicacion_llanta">
                         <div class="col-4"></div>
                         <div class="col-4">
-                            <div class="form-group text-center"><label for="llanta_repuesto">Ubicación</label>
+                            <div class="form-group text-center"><label for="ubicacion_llanta">Ubicación</label>
                                 <div class="input-group">
                                     <div class="input-group-prepend"><span class="input-group-text"><i class="fab fa-buromobelexperte"></i></span></div><input class="form-control" type="number" id="ubicacion_llanta" name="ubicacion_llanta">
                                 </div>
+                                <p class="text-sm font-italic font-weight-bold">NOTA: Si la ubicación de la llanta es de repuesto debe ingresar el valor = 0</p>
                             </div>
+
                         </div>
                         <div class="col-4"></div>
 
@@ -846,7 +850,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="fas fa-tachometer-alt"></i></span>
                                     </div>
-                                    <input class="form-control campos_ordenTrabajo" type="number" id="kilo_orden" name="kilo_orden" required readonly>
+                                    <input class="form-control campos_ordenTrabajo" type="number" id="kilo_orden" name="kilo_orden" required>
                                 </div>
                             </div>
                         </div>
@@ -978,7 +982,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             <i class="fas fa-parachute-box"></i>
                             Nuevo proveedor
                         </button></a>
-                    <button type="button" class="btn btn-sm bg-gradient-danger btn_cancelar_proveedor" data-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-sm bg-gradient-danger btn_cancelar_proveedor" id="btn_cancelar_edit" data-dismiss="modal">Cancelar</button>
                 </div>
             </div>
         </div>
@@ -1063,19 +1067,197 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
 </div>
 
 <div id="editarOrdenTrabajo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="editarOrdenTrabajo-title" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editarOrdenTrabajo-title">Title</h5>
+
+            <div class="modal-header bg-gradient-info">
+                <h3 class="modal-title" id="editarOrdenTrabajo-title"></h3>
                 <button class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <p>Content</p>
-            </div>
-            <div class="modal-footer">
-                Footer
+
+            <form id="actualizar_datosLlanta_orden" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+
+                    <input type="hidden" name="editar_id_orden" id="editar_id_orden" value="">
+                    <input type="hidden" name="editar_id_control" id="editar_id_control" value="">
+
+                    <div class="row">
+                        <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="fecha_factura">ID llanta</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-hashtag"></i></span>
+                                    </div>
+                                    <input class="form-control campos_ordenTrabajo" type="number" id="editar_id_llanta" name="editar_id_llanta" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="fecha_factura">Fecha de la orden</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-calendar-week"></i></span>
+                                    </div>
+                                    <input class="form-control campos_ordenTrabajo" type="date" id="editar_fecha_orden" name="editar_fecha_orden">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="fecha_factura">Profundidad 1(mm)</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-arrows-alt-v"></i></span>
+                                    </div>
+                                    <input type='text' class='form-control form-control-sm calcular2' id='editar_prof1' name='editar_prof1'>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="fecha_factura">Profundidad 2(mm)</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-arrows-alt-v"></i></span>
+                                    </div>
+                                    <input type='text' class='form-control form-control-sm calcular2' id='editar_prof2' name='editar_prof2'>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="fecha_factura">Profundidad 3(mm)</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-arrows-alt-v"></i></span>
+                                    </div>
+                                    <input type='text' class='form-control form-control-sm calcular2' id='editar_prof3' name='editar_prof3'>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="fecha_factura">Promedio(mm)</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-percentage"></i></span>
+                                    </div>
+                                    <input type='text' class='form-control form-control-sm calcular2' id='editar_promedio' name='editar_promedio' readonly>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="fecha_factura">Presión(PSI)</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-compress-arrows-alt"></i></span>
+                                    </div>
+                                    <input type='text' class='form-control form-control-sm' id='editar_presion' name='editar_presion'>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="fecha_factura">Banda</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-ring"></i></span>
+                                    </div>
+                                    <input type='text' class='form-control form-control-sm' id='editar_banda' name='editar_banda'>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="bg-dark">
+
+                    <div class="row">
+                        <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="fecha_factura">Ubicación actual</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-map-marker"></i></span>
+                                    </div>
+                                    <input class="form-control" type="number" id="editar_ubicacion_actual" name="editar_ubicacion_actual">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12">
+                            <div class="form-group">
+                                <table class=" table table-sm table-bordered table-striped text-center text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th colspan="7">Nueva ubicación</th>
+                                        </tr>
+                                        <tr>
+                                            <th>1</th>
+                                            <th>2</th>
+                                            <th>3</th>
+                                            <th>4</th>
+                                            <th>5</th>
+                                            <th>6</th>
+                                            <th>Repuesto</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <input class='check' type='radio' id='edit_ubicacion1' name='edit_ubicacion' value='1'>
+                                            </td>
+
+                                            <td>
+                                                <input class='check' type='radio' id='edit_ubicacion2' name='edit_ubicacion' value='2'>
+                                            </td>
+
+                                            <td>
+                                                <input class='check' type='radio' id='edit_ubicacion3' name='edit_ubicacion' value='3'>
+                                            </td>
+
+                                            <td>
+                                                <input class='check' type='radio' id='edit_ubicacion4' name='edit_ubicacion' value='4'>
+                                            </td>
+
+                                            <td>
+                                                <input class='check' type='radio' id='edit_ubicacion5' name='edit_ubicacion' value='5'>
+                                            </td>
+
+                                            <td>
+                                                <input class='check' type='radio' id='edit_ubicacion6' name='edit_ubicacion' value='6'>
+                                            </td>
+
+                                            <td>
+                                                <input class='check' type='radio' id='edit_ubicacion0' name='edit_ubicacion' value='0'>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="modal-footer bg-gradient-dark">
+                <div class="form-group">
+                    <button type="submit" class="btn bg-gradient-success btn_actualizar_datosLlanta_orden" form="actualizar_datosLlanta_orden"><i class="fas fa-sync-alt"></i> Actualizar</button>
+                    <button type="button" class="btn bg-gradient-danger" data-dismiss="modal">Cancelar</button>
+                </div>
             </div>
         </div>
     </div>
