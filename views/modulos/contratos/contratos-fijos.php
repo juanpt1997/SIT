@@ -108,7 +108,7 @@ $Placas = ControladorVehiculos::ctrListaVehiculos();
 
                     <div class="col-md-3">
                         <div class="form-group">
-                            <label class="text-sm">ID</label>
+                            <label class="text-sm">Número de contrato</label>
                             <div class="input-group input-group-sm">
                                 <input class="form-control input-fijos" type="number" id="idconfijo" name="idconfijo" value="" readonly>
                             </div>
@@ -130,7 +130,7 @@ $Placas = ControladorVehiculos::ctrListaVehiculos();
                     </div>
 
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-4" style="display: none;">
                             <div class="form-group">
                                 <label class="text-sm">Número de contrato</label>
                                 <div class="input-group input-group-sm">
@@ -139,7 +139,7 @@ $Placas = ControladorVehiculos::ctrListaVehiculos();
                             </div>
                         </div><!-- col-1-->
 
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="text-sm">Fecha inicial</label>
                                 <div class="input-group input-group-sm">
@@ -148,7 +148,7 @@ $Placas = ControladorVehiculos::ctrListaVehiculos();
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="text-sm">Fecha final</label>
                                 <div class="input-group input-group-sm">
