@@ -114,7 +114,7 @@ class ModeloFuec
         $tipocontrato = $FUEC['tipocontrato'];
 
         if ($tipocontrato == "OCASIONAL") {
-            $sql = "SELECT f.idfuec, f.tipocontrato, f.contratofijo, f.contratante, f.idvehiculo, f.idconductor1, f.idconductor2, f.idconductor3, f.fecha_inicial, f.fecha_vencimiento, f.idobjeto_contrato, f.anotObjetoContrato,
+            $sql = "SELECT f.idfuec, f.tipocontrato, f.contratofijo, f.contratante, f.idvehiculo, f.idconductor1, f.idconductor2, f.idconductor3, f.fecha_inicial, f.fecha_vencimiento, f.idobjeto_contrato, f.anotObjetoContrato, f.consecutivo,
                         -- IF (f.idruta IS NULL, f.origen, ori.municipio) AS origen,
                         f.origen,
                         -- IF (f.idruta IS NULL, f.destino, des.municipio) AS destino,
@@ -178,7 +178,7 @@ class ModeloFuec
                         f.destino,
                         -- IF (f.idruta IS NULL, f.observaciones, rt.nombreruta) AS observaciones,
                         IF (f.observaciones = '', rt.nombreruta, f.observaciones) AS observaciones,
-                        f.precio, f.listado_pasajeros, f.estado_pago, f.valor_neto, f.estado_fuec, f.ruta_contrato, f.usuario_creacion, f.fecha_creacion, f.nro_contrato, f.idruta,
+                        f.precio, f.listado_pasajeros, f.estado_pago, f.valor_neto, f.estado_fuec, f.consecutivo, f.ruta_contrato, f.usuario_creacion, f.fecha_creacion, f.nro_contrato, f.idruta,
                         cl.nombre AS nomContratante, cl.Documento AS docContratante, cl.direccion AS direccion, cl.telefono AS telContratante, cl.nombrerespons, cl.Documentorespons, cl.telefono2 AS telrespons, 
                         v.placa, v.numinterno, v.tipovinculacion, v.modelo, 
                         vm.marca, 
@@ -496,7 +496,7 @@ class ModeloFuec
     ===================================================*/
     static public function mdlNumerosContrato()
     {
-        $stmt = Conexion::conectar()->prepare("SELECT nro_contrato FROM fuec ");
+        $stmt = Conexion::conectar()->prepare("SELECT nro_contrato, consecutivo FROM fuec ");
 
         $stmt->execute();
         $retorno = $stmt->fetchAll();
@@ -505,5 +505,38 @@ class ModeloFuec
         return $retorno;
     }
 
-    
+    /* ===================================================
+        CONSECUTIVO X NRO DE CONTRATO 
+    ===================================================*/
+    static public function mdlConsecutivoxNroContrato($nro_contrato)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT consecutivo FROM fuec WHERE nro_contrato = :nro_contrato");
+
+        $stmt->bindParam(":nro_contrato", $nro_contrato, PDO::PARAM_INT);
+
+        
+        $stmt->execute();
+        $retorno = $stmt->fetch();
+        $stmt->closeCursor();
+
+        return $retorno;
+
+
+    }
+
+    /* ========================================================
+        MAYOR NUMERO DE CONTRATO POR ID ORDEN PARA OCASIONALES 
+    ==========================================================*/
+    static public function mdlMaxNumeroContratoxIdOcasional($id)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT MAX(nro_contrato) AS numcontrato FROM cont_ordenservicio WHERE idorden = :id");
+
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno = $stmt->fetch();
+        $stmt->closeCursor();
+
+        return $retorno;
+    }
 }

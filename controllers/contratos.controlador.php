@@ -613,16 +613,24 @@ class ControladorFijos
                 'observaciones' => $_POST['observaciones_fijos']
             );
 
+            $max_numcontrato = ModeloFijos::mdlMaxNumeroContrato();
+
             # INSERT
             if ($_POST['idconfijo'] == "" /* is_array($FijosExistente) */) {
-                
-                $max_numcontrato = ModeloFijos::mdlMaxNumeroContrato();
+
+                if(isset($max_numcontrato))
+                {
+                    if ($max_numcontrato != false)  $datos['numcontrato'] = $max_numcontrato['numcontrato'] + 1;
+                    else $datos['numcontrato'] = 1;
+
+                    
+                }
+
 
                 $respuestamodelo = ModeloFijos::mdlAgregarFijo($datos);
 
-                if($max_numcontrato != false)  $datos['numcontrato'] = $respuestamodelo;
-                else $datos['numcontrato'] = 1;
-                            
+
+
 
                 $datos['idfijos'] = $respuestamodelo;
                 // $datos['numcontrato'] = $respuestamodelo;
@@ -772,6 +780,12 @@ class ControladorOrdenServicio
                 'usuario' => $_SESSION['cedula']
                 //'viaje_ocasional' => $_POST['viaje_ocasional']
             );
+
+            $max_numcontrato = ModeloFijos::mdlMaxNumeroContrato();
+
+
+            if ($max_numcontrato != false)  $datos['nro_contrato'] = $max_numcontrato['numcontrato'] + 1;
+            else $datos['nro_contrato'] = 1;
 
             if ($_POST['idorden'] == '') {
 
