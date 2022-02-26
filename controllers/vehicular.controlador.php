@@ -732,7 +732,7 @@ class ControladorVehiculos
 		$GuardarImagen->file = $foto;
 		$aleatorio = mt_rand(100, 999);
 		$GuardarImagen->ruta = $directorio . "/" . $aleatorio;
-		$ruta = $GuardarImagen->ctrImages(500, 500);
+		$ruta = $GuardarImagen->ctrImages(null, null);
 
 		/* ===================================================
 			ACTUALIZAR RUTA IMAGEN EN LA BD
