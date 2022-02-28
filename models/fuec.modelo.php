@@ -239,8 +239,8 @@ class ModeloFuec
     static public function mdlAgregarFUEC($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("INSERT INTO fuec (tipocontrato, contratofijo, contratante, idvehiculo, idconductor1, idconductor2, idconductor3, fecha_inicial, fecha_vencimiento, idobjeto_contrato, anotObjetoContrato, origen, destino, observaciones, precio, listado_pasajeros, estado_pago, valor_neto, estado_fuec, usuario_creacion, nro_contrato, idruta) VALUES 
-        (:tipocontrato, :contratofijo, :contratante, :idvehiculo, :idconductor1, :idconductor2, :idconductor3, :fecha_inicial, :fecha_vencimiento, :idobjeto_contrato, :anotObjetoContrato, :origen, :destino, :observaciones, :precio, :listado_pasajeros, :estado_pago, :valor_neto, :estado_fuec, :usuario_creacion, :nro_contrato, :idruta)");
+        $stmt = $conexion->prepare("INSERT INTO fuec (tipocontrato, contratofijo, contratante, idvehiculo, idconductor1, idconductor2, idconductor3, fecha_inicial, fecha_vencimiento, idobjeto_contrato, anotObjetoContrato, origen, destino, observaciones, precio, listado_pasajeros, estado_pago, valor_neto, estado_fuec, usuario_creacion, nro_contrato, idruta, consecutivo) VALUES 
+        (:tipocontrato, :contratofijo, :contratante, :idvehiculo, :idconductor1, :idconductor2, :idconductor3, :fecha_inicial, :fecha_vencimiento, :idobjeto_contrato, :anotObjetoContrato, :origen, :destino, :observaciones, :precio, :listado_pasajeros, :estado_pago, :valor_neto, :estado_fuec, :usuario_creacion, :nro_contrato, :idruta, :consecutivo)");
 
         $stmt->bindParam(":tipocontrato", $datos['tipocontrato'], PDO::PARAM_STR);
         $stmt->bindParam(":contratofijo", $datos['contratofijo'], PDO::PARAM_INT);
@@ -265,6 +265,7 @@ class ModeloFuec
         $stmt->bindParam(":usuario_creacion", $datos['usuario_creacion'], PDO::PARAM_INT);
         $stmt->bindParam(":nro_contrato", $datos['nro_contrato'], PDO::PARAM_INT);
         $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
+        $stmt->bindParam(":consecutivo", $datos['consecutivo'], PDO::PARAM_INT);
 
         if ($stmt->execute()) {
             $id = $conexion->lastInsertId();
@@ -282,7 +283,7 @@ class ModeloFuec
     static public function mdlEditarFUEC($datos)
     {
         $conexion = Conexion::conectar();
-        $stmt = $conexion->prepare("UPDATE fuec SET tipocontrato = :tipocontrato, contratofijo = :contratofijo, contratante = :contratante, idvehiculo = :idvehiculo, idconductor1 = :idconductor1, idconductor2 = :idconductor2, idconductor3 = :idconductor3, fecha_inicial = :fecha_inicial, fecha_vencimiento = :fecha_vencimiento, idobjeto_contrato = :idobjeto_contrato, anotObjetoContrato = :anotObjetoContrato, origen = :origen, destino = :destino, observaciones = :observaciones, precio = :precio, listado_pasajeros = :listado_pasajeros, estado_pago = :estado_pago, valor_neto = :valor_neto, estado_fuec = :estado_fuec, usuario_creacion = :usuario_creacion, nro_contrato = :nro_contrato, idruta = :idruta
+        $stmt = $conexion->prepare("UPDATE fuec SET tipocontrato = :tipocontrato, contratofijo = :contratofijo, contratante = :contratante, idvehiculo = :idvehiculo, idconductor1 = :idconductor1, idconductor2 = :idconductor2, idconductor3 = :idconductor3, fecha_inicial = :fecha_inicial, fecha_vencimiento = :fecha_vencimiento, idobjeto_contrato = :idobjeto_contrato, anotObjetoContrato = :anotObjetoContrato, origen = :origen, destino = :destino, observaciones = :observaciones, precio = :precio, listado_pasajeros = :listado_pasajeros, estado_pago = :estado_pago, valor_neto = :valor_neto, estado_fuec = :estado_fuec, usuario_creacion = :usuario_creacion, nro_contrato = :nro_contrato, idruta = :idruta, consecutivo = :consecutivo
                                     WHERE idfuec = :idfuec");
 
         $stmt->bindParam(":idfuec", $datos['idfuec'], PDO::PARAM_INT);
@@ -309,6 +310,7 @@ class ModeloFuec
         $stmt->bindParam(":usuario_creacion", $datos['usuario_creacion'], PDO::PARAM_INT);
         $stmt->bindParam(":nro_contrato", $datos['nro_contrato'], PDO::PARAM_INT);
         $stmt->bindParam(":idruta", $datos['idruta'], PDO::PARAM_INT);
+        $stmt->bindParam(":consecutivo", $datos['consecutivo'], PDO::PARAM_INT);
 
 
         if ($stmt->execute()) {
@@ -452,4 +454,56 @@ class ModeloFuec
 
         return $retorno;
     }
+
+    /* ===================================================
+        SE TRAE EL ÚLTIMO CONSECUTIVO DE UN FIJO
+    ===================================================*/
+    static public function mdlConsecutivo($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT f.consecutivo FROM fuec f
+        WHERE f.contratofijo = :contratofijo AND f.tipocontrato = 'FIJO' 
+        ORDER BY f.consecutivo DESC
+        LIMIT 1");
+
+        $stmt->bindParam(":contratofijo", $datos['contratofijo'], PDO::PARAM_INT);
+
+        $stmt->execute();
+        $respuesta = $stmt->fetch();
+        $stmt->closeCursor();
+
+        return $respuesta;
+    }
+
+
+     /* ===================================================
+      SE TRAE EL MAYOR NÚMERO DE CONTRATO POR ID FIJO
+    ===================================================*/
+    static public function mdlMaxNumeroContratoxId($id)
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT MAX(numcontrato) AS numcontrato FROM cont_fijos WHERE idfijos = :id");
+
+        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $retorno = $stmt->fetch();
+        $stmt->closeCursor();
+
+        return $retorno;
+    }
+
+    /* ===================================================
+        SE TRAE LOS NÚMEROS DE CONTRATO 
+    ===================================================*/
+    static public function mdlNumerosContrato()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT nro_contrato FROM fuec ");
+
+        $stmt->execute();
+        $retorno = $stmt->fetchAll();
+        $stmt->closeCursor();
+
+        return $retorno;
+    }
+
+    
 }

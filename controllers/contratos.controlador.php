@@ -615,8 +615,17 @@ class ControladorFijos
 
             # INSERT
             if ($_POST['idconfijo'] == "" /* is_array($FijosExistente) */) {
+                
+                $max_numcontrato = ModeloFijos::mdlMaxNumeroContrato();
+
                 $respuestamodelo = ModeloFijos::mdlAgregarFijo($datos);
+
+                if($max_numcontrato != false)  $datos['numcontrato'] = $respuestamodelo;
+                else $datos['numcontrato'] = 1;
+                            
+
                 $datos['idfijos'] = $respuestamodelo;
+                // $datos['numcontrato'] = $respuestamodelo;
             }
 
             /* ===================================================

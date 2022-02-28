@@ -1039,6 +1039,22 @@ class ModeloFijos
       $stmt = null;
       return $retorno;
    }
+
+   /* ===================================================
+        SE TRAE EL MAYOR NÚMERO DE CONTRATO 
+    ===================================================*/
+    static public function mdlMaxNumeroContrato()
+    {
+        $stmt = Conexion::conectar()->prepare("SELECT MAX(numcontrato) FROM cont_fijos ");
+
+        $stmt->execute();
+        $retorno = $stmt->fetch();
+        $stmt->closeCursor();
+
+        return $retorno;
+    }
+
+   
 }
 /* ===================================================
    * ORDEN DE SERVICIO
