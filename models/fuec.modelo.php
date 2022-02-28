@@ -416,22 +416,6 @@ class ModeloFuec
         return $retorno;
     }
 
-    /* ===================================================
-       NUMERO SIGUIENTE DE CONTRATO DEL FUEC CUANDO ES OCASIONAL
-    ===================================================*/
-    static public function mdlNumeroContrato($tipocontrato)
-    {
-        $sql = "SELECT MAX(f.nro_contrato) AS nro_contrato FROM fuec f 
-                WHERE f.tipocontrato = :tipocontrato";
-        $stmt = Conexion::conectar()->prepare($sql);
-
-        $stmt->bindParam(":tipocontrato",  $tipocontrato, PDO::PARAM_STR);
-        $stmt->execute();
-        $retorno =  $stmt->fetch();
-        $stmt->closeCursor();
-        return $retorno;
-    }
-
     /* ===================== 
         ACTUALIZAR UN UNICO CAMPO DEL FUEC
 	========================= */
@@ -451,91 +435,6 @@ class ModeloFuec
 
         $stmt->closeCursor();
         $stmt = null;
-
-        return $retorno;
-    }
-
-    /* ===================================================
-        SE TRAE EL ÚLTIMO CONSECUTIVO DE UN FIJO
-    ===================================================*/
-    static public function mdlConsecutivo($datos)
-    {
-        $stmt = Conexion::conectar()->prepare("SELECT f.consecutivo FROM fuec f
-        WHERE f.contratofijo = :contratofijo AND f.tipocontrato = 'FIJO' 
-        ORDER BY f.consecutivo DESC
-        LIMIT 1");
-
-        $stmt->bindParam(":contratofijo", $datos['contratofijo'], PDO::PARAM_INT);
-
-        $stmt->execute();
-        $respuesta = $stmt->fetch();
-        $stmt->closeCursor();
-
-        return $respuesta;
-    }
-
-
-     /* ===================================================
-      SE TRAE EL MAYOR NÚMERO DE CONTRATO POR ID FIJO
-    ===================================================*/
-    static public function mdlMaxNumeroContratoxId($id)
-    {
-        $stmt = Conexion::conectar()->prepare("SELECT MAX(numcontrato) AS numcontrato FROM cont_fijos WHERE idfijos = :id");
-
-        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-
-        $stmt->execute();
-        $retorno = $stmt->fetch();
-        $stmt->closeCursor();
-
-        return $retorno;
-    }
-
-    /* ===================================================
-        SE TRAE LOS NÚMEROS DE CONTRATO 
-    ===================================================*/
-    static public function mdlNumerosContrato()
-    {
-        $stmt = Conexion::conectar()->prepare("SELECT nro_contrato, consecutivo FROM fuec ");
-
-        $stmt->execute();
-        $retorno = $stmt->fetchAll();
-        $stmt->closeCursor();
-
-        return $retorno;
-    }
-
-    /* ===================================================
-        CONSECUTIVO X NRO DE CONTRATO 
-    ===================================================*/
-    static public function mdlConsecutivoxNroContrato($nro_contrato)
-    {
-        $stmt = Conexion::conectar()->prepare("SELECT consecutivo FROM fuec WHERE nro_contrato = :nro_contrato");
-
-        $stmt->bindParam(":nro_contrato", $nro_contrato, PDO::PARAM_INT);
-
-        
-        $stmt->execute();
-        $retorno = $stmt->fetch();
-        $stmt->closeCursor();
-
-        return $retorno;
-
-
-    }
-
-    /* ========================================================
-        MAYOR NUMERO DE CONTRATO POR ID ORDEN PARA OCASIONALES 
-    ==========================================================*/
-    static public function mdlMaxNumeroContratoxIdOcasional($id)
-    {
-        $stmt = Conexion::conectar()->prepare("SELECT MAX(nro_contrato) AS numcontrato FROM cont_ordenservicio WHERE idorden = :id");
-
-        $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-
-        $stmt->execute();
-        $retorno = $stmt->fetch();
-        $stmt->closeCursor();
 
         return $retorno;
     }

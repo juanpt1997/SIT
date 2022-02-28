@@ -12,6 +12,9 @@ require_once '../models/fuec.modelo.php';
 require_once '../controllers/vehicular.controlador.php';
 require_once '../models/vehicular.modelo.php';
 
+require_once '../controllers/contratos.controlador.php';
+require_once '../models/contratos.modelo.php';
+
 
 // if (!isset($_SESSION['iniciarSesion']) || $_SESSION['iniciarSesion'] != "ok"){
 // 	echo "<script>window.location = 'inicio';</script>";

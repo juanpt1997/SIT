@@ -47,9 +47,9 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                 <table id="tblOrdenServicio" class="table table-sm table-striped table-bordered table-hover w-100">
                                     <thead class="text-sm text-center text-nowrap">
                                         <tr>
-                                            <th>...</th>
+                                            <th style="min-width:90px;">...</th>
                                             <th>PDF</th>
-                                            <th style="min-width:90px;">ID</th>
+                                            <th>Número del contrato</th>
                                             <th>Nombre contratante</th>
                                             <th>NIT/CC</th>
                                             <th>Dirección</th>
@@ -57,7 +57,6 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                             <th>Teléfono 2</th>
                                             <th>Nombre del contacto</th>
                                             <th>Correo</th>
-                                            <th>Número del contrato</th>
                                             <th>Número de la factura</th>
                                             <th>Fecha de facturación</th>
                                             <th>Código de autorización</th>
@@ -85,7 +84,8 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                             <tr>
                                                 <td class="text-center">
                                                     <div class="btn-group" role="group" aria-label="Button group">
-                                                        <button class="btn btn-toolbar btn-sm btn-info btn-editarorden" title="Editar orden." data-toggle="modal" data-target="#ordenserviciomodal" idorden="<?= $value['idorden'] ?>"><i class="fas fa-edit"></i></button>
+                                                        <?= $value['idorden'] ?>
+                                                        <button class="btn btn-toolbar btn-sm btn-info btn-editarorden ml-1" title="Editar orden." data-toggle="modal" data-target="#ordenserviciomodal" idorden="<?= $value['idorden'] ?>"><i class="fas fa-edit"></i></button>
                                                     </div>
                                                 </td>
                                                 <td class="text-center">
@@ -93,7 +93,7 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                                         <button class="btn btn-toolbar btn-sm btn-secondary btn-verorden float-right" title="Ver PDF orden." idorden="<?= $value['idorden'] ?>"><i class="fas fa-file-pdf"></i></button>
                                                     </div>
                                                 </td>
-                                                <td><?= $value['idorden'] ?></td>
+                                                <td><?= $value['nro_contrato'] ?></td>
                                                 <td><?= $value['nomContrata'] ?></td>
                                                 <td><?= $value['doContrata'] ?></td>
                                                 <td><?= $value['direccion_con'] ?></td>
@@ -101,7 +101,6 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                                 <td><?= $value['tel_2'] ?></td>
                                                 <td><?= $value['nombre_respo'] ?></td>
                                                 <td><?= $value['correo'] ?></td>
-                                                <td><?= $value['nro_contrato'] ?></td>
                                                 <td><?= $value['nro_factura'] ?></td>
                                                 <td><?= $value['fecha_facturacion'] ?></td>
                                                 <td><?= $value['cod_autoriz'] ?></td>
