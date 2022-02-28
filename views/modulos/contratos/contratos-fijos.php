@@ -130,7 +130,7 @@ $Placas = ControladorVehiculos::ctrListaVehiculos();
                     </div>
 
                     <div class="row">
-                        <div class="col-md-4" style="display: none;">
+                        <div class="col-md-4 d-none">
                             <div class="form-group">
                                 <label class="text-sm">Número de contrato</label>
                                 <div class="input-group input-group-sm">
@@ -164,7 +164,7 @@ $Placas = ControladorVehiculos::ctrListaVehiculos();
                         <div class="form-group">
                             <label class="text-sm">Documento escaneado</label>
                             <div class="input-group input-group-sm">
-                                <input class="form-control-file input-fijos" type="file" id="documento_es" name="documento_es" accept="image/png, image/jpeg, application/pdf" required>
+                                <input class="form-control-file input-fijos" type="file" id="documento_es" name="documento_es" accept="image/png, image/jpeg, application/pdf" >
                             </div>
                             <a id="visualizDocumento" href="" target="_blank"></a>
                         </div>

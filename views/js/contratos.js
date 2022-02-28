@@ -1375,6 +1375,7 @@ if (
                 processData: false,
                 dataType: "json",
                 success: function (response) {
+                    // console.log(response);
                     $("#titulo_fijos").html(
                         "Editar (Contrato # " +
                             response.numcontrato +
@@ -1383,7 +1384,8 @@ if (
                             ")"
                     );
                     $("#nom_clien").val(response.idcliente);
-                    //$("#num_contrato").val(response.numcontrato);
+                    $("#idconfijo").val(response.numcontrato);
+                    $("#num_contrato").val(response.numcontrato);
                     $("#f_inicial_fijos").val(response.fecha_inicial);
                     $("#f_final_fijos").val(response.fecha_final);
                     $("#observaciones_fijos").val(response.observaciones);
