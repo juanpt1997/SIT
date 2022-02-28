@@ -150,14 +150,26 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
             <form method="post" enctype="multipart/form-data" id="formulario_orden">
 
                 <div class="modal-body">
-                    <div class="col-md-3">
-                        <div class="form-group">
-                            <label class="text-sm">ID</label>
-                            <div class="input-group input-group-sm">
-                                <input class="form-control" type="number" id="idorden" name="idorden" readonly>
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="text-sm">ID</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control" type="number" id="idorden" name="idorden" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="text-sm">Número del contrato</label>
+                                <div class="input-group input-group-sm">
+                                    <input class="form-control" type="number" id="numcontrato" name="numcontrato" placeholder="Ingrese el número  del contrato" maxlength="10" readonly>
+                                </div>
                             </div>
                         </div>
                     </div>
+
 
                     <hr class="my-4 bg-success">
 
@@ -232,14 +244,9 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
 
                     <hr class="my-4 bg-dark">
 
-                    <div class="form-group">
-                        <label class="text-sm">Número del contrato</label>
-                        <div class="input-group input-group-sm">
-                            <input class="form-control" type="number" id="numcontrato" name="numcontrato" placeholder="Ingrese el número  del contrato" maxlength="10" required>
-                        </div>
-                    </div>
 
-                    <hr class="my-4 bg-dark">
+
+                    <hr class="my-4 bg-dark" style="display: none;">
 
                     <div class="row">
 

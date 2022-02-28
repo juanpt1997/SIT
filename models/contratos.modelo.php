@@ -1040,21 +1040,40 @@ class ModeloFijos
       return $retorno;
    }
 
+   /* ======================================================================
+        SE TRAE EL MAYOR NÚMERO DE CONTRATO ENTRE FIJOS Y OCASIONALES 
+    ======================================================================*/
+   static public function mdlMaxNumeroContrato()
+   {
+      $stmt = Conexion::conectar()->prepare("SELECT MAX(numcontrato) AS numcontrato FROM(
+         SELECT numcontrato FROM cont_fijos 
+         		WHERE YEAR(fecha_inicial) =  YEAR(CURDATE())
+                 UNION 
+         SELECT nro_contrato AS numcontrato FROM cont_ordenservicio
+         WHERE YEAR(fechacreacion) =  YEAR(CURDATE())
+         ) AS numcontrato");
+
+      $stmt->execute();
+      $retorno = $stmt->fetch();
+      $stmt->closeCursor();
+
+      return $retorno;
+   }
+
+
    /* ===================================================
-        SE TRAE EL MAYOR NÚMERO DE CONTRATO 
+      CONSULTAR DATOS DEL FIJO
     ===================================================*/
-    static public function mdlMaxNumeroContrato()
-    {
-        $stmt = Conexion::conectar()->prepare("SELECT MAX(numcontrato) FROM cont_fijos ");
+   static public function mdlDatosFijo($id)
+   {
+      $stmt = Conexion::conectar()->prepare("");
 
-        $stmt->execute();
-        $retorno = $stmt->fetch();
-        $stmt->closeCursor();
+      $stmt->execute();
+      $retorno = $stmt->fetch();
+      $stmt->closeCursor();
 
-        return $retorno;
-    }
-
-   
+      return $retorno;
+   }
 }
 /* ===================================================
    * ORDEN DE SERVICIO
