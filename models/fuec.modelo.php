@@ -347,7 +347,7 @@ class ModeloFuec
         $sql = "SELECT t.tipodocumento, MAX(d.fechafin) AS fechafin, IF(MAX(d.fechafin) >= CURDATE(), 'bien', 'vencido') AS estado
                 FROM v_tipodocumento t
                 LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
-                WHERE d.idvehiculo = :idvehiculo
+                WHERE d.idvehiculo = :idvehiculo AND t.obligatorio = 1
                 GROUP BY t.idtipo
                 UNION ALL
                 SELECT t.tipodocumento, NULL AS fechafin, 'vencido' AS estado
@@ -358,7 +358,7 @@ class ModeloFuec
                                             FROM v_tipodocumento t
                                             LEFT JOIN v_re_documentosvehiculos d ON t.idtipo = d.idtipodocumento
                                             WHERE d.idvehiculo = :idvehiculo
-                                            GROUP BY t.idtipo)
+                                            GROUP BY t.idtipo) AND t.obligatorio = 1
                 GROUP BY t.idtipo;";
         $stmt = Conexion::conectar()->prepare($sql);
 

@@ -543,3 +543,66 @@ class ModeloRepuestos
         return $respuesta;
     }
 }
+/*=============================================================
+=================MODELO TIPO DOCUMENTO VEHICULAR===============
+============================================================?*/
+class ModeloTipoDocumentoVehicular
+{
+    static public function mdlAgregar($datos)
+    {
+        $stmt = Conexion::conectar()->prepare("INSERT INTO v_tipodocumento(tipodocumento,diasalerta, obligatorio)
+                                                VALUES(:tipodocumento,:diasalerta, :obligatorio)");
+
+        $stmt->bindParam(":tipodocumento", $datos["tipodocumento"], PDO::PARAM_STR);
+        $stmt->bindParam(":diasalerta", $datos["diasalerta"], PDO::PARAM_INT);
+        $stmt->bindParam(":obligatorio", $datos["obligatorio"], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+    //Editar datos de un tipo de documento
+    static public function mdlEditar($datos)
+    {
+
+        $stmt = Conexion::conectar()->prepare("UPDATE v_tipodocumento set tipodocumento = :tipodocumento, diasalerta=:diasalerta, obligatorio=:obligatorio
+                                                WHERE idtipo = :idtipo");
+
+        $stmt->bindParam(":idtipo", $datos["idtipo"], PDO::PARAM_INT);
+        $stmt->bindParam(":tipodocumento", $datos["tipodocumento"], PDO::PARAM_STR);
+        $stmt->bindParam(":diasalerta", $datos["diasalerta"], PDO::PARAM_INT);
+        $stmt->bindParam(":obligatorio", $datos["obligatorio"], PDO::PARAM_INT);
+
+        if ($stmt->execute()) {
+            $retorno = "ok";
+        } else {
+            $retorno = "error";
+        }
+
+        $stmt->closeCursor();
+        $stmt = null;
+
+        return $retorno;
+    }
+    //Visualizar datos de un solo registro
+    static public function mdlDatosRegistro($idtipo)
+    {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("SELECT * FROM v_tipodocumento
+                                    WHERE idtipo = :idtipo");
+
+        $stmt->bindParam(":idtipo", $idtipo, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $respuesta =  $stmt->fetch();
+        $stmt->closeCursor();
+        return $respuesta;
+    }
+}

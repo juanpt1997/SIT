@@ -66,10 +66,10 @@ class AjaxConceptosGenerales
 				$item = "cargo";
 				break;
 				//VEHICULAR
-			// case 'Tipos de vehiculos':
-			// 	$tabla = "v_tipovehiculos";
-			// 	$item = "tipovehiculo";
-			// 	break;
+				// case 'Tipos de vehiculos':
+				// 	$tabla = "v_tipovehiculos";
+				// 	$item = "tipovehiculo";
+				// 	break;
 
 			case 'Marcas de vehículos':
 				$tabla = "v_marcas";
@@ -128,7 +128,7 @@ class AjaxConceptosGenerales
 			case 'Trabajos llantas':
 				$tabla = "m_trabajos_llantas";
 				$item = "trabajo";
-				break;		
+				break;
 
 			default:
 				// code...
@@ -137,7 +137,8 @@ class AjaxConceptosGenerales
 		$datos = array(
 			"tabla" => $tabla,
 			"item" => $item,
-			"valor" => $dato);
+			"valor" => $dato
+		);
 
 		$validacion = ControladorExistencia::ctrValidarExistencia($datos);
 
@@ -145,14 +146,12 @@ class AjaxConceptosGenerales
 
 			$respuesta = 'ok';
 			echo $respuesta;
-			
 		} else if ($validacion == 'existe') {
 
 			$respuesta = 'existe';
 			echo $respuesta;
-
 		} else if ($validacion == 'no_existe') {
- 
+
 			$respuesta = ModeloConceptosGenerales::mdlNuevo($datos);
 			echo $respuesta;
 		}
@@ -215,11 +214,11 @@ class AjaxConceptosGenerales
 				break;
 
 				//VEHICULAR
-			// case 'Tipos de vehiculos':
-			// 	$tabla = "v_tipovehiculos";
-			// 	$item = "tipovehiculo";
-			// 	$id = "idtipovehiculo";
-			// 	break;
+				// case 'Tipos de vehiculos':
+				// 	$tabla = "v_tipovehiculos";
+				// 	$item = "tipovehiculo";
+				// 	$id = "idtipovehiculo";
+				// 	break;
 
 			case 'Marcas de vehículos':
 				$tabla = "v_marcas";
@@ -290,7 +289,7 @@ class AjaxConceptosGenerales
 				$tabla = "m_trabajos_llantas";
 				$item = "trabajo";
 				$id = "idtrabajo";
-				break;	
+				break;
 
 			default:
 				// code...
@@ -453,7 +452,7 @@ class AjaxConceptosGenerales
 				$tabla = "m_trabajos_llantas";
 				$item = "trabajo";
 				$idtabla = "idtrabajo";
-				break;	
+				break;
 			default:
 				// code...
 				break;
@@ -729,7 +728,7 @@ class AjaxConceptosGenerales
 			case 'Trabajos llantas':
 				$tabla = "m_trabajos_llantas";
 				$item = "trabajo";
-				break;	
+				break;
 
 			default:
 				// code...
@@ -775,10 +774,10 @@ class AjaxConceptosGenerales
 				$tabla = "v_tipovehiculos";
 				$item1 = "tipovehiculo";
 				$item2 = "categoria";
-				break;	
+				break;
 
-			
-				default:
+
+			default:
 				# code...
 				break;
 		}
@@ -831,7 +830,7 @@ class AjaxConceptosGenerales
 				$item2 = "categoria";
 				$idtabla = "idtipovehiculo";
 				break;
-					
+
 
 
 			default:
@@ -931,7 +930,7 @@ class AjaxConceptosGenerales
 				$item1 = "tipovehiculo";
 				$item2 = "categoria";
 				$id = "idtipovehiculo";
-				break;	
+				break;
 
 			default:
 				// code...
@@ -1107,7 +1106,7 @@ class AjaxConceptosGenerales
 			case 'Trabajos llantas':
 				$tabla = "m_trabajos_llantas";
 				$id_tabla = "idtrabajo";
-				break;			
+				break;
 
 			default:
 				// code...
@@ -1395,6 +1394,31 @@ class AjaxConceptoServicios
 	}
 }
 /*=============================================================
+=====================AJAX TIPO DOCUMENTO VEHICULAR====================
+============================================================?*/
+class AjaxTipoDocumentoVehicular
+{
+	//Ajax apra agregar una nuevo documento vehicular
+	static public function AgregarTipoDocumento($datos)
+	{
+		$respuesta = ModeloTipoDocumentoVehicular::mdlAgregar($datos);
+		echo $respuesta;
+	}
+	//Ajax para editar los datos de un documento vehicular
+	static public function EditarTipoDocumento($datos)
+	{
+		$respuesta = ModeloTipoDocumentoVehicular::mdlEditar($datos);
+		echo $respuesta;
+	}
+	//Ajax para visualizar los datos de una ciudad segun su ID
+	static public function DatosTipoDocumento($id)
+	{
+		$respuesta = ModeloTipoDocumentoVehicular::mdlDatosRegistro($id);
+		echo json_encode($respuesta);
+	}
+}
+
+/*=============================================================
 =====================LLAMADOS conceptos generales==============
 ============================================================?*/
 if (isset($_POST['Nuevo']) && $_POST['Nuevo'] == "ok") {
@@ -1482,4 +1506,16 @@ if (isset($_POST['ajaxEditarServicio']) && $_POST['ajaxEditarServicio'] == "ok")
 //AJAX ELIMINAR
 if (isset($_POST['EliminarRegistro']) && $_POST['EliminarRegistro'] == "ok") {
 	AjaxConceptosGenerales::ajaxEliminar($_POST['id'], /*$_POST['valor'],*/ $_POST['concepto']);
+}
+/*=============================================================
+=================MODELO TIPO DOCUMENTO VEHICULAR===============
+============================================================?*/
+if (isset($_POST['AgregarTipoDocumentoVehicular']) && $_POST['AgregarTipoDocumentoVehicular'] == "ok") {
+	AjaxTipoDocumentoVehicular::AgregarTipoDocumento($_POST);
+}
+if (isset($_POST['EditarTipoDocumentoVehicular']) && $_POST['EditarTipoDocumentoVehicular'] == "ok") {
+	AjaxTipoDocumentoVehicular::EditarTipoDocumento($_POST);
+}
+if (isset($_POST['DatosTipoDocumentoVehicular']) && $_POST['DatosTipoDocumentoVehicular'] == "ok") {
+	AjaxTipoDocumentoVehicular::DatosTipoDocumento($_POST['idtipo']);
 }
