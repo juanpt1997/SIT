@@ -2469,7 +2469,7 @@ $ListaInventario = ControladorInventario::ctrListaInventario();
                                                                             <!-- BOTONES SUBMIT FORMULARIO INVENTARIO -->
                                                                             <div class="row d-flex justify-content-center">
                                                                                 <div class="col-3">
-                                                                                    <button type="submit" class="btn btn-block btn-success btn-agregar-inventario" form="formulario_inventario">
+                                                                                    <button type="submit" class="btn btn-success btn-agregar-inventario" form="formulario_inventario">
                                                                                         <i class="fas fa-save"></i> Guardar inventario</button>
                                                                                     <input class="form-control input-sm" type="reset" id="restablecer" style="background-color: red;color: white;">
                                                                                 </div>

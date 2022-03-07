@@ -134,62 +134,61 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                             </ul>
                         </div>
 
-                        <div class="card-body">
-                            <div class="tab-content" id="custom-tabs-four-tabContent">
-                                <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
-                                    <div class="table-responsive">
-                                        <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tabla_llantas">
-                                            <thead>
-                                                <tr>
-                                                    <th>...</th>
-                                                    <th>Placa</th>
-                                                    <th>Número llanta</th>
-                                                    <th>Ubicación actual</th>
-                                                    <th>Tamaño</th>
-                                                    <th>Marca</th>
-                                                    <th>Código</th>
-                                                    <th>Referencia</th>
-                                                    <th>Descripción</th>
-                                                    <th>Categoria</th>
-                                                    <th>Medida</th>
-                                                    <th>Vida</th>
-                                                    <th>Fecha montaje</th>
-                                                    <th>Kilometraje montaje</th>
-                                                    <th>Lonas</th>
-                                                    <th>Estado actual</th>
-                                                    <th>Fecha factura</th>
-                                                    <th>Número de factura</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tbody_tabla_llantas">
-                                            </tbody>
-                                        </table>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="tab-content" id="custom-tabs-four-tabContent">
+                                    <div class="tab-pane fade show active" id="custom-tabs-four-home" role="tabpanel" aria-labelledby="custom-tabs-four-home-tab">
+                                            <table class="table table-responsive table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_llantas">
+                                                <thead>
+                                                    <tr>
+                                                        <th>...</th>
+                                                        <th>Placa</th>
+                                                        <th>Número llanta</th>
+                                                        <th>Ubicación actual</th>
+                                                        <th>Tamaño</th>
+                                                        <th>Marca</th>
+                                                        <th>Código</th>
+                                                        <th>Referencia</th>
+                                                        <th>Descripción</th>
+                                                        <th>Categoria</th>
+                                                        <th>Medida</th>
+                                                        <th>Vida</th>
+                                                        <th>Fecha montaje</th>
+                                                        <th>Kilometraje montaje</th>
+                                                        <th>Lonas</th>
+                                                        <th>Estado actual</th>
+                                                        <th>Fecha factura</th>
+                                                        <th>Número de factura</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbody_tabla_llantas">
+                                                </tbody>
+                                            </table>
                                     </div>
-                                </div>
-                                <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
-                                    <div class="table-responsive">
-                                        <table class="datatable-multi-row table table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_controlOrdenes">
-                                            <thead>
-                                                <tr>
-                                                    <th>Núm. Orden</th>
-                                                    <th>Acciones</th>
-                                                    <th>ID llanta</th>
-                                                    <th>Núm. Llanta</th>
-                                                    <th>Ubicación anterior</th>
-                                                    <th>Ubicación actual</th>
-                                                    <th>Fecha orden</th>
-                                                    <th>Placa del vehículo</th>
-                                                    <th>Núm. Interno</th>
-                                                    <th>Alineación</th>
-                                                    <th>Kilometraje de inspección</th>
-                                                    <th>Proveedor servicio</th>
-                                                    <th>Promedio de profundidad (mm)</th>
-                                                    <th>Presión de aire</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="tbody_controlOrdenes">
-                                            </tbody>
-                                        </table>
+
+                                    <div class="tab-pane fade" id="custom-tabs-four-profile" role="tabpanel" aria-labelledby="custom-tabs-four-profile-tab">
+                                            <table class="datatable-multi-row table table-responsive table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_controlOrdenes">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Núm. Orden</th>
+                                                        <th>Acciones</th>
+                                                        <th>ID llanta</th>
+                                                        <th>Núm. Llanta</th>
+                                                        <th>Ubicación anterior</th>
+                                                        <th>Ubicación actual</th>
+                                                        <th>Fecha orden</th>
+                                                        <th>Placa del vehículo</th>
+                                                        <th>Núm. Interno</th>
+                                                        <th>Alineación</th>
+                                                        <th>Kilometraje de inspección</th>
+                                                        <th>Proveedor servicio</th>
+                                                        <th>Promedio de profundidad (mm)</th>
+                                                        <th>Presión de aire</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tbody_controlOrdenes">
+                                                </tbody>
+                                            </table>
                                     </div>
                                 </div>
                             </div>
@@ -999,8 +998,7 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                 </button>
             </div>
             <div class="modal-body">
-                <div class="table-responsive">
-                    <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tablaTrabajosRealizados">
+                    <table class="table table-responsive table-sm table-bordered table-striped text-center text-nowrap w-100" id="tablaTrabajosRealizados">
                         <thead>
                             <tr>
                                 <th>Número de control</th>
@@ -1011,7 +1009,6 @@ $DeparMunicipios = ControladorGH::ctrDeparMunicipios();
                         <tbody id="tbody_trabajosRealizados">
                         </tbody>
                     </table>
-                </div>
 
             </div>
             <div class="modal-footer bg-gradient-dark">

@@ -207,6 +207,43 @@ class AjaxRodamientos
 
         echo json_encode($respuesta);
     }
+
+    static public function ajaxCargarTbRodamientos () {
+        $Plan_r = ControladorRodamientos::ctrListarRodamientos();
+        $tr = "";
+        foreach ($Plan_r as $key => $value) {
+
+            $tr.=
+            "<tr>
+                <td>
+                    <button type='button' class='btn btn-info btn-sm btn-editarRodamiento' title='Editar plan de rodamiento.' id_rodamiento='{$value["id"]}' data-toggle='modal' data-target='#modal-nuevoplanrodamiento'><i class='fas fa-edit'></i></button>
+                    <button type='button' class='btn btn-danger btn-sm btn-eliminar-rodamiento' title='Eliminar Rodamiento.' id_rodamiento='{$value["id"]}'><i class='fas fa-trash'></i></button>
+                </td>
+                <td>{$value["id"]}</td>
+                <td>{$value["cliente"]}</td>
+                <td>{$value["conductor"]}</td>
+                <td>{$value["placa"]}</td>
+                <td>{$value["numinterno"]}</td>
+                <td>{$value["marca"]}</td>
+                <td>{$value["modelo"]}</td>
+                <td>{$value["capacidad"]}</td>
+                <td>{$value["tipovinculacion"]}</td>
+                <td>{$value["ruta"]}</td>
+                <td>{$value["tipo_contrato"]}</td>
+                <td>{$value["valortotal"]}</td>
+                <td>{$value["fecha_servicio"]}</td>
+                <td>{$value["tipo_servicio"]}</td>
+                <td>{$value["cantidad_pasajeros"]}</td>
+                <td>{$value["h_inicio"]}</td>
+                <td>{$value["h_final"]}</td>
+                <td>{$value["kmrecorridos"]}</td>
+            </tr>";
+            
+        }
+
+        echo $tr;
+
+    }
 }
 
 #Llamados ajax alistamiento
@@ -241,4 +278,8 @@ if (isset($_POST['EliminarRodamiento']) && $_POST['EliminarRodamiento'] == "ok")
 
 if (isset($_POST['ConsultarValor']) && $_POST['ConsultarValor'] == "ok") {
     AjaxRodamientos::ajaxConsultarValor($_POST['idcliente'],$_POST['idruta'],$_POST['idtipove']);
+}
+
+if (isset($_POST['CargarTbRodamientos']) && $_POST['CargarTbRodamientos'] == "ok") {
+	AjaxRodamientos::ajaxCargarTbRodamientos();
 }

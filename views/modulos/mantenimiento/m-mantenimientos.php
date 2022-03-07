@@ -1158,30 +1158,31 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                         <!-- MANTENIMIENTOS PENDIENTES  -->
                                         <div class="tab-pane fade show active " id="v-pills-vehiculos" role="tabpanel" aria-labelledby="v-pills-vehiculos-tab">
                                             <div class="row m-2">
-
-
                                                 <!-- TABLA VEHICULOS -->
-                                                <div class="table-responsive">
-                                                    <table id="tablaSolicitudesProgramacion" class="datatable-multi-row table table-sm table-striped table-hover table-bordered text-center w-100">
-                                                        <thead class="text-nowrap">
-                                                            <tr>
-                                                                <th>...</th>
-                                                                <th>Placa</th>
-                                                                <th>Número interno</th>
-                                                                <th>Kilometraje</th>
-                                                                <th>Fecha de solicitud</th>
-                                                                <th>Fecha de programación</th>
-                                                                <th>Actividad</th>
-                                                                <th>Tiempo mantenimiento</th>
-                                                                <th>Observaciones</th>
-                                                            </tr>
-                                                        </thead>
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <table id="tablaSolicitudesProgramacion" class="datatable-multi-row table table-responsive dt-responsive table-sm table-striped table-hover table-bordered text-center w-100">
+                                                            <thead class="text-nowrap">
+                                                                <tr>
+                                                                    <th>...</th>
+                                                                    <th>Placa</th>
+                                                                    <th>Número interno</th>
+                                                                    <th>Kilometraje</th>
+                                                                    <th>Fecha de solicitud</th>
+                                                                    <th>Fecha de programación</th>
+                                                                    <th>Actividad</th>
+                                                                    <th>Tiempo mantenimiento</th>
+                                                                    <th>Observaciones</th>
+                                                                </tr>
+                                                            </thead>
 
-                                                        <tbody id="tbodyprogramacion" class="text-nowrap">
+                                                            <tbody id="tbodyprogramacion" class="text-nowrap">
 
-                                                        </tbody>
-                                                    </table>
-                                                    <!-- <table id="tablaSolicitudesProgramacion" class="datatable-multi-row w-100">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <!-- <table id="tablaSolicitudesProgramacion" class="datatable-multi-row w-100">
                                                         <thead>
                                                             <tr>
                                                                 <th>Name</th>
@@ -1195,8 +1196,6 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
                                                             
                                                             </tbody>
                                                     </table> -->
-                                                </div>
-
                                             </div>
                                         </div>
 
@@ -1206,26 +1205,27 @@ $Programacion = ControladorMantenimientos::ctrListaProgramacion();
 
 
                                                 <!-- TABLA -->
-                                                <div class="table-responsive">
-                                                    <table id="tablaHistorialSolicitudesProgramacion" class=" table table-sm table-striped table-hover table-bordered text-center w-100 tablasBtnExport">
-                                                        <thead class="text-nowrap">
-                                                            <tr>
-                                                                <th># Solicitud</th>
-                                                                <th>Placa</th>
-                                                                <th>Actividades</th>
-                                                                <th>Fecha de la solicitud</th>
-                                                                <th>Fecha de programación</th>
-                                                                <th>Tiempo de mantenimiento</th>
-                                                                <th>Estado</th>
-                                                                <th>Observaciones</th>
-                                                            </tr>
-                                                        </thead>
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <table id="tablaHistorialSolicitudesProgramacion" class=" table table-responsive table-sm table-striped table-hover table-bordered text-center w-100 tablasBtnExport">
+                                                            <thead class="text-nowrap">
+                                                                <tr>
+                                                                    <th># Solicitud</th>
+                                                                    <th>Placa</th>
+                                                                    <th>Actividades</th>
+                                                                    <th>Fecha de la solicitud</th>
+                                                                    <th>Fecha de programación</th>
+                                                                    <th>Tiempo de mantenimiento</th>
+                                                                    <th>Estado</th>
+                                                                    <th>Observaciones</th>
+                                                                </tr>
+                                                            </thead>
 
-                                                        <tbody id="tbodyHistorialSolicitudesProgramacion" class="text-nowrap">
-                                                        </tbody>
-                                                    </table>
+                                                            <tbody id="tbodyHistorialSolicitudesProgramacion" class="text-nowrap">
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
-
                                             </div>
                                         </div>
 

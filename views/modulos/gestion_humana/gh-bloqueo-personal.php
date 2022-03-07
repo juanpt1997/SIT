@@ -53,8 +53,7 @@ $listaUltimo = ControladorBloqueos::ctrUltimoBloqueo(null);
                     <div class="card">
                         <div class="card-header bg-info"></div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-sm table-striped table-bordered dt-responsive table-hover tablasBtnExport w-100">
+                                <table class="table table-responsive table-sm table-striped table-bordered table-hover tablasBtnExport w-100">
                                     <thead class="thead-light text-sm text-center">
                                         <tr>
                                             <th style="width:10px;">#</th>
@@ -96,7 +95,6 @@ $listaUltimo = ControladorBloqueos::ctrUltimoBloqueo(null);
                                         <?php endforeach ?>
                                     </tbody>
                                 </table>
-                            </div>
                         </div>
                         <div class="card-footer bg-dark"></div>
                     </div>

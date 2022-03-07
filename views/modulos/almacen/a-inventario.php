@@ -318,25 +318,24 @@
                                 <button type="button" class="btn btn-tool btn_ver_productos" title="Ver productos pantalla completa" data-toggle="tooltip" data-placement="top" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
                             </h5>
                         </div>
+
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_productos">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Nombre/Descripción</th>
-                                            <th>Código</th>
-                                            <th>Referencia</th>
-                                            <th>Categoria</th>
-                                            <th>Marca</th>
-                                            <th>Medida</th>
-                                            <th>...</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbody_productos">
-                                    </tbody>
-                                </table>
-                            </div>
+                            <table class="table table-responsive table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_productos">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nombre/Descripción</th>
+                                        <th>Código</th>
+                                        <th>Referencia</th>
+                                        <th>Categoria</th>
+                                        <th>Marca</th>
+                                        <th>Medida</th>
+                                        <th>...</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_productos">
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                     <hr>
@@ -349,26 +348,25 @@
                             </h5>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_inventario">
-                                    <thead>
-                                        <!-- <tr>
+                            <table class="table table-responsive table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_inventario">
+                                <thead>
+                                    <!-- <tr>
                                             <th colspan="8">PRODUCTOS</th>
                                             <th colspan="4">ENTRADAS</th>
                                             <th colspan="4">SALIDAS</th>
                                             <th colspan="3">SALDO</th>
                                             <th colspan='1'>SUCURSALES</th>
                                         </tr> -->
-                                        <tr>
-                                            <th>Descripción</th>
-                                            <th>Código</th>
-                                            <th>Referencia</th>
-                                            <th>Categoria</th>
-                                            <th>Marca</th>
-                                            <th>Medida</th>
-                                            <th>Stock</th>
-                                            <th>Acciones</th>
-                                            <!-- <th>Sucursal</th>
+                                    <tr>
+                                        <th>Descripción</th>
+                                        <th>Código</th>
+                                        <th>Referencia</th>
+                                        <th>Categoria</th>
+                                        <th>Marca</th>
+                                        <th>Medida</th>
+                                        <th>Stock</th>
+                                        <th>Acciones</th>
+                                        <!-- <th>Sucursal</th>
                                             <th>Precio</th>
                                             <th>Fecha de entrada</th>
                                             <th>Cantidad (u)</th>
@@ -382,12 +380,11 @@
                                             <th>Valor unitario</th>
                                             <th>Total</th>
                                             <th>Sucursal</th> -->
-                                        </tr>
-                                    </thead>
-                                    <tbody id="tbody_inventario">
-                                    </tbody>
-                                </table>
-                            </div>
+                                    </tr>
+                                </thead>
+                                <tbody id="tbody_inventario">
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -414,31 +411,31 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+
             <div class="modal-body">
                 <div class="card" id="card_historial">
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_historial">
-                                <thead>
-                                    <tr>
-                                        <th>...</th>
-                                        <th>Cantidad</th>
-                                        <th>Tipo de movimiento</th>
-                                        <th>Fecha</th>
-                                        <th>Proveedor</th>
-                                        <th>Precio de compra</th>
-                                        <th>Factura de compra</th>
-                                        <th>Sucursal</th>
-                                        <th>Observaciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbody_historial">
-                                </tbody>
-                            </table>
-                        </div>
+                        <table class="table table-responsive table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_historial">
+                            <thead>
+                                <tr>
+                                    <th>...</th>
+                                    <th>Cantidad</th>
+                                    <th>Tipo de movimiento</th>
+                                    <th>Fecha</th>
+                                    <th>Proveedor</th>
+                                    <th>Precio de compra</th>
+                                    <th>Factura de compra</th>
+                                    <th>Sucursal</th>
+                                    <th>Observaciones</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_historial">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+
             <div class="modal-footer justify-content-center bg-dark">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
             </div>
@@ -460,22 +457,20 @@
             <div class="modal-body">
                 <div class="card card-success" id="card_sucursales">
                     <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_sucursales">
-                                <thead>
-                                    <tr>
-                                        <th>...</th>
-                                        <th>Descripción</th>
-                                        <th>Referencia</th>
-                                        <th>Stock</th>
-                                        <th>Posición</th>
-                                        <th>Sucursal</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="tbody_sucursales">
-                                </tbody>
-                            </table>
-                        </div>
+                        <table class="table table-responsive table-sm table-bordered table-striped text-center text-nowrap w-100" id="tabla_sucursales">
+                            <thead>
+                                <tr>
+                                    <th>...</th>
+                                    <th>Descripción</th>
+                                    <th>Referencia</th>
+                                    <th>Stock</th>
+                                    <th>Posición</th>
+                                    <th>Sucursal</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_sucursales">
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -719,8 +714,7 @@
 
                             <div class="card-body">
 
-                                <div class="table-responsive">
-                                    <table class="table table-sm table-bordered table-striped text-center text-nowrap" id="tablaOrdenes">
+                                    <table class="table table-responsive table-sm table-bordered table-striped text-center text-nowrap w-100" id="tablaOrdenes">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -740,7 +734,6 @@
                                         <tbody id="tbody_tablaOrdenes">
                                         </tbody>
                                     </table>
-                                </div>
                             </div>
                         </div>
                     </div>
