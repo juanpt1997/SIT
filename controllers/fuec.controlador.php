@@ -80,64 +80,13 @@ class ControladorFuec
 		$datos["conductor2"] = $datos["conductor2"] == "" ? null : $datos["conductor2"];
 		$datos["conductor3"] = $datos["conductor3"] == "" ? null : $datos["conductor3"];
 		$datos["usuario_creacion"] = $_SESSION['cedula'];
+		$datos["consecutivo"] = null; // Arreglo provisional
 		//$datos["contratoadjunto"] = $datos["contratoadjunto"] == "" ? null : $datos["contratoadjunto"];
 		// Número del contrato
 		if ($datos['tipocontrato'] == "OCASIONAL") {
-			//NINGÚN FIJO CON EL MISMO NRO DE CONTRATO 
-			// $nro_contrato_maximo = ModeloFuec::mdlNumeroContrato($datos['tipocontrato'])['nro_contrato'];
-			// $nro_contrato = $nro_contrato_maximo == null ? 1 : $nro_contrato_maximo += 1;
-			
-			$nro_contrato = ModeloFuec::mdlMaxNumeroContratoxIdOcasional($datos['contratante'])['numcontrato'];
-			// $nro_contrato = $nro_contrato_maximo == null ? 1 : $nro_contrato_maximo += 1;
-			
-			//CONSULTAMOS EL CONSECUTIVO DE ESE NRO DE CONTRATO 
-			if(isset($nro_contrato)){
-
-				if($nro_contrato != null){
-					if($nro_contrato != 0){
-
-						$consecutivo = ModeloFuec::mdlConsecutivoxNroContrato($nro_contrato - 1)['consecutivo'];
-					}else{
-						$consecutivo = ModeloFuec::mdlConsecutivoxNroContrato($nro_contrato)['consecutivo'];
-						
-					}
-					if(!isset($consecutivo)) $consecutivo = 1;
-				}else{
-					$consecutivo = 1;
-				}
-			}
-
-			// BUSCAR NRO CONTRATOS QUE NO SE PUEDA REPETIR Y SUMO UNO SI LO ENCUENTRO 
-			$mayor_nro_contrato = ModeloFuec::mdlNumerosContrato();
-			foreach ($mayor_nro_contrato as $key => $value) {
-				if($value['nro_contrato'] == $nro_contrato)
-				{
-					// $nro_contrato += 1;
-					$datos['consecutivo'] = $value['consecutivo'];
-				}
-			}
-			$datos["nro_contrato"] = $nro_contrato;
-			$datos['consecutivo'] = $consecutivo; 
+			$nro_contrato = ModeloOrdenServicio::mdlVerOrden($datos["contratante"])['nro_contrato'];
 		} else {
-			//BUSCAR EL ÚLTIMO CONSECUTIVO PARA ESE NRO_CONTRATO(PARA ESE FIJO) FIJO 
-			//CONSULTAR EL CONSECTIVO DONDE COINCIDA NRO CONTRATO 
-			//Si no hay es nuevo, se pone uno, si hay se pone anterior  + 1 
-			$nro_contrato = ModeloFuec::mdlMaxNumeroContratoxId($datos["contratofijo"]);
-			$nro_contrato  = $nro_contrato['numcontrato'];
-
-			// $nro_contrato = $datos["contratofijo"];
-			$ultimoConsecutivo = ModeloFuec::mdlConsecutivo($datos);
-
-			
-			if(!empty($ultimoConsecutivo)){
-
-				if($ultimoConsecutivo['consecutivo'] != null ){
-					$datos['consecutivo'] = $ultimoConsecutivo['consecutivo'] + 1;
-				}else if($ultimoConsecutivo['consecutivo'] == null || $ultimoConsecutivo == false){
-					$datos['consecutivo'] = 1;
-				}
-			}
-
+			$nro_contrato = ModeloFijos::mdlVerFijos($datos["contratofijo"])['numcontrato'];
 		}
 
 		# INSERT
@@ -152,11 +101,10 @@ class ControladorFuec
 				// Es diferente el tipo que entra al tipo existente
 				if ($datos["tipocontrato"] != $FUEC['tipocontrato'] && $datos["contratofijo"] != $FUEC['contratofijo']) {
 					// Actualizo numero consecutivo
-					// es decir no hago nada				
+					// es decir no hago nada
 				} else {
 					// Dejo el consecutivo guardado anteriormente
-					//$nro_contrato = $FUEC['nro_contrato'];
-					$datos['consecutivo'] = $FUEC['consecutivo'];
+					$nro_contrato = $FUEC['nro_contrato'];
 				}
 				# UPDATE
 				$datos["nro_contrato"] = $nro_contrato;
