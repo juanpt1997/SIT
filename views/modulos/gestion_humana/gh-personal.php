@@ -43,7 +43,9 @@ $Sucursales = ControladorGH::ctrSucursales();
     <div class="content">
         <div class="container-fluid">
             <hr class="my-4">
+            <div class="table-responsive">
             <div id="ghTabs"></div>
+            </div>
 
 
             <!-- ===================================================
@@ -65,8 +67,7 @@ $Sucursales = ControladorGH::ctrSucursales();
                     <div id="spinnerTablaPersonal" class="spinner-border" role="status">
                         <span class="sr-only">Loading...</span>
                     </div>
-                    <div class="table-responsive">
-                        <table id="tblPersonal" class="table table-sm text-sm table-striped table-bordered tablas w-100 text-center text-nowrap">
+                        <table id="tblPersonal" class="table table-responsive table-sm text-sm table-striped table-bordered tablas w-100 text-center text-nowrap">
                             <thead class="text-capitalize">
                                 <tr>
                                     <th style="width:90px;">Id</th>
@@ -86,7 +87,6 @@ $Sucursales = ControladorGH::ctrSucursales();
 
                             </tbody>
                         </table>
-                    </div>
                 </div><!-- col -->
 
 

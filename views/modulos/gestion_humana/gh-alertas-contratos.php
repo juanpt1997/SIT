@@ -45,7 +45,7 @@ $ContratosVencer = ControladorGH::ctrContratosVencer();
                     ========================= -->
                     <div class="row">
                         <div class="col-12">
-                            <table class="table table-sm table-striped table-bordered tablasBtnExport dt-responsive w-100">
+                            <table class="table table-responsive table-sm table-striped table-bordered tablasBtnExport w-100">
                                 <thead class="thead-light">
                                     <tr>
                                         <th>Documento</th>

@@ -43,8 +43,7 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                 <div class="col-12">
                     <div class="card card-outline card-success">
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="tblOrdenServicio" class="table table-sm table-striped table-bordered table-hover w-100">
+                                <table id="tblOrdenServicio" class="table table-responsive table-sm table-striped table-bordered table-hover w-100">
                                     <thead class="text-sm text-center text-nowrap">
                                         <tr>
                                             <th>...</th>
@@ -126,7 +125,6 @@ $listaordenes = ControladorOrdenServicio::ctrVerListaOrden();
                                         <?php endforeach ?>
                                     </tbody>
                                 </table>
-                            </div>
                         </div><!-- card-body-->
                     </div><!-- card-->
                 </div><!-- col-->

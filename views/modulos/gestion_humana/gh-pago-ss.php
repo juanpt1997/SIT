@@ -56,7 +56,7 @@ $FechasPagoSS = ControladorPagoSS::ctrMostrarFechas();
                     ========================= -->
                     <div class="row mt-2">
                         <div class="col-12">
-                            <table class="table table-sm table-striped table-bordered tablasBtnExport dt-responsive w-100 text-center">
+                            <table class="table table-responsive table-sm table-striped table-bordered tablasBtnExport w-100 text-center">
                                 <thead class="thead-light">
                                     <tr>
                                         <th>Id</th>

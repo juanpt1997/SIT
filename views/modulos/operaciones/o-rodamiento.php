@@ -52,69 +52,38 @@ $TiposVehiculo = ControladorVehiculos::ctrMostrarTipoVehiculo();
             ========================= -->
             <div class="row mt-2">
                 <div class="col-12">
-                    <div class="card">
-                        <div class="card card-outline card-info">
-                            <div class="card-body">
-                                <!--|||TABLA PLAN DE RODAMIENTO|||-->
-                                <div class="table-responsive">
-                                    <table id="tblplanrodamiento" class="table table-sm table-bordered table-striped text-center text-nowrap">
-                                        <thead>
-                                            <tr>
-                                                <th>...</th>
-                                                <th>ID</th>
-                                                <th>Cliente</th>
-                                                <th>Conductor</th>
-                                                <th>Placa</th>
-                                                <th>Num. Interno afiliado</th>
-                                                <th>Marca</th>
-                                                <th>Modelo</th>
-                                                <th>Capacidad</th>
-                                                <th>Tipo de vinculación</th>
-                                                <th>Ruta (origen y destino)</th>
-                                                <th>Tipo de contrato</th>
-                                                <th>Valor total</th>
-                                                <th>Fecha del servicio</th>
-                                                <th>Tipo de servicio</th>
-                                                <th>Cantidad de Pasajeros</th>
-                                                <th>Hora de Inicio</th>
-                                                <th>Hora final</th>
-                                                <th>Kilómetros recorridos</th>
-                                            </tr>
-                                        </thead>
+                    <div class="card card-outline card-info">
+                        <div class="card-body">
+                            <!--|||TABLA PLAN DE RODAMIENTO|||-->
+                            <table id="tblplanrodamiento" class="table table-responsive table-sm table-bordered table-striped text-center text-nowrap w-100">
+                                <thead>
+                                    <tr>
+                                        <th>...</th>
+                                        <th>ID</th>
+                                        <th>Cliente</th>
+                                        <th>Conductor</th>
+                                        <th>Placa</th>
+                                        <th>Num. Interno afiliado</th>
+                                        <th>Marca</th>
+                                        <th>Modelo</th>
+                                        <th>Capacidad</th>
+                                        <th>Tipo de vinculación</th>
+                                        <th>Ruta (origen y destino)</th>
+                                        <th>Tipo de contrato</th>
+                                        <th>Valor total</th>
+                                        <th>Fecha del servicio</th>
+                                        <th>Tipo de servicio</th>
+                                        <th>Cantidad de Pasajeros</th>
+                                        <th>Hora de Inicio</th>
+                                        <th>Hora final</th>
+                                        <th>Kilómetros recorridos</th>
+                                    </tr>
+                                </thead>
 
-                                        <tbody>
-                                            <?php foreach ($Plan_r as $key => $value) : ?>
-                                                <tr>
-                                                    <td>
-                                                        <button type="button" class="btn btn-info btn-sm btn-editarRodamiento" title="Editar plan de rodamiento." id_rodamiento="<?= $value['id'] ?>" data-toggle="modal" data-target="#modal-nuevoplanrodamiento"><i class="fas fa-edit"></i></button>
-                                                        <?php if (validarPermiso('M_OPERACIONES', 'D')) : ?>
-                                                            <button type="button" class="btn btn-danger btn-sm btn-eliminar-rodamiento" title="Eliminar." id_rodamiento="<?= $value['id'] ?>"><i class="fas fa-trash"></i></button>
-                                                        <?php endif ?>
-                                                    </td>
-                                                    <td><?= $value['id'] ?></td>
-                                                    <td><?= $value['cliente'] ?></td>
-                                                    <td><?= $value['conductor'] ?></td>
-                                                    <td><?= $value['placa'] ?></td>
-                                                    <td><?= $value['numinterno'] ?></td>
-                                                    <td><?= $value['marca'] ?></td>
-                                                    <td><?= $value['modelo'] ?></td>
-                                                    <td><?= $value['capacidad'] ?></td>
-                                                    <td><?= $value['tipovinculacion'] ?></td>
-                                                    <td><?= $value['ruta'] ?></td>
-                                                    <td><?= $value['tipo_contrato'] ?></td>
-                                                    <td><?= $value['valortotal'] ?></td>
-                                                    <td><?= $value['fecha_servicio'] ?></td>
-                                                    <td><?= $value['tipo_servicio'] ?></td>
-                                                    <td><?= $value['cantidad_pasajeros'] ?></td>
-                                                    <td><?= $value['h_inicio'] ?></td>
-                                                    <td><?= $value['h_final'] ?></td>
-                                                    <td><?= $value['kmrecorridos'] ?></td>
-                                                </tr>
-                                            <?php endforeach ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                                <tbody id="tbody_tablarodamientos">
+
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

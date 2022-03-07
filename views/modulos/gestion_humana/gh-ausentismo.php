@@ -58,7 +58,7 @@ $TiposAusentismo = ControladorAusentismo::ctrTiposAusentismo();
                     ========================= -->
                     <div class="row mt-2">
                         <div class="col-12">
-                            <table id="tblAusentismo" class="table table-sm table-striped table-bordered text-nowrap dt-responsive w-100">
+                            <table id="tblAusentismo" class="table table-responsive table-sm table-striped table-bordered text-nowrap w-100">
                                 <thead class="thead-light text-sm text-nowrap">
                                     <tr>
                                         <th>Id</th>

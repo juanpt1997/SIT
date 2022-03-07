@@ -973,7 +973,7 @@ $(document).ready(function () {
         /*==========================================================================
         TRAER DATOS DEL RODAMIENTO BOTON EDITAR
         ===========================================================================*/
-        $(".btn-editarRodamiento").on("click", function () {
+        $(document).on("click",".btn-editarRodamiento", function () {
             let id = $(this).attr("id_rodamiento");
 
             $("#id_rodamiento").val(id);
@@ -1104,7 +1104,7 @@ $(document).ready(function () {
         /*==========================================================================
         BOTON ELIMINAR RODAMIENTO
         ===========================================================================*/
-        $(".btn-eliminar-rodamiento").on("click", function () {
+        $(document).on("click",".btn-eliminar-rodamiento", function () {
             let id = $(this).attr("id_rodamiento");
 
             Swal.fire({
@@ -1482,5 +1482,66 @@ $(document).ready(function () {
                 $(".btn-ruta").removeAttr("disabled");
             }
         });
+
+        const cargarTbRodamiento = () => {
+
+            let datos = new FormData();
+            // Quitar datatable
+            $(`#tblplanrodamiento`).dataTable().fnDestroy();
+            // Borrar datos
+            $(`#tbody_tablarodamientos`).html("");
+            datos.append("CargarTbRodamientos", "ok");
+            $.ajax({
+                type: "POST",
+                url: `${urlPagina}ajax/operaciones.ajax.php`,
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                // dataType: "json",
+                success: function (response) {
+                    if (response != "" || response != null) {
+                        $("#tbody_tablarodamientos").html(response);
+                    } else {
+                        $("#tbody_tablarodamientos").html("");
+                    }
+
+                    /*===================================================
+                    FILTRAR POR COLUMNA
+                    ====================================================*/
+                    /* Filtrar por columna */
+                    //Clonar el tr del thead
+                    if ($(`#tblplanrodamiento thead tr`).length == 1)
+                        $(`#tblplanrodamiento thead tr:eq(0)`)
+                            .clone(true)
+                            .appendTo(`#tblplanrodamiento thead`);
+                    //Por cada th creado hacer lo siguiente
+                    $(`#tblplanrodamiento thead tr:eq(1) th`).each(function (i) {
+                        //Remover clase sorting y el evento que tiene cuando se hace click
+                        $(this).removeClass("sorting").unbind();
+                        //Agregar input de busqueda
+                        $(this).html(
+                            '<input class="form-control" type="text" placeholder="Buscar"/>'
+                        );
+                        //Evento para detectar cambio en el input y buscar
+                        $("input", this).on("keyup change", function () {
+                            if (table.column(i).search() !== this.value) {
+                                table.column(i).search(this.value).draw();
+                            }
+                        });
+                    });
+
+                    var buttons = [
+                        {
+                            extend: "excel",
+                            className: 'border-0 bg-gradient-olive', text: '<i class="fas fa-file-excel"></i> Exportar',
+                        },
+                    ];
+                    var table = dataTableCustom(`#tblplanrodamiento`, buttons);
+                },
+            });
+        } 
+
+        cargarTbRodamiento();
     }
 });
